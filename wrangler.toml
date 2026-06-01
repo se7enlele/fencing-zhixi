@@ -1,0 +1,17 @@
+name = "fencingai"
+main = "cloudflare/worker.mjs"
+compatibility_date = "2026-05-28"
+account_id = "451cf18344ca1eca3c6570c9246aed37"
+routes = [
+  { pattern = "fencingai.uk/*", zone_name = "fencingai.uk" },
+  { pattern = "www.fencingai.uk/*", zone_name = "fencingai.uk" }
+]
+
+[assets]
+directory = "./web"
+binding = "ASSETS"
+run_worker_first = true
+
+[[kv_namespaces]]
+binding = "FOLLOWS"
+id = "341d7ad53fea4866a3b388f303b0565c"

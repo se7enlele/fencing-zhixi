@@ -1,0 +1,37 @@
+{
+  "code": 0,
+  "msg": "获取成功",
+  "data": {
+    "Classmentrank": [
+      {
+        "eventrank": "1",
+        "athleteName": "示例选手A",
+        "noccode": "示例俱乐部A",
+        "eventshowrank": "1"
+      },
+      {
+        "eventrank": "2",
+        "athleteName": "示例选手B",
+        "noccode": "示例俱乐部B",
+        "eventshowrank": "2"
+      }
+    ],
+    "Tableausres": [
+      {
+        "phasecode": "F",
+        "plongdes": "决赛",
+        "matchResults": [
+          {
+            "matchCode": "F-1",
+            "phase": "决赛",
+            "athleteAName": "示例选手A",
+            "athleteBName": "示例选手B",
+            "athleteAScore": 10,
+            "athleteBScore": 6,
+            "winnerName": "示例选手A"
+          }
+        ]
+      }
+    ]
+  }
+}

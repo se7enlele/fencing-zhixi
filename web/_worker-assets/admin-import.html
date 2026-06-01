@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FencingAI 数据导入</title>
+    <link rel="stylesheet" href="/admin-import.css?v=fencingai-product-20260528-2">
+  </head>
+  <body>
+    <main class="admin-shell">
+      <header>
+        <div>
+          <h1>数据导入</h1>
+          <p>上传官方 score JS / JSON，预览确认后写入 FencingAI。</p>
+        </div>
+        <a href="/" target="_blank" rel="noreferrer">前台</a>
+      </header>
+
+      <section class="panel">
+        <label for="fileInput">选择文件</label>
+        <input id="fileInput" type="file" accept=".js,.json,.txt">
+        <label for="sourceUrl">来源备注</label>
+        <input id="sourceUrl" type="text" placeholder="可填官网 score JS 地址或备注">
+        <label for="contentInput">文件内容</label>
+        <textarea id="contentInput" placeholder="也可以直接粘贴 JSON / JS 内容"></textarea>
+        <div class="actions">
+          <button id="previewBtn" type="button">解析预览</button>
+          <button id="commitBtn" type="button" disabled>确认入库</button>
+        </div>
+      </section>
+
+      <section class="panel result-panel">
+        <h2>导入预览</h2>
+        <div id="statusBox" class="status muted">等待上传</div>
+        <div id="previewBox" class="preview-grid"></div>
+      </section>
+    </main>
+
+    <script src="/admin-import.js?v=fencingai-product-20260528-2"></script>
+  </body>
+</html>

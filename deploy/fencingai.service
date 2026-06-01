@@ -1,0 +1,16 @@
+[Unit]
+Description=FencingAI web service
+After=network.target
+
+[Service]
+Type=simple
+User=admin
+WorkingDirectory=/var/www/fencingai
+Environment=NODE_ENV=production
+Environment=PORT=5188
+ExecStart=/usr/bin/node /var/www/fencingai/server.mjs
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

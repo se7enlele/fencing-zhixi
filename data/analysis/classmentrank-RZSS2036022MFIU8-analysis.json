@@ -1,0 +1,1540 @@
+{
+  "ok": true,
+  "source": {
+    "input": "E:\\Codex\\data\\classmentrank.txt",
+    "sourceUrl": "https://fencing.yy-sport.com.cn/fencingapi/matchresult/classmentrank/RZSS2036022MFIU8",
+    "analyzedAt": "2026-05-25T07:57:05.265Z"
+  },
+  "response": {
+    "code": 0,
+    "msg": "获取成功"
+  },
+  "summary": {
+    "entryCount": 44,
+    "eventCodes": [
+      "RZSS2036022MFIU8"
+    ],
+    "rankMin": 1,
+    "rankMax": 44,
+    "dnsCount": 1,
+    "medalCount": {
+      "金": 1,
+      "银": 1,
+      "铜": 2,
+      "(无奖牌)": 40
+    },
+    "clubCount": 13,
+    "athleteCount": 44
+  },
+  "distributions": {
+    "displayRank": {
+      "1": 1,
+      "2": 1,
+      "3": 2,
+      "5": 1,
+      "6": 1,
+      "7": 1,
+      "8": 1,
+      "9": 1,
+      "10": 1,
+      "11": 1,
+      "12": 1,
+      "13": 1,
+      "14": 1,
+      "15": 1,
+      "16": 1,
+      "17": 1,
+      "18": 1,
+      "19": 1,
+      "20": 1,
+      "21": 1,
+      "22": 1,
+      "23": 1,
+      "24": 1,
+      "25": 1,
+      "26": 1,
+      "27": 1,
+      "28": 1,
+      "29": 1,
+      "30": 1,
+      "31": 1,
+      "32": 1,
+      "33": 1,
+      "34": 1,
+      "35": 1,
+      "36": 1,
+      "37": 1,
+      "38": 1,
+      "39": 1,
+      "40": 1,
+      "41": 1,
+      "42": 1,
+      "43": 1,
+      "DNS": 1
+    },
+    "medal": {
+      "金": 1,
+      "银": 1,
+      "铜": 2,
+      "(无奖牌)": 40
+    },
+    "clubTop20": {
+      "北京艾鲁特": 9,
+      "北京清香": 8,
+      "北京天奥": 5,
+      "个人": 5,
+      "北京斯沃德": 4,
+      "北京万国": 3,
+      "北京金汉": 3,
+      "北京和信": 2,
+      "临沂泰盛": 1,
+      "北京张家瑰": 1,
+      "北京东城万国": 1,
+      "北京鑫奇": 1,
+      "北京瑞剑": 1
+    },
+    "qualificationStatus": {
+      "0": 9,
+      "1": 35
+    },
+    "sourceStatus": {
+      "N": 44
+    }
+  },
+  "completeness": [
+    {
+      "key": "eventshowrank",
+      "label": "展示名次",
+      "target": "event_entries.display_rank",
+      "nonEmpty": 44,
+      "total": 44,
+      "fillRate": 1,
+      "sampleValues": [
+        "1",
+        "2",
+        "3",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9"
+      ],
+      "privacy": "public_result",
+      "note": "可能出现并列名次或 DNS 等非数字展示值。"
+    },
+    {
+      "key": "eventrank",
+      "label": "排序名次",
+      "target": "event_entries.final_rank",
+      "nonEmpty": 44,
+      "total": 44,
+      "fillRate": 1,
+      "sampleValues": [
+        "1",
+        "2",
+        "3",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9"
+      ],
+      "privacy": "public_result",
+      "note": "通常为数字字符串，适合作为排名排序依据。"
+    },
+    {
+      "key": "fencer",
+      "label": "运动员姓名",
+      "target": "athletes.display_name",
+      "nonEmpty": 44,
+      "total": 44,
+      "fillRate": 1,
+      "sampleValues": [
+        "谷羿杋",
+        "秦俊艺",
+        "宋叶蓁",
+        "夏名琅",
+        "孙敏容",
+        "刘道洋",
+        "焦镜予",
+        "董嘉瑞"
+      ],
+      "privacy": "personal_info",
+      "note": "可识别个人，公开页应支持隐藏和纠错。"
+    },
+    {
+      "key": "licence",
+      "label": "运动员注册号",
+      "target": "athlete_source_ids.source_licence",
+      "nonEmpty": 44,
+      "total": 44,
+      "fillRate": 1,
+      "sampleValues": [
+        "20180509M202401090314",
+        "20180504M202306240728",
+        "20180123M202306071130",
+        "20180519M202405080239",
+        "20180130M202506141008",
+        "20180101M202309011237",
+        "20190306M202409160553",
+        "20180625M202506270606"
+      ],
+      "privacy": "sensitive_identifier",
+      "note": "强标识符，不建议公开展示；只用于内部去重和同名消歧。"
+    },
+    {
+      "key": "noccode",
+      "label": "代表单位/俱乐部",
+      "target": "clubs.name",
+      "nonEmpty": 44,
+      "total": 44,
+      "fillRate": 1,
+      "sampleValues": [
+        "北京斯沃德",
+        "临沂泰盛",
+        "北京和信",
+        "北京清香",
+        "北京天奥",
+        "个人",
+        "北京艾鲁特",
+        "北京万国"
+      ],
+      "privacy": "public_result",
+      "note": "用于俱乐部归一和运动员消歧。"
+    },
+    {
+      "key": "organname",
+      "label": "组织名称",
+      "target": "clubs.source_organ_name",
+      "nonEmpty": 0,
+      "total": 44,
+      "fillRate": 0,
+      "sampleValues": [],
+      "privacy": "public_result",
+      "note": "当前样本为空，先保留。"
+    },
+    {
+      "key": "organcode",
+      "label": "组织编码",
+      "target": "clubs.source_organ_code",
+      "nonEmpty": 0,
+      "total": 44,
+      "fillRate": 0,
+      "sampleValues": [],
+      "privacy": "internal_identifier",
+      "note": "当前样本为空，若出现则不建议公开展示。"
+    },
+    {
+      "key": "birthday",
+      "label": "出生日期",
+      "target": "athlete_source_profiles.birthday",
+      "nonEmpty": 43,
+      "total": 44,
+      "fillRate": 0.9773,
+      "sampleValues": [
+        "2018-05-09",
+        "2018-05-04",
+        "2018-01-23",
+        "2018-05-19",
+        "2018-01-30",
+        "2018-01-01",
+        "2019-03-06",
+        "2018-06-25"
+      ],
+      "privacy": "sensitive_minor_info",
+      "note": "未成年人敏感信息，不建议入公开展示；如存储需最小化和权限控制。"
+    },
+    {
+      "key": "medal",
+      "label": "奖牌",
+      "target": "event_entries.medal",
+      "nonEmpty": 4,
+      "total": 44,
+      "fillRate": 0.0909,
+      "sampleValues": [
+        "金",
+        "银",
+        "铜"
+      ],
+      "privacy": "public_result",
+      "note": "金、银、铜或空值。"
+    },
+    {
+      "key": "valiable",
+      "label": "源状态字段",
+      "target": "event_entries.source_valiable",
+      "nonEmpty": 0,
+      "total": 44,
+      "fillRate": 0,
+      "sampleValues": [],
+      "privacy": "internal",
+      "note": "当前样本为空，保留原始值。"
+    },
+    {
+      "key": "statut",
+      "label": "源状态",
+      "target": "event_entries.source_status",
+      "nonEmpty": 44,
+      "total": 44,
+      "fillRate": 1,
+      "sampleValues": [
+        "N"
+      ],
+      "privacy": "internal",
+      "note": "当前样本为 N，含义待更多样本确认。"
+    },
+    {
+      "key": "feventdispos",
+      "label": "源排序位置",
+      "target": "event_entries.source_position",
+      "nonEmpty": 44,
+      "total": 44,
+      "fillRate": 1,
+      "sampleValues": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8"
+      ],
+      "privacy": "public_result",
+      "note": "看起来与最终排序位置一致。"
+    },
+    {
+      "key": "rid",
+      "label": "结果 ID",
+      "target": "event_entries.source_result_id",
+      "nonEmpty": 0,
+      "total": 44,
+      "fillRate": 0,
+      "sampleValues": [],
+      "privacy": "internal_identifier",
+      "note": "当前样本为空。"
+    },
+    {
+      "key": "points",
+      "label": "积分",
+      "target": "event_entries.points",
+      "nonEmpty": 0,
+      "total": 44,
+      "fillRate": 0,
+      "sampleValues": [],
+      "privacy": "public_result",
+      "note": "当前样本为空。"
+    },
+    {
+      "key": "ecode",
+      "label": "项目编码",
+      "target": "event_items.source_event_code",
+      "nonEmpty": 44,
+      "total": 44,
+      "fillRate": 1,
+      "sampleValues": [
+        "RZSS2036022MFIU8"
+      ],
+      "privacy": "public_result",
+      "note": "对应 projectlist.eventCode。"
+    },
+    {
+      "key": "qualifystatusid",
+      "label": "晋级/有效状态",
+      "target": "event_entries.qualification_status",
+      "nonEmpty": 44,
+      "total": 44,
+      "fillRate": 1,
+      "sampleValues": [
+        "1",
+        "0"
+      ],
+      "privacy": "public_result",
+      "note": "样本中 1 多见于正常名次，0 出现在 DNS 和后段名次；含义需结合对阵数据确认。"
+    },
+    {
+      "key": "itemtype",
+      "label": "项目类型",
+      "target": "event_entries.item_type",
+      "nonEmpty": 0,
+      "total": 44,
+      "fillRate": 0,
+      "sampleValues": [],
+      "privacy": "public_result",
+      "note": "当前样本为空。"
+    },
+    {
+      "key": "members",
+      "label": "团体成员",
+      "target": "event_entry_members.raw_members",
+      "nonEmpty": 0,
+      "total": 44,
+      "fillRate": 0,
+      "sampleValues": [
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ],
+        [
+          null
+        ]
+      ],
+      "privacy": "personal_info",
+      "note": "个人项目中为 [null]，团体项目可能会填充成员列表。"
+    }
+  ],
+  "fieldMap": {
+    "eventshowrank": {
+      "target": "event_entries.display_rank",
+      "label": "展示名次",
+      "note": "可能出现并列名次或 DNS 等非数字展示值。",
+      "privacy": "public_result"
+    },
+    "eventrank": {
+      "target": "event_entries.final_rank",
+      "label": "排序名次",
+      "note": "通常为数字字符串，适合作为排名排序依据。",
+      "privacy": "public_result"
+    },
+    "fencer": {
+      "target": "athletes.display_name",
+      "label": "运动员姓名",
+      "note": "可识别个人，公开页应支持隐藏和纠错。",
+      "privacy": "personal_info"
+    },
+    "licence": {
+      "target": "athlete_source_ids.source_licence",
+      "label": "运动员注册号",
+      "note": "强标识符，不建议公开展示；只用于内部去重和同名消歧。",
+      "privacy": "sensitive_identifier"
+    },
+    "noccode": {
+      "target": "clubs.name",
+      "label": "代表单位/俱乐部",
+      "note": "用于俱乐部归一和运动员消歧。",
+      "privacy": "public_result"
+    },
+    "organname": {
+      "target": "clubs.source_organ_name",
+      "label": "组织名称",
+      "note": "当前样本为空，先保留。",
+      "privacy": "public_result"
+    },
+    "organcode": {
+      "target": "clubs.source_organ_code",
+      "label": "组织编码",
+      "note": "当前样本为空，若出现则不建议公开展示。",
+      "privacy": "internal_identifier"
+    },
+    "birthday": {
+      "target": "athlete_source_profiles.birthday",
+      "label": "出生日期",
+      "note": "未成年人敏感信息，不建议入公开展示；如存储需最小化和权限控制。",
+      "privacy": "sensitive_minor_info"
+    },
+    "medal": {
+      "target": "event_entries.medal",
+      "label": "奖牌",
+      "note": "金、银、铜或空值。",
+      "privacy": "public_result"
+    },
+    "valiable": {
+      "target": "event_entries.source_valiable",
+      "label": "源状态字段",
+      "note": "当前样本为空，保留原始值。",
+      "privacy": "internal"
+    },
+    "statut": {
+      "target": "event_entries.source_status",
+      "label": "源状态",
+      "note": "当前样本为 N，含义待更多样本确认。",
+      "privacy": "internal"
+    },
+    "feventdispos": {
+      "target": "event_entries.source_position",
+      "label": "源排序位置",
+      "note": "看起来与最终排序位置一致。",
+      "privacy": "public_result"
+    },
+    "rid": {
+      "target": "event_entries.source_result_id",
+      "label": "结果 ID",
+      "note": "当前样本为空。",
+      "privacy": "internal_identifier"
+    },
+    "points": {
+      "target": "event_entries.points",
+      "label": "积分",
+      "note": "当前样本为空。",
+      "privacy": "public_result"
+    },
+    "ecode": {
+      "target": "event_items.source_event_code",
+      "label": "项目编码",
+      "note": "对应 projectlist.eventCode。",
+      "privacy": "public_result"
+    },
+    "qualifystatusid": {
+      "target": "event_entries.qualification_status",
+      "label": "晋级/有效状态",
+      "note": "样本中 1 多见于正常名次，0 出现在 DNS 和后段名次；含义需结合对阵数据确认。",
+      "privacy": "public_result"
+    },
+    "itemtype": {
+      "target": "event_entries.item_type",
+      "label": "项目类型",
+      "note": "当前样本为空。",
+      "privacy": "public_result"
+    },
+    "members": {
+      "target": "event_entry_members.raw_members",
+      "label": "团体成员",
+      "note": "个人项目中为 [null]，团体项目可能会填充成员列表。",
+      "privacy": "personal_info"
+    }
+  },
+  "normalizedEntries": [
+    {
+      "sourceEventCode": "RZSS2036022MFIU8",
+      "displayRank": "1",
+      "finalRank": 1,
+      "athlete": {
+        "displayName": "谷羿杋",
+        "sourceLicence": "20180509M202401090314",
+        "birthday": "2018-05-09"
+      },
+      "club": {
+        "name": "北京斯沃德",
+        "sourceOrganName": null,
+        "sourceOrganCode": null
+      },
+      "medal": "金",
+      "sourceStatus": "N",
+      "sourcePosition": 1,
+      "points": null,
+      "qualificationStatus": "1",
+      "rawMembers": [
+        null
+      ]
+    },
+    {
+      "sourceEventCode": "RZSS2036022MFIU8",
+      "displayRank": "2",
+      "finalRank": 2,
+      "athlete": {
+        "displayName": "秦俊艺",
+        "sourceLicence": "20180504M202306240728",
+        "birthday": "2018-05-04"
+      },
+      "club": {
+        "name": "临沂泰盛",
+        "sourceOrganName": null,
+        "sourceOrganCode": null
+      },
+      "medal": "银",
+      "sourceStatus": "N",
+      "sourcePosition": 2,
+      "points": null,
+      "qualificationStatus": "1",
+      "rawMembers": [
+        null
+      ]
+    },
+    {
+      "sourceEventCode": "RZSS2036022MFIU8",
+      "displayRank": "3",
+      "finalRank": 3,
+      "athlete": {
+        "displayName": "宋叶蓁",
+        "sourceLicence": "20180123M202306071130",
+        "birthday": "2018-01-23"
+      },
+      "club": {
+        "name": "北京和信",
+        "sourceOrganName": null,
+        "sourceOrganCode": null
+      },
+      "medal": "铜",
+      "sourceStatus": "N",
+      "sourcePosition": 3,
+      "points": null,
+      "qualificationStatus": "1",
+      "rawMembers": [
+        null
+      ]
+    },
+    {
+      "sourceEventCode": "RZSS2036022MFIU8",
+      "displayRank": "3",
+      "finalRank": 3,
+      "athlete": {
+        "displayName": "夏名琅",
+        "sourceLicence": "20180519M202405080239",
+        "birthday": "2018-05-19"
+      },
+      "club": {
+        "name": "北京清香",
+        "sourceOrganName": null,
+        "sourceOrganCode": null
+      },
+      "medal": "铜",
+      "sourceStatus": "N",
+      "sourcePosition": 4,
+      "points": null,
+      "qualificationStatus": "1",
+      "rawMembers": [
+        null
+      ]
+    },
+    {
+      "sourceEventCode": "RZSS2036022MFIU8",
+      "displayRank": "5",
+      "finalRank": 5,
+      "athlete": {
+        "displayName": "孙敏容",
+        "sourceLicence": "20180130M202506141008",
+        "birthday": "2018-01-30"
+      },
+      "club": {
+        "name": "北京天奥",
+        "sourceOrganName": null,
+        "sourceOrganCode": null
+      },
+      "medal": null,
+      "sourceStatus": "N",
+      "sourcePosition": 5,
+      "points": null,
+      "qualificationStatus": "1",
+      "rawMembers": [
+        null
+      ]
+    },
+    {
+      "sourceEventCode": "RZSS2036022MFIU8",
+      "displayRank": "6",
+      "finalRank": 6,
+      "athlete": {
+        "displayName": "刘道洋",
+        "sourceLicence": "20180101M202309011237",
+        "birthday": "2018-01-01"
+      },
+      "club": {
+        "name": "北京清香",
+        "sourceOrganName": null,
+        "sourceOrganCode": null
+      },
+      "medal": null,
+      "sourceStatus": "N",
+      "sourcePosition": 6,
+      "points": null,
+      "qualificationStatus": "1",
+      "rawMembers": [
+        null
+      ]
+    },
+    {
+      "sourceEventCode": "RZSS2036022MFIU8",
+      "displayRank": "7",
+      "finalRank": 7,
+      "athlete": {
+        "displayName": "焦镜予",
+        "sourceLicence": "20190306M202409160553",
+        "birthday": "2019-03-06"
+      },
+      "club": {
+        "name": "个人",
+        "sourceOrganName": null,
+        "sourceOrganCode": null
+      },
+      "medal": null,
+      "sourceStatus": "N",
+      "sourcePosition": 7,
+      "points": null,
+      "qualificationStatus": "1",
+      "rawMembers": [
+        null
+      ]
+    },
+    {
+      "sourceEventCode": "RZSS2036022MFIU8",
+      "displayRank": "8",
+      "finalRank": 8,
+      "athlete": {
+        "displayName": "董嘉瑞",
+        "sourceLicence": "20180625M202506270606",
+        "birthday": "2018-06-25"
+      },
+      "club": {
+        "name": "北京艾鲁特",
+        "sourceOrganName": null,
+        "sourceOrganCode": null
+      },
+      "medal": null,
+      "sourceStatus": "N",
+      "sourcePosition": 8,
+      "points": null,
+      "qualificationStatus": "1",
+      "rawMembers": [
+        null
+      ]
+    },
+    {
+      "sourceEventCode": "RZSS2036022MFIU8",
+      "displayRank": "9",
+      "finalRank": 9,
+      "athlete": {
+        "displayName": "程冠甯",
+        "sourceLicence": "20180703M202305230240",
+        "birthday": "2018-07-03"
+      },
+      "club": {
+        "name": "北京艾鲁特",
+        "sourceOrganName": null,
+        "sourceOrganCode": null
+      },
+      "medal": null,
+      "sourceStatus": "N",
+      "sourcePosition": 9,
+      "points": null,
+      "qualificationStatus": "1",
+      "rawMembers": [
+        null
+      ]
+    },
+    {
+      "sourceEventCode": "RZSS2036022MFIU8",
+      "displayRank": "10",
+      "finalRank": 10,
+      "athlete": {
+        "displayName": "展子渊",
+        "sourceLicence": "20180214M202407070548",
+        "birthday": "2018-02-14"
+      },
+      "club": {
+        "name": "北京清香",
+        "sourceOrganName": null,
+        "sourceOrganCode": null
+      },
+      "medal": null,
+      "sourceStatus": "N",
+      "sourcePosition": 10,
+      "points": null,
+      "qualificationStatus": "1",
+      "rawMembers": [
+        null
+      ]
+    },
+    {
+      "sourceEventCode": "RZSS2036022MFIU8",
+      "displayRank": "11",
+      "finalRank": 11,
+      "athlete": {
+        "displayName": "刘翰泽",
+        "sourceLicence": "20190622M202507270402",
+        "birthday": "2019-06-22"
+      },
+      "club": {
+        "name": "北京艾鲁特",
+        "sourceOrganName": null,
+        "sourceOrganCode": null
+      },
+      "medal": null,
+      "sourceStatus": "N",
+      "sourcePosition": 11,
+      "points": null,
+      "qualificationStatus": "1",
+      "rawMembers": [
+        null
+      ]
+    },
+    {
+      "sourceEventCode": "RZSS2036022MFIU8",
+      "displayRank": "12",
+      "finalRank": 12,
+      "athlete": {
+        "displayName": "陶嘉月",
+        "sourceLicence": "20180927M202405080128",
+        "birthday": "2018-09-27"
+      },
+      "club": {
+        "name": "北京万国",
+        "sourceOrganName": null,
+        "sourceOrganCode": null
+      },
+      "medal": null,
+      "sourceStatus": "N",
+      "sourcePosition": 12,
+      "points": null,
+      "qualificationStatus": "1",
+      "rawMembers": [
+        null
+      ]
+    },
+    {
+      "sourceEventCode": "RZSS2036022MFIU8",
+      "displayRank": "13",
+      "finalRank": 13,
+      "athlete": {
+        "displayName": "李嘉木",
+        "sourceLicence": "20180413M202408060243",
+        "birthday": "2018-04-13"
+      },
+      "club": {
+        "name": "北京清香",
+        "sourceOrganName": null,
+        "sourceOrganCode": null
+      },
+      "medal": null,
+      "sourceStatus": "N",
+      "sourcePosition": 13,
+      "points": null,
+      "qualificationStatus": "1",
+      "rawMembers": [
+        null
+      ]
+    },
+    {
+      "sourceEventCode": "RZSS2036022MFIU8",
+      "displayRank": "14",
+      "finalRank": 14,
+      "athlete": {
+        "displayName": "程冠齐",
+        "sourceLicence": "20180703M202305230230",
+        "birthday": "2018-07-03"
+      },
+      "club": {
+        "name": "北京艾鲁特",
+        "sourceOrganName": null,
+        "sourceOrganCode": null
+      },
+      "medal": null,
+      "sourceStatus": "N",
+      "sourcePosition": 14,
+      "points": null,
+      "qualificationStatus": "1",
+      "rawMembers": [
+        null
+      ]
+    },
+    {
+      "sourceEventCode": "RZSS2036022MFIU8",
+      "displayRank": "15",
+      "finalRank": 15,
+      "athlete": {
+        "displayName": "曲宥扬",
+        "sourceLicence": "20180916M202409270256",
+        "birthday": "2018-09-16"
+      },
+      "club": {
+        "name": "北京艾鲁特",
+        "sourceOrganName": null,
+        "sourceOrganCode": null
+      },
+      "medal": null,
+      "sourceStatus": "N",
+      "sourcePosition": 15,
+      "points": null,
+      "qualificationStatus": "1",
+      "rawMembers": [
+        null
+      ]
+    },
+    {
+      "sourceEventCode": "RZSS2036022MFIU8",
+      "displayRank": "16",
+      "finalRank": 16,
+      "athlete": {
+        "displayName": "姜琋杰",
+        "sourceLicence": "20180115M202508170710",
+        "birthday": "2018-01-15"
+      },
+      "club": {
+        "name": "北京天奥",
+        "sourceOrganName": null,
+        "sourceOrganCode": null
+      },
+      "medal": null,
+      "sourceStatus": "N",
+      "sourcePosition": 16,
+      "points": null,
+      "qualificationStatus": "1",
+      "rawMembers": [
+        null
+      ]
+    },
+    {
+      "sourceEventCode": "RZSS2036022MFIU8",
+      "displayRank": "17",
+      "finalRank": 17,
+      "athlete": {
+        "displayName": "王舟涵",
+        "sourceLicence": "20181106M202406021159",
+        "birthday": "2018-11-06"
+      },
+      "club": {
+        "name": "北京天奥",
+        "sourceOrganName": null,
+        "sourceOrganCode": null
+      },
+      "medal": null,
+      "sourceStatus": "N",
+      "sourcePosition": 17,
+      "points": null,
+      "qualificationStatus": "1",
+      "rawMembers": [
+        null
+      ]
+    },
+    {
+      "sourceEventCode": "RZSS2036022MFIU8",
+      "displayRank": "18",
+      "finalRank": 18,
+      "athlete": {
+        "displayName": "唐铭骏",
+        "sourceLicence": "20180223M202403240407",
+        "birthday": "2018-02-23"
+      },
+      "club": {
+        "name": "北京艾鲁特",
+        "sourceOrganName": null,
+        "sourceOrganCode": null
+      },
+      "medal": null,
+      "sourceStatus": "N",
+      "sourcePosition": 18,
+      "points": null,
+      "qualificationStatus": "1",
+      "rawMembers": [
+        null
+      ]
+    },
+    {
+      "sourceEventCode": "RZSS2036022MFIU8",
+      "displayRank": "19",
+      "finalRank": 19,
+      "athlete": {
+        "displayName": "郭子煦",
+        "sourceLicence": "20180826M202411060149",
+        "birthday": "2018-08-26"
+      },
+      "club": {
+        "name": "北京清香",
+        "sourceOrganName": null,
+        "sourceOrganCode": null
+      },
+      "medal": null,
+      "sourceStatus": "N",
+      "sourcePosition": 19,
+      "points": null,
+      "qualificationStatus": "1",
+      "rawMembers": [
+        null
+      ]
+    },
+    {
+      "sourceEventCode": "RZSS2036022MFIU8",
+      "displayRank": "20",
+      "finalRank": 20,
+      "athlete": {
+        "displayName": "陈昶佑",
+        "sourceLicence": "20180812M202311281149",
+        "birthday": ""
+      },
+      "club": {
+        "name": "北京艾鲁特",
+        "sourceOrganName": null,
+        "sourceOrganCode": null
+      },
+      "medal": null,
+      "sourceStatus": "N",
+      "sourcePosition": 20,
+      "points": null,
+      "qualificationStatus": "1",
+      "rawMembers": [
+        null
+      ]
+    },
+    {
+      "sourceEventCode": "RZSS2036022MFIU8",
+      "displayRank": "21",
+      "finalRank": 21,
+      "athlete": {
+        "displayName": "郎书赫",
+        "sourceLicence": "20180706M202302070954",
+        "birthday": "2018-07-06"
+      },
+      "club": {
+        "name": "北京张家瑰",
+        "sourceOrganName": null,
+        "sourceOrganCode": null
+      },
+      "medal": null,
+      "sourceStatus": "N",
+      "sourcePosition": 21,
+      "points": null,
+      "qualificationStatus": "1",
+      "rawMembers": [
+        null
+      ]
+    },
+    {
+      "sourceEventCode": "RZSS2036022MFIU8",
+      "displayRank": "22",
+      "finalRank": 22,
+      "athlete": {
+        "displayName": "王子轩",
+        "sourceLicence": "20190324M202404150946",
+        "birthday": "2019-03-24"
+      },
+      "club": {
+        "name": "北京艾鲁特",
+        "sourceOrganName": null,
+        "sourceOrganCode": null
+      },
+      "medal": null,
+      "sourceStatus": "N",
+      "sourcePosition": 22,
+      "points": null,
+      "qualificationStatus": "1",
+      "rawMembers": [
+        null
+      ]
+    },
+    {
+      "sourceEventCode": "RZSS2036022MFIU8",
+      "displayRank": "23",
+      "finalRank": 23,
+      "athlete": {
+        "displayName": "康添贺",
+        "sourceLicence": "20180614M202401220427",
+        "birthday": "2018-06-14"
+      },
+      "club": {
+        "name": "北京和信",
+        "sourceOrganName": null,
+        "sourceOrganCode": null
+      },
+      "medal": null,
+      "sourceStatus": "N",
+      "sourcePosition": 23,
+      "points": null,
+      "qualificationStatus": "1",
+      "rawMembers": [
+        null
+      ]
+    },
+    {
+      "sourceEventCode": "RZSS2036022MFIU8",
+      "displayRank": "24",
+      "finalRank": 24,
+      "athlete": {
+        "displayName": "孔祥诚",
+        "sourceLicence": "20181107M202401080155",
+        "birthday": "2018-11-07"
+      },
+      "club": {
+        "name": "北京万国",
+        "sourceOrganName": null,
+        "sourceOrganCode": null
+      },
+      "medal": null,
+      "sourceStatus": "N",
+      "sourcePosition": 24,
+      "points": null,
+      "qualificationStatus": "1",
+      "rawMembers": [
+        null
+      ]
+    },
+    {
+      "sourceEventCode": "RZSS2036022MFIU8",
+      "displayRank": "25",
+      "finalRank": 25,
+      "athlete": {
+        "displayName": "李木马",
+        "sourceLicence": "20180308M202408311123",
+        "birthday": "2018-03-08"
+      },
+      "club": {
+        "name": "北京清香",
+        "sourceOrganName": null,
+        "sourceOrganCode": null
+      },
+      "medal": null,
+      "sourceStatus": "N",
+      "sourcePosition": 25,
+      "points": null,
+      "qualificationStatus": "1",
+      "rawMembers": [
+        null
+      ]
+    },
+    {
+      "sourceEventCode": "RZSS2036022MFIU8",
+      "displayRank": "26",
+      "finalRank": 26,
+      "athlete": {
+        "displayName": "范文",
+        "sourceLicence": "20190713M202512050219",
+        "birthday": "2019-07-13"
+      },
+      "club": {
+        "name": "北京清香",
+        "sourceOrganName": null,
+        "sourceOrganCode": null
+      },
+      "medal": null,
+      "sourceStatus": "N",
+      "sourcePosition": 26,
+      "points": null,
+      "qualificationStatus": "1",
+      "rawMembers": [
+        null
+      ]
+    },
+    {
+      "sourceEventCode": "RZSS2036022MFIU8",
+      "displayRank": "27",
+      "finalRank": 27,
+      "athlete": {
+        "displayName": "朱墨衡",
+        "sourceLicence": "20180218M202507241055",
+        "birthday": "2018-02-18"
+      },
+      "club": {
+        "name": "北京天奥",
+        "sourceOrganName": null,
+        "sourceOrganCode": null
+      },
+      "medal": null,
+      "sourceStatus": "N",
+      "sourcePosition": 27,
+      "points": null,
+      "qualificationStatus": "1",
+      "rawMembers": [
+        null
+      ]
+    },
+    {
+      "sourceEventCode": "RZSS2036022MFIU8",
+      "displayRank": "28",
+      "finalRank": 28,
+      "athlete": {
+        "displayName": "李忻佑",
+        "sourceLicence": "20180118M202507271122",
+        "birthday": "2018-01-18"
+      },
+      "club": {
+        "name": "北京金汉",
+        "sourceOrganName": null,
+        "sourceOrganCode": null
+      },
+      "medal": null,
+      "sourceStatus": "N",
+      "sourcePosition": 28,
+      "points": null,
+      "qualificationStatus": "1",
+      "rawMembers": [
+        null
+      ]
+    },
+    {
+      "sourceEventCode": "RZSS2036022MFIU8",
+      "displayRank": "29",
+      "finalRank": 29,
+      "athlete": {
+        "displayName": "陶鑫源",
+        "sourceLicence": "20190311M202503160430",
+        "birthday": "2019-03-11"
+      },
+      "club": {
+        "name": "北京金汉",
+        "sourceOrganName": null,
+        "sourceOrganCode": null
+      },
+      "medal": null,
+      "sourceStatus": "N",
+      "sourcePosition": 29,
+      "points": null,
+      "qualificationStatus": "1",
+      "rawMembers": [
+        null
+      ]
+    },
+    {
+      "sourceEventCode": "RZSS2036022MFIU8",
+      "displayRank": "30",
+      "finalRank": 30,
+      "athlete": {
+        "displayName": "袁齐同",
+        "sourceLicence": "20180511M202305230325",
+        "birthday": "2018-05-11"
+      },
+      "club": {
+        "name": "北京斯沃德",
+        "sourceOrganName": null,
+        "sourceOrganCode": null
+      },
+      "medal": null,
+      "sourceStatus": "N",
+      "sourcePosition": 30,
+      "points": null,
+      "qualificationStatus": "1",
+      "rawMembers": [
+        null
+      ]
+    },
+    {
+      "sourceEventCode": "RZSS2036022MFIU8",
+      "displayRank": "31",
+      "finalRank": 31,
+      "athlete": {
+        "displayName": "王泽宸",
+        "sourceLicence": "20190803M202509140952",
+        "birthday": "2019-08-03"
+      },
+      "club": {
+        "name": "北京金汉",
+        "sourceOrganName": null,
+        "sourceOrganCode": null
+      },
+      "medal": null,
+      "sourceStatus": "N",
+      "sourcePosition": 31,
+      "points": null,
+      "qualificationStatus": "1",
+      "rawMembers": [
+        null
+      ]
+    },
+    {
+      "sourceEventCode": "RZSS2036022MFIU8",
+      "displayRank": "32",
+      "finalRank": 32,
+      "athlete": {
+        "displayName": "马潇",
+        "sourceLicence": "20190130M202506250112",
+        "birthday": "2019-01-30"
+      },
+      "club": {
+        "name": "个人",
+        "sourceOrganName": null,
+        "sourceOrganCode": null
+      },
+      "medal": null,
+      "sourceStatus": "N",
+      "sourcePosition": 32,
+      "points": null,
+      "qualificationStatus": "1",
+      "rawMembers": [
+        null
+      ]
+    },
+    {
+      "sourceEventCode": "RZSS2036022MFIU8",
+      "displayRank": "33",
+      "finalRank": 33,
+      "athlete": {
+        "displayName": "蔡廷彧",
+        "sourceLicence": "20190918M202510090308",
+        "birthday": "2019-09-18"
+      },
+      "club": {
+        "name": "个人",
+        "sourceOrganName": null,
+        "sourceOrganCode": null
+      },
+      "medal": null,
+      "sourceStatus": "N",
+      "sourcePosition": 33,
+      "points": null,
+      "qualificationStatus": "1",
+      "rawMembers": [
+        null
+      ]
+    },
+    {
+      "sourceEventCode": "RZSS2036022MFIU8",
+      "displayRank": "34",
+      "finalRank": 34,
+      "athlete": {
+        "displayName": "李柘谦",
+        "sourceLicence": "20180130M202510080501",
+        "birthday": "2018-01-30"
+      },
+      "club": {
+        "name": "北京东城万国",
+        "sourceOrganName": null,
+        "sourceOrganCode": null
+      },
+      "medal": null,
+      "sourceStatus": "N",
+      "sourcePosition": 34,
+      "points": null,
+      "qualificationStatus": "1",
+      "rawMembers": [
+        null
+      ]
+    },
+    {
+      "sourceEventCode": "RZSS2036022MFIU8",
+      "displayRank": "35",
+      "finalRank": 35,
+      "athlete": {
+        "displayName": "常煜杰",
+        "sourceLicence": "20190906M202408220924",
+        "birthday": "2019-09-06"
+      },
+      "club": {
+        "name": "北京天奥",
+        "sourceOrganName": null,
+        "sourceOrganCode": null
+      },
+      "medal": null,
+      "sourceStatus": "N",
+      "sourcePosition": 35,
+      "points": null,
+      "qualificationStatus": "1",
+      "rawMembers": [
+        null
+      ]
+    },
+    {
+      "sourceEventCode": "RZSS2036022MFIU8",
+      "displayRank": "36",
+      "finalRank": 36,
+      "athlete": {
+        "displayName": "张涵芃",
+        "sourceLicence": "20190417M202602251043",
+        "birthday": "2019-04-17"
+      },
+      "club": {
+        "name": "个人",
+        "sourceOrganName": null,
+        "sourceOrganCode": null
+      },
+      "medal": null,
+      "sourceStatus": "N",
+      "sourcePosition": 36,
+      "points": null,
+      "qualificationStatus": "0",
+      "rawMembers": [
+        null
+      ]
+    },
+    {
+      "sourceEventCode": "RZSS2036022MFIU8",
+      "displayRank": "37",
+      "finalRank": 37,
+      "athlete": {
+        "displayName": "曲辰逸",
+        "sourceLicence": "20180706M202503060344",
+        "birthday": "2018-07-06"
+      },
+      "club": {
+        "name": "北京鑫奇",
+        "sourceOrganName": null,
+        "sourceOrganCode": null
+      },
+      "medal": null,
+      "sourceStatus": "N",
+      "sourcePosition": 37,
+      "points": null,
+      "qualificationStatus": "0",
+      "rawMembers": [
+        null
+      ]
+    },
+    {
+      "sourceEventCode": "RZSS2036022MFIU8",
+      "displayRank": "38",
+      "finalRank": 38,
+      "athlete": {
+        "displayName": "沈奕臻",
+        "sourceLicence": "20190423M202411170211",
+        "birthday": "2019-04-23"
+      },
+      "club": {
+        "name": "北京万国",
+        "sourceOrganName": null,
+        "sourceOrganCode": null
+      },
+      "medal": null,
+      "sourceStatus": "N",
+      "sourcePosition": 38,
+      "points": null,
+      "qualificationStatus": "0",
+      "rawMembers": [
+        null
+      ]
+    },
+    {
+      "sourceEventCode": "RZSS2036022MFIU8",
+      "displayRank": "39",
+      "finalRank": 39,
+      "athlete": {
+        "displayName": "YAODI AIDEN ZHOU",
+        "sourceLicence": "20190920M202510101039",
+        "birthday": "2019-09-20"
+      },
+      "club": {
+        "name": "北京斯沃德",
+        "sourceOrganName": null,
+        "sourceOrganCode": null
+      },
+      "medal": null,
+      "sourceStatus": "N",
+      "sourcePosition": 39,
+      "points": null,
+      "qualificationStatus": "0",
+      "rawMembers": [
+        null
+      ]
+    },
+    {
+      "sourceEventCode": "RZSS2036022MFIU8",
+      "displayRank": "40",
+      "finalRank": 40,
+      "athlete": {
+        "displayName": "宋伯犀",
+        "sourceLicence": "20190705M202508180810",
+        "birthday": "2019-07-05"
+      },
+      "club": {
+        "name": "个人",
+        "sourceOrganName": null,
+        "sourceOrganCode": null
+      },
+      "medal": null,
+      "sourceStatus": "N",
+      "sourcePosition": 40,
+      "points": null,
+      "qualificationStatus": "0",
+      "rawMembers": [
+        null
+      ]
+    },
+    {
+      "sourceEventCode": "RZSS2036022MFIU8",
+      "displayRank": "41",
+      "finalRank": 41,
+      "athlete": {
+        "displayName": "张博洵",
+        "sourceLicence": "20180330M202410110346",
+        "birthday": "2018-03-30"
+      },
+      "club": {
+        "name": "北京艾鲁特",
+        "sourceOrganName": null,
+        "sourceOrganCode": null
+      },
+      "medal": null,
+      "sourceStatus": "N",
+      "sourcePosition": 41,
+      "points": null,
+      "qualificationStatus": "0",
+      "rawMembers": [
+        null
+      ]
+    },
+    {
+      "sourceEventCode": "RZSS2036022MFIU8",
+      "displayRank": "42",
+      "finalRank": 42,
+      "athlete": {
+        "displayName": "Ethan Gao",
+        "sourceLicence": "20191013M202504021055",
+        "birthday": "2019-10-13"
+      },
+      "club": {
+        "name": "北京斯沃德",
+        "sourceOrganName": null,
+        "sourceOrganCode": null
+      },
+      "medal": null,
+      "sourceStatus": "N",
+      "sourcePosition": 42,
+      "points": null,
+      "qualificationStatus": "0",
+      "rawMembers": [
+        null
+      ]
+    },
+    {
+      "sourceEventCode": "RZSS2036022MFIU8",
+      "displayRank": "43",
+      "finalRank": 43,
+      "athlete": {
+        "displayName": "梁伟恒",
+        "sourceLicence": "20180109M202508121052",
+        "birthday": "2018-01-09"
+      },
+      "club": {
+        "name": "北京瑞剑",
+        "sourceOrganName": null,
+        "sourceOrganCode": null
+      },
+      "medal": null,
+      "sourceStatus": "N",
+      "sourcePosition": 43,
+      "points": null,
+      "qualificationStatus": "0",
+      "rawMembers": [
+        null
+      ]
+    },
+    {
+      "sourceEventCode": "RZSS2036022MFIU8",
+      "displayRank": "DNS",
+      "finalRank": 44,
+      "athlete": {
+        "displayName": "张辰隽",
+        "sourceLicence": "20180202M202305250211",
+        "birthday": "2018-02-02"
+      },
+      "club": {
+        "name": "北京清香",
+        "sourceOrganName": null,
+        "sourceOrganCode": null
+      },
+      "medal": null,
+      "sourceStatus": "N",
+      "sourcePosition": 44,
+      "points": null,
+      "qualificationStatus": "0",
+      "rawMembers": [
+        null
+      ]
+    }
+  ],
+  "publicDisplayRecommendation": {
+    "show": [
+      "displayRank",
+      "athlete.displayName",
+      "club.name",
+      "medal"
+    ],
+    "hideByDefault": [
+      "athlete.sourceLicence",
+      "athlete.birthday"
+    ],
+    "note": "公开页建议不展示 licence 和 birthday；内部可用于去重、年龄组校验和同名消歧。"
+  }
+}

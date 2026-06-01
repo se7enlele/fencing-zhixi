@@ -1,0 +1,193 @@
+{
+  "ok": true,
+  "source": {
+    "fileName": "example-matchresult.json",
+    "sourceUrl": "https://fencing.yy-sport.com.cn/#/game/result?id=101199&eventCode=RZSS2035112MFIU10",
+    "parsedUrl": {
+      "sportId": "101199",
+      "eventCode": "RZSS2035112MFIU10",
+      "path": "/game/result",
+      "sourceUrl": "https://fencing.yy-sport.com.cn/#/game/result?id=101199&eventCode=RZSS2035112MFIU10"
+    },
+    "analyzedAt": "2026-05-26T06:53:09.792Z",
+    "note": "本地上传文本解析，未发起任何外部网络请求。"
+  },
+  "kind": "json",
+  "records": [
+    {
+      "url": null,
+      "status": null,
+      "analysis": {
+        "topLevelKeys": [
+          "code",
+          "msg",
+          "data"
+        ],
+        "candidateArrays": [
+          {
+            "path": "[\"data\"][\"Classmentrank\"]",
+            "trail": [
+              "data",
+              "Classmentrank"
+            ],
+            "length": 2,
+            "sampleType": "object",
+            "sampleKeys": [
+              "eventrank",
+              "athleteName",
+              "noccode",
+              "eventshowrank"
+            ],
+            "likelyRanking": true,
+            "likelyMatch": false
+          },
+          {
+            "path": "[\"data\"][\"Tableausres\"][0][\"matchResults\"]",
+            "trail": [
+              "data",
+              "Tableausres",
+              0,
+              "matchResults"
+            ],
+            "length": 1,
+            "sampleType": "object",
+            "sampleKeys": [
+              "matchCode",
+              "phase",
+              "athleteAName",
+              "athleteBName",
+              "athleteAScore",
+              "athleteBScore",
+              "winnerName"
+            ],
+            "likelyRanking": false,
+            "likelyMatch": true
+          },
+          {
+            "path": "[\"data\"][\"Tableausres\"]",
+            "trail": [
+              "data",
+              "Tableausres"
+            ],
+            "length": 1,
+            "sampleType": "object",
+            "sampleKeys": [
+              "phasecode",
+              "plongdes",
+              "matchResults"
+            ],
+            "likelyRanking": false,
+            "likelyMatch": false
+          }
+        ],
+        "frequentKeys": [
+          {
+            "key": "eventrank",
+            "count": 2
+          },
+          {
+            "key": "athleteName",
+            "count": 2
+          },
+          {
+            "key": "noccode",
+            "count": 2
+          },
+          {
+            "key": "eventshowrank",
+            "count": 2
+          },
+          {
+            "key": "code",
+            "count": 1
+          },
+          {
+            "key": "msg",
+            "count": 1
+          },
+          {
+            "key": "data",
+            "count": 1
+          },
+          {
+            "key": "Classmentrank",
+            "count": 1
+          },
+          {
+            "key": "Tableausres",
+            "count": 1
+          },
+          {
+            "key": "phasecode",
+            "count": 1
+          },
+          {
+            "key": "plongdes",
+            "count": 1
+          },
+          {
+            "key": "matchResults",
+            "count": 1
+          },
+          {
+            "key": "matchCode",
+            "count": 1
+          },
+          {
+            "key": "phase",
+            "count": 1
+          },
+          {
+            "key": "athleteAName",
+            "count": 1
+          },
+          {
+            "key": "athleteBName",
+            "count": 1
+          },
+          {
+            "key": "athleteAScore",
+            "count": 1
+          },
+          {
+            "key": "athleteBScore",
+            "count": 1
+          },
+          {
+            "key": "winnerName",
+            "count": 1
+          }
+        ]
+      },
+      "extractedSamples": {
+        "rankingPath": "[\"data\"][\"Classmentrank\"]",
+        "matchPath": "[\"data\"][\"Tableausres\"][0][\"matchResults\"]",
+        "rankingSample": [
+          {
+            "eventrank": "1",
+            "athleteName": "示例选手A",
+            "noccode": "示例俱乐部A",
+            "eventshowrank": "1"
+          },
+          {
+            "eventrank": "2",
+            "athleteName": "示例选手B",
+            "noccode": "示例俱乐部B",
+            "eventshowrank": "2"
+          }
+        ],
+        "matchSample": [
+          {
+            "matchCode": "F-1",
+            "phase": "决赛",
+            "athleteAName": "示例选手A",
+            "athleteBName": "示例选手B",
+            "athleteAScore": 10,
+            "athleteBScore": 6,
+            "winnerName": "示例选手A"
+          }
+        ]
+      }
+    }
+  ]
+}

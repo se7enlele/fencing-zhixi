@@ -1,0 +1,20 @@
+{
+  "name": "fencing-zhixi",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node server.mjs",
+    "smoke": "node tools/filter-options-test.mjs && node tools/smoke-test.mjs",
+    "analyze:sample": "node tools/analyze-sample.mjs",
+    "analyze:url": "node tools/analyze-sample.mjs --url",
+    "parse:projectlist": "node tools/parse-projectlist.mjs",
+    "parse:classmentrank": "node tools/parse-classmentrank.mjs",
+    "parse:score": "node tools/parse-score.mjs",
+    "cf:build-data": "node tools/build-cloudflare-data.mjs",
+    "cf:deploy": "npm run cf:build-data && npx wrangler deploy"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

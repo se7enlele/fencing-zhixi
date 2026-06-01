@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FencingAI 数据导入</title>
+    <link rel="stylesheet" href="/admin-import.css?v=fencingai-product-20260601-1">
+  </head>
+  <body>
+    <main class="admin-shell">
+      <header>
+        <div>
+          <span class="eyebrow">FencingAI 管理台</span>
+          <h1>数据导入</h1>
+          <p>上传官方 score JS / JSON，预览确认后写入赛事数据。</p>
+        </div>
+        <a href="/" target="_blank" rel="noreferrer">打开前台</a>
+      </header>
+
+      <section class="panel import-panel">
+        <div class="field">
+          <label for="fileInput">选择文件</label>
+          <input id="fileInput" type="file" accept=".js,.json,.txt">
+        </div>
+        <div class="field">
+          <label for="sourceUrl">来源备注</label>
+          <input id="sourceUrl" type="text" placeholder="可填写官网 score JS 地址或导入说明">
+        </div>
+        <div class="field">
+          <label for="contentInput">文件内容</label>
+          <textarea id="contentInput" placeholder="也可以直接粘贴 JSON / JS 内容"></textarea>
+        </div>
+        <div class="actions">
+          <button id="previewBtn" type="button">解析预览</button>
+          <button id="commitBtn" type="button" disabled>确认入库</button>
+        </div>
+      </section>
+
+      <section class="panel result-panel">
+        <div class="panel-heading">
+          <h2>导入预览</h2>
+          <span>先校验，再写入</span>
+        </div>
+        <div id="statusBox" class="status muted">等待上传</div>
+        <div id="previewBox" class="preview-grid"></div>
+      </section>
+    </main>
+
+    <script src="/admin-import.js?v=fencingai-product-20260601-1"></script>
+  </body>
+</html>

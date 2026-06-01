@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>FencingAI</title>
+    <link rel="stylesheet" href="/viewer.css?v=fencingai-product-20260528-1">
+  </head>
+  <body>
+    <main class="app">
+      <header class="topbar">
+        <button class="nav-back" id="topBack" type="button" aria-label="返回">‹</button>
+        <h1>FencingAI</h1>
+        <div class="nav-spacer"></div>
+      </header>
+
+      <section class="view active" id="view-competitions">
+        <section class="discover-panel panel search-shell">
+          <div class="field">
+            <label for="searchInput">发现比赛</label>
+            <input id="searchInput" type="text" placeholder="搜索比赛、地区、俱乐部、U8 男花">
+          </div>
+          <div class="filter-actions">
+            <button id="yearFilterButton" class="filter-trigger" type="button"></button>
+            <button id="regionFilterButton" class="filter-trigger" type="button"></button>
+            <button id="itemFilterButton" class="filter-trigger" type="button"></button>
+          </div>
+        </section>
+        <section class="panel follow-panel" id="followPanel"></section>
+        <section class="panel member-panel" id="memberPanel">
+          <div>
+            <strong>家长会员</strong>
+            <span>成长报告、重点对手、无广告体验</span>
+          </div>
+          <button type="button" id="memberCta">了解</button>
+        </section>
+        <section class="product-overview">
+          <div class="section-title">
+            <h2>数据总览</h2>
+            <span>数据覆盖</span>
+          </div>
+          <div id="homeStats" class="stat-strip"></div>
+        </section>
+        <div id="competitionList" class="stack"></div>
+      </section>
+
+      <section class="view" id="view-competition-detail">
+        <article class="hero panel" id="competitionHero"></article>
+        <article class="panel insight-panel">
+          <div class="section-title">
+            <h2>赛事画像</h2>
+            <span>结构与年龄段</span>
+          </div>
+          <div id="competitionInsightCards" class="metric-grid"></div>
+          <div id="competitionInsightBullets" class="stack"></div>
+        </article>
+        <article class="panel">
+          <h2>项目列表</h2>
+          <div id="eventList" class="stack"></div>
+        </article>
+      </section>
+
+      <section class="view" id="view-event-detail">
+        <article class="hero panel" id="eventHero"></article>
+        <article class="panel">
+          <h2>项目洞察</h2>
+          <div id="insightCards" class="metric-grid"></div>
+          <div id="insightBullets" class="stack"></div>
+        </article>
+        <article class="panel">
+          <div class="section-title">
+            <h2>分析图表</h2>
+            <span>关键指标</span>
+          </div>
+          <div id="analysisCharts" class="chart-grid"></div>
+        </article>
+        <article class="panel">
+          <h2>核心画像</h2>
+          <div class="portrait-section">
+            <div>
+              <h3>俱乐部画像</h3>
+              <div id="clubProfiles" class="stack"></div>
+            </div>
+            <div>
+              <h3>选手画像</h3>
+              <div id="athleteProfiles" class="stack"></div>
+            </div>
+          </div>
+        </article>
+        <section class="metric-grid" id="metricGrid"></section>
+
+        <nav class="tabs" id="tabs">
+          <button class="tab active" data-tab="overview">概览</button>
+          <button class="tab" data-tab="participants">名单</button>
+          <button class="tab" data-tab="pool">分组</button>
+          <button class="tab" data-tab="tableau">淘汰赛</button>
+          <button class="tab" data-tab="clubs">俱乐部</button>
+        </nav>
+
+        <section class="tab-panel active" id="tab-overview">
+          <article class="panel">
+            <h2>冠军路径</h2>
+            <div id="championPath" class="match-list"></div>
+          </article>
+          <article class="panel">
+            <h2>淘汰赛表现</h2>
+            <div id="leadersList" class="stack"></div>
+          </article>
+          <article class="panel">
+            <h2>关键对手</h2>
+            <div id="opponentList" class="stack"></div>
+          </article>
+          <article class="panel">
+            <h2>排名反差</h2>
+            <div id="momentumList" class="stack"></div>
+          </article>
+        </section>
+
+        <section class="tab-panel" id="tab-participants">
+          <article class="panel">
+            <div class="section-title">
+              <h2>参赛名单</h2>
+              <span>按最终名次</span>
+            </div>
+            <div id="participantsList" class="participant-list"></div>
+          </article>
+        </section>
+
+        <section class="tab-panel" id="tab-pool">
+          <article class="panel">
+            <div class="section-title">
+              <h2>小组分组</h2>
+              <span>排名与对阵</span>
+            </div>
+            <div id="poolGroups" class="pool-group-list"></div>
+          </article>
+        </section>
+
+        <section class="tab-panel" id="tab-tableau">
+          <article class="panel">
+            <h2>按轮次查看淘汰赛</h2>
+            <div id="matchList" class="match-list"></div>
+          </article>
+        </section>
+
+        <section class="tab-panel" id="tab-clubs">
+          <article class="panel">
+            <h2>俱乐部分布</h2>
+            <div id="clubList" class="stack"></div>
+          </article>
+        </section>
+      </section>
+
+      <section class="view" id="view-athlete-detail">
+        <article class="hero panel" id="athleteHero"></article>
+        <article class="panel athlete-action-panel" id="athleteActionPanel"></article>
+        <article class="panel">
+          <div class="section-title">
+            <h2>成长报告</h2>
+            <span>家长视角</span>
+          </div>
+          <div id="athleteGrowth" class="chart-grid"></div>
+        </article>
+        <article class="panel">
+          <h2>参赛记录</h2>
+          <div id="athleteEvents" class="stack"></div>
+        </article>
+      </section>
+
+      <section class="view" id="view-club-detail">
+        <article class="hero panel" id="clubHero"></article>
+        <article class="panel">
+          <div class="section-title">
+            <h2>队伍项目</h2>
+            <span>教练视角</span>
+          </div>
+          <div id="clubEvents" class="stack"></div>
+        </article>
+      </section>
+
+      <div id="filterSheet" class="filter-sheet" hidden>
+        <button class="sheet-mask" id="filterSheetMask" type="button" aria-label="关闭筛选"></button>
+        <section class="sheet-panel" role="dialog" aria-modal="true" aria-labelledby="filterSheetTitle">
+          <div class="sheet-header">
+            <h2 id="filterSheetTitle">选择筛选</h2>
+            <button id="filterSheetClose" class="sheet-close" type="button" aria-label="关闭">×</button>
+          </div>
+          <div id="filterSheetOptions" class="sheet-options"></div>
+        </section>
+      </div>
+    </main>
+
+    <script src="/viewer.js?v=fencingai-product-20260528-1"></script>
+  </body>
+</html>
