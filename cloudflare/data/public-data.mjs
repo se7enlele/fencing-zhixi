@@ -1522,8 +1522,8 @@ export default {
     ],
     "dataCoverage": {
       "scorePackages": 9,
-      "analysisFiles": 74,
-      "previewFiles": 61
+      "analysisFiles": 75,
+      "previewFiles": 62
     }
   },
   "eventsByCode": {
