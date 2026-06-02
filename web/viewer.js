@@ -238,6 +238,10 @@ function entityMatchScore(entity, keyword, fields) {
   return entity.searchText?.includes(normalizeSearchText(keyword)) ? 30 : 0;
 }
 
+function athleteSearchResultLimit(keyword) {
+  return [...compactText(keyword)].length <= 1 ? Infinity : 12;
+}
+
 function competitionSearchHaystack(competition) {
   const values = [
     competition.sportName,
@@ -628,7 +632,7 @@ function applyCompetitionFilter() {
       matchReason: athleteMatchReason(athlete, keyword),
     }))
     .sort((a, b) => b.matchScore - a.matchScore || (a.name?.length || 99) - (b.name?.length || 99) || (a.bestRank ?? 999) - (b.bestRank ?? 999) || b.appearances - a.appearances)
-    .slice(0, 6) : [];
+    .slice(0, athleteSearchResultLimit(keyword)) : [];
   state.clubSearchResults = keyword ? state.clubSearchIndex
     .filter((club) => tokens.every((token) => club.searchText.includes(token)) || club.searchText.replace(/\s+/g, '').includes(compactKeyword))
     .map((club) => ({
@@ -951,9 +955,10 @@ function renderAthleteSearchResults(keyword) {
 
   const primaryClub = clubRows[0];
   const showClubFirst = primaryClub && primaryClub.matchScore >= 80;
+  const athleteLimit = athleteSearchResultLimit(keyword);
   const visibleAthletes = showClubFirst
-    ? athleteRows.filter((athlete) => !compactText(athlete.club).includes(compactText(primaryClub.club))).slice(0, 3)
-    : athleteRows.slice(0, 6);
+    ? athleteRows.filter((athlete) => !compactText(athlete.club).includes(compactText(primaryClub.club))).slice(0, athleteLimit === Infinity ? athleteRows.length : 3)
+    : athleteRows.slice(0, athleteLimit);
   const secondaryClubs = showClubFirst ? clubRows.slice(1, 3) : clubRows.slice(0, 4);
 
   searchAthletesPanel.innerHTML = `

@@ -26,6 +26,10 @@ const source = await readFile(new URL('../web/viewer.js', import.meta.url), 'utf
   vm.createContext(context);
   vm.runInContext(`${source.slice(start, end)}
 globalThis.buildAthleteSearchIndex = buildAthleteSearchIndex;
+globalThis.normalizeSearchText = normalizeSearchText;
+globalThis.searchTokens = searchTokens;
+globalThis.entityMatchScore = entityMatchScore;
+globalThis.athleteSearchResultLimit = athleteSearchResultLimit;
 `, context);
 
   const index = context.buildAthleteSearchIndex();
@@ -33,6 +37,21 @@ globalThis.buildAthleteSearchIndex = buildAthleteSearchIndex;
   assert.ok(cai, 'search index should include 蔡廷彧');
   assert.ok(cai.searchText.includes('蔡'), 'single-character surname should be searchable');
   assert.ok(cai.id, 'search result should keep athlete id for opening detail page');
+
+  const maKeyword = context.normalizeSearchText('马');
+  const maTokens = context.searchTokens(maKeyword);
+  const maCompact = maKeyword.replace(/\s+/g, '');
+  const allMaMatches = index.filter((athlete) => athlete.searchText.includes(maCompact));
+  const displayedMaMatches = index
+    .filter((athlete) => maTokens.every((token) => athlete.searchText.includes(token)) || athlete.searchText.replace(/\s+/g, '').includes(maCompact))
+    .map((athlete) => ({
+      ...athlete,
+      matchScore: context.entityMatchScore(athlete, maKeyword, [athlete.name, athlete.club]),
+    }))
+    .sort((a, b) => b.matchScore - a.matchScore || (a.name?.length || 99) - (b.name?.length || 99) || (a.bestRank ?? 999) - (b.bestRank ?? 999) || b.appearances - a.appearances)
+    .slice(0, context.athleteSearchResultLimit(maKeyword));
+  assert.ok(allMaMatches.length > 6, 'fixture should cover a surname with more than six matches');
+  assert.equal(displayedMaMatches.length, allMaMatches.length, 'single-character searches should not truncate athlete matches');
 }
 
 {
