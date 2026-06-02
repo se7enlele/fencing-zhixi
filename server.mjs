@@ -120,6 +120,8 @@ async function getPublicEventsPayload() {
     const reports = await getScoreReports();
     const analysisDir = path.join(__dirname, 'data', 'analysis');
     const analysisFiles = await readdir(analysisDir).catch(() => []);
+    const athletes = buildAthleteDirectory(reports);
+    const clubs = buildClubDirectory(reports);
     publicEventsCache = {
       ok: true,
       version: APP_VERSION,
@@ -127,6 +129,8 @@ async function getPublicEventsPayload() {
         .map(({ fileName, report }) => toEventSummary(report, fileName))
         .sort((a, b) => String(a.sportName).localeCompare(String(b.sportName), 'zh-CN') || String(a.eventName).localeCompare(String(b.eventName), 'zh-CN')),
       competitions: groupReportsBySport(reports),
+      athletes,
+      clubs,
       dataCoverage: {
         scorePackages: reports.length,
         analysisFiles: analysisFiles.filter((file) => file.endsWith('.json')).length,

@@ -831,6 +831,7 @@ function renderFeedPanel() {
 
 function renderFollowPanel() {
   const follows = state.followedAthletes || [];
+  followPanel.hidden = !follows.length;
   followPanel.innerHTML = follows.length
     ? `
       <div class="section-title">
@@ -1709,6 +1710,58 @@ function renderAthleteProfiles(event) {
   });
 }
 
+function rankLabel(rank) {
+  return rank || rank === 0 ? `第${rank}名` : '名次待确认';
+}
+
+function poolRankLabel(rank) {
+  return rank || rank === 0 ? `小组第${rank}` : '小组待确认';
+}
+
+function eliminationLabel(event) {
+  const wins = Number(event.eliminationWins ?? 0);
+  const losses = Number(event.eliminationLosses ?? 0);
+  if (!wins && !losses) return '淘汰赛待确认';
+  return `淘汰赛 ${wins}胜${losses}负`;
+}
+
+function poolPerformanceLabel(percent) {
+  if (percent >= 80) return '稳定发挥';
+  if (percent >= 55) return '有竞争力';
+  return '重点复盘';
+}
+
+function buildAthleteTimelineRows(athlete) {
+  return (athlete.events || []).map((event) => ({
+    eventCode: event.eventCode,
+    title: displayEventName(event),
+    competition: event.sportName || '比赛名称待确认',
+    date: event.openDate || '日期待确认',
+    venue: event.venue || '',
+    rank: rankLabel(event.finalRank),
+    pool: poolRankLabel(event.poolRank),
+    poolRecord: event.poolMatches ? `${event.poolWins ?? 0}/${event.poolMatches}` : '小组记录待确认',
+    elimination: eliminationLabel(event),
+    medal: event.medal || '',
+  }));
+}
+
+function buildPoolPerformanceRows(events) {
+  return (events || []).map((event) => {
+    const wins = Number(event.poolWins ?? 0);
+    const matches = Number(event.poolMatches ?? 0);
+    const percent = matches ? Math.round((wins / matches) * 100) : 0;
+    return {
+      eventCode: event.eventCode,
+      title: displayEventName(event),
+      date: event.openDate || '日期待确认',
+      record: matches ? `${wins}/${matches}` : '-',
+      percent,
+      label: matches ? poolPerformanceLabel(percent) : '数据待确认',
+    };
+  });
+}
+
 function renderAthleteDetail(athlete) {
   athleteHero.innerHTML = `
     <div class="hero-title">${escapeHtml(athlete.name)}</div>
@@ -1745,6 +1798,8 @@ function renderAthleteDetail(athlete) {
   const poolRate = totalPoolMatches ? Math.round((totalPoolWins / totalPoolMatches) * 100) : 0;
   const totalElimWins = events.reduce((sum, event) => sum + (Number(event.eliminationWins) || 0), 0);
   const totalElimLosses = events.reduce((sum, event) => sum + (Number(event.eliminationLosses) || 0), 0);
+  const timelineRows = buildAthleteTimelineRows(athlete);
+  const poolPerformanceRows = buildPoolPerformanceRows(events).slice(0, 8);
   const opponentRows = (athlete.opponents || []).slice(0, 5).map((opponent) => ({
     label: opponent.name,
     value: opponent.matches,
@@ -1756,16 +1811,6 @@ function renderAthleteDetail(athlete) {
     ['小组胜率', totalPoolMatches ? `${poolRate}%` : '-'],
     ['淘汰赛', `${totalElimWins}胜${totalElimLosses}负`],
   ];
-  const rankRows = events.map((event) => ({
-    label: displayEventName(event),
-    value: Math.max(1, 80 - Number(event.finalRank || 80)),
-    display: `第${event.finalRank ?? '-'} 名`,
-  }));
-  const poolRows = events.map((event) => ({
-    label: event.openDate || displayEventName(event),
-    percent: event.poolMatches ? Math.round((Number(event.poolWins || 0) / Number(event.poolMatches)) * 100) : 0,
-    display: `${event.poolWins ?? 0}/${event.poolMatches ?? '-'}`,
-  }));
   athleteGrowth.innerHTML = events.length
     ? [
       `<div class="report-grid">${reportCards.map(([label, value]) => `
@@ -1774,8 +1819,45 @@ function renderAthleteDetail(athlete) {
           <span>${escapeHtml(label)}</span>
         </div>
       `).join('')}</div>`,
-      barChart('名次趋势', rankRows),
-      progressChart('小组胜率', poolRows),
+      `<div class="athlete-timeline-card">
+        <div class="chart-title">参赛时间线</div>
+        <div class="athlete-timeline-list">
+          ${timelineRows.map((row) => `
+            <button class="athlete-timeline-item" type="button" data-event-code="${escapeHtml(row.eventCode || '')}">
+              <div class="timeline-main">
+                <strong>${escapeHtml(row.title)}</strong>
+                <span>${escapeHtml(row.competition)}</span>
+                <em>${escapeHtml([row.date, row.venue].filter(Boolean).join(' · '))}</em>
+              </div>
+              <div class="timeline-side">
+                <b>${escapeHtml(row.rank)}</b>
+                <span>${escapeHtml(row.pool)} · ${escapeHtml(row.poolRecord)}</span>
+                <span>${escapeHtml(row.elimination)}</span>
+              </div>
+            </button>
+          `).join('')}
+        </div>
+      </div>`,
+      `<div class="pool-summary-card">
+        <div class="chart-title">近赛小组表现</div>
+        <div class="pool-summary-list">
+          ${poolPerformanceRows.map((row) => `
+            <button class="pool-summary-item" type="button" data-event-code="${escapeHtml(row.eventCode || '')}">
+              <div>
+                <strong>${escapeHtml(row.title)}</strong>
+                <span>${escapeHtml(row.date)}</span>
+              </div>
+              <div class="pool-summary-score">
+                <b>${escapeHtml(row.record)}</b>
+                <span>${escapeHtml(row.label)}</span>
+              </div>
+              <div class="pool-summary-track" aria-hidden="true">
+                <div style="width: ${Math.max(4, Math.min(100, row.percent))}%"></div>
+              </div>
+            </button>
+          `).join('')}
+        </div>
+      </div>`,
       opponentRows.length ? barChart('重点对手', opponentRows, { tone: 'orange' }) : '',
       opponentRows.length ? `<div class="opponent-stack">${athlete.opponents.slice(0, 3).map((opponent) => `
         <div class="opponent-card">
@@ -1791,6 +1873,12 @@ function renderAthleteDetail(athlete) {
       `<div class="insight-note compact">${escapeHtml(buildAthleteGrowthNote(athlete))}</div>`,
     ].filter(Boolean).join('')
     : '<div class="empty">暂无成长趋势</div>';
+
+  athleteGrowth.querySelectorAll('[data-event-code]').forEach((button) => {
+    button.addEventListener('click', () => {
+      if (button.dataset.eventCode) openEvent(button.dataset.eventCode);
+    });
+  });
 
   athleteEvents.innerHTML = athlete.events?.length
     ? athlete.events.map((event) => `
