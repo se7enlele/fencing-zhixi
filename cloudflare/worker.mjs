@@ -1,6 +1,7 @@
 import data from './data/public-data.mjs';
 import adminImportHtml from '../web/admin-import.html';
 import viewerHtml from '../web/viewer.html';
+import { buildPreEventCompetitions } from '../tools/pre-event-data.mjs';
 import {
   buildAthleteDirectoryFromEvents,
   buildClubDirectoryFromEvents,
@@ -13,6 +14,8 @@ import {
 const APP_VERSION = data.version || 'fencingai-cloudflare';
 const ADMIN_TOKEN = 'fencingai-admin-2026';
 const SCORE_INDEX_KEY = 'score:index';
+const PROJECTLIST_INDEX_KEY = 'projectlist:index';
+const ROSTER_INDEX_KEY = 'registration-roster:index';
 const MAX_IMPORT_BYTES = 20 * 1024 * 1024;
 
 function json(payload, status = 200) {
@@ -121,9 +124,51 @@ async function readDynamicScoreReports(env) {
   return reports.filter(Boolean);
 }
 
+async function readDynamicPreEventReports(env) {
+  if (!env.FOLLOWS) return { projectLists: [], rosterBatches: [] };
+  const projectIndex = await readJsonKv(env.FOLLOWS, PROJECTLIST_INDEX_KEY, { sportCodes: [] });
+  const sportCodes = Array.isArray(projectIndex?.sportCodes) ? projectIndex.sportCodes : [];
+  const projectLists = (await Promise.all(sportCodes.map(async (sportCode) => {
+    const report = await readJsonKv(env.FOLLOWS, `projectlist:${sportCode}`, null);
+    return report ? { fileName: `kv-projectlist-${sportCode}.json`, report } : null;
+  }))).filter(Boolean);
+
+  const rosterIndex = await readJsonKv(env.FOLLOWS, ROSTER_INDEX_KEY, { batchKeys: [] });
+  const batchKeys = Array.isArray(rosterIndex?.batchKeys) ? rosterIndex.batchKeys : [];
+  const rosterBatches = (await Promise.all(batchKeys.map(async (key) => {
+    const report = await readJsonKv(env.FOLLOWS, key, null);
+    return report?.importType === 'registration-roster' ? { fileName: `${key}.json`, report } : null;
+  }))).filter(Boolean);
+
+  return { projectLists, rosterBatches };
+}
+
+function buildPreEventDetails(competitions) {
+  const entries = {};
+  for (const competition of competitions) {
+    for (const item of competition.items || []) {
+      entries[item.eventCode] = {
+        ...item,
+        sportCode: competition.sportCode,
+        sportName: competition.sportName,
+        venue: competition.venue,
+        participants: item.roster || [],
+        athleteProfiles: [],
+        clubProfiles: [],
+        poolGroups: [],
+        eliminationMatches: [],
+        status: item.status,
+        rosterStatus: competition.rosterStatus,
+      };
+    }
+  }
+  return entries;
+}
+
 async function getMergedData(env) {
   const dynamicReports = await readDynamicScoreReports(env);
-  if (!dynamicReports.length) return data;
+  const preEventReports = await readDynamicPreEventReports(env);
+  if (!dynamicReports.length && !preEventReports.projectLists.length && !preEventReports.rosterBatches.length) return data;
 
   const eventsByCode = { ...data.eventsByCode };
   for (const { fileName, report } of dynamicReports) {
@@ -151,13 +196,19 @@ async function getMergedData(env) {
     }))
     .sort((a, b) => String(a.sportName).localeCompare(String(b.sportName), 'zh-CN') || String(a.eventName).localeCompare(String(b.eventName), 'zh-CN'));
 
+  const scoreCompetitions = groupEventsBySport(events);
+  const scoreSportCodes = new Set(scoreCompetitions.map((competition) => competition.sportCode));
+  const preEventCompetitions = buildPreEventCompetitions(preEventReports)
+    .filter((competition) => !scoreSportCodes.has(competition.sportCode));
+  Object.assign(eventsByCode, buildPreEventDetails(preEventCompetitions));
+
   return {
     version: `${APP_VERSION}+kv${dynamicReports.length}`,
     publicEvents: {
       ok: true,
       version: `${APP_VERSION}+kv${dynamicReports.length}`,
       events,
-      competitions: groupEventsBySport(events),
+      competitions: [...scoreCompetitions, ...preEventCompetitions],
       athletes: Object.values(buildAthleteDirectoryFromEvents(eventsByCode)).slice(0, 500),
       clubs: Object.values(buildClubDirectoryFromEvents(eventsByCode)).slice(0, 300),
       dataCoverage: {
@@ -176,6 +227,34 @@ function requireAdmin(url) {
   return url.searchParams.get('token') === ADMIN_TOKEN;
 }
 
+async function summarizeRosterImport(env, preview) {
+  if (preview.importType !== 'registration-roster') return null;
+  const incoming = preview.report.normalized?.records || [];
+  const existingKeys = new Set();
+  const { rosterBatches } = await readDynamicPreEventReports(env);
+  for (const batch of rosterBatches) {
+    for (const row of batch.report.normalized?.records || []) {
+      if (row.dedupeKey) existingKeys.add(row.dedupeKey);
+    }
+  }
+
+  let newRecords = 0;
+  let duplicateRecords = 0;
+  for (const row of incoming) {
+    if (existingKeys.has(row.dedupeKey)) duplicateRecords += 1;
+    else {
+      newRecords += 1;
+      existingKeys.add(row.dedupeKey);
+    }
+  }
+  return {
+    incomingRecords: incoming.length,
+    newRecords,
+    duplicateRecords,
+    cumulativeRecords: existingKeys.size,
+  };
+}
+
 async function readImportBody(request) {
   const text = await request.text();
   if (text.length > MAX_IMPORT_BYTES) throw new Error('文件过大，当前限制为 20MB。');
@@ -184,11 +263,12 @@ async function readImportBody(request) {
   return body;
 }
 
-function previewResponse(preview, exists) {
+async function previewResponse(env, preview, exists) {
   return {
     ok: true,
     version: APP_VERSION,
     exists,
+    importStats: await summarizeRosterImport(env, preview),
     preview: {
       importType: preview.importType,
       eventCode: preview.eventCode,
@@ -209,22 +289,37 @@ async function handleAdminImport(request, env, url) {
     const existing = preview.eventCode ? await readJsonKv(env.FOLLOWS, `score:${preview.eventCode}`, null) : null;
 
     if (url.pathname.endsWith('/preview')) {
-      return json(previewResponse(preview, Boolean(existing)));
+      return json(await previewResponse(env, preview, Boolean(existing)));
     }
 
-    if (preview.importType !== 'score') {
-      return json({
-        ok: false,
-        message: '项目清单已可预览，但当前线上入库只接收 score JS 成绩包。请上传 /Resource/score/{eventCode}.js。',
-      }, 400);
+    const importStats = await summarizeRosterImport(env, preview);
+
+    if (preview.importType === 'score') {
+      const index = await readJsonKv(env.FOLLOWS, SCORE_INDEX_KEY, { eventCodes: [] });
+      const currentCodes = Array.isArray(index?.eventCodes) ? index.eventCodes : [];
+      const eventCodes = [preview.eventCode, ...currentCodes.filter((code) => code !== preview.eventCode)];
+      await env.FOLLOWS.put(`score:${preview.eventCode}`, JSON.stringify(preview.report));
+      await env.FOLLOWS.put(SCORE_INDEX_KEY, JSON.stringify({ eventCodes, updatedAt: new Date().toISOString() }));
+    } else if (preview.importType === 'projectlist') {
+      const sportCode = preview.report.summary?.sportCodes?.[0] || preview.general?.sportId || 'unknown';
+      const index = await readJsonKv(env.FOLLOWS, PROJECTLIST_INDEX_KEY, { sportCodes: [] });
+      const currentCodes = Array.isArray(index?.sportCodes) ? index.sportCodes : [];
+      const sportCodes = [String(sportCode), ...currentCodes.filter((code) => code !== String(sportCode))];
+      await env.FOLLOWS.put(`projectlist:${sportCode}`, JSON.stringify(preview.report));
+      await env.FOLLOWS.put(PROJECTLIST_INDEX_KEY, JSON.stringify({ sportCodes, updatedAt: new Date().toISOString() }));
+    } else if (preview.importType === 'registration-roster') {
+      const sportCode = preview.report.summary?.sportCodes?.[0] || 'unknown';
+      const batchKey = `registration-roster:${sportCode}:${Date.now()}`;
+      const index = await readJsonKv(env.FOLLOWS, ROSTER_INDEX_KEY, { batchKeys: [] });
+      const currentKeys = Array.isArray(index?.batchKeys) ? index.batchKeys : [];
+      await env.FOLLOWS.put(batchKey, JSON.stringify(preview.report));
+      await env.FOLLOWS.put(ROSTER_INDEX_KEY, JSON.stringify({ batchKeys: [batchKey, ...currentKeys], updatedAt: new Date().toISOString() }));
+    } else {
+      return json({ ok: false, message: '不支持的数据类型。' }, 400);
     }
 
-    const index = await readJsonKv(env.FOLLOWS, SCORE_INDEX_KEY, { eventCodes: [] });
-    const currentCodes = Array.isArray(index?.eventCodes) ? index.eventCodes : [];
-    const eventCodes = [preview.eventCode, ...currentCodes.filter((code) => code !== preview.eventCode)];
-    await env.FOLLOWS.put(`score:${preview.eventCode}`, JSON.stringify(preview.report));
-    await env.FOLLOWS.put(SCORE_INDEX_KEY, JSON.stringify({ eventCodes, updatedAt: new Date().toISOString() }));
-    await env.FOLLOWS.put(`raw:${Date.now()}:${preview.eventCode}`, JSON.stringify({
+    const rawKey = preview.eventCode || preview.targetFile || preview.importType;
+    await env.FOLLOWS.put(`raw:${Date.now()}:${rawKey}`, JSON.stringify({
       fileName: body.fileName || null,
       sourceUrl: body.sourceUrl || null,
       content: body.content,
@@ -236,6 +331,7 @@ async function handleAdminImport(request, env, url) {
       eventCode: preview.eventCode,
       targetFile: preview.targetFile,
       overwritten: Boolean(existing),
+      importStats,
       summary: preview.summary,
     });
   } catch (error) {

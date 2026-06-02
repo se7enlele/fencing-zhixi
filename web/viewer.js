@@ -3,6 +3,7 @@ const searchInput = document.querySelector('#searchInput');
 const yearFilterButton = document.querySelector('#yearFilterButton');
 const regionFilterButton = document.querySelector('#regionFilterButton');
 const itemFilterButton = document.querySelector('#itemFilterButton');
+const statusFilterButton = document.querySelector('#statusFilterButton');
 const filterSheet = document.querySelector('#filterSheet');
 const filterSheetMask = document.querySelector('#filterSheetMask');
 const filterSheetClose = document.querySelector('#filterSheetClose');
@@ -68,6 +69,7 @@ const state = {
   selectedRegion: '全部地区',
   selectedYear: '全部年份',
   selectedItem: '全部项目',
+  selectedStatus: '全部状态',
   apiVersion: '',
   viewStack: ['competitions'],
   deviceId: getDeviceId(),
@@ -225,6 +227,20 @@ function searchTokens(value) {
 
 function compactText(value) {
   return normalizeSearchText(value).replace(/\s+/g, '');
+}
+
+function statusLabel(status) {
+  if (status === 'registration') return '报名中';
+  if (status === 'upcoming') return '未开赛';
+  if (status === 'live') return '进行中';
+  if (status === 'completed') return '已结束';
+  return '状态待确认';
+}
+
+function rosterStatusLabel(status) {
+  if (status === 'partial') return '报名名单更新中';
+  if (status === 'complete') return '报名名单已完整';
+  return '暂无报名名单';
 }
 
 function entityMatchScore(entity, keyword, fields) {
@@ -538,6 +554,9 @@ function filterOptions(type) {
   if (type === 'region') {
     return ['全部地区', ...sortRegions(new Set(state.competitions.map((item) => item.region || '待确认')))];
   }
+  if (type === 'status') {
+    return ['全部状态', '报名中', '未开赛', '进行中', '已结束'];
+  }
 
   const labels = new Set();
   for (const competition of state.competitions) {
@@ -552,12 +571,14 @@ function filterOptions(type) {
 function activeFilterValue(type) {
   if (type === 'year') return state.selectedYear;
   if (type === 'region') return state.selectedRegion;
+  if (type === 'status') return state.selectedStatus;
   return state.selectedItem;
 }
 
 function filterTitle(type) {
   if (type === 'year') return '选择年份';
   if (type === 'region') return '选择地区';
+  if (type === 'status') return '选择状态';
   return '选择项目';
 }
 
@@ -565,6 +586,7 @@ function setFilterValue(type, value) {
   if (type === 'year') state.selectedYear = value;
   if (type === 'region') state.selectedRegion = value;
   if (type === 'item') state.selectedItem = value;
+  if (type === 'status') state.selectedStatus = value;
   renderFilters();
   applyCompetitionFilter();
 }
@@ -574,6 +596,7 @@ function renderFilters() {
     [yearFilterButton, 'year', state.selectedYear],
     [regionFilterButton, 'region', state.selectedRegion],
     [itemFilterButton, 'item', state.selectedItem],
+    [statusFilterButton, 'status', state.selectedStatus],
   ];
 
   for (const [button, type, value] of configs) {
@@ -616,13 +639,15 @@ function applyCompetitionFilter() {
   const region = state.selectedRegion;
   const year = state.selectedYear;
   const itemFilter = state.selectedItem;
+  const statusFilter = state.selectedStatus;
   state.filteredCompetitions = state.competitions.filter((competition) => {
     const matchRegion = region === '全部地区' || (competition.region || '待确认') === region;
     const matchYear = year === '全部年份' || competitionYear(competition) === year;
     const matchItem = itemFilter === '全部项目' || competition.items.some((item) => itemFilterLabel(item) === itemFilter);
+    const matchStatus = statusFilter === '全部状态' || statusLabel(competition.status || 'completed') === statusFilter;
     const haystack = competitionSearchHaystack(competition);
     const matchKeyword = !keyword || tokens.every((token) => haystack.includes(token)) || haystack.includes(compactKeyword);
-    return matchRegion && matchYear && matchItem && matchKeyword;
+    return matchRegion && matchYear && matchItem && matchStatus && matchKeyword;
   });
   state.athleteSearchResults = keyword ? state.athleteSearchIndex
     .filter((athlete) => tokens.every((token) => athlete.searchText.includes(token)) || athlete.searchText.replace(/\s+/g, '').includes(compactKeyword))
@@ -658,7 +683,8 @@ function isFilteringActive() {
   return Boolean(normalizeSearchText(searchInput.value))
     || state.selectedYear !== '全部年份'
     || state.selectedRegion !== '全部地区'
-    || state.selectedItem !== '全部项目';
+    || state.selectedItem !== '全部项目'
+    || state.selectedStatus !== '全部状态';
 }
 
 function renderHomeStats() {
@@ -1033,6 +1059,10 @@ function renderCompetitionList() {
   competitionList.innerHTML = state.filteredCompetitions.length
     ? state.filteredCompetitions.map((competition) => `
       <button class="competition-card" data-sport-code="${escapeHtml(competition.sportCode)}">
+        <div class="status-row">
+          <span class="status-badge status-${escapeHtml(competition.status || 'completed')}">${escapeHtml(statusLabel(competition.status || 'completed'))}</span>
+          ${competition.isPreEvent ? `<span class="roster-badge">${escapeHtml(rosterStatusLabel(competition.rosterStatus))}</span>` : ''}
+        </div>
         <strong>${escapeHtml(competition.sportName)}</strong>
         <div class="meta-row">
           <span class="badge">${escapeHtml(competition.dateLabel)}</span>
@@ -1053,6 +1083,16 @@ function renderCompetitionList() {
 }
 
 function competitionListInsight(competition) {
+  if (competition.isPreEvent) {
+    const summary = competition.registrationSummary || {};
+    const rosterText = summary.rosterCount
+      ? `已导入 ${summary.rosterCount} 条报名记录`
+      : '暂未导入报名名单';
+    const expectedText = summary.expectedRegistrationCount
+      ? `官方项目报名人数 ${summary.expectedRegistrationCount}`
+      : `${competition.items.length} 个赛前项目`;
+    return `${expectedText}，${rosterText}。关注孩子后，可在名单完整时做赛前对标分析。`;
+  }
   const total = competition.items.reduce((sum, item) => sum + (Number(item.competitionNo) || 0), 0);
   const elimination = competition.items.reduce((sum, item) => sum + (Number(item.playedEliminationMatchCount) || 0), 0);
   const topItem = [...competition.items].sort((a, b) => (Number(b.competitionNo) || 0) - (Number(a.competitionNo) || 0))[0];
@@ -1063,6 +1103,10 @@ function competitionListInsight(competition) {
 function renderCompetitionHero(competition) {
   competitionHero.classList.add('compact');
   competitionHero.innerHTML = `
+    <div class="status-row">
+      <span class="status-badge status-${escapeHtml(competition.status || 'completed')}">${escapeHtml(statusLabel(competition.status || 'completed'))}</span>
+      ${competition.isPreEvent ? `<span class="roster-badge">${escapeHtml(rosterStatusLabel(competition.rosterStatus))}</span>` : ''}
+    </div>
     <div class="hero-title">${escapeHtml(competition.sportName)}</div>
     <div class="hero-sub">${escapeHtml(competition.venue || '地点待确认')} · ${escapeHtml(competition.dateLabel)}</div>
     <div class="event-chip-row">${competition.items.map((item) => `<span>${escapeHtml(displayEventName(item))}</span>`).join('')}</div>
@@ -2110,6 +2154,7 @@ searchInput.addEventListener('input', applyCompetitionFilter);
 yearFilterButton.addEventListener('click', () => openFilterSheet('year'));
 regionFilterButton.addEventListener('click', () => openFilterSheet('region'));
 itemFilterButton.addEventListener('click', () => openFilterSheet('item'));
+statusFilterButton.addEventListener('click', () => openFilterSheet('status'));
 filterSheetMask.addEventListener('click', closeFilterSheet);
 filterSheetClose.addEventListener('click', closeFilterSheet);
 filterSheetOptions.addEventListener('click', (event) => {

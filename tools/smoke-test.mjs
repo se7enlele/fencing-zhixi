@@ -163,6 +163,52 @@ try {
   const previewResult = await preview.json();
   if (!preview.ok || !previewResult.ok) throw new Error(previewResult.message || `admin preview status ${preview.status}`);
   const adminPreviewCode = previewResult.preview.eventCode;
+
+  const rosterPreview = await fetch(`${baseUrl}/api/admin/import/preview?token=fencingai-admin-2026`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      fileName: 'member-page-1.json',
+      sourceUrl: 'manual roster smoke',
+      content: JSON.stringify({
+        code: 0,
+        msg: '操作成功',
+        data: {
+          records: [{
+            sigupId: 'smoke-roster-1',
+            registerType: 'athlete',
+            registerId: '20100101MTEST',
+            registerCode: '20100101MTEST',
+            organCode: 'TESTCLUB',
+            organName: '测试俱乐部',
+            approveStatus: '2',
+            sigupTime: '2026-05-29 15:08:04',
+            sportName: '测试赛前赛事',
+            sportCode: 'SMOKEPREEVENT',
+            eventName: 'U8男子花剑个人',
+            eventCode: 'SMOKEPREEVENTMFIU8',
+            birthday: '2010-01-01',
+            sex: 'M',
+            sexDes: '男',
+            weapon: 'F',
+            weaponDes: '花剑',
+            athleteName: '测试选手',
+          }],
+          current: 1,
+          size: 10,
+          total: 1,
+        },
+      }),
+    }),
+  });
+  const rosterPreviewResult = await rosterPreview.json();
+  if (!rosterPreview.ok || !rosterPreviewResult.ok) {
+    throw new Error(rosterPreviewResult.message || `roster preview status ${rosterPreview.status}`);
+  }
+  if (rosterPreviewResult.preview.importType !== 'registration-roster') throw new Error('roster preview type missing');
+  if (rosterPreviewResult.preview.summary.recordCount !== 1) throw new Error('roster preview count missing');
+  if (rosterPreviewResult.importStats?.newRecords !== 1) throw new Error('roster preview import stats missing');
+
   console.log(JSON.stringify({
     ok: true,
     pageStatus: page.status,
@@ -180,6 +226,8 @@ try {
     apiStatus: api.status,
     recordCount: result.records.length,
     adminPreviewCode,
+    rosterPreviewType: rosterPreviewResult.preview.importType,
+    rosterPreviewNewRecords: rosterPreviewResult.importStats.newRecords,
     rankingPath: result.records[0]?.extractedSamples?.rankingPath,
     matchPath: result.records[0]?.extractedSamples?.matchPath,
   }, null, 2));

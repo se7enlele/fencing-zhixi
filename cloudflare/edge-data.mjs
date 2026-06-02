@@ -148,6 +148,83 @@ export function looksLikeProjectList(payload) {
     && payload.some((row) => row.eventCode && row.sportId && row.eventName);
 }
 
+export function extractRosterRows(payload) {
+  if (Array.isArray(payload)) return payload;
+  if (Array.isArray(payload?.data?.records)) return payload.data.records;
+  if (Array.isArray(payload?.records)) return payload.records;
+  return null;
+}
+
+export function looksLikeRegistrationRoster(payload) {
+  const rows = extractRosterRows(payload);
+  return Array.isArray(rows)
+    && rows.length > 0
+    && rows.every((row) => row && typeof row === 'object')
+    && rows.some((row) => row.eventCode && row.sportCode && (row.athleteName || row.registerCode));
+}
+
+export function rosterDedupeKey(row) {
+  if (row.sigupId) return `sigup:${row.sigupId}`;
+  if (row.sportCode && row.eventCode && row.registerCode) {
+    return `entry:${row.sportCode}:${row.eventCode}:${row.registerCode}`;
+  }
+  return `fallback:${row.sportCode || ''}:${row.eventCode || ''}:${row.athleteName || ''}:${row.birthday || ''}:${row.organCode || ''}`;
+}
+
+export function normalizeRosterRecord(row) {
+  return {
+    sigupId: row.sigupId || null,
+    registerType: row.registerType || null,
+    registerId: row.registerId || null,
+    registerCode: row.registerCode || null,
+    athleteName: row.athleteName || '',
+    birthday: row.birthday || null,
+    sex: row.sex || null,
+    sexDes: row.sexDes || null,
+    weapon: row.weapon || null,
+    weaponDes: row.weaponDes || null,
+    hand: row.hand || null,
+    sportCode: row.sportCode || null,
+    sportName: row.sportName || null,
+    eventCode: row.eventCode || null,
+    eventName: row.eventName || null,
+    organCode: row.organCode || null,
+    organShortName: row.organShortName || null,
+    organName: row.organName || null,
+    approveStatus: row.approveStatus || null,
+    sigupTime: row.sigupTime || null,
+    sigupPoints: row.sigupPoints ?? null,
+    sigupRank: row.sigupRank ?? null,
+    regType: row.regType || null,
+    regTypeDes: row.regTypeDes || null,
+    dedupeKey: rosterDedupeKey(row),
+  };
+}
+
+export function buildRegistrationRosterReport(payload, source = {}) {
+  const rows = extractRosterRows(payload);
+  if (!Array.isArray(rows)) throw new Error('报名名单数据应该包含 data.records 或 records。');
+  const records = rows.map(normalizeRosterRecord);
+  return {
+    ok: true,
+    importType: 'registration-roster',
+    source,
+    page: {
+      current: payload?.data?.current ?? payload?.current ?? null,
+      size: payload?.data?.size ?? payload?.size ?? records.length,
+      total: payload?.data?.total ?? payload?.total ?? null,
+    },
+    summary: {
+      recordCount: records.length,
+      sportCodes: [...new Set(records.map((row) => row.sportCode).filter(Boolean))],
+      eventCodes: [...new Set(records.map((row) => row.eventCode).filter(Boolean))],
+      athleteCount: new Set(records.map((row) => row.registerCode || row.athleteName).filter(Boolean)).size,
+      clubCount: new Set(records.map((row) => row.organName || row.organCode).filter(Boolean)).size,
+    },
+    normalized: { records },
+  };
+}
+
 export function buildProjectListPreview(rows, source = {}) {
   const sportIds = [...new Set(rows.map((row) => row.sportId).filter(Boolean))];
   const eventCodes = [...new Set(rows.map((row) => row.eventCode).filter(Boolean))];
@@ -262,6 +339,44 @@ export function buildScoreReport(payload, source = {}) {
 
 export function previewImportPayload(payload, meta = {}) {
   if (looksLikeProjectList(payload)) return buildProjectListPreview(payload, meta);
+  if (looksLikeRegistrationRoster(payload)) {
+    const report = buildRegistrationRosterReport(payload, {
+      fileName: meta.fileName || null,
+      sourceUrl: meta.sourceUrl || null,
+      importedAt: new Date().toISOString(),
+    });
+    const sportCode = report.summary?.sportCodes?.[0] || 'unknown';
+    const page = report.page?.current || Date.now();
+    return {
+      importType: 'registration-roster',
+      eventCode: null,
+      targetFile: `registration-roster-${sportCode}-${page}-${Date.now()}.json`,
+      general: {
+        sportName: report.normalized.records.find((row) => row.sportName)?.sportName || `报名名单 ${sportCode}`,
+        eventName: `${report.summary.recordCount} 条报名记录`,
+        openDate: null,
+        venue: null,
+        sportCode,
+      },
+      summary: {
+        recordCount: report.summary.recordCount,
+        athleteCount: report.summary.athleteCount,
+        clubCount: report.summary.clubCount,
+        sportCodes: report.summary.sportCodes,
+        eventCodes: report.summary.eventCodes,
+        pageCurrent: report.page.current,
+        pageSize: report.page.size,
+        pageTotal: report.page.total,
+        classmentCount: null,
+        poolCount: null,
+        poolBoutCount: null,
+        playedEliminationMatchCount: null,
+        byeMatchCount: null,
+      },
+      report,
+      note: '这是报名名单分页数据；每页确认一次会追加为一个批次，后续按报名记录去重合并。',
+    };
+  }
   const report = buildScoreReport(payload, {
     fileName: meta.fileName || null,
     sourceUrl: meta.sourceUrl || null,

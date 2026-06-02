@@ -306,7 +306,7 @@ select:focus {
 
 .filter-actions {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 8px;
 }
 
@@ -751,6 +751,55 @@ select:focus {
   color: #526070;
   font-size: 12px;
   line-height: 1.45;
+}
+
+.status-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.status-badge,
+.roster-badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  padding: 4px 8px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.status-badge {
+  background: rgba(21, 95, 194, 0.1);
+  color: var(--primary);
+}
+
+.status-registration {
+  background: rgba(20, 142, 75, 0.12);
+  color: #14753f;
+}
+
+.status-upcoming {
+  background: rgba(21, 95, 194, 0.1);
+  color: var(--primary);
+}
+
+.status-live {
+  background: rgba(180, 105, 0, 0.14);
+  color: #9a5a00;
+}
+
+.status-completed {
+  background: rgba(82, 96, 112, 0.12);
+  color: #526070;
+}
+
+.roster-badge {
+  background: rgba(82, 96, 112, 0.08);
+  color: #526070;
 }
 
 .meta-row,

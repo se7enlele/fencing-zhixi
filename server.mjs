@@ -5,6 +5,8 @@ import { fileURLToPath } from 'node:url';
 import { analyzeRecords, parseOfficialResultUrl, stableStringify } from './tools/analyzer-core.mjs';
 import { buildScoreReport } from './tools/parse-score.mjs';
 import { buildProjectListReport } from './tools/parse-projectlist.mjs';
+import { buildRegistrationRosterReport, looksLikeRegistrationRoster } from './tools/parse-registration-roster.mjs';
+import { buildPreEventCompetitions } from './tools/pre-event-data.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PORT = Number(process.env.PORT ?? 5177);
@@ -107,6 +109,7 @@ let scoreReportsCache = null;
 let publicEventsCache = null;
 let athleteDirectoryCache = null;
 let clubDirectoryCache = null;
+let preEventReportsCache = null;
 
 async function getScoreReports() {
   if (!scoreReportsCache) {
@@ -115,9 +118,41 @@ async function getScoreReports() {
   return scoreReportsCache;
 }
 
+async function getPreEventReports() {
+  if (!preEventReportsCache) {
+    const analysisDir = path.join(__dirname, 'data', 'analysis');
+    const files = await readdir(analysisDir).catch(() => []);
+    const projectLists = [];
+    const rosterBatches = [];
+    for (const fileName of files.filter((file) => file.endsWith('.json'))) {
+      if (!fileName.startsWith('projectlist-') && !fileName.startsWith('registration-roster-')) continue;
+      try {
+        const report = JSON.parse(await readFile(path.join(analysisDir, fileName), 'utf8'));
+        if (fileName.startsWith('projectlist-')) projectLists.push({ fileName, report });
+        if (fileName.startsWith('registration-roster-') && report.importType === 'registration-roster') {
+          rosterBatches.push({ fileName, report });
+        }
+      } catch {
+        // Ignore malformed pre-event reports.
+      }
+    }
+    preEventReportsCache = { projectLists, rosterBatches };
+  }
+  return preEventReportsCache;
+}
+
+async function getPreEventCompetitions() {
+  const preEventReports = await getPreEventReports();
+  return buildPreEventCompetitions(preEventReports);
+}
+
 async function getPublicEventsPayload() {
   if (!publicEventsCache) {
     const reports = await getScoreReports();
+    const scoreCompetitions = groupReportsBySport(reports);
+    const scoreSportCodes = new Set(scoreCompetitions.map((competition) => competition.sportCode));
+    const preEventCompetitions = (await getPreEventCompetitions())
+      .filter((competition) => !scoreSportCodes.has(competition.sportCode));
     const analysisDir = path.join(__dirname, 'data', 'analysis');
     const analysisFiles = await readdir(analysisDir).catch(() => []);
     const athletes = buildAthleteDirectory(reports);
@@ -128,7 +163,7 @@ async function getPublicEventsPayload() {
       events: reports
         .map(({ fileName, report }) => toEventSummary(report, fileName))
         .sort((a, b) => String(a.sportName).localeCompare(String(b.sportName), 'zh-CN') || String(a.eventName).localeCompare(String(b.eventName), 'zh-CN')),
-      competitions: groupReportsBySport(reports),
+      competitions: [...scoreCompetitions, ...preEventCompetitions],
       athletes,
       clubs,
       dataCoverage: {
@@ -270,6 +305,50 @@ function clearDataCaches() {
   publicEventsCache = null;
   athleteDirectoryCache = null;
   clubDirectoryCache = null;
+  preEventReportsCache = null;
+}
+
+async function loadRegistrationRosterBatches() {
+  const analysisDir = path.join(__dirname, 'data', 'analysis');
+  const files = await readdir(analysisDir).catch(() => []);
+  const batches = [];
+  for (const fileName of files.filter((file) => file.startsWith('registration-roster-') && file.endsWith('.json'))) {
+    try {
+      const report = JSON.parse(await readFile(path.join(analysisDir, fileName), 'utf8'));
+      if (report.importType === 'registration-roster') batches.push({ fileName, report });
+    } catch {
+      // Ignore malformed historical batches so one bad file does not block admin import.
+    }
+  }
+  return batches;
+}
+
+async function summarizeRosterImport(preview) {
+  if (preview.importType !== 'registration-roster') return null;
+  const incoming = preview.report.normalized?.records || [];
+  const existingKeys = new Set();
+  for (const batch of await loadRegistrationRosterBatches()) {
+    for (const row of batch.report.normalized?.records || []) {
+      if (row.dedupeKey) existingKeys.add(row.dedupeKey);
+    }
+  }
+
+  let newRecords = 0;
+  let duplicateRecords = 0;
+  for (const row of incoming) {
+    if (existingKeys.has(row.dedupeKey)) duplicateRecords += 1;
+    else {
+      newRecords += 1;
+      existingKeys.add(row.dedupeKey);
+    }
+  }
+
+  return {
+    incomingRecords: incoming.length,
+    newRecords,
+    duplicateRecords,
+    cumulativeRecords: existingKeys.size,
+  };
 }
 
 function parseUploadedJsonText(content) {
@@ -344,9 +423,51 @@ function previewProjectListImport(payload, meta = {}) {
   };
 }
 
+function previewRegistrationRosterImport(payload, meta = {}) {
+  if (!looksLikeRegistrationRoster(payload)) return null;
+  const report = buildRegistrationRosterReport(payload, {
+    fileName: meta.fileName || null,
+    sourceUrl: meta.sourceUrl || null,
+    importedAt: new Date().toISOString(),
+  });
+  const sportCode = report.summary?.sportCodes?.[0] || 'unknown';
+  const page = report.page?.current || Date.now();
+  return {
+    importType: 'registration-roster',
+    eventCode: null,
+    targetFile: `registration-roster-${sportCode}-${page}-${Date.now()}.json`,
+    general: {
+      sportName: report.normalized.records.find((row) => row.sportName)?.sportName || `报名名单 ${sportCode}`,
+      eventName: `${report.summary.recordCount} 条报名记录`,
+      openDate: null,
+      venue: null,
+      sportCode,
+    },
+    summary: {
+      recordCount: report.summary.recordCount,
+      athleteCount: report.summary.athleteCount,
+      clubCount: report.summary.clubCount,
+      sportCodes: report.summary.sportCodes,
+      eventCodes: report.summary.eventCodes,
+      pageCurrent: report.page.current,
+      pageSize: report.page.size,
+      pageTotal: report.page.total,
+      classmentCount: null,
+      poolCount: null,
+      poolBoutCount: null,
+      playedEliminationMatchCount: null,
+      byeMatchCount: null,
+    },
+    report,
+    note: '这是报名名单分页数据；每页确认一次会追加为一个批次，后续按报名记录去重合并。',
+  };
+}
+
 function previewImportPayload(payload, meta = {}) {
   const projectList = previewProjectListImport(payload, meta);
   if (projectList) return projectList;
+  const roster = previewRegistrationRosterImport(payload, meta);
+  if (roster) return roster;
   return previewScoreImport(payload, meta);
 }
 
@@ -373,6 +494,7 @@ async function handleAdminPreview(request, response, url) {
       ok: true,
       version: APP_VERSION,
       exists,
+      importStats: await summarizeRosterImport(preview),
       preview: {
         importType: preview.importType,
         eventCode: preview.eventCode,
@@ -411,8 +533,10 @@ async function handleAdminCommit(request, response, url) {
       overwritten = false;
     }
 
+    const importStats = await summarizeRosterImport(preview);
     const stamp = new Date().toISOString().replace(/[:.]/g, '-');
-    await writeFile(path.join(rawDir, `${stamp}-${preview.eventCode}.txt`), body.content, 'utf8');
+    const rawKey = preview.eventCode || preview.targetFile.replace(/\.json$/, '');
+    await writeFile(path.join(rawDir, `${stamp}-${rawKey}.txt`), body.content, 'utf8');
     await writeFile(outputPath, stableStringify(preview.report), 'utf8');
     clearDataCaches();
 
@@ -422,6 +546,7 @@ async function handleAdminCommit(request, response, url) {
       eventCode: preview.eventCode,
       targetFile: preview.targetFile,
       overwritten,
+      importStats,
       summary: preview.summary,
     });
   } catch (error) {
@@ -1319,9 +1444,8 @@ const server = createServer(async (request, response) => {
   if (request.method === 'GET' && url.pathname.startsWith('/api/competitions/')) {
     try {
       const sportCode = decodeURIComponent(url.pathname.replace('/api/competitions/', ''));
-      const reports = await getScoreReports();
-      const competitions = groupReportsBySport(reports);
-      const found = competitions.find((competition) => competition.sportCode === sportCode);
+      const payload = await getPublicEventsPayload();
+      const found = payload.competitions.find((competition) => competition.sportCode === sportCode);
       if (!found) {
         sendJson(response, 404, { ok: false, message: '未找到比赛数据。' });
         return;
@@ -1343,6 +1467,31 @@ const server = createServer(async (request, response) => {
       const reports = await getScoreReports();
       const found = reports.find(({ report }) => report.general?.eventCode === eventCode);
       if (!found) {
+        const payload = await getPublicEventsPayload();
+        const preEventCompetition = payload.competitions.find((competition) => (
+          (competition.items || []).some((item) => item.eventCode === eventCode)
+        ));
+        const preEventItem = preEventCompetition?.items?.find((item) => item.eventCode === eventCode);
+        if (preEventItem) {
+          sendJson(response, 200, {
+            ok: true,
+            version: APP_VERSION,
+            event: {
+              ...preEventItem,
+              sportCode: preEventCompetition.sportCode,
+              sportName: preEventCompetition.sportName,
+              venue: preEventCompetition.venue,
+              participants: preEventItem.roster || [],
+              athleteProfiles: [],
+              clubProfiles: [],
+              poolGroups: [],
+              eliminationMatches: [],
+              status: preEventItem.status,
+              rosterStatus: preEventCompetition.rosterStatus,
+            },
+          });
+          return;
+        }
         sendJson(response, 404, { ok: false, message: '未找到项目数据。' });
         return;
       }

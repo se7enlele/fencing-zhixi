@@ -18,8 +18,14 @@ function renderPreview(data) {
   const preview = data.preview;
   const general = preview.general || {};
   const summary = preview.summary || {};
+  const importStats = data.importStats || null;
+  const typeLabel = preview.importType === 'projectlist'
+    ? '项目清单'
+    : preview.importType === 'registration-roster'
+      ? '报名名单分页'
+      : '成绩数据';
   const cards = [
-    ['类型', preview.importType === 'projectlist' ? '项目清单' : '成绩数据'],
+    ['类型', typeLabel],
     ['项目', general.eventName || '-'],
     ['比赛', general.sportName || '-'],
     ['日期', general.openDate || '-'],
@@ -28,6 +34,12 @@ function renderPreview(data) {
     ['目标文件', preview.targetFile || '-'],
     ['项目数', summary.itemCount ?? '-'],
     ['报名人次', summary.totalParticipants ?? '-'],
+    ['本页记录', summary.recordCount ?? '-'],
+    ['选手数', summary.athleteCount ?? '-'],
+    ['俱乐部数', summary.clubCount ?? '-'],
+    ['预计新增', importStats?.newRecords ?? '-'],
+    ['重复跳过', importStats?.duplicateRecords ?? '-'],
+    ['累计报名', importStats?.cumulativeRecords ?? '-'],
     ['总人数', summary.classmentCount ?? '-'],
     ['小组', summary.poolCount ?? '-'],
     ['小组对阵', summary.poolBoutCount ?? '-'],
@@ -99,7 +111,11 @@ commitBtn.addEventListener('click', async () => {
     commitBtn.disabled = true;
     setStatus('正在写入...');
     const result = await postJson('/api/admin/import/commit');
-    setStatus(`${result.overwritten ? '覆盖' : '新增'}成功：${result.targetFile || result.eventCode}`);
+    if (result.importStats) {
+      setStatus(`报名名单分页已入库：新增 ${result.importStats.newRecords} 条，重复跳过 ${result.importStats.duplicateRecords} 条，累计 ${result.importStats.cumulativeRecords} 条`);
+    } else {
+      setStatus(`${result.overwritten ? '覆盖' : '新增'}成功：${result.targetFile || result.eventCode}`);
+    }
   } catch (error) {
     setStatus(error.message, true);
     commitBtn.disabled = false;
