@@ -40,5 +40,6 @@ assert.equal(inferPlatformStatus(events[2]), 'upcoming');
 assert.deepEqual(selectEvents(events, { status: 'completed', limit: 5 }).map((event) => event.sportCode), ['DONE']);
 assert.deepEqual(selectEvents(events, { status: 'registration', limit: 5 }).map((event) => event.sportCode), ['REG']);
 assert.equal(selectEvents(events, { status: 'all', limit: 2 }).length, 2);
+assert.deepEqual(selectEvents(events, { status: 'all', limit: 5, startAfterSportId: 2 }).map((event) => event.sportCode), ['DONE']);
 
 console.log('platform sync planning is covered');

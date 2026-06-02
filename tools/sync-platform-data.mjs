@@ -25,6 +25,8 @@ function parseArgs(argv) {
     delayMs: 400,
     timeoutSec: 20,
     scoreLimit: 3,
+    startAfterSportId: null,
+    progress: true,
     score: true,
     projectlist: true,
     forceProjectlist: false,
@@ -42,6 +44,8 @@ function parseArgs(argv) {
     if (arg === '--delay-ms') args.delayMs = Number(argv[++i]);
     if (arg === '--timeout-sec') args.timeoutSec = Number(argv[++i]);
     if (arg === '--score-limit') args.scoreLimit = Number(argv[++i]);
+    if (arg === '--start-after-sport-id') args.startAfterSportId = Number(argv[++i]);
+    if (arg === '--quiet') args.progress = false;
     if (arg === '--no-score') args.score = false;
     if (arg === '--no-projectlist') args.projectlist = false;
     if (arg === '--force-projectlist') args.forceProjectlist = true;
@@ -74,8 +78,8 @@ function eventDateValue(event) {
   return parseDate(event.startDate) || parseDate(event.endDate) || 0;
 }
 
-export function selectEvents(events, { status = 'completed', limit = 5 } = {}) {
-  const rows = events
+export function selectEvents(events, { status = 'completed', limit = 5, startAfterSportId = null } = {}) {
+  let rows = events
     .map((event) => ({
       ...event,
       inferredStatus: inferPlatformStatus(event),
@@ -83,7 +87,21 @@ export function selectEvents(events, { status = 'completed', limit = 5 } = {}) {
     .filter((event) => status === 'all' || event.inferredStatus === status)
     .sort((a, b) => eventDateValue(b) - eventDateValue(a));
 
+  if (startAfterSportId) {
+    const index = rows.findIndex((event) => Number(event.sportId) === Number(startAfterSportId));
+    if (index >= 0) rows = rows.slice(index + 1);
+  }
+
   return Number.isFinite(limit) && limit > 0 ? rows.slice(0, limit) : rows;
+}
+
+function progress(args, message, detail = {}) {
+  if (!args.progress) return;
+  console.error(stableStringify({
+    at: new Date().toISOString(),
+    message,
+    ...detail,
+  }));
 }
 
 function stripBom(text) {
@@ -190,6 +208,7 @@ async function syncProjectlist(event, args, files, log) {
   const fileName = projectlistFileName(event.sportId);
   if (!args.forceProjectlist && files.has(fileName)) {
     log.projectlists.skipped += 1;
+    progress(args, 'projectlist skipped', { sportId: event.sportId, sportCode: event.sportCode });
     return JSON.parse(stripBom(await readFile(path.join(args.outputDir, fileName), 'utf8')));
   }
 
@@ -199,6 +218,7 @@ async function syncProjectlist(event, args, files, log) {
     return null;
   }
 
+  progress(args, 'projectlist fetch', { sportId: event.sportId, sportCode: event.sportCode, sportName: event.sportName });
   const payload = parseJsonOrJsObject(await fetchText(url, args.timeoutSec));
   const rows = projectRowsFromPayload(payload);
   const report = buildProjectListReport(rows, {
@@ -210,6 +230,7 @@ async function syncProjectlist(event, args, files, log) {
   await writeReport(args.outputDir, fileName, report);
   files.add(fileName);
   log.projectlists.imported += 1;
+  progress(args, 'projectlist imported', { sportId: event.sportId, items: report.summary.itemCount });
   return report;
 }
 
@@ -219,6 +240,7 @@ async function syncScoreItem(item, args, files, log) {
   const fileName = scoreFileName(eventCode);
   if (!args.forceScore && files.has(fileName)) {
     log.scores.skipped += 1;
+    progress(args, 'score skipped', { eventCode });
     return;
   }
 
@@ -229,6 +251,7 @@ async function syncScoreItem(item, args, files, log) {
   }
 
   try {
+    progress(args, 'score fetch', { eventCode });
     const payload = parseJsonOrJsObject(await fetchText(url, args.timeoutSec));
     const report = buildScoreReport(payload, {
       sourceUrl: url,
@@ -237,8 +260,10 @@ async function syncScoreItem(item, args, files, log) {
     await writeReport(args.outputDir, fileName, report);
     files.add(fileName);
     log.scores.imported += 1;
+    progress(args, 'score imported', { eventCode, athletes: report.summary.classmentCount });
   } catch (error) {
     log.scores.failed.push({ eventCode, message: error.message });
+    progress(args, 'score failed', { eventCode, message: error.message });
   }
 }
 
@@ -256,6 +281,7 @@ async function main() {
     limit: args.limit,
     timeoutSec: args.timeoutSec,
     scoreLimit: args.scoreLimit,
+    startAfterSportId: args.startAfterSportId,
     selected: selected.map((event) => ({
       sportId: event.sportId,
       sportCode: event.sportCode,
@@ -280,6 +306,7 @@ async function main() {
   for (const event of selected) {
     let projectReport = null;
     try {
+      progress(args, 'event start', { sportId: event.sportId, sportCode: event.sportCode, sportName: event.sportName, status: event.inferredStatus });
       if (args.projectlist) {
         projectReport = await syncProjectlist(event, args, files, log);
         await sleep(args.delayMs);
@@ -299,12 +326,14 @@ async function main() {
           await sleep(args.delayMs);
         }
       }
+      progress(args, 'event done', { sportId: event.sportId });
     } catch (error) {
       log.projectlists.failed.push({
         sportId: event.sportId,
         sportCode: event.sportCode,
         message: error.message,
       });
+      progress(args, 'event failed', { sportId: event.sportId, message: error.message });
     }
   }
 
