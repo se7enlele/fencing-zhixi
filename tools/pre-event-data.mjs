@@ -181,6 +181,27 @@ export function buildPreEventCompetitions({
       || competition.dateLabel
       || '日期待确认';
 
+    const insights = competition.insights || {
+      summaryCards: [
+        {
+          title: '项目数量',
+          value: competition.items.length,
+          detail: competition.status === 'completed' ? '已补项目清单' : '赛前项目清单',
+        },
+        {
+          title: '报名规模',
+          value: expectedRegistrationCount || rosterCount || '-',
+          detail: rosterCount ? `已导入名单 ${rosterCount}` : '名单待导入',
+        },
+      ],
+      bullets: [
+        rosterCount
+          ? `已导入 ${rosterCount} 条报名记录，可结合“我的孩子”做赛前对标。`
+          : '已导入项目清单；继续导入报名名单后，可分析同组对手、熟悉对手和潜在强手。',
+      ],
+      eventCharts: competition.items,
+    };
+
     return {
       ...competition,
       itemCount: competition.items.length,
@@ -192,6 +213,7 @@ export function buildPreEventCompetitions({
         expectedRegistrationCount,
         itemCount: competition.items.length,
       },
+      insights,
     };
   });
 }

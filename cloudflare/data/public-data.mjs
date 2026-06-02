@@ -5,6 +5,258 @@ export default {
     "version": "fencingai-product-20260528-1",
     "events": [
       {
+        "fileName": "score-RZSS2034020MFIU10-analysis.json",
+        "eventCode": "RZSS2034020MFIU10",
+        "sportCode": "RZSS2034020",
+        "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+        "eventName": "U10男子花剑个人",
+        "shortEventName": "U10 男花",
+        "openDate": null,
+        "venue": "海南·儋州",
+        "competitionNo": 13,
+        "poolCount": 2,
+        "poolQualifyNo": 10,
+        "deStartPhase": "from Tableaus 16",
+        "eliminationMatchCount": 15,
+        "playedEliminationMatchCount": 9,
+        "byeMatchCount": 6,
+        "athleteNames": [
+          "徐潇然",
+          "汪柏霖",
+          "周嘉雄",
+          "丁启宸",
+          "谢君墨",
+          "黄禹淙",
+          "黄元懋",
+          "颜培亦",
+          "彭浩宇",
+          "陈君岳",
+          "潘乐天",
+          "张岩松",
+          "陈犹耀"
+        ]
+      },
+      {
+        "fileName": "score-RZSS2034020MEIU10-analysis.json",
+        "eventCode": "RZSS2034020MEIU10",
+        "sportCode": "RZSS2034020",
+        "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+        "eventName": "U10男子重剑个人",
+        "shortEventName": "U10 男重",
+        "openDate": null,
+        "venue": "海南·儋州",
+        "competitionNo": 17,
+        "poolCount": 3,
+        "poolQualifyNo": 13,
+        "deStartPhase": "from Tableaus 16",
+        "eliminationMatchCount": 15,
+        "playedEliminationMatchCount": 12,
+        "byeMatchCount": 3,
+        "athleteNames": [
+          "张嘉盛",
+          "陈思然",
+          "杨启桢",
+          "刘栩辰",
+          "林恩霈",
+          "时铭泽",
+          "宋浩宇",
+          "梁庭睿",
+          "王琳溪",
+          "王璟泽",
+          "林诺禧",
+          "赵一帆",
+          "于博圣",
+          "张渊垣",
+          "李沐霖",
+          "胡肖南",
+          "孙望哲"
+        ]
+      },
+      {
+        "fileName": "score-RZSS2034020MFIU12-analysis.json",
+        "eventCode": "RZSS2034020MFIU12",
+        "sportCode": "RZSS2034020",
+        "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+        "eventName": "U12男子花剑个人",
+        "shortEventName": "U12 男花",
+        "openDate": null,
+        "venue": "海南·儋州",
+        "competitionNo": 18,
+        "poolCount": 3,
+        "poolQualifyNo": 14,
+        "deStartPhase": "from Tableaus 16",
+        "eliminationMatchCount": 15,
+        "playedEliminationMatchCount": 13,
+        "byeMatchCount": 2,
+        "athleteNames": [
+          "陈义洋",
+          "翟立鸿",
+          "徐潇然",
+          "徐睿泽",
+          "周嘉雄",
+          "汪柏霖",
+          "张家华",
+          "刘奕辰",
+          "张浦宸",
+          "丁启宸",
+          "冯翊宸",
+          "谢君墨",
+          "汤采葑",
+          "邓淳译",
+          "陈厚兆",
+          "林雨昊",
+          "黄禹淙",
+          "陈煜文"
+        ]
+      },
+      {
+        "fileName": "score-RZSS2034020MEIU12-analysis.json",
+        "eventCode": "RZSS2034020MEIU12",
+        "sportCode": "RZSS2034020",
+        "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+        "eventName": "U12男子重剑个人",
+        "shortEventName": "U12 男重",
+        "openDate": null,
+        "venue": "海南·儋州",
+        "competitionNo": 24,
+        "poolCount": 4,
+        "poolQualifyNo": 19,
+        "deStartPhase": "from Tableaus 32",
+        "eliminationMatchCount": 31,
+        "playedEliminationMatchCount": 18,
+        "byeMatchCount": 13,
+        "athleteNames": [
+          "赵禹瑞",
+          "金葆芮",
+          "杨岸霖",
+          "卢宏垚",
+          "张嘉盛",
+          "韦俊宇",
+          "李润丞",
+          "王琳溪",
+          "梁庭睿",
+          "孙铭杨",
+          "林诺禧",
+          "邱皓翔",
+          "王璟泽",
+          "陈思然",
+          "谢卓珉",
+          "张嘉瑞",
+          "章瀚尧",
+          "冯子轩",
+          "富泳霖",
+          "时铭泽",
+          "林恩霈",
+          "孙靖哲",
+          "谭思源",
+          "宋浩宇"
+        ]
+      },
+      {
+        "fileName": "score-RZSS2034020MFIU14-analysis.json",
+        "eventCode": "RZSS2034020MFIU14",
+        "sportCode": "RZSS2034020",
+        "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+        "eventName": "U14男子花剑个人",
+        "shortEventName": "U14 男花",
+        "openDate": null,
+        "venue": "海南·儋州",
+        "competitionNo": 9,
+        "poolCount": 2,
+        "poolQualifyNo": 9,
+        "deStartPhase": "from Tableaus 16",
+        "eliminationMatchCount": 15,
+        "playedEliminationMatchCount": 7,
+        "byeMatchCount": 8,
+        "athleteNames": [
+          "凌梓豪",
+          "张家华",
+          "张浦宸",
+          "吴清云",
+          "吴俊霖",
+          "高鸣骏",
+          "欧阳江林",
+          "潘杍墨",
+          "徐睿泽"
+        ]
+      },
+      {
+        "fileName": "score-RZSS2034020MFIU6-analysis.json",
+        "eventCode": "RZSS2034020MFIU6",
+        "sportCode": "RZSS2034020",
+        "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+        "eventName": "U6男子花剑个人",
+        "shortEventName": "U6 男花",
+        "openDate": null,
+        "venue": "海南·儋州",
+        "competitionNo": 4,
+        "poolCount": 1,
+        "poolQualifyNo": 4,
+        "deStartPhase": "from Tableaus 半决赛",
+        "eliminationMatchCount": 3,
+        "playedEliminationMatchCount": 3,
+        "byeMatchCount": 0,
+        "athleteNames": [
+          " 张棣涵",
+          "文允",
+          "林煜轩",
+          "郭锦瑞"
+        ]
+      },
+      {
+        "fileName": "score-RZSS2034020MFIU8-analysis.json",
+        "eventCode": "RZSS2034020MFIU8",
+        "sportCode": "RZSS2034020",
+        "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+        "eventName": "U8男子花剑个人",
+        "shortEventName": "U8 男花",
+        "openDate": null,
+        "venue": "海南·儋州",
+        "competitionNo": 10,
+        "poolCount": 2,
+        "poolQualifyNo": 10,
+        "deStartPhase": "from Tableaus 16",
+        "eliminationMatchCount": 15,
+        "playedEliminationMatchCount": 9,
+        "byeMatchCount": 6,
+        "athleteNames": [
+          "钟昊哲",
+          "陈炜胤",
+          "李闫君",
+          " 张棣涵",
+          "杨以沐",
+          "张梓铄",
+          "姚皓予",
+          "利炳林",
+          "文允",
+          "林煜轩"
+        ]
+      },
+      {
+        "fileName": "score-RZSS2034020MEIU8-analysis.json",
+        "eventCode": "RZSS2034020MEIU8",
+        "sportCode": "RZSS2034020",
+        "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+        "eventName": "U8男子重剑个人",
+        "shortEventName": "U8 男重",
+        "openDate": null,
+        "venue": "海南·儋州",
+        "competitionNo": 5,
+        "poolCount": 1,
+        "poolQualifyNo": 5,
+        "deStartPhase": "from Tableaus 8",
+        "eliminationMatchCount": 7,
+        "playedEliminationMatchCount": 4,
+        "byeMatchCount": 3,
+        "athleteNames": [
+          "于博圣",
+          "李沐霖",
+          "魏嘉茗",
+          "胡彧硕",
+          "朱格梓睦"
+        ]
+      },
+      {
         "fileName": "score-RZSS20250309MFIU6-analysis.json",
         "eventCode": "RZSS20250309MFIU6",
         "sportCode": "RZSS20250309",
@@ -451,6 +703,479 @@ export default {
       }
     ],
     "competitions": [
+      {
+        "sportCode": "RZSS2034020",
+        "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+        "venue": "海南·儋州",
+        "region": "海南儋州",
+        "dateLabel": "日期待确认",
+        "itemCount": 8,
+        "insights": {
+          "totalCompetitionNo": 100,
+          "totalPoolQualifyNo": 84,
+          "totalPlayedElimination": 75,
+          "totalBye": 41,
+          "weaponDistribution": {
+            "重剑": 3,
+            "花剑": 5
+          },
+          "ageDistribution": {
+            "U10": 2,
+            "U12": 2,
+            "U8": 2,
+            "U14": 1,
+            "U6": 1
+          },
+          "largestEvent": {
+            "eventName": "U12男子重剑个人",
+            "shortEventName": "U12 男重",
+            "count": 24,
+            "qualify": 19,
+            "elimination": 18,
+            "bye": 13
+          },
+          "eventCharts": [
+            {
+              "eventCode": "RZSS2034020MEIU12",
+              "eventName": "U12男子重剑个人",
+              "shortEventName": "U12 男重",
+              "competitionNo": 24,
+              "poolQualifyNo": 19,
+              "playedEliminationMatchCount": 18,
+              "byeMatchCount": 13
+            },
+            {
+              "eventCode": "RZSS2034020MFIU12",
+              "eventName": "U12男子花剑个人",
+              "shortEventName": "U12 男花",
+              "competitionNo": 18,
+              "poolQualifyNo": 14,
+              "playedEliminationMatchCount": 13,
+              "byeMatchCount": 2
+            },
+            {
+              "eventCode": "RZSS2034020MEIU10",
+              "eventName": "U10男子重剑个人",
+              "shortEventName": "U10 男重",
+              "competitionNo": 17,
+              "poolQualifyNo": 13,
+              "playedEliminationMatchCount": 12,
+              "byeMatchCount": 3
+            },
+            {
+              "eventCode": "RZSS2034020MFIU10",
+              "eventName": "U10男子花剑个人",
+              "shortEventName": "U10 男花",
+              "competitionNo": 13,
+              "poolQualifyNo": 10,
+              "playedEliminationMatchCount": 9,
+              "byeMatchCount": 6
+            },
+            {
+              "eventCode": "RZSS2034020MFIU8",
+              "eventName": "U8男子花剑个人",
+              "shortEventName": "U8 男花",
+              "competitionNo": 10,
+              "poolQualifyNo": 10,
+              "playedEliminationMatchCount": 9,
+              "byeMatchCount": 6
+            },
+            {
+              "eventCode": "RZSS2034020MFIU14",
+              "eventName": "U14男子花剑个人",
+              "shortEventName": "U14 男花",
+              "competitionNo": 9,
+              "poolQualifyNo": 9,
+              "playedEliminationMatchCount": 7,
+              "byeMatchCount": 8
+            },
+            {
+              "eventCode": "RZSS2034020MEIU8",
+              "eventName": "U8男子重剑个人",
+              "shortEventName": "U8 男重",
+              "competitionNo": 5,
+              "poolQualifyNo": 5,
+              "playedEliminationMatchCount": 4,
+              "byeMatchCount": 3
+            },
+            {
+              "eventCode": "RZSS2034020MFIU6",
+              "eventName": "U6男子花剑个人",
+              "shortEventName": "U6 男花",
+              "competitionNo": 4,
+              "poolQualifyNo": 4,
+              "playedEliminationMatchCount": 3,
+              "byeMatchCount": 0
+            }
+          ],
+          "birthBuckets": [
+            {
+              "label": "2013 上半年",
+              "entrants": 1,
+              "top8": 1,
+              "medals": 0,
+              "bestRank": 7,
+              "top8Rate": 100
+            },
+            {
+              "label": "2013 下半年",
+              "entrants": 3,
+              "top8": 3,
+              "medals": 1,
+              "bestRank": 3,
+              "top8Rate": 100
+            },
+            {
+              "label": "2014 上半年",
+              "entrants": 7,
+              "top8": 4,
+              "medals": 2,
+              "bestRank": 2,
+              "top8Rate": 57
+            },
+            {
+              "label": "2014 下半年",
+              "entrants": 8,
+              "top8": 5,
+              "medals": 5,
+              "bestRank": 1,
+              "top8Rate": 63
+            },
+            {
+              "label": "2015 上半年",
+              "entrants": 6,
+              "top8": 2,
+              "medals": 1,
+              "bestRank": 1,
+              "top8Rate": 33
+            },
+            {
+              "label": "2015 下半年",
+              "entrants": 11,
+              "top8": 4,
+              "medals": 2,
+              "bestRank": 1,
+              "top8Rate": 36
+            },
+            {
+              "label": "2016 上半年",
+              "entrants": 9,
+              "top8": 4,
+              "medals": 2,
+              "bestRank": 2,
+              "top8Rate": 44
+            },
+            {
+              "label": "2016 下半年",
+              "entrants": 14,
+              "top8": 7,
+              "medals": 4,
+              "bestRank": 1,
+              "top8Rate": 50
+            },
+            {
+              "label": "2017 上半年",
+              "entrants": 14,
+              "top8": 7,
+              "medals": 2,
+              "bestRank": 2,
+              "top8Rate": 50
+            },
+            {
+              "label": "2017 下半年",
+              "entrants": 6,
+              "top8": 3,
+              "medals": 1,
+              "bestRank": 3,
+              "top8Rate": 50
+            },
+            {
+              "label": "2018 上半年",
+              "entrants": 5,
+              "top8": 4,
+              "medals": 3,
+              "bestRank": 1,
+              "top8Rate": 80
+            },
+            {
+              "label": "2018 下半年",
+              "entrants": 5,
+              "top8": 4,
+              "medals": 3,
+              "bestRank": 1,
+              "top8Rate": 80
+            },
+            {
+              "label": "2019 上半年",
+              "entrants": 1,
+              "top8": 1,
+              "medals": 1,
+              "bestRank": 3,
+              "top8Rate": 100
+            },
+            {
+              "label": "2019 下半年",
+              "entrants": 3,
+              "top8": 3,
+              "medals": 0,
+              "bestRank": 5,
+              "top8Rate": 100
+            },
+            {
+              "label": "2020 上半年",
+              "entrants": 5,
+              "top8": 4,
+              "medals": 4,
+              "bestRank": 1,
+              "top8Rate": 80
+            },
+            {
+              "label": "2021 上半年",
+              "entrants": 2,
+              "top8": 1,
+              "medals": 1,
+              "bestRank": 3,
+              "top8Rate": 50
+            }
+          ],
+          "qualifyRate": 84,
+          "eliminationPlayRate": 65,
+          "summaryCards": [
+            {
+              "title": "总人数",
+              "value": 100,
+              "detail": "8 个项目"
+            },
+            {
+              "title": "晋级人数",
+              "value": 84,
+              "detail": "含小组淘汰"
+            },
+            {
+              "title": "淘汰赛密度",
+              "value": "75 场",
+              "detail": "Bye 41 场"
+            }
+          ],
+          "bullets": [
+            "U12 男重 人数最多，24 人，晋级 19 人。"
+          ]
+        },
+        "items": [
+          {
+            "eventCode": "RZSS2034020MFIU10",
+            "eventName": "U10男子花剑个人",
+            "shortEventName": "U10 男花",
+            "openDate": null,
+            "competitionNo": 13,
+            "poolCount": 2,
+            "poolQualifyNo": 10,
+            "deStartPhase": "from Tableaus 16",
+            "playedEliminationMatchCount": 9,
+            "byeMatchCount": 6,
+            "athleteNames": [
+              "徐潇然",
+              "汪柏霖",
+              "周嘉雄",
+              "丁启宸",
+              "谢君墨",
+              "黄禹淙",
+              "黄元懋",
+              "颜培亦",
+              "彭浩宇",
+              "陈君岳",
+              "潘乐天",
+              "张岩松",
+              "陈犹耀"
+            ]
+          },
+          {
+            "eventCode": "RZSS2034020MEIU10",
+            "eventName": "U10男子重剑个人",
+            "shortEventName": "U10 男重",
+            "openDate": null,
+            "competitionNo": 17,
+            "poolCount": 3,
+            "poolQualifyNo": 13,
+            "deStartPhase": "from Tableaus 16",
+            "playedEliminationMatchCount": 12,
+            "byeMatchCount": 3,
+            "athleteNames": [
+              "张嘉盛",
+              "陈思然",
+              "杨启桢",
+              "刘栩辰",
+              "林恩霈",
+              "时铭泽",
+              "宋浩宇",
+              "梁庭睿",
+              "王琳溪",
+              "王璟泽",
+              "林诺禧",
+              "赵一帆",
+              "于博圣",
+              "张渊垣",
+              "李沐霖",
+              "胡肖南",
+              "孙望哲"
+            ]
+          },
+          {
+            "eventCode": "RZSS2034020MFIU12",
+            "eventName": "U12男子花剑个人",
+            "shortEventName": "U12 男花",
+            "openDate": null,
+            "competitionNo": 18,
+            "poolCount": 3,
+            "poolQualifyNo": 14,
+            "deStartPhase": "from Tableaus 16",
+            "playedEliminationMatchCount": 13,
+            "byeMatchCount": 2,
+            "athleteNames": [
+              "陈义洋",
+              "翟立鸿",
+              "徐潇然",
+              "徐睿泽",
+              "周嘉雄",
+              "汪柏霖",
+              "张家华",
+              "刘奕辰",
+              "张浦宸",
+              "丁启宸",
+              "冯翊宸",
+              "谢君墨",
+              "汤采葑",
+              "邓淳译",
+              "陈厚兆",
+              "林雨昊",
+              "黄禹淙",
+              "陈煜文"
+            ]
+          },
+          {
+            "eventCode": "RZSS2034020MEIU12",
+            "eventName": "U12男子重剑个人",
+            "shortEventName": "U12 男重",
+            "openDate": null,
+            "competitionNo": 24,
+            "poolCount": 4,
+            "poolQualifyNo": 19,
+            "deStartPhase": "from Tableaus 32",
+            "playedEliminationMatchCount": 18,
+            "byeMatchCount": 13,
+            "athleteNames": [
+              "赵禹瑞",
+              "金葆芮",
+              "杨岸霖",
+              "卢宏垚",
+              "张嘉盛",
+              "韦俊宇",
+              "李润丞",
+              "王琳溪",
+              "梁庭睿",
+              "孙铭杨",
+              "林诺禧",
+              "邱皓翔",
+              "王璟泽",
+              "陈思然",
+              "谢卓珉",
+              "张嘉瑞",
+              "章瀚尧",
+              "冯子轩",
+              "富泳霖",
+              "时铭泽",
+              "林恩霈",
+              "孙靖哲",
+              "谭思源",
+              "宋浩宇"
+            ]
+          },
+          {
+            "eventCode": "RZSS2034020MFIU14",
+            "eventName": "U14男子花剑个人",
+            "shortEventName": "U14 男花",
+            "openDate": null,
+            "competitionNo": 9,
+            "poolCount": 2,
+            "poolQualifyNo": 9,
+            "deStartPhase": "from Tableaus 16",
+            "playedEliminationMatchCount": 7,
+            "byeMatchCount": 8,
+            "athleteNames": [
+              "凌梓豪",
+              "张家华",
+              "张浦宸",
+              "吴清云",
+              "吴俊霖",
+              "高鸣骏",
+              "欧阳江林",
+              "潘杍墨",
+              "徐睿泽"
+            ]
+          },
+          {
+            "eventCode": "RZSS2034020MFIU6",
+            "eventName": "U6男子花剑个人",
+            "shortEventName": "U6 男花",
+            "openDate": null,
+            "competitionNo": 4,
+            "poolCount": 1,
+            "poolQualifyNo": 4,
+            "deStartPhase": "from Tableaus 半决赛",
+            "playedEliminationMatchCount": 3,
+            "byeMatchCount": 0,
+            "athleteNames": [
+              " 张棣涵",
+              "文允",
+              "林煜轩",
+              "郭锦瑞"
+            ]
+          },
+          {
+            "eventCode": "RZSS2034020MFIU8",
+            "eventName": "U8男子花剑个人",
+            "shortEventName": "U8 男花",
+            "openDate": null,
+            "competitionNo": 10,
+            "poolCount": 2,
+            "poolQualifyNo": 10,
+            "deStartPhase": "from Tableaus 16",
+            "playedEliminationMatchCount": 9,
+            "byeMatchCount": 6,
+            "athleteNames": [
+              "钟昊哲",
+              "陈炜胤",
+              "李闫君",
+              " 张棣涵",
+              "杨以沐",
+              "张梓铄",
+              "姚皓予",
+              "利炳林",
+              "文允",
+              "林煜轩"
+            ]
+          },
+          {
+            "eventCode": "RZSS2034020MEIU8",
+            "eventName": "U8男子重剑个人",
+            "shortEventName": "U8 男重",
+            "openDate": null,
+            "competitionNo": 5,
+            "poolCount": 1,
+            "poolQualifyNo": 5,
+            "deStartPhase": "from Tableaus 8",
+            "playedEliminationMatchCount": 4,
+            "byeMatchCount": 3,
+            "athleteNames": [
+              "于博圣",
+              "李沐霖",
+              "魏嘉茗",
+              "胡彧硕",
+              "朱格梓睦"
+            ]
+          }
+        ]
+      },
       {
         "sportCode": "RZSS20250309",
         "sportName": "2025年济南“奥伦杯”击剑公开赛",
@@ -8226,12 +8951,12 @@ export default {
         "sportName": "2026年“乐动长宁杯”上海击剑公开赛",
         "venue": "上海 上海市",
         "region": "华东",
-        "dateLabel": "2026-06-27 10:00:00 / 2026-06-28 10:00:00",
-        "status": "registration",
+        "dateLabel": "2026-06-27 10:00:00 / 2026-06-27 10:00:00 / 2026-06-27 10:00:00 / 2026-06-27 10:00:00 / 2026-06-27 10:00:00 / 2026-06-27 10:00:00 / 2026-06-27 10:00:00 / 2026-06-27 10:00:00 / 2026-06-27 10:00:00 / 2026-06-27 10:00:00 / 2026-06-27 10:00:00 / 2026-06-27 10:00:00 / 2026-06-27 10:00:00 / 2026-06-27 10:00:00 / 2026-06-27 10:00:00 / 2026-06-27 10:00:00 / 2026-06-27 10:00:00 / 2026-06-27 10:00:00 / 2026-06-27 10:00:00 / 2026-06-27 10:00:00 / 2026-06-27 10:00:00 / 2026-06-27 10:00:00 / 2026-06-27 10:00:00 / 2026-06-27 10:00:00 / 2026-06-27 10:00:00 / 2026-06-27 10:00:00 / 2026-06-27 10:00:00 / 2026-06-27 10:00:00 / 2026-06-27 10:00:00 / 2026-06-27 10:00:00 / 2026-06-27 10:00:00 / 2026-06-27 10:00:00 / 2026-06-27 10:00:00 / 2026-06-27 10:00:00 / 2026-06-27 10:00:00 / 2026-06-27 10:00:00 / 2026-06-27 10:00:00 / 2026-06-27 10:00:00 / 2026-06-27 10:00:00 / 2026-06-27 10:00:00 / 2026-06-27 10:00:00 / 2026-06-27 10:00:00 / 2026-06-27 10:00:00 / 2026-06-27 10:00:00 / 2026-06-27 10:00:00 / 2026-06-27 10:00:00 / 2026-06-27 10:00:00 / 2026-06-27 10:00:00 / 2026-06-27 10:00:00 / 2026-06-27 10:00:00 / 2026-06-27 10:00:00 / 2026-06-27 10:00:00 / 2026-06-27 10:00:00 / 2026-06-27 10:00:00 / 2026-06-27 10:00:00 / 2026-06-27 10:00:00 / 2026-06-27 10:00:00 / 2026-06-27 10:00:00 / 2026-06-27 10:00:00 / 2026-06-27 10:00:00 / 2026-06-27 10:00:00 / 2026-06-27 10:00:00 / 2026-06-27 10:00:00 / 2026-06-27 10:00:00 / 2026-06-27 10:00:00 / 2026-06-27 10:00:00 / 2026-06-27 10:00:00 / 2026-06-27 10:00:00 / 2026-06-27 10:00:00 / 2026-06-27 10:00:00 / 2026-06-27 10:00:00 / 2026-06-27 10:00:00 / 2026-06-27 10:00:00 / 2026-06-27 10:00:00 / 2026-06-27 10:00:00 / 2026-06-27 10:00:00 / 2026-06-27 10:00:00 / 2026-06-27 10:00:00",
+        "status": "upcoming",
         "rosterStatus": "none",
         "isPreEvent": true,
         "isPlatformEventList": true,
-        "itemCount": 0,
+        "itemCount": 78,
         "groupLabels": [
           "U6",
           "U8",
@@ -8249,12 +8974,12 @@ export default {
           "sigupactive": "1",
           "signStartDate": "2026-05-29 10:00:00",
           "signAthEndDate": "2026-06-19 23:59:00",
-          "sourceCoverage": "event-list-only"
+          "sourceCoverage": "event-list-plus-projectlist"
         },
         "registrationSummary": {
           "rosterCount": 0,
-          "expectedRegistrationCount": 0,
-          "itemCount": 0
+          "expectedRegistrationCount": 5850,
+          "itemCount": 78
         },
         "insights": {
           "summaryCards": [
@@ -8274,7 +8999,1022 @@ export default {
           ],
           "eventCharts": []
         },
-        "items": []
+        "items": [
+          {
+            "eventCode": "RZSS2036062MFIU6",
+            "eventName": "U6男子花剑个人",
+            "shortEventName": "U6男子花剑个人",
+            "openDate": "2026-06-27 10:00:00",
+            "closeDate": "2026-06-28 10:00:00",
+            "competitionNo": 75,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 75,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2036062MFIU8",
+            "eventName": "U8男子花剑个人",
+            "shortEventName": "U8男子花剑个人",
+            "openDate": "2026-06-27 10:00:00",
+            "closeDate": "2026-06-28 10:00:00",
+            "competitionNo": 75,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 75,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2036062MFIU10",
+            "eventName": "U10男子花剑个人",
+            "shortEventName": "U10男子花剑个人",
+            "openDate": "2026-06-27 10:00:00",
+            "closeDate": "2026-06-28 10:00:00",
+            "competitionNo": 75,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 75,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2036062MFIU12",
+            "eventName": "U12男子花剑个人",
+            "shortEventName": "U12男子花剑个人",
+            "openDate": "2026-06-27 10:00:00",
+            "closeDate": "2026-06-28 10:00:00",
+            "competitionNo": 75,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 75,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2036062MFIU14",
+            "eventName": "U14男子花剑个人",
+            "shortEventName": "U14男子花剑个人",
+            "openDate": "2026-06-27 10:00:00",
+            "closeDate": "2026-06-28 10:00:00",
+            "competitionNo": 75,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 75,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2036062MFIU16",
+            "eventName": "U16男子花剑个人",
+            "shortEventName": "U16男子花剑个人",
+            "openDate": "2026-06-27 10:00:00",
+            "closeDate": "2026-06-28 10:00:00",
+            "competitionNo": 75,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 75,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2036062MFICOPEN",
+            "eventName": "公开组男子花剑个人",
+            "shortEventName": "公开组男子花剑个人",
+            "openDate": "2026-06-27 10:00:00",
+            "closeDate": "2026-06-28 10:00:00",
+            "competitionNo": 75,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 75,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2036062MEIU6",
+            "eventName": "U6男子重剑个人",
+            "shortEventName": "U6男子重剑个人",
+            "openDate": "2026-06-27 10:00:00",
+            "closeDate": "2026-06-28 10:00:00",
+            "competitionNo": 75,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 75,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2036062MEIU8",
+            "eventName": "U8男子重剑个人",
+            "shortEventName": "U8男子重剑个人",
+            "openDate": "2026-06-27 10:00:00",
+            "closeDate": "2026-06-28 10:00:00",
+            "competitionNo": 75,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 75,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2036062MEIU10",
+            "eventName": "U10男子重剑个人",
+            "shortEventName": "U10男子重剑个人",
+            "openDate": "2026-06-27 10:00:00",
+            "closeDate": "2026-06-28 10:00:00",
+            "competitionNo": 75,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 75,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2036062MEIU12",
+            "eventName": "U12男子重剑个人",
+            "shortEventName": "U12男子重剑个人",
+            "openDate": "2026-06-27 10:00:00",
+            "closeDate": "2026-06-28 10:00:00",
+            "competitionNo": 75,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 75,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2036062MEIU14",
+            "eventName": "U14男子重剑个人",
+            "shortEventName": "U14男子重剑个人",
+            "openDate": "2026-06-27 10:00:00",
+            "closeDate": "2026-06-28 10:00:00",
+            "competitionNo": 75,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 75,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2036062MEIU16",
+            "eventName": "U16男子重剑个人",
+            "shortEventName": "U16男子重剑个人",
+            "openDate": "2026-06-27 10:00:00",
+            "closeDate": "2026-06-28 10:00:00",
+            "competitionNo": 75,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 75,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2036062MEICOPEN",
+            "eventName": "公开组男子重剑个人",
+            "shortEventName": "公开组男子重剑个人",
+            "openDate": "2026-06-27 10:00:00",
+            "closeDate": "2026-06-28 10:00:00",
+            "competitionNo": 75,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 75,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2036062MSIU6",
+            "eventName": "U6男子佩剑个人",
+            "shortEventName": "U6男子佩剑个人",
+            "openDate": "2026-06-27 10:00:00",
+            "closeDate": "2026-06-28 10:00:00",
+            "competitionNo": 75,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 75,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2036062MSIU8",
+            "eventName": "U8男子佩剑个人",
+            "shortEventName": "U8男子佩剑个人",
+            "openDate": "2026-06-27 10:00:00",
+            "closeDate": "2026-06-28 10:00:00",
+            "competitionNo": 75,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 75,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2036062MSIU10",
+            "eventName": "U10男子佩剑个人",
+            "shortEventName": "U10男子佩剑个人",
+            "openDate": "2026-06-27 10:00:00",
+            "closeDate": "2026-06-28 10:00:00",
+            "competitionNo": 75,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 75,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2036062MSIU12",
+            "eventName": "U12男子佩剑个人",
+            "shortEventName": "U12男子佩剑个人",
+            "openDate": "2026-06-27 10:00:00",
+            "closeDate": "2026-06-28 10:00:00",
+            "competitionNo": 75,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 75,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2036062MSIU14",
+            "eventName": "U14男子佩剑个人",
+            "shortEventName": "U14男子佩剑个人",
+            "openDate": "2026-06-27 10:00:00",
+            "closeDate": "2026-06-28 10:00:00",
+            "competitionNo": 75,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 75,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2036062MSIU16",
+            "eventName": "U16男子佩剑个人",
+            "shortEventName": "U16男子佩剑个人",
+            "openDate": "2026-06-27 10:00:00",
+            "closeDate": "2026-06-28 10:00:00",
+            "competitionNo": 75,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 75,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2036062MSICOPEN",
+            "eventName": "公开组男子佩剑个人",
+            "shortEventName": "公开组男子佩剑个人",
+            "openDate": "2026-06-27 10:00:00",
+            "closeDate": "2026-06-28 10:00:00",
+            "competitionNo": 75,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 75,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2036062WFIU6",
+            "eventName": "U6女子花剑个人",
+            "shortEventName": "U6女子花剑个人",
+            "openDate": "2026-06-27 10:00:00",
+            "closeDate": "2026-06-28 10:00:00",
+            "competitionNo": 75,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 75,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2036062WFIU8",
+            "eventName": "U8女子花剑个人",
+            "shortEventName": "U8女子花剑个人",
+            "openDate": "2026-06-27 10:00:00",
+            "closeDate": "2026-06-28 10:00:00",
+            "competitionNo": 75,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 75,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2036062WFIU10",
+            "eventName": "U10女子花剑个人",
+            "shortEventName": "U10女子花剑个人",
+            "openDate": "2026-06-27 10:00:00",
+            "closeDate": "2026-06-28 10:00:00",
+            "competitionNo": 75,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 75,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2036062WFIU12",
+            "eventName": "U12女子花剑个人",
+            "shortEventName": "U12女子花剑个人",
+            "openDate": "2026-06-27 10:00:00",
+            "closeDate": "2026-06-28 10:00:00",
+            "competitionNo": 75,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 75,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2036062WFIU14",
+            "eventName": "U14女子花剑个人",
+            "shortEventName": "U14女子花剑个人",
+            "openDate": "2026-06-27 10:00:00",
+            "closeDate": "2026-06-28 10:00:00",
+            "competitionNo": 75,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 75,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2036062WFIU16",
+            "eventName": "U16女子花剑个人",
+            "shortEventName": "U16女子花剑个人",
+            "openDate": "2026-06-27 10:00:00",
+            "closeDate": "2026-06-28 10:00:00",
+            "competitionNo": 75,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 75,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2036062WFICOPEN",
+            "eventName": "公开组女子花剑个人",
+            "shortEventName": "公开组女子花剑个人",
+            "openDate": "2026-06-27 10:00:00",
+            "closeDate": "2026-06-28 10:00:00",
+            "competitionNo": 75,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 75,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2036062WEIU6",
+            "eventName": "U6女子重剑个人",
+            "shortEventName": "U6女子重剑个人",
+            "openDate": "2026-06-27 10:00:00",
+            "closeDate": "2026-06-28 10:00:00",
+            "competitionNo": 75,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 75,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2036062WEIU8",
+            "eventName": "U8女子重剑个人",
+            "shortEventName": "U8女子重剑个人",
+            "openDate": "2026-06-27 10:00:00",
+            "closeDate": "2026-06-28 10:00:00",
+            "competitionNo": 75,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 75,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2036062WEIU10",
+            "eventName": "U10女子重剑个人",
+            "shortEventName": "U10女子重剑个人",
+            "openDate": "2026-06-27 10:00:00",
+            "closeDate": "2026-06-28 10:00:00",
+            "competitionNo": 75,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 75,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2036062WEIU12",
+            "eventName": "U12女子重剑个人",
+            "shortEventName": "U12女子重剑个人",
+            "openDate": "2026-06-27 10:00:00",
+            "closeDate": "2026-06-28 10:00:00",
+            "competitionNo": 75,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 75,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2036062WEIU14",
+            "eventName": "U14女子重剑个人",
+            "shortEventName": "U14女子重剑个人",
+            "openDate": "2026-06-27 10:00:00",
+            "closeDate": "2026-06-28 10:00:00",
+            "competitionNo": 75,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 75,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2036062WEIU16",
+            "eventName": "U16女子重剑个人",
+            "shortEventName": "U16女子重剑个人",
+            "openDate": "2026-06-27 10:00:00",
+            "closeDate": "2026-06-28 10:00:00",
+            "competitionNo": 75,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 75,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2036062WEICOPEN",
+            "eventName": "公开组女子重剑个人",
+            "shortEventName": "公开组女子重剑个人",
+            "openDate": "2026-06-27 10:00:00",
+            "closeDate": "2026-06-28 10:00:00",
+            "competitionNo": 75,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 75,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2036062WSIU6",
+            "eventName": "U6女子佩剑个人",
+            "shortEventName": "U6女子佩剑个人",
+            "openDate": "2026-06-27 10:00:00",
+            "closeDate": "2026-06-28 10:00:00",
+            "competitionNo": 75,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 75,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2036062WSIU8",
+            "eventName": "U8女子佩剑个人",
+            "shortEventName": "U8女子佩剑个人",
+            "openDate": "2026-06-27 10:00:00",
+            "closeDate": "2026-06-28 10:00:00",
+            "competitionNo": 75,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 75,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2036062WSIU10",
+            "eventName": "U10女子佩剑个人",
+            "shortEventName": "U10女子佩剑个人",
+            "openDate": "2026-06-27 10:00:00",
+            "closeDate": "2026-06-28 10:00:00",
+            "competitionNo": 75,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 75,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2036062WSIU12",
+            "eventName": "U12女子佩剑个人",
+            "shortEventName": "U12女子佩剑个人",
+            "openDate": "2026-06-27 10:00:00",
+            "closeDate": "2026-06-28 10:00:00",
+            "competitionNo": 75,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 75,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2036062WSIU14",
+            "eventName": "U14女子佩剑个人",
+            "shortEventName": "U14女子佩剑个人",
+            "openDate": "2026-06-27 10:00:00",
+            "closeDate": "2026-06-28 10:00:00",
+            "competitionNo": 75,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 75,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2036062WSIU16",
+            "eventName": "U16女子佩剑个人",
+            "shortEventName": "U16女子佩剑个人",
+            "openDate": "2026-06-27 10:00:00",
+            "closeDate": "2026-06-28 10:00:00",
+            "competitionNo": 75,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 75,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2036062WSICOPEN",
+            "eventName": "公开组女子佩剑个人",
+            "shortEventName": "公开组女子佩剑个人",
+            "openDate": "2026-06-27 10:00:00",
+            "closeDate": "2026-06-28 10:00:00",
+            "competitionNo": 75,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 75,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2036062MFTU6",
+            "eventName": "U6男子花剑团体",
+            "shortEventName": "U6男子花剑团体",
+            "openDate": "2026-06-27 10:00:00",
+            "closeDate": "2026-06-28 10:00:00",
+            "competitionNo": 75,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 75,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2036062MFTU8",
+            "eventName": "U8男子花剑团体",
+            "shortEventName": "U8男子花剑团体",
+            "openDate": "2026-06-27 10:00:00",
+            "closeDate": "2026-06-28 10:00:00",
+            "competitionNo": 75,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 75,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2036062MFTU10",
+            "eventName": "U10男子花剑团体",
+            "shortEventName": "U10男子花剑团体",
+            "openDate": "2026-06-27 10:00:00",
+            "closeDate": "2026-06-28 10:00:00",
+            "competitionNo": 75,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 75,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2036062MFTU12",
+            "eventName": "U12男子花剑团体",
+            "shortEventName": "U12男子花剑团体",
+            "openDate": "2026-06-27 10:00:00",
+            "closeDate": "2026-06-28 10:00:00",
+            "competitionNo": 75,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 75,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2036062MFTU14",
+            "eventName": "U14男子花剑团体",
+            "shortEventName": "U14男子花剑团体",
+            "openDate": "2026-06-27 10:00:00",
+            "closeDate": "2026-06-28 10:00:00",
+            "competitionNo": 75,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 75,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2036062MFTU16",
+            "eventName": "U16男子花剑团体",
+            "shortEventName": "U16男子花剑团体",
+            "openDate": "2026-06-27 10:00:00",
+            "closeDate": "2026-06-28 10:00:00",
+            "competitionNo": 75,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 75,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2036062METU6",
+            "eventName": "U6男子重剑团体",
+            "shortEventName": "U6男子重剑团体",
+            "openDate": "2026-06-27 10:00:00",
+            "closeDate": "2026-06-28 10:00:00",
+            "competitionNo": 75,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 75,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2036062METU8",
+            "eventName": "U8男子重剑团体",
+            "shortEventName": "U8男子重剑团体",
+            "openDate": "2026-06-27 10:00:00",
+            "closeDate": "2026-06-28 10:00:00",
+            "competitionNo": 75,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 75,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2036062METU10",
+            "eventName": "U10男子重剑团体",
+            "shortEventName": "U10男子重剑团体",
+            "openDate": "2026-06-27 10:00:00",
+            "closeDate": "2026-06-28 10:00:00",
+            "competitionNo": 75,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 75,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2036062METU12",
+            "eventName": "U12男子重剑团体",
+            "shortEventName": "U12男子重剑团体",
+            "openDate": "2026-06-27 10:00:00",
+            "closeDate": "2026-06-28 10:00:00",
+            "competitionNo": 75,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 75,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2036062METU14",
+            "eventName": "U14男子重剑团体",
+            "shortEventName": "U14男子重剑团体",
+            "openDate": "2026-06-27 10:00:00",
+            "closeDate": "2026-06-28 10:00:00",
+            "competitionNo": 75,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 75,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2036062METU16",
+            "eventName": "U16男子重剑团体",
+            "shortEventName": "U16男子重剑团体",
+            "openDate": "2026-06-27 10:00:00",
+            "closeDate": "2026-06-28 10:00:00",
+            "competitionNo": 75,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 75,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2036062MSTU6",
+            "eventName": "U6男子佩剑团体",
+            "shortEventName": "U6男子佩剑团体",
+            "openDate": "2026-06-27 10:00:00",
+            "closeDate": "2026-06-28 10:00:00",
+            "competitionNo": 75,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 75,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2036062MSTU8",
+            "eventName": "U8男子佩剑团体",
+            "shortEventName": "U8男子佩剑团体",
+            "openDate": "2026-06-27 10:00:00",
+            "closeDate": "2026-06-28 10:00:00",
+            "competitionNo": 75,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 75,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2036062MSTU10",
+            "eventName": "U10男子佩剑团体",
+            "shortEventName": "U10男子佩剑团体",
+            "openDate": "2026-06-27 10:00:00",
+            "closeDate": "2026-06-28 10:00:00",
+            "competitionNo": 75,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 75,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2036062MSTU12",
+            "eventName": "U12男子佩剑团体",
+            "shortEventName": "U12男子佩剑团体",
+            "openDate": "2026-06-27 10:00:00",
+            "closeDate": "2026-06-28 10:00:00",
+            "competitionNo": 75,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 75,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2036062MSTU14",
+            "eventName": "U14男子佩剑团体",
+            "shortEventName": "U14男子佩剑团体",
+            "openDate": "2026-06-27 10:00:00",
+            "closeDate": "2026-06-28 10:00:00",
+            "competitionNo": 75,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 75,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2036062MSTU16",
+            "eventName": "U16男子佩剑团体",
+            "shortEventName": "U16男子佩剑团体",
+            "openDate": "2026-06-27 10:00:00",
+            "closeDate": "2026-06-28 10:00:00",
+            "competitionNo": 75,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 75,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2036062WFTU6",
+            "eventName": "U6女子花剑团体",
+            "shortEventName": "U6女子花剑团体",
+            "openDate": "2026-06-27 10:00:00",
+            "closeDate": "2026-06-28 10:00:00",
+            "competitionNo": 75,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 75,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2036062WFTU8",
+            "eventName": "U8女子花剑团体",
+            "shortEventName": "U8女子花剑团体",
+            "openDate": "2026-06-27 10:00:00",
+            "closeDate": "2026-06-28 10:00:00",
+            "competitionNo": 75,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 75,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2036062WFTU10",
+            "eventName": "U10女子花剑团体",
+            "shortEventName": "U10女子花剑团体",
+            "openDate": "2026-06-27 10:00:00",
+            "closeDate": "2026-06-28 10:00:00",
+            "competitionNo": 75,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 75,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2036062WFTU12",
+            "eventName": "U12女子花剑团体",
+            "shortEventName": "U12女子花剑团体",
+            "openDate": "2026-06-27 10:00:00",
+            "closeDate": "2026-06-28 10:00:00",
+            "competitionNo": 75,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 75,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2036062WFTU14",
+            "eventName": "U14女子花剑团体",
+            "shortEventName": "U14女子花剑团体",
+            "openDate": "2026-06-27 10:00:00",
+            "closeDate": "2026-06-28 10:00:00",
+            "competitionNo": 75,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 75,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2036062WFTU16",
+            "eventName": "U16女子花剑团体",
+            "shortEventName": "U16女子花剑团体",
+            "openDate": "2026-06-27 10:00:00",
+            "closeDate": "2026-06-28 10:00:00",
+            "competitionNo": 75,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 75,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2036062WETU6",
+            "eventName": "U6女子重剑团体",
+            "shortEventName": "U6女子重剑团体",
+            "openDate": "2026-06-27 10:00:00",
+            "closeDate": "2026-06-28 10:00:00",
+            "competitionNo": 75,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 75,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2036062WETU8",
+            "eventName": "U8女子重剑团体",
+            "shortEventName": "U8女子重剑团体",
+            "openDate": "2026-06-27 10:00:00",
+            "closeDate": "2026-06-28 10:00:00",
+            "competitionNo": 75,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 75,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2036062WETU10",
+            "eventName": "U10女子重剑团体",
+            "shortEventName": "U10女子重剑团体",
+            "openDate": "2026-06-27 10:00:00",
+            "closeDate": "2026-06-28 10:00:00",
+            "competitionNo": 75,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 75,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2036062WETU12",
+            "eventName": "U12女子重剑团体",
+            "shortEventName": "U12女子重剑团体",
+            "openDate": "2026-06-27 10:00:00",
+            "closeDate": "2026-06-28 10:00:00",
+            "competitionNo": 75,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 75,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2036062WETU14",
+            "eventName": "U14女子重剑团体",
+            "shortEventName": "U14女子重剑团体",
+            "openDate": "2026-06-27 10:00:00",
+            "closeDate": "2026-06-28 10:00:00",
+            "competitionNo": 75,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 75,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2036062WETU16",
+            "eventName": "U16女子重剑团体",
+            "shortEventName": "U16女子重剑团体",
+            "openDate": "2026-06-27 10:00:00",
+            "closeDate": "2026-06-28 10:00:00",
+            "competitionNo": 75,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 75,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2036062WSTU6",
+            "eventName": "U6女子佩剑团体",
+            "shortEventName": "U6女子佩剑团体",
+            "openDate": "2026-06-27 10:00:00",
+            "closeDate": "2026-06-28 10:00:00",
+            "competitionNo": 75,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 75,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2036062WSTU8",
+            "eventName": "U8女子佩剑团体",
+            "shortEventName": "U8女子佩剑团体",
+            "openDate": "2026-06-27 10:00:00",
+            "closeDate": "2026-06-28 10:00:00",
+            "competitionNo": 75,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 75,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2036062WSTU10",
+            "eventName": "U10女子佩剑团体",
+            "shortEventName": "U10女子佩剑团体",
+            "openDate": "2026-06-27 10:00:00",
+            "closeDate": "2026-06-28 10:00:00",
+            "competitionNo": 75,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 75,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2036062WSTU12",
+            "eventName": "U12女子佩剑团体",
+            "shortEventName": "U12女子佩剑团体",
+            "openDate": "2026-06-27 10:00:00",
+            "closeDate": "2026-06-28 10:00:00",
+            "competitionNo": 75,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 75,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2036062WSTU14",
+            "eventName": "U14女子佩剑团体",
+            "shortEventName": "U14女子佩剑团体",
+            "openDate": "2026-06-27 10:00:00",
+            "closeDate": "2026-06-28 10:00:00",
+            "competitionNo": 75,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 75,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2036062WSTU16",
+            "eventName": "U16女子佩剑团体",
+            "shortEventName": "U16女子佩剑团体",
+            "openDate": "2026-06-27 10:00:00",
+            "closeDate": "2026-06-28 10:00:00",
+            "competitionNo": 75,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 75,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          }
+        ]
       },
       {
         "sportCode": "D05GJSSAN0820260104",
@@ -14799,12 +16539,12 @@ export default {
         "sportName": "2026年“福田杯”雷声击剑公开赛",
         "venue": "广东 广州市",
         "region": "中南",
-        "dateLabel": "2026-12-12 08:00:00 / 2026-12-13 18:00:00",
+        "dateLabel": "2026-12-12 08:00:00 / 2026-12-12 08:00:00 / 2026-12-12 08:00:00 / 2026-12-12 08:00:00 / 2026-12-12 08:00:00 / 2026-12-12 08:00:00 / 2026-12-12 08:00:00 / 2026-12-12 08:00:00 / 2026-12-12 08:00:00 / 2026-12-12 08:00:00 / 2026-12-12 08:00:00 / 2026-12-12 08:00:00 / 2026-12-12 08:00:00 / 2026-12-12 08:00:00 / 2026-12-12 08:00:00 / 2026-12-12 08:00:00 / 2026-12-12 08:00:00 / 2026-12-12 08:00:00 / 2026-12-12 08:00:00 / 2026-12-12 08:00:00 / 2026-12-12 08:00:00 / 2026-12-12 08:00:00 / 2026-12-12 08:00:00 / 2026-12-12 08:00:00 / 2026-12-12 08:00:00 / 2026-12-12 08:00:00 / 2026-12-12 08:00:00 / 2026-12-12 08:00:00 / 2026-12-12 08:00:00 / 2026-12-12 08:00:00 / 2026-12-12 08:00:00 / 2026-12-12 08:00:00 / 2026-12-12 08:00:00 / 2026-12-12 08:00:00 / 2026-12-12 08:00:00 / 2026-12-12 08:00:00",
         "status": "upcoming",
         "rosterStatus": "none",
         "isPreEvent": true,
         "isPlatformEventList": true,
-        "itemCount": 0,
+        "itemCount": 36,
         "groupLabels": [
           "U10",
           "U12",
@@ -14821,12 +16561,12 @@ export default {
           "sigupactive": "0",
           "signStartDate": "2026-12-10 10:00:00",
           "signAthEndDate": "2026-12-11 23:59:59",
-          "sourceCoverage": "event-list-only"
+          "sourceCoverage": "event-list-plus-projectlist"
         },
         "registrationSummary": {
           "rosterCount": 0,
-          "expectedRegistrationCount": 0,
-          "itemCount": 0
+          "expectedRegistrationCount": 36000,
+          "itemCount": 36
         },
         "insights": {
           "summaryCards": [
@@ -14846,7 +16586,476 @@ export default {
           ],
           "eventCharts": []
         },
-        "items": []
+        "items": [
+          {
+            "eventCode": "RZSSAH0220261212MFIU10",
+            "eventName": "U10男子花剑个人",
+            "shortEventName": "U10男子花剑个人",
+            "openDate": "2026-12-12 08:00:00",
+            "closeDate": "2026-12-13 18:00:00",
+            "competitionNo": 1000,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 1000,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSAH0220261212MFIU12",
+            "eventName": "U12男子花剑个人",
+            "shortEventName": "U12男子花剑个人",
+            "openDate": "2026-12-12 08:00:00",
+            "closeDate": "2026-12-13 18:00:00",
+            "competitionNo": 1000,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 1000,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSAH0220261212MFIU14",
+            "eventName": "U14男子花剑个人",
+            "shortEventName": "U14男子花剑个人",
+            "openDate": "2026-12-12 08:00:00",
+            "closeDate": "2026-12-13 18:00:00",
+            "competitionNo": 1000,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 1000,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSAH0220261212MFIU16",
+            "eventName": "U16男子花剑个人",
+            "shortEventName": "U16男子花剑个人",
+            "openDate": "2026-12-12 08:00:00",
+            "closeDate": "2026-12-13 18:00:00",
+            "competitionNo": 1000,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 1000,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSAH0220261212MFIU17s",
+            "eventName": "17+男子花剑个人",
+            "shortEventName": "17+男子花剑个人",
+            "openDate": "2026-12-12 08:00:00",
+            "closeDate": "2026-12-13 18:00:00",
+            "competitionNo": 1000,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 1000,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSAH0220261212MFICOPEN",
+            "eventName": "公开组男子花剑个人",
+            "shortEventName": "公开组男子花剑个人",
+            "openDate": "2026-12-12 08:00:00",
+            "closeDate": "2026-12-13 18:00:00",
+            "competitionNo": 1000,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 1000,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSAH0220261212MEIU10",
+            "eventName": "U10男子重剑个人",
+            "shortEventName": "U10男子重剑个人",
+            "openDate": "2026-12-12 08:00:00",
+            "closeDate": "2026-12-13 18:00:00",
+            "competitionNo": 1000,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 1000,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSAH0220261212MEIU12",
+            "eventName": "U12男子重剑个人",
+            "shortEventName": "U12男子重剑个人",
+            "openDate": "2026-12-12 08:00:00",
+            "closeDate": "2026-12-13 18:00:00",
+            "competitionNo": 1000,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 1000,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSAH0220261212MEIU14",
+            "eventName": "U14男子重剑个人",
+            "shortEventName": "U14男子重剑个人",
+            "openDate": "2026-12-12 08:00:00",
+            "closeDate": "2026-12-13 18:00:00",
+            "competitionNo": 1000,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 1000,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSAH0220261212MEIU16",
+            "eventName": "U16男子重剑个人",
+            "shortEventName": "U16男子重剑个人",
+            "openDate": "2026-12-12 08:00:00",
+            "closeDate": "2026-12-13 18:00:00",
+            "competitionNo": 1000,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 1000,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSAH0220261212MEIU17s",
+            "eventName": "17+男子重剑个人",
+            "shortEventName": "17+男子重剑个人",
+            "openDate": "2026-12-12 08:00:00",
+            "closeDate": "2026-12-13 18:00:00",
+            "competitionNo": 1000,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 1000,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSAH0220261212MEICOPEN",
+            "eventName": "公开组男子重剑个人",
+            "shortEventName": "公开组男子重剑个人",
+            "openDate": "2026-12-12 08:00:00",
+            "closeDate": "2026-12-13 18:00:00",
+            "competitionNo": 1000,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 1000,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSAH0220261212MSIU10",
+            "eventName": "U10男子佩剑个人",
+            "shortEventName": "U10男子佩剑个人",
+            "openDate": "2026-12-12 08:00:00",
+            "closeDate": "2026-12-13 18:00:00",
+            "competitionNo": 1000,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 1000,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSAH0220261212MSIU12",
+            "eventName": "U12男子佩剑个人",
+            "shortEventName": "U12男子佩剑个人",
+            "openDate": "2026-12-12 08:00:00",
+            "closeDate": "2026-12-13 18:00:00",
+            "competitionNo": 1000,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 1000,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSAH0220261212MSIU14",
+            "eventName": "U14男子佩剑个人",
+            "shortEventName": "U14男子佩剑个人",
+            "openDate": "2026-12-12 08:00:00",
+            "closeDate": "2026-12-13 18:00:00",
+            "competitionNo": 1000,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 1000,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSAH0220261212MSIU16",
+            "eventName": "U16男子佩剑个人",
+            "shortEventName": "U16男子佩剑个人",
+            "openDate": "2026-12-12 08:00:00",
+            "closeDate": "2026-12-13 18:00:00",
+            "competitionNo": 1000,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 1000,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSAH0220261212MSIU17s",
+            "eventName": "17+男子佩剑个人",
+            "shortEventName": "17+男子佩剑个人",
+            "openDate": "2026-12-12 08:00:00",
+            "closeDate": "2026-12-13 18:00:00",
+            "competitionNo": 1000,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 1000,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSAH0220261212MSICOPEN",
+            "eventName": "公开组男子佩剑个人",
+            "shortEventName": "公开组男子佩剑个人",
+            "openDate": "2026-12-12 08:00:00",
+            "closeDate": "2026-12-13 18:00:00",
+            "competitionNo": 1000,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 1000,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSAH0220261212WFIU10",
+            "eventName": "U10女子花剑个人",
+            "shortEventName": "U10女子花剑个人",
+            "openDate": "2026-12-12 08:00:00",
+            "closeDate": "2026-12-13 18:00:00",
+            "competitionNo": 1000,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 1000,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSAH0220261212WFIU12",
+            "eventName": "U12女子花剑个人",
+            "shortEventName": "U12女子花剑个人",
+            "openDate": "2026-12-12 08:00:00",
+            "closeDate": "2026-12-13 18:00:00",
+            "competitionNo": 1000,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 1000,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSAH0220261212WFIU14",
+            "eventName": "U14女子花剑个人",
+            "shortEventName": "U14女子花剑个人",
+            "openDate": "2026-12-12 08:00:00",
+            "closeDate": "2026-12-13 18:00:00",
+            "competitionNo": 1000,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 1000,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSAH0220261212WFIU16",
+            "eventName": "U16女子花剑个人",
+            "shortEventName": "U16女子花剑个人",
+            "openDate": "2026-12-12 08:00:00",
+            "closeDate": "2026-12-13 18:00:00",
+            "competitionNo": 1000,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 1000,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSAH0220261212WFIU17s",
+            "eventName": "17+女子花剑个人",
+            "shortEventName": "17+女子花剑个人",
+            "openDate": "2026-12-12 08:00:00",
+            "closeDate": "2026-12-13 18:00:00",
+            "competitionNo": 1000,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 1000,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSAH0220261212WFICOPEN",
+            "eventName": "公开组女子花剑个人",
+            "shortEventName": "公开组女子花剑个人",
+            "openDate": "2026-12-12 08:00:00",
+            "closeDate": "2026-12-13 18:00:00",
+            "competitionNo": 1000,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 1000,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSAH0220261212WEIU10",
+            "eventName": "U10女子重剑个人",
+            "shortEventName": "U10女子重剑个人",
+            "openDate": "2026-12-12 08:00:00",
+            "closeDate": "2026-12-13 18:00:00",
+            "competitionNo": 1000,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 1000,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSAH0220261212WEIU12",
+            "eventName": "U12女子重剑个人",
+            "shortEventName": "U12女子重剑个人",
+            "openDate": "2026-12-12 08:00:00",
+            "closeDate": "2026-12-13 18:00:00",
+            "competitionNo": 1000,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 1000,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSAH0220261212WEIU14",
+            "eventName": "U14女子重剑个人",
+            "shortEventName": "U14女子重剑个人",
+            "openDate": "2026-12-12 08:00:00",
+            "closeDate": "2026-12-13 18:00:00",
+            "competitionNo": 1000,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 1000,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSAH0220261212WEIU16",
+            "eventName": "U16女子重剑个人",
+            "shortEventName": "U16女子重剑个人",
+            "openDate": "2026-12-12 08:00:00",
+            "closeDate": "2026-12-13 18:00:00",
+            "competitionNo": 1000,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 1000,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSAH0220261212WEIU17s",
+            "eventName": "17+女子重剑个人",
+            "shortEventName": "17+女子重剑个人",
+            "openDate": "2026-12-12 08:00:00",
+            "closeDate": "2026-12-13 18:00:00",
+            "competitionNo": 1000,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 1000,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSAH0220261212WEICOPEN",
+            "eventName": "公开组女子重剑个人",
+            "shortEventName": "公开组女子重剑个人",
+            "openDate": "2026-12-12 08:00:00",
+            "closeDate": "2026-12-13 18:00:00",
+            "competitionNo": 1000,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 1000,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSAH0220261212WSIU10",
+            "eventName": "U10女子佩剑个人",
+            "shortEventName": "U10女子佩剑个人",
+            "openDate": "2026-12-12 08:00:00",
+            "closeDate": "2026-12-13 18:00:00",
+            "competitionNo": 1000,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 1000,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSAH0220261212WSIU12",
+            "eventName": "U12女子佩剑个人",
+            "shortEventName": "U12女子佩剑个人",
+            "openDate": "2026-12-12 08:00:00",
+            "closeDate": "2026-12-13 18:00:00",
+            "competitionNo": 1000,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 1000,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSAH0220261212WSIU14",
+            "eventName": "U14女子佩剑个人",
+            "shortEventName": "U14女子佩剑个人",
+            "openDate": "2026-12-12 08:00:00",
+            "closeDate": "2026-12-13 18:00:00",
+            "competitionNo": 1000,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 1000,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSAH0220261212WSIU16",
+            "eventName": "U16女子佩剑个人",
+            "shortEventName": "U16女子佩剑个人",
+            "openDate": "2026-12-12 08:00:00",
+            "closeDate": "2026-12-13 18:00:00",
+            "competitionNo": 1000,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 1000,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSAH0220261212WSIU17s",
+            "eventName": "17+女子佩剑个人",
+            "shortEventName": "17+女子佩剑个人",
+            "openDate": "2026-12-12 08:00:00",
+            "closeDate": "2026-12-13 18:00:00",
+            "competitionNo": 1000,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 1000,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSAH0220261212WSICOPEN",
+            "eventName": "公开组女子佩剑个人",
+            "shortEventName": "公开组女子佩剑个人",
+            "openDate": "2026-12-12 08:00:00",
+            "closeDate": "2026-12-13 18:00:00",
+            "competitionNo": 1000,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 1000,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          }
+        ]
       },
       {
         "sportCode": "Z01FOILDSS20181002",
@@ -18642,12 +20851,12 @@ export default {
         "sportName": "2026年”荟萃门杯\"五邑侨乡击剑公开赛总决赛",
         "venue": "广东 江门市",
         "region": "中南",
-        "dateLabel": "2026-12-05 00:00:00 / 2026-12-06 00:00:00",
+        "dateLabel": "2026-12-05 10:00:00 / 2026-12-05 10:00:00 / 2026-12-05 10:00:00 / 2026-12-05 10:00:00 / 2026-12-05 10:00:00 / 2026-12-05 10:00:00 / 2026-12-05 10:00:00 / 2026-12-05 10:00:00 / 2026-12-05 10:00:00 / 2026-12-05 10:00:00 / 2026-12-05 10:00:00 / 2026-12-05 10:00:00 / 2026-12-05 10:00:00 / 2026-12-05 10:00:00 / 2026-12-05 10:00:00 / 2026-12-05 10:00:00 / 2026-12-05 10:00:00 / 2026-12-05 10:00:00 / 2026-12-05 10:00:00 / 2026-12-05 10:00:00 / 2026-12-05 10:00:00 / 2026-12-05 10:00:00 / 2026-12-05 10:00:00 / 2026-12-05 10:00:00 / 2026-12-05 10:00:00 / 2026-12-05 10:00:00 / 2026-12-05 10:00:00 / 2026-12-05 10:00:00 / 2026-12-05 10:00:00 / 2026-12-05 10:00:00 / 2026-12-05 10:00:00 / 2026-12-05 10:00:00 / 2026-12-05 10:00:00 / 2026-12-05 10:00:00 / 2026-12-05 10:00:00 / 2026-12-05 10:00:00 / 2026-12-05 10:00:00 / 2026-12-05 10:00:00 / 2026-12-05 10:00:00 / 2026-12-05 10:00:00 / 2026-12-05 10:00:00 / 2026-12-05 10:00:00",
         "status": "upcoming",
         "rosterStatus": "none",
         "isPreEvent": true,
         "isPlatformEventList": true,
-        "itemCount": 0,
+        "itemCount": 42,
         "groupLabels": [
           "U6",
           "U8",
@@ -18665,12 +20874,12 @@ export default {
           "sigupactive": "0",
           "signStartDate": "2026-11-01 08:00:00",
           "signAthEndDate": "2026-11-24 23:59:59",
-          "sourceCoverage": "event-list-only"
+          "sourceCoverage": "event-list-plus-projectlist"
         },
         "registrationSummary": {
           "rosterCount": 0,
-          "expectedRegistrationCount": 0,
-          "itemCount": 0
+          "expectedRegistrationCount": 42000,
+          "itemCount": 42
         },
         "insights": {
           "summaryCards": [
@@ -18690,7 +20899,554 @@ export default {
           ],
           "eventCharts": []
         },
-        "items": []
+        "items": [
+          {
+            "eventCode": "RZSS2034090MFIU6",
+            "eventName": "U6男子花剑个人",
+            "shortEventName": "U6男子花剑个人",
+            "openDate": "2026-12-05 10:00:00",
+            "closeDate": "2026-12-07 10:00:00",
+            "competitionNo": 1000,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 1000,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2034090MFIU8",
+            "eventName": "U8男子花剑个人",
+            "shortEventName": "U8男子花剑个人",
+            "openDate": "2026-12-05 10:00:00",
+            "closeDate": "2026-12-07 10:00:00",
+            "competitionNo": 1000,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 1000,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2034090MFIU10",
+            "eventName": "U10男子花剑个人",
+            "shortEventName": "U10男子花剑个人",
+            "openDate": "2026-12-05 10:00:00",
+            "closeDate": "2026-12-07 10:00:00",
+            "competitionNo": 1000,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 1000,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2034090MFIU12",
+            "eventName": "U12男子花剑个人",
+            "shortEventName": "U12男子花剑个人",
+            "openDate": "2026-12-05 10:00:00",
+            "closeDate": "2026-12-07 10:00:00",
+            "competitionNo": 1000,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 1000,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2034090MFIU16",
+            "eventName": "U16男子花剑个人",
+            "shortEventName": "U16男子花剑个人",
+            "openDate": "2026-12-05 10:00:00",
+            "closeDate": "2026-12-07 10:00:00",
+            "competitionNo": 1000,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 1000,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2034090MFIU14",
+            "eventName": "U14男子花剑个人",
+            "shortEventName": "U14男子花剑个人",
+            "openDate": "2026-12-05 10:00:00",
+            "closeDate": "2026-12-07 10:00:00",
+            "competitionNo": 1000,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 1000,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2034090MFICOPEN",
+            "eventName": "年龄开放组男子花剑个人",
+            "shortEventName": "年龄开放组男子花剑个人",
+            "openDate": "2026-12-05 10:00:00",
+            "closeDate": "2026-12-07 10:00:00",
+            "competitionNo": 1000,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 1000,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2034090MEIU6",
+            "eventName": "U6男子重剑个人",
+            "shortEventName": "U6男子重剑个人",
+            "openDate": "2026-12-05 10:00:00",
+            "closeDate": "2026-12-07 10:00:00",
+            "competitionNo": 1000,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 1000,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2034090MEIU8",
+            "eventName": "U8男子重剑个人",
+            "shortEventName": "U8男子重剑个人",
+            "openDate": "2026-12-05 10:00:00",
+            "closeDate": "2026-12-07 10:00:00",
+            "competitionNo": 1000,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 1000,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2034090MEIU10",
+            "eventName": "U10男子重剑个人",
+            "shortEventName": "U10男子重剑个人",
+            "openDate": "2026-12-05 10:00:00",
+            "closeDate": "2026-12-07 10:00:00",
+            "competitionNo": 1000,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 1000,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2034090MEIU12",
+            "eventName": "U12男子重剑个人",
+            "shortEventName": "U12男子重剑个人",
+            "openDate": "2026-12-05 10:00:00",
+            "closeDate": "2026-12-07 10:00:00",
+            "competitionNo": 1000,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 1000,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2034090MEIU16",
+            "eventName": "U16男子重剑个人",
+            "shortEventName": "U16男子重剑个人",
+            "openDate": "2026-12-05 10:00:00",
+            "closeDate": "2026-12-07 10:00:00",
+            "competitionNo": 1000,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 1000,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2034090MEIU14",
+            "eventName": "U14男子重剑个人",
+            "shortEventName": "U14男子重剑个人",
+            "openDate": "2026-12-05 10:00:00",
+            "closeDate": "2026-12-07 10:00:00",
+            "competitionNo": 1000,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 1000,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2034090MEICOPEN",
+            "eventName": "年龄开放组男子重剑个人",
+            "shortEventName": "年龄开放组男子重剑个人",
+            "openDate": "2026-12-05 10:00:00",
+            "closeDate": "2026-12-07 10:00:00",
+            "competitionNo": 1000,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 1000,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2034090MSIU6",
+            "eventName": "U6男子佩剑个人",
+            "shortEventName": "U6男子佩剑个人",
+            "openDate": "2026-12-05 10:00:00",
+            "closeDate": "2026-12-07 10:00:00",
+            "competitionNo": 1000,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 1000,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2034090MSIU8",
+            "eventName": "U8男子佩剑个人",
+            "shortEventName": "U8男子佩剑个人",
+            "openDate": "2026-12-05 10:00:00",
+            "closeDate": "2026-12-07 10:00:00",
+            "competitionNo": 1000,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 1000,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2034090MSIU10",
+            "eventName": "U10男子佩剑个人",
+            "shortEventName": "U10男子佩剑个人",
+            "openDate": "2026-12-05 10:00:00",
+            "closeDate": "2026-12-07 10:00:00",
+            "competitionNo": 1000,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 1000,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2034090MSIU12",
+            "eventName": "U12男子佩剑个人",
+            "shortEventName": "U12男子佩剑个人",
+            "openDate": "2026-12-05 10:00:00",
+            "closeDate": "2026-12-07 10:00:00",
+            "competitionNo": 1000,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 1000,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2034090MSIU16",
+            "eventName": "U16男子佩剑个人",
+            "shortEventName": "U16男子佩剑个人",
+            "openDate": "2026-12-05 10:00:00",
+            "closeDate": "2026-12-07 10:00:00",
+            "competitionNo": 1000,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 1000,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2034090MSIU14",
+            "eventName": "U14男子佩剑个人",
+            "shortEventName": "U14男子佩剑个人",
+            "openDate": "2026-12-05 10:00:00",
+            "closeDate": "2026-12-07 10:00:00",
+            "competitionNo": 1000,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 1000,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2034090MSICOPEN",
+            "eventName": "年龄开放组男子佩剑个人",
+            "shortEventName": "年龄开放组男子佩剑个人",
+            "openDate": "2026-12-05 10:00:00",
+            "closeDate": "2026-12-07 10:00:00",
+            "competitionNo": 1000,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 1000,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2034090WFIU6",
+            "eventName": "U6女子花剑个人",
+            "shortEventName": "U6女子花剑个人",
+            "openDate": "2026-12-05 10:00:00",
+            "closeDate": "2026-12-07 10:00:00",
+            "competitionNo": 1000,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 1000,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2034090WFIU8",
+            "eventName": "U8女子花剑个人",
+            "shortEventName": "U8女子花剑个人",
+            "openDate": "2026-12-05 10:00:00",
+            "closeDate": "2026-12-07 10:00:00",
+            "competitionNo": 1000,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 1000,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2034090WFIU10",
+            "eventName": "U10女子花剑个人",
+            "shortEventName": "U10女子花剑个人",
+            "openDate": "2026-12-05 10:00:00",
+            "closeDate": "2026-12-07 10:00:00",
+            "competitionNo": 1000,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 1000,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2034090WFIU12",
+            "eventName": "U12女子花剑个人",
+            "shortEventName": "U12女子花剑个人",
+            "openDate": "2026-12-05 10:00:00",
+            "closeDate": "2026-12-07 10:00:00",
+            "competitionNo": 1000,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 1000,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2034090WFIU16",
+            "eventName": "U16女子花剑个人",
+            "shortEventName": "U16女子花剑个人",
+            "openDate": "2026-12-05 10:00:00",
+            "closeDate": "2026-12-07 10:00:00",
+            "competitionNo": 1000,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 1000,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2034090WFIU14",
+            "eventName": "U14女子花剑个人",
+            "shortEventName": "U14女子花剑个人",
+            "openDate": "2026-12-05 10:00:00",
+            "closeDate": "2026-12-07 10:00:00",
+            "competitionNo": 1000,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 1000,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2034090WFICOPEN",
+            "eventName": "年龄开放组女子花剑个人",
+            "shortEventName": "年龄开放组女子花剑个人",
+            "openDate": "2026-12-05 10:00:00",
+            "closeDate": "2026-12-07 10:00:00",
+            "competitionNo": 1000,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 1000,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2034090WEIU6",
+            "eventName": "U6女子重剑个人",
+            "shortEventName": "U6女子重剑个人",
+            "openDate": "2026-12-05 10:00:00",
+            "closeDate": "2026-12-07 10:00:00",
+            "competitionNo": 1000,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 1000,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2034090WEIU8",
+            "eventName": "U8女子重剑个人",
+            "shortEventName": "U8女子重剑个人",
+            "openDate": "2026-12-05 10:00:00",
+            "closeDate": "2026-12-07 10:00:00",
+            "competitionNo": 1000,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 1000,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2034090WEIU10",
+            "eventName": "U10女子重剑个人",
+            "shortEventName": "U10女子重剑个人",
+            "openDate": "2026-12-05 10:00:00",
+            "closeDate": "2026-12-07 10:00:00",
+            "competitionNo": 1000,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 1000,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2034090WEIU12",
+            "eventName": "U12女子重剑个人",
+            "shortEventName": "U12女子重剑个人",
+            "openDate": "2026-12-05 10:00:00",
+            "closeDate": "2026-12-07 10:00:00",
+            "competitionNo": 1000,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 1000,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2034090WEIU16",
+            "eventName": "U16女子重剑个人",
+            "shortEventName": "U16女子重剑个人",
+            "openDate": "2026-12-05 10:00:00",
+            "closeDate": "2026-12-07 10:00:00",
+            "competitionNo": 1000,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 1000,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2034090WEIU14",
+            "eventName": "U14女子重剑个人",
+            "shortEventName": "U14女子重剑个人",
+            "openDate": "2026-12-05 10:00:00",
+            "closeDate": "2026-12-07 10:00:00",
+            "competitionNo": 1000,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 1000,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2034090WEICOPEN",
+            "eventName": "年龄开放组女子重剑个人",
+            "shortEventName": "年龄开放组女子重剑个人",
+            "openDate": "2026-12-05 10:00:00",
+            "closeDate": "2026-12-07 10:00:00",
+            "competitionNo": 1000,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 1000,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2034090WSIU6",
+            "eventName": "U6女子佩剑个人",
+            "shortEventName": "U6女子佩剑个人",
+            "openDate": "2026-12-05 10:00:00",
+            "closeDate": "2026-12-07 10:00:00",
+            "competitionNo": 1000,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 1000,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2034090WSIU8",
+            "eventName": "U8女子佩剑个人",
+            "shortEventName": "U8女子佩剑个人",
+            "openDate": "2026-12-05 10:00:00",
+            "closeDate": "2026-12-07 10:00:00",
+            "competitionNo": 1000,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 1000,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2034090WSIU10",
+            "eventName": "U10女子佩剑个人",
+            "shortEventName": "U10女子佩剑个人",
+            "openDate": "2026-12-05 10:00:00",
+            "closeDate": "2026-12-07 10:00:00",
+            "competitionNo": 1000,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 1000,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2034090WSIU12",
+            "eventName": "U12女子佩剑个人",
+            "shortEventName": "U12女子佩剑个人",
+            "openDate": "2026-12-05 10:00:00",
+            "closeDate": "2026-12-07 10:00:00",
+            "competitionNo": 1000,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 1000,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2034090WSIU16",
+            "eventName": "U16女子佩剑个人",
+            "shortEventName": "U16女子佩剑个人",
+            "openDate": "2026-12-05 10:00:00",
+            "closeDate": "2026-12-07 10:00:00",
+            "competitionNo": 1000,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 1000,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2034090WSIU14",
+            "eventName": "U14女子佩剑个人",
+            "shortEventName": "U14女子佩剑个人",
+            "openDate": "2026-12-05 10:00:00",
+            "closeDate": "2026-12-07 10:00:00",
+            "competitionNo": 1000,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 1000,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSS2034090WSICOPEN",
+            "eventName": "年龄开放组女子佩剑个人",
+            "shortEventName": "年龄开放组女子佩剑个人",
+            "openDate": "2026-12-05 10:00:00",
+            "closeDate": "2026-12-07 10:00:00",
+            "competitionNo": 1000,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 1000,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          }
+        ]
       },
       {
         "sportCode": "F01QSGJSNONE120180831",
@@ -27142,73 +29898,17 @@ export default {
         "items": []
       },
       {
-        "sportCode": "RZSS2034020",
-        "sportId": 101072,
-        "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
-        "venue": "海南 儋州市",
-        "region": "中南",
-        "dateLabel": "2026-05-30 10:00:00 / 2026-05-31 10:00:00",
-        "status": "completed",
-        "rosterStatus": "none",
-        "isPreEvent": true,
-        "isPlatformEventList": true,
-        "itemCount": 0,
-        "groupLabels": [
-          "U6",
-          "U8",
-          "U10",
-          "U12",
-          "U14",
-          "U16",
-          "17+"
-        ],
-        "platformMeta": {
-          "season": "2026",
-          "gameDesc": "认证赛事",
-          "gameLevel": "C",
-          "sportactive": "2",
-          "sigupactive": "2",
-          "signStartDate": "2026-04-25 10:00:00",
-          "signAthEndDate": "2026-05-22 23:59:59",
-          "sourceCoverage": "event-list-only"
-        },
-        "registrationSummary": {
-          "rosterCount": 0,
-          "expectedRegistrationCount": 0,
-          "itemCount": 0
-        },
-        "insights": {
-          "summaryCards": [
-            {
-              "title": "赛事状态",
-              "value": "completed",
-              "detail": "认证赛事"
-            },
-            {
-              "title": "组别覆盖",
-              "value": 7,
-              "detail": "U6 / U8 / U10"
-            }
-          ],
-          "bullets": [
-            "已接入平台赛事列表。项目清单、报名名单和成绩对阵仍需继续补齐，才能做更深的赛前/赛后分析。"
-          ],
-          "eventCharts": []
-        },
-        "items": []
-      },
-      {
         "sportCode": "RZSSBJ0120230829",
         "sportId": 100082,
         "sportName": "报名赛事2",
         "venue": "辽宁 鞍山市",
         "region": "东北",
-        "dateLabel": "2026-08-12 00:00:00 / 2026-09-14 00:00:00",
-        "status": "registration",
+        "dateLabel": "2024-08-29 00:00:00 / 2024-08-29 00:00:00 / 2024-08-29 00:00:00 / 2024-08-29 00:00:00 / 2024-08-29 00:00:00 / 2024-08-29 00:00:00 / 2024-08-29 00:00:00 / 2024-08-29 00:00:00 / 2024-08-29 00:00:00 / 2024-08-29 00:00:00 / 2024-08-29 00:00:00 / 2024-08-29 00:00:00 / 2024-08-29 00:00:00 / 2024-08-29 00:00:00 / 2024-08-29 00:00:00 / 2024-08-29 00:00:00 / 2024-08-29 00:00:00 / 2024-08-29 00:00:00 / 2024-08-29 00:00:00 / 2024-08-29 00:00:00 / 2024-08-29 00:00:00 / 2024-08-29 00:00:00 / 2024-08-29 00:00:00 / 2024-08-29 00:00:00 / 2024-08-29 00:00:00 / 2024-08-29 00:00:00 / 2024-08-29 00:00:00 / 2024-08-29 00:00:00 / 2024-08-29 00:00:00 / 2024-08-29 00:00:00 / 2024-08-29 00:00:00 / 2024-08-29 00:00:00 / 2024-08-29 00:00:00 / 2024-08-29 00:00:00 / 2024-08-29 00:00:00 / 2024-08-29 00:00:00 / 2024-08-29 00:00:00 / 2024-08-29 00:00:00 / 2024-08-29 00:00:00 / 2024-08-29 00:00:00 / 2024-08-29 00:00:00 / 2024-08-29 00:00:00 / 2024-08-29 00:00:00 / 2024-08-29 00:00:00 / 2024-08-29 00:00:00 / 2024-08-29 00:00:00 / 2024-08-29 00:00:00 / 2024-08-29 00:00:00 / 2024-08-29 00:00:00 / 2024-08-29 00:00:00 / 2024-08-29 00:00:00 / 2024-08-29 00:00:00 / 2024-08-29 00:00:00 / 2024-08-29 00:00:00 / 2024-08-29 00:00:00 / 2024-08-29 00:00:00 / 2024-08-29 00:00:00 / 2024-08-29 00:00:00 / 2024-08-29 00:00:00 / 2024-08-29 00:00:00 / 2024-08-29 00:00:00 / 2024-08-29 00:00:00 / 2024-08-29 00:00:00 / 2024-08-29 00:00:00 / 2024-08-29 00:00:00 / 2024-08-29 00:00:00 / 2024-08-29 00:00:00 / 2024-08-29 00:00:00 / 2024-08-29 00:00:00 / 2024-08-29 00:00:00 / 2024-08-29 00:00:00 / 2025-08-16 00:00:00 / 2025-08-16 00:00:00 / 2025-08-16 00:00:00 / 2025-08-16 00:00:00 / 2025-08-16 00:00:00 / 2025-08-16 00:00:00 / 2025-08-16 00:00:00",
+        "status": "completed",
         "rosterStatus": "none",
         "isPreEvent": true,
         "isPlatformEventList": true,
-        "itemCount": 0,
+        "itemCount": 78,
         "groupLabels": [
           "U6",
           "U8",
@@ -27228,12 +29928,12 @@ export default {
           "sigupactive": "1",
           "signStartDate": "2026-05-14 10:00:00",
           "signAthEndDate": "2026-06-28 00:00:00",
-          "sourceCoverage": "event-list-only"
+          "sourceCoverage": "event-list-plus-projectlist"
         },
         "registrationSummary": {
           "rosterCount": 0,
-          "expectedRegistrationCount": 0,
-          "itemCount": 0
+          "expectedRegistrationCount": 234,
+          "itemCount": 78
         },
         "insights": {
           "summaryCards": [
@@ -27253,7 +29953,1022 @@ export default {
           ],
           "eventCharts": []
         },
-        "items": []
+        "items": [
+          {
+            "eventCode": "RZSSBJ0120230829MFIU6",
+            "eventName": "U6男子花剑个人",
+            "shortEventName": "U6男子花剑个人",
+            "openDate": "2024-08-29 00:00:00",
+            "closeDate": "2024-08-29 00:00:00",
+            "competitionNo": 3,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 3,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSBJ0120230829MFIU8",
+            "eventName": "U8男子花剑个人",
+            "shortEventName": "U8男子花剑个人",
+            "openDate": "2024-08-29 00:00:00",
+            "closeDate": "2024-08-29 00:00:00",
+            "competitionNo": 3,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 3,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSBJ0120230829MFIU12",
+            "eventName": "U12男子花剑个人",
+            "shortEventName": "U12男子花剑个人",
+            "openDate": "2024-08-29 00:00:00",
+            "closeDate": "2024-08-29 00:00:00",
+            "competitionNo": 3,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 3,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSBJ0120230829MFIU14",
+            "eventName": "U14男子花剑个人",
+            "shortEventName": "U14男子花剑个人",
+            "openDate": "2024-08-29 00:00:00",
+            "closeDate": "2024-08-29 00:00:00",
+            "competitionNo": 3,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 3,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSBJ0120230829MFIU16",
+            "eventName": "U16男子花剑个人",
+            "shortEventName": "U16男子花剑个人",
+            "openDate": "2024-08-29 00:00:00",
+            "closeDate": "2024-08-29 00:00:00",
+            "competitionNo": 3,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 3,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSBJ0120230829MFIU17s",
+            "eventName": "17+男子花剑个人",
+            "shortEventName": "17+男子花剑个人",
+            "openDate": "2024-08-29 00:00:00",
+            "closeDate": "2024-08-29 00:00:00",
+            "competitionNo": 3,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 3,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSBJ0120230829MFICOPEN",
+            "eventName": "公开组男子花剑个人",
+            "shortEventName": "公开组男子花剑个人",
+            "openDate": "2024-08-29 00:00:00",
+            "closeDate": "2024-08-29 00:00:00",
+            "competitionNo": 3,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 3,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSBJ0120230829MFIU40s",
+            "eventName": "老将组男子花剑个人",
+            "shortEventName": "老将组男子花剑个人",
+            "openDate": "2024-08-29 00:00:00",
+            "closeDate": "2024-08-29 00:00:00",
+            "competitionNo": 3,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 3,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSBJ0120230829MEIU6",
+            "eventName": "U6男子重剑个人",
+            "shortEventName": "U6男子重剑个人",
+            "openDate": "2024-08-29 00:00:00",
+            "closeDate": "2024-08-29 00:00:00",
+            "competitionNo": 3,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 3,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSBJ0120230829MEIU8",
+            "eventName": "U8男子重剑个人",
+            "shortEventName": "U8男子重剑个人",
+            "openDate": "2024-08-29 00:00:00",
+            "closeDate": "2024-08-29 00:00:00",
+            "competitionNo": 3,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 3,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSBJ0120230829MEIU10",
+            "eventName": "U10男子重剑个人",
+            "shortEventName": "U10男子重剑个人",
+            "openDate": "2024-08-29 00:00:00",
+            "closeDate": "2024-08-29 00:00:00",
+            "competitionNo": 3,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 3,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSBJ0120230829MEIU12",
+            "eventName": "U12男子重剑个人",
+            "shortEventName": "U12男子重剑个人",
+            "openDate": "2024-08-29 00:00:00",
+            "closeDate": "2024-08-29 00:00:00",
+            "competitionNo": 3,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 3,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSBJ0120230829MEIU14",
+            "eventName": "U14男子重剑个人",
+            "shortEventName": "U14男子重剑个人",
+            "openDate": "2024-08-29 00:00:00",
+            "closeDate": "2024-08-29 00:00:00",
+            "competitionNo": 3,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 3,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSBJ0120230829MEIU16",
+            "eventName": "U16男子重剑个人",
+            "shortEventName": "U16男子重剑个人",
+            "openDate": "2024-08-29 00:00:00",
+            "closeDate": "2024-08-29 00:00:00",
+            "competitionNo": 3,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 3,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSBJ0120230829MEIU17s",
+            "eventName": "17+男子重剑个人",
+            "shortEventName": "17+男子重剑个人",
+            "openDate": "2024-08-29 00:00:00",
+            "closeDate": "2024-08-29 00:00:00",
+            "competitionNo": 3,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 3,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSBJ0120230829MEICOPEN",
+            "eventName": "公开组男子重剑个人",
+            "shortEventName": "公开组男子重剑个人",
+            "openDate": "2024-08-29 00:00:00",
+            "closeDate": "2024-08-29 00:00:00",
+            "competitionNo": 3,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 3,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSBJ0120230829MEIU40s",
+            "eventName": "老将组男子重剑个人",
+            "shortEventName": "老将组男子重剑个人",
+            "openDate": "2024-08-29 00:00:00",
+            "closeDate": "2024-08-29 00:00:00",
+            "competitionNo": 3,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 3,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSBJ0120230829MSIU6",
+            "eventName": "U6男子佩剑个人",
+            "shortEventName": "U6男子佩剑个人",
+            "openDate": "2024-08-29 00:00:00",
+            "closeDate": "2024-08-29 00:00:00",
+            "competitionNo": 3,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 3,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSBJ0120230829MSIU8",
+            "eventName": "U8男子佩剑个人",
+            "shortEventName": "U8男子佩剑个人",
+            "openDate": "2024-08-29 00:00:00",
+            "closeDate": "2024-08-29 00:00:00",
+            "competitionNo": 3,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 3,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSBJ0120230829MSIU10",
+            "eventName": "U10男子佩剑个人",
+            "shortEventName": "U10男子佩剑个人",
+            "openDate": "2024-08-29 00:00:00",
+            "closeDate": "2024-08-29 00:00:00",
+            "competitionNo": 3,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 3,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSBJ0120230829MSIU12",
+            "eventName": "U12男子佩剑个人",
+            "shortEventName": "U12男子佩剑个人",
+            "openDate": "2024-08-29 00:00:00",
+            "closeDate": "2024-08-29 00:00:00",
+            "competitionNo": 3,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 3,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSBJ0120230829MSIU14",
+            "eventName": "U14男子佩剑个人",
+            "shortEventName": "U14男子佩剑个人",
+            "openDate": "2024-08-29 00:00:00",
+            "closeDate": "2024-08-29 00:00:00",
+            "competitionNo": 3,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 3,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSBJ0120230829MSIU16",
+            "eventName": "U16男子佩剑个人",
+            "shortEventName": "U16男子佩剑个人",
+            "openDate": "2024-08-29 00:00:00",
+            "closeDate": "2024-08-29 00:00:00",
+            "competitionNo": 3,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 3,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSBJ0120230829MSIU17s",
+            "eventName": "17+男子佩剑个人",
+            "shortEventName": "17+男子佩剑个人",
+            "openDate": "2024-08-29 00:00:00",
+            "closeDate": "2024-08-29 00:00:00",
+            "competitionNo": 3,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 3,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSBJ0120230829MSICOPEN",
+            "eventName": "公开组男子佩剑个人",
+            "shortEventName": "公开组男子佩剑个人",
+            "openDate": "2024-08-29 00:00:00",
+            "closeDate": "2024-08-29 00:00:00",
+            "competitionNo": 3,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 3,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSBJ0120230829MSIU40s",
+            "eventName": "老将组男子佩剑个人",
+            "shortEventName": "老将组男子佩剑个人",
+            "openDate": "2024-08-29 00:00:00",
+            "closeDate": "2024-08-29 00:00:00",
+            "competitionNo": 3,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 3,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSBJ0120230829WFIU6",
+            "eventName": "U6女子花剑个人",
+            "shortEventName": "U6女子花剑个人",
+            "openDate": "2024-08-29 00:00:00",
+            "closeDate": "2024-08-29 00:00:00",
+            "competitionNo": 3,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 3,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSBJ0120230829WFIU8",
+            "eventName": "U8女子花剑个人",
+            "shortEventName": "U8女子花剑个人",
+            "openDate": "2024-08-29 00:00:00",
+            "closeDate": "2024-08-29 00:00:00",
+            "competitionNo": 3,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 3,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSBJ0120230829WFIU10",
+            "eventName": "U10女子花剑个人",
+            "shortEventName": "U10女子花剑个人",
+            "openDate": "2024-08-29 00:00:00",
+            "closeDate": "2024-08-29 00:00:00",
+            "competitionNo": 3,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 3,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSBJ0120230829WFIU12",
+            "eventName": "U12女子花剑个人",
+            "shortEventName": "U12女子花剑个人",
+            "openDate": "2024-08-29 00:00:00",
+            "closeDate": "2024-08-29 00:00:00",
+            "competitionNo": 3,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 3,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSBJ0120230829WFIU14",
+            "eventName": "U14女子花剑个人",
+            "shortEventName": "U14女子花剑个人",
+            "openDate": "2024-08-29 00:00:00",
+            "closeDate": "2024-08-29 00:00:00",
+            "competitionNo": 3,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 3,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSBJ0120230829WFIU16",
+            "eventName": "U16女子花剑个人",
+            "shortEventName": "U16女子花剑个人",
+            "openDate": "2024-08-29 00:00:00",
+            "closeDate": "2024-08-29 00:00:00",
+            "competitionNo": 3,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 3,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSBJ0120230829WFIU17s",
+            "eventName": "17+女子花剑个人",
+            "shortEventName": "17+女子花剑个人",
+            "openDate": "2024-08-29 00:00:00",
+            "closeDate": "2024-08-29 00:00:00",
+            "competitionNo": 3,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 3,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSBJ0120230829WFICOPEN",
+            "eventName": "公开组女子花剑个人",
+            "shortEventName": "公开组女子花剑个人",
+            "openDate": "2024-08-29 00:00:00",
+            "closeDate": "2024-08-29 00:00:00",
+            "competitionNo": 3,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 3,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSBJ0120230829WFIU40s",
+            "eventName": "老将组女子花剑个人",
+            "shortEventName": "老将组女子花剑个人",
+            "openDate": "2024-08-29 00:00:00",
+            "closeDate": "2024-08-29 00:00:00",
+            "competitionNo": 3,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 3,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSBJ0120230829WEIU6",
+            "eventName": "U6女子重剑个人",
+            "shortEventName": "U6女子重剑个人",
+            "openDate": "2024-08-29 00:00:00",
+            "closeDate": "2024-08-29 00:00:00",
+            "competitionNo": 3,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 3,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSBJ0120230829WEIU8",
+            "eventName": "U8女子重剑个人",
+            "shortEventName": "U8女子重剑个人",
+            "openDate": "2024-08-29 00:00:00",
+            "closeDate": "2024-08-29 00:00:00",
+            "competitionNo": 3,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 3,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSBJ0120230829WEIU10",
+            "eventName": "U10女子重剑个人",
+            "shortEventName": "U10女子重剑个人",
+            "openDate": "2024-08-29 00:00:00",
+            "closeDate": "2024-08-29 00:00:00",
+            "competitionNo": 3,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 3,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSBJ0120230829WEIU12",
+            "eventName": "U12女子重剑个人",
+            "shortEventName": "U12女子重剑个人",
+            "openDate": "2024-08-29 00:00:00",
+            "closeDate": "2024-08-29 00:00:00",
+            "competitionNo": 3,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 3,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSBJ0120230829WEIU14",
+            "eventName": "U14女子重剑个人",
+            "shortEventName": "U14女子重剑个人",
+            "openDate": "2024-08-29 00:00:00",
+            "closeDate": "2024-08-29 00:00:00",
+            "competitionNo": 3,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 3,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSBJ0120230829WEIU16",
+            "eventName": "U16女子重剑个人",
+            "shortEventName": "U16女子重剑个人",
+            "openDate": "2024-08-29 00:00:00",
+            "closeDate": "2024-08-29 00:00:00",
+            "competitionNo": 3,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 3,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSBJ0120230829WEIU17s",
+            "eventName": "17+女子重剑个人",
+            "shortEventName": "17+女子重剑个人",
+            "openDate": "2024-08-29 00:00:00",
+            "closeDate": "2024-08-29 00:00:00",
+            "competitionNo": 3,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 3,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSBJ0120230829WEICOPEN",
+            "eventName": "公开组女子重剑个人",
+            "shortEventName": "公开组女子重剑个人",
+            "openDate": "2024-08-29 00:00:00",
+            "closeDate": "2024-08-29 00:00:00",
+            "competitionNo": 3,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 3,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSBJ0120230829WEIU40s",
+            "eventName": "老将组女子重剑个人",
+            "shortEventName": "老将组女子重剑个人",
+            "openDate": "2024-08-29 00:00:00",
+            "closeDate": "2024-08-29 00:00:00",
+            "competitionNo": 3,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 3,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSBJ0120230829WSIU6",
+            "eventName": "U6女子佩剑个人",
+            "shortEventName": "U6女子佩剑个人",
+            "openDate": "2024-08-29 00:00:00",
+            "closeDate": "2024-08-29 00:00:00",
+            "competitionNo": 3,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 3,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSBJ0120230829WSIU8",
+            "eventName": "U8女子佩剑个人",
+            "shortEventName": "U8女子佩剑个人",
+            "openDate": "2024-08-29 00:00:00",
+            "closeDate": "2024-08-29 00:00:00",
+            "competitionNo": 3,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 3,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSBJ0120230829WSIU10",
+            "eventName": "U10女子佩剑个人",
+            "shortEventName": "U10女子佩剑个人",
+            "openDate": "2024-08-29 00:00:00",
+            "closeDate": "2024-08-29 00:00:00",
+            "competitionNo": 3,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 3,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSBJ0120230829WSIU12",
+            "eventName": "U12女子佩剑个人",
+            "shortEventName": "U12女子佩剑个人",
+            "openDate": "2024-08-29 00:00:00",
+            "closeDate": "2024-08-29 00:00:00",
+            "competitionNo": 3,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 3,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSBJ0120230829WSIU14",
+            "eventName": "U14女子佩剑个人",
+            "shortEventName": "U14女子佩剑个人",
+            "openDate": "2024-08-29 00:00:00",
+            "closeDate": "2024-08-29 00:00:00",
+            "competitionNo": 3,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 3,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSBJ0120230829WSIU16",
+            "eventName": "U16女子佩剑个人",
+            "shortEventName": "U16女子佩剑个人",
+            "openDate": "2024-08-29 00:00:00",
+            "closeDate": "2024-08-29 00:00:00",
+            "competitionNo": 3,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 3,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSBJ0120230829WSIU17s",
+            "eventName": "17+女子佩剑个人",
+            "shortEventName": "17+女子佩剑个人",
+            "openDate": "2024-08-29 00:00:00",
+            "closeDate": "2024-08-29 00:00:00",
+            "competitionNo": 3,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 3,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSBJ0120230829WSICOPEN",
+            "eventName": "公开组女子佩剑个人",
+            "shortEventName": "公开组女子佩剑个人",
+            "openDate": "2024-08-29 00:00:00",
+            "closeDate": "2024-08-29 00:00:00",
+            "competitionNo": 3,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 3,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSBJ0120230829WSIU40s",
+            "eventName": "老将组女子佩剑个人",
+            "shortEventName": "老将组女子佩剑个人",
+            "openDate": "2024-08-29 00:00:00",
+            "closeDate": "2024-08-29 00:00:00",
+            "competitionNo": 3,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 3,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSBJ0120230829MFTU16",
+            "eventName": "U16男子花剑团体",
+            "shortEventName": "U16男子花剑团体",
+            "openDate": "2024-08-29 00:00:00",
+            "closeDate": "2024-08-29 00:00:00",
+            "competitionNo": 3,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 3,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSBJ0120230829MFTCOPEN",
+            "eventName": "公开组男子花剑团体",
+            "shortEventName": "公开组男子花剑团体",
+            "openDate": "2024-08-29 00:00:00",
+            "closeDate": "2024-08-29 00:00:00",
+            "competitionNo": 3,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 3,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSBJ0120230829METU16",
+            "eventName": "U16男子重剑团体",
+            "shortEventName": "U16男子重剑团体",
+            "openDate": "2024-08-29 00:00:00",
+            "closeDate": "2024-08-29 00:00:00",
+            "competitionNo": 3,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 3,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSBJ0120230829METCOPEN",
+            "eventName": "公开组男子重剑团体",
+            "shortEventName": "公开组男子重剑团体",
+            "openDate": "2024-08-29 00:00:00",
+            "closeDate": "2024-08-29 00:00:00",
+            "competitionNo": 3,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 3,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSBJ0120230829MSTU16",
+            "eventName": "U16男子佩剑团体",
+            "shortEventName": "U16男子佩剑团体",
+            "openDate": "2024-08-29 00:00:00",
+            "closeDate": "2024-08-29 00:00:00",
+            "competitionNo": 3,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 3,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSBJ0120230829MSTCOPEN",
+            "eventName": "公开组男子佩剑团体",
+            "shortEventName": "公开组男子佩剑团体",
+            "openDate": "2024-08-29 00:00:00",
+            "closeDate": "2024-08-29 00:00:00",
+            "competitionNo": 3,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 3,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSBJ0120230829WFTU16",
+            "eventName": "U16女子花剑团体",
+            "shortEventName": "U16女子花剑团体",
+            "openDate": "2024-08-29 00:00:00",
+            "closeDate": "2024-08-29 00:00:00",
+            "competitionNo": 3,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 3,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSBJ0120230829WFTCOPEN",
+            "eventName": "公开组女子花剑团体",
+            "shortEventName": "公开组女子花剑团体",
+            "openDate": "2024-08-29 00:00:00",
+            "closeDate": "2024-08-29 00:00:00",
+            "competitionNo": 3,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 3,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSBJ0120230829WETU16",
+            "eventName": "U16女子重剑团体",
+            "shortEventName": "U16女子重剑团体",
+            "openDate": "2024-08-29 00:00:00",
+            "closeDate": "2024-08-29 00:00:00",
+            "competitionNo": 3,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 3,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSBJ0120230829WETCOPEN",
+            "eventName": "公开组女子重剑团体",
+            "shortEventName": "公开组女子重剑团体",
+            "openDate": "2024-08-29 00:00:00",
+            "closeDate": "2024-08-29 00:00:00",
+            "competitionNo": 3,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 3,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSBJ0120230829WSTU16",
+            "eventName": "U16女子佩剑团体",
+            "shortEventName": "U16女子佩剑团体",
+            "openDate": "2024-08-29 00:00:00",
+            "closeDate": "2024-08-29 00:00:00",
+            "competitionNo": 3,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 3,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSBJ0120230829WSTCOPEN",
+            "eventName": "公开组女子佩剑团体",
+            "shortEventName": "公开组女子佩剑团体",
+            "openDate": "2024-08-29 00:00:00",
+            "closeDate": "2024-08-29 00:00:00",
+            "competitionNo": 3,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 3,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSBJ0120230829MFTU14",
+            "eventName": "U14男子花剑团体",
+            "shortEventName": "U14男子花剑团体",
+            "openDate": "2024-08-29 00:00:00",
+            "closeDate": "2024-08-29 00:00:00",
+            "competitionNo": 3,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 3,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSBJ0120230829METU14",
+            "eventName": "U14男子重剑团体",
+            "shortEventName": "U14男子重剑团体",
+            "openDate": "2024-08-29 00:00:00",
+            "closeDate": "2024-08-29 00:00:00",
+            "competitionNo": 3,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 3,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSBJ0120230829MSTU14",
+            "eventName": "U14男子佩剑团体",
+            "shortEventName": "U14男子佩剑团体",
+            "openDate": "2024-08-29 00:00:00",
+            "closeDate": "2024-08-29 00:00:00",
+            "competitionNo": 3,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 3,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSBJ0120230829WFTU14",
+            "eventName": "U14女子花剑团体",
+            "shortEventName": "U14女子花剑团体",
+            "openDate": "2024-08-29 00:00:00",
+            "closeDate": "2024-08-29 00:00:00",
+            "competitionNo": 3,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 3,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSBJ0120230829WETU14",
+            "eventName": "U14女子重剑团体",
+            "shortEventName": "U14女子重剑团体",
+            "openDate": "2024-08-29 00:00:00",
+            "closeDate": "2024-08-29 00:00:00",
+            "competitionNo": 3,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 3,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSBJ0120230829WSTU14",
+            "eventName": "U14女子佩剑团体",
+            "shortEventName": "U14女子佩剑团体",
+            "openDate": "2024-08-29 00:00:00",
+            "closeDate": "2024-08-29 00:00:00",
+            "competitionNo": 3,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 3,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSBJ0120230829MFTU12",
+            "eventName": "U12男子花剑团体",
+            "shortEventName": "U12男子花剑团体",
+            "openDate": "2025-08-16 00:00:00",
+            "closeDate": "2025-09-24 00:00:00",
+            "competitionNo": 3,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 3,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSBJ0120230829MFTU10",
+            "eventName": "U10男子花剑团体",
+            "shortEventName": "U10男子花剑团体",
+            "openDate": "2025-08-16 00:00:00",
+            "closeDate": "2025-09-24 00:00:00",
+            "competitionNo": 3,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 3,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSBJ0120230829METU12",
+            "eventName": "U12男子重剑团体",
+            "shortEventName": "U12男子重剑团体",
+            "openDate": "2025-08-16 00:00:00",
+            "closeDate": "2025-09-24 00:00:00",
+            "competitionNo": 3,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 3,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSBJ0120230829METU10",
+            "eventName": "U10男子重剑团体",
+            "shortEventName": "U10男子重剑团体",
+            "openDate": "2025-08-16 00:00:00",
+            "closeDate": "2025-09-24 00:00:00",
+            "competitionNo": 3,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 3,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSBJ0120230829MSTU12",
+            "eventName": "U12男子佩剑团体",
+            "shortEventName": "U12男子佩剑团体",
+            "openDate": "2025-08-16 00:00:00",
+            "closeDate": "2025-09-24 00:00:00",
+            "competitionNo": 3,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 3,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSBJ0120230829MSTU10",
+            "eventName": "U10男子佩剑团体",
+            "shortEventName": "U10男子佩剑团体",
+            "openDate": "2025-08-16 00:00:00",
+            "closeDate": "2025-09-24 00:00:00",
+            "competitionNo": 3,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 3,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSBJ0120230829MFIU10",
+            "eventName": "U10男子花剑个人",
+            "shortEventName": "U10男子花剑个人",
+            "openDate": "2025-08-16 00:00:00",
+            "closeDate": "2025-09-24 00:00:00",
+            "competitionNo": 3,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 3,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          }
+        ]
       },
       {
         "sportCode": "RZSS2027070",
@@ -34069,12 +37784,12 @@ export default {
         "sportName": "2026年“艾鲁特杯”无锡击剑公开赛",
         "venue": "江苏 无锡市",
         "region": "华东",
-        "dateLabel": "2026-06-27 00:00:00 / 2026-06-28 00:00:00",
-        "status": "registration",
+        "dateLabel": "2026-06-27 00:00:00 / 2026-06-27 00:00:00 / 2026-06-27 00:00:00 / 2026-06-27 00:00:00 / 2026-06-27 00:00:00 / 2026-06-27 00:00:00 / 2026-06-27 00:00:00 / 2026-06-27 00:00:00 / 2026-06-27 00:00:00 / 2026-06-27 00:00:00 / 2026-06-27 00:00:00 / 2026-06-27 00:00:00 / 2026-06-27 00:00:00 / 2026-06-27 00:00:00 / 2026-06-27 00:00:00 / 2026-06-27 00:00:00 / 2026-06-27 00:00:00 / 2026-06-27 00:00:00 / 2026-06-27 00:00:00 / 2026-06-27 00:00:00 / 2026-06-27 00:00:00 / 2026-06-27 00:00:00 / 2026-06-27 00:00:00 / 2026-06-27 00:00:00 / 2026-06-27 00:00:00 / 2026-06-27 00:00:00 / 2026-06-27 00:00:00 / 2026-06-27 00:00:00 / 2026-06-27 00:00:00 / 2026-06-27 00:00:00 / 2026-06-27 00:00:00 / 2026-06-27 00:00:00 / 2026-06-27 00:00:00 / 2026-06-27 00:00:00 / 2026-06-27 00:00:00 / 2026-06-27 00:00:00 / 2026-06-27 00:00:00 / 2026-06-27 00:00:00 / 2026-06-27 00:00:00 / 2026-06-27 00:00:00 / 2026-06-27 00:00:00 / 2026-06-27 00:00:00 / 2026-06-27 00:00:00 / 2026-06-27 00:00:00 / 2026-06-27 00:00:00 / 2026-06-27 00:00:00 / 2026-06-27 00:00:00 / 2026-06-27 00:00:00 / 2026-06-27 00:00:00 / 2026-06-27 00:00:00 / 2026-06-27 00:00:00 / 2026-06-27 00:00:00 / 2026-06-27 00:00:00 / 2026-06-27 00:00:00 / 2026-06-27 00:00:00 / 2026-06-27 00:00:00 / 2026-06-27 00:00:00 / 2026-06-27 00:00:00 / 2026-06-27 00:00:00 / 2026-06-27 00:00:00 / 2026-06-27 00:00:00 / 2026-06-27 00:00:00 / 2026-06-27 00:00:00 / 2026-06-27 00:00:00 / 2026-06-27 00:00:00 / 2026-06-27 00:00:00",
+        "status": "upcoming",
         "rosterStatus": "none",
         "isPreEvent": true,
         "isPlatformEventList": true,
-        "itemCount": 0,
+        "itemCount": 66,
         "groupLabels": [
           "U8",
           "U10",
@@ -34091,12 +37806,12 @@ export default {
           "sigupactive": "1",
           "signStartDate": "2026-06-01 16:00:00",
           "signAthEndDate": "2026-06-21 16:00:00",
-          "sourceCoverage": "event-list-only"
+          "sourceCoverage": "event-list-plus-projectlist"
         },
         "registrationSummary": {
           "rosterCount": 0,
-          "expectedRegistrationCount": 0,
-          "itemCount": 0
+          "expectedRegistrationCount": 8712,
+          "itemCount": 66
         },
         "insights": {
           "summaryCards": [
@@ -34116,7 +37831,866 @@ export default {
           ],
           "eventCharts": []
         },
-        "items": []
+        "items": [
+          {
+            "eventCode": "RZSSJS0220260627MFIU8",
+            "eventName": "U8男子花剑个人",
+            "shortEventName": "U8男子花剑个人",
+            "openDate": "2026-06-27 00:00:00",
+            "closeDate": "2026-06-28 00:00:00",
+            "competitionNo": 132,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 132,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSJS0220260627MFIU10",
+            "eventName": "U10男子花剑个人",
+            "shortEventName": "U10男子花剑个人",
+            "openDate": "2026-06-27 00:00:00",
+            "closeDate": "2026-06-28 00:00:00",
+            "competitionNo": 132,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 132,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSJS0220260627MFIU12",
+            "eventName": "U12男子花剑个人",
+            "shortEventName": "U12男子花剑个人",
+            "openDate": "2026-06-27 00:00:00",
+            "closeDate": "2026-06-28 00:00:00",
+            "competitionNo": 132,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 132,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSJS0220260627MFIU14",
+            "eventName": "U14男子花剑个人",
+            "shortEventName": "U14男子花剑个人",
+            "openDate": "2026-06-27 00:00:00",
+            "closeDate": "2026-06-28 00:00:00",
+            "competitionNo": 132,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 132,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSJS0220260627MFIU16",
+            "eventName": "U16男子花剑个人",
+            "shortEventName": "U16男子花剑个人",
+            "openDate": "2026-06-27 00:00:00",
+            "closeDate": "2026-06-28 00:00:00",
+            "competitionNo": 132,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 132,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSJS0220260627MFICOPEN",
+            "eventName": "公开组男子花剑个人",
+            "shortEventName": "公开组男子花剑个人",
+            "openDate": "2026-06-27 00:00:00",
+            "closeDate": "2026-06-28 00:00:00",
+            "competitionNo": 132,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 132,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSJS0220260627MEIU8",
+            "eventName": "U8男子重剑个人",
+            "shortEventName": "U8男子重剑个人",
+            "openDate": "2026-06-27 00:00:00",
+            "closeDate": "2026-06-28 00:00:00",
+            "competitionNo": 132,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 132,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSJS0220260627MEIU10",
+            "eventName": "U10男子重剑个人",
+            "shortEventName": "U10男子重剑个人",
+            "openDate": "2026-06-27 00:00:00",
+            "closeDate": "2026-06-28 00:00:00",
+            "competitionNo": 132,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 132,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSJS0220260627MEIU12",
+            "eventName": "U12男子重剑个人",
+            "shortEventName": "U12男子重剑个人",
+            "openDate": "2026-06-27 00:00:00",
+            "closeDate": "2026-06-28 00:00:00",
+            "competitionNo": 132,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 132,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSJS0220260627MEIU14",
+            "eventName": "U14男子重剑个人",
+            "shortEventName": "U14男子重剑个人",
+            "openDate": "2026-06-27 00:00:00",
+            "closeDate": "2026-06-28 00:00:00",
+            "competitionNo": 132,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 132,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSJS0220260627MEIU16",
+            "eventName": "U16男子重剑个人",
+            "shortEventName": "U16男子重剑个人",
+            "openDate": "2026-06-27 00:00:00",
+            "closeDate": "2026-06-28 00:00:00",
+            "competitionNo": 132,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 132,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSJS0220260627MEICOPEN",
+            "eventName": "公开组男子重剑个人",
+            "shortEventName": "公开组男子重剑个人",
+            "openDate": "2026-06-27 00:00:00",
+            "closeDate": "2026-06-28 00:00:00",
+            "competitionNo": 132,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 132,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSJS0220260627MSIU8",
+            "eventName": "U8男子佩剑个人",
+            "shortEventName": "U8男子佩剑个人",
+            "openDate": "2026-06-27 00:00:00",
+            "closeDate": "2026-06-28 00:00:00",
+            "competitionNo": 132,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 132,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSJS0220260627MSIU10",
+            "eventName": "U10男子佩剑个人",
+            "shortEventName": "U10男子佩剑个人",
+            "openDate": "2026-06-27 00:00:00",
+            "closeDate": "2026-06-28 00:00:00",
+            "competitionNo": 132,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 132,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSJS0220260627MSIU12",
+            "eventName": "U12男子佩剑个人",
+            "shortEventName": "U12男子佩剑个人",
+            "openDate": "2026-06-27 00:00:00",
+            "closeDate": "2026-06-28 00:00:00",
+            "competitionNo": 132,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 132,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSJS0220260627MSIU14",
+            "eventName": "U14男子佩剑个人",
+            "shortEventName": "U14男子佩剑个人",
+            "openDate": "2026-06-27 00:00:00",
+            "closeDate": "2026-06-28 00:00:00",
+            "competitionNo": 132,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 132,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSJS0220260627MSIU16",
+            "eventName": "U16男子佩剑个人",
+            "shortEventName": "U16男子佩剑个人",
+            "openDate": "2026-06-27 00:00:00",
+            "closeDate": "2026-06-28 00:00:00",
+            "competitionNo": 132,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 132,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSJS0220260627MSICOPEN",
+            "eventName": "公开组男子佩剑个人",
+            "shortEventName": "公开组男子佩剑个人",
+            "openDate": "2026-06-27 00:00:00",
+            "closeDate": "2026-06-28 00:00:00",
+            "competitionNo": 132,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 132,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSJS0220260627WFIU8",
+            "eventName": "U8女子花剑个人",
+            "shortEventName": "U8女子花剑个人",
+            "openDate": "2026-06-27 00:00:00",
+            "closeDate": "2026-06-28 00:00:00",
+            "competitionNo": 132,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 132,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSJS0220260627WFIU10",
+            "eventName": "U10女子花剑个人",
+            "shortEventName": "U10女子花剑个人",
+            "openDate": "2026-06-27 00:00:00",
+            "closeDate": "2026-06-28 00:00:00",
+            "competitionNo": 132,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 132,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSJS0220260627WFIU12",
+            "eventName": "U12女子花剑个人",
+            "shortEventName": "U12女子花剑个人",
+            "openDate": "2026-06-27 00:00:00",
+            "closeDate": "2026-06-28 00:00:00",
+            "competitionNo": 132,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 132,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSJS0220260627WFIU14",
+            "eventName": "U14女子花剑个人",
+            "shortEventName": "U14女子花剑个人",
+            "openDate": "2026-06-27 00:00:00",
+            "closeDate": "2026-06-28 00:00:00",
+            "competitionNo": 132,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 132,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSJS0220260627WFIU16",
+            "eventName": "U16女子花剑个人",
+            "shortEventName": "U16女子花剑个人",
+            "openDate": "2026-06-27 00:00:00",
+            "closeDate": "2026-06-28 00:00:00",
+            "competitionNo": 132,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 132,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSJS0220260627WFICOPEN",
+            "eventName": "公开组女子花剑个人",
+            "shortEventName": "公开组女子花剑个人",
+            "openDate": "2026-06-27 00:00:00",
+            "closeDate": "2026-06-28 00:00:00",
+            "competitionNo": 132,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 132,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSJS0220260627WEIU8",
+            "eventName": "U8女子重剑个人",
+            "shortEventName": "U8女子重剑个人",
+            "openDate": "2026-06-27 00:00:00",
+            "closeDate": "2026-06-28 00:00:00",
+            "competitionNo": 132,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 132,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSJS0220260627WEIU10",
+            "eventName": "U10女子重剑个人",
+            "shortEventName": "U10女子重剑个人",
+            "openDate": "2026-06-27 00:00:00",
+            "closeDate": "2026-06-28 00:00:00",
+            "competitionNo": 132,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 132,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSJS0220260627WEIU12",
+            "eventName": "U12女子重剑个人",
+            "shortEventName": "U12女子重剑个人",
+            "openDate": "2026-06-27 00:00:00",
+            "closeDate": "2026-06-28 00:00:00",
+            "competitionNo": 132,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 132,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSJS0220260627WEIU14",
+            "eventName": "U14女子重剑个人",
+            "shortEventName": "U14女子重剑个人",
+            "openDate": "2026-06-27 00:00:00",
+            "closeDate": "2026-06-28 00:00:00",
+            "competitionNo": 132,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 132,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSJS0220260627WEIU16",
+            "eventName": "U16女子重剑个人",
+            "shortEventName": "U16女子重剑个人",
+            "openDate": "2026-06-27 00:00:00",
+            "closeDate": "2026-06-28 00:00:00",
+            "competitionNo": 132,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 132,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSJS0220260627WEICOPEN",
+            "eventName": "公开组女子重剑个人",
+            "shortEventName": "公开组女子重剑个人",
+            "openDate": "2026-06-27 00:00:00",
+            "closeDate": "2026-06-28 00:00:00",
+            "competitionNo": 132,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 132,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSJS0220260627WSIU8",
+            "eventName": "U8女子佩剑个人",
+            "shortEventName": "U8女子佩剑个人",
+            "openDate": "2026-06-27 00:00:00",
+            "closeDate": "2026-06-28 00:00:00",
+            "competitionNo": 132,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 132,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSJS0220260627WSIU10",
+            "eventName": "U10女子佩剑个人",
+            "shortEventName": "U10女子佩剑个人",
+            "openDate": "2026-06-27 00:00:00",
+            "closeDate": "2026-06-28 00:00:00",
+            "competitionNo": 132,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 132,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSJS0220260627WSIU12",
+            "eventName": "U12女子佩剑个人",
+            "shortEventName": "U12女子佩剑个人",
+            "openDate": "2026-06-27 00:00:00",
+            "closeDate": "2026-06-28 00:00:00",
+            "competitionNo": 132,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 132,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSJS0220260627WSIU14",
+            "eventName": "U14女子佩剑个人",
+            "shortEventName": "U14女子佩剑个人",
+            "openDate": "2026-06-27 00:00:00",
+            "closeDate": "2026-06-28 00:00:00",
+            "competitionNo": 132,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 132,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSJS0220260627WSIU16",
+            "eventName": "U16女子佩剑个人",
+            "shortEventName": "U16女子佩剑个人",
+            "openDate": "2026-06-27 00:00:00",
+            "closeDate": "2026-06-28 00:00:00",
+            "competitionNo": 132,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 132,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSJS0220260627WSICOPEN",
+            "eventName": "公开组女子佩剑个人",
+            "shortEventName": "公开组女子佩剑个人",
+            "openDate": "2026-06-27 00:00:00",
+            "closeDate": "2026-06-28 00:00:00",
+            "competitionNo": 132,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 132,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSJS0220260627MFTU8",
+            "eventName": "U8男子花剑团体",
+            "shortEventName": "U8男子花剑团体",
+            "openDate": "2026-06-27 00:00:00",
+            "closeDate": "2026-06-28 00:00:00",
+            "competitionNo": 132,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 132,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSJS0220260627MFTU10",
+            "eventName": "U10男子花剑团体",
+            "shortEventName": "U10男子花剑团体",
+            "openDate": "2026-06-27 00:00:00",
+            "closeDate": "2026-06-28 00:00:00",
+            "competitionNo": 132,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 132,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSJS0220260627MFTU12",
+            "eventName": "U12男子花剑团体",
+            "shortEventName": "U12男子花剑团体",
+            "openDate": "2026-06-27 00:00:00",
+            "closeDate": "2026-06-28 00:00:00",
+            "competitionNo": 132,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 132,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSJS0220260627MFTU14",
+            "eventName": "U14男子花剑团体",
+            "shortEventName": "U14男子花剑团体",
+            "openDate": "2026-06-27 00:00:00",
+            "closeDate": "2026-06-28 00:00:00",
+            "competitionNo": 132,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 132,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSJS0220260627MFTU16",
+            "eventName": "U16男子花剑团体",
+            "shortEventName": "U16男子花剑团体",
+            "openDate": "2026-06-27 00:00:00",
+            "closeDate": "2026-06-28 00:00:00",
+            "competitionNo": 132,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 132,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSJS0220260627METU8",
+            "eventName": "U8男子重剑团体",
+            "shortEventName": "U8男子重剑团体",
+            "openDate": "2026-06-27 00:00:00",
+            "closeDate": "2026-06-28 00:00:00",
+            "competitionNo": 132,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 132,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSJS0220260627METU10",
+            "eventName": "U10男子重剑团体",
+            "shortEventName": "U10男子重剑团体",
+            "openDate": "2026-06-27 00:00:00",
+            "closeDate": "2026-06-28 00:00:00",
+            "competitionNo": 132,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 132,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSJS0220260627METU12",
+            "eventName": "U12男子重剑团体",
+            "shortEventName": "U12男子重剑团体",
+            "openDate": "2026-06-27 00:00:00",
+            "closeDate": "2026-06-28 00:00:00",
+            "competitionNo": 132,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 132,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSJS0220260627METU14",
+            "eventName": "U14男子重剑团体",
+            "shortEventName": "U14男子重剑团体",
+            "openDate": "2026-06-27 00:00:00",
+            "closeDate": "2026-06-28 00:00:00",
+            "competitionNo": 132,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 132,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSJS0220260627METU16",
+            "eventName": "U16男子重剑团体",
+            "shortEventName": "U16男子重剑团体",
+            "openDate": "2026-06-27 00:00:00",
+            "closeDate": "2026-06-28 00:00:00",
+            "competitionNo": 132,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 132,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSJS0220260627MSTU8",
+            "eventName": "U8男子佩剑团体",
+            "shortEventName": "U8男子佩剑团体",
+            "openDate": "2026-06-27 00:00:00",
+            "closeDate": "2026-06-28 00:00:00",
+            "competitionNo": 132,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 132,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSJS0220260627MSTU10",
+            "eventName": "U10男子佩剑团体",
+            "shortEventName": "U10男子佩剑团体",
+            "openDate": "2026-06-27 00:00:00",
+            "closeDate": "2026-06-28 00:00:00",
+            "competitionNo": 132,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 132,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSJS0220260627MSTU12",
+            "eventName": "U12男子佩剑团体",
+            "shortEventName": "U12男子佩剑团体",
+            "openDate": "2026-06-27 00:00:00",
+            "closeDate": "2026-06-28 00:00:00",
+            "competitionNo": 132,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 132,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSJS0220260627MSTU14",
+            "eventName": "U14男子佩剑团体",
+            "shortEventName": "U14男子佩剑团体",
+            "openDate": "2026-06-27 00:00:00",
+            "closeDate": "2026-06-28 00:00:00",
+            "competitionNo": 132,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 132,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSJS0220260627MSTU16",
+            "eventName": "U16男子佩剑团体",
+            "shortEventName": "U16男子佩剑团体",
+            "openDate": "2026-06-27 00:00:00",
+            "closeDate": "2026-06-28 00:00:00",
+            "competitionNo": 132,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 132,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSJS0220260627WFTU8",
+            "eventName": "U8女子花剑团体",
+            "shortEventName": "U8女子花剑团体",
+            "openDate": "2026-06-27 00:00:00",
+            "closeDate": "2026-06-28 00:00:00",
+            "competitionNo": 132,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 132,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSJS0220260627WFTU10",
+            "eventName": "U10女子花剑团体",
+            "shortEventName": "U10女子花剑团体",
+            "openDate": "2026-06-27 00:00:00",
+            "closeDate": "2026-06-28 00:00:00",
+            "competitionNo": 132,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 132,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSJS0220260627WFTU12",
+            "eventName": "U12女子花剑团体",
+            "shortEventName": "U12女子花剑团体",
+            "openDate": "2026-06-27 00:00:00",
+            "closeDate": "2026-06-28 00:00:00",
+            "competitionNo": 132,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 132,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSJS0220260627WFTU14",
+            "eventName": "U14女子花剑团体",
+            "shortEventName": "U14女子花剑团体",
+            "openDate": "2026-06-27 00:00:00",
+            "closeDate": "2026-06-28 00:00:00",
+            "competitionNo": 132,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 132,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSJS0220260627WFTU16",
+            "eventName": "U16女子花剑团体",
+            "shortEventName": "U16女子花剑团体",
+            "openDate": "2026-06-27 00:00:00",
+            "closeDate": "2026-06-28 00:00:00",
+            "competitionNo": 132,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 132,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSJS0220260627WETU8",
+            "eventName": "U8女子重剑团体",
+            "shortEventName": "U8女子重剑团体",
+            "openDate": "2026-06-27 00:00:00",
+            "closeDate": "2026-06-28 00:00:00",
+            "competitionNo": 132,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 132,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSJS0220260627WETU10",
+            "eventName": "U10女子重剑团体",
+            "shortEventName": "U10女子重剑团体",
+            "openDate": "2026-06-27 00:00:00",
+            "closeDate": "2026-06-28 00:00:00",
+            "competitionNo": 132,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 132,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSJS0220260627WETU12",
+            "eventName": "U12女子重剑团体",
+            "shortEventName": "U12女子重剑团体",
+            "openDate": "2026-06-27 00:00:00",
+            "closeDate": "2026-06-28 00:00:00",
+            "competitionNo": 132,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 132,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSJS0220260627WETU14",
+            "eventName": "U14女子重剑团体",
+            "shortEventName": "U14女子重剑团体",
+            "openDate": "2026-06-27 00:00:00",
+            "closeDate": "2026-06-28 00:00:00",
+            "competitionNo": 132,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 132,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSJS0220260627WETU16",
+            "eventName": "U16女子重剑团体",
+            "shortEventName": "U16女子重剑团体",
+            "openDate": "2026-06-27 00:00:00",
+            "closeDate": "2026-06-28 00:00:00",
+            "competitionNo": 132,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 132,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSJS0220260627WSTU8",
+            "eventName": "U8女子佩剑团体",
+            "shortEventName": "U8女子佩剑团体",
+            "openDate": "2026-06-27 00:00:00",
+            "closeDate": "2026-06-28 00:00:00",
+            "competitionNo": 132,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 132,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSJS0220260627WSTU10",
+            "eventName": "U10女子佩剑团体",
+            "shortEventName": "U10女子佩剑团体",
+            "openDate": "2026-06-27 00:00:00",
+            "closeDate": "2026-06-28 00:00:00",
+            "competitionNo": 132,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 132,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSJS0220260627WSTU12",
+            "eventName": "U12女子佩剑团体",
+            "shortEventName": "U12女子佩剑团体",
+            "openDate": "2026-06-27 00:00:00",
+            "closeDate": "2026-06-28 00:00:00",
+            "competitionNo": 132,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 132,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSJS0220260627WSTU14",
+            "eventName": "U14女子佩剑团体",
+            "shortEventName": "U14女子佩剑团体",
+            "openDate": "2026-06-27 00:00:00",
+            "closeDate": "2026-06-28 00:00:00",
+            "competitionNo": 132,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 132,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          },
+          {
+            "eventCode": "RZSSJS0220260627WSTU16",
+            "eventName": "U16女子佩剑团体",
+            "shortEventName": "U16女子佩剑团体",
+            "openDate": "2026-06-27 00:00:00",
+            "closeDate": "2026-06-28 00:00:00",
+            "competitionNo": 132,
+            "registrationCount": 0,
+            "expectedRegistrationCount": 132,
+            "roster": [],
+            "status": "upcoming",
+            "isPreEvent": true
+          }
+        ]
       },
       {
         "sportCode": "RZSS2021073",
@@ -42215,13 +46789,20891 @@ export default {
       }
     ],
     "dataCoverage": {
-      "scorePackages": 9,
-      "analysisFiles": 89,
-      "previewFiles": 75,
+      "scorePackages": 17,
+      "analysisFiles": 105,
+      "previewFiles": 76,
       "platformEvents": 744
     }
   },
   "eventsByCode": {
+    "RZSS2034020MFIU10": {
+      "fileName": "score-RZSS2034020MFIU10-analysis.json",
+      "eventCode": "RZSS2034020MFIU10",
+      "sportCode": "RZSS2034020",
+      "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+      "eventName": "U10男子花剑个人",
+      "shortEventName": "U10 男花",
+      "openDate": null,
+      "venue": "海南·儋州",
+      "competitionNo": 13,
+      "poolCount": 2,
+      "poolQualifyNo": 10,
+      "deStartPhase": "from Tableaus 16",
+      "eliminationMatchCount": 15,
+      "playedEliminationMatchCount": 9,
+      "byeMatchCount": 6,
+      "athleteNames": [
+        "徐潇然",
+        "汪柏霖",
+        "周嘉雄",
+        "丁启宸",
+        "谢君墨",
+        "黄禹淙",
+        "黄元懋",
+        "颜培亦",
+        "彭浩宇",
+        "陈君岳",
+        "潘乐天",
+        "张岩松",
+        "陈犹耀"
+      ],
+      "region": "海南儋州",
+      "distributions": {
+        "poolStatus": {
+          "7": 2
+        },
+        "poolRemark": {
+          "Q": 10,
+          "E": 3
+        },
+        "tableau": {
+          "16表": 1,
+          "8表": 1,
+          "半决赛": 1,
+          "决赛": 1
+        },
+        "eliminationByPhase": {
+          "16表": 8,
+          "8表": 4,
+          "半决赛": 2,
+          "决赛": 1
+        },
+        "eliminationResult": {
+          "W/L": 7,
+          "L/W": 8
+        },
+        "medal": {
+          "金": 1,
+          "银": 1,
+          "铜": 2,
+          "(无奖牌)": 9
+        }
+      },
+      "topPoolStanding": [
+        {
+          "rank": 1,
+          "displayPosition": 1,
+          "name": "徐潇然",
+          "licence": "20160915M202304060808",
+          "club": "珠海剑一",
+          "wins": 6,
+          "matches": 6,
+          "winRate": 1,
+          "hitsScored": 30,
+          "hitsReceived": 2,
+          "indicator": 28,
+          "remark": "Q"
+        },
+        {
+          "rank": 2,
+          "displayPosition": 2,
+          "name": "丁启宸",
+          "licence": "20170705M202307080345",
+          "club": "珠海剑一",
+          "wins": 5,
+          "matches": 5,
+          "winRate": 1,
+          "hitsScored": 25,
+          "hitsReceived": 4,
+          "indicator": 21,
+          "remark": "Q"
+        },
+        {
+          "rank": 3,
+          "displayPosition": 3,
+          "name": "谢君墨",
+          "licence": "20170509M202305281055",
+          "club": "北京艾鲁特",
+          "wins": 5,
+          "matches": 6,
+          "winRate": 0.833,
+          "hitsScored": 23,
+          "hitsReceived": 10,
+          "indicator": 13,
+          "remark": "Q"
+        },
+        {
+          "rank": 4,
+          "displayPosition": 4,
+          "name": "周嘉雄",
+          "licence": "20161216M202304081110",
+          "club": "广州万国",
+          "wins": 4,
+          "matches": 5,
+          "winRate": 0.8,
+          "hitsScored": 23,
+          "hitsReceived": 6,
+          "indicator": 17,
+          "remark": "Q"
+        },
+        {
+          "rank": 5,
+          "displayPosition": 5,
+          "name": "黄禹淙",
+          "licence": "20170505M202408030933",
+          "club": "海口嘉世",
+          "wins": 3,
+          "matches": 5,
+          "winRate": 0.6,
+          "hitsScored": 15,
+          "hitsReceived": 18,
+          "indicator": -3,
+          "remark": "Q"
+        },
+        {
+          "rank": 6,
+          "displayPosition": 6,
+          "name": "汪柏霖",
+          "licence": "20170523M202304140352",
+          "club": "深圳犀旺雷声",
+          "wins": 3,
+          "matches": 6,
+          "winRate": 0.5,
+          "hitsScored": 17,
+          "hitsReceived": 20,
+          "indicator": -3,
+          "remark": "Q"
+        },
+        {
+          "rank": 7,
+          "displayPosition": 7,
+          "name": "彭浩宇",
+          "licence": "20161117M202511180353",
+          "club": "东莞浩洋",
+          "wins": 3,
+          "matches": 6,
+          "winRate": 0.5,
+          "hitsScored": 18,
+          "hitsReceived": 22,
+          "indicator": -4,
+          "remark": "Q"
+        },
+        {
+          "rank": 8,
+          "displayPosition": 8,
+          "name": "黄元懋",
+          "licence": "20170301M202211060131",
+          "club": "深圳飙风",
+          "wins": 2,
+          "matches": 5,
+          "winRate": 0.4,
+          "hitsScored": 14,
+          "hitsReceived": 18,
+          "indicator": -4,
+          "remark": "Q"
+        },
+        {
+          "rank": 9,
+          "displayPosition": 9,
+          "name": "陈君岳",
+          "licence": "20160903M202206171051",
+          "club": "海口嘉世",
+          "wins": 2,
+          "matches": 6,
+          "winRate": 0.333,
+          "hitsScored": 15,
+          "hitsReceived": 20,
+          "indicator": -5,
+          "remark": "Q"
+        },
+        {
+          "rank": 10,
+          "displayPosition": 10,
+          "name": "颜培亦",
+          "licence": "20171201M202509190843",
+          "club": "广西佼佼者",
+          "wins": 2,
+          "matches": 6,
+          "winRate": 0.333,
+          "hitsScored": 14,
+          "hitsReceived": 20,
+          "indicator": -6,
+          "remark": "Q"
+        },
+        {
+          "rank": 11,
+          "displayPosition": 11,
+          "name": "潘乐天",
+          "licence": "20161024M202407260800",
+          "club": "广西凡胜",
+          "wins": 1,
+          "matches": 5,
+          "winRate": 0.2,
+          "hitsScored": 12,
+          "hitsReceived": 22,
+          "indicator": -10,
+          "remark": "E"
+        },
+        {
+          "rank": 12,
+          "displayPosition": 12,
+          "name": "张岩松",
+          "licence": "20160917M202604251040",
+          "club": "个人",
+          "wins": 0,
+          "matches": 5,
+          "winRate": 0,
+          "hitsScored": 4,
+          "hitsReceived": 25,
+          "indicator": -21,
+          "remark": "E"
+        }
+      ],
+      "latestMatches": [
+        {
+          "matchId": 497592,
+          "matchCode": "Pre001",
+          "phaseId": 168811,
+          "phase": {
+            "shortName": "T2",
+            "longName": "决赛",
+            "order": 4,
+            "code": "1",
+            "group": "4_0"
+          },
+          "groupCode": "1_0",
+          "innerOrder": 1,
+          "home": {
+            "position": 1,
+            "name": "徐潇然",
+            "licence": "20160915M202304060808",
+            "club": "珠海剑一",
+            "points": 10,
+            "result": "W"
+          },
+          "away": {
+            "position": 2,
+            "name": "汪柏霖",
+            "licence": "20170523M202304140352",
+            "club": "深圳犀旺雷声",
+            "points": 7,
+            "result": "L"
+          },
+          "winner": {
+            "name": "徐潇然",
+            "club": "珠海剑一"
+          },
+          "piste": "",
+          "startTime": "",
+          "isBye": false
+        },
+        {
+          "matchId": 497591,
+          "matchCode": "Pre002",
+          "phaseId": 168810,
+          "phase": {
+            "shortName": "T4",
+            "longName": "半决赛",
+            "order": 3,
+            "code": "2",
+            "group": "3_0"
+          },
+          "groupCode": "2_0",
+          "innerOrder": 2,
+          "home": {
+            "position": 3,
+            "name": "汪柏霖",
+            "licence": "20170523M202304140352",
+            "club": "深圳犀旺雷声",
+            "points": 10,
+            "result": "W"
+          },
+          "away": {
+            "position": 2,
+            "name": "丁启宸",
+            "licence": "20170705M202307080345",
+            "club": "珠海剑一",
+            "points": 7,
+            "result": "L"
+          },
+          "winner": {
+            "name": "汪柏霖",
+            "club": "深圳犀旺雷声"
+          },
+          "piste": "",
+          "startTime": "",
+          "isBye": false
+        },
+        {
+          "matchId": 497590,
+          "matchCode": "Pre001",
+          "phaseId": 168810,
+          "phase": {
+            "shortName": "T4",
+            "longName": "半决赛",
+            "order": 3,
+            "code": "2",
+            "group": "3_0"
+          },
+          "groupCode": "2_0",
+          "innerOrder": 1,
+          "home": {
+            "position": 1,
+            "name": "徐潇然",
+            "licence": "20160915M202304060808",
+            "club": "珠海剑一",
+            "points": 10,
+            "result": "W"
+          },
+          "away": {
+            "position": 4,
+            "name": "周嘉雄",
+            "licence": "20161216M202304081110",
+            "club": "广州万国",
+            "points": 9,
+            "result": "L"
+          },
+          "winner": {
+            "name": "徐潇然",
+            "club": "珠海剑一"
+          },
+          "piste": "",
+          "startTime": "",
+          "isBye": false
+        },
+        {
+          "matchId": 497589,
+          "matchCode": "Pre004",
+          "phaseId": 168809,
+          "phase": {
+            "shortName": "T8",
+            "longName": "8表",
+            "order": 2,
+            "code": "3",
+            "group": "2_0"
+          },
+          "groupCode": "3_1",
+          "innerOrder": 2,
+          "home": {
+            "position": 7,
+            "name": "颜培亦",
+            "licence": "20171201M202509190843",
+            "club": "广西佼佼者",
+            "points": 3,
+            "result": "L"
+          },
+          "away": {
+            "position": 2,
+            "name": "丁启宸",
+            "licence": "20170705M202307080345",
+            "club": "珠海剑一",
+            "points": 10,
+            "result": "W"
+          },
+          "winner": {
+            "name": "丁启宸",
+            "club": "珠海剑一"
+          },
+          "piste": "",
+          "startTime": "",
+          "isBye": false
+        },
+        {
+          "matchId": 497588,
+          "matchCode": "Pre003",
+          "phaseId": 168809,
+          "phase": {
+            "shortName": "T8",
+            "longName": "8表",
+            "order": 2,
+            "code": "3",
+            "group": "2_0"
+          },
+          "groupCode": "3_1",
+          "innerOrder": 1,
+          "home": {
+            "position": 3,
+            "name": "谢君墨",
+            "licence": "20170509M202305281055",
+            "club": "北京艾鲁特",
+            "points": 8,
+            "result": "L"
+          },
+          "away": {
+            "position": 6,
+            "name": "汪柏霖",
+            "licence": "20170523M202304140352",
+            "club": "深圳犀旺雷声",
+            "points": 10,
+            "result": "W"
+          },
+          "winner": {
+            "name": "汪柏霖",
+            "club": "深圳犀旺雷声"
+          },
+          "piste": "",
+          "startTime": "",
+          "isBye": false
+        },
+        {
+          "matchId": 497587,
+          "matchCode": "Pre002",
+          "phaseId": 168809,
+          "phase": {
+            "shortName": "T8",
+            "longName": "8表",
+            "order": 2,
+            "code": "3",
+            "group": "2_0"
+          },
+          "groupCode": "3_0",
+          "innerOrder": 2,
+          "home": {
+            "position": 5,
+            "name": "黄禹淙",
+            "licence": "20170505M202408030933",
+            "club": "海口嘉世",
+            "points": 2,
+            "result": "L"
+          },
+          "away": {
+            "position": 4,
+            "name": "周嘉雄",
+            "licence": "20161216M202304081110",
+            "club": "广州万国",
+            "points": 10,
+            "result": "W"
+          },
+          "winner": {
+            "name": "周嘉雄",
+            "club": "广州万国"
+          },
+          "piste": "",
+          "startTime": "",
+          "isBye": false
+        },
+        {
+          "matchId": 497586,
+          "matchCode": "Pre001",
+          "phaseId": 168809,
+          "phase": {
+            "shortName": "T8",
+            "longName": "8表",
+            "order": 2,
+            "code": "3",
+            "group": "2_0"
+          },
+          "groupCode": "3_0",
+          "innerOrder": 1,
+          "home": {
+            "position": 1,
+            "name": "徐潇然",
+            "licence": "20160915M202304060808",
+            "club": "珠海剑一",
+            "points": 10,
+            "result": "W"
+          },
+          "away": {
+            "position": 8,
+            "name": "黄元懋",
+            "licence": "20170301M202211060131",
+            "club": "深圳飙风",
+            "points": 3,
+            "result": "L"
+          },
+          "winner": {
+            "name": "徐潇然",
+            "club": "珠海剑一"
+          },
+          "piste": "",
+          "startTime": "",
+          "isBye": false
+        },
+        {
+          "matchId": 497584,
+          "matchCode": "Pre007",
+          "phaseId": 168808,
+          "phase": {
+            "shortName": "T16",
+            "longName": "16表",
+            "order": 1,
+            "code": "4",
+            "group": "1_0"
+          },
+          "groupCode": "4_3",
+          "innerOrder": 1,
+          "home": {
+            "position": 7,
+            "name": "彭浩宇",
+            "licence": "20161117M202511180353",
+            "club": "东莞浩洋",
+            "points": 9,
+            "result": "L"
+          },
+          "away": {
+            "position": 10,
+            "name": "颜培亦",
+            "licence": "20171201M202509190843",
+            "club": "广西佼佼者",
+            "points": 10,
+            "result": "W"
+          },
+          "winner": {
+            "name": "颜培亦",
+            "club": "广西佼佼者"
+          },
+          "piste": "",
+          "startTime": "",
+          "isBye": false
+        },
+        {
+          "matchId": 497579,
+          "matchCode": "Pre002",
+          "phaseId": 168808,
+          "phase": {
+            "shortName": "T16",
+            "longName": "16表",
+            "order": 1,
+            "code": "4",
+            "group": "1_0"
+          },
+          "groupCode": "4_0",
+          "innerOrder": 2,
+          "home": {
+            "position": 9,
+            "name": "陈君岳",
+            "licence": "20160903M202206171051",
+            "club": "海口嘉世",
+            "points": 5,
+            "result": "L"
+          },
+          "away": {
+            "position": 8,
+            "name": "黄元懋",
+            "licence": "20170301M202211060131",
+            "club": "深圳飙风",
+            "points": 10,
+            "result": "W"
+          },
+          "winner": {
+            "name": "黄元懋",
+            "club": "深圳飙风"
+          },
+          "piste": "",
+          "startTime": "",
+          "isBye": false
+        }
+      ],
+      "eliminationPhaseGroups": [
+        {
+          "phase": "16表",
+          "order": 1,
+          "matches": [
+            {
+              "matchId": 497584,
+              "matchCode": "Pre007",
+              "phaseId": 168808,
+              "phase": {
+                "shortName": "T16",
+                "longName": "16表",
+                "order": 1,
+                "code": "4",
+                "group": "1_0"
+              },
+              "groupCode": "4_3",
+              "innerOrder": 1,
+              "home": {
+                "position": 7,
+                "name": "彭浩宇",
+                "licence": "20161117M202511180353",
+                "club": "东莞浩洋",
+                "points": 9,
+                "result": "L"
+              },
+              "away": {
+                "position": 10,
+                "name": "颜培亦",
+                "licence": "20171201M202509190843",
+                "club": "广西佼佼者",
+                "points": 10,
+                "result": "W"
+              },
+              "winner": {
+                "name": "颜培亦",
+                "club": "广西佼佼者"
+              },
+              "piste": "",
+              "startTime": "",
+              "isBye": false
+            },
+            {
+              "matchId": 497579,
+              "matchCode": "Pre002",
+              "phaseId": 168808,
+              "phase": {
+                "shortName": "T16",
+                "longName": "16表",
+                "order": 1,
+                "code": "4",
+                "group": "1_0"
+              },
+              "groupCode": "4_0",
+              "innerOrder": 2,
+              "home": {
+                "position": 9,
+                "name": "陈君岳",
+                "licence": "20160903M202206171051",
+                "club": "海口嘉世",
+                "points": 5,
+                "result": "L"
+              },
+              "away": {
+                "position": 8,
+                "name": "黄元懋",
+                "licence": "20170301M202211060131",
+                "club": "深圳飙风",
+                "points": 10,
+                "result": "W"
+              },
+              "winner": {
+                "name": "黄元懋",
+                "club": "深圳飙风"
+              },
+              "piste": "",
+              "startTime": "",
+              "isBye": false
+            }
+          ]
+        },
+        {
+          "phase": "8表",
+          "order": 2,
+          "matches": [
+            {
+              "matchId": 497586,
+              "matchCode": "Pre001",
+              "phaseId": 168809,
+              "phase": {
+                "shortName": "T8",
+                "longName": "8表",
+                "order": 2,
+                "code": "3",
+                "group": "2_0"
+              },
+              "groupCode": "3_0",
+              "innerOrder": 1,
+              "home": {
+                "position": 1,
+                "name": "徐潇然",
+                "licence": "20160915M202304060808",
+                "club": "珠海剑一",
+                "points": 10,
+                "result": "W"
+              },
+              "away": {
+                "position": 8,
+                "name": "黄元懋",
+                "licence": "20170301M202211060131",
+                "club": "深圳飙风",
+                "points": 3,
+                "result": "L"
+              },
+              "winner": {
+                "name": "徐潇然",
+                "club": "珠海剑一"
+              },
+              "piste": "",
+              "startTime": "",
+              "isBye": false
+            },
+            {
+              "matchId": 497588,
+              "matchCode": "Pre003",
+              "phaseId": 168809,
+              "phase": {
+                "shortName": "T8",
+                "longName": "8表",
+                "order": 2,
+                "code": "3",
+                "group": "2_0"
+              },
+              "groupCode": "3_1",
+              "innerOrder": 1,
+              "home": {
+                "position": 3,
+                "name": "谢君墨",
+                "licence": "20170509M202305281055",
+                "club": "北京艾鲁特",
+                "points": 8,
+                "result": "L"
+              },
+              "away": {
+                "position": 6,
+                "name": "汪柏霖",
+                "licence": "20170523M202304140352",
+                "club": "深圳犀旺雷声",
+                "points": 10,
+                "result": "W"
+              },
+              "winner": {
+                "name": "汪柏霖",
+                "club": "深圳犀旺雷声"
+              },
+              "piste": "",
+              "startTime": "",
+              "isBye": false
+            },
+            {
+              "matchId": 497587,
+              "matchCode": "Pre002",
+              "phaseId": 168809,
+              "phase": {
+                "shortName": "T8",
+                "longName": "8表",
+                "order": 2,
+                "code": "3",
+                "group": "2_0"
+              },
+              "groupCode": "3_0",
+              "innerOrder": 2,
+              "home": {
+                "position": 5,
+                "name": "黄禹淙",
+                "licence": "20170505M202408030933",
+                "club": "海口嘉世",
+                "points": 2,
+                "result": "L"
+              },
+              "away": {
+                "position": 4,
+                "name": "周嘉雄",
+                "licence": "20161216M202304081110",
+                "club": "广州万国",
+                "points": 10,
+                "result": "W"
+              },
+              "winner": {
+                "name": "周嘉雄",
+                "club": "广州万国"
+              },
+              "piste": "",
+              "startTime": "",
+              "isBye": false
+            },
+            {
+              "matchId": 497589,
+              "matchCode": "Pre004",
+              "phaseId": 168809,
+              "phase": {
+                "shortName": "T8",
+                "longName": "8表",
+                "order": 2,
+                "code": "3",
+                "group": "2_0"
+              },
+              "groupCode": "3_1",
+              "innerOrder": 2,
+              "home": {
+                "position": 7,
+                "name": "颜培亦",
+                "licence": "20171201M202509190843",
+                "club": "广西佼佼者",
+                "points": 3,
+                "result": "L"
+              },
+              "away": {
+                "position": 2,
+                "name": "丁启宸",
+                "licence": "20170705M202307080345",
+                "club": "珠海剑一",
+                "points": 10,
+                "result": "W"
+              },
+              "winner": {
+                "name": "丁启宸",
+                "club": "珠海剑一"
+              },
+              "piste": "",
+              "startTime": "",
+              "isBye": false
+            }
+          ]
+        },
+        {
+          "phase": "半决赛",
+          "order": 3,
+          "matches": [
+            {
+              "matchId": 497590,
+              "matchCode": "Pre001",
+              "phaseId": 168810,
+              "phase": {
+                "shortName": "T4",
+                "longName": "半决赛",
+                "order": 3,
+                "code": "2",
+                "group": "3_0"
+              },
+              "groupCode": "2_0",
+              "innerOrder": 1,
+              "home": {
+                "position": 1,
+                "name": "徐潇然",
+                "licence": "20160915M202304060808",
+                "club": "珠海剑一",
+                "points": 10,
+                "result": "W"
+              },
+              "away": {
+                "position": 4,
+                "name": "周嘉雄",
+                "licence": "20161216M202304081110",
+                "club": "广州万国",
+                "points": 9,
+                "result": "L"
+              },
+              "winner": {
+                "name": "徐潇然",
+                "club": "珠海剑一"
+              },
+              "piste": "",
+              "startTime": "",
+              "isBye": false
+            },
+            {
+              "matchId": 497591,
+              "matchCode": "Pre002",
+              "phaseId": 168810,
+              "phase": {
+                "shortName": "T4",
+                "longName": "半决赛",
+                "order": 3,
+                "code": "2",
+                "group": "3_0"
+              },
+              "groupCode": "2_0",
+              "innerOrder": 2,
+              "home": {
+                "position": 3,
+                "name": "汪柏霖",
+                "licence": "20170523M202304140352",
+                "club": "深圳犀旺雷声",
+                "points": 10,
+                "result": "W"
+              },
+              "away": {
+                "position": 2,
+                "name": "丁启宸",
+                "licence": "20170705M202307080345",
+                "club": "珠海剑一",
+                "points": 7,
+                "result": "L"
+              },
+              "winner": {
+                "name": "汪柏霖",
+                "club": "深圳犀旺雷声"
+              },
+              "piste": "",
+              "startTime": "",
+              "isBye": false
+            }
+          ]
+        },
+        {
+          "phase": "决赛",
+          "order": 4,
+          "matches": [
+            {
+              "matchId": 497592,
+              "matchCode": "Pre001",
+              "phaseId": 168811,
+              "phase": {
+                "shortName": "T2",
+                "longName": "决赛",
+                "order": 4,
+                "code": "1",
+                "group": "4_0"
+              },
+              "groupCode": "1_0",
+              "innerOrder": 1,
+              "home": {
+                "position": 1,
+                "name": "徐潇然",
+                "licence": "20160915M202304060808",
+                "club": "珠海剑一",
+                "points": 10,
+                "result": "W"
+              },
+              "away": {
+                "position": 2,
+                "name": "汪柏霖",
+                "licence": "20170523M202304140352",
+                "club": "深圳犀旺雷声",
+                "points": 7,
+                "result": "L"
+              },
+              "winner": {
+                "name": "徐潇然",
+                "club": "珠海剑一"
+              },
+              "piste": "",
+              "startTime": "",
+              "isBye": false
+            }
+          ]
+        }
+      ],
+      "poolBouts": [
+        {
+          "poolId": 168806,
+          "caseCode": "CASE7",
+          "order": 1,
+          "matchOrder": 1,
+          "homeNumber": 1,
+          "awayNumber": 4,
+          "homeLabel": "1：陈君岳(海口嘉世)",
+          "awayLabel": "4：陈犹耀(海口嘉世)",
+          "homeScore": "V",
+          "awayScore": 2
+        },
+        {
+          "poolId": 168806,
+          "caseCode": "CASE7",
+          "order": 2,
+          "matchOrder": 2,
+          "homeNumber": 2,
+          "awayNumber": 5,
+          "homeLabel": "2：谢君墨(北京艾鲁特)",
+          "awayLabel": "5：颜培亦(广西佼佼者)",
+          "homeScore": null,
+          "awayScore": 0
+        },
+        {
+          "poolId": 168806,
+          "caseCode": "CASE7",
+          "order": 3,
+          "matchOrder": 3,
+          "homeNumber": 3,
+          "awayNumber": 6,
+          "homeLabel": "3：徐潇然(珠海剑一)",
+          "awayLabel": "6：汪柏霖(深圳犀旺雷声)",
+          "homeScore": "V",
+          "awayScore": 0
+        },
+        {
+          "poolId": 168806,
+          "caseCode": "CASE7",
+          "order": 4,
+          "matchOrder": 4,
+          "homeNumber": 7,
+          "awayNumber": 1,
+          "homeLabel": "7：彭浩宇(东莞浩洋)",
+          "awayLabel": "1：陈君岳(海口嘉世)",
+          "homeScore": 1,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168806,
+          "caseCode": "CASE7",
+          "order": 5,
+          "matchOrder": 5,
+          "homeNumber": 5,
+          "awayNumber": 4,
+          "homeLabel": "5：颜培亦(广西佼佼者)",
+          "awayLabel": "4：陈犹耀(海口嘉世)",
+          "homeScore": "V",
+          "awayScore": 1
+        },
+        {
+          "poolId": 168806,
+          "caseCode": "CASE7",
+          "order": 6,
+          "matchOrder": 6,
+          "homeNumber": 2,
+          "awayNumber": 3,
+          "homeLabel": "2：谢君墨(北京艾鲁特)",
+          "awayLabel": "3：徐潇然(珠海剑一)",
+          "homeScore": 2,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168806,
+          "caseCode": "CASE7",
+          "order": 7,
+          "matchOrder": 7,
+          "homeNumber": 6,
+          "awayNumber": 7,
+          "homeLabel": "6：汪柏霖(深圳犀旺雷声)",
+          "awayLabel": "7：彭浩宇(东莞浩洋)",
+          "homeScore": 0,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168806,
+          "caseCode": "CASE7",
+          "order": 8,
+          "matchOrder": 8,
+          "homeNumber": 5,
+          "awayNumber": 1,
+          "homeLabel": "5：颜培亦(广西佼佼者)",
+          "awayLabel": "1：陈君岳(海口嘉世)",
+          "homeScore": "V",
+          "awayScore": 0
+        },
+        {
+          "poolId": 168806,
+          "caseCode": "CASE7",
+          "order": 9,
+          "matchOrder": 9,
+          "homeNumber": 4,
+          "awayNumber": 3,
+          "homeLabel": "4：陈犹耀(海口嘉世)",
+          "awayLabel": "3：徐潇然(珠海剑一)",
+          "homeScore": 0,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168806,
+          "caseCode": "CASE7",
+          "order": 10,
+          "matchOrder": 10,
+          "homeNumber": 6,
+          "awayNumber": 2,
+          "homeLabel": "6：汪柏霖(深圳犀旺雷声)",
+          "awayLabel": "2：谢君墨(北京艾鲁特)",
+          "homeScore": 2,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168806,
+          "caseCode": "CASE7",
+          "order": 11,
+          "matchOrder": 11,
+          "homeNumber": 5,
+          "awayNumber": 7,
+          "homeLabel": "5：颜培亦(广西佼佼者)",
+          "awayLabel": "7：彭浩宇(东莞浩洋)",
+          "homeScore": 3,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168806,
+          "caseCode": "CASE7",
+          "order": 12,
+          "matchOrder": 12,
+          "homeNumber": 3,
+          "awayNumber": 1,
+          "homeLabel": "3：徐潇然(珠海剑一)",
+          "awayLabel": "1：陈君岳(海口嘉世)",
+          "homeScore": "V",
+          "awayScore": 0
+        },
+        {
+          "poolId": 168806,
+          "caseCode": "CASE7",
+          "order": 13,
+          "matchOrder": 13,
+          "homeNumber": 4,
+          "awayNumber": 6,
+          "homeLabel": "4：陈犹耀(海口嘉世)",
+          "awayLabel": "6：汪柏霖(深圳犀旺雷声)",
+          "homeScore": 0,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168806,
+          "caseCode": "CASE7",
+          "order": 14,
+          "matchOrder": 14,
+          "homeNumber": 7,
+          "awayNumber": 2,
+          "homeLabel": "7：彭浩宇(东莞浩洋)",
+          "awayLabel": "2：谢君墨(北京艾鲁特)",
+          "homeScore": 2,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168806,
+          "caseCode": "CASE7",
+          "order": 15,
+          "matchOrder": 15,
+          "homeNumber": 3,
+          "awayNumber": 5,
+          "homeLabel": "3：徐潇然(珠海剑一)",
+          "awayLabel": "5：颜培亦(广西佼佼者)",
+          "homeScore": "V",
+          "awayScore": 0
+        },
+        {
+          "poolId": 168806,
+          "caseCode": "CASE7",
+          "order": 16,
+          "matchOrder": 16,
+          "homeNumber": 1,
+          "awayNumber": 6,
+          "homeLabel": "1：陈君岳(海口嘉世)",
+          "awayLabel": "6：汪柏霖(深圳犀旺雷声)",
+          "homeScore": 4,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168806,
+          "caseCode": "CASE7",
+          "order": 17,
+          "matchOrder": 17,
+          "homeNumber": 2,
+          "awayNumber": 4,
+          "homeLabel": "2：谢君墨(北京艾鲁特)",
+          "awayLabel": "4：陈犹耀(海口嘉世)",
+          "homeScore": "V",
+          "awayScore": 0
+        },
+        {
+          "poolId": 168806,
+          "caseCode": "CASE7",
+          "order": 18,
+          "matchOrder": 18,
+          "homeNumber": 7,
+          "awayNumber": 3,
+          "homeLabel": "7：彭浩宇(东莞浩洋)",
+          "awayLabel": "3：徐潇然(珠海剑一)",
+          "homeScore": 0,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168806,
+          "caseCode": "CASE7",
+          "order": 19,
+          "matchOrder": 19,
+          "homeNumber": 6,
+          "awayNumber": 5,
+          "homeLabel": "6：汪柏霖(深圳犀旺雷声)",
+          "awayLabel": "5：颜培亦(广西佼佼者)",
+          "homeScore": "V",
+          "awayScore": 1
+        },
+        {
+          "poolId": 168806,
+          "caseCode": "CASE7",
+          "order": 20,
+          "matchOrder": 20,
+          "homeNumber": 1,
+          "awayNumber": 2,
+          "homeLabel": "1：陈君岳(海口嘉世)",
+          "awayLabel": "2：谢君墨(北京艾鲁特)",
+          "homeScore": 1,
+          "awayScore": null
+        },
+        {
+          "poolId": 168806,
+          "caseCode": "CASE7",
+          "order": 21,
+          "matchOrder": 21,
+          "homeNumber": 4,
+          "awayNumber": 7,
+          "homeLabel": "4：陈犹耀(海口嘉世)",
+          "awayLabel": "7：彭浩宇(东莞浩洋)",
+          "homeScore": 4,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168807,
+          "caseCode": "CASE6",
+          "order": 1,
+          "matchOrder": 1,
+          "homeNumber": 1,
+          "awayNumber": 2,
+          "homeLabel": "1：张岩松(个人)",
+          "awayLabel": "2：周嘉雄(广州万国)",
+          "homeScore": 0,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168807,
+          "caseCode": "CASE6",
+          "order": 2,
+          "matchOrder": 2,
+          "homeNumber": 4,
+          "awayNumber": 3,
+          "homeLabel": "4：黄禹淙(海口嘉世)",
+          "awayLabel": "3：潘乐天(广西凡胜)",
+          "homeScore": "V",
+          "awayScore": 4
+        },
+        {
+          "poolId": 168807,
+          "caseCode": "CASE6",
+          "order": 3,
+          "matchOrder": 3,
+          "homeNumber": 6,
+          "awayNumber": 5,
+          "homeLabel": "6：黄元懋(深圳飙风)",
+          "awayLabel": "5：丁启宸(珠海剑一)",
+          "homeScore": 1,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168807,
+          "caseCode": "CASE6",
+          "order": 4,
+          "matchOrder": 4,
+          "homeNumber": 3,
+          "awayNumber": 1,
+          "homeLabel": "3：潘乐天(广西凡胜)",
+          "awayLabel": "1：张岩松(个人)",
+          "homeScore": "V",
+          "awayScore": 2
+        },
+        {
+          "poolId": 168807,
+          "caseCode": "CASE6",
+          "order": 5,
+          "matchOrder": 5,
+          "homeNumber": 2,
+          "awayNumber": 6,
+          "homeLabel": "2：周嘉雄(广州万国)",
+          "awayLabel": "6：黄元懋(深圳飙风)",
+          "homeScore": "V",
+          "awayScore": 1
+        },
+        {
+          "poolId": 168807,
+          "caseCode": "CASE6",
+          "order": 6,
+          "matchOrder": 6,
+          "homeNumber": 5,
+          "awayNumber": 4,
+          "homeLabel": "5：丁启宸(珠海剑一)",
+          "awayLabel": "4：黄禹淙(海口嘉世)",
+          "homeScore": "V",
+          "awayScore": 0
+        },
+        {
+          "poolId": 168807,
+          "caseCode": "CASE6",
+          "order": 7,
+          "matchOrder": 7,
+          "homeNumber": 1,
+          "awayNumber": 6,
+          "homeLabel": "1：张岩松(个人)",
+          "awayLabel": "6：黄元懋(深圳飙风)",
+          "homeScore": 0,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168807,
+          "caseCode": "CASE6",
+          "order": 8,
+          "matchOrder": 8,
+          "homeNumber": 3,
+          "awayNumber": 5,
+          "homeLabel": "3：潘乐天(广西凡胜)",
+          "awayLabel": "5：丁启宸(珠海剑一)",
+          "homeScore": 0,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168807,
+          "caseCode": "CASE6",
+          "order": 9,
+          "matchOrder": 9,
+          "homeNumber": 4,
+          "awayNumber": 2,
+          "homeLabel": "4：黄禹淙(海口嘉世)",
+          "awayLabel": "2：周嘉雄(广州万国)",
+          "homeScore": 0,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168807,
+          "caseCode": "CASE6",
+          "order": 10,
+          "matchOrder": 10,
+          "homeNumber": 5,
+          "awayNumber": 1,
+          "homeLabel": "5：丁启宸(珠海剑一)",
+          "awayLabel": "1：张岩松(个人)",
+          "homeScore": "V",
+          "awayScore": 0
+        },
+        {
+          "poolId": 168807,
+          "caseCode": "CASE6",
+          "order": 11,
+          "matchOrder": 11,
+          "homeNumber": 6,
+          "awayNumber": 4,
+          "homeLabel": "6：黄元懋(深圳飙风)",
+          "awayLabel": "4：黄禹淙(海口嘉世)",
+          "homeScore": 2,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168807,
+          "caseCode": "CASE6",
+          "order": 12,
+          "matchOrder": 12,
+          "homeNumber": 2,
+          "awayNumber": 3,
+          "homeLabel": "2：周嘉雄(广州万国)",
+          "awayLabel": "3：潘乐天(广西凡胜)",
+          "homeScore": "V",
+          "awayScore": 0
+        },
+        {
+          "poolId": 168807,
+          "caseCode": "CASE6",
+          "order": 13,
+          "matchOrder": 13,
+          "homeNumber": 1,
+          "awayNumber": 4,
+          "homeLabel": "1：张岩松(个人)",
+          "awayLabel": "4：黄禹淙(海口嘉世)",
+          "homeScore": 2,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168807,
+          "caseCode": "CASE6",
+          "order": 14,
+          "matchOrder": 14,
+          "homeNumber": 5,
+          "awayNumber": 2,
+          "homeLabel": "5：丁启宸(珠海剑一)",
+          "awayLabel": "2：周嘉雄(广州万国)",
+          "homeScore": "V",
+          "awayScore": 3
+        },
+        {
+          "poolId": 168807,
+          "caseCode": "CASE6",
+          "order": 15,
+          "matchOrder": 15,
+          "homeNumber": 3,
+          "awayNumber": 6,
+          "homeLabel": "3：潘乐天(广西凡胜)",
+          "awayLabel": "6：黄元懋(深圳飙风)",
+          "homeScore": 3,
+          "awayScore": "V"
+        }
+      ],
+      "poolGroups": [
+        {
+          "poolId": 168806,
+          "title": "小组 1",
+          "athletes": [
+            {
+              "id": "20160915M202304060808",
+              "drawNo": 3,
+              "name": "徐潇然",
+              "licence": "20160915M202304060808",
+              "club": "珠海剑一",
+              "wins": 6,
+              "matches": 6,
+              "winRate": 1,
+              "scored": 30,
+              "received": 2,
+              "diff": 28,
+              "phaseRank": 1,
+              "finalRank": 1,
+              "medal": "金"
+            },
+            {
+              "id": "20170509M202305281055",
+              "drawNo": 2,
+              "name": "谢君墨",
+              "licence": "20170509M202305281055",
+              "club": "北京艾鲁特",
+              "wins": 5,
+              "matches": 6,
+              "winRate": 0.833,
+              "scored": 23,
+              "received": 10,
+              "diff": 13,
+              "phaseRank": 2,
+              "finalRank": 5,
+              "medal": null
+            },
+            {
+              "id": "20170523M202304140352",
+              "drawNo": 6,
+              "name": "汪柏霖",
+              "licence": "20170523M202304140352",
+              "club": "深圳犀旺雷声",
+              "wins": 3,
+              "matches": 6,
+              "winRate": 0.5,
+              "scored": 17,
+              "received": 20,
+              "diff": -3,
+              "phaseRank": 3,
+              "finalRank": 2,
+              "medal": "银"
+            },
+            {
+              "id": "20161117M202511180353",
+              "drawNo": 7,
+              "name": "彭浩宇",
+              "licence": "20161117M202511180353",
+              "club": "东莞浩洋",
+              "wins": 3,
+              "matches": 6,
+              "winRate": 0.5,
+              "scored": 18,
+              "received": 22,
+              "diff": -4,
+              "phaseRank": 4,
+              "finalRank": 9,
+              "medal": null
+            },
+            {
+              "id": "20160903M202206171051",
+              "drawNo": 1,
+              "name": "陈君岳",
+              "licence": "20160903M202206171051",
+              "club": "海口嘉世",
+              "wins": 2,
+              "matches": 6,
+              "winRate": 0.333,
+              "scored": 15,
+              "received": 20,
+              "diff": -5,
+              "phaseRank": 5,
+              "finalRank": 10,
+              "medal": null
+            },
+            {
+              "id": "20171201M202509190843",
+              "drawNo": 5,
+              "name": "颜培亦",
+              "licence": "20171201M202509190843",
+              "club": "广西佼佼者",
+              "wins": 2,
+              "matches": 6,
+              "winRate": 0.333,
+              "scored": 14,
+              "received": 20,
+              "diff": -6,
+              "phaseRank": 6,
+              "finalRank": 8,
+              "medal": null
+            },
+            {
+              "id": "20170829M202304030120",
+              "drawNo": 4,
+              "name": "陈犹耀",
+              "licence": "20170829M202304030120",
+              "club": "海口嘉世",
+              "wins": 0,
+              "matches": 6,
+              "winRate": 0,
+              "scored": 7,
+              "received": 30,
+              "diff": -23,
+              "phaseRank": 7,
+              "finalRank": 13,
+              "medal": null
+            }
+          ],
+          "bouts": [
+            {
+              "poolId": 168806,
+              "caseCode": "CASE7",
+              "order": 1,
+              "matchOrder": 1,
+              "homeNumber": 1,
+              "awayNumber": 4,
+              "homeLabel": "1：陈君岳(海口嘉世)",
+              "awayLabel": "4：陈犹耀(海口嘉世)",
+              "homeScore": "V",
+              "awayScore": 2
+            },
+            {
+              "poolId": 168806,
+              "caseCode": "CASE7",
+              "order": 2,
+              "matchOrder": 2,
+              "homeNumber": 2,
+              "awayNumber": 5,
+              "homeLabel": "2：谢君墨(北京艾鲁特)",
+              "awayLabel": "5：颜培亦(广西佼佼者)",
+              "homeScore": null,
+              "awayScore": 0
+            },
+            {
+              "poolId": 168806,
+              "caseCode": "CASE7",
+              "order": 3,
+              "matchOrder": 3,
+              "homeNumber": 3,
+              "awayNumber": 6,
+              "homeLabel": "3：徐潇然(珠海剑一)",
+              "awayLabel": "6：汪柏霖(深圳犀旺雷声)",
+              "homeScore": "V",
+              "awayScore": 0
+            },
+            {
+              "poolId": 168806,
+              "caseCode": "CASE7",
+              "order": 4,
+              "matchOrder": 4,
+              "homeNumber": 7,
+              "awayNumber": 1,
+              "homeLabel": "7：彭浩宇(东莞浩洋)",
+              "awayLabel": "1：陈君岳(海口嘉世)",
+              "homeScore": 1,
+              "awayScore": "V"
+            },
+            {
+              "poolId": 168806,
+              "caseCode": "CASE7",
+              "order": 5,
+              "matchOrder": 5,
+              "homeNumber": 5,
+              "awayNumber": 4,
+              "homeLabel": "5：颜培亦(广西佼佼者)",
+              "awayLabel": "4：陈犹耀(海口嘉世)",
+              "homeScore": "V",
+              "awayScore": 1
+            },
+            {
+              "poolId": 168806,
+              "caseCode": "CASE7",
+              "order": 6,
+              "matchOrder": 6,
+              "homeNumber": 2,
+              "awayNumber": 3,
+              "homeLabel": "2：谢君墨(北京艾鲁特)",
+              "awayLabel": "3：徐潇然(珠海剑一)",
+              "homeScore": 2,
+              "awayScore": "V"
+            },
+            {
+              "poolId": 168806,
+              "caseCode": "CASE7",
+              "order": 7,
+              "matchOrder": 7,
+              "homeNumber": 6,
+              "awayNumber": 7,
+              "homeLabel": "6：汪柏霖(深圳犀旺雷声)",
+              "awayLabel": "7：彭浩宇(东莞浩洋)",
+              "homeScore": 0,
+              "awayScore": "V"
+            },
+            {
+              "poolId": 168806,
+              "caseCode": "CASE7",
+              "order": 8,
+              "matchOrder": 8,
+              "homeNumber": 5,
+              "awayNumber": 1,
+              "homeLabel": "5：颜培亦(广西佼佼者)",
+              "awayLabel": "1：陈君岳(海口嘉世)",
+              "homeScore": "V",
+              "awayScore": 0
+            },
+            {
+              "poolId": 168806,
+              "caseCode": "CASE7",
+              "order": 9,
+              "matchOrder": 9,
+              "homeNumber": 4,
+              "awayNumber": 3,
+              "homeLabel": "4：陈犹耀(海口嘉世)",
+              "awayLabel": "3：徐潇然(珠海剑一)",
+              "homeScore": 0,
+              "awayScore": "V"
+            },
+            {
+              "poolId": 168806,
+              "caseCode": "CASE7",
+              "order": 10,
+              "matchOrder": 10,
+              "homeNumber": 6,
+              "awayNumber": 2,
+              "homeLabel": "6：汪柏霖(深圳犀旺雷声)",
+              "awayLabel": "2：谢君墨(北京艾鲁特)",
+              "homeScore": 2,
+              "awayScore": "V"
+            },
+            {
+              "poolId": 168806,
+              "caseCode": "CASE7",
+              "order": 11,
+              "matchOrder": 11,
+              "homeNumber": 5,
+              "awayNumber": 7,
+              "homeLabel": "5：颜培亦(广西佼佼者)",
+              "awayLabel": "7：彭浩宇(东莞浩洋)",
+              "homeScore": 3,
+              "awayScore": "V"
+            },
+            {
+              "poolId": 168806,
+              "caseCode": "CASE7",
+              "order": 12,
+              "matchOrder": 12,
+              "homeNumber": 3,
+              "awayNumber": 1,
+              "homeLabel": "3：徐潇然(珠海剑一)",
+              "awayLabel": "1：陈君岳(海口嘉世)",
+              "homeScore": "V",
+              "awayScore": 0
+            }
+          ]
+        },
+        {
+          "poolId": 168807,
+          "title": "小组 2",
+          "athletes": [
+            {
+              "id": "20170705M202307080345",
+              "drawNo": 5,
+              "name": "丁启宸",
+              "licence": "20170705M202307080345",
+              "club": "珠海剑一",
+              "wins": 5,
+              "matches": 5,
+              "winRate": 1,
+              "scored": 25,
+              "received": 4,
+              "diff": 21,
+              "phaseRank": 1,
+              "finalRank": 3,
+              "medal": "铜"
+            },
+            {
+              "id": "20161216M202304081110",
+              "drawNo": 2,
+              "name": "周嘉雄",
+              "licence": "20161216M202304081110",
+              "club": "广州万国",
+              "wins": 4,
+              "matches": 5,
+              "winRate": 0.8,
+              "scored": 23,
+              "received": 6,
+              "diff": 17,
+              "phaseRank": 2,
+              "finalRank": 3,
+              "medal": "铜"
+            },
+            {
+              "id": "20170505M202408030933",
+              "drawNo": 4,
+              "name": "黄禹淙",
+              "licence": "20170505M202408030933",
+              "club": "海口嘉世",
+              "wins": 3,
+              "matches": 5,
+              "winRate": 0.6,
+              "scored": 15,
+              "received": 18,
+              "diff": -3,
+              "phaseRank": 3,
+              "finalRank": 6,
+              "medal": null
+            },
+            {
+              "id": "20170301M202211060131",
+              "drawNo": 6,
+              "name": "黄元懋",
+              "licence": "20170301M202211060131",
+              "club": "深圳飙风",
+              "wins": 2,
+              "matches": 5,
+              "winRate": 0.4,
+              "scored": 14,
+              "received": 18,
+              "diff": -4,
+              "phaseRank": 4,
+              "finalRank": 7,
+              "medal": null
+            },
+            {
+              "id": "20161024M202407260800",
+              "drawNo": 3,
+              "name": "潘乐天",
+              "licence": "20161024M202407260800",
+              "club": "广西凡胜",
+              "wins": 1,
+              "matches": 5,
+              "winRate": 0.2,
+              "scored": 12,
+              "received": 22,
+              "diff": -10,
+              "phaseRank": 5,
+              "finalRank": 11,
+              "medal": null
+            },
+            {
+              "id": "20160917M202604251040",
+              "drawNo": 1,
+              "name": "张岩松",
+              "licence": "20160917M202604251040",
+              "club": "个人",
+              "wins": 0,
+              "matches": 5,
+              "winRate": 0,
+              "scored": 4,
+              "received": 25,
+              "diff": -21,
+              "phaseRank": 6,
+              "finalRank": 12,
+              "medal": null
+            }
+          ],
+          "bouts": [
+            {
+              "poolId": 168807,
+              "caseCode": "CASE6",
+              "order": 1,
+              "matchOrder": 1,
+              "homeNumber": 1,
+              "awayNumber": 2,
+              "homeLabel": "1：张岩松(个人)",
+              "awayLabel": "2：周嘉雄(广州万国)",
+              "homeScore": 0,
+              "awayScore": "V"
+            },
+            {
+              "poolId": 168807,
+              "caseCode": "CASE6",
+              "order": 2,
+              "matchOrder": 2,
+              "homeNumber": 4,
+              "awayNumber": 3,
+              "homeLabel": "4：黄禹淙(海口嘉世)",
+              "awayLabel": "3：潘乐天(广西凡胜)",
+              "homeScore": "V",
+              "awayScore": 4
+            },
+            {
+              "poolId": 168807,
+              "caseCode": "CASE6",
+              "order": 3,
+              "matchOrder": 3,
+              "homeNumber": 6,
+              "awayNumber": 5,
+              "homeLabel": "6：黄元懋(深圳飙风)",
+              "awayLabel": "5：丁启宸(珠海剑一)",
+              "homeScore": 1,
+              "awayScore": "V"
+            },
+            {
+              "poolId": 168807,
+              "caseCode": "CASE6",
+              "order": 4,
+              "matchOrder": 4,
+              "homeNumber": 3,
+              "awayNumber": 1,
+              "homeLabel": "3：潘乐天(广西凡胜)",
+              "awayLabel": "1：张岩松(个人)",
+              "homeScore": "V",
+              "awayScore": 2
+            },
+            {
+              "poolId": 168807,
+              "caseCode": "CASE6",
+              "order": 5,
+              "matchOrder": 5,
+              "homeNumber": 2,
+              "awayNumber": 6,
+              "homeLabel": "2：周嘉雄(广州万国)",
+              "awayLabel": "6：黄元懋(深圳飙风)",
+              "homeScore": "V",
+              "awayScore": 1
+            },
+            {
+              "poolId": 168807,
+              "caseCode": "CASE6",
+              "order": 6,
+              "matchOrder": 6,
+              "homeNumber": 5,
+              "awayNumber": 4,
+              "homeLabel": "5：丁启宸(珠海剑一)",
+              "awayLabel": "4：黄禹淙(海口嘉世)",
+              "homeScore": "V",
+              "awayScore": 0
+            },
+            {
+              "poolId": 168807,
+              "caseCode": "CASE6",
+              "order": 7,
+              "matchOrder": 7,
+              "homeNumber": 1,
+              "awayNumber": 6,
+              "homeLabel": "1：张岩松(个人)",
+              "awayLabel": "6：黄元懋(深圳飙风)",
+              "homeScore": 0,
+              "awayScore": "V"
+            },
+            {
+              "poolId": 168807,
+              "caseCode": "CASE6",
+              "order": 8,
+              "matchOrder": 8,
+              "homeNumber": 3,
+              "awayNumber": 5,
+              "homeLabel": "3：潘乐天(广西凡胜)",
+              "awayLabel": "5：丁启宸(珠海剑一)",
+              "homeScore": 0,
+              "awayScore": "V"
+            },
+            {
+              "poolId": 168807,
+              "caseCode": "CASE6",
+              "order": 9,
+              "matchOrder": 9,
+              "homeNumber": 4,
+              "awayNumber": 2,
+              "homeLabel": "4：黄禹淙(海口嘉世)",
+              "awayLabel": "2：周嘉雄(广州万国)",
+              "homeScore": 0,
+              "awayScore": "V"
+            },
+            {
+              "poolId": 168807,
+              "caseCode": "CASE6",
+              "order": 10,
+              "matchOrder": 10,
+              "homeNumber": 5,
+              "awayNumber": 1,
+              "homeLabel": "5：丁启宸(珠海剑一)",
+              "awayLabel": "1：张岩松(个人)",
+              "homeScore": "V",
+              "awayScore": 0
+            },
+            {
+              "poolId": 168807,
+              "caseCode": "CASE6",
+              "order": 11,
+              "matchOrder": 11,
+              "homeNumber": 6,
+              "awayNumber": 4,
+              "homeLabel": "6：黄元懋(深圳飙风)",
+              "awayLabel": "4：黄禹淙(海口嘉世)",
+              "homeScore": 2,
+              "awayScore": "V"
+            },
+            {
+              "poolId": 168807,
+              "caseCode": "CASE6",
+              "order": 12,
+              "matchOrder": 12,
+              "homeNumber": 2,
+              "awayNumber": 3,
+              "homeLabel": "2：周嘉雄(广州万国)",
+              "awayLabel": "3：潘乐天(广西凡胜)",
+              "homeScore": "V",
+              "awayScore": 0
+            }
+          ]
+        }
+      ],
+      "participants": [
+        {
+          "id": "20160915M202304060808",
+          "name": "徐潇然",
+          "licence": "20160915M202304060808",
+          "club": "珠海剑一",
+          "finalRank": 1,
+          "medal": "金",
+          "ageBand": "2016 下半年",
+          "poolId": 168806,
+          "drawNo": 3,
+          "poolRank": 1,
+          "poolWins": 6,
+          "poolMatches": 6,
+          "poolDiff": 28,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 3,
+          "eliminationLosses": 0
+        },
+        {
+          "id": "20170523M202304140352",
+          "name": "汪柏霖",
+          "licence": "20170523M202304140352",
+          "club": "深圳犀旺雷声",
+          "finalRank": 2,
+          "medal": "银",
+          "ageBand": "2017 上半年",
+          "poolId": 168806,
+          "drawNo": 6,
+          "poolRank": 3,
+          "poolWins": 3,
+          "poolMatches": 6,
+          "poolDiff": -3,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 2,
+          "eliminationLosses": 1
+        },
+        {
+          "id": "20161216M202304081110",
+          "name": "周嘉雄",
+          "licence": "20161216M202304081110",
+          "club": "广州万国",
+          "finalRank": 3,
+          "medal": "铜",
+          "ageBand": "2016 下半年",
+          "poolId": 168807,
+          "drawNo": 2,
+          "poolRank": 2,
+          "poolWins": 4,
+          "poolMatches": 5,
+          "poolDiff": 17,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 1,
+          "eliminationLosses": 1
+        },
+        {
+          "id": "20170705M202307080345",
+          "name": "丁启宸",
+          "licence": "20170705M202307080345",
+          "club": "珠海剑一",
+          "finalRank": 3,
+          "medal": "铜",
+          "ageBand": "2017 下半年",
+          "poolId": 168807,
+          "drawNo": 5,
+          "poolRank": 1,
+          "poolWins": 5,
+          "poolMatches": 5,
+          "poolDiff": 21,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 1,
+          "eliminationLosses": 1
+        },
+        {
+          "id": "20170509M202305281055",
+          "name": "谢君墨",
+          "licence": "20170509M202305281055",
+          "club": "北京艾鲁特",
+          "finalRank": 5,
+          "medal": null,
+          "ageBand": "2017 上半年",
+          "poolId": 168806,
+          "drawNo": 2,
+          "poolRank": 2,
+          "poolWins": 5,
+          "poolMatches": 6,
+          "poolDiff": 13,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 0,
+          "eliminationLosses": 1
+        },
+        {
+          "id": "20170505M202408030933",
+          "name": "黄禹淙",
+          "licence": "20170505M202408030933",
+          "club": "海口嘉世",
+          "finalRank": 6,
+          "medal": null,
+          "ageBand": "2017 上半年",
+          "poolId": 168807,
+          "drawNo": 4,
+          "poolRank": 3,
+          "poolWins": 3,
+          "poolMatches": 5,
+          "poolDiff": -3,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 0,
+          "eliminationLosses": 1
+        },
+        {
+          "id": "20170301M202211060131",
+          "name": "黄元懋",
+          "licence": "20170301M202211060131",
+          "club": "深圳飙风",
+          "finalRank": 7,
+          "medal": null,
+          "ageBand": "2017 上半年",
+          "poolId": 168807,
+          "drawNo": 6,
+          "poolRank": 4,
+          "poolWins": 2,
+          "poolMatches": 5,
+          "poolDiff": -4,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 1,
+          "eliminationLosses": 1
+        },
+        {
+          "id": "20171201M202509190843",
+          "name": "颜培亦",
+          "licence": "20171201M202509190843",
+          "club": "广西佼佼者",
+          "finalRank": 8,
+          "medal": null,
+          "ageBand": "2017 下半年",
+          "poolId": 168806,
+          "drawNo": 5,
+          "poolRank": 6,
+          "poolWins": 2,
+          "poolMatches": 6,
+          "poolDiff": -6,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 1,
+          "eliminationLosses": 1
+        },
+        {
+          "id": "20161117M202511180353",
+          "name": "彭浩宇",
+          "licence": "20161117M202511180353",
+          "club": "东莞浩洋",
+          "finalRank": 9,
+          "medal": null,
+          "ageBand": "2016 下半年",
+          "poolId": 168806,
+          "drawNo": 7,
+          "poolRank": 4,
+          "poolWins": 3,
+          "poolMatches": 6,
+          "poolDiff": -4,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 0,
+          "eliminationLosses": 1
+        },
+        {
+          "id": "20160903M202206171051",
+          "name": "陈君岳",
+          "licence": "20160903M202206171051",
+          "club": "海口嘉世",
+          "finalRank": 10,
+          "medal": null,
+          "ageBand": "2016 下半年",
+          "poolId": 168806,
+          "drawNo": 1,
+          "poolRank": 5,
+          "poolWins": 2,
+          "poolMatches": 6,
+          "poolDiff": -5,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 0,
+          "eliminationLosses": 1
+        },
+        {
+          "id": "20161024M202407260800",
+          "name": "潘乐天",
+          "licence": "20161024M202407260800",
+          "club": "广西凡胜",
+          "finalRank": 11,
+          "medal": null,
+          "ageBand": "2016 下半年",
+          "poolId": 168807,
+          "drawNo": 3,
+          "poolRank": 5,
+          "poolWins": 1,
+          "poolMatches": 5,
+          "poolDiff": -10,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 0,
+          "eliminationLosses": 0
+        },
+        {
+          "id": "20160917M202604251040",
+          "name": "张岩松",
+          "licence": "20160917M202604251040",
+          "club": "个人",
+          "finalRank": 12,
+          "medal": null,
+          "ageBand": "2016 下半年",
+          "poolId": 168807,
+          "drawNo": 1,
+          "poolRank": 6,
+          "poolWins": 0,
+          "poolMatches": 5,
+          "poolDiff": -21,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 0,
+          "eliminationLosses": 0
+        },
+        {
+          "id": "20170829M202304030120",
+          "name": "陈犹耀",
+          "licence": "20170829M202304030120",
+          "club": "海口嘉世",
+          "finalRank": 13,
+          "medal": null,
+          "ageBand": "2017 下半年",
+          "poolId": 168806,
+          "drawNo": 4,
+          "poolRank": 7,
+          "poolWins": 0,
+          "poolMatches": 6,
+          "poolDiff": -23,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 0,
+          "eliminationLosses": 0
+        }
+      ],
+      "eliminationLeaders": [
+        {
+          "id": "20160915M202304060808",
+          "name": "徐潇然",
+          "club": "珠海剑一",
+          "wins": 3,
+          "losses": 0,
+          "scored": 30,
+          "received": 19,
+          "diff": 11
+        },
+        {
+          "id": "20170523M202304140352",
+          "name": "汪柏霖",
+          "club": "深圳犀旺雷声",
+          "wins": 2,
+          "losses": 1,
+          "scored": 27,
+          "received": 25,
+          "diff": 2
+        },
+        {
+          "id": "20161216M202304081110",
+          "name": "周嘉雄",
+          "club": "广州万国",
+          "wins": 1,
+          "losses": 1,
+          "scored": 19,
+          "received": 12,
+          "diff": 7
+        },
+        {
+          "id": "20170705M202307080345",
+          "name": "丁启宸",
+          "club": "珠海剑一",
+          "wins": 1,
+          "losses": 1,
+          "scored": 17,
+          "received": 13,
+          "diff": 4
+        },
+        {
+          "id": "20170301M202211060131",
+          "name": "黄元懋",
+          "club": "深圳飙风",
+          "wins": 1,
+          "losses": 1,
+          "scored": 13,
+          "received": 15,
+          "diff": -2
+        },
+        {
+          "id": "20171201M202509190843",
+          "name": "颜培亦",
+          "club": "广西佼佼者",
+          "wins": 1,
+          "losses": 1,
+          "scored": 13,
+          "received": 19,
+          "diff": -6
+        },
+        {
+          "id": "20161117M202511180353",
+          "name": "彭浩宇",
+          "club": "东莞浩洋",
+          "wins": 0,
+          "losses": 1,
+          "scored": 9,
+          "received": 10,
+          "diff": -1
+        },
+        {
+          "id": "20170509M202305281055",
+          "name": "谢君墨",
+          "club": "北京艾鲁特",
+          "wins": 0,
+          "losses": 1,
+          "scored": 8,
+          "received": 10,
+          "diff": -2
+        },
+        {
+          "id": "20160903M202206171051",
+          "name": "陈君岳",
+          "club": "海口嘉世",
+          "wins": 0,
+          "losses": 1,
+          "scored": 5,
+          "received": 10,
+          "diff": -5
+        },
+        {
+          "id": "20170505M202408030933",
+          "name": "黄禹淙",
+          "club": "海口嘉世",
+          "wins": 0,
+          "losses": 1,
+          "scored": 2,
+          "received": 10,
+          "diff": -8
+        }
+      ],
+      "championPath": [
+        {
+          "phase": "8表",
+          "matchCode": "Pre001",
+          "championName": "徐潇然",
+          "championClub": "珠海剑一",
+          "championScore": 10,
+          "opponentName": "黄元懋",
+          "opponentClub": "深圳飙风",
+          "opponentScore": 3,
+          "isBye": false
+        },
+        {
+          "phase": "半决赛",
+          "matchCode": "Pre001",
+          "championName": "徐潇然",
+          "championClub": "珠海剑一",
+          "championScore": 10,
+          "opponentName": "周嘉雄",
+          "opponentClub": "广州万国",
+          "opponentScore": 9,
+          "isBye": false
+        },
+        {
+          "phase": "决赛",
+          "matchCode": "Pre001",
+          "championName": "徐潇然",
+          "championClub": "珠海剑一",
+          "championScore": 10,
+          "opponentName": "汪柏霖",
+          "opponentClub": "深圳犀旺雷声",
+          "opponentScore": 7,
+          "isBye": false
+        }
+      ],
+      "keyOpponents": [
+        {
+          "id": "20160915M202304060808",
+          "name": "徐潇然",
+          "club": "珠海剑一",
+          "scored": 30,
+          "received": 19,
+          "matches": 3,
+          "wins": 3,
+          "losses": 0,
+          "diff": 11
+        },
+        {
+          "id": "20170523M202304140352",
+          "name": "汪柏霖",
+          "club": "深圳犀旺雷声",
+          "scored": 27,
+          "received": 25,
+          "matches": 3,
+          "wins": 2,
+          "losses": 1,
+          "diff": 2
+        },
+        {
+          "id": "20161216M202304081110",
+          "name": "周嘉雄",
+          "club": "广州万国",
+          "scored": 19,
+          "received": 12,
+          "matches": 2,
+          "wins": 1,
+          "losses": 1,
+          "diff": 7
+        },
+        {
+          "id": "20170705M202307080345",
+          "name": "丁启宸",
+          "club": "珠海剑一",
+          "scored": 17,
+          "received": 13,
+          "matches": 2,
+          "wins": 1,
+          "losses": 1,
+          "diff": 4
+        },
+        {
+          "id": "20170301M202211060131",
+          "name": "黄元懋",
+          "club": "深圳飙风",
+          "scored": 13,
+          "received": 15,
+          "matches": 2,
+          "wins": 1,
+          "losses": 1,
+          "diff": -2
+        },
+        {
+          "id": "20171201M202509190843",
+          "name": "颜培亦",
+          "club": "广西佼佼者",
+          "scored": 13,
+          "received": 19,
+          "matches": 2,
+          "wins": 1,
+          "losses": 1,
+          "diff": -6
+        },
+        {
+          "id": "20161117M202511180353",
+          "name": "彭浩宇",
+          "club": "东莞浩洋",
+          "scored": 9,
+          "received": 10,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "diff": -1
+        },
+        {
+          "id": "20170509M202305281055",
+          "name": "谢君墨",
+          "club": "北京艾鲁特",
+          "scored": 8,
+          "received": 10,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "diff": -2
+        },
+        {
+          "id": "20160903M202206171051",
+          "name": "陈君岳",
+          "club": "海口嘉世",
+          "scored": 5,
+          "received": 10,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "diff": -5
+        },
+        {
+          "id": "20170505M202408030933",
+          "name": "黄禹淙",
+          "club": "海口嘉世",
+          "scored": 2,
+          "received": 10,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "diff": -8
+        }
+      ],
+      "insights": {
+        "headline": "徐潇然 获得冠军，来自珠海剑一",
+        "summaryCards": [
+          {
+            "title": "冠军",
+            "value": "徐潇然",
+            "detail": "珠海剑一 · 1名"
+          },
+          {
+            "title": "晋级线",
+            "value": "10 / 13",
+            "detail": "小组赛后有淘汰"
+          },
+          {
+            "title": "淘汰赛密度",
+            "value": "9 场",
+            "detail": "含 6 场 Bye"
+          }
+        ],
+        "bullets": [
+          "徐潇然 小组赛排第 1，最终夺冠。",
+          "海口嘉世 在当前样本里出现 3 次，是报名最集中的俱乐部。",
+          "该项目小组赛后淘汰 3 人。",
+          "淘汰赛包含较多 Bye，对阵密度偏低。"
+        ],
+        "breakout": [
+          {
+            "name": "汪柏霖",
+            "club": "深圳犀旺雷声",
+            "licence": "20170523M202304140352",
+            "poolRank": 6,
+            "finalRank": 2,
+            "delta": 4
+          }
+        ],
+        "fade": []
+      },
+      "athleteProfiles": [
+        {
+          "id": "20160915M202304060808",
+          "name": "徐潇然",
+          "licence": "20160915M202304060808",
+          "club": "珠海剑一",
+          "finalRank": 1,
+          "medal": "金",
+          "ageBand": "2016 下半年",
+          "poolId": 168806,
+          "poolRank": 1,
+          "poolWins": 6,
+          "poolMatches": 6,
+          "poolDiff": 28,
+          "eliminationWins": 3,
+          "eliminationLosses": 0,
+          "eliminationDiff": 11
+        },
+        {
+          "id": "20170523M202304140352",
+          "name": "汪柏霖",
+          "licence": "20170523M202304140352",
+          "club": "深圳犀旺雷声",
+          "finalRank": 2,
+          "medal": "银",
+          "ageBand": "2017 上半年",
+          "poolId": 168806,
+          "poolRank": 3,
+          "poolWins": 3,
+          "poolMatches": 6,
+          "poolDiff": -3,
+          "eliminationWins": 2,
+          "eliminationLosses": 1,
+          "eliminationDiff": 2
+        },
+        {
+          "id": "20161216M202304081110",
+          "name": "周嘉雄",
+          "licence": "20161216M202304081110",
+          "club": "广州万国",
+          "finalRank": 3,
+          "medal": "铜",
+          "ageBand": "2016 下半年",
+          "poolId": 168807,
+          "poolRank": 2,
+          "poolWins": 4,
+          "poolMatches": 5,
+          "poolDiff": 17,
+          "eliminationWins": 1,
+          "eliminationLosses": 1,
+          "eliminationDiff": 7
+        },
+        {
+          "id": "20170705M202307080345",
+          "name": "丁启宸",
+          "licence": "20170705M202307080345",
+          "club": "珠海剑一",
+          "finalRank": 3,
+          "medal": "铜",
+          "ageBand": "2017 下半年",
+          "poolId": 168807,
+          "poolRank": 1,
+          "poolWins": 5,
+          "poolMatches": 5,
+          "poolDiff": 21,
+          "eliminationWins": 1,
+          "eliminationLosses": 1,
+          "eliminationDiff": 4
+        },
+        {
+          "id": "20170509M202305281055",
+          "name": "谢君墨",
+          "licence": "20170509M202305281055",
+          "club": "北京艾鲁特",
+          "finalRank": 5,
+          "medal": null,
+          "ageBand": "2017 上半年",
+          "poolId": 168806,
+          "poolRank": 2,
+          "poolWins": 5,
+          "poolMatches": 6,
+          "poolDiff": 13,
+          "eliminationWins": 0,
+          "eliminationLosses": 1,
+          "eliminationDiff": -2
+        },
+        {
+          "id": "20170505M202408030933",
+          "name": "黄禹淙",
+          "licence": "20170505M202408030933",
+          "club": "海口嘉世",
+          "finalRank": 6,
+          "medal": null,
+          "ageBand": "2017 上半年",
+          "poolId": 168807,
+          "poolRank": 3,
+          "poolWins": 3,
+          "poolMatches": 5,
+          "poolDiff": -3,
+          "eliminationWins": 0,
+          "eliminationLosses": 1,
+          "eliminationDiff": -8
+        },
+        {
+          "id": "20170301M202211060131",
+          "name": "黄元懋",
+          "licence": "20170301M202211060131",
+          "club": "深圳飙风",
+          "finalRank": 7,
+          "medal": null,
+          "ageBand": "2017 上半年",
+          "poolId": 168807,
+          "poolRank": 4,
+          "poolWins": 2,
+          "poolMatches": 5,
+          "poolDiff": -4,
+          "eliminationWins": 1,
+          "eliminationLosses": 1,
+          "eliminationDiff": -2
+        },
+        {
+          "id": "20171201M202509190843",
+          "name": "颜培亦",
+          "licence": "20171201M202509190843",
+          "club": "广西佼佼者",
+          "finalRank": 8,
+          "medal": null,
+          "ageBand": "2017 下半年",
+          "poolId": 168806,
+          "poolRank": 6,
+          "poolWins": 2,
+          "poolMatches": 6,
+          "poolDiff": -6,
+          "eliminationWins": 1,
+          "eliminationLosses": 1,
+          "eliminationDiff": -6
+        },
+        {
+          "id": "20161117M202511180353",
+          "name": "彭浩宇",
+          "licence": "20161117M202511180353",
+          "club": "东莞浩洋",
+          "finalRank": 9,
+          "medal": null,
+          "ageBand": "2016 下半年",
+          "poolId": 168806,
+          "poolRank": 4,
+          "poolWins": 3,
+          "poolMatches": 6,
+          "poolDiff": -4,
+          "eliminationWins": 0,
+          "eliminationLosses": 1,
+          "eliminationDiff": -1
+        },
+        {
+          "id": "20160903M202206171051",
+          "name": "陈君岳",
+          "licence": "20160903M202206171051",
+          "club": "海口嘉世",
+          "finalRank": 10,
+          "medal": null,
+          "ageBand": "2016 下半年",
+          "poolId": 168806,
+          "poolRank": 5,
+          "poolWins": 2,
+          "poolMatches": 6,
+          "poolDiff": -5,
+          "eliminationWins": 0,
+          "eliminationLosses": 1,
+          "eliminationDiff": -5
+        },
+        {
+          "id": "20161024M202407260800",
+          "name": "潘乐天",
+          "licence": "20161024M202407260800",
+          "club": "广西凡胜",
+          "finalRank": 11,
+          "medal": null,
+          "ageBand": "2016 下半年",
+          "poolId": 168807,
+          "poolRank": 5,
+          "poolWins": 1,
+          "poolMatches": 5,
+          "poolDiff": -10,
+          "eliminationWins": 0,
+          "eliminationLosses": 0,
+          "eliminationDiff": 0
+        },
+        {
+          "id": "20160917M202604251040",
+          "name": "张岩松",
+          "licence": "20160917M202604251040",
+          "club": "个人",
+          "finalRank": 12,
+          "medal": null,
+          "ageBand": "2016 下半年",
+          "poolId": 168807,
+          "poolRank": 6,
+          "poolWins": 0,
+          "poolMatches": 5,
+          "poolDiff": -21,
+          "eliminationWins": 0,
+          "eliminationLosses": 0,
+          "eliminationDiff": 0
+        },
+        {
+          "id": "20170829M202304030120",
+          "name": "陈犹耀",
+          "licence": "20170829M202304030120",
+          "club": "海口嘉世",
+          "finalRank": 13,
+          "medal": null,
+          "ageBand": "2017 下半年",
+          "poolId": 168806,
+          "poolRank": 7,
+          "poolWins": 0,
+          "poolMatches": 6,
+          "poolDiff": -23,
+          "eliminationWins": 0,
+          "eliminationLosses": 0,
+          "eliminationDiff": 0
+        }
+      ],
+      "clubProfiles": [
+        {
+          "id": "%E7%8F%A0%E6%B5%B7%E5%89%91%E4%B8%80",
+          "club": "珠海剑一",
+          "entrants": 2,
+          "medals": 2,
+          "top8": 2,
+          "finalists": 1,
+          "bestRank": 1,
+          "athletes": [
+            {
+              "id": "20160915M202304060808",
+              "name": "徐潇然",
+              "rank": 1,
+              "medal": "金"
+            },
+            {
+              "id": "20170705M202307080345",
+              "name": "丁启宸",
+              "rank": 3,
+              "medal": "铜"
+            }
+          ]
+        },
+        {
+          "id": "%E6%B7%B1%E5%9C%B3%E7%8A%80%E6%97%BA%E9%9B%B7%E5%A3%B0",
+          "club": "深圳犀旺雷声",
+          "entrants": 1,
+          "medals": 1,
+          "top8": 1,
+          "finalists": 1,
+          "bestRank": 2,
+          "athletes": [
+            {
+              "id": "20170523M202304140352",
+              "name": "汪柏霖",
+              "rank": 2,
+              "medal": "银"
+            }
+          ]
+        },
+        {
+          "id": "%E5%B9%BF%E5%B7%9E%E4%B8%87%E5%9B%BD",
+          "club": "广州万国",
+          "entrants": 1,
+          "medals": 1,
+          "top8": 1,
+          "finalists": 0,
+          "bestRank": 3,
+          "athletes": [
+            {
+              "id": "20161216M202304081110",
+              "name": "周嘉雄",
+              "rank": 3,
+              "medal": "铜"
+            }
+          ]
+        },
+        {
+          "id": "%E5%8C%97%E4%BA%AC%E8%89%BE%E9%B2%81%E7%89%B9",
+          "club": "北京艾鲁特",
+          "entrants": 1,
+          "medals": 0,
+          "top8": 1,
+          "finalists": 0,
+          "bestRank": 5,
+          "athletes": [
+            {
+              "id": "20170509M202305281055",
+              "name": "谢君墨",
+              "rank": 5,
+              "medal": null
+            }
+          ]
+        },
+        {
+          "id": "%E6%B5%B7%E5%8F%A3%E5%98%89%E4%B8%96",
+          "club": "海口嘉世",
+          "entrants": 3,
+          "medals": 0,
+          "top8": 1,
+          "finalists": 0,
+          "bestRank": 6,
+          "athletes": [
+            {
+              "id": "20170505M202408030933",
+              "name": "黄禹淙",
+              "rank": 6,
+              "medal": null
+            },
+            {
+              "id": "20160903M202206171051",
+              "name": "陈君岳",
+              "rank": 10,
+              "medal": null
+            },
+            {
+              "id": "20170829M202304030120",
+              "name": "陈犹耀",
+              "rank": 13,
+              "medal": null
+            }
+          ]
+        },
+        {
+          "id": "%E6%B7%B1%E5%9C%B3%E9%A3%99%E9%A3%8E",
+          "club": "深圳飙风",
+          "entrants": 1,
+          "medals": 0,
+          "top8": 1,
+          "finalists": 0,
+          "bestRank": 7,
+          "athletes": [
+            {
+              "id": "20170301M202211060131",
+              "name": "黄元懋",
+              "rank": 7,
+              "medal": null
+            }
+          ]
+        },
+        {
+          "id": "%E5%B9%BF%E8%A5%BF%E4%BD%BC%E4%BD%BC%E8%80%85",
+          "club": "广西佼佼者",
+          "entrants": 1,
+          "medals": 0,
+          "top8": 1,
+          "finalists": 0,
+          "bestRank": 8,
+          "athletes": [
+            {
+              "id": "20171201M202509190843",
+              "name": "颜培亦",
+              "rank": 8,
+              "medal": null
+            }
+          ]
+        },
+        {
+          "id": "%E4%B8%9C%E8%8E%9E%E6%B5%A9%E6%B4%8B",
+          "club": "东莞浩洋",
+          "entrants": 1,
+          "medals": 0,
+          "top8": 0,
+          "finalists": 0,
+          "bestRank": 9,
+          "athletes": [
+            {
+              "id": "20161117M202511180353",
+              "name": "彭浩宇",
+              "rank": 9,
+              "medal": null
+            }
+          ]
+        }
+      ],
+      "birthBuckets": [
+        {
+          "label": "2016 下半年",
+          "entrants": 6,
+          "top8": 2,
+          "medals": 2,
+          "bestRank": 1,
+          "top8Rate": 33
+        },
+        {
+          "label": "2017 上半年",
+          "entrants": 4,
+          "top8": 4,
+          "medals": 1,
+          "bestRank": 2,
+          "top8Rate": 100
+        },
+        {
+          "label": "2017 下半年",
+          "entrants": 3,
+          "top8": 2,
+          "medals": 1,
+          "bestRank": 3,
+          "top8Rate": 67
+        }
+      ],
+      "clubDistribution": {
+        "海口嘉世": 3,
+        "珠海剑一": 2,
+        "北京艾鲁特": 1,
+        "广州万国": 1,
+        "深圳犀旺雷声": 1,
+        "东莞浩洋": 1,
+        "深圳飙风": 1,
+        "广西佼佼者": 1,
+        "广西凡胜": 1,
+        "个人": 1
+      }
+    },
+    "RZSS2034020MEIU10": {
+      "fileName": "score-RZSS2034020MEIU10-analysis.json",
+      "eventCode": "RZSS2034020MEIU10",
+      "sportCode": "RZSS2034020",
+      "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+      "eventName": "U10男子重剑个人",
+      "shortEventName": "U10 男重",
+      "openDate": null,
+      "venue": "海南·儋州",
+      "competitionNo": 17,
+      "poolCount": 3,
+      "poolQualifyNo": 13,
+      "deStartPhase": "from Tableaus 16",
+      "eliminationMatchCount": 15,
+      "playedEliminationMatchCount": 12,
+      "byeMatchCount": 3,
+      "athleteNames": [
+        "张嘉盛",
+        "陈思然",
+        "杨启桢",
+        "刘栩辰",
+        "林恩霈",
+        "时铭泽",
+        "宋浩宇",
+        "梁庭睿",
+        "王琳溪",
+        "王璟泽",
+        "林诺禧",
+        "赵一帆",
+        "于博圣",
+        "张渊垣",
+        "李沐霖",
+        "胡肖南",
+        "孙望哲"
+      ],
+      "region": "海南儋州",
+      "distributions": {
+        "poolStatus": {
+          "7": 3
+        },
+        "poolRemark": {
+          "Q": 13,
+          "E": 4
+        },
+        "tableau": {
+          "16表": 1,
+          "8表": 1,
+          "半决赛": 1,
+          "决赛": 1
+        },
+        "eliminationByPhase": {
+          "16表": 8,
+          "8表": 4,
+          "半决赛": 2,
+          "决赛": 1
+        },
+        "eliminationResult": {
+          "W/L": 8,
+          "L/W": 7
+        },
+        "medal": {
+          "金": 1,
+          "银": 1,
+          "铜": 2,
+          "(无奖牌)": 13
+        }
+      },
+      "topPoolStanding": [
+        {
+          "rank": 1,
+          "displayPosition": 1,
+          "name": "张嘉盛",
+          "licence": "20161105M202307021013",
+          "club": "上海嘉世",
+          "wins": 4,
+          "matches": 4,
+          "winRate": 1,
+          "hitsScored": 19,
+          "hitsReceived": 11,
+          "indicator": 8,
+          "remark": "Q"
+        },
+        {
+          "rank": 2,
+          "displayPosition": 2,
+          "name": "刘栩辰",
+          "licence": "20160215M202306281040",
+          "club": "广州阳光剑匠",
+          "wins": 4,
+          "matches": 5,
+          "winRate": 0.8,
+          "hitsScored": 23,
+          "hitsReceived": 11,
+          "indicator": 12,
+          "remark": "Q"
+        },
+        {
+          "rank": 3,
+          "displayPosition": 3,
+          "name": "林恩霈",
+          "licence": "20160520M202307010456",
+          "club": "个人",
+          "wins": 4,
+          "matches": 5,
+          "winRate": 0.8,
+          "hitsScored": 24,
+          "hitsReceived": 14,
+          "indicator": 10,
+          "remark": "Q"
+        },
+        {
+          "rank": 4,
+          "displayPosition": 4,
+          "name": "杨启桢",
+          "licence": "20170209M202409270722",
+          "club": "北京东城万国",
+          "wins": 4,
+          "matches": 5,
+          "winRate": 0.8,
+          "hitsScored": 21,
+          "hitsReceived": 11,
+          "indicator": 10,
+          "remark": "Q"
+        },
+        {
+          "rank": 5,
+          "displayPosition": 5,
+          "name": "时铭泽",
+          "licence": "20171011M202405061217",
+          "club": "个人",
+          "wins": 4,
+          "matches": 5,
+          "winRate": 0.8,
+          "hitsScored": 23,
+          "hitsReceived": 14,
+          "indicator": 9,
+          "remark": "Q"
+        },
+        {
+          "rank": 6,
+          "displayPosition": 6,
+          "name": "王琳溪",
+          "licence": "20160606M202311290422",
+          "club": "海南海外双优",
+          "wins": 4,
+          "matches": 5,
+          "winRate": 0.8,
+          "hitsScored": 20,
+          "hitsReceived": 15,
+          "indicator": 5,
+          "remark": "Q"
+        },
+        {
+          "rank": 7,
+          "displayPosition": 7,
+          "name": "王璟泽",
+          "licence": "20160612M202304011118",
+          "club": "海口嘉世",
+          "wins": 3,
+          "matches": 5,
+          "winRate": 0.6,
+          "hitsScored": 21,
+          "hitsReceived": 17,
+          "indicator": 4,
+          "remark": "Q"
+        },
+        {
+          "rank": 8,
+          "displayPosition": 8,
+          "name": "宋浩宇",
+          "licence": "20170322M202307060644",
+          "club": "北京圣剑",
+          "wins": 2,
+          "matches": 4,
+          "winRate": 0.5,
+          "hitsScored": 13,
+          "hitsReceived": 7,
+          "indicator": 6,
+          "remark": "Q"
+        },
+        {
+          "rank": 9,
+          "displayPosition": 9,
+          "name": "林诺禧",
+          "licence": "20170215M202501150309",
+          "club": "香港剑乐会",
+          "wins": 2,
+          "matches": 4,
+          "winRate": 0.5,
+          "hitsScored": 11,
+          "hitsReceived": 8,
+          "indicator": 3,
+          "remark": "Q"
+        },
+        {
+          "rank": 10,
+          "displayPosition": 10,
+          "name": "梁庭睿",
+          "licence": "20161017M202406190604",
+          "club": "海口嘉世",
+          "wins": 2,
+          "matches": 4,
+          "winRate": 0.5,
+          "hitsScored": 9,
+          "hitsReceived": 11,
+          "indicator": -2,
+          "remark": "Q"
+        },
+        {
+          "rank": 11,
+          "displayPosition": 11,
+          "name": "陈思然",
+          "licence": "20160524M202408010202",
+          "club": "广州阳光剑匠",
+          "wins": 2,
+          "matches": 5,
+          "winRate": 0.4,
+          "hitsScored": 19,
+          "hitsReceived": 18,
+          "indicator": 1,
+          "remark": "Q"
+        },
+        {
+          "rank": 12,
+          "displayPosition": 12,
+          "name": "赵一帆",
+          "licence": "20160707M202304031135",
+          "club": "海口嘉世",
+          "wins": 2,
+          "matches": 5,
+          "winRate": 0.4,
+          "hitsScored": 15,
+          "hitsReceived": 18,
+          "indicator": -3,
+          "remark": "Q"
+        }
+      ],
+      "latestMatches": [
+        {
+          "matchId": 497625,
+          "matchCode": "Pre001",
+          "phaseId": 168836,
+          "phase": {
+            "shortName": "T2",
+            "longName": "决赛",
+            "order": 4,
+            "code": "1",
+            "group": "4_0"
+          },
+          "groupCode": "1_0",
+          "innerOrder": 1,
+          "home": {
+            "position": 1,
+            "name": "张嘉盛",
+            "licence": "20161105M202307021013",
+            "club": "上海嘉世",
+            "points": 10,
+            "result": "W"
+          },
+          "away": {
+            "position": 2,
+            "name": "陈思然",
+            "licence": "20160524M202408010202",
+            "club": "广州阳光剑匠",
+            "points": 4,
+            "result": "L"
+          },
+          "winner": {
+            "name": "张嘉盛",
+            "club": "上海嘉世"
+          },
+          "piste": "",
+          "startTime": "",
+          "isBye": false
+        },
+        {
+          "matchId": 497624,
+          "matchCode": "Pre002",
+          "phaseId": 168835,
+          "phase": {
+            "shortName": "T4",
+            "longName": "半决赛",
+            "order": 3,
+            "code": "2",
+            "group": "3_0"
+          },
+          "groupCode": "2_0",
+          "innerOrder": 2,
+          "home": {
+            "position": 3,
+            "name": "陈思然",
+            "licence": "20160524M202408010202",
+            "club": "广州阳光剑匠",
+            "points": 10,
+            "result": "W"
+          },
+          "away": {
+            "position": 2,
+            "name": "刘栩辰",
+            "licence": "20160215M202306281040",
+            "club": "广州阳光剑匠",
+            "points": 7,
+            "result": "L"
+          },
+          "winner": {
+            "name": "陈思然",
+            "club": "广州阳光剑匠"
+          },
+          "piste": "",
+          "startTime": "",
+          "isBye": false
+        },
+        {
+          "matchId": 497623,
+          "matchCode": "Pre001",
+          "phaseId": 168835,
+          "phase": {
+            "shortName": "T4",
+            "longName": "半决赛",
+            "order": 3,
+            "code": "2",
+            "group": "3_0"
+          },
+          "groupCode": "2_0",
+          "innerOrder": 1,
+          "home": {
+            "position": 1,
+            "name": "张嘉盛",
+            "licence": "20161105M202307021013",
+            "club": "上海嘉世",
+            "points": 10,
+            "result": "W"
+          },
+          "away": {
+            "position": 4,
+            "name": "杨启桢",
+            "licence": "20170209M202409270722",
+            "club": "北京东城万国",
+            "points": 3,
+            "result": "L"
+          },
+          "winner": {
+            "name": "张嘉盛",
+            "club": "上海嘉世"
+          },
+          "piste": "",
+          "startTime": "",
+          "isBye": false
+        },
+        {
+          "matchId": 497622,
+          "matchCode": "Pre004",
+          "phaseId": 168834,
+          "phase": {
+            "shortName": "T8",
+            "longName": "8表",
+            "order": 2,
+            "code": "3",
+            "group": "2_0"
+          },
+          "groupCode": "3_1",
+          "innerOrder": 2,
+          "home": {
+            "position": 7,
+            "name": "梁庭睿",
+            "licence": "20161017M202406190604",
+            "club": "海口嘉世",
+            "points": 4,
+            "result": "L"
+          },
+          "away": {
+            "position": 2,
+            "name": "刘栩辰",
+            "licence": "20160215M202306281040",
+            "club": "广州阳光剑匠",
+            "points": 9,
+            "result": "W"
+          },
+          "winner": {
+            "name": "刘栩辰",
+            "club": "广州阳光剑匠"
+          },
+          "piste": "",
+          "startTime": "",
+          "isBye": false
+        },
+        {
+          "matchId": 497621,
+          "matchCode": "Pre003",
+          "phaseId": 168834,
+          "phase": {
+            "shortName": "T8",
+            "longName": "8表",
+            "order": 2,
+            "code": "3",
+            "group": "2_0"
+          },
+          "groupCode": "3_1",
+          "innerOrder": 1,
+          "home": {
+            "position": 3,
+            "name": "林恩霈",
+            "licence": "20160520M202307010456",
+            "club": "个人",
+            "points": 8,
+            "result": "L"
+          },
+          "away": {
+            "position": 6,
+            "name": "陈思然",
+            "licence": "20160524M202408010202",
+            "club": "广州阳光剑匠",
+            "points": 10,
+            "result": "W"
+          },
+          "winner": {
+            "name": "陈思然",
+            "club": "广州阳光剑匠"
+          },
+          "piste": "",
+          "startTime": "",
+          "isBye": false
+        },
+        {
+          "matchId": 497620,
+          "matchCode": "Pre002",
+          "phaseId": 168834,
+          "phase": {
+            "shortName": "T8",
+            "longName": "8表",
+            "order": 2,
+            "code": "3",
+            "group": "2_0"
+          },
+          "groupCode": "3_0",
+          "innerOrder": 2,
+          "home": {
+            "position": 5,
+            "name": "时铭泽",
+            "licence": "20171011M202405061217",
+            "club": "个人",
+            "points": 7,
+            "result": "L"
+          },
+          "away": {
+            "position": 4,
+            "name": "杨启桢",
+            "licence": "20170209M202409270722",
+            "club": "北京东城万国",
+            "points": 10,
+            "result": "W"
+          },
+          "winner": {
+            "name": "杨启桢",
+            "club": "北京东城万国"
+          },
+          "piste": "",
+          "startTime": "",
+          "isBye": false
+        },
+        {
+          "matchId": 497619,
+          "matchCode": "Pre001",
+          "phaseId": 168834,
+          "phase": {
+            "shortName": "T8",
+            "longName": "8表",
+            "order": 2,
+            "code": "3",
+            "group": "2_0"
+          },
+          "groupCode": "3_0",
+          "innerOrder": 1,
+          "home": {
+            "position": 1,
+            "name": "张嘉盛",
+            "licence": "20161105M202307021013",
+            "club": "上海嘉世",
+            "points": 10,
+            "result": "W"
+          },
+          "away": {
+            "position": 8,
+            "name": "宋浩宇",
+            "licence": "20170322M202307060644",
+            "club": "北京圣剑",
+            "points": 7,
+            "result": "L"
+          },
+          "winner": {
+            "name": "张嘉盛",
+            "club": "上海嘉世"
+          },
+          "piste": "",
+          "startTime": "",
+          "isBye": false
+        },
+        {
+          "matchId": 497617,
+          "matchCode": "Pre007",
+          "phaseId": 168833,
+          "phase": {
+            "shortName": "T16",
+            "longName": "16表",
+            "order": 1,
+            "code": "4",
+            "group": "1_0"
+          },
+          "groupCode": "4_3",
+          "innerOrder": 1,
+          "home": {
+            "position": 7,
+            "name": "王璟泽",
+            "licence": "20160612M202304011118",
+            "club": "海口嘉世",
+            "points": 5,
+            "result": "L"
+          },
+          "away": {
+            "position": 10,
+            "name": "梁庭睿",
+            "licence": "20161017M202406190604",
+            "club": "海口嘉世",
+            "points": 8,
+            "result": "W"
+          },
+          "winner": {
+            "name": "梁庭睿",
+            "club": "海口嘉世"
+          },
+          "piste": "",
+          "startTime": "",
+          "isBye": false
+        },
+        {
+          "matchId": 497616,
+          "matchCode": "Pre006",
+          "phaseId": 168833,
+          "phase": {
+            "shortName": "T16",
+            "longName": "16表",
+            "order": 1,
+            "code": "4",
+            "group": "1_0"
+          },
+          "groupCode": "4_2",
+          "innerOrder": 2,
+          "home": {
+            "position": 11,
+            "name": "陈思然",
+            "licence": "20160524M202408010202",
+            "club": "广州阳光剑匠",
+            "points": 10,
+            "result": "W"
+          },
+          "away": {
+            "position": 6,
+            "name": "王琳溪",
+            "licence": "20160606M202311290422",
+            "club": "海南海外双优",
+            "points": 6,
+            "result": "L"
+          },
+          "winner": {
+            "name": "陈思然",
+            "club": "广州阳光剑匠"
+          },
+          "piste": "",
+          "startTime": "",
+          "isBye": false
+        },
+        {
+          "matchId": 497614,
+          "matchCode": "Pre004",
+          "phaseId": 168833,
+          "phase": {
+            "shortName": "T16",
+            "longName": "16表",
+            "order": 1,
+            "code": "4",
+            "group": "1_0"
+          },
+          "groupCode": "4_1",
+          "innerOrder": 2,
+          "home": {
+            "position": 13,
+            "name": "于博圣",
+            "licence": "20181215M202408010400",
+            "club": "哈尔滨博奕",
+            "points": 4,
+            "result": "L"
+          },
+          "away": {
+            "position": 4,
+            "name": "杨启桢",
+            "licence": "20170209M202409270722",
+            "club": "北京东城万国",
+            "points": 10,
+            "result": "W"
+          },
+          "winner": {
+            "name": "杨启桢",
+            "club": "北京东城万国"
+          },
+          "piste": "",
+          "startTime": "",
+          "isBye": false
+        },
+        {
+          "matchId": 497613,
+          "matchCode": "Pre003",
+          "phaseId": 168833,
+          "phase": {
+            "shortName": "T16",
+            "longName": "16表",
+            "order": 1,
+            "code": "4",
+            "group": "1_0"
+          },
+          "groupCode": "4_1",
+          "innerOrder": 1,
+          "home": {
+            "position": 5,
+            "name": "时铭泽",
+            "licence": "20171011M202405061217",
+            "club": "个人",
+            "points": 10,
+            "result": "W"
+          },
+          "away": {
+            "position": 12,
+            "name": "赵一帆",
+            "licence": "20160707M202304031135",
+            "club": "海口嘉世",
+            "points": 7,
+            "result": "L"
+          },
+          "winner": {
+            "name": "时铭泽",
+            "club": "个人"
+          },
+          "piste": "",
+          "startTime": "",
+          "isBye": false
+        },
+        {
+          "matchId": 497612,
+          "matchCode": "Pre002",
+          "phaseId": 168833,
+          "phase": {
+            "shortName": "T16",
+            "longName": "16表",
+            "order": 1,
+            "code": "4",
+            "group": "1_0"
+          },
+          "groupCode": "4_0",
+          "innerOrder": 2,
+          "home": {
+            "position": 9,
+            "name": "林诺禧",
+            "licence": "20170215M202501150309",
+            "club": "香港剑乐会",
+            "points": 5,
+            "result": "L"
+          },
+          "away": {
+            "position": 8,
+            "name": "宋浩宇",
+            "licence": "20170322M202307060644",
+            "club": "北京圣剑",
+            "points": 10,
+            "result": "W"
+          },
+          "winner": {
+            "name": "宋浩宇",
+            "club": "北京圣剑"
+          },
+          "piste": "",
+          "startTime": "",
+          "isBye": false
+        }
+      ],
+      "eliminationPhaseGroups": [
+        {
+          "phase": "16表",
+          "order": 1,
+          "matches": [
+            {
+              "matchId": 497613,
+              "matchCode": "Pre003",
+              "phaseId": 168833,
+              "phase": {
+                "shortName": "T16",
+                "longName": "16表",
+                "order": 1,
+                "code": "4",
+                "group": "1_0"
+              },
+              "groupCode": "4_1",
+              "innerOrder": 1,
+              "home": {
+                "position": 5,
+                "name": "时铭泽",
+                "licence": "20171011M202405061217",
+                "club": "个人",
+                "points": 10,
+                "result": "W"
+              },
+              "away": {
+                "position": 12,
+                "name": "赵一帆",
+                "licence": "20160707M202304031135",
+                "club": "海口嘉世",
+                "points": 7,
+                "result": "L"
+              },
+              "winner": {
+                "name": "时铭泽",
+                "club": "个人"
+              },
+              "piste": "",
+              "startTime": "",
+              "isBye": false
+            },
+            {
+              "matchId": 497617,
+              "matchCode": "Pre007",
+              "phaseId": 168833,
+              "phase": {
+                "shortName": "T16",
+                "longName": "16表",
+                "order": 1,
+                "code": "4",
+                "group": "1_0"
+              },
+              "groupCode": "4_3",
+              "innerOrder": 1,
+              "home": {
+                "position": 7,
+                "name": "王璟泽",
+                "licence": "20160612M202304011118",
+                "club": "海口嘉世",
+                "points": 5,
+                "result": "L"
+              },
+              "away": {
+                "position": 10,
+                "name": "梁庭睿",
+                "licence": "20161017M202406190604",
+                "club": "海口嘉世",
+                "points": 8,
+                "result": "W"
+              },
+              "winner": {
+                "name": "梁庭睿",
+                "club": "海口嘉世"
+              },
+              "piste": "",
+              "startTime": "",
+              "isBye": false
+            },
+            {
+              "matchId": 497612,
+              "matchCode": "Pre002",
+              "phaseId": 168833,
+              "phase": {
+                "shortName": "T16",
+                "longName": "16表",
+                "order": 1,
+                "code": "4",
+                "group": "1_0"
+              },
+              "groupCode": "4_0",
+              "innerOrder": 2,
+              "home": {
+                "position": 9,
+                "name": "林诺禧",
+                "licence": "20170215M202501150309",
+                "club": "香港剑乐会",
+                "points": 5,
+                "result": "L"
+              },
+              "away": {
+                "position": 8,
+                "name": "宋浩宇",
+                "licence": "20170322M202307060644",
+                "club": "北京圣剑",
+                "points": 10,
+                "result": "W"
+              },
+              "winner": {
+                "name": "宋浩宇",
+                "club": "北京圣剑"
+              },
+              "piste": "",
+              "startTime": "",
+              "isBye": false
+            },
+            {
+              "matchId": 497614,
+              "matchCode": "Pre004",
+              "phaseId": 168833,
+              "phase": {
+                "shortName": "T16",
+                "longName": "16表",
+                "order": 1,
+                "code": "4",
+                "group": "1_0"
+              },
+              "groupCode": "4_1",
+              "innerOrder": 2,
+              "home": {
+                "position": 13,
+                "name": "于博圣",
+                "licence": "20181215M202408010400",
+                "club": "哈尔滨博奕",
+                "points": 4,
+                "result": "L"
+              },
+              "away": {
+                "position": 4,
+                "name": "杨启桢",
+                "licence": "20170209M202409270722",
+                "club": "北京东城万国",
+                "points": 10,
+                "result": "W"
+              },
+              "winner": {
+                "name": "杨启桢",
+                "club": "北京东城万国"
+              },
+              "piste": "",
+              "startTime": "",
+              "isBye": false
+            },
+            {
+              "matchId": 497616,
+              "matchCode": "Pre006",
+              "phaseId": 168833,
+              "phase": {
+                "shortName": "T16",
+                "longName": "16表",
+                "order": 1,
+                "code": "4",
+                "group": "1_0"
+              },
+              "groupCode": "4_2",
+              "innerOrder": 2,
+              "home": {
+                "position": 11,
+                "name": "陈思然",
+                "licence": "20160524M202408010202",
+                "club": "广州阳光剑匠",
+                "points": 10,
+                "result": "W"
+              },
+              "away": {
+                "position": 6,
+                "name": "王琳溪",
+                "licence": "20160606M202311290422",
+                "club": "海南海外双优",
+                "points": 6,
+                "result": "L"
+              },
+              "winner": {
+                "name": "陈思然",
+                "club": "广州阳光剑匠"
+              },
+              "piste": "",
+              "startTime": "",
+              "isBye": false
+            }
+          ]
+        },
+        {
+          "phase": "8表",
+          "order": 2,
+          "matches": [
+            {
+              "matchId": 497619,
+              "matchCode": "Pre001",
+              "phaseId": 168834,
+              "phase": {
+                "shortName": "T8",
+                "longName": "8表",
+                "order": 2,
+                "code": "3",
+                "group": "2_0"
+              },
+              "groupCode": "3_0",
+              "innerOrder": 1,
+              "home": {
+                "position": 1,
+                "name": "张嘉盛",
+                "licence": "20161105M202307021013",
+                "club": "上海嘉世",
+                "points": 10,
+                "result": "W"
+              },
+              "away": {
+                "position": 8,
+                "name": "宋浩宇",
+                "licence": "20170322M202307060644",
+                "club": "北京圣剑",
+                "points": 7,
+                "result": "L"
+              },
+              "winner": {
+                "name": "张嘉盛",
+                "club": "上海嘉世"
+              },
+              "piste": "",
+              "startTime": "",
+              "isBye": false
+            },
+            {
+              "matchId": 497621,
+              "matchCode": "Pre003",
+              "phaseId": 168834,
+              "phase": {
+                "shortName": "T8",
+                "longName": "8表",
+                "order": 2,
+                "code": "3",
+                "group": "2_0"
+              },
+              "groupCode": "3_1",
+              "innerOrder": 1,
+              "home": {
+                "position": 3,
+                "name": "林恩霈",
+                "licence": "20160520M202307010456",
+                "club": "个人",
+                "points": 8,
+                "result": "L"
+              },
+              "away": {
+                "position": 6,
+                "name": "陈思然",
+                "licence": "20160524M202408010202",
+                "club": "广州阳光剑匠",
+                "points": 10,
+                "result": "W"
+              },
+              "winner": {
+                "name": "陈思然",
+                "club": "广州阳光剑匠"
+              },
+              "piste": "",
+              "startTime": "",
+              "isBye": false
+            },
+            {
+              "matchId": 497620,
+              "matchCode": "Pre002",
+              "phaseId": 168834,
+              "phase": {
+                "shortName": "T8",
+                "longName": "8表",
+                "order": 2,
+                "code": "3",
+                "group": "2_0"
+              },
+              "groupCode": "3_0",
+              "innerOrder": 2,
+              "home": {
+                "position": 5,
+                "name": "时铭泽",
+                "licence": "20171011M202405061217",
+                "club": "个人",
+                "points": 7,
+                "result": "L"
+              },
+              "away": {
+                "position": 4,
+                "name": "杨启桢",
+                "licence": "20170209M202409270722",
+                "club": "北京东城万国",
+                "points": 10,
+                "result": "W"
+              },
+              "winner": {
+                "name": "杨启桢",
+                "club": "北京东城万国"
+              },
+              "piste": "",
+              "startTime": "",
+              "isBye": false
+            },
+            {
+              "matchId": 497622,
+              "matchCode": "Pre004",
+              "phaseId": 168834,
+              "phase": {
+                "shortName": "T8",
+                "longName": "8表",
+                "order": 2,
+                "code": "3",
+                "group": "2_0"
+              },
+              "groupCode": "3_1",
+              "innerOrder": 2,
+              "home": {
+                "position": 7,
+                "name": "梁庭睿",
+                "licence": "20161017M202406190604",
+                "club": "海口嘉世",
+                "points": 4,
+                "result": "L"
+              },
+              "away": {
+                "position": 2,
+                "name": "刘栩辰",
+                "licence": "20160215M202306281040",
+                "club": "广州阳光剑匠",
+                "points": 9,
+                "result": "W"
+              },
+              "winner": {
+                "name": "刘栩辰",
+                "club": "广州阳光剑匠"
+              },
+              "piste": "",
+              "startTime": "",
+              "isBye": false
+            }
+          ]
+        },
+        {
+          "phase": "半决赛",
+          "order": 3,
+          "matches": [
+            {
+              "matchId": 497623,
+              "matchCode": "Pre001",
+              "phaseId": 168835,
+              "phase": {
+                "shortName": "T4",
+                "longName": "半决赛",
+                "order": 3,
+                "code": "2",
+                "group": "3_0"
+              },
+              "groupCode": "2_0",
+              "innerOrder": 1,
+              "home": {
+                "position": 1,
+                "name": "张嘉盛",
+                "licence": "20161105M202307021013",
+                "club": "上海嘉世",
+                "points": 10,
+                "result": "W"
+              },
+              "away": {
+                "position": 4,
+                "name": "杨启桢",
+                "licence": "20170209M202409270722",
+                "club": "北京东城万国",
+                "points": 3,
+                "result": "L"
+              },
+              "winner": {
+                "name": "张嘉盛",
+                "club": "上海嘉世"
+              },
+              "piste": "",
+              "startTime": "",
+              "isBye": false
+            },
+            {
+              "matchId": 497624,
+              "matchCode": "Pre002",
+              "phaseId": 168835,
+              "phase": {
+                "shortName": "T4",
+                "longName": "半决赛",
+                "order": 3,
+                "code": "2",
+                "group": "3_0"
+              },
+              "groupCode": "2_0",
+              "innerOrder": 2,
+              "home": {
+                "position": 3,
+                "name": "陈思然",
+                "licence": "20160524M202408010202",
+                "club": "广州阳光剑匠",
+                "points": 10,
+                "result": "W"
+              },
+              "away": {
+                "position": 2,
+                "name": "刘栩辰",
+                "licence": "20160215M202306281040",
+                "club": "广州阳光剑匠",
+                "points": 7,
+                "result": "L"
+              },
+              "winner": {
+                "name": "陈思然",
+                "club": "广州阳光剑匠"
+              },
+              "piste": "",
+              "startTime": "",
+              "isBye": false
+            }
+          ]
+        },
+        {
+          "phase": "决赛",
+          "order": 4,
+          "matches": [
+            {
+              "matchId": 497625,
+              "matchCode": "Pre001",
+              "phaseId": 168836,
+              "phase": {
+                "shortName": "T2",
+                "longName": "决赛",
+                "order": 4,
+                "code": "1",
+                "group": "4_0"
+              },
+              "groupCode": "1_0",
+              "innerOrder": 1,
+              "home": {
+                "position": 1,
+                "name": "张嘉盛",
+                "licence": "20161105M202307021013",
+                "club": "上海嘉世",
+                "points": 10,
+                "result": "W"
+              },
+              "away": {
+                "position": 2,
+                "name": "陈思然",
+                "licence": "20160524M202408010202",
+                "club": "广州阳光剑匠",
+                "points": 4,
+                "result": "L"
+              },
+              "winner": {
+                "name": "张嘉盛",
+                "club": "上海嘉世"
+              },
+              "piste": "",
+              "startTime": "",
+              "isBye": false
+            }
+          ]
+        }
+      ],
+      "poolBouts": [
+        {
+          "poolId": 168830,
+          "caseCode": "CASE5",
+          "order": 1,
+          "matchOrder": 1,
+          "homeNumber": 1,
+          "awayNumber": 2,
+          "homeLabel": "1：胡肖南(个人)",
+          "awayLabel": "2：林诺禧(香港剑乐会)",
+          "homeScore": 0,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168830,
+          "caseCode": "CASE5",
+          "order": 2,
+          "matchOrder": 2,
+          "homeNumber": 3,
+          "awayNumber": 4,
+          "homeLabel": "3：宋浩宇(北京圣剑)",
+          "awayLabel": "4：梁庭睿(海口嘉世)",
+          "homeScore": 1,
+          "awayScore": null
+        },
+        {
+          "poolId": 168830,
+          "caseCode": "CASE5",
+          "order": 3,
+          "matchOrder": 3,
+          "homeNumber": 5,
+          "awayNumber": 1,
+          "homeLabel": "5：张嘉盛(上海嘉世)",
+          "awayLabel": "1：胡肖南(个人)",
+          "homeScore": "V",
+          "awayScore": 1
+        },
+        {
+          "poolId": 168830,
+          "caseCode": "CASE5",
+          "order": 4,
+          "matchOrder": 4,
+          "homeNumber": 2,
+          "awayNumber": 3,
+          "homeLabel": "2：林诺禧(香港剑乐会)",
+          "awayLabel": "3：宋浩宇(北京圣剑)",
+          "homeScore": 0,
+          "awayScore": null
+        },
+        {
+          "poolId": 168830,
+          "caseCode": "CASE5",
+          "order": 5,
+          "matchOrder": 5,
+          "homeNumber": 5,
+          "awayNumber": 4,
+          "homeLabel": "5：张嘉盛(上海嘉世)",
+          "awayLabel": "4：梁庭睿(海口嘉世)",
+          "homeScore": null,
+          "awayScore": 3
+        },
+        {
+          "poolId": 168830,
+          "caseCode": "CASE5",
+          "order": 6,
+          "matchOrder": 6,
+          "homeNumber": 1,
+          "awayNumber": 3,
+          "homeLabel": "1：胡肖南(个人)",
+          "awayLabel": "3：宋浩宇(北京圣剑)",
+          "homeScore": 0,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168830,
+          "caseCode": "CASE5",
+          "order": 7,
+          "matchOrder": 7,
+          "homeNumber": 2,
+          "awayNumber": 5,
+          "homeLabel": "2：林诺禧(香港剑乐会)",
+          "awayLabel": "5：张嘉盛(上海嘉世)",
+          "homeScore": 3,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168830,
+          "caseCode": "CASE5",
+          "order": 8,
+          "matchOrder": 8,
+          "homeNumber": 4,
+          "awayNumber": 1,
+          "homeLabel": "4：梁庭睿(海口嘉世)",
+          "awayLabel": "1：胡肖南(个人)",
+          "homeScore": null,
+          "awayScore": 3
+        },
+        {
+          "poolId": 168830,
+          "caseCode": "CASE5",
+          "order": 9,
+          "matchOrder": 9,
+          "homeNumber": 3,
+          "awayNumber": 5,
+          "homeLabel": "3：宋浩宇(北京圣剑)",
+          "awayLabel": "5：张嘉盛(上海嘉世)",
+          "homeScore": 4,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168830,
+          "caseCode": "CASE5",
+          "order": 10,
+          "matchOrder": 10,
+          "homeNumber": 4,
+          "awayNumber": 2,
+          "homeLabel": "4：梁庭睿(海口嘉世)",
+          "awayLabel": "2：林诺禧(香港剑乐会)",
+          "homeScore": 0,
+          "awayScore": null
+        },
+        {
+          "poolId": 168831,
+          "caseCode": "CASE6",
+          "order": 1,
+          "matchOrder": 1,
+          "homeNumber": 1,
+          "awayNumber": 2,
+          "homeLabel": "1：孙望哲(个人)",
+          "awayLabel": "2：时铭泽(个人)",
+          "homeScore": 2,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168831,
+          "caseCode": "CASE6",
+          "order": 2,
+          "matchOrder": 2,
+          "homeNumber": 4,
+          "awayNumber": 3,
+          "homeLabel": "4：于博圣(哈尔滨博奕)",
+          "awayLabel": "3：刘栩辰(广州阳光剑匠)",
+          "homeScore": 3,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168831,
+          "caseCode": "CASE6",
+          "order": 3,
+          "matchOrder": 3,
+          "homeNumber": 6,
+          "awayNumber": 5,
+          "homeLabel": "6：杨启桢(北京东城万国)",
+          "awayLabel": "5：赵一帆(海口嘉世)",
+          "homeScore": "V",
+          "awayScore": 2
+        },
+        {
+          "poolId": 168831,
+          "caseCode": "CASE6",
+          "order": 4,
+          "matchOrder": 4,
+          "homeNumber": 3,
+          "awayNumber": 1,
+          "homeLabel": "3：刘栩辰(广州阳光剑匠)",
+          "awayLabel": "1：孙望哲(个人)",
+          "homeScore": "V",
+          "awayScore": 1
+        },
+        {
+          "poolId": 168831,
+          "caseCode": "CASE6",
+          "order": 5,
+          "matchOrder": 5,
+          "homeNumber": 2,
+          "awayNumber": 6,
+          "homeLabel": "2：时铭泽(个人)",
+          "awayLabel": "6：杨启桢(北京东城万国)",
+          "homeScore": 4,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168831,
+          "caseCode": "CASE6",
+          "order": 6,
+          "matchOrder": 6,
+          "homeNumber": 5,
+          "awayNumber": 4,
+          "homeLabel": "5：赵一帆(海口嘉世)",
+          "awayLabel": "4：于博圣(哈尔滨博奕)",
+          "homeScore": "V",
+          "awayScore": 3
+        },
+        {
+          "poolId": 168831,
+          "caseCode": "CASE6",
+          "order": 7,
+          "matchOrder": 7,
+          "homeNumber": 1,
+          "awayNumber": 6,
+          "homeLabel": "1：孙望哲(个人)",
+          "awayLabel": "6：杨启桢(北京东城万国)",
+          "homeScore": 0,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168831,
+          "caseCode": "CASE6",
+          "order": 8,
+          "matchOrder": 8,
+          "homeNumber": 3,
+          "awayNumber": 5,
+          "homeLabel": "3：刘栩辰(广州阳光剑匠)",
+          "awayLabel": "5：赵一帆(海口嘉世)",
+          "homeScore": "V",
+          "awayScore": 2
+        },
+        {
+          "poolId": 168831,
+          "caseCode": "CASE6",
+          "order": 9,
+          "matchOrder": 9,
+          "homeNumber": 4,
+          "awayNumber": 2,
+          "homeLabel": "4：于博圣(哈尔滨博奕)",
+          "awayLabel": "2：时铭泽(个人)",
+          "homeScore": 3,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168831,
+          "caseCode": "CASE6",
+          "order": 10,
+          "matchOrder": 10,
+          "homeNumber": 5,
+          "awayNumber": 1,
+          "homeLabel": "5：赵一帆(海口嘉世)",
+          "awayLabel": "1：孙望哲(个人)",
+          "homeScore": "V",
+          "awayScore": 0
+        },
+        {
+          "poolId": 168831,
+          "caseCode": "CASE6",
+          "order": 11,
+          "matchOrder": 11,
+          "homeNumber": 6,
+          "awayNumber": 4,
+          "homeLabel": "6：杨启桢(北京东城万国)",
+          "awayLabel": "4：于博圣(哈尔滨博奕)",
+          "homeScore": "V",
+          "awayScore": 0
+        },
+        {
+          "poolId": 168831,
+          "caseCode": "CASE6",
+          "order": 12,
+          "matchOrder": 12,
+          "homeNumber": 2,
+          "awayNumber": 3,
+          "homeLabel": "2：时铭泽(个人)",
+          "awayLabel": "3：刘栩辰(广州阳光剑匠)",
+          "homeScore": null,
+          "awayScore": 3
+        },
+        {
+          "poolId": 168831,
+          "caseCode": "CASE6",
+          "order": 13,
+          "matchOrder": 13,
+          "homeNumber": 1,
+          "awayNumber": 4,
+          "homeLabel": "1：孙望哲(个人)",
+          "awayLabel": "4：于博圣(哈尔滨博奕)",
+          "homeScore": 4,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168831,
+          "caseCode": "CASE6",
+          "order": 14,
+          "matchOrder": 14,
+          "homeNumber": 5,
+          "awayNumber": 2,
+          "homeLabel": "5：赵一帆(海口嘉世)",
+          "awayLabel": "2：时铭泽(个人)",
+          "homeScore": 1,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168831,
+          "caseCode": "CASE6",
+          "order": 15,
+          "matchOrder": 15,
+          "homeNumber": 3,
+          "awayNumber": 6,
+          "homeLabel": "3：刘栩辰(广州阳光剑匠)",
+          "awayLabel": "6：杨启桢(北京东城万国)",
+          "homeScore": "V",
+          "awayScore": 1
+        },
+        {
+          "poolId": 168832,
+          "caseCode": "CASE6",
+          "order": 1,
+          "matchOrder": 1,
+          "homeNumber": 1,
+          "awayNumber": 2,
+          "homeLabel": "1：张渊垣(海口嘉世)",
+          "awayLabel": "2：王璟泽(海口嘉世)",
+          "homeScore": 4,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168832,
+          "caseCode": "CASE6",
+          "order": 2,
+          "matchOrder": 2,
+          "homeNumber": 4,
+          "awayNumber": 3,
+          "homeLabel": "4：李沐霖(湖南聚力)",
+          "awayLabel": "3：林恩霈(个人)",
+          "homeScore": 2,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168832,
+          "caseCode": "CASE6",
+          "order": 3,
+          "matchOrder": 3,
+          "homeNumber": 6,
+          "awayNumber": 5,
+          "homeLabel": "6：王琳溪(海南海外双优)",
+          "awayLabel": "5：陈思然(广州阳光剑匠)",
+          "homeScore": null,
+          "awayScore": 2
+        },
+        {
+          "poolId": 168832,
+          "caseCode": "CASE6",
+          "order": 4,
+          "matchOrder": 4,
+          "homeNumber": 3,
+          "awayNumber": 1,
+          "homeLabel": "3：林恩霈(个人)",
+          "awayLabel": "1：张渊垣(海口嘉世)",
+          "homeScore": "V",
+          "awayScore": 0
+        },
+        {
+          "poolId": 168832,
+          "caseCode": "CASE6",
+          "order": 5,
+          "matchOrder": 5,
+          "homeNumber": 2,
+          "awayNumber": 6,
+          "homeLabel": "2：王璟泽(海口嘉世)",
+          "awayLabel": "6：王琳溪(海南海外双优)",
+          "homeScore": 2,
+          "awayScore": null
+        },
+        {
+          "poolId": 168832,
+          "caseCode": "CASE6",
+          "order": 6,
+          "matchOrder": 6,
+          "homeNumber": 5,
+          "awayNumber": 4,
+          "homeLabel": "5：陈思然(广州阳光剑匠)",
+          "awayLabel": "4：李沐霖(湖南聚力)",
+          "homeScore": "V",
+          "awayScore": 1
+        },
+        {
+          "poolId": 168832,
+          "caseCode": "CASE6",
+          "order": 7,
+          "matchOrder": 7,
+          "homeNumber": 1,
+          "awayNumber": 6,
+          "homeLabel": "1：张渊垣(海口嘉世)",
+          "awayLabel": "6：王琳溪(海南海外双优)",
+          "homeScore": "V",
+          "awayScore": 3
+        },
+        {
+          "poolId": 168832,
+          "caseCode": "CASE6",
+          "order": 8,
+          "matchOrder": 8,
+          "homeNumber": 3,
+          "awayNumber": 5,
+          "homeLabel": "3：林恩霈(个人)",
+          "awayLabel": "5：陈思然(广州阳光剑匠)",
+          "homeScore": "V",
+          "awayScore": 3
+        },
+        {
+          "poolId": 168832,
+          "caseCode": "CASE6",
+          "order": 9,
+          "matchOrder": 9,
+          "homeNumber": 4,
+          "awayNumber": 2,
+          "homeLabel": "4：李沐霖(湖南聚力)",
+          "awayLabel": "2：王璟泽(海口嘉世)",
+          "homeScore": 1,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168832,
+          "caseCode": "CASE6",
+          "order": 10,
+          "matchOrder": 10,
+          "homeNumber": 5,
+          "awayNumber": 1,
+          "homeLabel": "5：陈思然(广州阳光剑匠)",
+          "awayLabel": "1：张渊垣(海口嘉世)",
+          "homeScore": "V",
+          "awayScore": 3
+        },
+        {
+          "poolId": 168832,
+          "caseCode": "CASE6",
+          "order": 11,
+          "matchOrder": 11,
+          "homeNumber": 6,
+          "awayNumber": 4,
+          "homeLabel": "6：王琳溪(海南海外双优)",
+          "awayLabel": "4：李沐霖(湖南聚力)",
+          "homeScore": "V",
+          "awayScore": 2
+        },
+        {
+          "poolId": 168832,
+          "caseCode": "CASE6",
+          "order": 12,
+          "matchOrder": 12,
+          "homeNumber": 2,
+          "awayNumber": 3,
+          "homeLabel": "2：王璟泽(海口嘉世)",
+          "awayLabel": "3：林恩霈(个人)",
+          "homeScore": 4,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168832,
+          "caseCode": "CASE6",
+          "order": 13,
+          "matchOrder": 13,
+          "homeNumber": 1,
+          "awayNumber": 4,
+          "homeLabel": "1：张渊垣(海口嘉世)",
+          "awayLabel": "4：李沐霖(湖南聚力)",
+          "homeScore": 1,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168832,
+          "caseCode": "CASE6",
+          "order": 14,
+          "matchOrder": 14,
+          "homeNumber": 5,
+          "awayNumber": 2,
+          "homeLabel": "5：陈思然(广州阳光剑匠)",
+          "awayLabel": "2：王璟泽(海口嘉世)",
+          "homeScore": 4,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168832,
+          "caseCode": "CASE6",
+          "order": 15,
+          "matchOrder": 15,
+          "homeNumber": 3,
+          "awayNumber": 6,
+          "homeLabel": "3：林恩霈(个人)",
+          "awayLabel": "6：王琳溪(海南海外双优)",
+          "homeScore": 4,
+          "awayScore": "V"
+        }
+      ],
+      "poolGroups": [
+        {
+          "poolId": 168830,
+          "title": "小组 1",
+          "athletes": [
+            {
+              "id": "20161105M202307021013",
+              "drawNo": 5,
+              "name": "张嘉盛",
+              "licence": "20161105M202307021013",
+              "club": "上海嘉世",
+              "wins": 4,
+              "matches": 4,
+              "winRate": 1,
+              "scored": 19,
+              "received": 11,
+              "diff": 8,
+              "phaseRank": 1,
+              "finalRank": 1,
+              "medal": "金"
+            },
+            {
+              "id": "20170322M202307060644",
+              "drawNo": 3,
+              "name": "宋浩宇",
+              "licence": "20170322M202307060644",
+              "club": "北京圣剑",
+              "wins": 2,
+              "matches": 4,
+              "winRate": 0.5,
+              "scored": 13,
+              "received": 7,
+              "diff": 6,
+              "phaseRank": 2,
+              "finalRank": 7,
+              "medal": null
+            },
+            {
+              "id": "20170215M202501150309",
+              "drawNo": 2,
+              "name": "林诺禧",
+              "licence": "20170215M202501150309",
+              "club": "香港剑乐会",
+              "wins": 2,
+              "matches": 4,
+              "winRate": 0.5,
+              "scored": 11,
+              "received": 8,
+              "diff": 3,
+              "phaseRank": 3,
+              "finalRank": 11,
+              "medal": null
+            },
+            {
+              "id": "20161017M202406190604",
+              "drawNo": 4,
+              "name": "梁庭睿",
+              "licence": "20161017M202406190604",
+              "club": "海口嘉世",
+              "wins": 2,
+              "matches": 4,
+              "winRate": 0.5,
+              "scored": 9,
+              "received": 11,
+              "diff": -2,
+              "phaseRank": 4,
+              "finalRank": 8,
+              "medal": null
+            },
+            {
+              "id": "20170529M202406221006",
+              "drawNo": 1,
+              "name": "胡肖南",
+              "licence": "20170529M202406221006",
+              "club": "个人",
+              "wins": 0,
+              "matches": 4,
+              "winRate": 0,
+              "scored": 4,
+              "received": 19,
+              "diff": -15,
+              "phaseRank": 5,
+              "finalRank": 16,
+              "medal": null
+            }
+          ],
+          "bouts": [
+            {
+              "poolId": 168830,
+              "caseCode": "CASE5",
+              "order": 1,
+              "matchOrder": 1,
+              "homeNumber": 1,
+              "awayNumber": 2,
+              "homeLabel": "1：胡肖南(个人)",
+              "awayLabel": "2：林诺禧(香港剑乐会)",
+              "homeScore": 0,
+              "awayScore": "V"
+            },
+            {
+              "poolId": 168830,
+              "caseCode": "CASE5",
+              "order": 2,
+              "matchOrder": 2,
+              "homeNumber": 3,
+              "awayNumber": 4,
+              "homeLabel": "3：宋浩宇(北京圣剑)",
+              "awayLabel": "4：梁庭睿(海口嘉世)",
+              "homeScore": 1,
+              "awayScore": null
+            },
+            {
+              "poolId": 168830,
+              "caseCode": "CASE5",
+              "order": 3,
+              "matchOrder": 3,
+              "homeNumber": 5,
+              "awayNumber": 1,
+              "homeLabel": "5：张嘉盛(上海嘉世)",
+              "awayLabel": "1：胡肖南(个人)",
+              "homeScore": "V",
+              "awayScore": 1
+            },
+            {
+              "poolId": 168830,
+              "caseCode": "CASE5",
+              "order": 4,
+              "matchOrder": 4,
+              "homeNumber": 2,
+              "awayNumber": 3,
+              "homeLabel": "2：林诺禧(香港剑乐会)",
+              "awayLabel": "3：宋浩宇(北京圣剑)",
+              "homeScore": 0,
+              "awayScore": null
+            },
+            {
+              "poolId": 168830,
+              "caseCode": "CASE5",
+              "order": 5,
+              "matchOrder": 5,
+              "homeNumber": 5,
+              "awayNumber": 4,
+              "homeLabel": "5：张嘉盛(上海嘉世)",
+              "awayLabel": "4：梁庭睿(海口嘉世)",
+              "homeScore": null,
+              "awayScore": 3
+            },
+            {
+              "poolId": 168830,
+              "caseCode": "CASE5",
+              "order": 6,
+              "matchOrder": 6,
+              "homeNumber": 1,
+              "awayNumber": 3,
+              "homeLabel": "1：胡肖南(个人)",
+              "awayLabel": "3：宋浩宇(北京圣剑)",
+              "homeScore": 0,
+              "awayScore": "V"
+            },
+            {
+              "poolId": 168830,
+              "caseCode": "CASE5",
+              "order": 7,
+              "matchOrder": 7,
+              "homeNumber": 2,
+              "awayNumber": 5,
+              "homeLabel": "2：林诺禧(香港剑乐会)",
+              "awayLabel": "5：张嘉盛(上海嘉世)",
+              "homeScore": 3,
+              "awayScore": "V"
+            },
+            {
+              "poolId": 168830,
+              "caseCode": "CASE5",
+              "order": 8,
+              "matchOrder": 8,
+              "homeNumber": 4,
+              "awayNumber": 1,
+              "homeLabel": "4：梁庭睿(海口嘉世)",
+              "awayLabel": "1：胡肖南(个人)",
+              "homeScore": null,
+              "awayScore": 3
+            },
+            {
+              "poolId": 168830,
+              "caseCode": "CASE5",
+              "order": 9,
+              "matchOrder": 9,
+              "homeNumber": 3,
+              "awayNumber": 5,
+              "homeLabel": "3：宋浩宇(北京圣剑)",
+              "awayLabel": "5：张嘉盛(上海嘉世)",
+              "homeScore": 4,
+              "awayScore": "V"
+            },
+            {
+              "poolId": 168830,
+              "caseCode": "CASE5",
+              "order": 10,
+              "matchOrder": 10,
+              "homeNumber": 4,
+              "awayNumber": 2,
+              "homeLabel": "4：梁庭睿(海口嘉世)",
+              "awayLabel": "2：林诺禧(香港剑乐会)",
+              "homeScore": 0,
+              "awayScore": null
+            }
+          ]
+        },
+        {
+          "poolId": 168831,
+          "title": "小组 2",
+          "athletes": [
+            {
+              "id": "20160215M202306281040",
+              "drawNo": 3,
+              "name": "刘栩辰",
+              "licence": "20160215M202306281040",
+              "club": "广州阳光剑匠",
+              "wins": 4,
+              "matches": 5,
+              "winRate": 0.8,
+              "scored": 23,
+              "received": 11,
+              "diff": 12,
+              "phaseRank": 1,
+              "finalRank": 3,
+              "medal": "铜"
+            },
+            {
+              "id": "20170209M202409270722",
+              "drawNo": 6,
+              "name": "杨启桢",
+              "licence": "20170209M202409270722",
+              "club": "北京东城万国",
+              "wins": 4,
+              "matches": 5,
+              "winRate": 0.8,
+              "scored": 21,
+              "received": 11,
+              "diff": 10,
+              "phaseRank": 2,
+              "finalRank": 3,
+              "medal": "铜"
+            },
+            {
+              "id": "20171011M202405061217",
+              "drawNo": 2,
+              "name": "时铭泽",
+              "licence": "20171011M202405061217",
+              "club": "个人",
+              "wins": 4,
+              "matches": 5,
+              "winRate": 0.8,
+              "scored": 23,
+              "received": 14,
+              "diff": 9,
+              "phaseRank": 3,
+              "finalRank": 6,
+              "medal": null
+            },
+            {
+              "id": "20160707M202304031135",
+              "drawNo": 5,
+              "name": "赵一帆",
+              "licence": "20160707M202304031135",
+              "club": "海口嘉世",
+              "wins": 2,
+              "matches": 5,
+              "winRate": 0.4,
+              "scored": 15,
+              "received": 18,
+              "diff": -3,
+              "phaseRank": 4,
+              "finalRank": 12,
+              "medal": null
+            },
+            {
+              "id": "20181215M202408010400",
+              "drawNo": 4,
+              "name": "于博圣",
+              "licence": "20181215M202408010400",
+              "club": "哈尔滨博奕",
+              "wins": 1,
+              "matches": 5,
+              "winRate": 0.2,
+              "scored": 14,
+              "received": 24,
+              "diff": -10,
+              "phaseRank": 5,
+              "finalRank": 13,
+              "medal": null
+            },
+            {
+              "id": "20160719M202605180436",
+              "drawNo": 1,
+              "name": "孙望哲",
+              "licence": "20160719M202605180436",
+              "club": "个人",
+              "wins": 0,
+              "matches": 5,
+              "winRate": 0,
+              "scored": 7,
+              "received": 25,
+              "diff": -18,
+              "phaseRank": 6,
+              "finalRank": 17,
+              "medal": null
+            }
+          ],
+          "bouts": [
+            {
+              "poolId": 168831,
+              "caseCode": "CASE6",
+              "order": 1,
+              "matchOrder": 1,
+              "homeNumber": 1,
+              "awayNumber": 2,
+              "homeLabel": "1：孙望哲(个人)",
+              "awayLabel": "2：时铭泽(个人)",
+              "homeScore": 2,
+              "awayScore": "V"
+            },
+            {
+              "poolId": 168831,
+              "caseCode": "CASE6",
+              "order": 2,
+              "matchOrder": 2,
+              "homeNumber": 4,
+              "awayNumber": 3,
+              "homeLabel": "4：于博圣(哈尔滨博奕)",
+              "awayLabel": "3：刘栩辰(广州阳光剑匠)",
+              "homeScore": 3,
+              "awayScore": "V"
+            },
+            {
+              "poolId": 168831,
+              "caseCode": "CASE6",
+              "order": 3,
+              "matchOrder": 3,
+              "homeNumber": 6,
+              "awayNumber": 5,
+              "homeLabel": "6：杨启桢(北京东城万国)",
+              "awayLabel": "5：赵一帆(海口嘉世)",
+              "homeScore": "V",
+              "awayScore": 2
+            },
+            {
+              "poolId": 168831,
+              "caseCode": "CASE6",
+              "order": 4,
+              "matchOrder": 4,
+              "homeNumber": 3,
+              "awayNumber": 1,
+              "homeLabel": "3：刘栩辰(广州阳光剑匠)",
+              "awayLabel": "1：孙望哲(个人)",
+              "homeScore": "V",
+              "awayScore": 1
+            },
+            {
+              "poolId": 168831,
+              "caseCode": "CASE6",
+              "order": 5,
+              "matchOrder": 5,
+              "homeNumber": 2,
+              "awayNumber": 6,
+              "homeLabel": "2：时铭泽(个人)",
+              "awayLabel": "6：杨启桢(北京东城万国)",
+              "homeScore": 4,
+              "awayScore": "V"
+            },
+            {
+              "poolId": 168831,
+              "caseCode": "CASE6",
+              "order": 6,
+              "matchOrder": 6,
+              "homeNumber": 5,
+              "awayNumber": 4,
+              "homeLabel": "5：赵一帆(海口嘉世)",
+              "awayLabel": "4：于博圣(哈尔滨博奕)",
+              "homeScore": "V",
+              "awayScore": 3
+            },
+            {
+              "poolId": 168831,
+              "caseCode": "CASE6",
+              "order": 7,
+              "matchOrder": 7,
+              "homeNumber": 1,
+              "awayNumber": 6,
+              "homeLabel": "1：孙望哲(个人)",
+              "awayLabel": "6：杨启桢(北京东城万国)",
+              "homeScore": 0,
+              "awayScore": "V"
+            },
+            {
+              "poolId": 168831,
+              "caseCode": "CASE6",
+              "order": 8,
+              "matchOrder": 8,
+              "homeNumber": 3,
+              "awayNumber": 5,
+              "homeLabel": "3：刘栩辰(广州阳光剑匠)",
+              "awayLabel": "5：赵一帆(海口嘉世)",
+              "homeScore": "V",
+              "awayScore": 2
+            },
+            {
+              "poolId": 168831,
+              "caseCode": "CASE6",
+              "order": 9,
+              "matchOrder": 9,
+              "homeNumber": 4,
+              "awayNumber": 2,
+              "homeLabel": "4：于博圣(哈尔滨博奕)",
+              "awayLabel": "2：时铭泽(个人)",
+              "homeScore": 3,
+              "awayScore": "V"
+            },
+            {
+              "poolId": 168831,
+              "caseCode": "CASE6",
+              "order": 10,
+              "matchOrder": 10,
+              "homeNumber": 5,
+              "awayNumber": 1,
+              "homeLabel": "5：赵一帆(海口嘉世)",
+              "awayLabel": "1：孙望哲(个人)",
+              "homeScore": "V",
+              "awayScore": 0
+            },
+            {
+              "poolId": 168831,
+              "caseCode": "CASE6",
+              "order": 11,
+              "matchOrder": 11,
+              "homeNumber": 6,
+              "awayNumber": 4,
+              "homeLabel": "6：杨启桢(北京东城万国)",
+              "awayLabel": "4：于博圣(哈尔滨博奕)",
+              "homeScore": "V",
+              "awayScore": 0
+            },
+            {
+              "poolId": 168831,
+              "caseCode": "CASE6",
+              "order": 12,
+              "matchOrder": 12,
+              "homeNumber": 2,
+              "awayNumber": 3,
+              "homeLabel": "2：时铭泽(个人)",
+              "awayLabel": "3：刘栩辰(广州阳光剑匠)",
+              "homeScore": null,
+              "awayScore": 3
+            }
+          ]
+        },
+        {
+          "poolId": 168832,
+          "title": "小组 3",
+          "athletes": [
+            {
+              "id": "20160520M202307010456",
+              "drawNo": 3,
+              "name": "林恩霈",
+              "licence": "20160520M202307010456",
+              "club": "个人",
+              "wins": 4,
+              "matches": 5,
+              "winRate": 0.8,
+              "scored": 24,
+              "received": 14,
+              "diff": 10,
+              "phaseRank": 1,
+              "finalRank": 5,
+              "medal": null
+            },
+            {
+              "id": "20160606M202311290422",
+              "drawNo": 6,
+              "name": "王琳溪",
+              "licence": "20160606M202311290422",
+              "club": "海南海外双优",
+              "wins": 4,
+              "matches": 5,
+              "winRate": 0.8,
+              "scored": 20,
+              "received": 15,
+              "diff": 5,
+              "phaseRank": 2,
+              "finalRank": 9,
+              "medal": null
+            },
+            {
+              "id": "20160612M202304011118",
+              "drawNo": 2,
+              "name": "王璟泽",
+              "licence": "20160612M202304011118",
+              "club": "海口嘉世",
+              "wins": 3,
+              "matches": 5,
+              "winRate": 0.6,
+              "scored": 21,
+              "received": 17,
+              "diff": 4,
+              "phaseRank": 3,
+              "finalRank": 10,
+              "medal": null
+            },
+            {
+              "id": "20160524M202408010202",
+              "drawNo": 5,
+              "name": "陈思然",
+              "licence": "20160524M202408010202",
+              "club": "广州阳光剑匠",
+              "wins": 2,
+              "matches": 5,
+              "winRate": 0.4,
+              "scored": 19,
+              "received": 18,
+              "diff": 1,
+              "phaseRank": 4,
+              "finalRank": 2,
+              "medal": "银"
+            },
+            {
+              "id": "20170414M202605090753",
+              "drawNo": 1,
+              "name": "张渊垣",
+              "licence": "20170414M202605090753",
+              "club": "海口嘉世",
+              "wins": 1,
+              "matches": 5,
+              "winRate": 0.2,
+              "scored": 13,
+              "received": 23,
+              "diff": -10,
+              "phaseRank": 5,
+              "finalRank": 14,
+              "medal": null
+            },
+            {
+              "id": "20180522M202510210430",
+              "drawNo": 4,
+              "name": "李沐霖",
+              "licence": "20180522M202510210430",
+              "club": "湖南聚力",
+              "wins": 1,
+              "matches": 5,
+              "winRate": 0.2,
+              "scored": 11,
+              "received": 21,
+              "diff": -10,
+              "phaseRank": 6,
+              "finalRank": 15,
+              "medal": null
+            }
+          ],
+          "bouts": [
+            {
+              "poolId": 168832,
+              "caseCode": "CASE6",
+              "order": 1,
+              "matchOrder": 1,
+              "homeNumber": 1,
+              "awayNumber": 2,
+              "homeLabel": "1：张渊垣(海口嘉世)",
+              "awayLabel": "2：王璟泽(海口嘉世)",
+              "homeScore": 4,
+              "awayScore": "V"
+            },
+            {
+              "poolId": 168832,
+              "caseCode": "CASE6",
+              "order": 2,
+              "matchOrder": 2,
+              "homeNumber": 4,
+              "awayNumber": 3,
+              "homeLabel": "4：李沐霖(湖南聚力)",
+              "awayLabel": "3：林恩霈(个人)",
+              "homeScore": 2,
+              "awayScore": "V"
+            },
+            {
+              "poolId": 168832,
+              "caseCode": "CASE6",
+              "order": 3,
+              "matchOrder": 3,
+              "homeNumber": 6,
+              "awayNumber": 5,
+              "homeLabel": "6：王琳溪(海南海外双优)",
+              "awayLabel": "5：陈思然(广州阳光剑匠)",
+              "homeScore": null,
+              "awayScore": 2
+            },
+            {
+              "poolId": 168832,
+              "caseCode": "CASE6",
+              "order": 4,
+              "matchOrder": 4,
+              "homeNumber": 3,
+              "awayNumber": 1,
+              "homeLabel": "3：林恩霈(个人)",
+              "awayLabel": "1：张渊垣(海口嘉世)",
+              "homeScore": "V",
+              "awayScore": 0
+            },
+            {
+              "poolId": 168832,
+              "caseCode": "CASE6",
+              "order": 5,
+              "matchOrder": 5,
+              "homeNumber": 2,
+              "awayNumber": 6,
+              "homeLabel": "2：王璟泽(海口嘉世)",
+              "awayLabel": "6：王琳溪(海南海外双优)",
+              "homeScore": 2,
+              "awayScore": null
+            },
+            {
+              "poolId": 168832,
+              "caseCode": "CASE6",
+              "order": 6,
+              "matchOrder": 6,
+              "homeNumber": 5,
+              "awayNumber": 4,
+              "homeLabel": "5：陈思然(广州阳光剑匠)",
+              "awayLabel": "4：李沐霖(湖南聚力)",
+              "homeScore": "V",
+              "awayScore": 1
+            },
+            {
+              "poolId": 168832,
+              "caseCode": "CASE6",
+              "order": 7,
+              "matchOrder": 7,
+              "homeNumber": 1,
+              "awayNumber": 6,
+              "homeLabel": "1：张渊垣(海口嘉世)",
+              "awayLabel": "6：王琳溪(海南海外双优)",
+              "homeScore": "V",
+              "awayScore": 3
+            },
+            {
+              "poolId": 168832,
+              "caseCode": "CASE6",
+              "order": 8,
+              "matchOrder": 8,
+              "homeNumber": 3,
+              "awayNumber": 5,
+              "homeLabel": "3：林恩霈(个人)",
+              "awayLabel": "5：陈思然(广州阳光剑匠)",
+              "homeScore": "V",
+              "awayScore": 3
+            },
+            {
+              "poolId": 168832,
+              "caseCode": "CASE6",
+              "order": 9,
+              "matchOrder": 9,
+              "homeNumber": 4,
+              "awayNumber": 2,
+              "homeLabel": "4：李沐霖(湖南聚力)",
+              "awayLabel": "2：王璟泽(海口嘉世)",
+              "homeScore": 1,
+              "awayScore": "V"
+            },
+            {
+              "poolId": 168832,
+              "caseCode": "CASE6",
+              "order": 10,
+              "matchOrder": 10,
+              "homeNumber": 5,
+              "awayNumber": 1,
+              "homeLabel": "5：陈思然(广州阳光剑匠)",
+              "awayLabel": "1：张渊垣(海口嘉世)",
+              "homeScore": "V",
+              "awayScore": 3
+            },
+            {
+              "poolId": 168832,
+              "caseCode": "CASE6",
+              "order": 11,
+              "matchOrder": 11,
+              "homeNumber": 6,
+              "awayNumber": 4,
+              "homeLabel": "6：王琳溪(海南海外双优)",
+              "awayLabel": "4：李沐霖(湖南聚力)",
+              "homeScore": "V",
+              "awayScore": 2
+            },
+            {
+              "poolId": 168832,
+              "caseCode": "CASE6",
+              "order": 12,
+              "matchOrder": 12,
+              "homeNumber": 2,
+              "awayNumber": 3,
+              "homeLabel": "2：王璟泽(海口嘉世)",
+              "awayLabel": "3：林恩霈(个人)",
+              "homeScore": 4,
+              "awayScore": "V"
+            }
+          ]
+        }
+      ],
+      "participants": [
+        {
+          "id": "20161105M202307021013",
+          "name": "张嘉盛",
+          "licence": "20161105M202307021013",
+          "club": "上海嘉世",
+          "finalRank": 1,
+          "medal": "金",
+          "ageBand": "2016 下半年",
+          "poolId": 168830,
+          "drawNo": 5,
+          "poolRank": 1,
+          "poolWins": 4,
+          "poolMatches": 4,
+          "poolDiff": 8,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 3,
+          "eliminationLosses": 0
+        },
+        {
+          "id": "20160524M202408010202",
+          "name": "陈思然",
+          "licence": "20160524M202408010202",
+          "club": "广州阳光剑匠",
+          "finalRank": 2,
+          "medal": "银",
+          "ageBand": "2016 上半年",
+          "poolId": 168832,
+          "drawNo": 5,
+          "poolRank": 4,
+          "poolWins": 2,
+          "poolMatches": 5,
+          "poolDiff": 1,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 3,
+          "eliminationLosses": 1
+        },
+        {
+          "id": "20170209M202409270722",
+          "name": "杨启桢",
+          "licence": "20170209M202409270722",
+          "club": "北京东城万国",
+          "finalRank": 3,
+          "medal": "铜",
+          "ageBand": "2017 上半年",
+          "poolId": 168831,
+          "drawNo": 6,
+          "poolRank": 2,
+          "poolWins": 4,
+          "poolMatches": 5,
+          "poolDiff": 10,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 2,
+          "eliminationLosses": 1
+        },
+        {
+          "id": "20160215M202306281040",
+          "name": "刘栩辰",
+          "licence": "20160215M202306281040",
+          "club": "广州阳光剑匠",
+          "finalRank": 3,
+          "medal": "铜",
+          "ageBand": "2016 上半年",
+          "poolId": 168831,
+          "drawNo": 3,
+          "poolRank": 1,
+          "poolWins": 4,
+          "poolMatches": 5,
+          "poolDiff": 12,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 1,
+          "eliminationLosses": 1
+        },
+        {
+          "id": "20160520M202307010456",
+          "name": "林恩霈",
+          "licence": "20160520M202307010456",
+          "club": "个人",
+          "finalRank": 5,
+          "medal": null,
+          "ageBand": "2016 上半年",
+          "poolId": 168832,
+          "drawNo": 3,
+          "poolRank": 1,
+          "poolWins": 4,
+          "poolMatches": 5,
+          "poolDiff": 10,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 0,
+          "eliminationLosses": 1
+        },
+        {
+          "id": "20171011M202405061217",
+          "name": "时铭泽",
+          "licence": "20171011M202405061217",
+          "club": "个人",
+          "finalRank": 6,
+          "medal": null,
+          "ageBand": "2017 下半年",
+          "poolId": 168831,
+          "drawNo": 2,
+          "poolRank": 3,
+          "poolWins": 4,
+          "poolMatches": 5,
+          "poolDiff": 9,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 1,
+          "eliminationLosses": 1
+        },
+        {
+          "id": "20170322M202307060644",
+          "name": "宋浩宇",
+          "licence": "20170322M202307060644",
+          "club": "北京圣剑",
+          "finalRank": 7,
+          "medal": null,
+          "ageBand": "2017 上半年",
+          "poolId": 168830,
+          "drawNo": 3,
+          "poolRank": 2,
+          "poolWins": 2,
+          "poolMatches": 4,
+          "poolDiff": 6,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 1,
+          "eliminationLosses": 1
+        },
+        {
+          "id": "20161017M202406190604",
+          "name": "梁庭睿",
+          "licence": "20161017M202406190604",
+          "club": "海口嘉世",
+          "finalRank": 8,
+          "medal": null,
+          "ageBand": "2016 下半年",
+          "poolId": 168830,
+          "drawNo": 4,
+          "poolRank": 4,
+          "poolWins": 2,
+          "poolMatches": 4,
+          "poolDiff": -2,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 1,
+          "eliminationLosses": 1
+        },
+        {
+          "id": "20160606M202311290422",
+          "name": "王琳溪",
+          "licence": "20160606M202311290422",
+          "club": "海南海外双优",
+          "finalRank": 9,
+          "medal": null,
+          "ageBand": "2016 上半年",
+          "poolId": 168832,
+          "drawNo": 6,
+          "poolRank": 2,
+          "poolWins": 4,
+          "poolMatches": 5,
+          "poolDiff": 5,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 0,
+          "eliminationLosses": 1
+        },
+        {
+          "id": "20160612M202304011118",
+          "name": "王璟泽",
+          "licence": "20160612M202304011118",
+          "club": "海口嘉世",
+          "finalRank": 10,
+          "medal": null,
+          "ageBand": "2016 上半年",
+          "poolId": 168832,
+          "drawNo": 2,
+          "poolRank": 3,
+          "poolWins": 3,
+          "poolMatches": 5,
+          "poolDiff": 4,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 0,
+          "eliminationLosses": 1
+        },
+        {
+          "id": "20170215M202501150309",
+          "name": "林诺禧",
+          "licence": "20170215M202501150309",
+          "club": "香港剑乐会",
+          "finalRank": 11,
+          "medal": null,
+          "ageBand": "2017 上半年",
+          "poolId": 168830,
+          "drawNo": 2,
+          "poolRank": 3,
+          "poolWins": 2,
+          "poolMatches": 4,
+          "poolDiff": 3,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 0,
+          "eliminationLosses": 1
+        },
+        {
+          "id": "20160707M202304031135",
+          "name": "赵一帆",
+          "licence": "20160707M202304031135",
+          "club": "海口嘉世",
+          "finalRank": 12,
+          "medal": null,
+          "ageBand": "2016 下半年",
+          "poolId": 168831,
+          "drawNo": 5,
+          "poolRank": 4,
+          "poolWins": 2,
+          "poolMatches": 5,
+          "poolDiff": -3,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 0,
+          "eliminationLosses": 1
+        },
+        {
+          "id": "20181215M202408010400",
+          "name": "于博圣",
+          "licence": "20181215M202408010400",
+          "club": "哈尔滨博奕",
+          "finalRank": 13,
+          "medal": null,
+          "ageBand": "2018 下半年",
+          "poolId": 168831,
+          "drawNo": 4,
+          "poolRank": 5,
+          "poolWins": 1,
+          "poolMatches": 5,
+          "poolDiff": -10,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 0,
+          "eliminationLosses": 1
+        },
+        {
+          "id": "20170414M202605090753",
+          "name": "张渊垣",
+          "licence": "20170414M202605090753",
+          "club": "海口嘉世",
+          "finalRank": 14,
+          "medal": null,
+          "ageBand": "2017 上半年",
+          "poolId": 168832,
+          "drawNo": 1,
+          "poolRank": 5,
+          "poolWins": 1,
+          "poolMatches": 5,
+          "poolDiff": -10,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 0,
+          "eliminationLosses": 0
+        },
+        {
+          "id": "20180522M202510210430",
+          "name": "李沐霖",
+          "licence": "20180522M202510210430",
+          "club": "湖南聚力",
+          "finalRank": 15,
+          "medal": null,
+          "ageBand": "2018 上半年",
+          "poolId": 168832,
+          "drawNo": 4,
+          "poolRank": 6,
+          "poolWins": 1,
+          "poolMatches": 5,
+          "poolDiff": -10,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 0,
+          "eliminationLosses": 0
+        },
+        {
+          "id": "20170529M202406221006",
+          "name": "胡肖南",
+          "licence": "20170529M202406221006",
+          "club": "个人",
+          "finalRank": 16,
+          "medal": null,
+          "ageBand": "2017 上半年",
+          "poolId": 168830,
+          "drawNo": 1,
+          "poolRank": 5,
+          "poolWins": 0,
+          "poolMatches": 4,
+          "poolDiff": -15,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 0,
+          "eliminationLosses": 0
+        },
+        {
+          "id": "20160719M202605180436",
+          "name": "孙望哲",
+          "licence": "20160719M202605180436",
+          "club": "个人",
+          "finalRank": 17,
+          "medal": null,
+          "ageBand": "2016 下半年",
+          "poolId": 168831,
+          "drawNo": 1,
+          "poolRank": 6,
+          "poolWins": 0,
+          "poolMatches": 5,
+          "poolDiff": -18,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 0,
+          "eliminationLosses": 0
+        }
+      ],
+      "eliminationLeaders": [
+        {
+          "id": "20161105M202307021013",
+          "name": "张嘉盛",
+          "club": "上海嘉世",
+          "wins": 3,
+          "losses": 0,
+          "scored": 30,
+          "received": 14,
+          "diff": 16
+        },
+        {
+          "id": "20160524M202408010202",
+          "name": "陈思然",
+          "club": "广州阳光剑匠",
+          "wins": 3,
+          "losses": 1,
+          "scored": 34,
+          "received": 31,
+          "diff": 3
+        },
+        {
+          "id": "20170209M202409270722",
+          "name": "杨启桢",
+          "club": "北京东城万国",
+          "wins": 2,
+          "losses": 1,
+          "scored": 23,
+          "received": 21,
+          "diff": 2
+        },
+        {
+          "id": "20170322M202307060644",
+          "name": "宋浩宇",
+          "club": "北京圣剑",
+          "wins": 1,
+          "losses": 1,
+          "scored": 17,
+          "received": 15,
+          "diff": 2
+        },
+        {
+          "id": "20160215M202306281040",
+          "name": "刘栩辰",
+          "club": "广州阳光剑匠",
+          "wins": 1,
+          "losses": 1,
+          "scored": 16,
+          "received": 14,
+          "diff": 2
+        },
+        {
+          "id": "20171011M202405061217",
+          "name": "时铭泽",
+          "club": "个人",
+          "wins": 1,
+          "losses": 1,
+          "scored": 17,
+          "received": 17,
+          "diff": 0
+        },
+        {
+          "id": "20161017M202406190604",
+          "name": "梁庭睿",
+          "club": "海口嘉世",
+          "wins": 1,
+          "losses": 1,
+          "scored": 12,
+          "received": 14,
+          "diff": -2
+        },
+        {
+          "id": "20160520M202307010456",
+          "name": "林恩霈",
+          "club": "个人",
+          "wins": 0,
+          "losses": 1,
+          "scored": 8,
+          "received": 10,
+          "diff": -2
+        },
+        {
+          "id": "20160707M202304031135",
+          "name": "赵一帆",
+          "club": "海口嘉世",
+          "wins": 0,
+          "losses": 1,
+          "scored": 7,
+          "received": 10,
+          "diff": -3
+        },
+        {
+          "id": "20160612M202304011118",
+          "name": "王璟泽",
+          "club": "海口嘉世",
+          "wins": 0,
+          "losses": 1,
+          "scored": 5,
+          "received": 8,
+          "diff": -3
+        }
+      ],
+      "championPath": [
+        {
+          "phase": "8表",
+          "matchCode": "Pre001",
+          "championName": "张嘉盛",
+          "championClub": "上海嘉世",
+          "championScore": 10,
+          "opponentName": "宋浩宇",
+          "opponentClub": "北京圣剑",
+          "opponentScore": 7,
+          "isBye": false
+        },
+        {
+          "phase": "半决赛",
+          "matchCode": "Pre001",
+          "championName": "张嘉盛",
+          "championClub": "上海嘉世",
+          "championScore": 10,
+          "opponentName": "杨启桢",
+          "opponentClub": "北京东城万国",
+          "opponentScore": 3,
+          "isBye": false
+        },
+        {
+          "phase": "决赛",
+          "matchCode": "Pre001",
+          "championName": "张嘉盛",
+          "championClub": "上海嘉世",
+          "championScore": 10,
+          "opponentName": "陈思然",
+          "opponentClub": "广州阳光剑匠",
+          "opponentScore": 4,
+          "isBye": false
+        }
+      ],
+      "keyOpponents": [
+        {
+          "id": "20160524M202408010202",
+          "name": "陈思然",
+          "club": "广州阳光剑匠",
+          "scored": 34,
+          "received": 31,
+          "matches": 4,
+          "wins": 3,
+          "losses": 1,
+          "diff": 3
+        },
+        {
+          "id": "20161105M202307021013",
+          "name": "张嘉盛",
+          "club": "上海嘉世",
+          "scored": 30,
+          "received": 14,
+          "matches": 3,
+          "wins": 3,
+          "losses": 0,
+          "diff": 16
+        },
+        {
+          "id": "20170209M202409270722",
+          "name": "杨启桢",
+          "club": "北京东城万国",
+          "scored": 23,
+          "received": 21,
+          "matches": 3,
+          "wins": 2,
+          "losses": 1,
+          "diff": 2
+        },
+        {
+          "id": "20170322M202307060644",
+          "name": "宋浩宇",
+          "club": "北京圣剑",
+          "scored": 17,
+          "received": 15,
+          "matches": 2,
+          "wins": 1,
+          "losses": 1,
+          "diff": 2
+        },
+        {
+          "id": "20160215M202306281040",
+          "name": "刘栩辰",
+          "club": "广州阳光剑匠",
+          "scored": 16,
+          "received": 14,
+          "matches": 2,
+          "wins": 1,
+          "losses": 1,
+          "diff": 2
+        },
+        {
+          "id": "20171011M202405061217",
+          "name": "时铭泽",
+          "club": "个人",
+          "scored": 17,
+          "received": 17,
+          "matches": 2,
+          "wins": 1,
+          "losses": 1,
+          "diff": 0
+        },
+        {
+          "id": "20161017M202406190604",
+          "name": "梁庭睿",
+          "club": "海口嘉世",
+          "scored": 12,
+          "received": 14,
+          "matches": 2,
+          "wins": 1,
+          "losses": 1,
+          "diff": -2
+        },
+        {
+          "id": "20160520M202307010456",
+          "name": "林恩霈",
+          "club": "个人",
+          "scored": 8,
+          "received": 10,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "diff": -2
+        },
+        {
+          "id": "20160707M202304031135",
+          "name": "赵一帆",
+          "club": "海口嘉世",
+          "scored": 7,
+          "received": 10,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "diff": -3
+        },
+        {
+          "id": "20160612M202304011118",
+          "name": "王璟泽",
+          "club": "海口嘉世",
+          "scored": 5,
+          "received": 8,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "diff": -3
+        },
+        {
+          "id": "20160606M202311290422",
+          "name": "王琳溪",
+          "club": "海南海外双优",
+          "scored": 6,
+          "received": 10,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "diff": -4
+        },
+        {
+          "id": "20170215M202501150309",
+          "name": "林诺禧",
+          "club": "香港剑乐会",
+          "scored": 5,
+          "received": 10,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "diff": -5
+        }
+      ],
+      "insights": {
+        "headline": "张嘉盛 获得冠军，来自上海嘉世",
+        "summaryCards": [
+          {
+            "title": "冠军",
+            "value": "张嘉盛",
+            "detail": "上海嘉世 · 1名"
+          },
+          {
+            "title": "晋级线",
+            "value": "13 / 17",
+            "detail": "小组赛后有淘汰"
+          },
+          {
+            "title": "淘汰赛密度",
+            "value": "12 场",
+            "detail": "含 3 场 Bye"
+          }
+        ],
+        "bullets": [
+          "张嘉盛 小组赛排第 1，最终夺冠。",
+          "个人 在当前样本里出现 4 次，是报名最集中的俱乐部。",
+          "该项目小组赛后淘汰 4 人。",
+          "淘汰赛实际对阵密度较高，签位空转不明显。"
+        ],
+        "breakout": [
+          {
+            "name": "陈思然",
+            "club": "广州阳光剑匠",
+            "licence": "20160524M202408010202",
+            "poolRank": 11,
+            "finalRank": 2,
+            "delta": 9
+          }
+        ],
+        "fade": [
+          {
+            "name": "王琳溪",
+            "club": "海南海外双优",
+            "licence": "20160606M202311290422",
+            "poolRank": 6,
+            "finalRank": 9,
+            "delta": -3
+          },
+          {
+            "name": "王璟泽",
+            "club": "海口嘉世",
+            "licence": "20160612M202304011118",
+            "poolRank": 7,
+            "finalRank": 10,
+            "delta": -3
+          }
+        ]
+      },
+      "athleteProfiles": [
+        {
+          "id": "20161105M202307021013",
+          "name": "张嘉盛",
+          "licence": "20161105M202307021013",
+          "club": "上海嘉世",
+          "finalRank": 1,
+          "medal": "金",
+          "ageBand": "2016 下半年",
+          "poolId": 168830,
+          "poolRank": 1,
+          "poolWins": 4,
+          "poolMatches": 4,
+          "poolDiff": 8,
+          "eliminationWins": 3,
+          "eliminationLosses": 0,
+          "eliminationDiff": 16
+        },
+        {
+          "id": "20160524M202408010202",
+          "name": "陈思然",
+          "licence": "20160524M202408010202",
+          "club": "广州阳光剑匠",
+          "finalRank": 2,
+          "medal": "银",
+          "ageBand": "2016 上半年",
+          "poolId": 168832,
+          "poolRank": 4,
+          "poolWins": 2,
+          "poolMatches": 5,
+          "poolDiff": 1,
+          "eliminationWins": 3,
+          "eliminationLosses": 1,
+          "eliminationDiff": 3
+        },
+        {
+          "id": "20170209M202409270722",
+          "name": "杨启桢",
+          "licence": "20170209M202409270722",
+          "club": "北京东城万国",
+          "finalRank": 3,
+          "medal": "铜",
+          "ageBand": "2017 上半年",
+          "poolId": 168831,
+          "poolRank": 2,
+          "poolWins": 4,
+          "poolMatches": 5,
+          "poolDiff": 10,
+          "eliminationWins": 2,
+          "eliminationLosses": 1,
+          "eliminationDiff": 2
+        },
+        {
+          "id": "20160215M202306281040",
+          "name": "刘栩辰",
+          "licence": "20160215M202306281040",
+          "club": "广州阳光剑匠",
+          "finalRank": 3,
+          "medal": "铜",
+          "ageBand": "2016 上半年",
+          "poolId": 168831,
+          "poolRank": 1,
+          "poolWins": 4,
+          "poolMatches": 5,
+          "poolDiff": 12,
+          "eliminationWins": 1,
+          "eliminationLosses": 1,
+          "eliminationDiff": 2
+        },
+        {
+          "id": "20160520M202307010456",
+          "name": "林恩霈",
+          "licence": "20160520M202307010456",
+          "club": "个人",
+          "finalRank": 5,
+          "medal": null,
+          "ageBand": "2016 上半年",
+          "poolId": 168832,
+          "poolRank": 1,
+          "poolWins": 4,
+          "poolMatches": 5,
+          "poolDiff": 10,
+          "eliminationWins": 0,
+          "eliminationLosses": 1,
+          "eliminationDiff": -2
+        },
+        {
+          "id": "20171011M202405061217",
+          "name": "时铭泽",
+          "licence": "20171011M202405061217",
+          "club": "个人",
+          "finalRank": 6,
+          "medal": null,
+          "ageBand": "2017 下半年",
+          "poolId": 168831,
+          "poolRank": 3,
+          "poolWins": 4,
+          "poolMatches": 5,
+          "poolDiff": 9,
+          "eliminationWins": 1,
+          "eliminationLosses": 1,
+          "eliminationDiff": 0
+        },
+        {
+          "id": "20170322M202307060644",
+          "name": "宋浩宇",
+          "licence": "20170322M202307060644",
+          "club": "北京圣剑",
+          "finalRank": 7,
+          "medal": null,
+          "ageBand": "2017 上半年",
+          "poolId": 168830,
+          "poolRank": 2,
+          "poolWins": 2,
+          "poolMatches": 4,
+          "poolDiff": 6,
+          "eliminationWins": 1,
+          "eliminationLosses": 1,
+          "eliminationDiff": 2
+        },
+        {
+          "id": "20161017M202406190604",
+          "name": "梁庭睿",
+          "licence": "20161017M202406190604",
+          "club": "海口嘉世",
+          "finalRank": 8,
+          "medal": null,
+          "ageBand": "2016 下半年",
+          "poolId": 168830,
+          "poolRank": 4,
+          "poolWins": 2,
+          "poolMatches": 4,
+          "poolDiff": -2,
+          "eliminationWins": 1,
+          "eliminationLosses": 1,
+          "eliminationDiff": -2
+        },
+        {
+          "id": "20160606M202311290422",
+          "name": "王琳溪",
+          "licence": "20160606M202311290422",
+          "club": "海南海外双优",
+          "finalRank": 9,
+          "medal": null,
+          "ageBand": "2016 上半年",
+          "poolId": 168832,
+          "poolRank": 2,
+          "poolWins": 4,
+          "poolMatches": 5,
+          "poolDiff": 5,
+          "eliminationWins": 0,
+          "eliminationLosses": 1,
+          "eliminationDiff": -4
+        },
+        {
+          "id": "20160612M202304011118",
+          "name": "王璟泽",
+          "licence": "20160612M202304011118",
+          "club": "海口嘉世",
+          "finalRank": 10,
+          "medal": null,
+          "ageBand": "2016 上半年",
+          "poolId": 168832,
+          "poolRank": 3,
+          "poolWins": 3,
+          "poolMatches": 5,
+          "poolDiff": 4,
+          "eliminationWins": 0,
+          "eliminationLosses": 1,
+          "eliminationDiff": -3
+        },
+        {
+          "id": "20170215M202501150309",
+          "name": "林诺禧",
+          "licence": "20170215M202501150309",
+          "club": "香港剑乐会",
+          "finalRank": 11,
+          "medal": null,
+          "ageBand": "2017 上半年",
+          "poolId": 168830,
+          "poolRank": 3,
+          "poolWins": 2,
+          "poolMatches": 4,
+          "poolDiff": 3,
+          "eliminationWins": 0,
+          "eliminationLosses": 1,
+          "eliminationDiff": -5
+        },
+        {
+          "id": "20160707M202304031135",
+          "name": "赵一帆",
+          "licence": "20160707M202304031135",
+          "club": "海口嘉世",
+          "finalRank": 12,
+          "medal": null,
+          "ageBand": "2016 下半年",
+          "poolId": 168831,
+          "poolRank": 4,
+          "poolWins": 2,
+          "poolMatches": 5,
+          "poolDiff": -3,
+          "eliminationWins": 0,
+          "eliminationLosses": 1,
+          "eliminationDiff": -3
+        },
+        {
+          "id": "20181215M202408010400",
+          "name": "于博圣",
+          "licence": "20181215M202408010400",
+          "club": "哈尔滨博奕",
+          "finalRank": 13,
+          "medal": null,
+          "ageBand": "2018 下半年",
+          "poolId": 168831,
+          "poolRank": 5,
+          "poolWins": 1,
+          "poolMatches": 5,
+          "poolDiff": -10,
+          "eliminationWins": 0,
+          "eliminationLosses": 1,
+          "eliminationDiff": -6
+        },
+        {
+          "id": "20170414M202605090753",
+          "name": "张渊垣",
+          "licence": "20170414M202605090753",
+          "club": "海口嘉世",
+          "finalRank": 14,
+          "medal": null,
+          "ageBand": "2017 上半年",
+          "poolId": 168832,
+          "poolRank": 5,
+          "poolWins": 1,
+          "poolMatches": 5,
+          "poolDiff": -10,
+          "eliminationWins": 0,
+          "eliminationLosses": 0,
+          "eliminationDiff": 0
+        },
+        {
+          "id": "20180522M202510210430",
+          "name": "李沐霖",
+          "licence": "20180522M202510210430",
+          "club": "湖南聚力",
+          "finalRank": 15,
+          "medal": null,
+          "ageBand": "2018 上半年",
+          "poolId": 168832,
+          "poolRank": 6,
+          "poolWins": 1,
+          "poolMatches": 5,
+          "poolDiff": -10,
+          "eliminationWins": 0,
+          "eliminationLosses": 0,
+          "eliminationDiff": 0
+        },
+        {
+          "id": "20170529M202406221006",
+          "name": "胡肖南",
+          "licence": "20170529M202406221006",
+          "club": "个人",
+          "finalRank": 16,
+          "medal": null,
+          "ageBand": "2017 上半年",
+          "poolId": 168830,
+          "poolRank": 5,
+          "poolWins": 0,
+          "poolMatches": 4,
+          "poolDiff": -15,
+          "eliminationWins": 0,
+          "eliminationLosses": 0,
+          "eliminationDiff": 0
+        },
+        {
+          "id": "20160719M202605180436",
+          "name": "孙望哲",
+          "licence": "20160719M202605180436",
+          "club": "个人",
+          "finalRank": 17,
+          "medal": null,
+          "ageBand": "2016 下半年",
+          "poolId": 168831,
+          "poolRank": 6,
+          "poolWins": 0,
+          "poolMatches": 5,
+          "poolDiff": -18,
+          "eliminationWins": 0,
+          "eliminationLosses": 0,
+          "eliminationDiff": 0
+        }
+      ],
+      "clubProfiles": [
+        {
+          "id": "%E5%B9%BF%E5%B7%9E%E9%98%B3%E5%85%89%E5%89%91%E5%8C%A0",
+          "club": "广州阳光剑匠",
+          "entrants": 2,
+          "medals": 2,
+          "top8": 2,
+          "finalists": 1,
+          "bestRank": 2,
+          "athletes": [
+            {
+              "id": "20160524M202408010202",
+              "name": "陈思然",
+              "rank": 2,
+              "medal": "银"
+            },
+            {
+              "id": "20160215M202306281040",
+              "name": "刘栩辰",
+              "rank": 3,
+              "medal": "铜"
+            }
+          ]
+        },
+        {
+          "id": "%E4%B8%8A%E6%B5%B7%E5%98%89%E4%B8%96",
+          "club": "上海嘉世",
+          "entrants": 1,
+          "medals": 1,
+          "top8": 1,
+          "finalists": 1,
+          "bestRank": 1,
+          "athletes": [
+            {
+              "id": "20161105M202307021013",
+              "name": "张嘉盛",
+              "rank": 1,
+              "medal": "金"
+            }
+          ]
+        },
+        {
+          "id": "%E5%8C%97%E4%BA%AC%E4%B8%9C%E5%9F%8E%E4%B8%87%E5%9B%BD",
+          "club": "北京东城万国",
+          "entrants": 1,
+          "medals": 1,
+          "top8": 1,
+          "finalists": 0,
+          "bestRank": 3,
+          "athletes": [
+            {
+              "id": "20170209M202409270722",
+              "name": "杨启桢",
+              "rank": 3,
+              "medal": "铜"
+            }
+          ]
+        },
+        {
+          "id": "%E4%B8%AA%E4%BA%BA",
+          "club": "个人",
+          "entrants": 4,
+          "medals": 0,
+          "top8": 2,
+          "finalists": 0,
+          "bestRank": 5,
+          "athletes": [
+            {
+              "id": "20160520M202307010456",
+              "name": "林恩霈",
+              "rank": 5,
+              "medal": null
+            },
+            {
+              "id": "20171011M202405061217",
+              "name": "时铭泽",
+              "rank": 6,
+              "medal": null
+            },
+            {
+              "id": "20170529M202406221006",
+              "name": "胡肖南",
+              "rank": 16,
+              "medal": null
+            },
+            {
+              "id": "20160719M202605180436",
+              "name": "孙望哲",
+              "rank": 17,
+              "medal": null
+            }
+          ]
+        },
+        {
+          "id": "%E5%8C%97%E4%BA%AC%E5%9C%A3%E5%89%91",
+          "club": "北京圣剑",
+          "entrants": 1,
+          "medals": 0,
+          "top8": 1,
+          "finalists": 0,
+          "bestRank": 7,
+          "athletes": [
+            {
+              "id": "20170322M202307060644",
+              "name": "宋浩宇",
+              "rank": 7,
+              "medal": null
+            }
+          ]
+        },
+        {
+          "id": "%E6%B5%B7%E5%8F%A3%E5%98%89%E4%B8%96",
+          "club": "海口嘉世",
+          "entrants": 4,
+          "medals": 0,
+          "top8": 1,
+          "finalists": 0,
+          "bestRank": 8,
+          "athletes": [
+            {
+              "id": "20161017M202406190604",
+              "name": "梁庭睿",
+              "rank": 8,
+              "medal": null
+            },
+            {
+              "id": "20160612M202304011118",
+              "name": "王璟泽",
+              "rank": 10,
+              "medal": null
+            },
+            {
+              "id": "20160707M202304031135",
+              "name": "赵一帆",
+              "rank": 12,
+              "medal": null
+            },
+            {
+              "id": "20170414M202605090753",
+              "name": "张渊垣",
+              "rank": 14,
+              "medal": null
+            }
+          ]
+        },
+        {
+          "id": "%E6%B5%B7%E5%8D%97%E6%B5%B7%E5%A4%96%E5%8F%8C%E4%BC%98",
+          "club": "海南海外双优",
+          "entrants": 1,
+          "medals": 0,
+          "top8": 0,
+          "finalists": 0,
+          "bestRank": 9,
+          "athletes": [
+            {
+              "id": "20160606M202311290422",
+              "name": "王琳溪",
+              "rank": 9,
+              "medal": null
+            }
+          ]
+        },
+        {
+          "id": "%E9%A6%99%E6%B8%AF%E5%89%91%E4%B9%90%E4%BC%9A",
+          "club": "香港剑乐会",
+          "entrants": 1,
+          "medals": 0,
+          "top8": 0,
+          "finalists": 0,
+          "bestRank": 11,
+          "athletes": [
+            {
+              "id": "20170215M202501150309",
+              "name": "林诺禧",
+              "rank": 11,
+              "medal": null
+            }
+          ]
+        }
+      ],
+      "birthBuckets": [
+        {
+          "label": "2016 上半年",
+          "entrants": 5,
+          "top8": 3,
+          "medals": 2,
+          "bestRank": 2,
+          "top8Rate": 60
+        },
+        {
+          "label": "2016 下半年",
+          "entrants": 4,
+          "top8": 2,
+          "medals": 1,
+          "bestRank": 1,
+          "top8Rate": 50
+        },
+        {
+          "label": "2017 上半年",
+          "entrants": 5,
+          "top8": 2,
+          "medals": 1,
+          "bestRank": 3,
+          "top8Rate": 40
+        },
+        {
+          "label": "2017 下半年",
+          "entrants": 1,
+          "top8": 1,
+          "medals": 0,
+          "bestRank": 6,
+          "top8Rate": 100
+        },
+        {
+          "label": "2018 上半年",
+          "entrants": 1,
+          "top8": 0,
+          "medals": 0,
+          "bestRank": 15,
+          "top8Rate": 0
+        },
+        {
+          "label": "2018 下半年",
+          "entrants": 1,
+          "top8": 0,
+          "medals": 0,
+          "bestRank": 13,
+          "top8Rate": 0
+        }
+      ],
+      "clubDistribution": {
+        "个人": 4,
+        "海口嘉世": 4,
+        "广州阳光剑匠": 2,
+        "上海嘉世": 1,
+        "北京东城万国": 1,
+        "海南海外双优": 1,
+        "北京圣剑": 1,
+        "香港剑乐会": 1,
+        "哈尔滨博奕": 1,
+        "湖南聚力": 1
+      }
+    },
+    "RZSS2034020MFIU12": {
+      "fileName": "score-RZSS2034020MFIU12-analysis.json",
+      "eventCode": "RZSS2034020MFIU12",
+      "sportCode": "RZSS2034020",
+      "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+      "eventName": "U12男子花剑个人",
+      "shortEventName": "U12 男花",
+      "openDate": null,
+      "venue": "海南·儋州",
+      "competitionNo": 18,
+      "poolCount": 3,
+      "poolQualifyNo": 14,
+      "deStartPhase": "from Tableaus 16",
+      "eliminationMatchCount": 15,
+      "playedEliminationMatchCount": 13,
+      "byeMatchCount": 2,
+      "athleteNames": [
+        "陈义洋",
+        "翟立鸿",
+        "徐潇然",
+        "徐睿泽",
+        "周嘉雄",
+        "汪柏霖",
+        "张家华",
+        "刘奕辰",
+        "张浦宸",
+        "丁启宸",
+        "冯翊宸",
+        "谢君墨",
+        "汤采葑",
+        "邓淳译",
+        "陈厚兆",
+        "林雨昊",
+        "黄禹淙",
+        "陈煜文"
+      ],
+      "region": "海南儋州",
+      "distributions": {
+        "poolStatus": {
+          "7": 3
+        },
+        "poolRemark": {
+          "Q": 14,
+          "E": 4
+        },
+        "tableau": {
+          "16表": 1,
+          "8表": 1,
+          "半决赛": 1,
+          "决赛": 1
+        },
+        "eliminationByPhase": {
+          "16表": 8,
+          "8表": 4,
+          "半决赛": 2,
+          "决赛": 1
+        },
+        "eliminationResult": {
+          "W/L": 9,
+          "L/W": 6
+        },
+        "medal": {
+          "金": 1,
+          "银": 1,
+          "铜": 2,
+          "(无奖牌)": 14
+        }
+      },
+      "topPoolStanding": [
+        {
+          "rank": 1,
+          "displayPosition": 1,
+          "name": "徐潇然",
+          "licence": "20160915M202304060808",
+          "club": "珠海剑一",
+          "wins": 5,
+          "matches": 5,
+          "winRate": 1,
+          "hitsScored": 25,
+          "hitsReceived": 9,
+          "indicator": 16,
+          "remark": "Q"
+        },
+        {
+          "rank": 2,
+          "displayPosition": 2,
+          "name": "徐睿泽",
+          "licence": "20141126M202401150102",
+          "club": "深圳磐石",
+          "wins": 4,
+          "matches": 5,
+          "winRate": 0.8,
+          "hitsScored": 24,
+          "hitsReceived": 8,
+          "indicator": 16,
+          "remark": "Q"
+        },
+        {
+          "rank": 3,
+          "displayPosition": 3,
+          "name": "翟立鸿",
+          "licence": "20141024M202304070815",
+          "club": "广东",
+          "wins": 4,
+          "matches": 5,
+          "winRate": 0.8,
+          "hitsScored": 24,
+          "hitsReceived": 11,
+          "indicator": 13,
+          "remark": "Q"
+        },
+        {
+          "rank": 4,
+          "displayPosition": 4,
+          "name": "陈义洋",
+          "licence": "20150703M202205070736",
+          "club": "福建",
+          "wins": 4,
+          "matches": 5,
+          "winRate": 0.8,
+          "hitsScored": 24,
+          "hitsReceived": 13,
+          "indicator": 11,
+          "remark": "Q"
+        },
+        {
+          "rank": 5,
+          "displayPosition": 5,
+          "name": "周嘉雄",
+          "licence": "20161216M202304081110",
+          "club": "广州万国",
+          "wins": 4,
+          "matches": 5,
+          "winRate": 0.8,
+          "hitsScored": 21,
+          "hitsReceived": 10,
+          "indicator": 11,
+          "remark": "Q"
+        },
+        {
+          "rank": 6,
+          "displayPosition": 6,
+          "name": "汪柏霖",
+          "licence": "20170523M202304140352",
+          "club": "深圳犀旺雷声",
+          "wins": 4,
+          "matches": 5,
+          "winRate": 0.8,
+          "hitsScored": 22,
+          "hitsReceived": 15,
+          "indicator": 7,
+          "remark": "Q"
+        },
+        {
+          "rank": 7,
+          "displayPosition": 7,
+          "name": "张家华",
+          "licence": "20140313M201906101430",
+          "club": "个人",
+          "wins": 4,
+          "matches": 5,
+          "winRate": 0.8,
+          "hitsScored": 21,
+          "hitsReceived": 17,
+          "indicator": 4,
+          "remark": "Q"
+        },
+        {
+          "rank": 8,
+          "displayPosition": 8,
+          "name": "张浦宸",
+          "licence": "20141029M202307090543",
+          "club": "海口嘉世",
+          "wins": 3,
+          "matches": 5,
+          "winRate": 0.6,
+          "hitsScored": 22,
+          "hitsReceived": 13,
+          "indicator": 9,
+          "remark": "Q"
+        },
+        {
+          "rank": 9,
+          "displayPosition": 9,
+          "name": "刘奕辰",
+          "licence": "20150214M202306150535",
+          "club": "广东",
+          "wins": 3,
+          "matches": 5,
+          "winRate": 0.6,
+          "hitsScored": 22,
+          "hitsReceived": 14,
+          "indicator": 8,
+          "remark": "Q"
+        },
+        {
+          "rank": 10,
+          "displayPosition": 10,
+          "name": "丁启宸",
+          "licence": "20170705M202307080345",
+          "club": "珠海剑一",
+          "wins": 2,
+          "matches": 5,
+          "winRate": 0.4,
+          "hitsScored": 17,
+          "hitsReceived": 17,
+          "indicator": 0,
+          "remark": "Q"
+        },
+        {
+          "rank": 11,
+          "displayPosition": 11,
+          "name": "冯翊宸",
+          "licence": "20150116M202304031258",
+          "club": "海口嘉世",
+          "wins": 2,
+          "matches": 5,
+          "winRate": 0.4,
+          "hitsScored": 15,
+          "hitsReceived": 16,
+          "indicator": -1,
+          "remark": "Q"
+        },
+        {
+          "rank": 12,
+          "displayPosition": 12,
+          "name": "谢君墨",
+          "licence": "20170509M202305281055",
+          "club": "北京艾鲁特",
+          "wins": 2,
+          "matches": 5,
+          "winRate": 0.4,
+          "hitsScored": 15,
+          "hitsReceived": 19,
+          "indicator": -4,
+          "remark": "Q"
+        }
+      ],
+      "latestMatches": [
+        {
+          "matchId": 497706,
+          "matchCode": "Pre001",
+          "phaseId": 168898,
+          "phase": {
+            "shortName": "T2",
+            "longName": "决赛",
+            "order": 4,
+            "code": "1",
+            "group": "4_0"
+          },
+          "groupCode": "1_0",
+          "innerOrder": 1,
+          "home": {
+            "position": 1,
+            "name": "陈义洋",
+            "licence": "20150703M202205070736",
+            "club": "福建",
+            "points": 10,
+            "result": "W"
+          },
+          "away": {
+            "position": 2,
+            "name": "翟立鸿",
+            "licence": "20141024M202304070815",
+            "club": "广东",
+            "points": 2,
+            "result": "L"
+          },
+          "winner": {
+            "name": "陈义洋",
+            "club": "福建"
+          },
+          "piste": "",
+          "startTime": "",
+          "isBye": false
+        },
+        {
+          "matchId": 497705,
+          "matchCode": "Pre002",
+          "phaseId": 168897,
+          "phase": {
+            "shortName": "T4",
+            "longName": "半决赛",
+            "order": 3,
+            "code": "2",
+            "group": "3_0"
+          },
+          "groupCode": "2_0",
+          "innerOrder": 2,
+          "home": {
+            "position": 3,
+            "name": "翟立鸿",
+            "licence": "20141024M202304070815",
+            "club": "广东",
+            "points": 7,
+            "result": "W"
+          },
+          "away": {
+            "position": 2,
+            "name": "徐睿泽",
+            "licence": "20141126M202401150102",
+            "club": "深圳磐石",
+            "points": 5,
+            "result": "L"
+          },
+          "winner": {
+            "name": "翟立鸿",
+            "club": "广东"
+          },
+          "piste": "",
+          "startTime": "",
+          "isBye": false
+        },
+        {
+          "matchId": 497704,
+          "matchCode": "Pre001",
+          "phaseId": 168897,
+          "phase": {
+            "shortName": "T4",
+            "longName": "半决赛",
+            "order": 3,
+            "code": "2",
+            "group": "3_0"
+          },
+          "groupCode": "2_0",
+          "innerOrder": 1,
+          "home": {
+            "position": 1,
+            "name": "徐潇然",
+            "licence": "20160915M202304060808",
+            "club": "珠海剑一",
+            "points": 8,
+            "result": "L"
+          },
+          "away": {
+            "position": 4,
+            "name": "陈义洋",
+            "licence": "20150703M202205070736",
+            "club": "福建",
+            "points": 10,
+            "result": "W"
+          },
+          "winner": {
+            "name": "陈义洋",
+            "club": "福建"
+          },
+          "piste": "",
+          "startTime": "",
+          "isBye": false
+        },
+        {
+          "matchId": 497703,
+          "matchCode": "Pre004",
+          "phaseId": 168896,
+          "phase": {
+            "shortName": "T8",
+            "longName": "8表",
+            "order": 2,
+            "code": "3",
+            "group": "2_0"
+          },
+          "groupCode": "3_1",
+          "innerOrder": 2,
+          "home": {
+            "position": 7,
+            "name": "张家华",
+            "licence": "20140313M201906101430",
+            "club": "个人",
+            "points": 7,
+            "result": "L"
+          },
+          "away": {
+            "position": 2,
+            "name": "徐睿泽",
+            "licence": "20141126M202401150102",
+            "club": "深圳磐石",
+            "points": 8,
+            "result": "W"
+          },
+          "winner": {
+            "name": "徐睿泽",
+            "club": "深圳磐石"
+          },
+          "piste": "",
+          "startTime": "",
+          "isBye": false
+        },
+        {
+          "matchId": 497702,
+          "matchCode": "Pre003",
+          "phaseId": 168896,
+          "phase": {
+            "shortName": "T8",
+            "longName": "8表",
+            "order": 2,
+            "code": "3",
+            "group": "2_0"
+          },
+          "groupCode": "3_1",
+          "innerOrder": 1,
+          "home": {
+            "position": 3,
+            "name": "翟立鸿",
+            "licence": "20141024M202304070815",
+            "club": "广东",
+            "points": 10,
+            "result": "W"
+          },
+          "away": {
+            "position": 6,
+            "name": "汪柏霖",
+            "licence": "20170523M202304140352",
+            "club": "深圳犀旺雷声",
+            "points": 1,
+            "result": "L"
+          },
+          "winner": {
+            "name": "翟立鸿",
+            "club": "广东"
+          },
+          "piste": "",
+          "startTime": "",
+          "isBye": false
+        },
+        {
+          "matchId": 497701,
+          "matchCode": "Pre002",
+          "phaseId": 168896,
+          "phase": {
+            "shortName": "T8",
+            "longName": "8表",
+            "order": 2,
+            "code": "3",
+            "group": "2_0"
+          },
+          "groupCode": "3_0",
+          "innerOrder": 2,
+          "home": {
+            "position": 5,
+            "name": "周嘉雄",
+            "licence": "20161216M202304081110",
+            "club": "广州万国",
+            "points": 2,
+            "result": "L"
+          },
+          "away": {
+            "position": 4,
+            "name": "陈义洋",
+            "licence": "20150703M202205070736",
+            "club": "福建",
+            "points": 10,
+            "result": "W"
+          },
+          "winner": {
+            "name": "陈义洋",
+            "club": "福建"
+          },
+          "piste": "",
+          "startTime": "",
+          "isBye": false
+        },
+        {
+          "matchId": 497700,
+          "matchCode": "Pre001",
+          "phaseId": 168896,
+          "phase": {
+            "shortName": "T8",
+            "longName": "8表",
+            "order": 2,
+            "code": "3",
+            "group": "2_0"
+          },
+          "groupCode": "3_0",
+          "innerOrder": 1,
+          "home": {
+            "position": 1,
+            "name": "徐潇然",
+            "licence": "20160915M202304060808",
+            "club": "珠海剑一",
+            "points": 10,
+            "result": "W"
+          },
+          "away": {
+            "position": 8,
+            "name": "刘奕辰",
+            "licence": "20150214M202306150535",
+            "club": "广东",
+            "points": 6,
+            "result": "L"
+          },
+          "winner": {
+            "name": "徐潇然",
+            "club": "珠海剑一"
+          },
+          "piste": "",
+          "startTime": "",
+          "isBye": false
+        },
+        {
+          "matchId": 497698,
+          "matchCode": "Pre007",
+          "phaseId": 168895,
+          "phase": {
+            "shortName": "T16",
+            "longName": "16表",
+            "order": 1,
+            "code": "4",
+            "group": "1_0"
+          },
+          "groupCode": "4_3",
+          "innerOrder": 1,
+          "home": {
+            "position": 7,
+            "name": "张家华",
+            "licence": "20140313M201906101430",
+            "club": "个人",
+            "points": 10,
+            "result": "W"
+          },
+          "away": {
+            "position": 10,
+            "name": "丁启宸",
+            "licence": "20170705M202307080345",
+            "club": "珠海剑一",
+            "points": 3,
+            "result": "L"
+          },
+          "winner": {
+            "name": "张家华",
+            "club": "个人"
+          },
+          "piste": "",
+          "startTime": "",
+          "isBye": false
+        },
+        {
+          "matchId": 497697,
+          "matchCode": "Pre006",
+          "phaseId": 168895,
+          "phase": {
+            "shortName": "T16",
+            "longName": "16表",
+            "order": 1,
+            "code": "4",
+            "group": "1_0"
+          },
+          "groupCode": "4_2",
+          "innerOrder": 2,
+          "home": {
+            "position": 11,
+            "name": "冯翊宸",
+            "licence": "20150116M202304031258",
+            "club": "海口嘉世",
+            "points": 5,
+            "result": "L"
+          },
+          "away": {
+            "position": 6,
+            "name": "汪柏霖",
+            "licence": "20170523M202304140352",
+            "club": "深圳犀旺雷声",
+            "points": 10,
+            "result": "W"
+          },
+          "winner": {
+            "name": "汪柏霖",
+            "club": "深圳犀旺雷声"
+          },
+          "piste": "",
+          "startTime": "",
+          "isBye": false
+        },
+        {
+          "matchId": 497696,
+          "matchCode": "Pre005",
+          "phaseId": 168895,
+          "phase": {
+            "shortName": "T16",
+            "longName": "16表",
+            "order": 1,
+            "code": "4",
+            "group": "1_0"
+          },
+          "groupCode": "4_2",
+          "innerOrder": 1,
+          "home": {
+            "position": 3,
+            "name": "翟立鸿",
+            "licence": "20141024M202304070815",
+            "club": "广东",
+            "points": 10,
+            "result": "W"
+          },
+          "away": {
+            "position": 14,
+            "name": "邓淳译",
+            "licence": "20151022M202410240215",
+            "club": "成都芮欧",
+            "points": 1,
+            "result": "L"
+          },
+          "winner": {
+            "name": "翟立鸿",
+            "club": "广东"
+          },
+          "piste": "",
+          "startTime": "",
+          "isBye": false
+        },
+        {
+          "matchId": 497695,
+          "matchCode": "Pre004",
+          "phaseId": 168895,
+          "phase": {
+            "shortName": "T16",
+            "longName": "16表",
+            "order": 1,
+            "code": "4",
+            "group": "1_0"
+          },
+          "groupCode": "4_1",
+          "innerOrder": 2,
+          "home": {
+            "position": 13,
+            "name": "汤采葑",
+            "licence": "20150320M202411040911",
+            "club": "上海浦东万国",
+            "points": 2,
+            "result": "L"
+          },
+          "away": {
+            "position": 4,
+            "name": "陈义洋",
+            "licence": "20150703M202205070736",
+            "club": "福建",
+            "points": 10,
+            "result": "W"
+          },
+          "winner": {
+            "name": "陈义洋",
+            "club": "福建"
+          },
+          "piste": "",
+          "startTime": "",
+          "isBye": false
+        },
+        {
+          "matchId": 497694,
+          "matchCode": "Pre003",
+          "phaseId": 168895,
+          "phase": {
+            "shortName": "T16",
+            "longName": "16表",
+            "order": 1,
+            "code": "4",
+            "group": "1_0"
+          },
+          "groupCode": "4_1",
+          "innerOrder": 1,
+          "home": {
+            "position": 5,
+            "name": "周嘉雄",
+            "licence": "20161216M202304081110",
+            "club": "广州万国",
+            "points": 10,
+            "result": "W"
+          },
+          "away": {
+            "position": 12,
+            "name": "谢君墨",
+            "licence": "20170509M202305281055",
+            "club": "北京艾鲁特",
+            "points": 3,
+            "result": "L"
+          },
+          "winner": {
+            "name": "周嘉雄",
+            "club": "广州万国"
+          },
+          "piste": "",
+          "startTime": "",
+          "isBye": false
+        }
+      ],
+      "eliminationPhaseGroups": [
+        {
+          "phase": "16表",
+          "order": 1,
+          "matches": [
+            {
+              "matchId": 497694,
+              "matchCode": "Pre003",
+              "phaseId": 168895,
+              "phase": {
+                "shortName": "T16",
+                "longName": "16表",
+                "order": 1,
+                "code": "4",
+                "group": "1_0"
+              },
+              "groupCode": "4_1",
+              "innerOrder": 1,
+              "home": {
+                "position": 5,
+                "name": "周嘉雄",
+                "licence": "20161216M202304081110",
+                "club": "广州万国",
+                "points": 10,
+                "result": "W"
+              },
+              "away": {
+                "position": 12,
+                "name": "谢君墨",
+                "licence": "20170509M202305281055",
+                "club": "北京艾鲁特",
+                "points": 3,
+                "result": "L"
+              },
+              "winner": {
+                "name": "周嘉雄",
+                "club": "广州万国"
+              },
+              "piste": "",
+              "startTime": "",
+              "isBye": false
+            },
+            {
+              "matchId": 497696,
+              "matchCode": "Pre005",
+              "phaseId": 168895,
+              "phase": {
+                "shortName": "T16",
+                "longName": "16表",
+                "order": 1,
+                "code": "4",
+                "group": "1_0"
+              },
+              "groupCode": "4_2",
+              "innerOrder": 1,
+              "home": {
+                "position": 3,
+                "name": "翟立鸿",
+                "licence": "20141024M202304070815",
+                "club": "广东",
+                "points": 10,
+                "result": "W"
+              },
+              "away": {
+                "position": 14,
+                "name": "邓淳译",
+                "licence": "20151022M202410240215",
+                "club": "成都芮欧",
+                "points": 1,
+                "result": "L"
+              },
+              "winner": {
+                "name": "翟立鸿",
+                "club": "广东"
+              },
+              "piste": "",
+              "startTime": "",
+              "isBye": false
+            },
+            {
+              "matchId": 497698,
+              "matchCode": "Pre007",
+              "phaseId": 168895,
+              "phase": {
+                "shortName": "T16",
+                "longName": "16表",
+                "order": 1,
+                "code": "4",
+                "group": "1_0"
+              },
+              "groupCode": "4_3",
+              "innerOrder": 1,
+              "home": {
+                "position": 7,
+                "name": "张家华",
+                "licence": "20140313M201906101430",
+                "club": "个人",
+                "points": 10,
+                "result": "W"
+              },
+              "away": {
+                "position": 10,
+                "name": "丁启宸",
+                "licence": "20170705M202307080345",
+                "club": "珠海剑一",
+                "points": 3,
+                "result": "L"
+              },
+              "winner": {
+                "name": "张家华",
+                "club": "个人"
+              },
+              "piste": "",
+              "startTime": "",
+              "isBye": false
+            },
+            {
+              "matchId": 497693,
+              "matchCode": "Pre002",
+              "phaseId": 168895,
+              "phase": {
+                "shortName": "T16",
+                "longName": "16表",
+                "order": 1,
+                "code": "4",
+                "group": "1_0"
+              },
+              "groupCode": "4_0",
+              "innerOrder": 2,
+              "home": {
+                "position": 9,
+                "name": "刘奕辰",
+                "licence": "20150214M202306150535",
+                "club": "广东",
+                "points": 10,
+                "result": "W"
+              },
+              "away": {
+                "position": 8,
+                "name": "张浦宸",
+                "licence": "20141029M202307090543",
+                "club": "海口嘉世",
+                "points": 5,
+                "result": "L"
+              },
+              "winner": {
+                "name": "刘奕辰",
+                "club": "广东"
+              },
+              "piste": "",
+              "startTime": "",
+              "isBye": false
+            },
+            {
+              "matchId": 497695,
+              "matchCode": "Pre004",
+              "phaseId": 168895,
+              "phase": {
+                "shortName": "T16",
+                "longName": "16表",
+                "order": 1,
+                "code": "4",
+                "group": "1_0"
+              },
+              "groupCode": "4_1",
+              "innerOrder": 2,
+              "home": {
+                "position": 13,
+                "name": "汤采葑",
+                "licence": "20150320M202411040911",
+                "club": "上海浦东万国",
+                "points": 2,
+                "result": "L"
+              },
+              "away": {
+                "position": 4,
+                "name": "陈义洋",
+                "licence": "20150703M202205070736",
+                "club": "福建",
+                "points": 10,
+                "result": "W"
+              },
+              "winner": {
+                "name": "陈义洋",
+                "club": "福建"
+              },
+              "piste": "",
+              "startTime": "",
+              "isBye": false
+            },
+            {
+              "matchId": 497697,
+              "matchCode": "Pre006",
+              "phaseId": 168895,
+              "phase": {
+                "shortName": "T16",
+                "longName": "16表",
+                "order": 1,
+                "code": "4",
+                "group": "1_0"
+              },
+              "groupCode": "4_2",
+              "innerOrder": 2,
+              "home": {
+                "position": 11,
+                "name": "冯翊宸",
+                "licence": "20150116M202304031258",
+                "club": "海口嘉世",
+                "points": 5,
+                "result": "L"
+              },
+              "away": {
+                "position": 6,
+                "name": "汪柏霖",
+                "licence": "20170523M202304140352",
+                "club": "深圳犀旺雷声",
+                "points": 10,
+                "result": "W"
+              },
+              "winner": {
+                "name": "汪柏霖",
+                "club": "深圳犀旺雷声"
+              },
+              "piste": "",
+              "startTime": "",
+              "isBye": false
+            }
+          ]
+        },
+        {
+          "phase": "8表",
+          "order": 2,
+          "matches": [
+            {
+              "matchId": 497700,
+              "matchCode": "Pre001",
+              "phaseId": 168896,
+              "phase": {
+                "shortName": "T8",
+                "longName": "8表",
+                "order": 2,
+                "code": "3",
+                "group": "2_0"
+              },
+              "groupCode": "3_0",
+              "innerOrder": 1,
+              "home": {
+                "position": 1,
+                "name": "徐潇然",
+                "licence": "20160915M202304060808",
+                "club": "珠海剑一",
+                "points": 10,
+                "result": "W"
+              },
+              "away": {
+                "position": 8,
+                "name": "刘奕辰",
+                "licence": "20150214M202306150535",
+                "club": "广东",
+                "points": 6,
+                "result": "L"
+              },
+              "winner": {
+                "name": "徐潇然",
+                "club": "珠海剑一"
+              },
+              "piste": "",
+              "startTime": "",
+              "isBye": false
+            },
+            {
+              "matchId": 497702,
+              "matchCode": "Pre003",
+              "phaseId": 168896,
+              "phase": {
+                "shortName": "T8",
+                "longName": "8表",
+                "order": 2,
+                "code": "3",
+                "group": "2_0"
+              },
+              "groupCode": "3_1",
+              "innerOrder": 1,
+              "home": {
+                "position": 3,
+                "name": "翟立鸿",
+                "licence": "20141024M202304070815",
+                "club": "广东",
+                "points": 10,
+                "result": "W"
+              },
+              "away": {
+                "position": 6,
+                "name": "汪柏霖",
+                "licence": "20170523M202304140352",
+                "club": "深圳犀旺雷声",
+                "points": 1,
+                "result": "L"
+              },
+              "winner": {
+                "name": "翟立鸿",
+                "club": "广东"
+              },
+              "piste": "",
+              "startTime": "",
+              "isBye": false
+            },
+            {
+              "matchId": 497701,
+              "matchCode": "Pre002",
+              "phaseId": 168896,
+              "phase": {
+                "shortName": "T8",
+                "longName": "8表",
+                "order": 2,
+                "code": "3",
+                "group": "2_0"
+              },
+              "groupCode": "3_0",
+              "innerOrder": 2,
+              "home": {
+                "position": 5,
+                "name": "周嘉雄",
+                "licence": "20161216M202304081110",
+                "club": "广州万国",
+                "points": 2,
+                "result": "L"
+              },
+              "away": {
+                "position": 4,
+                "name": "陈义洋",
+                "licence": "20150703M202205070736",
+                "club": "福建",
+                "points": 10,
+                "result": "W"
+              },
+              "winner": {
+                "name": "陈义洋",
+                "club": "福建"
+              },
+              "piste": "",
+              "startTime": "",
+              "isBye": false
+            },
+            {
+              "matchId": 497703,
+              "matchCode": "Pre004",
+              "phaseId": 168896,
+              "phase": {
+                "shortName": "T8",
+                "longName": "8表",
+                "order": 2,
+                "code": "3",
+                "group": "2_0"
+              },
+              "groupCode": "3_1",
+              "innerOrder": 2,
+              "home": {
+                "position": 7,
+                "name": "张家华",
+                "licence": "20140313M201906101430",
+                "club": "个人",
+                "points": 7,
+                "result": "L"
+              },
+              "away": {
+                "position": 2,
+                "name": "徐睿泽",
+                "licence": "20141126M202401150102",
+                "club": "深圳磐石",
+                "points": 8,
+                "result": "W"
+              },
+              "winner": {
+                "name": "徐睿泽",
+                "club": "深圳磐石"
+              },
+              "piste": "",
+              "startTime": "",
+              "isBye": false
+            }
+          ]
+        },
+        {
+          "phase": "半决赛",
+          "order": 3,
+          "matches": [
+            {
+              "matchId": 497704,
+              "matchCode": "Pre001",
+              "phaseId": 168897,
+              "phase": {
+                "shortName": "T4",
+                "longName": "半决赛",
+                "order": 3,
+                "code": "2",
+                "group": "3_0"
+              },
+              "groupCode": "2_0",
+              "innerOrder": 1,
+              "home": {
+                "position": 1,
+                "name": "徐潇然",
+                "licence": "20160915M202304060808",
+                "club": "珠海剑一",
+                "points": 8,
+                "result": "L"
+              },
+              "away": {
+                "position": 4,
+                "name": "陈义洋",
+                "licence": "20150703M202205070736",
+                "club": "福建",
+                "points": 10,
+                "result": "W"
+              },
+              "winner": {
+                "name": "陈义洋",
+                "club": "福建"
+              },
+              "piste": "",
+              "startTime": "",
+              "isBye": false
+            },
+            {
+              "matchId": 497705,
+              "matchCode": "Pre002",
+              "phaseId": 168897,
+              "phase": {
+                "shortName": "T4",
+                "longName": "半决赛",
+                "order": 3,
+                "code": "2",
+                "group": "3_0"
+              },
+              "groupCode": "2_0",
+              "innerOrder": 2,
+              "home": {
+                "position": 3,
+                "name": "翟立鸿",
+                "licence": "20141024M202304070815",
+                "club": "广东",
+                "points": 7,
+                "result": "W"
+              },
+              "away": {
+                "position": 2,
+                "name": "徐睿泽",
+                "licence": "20141126M202401150102",
+                "club": "深圳磐石",
+                "points": 5,
+                "result": "L"
+              },
+              "winner": {
+                "name": "翟立鸿",
+                "club": "广东"
+              },
+              "piste": "",
+              "startTime": "",
+              "isBye": false
+            }
+          ]
+        },
+        {
+          "phase": "决赛",
+          "order": 4,
+          "matches": [
+            {
+              "matchId": 497706,
+              "matchCode": "Pre001",
+              "phaseId": 168898,
+              "phase": {
+                "shortName": "T2",
+                "longName": "决赛",
+                "order": 4,
+                "code": "1",
+                "group": "4_0"
+              },
+              "groupCode": "1_0",
+              "innerOrder": 1,
+              "home": {
+                "position": 1,
+                "name": "陈义洋",
+                "licence": "20150703M202205070736",
+                "club": "福建",
+                "points": 10,
+                "result": "W"
+              },
+              "away": {
+                "position": 2,
+                "name": "翟立鸿",
+                "licence": "20141024M202304070815",
+                "club": "广东",
+                "points": 2,
+                "result": "L"
+              },
+              "winner": {
+                "name": "陈义洋",
+                "club": "福建"
+              },
+              "piste": "",
+              "startTime": "",
+              "isBye": false
+            }
+          ]
+        }
+      ],
+      "poolBouts": [
+        {
+          "poolId": 168892,
+          "caseCode": "CASE6",
+          "order": 1,
+          "matchOrder": 1,
+          "homeNumber": 1,
+          "awayNumber": 2,
+          "homeLabel": "1：冯翊宸(海口嘉世)",
+          "awayLabel": "2：张浦宸(海口嘉世)",
+          "homeScore": 2,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168892,
+          "caseCode": "CASE6",
+          "order": 2,
+          "matchOrder": 2,
+          "homeNumber": 4,
+          "awayNumber": 3,
+          "homeLabel": "4：翟立鸿(广东)",
+          "awayLabel": "3：陈煜文(个人)",
+          "homeScore": "V",
+          "awayScore": 0
+        },
+        {
+          "poolId": 168892,
+          "caseCode": "CASE6",
+          "order": 3,
+          "matchOrder": 3,
+          "homeNumber": 6,
+          "awayNumber": 5,
+          "homeLabel": "6：徐潇然(珠海剑一)",
+          "awayLabel": "5：邓淳译(成都芮欧)",
+          "homeScore": "V",
+          "awayScore": 0
+        },
+        {
+          "poolId": 168892,
+          "caseCode": "CASE6",
+          "order": 4,
+          "matchOrder": 4,
+          "homeNumber": 3,
+          "awayNumber": 1,
+          "homeLabel": "3：陈煜文(个人)",
+          "awayLabel": "1：冯翊宸(海口嘉世)",
+          "homeScore": 1,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168892,
+          "caseCode": "CASE6",
+          "order": 5,
+          "matchOrder": 5,
+          "homeNumber": 2,
+          "awayNumber": 6,
+          "homeLabel": "2：张浦宸(海口嘉世)",
+          "awayLabel": "6：徐潇然(珠海剑一)",
+          "homeScore": 3,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168892,
+          "caseCode": "CASE6",
+          "order": 6,
+          "matchOrder": 6,
+          "homeNumber": 5,
+          "awayNumber": 4,
+          "homeLabel": "5：邓淳译(成都芮欧)",
+          "awayLabel": "4：翟立鸿(广东)",
+          "homeScore": 1,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168892,
+          "caseCode": "CASE6",
+          "order": 7,
+          "matchOrder": 7,
+          "homeNumber": 1,
+          "awayNumber": 6,
+          "homeLabel": "1：冯翊宸(海口嘉世)",
+          "awayLabel": "6：徐潇然(珠海剑一)",
+          "homeScore": 2,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168892,
+          "caseCode": "CASE6",
+          "order": 8,
+          "matchOrder": 8,
+          "homeNumber": 3,
+          "awayNumber": 5,
+          "homeLabel": "3：陈煜文(个人)",
+          "awayLabel": "5：邓淳译(成都芮欧)",
+          "homeScore": 0,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168892,
+          "caseCode": "CASE6",
+          "order": 9,
+          "matchOrder": 9,
+          "homeNumber": 4,
+          "awayNumber": 2,
+          "homeLabel": "4：翟立鸿(广东)",
+          "awayLabel": "2：张浦宸(海口嘉世)",
+          "homeScore": "V",
+          "awayScore": 4
+        },
+        {
+          "poolId": 168892,
+          "caseCode": "CASE6",
+          "order": 10,
+          "matchOrder": 10,
+          "homeNumber": 5,
+          "awayNumber": 1,
+          "homeLabel": "5：邓淳译(成都芮欧)",
+          "awayLabel": "1：冯翊宸(海口嘉世)",
+          "homeScore": 0,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168892,
+          "caseCode": "CASE6",
+          "order": 11,
+          "matchOrder": 11,
+          "homeNumber": 6,
+          "awayNumber": 4,
+          "homeLabel": "6：徐潇然(珠海剑一)",
+          "awayLabel": "4：翟立鸿(广东)",
+          "homeScore": "V",
+          "awayScore": 4
+        },
+        {
+          "poolId": 168892,
+          "caseCode": "CASE6",
+          "order": 12,
+          "matchOrder": 12,
+          "homeNumber": 2,
+          "awayNumber": 3,
+          "homeLabel": "2：张浦宸(海口嘉世)",
+          "awayLabel": "3：陈煜文(个人)",
+          "homeScore": "V",
+          "awayScore": 0
+        },
+        {
+          "poolId": 168892,
+          "caseCode": "CASE6",
+          "order": 13,
+          "matchOrder": 13,
+          "homeNumber": 1,
+          "awayNumber": 4,
+          "homeLabel": "1：冯翊宸(海口嘉世)",
+          "awayLabel": "4：翟立鸿(广东)",
+          "homeScore": 1,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168892,
+          "caseCode": "CASE6",
+          "order": 14,
+          "matchOrder": 14,
+          "homeNumber": 5,
+          "awayNumber": 2,
+          "homeLabel": "5：邓淳译(成都芮欧)",
+          "awayLabel": "2：张浦宸(海口嘉世)",
+          "homeScore": 1,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168892,
+          "caseCode": "CASE6",
+          "order": 15,
+          "matchOrder": 15,
+          "homeNumber": 3,
+          "awayNumber": 6,
+          "homeLabel": "3：陈煜文(个人)",
+          "awayLabel": "6：徐潇然(珠海剑一)",
+          "homeScore": 0,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168893,
+          "caseCode": "CASE6",
+          "order": 1,
+          "matchOrder": 1,
+          "homeNumber": 1,
+          "awayNumber": 2,
+          "homeLabel": "1：林雨昊(海口嘉世)",
+          "awayLabel": "2：陈厚兆(海口嘉世)",
+          "homeScore": 3,
+          "awayScore": null
+        },
+        {
+          "poolId": 168893,
+          "caseCode": "CASE6",
+          "order": 2,
+          "matchOrder": 2,
+          "homeNumber": 4,
+          "awayNumber": 3,
+          "homeLabel": "4：汤采葑(上海浦东万国)",
+          "awayLabel": "3：周嘉雄(广州万国)",
+          "homeScore": 2,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168893,
+          "caseCode": "CASE6",
+          "order": 3,
+          "matchOrder": 3,
+          "homeNumber": 6,
+          "awayNumber": 5,
+          "homeLabel": "6：徐睿泽(深圳磐石)",
+          "awayLabel": "5：汪柏霖(深圳犀旺雷声)",
+          "homeScore": 4,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168893,
+          "caseCode": "CASE6",
+          "order": 4,
+          "matchOrder": 4,
+          "homeNumber": 3,
+          "awayNumber": 1,
+          "homeLabel": "3：周嘉雄(广州万国)",
+          "awayLabel": "1：林雨昊(海口嘉世)",
+          "homeScore": "V",
+          "awayScore": 0
+        },
+        {
+          "poolId": 168893,
+          "caseCode": "CASE6",
+          "order": 5,
+          "matchOrder": 5,
+          "homeNumber": 2,
+          "awayNumber": 6,
+          "homeLabel": "2：陈厚兆(海口嘉世)",
+          "awayLabel": "6：徐睿泽(深圳磐石)",
+          "homeScore": 0,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168893,
+          "caseCode": "CASE6",
+          "order": 6,
+          "matchOrder": 6,
+          "homeNumber": 5,
+          "awayNumber": 4,
+          "homeLabel": "5：汪柏霖(深圳犀旺雷声)",
+          "awayLabel": "4：汤采葑(上海浦东万国)",
+          "homeScore": "V",
+          "awayScore": 0
+        },
+        {
+          "poolId": 168893,
+          "caseCode": "CASE6",
+          "order": 7,
+          "matchOrder": 7,
+          "homeNumber": 1,
+          "awayNumber": 6,
+          "homeLabel": "1：林雨昊(海口嘉世)",
+          "awayLabel": "6：徐睿泽(深圳磐石)",
+          "homeScore": 1,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168893,
+          "caseCode": "CASE6",
+          "order": 8,
+          "matchOrder": 8,
+          "homeNumber": 3,
+          "awayNumber": 5,
+          "homeLabel": "3：周嘉雄(广州万国)",
+          "awayLabel": "5：汪柏霖(深圳犀旺雷声)",
+          "homeScore": "V",
+          "awayScore": 2
+        },
+        {
+          "poolId": 168893,
+          "caseCode": "CASE6",
+          "order": 9,
+          "matchOrder": 9,
+          "homeNumber": 4,
+          "awayNumber": 2,
+          "homeLabel": "4：汤采葑(上海浦东万国)",
+          "awayLabel": "2：陈厚兆(海口嘉世)",
+          "homeScore": "V",
+          "awayScore": 1
+        },
+        {
+          "poolId": 168893,
+          "caseCode": "CASE6",
+          "order": 10,
+          "matchOrder": 10,
+          "homeNumber": 5,
+          "awayNumber": 1,
+          "homeLabel": "5：汪柏霖(深圳犀旺雷声)",
+          "awayLabel": "1：林雨昊(海口嘉世)",
+          "homeScore": "V",
+          "awayScore": 3
+        },
+        {
+          "poolId": 168893,
+          "caseCode": "CASE6",
+          "order": 11,
+          "matchOrder": 11,
+          "homeNumber": 6,
+          "awayNumber": 4,
+          "homeLabel": "6：徐睿泽(深圳磐石)",
+          "awayLabel": "4：汤采葑(上海浦东万国)",
+          "homeScore": "V",
+          "awayScore": 1
+        },
+        {
+          "poolId": 168893,
+          "caseCode": "CASE6",
+          "order": 12,
+          "matchOrder": 12,
+          "homeNumber": 2,
+          "awayNumber": 3,
+          "homeLabel": "2：陈厚兆(海口嘉世)",
+          "awayLabel": "3：周嘉雄(广州万国)",
+          "homeScore": 1,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168893,
+          "caseCode": "CASE6",
+          "order": 13,
+          "matchOrder": 13,
+          "homeNumber": 1,
+          "awayNumber": 4,
+          "homeLabel": "1：林雨昊(海口嘉世)",
+          "awayLabel": "4：汤采葑(上海浦东万国)",
+          "homeScore": 1,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168893,
+          "caseCode": "CASE6",
+          "order": 14,
+          "matchOrder": 14,
+          "homeNumber": 5,
+          "awayNumber": 2,
+          "homeLabel": "5：汪柏霖(深圳犀旺雷声)",
+          "awayLabel": "2：陈厚兆(海口嘉世)",
+          "homeScore": "V",
+          "awayScore": 3
+        },
+        {
+          "poolId": 168893,
+          "caseCode": "CASE6",
+          "order": 15,
+          "matchOrder": 15,
+          "homeNumber": 3,
+          "awayNumber": 6,
+          "homeLabel": "3：周嘉雄(广州万国)",
+          "awayLabel": "6：徐睿泽(深圳磐石)",
+          "homeScore": 1,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168894,
+          "caseCode": "CASE6",
+          "order": 1,
+          "matchOrder": 1,
+          "homeNumber": 1,
+          "awayNumber": 2,
+          "homeLabel": "1：张家华(个人)",
+          "awayLabel": "2：陈义洋(福建)",
+          "homeScore": "V",
+          "awayScore": 4
+        },
+        {
+          "poolId": 168894,
+          "caseCode": "CASE6",
+          "order": 2,
+          "matchOrder": 2,
+          "homeNumber": 4,
+          "awayNumber": 3,
+          "homeLabel": "4：谢君墨(北京艾鲁特)",
+          "awayLabel": "3：刘奕辰(广东)",
+          "homeScore": 1,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168894,
+          "caseCode": "CASE6",
+          "order": 3,
+          "matchOrder": 3,
+          "homeNumber": 6,
+          "awayNumber": 5,
+          "homeLabel": "6：丁启宸(珠海剑一)",
+          "awayLabel": "5：黄禹淙(海口嘉世)",
+          "homeScore": "V",
+          "awayScore": 1
+        },
+        {
+          "poolId": 168894,
+          "caseCode": "CASE6",
+          "order": 4,
+          "matchOrder": 4,
+          "homeNumber": 3,
+          "awayNumber": 1,
+          "homeLabel": "3：刘奕辰(广东)",
+          "awayLabel": "1：张家华(个人)",
+          "homeScore": 3,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168894,
+          "caseCode": "CASE6",
+          "order": 5,
+          "matchOrder": 5,
+          "homeNumber": 2,
+          "awayNumber": 6,
+          "homeLabel": "2：陈义洋(福建)",
+          "awayLabel": "6：丁启宸(珠海剑一)",
+          "homeScore": "V",
+          "awayScore": 3
+        },
+        {
+          "poolId": 168894,
+          "caseCode": "CASE6",
+          "order": 6,
+          "matchOrder": 6,
+          "homeNumber": 5,
+          "awayNumber": 4,
+          "homeLabel": "5：黄禹淙(海口嘉世)",
+          "awayLabel": "4：谢君墨(北京艾鲁特)",
+          "homeScore": 2,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168894,
+          "caseCode": "CASE6",
+          "order": 7,
+          "matchOrder": 7,
+          "homeNumber": 1,
+          "awayNumber": 6,
+          "homeLabel": "1：张家华(个人)",
+          "awayLabel": "6：丁启宸(珠海剑一)",
+          "homeScore": 1,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168894,
+          "caseCode": "CASE6",
+          "order": 8,
+          "matchOrder": 8,
+          "homeNumber": 3,
+          "awayNumber": 5,
+          "homeLabel": "3：刘奕辰(广东)",
+          "awayLabel": "5：黄禹淙(海口嘉世)",
+          "homeScore": "V",
+          "awayScore": 1
+        },
+        {
+          "poolId": 168894,
+          "caseCode": "CASE6",
+          "order": 9,
+          "matchOrder": 9,
+          "homeNumber": 4,
+          "awayNumber": 2,
+          "homeLabel": "4：谢君墨(北京艾鲁特)",
+          "awayLabel": "2：陈义洋(福建)",
+          "homeScore": 1,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168894,
+          "caseCode": "CASE6",
+          "order": 10,
+          "matchOrder": 10,
+          "homeNumber": 5,
+          "awayNumber": 1,
+          "homeLabel": "5：黄禹淙(海口嘉世)",
+          "awayLabel": "1：张家华(个人)",
+          "homeScore": 2,
+          "awayScore": "V"
+        }
+      ],
+      "poolGroups": [
+        {
+          "poolId": 168892,
+          "title": "小组 1",
+          "athletes": [
+            {
+              "id": "20160915M202304060808",
+              "drawNo": 6,
+              "name": "徐潇然",
+              "licence": "20160915M202304060808",
+              "club": "珠海剑一",
+              "wins": 5,
+              "matches": 5,
+              "winRate": 1,
+              "scored": 25,
+              "received": 9,
+              "diff": 16,
+              "phaseRank": 1,
+              "finalRank": 3,
+              "medal": "铜"
+            },
+            {
+              "id": "20141024M202304070815",
+              "drawNo": 4,
+              "name": "翟立鸿",
+              "licence": "20141024M202304070815",
+              "club": "广东",
+              "wins": 4,
+              "matches": 5,
+              "winRate": 0.8,
+              "scored": 24,
+              "received": 11,
+              "diff": 13,
+              "phaseRank": 2,
+              "finalRank": 2,
+              "medal": "银"
+            },
+            {
+              "id": "20141029M202307090543",
+              "drawNo": 2,
+              "name": "张浦宸",
+              "licence": "20141029M202307090543",
+              "club": "海口嘉世",
+              "wins": 3,
+              "matches": 5,
+              "winRate": 0.6,
+              "scored": 22,
+              "received": 13,
+              "diff": 9,
+              "phaseRank": 3,
+              "finalRank": 9,
+              "medal": null
+            },
+            {
+              "id": "20150116M202304031258",
+              "drawNo": 1,
+              "name": "冯翊宸",
+              "licence": "20150116M202304031258",
+              "club": "海口嘉世",
+              "wins": 2,
+              "matches": 5,
+              "winRate": 0.4,
+              "scored": 15,
+              "received": 16,
+              "diff": -1,
+              "phaseRank": 4,
+              "finalRank": 11,
+              "medal": null
+            },
+            {
+              "id": "20151022M202410240215",
+              "drawNo": 5,
+              "name": "邓淳译",
+              "licence": "20151022M202410240215",
+              "club": "成都芮欧",
+              "wins": 1,
+              "matches": 5,
+              "winRate": 0.2,
+              "scored": 7,
+              "received": 20,
+              "diff": -13,
+              "phaseRank": 5,
+              "finalRank": 14,
+              "medal": null
+            },
+            {
+              "id": "20151016M202604290343",
+              "drawNo": 3,
+              "name": "陈煜文",
+              "licence": "20151016M202604290343",
+              "club": "个人",
+              "wins": 0,
+              "matches": 5,
+              "winRate": 0,
+              "scored": 1,
+              "received": 25,
+              "diff": -24,
+              "phaseRank": 6,
+              "finalRank": 18,
+              "medal": null
+            }
+          ],
+          "bouts": [
+            {
+              "poolId": 168892,
+              "caseCode": "CASE6",
+              "order": 1,
+              "matchOrder": 1,
+              "homeNumber": 1,
+              "awayNumber": 2,
+              "homeLabel": "1：冯翊宸(海口嘉世)",
+              "awayLabel": "2：张浦宸(海口嘉世)",
+              "homeScore": 2,
+              "awayScore": "V"
+            },
+            {
+              "poolId": 168892,
+              "caseCode": "CASE6",
+              "order": 2,
+              "matchOrder": 2,
+              "homeNumber": 4,
+              "awayNumber": 3,
+              "homeLabel": "4：翟立鸿(广东)",
+              "awayLabel": "3：陈煜文(个人)",
+              "homeScore": "V",
+              "awayScore": 0
+            },
+            {
+              "poolId": 168892,
+              "caseCode": "CASE6",
+              "order": 3,
+              "matchOrder": 3,
+              "homeNumber": 6,
+              "awayNumber": 5,
+              "homeLabel": "6：徐潇然(珠海剑一)",
+              "awayLabel": "5：邓淳译(成都芮欧)",
+              "homeScore": "V",
+              "awayScore": 0
+            },
+            {
+              "poolId": 168892,
+              "caseCode": "CASE6",
+              "order": 4,
+              "matchOrder": 4,
+              "homeNumber": 3,
+              "awayNumber": 1,
+              "homeLabel": "3：陈煜文(个人)",
+              "awayLabel": "1：冯翊宸(海口嘉世)",
+              "homeScore": 1,
+              "awayScore": "V"
+            },
+            {
+              "poolId": 168892,
+              "caseCode": "CASE6",
+              "order": 5,
+              "matchOrder": 5,
+              "homeNumber": 2,
+              "awayNumber": 6,
+              "homeLabel": "2：张浦宸(海口嘉世)",
+              "awayLabel": "6：徐潇然(珠海剑一)",
+              "homeScore": 3,
+              "awayScore": "V"
+            },
+            {
+              "poolId": 168892,
+              "caseCode": "CASE6",
+              "order": 6,
+              "matchOrder": 6,
+              "homeNumber": 5,
+              "awayNumber": 4,
+              "homeLabel": "5：邓淳译(成都芮欧)",
+              "awayLabel": "4：翟立鸿(广东)",
+              "homeScore": 1,
+              "awayScore": "V"
+            },
+            {
+              "poolId": 168892,
+              "caseCode": "CASE6",
+              "order": 7,
+              "matchOrder": 7,
+              "homeNumber": 1,
+              "awayNumber": 6,
+              "homeLabel": "1：冯翊宸(海口嘉世)",
+              "awayLabel": "6：徐潇然(珠海剑一)",
+              "homeScore": 2,
+              "awayScore": "V"
+            },
+            {
+              "poolId": 168892,
+              "caseCode": "CASE6",
+              "order": 8,
+              "matchOrder": 8,
+              "homeNumber": 3,
+              "awayNumber": 5,
+              "homeLabel": "3：陈煜文(个人)",
+              "awayLabel": "5：邓淳译(成都芮欧)",
+              "homeScore": 0,
+              "awayScore": "V"
+            },
+            {
+              "poolId": 168892,
+              "caseCode": "CASE6",
+              "order": 9,
+              "matchOrder": 9,
+              "homeNumber": 4,
+              "awayNumber": 2,
+              "homeLabel": "4：翟立鸿(广东)",
+              "awayLabel": "2：张浦宸(海口嘉世)",
+              "homeScore": "V",
+              "awayScore": 4
+            },
+            {
+              "poolId": 168892,
+              "caseCode": "CASE6",
+              "order": 10,
+              "matchOrder": 10,
+              "homeNumber": 5,
+              "awayNumber": 1,
+              "homeLabel": "5：邓淳译(成都芮欧)",
+              "awayLabel": "1：冯翊宸(海口嘉世)",
+              "homeScore": 0,
+              "awayScore": "V"
+            },
+            {
+              "poolId": 168892,
+              "caseCode": "CASE6",
+              "order": 11,
+              "matchOrder": 11,
+              "homeNumber": 6,
+              "awayNumber": 4,
+              "homeLabel": "6：徐潇然(珠海剑一)",
+              "awayLabel": "4：翟立鸿(广东)",
+              "homeScore": "V",
+              "awayScore": 4
+            },
+            {
+              "poolId": 168892,
+              "caseCode": "CASE6",
+              "order": 12,
+              "matchOrder": 12,
+              "homeNumber": 2,
+              "awayNumber": 3,
+              "homeLabel": "2：张浦宸(海口嘉世)",
+              "awayLabel": "3：陈煜文(个人)",
+              "homeScore": "V",
+              "awayScore": 0
+            }
+          ]
+        },
+        {
+          "poolId": 168893,
+          "title": "小组 2",
+          "athletes": [
+            {
+              "id": "20141126M202401150102",
+              "drawNo": 6,
+              "name": "徐睿泽",
+              "licence": "20141126M202401150102",
+              "club": "深圳磐石",
+              "wins": 4,
+              "matches": 5,
+              "winRate": 0.8,
+              "scored": 24,
+              "received": 8,
+              "diff": 16,
+              "phaseRank": 1,
+              "finalRank": 3,
+              "medal": "铜"
+            },
+            {
+              "id": "20161216M202304081110",
+              "drawNo": 3,
+              "name": "周嘉雄",
+              "licence": "20161216M202304081110",
+              "club": "广州万国",
+              "wins": 4,
+              "matches": 5,
+              "winRate": 0.8,
+              "scored": 21,
+              "received": 10,
+              "diff": 11,
+              "phaseRank": 2,
+              "finalRank": 5,
+              "medal": null
+            },
+            {
+              "id": "20170523M202304140352",
+              "drawNo": 5,
+              "name": "汪柏霖",
+              "licence": "20170523M202304140352",
+              "club": "深圳犀旺雷声",
+              "wins": 4,
+              "matches": 5,
+              "winRate": 0.8,
+              "scored": 22,
+              "received": 15,
+              "diff": 7,
+              "phaseRank": 3,
+              "finalRank": 6,
+              "medal": null
+            },
+            {
+              "id": "20150320M202411040911",
+              "drawNo": 4,
+              "name": "汤采葑",
+              "licence": "20150320M202411040911",
+              "club": "上海浦东万国",
+              "wins": 2,
+              "matches": 5,
+              "winRate": 0.4,
+              "scored": 13,
+              "received": 17,
+              "diff": -4,
+              "phaseRank": 4,
+              "finalRank": 13,
+              "medal": null
+            },
+            {
+              "id": "20151226M202112100547",
+              "drawNo": 2,
+              "name": "陈厚兆",
+              "licence": "20151226M202112100547",
+              "club": "海口嘉世",
+              "wins": 1,
+              "matches": 5,
+              "winRate": 0.2,
+              "scored": 9,
+              "received": 23,
+              "diff": -14,
+              "phaseRank": 5,
+              "finalRank": 15,
+              "medal": null
+            },
+            {
+              "id": "20150910M202408080458",
+              "drawNo": 1,
+              "name": "林雨昊",
+              "licence": "20150910M202408080458",
+              "club": "海口嘉世",
+              "wins": 0,
+              "matches": 5,
+              "winRate": 0,
+              "scored": 8,
+              "received": 24,
+              "diff": -16,
+              "phaseRank": 6,
+              "finalRank": 16,
+              "medal": null
+            }
+          ],
+          "bouts": [
+            {
+              "poolId": 168893,
+              "caseCode": "CASE6",
+              "order": 1,
+              "matchOrder": 1,
+              "homeNumber": 1,
+              "awayNumber": 2,
+              "homeLabel": "1：林雨昊(海口嘉世)",
+              "awayLabel": "2：陈厚兆(海口嘉世)",
+              "homeScore": 3,
+              "awayScore": null
+            },
+            {
+              "poolId": 168893,
+              "caseCode": "CASE6",
+              "order": 2,
+              "matchOrder": 2,
+              "homeNumber": 4,
+              "awayNumber": 3,
+              "homeLabel": "4：汤采葑(上海浦东万国)",
+              "awayLabel": "3：周嘉雄(广州万国)",
+              "homeScore": 2,
+              "awayScore": "V"
+            },
+            {
+              "poolId": 168893,
+              "caseCode": "CASE6",
+              "order": 3,
+              "matchOrder": 3,
+              "homeNumber": 6,
+              "awayNumber": 5,
+              "homeLabel": "6：徐睿泽(深圳磐石)",
+              "awayLabel": "5：汪柏霖(深圳犀旺雷声)",
+              "homeScore": 4,
+              "awayScore": "V"
+            },
+            {
+              "poolId": 168893,
+              "caseCode": "CASE6",
+              "order": 4,
+              "matchOrder": 4,
+              "homeNumber": 3,
+              "awayNumber": 1,
+              "homeLabel": "3：周嘉雄(广州万国)",
+              "awayLabel": "1：林雨昊(海口嘉世)",
+              "homeScore": "V",
+              "awayScore": 0
+            },
+            {
+              "poolId": 168893,
+              "caseCode": "CASE6",
+              "order": 5,
+              "matchOrder": 5,
+              "homeNumber": 2,
+              "awayNumber": 6,
+              "homeLabel": "2：陈厚兆(海口嘉世)",
+              "awayLabel": "6：徐睿泽(深圳磐石)",
+              "homeScore": 0,
+              "awayScore": "V"
+            },
+            {
+              "poolId": 168893,
+              "caseCode": "CASE6",
+              "order": 6,
+              "matchOrder": 6,
+              "homeNumber": 5,
+              "awayNumber": 4,
+              "homeLabel": "5：汪柏霖(深圳犀旺雷声)",
+              "awayLabel": "4：汤采葑(上海浦东万国)",
+              "homeScore": "V",
+              "awayScore": 0
+            },
+            {
+              "poolId": 168893,
+              "caseCode": "CASE6",
+              "order": 7,
+              "matchOrder": 7,
+              "homeNumber": 1,
+              "awayNumber": 6,
+              "homeLabel": "1：林雨昊(海口嘉世)",
+              "awayLabel": "6：徐睿泽(深圳磐石)",
+              "homeScore": 1,
+              "awayScore": "V"
+            },
+            {
+              "poolId": 168893,
+              "caseCode": "CASE6",
+              "order": 8,
+              "matchOrder": 8,
+              "homeNumber": 3,
+              "awayNumber": 5,
+              "homeLabel": "3：周嘉雄(广州万国)",
+              "awayLabel": "5：汪柏霖(深圳犀旺雷声)",
+              "homeScore": "V",
+              "awayScore": 2
+            },
+            {
+              "poolId": 168893,
+              "caseCode": "CASE6",
+              "order": 9,
+              "matchOrder": 9,
+              "homeNumber": 4,
+              "awayNumber": 2,
+              "homeLabel": "4：汤采葑(上海浦东万国)",
+              "awayLabel": "2：陈厚兆(海口嘉世)",
+              "homeScore": "V",
+              "awayScore": 1
+            },
+            {
+              "poolId": 168893,
+              "caseCode": "CASE6",
+              "order": 10,
+              "matchOrder": 10,
+              "homeNumber": 5,
+              "awayNumber": 1,
+              "homeLabel": "5：汪柏霖(深圳犀旺雷声)",
+              "awayLabel": "1：林雨昊(海口嘉世)",
+              "homeScore": "V",
+              "awayScore": 3
+            },
+            {
+              "poolId": 168893,
+              "caseCode": "CASE6",
+              "order": 11,
+              "matchOrder": 11,
+              "homeNumber": 6,
+              "awayNumber": 4,
+              "homeLabel": "6：徐睿泽(深圳磐石)",
+              "awayLabel": "4：汤采葑(上海浦东万国)",
+              "homeScore": "V",
+              "awayScore": 1
+            },
+            {
+              "poolId": 168893,
+              "caseCode": "CASE6",
+              "order": 12,
+              "matchOrder": 12,
+              "homeNumber": 2,
+              "awayNumber": 3,
+              "homeLabel": "2：陈厚兆(海口嘉世)",
+              "awayLabel": "3：周嘉雄(广州万国)",
+              "homeScore": 1,
+              "awayScore": "V"
+            }
+          ]
+        },
+        {
+          "poolId": 168894,
+          "title": "小组 3",
+          "athletes": [
+            {
+              "id": "20150703M202205070736",
+              "drawNo": 2,
+              "name": "陈义洋",
+              "licence": "20150703M202205070736",
+              "club": "福建",
+              "wins": 4,
+              "matches": 5,
+              "winRate": 0.8,
+              "scored": 24,
+              "received": 13,
+              "diff": 11,
+              "phaseRank": 1,
+              "finalRank": 1,
+              "medal": "金"
+            },
+            {
+              "id": "20140313M201906101430",
+              "drawNo": 1,
+              "name": "张家华",
+              "licence": "20140313M201906101430",
+              "club": "个人",
+              "wins": 4,
+              "matches": 5,
+              "winRate": 0.8,
+              "scored": 21,
+              "received": 17,
+              "diff": 4,
+              "phaseRank": 2,
+              "finalRank": 7,
+              "medal": null
+            },
+            {
+              "id": "20150214M202306150535",
+              "drawNo": 3,
+              "name": "刘奕辰",
+              "licence": "20150214M202306150535",
+              "club": "广东",
+              "wins": 3,
+              "matches": 5,
+              "winRate": 0.6,
+              "scored": 22,
+              "received": 14,
+              "diff": 8,
+              "phaseRank": 3,
+              "finalRank": 8,
+              "medal": null
+            },
+            {
+              "id": "20170705M202307080345",
+              "drawNo": 6,
+              "name": "丁启宸",
+              "licence": "20170705M202307080345",
+              "club": "珠海剑一",
+              "wins": 2,
+              "matches": 5,
+              "winRate": 0.4,
+              "scored": 17,
+              "received": 17,
+              "diff": 0,
+              "phaseRank": 4,
+              "finalRank": 10,
+              "medal": null
+            },
+            {
+              "id": "20170509M202305281055",
+              "drawNo": 4,
+              "name": "谢君墨",
+              "licence": "20170509M202305281055",
+              "club": "北京艾鲁特",
+              "wins": 2,
+              "matches": 5,
+              "winRate": 0.4,
+              "scored": 15,
+              "received": 19,
+              "diff": -4,
+              "phaseRank": 5,
+              "finalRank": 12,
+              "medal": null
+            },
+            {
+              "id": "20170505M202408030933",
+              "drawNo": 5,
+              "name": "黄禹淙",
+              "licence": "20170505M202408030933",
+              "club": "海口嘉世",
+              "wins": 0,
+              "matches": 5,
+              "winRate": 0,
+              "scored": 6,
+              "received": 25,
+              "diff": -19,
+              "phaseRank": 6,
+              "finalRank": 17,
+              "medal": null
+            }
+          ],
+          "bouts": [
+            {
+              "poolId": 168894,
+              "caseCode": "CASE6",
+              "order": 1,
+              "matchOrder": 1,
+              "homeNumber": 1,
+              "awayNumber": 2,
+              "homeLabel": "1：张家华(个人)",
+              "awayLabel": "2：陈义洋(福建)",
+              "homeScore": "V",
+              "awayScore": 4
+            },
+            {
+              "poolId": 168894,
+              "caseCode": "CASE6",
+              "order": 2,
+              "matchOrder": 2,
+              "homeNumber": 4,
+              "awayNumber": 3,
+              "homeLabel": "4：谢君墨(北京艾鲁特)",
+              "awayLabel": "3：刘奕辰(广东)",
+              "homeScore": 1,
+              "awayScore": "V"
+            },
+            {
+              "poolId": 168894,
+              "caseCode": "CASE6",
+              "order": 3,
+              "matchOrder": 3,
+              "homeNumber": 6,
+              "awayNumber": 5,
+              "homeLabel": "6：丁启宸(珠海剑一)",
+              "awayLabel": "5：黄禹淙(海口嘉世)",
+              "homeScore": "V",
+              "awayScore": 1
+            },
+            {
+              "poolId": 168894,
+              "caseCode": "CASE6",
+              "order": 4,
+              "matchOrder": 4,
+              "homeNumber": 3,
+              "awayNumber": 1,
+              "homeLabel": "3：刘奕辰(广东)",
+              "awayLabel": "1：张家华(个人)",
+              "homeScore": 3,
+              "awayScore": "V"
+            },
+            {
+              "poolId": 168894,
+              "caseCode": "CASE6",
+              "order": 5,
+              "matchOrder": 5,
+              "homeNumber": 2,
+              "awayNumber": 6,
+              "homeLabel": "2：陈义洋(福建)",
+              "awayLabel": "6：丁启宸(珠海剑一)",
+              "homeScore": "V",
+              "awayScore": 3
+            },
+            {
+              "poolId": 168894,
+              "caseCode": "CASE6",
+              "order": 6,
+              "matchOrder": 6,
+              "homeNumber": 5,
+              "awayNumber": 4,
+              "homeLabel": "5：黄禹淙(海口嘉世)",
+              "awayLabel": "4：谢君墨(北京艾鲁特)",
+              "homeScore": 2,
+              "awayScore": "V"
+            },
+            {
+              "poolId": 168894,
+              "caseCode": "CASE6",
+              "order": 7,
+              "matchOrder": 7,
+              "homeNumber": 1,
+              "awayNumber": 6,
+              "homeLabel": "1：张家华(个人)",
+              "awayLabel": "6：丁启宸(珠海剑一)",
+              "homeScore": 1,
+              "awayScore": "V"
+            },
+            {
+              "poolId": 168894,
+              "caseCode": "CASE6",
+              "order": 8,
+              "matchOrder": 8,
+              "homeNumber": 3,
+              "awayNumber": 5,
+              "homeLabel": "3：刘奕辰(广东)",
+              "awayLabel": "5：黄禹淙(海口嘉世)",
+              "homeScore": "V",
+              "awayScore": 1
+            },
+            {
+              "poolId": 168894,
+              "caseCode": "CASE6",
+              "order": 9,
+              "matchOrder": 9,
+              "homeNumber": 4,
+              "awayNumber": 2,
+              "homeLabel": "4：谢君墨(北京艾鲁特)",
+              "awayLabel": "2：陈义洋(福建)",
+              "homeScore": 1,
+              "awayScore": "V"
+            },
+            {
+              "poolId": 168894,
+              "caseCode": "CASE6",
+              "order": 10,
+              "matchOrder": 10,
+              "homeNumber": 5,
+              "awayNumber": 1,
+              "homeLabel": "5：黄禹淙(海口嘉世)",
+              "awayLabel": "1：张家华(个人)",
+              "homeScore": 2,
+              "awayScore": "V"
+            },
+            {
+              "poolId": 168894,
+              "caseCode": "CASE6",
+              "order": 11,
+              "matchOrder": 11,
+              "homeNumber": 6,
+              "awayNumber": 4,
+              "homeLabel": "6：丁启宸(珠海剑一)",
+              "awayLabel": "4：谢君墨(北京艾鲁特)",
+              "homeScore": 2,
+              "awayScore": "V"
+            },
+            {
+              "poolId": 168894,
+              "caseCode": "CASE6",
+              "order": 12,
+              "matchOrder": 12,
+              "homeNumber": 2,
+              "awayNumber": 3,
+              "homeLabel": "2：陈义洋(福建)",
+              "awayLabel": "3：刘奕辰(广东)",
+              "homeScore": "V",
+              "awayScore": 4
+            }
+          ]
+        }
+      ],
+      "participants": [
+        {
+          "id": "20150703M202205070736",
+          "name": "陈义洋",
+          "licence": "20150703M202205070736",
+          "club": "福建",
+          "finalRank": 1,
+          "medal": "金",
+          "ageBand": "2015 下半年",
+          "poolId": 168894,
+          "drawNo": 2,
+          "poolRank": 1,
+          "poolWins": 4,
+          "poolMatches": 5,
+          "poolDiff": 11,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 4,
+          "eliminationLosses": 0
+        },
+        {
+          "id": "20141024M202304070815",
+          "name": "翟立鸿",
+          "licence": "20141024M202304070815",
+          "club": "广东",
+          "finalRank": 2,
+          "medal": "银",
+          "ageBand": "2014 下半年",
+          "poolId": 168892,
+          "drawNo": 4,
+          "poolRank": 2,
+          "poolWins": 4,
+          "poolMatches": 5,
+          "poolDiff": 13,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 3,
+          "eliminationLosses": 1
+        },
+        {
+          "id": "20160915M202304060808",
+          "name": "徐潇然",
+          "licence": "20160915M202304060808",
+          "club": "珠海剑一",
+          "finalRank": 3,
+          "medal": "铜",
+          "ageBand": "2016 下半年",
+          "poolId": 168892,
+          "drawNo": 6,
+          "poolRank": 1,
+          "poolWins": 5,
+          "poolMatches": 5,
+          "poolDiff": 16,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 1,
+          "eliminationLosses": 1
+        },
+        {
+          "id": "20141126M202401150102",
+          "name": "徐睿泽",
+          "licence": "20141126M202401150102",
+          "club": "深圳磐石",
+          "finalRank": 3,
+          "medal": "铜",
+          "ageBand": "2014 下半年",
+          "poolId": 168893,
+          "drawNo": 6,
+          "poolRank": 1,
+          "poolWins": 4,
+          "poolMatches": 5,
+          "poolDiff": 16,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 1,
+          "eliminationLosses": 1
+        },
+        {
+          "id": "20161216M202304081110",
+          "name": "周嘉雄",
+          "licence": "20161216M202304081110",
+          "club": "广州万国",
+          "finalRank": 5,
+          "medal": null,
+          "ageBand": "2016 下半年",
+          "poolId": 168893,
+          "drawNo": 3,
+          "poolRank": 2,
+          "poolWins": 4,
+          "poolMatches": 5,
+          "poolDiff": 11,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 1,
+          "eliminationLosses": 1
+        },
+        {
+          "id": "20170523M202304140352",
+          "name": "汪柏霖",
+          "licence": "20170523M202304140352",
+          "club": "深圳犀旺雷声",
+          "finalRank": 6,
+          "medal": null,
+          "ageBand": "2017 上半年",
+          "poolId": 168893,
+          "drawNo": 5,
+          "poolRank": 3,
+          "poolWins": 4,
+          "poolMatches": 5,
+          "poolDiff": 7,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 1,
+          "eliminationLosses": 1
+        },
+        {
+          "id": "20140313M201906101430",
+          "name": "张家华",
+          "licence": "20140313M201906101430",
+          "club": "个人",
+          "finalRank": 7,
+          "medal": null,
+          "ageBand": "2014 上半年",
+          "poolId": 168894,
+          "drawNo": 1,
+          "poolRank": 2,
+          "poolWins": 4,
+          "poolMatches": 5,
+          "poolDiff": 4,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 1,
+          "eliminationLosses": 1
+        },
+        {
+          "id": "20150214M202306150535",
+          "name": "刘奕辰",
+          "licence": "20150214M202306150535",
+          "club": "广东",
+          "finalRank": 8,
+          "medal": null,
+          "ageBand": "2015 上半年",
+          "poolId": 168894,
+          "drawNo": 3,
+          "poolRank": 3,
+          "poolWins": 3,
+          "poolMatches": 5,
+          "poolDiff": 8,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 1,
+          "eliminationLosses": 1
+        },
+        {
+          "id": "20141029M202307090543",
+          "name": "张浦宸",
+          "licence": "20141029M202307090543",
+          "club": "海口嘉世",
+          "finalRank": 9,
+          "medal": null,
+          "ageBand": "2014 下半年",
+          "poolId": 168892,
+          "drawNo": 2,
+          "poolRank": 3,
+          "poolWins": 3,
+          "poolMatches": 5,
+          "poolDiff": 9,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 0,
+          "eliminationLosses": 1
+        },
+        {
+          "id": "20170705M202307080345",
+          "name": "丁启宸",
+          "licence": "20170705M202307080345",
+          "club": "珠海剑一",
+          "finalRank": 10,
+          "medal": null,
+          "ageBand": "2017 下半年",
+          "poolId": 168894,
+          "drawNo": 6,
+          "poolRank": 4,
+          "poolWins": 2,
+          "poolMatches": 5,
+          "poolDiff": 0,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 0,
+          "eliminationLosses": 1
+        },
+        {
+          "id": "20150116M202304031258",
+          "name": "冯翊宸",
+          "licence": "20150116M202304031258",
+          "club": "海口嘉世",
+          "finalRank": 11,
+          "medal": null,
+          "ageBand": "2015 上半年",
+          "poolId": 168892,
+          "drawNo": 1,
+          "poolRank": 4,
+          "poolWins": 2,
+          "poolMatches": 5,
+          "poolDiff": -1,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 0,
+          "eliminationLosses": 1
+        },
+        {
+          "id": "20170509M202305281055",
+          "name": "谢君墨",
+          "licence": "20170509M202305281055",
+          "club": "北京艾鲁特",
+          "finalRank": 12,
+          "medal": null,
+          "ageBand": "2017 上半年",
+          "poolId": 168894,
+          "drawNo": 4,
+          "poolRank": 5,
+          "poolWins": 2,
+          "poolMatches": 5,
+          "poolDiff": -4,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 0,
+          "eliminationLosses": 1
+        },
+        {
+          "id": "20150320M202411040911",
+          "name": "汤采葑",
+          "licence": "20150320M202411040911",
+          "club": "上海浦东万国",
+          "finalRank": 13,
+          "medal": null,
+          "ageBand": "2015 上半年",
+          "poolId": 168893,
+          "drawNo": 4,
+          "poolRank": 4,
+          "poolWins": 2,
+          "poolMatches": 5,
+          "poolDiff": -4,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 0,
+          "eliminationLosses": 1
+        },
+        {
+          "id": "20151022M202410240215",
+          "name": "邓淳译",
+          "licence": "20151022M202410240215",
+          "club": "成都芮欧",
+          "finalRank": 14,
+          "medal": null,
+          "ageBand": "2015 下半年",
+          "poolId": 168892,
+          "drawNo": 5,
+          "poolRank": 5,
+          "poolWins": 1,
+          "poolMatches": 5,
+          "poolDiff": -13,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 0,
+          "eliminationLosses": 1
+        },
+        {
+          "id": "20151226M202112100547",
+          "name": "陈厚兆",
+          "licence": "20151226M202112100547",
+          "club": "海口嘉世",
+          "finalRank": 15,
+          "medal": null,
+          "ageBand": "2015 下半年",
+          "poolId": 168893,
+          "drawNo": 2,
+          "poolRank": 5,
+          "poolWins": 1,
+          "poolMatches": 5,
+          "poolDiff": -14,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 0,
+          "eliminationLosses": 0
+        },
+        {
+          "id": "20150910M202408080458",
+          "name": "林雨昊",
+          "licence": "20150910M202408080458",
+          "club": "海口嘉世",
+          "finalRank": 16,
+          "medal": null,
+          "ageBand": "2015 下半年",
+          "poolId": 168893,
+          "drawNo": 1,
+          "poolRank": 6,
+          "poolWins": 0,
+          "poolMatches": 5,
+          "poolDiff": -16,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 0,
+          "eliminationLosses": 0
+        },
+        {
+          "id": "20170505M202408030933",
+          "name": "黄禹淙",
+          "licence": "20170505M202408030933",
+          "club": "海口嘉世",
+          "finalRank": 17,
+          "medal": null,
+          "ageBand": "2017 上半年",
+          "poolId": 168894,
+          "drawNo": 5,
+          "poolRank": 6,
+          "poolWins": 0,
+          "poolMatches": 5,
+          "poolDiff": -19,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 0,
+          "eliminationLosses": 0
+        },
+        {
+          "id": "20151016M202604290343",
+          "name": "陈煜文",
+          "licence": "20151016M202604290343",
+          "club": "个人",
+          "finalRank": 18,
+          "medal": null,
+          "ageBand": "2015 下半年",
+          "poolId": 168892,
+          "drawNo": 3,
+          "poolRank": 6,
+          "poolWins": 0,
+          "poolMatches": 5,
+          "poolDiff": -24,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 0,
+          "eliminationLosses": 0
+        }
+      ],
+      "eliminationLeaders": [
+        {
+          "id": "20150703M202205070736",
+          "name": "陈义洋",
+          "club": "福建",
+          "wins": 4,
+          "losses": 0,
+          "scored": 40,
+          "received": 14,
+          "diff": 26
+        },
+        {
+          "id": "20141024M202304070815",
+          "name": "翟立鸿",
+          "club": "广东",
+          "wins": 3,
+          "losses": 1,
+          "scored": 29,
+          "received": 17,
+          "diff": 12
+        },
+        {
+          "id": "20140313M201906101430",
+          "name": "张家华",
+          "club": "个人",
+          "wins": 1,
+          "losses": 1,
+          "scored": 17,
+          "received": 11,
+          "diff": 6
+        },
+        {
+          "id": "20160915M202304060808",
+          "name": "徐潇然",
+          "club": "珠海剑一",
+          "wins": 1,
+          "losses": 1,
+          "scored": 18,
+          "received": 16,
+          "diff": 2
+        },
+        {
+          "id": "20150214M202306150535",
+          "name": "刘奕辰",
+          "club": "广东",
+          "wins": 1,
+          "losses": 1,
+          "scored": 16,
+          "received": 15,
+          "diff": 1
+        },
+        {
+          "id": "20161216M202304081110",
+          "name": "周嘉雄",
+          "club": "广州万国",
+          "wins": 1,
+          "losses": 1,
+          "scored": 12,
+          "received": 13,
+          "diff": -1
+        },
+        {
+          "id": "20141126M202401150102",
+          "name": "徐睿泽",
+          "club": "深圳磐石",
+          "wins": 1,
+          "losses": 1,
+          "scored": 13,
+          "received": 14,
+          "diff": -1
+        },
+        {
+          "id": "20170523M202304140352",
+          "name": "汪柏霖",
+          "club": "深圳犀旺雷声",
+          "wins": 1,
+          "losses": 1,
+          "scored": 11,
+          "received": 15,
+          "diff": -4
+        },
+        {
+          "id": "20141029M202307090543",
+          "name": "张浦宸",
+          "club": "海口嘉世",
+          "wins": 0,
+          "losses": 1,
+          "scored": 5,
+          "received": 10,
+          "diff": -5
+        },
+        {
+          "id": "20150116M202304031258",
+          "name": "冯翊宸",
+          "club": "海口嘉世",
+          "wins": 0,
+          "losses": 1,
+          "scored": 5,
+          "received": 10,
+          "diff": -5
+        }
+      ],
+      "championPath": [
+        {
+          "phase": "16表",
+          "matchCode": "Pre004",
+          "championName": "陈义洋",
+          "championClub": "福建",
+          "championScore": 10,
+          "opponentName": "汤采葑",
+          "opponentClub": "上海浦东万国",
+          "opponentScore": 2,
+          "isBye": false
+        },
+        {
+          "phase": "8表",
+          "matchCode": "Pre002",
+          "championName": "陈义洋",
+          "championClub": "福建",
+          "championScore": 10,
+          "opponentName": "周嘉雄",
+          "opponentClub": "广州万国",
+          "opponentScore": 2,
+          "isBye": false
+        },
+        {
+          "phase": "半决赛",
+          "matchCode": "Pre001",
+          "championName": "陈义洋",
+          "championClub": "福建",
+          "championScore": 10,
+          "opponentName": "徐潇然",
+          "opponentClub": "珠海剑一",
+          "opponentScore": 8,
+          "isBye": false
+        },
+        {
+          "phase": "决赛",
+          "matchCode": "Pre001",
+          "championName": "陈义洋",
+          "championClub": "福建",
+          "championScore": 10,
+          "opponentName": "翟立鸿",
+          "opponentClub": "广东",
+          "opponentScore": 2,
+          "isBye": false
+        }
+      ],
+      "keyOpponents": [
+        {
+          "id": "20150703M202205070736",
+          "name": "陈义洋",
+          "club": "福建",
+          "scored": 40,
+          "received": 14,
+          "matches": 4,
+          "wins": 4,
+          "losses": 0,
+          "diff": 26
+        },
+        {
+          "id": "20141024M202304070815",
+          "name": "翟立鸿",
+          "club": "广东",
+          "scored": 29,
+          "received": 17,
+          "matches": 4,
+          "wins": 3,
+          "losses": 1,
+          "diff": 12
+        },
+        {
+          "id": "20140313M201906101430",
+          "name": "张家华",
+          "club": "个人",
+          "scored": 17,
+          "received": 11,
+          "matches": 2,
+          "wins": 1,
+          "losses": 1,
+          "diff": 6
+        },
+        {
+          "id": "20160915M202304060808",
+          "name": "徐潇然",
+          "club": "珠海剑一",
+          "scored": 18,
+          "received": 16,
+          "matches": 2,
+          "wins": 1,
+          "losses": 1,
+          "diff": 2
+        },
+        {
+          "id": "20150214M202306150535",
+          "name": "刘奕辰",
+          "club": "广东",
+          "scored": 16,
+          "received": 15,
+          "matches": 2,
+          "wins": 1,
+          "losses": 1,
+          "diff": 1
+        },
+        {
+          "id": "20161216M202304081110",
+          "name": "周嘉雄",
+          "club": "广州万国",
+          "scored": 12,
+          "received": 13,
+          "matches": 2,
+          "wins": 1,
+          "losses": 1,
+          "diff": -1
+        },
+        {
+          "id": "20141126M202401150102",
+          "name": "徐睿泽",
+          "club": "深圳磐石",
+          "scored": 13,
+          "received": 14,
+          "matches": 2,
+          "wins": 1,
+          "losses": 1,
+          "diff": -1
+        },
+        {
+          "id": "20170523M202304140352",
+          "name": "汪柏霖",
+          "club": "深圳犀旺雷声",
+          "scored": 11,
+          "received": 15,
+          "matches": 2,
+          "wins": 1,
+          "losses": 1,
+          "diff": -4
+        },
+        {
+          "id": "20141029M202307090543",
+          "name": "张浦宸",
+          "club": "海口嘉世",
+          "scored": 5,
+          "received": 10,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "diff": -5
+        },
+        {
+          "id": "20150116M202304031258",
+          "name": "冯翊宸",
+          "club": "海口嘉世",
+          "scored": 5,
+          "received": 10,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "diff": -5
+        },
+        {
+          "id": "20170509M202305281055",
+          "name": "谢君墨",
+          "club": "北京艾鲁特",
+          "scored": 3,
+          "received": 10,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "diff": -7
+        },
+        {
+          "id": "20170705M202307080345",
+          "name": "丁启宸",
+          "club": "珠海剑一",
+          "scored": 3,
+          "received": 10,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "diff": -7
+        }
+      ],
+      "insights": {
+        "headline": "陈义洋 获得冠军，来自福建",
+        "summaryCards": [
+          {
+            "title": "冠军",
+            "value": "陈义洋",
+            "detail": "福建 · 1名"
+          },
+          {
+            "title": "晋级线",
+            "value": "14 / 18",
+            "detail": "小组赛后有淘汰"
+          },
+          {
+            "title": "淘汰赛密度",
+            "value": "13 场",
+            "detail": "含 2 场 Bye"
+          }
+        ],
+        "bullets": [
+          "陈义洋 小组赛排第 4，最终夺冠。",
+          "海口嘉世 在当前样本里出现 5 次，是报名最集中的俱乐部。",
+          "该项目小组赛后淘汰 4 人。",
+          "淘汰赛实际对阵密度较高，签位空转不明显。"
+        ],
+        "breakout": [
+          {
+            "name": "陈义洋",
+            "club": "福建",
+            "licence": "20150703M202205070736",
+            "poolRank": 4,
+            "finalRank": 1,
+            "delta": 3
+          }
+        ],
+        "fade": []
+      },
+      "athleteProfiles": [
+        {
+          "id": "20150703M202205070736",
+          "name": "陈义洋",
+          "licence": "20150703M202205070736",
+          "club": "福建",
+          "finalRank": 1,
+          "medal": "金",
+          "ageBand": "2015 下半年",
+          "poolId": 168894,
+          "poolRank": 1,
+          "poolWins": 4,
+          "poolMatches": 5,
+          "poolDiff": 11,
+          "eliminationWins": 4,
+          "eliminationLosses": 0,
+          "eliminationDiff": 26
+        },
+        {
+          "id": "20141024M202304070815",
+          "name": "翟立鸿",
+          "licence": "20141024M202304070815",
+          "club": "广东",
+          "finalRank": 2,
+          "medal": "银",
+          "ageBand": "2014 下半年",
+          "poolId": 168892,
+          "poolRank": 2,
+          "poolWins": 4,
+          "poolMatches": 5,
+          "poolDiff": 13,
+          "eliminationWins": 3,
+          "eliminationLosses": 1,
+          "eliminationDiff": 12
+        },
+        {
+          "id": "20160915M202304060808",
+          "name": "徐潇然",
+          "licence": "20160915M202304060808",
+          "club": "珠海剑一",
+          "finalRank": 3,
+          "medal": "铜",
+          "ageBand": "2016 下半年",
+          "poolId": 168892,
+          "poolRank": 1,
+          "poolWins": 5,
+          "poolMatches": 5,
+          "poolDiff": 16,
+          "eliminationWins": 1,
+          "eliminationLosses": 1,
+          "eliminationDiff": 2
+        },
+        {
+          "id": "20141126M202401150102",
+          "name": "徐睿泽",
+          "licence": "20141126M202401150102",
+          "club": "深圳磐石",
+          "finalRank": 3,
+          "medal": "铜",
+          "ageBand": "2014 下半年",
+          "poolId": 168893,
+          "poolRank": 1,
+          "poolWins": 4,
+          "poolMatches": 5,
+          "poolDiff": 16,
+          "eliminationWins": 1,
+          "eliminationLosses": 1,
+          "eliminationDiff": -1
+        },
+        {
+          "id": "20161216M202304081110",
+          "name": "周嘉雄",
+          "licence": "20161216M202304081110",
+          "club": "广州万国",
+          "finalRank": 5,
+          "medal": null,
+          "ageBand": "2016 下半年",
+          "poolId": 168893,
+          "poolRank": 2,
+          "poolWins": 4,
+          "poolMatches": 5,
+          "poolDiff": 11,
+          "eliminationWins": 1,
+          "eliminationLosses": 1,
+          "eliminationDiff": -1
+        },
+        {
+          "id": "20170523M202304140352",
+          "name": "汪柏霖",
+          "licence": "20170523M202304140352",
+          "club": "深圳犀旺雷声",
+          "finalRank": 6,
+          "medal": null,
+          "ageBand": "2017 上半年",
+          "poolId": 168893,
+          "poolRank": 3,
+          "poolWins": 4,
+          "poolMatches": 5,
+          "poolDiff": 7,
+          "eliminationWins": 1,
+          "eliminationLosses": 1,
+          "eliminationDiff": -4
+        },
+        {
+          "id": "20140313M201906101430",
+          "name": "张家华",
+          "licence": "20140313M201906101430",
+          "club": "个人",
+          "finalRank": 7,
+          "medal": null,
+          "ageBand": "2014 上半年",
+          "poolId": 168894,
+          "poolRank": 2,
+          "poolWins": 4,
+          "poolMatches": 5,
+          "poolDiff": 4,
+          "eliminationWins": 1,
+          "eliminationLosses": 1,
+          "eliminationDiff": 6
+        },
+        {
+          "id": "20150214M202306150535",
+          "name": "刘奕辰",
+          "licence": "20150214M202306150535",
+          "club": "广东",
+          "finalRank": 8,
+          "medal": null,
+          "ageBand": "2015 上半年",
+          "poolId": 168894,
+          "poolRank": 3,
+          "poolWins": 3,
+          "poolMatches": 5,
+          "poolDiff": 8,
+          "eliminationWins": 1,
+          "eliminationLosses": 1,
+          "eliminationDiff": 1
+        },
+        {
+          "id": "20141029M202307090543",
+          "name": "张浦宸",
+          "licence": "20141029M202307090543",
+          "club": "海口嘉世",
+          "finalRank": 9,
+          "medal": null,
+          "ageBand": "2014 下半年",
+          "poolId": 168892,
+          "poolRank": 3,
+          "poolWins": 3,
+          "poolMatches": 5,
+          "poolDiff": 9,
+          "eliminationWins": 0,
+          "eliminationLosses": 1,
+          "eliminationDiff": -5
+        },
+        {
+          "id": "20170705M202307080345",
+          "name": "丁启宸",
+          "licence": "20170705M202307080345",
+          "club": "珠海剑一",
+          "finalRank": 10,
+          "medal": null,
+          "ageBand": "2017 下半年",
+          "poolId": 168894,
+          "poolRank": 4,
+          "poolWins": 2,
+          "poolMatches": 5,
+          "poolDiff": 0,
+          "eliminationWins": 0,
+          "eliminationLosses": 1,
+          "eliminationDiff": -7
+        },
+        {
+          "id": "20150116M202304031258",
+          "name": "冯翊宸",
+          "licence": "20150116M202304031258",
+          "club": "海口嘉世",
+          "finalRank": 11,
+          "medal": null,
+          "ageBand": "2015 上半年",
+          "poolId": 168892,
+          "poolRank": 4,
+          "poolWins": 2,
+          "poolMatches": 5,
+          "poolDiff": -1,
+          "eliminationWins": 0,
+          "eliminationLosses": 1,
+          "eliminationDiff": -5
+        },
+        {
+          "id": "20170509M202305281055",
+          "name": "谢君墨",
+          "licence": "20170509M202305281055",
+          "club": "北京艾鲁特",
+          "finalRank": 12,
+          "medal": null,
+          "ageBand": "2017 上半年",
+          "poolId": 168894,
+          "poolRank": 5,
+          "poolWins": 2,
+          "poolMatches": 5,
+          "poolDiff": -4,
+          "eliminationWins": 0,
+          "eliminationLosses": 1,
+          "eliminationDiff": -7
+        },
+        {
+          "id": "20150320M202411040911",
+          "name": "汤采葑",
+          "licence": "20150320M202411040911",
+          "club": "上海浦东万国",
+          "finalRank": 13,
+          "medal": null,
+          "ageBand": "2015 上半年",
+          "poolId": 168893,
+          "poolRank": 4,
+          "poolWins": 2,
+          "poolMatches": 5,
+          "poolDiff": -4,
+          "eliminationWins": 0,
+          "eliminationLosses": 1,
+          "eliminationDiff": -8
+        },
+        {
+          "id": "20151022M202410240215",
+          "name": "邓淳译",
+          "licence": "20151022M202410240215",
+          "club": "成都芮欧",
+          "finalRank": 14,
+          "medal": null,
+          "ageBand": "2015 下半年",
+          "poolId": 168892,
+          "poolRank": 5,
+          "poolWins": 1,
+          "poolMatches": 5,
+          "poolDiff": -13,
+          "eliminationWins": 0,
+          "eliminationLosses": 1,
+          "eliminationDiff": -9
+        },
+        {
+          "id": "20151226M202112100547",
+          "name": "陈厚兆",
+          "licence": "20151226M202112100547",
+          "club": "海口嘉世",
+          "finalRank": 15,
+          "medal": null,
+          "ageBand": "2015 下半年",
+          "poolId": 168893,
+          "poolRank": 5,
+          "poolWins": 1,
+          "poolMatches": 5,
+          "poolDiff": -14,
+          "eliminationWins": 0,
+          "eliminationLosses": 0,
+          "eliminationDiff": 0
+        },
+        {
+          "id": "20150910M202408080458",
+          "name": "林雨昊",
+          "licence": "20150910M202408080458",
+          "club": "海口嘉世",
+          "finalRank": 16,
+          "medal": null,
+          "ageBand": "2015 下半年",
+          "poolId": 168893,
+          "poolRank": 6,
+          "poolWins": 0,
+          "poolMatches": 5,
+          "poolDiff": -16,
+          "eliminationWins": 0,
+          "eliminationLosses": 0,
+          "eliminationDiff": 0
+        },
+        {
+          "id": "20170505M202408030933",
+          "name": "黄禹淙",
+          "licence": "20170505M202408030933",
+          "club": "海口嘉世",
+          "finalRank": 17,
+          "medal": null,
+          "ageBand": "2017 上半年",
+          "poolId": 168894,
+          "poolRank": 6,
+          "poolWins": 0,
+          "poolMatches": 5,
+          "poolDiff": -19,
+          "eliminationWins": 0,
+          "eliminationLosses": 0,
+          "eliminationDiff": 0
+        },
+        {
+          "id": "20151016M202604290343",
+          "name": "陈煜文",
+          "licence": "20151016M202604290343",
+          "club": "个人",
+          "finalRank": 18,
+          "medal": null,
+          "ageBand": "2015 下半年",
+          "poolId": 168892,
+          "poolRank": 6,
+          "poolWins": 0,
+          "poolMatches": 5,
+          "poolDiff": -24,
+          "eliminationWins": 0,
+          "eliminationLosses": 0,
+          "eliminationDiff": 0
+        }
+      ],
+      "clubProfiles": [
+        {
+          "id": "%E5%B9%BF%E4%B8%9C",
+          "club": "广东",
+          "entrants": 2,
+          "medals": 1,
+          "top8": 2,
+          "finalists": 1,
+          "bestRank": 2,
+          "athletes": [
+            {
+              "id": "20141024M202304070815",
+              "name": "翟立鸿",
+              "rank": 2,
+              "medal": "银"
+            },
+            {
+              "id": "20150214M202306150535",
+              "name": "刘奕辰",
+              "rank": 8,
+              "medal": null
+            }
+          ]
+        },
+        {
+          "id": "%E7%A6%8F%E5%BB%BA",
+          "club": "福建",
+          "entrants": 1,
+          "medals": 1,
+          "top8": 1,
+          "finalists": 1,
+          "bestRank": 1,
+          "athletes": [
+            {
+              "id": "20150703M202205070736",
+              "name": "陈义洋",
+              "rank": 1,
+              "medal": "金"
+            }
+          ]
+        },
+        {
+          "id": "%E7%8F%A0%E6%B5%B7%E5%89%91%E4%B8%80",
+          "club": "珠海剑一",
+          "entrants": 2,
+          "medals": 1,
+          "top8": 1,
+          "finalists": 0,
+          "bestRank": 3,
+          "athletes": [
+            {
+              "id": "20160915M202304060808",
+              "name": "徐潇然",
+              "rank": 3,
+              "medal": "铜"
+            },
+            {
+              "id": "20170705M202307080345",
+              "name": "丁启宸",
+              "rank": 10,
+              "medal": null
+            }
+          ]
+        },
+        {
+          "id": "%E6%B7%B1%E5%9C%B3%E7%A3%90%E7%9F%B3",
+          "club": "深圳磐石",
+          "entrants": 1,
+          "medals": 1,
+          "top8": 1,
+          "finalists": 0,
+          "bestRank": 3,
+          "athletes": [
+            {
+              "id": "20141126M202401150102",
+              "name": "徐睿泽",
+              "rank": 3,
+              "medal": "铜"
+            }
+          ]
+        },
+        {
+          "id": "%E5%B9%BF%E5%B7%9E%E4%B8%87%E5%9B%BD",
+          "club": "广州万国",
+          "entrants": 1,
+          "medals": 0,
+          "top8": 1,
+          "finalists": 0,
+          "bestRank": 5,
+          "athletes": [
+            {
+              "id": "20161216M202304081110",
+              "name": "周嘉雄",
+              "rank": 5,
+              "medal": null
+            }
+          ]
+        },
+        {
+          "id": "%E6%B7%B1%E5%9C%B3%E7%8A%80%E6%97%BA%E9%9B%B7%E5%A3%B0",
+          "club": "深圳犀旺雷声",
+          "entrants": 1,
+          "medals": 0,
+          "top8": 1,
+          "finalists": 0,
+          "bestRank": 6,
+          "athletes": [
+            {
+              "id": "20170523M202304140352",
+              "name": "汪柏霖",
+              "rank": 6,
+              "medal": null
+            }
+          ]
+        },
+        {
+          "id": "%E4%B8%AA%E4%BA%BA",
+          "club": "个人",
+          "entrants": 2,
+          "medals": 0,
+          "top8": 1,
+          "finalists": 0,
+          "bestRank": 7,
+          "athletes": [
+            {
+              "id": "20140313M201906101430",
+              "name": "张家华",
+              "rank": 7,
+              "medal": null
+            },
+            {
+              "id": "20151016M202604290343",
+              "name": "陈煜文",
+              "rank": 18,
+              "medal": null
+            }
+          ]
+        },
+        {
+          "id": "%E6%B5%B7%E5%8F%A3%E5%98%89%E4%B8%96",
+          "club": "海口嘉世",
+          "entrants": 5,
+          "medals": 0,
+          "top8": 0,
+          "finalists": 0,
+          "bestRank": 9,
+          "athletes": [
+            {
+              "id": "20141029M202307090543",
+              "name": "张浦宸",
+              "rank": 9,
+              "medal": null
+            },
+            {
+              "id": "20150116M202304031258",
+              "name": "冯翊宸",
+              "rank": 11,
+              "medal": null
+            },
+            {
+              "id": "20151226M202112100547",
+              "name": "陈厚兆",
+              "rank": 15,
+              "medal": null
+            },
+            {
+              "id": "20150910M202408080458",
+              "name": "林雨昊",
+              "rank": 16,
+              "medal": null
+            }
+          ]
+        }
+      ],
+      "birthBuckets": [
+        {
+          "label": "2014 上半年",
+          "entrants": 1,
+          "top8": 1,
+          "medals": 0,
+          "bestRank": 7,
+          "top8Rate": 100
+        },
+        {
+          "label": "2014 下半年",
+          "entrants": 3,
+          "top8": 2,
+          "medals": 2,
+          "bestRank": 2,
+          "top8Rate": 67
+        },
+        {
+          "label": "2015 上半年",
+          "entrants": 3,
+          "top8": 1,
+          "medals": 0,
+          "bestRank": 8,
+          "top8Rate": 33
+        },
+        {
+          "label": "2015 下半年",
+          "entrants": 5,
+          "top8": 1,
+          "medals": 1,
+          "bestRank": 1,
+          "top8Rate": 20
+        },
+        {
+          "label": "2016 下半年",
+          "entrants": 2,
+          "top8": 2,
+          "medals": 1,
+          "bestRank": 3,
+          "top8Rate": 100
+        },
+        {
+          "label": "2017 上半年",
+          "entrants": 3,
+          "top8": 1,
+          "medals": 0,
+          "bestRank": 6,
+          "top8Rate": 33
+        },
+        {
+          "label": "2017 下半年",
+          "entrants": 1,
+          "top8": 0,
+          "medals": 0,
+          "bestRank": 10,
+          "top8Rate": 0
+        }
+      ],
+      "clubDistribution": {
+        "海口嘉世": 5,
+        "珠海剑一": 2,
+        "广东": 2,
+        "个人": 2,
+        "深圳磐石": 1,
+        "福建": 1,
+        "广州万国": 1,
+        "深圳犀旺雷声": 1,
+        "北京艾鲁特": 1,
+        "上海浦东万国": 1,
+        "成都芮欧": 1
+      }
+    },
+    "RZSS2034020MEIU12": {
+      "fileName": "score-RZSS2034020MEIU12-analysis.json",
+      "eventCode": "RZSS2034020MEIU12",
+      "sportCode": "RZSS2034020",
+      "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+      "eventName": "U12男子重剑个人",
+      "shortEventName": "U12 男重",
+      "openDate": null,
+      "venue": "海南·儋州",
+      "competitionNo": 24,
+      "poolCount": 4,
+      "poolQualifyNo": 19,
+      "deStartPhase": "from Tableaus 32",
+      "eliminationMatchCount": 31,
+      "playedEliminationMatchCount": 18,
+      "byeMatchCount": 13,
+      "athleteNames": [
+        "赵禹瑞",
+        "金葆芮",
+        "杨岸霖",
+        "卢宏垚",
+        "张嘉盛",
+        "韦俊宇",
+        "李润丞",
+        "王琳溪",
+        "梁庭睿",
+        "孙铭杨",
+        "林诺禧",
+        "邱皓翔",
+        "王璟泽",
+        "陈思然",
+        "谢卓珉",
+        "张嘉瑞",
+        "章瀚尧",
+        "冯子轩",
+        "富泳霖",
+        "时铭泽",
+        "林恩霈",
+        "孙靖哲",
+        "谭思源",
+        "宋浩宇"
+      ],
+      "region": "海南儋州",
+      "distributions": {
+        "poolStatus": {
+          "7": 4
+        },
+        "poolRemark": {
+          "Q": 19,
+          "E": 5
+        },
+        "tableau": {
+          "32表": 1,
+          "16表": 1,
+          "8表": 1,
+          "半决赛": 1,
+          "决赛": 1
+        },
+        "eliminationByPhase": {
+          "32表": 16,
+          "16表": 8,
+          "8表": 4,
+          "半决赛": 2,
+          "决赛": 1
+        },
+        "eliminationResult": {
+          "W/L": 14,
+          "L/W": 17
+        },
+        "medal": {
+          "金": 1,
+          "银": 1,
+          "铜": 2,
+          "(无奖牌)": 20
+        }
+      },
+      "topPoolStanding": [
+        {
+          "rank": 1,
+          "displayPosition": 1,
+          "name": "赵禹瑞",
+          "licence": "20141013M202107041143",
+          "club": "湖北永尚",
+          "wins": 5,
+          "matches": 5,
+          "winRate": 1,
+          "hitsScored": 25,
+          "hitsReceived": 4,
+          "indicator": 21,
+          "remark": "Q"
+        },
+        {
+          "rank": 2,
+          "displayPosition": 2,
+          "name": "金葆芮",
+          "licence": "20141108M202307200835",
+          "club": "湖北永尚",
+          "wins": 5,
+          "matches": 5,
+          "winRate": 1,
+          "hitsScored": 25,
+          "hitsReceived": 10,
+          "indicator": 15,
+          "remark": "Q"
+        },
+        {
+          "rank": 3,
+          "displayPosition": 3,
+          "name": "梁庭睿",
+          "licence": "20161017M202406190604",
+          "club": "海口嘉世",
+          "wins": 5,
+          "matches": 5,
+          "winRate": 1,
+          "hitsScored": 18,
+          "hitsReceived": 10,
+          "indicator": 8,
+          "remark": "Q"
+        },
+        {
+          "rank": 4,
+          "displayPosition": 4,
+          "name": "杨岸霖",
+          "licence": "20151020M202211070400",
+          "club": "湖北永尚",
+          "wins": 4,
+          "matches": 5,
+          "winRate": 0.8,
+          "hitsScored": 24,
+          "hitsReceived": 11,
+          "indicator": 13,
+          "remark": "Q"
+        },
+        {
+          "rank": 5,
+          "displayPosition": 5,
+          "name": "张嘉盛",
+          "licence": "20161105M202307021013",
+          "club": "上海嘉世",
+          "wins": 4,
+          "matches": 5,
+          "winRate": 0.8,
+          "hitsScored": 24,
+          "hitsReceived": 16,
+          "indicator": 8,
+          "remark": "Q"
+        },
+        {
+          "rank": 6,
+          "displayPosition": 6,
+          "name": "卢宏垚",
+          "licence": "20140321M202506150705",
+          "club": "个人",
+          "wins": 4,
+          "matches": 5,
+          "winRate": 0.8,
+          "hitsScored": 20,
+          "hitsReceived": 16,
+          "indicator": 4,
+          "remark": "Q"
+        },
+        {
+          "rank": 7,
+          "displayPosition": 7,
+          "name": "孙铭杨",
+          "licence": "20140408M202304010816",
+          "club": "上海嘉世",
+          "wins": 3,
+          "matches": 5,
+          "winRate": 0.6,
+          "hitsScored": 21,
+          "hitsReceived": 13,
+          "indicator": 8,
+          "remark": "Q"
+        },
+        {
+          "rank": 8,
+          "displayPosition": 8,
+          "name": "韦俊宇",
+          "licence": "20150820M202502220824",
+          "club": "济南奥伦",
+          "wins": 3,
+          "matches": 5,
+          "winRate": 0.6,
+          "hitsScored": 22,
+          "hitsReceived": 18,
+          "indicator": 4,
+          "remark": "Q"
+        },
+        {
+          "rank": 9,
+          "displayPosition": 9,
+          "name": "林诺禧",
+          "licence": "20170215M202501150309",
+          "club": "香港剑乐会",
+          "wins": 3,
+          "matches": 5,
+          "winRate": 0.6,
+          "hitsScored": 18,
+          "hitsReceived": 15,
+          "indicator": 3,
+          "remark": "Q"
+        },
+        {
+          "rank": 10,
+          "displayPosition": 10,
+          "name": "李润丞",
+          "licence": "20150713M202304020341",
+          "club": "海口嘉世",
+          "wins": 3,
+          "matches": 5,
+          "winRate": 0.6,
+          "hitsScored": 20,
+          "hitsReceived": 18,
+          "indicator": 2,
+          "remark": "Q"
+        },
+        {
+          "rank": 11,
+          "displayPosition": 11,
+          "name": "邱皓翔",
+          "licence": "20150515M202501220920",
+          "club": "个人",
+          "wins": 3,
+          "matches": 5,
+          "winRate": 0.6,
+          "hitsScored": 18,
+          "hitsReceived": 16,
+          "indicator": 2,
+          "remark": "Q"
+        },
+        {
+          "rank": 12,
+          "displayPosition": 12,
+          "name": "王璟泽",
+          "licence": "20160612M202304011118",
+          "club": "海口嘉世",
+          "wins": 3,
+          "matches": 5,
+          "winRate": 0.6,
+          "hitsScored": 16,
+          "hitsReceived": 19,
+          "indicator": -3,
+          "remark": "Q"
+        }
+      ],
+      "latestMatches": [
+        {
+          "matchId": 497857,
+          "matchCode": "Pre001",
+          "phaseId": 168982,
+          "phase": {
+            "shortName": "T2",
+            "longName": "决赛",
+            "order": 5,
+            "code": "1",
+            "group": "5_0"
+          },
+          "groupCode": "1_0",
+          "innerOrder": 1,
+          "home": {
+            "position": 1,
+            "name": "赵禹瑞",
+            "licence": "20141013M202107041143",
+            "club": "湖北永尚",
+            "points": 10,
+            "result": "W"
+          },
+          "away": {
+            "position": 2,
+            "name": "金葆芮",
+            "licence": "20141108M202307200835",
+            "club": "湖北永尚",
+            "points": 7,
+            "result": "L"
+          },
+          "winner": {
+            "name": "赵禹瑞",
+            "club": "湖北永尚"
+          },
+          "piste": "",
+          "startTime": "",
+          "isBye": false
+        },
+        {
+          "matchId": 497856,
+          "matchCode": "Pre002",
+          "phaseId": 168981,
+          "phase": {
+            "shortName": "T4",
+            "longName": "半决赛",
+            "order": 4,
+            "code": "2",
+            "group": "4_0"
+          },
+          "groupCode": "2_0",
+          "innerOrder": 2,
+          "home": {
+            "position": 3,
+            "name": "卢宏垚",
+            "licence": "20140321M202506150705",
+            "club": "个人",
+            "points": 6,
+            "result": "L"
+          },
+          "away": {
+            "position": 2,
+            "name": "金葆芮",
+            "licence": "20141108M202307200835",
+            "club": "湖北永尚",
+            "points": 10,
+            "result": "W"
+          },
+          "winner": {
+            "name": "金葆芮",
+            "club": "湖北永尚"
+          },
+          "piste": "",
+          "startTime": "",
+          "isBye": false
+        },
+        {
+          "matchId": 497855,
+          "matchCode": "Pre001",
+          "phaseId": 168981,
+          "phase": {
+            "shortName": "T4",
+            "longName": "半决赛",
+            "order": 4,
+            "code": "2",
+            "group": "4_0"
+          },
+          "groupCode": "2_0",
+          "innerOrder": 1,
+          "home": {
+            "position": 1,
+            "name": "赵禹瑞",
+            "licence": "20141013M202107041143",
+            "club": "湖北永尚",
+            "points": 10,
+            "result": "W"
+          },
+          "away": {
+            "position": 4,
+            "name": "杨岸霖",
+            "licence": "20151020M202211070400",
+            "club": "湖北永尚",
+            "points": 7,
+            "result": "L"
+          },
+          "winner": {
+            "name": "赵禹瑞",
+            "club": "湖北永尚"
+          },
+          "piste": "",
+          "startTime": "",
+          "isBye": false
+        },
+        {
+          "matchId": 497854,
+          "matchCode": "Pre004",
+          "phaseId": 168980,
+          "phase": {
+            "shortName": "T8",
+            "longName": "8表",
+            "order": 3,
+            "code": "3",
+            "group": "3_0"
+          },
+          "groupCode": "3_1",
+          "innerOrder": 2,
+          "home": {
+            "position": 7,
+            "name": "李润丞",
+            "licence": "20150713M202304020341",
+            "club": "海口嘉世",
+            "points": 4,
+            "result": "L"
+          },
+          "away": {
+            "position": 2,
+            "name": "金葆芮",
+            "licence": "20141108M202307200835",
+            "club": "湖北永尚",
+            "points": 10,
+            "result": "W"
+          },
+          "winner": {
+            "name": "金葆芮",
+            "club": "湖北永尚"
+          },
+          "piste": "",
+          "startTime": "",
+          "isBye": false
+        },
+        {
+          "matchId": 497853,
+          "matchCode": "Pre003",
+          "phaseId": 168980,
+          "phase": {
+            "shortName": "T8",
+            "longName": "8表",
+            "order": 3,
+            "code": "3",
+            "group": "3_0"
+          },
+          "groupCode": "3_1",
+          "innerOrder": 1,
+          "home": {
+            "position": 3,
+            "name": "王琳溪",
+            "licence": "20160606M202311290422",
+            "club": "海南海外双优",
+            "points": 1,
+            "result": "L"
+          },
+          "away": {
+            "position": 6,
+            "name": "卢宏垚",
+            "licence": "20140321M202506150705",
+            "club": "个人",
+            "points": 10,
+            "result": "W"
+          },
+          "winner": {
+            "name": "卢宏垚",
+            "club": "个人"
+          },
+          "piste": "",
+          "startTime": "",
+          "isBye": false
+        },
+        {
+          "matchId": 497852,
+          "matchCode": "Pre002",
+          "phaseId": 168980,
+          "phase": {
+            "shortName": "T8",
+            "longName": "8表",
+            "order": 3,
+            "code": "3",
+            "group": "3_0"
+          },
+          "groupCode": "3_0",
+          "innerOrder": 2,
+          "home": {
+            "position": 5,
+            "name": "张嘉盛",
+            "licence": "20161105M202307021013",
+            "club": "上海嘉世",
+            "points": 1,
+            "result": "L"
+          },
+          "away": {
+            "position": 4,
+            "name": "杨岸霖",
+            "licence": "20151020M202211070400",
+            "club": "湖北永尚",
+            "points": 10,
+            "result": "W"
+          },
+          "winner": {
+            "name": "杨岸霖",
+            "club": "湖北永尚"
+          },
+          "piste": "",
+          "startTime": "",
+          "isBye": false
+        },
+        {
+          "matchId": 497851,
+          "matchCode": "Pre001",
+          "phaseId": 168980,
+          "phase": {
+            "shortName": "T8",
+            "longName": "8表",
+            "order": 3,
+            "code": "3",
+            "group": "3_0"
+          },
+          "groupCode": "3_0",
+          "innerOrder": 1,
+          "home": {
+            "position": 1,
+            "name": "赵禹瑞",
+            "licence": "20141013M202107041143",
+            "club": "湖北永尚",
+            "points": 10,
+            "result": "W"
+          },
+          "away": {
+            "position": 8,
+            "name": "韦俊宇",
+            "licence": "20150820M202502220824",
+            "club": "济南奥伦",
+            "points": 6,
+            "result": "L"
+          },
+          "winner": {
+            "name": "赵禹瑞",
+            "club": "湖北永尚"
+          },
+          "piste": "",
+          "startTime": "",
+          "isBye": false
+        },
+        {
+          "matchId": 497850,
+          "matchCode": "Pre008",
+          "phaseId": 168979,
+          "phase": {
+            "shortName": "T16",
+            "longName": "16表",
+            "order": 2,
+            "code": "4",
+            "group": "2_0"
+          },
+          "groupCode": "4_3",
+          "innerOrder": 2,
+          "home": {
+            "position": 15,
+            "name": "谢卓珉",
+            "licence": "20150520M202501290854",
+            "club": "长沙博翼",
+            "points": 5,
+            "result": "L"
+          },
+          "away": {
+            "position": 2,
+            "name": "金葆芮",
+            "licence": "20141108M202307200835",
+            "club": "湖北永尚",
+            "points": 9,
+            "result": "W"
+          },
+          "winner": {
+            "name": "金葆芮",
+            "club": "湖北永尚"
+          },
+          "piste": "",
+          "startTime": "",
+          "isBye": false
+        },
+        {
+          "matchId": 497849,
+          "matchCode": "Pre007",
+          "phaseId": 168979,
+          "phase": {
+            "shortName": "T16",
+            "longName": "16表",
+            "order": 2,
+            "code": "4",
+            "group": "2_0"
+          },
+          "groupCode": "4_3",
+          "innerOrder": 1,
+          "home": {
+            "position": 7,
+            "name": "孙铭杨",
+            "licence": "20140408M202304010816",
+            "club": "上海嘉世",
+            "points": 3,
+            "result": "L"
+          },
+          "away": {
+            "position": 10,
+            "name": "李润丞",
+            "licence": "20150713M202304020341",
+            "club": "海口嘉世",
+            "points": 10,
+            "result": "W"
+          },
+          "winner": {
+            "name": "李润丞",
+            "club": "海口嘉世"
+          },
+          "piste": "",
+          "startTime": "",
+          "isBye": false
+        },
+        {
+          "matchId": 497848,
+          "matchCode": "Pre006",
+          "phaseId": 168979,
+          "phase": {
+            "shortName": "T16",
+            "longName": "16表",
+            "order": 2,
+            "code": "4",
+            "group": "2_0"
+          },
+          "groupCode": "4_2",
+          "innerOrder": 2,
+          "home": {
+            "position": 11,
+            "name": "邱皓翔",
+            "licence": "20150515M202501220920",
+            "club": "个人",
+            "points": 6,
+            "result": "L"
+          },
+          "away": {
+            "position": 6,
+            "name": "卢宏垚",
+            "licence": "20140321M202506150705",
+            "club": "个人",
+            "points": 10,
+            "result": "W"
+          },
+          "winner": {
+            "name": "卢宏垚",
+            "club": "个人"
+          },
+          "piste": "",
+          "startTime": "",
+          "isBye": false
+        },
+        {
+          "matchId": 497847,
+          "matchCode": "Pre005",
+          "phaseId": 168979,
+          "phase": {
+            "shortName": "T16",
+            "longName": "16表",
+            "order": 2,
+            "code": "4",
+            "group": "2_0"
+          },
+          "groupCode": "4_2",
+          "innerOrder": 1,
+          "home": {
+            "position": 3,
+            "name": "梁庭睿",
+            "licence": "20161017M202406190604",
+            "club": "海口嘉世",
+            "points": 7,
+            "result": "L"
+          },
+          "away": {
+            "position": 14,
+            "name": "王琳溪",
+            "licence": "20160606M202311290422",
+            "club": "海南海外双优",
+            "points": 8,
+            "result": "W"
+          },
+          "winner": {
+            "name": "王琳溪",
+            "club": "海南海外双优"
+          },
+          "piste": "",
+          "startTime": "",
+          "isBye": false
+        },
+        {
+          "matchId": 497846,
+          "matchCode": "Pre004",
+          "phaseId": 168979,
+          "phase": {
+            "shortName": "T16",
+            "longName": "16表",
+            "order": 2,
+            "code": "4",
+            "group": "2_0"
+          },
+          "groupCode": "4_1",
+          "innerOrder": 2,
+          "home": {
+            "position": 13,
+            "name": "陈思然",
+            "licence": "20160524M202408010202",
+            "club": "广州阳光剑匠",
+            "points": 3,
+            "result": "L"
+          },
+          "away": {
+            "position": 4,
+            "name": "杨岸霖",
+            "licence": "20151020M202211070400",
+            "club": "湖北永尚",
+            "points": 10,
+            "result": "W"
+          },
+          "winner": {
+            "name": "杨岸霖",
+            "club": "湖北永尚"
+          },
+          "piste": "",
+          "startTime": "",
+          "isBye": false
+        }
+      ],
+      "eliminationPhaseGroups": [
+        {
+          "phase": "32表",
+          "order": 1,
+          "matches": [
+            {
+              "matchId": 497841,
+              "matchCode": "Pre015",
+              "phaseId": 168978,
+              "phase": {
+                "shortName": "T32",
+                "longName": "32表",
+                "order": 1,
+                "code": "5",
+                "group": "1_0"
+              },
+              "groupCode": "5_7",
+              "innerOrder": 1,
+              "home": {
+                "position": 15,
+                "name": "谢卓珉",
+                "licence": "20150520M202501290854",
+                "club": "长沙博翼",
+                "points": 10,
+                "result": "W"
+              },
+              "away": {
+                "position": 18,
+                "name": "冯子轩",
+                "licence": "20150812M202304010414",
+                "club": "上海嘉世",
+                "points": 6,
+                "result": "L"
+              },
+              "winner": {
+                "name": "谢卓珉",
+                "club": "长沙博翼"
+              },
+              "piste": "",
+              "startTime": "",
+              "isBye": false
+            },
+            {
+              "matchId": 497828,
+              "matchCode": "Pre002",
+              "phaseId": 168978,
+              "phase": {
+                "shortName": "T32",
+                "longName": "32表",
+                "order": 1,
+                "code": "5",
+                "group": "1_0"
+              },
+              "groupCode": "5_0",
+              "innerOrder": 2,
+              "home": {
+                "position": 17,
+                "name": "张嘉瑞",
+                "licence": "20140630M202510111255",
+                "club": "海南海外双优",
+                "points": 10,
+                "result": "W"
+              },
+              "away": {
+                "position": 16,
+                "name": "章瀚尧",
+                "licence": "20151028M202407191059",
+                "club": "个人",
+                "points": 9,
+                "result": "L"
+              },
+              "winner": {
+                "name": "张嘉瑞",
+                "club": "海南海外双优"
+              },
+              "piste": "",
+              "startTime": "",
+              "isBye": false
+            },
+            {
+              "matchId": 497836,
+              "matchCode": "Pre010",
+              "phaseId": 168978,
+              "phase": {
+                "shortName": "T32",
+                "longName": "32表",
+                "order": 1,
+                "code": "5",
+                "group": "1_0"
+              },
+              "groupCode": "5_4",
+              "innerOrder": 2,
+              "home": {
+                "position": 19,
+                "name": "富泳霖",
+                "licence": "20151025M202510171050",
+                "club": "海南海外双优",
+                "points": 8,
+                "result": "L"
+              },
+              "away": {
+                "position": 14,
+                "name": "王琳溪",
+                "licence": "20160606M202311290422",
+                "club": "海南海外双优",
+                "points": 10,
+                "result": "W"
+              },
+              "winner": {
+                "name": "王琳溪",
+                "club": "海南海外双优"
+              },
+              "piste": "",
+              "startTime": "",
+              "isBye": false
+            }
+          ]
+        },
+        {
+          "phase": "16表",
+          "order": 2,
+          "matches": [
+            {
+              "matchId": 497843,
+              "matchCode": "Pre001",
+              "phaseId": 168979,
+              "phase": {
+                "shortName": "T16",
+                "longName": "16表",
+                "order": 2,
+                "code": "4",
+                "group": "2_0"
+              },
+              "groupCode": "4_0",
+              "innerOrder": 1,
+              "home": {
+                "position": 1,
+                "name": "赵禹瑞",
+                "licence": "20141013M202107041143",
+                "club": "湖北永尚",
+                "points": 10,
+                "result": "W"
+              },
+              "away": {
+                "position": 16,
+                "name": "张嘉瑞",
+                "licence": "20140630M202510111255",
+                "club": "海南海外双优",
+                "points": 3,
+                "result": "L"
+              },
+              "winner": {
+                "name": "赵禹瑞",
+                "club": "湖北永尚"
+              },
+              "piste": "",
+              "startTime": "",
+              "isBye": false
+            },
+            {
+              "matchId": 497845,
+              "matchCode": "Pre003",
+              "phaseId": 168979,
+              "phase": {
+                "shortName": "T16",
+                "longName": "16表",
+                "order": 2,
+                "code": "4",
+                "group": "2_0"
+              },
+              "groupCode": "4_1",
+              "innerOrder": 1,
+              "home": {
+                "position": 5,
+                "name": "张嘉盛",
+                "licence": "20161105M202307021013",
+                "club": "上海嘉世",
+                "points": 10,
+                "result": "W"
+              },
+              "away": {
+                "position": 12,
+                "name": "王璟泽",
+                "licence": "20160612M202304011118",
+                "club": "海口嘉世",
+                "points": 5,
+                "result": "L"
+              },
+              "winner": {
+                "name": "张嘉盛",
+                "club": "上海嘉世"
+              },
+              "piste": "",
+              "startTime": "",
+              "isBye": false
+            },
+            {
+              "matchId": 497847,
+              "matchCode": "Pre005",
+              "phaseId": 168979,
+              "phase": {
+                "shortName": "T16",
+                "longName": "16表",
+                "order": 2,
+                "code": "4",
+                "group": "2_0"
+              },
+              "groupCode": "4_2",
+              "innerOrder": 1,
+              "home": {
+                "position": 3,
+                "name": "梁庭睿",
+                "licence": "20161017M202406190604",
+                "club": "海口嘉世",
+                "points": 7,
+                "result": "L"
+              },
+              "away": {
+                "position": 14,
+                "name": "王琳溪",
+                "licence": "20160606M202311290422",
+                "club": "海南海外双优",
+                "points": 8,
+                "result": "W"
+              },
+              "winner": {
+                "name": "王琳溪",
+                "club": "海南海外双优"
+              },
+              "piste": "",
+              "startTime": "",
+              "isBye": false
+            },
+            {
+              "matchId": 497849,
+              "matchCode": "Pre007",
+              "phaseId": 168979,
+              "phase": {
+                "shortName": "T16",
+                "longName": "16表",
+                "order": 2,
+                "code": "4",
+                "group": "2_0"
+              },
+              "groupCode": "4_3",
+              "innerOrder": 1,
+              "home": {
+                "position": 7,
+                "name": "孙铭杨",
+                "licence": "20140408M202304010816",
+                "club": "上海嘉世",
+                "points": 3,
+                "result": "L"
+              },
+              "away": {
+                "position": 10,
+                "name": "李润丞",
+                "licence": "20150713M202304020341",
+                "club": "海口嘉世",
+                "points": 10,
+                "result": "W"
+              },
+              "winner": {
+                "name": "李润丞",
+                "club": "海口嘉世"
+              },
+              "piste": "",
+              "startTime": "",
+              "isBye": false
+            },
+            {
+              "matchId": 497844,
+              "matchCode": "Pre002",
+              "phaseId": 168979,
+              "phase": {
+                "shortName": "T16",
+                "longName": "16表",
+                "order": 2,
+                "code": "4",
+                "group": "2_0"
+              },
+              "groupCode": "4_0",
+              "innerOrder": 2,
+              "home": {
+                "position": 9,
+                "name": "林诺禧",
+                "licence": "20170215M202501150309",
+                "club": "香港剑乐会",
+                "points": 5,
+                "result": "L"
+              },
+              "away": {
+                "position": 8,
+                "name": "韦俊宇",
+                "licence": "20150820M202502220824",
+                "club": "济南奥伦",
+                "points": 10,
+                "result": "W"
+              },
+              "winner": {
+                "name": "韦俊宇",
+                "club": "济南奥伦"
+              },
+              "piste": "",
+              "startTime": "",
+              "isBye": false
+            },
+            {
+              "matchId": 497846,
+              "matchCode": "Pre004",
+              "phaseId": 168979,
+              "phase": {
+                "shortName": "T16",
+                "longName": "16表",
+                "order": 2,
+                "code": "4",
+                "group": "2_0"
+              },
+              "groupCode": "4_1",
+              "innerOrder": 2,
+              "home": {
+                "position": 13,
+                "name": "陈思然",
+                "licence": "20160524M202408010202",
+                "club": "广州阳光剑匠",
+                "points": 3,
+                "result": "L"
+              },
+              "away": {
+                "position": 4,
+                "name": "杨岸霖",
+                "licence": "20151020M202211070400",
+                "club": "湖北永尚",
+                "points": 10,
+                "result": "W"
+              },
+              "winner": {
+                "name": "杨岸霖",
+                "club": "湖北永尚"
+              },
+              "piste": "",
+              "startTime": "",
+              "isBye": false
+            },
+            {
+              "matchId": 497848,
+              "matchCode": "Pre006",
+              "phaseId": 168979,
+              "phase": {
+                "shortName": "T16",
+                "longName": "16表",
+                "order": 2,
+                "code": "4",
+                "group": "2_0"
+              },
+              "groupCode": "4_2",
+              "innerOrder": 2,
+              "home": {
+                "position": 11,
+                "name": "邱皓翔",
+                "licence": "20150515M202501220920",
+                "club": "个人",
+                "points": 6,
+                "result": "L"
+              },
+              "away": {
+                "position": 6,
+                "name": "卢宏垚",
+                "licence": "20140321M202506150705",
+                "club": "个人",
+                "points": 10,
+                "result": "W"
+              },
+              "winner": {
+                "name": "卢宏垚",
+                "club": "个人"
+              },
+              "piste": "",
+              "startTime": "",
+              "isBye": false
+            },
+            {
+              "matchId": 497850,
+              "matchCode": "Pre008",
+              "phaseId": 168979,
+              "phase": {
+                "shortName": "T16",
+                "longName": "16表",
+                "order": 2,
+                "code": "4",
+                "group": "2_0"
+              },
+              "groupCode": "4_3",
+              "innerOrder": 2,
+              "home": {
+                "position": 15,
+                "name": "谢卓珉",
+                "licence": "20150520M202501290854",
+                "club": "长沙博翼",
+                "points": 5,
+                "result": "L"
+              },
+              "away": {
+                "position": 2,
+                "name": "金葆芮",
+                "licence": "20141108M202307200835",
+                "club": "湖北永尚",
+                "points": 9,
+                "result": "W"
+              },
+              "winner": {
+                "name": "金葆芮",
+                "club": "湖北永尚"
+              },
+              "piste": "",
+              "startTime": "",
+              "isBye": false
+            }
+          ]
+        },
+        {
+          "phase": "8表",
+          "order": 3,
+          "matches": [
+            {
+              "matchId": 497851,
+              "matchCode": "Pre001",
+              "phaseId": 168980,
+              "phase": {
+                "shortName": "T8",
+                "longName": "8表",
+                "order": 3,
+                "code": "3",
+                "group": "3_0"
+              },
+              "groupCode": "3_0",
+              "innerOrder": 1,
+              "home": {
+                "position": 1,
+                "name": "赵禹瑞",
+                "licence": "20141013M202107041143",
+                "club": "湖北永尚",
+                "points": 10,
+                "result": "W"
+              },
+              "away": {
+                "position": 8,
+                "name": "韦俊宇",
+                "licence": "20150820M202502220824",
+                "club": "济南奥伦",
+                "points": 6,
+                "result": "L"
+              },
+              "winner": {
+                "name": "赵禹瑞",
+                "club": "湖北永尚"
+              },
+              "piste": "",
+              "startTime": "",
+              "isBye": false
+            },
+            {
+              "matchId": 497853,
+              "matchCode": "Pre003",
+              "phaseId": 168980,
+              "phase": {
+                "shortName": "T8",
+                "longName": "8表",
+                "order": 3,
+                "code": "3",
+                "group": "3_0"
+              },
+              "groupCode": "3_1",
+              "innerOrder": 1,
+              "home": {
+                "position": 3,
+                "name": "王琳溪",
+                "licence": "20160606M202311290422",
+                "club": "海南海外双优",
+                "points": 1,
+                "result": "L"
+              },
+              "away": {
+                "position": 6,
+                "name": "卢宏垚",
+                "licence": "20140321M202506150705",
+                "club": "个人",
+                "points": 10,
+                "result": "W"
+              },
+              "winner": {
+                "name": "卢宏垚",
+                "club": "个人"
+              },
+              "piste": "",
+              "startTime": "",
+              "isBye": false
+            },
+            {
+              "matchId": 497852,
+              "matchCode": "Pre002",
+              "phaseId": 168980,
+              "phase": {
+                "shortName": "T8",
+                "longName": "8表",
+                "order": 3,
+                "code": "3",
+                "group": "3_0"
+              },
+              "groupCode": "3_0",
+              "innerOrder": 2,
+              "home": {
+                "position": 5,
+                "name": "张嘉盛",
+                "licence": "20161105M202307021013",
+                "club": "上海嘉世",
+                "points": 1,
+                "result": "L"
+              },
+              "away": {
+                "position": 4,
+                "name": "杨岸霖",
+                "licence": "20151020M202211070400",
+                "club": "湖北永尚",
+                "points": 10,
+                "result": "W"
+              },
+              "winner": {
+                "name": "杨岸霖",
+                "club": "湖北永尚"
+              },
+              "piste": "",
+              "startTime": "",
+              "isBye": false
+            },
+            {
+              "matchId": 497854,
+              "matchCode": "Pre004",
+              "phaseId": 168980,
+              "phase": {
+                "shortName": "T8",
+                "longName": "8表",
+                "order": 3,
+                "code": "3",
+                "group": "3_0"
+              },
+              "groupCode": "3_1",
+              "innerOrder": 2,
+              "home": {
+                "position": 7,
+                "name": "李润丞",
+                "licence": "20150713M202304020341",
+                "club": "海口嘉世",
+                "points": 4,
+                "result": "L"
+              },
+              "away": {
+                "position": 2,
+                "name": "金葆芮",
+                "licence": "20141108M202307200835",
+                "club": "湖北永尚",
+                "points": 10,
+                "result": "W"
+              },
+              "winner": {
+                "name": "金葆芮",
+                "club": "湖北永尚"
+              },
+              "piste": "",
+              "startTime": "",
+              "isBye": false
+            }
+          ]
+        },
+        {
+          "phase": "半决赛",
+          "order": 4,
+          "matches": [
+            {
+              "matchId": 497855,
+              "matchCode": "Pre001",
+              "phaseId": 168981,
+              "phase": {
+                "shortName": "T4",
+                "longName": "半决赛",
+                "order": 4,
+                "code": "2",
+                "group": "4_0"
+              },
+              "groupCode": "2_0",
+              "innerOrder": 1,
+              "home": {
+                "position": 1,
+                "name": "赵禹瑞",
+                "licence": "20141013M202107041143",
+                "club": "湖北永尚",
+                "points": 10,
+                "result": "W"
+              },
+              "away": {
+                "position": 4,
+                "name": "杨岸霖",
+                "licence": "20151020M202211070400",
+                "club": "湖北永尚",
+                "points": 7,
+                "result": "L"
+              },
+              "winner": {
+                "name": "赵禹瑞",
+                "club": "湖北永尚"
+              },
+              "piste": "",
+              "startTime": "",
+              "isBye": false
+            },
+            {
+              "matchId": 497856,
+              "matchCode": "Pre002",
+              "phaseId": 168981,
+              "phase": {
+                "shortName": "T4",
+                "longName": "半决赛",
+                "order": 4,
+                "code": "2",
+                "group": "4_0"
+              },
+              "groupCode": "2_0",
+              "innerOrder": 2,
+              "home": {
+                "position": 3,
+                "name": "卢宏垚",
+                "licence": "20140321M202506150705",
+                "club": "个人",
+                "points": 6,
+                "result": "L"
+              },
+              "away": {
+                "position": 2,
+                "name": "金葆芮",
+                "licence": "20141108M202307200835",
+                "club": "湖北永尚",
+                "points": 10,
+                "result": "W"
+              },
+              "winner": {
+                "name": "金葆芮",
+                "club": "湖北永尚"
+              },
+              "piste": "",
+              "startTime": "",
+              "isBye": false
+            }
+          ]
+        },
+        {
+          "phase": "决赛",
+          "order": 5,
+          "matches": [
+            {
+              "matchId": 497857,
+              "matchCode": "Pre001",
+              "phaseId": 168982,
+              "phase": {
+                "shortName": "T2",
+                "longName": "决赛",
+                "order": 5,
+                "code": "1",
+                "group": "5_0"
+              },
+              "groupCode": "1_0",
+              "innerOrder": 1,
+              "home": {
+                "position": 1,
+                "name": "赵禹瑞",
+                "licence": "20141013M202107041143",
+                "club": "湖北永尚",
+                "points": 10,
+                "result": "W"
+              },
+              "away": {
+                "position": 2,
+                "name": "金葆芮",
+                "licence": "20141108M202307200835",
+                "club": "湖北永尚",
+                "points": 7,
+                "result": "L"
+              },
+              "winner": {
+                "name": "赵禹瑞",
+                "club": "湖北永尚"
+              },
+              "piste": "",
+              "startTime": "",
+              "isBye": false
+            }
+          ]
+        }
+      ],
+      "poolBouts": [
+        {
+          "poolId": 168974,
+          "caseCode": "CASE6",
+          "order": 1,
+          "matchOrder": 1,
+          "homeNumber": 1,
+          "awayNumber": 2,
+          "homeLabel": "1：孙靖哲(个人)",
+          "awayLabel": "2：章瀚尧(个人)",
+          "homeScore": 2,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168974,
+          "caseCode": "CASE6",
+          "order": 2,
+          "matchOrder": 2,
+          "homeNumber": 4,
+          "awayNumber": 3,
+          "homeLabel": "4：陈思然(广州阳光剑匠)",
+          "awayLabel": "3：赵禹瑞(湖北永尚)",
+          "homeScore": 0,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168974,
+          "caseCode": "CASE6",
+          "order": 3,
+          "matchOrder": 3,
+          "homeNumber": 6,
+          "awayNumber": 5,
+          "homeLabel": "6：李润丞(海口嘉世)",
+          "awayLabel": "5：王琳溪(海南海外双优)",
+          "homeScore": 3,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168974,
+          "caseCode": "CASE6",
+          "order": 4,
+          "matchOrder": 4,
+          "homeNumber": 3,
+          "awayNumber": 1,
+          "homeLabel": "3：赵禹瑞(湖北永尚)",
+          "awayLabel": "1：孙靖哲(个人)",
+          "homeScore": "V",
+          "awayScore": 0
+        },
+        {
+          "poolId": 168974,
+          "caseCode": "CASE6",
+          "order": 5,
+          "matchOrder": 5,
+          "homeNumber": 2,
+          "awayNumber": 6,
+          "homeLabel": "2：章瀚尧(个人)",
+          "awayLabel": "6：李润丞(海口嘉世)",
+          "homeScore": 2,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168974,
+          "caseCode": "CASE6",
+          "order": 6,
+          "matchOrder": 6,
+          "homeNumber": 5,
+          "awayNumber": 4,
+          "homeLabel": "5：王琳溪(海南海外双优)",
+          "awayLabel": "4：陈思然(广州阳光剑匠)",
+          "homeScore": 2,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168974,
+          "caseCode": "CASE6",
+          "order": 7,
+          "matchOrder": 7,
+          "homeNumber": 1,
+          "awayNumber": 6,
+          "homeLabel": "1：孙靖哲(个人)",
+          "awayLabel": "6：李润丞(海口嘉世)",
+          "homeScore": 2,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168974,
+          "caseCode": "CASE6",
+          "order": 8,
+          "matchOrder": 8,
+          "homeNumber": 3,
+          "awayNumber": 5,
+          "homeLabel": "3：赵禹瑞(湖北永尚)",
+          "awayLabel": "5：王琳溪(海南海外双优)",
+          "homeScore": "V",
+          "awayScore": 0
+        },
+        {
+          "poolId": 168974,
+          "caseCode": "CASE6",
+          "order": 9,
+          "matchOrder": 9,
+          "homeNumber": 4,
+          "awayNumber": 2,
+          "homeLabel": "4：陈思然(广州阳光剑匠)",
+          "awayLabel": "2：章瀚尧(个人)",
+          "homeScore": "V",
+          "awayScore": 1
+        },
+        {
+          "poolId": 168974,
+          "caseCode": "CASE6",
+          "order": 10,
+          "matchOrder": 10,
+          "homeNumber": 5,
+          "awayNumber": 1,
+          "homeLabel": "5：王琳溪(海南海外双优)",
+          "awayLabel": "1：孙靖哲(个人)",
+          "homeScore": "V",
+          "awayScore": 3
+        },
+        {
+          "poolId": 168974,
+          "caseCode": "CASE6",
+          "order": 11,
+          "matchOrder": 11,
+          "homeNumber": 6,
+          "awayNumber": 4,
+          "homeLabel": "6：李润丞(海口嘉世)",
+          "awayLabel": "4：陈思然(广州阳光剑匠)",
+          "homeScore": "V",
+          "awayScore": 4
+        },
+        {
+          "poolId": 168974,
+          "caseCode": "CASE6",
+          "order": 12,
+          "matchOrder": 12,
+          "homeNumber": 2,
+          "awayNumber": 3,
+          "homeLabel": "2：章瀚尧(个人)",
+          "awayLabel": "3：赵禹瑞(湖北永尚)",
+          "homeScore": 2,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168974,
+          "caseCode": "CASE6",
+          "order": 13,
+          "matchOrder": 13,
+          "homeNumber": 1,
+          "awayNumber": 4,
+          "homeLabel": "1：孙靖哲(个人)",
+          "awayLabel": "4：陈思然(广州阳光剑匠)",
+          "homeScore": "V",
+          "awayScore": 3
+        },
+        {
+          "poolId": 168974,
+          "caseCode": "CASE6",
+          "order": 14,
+          "matchOrder": 14,
+          "homeNumber": 5,
+          "awayNumber": 2,
+          "homeLabel": "5：王琳溪(海南海外双优)",
+          "awayLabel": "2：章瀚尧(个人)",
+          "homeScore": 4,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168974,
+          "caseCode": "CASE6",
+          "order": 15,
+          "matchOrder": 15,
+          "homeNumber": 3,
+          "awayNumber": 6,
+          "homeLabel": "3：赵禹瑞(湖北永尚)",
+          "awayLabel": "6：李润丞(海口嘉世)",
+          "homeScore": "V",
+          "awayScore": 2
+        },
+        {
+          "poolId": 168975,
+          "caseCode": "CASE6",
+          "order": 1,
+          "matchOrder": 1,
+          "homeNumber": 1,
+          "awayNumber": 2,
+          "homeLabel": "1：卢宏垚(个人)",
+          "awayLabel": "2：时铭泽(个人)",
+          "homeScore": "V",
+          "awayScore": 3
+        },
+        {
+          "poolId": 168975,
+          "caseCode": "CASE6",
+          "order": 2,
+          "matchOrder": 2,
+          "homeNumber": 4,
+          "awayNumber": 3,
+          "homeLabel": "4：张嘉瑞(海南海外双优)",
+          "awayLabel": "3：杨岸霖(湖北永尚)",
+          "homeScore": 0,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168975,
+          "caseCode": "CASE6",
+          "order": 3,
+          "matchOrder": 3,
+          "homeNumber": 6,
+          "awayNumber": 5,
+          "homeLabel": "6：张嘉盛(上海嘉世)",
+          "awayLabel": "5：谭思源(武汉海外双优)",
+          "homeScore": "V",
+          "awayScore": 2
+        },
+        {
+          "poolId": 168975,
+          "caseCode": "CASE6",
+          "order": 4,
+          "matchOrder": 4,
+          "homeNumber": 3,
+          "awayNumber": 1,
+          "homeLabel": "3：杨岸霖(湖北永尚)",
+          "awayLabel": "1：卢宏垚(个人)",
+          "homeScore": "V",
+          "awayScore": 0
+        },
+        {
+          "poolId": 168975,
+          "caseCode": "CASE6",
+          "order": 5,
+          "matchOrder": 5,
+          "homeNumber": 2,
+          "awayNumber": 6,
+          "homeLabel": "2：时铭泽(个人)",
+          "awayLabel": "6：张嘉盛(上海嘉世)",
+          "homeScore": 2,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168975,
+          "caseCode": "CASE6",
+          "order": 6,
+          "matchOrder": 6,
+          "homeNumber": 5,
+          "awayNumber": 4,
+          "homeLabel": "5：谭思源(武汉海外双优)",
+          "awayLabel": "4：张嘉瑞(海南海外双优)",
+          "homeScore": 4,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168975,
+          "caseCode": "CASE6",
+          "order": 7,
+          "matchOrder": 7,
+          "homeNumber": 1,
+          "awayNumber": 6,
+          "homeLabel": "1：卢宏垚(个人)",
+          "awayLabel": "6：张嘉盛(上海嘉世)",
+          "homeScore": "V",
+          "awayScore": 4
+        },
+        {
+          "poolId": 168975,
+          "caseCode": "CASE6",
+          "order": 8,
+          "matchOrder": 8,
+          "homeNumber": 3,
+          "awayNumber": 5,
+          "homeLabel": "3：杨岸霖(湖北永尚)",
+          "awayLabel": "5：谭思源(武汉海外双优)",
+          "homeScore": "V",
+          "awayScore": 4
+        },
+        {
+          "poolId": 168975,
+          "caseCode": "CASE6",
+          "order": 9,
+          "matchOrder": 9,
+          "homeNumber": 4,
+          "awayNumber": 2,
+          "homeLabel": "4：张嘉瑞(海南海外双优)",
+          "awayLabel": "2：时铭泽(个人)",
+          "homeScore": "V",
+          "awayScore": 4
+        },
+        {
+          "poolId": 168975,
+          "caseCode": "CASE6",
+          "order": 10,
+          "matchOrder": 10,
+          "homeNumber": 5,
+          "awayNumber": 1,
+          "homeLabel": "5：谭思源(武汉海外双优)",
+          "awayLabel": "1：卢宏垚(个人)",
+          "homeScore": 3,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168975,
+          "caseCode": "CASE6",
+          "order": 11,
+          "matchOrder": 11,
+          "homeNumber": 6,
+          "awayNumber": 4,
+          "homeLabel": "6：张嘉盛(上海嘉世)",
+          "awayLabel": "4：张嘉瑞(海南海外双优)",
+          "homeScore": "V",
+          "awayScore": 3
+        },
+        {
+          "poolId": 168975,
+          "caseCode": "CASE6",
+          "order": 12,
+          "matchOrder": 12,
+          "homeNumber": 2,
+          "awayNumber": 3,
+          "homeLabel": "2：时铭泽(个人)",
+          "awayLabel": "3：杨岸霖(湖北永尚)",
+          "homeScore": 2,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168975,
+          "caseCode": "CASE6",
+          "order": 13,
+          "matchOrder": 13,
+          "homeNumber": 1,
+          "awayNumber": 4,
+          "homeLabel": "1：卢宏垚(个人)",
+          "awayLabel": "4：张嘉瑞(海南海外双优)",
+          "homeScore": "V",
+          "awayScore": 1
+        },
+        {
+          "poolId": 168975,
+          "caseCode": "CASE6",
+          "order": 14,
+          "matchOrder": 14,
+          "homeNumber": 5,
+          "awayNumber": 2,
+          "homeLabel": "5：谭思源(武汉海外双优)",
+          "awayLabel": "2：时铭泽(个人)",
+          "homeScore": 4,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168975,
+          "caseCode": "CASE6",
+          "order": 15,
+          "matchOrder": 15,
+          "homeNumber": 3,
+          "awayNumber": 6,
+          "homeLabel": "3：杨岸霖(湖北永尚)",
+          "awayLabel": "6：张嘉盛(上海嘉世)",
+          "homeScore": 4,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168976,
+          "caseCode": "CASE6",
+          "order": 1,
+          "matchOrder": 1,
+          "homeNumber": 1,
+          "awayNumber": 2,
+          "homeLabel": "1：林恩霈(个人)",
+          "awayLabel": "2：金葆芮(湖北永尚)",
+          "homeScore": 2,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168976,
+          "caseCode": "CASE6",
+          "order": 2,
+          "matchOrder": 2,
+          "homeNumber": 4,
+          "awayNumber": 3,
+          "homeLabel": "4：谢卓珉(长沙博翼)",
+          "awayLabel": "3：富泳霖(海南海外双优)",
+          "homeScore": 1,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168976,
+          "caseCode": "CASE6",
+          "order": 3,
+          "matchOrder": 3,
+          "homeNumber": 6,
+          "awayNumber": 5,
+          "homeLabel": "6：孙铭杨(上海嘉世)",
+          "awayLabel": "5：王璟泽(海口嘉世)",
+          "homeScore": "V",
+          "awayScore": 0
+        },
+        {
+          "poolId": 168976,
+          "caseCode": "CASE6",
+          "order": 4,
+          "matchOrder": 4,
+          "homeNumber": 3,
+          "awayNumber": 1,
+          "homeLabel": "3：富泳霖(海南海外双优)",
+          "awayLabel": "1：林恩霈(个人)",
+          "homeScore": 4,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168976,
+          "caseCode": "CASE6",
+          "order": 5,
+          "matchOrder": 5,
+          "homeNumber": 2,
+          "awayNumber": 6,
+          "homeLabel": "2：金葆芮(湖北永尚)",
+          "awayLabel": "6：孙铭杨(上海嘉世)",
+          "homeScore": "V",
+          "awayScore": 2
+        },
+        {
+          "poolId": 168976,
+          "caseCode": "CASE6",
+          "order": 6,
+          "matchOrder": 6,
+          "homeNumber": 5,
+          "awayNumber": 4,
+          "homeLabel": "5：王璟泽(海口嘉世)",
+          "awayLabel": "4：谢卓珉(长沙博翼)",
+          "homeScore": null,
+          "awayScore": 2
+        },
+        {
+          "poolId": 168976,
+          "caseCode": "CASE6",
+          "order": 7,
+          "matchOrder": 7,
+          "homeNumber": 1,
+          "awayNumber": 6,
+          "homeLabel": "1：林恩霈(个人)",
+          "awayLabel": "6：孙铭杨(上海嘉世)",
+          "homeScore": 1,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168976,
+          "caseCode": "CASE6",
+          "order": 8,
+          "matchOrder": 8,
+          "homeNumber": 3,
+          "awayNumber": 5,
+          "homeLabel": "3：富泳霖(海南海外双优)",
+          "awayLabel": "5：王璟泽(海口嘉世)",
+          "homeScore": 3,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168976,
+          "caseCode": "CASE6",
+          "order": 9,
+          "matchOrder": 9,
+          "homeNumber": 4,
+          "awayNumber": 2,
+          "homeLabel": "4：谢卓珉(长沙博翼)",
+          "awayLabel": "2：金葆芮(湖北永尚)",
+          "homeScore": 1,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168976,
+          "caseCode": "CASE6",
+          "order": 10,
+          "matchOrder": 10,
+          "homeNumber": 5,
+          "awayNumber": 1,
+          "homeLabel": "5：王璟泽(海口嘉世)",
+          "awayLabel": "1：林恩霈(个人)",
+          "homeScore": "V",
+          "awayScore": 4
+        }
+      ],
+      "poolGroups": [
+        {
+          "poolId": 168974,
+          "title": "小组 1",
+          "athletes": [
+            {
+              "id": "20141013M202107041143",
+              "drawNo": 3,
+              "name": "赵禹瑞",
+              "licence": "20141013M202107041143",
+              "club": "湖北永尚",
+              "wins": 5,
+              "matches": 5,
+              "winRate": 1,
+              "scored": 25,
+              "received": 4,
+              "diff": 21,
+              "phaseRank": 1,
+              "finalRank": 1,
+              "medal": "金"
+            },
+            {
+              "id": "20150713M202304020341",
+              "drawNo": 6,
+              "name": "李润丞",
+              "licence": "20150713M202304020341",
+              "club": "海口嘉世",
+              "wins": 3,
+              "matches": 5,
+              "winRate": 0.6,
+              "scored": 20,
+              "received": 18,
+              "diff": 2,
+              "phaseRank": 2,
+              "finalRank": 7,
+              "medal": null
+            },
+            {
+              "id": "20160524M202408010202",
+              "drawNo": 4,
+              "name": "陈思然",
+              "licence": "20160524M202408010202",
+              "club": "广州阳光剑匠",
+              "wins": 2,
+              "matches": 5,
+              "winRate": 0.4,
+              "scored": 17,
+              "received": 18,
+              "diff": -1,
+              "phaseRank": 3,
+              "finalRank": 14,
+              "medal": null
+            },
+            {
+              "id": "20160606M202311290422",
+              "drawNo": 5,
+              "name": "王琳溪",
+              "licence": "20160606M202311290422",
+              "club": "海南海外双优",
+              "wins": 2,
+              "matches": 5,
+              "winRate": 0.4,
+              "scored": 16,
+              "received": 21,
+              "diff": -5,
+              "phaseRank": 4,
+              "finalRank": 8,
+              "medal": null
+            },
+            {
+              "id": "20151028M202407191059",
+              "drawNo": 2,
+              "name": "章瀚尧",
+              "licence": "20151028M202407191059",
+              "club": "个人",
+              "wins": 2,
+              "matches": 5,
+              "winRate": 0.4,
+              "scored": 15,
+              "received": 21,
+              "diff": -6,
+              "phaseRank": 5,
+              "finalRank": 17,
+              "medal": null
+            },
+            {
+              "id": "20140607M202605190732",
+              "drawNo": 1,
+              "name": "孙靖哲",
+              "licence": "20140607M202605190732",
+              "club": "个人",
+              "wins": 1,
+              "matches": 5,
+              "winRate": 0.2,
+              "scored": 12,
+              "received": 23,
+              "diff": -11,
+              "phaseRank": 6,
+              "finalRank": 22,
+              "medal": null
+            }
+          ],
+          "bouts": [
+            {
+              "poolId": 168974,
+              "caseCode": "CASE6",
+              "order": 1,
+              "matchOrder": 1,
+              "homeNumber": 1,
+              "awayNumber": 2,
+              "homeLabel": "1：孙靖哲(个人)",
+              "awayLabel": "2：章瀚尧(个人)",
+              "homeScore": 2,
+              "awayScore": "V"
+            },
+            {
+              "poolId": 168974,
+              "caseCode": "CASE6",
+              "order": 2,
+              "matchOrder": 2,
+              "homeNumber": 4,
+              "awayNumber": 3,
+              "homeLabel": "4：陈思然(广州阳光剑匠)",
+              "awayLabel": "3：赵禹瑞(湖北永尚)",
+              "homeScore": 0,
+              "awayScore": "V"
+            },
+            {
+              "poolId": 168974,
+              "caseCode": "CASE6",
+              "order": 3,
+              "matchOrder": 3,
+              "homeNumber": 6,
+              "awayNumber": 5,
+              "homeLabel": "6：李润丞(海口嘉世)",
+              "awayLabel": "5：王琳溪(海南海外双优)",
+              "homeScore": 3,
+              "awayScore": "V"
+            },
+            {
+              "poolId": 168974,
+              "caseCode": "CASE6",
+              "order": 4,
+              "matchOrder": 4,
+              "homeNumber": 3,
+              "awayNumber": 1,
+              "homeLabel": "3：赵禹瑞(湖北永尚)",
+              "awayLabel": "1：孙靖哲(个人)",
+              "homeScore": "V",
+              "awayScore": 0
+            },
+            {
+              "poolId": 168974,
+              "caseCode": "CASE6",
+              "order": 5,
+              "matchOrder": 5,
+              "homeNumber": 2,
+              "awayNumber": 6,
+              "homeLabel": "2：章瀚尧(个人)",
+              "awayLabel": "6：李润丞(海口嘉世)",
+              "homeScore": 2,
+              "awayScore": "V"
+            },
+            {
+              "poolId": 168974,
+              "caseCode": "CASE6",
+              "order": 6,
+              "matchOrder": 6,
+              "homeNumber": 5,
+              "awayNumber": 4,
+              "homeLabel": "5：王琳溪(海南海外双优)",
+              "awayLabel": "4：陈思然(广州阳光剑匠)",
+              "homeScore": 2,
+              "awayScore": "V"
+            },
+            {
+              "poolId": 168974,
+              "caseCode": "CASE6",
+              "order": 7,
+              "matchOrder": 7,
+              "homeNumber": 1,
+              "awayNumber": 6,
+              "homeLabel": "1：孙靖哲(个人)",
+              "awayLabel": "6：李润丞(海口嘉世)",
+              "homeScore": 2,
+              "awayScore": "V"
+            },
+            {
+              "poolId": 168974,
+              "caseCode": "CASE6",
+              "order": 8,
+              "matchOrder": 8,
+              "homeNumber": 3,
+              "awayNumber": 5,
+              "homeLabel": "3：赵禹瑞(湖北永尚)",
+              "awayLabel": "5：王琳溪(海南海外双优)",
+              "homeScore": "V",
+              "awayScore": 0
+            },
+            {
+              "poolId": 168974,
+              "caseCode": "CASE6",
+              "order": 9,
+              "matchOrder": 9,
+              "homeNumber": 4,
+              "awayNumber": 2,
+              "homeLabel": "4：陈思然(广州阳光剑匠)",
+              "awayLabel": "2：章瀚尧(个人)",
+              "homeScore": "V",
+              "awayScore": 1
+            },
+            {
+              "poolId": 168974,
+              "caseCode": "CASE6",
+              "order": 10,
+              "matchOrder": 10,
+              "homeNumber": 5,
+              "awayNumber": 1,
+              "homeLabel": "5：王琳溪(海南海外双优)",
+              "awayLabel": "1：孙靖哲(个人)",
+              "homeScore": "V",
+              "awayScore": 3
+            },
+            {
+              "poolId": 168974,
+              "caseCode": "CASE6",
+              "order": 11,
+              "matchOrder": 11,
+              "homeNumber": 6,
+              "awayNumber": 4,
+              "homeLabel": "6：李润丞(海口嘉世)",
+              "awayLabel": "4：陈思然(广州阳光剑匠)",
+              "homeScore": "V",
+              "awayScore": 4
+            },
+            {
+              "poolId": 168974,
+              "caseCode": "CASE6",
+              "order": 12,
+              "matchOrder": 12,
+              "homeNumber": 2,
+              "awayNumber": 3,
+              "homeLabel": "2：章瀚尧(个人)",
+              "awayLabel": "3：赵禹瑞(湖北永尚)",
+              "homeScore": 2,
+              "awayScore": "V"
+            }
+          ]
+        },
+        {
+          "poolId": 168975,
+          "title": "小组 2",
+          "athletes": [
+            {
+              "id": "20151020M202211070400",
+              "drawNo": 3,
+              "name": "杨岸霖",
+              "licence": "20151020M202211070400",
+              "club": "湖北永尚",
+              "wins": 4,
+              "matches": 5,
+              "winRate": 0.8,
+              "scored": 24,
+              "received": 11,
+              "diff": 13,
+              "phaseRank": 1,
+              "finalRank": 3,
+              "medal": "铜"
+            },
+            {
+              "id": "20161105M202307021013",
+              "drawNo": 6,
+              "name": "张嘉盛",
+              "licence": "20161105M202307021013",
+              "club": "上海嘉世",
+              "wins": 4,
+              "matches": 5,
+              "winRate": 0.8,
+              "scored": 24,
+              "received": 16,
+              "diff": 8,
+              "phaseRank": 2,
+              "finalRank": 5,
+              "medal": null
+            },
+            {
+              "id": "20140321M202506150705",
+              "drawNo": 1,
+              "name": "卢宏垚",
+              "licence": "20140321M202506150705",
+              "club": "个人",
+              "wins": 4,
+              "matches": 5,
+              "winRate": 0.8,
+              "scored": 20,
+              "received": 16,
+              "diff": 4,
+              "phaseRank": 3,
+              "finalRank": 3,
+              "medal": "铜"
+            },
+            {
+              "id": "20140630M202510111255",
+              "drawNo": 4,
+              "name": "张嘉瑞",
+              "licence": "20140630M202510111255",
+              "club": "海南海外双优",
+              "wins": 2,
+              "matches": 5,
+              "winRate": 0.4,
+              "scored": 14,
+              "received": 23,
+              "diff": -9,
+              "phaseRank": 4,
+              "finalRank": 16,
+              "medal": null
+            },
+            {
+              "id": "20171011M202405061217",
+              "drawNo": 2,
+              "name": "时铭泽",
+              "licence": "20171011M202405061217",
+              "club": "个人",
+              "wins": 1,
+              "matches": 5,
+              "winRate": 0.2,
+              "scored": 16,
+              "received": 24,
+              "diff": -8,
+              "phaseRank": 5,
+              "finalRank": 20,
+              "medal": null
+            },
+            {
+              "id": "20140908M202403110858",
+              "drawNo": 5,
+              "name": "谭思源",
+              "licence": "20140908M202403110858",
+              "club": "武汉海外双优",
+              "wins": 0,
+              "matches": 5,
+              "winRate": 0,
+              "scored": 17,
+              "received": 25,
+              "diff": -8,
+              "phaseRank": 6,
+              "finalRank": 23,
+              "medal": null
+            }
+          ],
+          "bouts": [
+            {
+              "poolId": 168975,
+              "caseCode": "CASE6",
+              "order": 1,
+              "matchOrder": 1,
+              "homeNumber": 1,
+              "awayNumber": 2,
+              "homeLabel": "1：卢宏垚(个人)",
+              "awayLabel": "2：时铭泽(个人)",
+              "homeScore": "V",
+              "awayScore": 3
+            },
+            {
+              "poolId": 168975,
+              "caseCode": "CASE6",
+              "order": 2,
+              "matchOrder": 2,
+              "homeNumber": 4,
+              "awayNumber": 3,
+              "homeLabel": "4：张嘉瑞(海南海外双优)",
+              "awayLabel": "3：杨岸霖(湖北永尚)",
+              "homeScore": 0,
+              "awayScore": "V"
+            },
+            {
+              "poolId": 168975,
+              "caseCode": "CASE6",
+              "order": 3,
+              "matchOrder": 3,
+              "homeNumber": 6,
+              "awayNumber": 5,
+              "homeLabel": "6：张嘉盛(上海嘉世)",
+              "awayLabel": "5：谭思源(武汉海外双优)",
+              "homeScore": "V",
+              "awayScore": 2
+            },
+            {
+              "poolId": 168975,
+              "caseCode": "CASE6",
+              "order": 4,
+              "matchOrder": 4,
+              "homeNumber": 3,
+              "awayNumber": 1,
+              "homeLabel": "3：杨岸霖(湖北永尚)",
+              "awayLabel": "1：卢宏垚(个人)",
+              "homeScore": "V",
+              "awayScore": 0
+            },
+            {
+              "poolId": 168975,
+              "caseCode": "CASE6",
+              "order": 5,
+              "matchOrder": 5,
+              "homeNumber": 2,
+              "awayNumber": 6,
+              "homeLabel": "2：时铭泽(个人)",
+              "awayLabel": "6：张嘉盛(上海嘉世)",
+              "homeScore": 2,
+              "awayScore": "V"
+            },
+            {
+              "poolId": 168975,
+              "caseCode": "CASE6",
+              "order": 6,
+              "matchOrder": 6,
+              "homeNumber": 5,
+              "awayNumber": 4,
+              "homeLabel": "5：谭思源(武汉海外双优)",
+              "awayLabel": "4：张嘉瑞(海南海外双优)",
+              "homeScore": 4,
+              "awayScore": "V"
+            },
+            {
+              "poolId": 168975,
+              "caseCode": "CASE6",
+              "order": 7,
+              "matchOrder": 7,
+              "homeNumber": 1,
+              "awayNumber": 6,
+              "homeLabel": "1：卢宏垚(个人)",
+              "awayLabel": "6：张嘉盛(上海嘉世)",
+              "homeScore": "V",
+              "awayScore": 4
+            },
+            {
+              "poolId": 168975,
+              "caseCode": "CASE6",
+              "order": 8,
+              "matchOrder": 8,
+              "homeNumber": 3,
+              "awayNumber": 5,
+              "homeLabel": "3：杨岸霖(湖北永尚)",
+              "awayLabel": "5：谭思源(武汉海外双优)",
+              "homeScore": "V",
+              "awayScore": 4
+            },
+            {
+              "poolId": 168975,
+              "caseCode": "CASE6",
+              "order": 9,
+              "matchOrder": 9,
+              "homeNumber": 4,
+              "awayNumber": 2,
+              "homeLabel": "4：张嘉瑞(海南海外双优)",
+              "awayLabel": "2：时铭泽(个人)",
+              "homeScore": "V",
+              "awayScore": 4
+            },
+            {
+              "poolId": 168975,
+              "caseCode": "CASE6",
+              "order": 10,
+              "matchOrder": 10,
+              "homeNumber": 5,
+              "awayNumber": 1,
+              "homeLabel": "5：谭思源(武汉海外双优)",
+              "awayLabel": "1：卢宏垚(个人)",
+              "homeScore": 3,
+              "awayScore": "V"
+            },
+            {
+              "poolId": 168975,
+              "caseCode": "CASE6",
+              "order": 11,
+              "matchOrder": 11,
+              "homeNumber": 6,
+              "awayNumber": 4,
+              "homeLabel": "6：张嘉盛(上海嘉世)",
+              "awayLabel": "4：张嘉瑞(海南海外双优)",
+              "homeScore": "V",
+              "awayScore": 3
+            },
+            {
+              "poolId": 168975,
+              "caseCode": "CASE6",
+              "order": 12,
+              "matchOrder": 12,
+              "homeNumber": 2,
+              "awayNumber": 3,
+              "homeLabel": "2：时铭泽(个人)",
+              "awayLabel": "3：杨岸霖(湖北永尚)",
+              "homeScore": 2,
+              "awayScore": "V"
+            }
+          ]
+        },
+        {
+          "poolId": 168976,
+          "title": "小组 3",
+          "athletes": [
+            {
+              "id": "20141108M202307200835",
+              "drawNo": 2,
+              "name": "金葆芮",
+              "licence": "20141108M202307200835",
+              "club": "湖北永尚",
+              "wins": 5,
+              "matches": 5,
+              "winRate": 1,
+              "scored": 25,
+              "received": 10,
+              "diff": 15,
+              "phaseRank": 1,
+              "finalRank": 2,
+              "medal": "银"
+            },
+            {
+              "id": "20140408M202304010816",
+              "drawNo": 6,
+              "name": "孙铭杨",
+              "licence": "20140408M202304010816",
+              "club": "上海嘉世",
+              "wins": 3,
+              "matches": 5,
+              "winRate": 0.6,
+              "scored": 21,
+              "received": 13,
+              "diff": 8,
+              "phaseRank": 2,
+              "finalRank": 10,
+              "medal": null
+            },
+            {
+              "id": "20160612M202304011118",
+              "drawNo": 5,
+              "name": "王璟泽",
+              "licence": "20160612M202304011118",
+              "club": "海口嘉世",
+              "wins": 3,
+              "matches": 5,
+              "winRate": 0.6,
+              "scored": 16,
+              "received": 19,
+              "diff": -3,
+              "phaseRank": 3,
+              "finalRank": 13,
+              "medal": null
+            },
+            {
+              "id": "20150520M202501290854",
+              "drawNo": 4,
+              "name": "谢卓珉",
+              "licence": "20150520M202501290854",
+              "club": "长沙博翼",
+              "wins": 2,
+              "matches": 5,
+              "winRate": 0.4,
+              "scored": 14,
+              "received": 19,
+              "diff": -5,
+              "phaseRank": 4,
+              "finalRank": 15,
+              "medal": null
+            },
+            {
+              "id": "20151025M202510171050",
+              "drawNo": 3,
+              "name": "富泳霖",
+              "licence": "20151025M202510171050",
+              "club": "海南海外双优",
+              "wins": 1,
+              "matches": 5,
+              "winRate": 0.2,
+              "scored": 16,
+              "received": 21,
+              "diff": -5,
+              "phaseRank": 5,
+              "finalRank": 19,
+              "medal": null
+            },
+            {
+              "id": "20160520M202307010456",
+              "drawNo": 1,
+              "name": "林恩霈",
+              "licence": "20160520M202307010456",
+              "club": "个人",
+              "wins": 1,
+              "matches": 5,
+              "winRate": 0.2,
+              "scored": 14,
+              "received": 24,
+              "diff": -10,
+              "phaseRank": 6,
+              "finalRank": 21,
+              "medal": null
+            }
+          ],
+          "bouts": [
+            {
+              "poolId": 168976,
+              "caseCode": "CASE6",
+              "order": 1,
+              "matchOrder": 1,
+              "homeNumber": 1,
+              "awayNumber": 2,
+              "homeLabel": "1：林恩霈(个人)",
+              "awayLabel": "2：金葆芮(湖北永尚)",
+              "homeScore": 2,
+              "awayScore": "V"
+            },
+            {
+              "poolId": 168976,
+              "caseCode": "CASE6",
+              "order": 2,
+              "matchOrder": 2,
+              "homeNumber": 4,
+              "awayNumber": 3,
+              "homeLabel": "4：谢卓珉(长沙博翼)",
+              "awayLabel": "3：富泳霖(海南海外双优)",
+              "homeScore": 1,
+              "awayScore": "V"
+            },
+            {
+              "poolId": 168976,
+              "caseCode": "CASE6",
+              "order": 3,
+              "matchOrder": 3,
+              "homeNumber": 6,
+              "awayNumber": 5,
+              "homeLabel": "6：孙铭杨(上海嘉世)",
+              "awayLabel": "5：王璟泽(海口嘉世)",
+              "homeScore": "V",
+              "awayScore": 0
+            },
+            {
+              "poolId": 168976,
+              "caseCode": "CASE6",
+              "order": 4,
+              "matchOrder": 4,
+              "homeNumber": 3,
+              "awayNumber": 1,
+              "homeLabel": "3：富泳霖(海南海外双优)",
+              "awayLabel": "1：林恩霈(个人)",
+              "homeScore": 4,
+              "awayScore": "V"
+            },
+            {
+              "poolId": 168976,
+              "caseCode": "CASE6",
+              "order": 5,
+              "matchOrder": 5,
+              "homeNumber": 2,
+              "awayNumber": 6,
+              "homeLabel": "2：金葆芮(湖北永尚)",
+              "awayLabel": "6：孙铭杨(上海嘉世)",
+              "homeScore": "V",
+              "awayScore": 2
+            },
+            {
+              "poolId": 168976,
+              "caseCode": "CASE6",
+              "order": 6,
+              "matchOrder": 6,
+              "homeNumber": 5,
+              "awayNumber": 4,
+              "homeLabel": "5：王璟泽(海口嘉世)",
+              "awayLabel": "4：谢卓珉(长沙博翼)",
+              "homeScore": null,
+              "awayScore": 2
+            },
+            {
+              "poolId": 168976,
+              "caseCode": "CASE6",
+              "order": 7,
+              "matchOrder": 7,
+              "homeNumber": 1,
+              "awayNumber": 6,
+              "homeLabel": "1：林恩霈(个人)",
+              "awayLabel": "6：孙铭杨(上海嘉世)",
+              "homeScore": 1,
+              "awayScore": "V"
+            },
+            {
+              "poolId": 168976,
+              "caseCode": "CASE6",
+              "order": 8,
+              "matchOrder": 8,
+              "homeNumber": 3,
+              "awayNumber": 5,
+              "homeLabel": "3：富泳霖(海南海外双优)",
+              "awayLabel": "5：王璟泽(海口嘉世)",
+              "homeScore": 3,
+              "awayScore": "V"
+            },
+            {
+              "poolId": 168976,
+              "caseCode": "CASE6",
+              "order": 9,
+              "matchOrder": 9,
+              "homeNumber": 4,
+              "awayNumber": 2,
+              "homeLabel": "4：谢卓珉(长沙博翼)",
+              "awayLabel": "2：金葆芮(湖北永尚)",
+              "homeScore": 1,
+              "awayScore": "V"
+            },
+            {
+              "poolId": 168976,
+              "caseCode": "CASE6",
+              "order": 10,
+              "matchOrder": 10,
+              "homeNumber": 5,
+              "awayNumber": 1,
+              "homeLabel": "5：王璟泽(海口嘉世)",
+              "awayLabel": "1：林恩霈(个人)",
+              "homeScore": "V",
+              "awayScore": 4
+            },
+            {
+              "poolId": 168976,
+              "caseCode": "CASE6",
+              "order": 11,
+              "matchOrder": 11,
+              "homeNumber": 6,
+              "awayNumber": 4,
+              "homeLabel": "6：孙铭杨(上海嘉世)",
+              "awayLabel": "4：谢卓珉(长沙博翼)",
+              "homeScore": 4,
+              "awayScore": "V"
+            },
+            {
+              "poolId": 168976,
+              "caseCode": "CASE6",
+              "order": 12,
+              "matchOrder": 12,
+              "homeNumber": 2,
+              "awayNumber": 3,
+              "homeLabel": "2：金葆芮(湖北永尚)",
+              "awayLabel": "3：富泳霖(海南海外双优)",
+              "homeScore": "V",
+              "awayScore": 2
+            }
+          ]
+        },
+        {
+          "poolId": 168977,
+          "title": "小组 4",
+          "athletes": [
+            {
+              "id": "20161017M202406190604",
+              "drawNo": 5,
+              "name": "梁庭睿",
+              "licence": "20161017M202406190604",
+              "club": "海口嘉世",
+              "wins": 5,
+              "matches": 5,
+              "winRate": 1,
+              "scored": 18,
+              "received": 10,
+              "diff": 8,
+              "phaseRank": 1,
+              "finalRank": 9,
+              "medal": null
+            },
+            {
+              "id": "20150820M202502220824",
+              "drawNo": 3,
+              "name": "韦俊宇",
+              "licence": "20150820M202502220824",
+              "club": "济南奥伦",
+              "wins": 3,
+              "matches": 5,
+              "winRate": 0.6,
+              "scored": 22,
+              "received": 18,
+              "diff": 4,
+              "phaseRank": 2,
+              "finalRank": 6,
+              "medal": null
+            },
+            {
+              "id": "20170215M202501150309",
+              "drawNo": 2,
+              "name": "林诺禧",
+              "licence": "20170215M202501150309",
+              "club": "香港剑乐会",
+              "wins": 3,
+              "matches": 5,
+              "winRate": 0.6,
+              "scored": 18,
+              "received": 15,
+              "diff": 3,
+              "phaseRank": 3,
+              "finalRank": 11,
+              "medal": null
+            },
+            {
+              "id": "20150515M202501220920",
+              "drawNo": 1,
+              "name": "邱皓翔",
+              "licence": "20150515M202501220920",
+              "club": "个人",
+              "wins": 3,
+              "matches": 5,
+              "winRate": 0.6,
+              "scored": 18,
+              "received": 16,
+              "diff": 2,
+              "phaseRank": 4,
+              "finalRank": 12,
+              "medal": null
+            },
+            {
+              "id": "20150812M202304010414",
+              "drawNo": 6,
+              "name": "冯子轩",
+              "licence": "20150812M202304010414",
+              "club": "上海嘉世",
+              "wins": 1,
+              "matches": 5,
+              "winRate": 0.2,
+              "scored": 15,
+              "received": 19,
+              "diff": -4,
+              "phaseRank": 5,
+              "finalRank": 18,
+              "medal": null
+            },
+            {
+              "id": "20170322M202307060644",
+              "drawNo": 4,
+              "name": "宋浩宇",
+              "licence": "20170322M202307060644",
+              "club": "北京圣剑",
+              "wins": 0,
+              "matches": 5,
+              "winRate": 0,
+              "scored": 12,
+              "received": 25,
+              "diff": -13,
+              "phaseRank": 6,
+              "finalRank": 24,
+              "medal": null
+            }
+          ],
+          "bouts": [
+            {
+              "poolId": 168977,
+              "caseCode": "CASE6",
+              "order": 1,
+              "matchOrder": 1,
+              "homeNumber": 1,
+              "awayNumber": 2,
+              "homeLabel": "1：邱皓翔(个人)",
+              "awayLabel": "2：林诺禧(香港剑乐会)",
+              "homeScore": 3,
+              "awayScore": "V"
+            },
+            {
+              "poolId": 168977,
+              "caseCode": "CASE6",
+              "order": 2,
+              "matchOrder": 2,
+              "homeNumber": 4,
+              "awayNumber": 3,
+              "homeLabel": "4：宋浩宇(北京圣剑)",
+              "awayLabel": "3：韦俊宇(济南奥伦)",
+              "homeScore": 4,
+              "awayScore": "V"
+            },
+            {
+              "poolId": 168977,
+              "caseCode": "CASE6",
+              "order": 3,
+              "matchOrder": 3,
+              "homeNumber": 6,
+              "awayNumber": 5,
+              "homeLabel": "6：冯子轩(上海嘉世)",
+              "awayLabel": "5：梁庭睿(海口嘉世)",
+              "homeScore": 3,
+              "awayScore": null
+            },
+            {
+              "poolId": 168977,
+              "caseCode": "CASE6",
+              "order": 4,
+              "matchOrder": 4,
+              "homeNumber": 3,
+              "awayNumber": 1,
+              "homeLabel": "3：韦俊宇(济南奥伦)",
+              "awayLabel": "1：邱皓翔(个人)",
+              "homeScore": 4,
+              "awayScore": "V"
+            },
+            {
+              "poolId": 168977,
+              "caseCode": "CASE6",
+              "order": 5,
+              "matchOrder": 5,
+              "homeNumber": 2,
+              "awayNumber": 6,
+              "homeLabel": "2：林诺禧(香港剑乐会)",
+              "awayLabel": "6：冯子轩(上海嘉世)",
+              "homeScore": null,
+              "awayScore": 3
+            },
+            {
+              "poolId": 168977,
+              "caseCode": "CASE6",
+              "order": 6,
+              "matchOrder": 6,
+              "homeNumber": 5,
+              "awayNumber": 4,
+              "homeLabel": "5：梁庭睿(海口嘉世)",
+              "awayLabel": "4：宋浩宇(北京圣剑)",
+              "homeScore": "V",
+              "awayScore": 1
+            },
+            {
+              "poolId": 168977,
+              "caseCode": "CASE6",
+              "order": 7,
+              "matchOrder": 7,
+              "homeNumber": 1,
+              "awayNumber": 6,
+              "homeLabel": "1：邱皓翔(个人)",
+              "awayLabel": "6：冯子轩(上海嘉世)",
+              "homeScore": null,
+              "awayScore": 2
+            },
+            {
+              "poolId": 168977,
+              "caseCode": "CASE6",
+              "order": 8,
+              "matchOrder": 8,
+              "homeNumber": 3,
+              "awayNumber": 5,
+              "homeLabel": "3：韦俊宇(济南奥伦)",
+              "awayLabel": "5：梁庭睿(海口嘉世)",
+              "homeScore": 3,
+              "awayScore": null
+            },
+            {
+              "poolId": 168977,
+              "caseCode": "CASE6",
+              "order": 9,
+              "matchOrder": 9,
+              "homeNumber": 4,
+              "awayNumber": 2,
+              "homeLabel": "4：宋浩宇(北京圣剑)",
+              "awayLabel": "2：林诺禧(香港剑乐会)",
+              "homeScore": 2,
+              "awayScore": "V"
+            },
+            {
+              "poolId": 168977,
+              "caseCode": "CASE6",
+              "order": 10,
+              "matchOrder": 10,
+              "homeNumber": 5,
+              "awayNumber": 1,
+              "homeLabel": "5：梁庭睿(海口嘉世)",
+              "awayLabel": "1：邱皓翔(个人)",
+              "homeScore": null,
+              "awayScore": 2
+            },
+            {
+              "poolId": 168977,
+              "caseCode": "CASE6",
+              "order": 11,
+              "matchOrder": 11,
+              "homeNumber": 6,
+              "awayNumber": 4,
+              "homeLabel": "6：冯子轩(上海嘉世)",
+              "awayLabel": "4：宋浩宇(北京圣剑)",
+              "homeScore": "V",
+              "awayScore": 3
+            },
+            {
+              "poolId": 168977,
+              "caseCode": "CASE6",
+              "order": 12,
+              "matchOrder": 12,
+              "homeNumber": 2,
+              "awayNumber": 3,
+              "homeLabel": "2：林诺禧(香港剑乐会)",
+              "awayLabel": "3：韦俊宇(济南奥伦)",
+              "homeScore": 3,
+              "awayScore": "V"
+            }
+          ]
+        }
+      ],
+      "participants": [
+        {
+          "id": "20141013M202107041143",
+          "name": "赵禹瑞",
+          "licence": "20141013M202107041143",
+          "club": "湖北永尚",
+          "finalRank": 1,
+          "medal": "金",
+          "ageBand": "2014 下半年",
+          "poolId": 168974,
+          "drawNo": 3,
+          "poolRank": 1,
+          "poolWins": 5,
+          "poolMatches": 5,
+          "poolDiff": 21,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 4,
+          "eliminationLosses": 0
+        },
+        {
+          "id": "20141108M202307200835",
+          "name": "金葆芮",
+          "licence": "20141108M202307200835",
+          "club": "湖北永尚",
+          "finalRank": 2,
+          "medal": "银",
+          "ageBand": "2014 下半年",
+          "poolId": 168976,
+          "drawNo": 2,
+          "poolRank": 1,
+          "poolWins": 5,
+          "poolMatches": 5,
+          "poolDiff": 15,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 3,
+          "eliminationLosses": 1
+        },
+        {
+          "id": "20151020M202211070400",
+          "name": "杨岸霖",
+          "licence": "20151020M202211070400",
+          "club": "湖北永尚",
+          "finalRank": 3,
+          "medal": "铜",
+          "ageBand": "2015 下半年",
+          "poolId": 168975,
+          "drawNo": 3,
+          "poolRank": 1,
+          "poolWins": 4,
+          "poolMatches": 5,
+          "poolDiff": 13,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 2,
+          "eliminationLosses": 1
+        },
+        {
+          "id": "20140321M202506150705",
+          "name": "卢宏垚",
+          "licence": "20140321M202506150705",
+          "club": "个人",
+          "finalRank": 3,
+          "medal": "铜",
+          "ageBand": "2014 上半年",
+          "poolId": 168975,
+          "drawNo": 1,
+          "poolRank": 3,
+          "poolWins": 4,
+          "poolMatches": 5,
+          "poolDiff": 4,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 2,
+          "eliminationLosses": 1
+        },
+        {
+          "id": "20161105M202307021013",
+          "name": "张嘉盛",
+          "licence": "20161105M202307021013",
+          "club": "上海嘉世",
+          "finalRank": 5,
+          "medal": null,
+          "ageBand": "2016 下半年",
+          "poolId": 168975,
+          "drawNo": 6,
+          "poolRank": 2,
+          "poolWins": 4,
+          "poolMatches": 5,
+          "poolDiff": 8,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 1,
+          "eliminationLosses": 1
+        },
+        {
+          "id": "20150820M202502220824",
+          "name": "韦俊宇",
+          "licence": "20150820M202502220824",
+          "club": "济南奥伦",
+          "finalRank": 6,
+          "medal": null,
+          "ageBand": "2015 下半年",
+          "poolId": 168977,
+          "drawNo": 3,
+          "poolRank": 2,
+          "poolWins": 3,
+          "poolMatches": 5,
+          "poolDiff": 4,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 1,
+          "eliminationLosses": 1
+        },
+        {
+          "id": "20150713M202304020341",
+          "name": "李润丞",
+          "licence": "20150713M202304020341",
+          "club": "海口嘉世",
+          "finalRank": 7,
+          "medal": null,
+          "ageBand": "2015 下半年",
+          "poolId": 168974,
+          "drawNo": 6,
+          "poolRank": 2,
+          "poolWins": 3,
+          "poolMatches": 5,
+          "poolDiff": 2,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 1,
+          "eliminationLosses": 1
+        },
+        {
+          "id": "20160606M202311290422",
+          "name": "王琳溪",
+          "licence": "20160606M202311290422",
+          "club": "海南海外双优",
+          "finalRank": 8,
+          "medal": null,
+          "ageBand": "2016 上半年",
+          "poolId": 168974,
+          "drawNo": 5,
+          "poolRank": 4,
+          "poolWins": 2,
+          "poolMatches": 5,
+          "poolDiff": -5,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 2,
+          "eliminationLosses": 1
+        },
+        {
+          "id": "20161017M202406190604",
+          "name": "梁庭睿",
+          "licence": "20161017M202406190604",
+          "club": "海口嘉世",
+          "finalRank": 9,
+          "medal": null,
+          "ageBand": "2016 下半年",
+          "poolId": 168977,
+          "drawNo": 5,
+          "poolRank": 1,
+          "poolWins": 5,
+          "poolMatches": 5,
+          "poolDiff": 8,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 0,
+          "eliminationLosses": 1
+        },
+        {
+          "id": "20140408M202304010816",
+          "name": "孙铭杨",
+          "licence": "20140408M202304010816",
+          "club": "上海嘉世",
+          "finalRank": 10,
+          "medal": null,
+          "ageBand": "2014 上半年",
+          "poolId": 168976,
+          "drawNo": 6,
+          "poolRank": 2,
+          "poolWins": 3,
+          "poolMatches": 5,
+          "poolDiff": 8,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 0,
+          "eliminationLosses": 1
+        },
+        {
+          "id": "20170215M202501150309",
+          "name": "林诺禧",
+          "licence": "20170215M202501150309",
+          "club": "香港剑乐会",
+          "finalRank": 11,
+          "medal": null,
+          "ageBand": "2017 上半年",
+          "poolId": 168977,
+          "drawNo": 2,
+          "poolRank": 3,
+          "poolWins": 3,
+          "poolMatches": 5,
+          "poolDiff": 3,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 0,
+          "eliminationLosses": 1
+        },
+        {
+          "id": "20150515M202501220920",
+          "name": "邱皓翔",
+          "licence": "20150515M202501220920",
+          "club": "个人",
+          "finalRank": 12,
+          "medal": null,
+          "ageBand": "2015 上半年",
+          "poolId": 168977,
+          "drawNo": 1,
+          "poolRank": 4,
+          "poolWins": 3,
+          "poolMatches": 5,
+          "poolDiff": 2,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 0,
+          "eliminationLosses": 1
+        },
+        {
+          "id": "20160612M202304011118",
+          "name": "王璟泽",
+          "licence": "20160612M202304011118",
+          "club": "海口嘉世",
+          "finalRank": 13,
+          "medal": null,
+          "ageBand": "2016 上半年",
+          "poolId": 168976,
+          "drawNo": 5,
+          "poolRank": 3,
+          "poolWins": 3,
+          "poolMatches": 5,
+          "poolDiff": -3,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 0,
+          "eliminationLosses": 1
+        },
+        {
+          "id": "20160524M202408010202",
+          "name": "陈思然",
+          "licence": "20160524M202408010202",
+          "club": "广州阳光剑匠",
+          "finalRank": 14,
+          "medal": null,
+          "ageBand": "2016 上半年",
+          "poolId": 168974,
+          "drawNo": 4,
+          "poolRank": 3,
+          "poolWins": 2,
+          "poolMatches": 5,
+          "poolDiff": -1,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 0,
+          "eliminationLosses": 1
+        },
+        {
+          "id": "20150520M202501290854",
+          "name": "谢卓珉",
+          "licence": "20150520M202501290854",
+          "club": "长沙博翼",
+          "finalRank": 15,
+          "medal": null,
+          "ageBand": "2015 上半年",
+          "poolId": 168976,
+          "drawNo": 4,
+          "poolRank": 4,
+          "poolWins": 2,
+          "poolMatches": 5,
+          "poolDiff": -5,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 1,
+          "eliminationLosses": 1
+        },
+        {
+          "id": "20140630M202510111255",
+          "name": "张嘉瑞",
+          "licence": "20140630M202510111255",
+          "club": "海南海外双优",
+          "finalRank": 16,
+          "medal": null,
+          "ageBand": "2014 上半年",
+          "poolId": 168975,
+          "drawNo": 4,
+          "poolRank": 4,
+          "poolWins": 2,
+          "poolMatches": 5,
+          "poolDiff": -9,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 1,
+          "eliminationLosses": 1
+        },
+        {
+          "id": "20151028M202407191059",
+          "name": "章瀚尧",
+          "licence": "20151028M202407191059",
+          "club": "个人",
+          "finalRank": 17,
+          "medal": null,
+          "ageBand": "2015 下半年",
+          "poolId": 168974,
+          "drawNo": 2,
+          "poolRank": 5,
+          "poolWins": 2,
+          "poolMatches": 5,
+          "poolDiff": -6,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 0,
+          "eliminationLosses": 1
+        },
+        {
+          "id": "20150812M202304010414",
+          "name": "冯子轩",
+          "licence": "20150812M202304010414",
+          "club": "上海嘉世",
+          "finalRank": 18,
+          "medal": null,
+          "ageBand": "2015 下半年",
+          "poolId": 168977,
+          "drawNo": 6,
+          "poolRank": 5,
+          "poolWins": 1,
+          "poolMatches": 5,
+          "poolDiff": -4,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 0,
+          "eliminationLosses": 1
+        },
+        {
+          "id": "20151025M202510171050",
+          "name": "富泳霖",
+          "licence": "20151025M202510171050",
+          "club": "海南海外双优",
+          "finalRank": 19,
+          "medal": null,
+          "ageBand": "2015 下半年",
+          "poolId": 168976,
+          "drawNo": 3,
+          "poolRank": 5,
+          "poolWins": 1,
+          "poolMatches": 5,
+          "poolDiff": -5,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 0,
+          "eliminationLosses": 1
+        },
+        {
+          "id": "20171011M202405061217",
+          "name": "时铭泽",
+          "licence": "20171011M202405061217",
+          "club": "个人",
+          "finalRank": 20,
+          "medal": null,
+          "ageBand": "2017 下半年",
+          "poolId": 168975,
+          "drawNo": 2,
+          "poolRank": 5,
+          "poolWins": 1,
+          "poolMatches": 5,
+          "poolDiff": -8,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 0,
+          "eliminationLosses": 0
+        },
+        {
+          "id": "20160520M202307010456",
+          "name": "林恩霈",
+          "licence": "20160520M202307010456",
+          "club": "个人",
+          "finalRank": 21,
+          "medal": null,
+          "ageBand": "2016 上半年",
+          "poolId": 168976,
+          "drawNo": 1,
+          "poolRank": 6,
+          "poolWins": 1,
+          "poolMatches": 5,
+          "poolDiff": -10,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 0,
+          "eliminationLosses": 0
+        },
+        {
+          "id": "20140607M202605190732",
+          "name": "孙靖哲",
+          "licence": "20140607M202605190732",
+          "club": "个人",
+          "finalRank": 22,
+          "medal": null,
+          "ageBand": "2014 上半年",
+          "poolId": 168974,
+          "drawNo": 1,
+          "poolRank": 6,
+          "poolWins": 1,
+          "poolMatches": 5,
+          "poolDiff": -11,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 0,
+          "eliminationLosses": 0
+        },
+        {
+          "id": "20140908M202403110858",
+          "name": "谭思源",
+          "licence": "20140908M202403110858",
+          "club": "武汉海外双优",
+          "finalRank": 23,
+          "medal": null,
+          "ageBand": "2014 下半年",
+          "poolId": 168975,
+          "drawNo": 5,
+          "poolRank": 6,
+          "poolWins": 0,
+          "poolMatches": 5,
+          "poolDiff": -8,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 0,
+          "eliminationLosses": 0
+        },
+        {
+          "id": "20170322M202307060644",
+          "name": "宋浩宇",
+          "licence": "20170322M202307060644",
+          "club": "北京圣剑",
+          "finalRank": 24,
+          "medal": null,
+          "ageBand": "2017 上半年",
+          "poolId": 168977,
+          "drawNo": 4,
+          "poolRank": 6,
+          "poolWins": 0,
+          "poolMatches": 5,
+          "poolDiff": -13,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 0,
+          "eliminationLosses": 0
+        }
+      ],
+      "eliminationLeaders": [
+        {
+          "id": "20141013M202107041143",
+          "name": "赵禹瑞",
+          "club": "湖北永尚",
+          "wins": 4,
+          "losses": 0,
+          "scored": 40,
+          "received": 23,
+          "diff": 17
+        },
+        {
+          "id": "20141108M202307200835",
+          "name": "金葆芮",
+          "club": "湖北永尚",
+          "wins": 3,
+          "losses": 1,
+          "scored": 36,
+          "received": 25,
+          "diff": 11
+        },
+        {
+          "id": "20151020M202211070400",
+          "name": "杨岸霖",
+          "club": "湖北永尚",
+          "wins": 2,
+          "losses": 1,
+          "scored": 27,
+          "received": 14,
+          "diff": 13
+        },
+        {
+          "id": "20140321M202506150705",
+          "name": "卢宏垚",
+          "club": "个人",
+          "wins": 2,
+          "losses": 1,
+          "scored": 26,
+          "received": 17,
+          "diff": 9
+        },
+        {
+          "id": "20160606M202311290422",
+          "name": "王琳溪",
+          "club": "海南海外双优",
+          "wins": 2,
+          "losses": 1,
+          "scored": 19,
+          "received": 25,
+          "diff": -6
+        },
+        {
+          "id": "20150820M202502220824",
+          "name": "韦俊宇",
+          "club": "济南奥伦",
+          "wins": 1,
+          "losses": 1,
+          "scored": 16,
+          "received": 15,
+          "diff": 1
+        },
+        {
+          "id": "20150713M202304020341",
+          "name": "李润丞",
+          "club": "海口嘉世",
+          "wins": 1,
+          "losses": 1,
+          "scored": 14,
+          "received": 13,
+          "diff": 1
+        },
+        {
+          "id": "20150520M202501290854",
+          "name": "谢卓珉",
+          "club": "长沙博翼",
+          "wins": 1,
+          "losses": 1,
+          "scored": 15,
+          "received": 15,
+          "diff": 0
+        },
+        {
+          "id": "20161105M202307021013",
+          "name": "张嘉盛",
+          "club": "上海嘉世",
+          "wins": 1,
+          "losses": 1,
+          "scored": 11,
+          "received": 15,
+          "diff": -4
+        },
+        {
+          "id": "20140630M202510111255",
+          "name": "张嘉瑞",
+          "club": "海南海外双优",
+          "wins": 1,
+          "losses": 1,
+          "scored": 13,
+          "received": 19,
+          "diff": -6
+        }
+      ],
+      "championPath": [
+        {
+          "phase": "16表",
+          "matchCode": "Pre001",
+          "championName": "赵禹瑞",
+          "championClub": "湖北永尚",
+          "championScore": 10,
+          "opponentName": "张嘉瑞",
+          "opponentClub": "海南海外双优",
+          "opponentScore": 3,
+          "isBye": false
+        },
+        {
+          "phase": "8表",
+          "matchCode": "Pre001",
+          "championName": "赵禹瑞",
+          "championClub": "湖北永尚",
+          "championScore": 10,
+          "opponentName": "韦俊宇",
+          "opponentClub": "济南奥伦",
+          "opponentScore": 6,
+          "isBye": false
+        },
+        {
+          "phase": "半决赛",
+          "matchCode": "Pre001",
+          "championName": "赵禹瑞",
+          "championClub": "湖北永尚",
+          "championScore": 10,
+          "opponentName": "杨岸霖",
+          "opponentClub": "湖北永尚",
+          "opponentScore": 7,
+          "isBye": false
+        },
+        {
+          "phase": "决赛",
+          "matchCode": "Pre001",
+          "championName": "赵禹瑞",
+          "championClub": "湖北永尚",
+          "championScore": 10,
+          "opponentName": "金葆芮",
+          "opponentClub": "湖北永尚",
+          "opponentScore": 7,
+          "isBye": false
+        }
+      ],
+      "keyOpponents": [
+        {
+          "id": "20141013M202107041143",
+          "name": "赵禹瑞",
+          "club": "湖北永尚",
+          "scored": 40,
+          "received": 23,
+          "matches": 4,
+          "wins": 4,
+          "losses": 0,
+          "diff": 17
+        },
+        {
+          "id": "20141108M202307200835",
+          "name": "金葆芮",
+          "club": "湖北永尚",
+          "scored": 36,
+          "received": 25,
+          "matches": 4,
+          "wins": 3,
+          "losses": 1,
+          "diff": 11
+        },
+        {
+          "id": "20151020M202211070400",
+          "name": "杨岸霖",
+          "club": "湖北永尚",
+          "scored": 27,
+          "received": 14,
+          "matches": 3,
+          "wins": 2,
+          "losses": 1,
+          "diff": 13
+        },
+        {
+          "id": "20140321M202506150705",
+          "name": "卢宏垚",
+          "club": "个人",
+          "scored": 26,
+          "received": 17,
+          "matches": 3,
+          "wins": 2,
+          "losses": 1,
+          "diff": 9
+        },
+        {
+          "id": "20160606M202311290422",
+          "name": "王琳溪",
+          "club": "海南海外双优",
+          "scored": 19,
+          "received": 25,
+          "matches": 3,
+          "wins": 2,
+          "losses": 1,
+          "diff": -6
+        },
+        {
+          "id": "20150820M202502220824",
+          "name": "韦俊宇",
+          "club": "济南奥伦",
+          "scored": 16,
+          "received": 15,
+          "matches": 2,
+          "wins": 1,
+          "losses": 1,
+          "diff": 1
+        },
+        {
+          "id": "20150713M202304020341",
+          "name": "李润丞",
+          "club": "海口嘉世",
+          "scored": 14,
+          "received": 13,
+          "matches": 2,
+          "wins": 1,
+          "losses": 1,
+          "diff": 1
+        },
+        {
+          "id": "20150520M202501290854",
+          "name": "谢卓珉",
+          "club": "长沙博翼",
+          "scored": 15,
+          "received": 15,
+          "matches": 2,
+          "wins": 1,
+          "losses": 1,
+          "diff": 0
+        },
+        {
+          "id": "20161105M202307021013",
+          "name": "张嘉盛",
+          "club": "上海嘉世",
+          "scored": 11,
+          "received": 15,
+          "matches": 2,
+          "wins": 1,
+          "losses": 1,
+          "diff": -4
+        },
+        {
+          "id": "20140630M202510111255",
+          "name": "张嘉瑞",
+          "club": "海南海外双优",
+          "scored": 13,
+          "received": 19,
+          "matches": 2,
+          "wins": 1,
+          "losses": 1,
+          "diff": -6
+        },
+        {
+          "id": "20151028M202407191059",
+          "name": "章瀚尧",
+          "club": "个人",
+          "scored": 9,
+          "received": 10,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "diff": -1
+        },
+        {
+          "id": "20161017M202406190604",
+          "name": "梁庭睿",
+          "club": "海口嘉世",
+          "scored": 7,
+          "received": 8,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "diff": -1
+        }
+      ],
+      "insights": {
+        "headline": "赵禹瑞 获得冠军，来自湖北永尚",
+        "summaryCards": [
+          {
+            "title": "冠军",
+            "value": "赵禹瑞",
+            "detail": "湖北永尚 · 1名"
+          },
+          {
+            "title": "晋级线",
+            "value": "19 / 24",
+            "detail": "小组赛后有淘汰"
+          },
+          {
+            "title": "淘汰赛密度",
+            "value": "18 场",
+            "detail": "含 13 场 Bye"
+          }
+        ],
+        "bullets": [
+          "赵禹瑞 小组赛排第 1，最终夺冠。",
+          "个人 在当前样本里出现 6 次，是报名最集中的俱乐部。",
+          "该项目小组赛后淘汰 5 人。",
+          "淘汰赛包含较多 Bye，对阵密度偏低。"
+        ],
+        "breakout": [
+          {
+            "name": "王琳溪",
+            "club": "海南海外双优",
+            "licence": "20160606M202311290422",
+            "poolRank": 14,
+            "finalRank": 8,
+            "delta": 6
+          },
+          {
+            "name": "卢宏垚",
+            "club": "个人",
+            "licence": "20140321M202506150705",
+            "poolRank": 6,
+            "finalRank": 3,
+            "delta": 3
+          },
+          {
+            "name": "李润丞",
+            "club": "海口嘉世",
+            "licence": "20150713M202304020341",
+            "poolRank": 10,
+            "finalRank": 7,
+            "delta": 3
+          }
+        ],
+        "fade": [
+          {
+            "name": "梁庭睿",
+            "club": "海口嘉世",
+            "licence": "20161017M202406190604",
+            "poolRank": 3,
+            "finalRank": 9,
+            "delta": -6
+          },
+          {
+            "name": "孙铭杨",
+            "club": "上海嘉世",
+            "licence": "20140408M202304010816",
+            "poolRank": 7,
+            "finalRank": 10,
+            "delta": -3
+          }
+        ]
+      },
+      "athleteProfiles": [
+        {
+          "id": "20141013M202107041143",
+          "name": "赵禹瑞",
+          "licence": "20141013M202107041143",
+          "club": "湖北永尚",
+          "finalRank": 1,
+          "medal": "金",
+          "ageBand": "2014 下半年",
+          "poolId": 168974,
+          "poolRank": 1,
+          "poolWins": 5,
+          "poolMatches": 5,
+          "poolDiff": 21,
+          "eliminationWins": 4,
+          "eliminationLosses": 0,
+          "eliminationDiff": 17
+        },
+        {
+          "id": "20141108M202307200835",
+          "name": "金葆芮",
+          "licence": "20141108M202307200835",
+          "club": "湖北永尚",
+          "finalRank": 2,
+          "medal": "银",
+          "ageBand": "2014 下半年",
+          "poolId": 168976,
+          "poolRank": 1,
+          "poolWins": 5,
+          "poolMatches": 5,
+          "poolDiff": 15,
+          "eliminationWins": 3,
+          "eliminationLosses": 1,
+          "eliminationDiff": 11
+        },
+        {
+          "id": "20151020M202211070400",
+          "name": "杨岸霖",
+          "licence": "20151020M202211070400",
+          "club": "湖北永尚",
+          "finalRank": 3,
+          "medal": "铜",
+          "ageBand": "2015 下半年",
+          "poolId": 168975,
+          "poolRank": 1,
+          "poolWins": 4,
+          "poolMatches": 5,
+          "poolDiff": 13,
+          "eliminationWins": 2,
+          "eliminationLosses": 1,
+          "eliminationDiff": 13
+        },
+        {
+          "id": "20140321M202506150705",
+          "name": "卢宏垚",
+          "licence": "20140321M202506150705",
+          "club": "个人",
+          "finalRank": 3,
+          "medal": "铜",
+          "ageBand": "2014 上半年",
+          "poolId": 168975,
+          "poolRank": 3,
+          "poolWins": 4,
+          "poolMatches": 5,
+          "poolDiff": 4,
+          "eliminationWins": 2,
+          "eliminationLosses": 1,
+          "eliminationDiff": 9
+        },
+        {
+          "id": "20161105M202307021013",
+          "name": "张嘉盛",
+          "licence": "20161105M202307021013",
+          "club": "上海嘉世",
+          "finalRank": 5,
+          "medal": null,
+          "ageBand": "2016 下半年",
+          "poolId": 168975,
+          "poolRank": 2,
+          "poolWins": 4,
+          "poolMatches": 5,
+          "poolDiff": 8,
+          "eliminationWins": 1,
+          "eliminationLosses": 1,
+          "eliminationDiff": -4
+        },
+        {
+          "id": "20150820M202502220824",
+          "name": "韦俊宇",
+          "licence": "20150820M202502220824",
+          "club": "济南奥伦",
+          "finalRank": 6,
+          "medal": null,
+          "ageBand": "2015 下半年",
+          "poolId": 168977,
+          "poolRank": 2,
+          "poolWins": 3,
+          "poolMatches": 5,
+          "poolDiff": 4,
+          "eliminationWins": 1,
+          "eliminationLosses": 1,
+          "eliminationDiff": 1
+        },
+        {
+          "id": "20150713M202304020341",
+          "name": "李润丞",
+          "licence": "20150713M202304020341",
+          "club": "海口嘉世",
+          "finalRank": 7,
+          "medal": null,
+          "ageBand": "2015 下半年",
+          "poolId": 168974,
+          "poolRank": 2,
+          "poolWins": 3,
+          "poolMatches": 5,
+          "poolDiff": 2,
+          "eliminationWins": 1,
+          "eliminationLosses": 1,
+          "eliminationDiff": 1
+        },
+        {
+          "id": "20160606M202311290422",
+          "name": "王琳溪",
+          "licence": "20160606M202311290422",
+          "club": "海南海外双优",
+          "finalRank": 8,
+          "medal": null,
+          "ageBand": "2016 上半年",
+          "poolId": 168974,
+          "poolRank": 4,
+          "poolWins": 2,
+          "poolMatches": 5,
+          "poolDiff": -5,
+          "eliminationWins": 2,
+          "eliminationLosses": 1,
+          "eliminationDiff": -6
+        },
+        {
+          "id": "20161017M202406190604",
+          "name": "梁庭睿",
+          "licence": "20161017M202406190604",
+          "club": "海口嘉世",
+          "finalRank": 9,
+          "medal": null,
+          "ageBand": "2016 下半年",
+          "poolId": 168977,
+          "poolRank": 1,
+          "poolWins": 5,
+          "poolMatches": 5,
+          "poolDiff": 8,
+          "eliminationWins": 0,
+          "eliminationLosses": 1,
+          "eliminationDiff": -1
+        },
+        {
+          "id": "20140408M202304010816",
+          "name": "孙铭杨",
+          "licence": "20140408M202304010816",
+          "club": "上海嘉世",
+          "finalRank": 10,
+          "medal": null,
+          "ageBand": "2014 上半年",
+          "poolId": 168976,
+          "poolRank": 2,
+          "poolWins": 3,
+          "poolMatches": 5,
+          "poolDiff": 8,
+          "eliminationWins": 0,
+          "eliminationLosses": 1,
+          "eliminationDiff": -7
+        },
+        {
+          "id": "20170215M202501150309",
+          "name": "林诺禧",
+          "licence": "20170215M202501150309",
+          "club": "香港剑乐会",
+          "finalRank": 11,
+          "medal": null,
+          "ageBand": "2017 上半年",
+          "poolId": 168977,
+          "poolRank": 3,
+          "poolWins": 3,
+          "poolMatches": 5,
+          "poolDiff": 3,
+          "eliminationWins": 0,
+          "eliminationLosses": 1,
+          "eliminationDiff": -5
+        },
+        {
+          "id": "20150515M202501220920",
+          "name": "邱皓翔",
+          "licence": "20150515M202501220920",
+          "club": "个人",
+          "finalRank": 12,
+          "medal": null,
+          "ageBand": "2015 上半年",
+          "poolId": 168977,
+          "poolRank": 4,
+          "poolWins": 3,
+          "poolMatches": 5,
+          "poolDiff": 2,
+          "eliminationWins": 0,
+          "eliminationLosses": 1,
+          "eliminationDiff": -4
+        },
+        {
+          "id": "20160612M202304011118",
+          "name": "王璟泽",
+          "licence": "20160612M202304011118",
+          "club": "海口嘉世",
+          "finalRank": 13,
+          "medal": null,
+          "ageBand": "2016 上半年",
+          "poolId": 168976,
+          "poolRank": 3,
+          "poolWins": 3,
+          "poolMatches": 5,
+          "poolDiff": -3,
+          "eliminationWins": 0,
+          "eliminationLosses": 1,
+          "eliminationDiff": -5
+        },
+        {
+          "id": "20160524M202408010202",
+          "name": "陈思然",
+          "licence": "20160524M202408010202",
+          "club": "广州阳光剑匠",
+          "finalRank": 14,
+          "medal": null,
+          "ageBand": "2016 上半年",
+          "poolId": 168974,
+          "poolRank": 3,
+          "poolWins": 2,
+          "poolMatches": 5,
+          "poolDiff": -1,
+          "eliminationWins": 0,
+          "eliminationLosses": 1,
+          "eliminationDiff": -7
+        },
+        {
+          "id": "20150520M202501290854",
+          "name": "谢卓珉",
+          "licence": "20150520M202501290854",
+          "club": "长沙博翼",
+          "finalRank": 15,
+          "medal": null,
+          "ageBand": "2015 上半年",
+          "poolId": 168976,
+          "poolRank": 4,
+          "poolWins": 2,
+          "poolMatches": 5,
+          "poolDiff": -5,
+          "eliminationWins": 1,
+          "eliminationLosses": 1,
+          "eliminationDiff": 0
+        },
+        {
+          "id": "20140630M202510111255",
+          "name": "张嘉瑞",
+          "licence": "20140630M202510111255",
+          "club": "海南海外双优",
+          "finalRank": 16,
+          "medal": null,
+          "ageBand": "2014 上半年",
+          "poolId": 168975,
+          "poolRank": 4,
+          "poolWins": 2,
+          "poolMatches": 5,
+          "poolDiff": -9,
+          "eliminationWins": 1,
+          "eliminationLosses": 1,
+          "eliminationDiff": -6
+        },
+        {
+          "id": "20151028M202407191059",
+          "name": "章瀚尧",
+          "licence": "20151028M202407191059",
+          "club": "个人",
+          "finalRank": 17,
+          "medal": null,
+          "ageBand": "2015 下半年",
+          "poolId": 168974,
+          "poolRank": 5,
+          "poolWins": 2,
+          "poolMatches": 5,
+          "poolDiff": -6,
+          "eliminationWins": 0,
+          "eliminationLosses": 1,
+          "eliminationDiff": -1
+        },
+        {
+          "id": "20150812M202304010414",
+          "name": "冯子轩",
+          "licence": "20150812M202304010414",
+          "club": "上海嘉世",
+          "finalRank": 18,
+          "medal": null,
+          "ageBand": "2015 下半年",
+          "poolId": 168977,
+          "poolRank": 5,
+          "poolWins": 1,
+          "poolMatches": 5,
+          "poolDiff": -4,
+          "eliminationWins": 0,
+          "eliminationLosses": 1,
+          "eliminationDiff": -4
+        },
+        {
+          "id": "20151025M202510171050",
+          "name": "富泳霖",
+          "licence": "20151025M202510171050",
+          "club": "海南海外双优",
+          "finalRank": 19,
+          "medal": null,
+          "ageBand": "2015 下半年",
+          "poolId": 168976,
+          "poolRank": 5,
+          "poolWins": 1,
+          "poolMatches": 5,
+          "poolDiff": -5,
+          "eliminationWins": 0,
+          "eliminationLosses": 1,
+          "eliminationDiff": -2
+        },
+        {
+          "id": "20171011M202405061217",
+          "name": "时铭泽",
+          "licence": "20171011M202405061217",
+          "club": "个人",
+          "finalRank": 20,
+          "medal": null,
+          "ageBand": "2017 下半年",
+          "poolId": 168975,
+          "poolRank": 5,
+          "poolWins": 1,
+          "poolMatches": 5,
+          "poolDiff": -8,
+          "eliminationWins": 0,
+          "eliminationLosses": 0,
+          "eliminationDiff": 0
+        },
+        {
+          "id": "20160520M202307010456",
+          "name": "林恩霈",
+          "licence": "20160520M202307010456",
+          "club": "个人",
+          "finalRank": 21,
+          "medal": null,
+          "ageBand": "2016 上半年",
+          "poolId": 168976,
+          "poolRank": 6,
+          "poolWins": 1,
+          "poolMatches": 5,
+          "poolDiff": -10,
+          "eliminationWins": 0,
+          "eliminationLosses": 0,
+          "eliminationDiff": 0
+        },
+        {
+          "id": "20140607M202605190732",
+          "name": "孙靖哲",
+          "licence": "20140607M202605190732",
+          "club": "个人",
+          "finalRank": 22,
+          "medal": null,
+          "ageBand": "2014 上半年",
+          "poolId": 168974,
+          "poolRank": 6,
+          "poolWins": 1,
+          "poolMatches": 5,
+          "poolDiff": -11,
+          "eliminationWins": 0,
+          "eliminationLosses": 0,
+          "eliminationDiff": 0
+        },
+        {
+          "id": "20140908M202403110858",
+          "name": "谭思源",
+          "licence": "20140908M202403110858",
+          "club": "武汉海外双优",
+          "finalRank": 23,
+          "medal": null,
+          "ageBand": "2014 下半年",
+          "poolId": 168975,
+          "poolRank": 6,
+          "poolWins": 0,
+          "poolMatches": 5,
+          "poolDiff": -8,
+          "eliminationWins": 0,
+          "eliminationLosses": 0,
+          "eliminationDiff": 0
+        },
+        {
+          "id": "20170322M202307060644",
+          "name": "宋浩宇",
+          "licence": "20170322M202307060644",
+          "club": "北京圣剑",
+          "finalRank": 24,
+          "medal": null,
+          "ageBand": "2017 上半年",
+          "poolId": 168977,
+          "poolRank": 6,
+          "poolWins": 0,
+          "poolMatches": 5,
+          "poolDiff": -13,
+          "eliminationWins": 0,
+          "eliminationLosses": 0,
+          "eliminationDiff": 0
+        }
+      ],
+      "clubProfiles": [
+        {
+          "id": "%E6%B9%96%E5%8C%97%E6%B0%B8%E5%B0%9A",
+          "club": "湖北永尚",
+          "entrants": 3,
+          "medals": 3,
+          "top8": 3,
+          "finalists": 2,
+          "bestRank": 1,
+          "athletes": [
+            {
+              "id": "20141013M202107041143",
+              "name": "赵禹瑞",
+              "rank": 1,
+              "medal": "金"
+            },
+            {
+              "id": "20141108M202307200835",
+              "name": "金葆芮",
+              "rank": 2,
+              "medal": "银"
+            },
+            {
+              "id": "20151020M202211070400",
+              "name": "杨岸霖",
+              "rank": 3,
+              "medal": "铜"
+            }
+          ]
+        },
+        {
+          "id": "%E4%B8%AA%E4%BA%BA",
+          "club": "个人",
+          "entrants": 6,
+          "medals": 1,
+          "top8": 1,
+          "finalists": 0,
+          "bestRank": 3,
+          "athletes": [
+            {
+              "id": "20140321M202506150705",
+              "name": "卢宏垚",
+              "rank": 3,
+              "medal": "铜"
+            },
+            {
+              "id": "20150515M202501220920",
+              "name": "邱皓翔",
+              "rank": 12,
+              "medal": null
+            },
+            {
+              "id": "20151028M202407191059",
+              "name": "章瀚尧",
+              "rank": 17,
+              "medal": null
+            },
+            {
+              "id": "20171011M202405061217",
+              "name": "时铭泽",
+              "rank": 20,
+              "medal": null
+            }
+          ]
+        },
+        {
+          "id": "%E4%B8%8A%E6%B5%B7%E5%98%89%E4%B8%96",
+          "club": "上海嘉世",
+          "entrants": 3,
+          "medals": 0,
+          "top8": 1,
+          "finalists": 0,
+          "bestRank": 5,
+          "athletes": [
+            {
+              "id": "20161105M202307021013",
+              "name": "张嘉盛",
+              "rank": 5,
+              "medal": null
+            },
+            {
+              "id": "20140408M202304010816",
+              "name": "孙铭杨",
+              "rank": 10,
+              "medal": null
+            },
+            {
+              "id": "20150812M202304010414",
+              "name": "冯子轩",
+              "rank": 18,
+              "medal": null
+            }
+          ]
+        },
+        {
+          "id": "%E6%B5%8E%E5%8D%97%E5%A5%A5%E4%BC%A6",
+          "club": "济南奥伦",
+          "entrants": 1,
+          "medals": 0,
+          "top8": 1,
+          "finalists": 0,
+          "bestRank": 6,
+          "athletes": [
+            {
+              "id": "20150820M202502220824",
+              "name": "韦俊宇",
+              "rank": 6,
+              "medal": null
+            }
+          ]
+        },
+        {
+          "id": "%E6%B5%B7%E5%8F%A3%E5%98%89%E4%B8%96",
+          "club": "海口嘉世",
+          "entrants": 3,
+          "medals": 0,
+          "top8": 1,
+          "finalists": 0,
+          "bestRank": 7,
+          "athletes": [
+            {
+              "id": "20150713M202304020341",
+              "name": "李润丞",
+              "rank": 7,
+              "medal": null
+            },
+            {
+              "id": "20161017M202406190604",
+              "name": "梁庭睿",
+              "rank": 9,
+              "medal": null
+            },
+            {
+              "id": "20160612M202304011118",
+              "name": "王璟泽",
+              "rank": 13,
+              "medal": null
+            }
+          ]
+        },
+        {
+          "id": "%E6%B5%B7%E5%8D%97%E6%B5%B7%E5%A4%96%E5%8F%8C%E4%BC%98",
+          "club": "海南海外双优",
+          "entrants": 3,
+          "medals": 0,
+          "top8": 1,
+          "finalists": 0,
+          "bestRank": 8,
+          "athletes": [
+            {
+              "id": "20160606M202311290422",
+              "name": "王琳溪",
+              "rank": 8,
+              "medal": null
+            },
+            {
+              "id": "20140630M202510111255",
+              "name": "张嘉瑞",
+              "rank": 16,
+              "medal": null
+            },
+            {
+              "id": "20151025M202510171050",
+              "name": "富泳霖",
+              "rank": 19,
+              "medal": null
+            }
+          ]
+        },
+        {
+          "id": "%E9%A6%99%E6%B8%AF%E5%89%91%E4%B9%90%E4%BC%9A",
+          "club": "香港剑乐会",
+          "entrants": 1,
+          "medals": 0,
+          "top8": 0,
+          "finalists": 0,
+          "bestRank": 11,
+          "athletes": [
+            {
+              "id": "20170215M202501150309",
+              "name": "林诺禧",
+              "rank": 11,
+              "medal": null
+            }
+          ]
+        },
+        {
+          "id": "%E5%B9%BF%E5%B7%9E%E9%98%B3%E5%85%89%E5%89%91%E5%8C%A0",
+          "club": "广州阳光剑匠",
+          "entrants": 1,
+          "medals": 0,
+          "top8": 0,
+          "finalists": 0,
+          "bestRank": 14,
+          "athletes": [
+            {
+              "id": "20160524M202408010202",
+              "name": "陈思然",
+              "rank": 14,
+              "medal": null
+            }
+          ]
+        }
+      ],
+      "birthBuckets": [
+        {
+          "label": "2014 上半年",
+          "entrants": 4,
+          "top8": 1,
+          "medals": 1,
+          "bestRank": 3,
+          "top8Rate": 25
+        },
+        {
+          "label": "2014 下半年",
+          "entrants": 3,
+          "top8": 2,
+          "medals": 2,
+          "bestRank": 1,
+          "top8Rate": 67
+        },
+        {
+          "label": "2015 上半年",
+          "entrants": 2,
+          "top8": 0,
+          "medals": 0,
+          "bestRank": 12,
+          "top8Rate": 0
+        },
+        {
+          "label": "2015 下半年",
+          "entrants": 6,
+          "top8": 3,
+          "medals": 1,
+          "bestRank": 3,
+          "top8Rate": 50
+        },
+        {
+          "label": "2016 上半年",
+          "entrants": 4,
+          "top8": 1,
+          "medals": 0,
+          "bestRank": 8,
+          "top8Rate": 25
+        },
+        {
+          "label": "2016 下半年",
+          "entrants": 2,
+          "top8": 1,
+          "medals": 0,
+          "bestRank": 5,
+          "top8Rate": 50
+        },
+        {
+          "label": "2017 上半年",
+          "entrants": 2,
+          "top8": 0,
+          "medals": 0,
+          "bestRank": 11,
+          "top8Rate": 0
+        },
+        {
+          "label": "2017 下半年",
+          "entrants": 1,
+          "top8": 0,
+          "medals": 0,
+          "bestRank": 20,
+          "top8Rate": 0
+        }
+      ],
+      "clubDistribution": {
+        "个人": 6,
+        "湖北永尚": 3,
+        "海口嘉世": 3,
+        "上海嘉世": 3,
+        "海南海外双优": 3,
+        "济南奥伦": 1,
+        "香港剑乐会": 1,
+        "广州阳光剑匠": 1,
+        "长沙博翼": 1,
+        "武汉海外双优": 1,
+        "北京圣剑": 1
+      }
+    },
+    "RZSS2034020MFIU14": {
+      "fileName": "score-RZSS2034020MFIU14-analysis.json",
+      "eventCode": "RZSS2034020MFIU14",
+      "sportCode": "RZSS2034020",
+      "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+      "eventName": "U14男子花剑个人",
+      "shortEventName": "U14 男花",
+      "openDate": null,
+      "venue": "海南·儋州",
+      "competitionNo": 9,
+      "poolCount": 2,
+      "poolQualifyNo": 9,
+      "deStartPhase": "from Tableaus 16",
+      "eliminationMatchCount": 15,
+      "playedEliminationMatchCount": 7,
+      "byeMatchCount": 8,
+      "athleteNames": [
+        "凌梓豪",
+        "张家华",
+        "张浦宸",
+        "吴清云",
+        "吴俊霖",
+        "高鸣骏",
+        "欧阳江林",
+        "潘杍墨",
+        "徐睿泽"
+      ],
+      "region": "海南儋州",
+      "distributions": {
+        "poolStatus": {
+          "7": 2
+        },
+        "poolRemark": {
+          "Q": 8
+        },
+        "tableau": {
+          "16表": 1,
+          "8表": 1,
+          "半决赛": 1,
+          "决赛": 1
+        },
+        "eliminationByPhase": {
+          "16表": 8,
+          "8表": 4,
+          "半决赛": 2,
+          "决赛": 1
+        },
+        "eliminationResult": {
+          "W/L": 8,
+          "L/W": 7
+        },
+        "medal": {
+          "金": 1,
+          "银": 1,
+          "铜": 2,
+          "(无奖牌)": 5
+        }
+      },
+      "topPoolStanding": [
+        {
+          "rank": 1,
+          "displayPosition": 1,
+          "name": "凌梓豪",
+          "licence": "20150120M202110150910",
+          "club": "个人",
+          "wins": 3,
+          "matches": 3,
+          "winRate": 1,
+          "hitsScored": 15,
+          "hitsReceived": 4,
+          "indicator": 11,
+          "remark": "Q"
+        },
+        {
+          "rank": 2,
+          "displayPosition": 2,
+          "name": "张家华",
+          "licence": "20140313M201906101430",
+          "club": "个人",
+          "wins": 2,
+          "matches": 3,
+          "winRate": 0.667,
+          "hitsScored": 14,
+          "hitsReceived": 8,
+          "indicator": 6,
+          "remark": "Q"
+        },
+        {
+          "rank": 3,
+          "displayPosition": 3,
+          "name": "吴清云",
+          "licence": "20131022M202510150526",
+          "club": "海南佼佼者",
+          "wins": 2,
+          "matches": 3,
+          "winRate": 0.667,
+          "hitsScored": 12,
+          "hitsReceived": 8,
+          "indicator": 4,
+          "remark": "Q"
+        },
+        {
+          "rank": 4,
+          "displayPosition": 4,
+          "name": "张浦宸",
+          "licence": "20141029M202307090543",
+          "club": "海口嘉世",
+          "wins": 2,
+          "matches": 3,
+          "winRate": 0.667,
+          "hitsScored": 13,
+          "hitsReceived": 12,
+          "indicator": 1,
+          "remark": "Q"
+        },
+        {
+          "rank": 5,
+          "displayPosition": 5,
+          "name": "吴俊霖",
+          "licence": "20131101M202406221017",
+          "club": "个人",
+          "wins": 2,
+          "matches": 3,
+          "winRate": 0.667,
+          "hitsScored": 11,
+          "hitsReceived": 13,
+          "indicator": -2,
+          "remark": "Q"
+        },
+        {
+          "rank": 6,
+          "displayPosition": 6,
+          "name": "高鸣骏",
+          "licence": "20131128M202510140413",
+          "club": "海南佼佼者",
+          "wins": 1,
+          "matches": 3,
+          "winRate": 0.333,
+          "hitsScored": 9,
+          "hitsReceived": 12,
+          "indicator": -3,
+          "remark": "Q"
+        },
+        {
+          "rank": 7,
+          "displayPosition": 7,
+          "name": "欧阳江林",
+          "licence": "20130518M202506090651",
+          "club": "个人",
+          "wins": 0,
+          "matches": 3,
+          "winRate": 0,
+          "hitsScored": 7,
+          "hitsReceived": 15,
+          "indicator": -8,
+          "remark": "Q"
+        },
+        {
+          "rank": 8,
+          "displayPosition": 8,
+          "name": "潘杍墨",
+          "licence": "20140106M202307010521",
+          "club": "个人",
+          "wins": 0,
+          "matches": 3,
+          "winRate": 0,
+          "hitsScored": 6,
+          "hitsReceived": 15,
+          "indicator": -9,
+          "remark": "Q"
+        }
+      ],
+      "latestMatches": [
+        {
+          "matchId": 497607,
+          "matchCode": "Pre001",
+          "phaseId": 168820,
+          "phase": {
+            "shortName": "T2",
+            "longName": "决赛",
+            "order": 4,
+            "code": "1",
+            "group": "4_0"
+          },
+          "groupCode": "1_0",
+          "innerOrder": 1,
+          "home": {
+            "position": 1,
+            "name": "凌梓豪",
+            "licence": "20150120M202110150910",
+            "club": "个人",
+            "points": 15,
+            "result": "W"
+          },
+          "away": {
+            "position": 2,
+            "name": "张家华",
+            "licence": "20140313M201906101430",
+            "club": "个人",
+            "points": 11,
+            "result": "L"
+          },
+          "winner": {
+            "name": "凌梓豪",
+            "club": "个人"
+          },
+          "piste": "",
+          "startTime": "",
+          "isBye": false
+        },
+        {
+          "matchId": 497606,
+          "matchCode": "Pre002",
+          "phaseId": 168819,
+          "phase": {
+            "shortName": "T4",
+            "longName": "半决赛",
+            "order": 3,
+            "code": "2",
+            "group": "3_0"
+          },
+          "groupCode": "2_0",
+          "innerOrder": 2,
+          "home": {
+            "position": 3,
+            "name": "吴清云",
+            "licence": "20131022M202510150526",
+            "club": "海南佼佼者",
+            "points": 2,
+            "result": "L"
+          },
+          "away": {
+            "position": 2,
+            "name": "张家华",
+            "licence": "20140313M201906101430",
+            "club": "个人",
+            "points": 15,
+            "result": "W"
+          },
+          "winner": {
+            "name": "张家华",
+            "club": "个人"
+          },
+          "piste": "",
+          "startTime": "",
+          "isBye": false
+        },
+        {
+          "matchId": 497605,
+          "matchCode": "Pre001",
+          "phaseId": 168819,
+          "phase": {
+            "shortName": "T4",
+            "longName": "半决赛",
+            "order": 3,
+            "code": "2",
+            "group": "3_0"
+          },
+          "groupCode": "2_0",
+          "innerOrder": 1,
+          "home": {
+            "position": 1,
+            "name": "凌梓豪",
+            "licence": "20150120M202110150910",
+            "club": "个人",
+            "points": 15,
+            "result": "W"
+          },
+          "away": {
+            "position": 4,
+            "name": "张浦宸",
+            "licence": "20141029M202307090543",
+            "club": "海口嘉世",
+            "points": 6,
+            "result": "L"
+          },
+          "winner": {
+            "name": "凌梓豪",
+            "club": "个人"
+          },
+          "piste": "",
+          "startTime": "",
+          "isBye": false
+        },
+        {
+          "matchId": 497604,
+          "matchCode": "Pre004",
+          "phaseId": 168818,
+          "phase": {
+            "shortName": "T8",
+            "longName": "8表",
+            "order": 2,
+            "code": "3",
+            "group": "2_0"
+          },
+          "groupCode": "3_1",
+          "innerOrder": 2,
+          "home": {
+            "position": 7,
+            "name": "欧阳江林",
+            "licence": "20130518M202506090651",
+            "club": "个人",
+            "points": 3,
+            "result": "L"
+          },
+          "away": {
+            "position": 2,
+            "name": "张家华",
+            "licence": "20140313M201906101430",
+            "club": "个人",
+            "points": 15,
+            "result": "W"
+          },
+          "winner": {
+            "name": "张家华",
+            "club": "个人"
+          },
+          "piste": "",
+          "startTime": "",
+          "isBye": false
+        },
+        {
+          "matchId": 497603,
+          "matchCode": "Pre003",
+          "phaseId": 168818,
+          "phase": {
+            "shortName": "T8",
+            "longName": "8表",
+            "order": 2,
+            "code": "3",
+            "group": "2_0"
+          },
+          "groupCode": "3_1",
+          "innerOrder": 1,
+          "home": {
+            "position": 3,
+            "name": "吴清云",
+            "licence": "20131022M202510150526",
+            "club": "海南佼佼者",
+            "points": 15,
+            "result": "W"
+          },
+          "away": {
+            "position": 6,
+            "name": "高鸣骏",
+            "licence": "20131128M202510140413",
+            "club": "海南佼佼者",
+            "points": 10,
+            "result": "L"
+          },
+          "winner": {
+            "name": "吴清云",
+            "club": "海南佼佼者"
+          },
+          "piste": "",
+          "startTime": "",
+          "isBye": false
+        },
+        {
+          "matchId": 497602,
+          "matchCode": "Pre002",
+          "phaseId": 168818,
+          "phase": {
+            "shortName": "T8",
+            "longName": "8表",
+            "order": 2,
+            "code": "3",
+            "group": "2_0"
+          },
+          "groupCode": "3_0",
+          "innerOrder": 2,
+          "home": {
+            "position": 5,
+            "name": "吴俊霖",
+            "licence": "20131101M202406221017",
+            "club": "个人",
+            "points": 0,
+            "result": "L"
+          },
+          "away": {
+            "position": 4,
+            "name": "张浦宸",
+            "licence": "20141029M202307090543",
+            "club": "海口嘉世",
+            "points": 15,
+            "result": "W"
+          },
+          "winner": {
+            "name": "张浦宸",
+            "club": "海口嘉世"
+          },
+          "piste": "",
+          "startTime": "",
+          "isBye": false
+        },
+        {
+          "matchId": 497601,
+          "matchCode": "Pre001",
+          "phaseId": 168818,
+          "phase": {
+            "shortName": "T8",
+            "longName": "8表",
+            "order": 2,
+            "code": "3",
+            "group": "2_0"
+          },
+          "groupCode": "3_0",
+          "innerOrder": 1,
+          "home": {
+            "position": 1,
+            "name": "凌梓豪",
+            "licence": "20150120M202110150910",
+            "club": "个人",
+            "points": 15,
+            "result": "W"
+          },
+          "away": {
+            "position": 8,
+            "name": "潘杍墨",
+            "licence": "20140106M202307010521",
+            "club": "个人",
+            "points": 6,
+            "result": "L"
+          },
+          "winner": {
+            "name": "凌梓豪",
+            "club": "个人"
+          },
+          "piste": "",
+          "startTime": "",
+          "isBye": false
+        }
+      ],
+      "eliminationPhaseGroups": [
+        {
+          "phase": "8表",
+          "order": 2,
+          "matches": [
+            {
+              "matchId": 497601,
+              "matchCode": "Pre001",
+              "phaseId": 168818,
+              "phase": {
+                "shortName": "T8",
+                "longName": "8表",
+                "order": 2,
+                "code": "3",
+                "group": "2_0"
+              },
+              "groupCode": "3_0",
+              "innerOrder": 1,
+              "home": {
+                "position": 1,
+                "name": "凌梓豪",
+                "licence": "20150120M202110150910",
+                "club": "个人",
+                "points": 15,
+                "result": "W"
+              },
+              "away": {
+                "position": 8,
+                "name": "潘杍墨",
+                "licence": "20140106M202307010521",
+                "club": "个人",
+                "points": 6,
+                "result": "L"
+              },
+              "winner": {
+                "name": "凌梓豪",
+                "club": "个人"
+              },
+              "piste": "",
+              "startTime": "",
+              "isBye": false
+            },
+            {
+              "matchId": 497603,
+              "matchCode": "Pre003",
+              "phaseId": 168818,
+              "phase": {
+                "shortName": "T8",
+                "longName": "8表",
+                "order": 2,
+                "code": "3",
+                "group": "2_0"
+              },
+              "groupCode": "3_1",
+              "innerOrder": 1,
+              "home": {
+                "position": 3,
+                "name": "吴清云",
+                "licence": "20131022M202510150526",
+                "club": "海南佼佼者",
+                "points": 15,
+                "result": "W"
+              },
+              "away": {
+                "position": 6,
+                "name": "高鸣骏",
+                "licence": "20131128M202510140413",
+                "club": "海南佼佼者",
+                "points": 10,
+                "result": "L"
+              },
+              "winner": {
+                "name": "吴清云",
+                "club": "海南佼佼者"
+              },
+              "piste": "",
+              "startTime": "",
+              "isBye": false
+            },
+            {
+              "matchId": 497602,
+              "matchCode": "Pre002",
+              "phaseId": 168818,
+              "phase": {
+                "shortName": "T8",
+                "longName": "8表",
+                "order": 2,
+                "code": "3",
+                "group": "2_0"
+              },
+              "groupCode": "3_0",
+              "innerOrder": 2,
+              "home": {
+                "position": 5,
+                "name": "吴俊霖",
+                "licence": "20131101M202406221017",
+                "club": "个人",
+                "points": 0,
+                "result": "L"
+              },
+              "away": {
+                "position": 4,
+                "name": "张浦宸",
+                "licence": "20141029M202307090543",
+                "club": "海口嘉世",
+                "points": 15,
+                "result": "W"
+              },
+              "winner": {
+                "name": "张浦宸",
+                "club": "海口嘉世"
+              },
+              "piste": "",
+              "startTime": "",
+              "isBye": false
+            },
+            {
+              "matchId": 497604,
+              "matchCode": "Pre004",
+              "phaseId": 168818,
+              "phase": {
+                "shortName": "T8",
+                "longName": "8表",
+                "order": 2,
+                "code": "3",
+                "group": "2_0"
+              },
+              "groupCode": "3_1",
+              "innerOrder": 2,
+              "home": {
+                "position": 7,
+                "name": "欧阳江林",
+                "licence": "20130518M202506090651",
+                "club": "个人",
+                "points": 3,
+                "result": "L"
+              },
+              "away": {
+                "position": 2,
+                "name": "张家华",
+                "licence": "20140313M201906101430",
+                "club": "个人",
+                "points": 15,
+                "result": "W"
+              },
+              "winner": {
+                "name": "张家华",
+                "club": "个人"
+              },
+              "piste": "",
+              "startTime": "",
+              "isBye": false
+            }
+          ]
+        },
+        {
+          "phase": "半决赛",
+          "order": 3,
+          "matches": [
+            {
+              "matchId": 497605,
+              "matchCode": "Pre001",
+              "phaseId": 168819,
+              "phase": {
+                "shortName": "T4",
+                "longName": "半决赛",
+                "order": 3,
+                "code": "2",
+                "group": "3_0"
+              },
+              "groupCode": "2_0",
+              "innerOrder": 1,
+              "home": {
+                "position": 1,
+                "name": "凌梓豪",
+                "licence": "20150120M202110150910",
+                "club": "个人",
+                "points": 15,
+                "result": "W"
+              },
+              "away": {
+                "position": 4,
+                "name": "张浦宸",
+                "licence": "20141029M202307090543",
+                "club": "海口嘉世",
+                "points": 6,
+                "result": "L"
+              },
+              "winner": {
+                "name": "凌梓豪",
+                "club": "个人"
+              },
+              "piste": "",
+              "startTime": "",
+              "isBye": false
+            },
+            {
+              "matchId": 497606,
+              "matchCode": "Pre002",
+              "phaseId": 168819,
+              "phase": {
+                "shortName": "T4",
+                "longName": "半决赛",
+                "order": 3,
+                "code": "2",
+                "group": "3_0"
+              },
+              "groupCode": "2_0",
+              "innerOrder": 2,
+              "home": {
+                "position": 3,
+                "name": "吴清云",
+                "licence": "20131022M202510150526",
+                "club": "海南佼佼者",
+                "points": 2,
+                "result": "L"
+              },
+              "away": {
+                "position": 2,
+                "name": "张家华",
+                "licence": "20140313M201906101430",
+                "club": "个人",
+                "points": 15,
+                "result": "W"
+              },
+              "winner": {
+                "name": "张家华",
+                "club": "个人"
+              },
+              "piste": "",
+              "startTime": "",
+              "isBye": false
+            }
+          ]
+        },
+        {
+          "phase": "决赛",
+          "order": 4,
+          "matches": [
+            {
+              "matchId": 497607,
+              "matchCode": "Pre001",
+              "phaseId": 168820,
+              "phase": {
+                "shortName": "T2",
+                "longName": "决赛",
+                "order": 4,
+                "code": "1",
+                "group": "4_0"
+              },
+              "groupCode": "1_0",
+              "innerOrder": 1,
+              "home": {
+                "position": 1,
+                "name": "凌梓豪",
+                "licence": "20150120M202110150910",
+                "club": "个人",
+                "points": 15,
+                "result": "W"
+              },
+              "away": {
+                "position": 2,
+                "name": "张家华",
+                "licence": "20140313M201906101430",
+                "club": "个人",
+                "points": 11,
+                "result": "L"
+              },
+              "winner": {
+                "name": "凌梓豪",
+                "club": "个人"
+              },
+              "piste": "",
+              "startTime": "",
+              "isBye": false
+            }
+          ]
+        }
+      ],
+      "poolBouts": [
+        {
+          "poolId": 168815,
+          "caseCode": "CASE5",
+          "order": 1,
+          "matchOrder": 1,
+          "homeNumber": 1,
+          "awayNumber": 2,
+          "homeLabel": "1：欧阳江林(个人)",
+          "awayLabel": "2：吴俊霖(个人)",
+          "homeScore": 4,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168815,
+          "caseCode": "CASE5",
+          "order": 2,
+          "matchOrder": 2,
+          "homeNumber": 3,
+          "awayNumber": 4,
+          "homeLabel": "3：张家华(个人)",
+          "awayLabel": "4：吴清云(海南佼佼者)",
+          "homeScore": "V",
+          "awayScore": 2
+        },
+        {
+          "poolId": 168815,
+          "caseCode": "CASE5",
+          "order": 3,
+          "matchOrder": 3,
+          "homeNumber": 5,
+          "awayNumber": 1,
+          "homeLabel": "5：徐睿泽(深圳磐石)",
+          "awayLabel": "1：欧阳江林(个人)",
+          "homeScore": null,
+          "awayScore": null
+        },
+        {
+          "poolId": 168815,
+          "caseCode": "CASE5",
+          "order": 4,
+          "matchOrder": 4,
+          "homeNumber": 2,
+          "awayNumber": 3,
+          "homeLabel": "2：吴俊霖(个人)",
+          "awayLabel": "3：张家华(个人)",
+          "homeScore": "V",
+          "awayScore": 4
+        },
+        {
+          "poolId": 168815,
+          "caseCode": "CASE5",
+          "order": 5,
+          "matchOrder": 5,
+          "homeNumber": 5,
+          "awayNumber": 4,
+          "homeLabel": "5：徐睿泽(深圳磐石)",
+          "awayLabel": "4：吴清云(海南佼佼者)",
+          "homeScore": null,
+          "awayScore": null
+        },
+        {
+          "poolId": 168815,
+          "caseCode": "CASE5",
+          "order": 6,
+          "matchOrder": 6,
+          "homeNumber": 1,
+          "awayNumber": 3,
+          "homeLabel": "1：欧阳江林(个人)",
+          "awayLabel": "3：张家华(个人)",
+          "homeScore": 1,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168815,
+          "caseCode": "CASE5",
+          "order": 7,
+          "matchOrder": 7,
+          "homeNumber": 2,
+          "awayNumber": 5,
+          "homeLabel": "2：吴俊霖(个人)",
+          "awayLabel": "5：徐睿泽(深圳磐石)",
+          "homeScore": null,
+          "awayScore": null
+        },
+        {
+          "poolId": 168815,
+          "caseCode": "CASE5",
+          "order": 8,
+          "matchOrder": 8,
+          "homeNumber": 4,
+          "awayNumber": 1,
+          "homeLabel": "4：吴清云(海南佼佼者)",
+          "awayLabel": "1：欧阳江林(个人)",
+          "homeScore": "V",
+          "awayScore": 2
+        },
+        {
+          "poolId": 168815,
+          "caseCode": "CASE5",
+          "order": 9,
+          "matchOrder": 9,
+          "homeNumber": 3,
+          "awayNumber": 5,
+          "homeLabel": "3：张家华(个人)",
+          "awayLabel": "5：徐睿泽(深圳磐石)",
+          "homeScore": null,
+          "awayScore": null
+        },
+        {
+          "poolId": 168815,
+          "caseCode": "CASE5",
+          "order": 10,
+          "matchOrder": 10,
+          "homeNumber": 4,
+          "awayNumber": 2,
+          "homeLabel": "4：吴清云(海南佼佼者)",
+          "awayLabel": "2：吴俊霖(个人)",
+          "homeScore": "V",
+          "awayScore": 1
+        },
+        {
+          "poolId": 168816,
+          "caseCode": "CASE4",
+          "order": 1,
+          "matchOrder": 1,
+          "homeNumber": 1,
+          "awayNumber": 4,
+          "homeLabel": "1：潘杍墨(个人)",
+          "awayLabel": "4：高鸣骏(海南佼佼者)",
+          "homeScore": 2,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168816,
+          "caseCode": "CASE4",
+          "order": 2,
+          "matchOrder": 2,
+          "homeNumber": 2,
+          "awayNumber": 3,
+          "homeLabel": "2：凌梓豪(个人)",
+          "awayLabel": "3：张浦宸(海口嘉世)",
+          "homeScore": "V",
+          "awayScore": 3
+        },
+        {
+          "poolId": 168816,
+          "caseCode": "CASE4",
+          "order": 3,
+          "matchOrder": 3,
+          "homeNumber": 3,
+          "awayNumber": 1,
+          "homeLabel": "3：张浦宸(海口嘉世)",
+          "awayLabel": "1：潘杍墨(个人)",
+          "homeScore": "V",
+          "awayScore": 4
+        },
+        {
+          "poolId": 168816,
+          "caseCode": "CASE4",
+          "order": 4,
+          "matchOrder": 4,
+          "homeNumber": 4,
+          "awayNumber": 2,
+          "homeLabel": "4：高鸣骏(海南佼佼者)",
+          "awayLabel": "2：凌梓豪(个人)",
+          "homeScore": 1,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168816,
+          "caseCode": "CASE4",
+          "order": 5,
+          "matchOrder": 5,
+          "homeNumber": 4,
+          "awayNumber": 3,
+          "homeLabel": "4：高鸣骏(海南佼佼者)",
+          "awayLabel": "3：张浦宸(海口嘉世)",
+          "homeScore": 3,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168816,
+          "caseCode": "CASE4",
+          "order": 6,
+          "matchOrder": 6,
+          "homeNumber": 1,
+          "awayNumber": 2,
+          "homeLabel": "1：潘杍墨(个人)",
+          "awayLabel": "2：凌梓豪(个人)",
+          "homeScore": 0,
+          "awayScore": "V"
+        }
+      ],
+      "poolGroups": [
+        {
+          "poolId": 168815,
+          "title": "小组 1",
+          "athletes": [
+            {
+              "id": "20140313M201906101430",
+              "drawNo": 3,
+              "name": "张家华",
+              "licence": "20140313M201906101430",
+              "club": "个人",
+              "wins": 2,
+              "matches": 3,
+              "winRate": 0.667,
+              "scored": 14,
+              "received": 8,
+              "diff": 6,
+              "phaseRank": 1,
+              "finalRank": 2,
+              "medal": "银"
+            },
+            {
+              "id": "20131022M202510150526",
+              "drawNo": 4,
+              "name": "吴清云",
+              "licence": "20131022M202510150526",
+              "club": "海南佼佼者",
+              "wins": 2,
+              "matches": 3,
+              "winRate": 0.667,
+              "scored": 12,
+              "received": 8,
+              "diff": 4,
+              "phaseRank": 2,
+              "finalRank": 3,
+              "medal": "铜"
+            },
+            {
+              "id": "20131101M202406221017",
+              "drawNo": 2,
+              "name": "吴俊霖",
+              "licence": "20131101M202406221017",
+              "club": "个人",
+              "wins": 2,
+              "matches": 3,
+              "winRate": 0.667,
+              "scored": 11,
+              "received": 13,
+              "diff": -2,
+              "phaseRank": 3,
+              "finalRank": 5,
+              "medal": null
+            },
+            {
+              "id": "20130518M202506090651",
+              "drawNo": 1,
+              "name": "欧阳江林",
+              "licence": "20130518M202506090651",
+              "club": "个人",
+              "wins": 0,
+              "matches": 3,
+              "winRate": 0,
+              "scored": 7,
+              "received": 15,
+              "diff": -8,
+              "phaseRank": 4,
+              "finalRank": 7,
+              "medal": null
+            },
+            {
+              "id": "20141126M202401150102",
+              "drawNo": 5,
+              "name": "徐睿泽",
+              "licence": "20141126M202401150102",
+              "club": "深圳磐石",
+              "wins": null,
+              "matches": null,
+              "winRate": null,
+              "scored": null,
+              "received": null,
+              "diff": null,
+              "phaseRank": null,
+              "finalRank": 9,
+              "medal": null
+            }
+          ],
+          "bouts": [
+            {
+              "poolId": 168815,
+              "caseCode": "CASE5",
+              "order": 1,
+              "matchOrder": 1,
+              "homeNumber": 1,
+              "awayNumber": 2,
+              "homeLabel": "1：欧阳江林(个人)",
+              "awayLabel": "2：吴俊霖(个人)",
+              "homeScore": 4,
+              "awayScore": "V"
+            },
+            {
+              "poolId": 168815,
+              "caseCode": "CASE5",
+              "order": 2,
+              "matchOrder": 2,
+              "homeNumber": 3,
+              "awayNumber": 4,
+              "homeLabel": "3：张家华(个人)",
+              "awayLabel": "4：吴清云(海南佼佼者)",
+              "homeScore": "V",
+              "awayScore": 2
+            },
+            {
+              "poolId": 168815,
+              "caseCode": "CASE5",
+              "order": 3,
+              "matchOrder": 3,
+              "homeNumber": 5,
+              "awayNumber": 1,
+              "homeLabel": "5：徐睿泽(深圳磐石)",
+              "awayLabel": "1：欧阳江林(个人)",
+              "homeScore": null,
+              "awayScore": null
+            },
+            {
+              "poolId": 168815,
+              "caseCode": "CASE5",
+              "order": 4,
+              "matchOrder": 4,
+              "homeNumber": 2,
+              "awayNumber": 3,
+              "homeLabel": "2：吴俊霖(个人)",
+              "awayLabel": "3：张家华(个人)",
+              "homeScore": "V",
+              "awayScore": 4
+            },
+            {
+              "poolId": 168815,
+              "caseCode": "CASE5",
+              "order": 5,
+              "matchOrder": 5,
+              "homeNumber": 5,
+              "awayNumber": 4,
+              "homeLabel": "5：徐睿泽(深圳磐石)",
+              "awayLabel": "4：吴清云(海南佼佼者)",
+              "homeScore": null,
+              "awayScore": null
+            },
+            {
+              "poolId": 168815,
+              "caseCode": "CASE5",
+              "order": 6,
+              "matchOrder": 6,
+              "homeNumber": 1,
+              "awayNumber": 3,
+              "homeLabel": "1：欧阳江林(个人)",
+              "awayLabel": "3：张家华(个人)",
+              "homeScore": 1,
+              "awayScore": "V"
+            },
+            {
+              "poolId": 168815,
+              "caseCode": "CASE5",
+              "order": 7,
+              "matchOrder": 7,
+              "homeNumber": 2,
+              "awayNumber": 5,
+              "homeLabel": "2：吴俊霖(个人)",
+              "awayLabel": "5：徐睿泽(深圳磐石)",
+              "homeScore": null,
+              "awayScore": null
+            },
+            {
+              "poolId": 168815,
+              "caseCode": "CASE5",
+              "order": 8,
+              "matchOrder": 8,
+              "homeNumber": 4,
+              "awayNumber": 1,
+              "homeLabel": "4：吴清云(海南佼佼者)",
+              "awayLabel": "1：欧阳江林(个人)",
+              "homeScore": "V",
+              "awayScore": 2
+            },
+            {
+              "poolId": 168815,
+              "caseCode": "CASE5",
+              "order": 9,
+              "matchOrder": 9,
+              "homeNumber": 3,
+              "awayNumber": 5,
+              "homeLabel": "3：张家华(个人)",
+              "awayLabel": "5：徐睿泽(深圳磐石)",
+              "homeScore": null,
+              "awayScore": null
+            },
+            {
+              "poolId": 168815,
+              "caseCode": "CASE5",
+              "order": 10,
+              "matchOrder": 10,
+              "homeNumber": 4,
+              "awayNumber": 2,
+              "homeLabel": "4：吴清云(海南佼佼者)",
+              "awayLabel": "2：吴俊霖(个人)",
+              "homeScore": "V",
+              "awayScore": 1
+            }
+          ]
+        },
+        {
+          "poolId": 168816,
+          "title": "小组 2",
+          "athletes": [
+            {
+              "id": "20150120M202110150910",
+              "drawNo": 2,
+              "name": "凌梓豪",
+              "licence": "20150120M202110150910",
+              "club": "个人",
+              "wins": 3,
+              "matches": 3,
+              "winRate": 1,
+              "scored": 15,
+              "received": 4,
+              "diff": 11,
+              "phaseRank": 1,
+              "finalRank": 1,
+              "medal": "金"
+            },
+            {
+              "id": "20141029M202307090543",
+              "drawNo": 3,
+              "name": "张浦宸",
+              "licence": "20141029M202307090543",
+              "club": "海口嘉世",
+              "wins": 2,
+              "matches": 3,
+              "winRate": 0.667,
+              "scored": 13,
+              "received": 12,
+              "diff": 1,
+              "phaseRank": 2,
+              "finalRank": 3,
+              "medal": "铜"
+            },
+            {
+              "id": "20131128M202510140413",
+              "drawNo": 4,
+              "name": "高鸣骏",
+              "licence": "20131128M202510140413",
+              "club": "海南佼佼者",
+              "wins": 1,
+              "matches": 3,
+              "winRate": 0.333,
+              "scored": 9,
+              "received": 12,
+              "diff": -3,
+              "phaseRank": 3,
+              "finalRank": 6,
+              "medal": null
+            },
+            {
+              "id": "20140106M202307010521",
+              "drawNo": 1,
+              "name": "潘杍墨",
+              "licence": "20140106M202307010521",
+              "club": "个人",
+              "wins": 0,
+              "matches": 3,
+              "winRate": 0,
+              "scored": 6,
+              "received": 15,
+              "diff": -9,
+              "phaseRank": 4,
+              "finalRank": 8,
+              "medal": null
+            }
+          ],
+          "bouts": [
+            {
+              "poolId": 168816,
+              "caseCode": "CASE4",
+              "order": 1,
+              "matchOrder": 1,
+              "homeNumber": 1,
+              "awayNumber": 4,
+              "homeLabel": "1：潘杍墨(个人)",
+              "awayLabel": "4：高鸣骏(海南佼佼者)",
+              "homeScore": 2,
+              "awayScore": "V"
+            },
+            {
+              "poolId": 168816,
+              "caseCode": "CASE4",
+              "order": 2,
+              "matchOrder": 2,
+              "homeNumber": 2,
+              "awayNumber": 3,
+              "homeLabel": "2：凌梓豪(个人)",
+              "awayLabel": "3：张浦宸(海口嘉世)",
+              "homeScore": "V",
+              "awayScore": 3
+            },
+            {
+              "poolId": 168816,
+              "caseCode": "CASE4",
+              "order": 3,
+              "matchOrder": 3,
+              "homeNumber": 3,
+              "awayNumber": 1,
+              "homeLabel": "3：张浦宸(海口嘉世)",
+              "awayLabel": "1：潘杍墨(个人)",
+              "homeScore": "V",
+              "awayScore": 4
+            },
+            {
+              "poolId": 168816,
+              "caseCode": "CASE4",
+              "order": 4,
+              "matchOrder": 4,
+              "homeNumber": 4,
+              "awayNumber": 2,
+              "homeLabel": "4：高鸣骏(海南佼佼者)",
+              "awayLabel": "2：凌梓豪(个人)",
+              "homeScore": 1,
+              "awayScore": "V"
+            },
+            {
+              "poolId": 168816,
+              "caseCode": "CASE4",
+              "order": 5,
+              "matchOrder": 5,
+              "homeNumber": 4,
+              "awayNumber": 3,
+              "homeLabel": "4：高鸣骏(海南佼佼者)",
+              "awayLabel": "3：张浦宸(海口嘉世)",
+              "homeScore": 3,
+              "awayScore": "V"
+            },
+            {
+              "poolId": 168816,
+              "caseCode": "CASE4",
+              "order": 6,
+              "matchOrder": 6,
+              "homeNumber": 1,
+              "awayNumber": 2,
+              "homeLabel": "1：潘杍墨(个人)",
+              "awayLabel": "2：凌梓豪(个人)",
+              "homeScore": 0,
+              "awayScore": "V"
+            }
+          ]
+        }
+      ],
+      "participants": [
+        {
+          "id": "20150120M202110150910",
+          "name": "凌梓豪",
+          "licence": "20150120M202110150910",
+          "club": "个人",
+          "finalRank": 1,
+          "medal": "金",
+          "ageBand": "2015 上半年",
+          "poolId": 168816,
+          "drawNo": 2,
+          "poolRank": 1,
+          "poolWins": 3,
+          "poolMatches": 3,
+          "poolDiff": 11,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 3,
+          "eliminationLosses": 0
+        },
+        {
+          "id": "20140313M201906101430",
+          "name": "张家华",
+          "licence": "20140313M201906101430",
+          "club": "个人",
+          "finalRank": 2,
+          "medal": "银",
+          "ageBand": "2014 上半年",
+          "poolId": 168815,
+          "drawNo": 3,
+          "poolRank": 1,
+          "poolWins": 2,
+          "poolMatches": 3,
+          "poolDiff": 6,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 2,
+          "eliminationLosses": 1
+        },
+        {
+          "id": "20141029M202307090543",
+          "name": "张浦宸",
+          "licence": "20141029M202307090543",
+          "club": "海口嘉世",
+          "finalRank": 3,
+          "medal": "铜",
+          "ageBand": "2014 下半年",
+          "poolId": 168816,
+          "drawNo": 3,
+          "poolRank": 2,
+          "poolWins": 2,
+          "poolMatches": 3,
+          "poolDiff": 1,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 1,
+          "eliminationLosses": 1
+        },
+        {
+          "id": "20131022M202510150526",
+          "name": "吴清云",
+          "licence": "20131022M202510150526",
+          "club": "海南佼佼者",
+          "finalRank": 3,
+          "medal": "铜",
+          "ageBand": "2013 下半年",
+          "poolId": 168815,
+          "drawNo": 4,
+          "poolRank": 2,
+          "poolWins": 2,
+          "poolMatches": 3,
+          "poolDiff": 4,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 1,
+          "eliminationLosses": 1
+        },
+        {
+          "id": "20131101M202406221017",
+          "name": "吴俊霖",
+          "licence": "20131101M202406221017",
+          "club": "个人",
+          "finalRank": 5,
+          "medal": null,
+          "ageBand": "2013 下半年",
+          "poolId": 168815,
+          "drawNo": 2,
+          "poolRank": 3,
+          "poolWins": 2,
+          "poolMatches": 3,
+          "poolDiff": -2,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 0,
+          "eliminationLosses": 1
+        },
+        {
+          "id": "20131128M202510140413",
+          "name": "高鸣骏",
+          "licence": "20131128M202510140413",
+          "club": "海南佼佼者",
+          "finalRank": 6,
+          "medal": null,
+          "ageBand": "2013 下半年",
+          "poolId": 168816,
+          "drawNo": 4,
+          "poolRank": 3,
+          "poolWins": 1,
+          "poolMatches": 3,
+          "poolDiff": -3,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 0,
+          "eliminationLosses": 1
+        },
+        {
+          "id": "20130518M202506090651",
+          "name": "欧阳江林",
+          "licence": "20130518M202506090651",
+          "club": "个人",
+          "finalRank": 7,
+          "medal": null,
+          "ageBand": "2013 上半年",
+          "poolId": 168815,
+          "drawNo": 1,
+          "poolRank": 4,
+          "poolWins": 0,
+          "poolMatches": 3,
+          "poolDiff": -8,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 0,
+          "eliminationLosses": 1
+        },
+        {
+          "id": "20140106M202307010521",
+          "name": "潘杍墨",
+          "licence": "20140106M202307010521",
+          "club": "个人",
+          "finalRank": 8,
+          "medal": null,
+          "ageBand": "2014 上半年",
+          "poolId": 168816,
+          "drawNo": 1,
+          "poolRank": 4,
+          "poolWins": 0,
+          "poolMatches": 3,
+          "poolDiff": -9,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 0,
+          "eliminationLosses": 1
+        },
+        {
+          "id": "20141126M202401150102",
+          "name": "徐睿泽",
+          "licence": "20141126M202401150102",
+          "club": "深圳磐石",
+          "finalRank": 9,
+          "medal": null,
+          "ageBand": "2014 下半年",
+          "poolId": 168815,
+          "drawNo": 5,
+          "poolRank": null,
+          "poolWins": null,
+          "poolMatches": null,
+          "poolDiff": null,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 0,
+          "eliminationLosses": 0
+        }
+      ],
+      "eliminationLeaders": [
+        {
+          "id": "20150120M202110150910",
+          "name": "凌梓豪",
+          "club": "个人",
+          "wins": 3,
+          "losses": 0,
+          "scored": 45,
+          "received": 23,
+          "diff": 22
+        },
+        {
+          "id": "20140313M201906101430",
+          "name": "张家华",
+          "club": "个人",
+          "wins": 2,
+          "losses": 1,
+          "scored": 41,
+          "received": 20,
+          "diff": 21
+        },
+        {
+          "id": "20141029M202307090543",
+          "name": "张浦宸",
+          "club": "海口嘉世",
+          "wins": 1,
+          "losses": 1,
+          "scored": 21,
+          "received": 15,
+          "diff": 6
+        },
+        {
+          "id": "20131022M202510150526",
+          "name": "吴清云",
+          "club": "海南佼佼者",
+          "wins": 1,
+          "losses": 1,
+          "scored": 17,
+          "received": 25,
+          "diff": -8
+        },
+        {
+          "id": "20131128M202510140413",
+          "name": "高鸣骏",
+          "club": "海南佼佼者",
+          "wins": 0,
+          "losses": 1,
+          "scored": 10,
+          "received": 15,
+          "diff": -5
+        },
+        {
+          "id": "20140106M202307010521",
+          "name": "潘杍墨",
+          "club": "个人",
+          "wins": 0,
+          "losses": 1,
+          "scored": 6,
+          "received": 15,
+          "diff": -9
+        },
+        {
+          "id": "20130518M202506090651",
+          "name": "欧阳江林",
+          "club": "个人",
+          "wins": 0,
+          "losses": 1,
+          "scored": 3,
+          "received": 15,
+          "diff": -12
+        },
+        {
+          "id": "20131101M202406221017",
+          "name": "吴俊霖",
+          "club": "个人",
+          "wins": 0,
+          "losses": 1,
+          "scored": 0,
+          "received": 15,
+          "diff": -15
+        }
+      ],
+      "championPath": [
+        {
+          "phase": "8表",
+          "matchCode": "Pre001",
+          "championName": "凌梓豪",
+          "championClub": "个人",
+          "championScore": 15,
+          "opponentName": "潘杍墨",
+          "opponentClub": "个人",
+          "opponentScore": 6,
+          "isBye": false
+        },
+        {
+          "phase": "半决赛",
+          "matchCode": "Pre001",
+          "championName": "凌梓豪",
+          "championClub": "个人",
+          "championScore": 15,
+          "opponentName": "张浦宸",
+          "opponentClub": "海口嘉世",
+          "opponentScore": 6,
+          "isBye": false
+        },
+        {
+          "phase": "决赛",
+          "matchCode": "Pre001",
+          "championName": "凌梓豪",
+          "championClub": "个人",
+          "championScore": 15,
+          "opponentName": "张家华",
+          "opponentClub": "个人",
+          "opponentScore": 11,
+          "isBye": false
+        }
+      ],
+      "keyOpponents": [
+        {
+          "id": "20150120M202110150910",
+          "name": "凌梓豪",
+          "club": "个人",
+          "scored": 45,
+          "received": 23,
+          "matches": 3,
+          "wins": 3,
+          "losses": 0,
+          "diff": 22
+        },
+        {
+          "id": "20140313M201906101430",
+          "name": "张家华",
+          "club": "个人",
+          "scored": 41,
+          "received": 20,
+          "matches": 3,
+          "wins": 2,
+          "losses": 1,
+          "diff": 21
+        },
+        {
+          "id": "20141029M202307090543",
+          "name": "张浦宸",
+          "club": "海口嘉世",
+          "scored": 21,
+          "received": 15,
+          "matches": 2,
+          "wins": 1,
+          "losses": 1,
+          "diff": 6
+        },
+        {
+          "id": "20131022M202510150526",
+          "name": "吴清云",
+          "club": "海南佼佼者",
+          "scored": 17,
+          "received": 25,
+          "matches": 2,
+          "wins": 1,
+          "losses": 1,
+          "diff": -8
+        },
+        {
+          "id": "20131128M202510140413",
+          "name": "高鸣骏",
+          "club": "海南佼佼者",
+          "scored": 10,
+          "received": 15,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "diff": -5
+        },
+        {
+          "id": "20140106M202307010521",
+          "name": "潘杍墨",
+          "club": "个人",
+          "scored": 6,
+          "received": 15,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "diff": -9
+        },
+        {
+          "id": "20130518M202506090651",
+          "name": "欧阳江林",
+          "club": "个人",
+          "scored": 3,
+          "received": 15,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "diff": -12
+        },
+        {
+          "id": "20131101M202406221017",
+          "name": "吴俊霖",
+          "club": "个人",
+          "scored": 0,
+          "received": 15,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "diff": -15
+        }
+      ],
+      "insights": {
+        "headline": "凌梓豪 获得冠军，来自个人",
+        "summaryCards": [
+          {
+            "title": "冠军",
+            "value": "凌梓豪",
+            "detail": "个人 · 1名"
+          },
+          {
+            "title": "晋级线",
+            "value": "9 / 9",
+            "detail": "全部晋级"
+          },
+          {
+            "title": "淘汰赛密度",
+            "value": "7 场",
+            "detail": "含 8 场 Bye"
+          }
+        ],
+        "bullets": [
+          "凌梓豪 小组赛排第 1，最终夺冠。",
+          "个人 在当前样本里出现 5 次，是报名最集中的俱乐部。",
+          "该项目小组赛后全员晋级，淘汰赛主要用于重新排序。",
+          "淘汰赛包含较多 Bye，对阵密度偏低。"
+        ],
+        "breakout": [],
+        "fade": []
+      },
+      "athleteProfiles": [
+        {
+          "id": "20150120M202110150910",
+          "name": "凌梓豪",
+          "licence": "20150120M202110150910",
+          "club": "个人",
+          "finalRank": 1,
+          "medal": "金",
+          "ageBand": "2015 上半年",
+          "poolId": 168816,
+          "poolRank": 1,
+          "poolWins": 3,
+          "poolMatches": 3,
+          "poolDiff": 11,
+          "eliminationWins": 3,
+          "eliminationLosses": 0,
+          "eliminationDiff": 22
+        },
+        {
+          "id": "20140313M201906101430",
+          "name": "张家华",
+          "licence": "20140313M201906101430",
+          "club": "个人",
+          "finalRank": 2,
+          "medal": "银",
+          "ageBand": "2014 上半年",
+          "poolId": 168815,
+          "poolRank": 1,
+          "poolWins": 2,
+          "poolMatches": 3,
+          "poolDiff": 6,
+          "eliminationWins": 2,
+          "eliminationLosses": 1,
+          "eliminationDiff": 21
+        },
+        {
+          "id": "20141029M202307090543",
+          "name": "张浦宸",
+          "licence": "20141029M202307090543",
+          "club": "海口嘉世",
+          "finalRank": 3,
+          "medal": "铜",
+          "ageBand": "2014 下半年",
+          "poolId": 168816,
+          "poolRank": 2,
+          "poolWins": 2,
+          "poolMatches": 3,
+          "poolDiff": 1,
+          "eliminationWins": 1,
+          "eliminationLosses": 1,
+          "eliminationDiff": 6
+        },
+        {
+          "id": "20131022M202510150526",
+          "name": "吴清云",
+          "licence": "20131022M202510150526",
+          "club": "海南佼佼者",
+          "finalRank": 3,
+          "medal": "铜",
+          "ageBand": "2013 下半年",
+          "poolId": 168815,
+          "poolRank": 2,
+          "poolWins": 2,
+          "poolMatches": 3,
+          "poolDiff": 4,
+          "eliminationWins": 1,
+          "eliminationLosses": 1,
+          "eliminationDiff": -8
+        },
+        {
+          "id": "20131101M202406221017",
+          "name": "吴俊霖",
+          "licence": "20131101M202406221017",
+          "club": "个人",
+          "finalRank": 5,
+          "medal": null,
+          "ageBand": "2013 下半年",
+          "poolId": 168815,
+          "poolRank": 3,
+          "poolWins": 2,
+          "poolMatches": 3,
+          "poolDiff": -2,
+          "eliminationWins": 0,
+          "eliminationLosses": 1,
+          "eliminationDiff": -15
+        },
+        {
+          "id": "20131128M202510140413",
+          "name": "高鸣骏",
+          "licence": "20131128M202510140413",
+          "club": "海南佼佼者",
+          "finalRank": 6,
+          "medal": null,
+          "ageBand": "2013 下半年",
+          "poolId": 168816,
+          "poolRank": 3,
+          "poolWins": 1,
+          "poolMatches": 3,
+          "poolDiff": -3,
+          "eliminationWins": 0,
+          "eliminationLosses": 1,
+          "eliminationDiff": -5
+        },
+        {
+          "id": "20130518M202506090651",
+          "name": "欧阳江林",
+          "licence": "20130518M202506090651",
+          "club": "个人",
+          "finalRank": 7,
+          "medal": null,
+          "ageBand": "2013 上半年",
+          "poolId": 168815,
+          "poolRank": 4,
+          "poolWins": 0,
+          "poolMatches": 3,
+          "poolDiff": -8,
+          "eliminationWins": 0,
+          "eliminationLosses": 1,
+          "eliminationDiff": -12
+        },
+        {
+          "id": "20140106M202307010521",
+          "name": "潘杍墨",
+          "licence": "20140106M202307010521",
+          "club": "个人",
+          "finalRank": 8,
+          "medal": null,
+          "ageBand": "2014 上半年",
+          "poolId": 168816,
+          "poolRank": 4,
+          "poolWins": 0,
+          "poolMatches": 3,
+          "poolDiff": -9,
+          "eliminationWins": 0,
+          "eliminationLosses": 1,
+          "eliminationDiff": -9
+        },
+        {
+          "id": "20141126M202401150102",
+          "name": "徐睿泽",
+          "licence": "20141126M202401150102",
+          "club": "深圳磐石",
+          "finalRank": 9,
+          "medal": null,
+          "ageBand": "2014 下半年",
+          "poolId": 168815,
+          "poolRank": null,
+          "poolWins": null,
+          "poolMatches": null,
+          "poolDiff": null,
+          "eliminationWins": 0,
+          "eliminationLosses": 0,
+          "eliminationDiff": 0
+        }
+      ],
+      "clubProfiles": [
+        {
+          "id": "%E4%B8%AA%E4%BA%BA",
+          "club": "个人",
+          "entrants": 5,
+          "medals": 2,
+          "top8": 5,
+          "finalists": 2,
+          "bestRank": 1,
+          "athletes": [
+            {
+              "id": "20150120M202110150910",
+              "name": "凌梓豪",
+              "rank": 1,
+              "medal": "金"
+            },
+            {
+              "id": "20140313M201906101430",
+              "name": "张家华",
+              "rank": 2,
+              "medal": "银"
+            },
+            {
+              "id": "20131101M202406221017",
+              "name": "吴俊霖",
+              "rank": 5,
+              "medal": null
+            },
+            {
+              "id": "20130518M202506090651",
+              "name": "欧阳江林",
+              "rank": 7,
+              "medal": null
+            }
+          ]
+        },
+        {
+          "id": "%E6%B5%B7%E5%8D%97%E4%BD%BC%E4%BD%BC%E8%80%85",
+          "club": "海南佼佼者",
+          "entrants": 2,
+          "medals": 1,
+          "top8": 2,
+          "finalists": 0,
+          "bestRank": 3,
+          "athletes": [
+            {
+              "id": "20131022M202510150526",
+              "name": "吴清云",
+              "rank": 3,
+              "medal": "铜"
+            },
+            {
+              "id": "20131128M202510140413",
+              "name": "高鸣骏",
+              "rank": 6,
+              "medal": null
+            }
+          ]
+        },
+        {
+          "id": "%E6%B5%B7%E5%8F%A3%E5%98%89%E4%B8%96",
+          "club": "海口嘉世",
+          "entrants": 1,
+          "medals": 1,
+          "top8": 1,
+          "finalists": 0,
+          "bestRank": 3,
+          "athletes": [
+            {
+              "id": "20141029M202307090543",
+              "name": "张浦宸",
+              "rank": 3,
+              "medal": "铜"
+            }
+          ]
+        },
+        {
+          "id": "%E6%B7%B1%E5%9C%B3%E7%A3%90%E7%9F%B3",
+          "club": "深圳磐石",
+          "entrants": 1,
+          "medals": 0,
+          "top8": 0,
+          "finalists": 0,
+          "bestRank": 9,
+          "athletes": [
+            {
+              "id": "20141126M202401150102",
+              "name": "徐睿泽",
+              "rank": 9,
+              "medal": null
+            }
+          ]
+        }
+      ],
+      "birthBuckets": [
+        {
+          "label": "2013 上半年",
+          "entrants": 1,
+          "top8": 1,
+          "medals": 0,
+          "bestRank": 7,
+          "top8Rate": 100
+        },
+        {
+          "label": "2013 下半年",
+          "entrants": 3,
+          "top8": 3,
+          "medals": 1,
+          "bestRank": 3,
+          "top8Rate": 100
+        },
+        {
+          "label": "2014 上半年",
+          "entrants": 2,
+          "top8": 2,
+          "medals": 1,
+          "bestRank": 2,
+          "top8Rate": 100
+        },
+        {
+          "label": "2014 下半年",
+          "entrants": 2,
+          "top8": 1,
+          "medals": 1,
+          "bestRank": 3,
+          "top8Rate": 50
+        },
+        {
+          "label": "2015 上半年",
+          "entrants": 1,
+          "top8": 1,
+          "medals": 1,
+          "bestRank": 1,
+          "top8Rate": 100
+        }
+      ],
+      "clubDistribution": {
+        "个人": 5,
+        "海南佼佼者": 2,
+        "海口嘉世": 1
+      }
+    },
+    "RZSS2034020MFIU6": {
+      "fileName": "score-RZSS2034020MFIU6-analysis.json",
+      "eventCode": "RZSS2034020MFIU6",
+      "sportCode": "RZSS2034020",
+      "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+      "eventName": "U6男子花剑个人",
+      "shortEventName": "U6 男花",
+      "openDate": null,
+      "venue": "海南·儋州",
+      "competitionNo": 4,
+      "poolCount": 1,
+      "poolQualifyNo": 4,
+      "deStartPhase": "from Tableaus 半决赛",
+      "eliminationMatchCount": 3,
+      "playedEliminationMatchCount": 3,
+      "byeMatchCount": 0,
+      "athleteNames": [
+        " 张棣涵",
+        "文允",
+        "林煜轩",
+        "郭锦瑞"
+      ],
+      "region": "海南儋州",
+      "distributions": {
+        "poolStatus": {
+          "7": 1
+        },
+        "poolRemark": {
+          "Q": 4
+        },
+        "tableau": {
+          "半决赛": 1,
+          "决赛": 1
+        },
+        "eliminationByPhase": {
+          "半决赛": 2,
+          "决赛": 1
+        },
+        "eliminationResult": {
+          "W/L": 2,
+          "L/W": 1
+        },
+        "medal": {
+          "金": 1,
+          "银": 1,
+          "铜": 2
+        }
+      },
+      "topPoolStanding": [
+        {
+          "rank": 1,
+          "displayPosition": 1,
+          "name": " 张棣涵",
+          "licence": "20200601M202505101135",
+          "club": "西安万国",
+          "wins": 3,
+          "matches": 3,
+          "winRate": 1,
+          "hitsScored": 15,
+          "hitsReceived": 1,
+          "indicator": 14,
+          "remark": "Q"
+        },
+        {
+          "rank": 2,
+          "displayPosition": 2,
+          "name": "文允",
+          "licence": "20200201M202604270117",
+          "club": "个人",
+          "wins": 2,
+          "matches": 3,
+          "winRate": 0.667,
+          "hitsScored": 11,
+          "hitsReceived": 9,
+          "indicator": 2,
+          "remark": "Q"
+        },
+        {
+          "rank": 3,
+          "displayPosition": 3,
+          "name": "郭锦瑞",
+          "licence": "20200305M202604250744",
+          "club": "个人",
+          "wins": 1,
+          "matches": 3,
+          "winRate": 0.333,
+          "hitsScored": 9,
+          "hitsReceived": 14,
+          "indicator": -5,
+          "remark": "Q"
+        },
+        {
+          "rank": 4,
+          "displayPosition": 4,
+          "name": "林煜轩",
+          "licence": "20210106M202605081026",
+          "club": "个人",
+          "wins": 0,
+          "matches": 3,
+          "winRate": 0,
+          "hitsScored": 4,
+          "hitsReceived": 15,
+          "indicator": -11,
+          "remark": "Q"
+        }
+      ],
+      "latestMatches": [
+        {
+          "matchId": 497610,
+          "matchCode": "Pre001",
+          "phaseId": 168826,
+          "phase": {
+            "shortName": "T2",
+            "longName": "决赛",
+            "order": 2,
+            "code": "1",
+            "group": "2_0"
+          },
+          "groupCode": "1_0",
+          "innerOrder": 1,
+          "home": {
+            "position": 1,
+            "name": " 张棣涵",
+            "licence": "20200601M202505101135",
+            "club": "西安万国",
+            "points": 10,
+            "result": "W"
+          },
+          "away": {
+            "position": 2,
+            "name": "文允",
+            "licence": "20200201M202604270117",
+            "club": "个人",
+            "points": 4,
+            "result": "L"
+          },
+          "winner": {
+            "name": " 张棣涵",
+            "club": "西安万国"
+          },
+          "piste": "",
+          "startTime": "",
+          "isBye": false
+        },
+        {
+          "matchId": 497609,
+          "matchCode": "Pre002",
+          "phaseId": 168825,
+          "phase": {
+            "shortName": "T4",
+            "longName": "半决赛",
+            "order": 1,
+            "code": "2",
+            "group": "1_0"
+          },
+          "groupCode": "2_0",
+          "innerOrder": 2,
+          "home": {
+            "position": 3,
+            "name": "郭锦瑞",
+            "licence": "20200305M202604250744",
+            "club": "个人",
+            "points": 2,
+            "result": "L"
+          },
+          "away": {
+            "position": 2,
+            "name": "文允",
+            "licence": "20200201M202604270117",
+            "club": "个人",
+            "points": 10,
+            "result": "W"
+          },
+          "winner": {
+            "name": "文允",
+            "club": "个人"
+          },
+          "piste": "",
+          "startTime": "",
+          "isBye": false
+        },
+        {
+          "matchId": 497608,
+          "matchCode": "Pre001",
+          "phaseId": 168825,
+          "phase": {
+            "shortName": "T4",
+            "longName": "半决赛",
+            "order": 1,
+            "code": "2",
+            "group": "1_0"
+          },
+          "groupCode": "2_0",
+          "innerOrder": 1,
+          "home": {
+            "position": 1,
+            "name": " 张棣涵",
+            "licence": "20200601M202505101135",
+            "club": "西安万国",
+            "points": 10,
+            "result": "W"
+          },
+          "away": {
+            "position": 4,
+            "name": "林煜轩",
+            "licence": "20210106M202605081026",
+            "club": "个人",
+            "points": 4,
+            "result": "L"
+          },
+          "winner": {
+            "name": " 张棣涵",
+            "club": "西安万国"
+          },
+          "piste": "",
+          "startTime": "",
+          "isBye": false
+        }
+      ],
+      "eliminationPhaseGroups": [
+        {
+          "phase": "半决赛",
+          "order": 1,
+          "matches": [
+            {
+              "matchId": 497608,
+              "matchCode": "Pre001",
+              "phaseId": 168825,
+              "phase": {
+                "shortName": "T4",
+                "longName": "半决赛",
+                "order": 1,
+                "code": "2",
+                "group": "1_0"
+              },
+              "groupCode": "2_0",
+              "innerOrder": 1,
+              "home": {
+                "position": 1,
+                "name": " 张棣涵",
+                "licence": "20200601M202505101135",
+                "club": "西安万国",
+                "points": 10,
+                "result": "W"
+              },
+              "away": {
+                "position": 4,
+                "name": "林煜轩",
+                "licence": "20210106M202605081026",
+                "club": "个人",
+                "points": 4,
+                "result": "L"
+              },
+              "winner": {
+                "name": " 张棣涵",
+                "club": "西安万国"
+              },
+              "piste": "",
+              "startTime": "",
+              "isBye": false
+            },
+            {
+              "matchId": 497609,
+              "matchCode": "Pre002",
+              "phaseId": 168825,
+              "phase": {
+                "shortName": "T4",
+                "longName": "半决赛",
+                "order": 1,
+                "code": "2",
+                "group": "1_0"
+              },
+              "groupCode": "2_0",
+              "innerOrder": 2,
+              "home": {
+                "position": 3,
+                "name": "郭锦瑞",
+                "licence": "20200305M202604250744",
+                "club": "个人",
+                "points": 2,
+                "result": "L"
+              },
+              "away": {
+                "position": 2,
+                "name": "文允",
+                "licence": "20200201M202604270117",
+                "club": "个人",
+                "points": 10,
+                "result": "W"
+              },
+              "winner": {
+                "name": "文允",
+                "club": "个人"
+              },
+              "piste": "",
+              "startTime": "",
+              "isBye": false
+            }
+          ]
+        },
+        {
+          "phase": "决赛",
+          "order": 2,
+          "matches": [
+            {
+              "matchId": 497610,
+              "matchCode": "Pre001",
+              "phaseId": 168826,
+              "phase": {
+                "shortName": "T2",
+                "longName": "决赛",
+                "order": 2,
+                "code": "1",
+                "group": "2_0"
+              },
+              "groupCode": "1_0",
+              "innerOrder": 1,
+              "home": {
+                "position": 1,
+                "name": " 张棣涵",
+                "licence": "20200601M202505101135",
+                "club": "西安万国",
+                "points": 10,
+                "result": "W"
+              },
+              "away": {
+                "position": 2,
+                "name": "文允",
+                "licence": "20200201M202604270117",
+                "club": "个人",
+                "points": 4,
+                "result": "L"
+              },
+              "winner": {
+                "name": " 张棣涵",
+                "club": "西安万国"
+              },
+              "piste": "",
+              "startTime": "",
+              "isBye": false
+            }
+          ]
+        }
+      ],
+      "poolBouts": [
+        {
+          "poolId": 168824,
+          "caseCode": "CASE4",
+          "order": 1,
+          "matchOrder": 1,
+          "homeNumber": 1,
+          "awayNumber": 4,
+          "homeLabel": "1：林煜轩(个人)",
+          "awayLabel": "4： 张棣涵(西安万国)",
+          "homeScore": 0,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168824,
+          "caseCode": "CASE4",
+          "order": 2,
+          "matchOrder": 2,
+          "homeNumber": 2,
+          "awayNumber": 3,
+          "homeLabel": "2：郭锦瑞(个人)",
+          "awayLabel": "3：文允(个人)",
+          "homeScore": 4,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168824,
+          "caseCode": "CASE4",
+          "order": 3,
+          "matchOrder": 3,
+          "homeNumber": 3,
+          "awayNumber": 1,
+          "homeLabel": "3：文允(个人)",
+          "awayLabel": "1：林煜轩(个人)",
+          "homeScore": "V",
+          "awayScore": 0
+        },
+        {
+          "poolId": 168824,
+          "caseCode": "CASE4",
+          "order": 4,
+          "matchOrder": 4,
+          "homeNumber": 4,
+          "awayNumber": 2,
+          "homeLabel": "4： 张棣涵(西安万国)",
+          "awayLabel": "2：郭锦瑞(个人)",
+          "homeScore": "V",
+          "awayScore": 0
+        },
+        {
+          "poolId": 168824,
+          "caseCode": "CASE4",
+          "order": 5,
+          "matchOrder": 5,
+          "homeNumber": 4,
+          "awayNumber": 3,
+          "homeLabel": "4： 张棣涵(西安万国)",
+          "awayLabel": "3：文允(个人)",
+          "homeScore": "V",
+          "awayScore": 1
+        },
+        {
+          "poolId": 168824,
+          "caseCode": "CASE4",
+          "order": 6,
+          "matchOrder": 6,
+          "homeNumber": 1,
+          "awayNumber": 2,
+          "homeLabel": "1：林煜轩(个人)",
+          "awayLabel": "2：郭锦瑞(个人)",
+          "homeScore": 4,
+          "awayScore": "V"
+        }
+      ],
+      "poolGroups": [
+        {
+          "poolId": 168824,
+          "title": "小组 1",
+          "athletes": [
+            {
+              "id": "20200601M202505101135",
+              "drawNo": 4,
+              "name": " 张棣涵",
+              "licence": "20200601M202505101135",
+              "club": "西安万国",
+              "wins": 3,
+              "matches": 3,
+              "winRate": 1,
+              "scored": 15,
+              "received": 1,
+              "diff": 14,
+              "phaseRank": 1,
+              "finalRank": 1,
+              "medal": "金"
+            },
+            {
+              "id": "20200201M202604270117",
+              "drawNo": 3,
+              "name": "文允",
+              "licence": "20200201M202604270117",
+              "club": "个人",
+              "wins": 2,
+              "matches": 3,
+              "winRate": 0.667,
+              "scored": 11,
+              "received": 9,
+              "diff": 2,
+              "phaseRank": 2,
+              "finalRank": 2,
+              "medal": "银"
+            },
+            {
+              "id": "20200305M202604250744",
+              "drawNo": 2,
+              "name": "郭锦瑞",
+              "licence": "20200305M202604250744",
+              "club": "个人",
+              "wins": 1,
+              "matches": 3,
+              "winRate": 0.333,
+              "scored": 9,
+              "received": 14,
+              "diff": -5,
+              "phaseRank": 3,
+              "finalRank": 3,
+              "medal": "铜"
+            },
+            {
+              "id": "20210106M202605081026",
+              "drawNo": 1,
+              "name": "林煜轩",
+              "licence": "20210106M202605081026",
+              "club": "个人",
+              "wins": 0,
+              "matches": 3,
+              "winRate": 0,
+              "scored": 4,
+              "received": 15,
+              "diff": -11,
+              "phaseRank": 4,
+              "finalRank": 3,
+              "medal": "铜"
+            }
+          ],
+          "bouts": [
+            {
+              "poolId": 168824,
+              "caseCode": "CASE4",
+              "order": 1,
+              "matchOrder": 1,
+              "homeNumber": 1,
+              "awayNumber": 4,
+              "homeLabel": "1：林煜轩(个人)",
+              "awayLabel": "4： 张棣涵(西安万国)",
+              "homeScore": 0,
+              "awayScore": "V"
+            },
+            {
+              "poolId": 168824,
+              "caseCode": "CASE4",
+              "order": 2,
+              "matchOrder": 2,
+              "homeNumber": 2,
+              "awayNumber": 3,
+              "homeLabel": "2：郭锦瑞(个人)",
+              "awayLabel": "3：文允(个人)",
+              "homeScore": 4,
+              "awayScore": "V"
+            },
+            {
+              "poolId": 168824,
+              "caseCode": "CASE4",
+              "order": 3,
+              "matchOrder": 3,
+              "homeNumber": 3,
+              "awayNumber": 1,
+              "homeLabel": "3：文允(个人)",
+              "awayLabel": "1：林煜轩(个人)",
+              "homeScore": "V",
+              "awayScore": 0
+            },
+            {
+              "poolId": 168824,
+              "caseCode": "CASE4",
+              "order": 4,
+              "matchOrder": 4,
+              "homeNumber": 4,
+              "awayNumber": 2,
+              "homeLabel": "4： 张棣涵(西安万国)",
+              "awayLabel": "2：郭锦瑞(个人)",
+              "homeScore": "V",
+              "awayScore": 0
+            },
+            {
+              "poolId": 168824,
+              "caseCode": "CASE4",
+              "order": 5,
+              "matchOrder": 5,
+              "homeNumber": 4,
+              "awayNumber": 3,
+              "homeLabel": "4： 张棣涵(西安万国)",
+              "awayLabel": "3：文允(个人)",
+              "homeScore": "V",
+              "awayScore": 1
+            },
+            {
+              "poolId": 168824,
+              "caseCode": "CASE4",
+              "order": 6,
+              "matchOrder": 6,
+              "homeNumber": 1,
+              "awayNumber": 2,
+              "homeLabel": "1：林煜轩(个人)",
+              "awayLabel": "2：郭锦瑞(个人)",
+              "homeScore": 4,
+              "awayScore": "V"
+            }
+          ]
+        }
+      ],
+      "participants": [
+        {
+          "id": "20200601M202505101135",
+          "name": " 张棣涵",
+          "licence": "20200601M202505101135",
+          "club": "西安万国",
+          "finalRank": 1,
+          "medal": "金",
+          "ageBand": "2020 上半年",
+          "poolId": 168824,
+          "drawNo": 4,
+          "poolRank": 1,
+          "poolWins": 3,
+          "poolMatches": 3,
+          "poolDiff": 14,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 2,
+          "eliminationLosses": 0
+        },
+        {
+          "id": "20200201M202604270117",
+          "name": "文允",
+          "licence": "20200201M202604270117",
+          "club": "个人",
+          "finalRank": 2,
+          "medal": "银",
+          "ageBand": "2020 上半年",
+          "poolId": 168824,
+          "drawNo": 3,
+          "poolRank": 2,
+          "poolWins": 2,
+          "poolMatches": 3,
+          "poolDiff": 2,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 1,
+          "eliminationLosses": 1
+        },
+        {
+          "id": "20210106M202605081026",
+          "name": "林煜轩",
+          "licence": "20210106M202605081026",
+          "club": "个人",
+          "finalRank": 3,
+          "medal": "铜",
+          "ageBand": "2021 上半年",
+          "poolId": 168824,
+          "drawNo": 1,
+          "poolRank": 4,
+          "poolWins": 0,
+          "poolMatches": 3,
+          "poolDiff": -11,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 0,
+          "eliminationLosses": 1
+        },
+        {
+          "id": "20200305M202604250744",
+          "name": "郭锦瑞",
+          "licence": "20200305M202604250744",
+          "club": "个人",
+          "finalRank": 3,
+          "medal": "铜",
+          "ageBand": "2020 上半年",
+          "poolId": 168824,
+          "drawNo": 2,
+          "poolRank": 3,
+          "poolWins": 1,
+          "poolMatches": 3,
+          "poolDiff": -5,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 0,
+          "eliminationLosses": 1
+        }
+      ],
+      "eliminationLeaders": [
+        {
+          "id": "20200601M202505101135",
+          "name": " 张棣涵",
+          "club": "西安万国",
+          "wins": 2,
+          "losses": 0,
+          "scored": 20,
+          "received": 8,
+          "diff": 12
+        },
+        {
+          "id": "20200201M202604270117",
+          "name": "文允",
+          "club": "个人",
+          "wins": 1,
+          "losses": 1,
+          "scored": 14,
+          "received": 12,
+          "diff": 2
+        },
+        {
+          "id": "20210106M202605081026",
+          "name": "林煜轩",
+          "club": "个人",
+          "wins": 0,
+          "losses": 1,
+          "scored": 4,
+          "received": 10,
+          "diff": -6
+        },
+        {
+          "id": "20200305M202604250744",
+          "name": "郭锦瑞",
+          "club": "个人",
+          "wins": 0,
+          "losses": 1,
+          "scored": 2,
+          "received": 10,
+          "diff": -8
+        }
+      ],
+      "championPath": [
+        {
+          "phase": "半决赛",
+          "matchCode": "Pre001",
+          "championName": " 张棣涵",
+          "championClub": "西安万国",
+          "championScore": 10,
+          "opponentName": "林煜轩",
+          "opponentClub": "个人",
+          "opponentScore": 4,
+          "isBye": false
+        },
+        {
+          "phase": "决赛",
+          "matchCode": "Pre001",
+          "championName": " 张棣涵",
+          "championClub": "西安万国",
+          "championScore": 10,
+          "opponentName": "文允",
+          "opponentClub": "个人",
+          "opponentScore": 4,
+          "isBye": false
+        }
+      ],
+      "keyOpponents": [
+        {
+          "id": "20200601M202505101135",
+          "name": " 张棣涵",
+          "club": "西安万国",
+          "scored": 20,
+          "received": 8,
+          "matches": 2,
+          "wins": 2,
+          "losses": 0,
+          "diff": 12
+        },
+        {
+          "id": "20200201M202604270117",
+          "name": "文允",
+          "club": "个人",
+          "scored": 14,
+          "received": 12,
+          "matches": 2,
+          "wins": 1,
+          "losses": 1,
+          "diff": 2
+        },
+        {
+          "id": "20210106M202605081026",
+          "name": "林煜轩",
+          "club": "个人",
+          "scored": 4,
+          "received": 10,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "diff": -6
+        },
+        {
+          "id": "20200305M202604250744",
+          "name": "郭锦瑞",
+          "club": "个人",
+          "scored": 2,
+          "received": 10,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "diff": -8
+        }
+      ],
+      "insights": {
+        "headline": " 张棣涵 获得冠军，来自西安万国",
+        "summaryCards": [
+          {
+            "title": "冠军",
+            "value": " 张棣涵",
+            "detail": "西安万国 · 1名"
+          },
+          {
+            "title": "晋级线",
+            "value": "4 / 4",
+            "detail": "全部晋级"
+          },
+          {
+            "title": "淘汰赛密度",
+            "value": "3 场",
+            "detail": "含 0 场 Bye"
+          }
+        ],
+        "bullets": [
+          " 张棣涵 小组赛排第 1，最终夺冠。",
+          "个人 在当前样本里出现 3 次，是报名最集中的俱乐部。",
+          "该项目小组赛后全员晋级，淘汰赛主要用于重新排序。",
+          "淘汰赛实际对阵密度较高，签位空转不明显。"
+        ],
+        "breakout": [],
+        "fade": []
+      },
+      "athleteProfiles": [
+        {
+          "id": "20200601M202505101135",
+          "name": " 张棣涵",
+          "licence": "20200601M202505101135",
+          "club": "西安万国",
+          "finalRank": 1,
+          "medal": "金",
+          "ageBand": "2020 上半年",
+          "poolId": 168824,
+          "poolRank": 1,
+          "poolWins": 3,
+          "poolMatches": 3,
+          "poolDiff": 14,
+          "eliminationWins": 2,
+          "eliminationLosses": 0,
+          "eliminationDiff": 12
+        },
+        {
+          "id": "20200201M202604270117",
+          "name": "文允",
+          "licence": "20200201M202604270117",
+          "club": "个人",
+          "finalRank": 2,
+          "medal": "银",
+          "ageBand": "2020 上半年",
+          "poolId": 168824,
+          "poolRank": 2,
+          "poolWins": 2,
+          "poolMatches": 3,
+          "poolDiff": 2,
+          "eliminationWins": 1,
+          "eliminationLosses": 1,
+          "eliminationDiff": 2
+        },
+        {
+          "id": "20210106M202605081026",
+          "name": "林煜轩",
+          "licence": "20210106M202605081026",
+          "club": "个人",
+          "finalRank": 3,
+          "medal": "铜",
+          "ageBand": "2021 上半年",
+          "poolId": 168824,
+          "poolRank": 4,
+          "poolWins": 0,
+          "poolMatches": 3,
+          "poolDiff": -11,
+          "eliminationWins": 0,
+          "eliminationLosses": 1,
+          "eliminationDiff": -6
+        },
+        {
+          "id": "20200305M202604250744",
+          "name": "郭锦瑞",
+          "licence": "20200305M202604250744",
+          "club": "个人",
+          "finalRank": 3,
+          "medal": "铜",
+          "ageBand": "2020 上半年",
+          "poolId": 168824,
+          "poolRank": 3,
+          "poolWins": 1,
+          "poolMatches": 3,
+          "poolDiff": -5,
+          "eliminationWins": 0,
+          "eliminationLosses": 1,
+          "eliminationDiff": -8
+        }
+      ],
+      "clubProfiles": [
+        {
+          "id": "%E4%B8%AA%E4%BA%BA",
+          "club": "个人",
+          "entrants": 3,
+          "medals": 3,
+          "top8": 3,
+          "finalists": 1,
+          "bestRank": 2,
+          "athletes": [
+            {
+              "id": "20200201M202604270117",
+              "name": "文允",
+              "rank": 2,
+              "medal": "银"
+            },
+            {
+              "id": "20210106M202605081026",
+              "name": "林煜轩",
+              "rank": 3,
+              "medal": "铜"
+            },
+            {
+              "id": "20200305M202604250744",
+              "name": "郭锦瑞",
+              "rank": 3,
+              "medal": "铜"
+            }
+          ]
+        },
+        {
+          "id": "%E8%A5%BF%E5%AE%89%E4%B8%87%E5%9B%BD",
+          "club": "西安万国",
+          "entrants": 1,
+          "medals": 1,
+          "top8": 1,
+          "finalists": 1,
+          "bestRank": 1,
+          "athletes": [
+            {
+              "id": "20200601M202505101135",
+              "name": " 张棣涵",
+              "rank": 1,
+              "medal": "金"
+            }
+          ]
+        }
+      ],
+      "birthBuckets": [
+        {
+          "label": "2020 上半年",
+          "entrants": 3,
+          "top8": 3,
+          "medals": 3,
+          "bestRank": 1,
+          "top8Rate": 100
+        },
+        {
+          "label": "2021 上半年",
+          "entrants": 1,
+          "top8": 1,
+          "medals": 1,
+          "bestRank": 3,
+          "top8Rate": 100
+        }
+      ],
+      "clubDistribution": {
+        "个人": 3,
+        "西安万国": 1
+      }
+    },
+    "RZSS2034020MFIU8": {
+      "fileName": "score-RZSS2034020MFIU8-analysis.json",
+      "eventCode": "RZSS2034020MFIU8",
+      "sportCode": "RZSS2034020",
+      "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+      "eventName": "U8男子花剑个人",
+      "shortEventName": "U8 男花",
+      "openDate": null,
+      "venue": "海南·儋州",
+      "competitionNo": 10,
+      "poolCount": 2,
+      "poolQualifyNo": 10,
+      "deStartPhase": "from Tableaus 16",
+      "eliminationMatchCount": 15,
+      "playedEliminationMatchCount": 9,
+      "byeMatchCount": 6,
+      "athleteNames": [
+        "钟昊哲",
+        "陈炜胤",
+        "李闫君",
+        " 张棣涵",
+        "杨以沐",
+        "张梓铄",
+        "姚皓予",
+        "利炳林",
+        "文允",
+        "林煜轩"
+      ],
+      "region": "海南儋州",
+      "distributions": {
+        "poolStatus": {
+          "7": 2
+        },
+        "poolRemark": {
+          "Q": 10
+        },
+        "tableau": {
+          "16表": 1,
+          "8表": 1,
+          "半决赛": 1,
+          "决赛": 1
+        },
+        "eliminationByPhase": {
+          "16表": 8,
+          "8表": 4,
+          "半决赛": 2,
+          "决赛": 1
+        },
+        "eliminationResult": {
+          "W/L": 10,
+          "L/W": 5
+        },
+        "medal": {
+          "金": 1,
+          "银": 1,
+          "铜": 2,
+          "(无奖牌)": 6
+        }
+      },
+      "topPoolStanding": [
+        {
+          "rank": 1,
+          "displayPosition": 1,
+          "name": "李闫君",
+          "licence": "20190512M202411111015",
+          "club": "个人",
+          "wins": 4,
+          "matches": 4,
+          "winRate": 1,
+          "hitsScored": 20,
+          "hitsReceived": 9,
+          "indicator": 11,
+          "remark": "Q"
+        },
+        {
+          "rank": 2,
+          "displayPosition": 2,
+          "name": "杨以沐",
+          "licence": "20191211M202504150230",
+          "club": "成都芮欧",
+          "wins": 3,
+          "matches": 4,
+          "winRate": 0.75,
+          "hitsScored": 18,
+          "hitsReceived": 7,
+          "indicator": 11,
+          "remark": "Q"
+        },
+        {
+          "rank": 3,
+          "displayPosition": 3,
+          "name": "陈炜胤",
+          "licence": "20180927M202410060349",
+          "club": "广西凡胜",
+          "wins": 3,
+          "matches": 4,
+          "winRate": 0.75,
+          "hitsScored": 18,
+          "hitsReceived": 7,
+          "indicator": 11,
+          "remark": "Q"
+        },
+        {
+          "rank": 4,
+          "displayPosition": 4,
+          "name": "张梓铄",
+          "licence": "20180912M202510140228",
+          "club": "海南佼佼者",
+          "wins": 3,
+          "matches": 4,
+          "winRate": 0.75,
+          "hitsScored": 15,
+          "hitsReceived": 8,
+          "indicator": 7,
+          "remark": "Q"
+        },
+        {
+          "rank": 5,
+          "displayPosition": 5,
+          "name": "钟昊哲",
+          "licence": "20180418M202406091148",
+          "club": "个人",
+          "wins": 3,
+          "matches": 4,
+          "winRate": 0.75,
+          "hitsScored": 14,
+          "hitsReceived": 12,
+          "indicator": 2,
+          "remark": "Q"
+        },
+        {
+          "rank": 6,
+          "displayPosition": 6,
+          "name": "姚皓予",
+          "licence": "20191219M202605050934",
+          "club": "个人",
+          "wins": 2,
+          "matches": 4,
+          "winRate": 0.5,
+          "hitsScored": 13,
+          "hitsReceived": 17,
+          "indicator": -4,
+          "remark": "Q"
+        },
+        {
+          "rank": 7,
+          "displayPosition": 7,
+          "name": " 张棣涵",
+          "licence": "20200601M202505101135",
+          "club": "西安万国",
+          "wins": 1,
+          "matches": 4,
+          "winRate": 0.25,
+          "hitsScored": 15,
+          "hitsReceived": 15,
+          "indicator": 0,
+          "remark": "Q"
+        },
+        {
+          "rank": 8,
+          "displayPosition": 8,
+          "name": "利炳林",
+          "licence": "20180131M202605100931",
+          "club": "海口嘉世",
+          "wins": 1,
+          "matches": 4,
+          "winRate": 0.25,
+          "hitsScored": 11,
+          "hitsReceived": 17,
+          "indicator": -6,
+          "remark": "Q"
+        },
+        {
+          "rank": 9,
+          "displayPosition": 9,
+          "name": "文允",
+          "licence": "20200201M202604270117",
+          "club": "个人",
+          "wins": 0,
+          "matches": 4,
+          "winRate": 0,
+          "hitsScored": 8,
+          "hitsReceived": 20,
+          "indicator": -12,
+          "remark": "Q"
+        },
+        {
+          "rank": 10,
+          "displayPosition": 10,
+          "name": "林煜轩",
+          "licence": "20210106M202605081026",
+          "club": "个人",
+          "wins": 0,
+          "matches": 4,
+          "winRate": 0,
+          "hitsScored": 0,
+          "hitsReceived": 20,
+          "indicator": -20,
+          "remark": "Q"
+        }
+      ],
+      "latestMatches": [
+        {
+          "matchId": 497691,
+          "matchCode": "Pre001",
+          "phaseId": 168888,
+          "phase": {
+            "shortName": "T2",
+            "longName": "决赛",
+            "order": 4,
+            "code": "1",
+            "group": "4_0"
+          },
+          "groupCode": "1_0",
+          "innerOrder": 1,
+          "home": {
+            "position": 1,
+            "name": "钟昊哲",
+            "licence": "20180418M202406091148",
+            "club": "个人",
+            "points": 10,
+            "result": "W"
+          },
+          "away": {
+            "position": 2,
+            "name": "陈炜胤",
+            "licence": "20180927M202410060349",
+            "club": "广西凡胜",
+            "points": 3,
+            "result": "L"
+          },
+          "winner": {
+            "name": "钟昊哲",
+            "club": "个人"
+          },
+          "piste": "",
+          "startTime": "",
+          "isBye": false
+        },
+        {
+          "matchId": 497690,
+          "matchCode": "Pre002",
+          "phaseId": 168887,
+          "phase": {
+            "shortName": "T4",
+            "longName": "半决赛",
+            "order": 3,
+            "code": "2",
+            "group": "3_0"
+          },
+          "groupCode": "2_0",
+          "innerOrder": 2,
+          "home": {
+            "position": 3,
+            "name": "陈炜胤",
+            "licence": "20180927M202410060349",
+            "club": "广西凡胜",
+            "points": 10,
+            "result": "W"
+          },
+          "away": {
+            "position": 2,
+            "name": " 张棣涵",
+            "licence": "20200601M202505101135",
+            "club": "西安万国",
+            "points": 7,
+            "result": "L"
+          },
+          "winner": {
+            "name": "陈炜胤",
+            "club": "广西凡胜"
+          },
+          "piste": "",
+          "startTime": "",
+          "isBye": false
+        },
+        {
+          "matchId": 497689,
+          "matchCode": "Pre001",
+          "phaseId": 168887,
+          "phase": {
+            "shortName": "T4",
+            "longName": "半决赛",
+            "order": 3,
+            "code": "2",
+            "group": "3_0"
+          },
+          "groupCode": "2_0",
+          "innerOrder": 1,
+          "home": {
+            "position": 1,
+            "name": "李闫君",
+            "licence": "20190512M202411111015",
+            "club": "个人",
+            "points": 6,
+            "result": "L"
+          },
+          "away": {
+            "position": 4,
+            "name": "钟昊哲",
+            "licence": "20180418M202406091148",
+            "club": "个人",
+            "points": 10,
+            "result": "W"
+          },
+          "winner": {
+            "name": "钟昊哲",
+            "club": "个人"
+          },
+          "piste": "",
+          "startTime": "",
+          "isBye": false
+        },
+        {
+          "matchId": 497688,
+          "matchCode": "Pre004",
+          "phaseId": 168886,
+          "phase": {
+            "shortName": "T8",
+            "longName": "8表",
+            "order": 2,
+            "code": "3",
+            "group": "2_0"
+          },
+          "groupCode": "3_1",
+          "innerOrder": 2,
+          "home": {
+            "position": 7,
+            "name": " 张棣涵",
+            "licence": "20200601M202505101135",
+            "club": "西安万国",
+            "points": 10,
+            "result": "W"
+          },
+          "away": {
+            "position": 2,
+            "name": "杨以沐",
+            "licence": "20191211M202504150230",
+            "club": "成都芮欧",
+            "points": 6,
+            "result": "L"
+          },
+          "winner": {
+            "name": " 张棣涵",
+            "club": "西安万国"
+          },
+          "piste": "",
+          "startTime": "",
+          "isBye": false
+        },
+        {
+          "matchId": 497687,
+          "matchCode": "Pre003",
+          "phaseId": 168886,
+          "phase": {
+            "shortName": "T8",
+            "longName": "8表",
+            "order": 2,
+            "code": "3",
+            "group": "2_0"
+          },
+          "groupCode": "3_1",
+          "innerOrder": 1,
+          "home": {
+            "position": 3,
+            "name": "陈炜胤",
+            "licence": "20180927M202410060349",
+            "club": "广西凡胜",
+            "points": 10,
+            "result": "W"
+          },
+          "away": {
+            "position": 6,
+            "name": "姚皓予",
+            "licence": "20191219M202605050934",
+            "club": "个人",
+            "points": 3,
+            "result": "L"
+          },
+          "winner": {
+            "name": "陈炜胤",
+            "club": "广西凡胜"
+          },
+          "piste": "",
+          "startTime": "",
+          "isBye": false
+        },
+        {
+          "matchId": 497686,
+          "matchCode": "Pre002",
+          "phaseId": 168886,
+          "phase": {
+            "shortName": "T8",
+            "longName": "8表",
+            "order": 2,
+            "code": "3",
+            "group": "2_0"
+          },
+          "groupCode": "3_0",
+          "innerOrder": 2,
+          "home": {
+            "position": 5,
+            "name": "钟昊哲",
+            "licence": "20180418M202406091148",
+            "club": "个人",
+            "points": 10,
+            "result": "W"
+          },
+          "away": {
+            "position": 4,
+            "name": "张梓铄",
+            "licence": "20180912M202510140228",
+            "club": "海南佼佼者",
+            "points": 8,
+            "result": "L"
+          },
+          "winner": {
+            "name": "钟昊哲",
+            "club": "个人"
+          },
+          "piste": "",
+          "startTime": "",
+          "isBye": false
+        },
+        {
+          "matchId": 497685,
+          "matchCode": "Pre001",
+          "phaseId": 168886,
+          "phase": {
+            "shortName": "T8",
+            "longName": "8表",
+            "order": 2,
+            "code": "3",
+            "group": "2_0"
+          },
+          "groupCode": "3_0",
+          "innerOrder": 1,
+          "home": {
+            "position": 1,
+            "name": "李闫君",
+            "licence": "20190512M202411111015",
+            "club": "个人",
+            "points": 10,
+            "result": "W"
+          },
+          "away": {
+            "position": 8,
+            "name": "利炳林",
+            "licence": "20180131M202605100931",
+            "club": "海口嘉世",
+            "points": 7,
+            "result": "L"
+          },
+          "winner": {
+            "name": "李闫君",
+            "club": "个人"
+          },
+          "piste": "",
+          "startTime": "",
+          "isBye": false
+        },
+        {
+          "matchId": 497683,
+          "matchCode": "Pre007",
+          "phaseId": 168885,
+          "phase": {
+            "shortName": "T16",
+            "longName": "16表",
+            "order": 1,
+            "code": "4",
+            "group": "1_0"
+          },
+          "groupCode": "4_3",
+          "innerOrder": 1,
+          "home": {
+            "position": 7,
+            "name": " 张棣涵",
+            "licence": "20200601M202505101135",
+            "club": "西安万国",
+            "points": 10,
+            "result": "W"
+          },
+          "away": {
+            "position": 10,
+            "name": "林煜轩",
+            "licence": "20210106M202605081026",
+            "club": "个人",
+            "points": 1,
+            "result": "L"
+          },
+          "winner": {
+            "name": " 张棣涵",
+            "club": "西安万国"
+          },
+          "piste": "",
+          "startTime": "",
+          "isBye": false
+        },
+        {
+          "matchId": 497678,
+          "matchCode": "Pre002",
+          "phaseId": 168885,
+          "phase": {
+            "shortName": "T16",
+            "longName": "16表",
+            "order": 1,
+            "code": "4",
+            "group": "1_0"
+          },
+          "groupCode": "4_0",
+          "innerOrder": 2,
+          "home": {
+            "position": 9,
+            "name": "文允",
+            "licence": "20200201M202604270117",
+            "club": "个人",
+            "points": 6,
+            "result": "L"
+          },
+          "away": {
+            "position": 8,
+            "name": "利炳林",
+            "licence": "20180131M202605100931",
+            "club": "海口嘉世",
+            "points": 10,
+            "result": "W"
+          },
+          "winner": {
+            "name": "利炳林",
+            "club": "海口嘉世"
+          },
+          "piste": "",
+          "startTime": "",
+          "isBye": false
+        }
+      ],
+      "eliminationPhaseGroups": [
+        {
+          "phase": "16表",
+          "order": 1,
+          "matches": [
+            {
+              "matchId": 497683,
+              "matchCode": "Pre007",
+              "phaseId": 168885,
+              "phase": {
+                "shortName": "T16",
+                "longName": "16表",
+                "order": 1,
+                "code": "4",
+                "group": "1_0"
+              },
+              "groupCode": "4_3",
+              "innerOrder": 1,
+              "home": {
+                "position": 7,
+                "name": " 张棣涵",
+                "licence": "20200601M202505101135",
+                "club": "西安万国",
+                "points": 10,
+                "result": "W"
+              },
+              "away": {
+                "position": 10,
+                "name": "林煜轩",
+                "licence": "20210106M202605081026",
+                "club": "个人",
+                "points": 1,
+                "result": "L"
+              },
+              "winner": {
+                "name": " 张棣涵",
+                "club": "西安万国"
+              },
+              "piste": "",
+              "startTime": "",
+              "isBye": false
+            },
+            {
+              "matchId": 497678,
+              "matchCode": "Pre002",
+              "phaseId": 168885,
+              "phase": {
+                "shortName": "T16",
+                "longName": "16表",
+                "order": 1,
+                "code": "4",
+                "group": "1_0"
+              },
+              "groupCode": "4_0",
+              "innerOrder": 2,
+              "home": {
+                "position": 9,
+                "name": "文允",
+                "licence": "20200201M202604270117",
+                "club": "个人",
+                "points": 6,
+                "result": "L"
+              },
+              "away": {
+                "position": 8,
+                "name": "利炳林",
+                "licence": "20180131M202605100931",
+                "club": "海口嘉世",
+                "points": 10,
+                "result": "W"
+              },
+              "winner": {
+                "name": "利炳林",
+                "club": "海口嘉世"
+              },
+              "piste": "",
+              "startTime": "",
+              "isBye": false
+            }
+          ]
+        },
+        {
+          "phase": "8表",
+          "order": 2,
+          "matches": [
+            {
+              "matchId": 497685,
+              "matchCode": "Pre001",
+              "phaseId": 168886,
+              "phase": {
+                "shortName": "T8",
+                "longName": "8表",
+                "order": 2,
+                "code": "3",
+                "group": "2_0"
+              },
+              "groupCode": "3_0",
+              "innerOrder": 1,
+              "home": {
+                "position": 1,
+                "name": "李闫君",
+                "licence": "20190512M202411111015",
+                "club": "个人",
+                "points": 10,
+                "result": "W"
+              },
+              "away": {
+                "position": 8,
+                "name": "利炳林",
+                "licence": "20180131M202605100931",
+                "club": "海口嘉世",
+                "points": 7,
+                "result": "L"
+              },
+              "winner": {
+                "name": "李闫君",
+                "club": "个人"
+              },
+              "piste": "",
+              "startTime": "",
+              "isBye": false
+            },
+            {
+              "matchId": 497687,
+              "matchCode": "Pre003",
+              "phaseId": 168886,
+              "phase": {
+                "shortName": "T8",
+                "longName": "8表",
+                "order": 2,
+                "code": "3",
+                "group": "2_0"
+              },
+              "groupCode": "3_1",
+              "innerOrder": 1,
+              "home": {
+                "position": 3,
+                "name": "陈炜胤",
+                "licence": "20180927M202410060349",
+                "club": "广西凡胜",
+                "points": 10,
+                "result": "W"
+              },
+              "away": {
+                "position": 6,
+                "name": "姚皓予",
+                "licence": "20191219M202605050934",
+                "club": "个人",
+                "points": 3,
+                "result": "L"
+              },
+              "winner": {
+                "name": "陈炜胤",
+                "club": "广西凡胜"
+              },
+              "piste": "",
+              "startTime": "",
+              "isBye": false
+            },
+            {
+              "matchId": 497686,
+              "matchCode": "Pre002",
+              "phaseId": 168886,
+              "phase": {
+                "shortName": "T8",
+                "longName": "8表",
+                "order": 2,
+                "code": "3",
+                "group": "2_0"
+              },
+              "groupCode": "3_0",
+              "innerOrder": 2,
+              "home": {
+                "position": 5,
+                "name": "钟昊哲",
+                "licence": "20180418M202406091148",
+                "club": "个人",
+                "points": 10,
+                "result": "W"
+              },
+              "away": {
+                "position": 4,
+                "name": "张梓铄",
+                "licence": "20180912M202510140228",
+                "club": "海南佼佼者",
+                "points": 8,
+                "result": "L"
+              },
+              "winner": {
+                "name": "钟昊哲",
+                "club": "个人"
+              },
+              "piste": "",
+              "startTime": "",
+              "isBye": false
+            },
+            {
+              "matchId": 497688,
+              "matchCode": "Pre004",
+              "phaseId": 168886,
+              "phase": {
+                "shortName": "T8",
+                "longName": "8表",
+                "order": 2,
+                "code": "3",
+                "group": "2_0"
+              },
+              "groupCode": "3_1",
+              "innerOrder": 2,
+              "home": {
+                "position": 7,
+                "name": " 张棣涵",
+                "licence": "20200601M202505101135",
+                "club": "西安万国",
+                "points": 10,
+                "result": "W"
+              },
+              "away": {
+                "position": 2,
+                "name": "杨以沐",
+                "licence": "20191211M202504150230",
+                "club": "成都芮欧",
+                "points": 6,
+                "result": "L"
+              },
+              "winner": {
+                "name": " 张棣涵",
+                "club": "西安万国"
+              },
+              "piste": "",
+              "startTime": "",
+              "isBye": false
+            }
+          ]
+        },
+        {
+          "phase": "半决赛",
+          "order": 3,
+          "matches": [
+            {
+              "matchId": 497689,
+              "matchCode": "Pre001",
+              "phaseId": 168887,
+              "phase": {
+                "shortName": "T4",
+                "longName": "半决赛",
+                "order": 3,
+                "code": "2",
+                "group": "3_0"
+              },
+              "groupCode": "2_0",
+              "innerOrder": 1,
+              "home": {
+                "position": 1,
+                "name": "李闫君",
+                "licence": "20190512M202411111015",
+                "club": "个人",
+                "points": 6,
+                "result": "L"
+              },
+              "away": {
+                "position": 4,
+                "name": "钟昊哲",
+                "licence": "20180418M202406091148",
+                "club": "个人",
+                "points": 10,
+                "result": "W"
+              },
+              "winner": {
+                "name": "钟昊哲",
+                "club": "个人"
+              },
+              "piste": "",
+              "startTime": "",
+              "isBye": false
+            },
+            {
+              "matchId": 497690,
+              "matchCode": "Pre002",
+              "phaseId": 168887,
+              "phase": {
+                "shortName": "T4",
+                "longName": "半决赛",
+                "order": 3,
+                "code": "2",
+                "group": "3_0"
+              },
+              "groupCode": "2_0",
+              "innerOrder": 2,
+              "home": {
+                "position": 3,
+                "name": "陈炜胤",
+                "licence": "20180927M202410060349",
+                "club": "广西凡胜",
+                "points": 10,
+                "result": "W"
+              },
+              "away": {
+                "position": 2,
+                "name": " 张棣涵",
+                "licence": "20200601M202505101135",
+                "club": "西安万国",
+                "points": 7,
+                "result": "L"
+              },
+              "winner": {
+                "name": "陈炜胤",
+                "club": "广西凡胜"
+              },
+              "piste": "",
+              "startTime": "",
+              "isBye": false
+            }
+          ]
+        },
+        {
+          "phase": "决赛",
+          "order": 4,
+          "matches": [
+            {
+              "matchId": 497691,
+              "matchCode": "Pre001",
+              "phaseId": 168888,
+              "phase": {
+                "shortName": "T2",
+                "longName": "决赛",
+                "order": 4,
+                "code": "1",
+                "group": "4_0"
+              },
+              "groupCode": "1_0",
+              "innerOrder": 1,
+              "home": {
+                "position": 1,
+                "name": "钟昊哲",
+                "licence": "20180418M202406091148",
+                "club": "个人",
+                "points": 10,
+                "result": "W"
+              },
+              "away": {
+                "position": 2,
+                "name": "陈炜胤",
+                "licence": "20180927M202410060349",
+                "club": "广西凡胜",
+                "points": 3,
+                "result": "L"
+              },
+              "winner": {
+                "name": "钟昊哲",
+                "club": "个人"
+              },
+              "piste": "",
+              "startTime": "",
+              "isBye": false
+            }
+          ]
+        }
+      ],
+      "poolBouts": [
+        {
+          "poolId": 168883,
+          "caseCode": "CASE5",
+          "order": 1,
+          "matchOrder": 1,
+          "homeNumber": 1,
+          "awayNumber": 2,
+          "homeLabel": "1：林煜轩(个人)",
+          "awayLabel": "2：钟昊哲(个人)",
+          "homeScore": 0,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168883,
+          "caseCode": "CASE5",
+          "order": 2,
+          "matchOrder": 2,
+          "homeNumber": 3,
+          "awayNumber": 4,
+          "homeLabel": "3： 张棣涵(西安万国)",
+          "awayLabel": "4：陈炜胤(广西凡胜)",
+          "homeScore": 3,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168883,
+          "caseCode": "CASE5",
+          "order": 3,
+          "matchOrder": 3,
+          "homeNumber": 5,
+          "awayNumber": 1,
+          "homeLabel": "5：张梓铄(海南佼佼者)",
+          "awayLabel": "1：林煜轩(个人)",
+          "homeScore": "V",
+          "awayScore": 0
+        },
+        {
+          "poolId": 168883,
+          "caseCode": "CASE5",
+          "order": 4,
+          "matchOrder": 4,
+          "homeNumber": 2,
+          "awayNumber": 3,
+          "homeLabel": "2：钟昊哲(个人)",
+          "awayLabel": "3： 张棣涵(西安万国)",
+          "homeScore": "V",
+          "awayScore": 4
+        },
+        {
+          "poolId": 168883,
+          "caseCode": "CASE5",
+          "order": 5,
+          "matchOrder": 5,
+          "homeNumber": 5,
+          "awayNumber": 4,
+          "homeLabel": "5：张梓铄(海南佼佼者)",
+          "awayLabel": "4：陈炜胤(广西凡胜)",
+          "homeScore": 0,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168883,
+          "caseCode": "CASE5",
+          "order": 6,
+          "matchOrder": 6,
+          "homeNumber": 1,
+          "awayNumber": 3,
+          "homeLabel": "1：林煜轩(个人)",
+          "awayLabel": "3： 张棣涵(西安万国)",
+          "homeScore": 0,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168883,
+          "caseCode": "CASE5",
+          "order": 7,
+          "matchOrder": 7,
+          "homeNumber": 2,
+          "awayNumber": 5,
+          "homeLabel": "2：钟昊哲(个人)",
+          "awayLabel": "5：张梓铄(海南佼佼者)",
+          "homeScore": 0,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168883,
+          "caseCode": "CASE5",
+          "order": 8,
+          "matchOrder": 8,
+          "homeNumber": 4,
+          "awayNumber": 1,
+          "homeLabel": "4：陈炜胤(广西凡胜)",
+          "awayLabel": "1：林煜轩(个人)",
+          "homeScore": "V",
+          "awayScore": 0
+        },
+        {
+          "poolId": 168883,
+          "caseCode": "CASE5",
+          "order": 9,
+          "matchOrder": 9,
+          "homeNumber": 3,
+          "awayNumber": 5,
+          "homeLabel": "3： 张棣涵(西安万国)",
+          "awayLabel": "5：张梓铄(海南佼佼者)",
+          "homeScore": 3,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168883,
+          "caseCode": "CASE5",
+          "order": 10,
+          "matchOrder": 10,
+          "homeNumber": 4,
+          "awayNumber": 2,
+          "homeLabel": "4：陈炜胤(广西凡胜)",
+          "awayLabel": "2：钟昊哲(个人)",
+          "homeScore": 3,
+          "awayScore": null
+        },
+        {
+          "poolId": 168884,
+          "caseCode": "CASE5",
+          "order": 1,
+          "matchOrder": 1,
+          "homeNumber": 1,
+          "awayNumber": 2,
+          "homeLabel": "1：文允(个人)",
+          "awayLabel": "2：李闫君(个人)",
+          "homeScore": 1,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168884,
+          "caseCode": "CASE5",
+          "order": 2,
+          "matchOrder": 2,
+          "homeNumber": 3,
+          "awayNumber": 4,
+          "homeLabel": "3：姚皓予(个人)",
+          "awayLabel": "4：杨以沐(成都芮欧)",
+          "homeScore": 0,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168884,
+          "caseCode": "CASE5",
+          "order": 3,
+          "matchOrder": 3,
+          "homeNumber": 5,
+          "awayNumber": 1,
+          "homeLabel": "5：利炳林(海口嘉世)",
+          "awayLabel": "1：文允(个人)",
+          "homeScore": "V",
+          "awayScore": 2
+        },
+        {
+          "poolId": 168884,
+          "caseCode": "CASE5",
+          "order": 4,
+          "matchOrder": 4,
+          "homeNumber": 2,
+          "awayNumber": 3,
+          "homeLabel": "2：李闫君(个人)",
+          "awayLabel": "3：姚皓予(个人)",
+          "homeScore": "V",
+          "awayScore": 3
+        },
+        {
+          "poolId": 168884,
+          "caseCode": "CASE5",
+          "order": 5,
+          "matchOrder": 5,
+          "homeNumber": 5,
+          "awayNumber": 4,
+          "homeLabel": "5：利炳林(海口嘉世)",
+          "awayLabel": "4：杨以沐(成都芮欧)",
+          "homeScore": 1,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168884,
+          "caseCode": "CASE5",
+          "order": 6,
+          "matchOrder": 6,
+          "homeNumber": 1,
+          "awayNumber": 3,
+          "homeLabel": "1：文允(个人)",
+          "awayLabel": "3：姚皓予(个人)",
+          "homeScore": 4,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168884,
+          "caseCode": "CASE5",
+          "order": 7,
+          "matchOrder": 7,
+          "homeNumber": 2,
+          "awayNumber": 5,
+          "homeLabel": "2：李闫君(个人)",
+          "awayLabel": "5：利炳林(海口嘉世)",
+          "homeScore": "V",
+          "awayScore": 2
+        },
+        {
+          "poolId": 168884,
+          "caseCode": "CASE5",
+          "order": 8,
+          "matchOrder": 8,
+          "homeNumber": 4,
+          "awayNumber": 1,
+          "homeLabel": "4：杨以沐(成都芮欧)",
+          "awayLabel": "1：文允(个人)",
+          "homeScore": "V",
+          "awayScore": 1
+        },
+        {
+          "poolId": 168884,
+          "caseCode": "CASE5",
+          "order": 9,
+          "matchOrder": 9,
+          "homeNumber": 3,
+          "awayNumber": 5,
+          "homeLabel": "3：姚皓予(个人)",
+          "awayLabel": "5：利炳林(海口嘉世)",
+          "homeScore": "V",
+          "awayScore": 3
+        },
+        {
+          "poolId": 168884,
+          "caseCode": "CASE5",
+          "order": 10,
+          "matchOrder": 10,
+          "homeNumber": 4,
+          "awayNumber": 2,
+          "homeLabel": "4：杨以沐(成都芮欧)",
+          "awayLabel": "2：李闫君(个人)",
+          "homeScore": 3,
+          "awayScore": "V"
+        }
+      ],
+      "poolGroups": [
+        {
+          "poolId": 168883,
+          "title": "小组 1",
+          "athletes": [
+            {
+              "id": "20180927M202410060349",
+              "drawNo": 4,
+              "name": "陈炜胤",
+              "licence": "20180927M202410060349",
+              "club": "广西凡胜",
+              "wins": 3,
+              "matches": 4,
+              "winRate": 0.75,
+              "scored": 18,
+              "received": 7,
+              "diff": 11,
+              "phaseRank": 1,
+              "finalRank": 2,
+              "medal": "银"
+            },
+            {
+              "id": "20180912M202510140228",
+              "drawNo": 5,
+              "name": "张梓铄",
+              "licence": "20180912M202510140228",
+              "club": "海南佼佼者",
+              "wins": 3,
+              "matches": 4,
+              "winRate": 0.75,
+              "scored": 15,
+              "received": 8,
+              "diff": 7,
+              "phaseRank": 2,
+              "finalRank": 6,
+              "medal": null
+            },
+            {
+              "id": "20180418M202406091148",
+              "drawNo": 2,
+              "name": "钟昊哲",
+              "licence": "20180418M202406091148",
+              "club": "个人",
+              "wins": 3,
+              "matches": 4,
+              "winRate": 0.75,
+              "scored": 14,
+              "received": 12,
+              "diff": 2,
+              "phaseRank": 3,
+              "finalRank": 1,
+              "medal": "金"
+            },
+            {
+              "id": "20200601M202505101135",
+              "drawNo": 3,
+              "name": " 张棣涵",
+              "licence": "20200601M202505101135",
+              "club": "西安万国",
+              "wins": 1,
+              "matches": 4,
+              "winRate": 0.25,
+              "scored": 15,
+              "received": 15,
+              "diff": 0,
+              "phaseRank": 4,
+              "finalRank": 3,
+              "medal": "铜"
+            },
+            {
+              "id": "20210106M202605081026",
+              "drawNo": 1,
+              "name": "林煜轩",
+              "licence": "20210106M202605081026",
+              "club": "个人",
+              "wins": 0,
+              "matches": 4,
+              "winRate": 0,
+              "scored": 0,
+              "received": 20,
+              "diff": -20,
+              "phaseRank": 5,
+              "finalRank": 10,
+              "medal": null
+            }
+          ],
+          "bouts": [
+            {
+              "poolId": 168883,
+              "caseCode": "CASE5",
+              "order": 1,
+              "matchOrder": 1,
+              "homeNumber": 1,
+              "awayNumber": 2,
+              "homeLabel": "1：林煜轩(个人)",
+              "awayLabel": "2：钟昊哲(个人)",
+              "homeScore": 0,
+              "awayScore": "V"
+            },
+            {
+              "poolId": 168883,
+              "caseCode": "CASE5",
+              "order": 2,
+              "matchOrder": 2,
+              "homeNumber": 3,
+              "awayNumber": 4,
+              "homeLabel": "3： 张棣涵(西安万国)",
+              "awayLabel": "4：陈炜胤(广西凡胜)",
+              "homeScore": 3,
+              "awayScore": "V"
+            },
+            {
+              "poolId": 168883,
+              "caseCode": "CASE5",
+              "order": 3,
+              "matchOrder": 3,
+              "homeNumber": 5,
+              "awayNumber": 1,
+              "homeLabel": "5：张梓铄(海南佼佼者)",
+              "awayLabel": "1：林煜轩(个人)",
+              "homeScore": "V",
+              "awayScore": 0
+            },
+            {
+              "poolId": 168883,
+              "caseCode": "CASE5",
+              "order": 4,
+              "matchOrder": 4,
+              "homeNumber": 2,
+              "awayNumber": 3,
+              "homeLabel": "2：钟昊哲(个人)",
+              "awayLabel": "3： 张棣涵(西安万国)",
+              "homeScore": "V",
+              "awayScore": 4
+            },
+            {
+              "poolId": 168883,
+              "caseCode": "CASE5",
+              "order": 5,
+              "matchOrder": 5,
+              "homeNumber": 5,
+              "awayNumber": 4,
+              "homeLabel": "5：张梓铄(海南佼佼者)",
+              "awayLabel": "4：陈炜胤(广西凡胜)",
+              "homeScore": 0,
+              "awayScore": "V"
+            },
+            {
+              "poolId": 168883,
+              "caseCode": "CASE5",
+              "order": 6,
+              "matchOrder": 6,
+              "homeNumber": 1,
+              "awayNumber": 3,
+              "homeLabel": "1：林煜轩(个人)",
+              "awayLabel": "3： 张棣涵(西安万国)",
+              "homeScore": 0,
+              "awayScore": "V"
+            },
+            {
+              "poolId": 168883,
+              "caseCode": "CASE5",
+              "order": 7,
+              "matchOrder": 7,
+              "homeNumber": 2,
+              "awayNumber": 5,
+              "homeLabel": "2：钟昊哲(个人)",
+              "awayLabel": "5：张梓铄(海南佼佼者)",
+              "homeScore": 0,
+              "awayScore": "V"
+            },
+            {
+              "poolId": 168883,
+              "caseCode": "CASE5",
+              "order": 8,
+              "matchOrder": 8,
+              "homeNumber": 4,
+              "awayNumber": 1,
+              "homeLabel": "4：陈炜胤(广西凡胜)",
+              "awayLabel": "1：林煜轩(个人)",
+              "homeScore": "V",
+              "awayScore": 0
+            },
+            {
+              "poolId": 168883,
+              "caseCode": "CASE5",
+              "order": 9,
+              "matchOrder": 9,
+              "homeNumber": 3,
+              "awayNumber": 5,
+              "homeLabel": "3： 张棣涵(西安万国)",
+              "awayLabel": "5：张梓铄(海南佼佼者)",
+              "homeScore": 3,
+              "awayScore": "V"
+            },
+            {
+              "poolId": 168883,
+              "caseCode": "CASE5",
+              "order": 10,
+              "matchOrder": 10,
+              "homeNumber": 4,
+              "awayNumber": 2,
+              "homeLabel": "4：陈炜胤(广西凡胜)",
+              "awayLabel": "2：钟昊哲(个人)",
+              "homeScore": 3,
+              "awayScore": null
+            }
+          ]
+        },
+        {
+          "poolId": 168884,
+          "title": "小组 2",
+          "athletes": [
+            {
+              "id": "20190512M202411111015",
+              "drawNo": 2,
+              "name": "李闫君",
+              "licence": "20190512M202411111015",
+              "club": "个人",
+              "wins": 4,
+              "matches": 4,
+              "winRate": 1,
+              "scored": 20,
+              "received": 9,
+              "diff": 11,
+              "phaseRank": 1,
+              "finalRank": 3,
+              "medal": "铜"
+            },
+            {
+              "id": "20191211M202504150230",
+              "drawNo": 4,
+              "name": "杨以沐",
+              "licence": "20191211M202504150230",
+              "club": "成都芮欧",
+              "wins": 3,
+              "matches": 4,
+              "winRate": 0.75,
+              "scored": 18,
+              "received": 7,
+              "diff": 11,
+              "phaseRank": 2,
+              "finalRank": 5,
+              "medal": null
+            },
+            {
+              "id": "20191219M202605050934",
+              "drawNo": 3,
+              "name": "姚皓予",
+              "licence": "20191219M202605050934",
+              "club": "个人",
+              "wins": 2,
+              "matches": 4,
+              "winRate": 0.5,
+              "scored": 13,
+              "received": 17,
+              "diff": -4,
+              "phaseRank": 3,
+              "finalRank": 7,
+              "medal": null
+            },
+            {
+              "id": "20180131M202605100931",
+              "drawNo": 5,
+              "name": "利炳林",
+              "licence": "20180131M202605100931",
+              "club": "海口嘉世",
+              "wins": 1,
+              "matches": 4,
+              "winRate": 0.25,
+              "scored": 11,
+              "received": 17,
+              "diff": -6,
+              "phaseRank": 4,
+              "finalRank": 8,
+              "medal": null
+            },
+            {
+              "id": "20200201M202604270117",
+              "drawNo": 1,
+              "name": "文允",
+              "licence": "20200201M202604270117",
+              "club": "个人",
+              "wins": 0,
+              "matches": 4,
+              "winRate": 0,
+              "scored": 8,
+              "received": 20,
+              "diff": -12,
+              "phaseRank": 5,
+              "finalRank": 9,
+              "medal": null
+            }
+          ],
+          "bouts": [
+            {
+              "poolId": 168884,
+              "caseCode": "CASE5",
+              "order": 1,
+              "matchOrder": 1,
+              "homeNumber": 1,
+              "awayNumber": 2,
+              "homeLabel": "1：文允(个人)",
+              "awayLabel": "2：李闫君(个人)",
+              "homeScore": 1,
+              "awayScore": "V"
+            },
+            {
+              "poolId": 168884,
+              "caseCode": "CASE5",
+              "order": 2,
+              "matchOrder": 2,
+              "homeNumber": 3,
+              "awayNumber": 4,
+              "homeLabel": "3：姚皓予(个人)",
+              "awayLabel": "4：杨以沐(成都芮欧)",
+              "homeScore": 0,
+              "awayScore": "V"
+            },
+            {
+              "poolId": 168884,
+              "caseCode": "CASE5",
+              "order": 3,
+              "matchOrder": 3,
+              "homeNumber": 5,
+              "awayNumber": 1,
+              "homeLabel": "5：利炳林(海口嘉世)",
+              "awayLabel": "1：文允(个人)",
+              "homeScore": "V",
+              "awayScore": 2
+            },
+            {
+              "poolId": 168884,
+              "caseCode": "CASE5",
+              "order": 4,
+              "matchOrder": 4,
+              "homeNumber": 2,
+              "awayNumber": 3,
+              "homeLabel": "2：李闫君(个人)",
+              "awayLabel": "3：姚皓予(个人)",
+              "homeScore": "V",
+              "awayScore": 3
+            },
+            {
+              "poolId": 168884,
+              "caseCode": "CASE5",
+              "order": 5,
+              "matchOrder": 5,
+              "homeNumber": 5,
+              "awayNumber": 4,
+              "homeLabel": "5：利炳林(海口嘉世)",
+              "awayLabel": "4：杨以沐(成都芮欧)",
+              "homeScore": 1,
+              "awayScore": "V"
+            },
+            {
+              "poolId": 168884,
+              "caseCode": "CASE5",
+              "order": 6,
+              "matchOrder": 6,
+              "homeNumber": 1,
+              "awayNumber": 3,
+              "homeLabel": "1：文允(个人)",
+              "awayLabel": "3：姚皓予(个人)",
+              "homeScore": 4,
+              "awayScore": "V"
+            },
+            {
+              "poolId": 168884,
+              "caseCode": "CASE5",
+              "order": 7,
+              "matchOrder": 7,
+              "homeNumber": 2,
+              "awayNumber": 5,
+              "homeLabel": "2：李闫君(个人)",
+              "awayLabel": "5：利炳林(海口嘉世)",
+              "homeScore": "V",
+              "awayScore": 2
+            },
+            {
+              "poolId": 168884,
+              "caseCode": "CASE5",
+              "order": 8,
+              "matchOrder": 8,
+              "homeNumber": 4,
+              "awayNumber": 1,
+              "homeLabel": "4：杨以沐(成都芮欧)",
+              "awayLabel": "1：文允(个人)",
+              "homeScore": "V",
+              "awayScore": 1
+            },
+            {
+              "poolId": 168884,
+              "caseCode": "CASE5",
+              "order": 9,
+              "matchOrder": 9,
+              "homeNumber": 3,
+              "awayNumber": 5,
+              "homeLabel": "3：姚皓予(个人)",
+              "awayLabel": "5：利炳林(海口嘉世)",
+              "homeScore": "V",
+              "awayScore": 3
+            },
+            {
+              "poolId": 168884,
+              "caseCode": "CASE5",
+              "order": 10,
+              "matchOrder": 10,
+              "homeNumber": 4,
+              "awayNumber": 2,
+              "homeLabel": "4：杨以沐(成都芮欧)",
+              "awayLabel": "2：李闫君(个人)",
+              "homeScore": 3,
+              "awayScore": "V"
+            }
+          ]
+        }
+      ],
+      "participants": [
+        {
+          "id": "20180418M202406091148",
+          "name": "钟昊哲",
+          "licence": "20180418M202406091148",
+          "club": "个人",
+          "finalRank": 1,
+          "medal": "金",
+          "ageBand": "2018 上半年",
+          "poolId": 168883,
+          "drawNo": 2,
+          "poolRank": 3,
+          "poolWins": 3,
+          "poolMatches": 4,
+          "poolDiff": 2,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 3,
+          "eliminationLosses": 0
+        },
+        {
+          "id": "20180927M202410060349",
+          "name": "陈炜胤",
+          "licence": "20180927M202410060349",
+          "club": "广西凡胜",
+          "finalRank": 2,
+          "medal": "银",
+          "ageBand": "2018 下半年",
+          "poolId": 168883,
+          "drawNo": 4,
+          "poolRank": 1,
+          "poolWins": 3,
+          "poolMatches": 4,
+          "poolDiff": 11,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 2,
+          "eliminationLosses": 1
+        },
+        {
+          "id": "20190512M202411111015",
+          "name": "李闫君",
+          "licence": "20190512M202411111015",
+          "club": "个人",
+          "finalRank": 3,
+          "medal": "铜",
+          "ageBand": "2019 上半年",
+          "poolId": 168884,
+          "drawNo": 2,
+          "poolRank": 1,
+          "poolWins": 4,
+          "poolMatches": 4,
+          "poolDiff": 11,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 1,
+          "eliminationLosses": 1
+        },
+        {
+          "id": "20200601M202505101135",
+          "name": " 张棣涵",
+          "licence": "20200601M202505101135",
+          "club": "西安万国",
+          "finalRank": 3,
+          "medal": "铜",
+          "ageBand": "2020 上半年",
+          "poolId": 168883,
+          "drawNo": 3,
+          "poolRank": 4,
+          "poolWins": 1,
+          "poolMatches": 4,
+          "poolDiff": 0,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 2,
+          "eliminationLosses": 1
+        },
+        {
+          "id": "20191211M202504150230",
+          "name": "杨以沐",
+          "licence": "20191211M202504150230",
+          "club": "成都芮欧",
+          "finalRank": 5,
+          "medal": null,
+          "ageBand": "2019 下半年",
+          "poolId": 168884,
+          "drawNo": 4,
+          "poolRank": 2,
+          "poolWins": 3,
+          "poolMatches": 4,
+          "poolDiff": 11,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 0,
+          "eliminationLosses": 1
+        },
+        {
+          "id": "20180912M202510140228",
+          "name": "张梓铄",
+          "licence": "20180912M202510140228",
+          "club": "海南佼佼者",
+          "finalRank": 6,
+          "medal": null,
+          "ageBand": "2018 下半年",
+          "poolId": 168883,
+          "drawNo": 5,
+          "poolRank": 2,
+          "poolWins": 3,
+          "poolMatches": 4,
+          "poolDiff": 7,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 0,
+          "eliminationLosses": 1
+        },
+        {
+          "id": "20191219M202605050934",
+          "name": "姚皓予",
+          "licence": "20191219M202605050934",
+          "club": "个人",
+          "finalRank": 7,
+          "medal": null,
+          "ageBand": "2019 下半年",
+          "poolId": 168884,
+          "drawNo": 3,
+          "poolRank": 3,
+          "poolWins": 2,
+          "poolMatches": 4,
+          "poolDiff": -4,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 0,
+          "eliminationLosses": 1
+        },
+        {
+          "id": "20180131M202605100931",
+          "name": "利炳林",
+          "licence": "20180131M202605100931",
+          "club": "海口嘉世",
+          "finalRank": 8,
+          "medal": null,
+          "ageBand": "2018 上半年",
+          "poolId": 168884,
+          "drawNo": 5,
+          "poolRank": 4,
+          "poolWins": 1,
+          "poolMatches": 4,
+          "poolDiff": -6,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 1,
+          "eliminationLosses": 1
+        },
+        {
+          "id": "20200201M202604270117",
+          "name": "文允",
+          "licence": "20200201M202604270117",
+          "club": "个人",
+          "finalRank": 9,
+          "medal": null,
+          "ageBand": "2020 上半年",
+          "poolId": 168884,
+          "drawNo": 1,
+          "poolRank": 5,
+          "poolWins": 0,
+          "poolMatches": 4,
+          "poolDiff": -12,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 0,
+          "eliminationLosses": 1
+        },
+        {
+          "id": "20210106M202605081026",
+          "name": "林煜轩",
+          "licence": "20210106M202605081026",
+          "club": "个人",
+          "finalRank": 10,
+          "medal": null,
+          "ageBand": "2021 上半年",
+          "poolId": 168883,
+          "drawNo": 1,
+          "poolRank": 5,
+          "poolWins": 0,
+          "poolMatches": 4,
+          "poolDiff": -20,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 0,
+          "eliminationLosses": 1
+        }
+      ],
+      "eliminationLeaders": [
+        {
+          "id": "20180418M202406091148",
+          "name": "钟昊哲",
+          "club": "个人",
+          "wins": 3,
+          "losses": 0,
+          "scored": 30,
+          "received": 17,
+          "diff": 13
+        },
+        {
+          "id": "20200601M202505101135",
+          "name": " 张棣涵",
+          "club": "西安万国",
+          "wins": 2,
+          "losses": 1,
+          "scored": 27,
+          "received": 17,
+          "diff": 10
+        },
+        {
+          "id": "20180927M202410060349",
+          "name": "陈炜胤",
+          "club": "广西凡胜",
+          "wins": 2,
+          "losses": 1,
+          "scored": 23,
+          "received": 20,
+          "diff": 3
+        },
+        {
+          "id": "20180131M202605100931",
+          "name": "利炳林",
+          "club": "海口嘉世",
+          "wins": 1,
+          "losses": 1,
+          "scored": 17,
+          "received": 16,
+          "diff": 1
+        },
+        {
+          "id": "20190512M202411111015",
+          "name": "李闫君",
+          "club": "个人",
+          "wins": 1,
+          "losses": 1,
+          "scored": 16,
+          "received": 17,
+          "diff": -1
+        },
+        {
+          "id": "20180912M202510140228",
+          "name": "张梓铄",
+          "club": "海南佼佼者",
+          "wins": 0,
+          "losses": 1,
+          "scored": 8,
+          "received": 10,
+          "diff": -2
+        },
+        {
+          "id": "20200201M202604270117",
+          "name": "文允",
+          "club": "个人",
+          "wins": 0,
+          "losses": 1,
+          "scored": 6,
+          "received": 10,
+          "diff": -4
+        },
+        {
+          "id": "20191211M202504150230",
+          "name": "杨以沐",
+          "club": "成都芮欧",
+          "wins": 0,
+          "losses": 1,
+          "scored": 6,
+          "received": 10,
+          "diff": -4
+        },
+        {
+          "id": "20191219M202605050934",
+          "name": "姚皓予",
+          "club": "个人",
+          "wins": 0,
+          "losses": 1,
+          "scored": 3,
+          "received": 10,
+          "diff": -7
+        },
+        {
+          "id": "20210106M202605081026",
+          "name": "林煜轩",
+          "club": "个人",
+          "wins": 0,
+          "losses": 1,
+          "scored": 1,
+          "received": 10,
+          "diff": -9
+        }
+      ],
+      "championPath": [
+        {
+          "phase": "8表",
+          "matchCode": "Pre002",
+          "championName": "钟昊哲",
+          "championClub": "个人",
+          "championScore": 10,
+          "opponentName": "张梓铄",
+          "opponentClub": "海南佼佼者",
+          "opponentScore": 8,
+          "isBye": false
+        },
+        {
+          "phase": "半决赛",
+          "matchCode": "Pre001",
+          "championName": "钟昊哲",
+          "championClub": "个人",
+          "championScore": 10,
+          "opponentName": "李闫君",
+          "opponentClub": "个人",
+          "opponentScore": 6,
+          "isBye": false
+        },
+        {
+          "phase": "决赛",
+          "matchCode": "Pre001",
+          "championName": "钟昊哲",
+          "championClub": "个人",
+          "championScore": 10,
+          "opponentName": "陈炜胤",
+          "opponentClub": "广西凡胜",
+          "opponentScore": 3,
+          "isBye": false
+        }
+      ],
+      "keyOpponents": [
+        {
+          "id": "20180418M202406091148",
+          "name": "钟昊哲",
+          "club": "个人",
+          "scored": 30,
+          "received": 17,
+          "matches": 3,
+          "wins": 3,
+          "losses": 0,
+          "diff": 13
+        },
+        {
+          "id": "20200601M202505101135",
+          "name": " 张棣涵",
+          "club": "西安万国",
+          "scored": 27,
+          "received": 17,
+          "matches": 3,
+          "wins": 2,
+          "losses": 1,
+          "diff": 10
+        },
+        {
+          "id": "20180927M202410060349",
+          "name": "陈炜胤",
+          "club": "广西凡胜",
+          "scored": 23,
+          "received": 20,
+          "matches": 3,
+          "wins": 2,
+          "losses": 1,
+          "diff": 3
+        },
+        {
+          "id": "20180131M202605100931",
+          "name": "利炳林",
+          "club": "海口嘉世",
+          "scored": 17,
+          "received": 16,
+          "matches": 2,
+          "wins": 1,
+          "losses": 1,
+          "diff": 1
+        },
+        {
+          "id": "20190512M202411111015",
+          "name": "李闫君",
+          "club": "个人",
+          "scored": 16,
+          "received": 17,
+          "matches": 2,
+          "wins": 1,
+          "losses": 1,
+          "diff": -1
+        },
+        {
+          "id": "20180912M202510140228",
+          "name": "张梓铄",
+          "club": "海南佼佼者",
+          "scored": 8,
+          "received": 10,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "diff": -2
+        },
+        {
+          "id": "20200201M202604270117",
+          "name": "文允",
+          "club": "个人",
+          "scored": 6,
+          "received": 10,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "diff": -4
+        },
+        {
+          "id": "20191211M202504150230",
+          "name": "杨以沐",
+          "club": "成都芮欧",
+          "scored": 6,
+          "received": 10,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "diff": -4
+        },
+        {
+          "id": "20191219M202605050934",
+          "name": "姚皓予",
+          "club": "个人",
+          "scored": 3,
+          "received": 10,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "diff": -7
+        },
+        {
+          "id": "20210106M202605081026",
+          "name": "林煜轩",
+          "club": "个人",
+          "scored": 1,
+          "received": 10,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "diff": -9
+        }
+      ],
+      "insights": {
+        "headline": "钟昊哲 获得冠军，来自个人",
+        "summaryCards": [
+          {
+            "title": "冠军",
+            "value": "钟昊哲",
+            "detail": "个人 · 1名"
+          },
+          {
+            "title": "晋级线",
+            "value": "10 / 10",
+            "detail": "全部晋级"
+          },
+          {
+            "title": "淘汰赛密度",
+            "value": "9 场",
+            "detail": "含 6 场 Bye"
+          }
+        ],
+        "bullets": [
+          "钟昊哲 小组赛排第 5，最终夺冠。",
+          "个人 在当前样本里出现 5 次，是报名最集中的俱乐部。",
+          "该项目小组赛后全员晋级，淘汰赛主要用于重新排序。",
+          "淘汰赛包含较多 Bye，对阵密度偏低。"
+        ],
+        "breakout": [
+          {
+            "name": "钟昊哲",
+            "club": "个人",
+            "licence": "20180418M202406091148",
+            "poolRank": 5,
+            "finalRank": 1,
+            "delta": 4
+          },
+          {
+            "name": " 张棣涵",
+            "club": "西安万国",
+            "licence": "20200601M202505101135",
+            "poolRank": 7,
+            "finalRank": 3,
+            "delta": 4
+          }
+        ],
+        "fade": [
+          {
+            "name": "杨以沐",
+            "club": "成都芮欧",
+            "licence": "20191211M202504150230",
+            "poolRank": 2,
+            "finalRank": 5,
+            "delta": -3
+          }
+        ]
+      },
+      "athleteProfiles": [
+        {
+          "id": "20180418M202406091148",
+          "name": "钟昊哲",
+          "licence": "20180418M202406091148",
+          "club": "个人",
+          "finalRank": 1,
+          "medal": "金",
+          "ageBand": "2018 上半年",
+          "poolId": 168883,
+          "poolRank": 3,
+          "poolWins": 3,
+          "poolMatches": 4,
+          "poolDiff": 2,
+          "eliminationWins": 3,
+          "eliminationLosses": 0,
+          "eliminationDiff": 13
+        },
+        {
+          "id": "20180927M202410060349",
+          "name": "陈炜胤",
+          "licence": "20180927M202410060349",
+          "club": "广西凡胜",
+          "finalRank": 2,
+          "medal": "银",
+          "ageBand": "2018 下半年",
+          "poolId": 168883,
+          "poolRank": 1,
+          "poolWins": 3,
+          "poolMatches": 4,
+          "poolDiff": 11,
+          "eliminationWins": 2,
+          "eliminationLosses": 1,
+          "eliminationDiff": 3
+        },
+        {
+          "id": "20190512M202411111015",
+          "name": "李闫君",
+          "licence": "20190512M202411111015",
+          "club": "个人",
+          "finalRank": 3,
+          "medal": "铜",
+          "ageBand": "2019 上半年",
+          "poolId": 168884,
+          "poolRank": 1,
+          "poolWins": 4,
+          "poolMatches": 4,
+          "poolDiff": 11,
+          "eliminationWins": 1,
+          "eliminationLosses": 1,
+          "eliminationDiff": -1
+        },
+        {
+          "id": "20200601M202505101135",
+          "name": " 张棣涵",
+          "licence": "20200601M202505101135",
+          "club": "西安万国",
+          "finalRank": 3,
+          "medal": "铜",
+          "ageBand": "2020 上半年",
+          "poolId": 168883,
+          "poolRank": 4,
+          "poolWins": 1,
+          "poolMatches": 4,
+          "poolDiff": 0,
+          "eliminationWins": 2,
+          "eliminationLosses": 1,
+          "eliminationDiff": 10
+        },
+        {
+          "id": "20191211M202504150230",
+          "name": "杨以沐",
+          "licence": "20191211M202504150230",
+          "club": "成都芮欧",
+          "finalRank": 5,
+          "medal": null,
+          "ageBand": "2019 下半年",
+          "poolId": 168884,
+          "poolRank": 2,
+          "poolWins": 3,
+          "poolMatches": 4,
+          "poolDiff": 11,
+          "eliminationWins": 0,
+          "eliminationLosses": 1,
+          "eliminationDiff": -4
+        },
+        {
+          "id": "20180912M202510140228",
+          "name": "张梓铄",
+          "licence": "20180912M202510140228",
+          "club": "海南佼佼者",
+          "finalRank": 6,
+          "medal": null,
+          "ageBand": "2018 下半年",
+          "poolId": 168883,
+          "poolRank": 2,
+          "poolWins": 3,
+          "poolMatches": 4,
+          "poolDiff": 7,
+          "eliminationWins": 0,
+          "eliminationLosses": 1,
+          "eliminationDiff": -2
+        },
+        {
+          "id": "20191219M202605050934",
+          "name": "姚皓予",
+          "licence": "20191219M202605050934",
+          "club": "个人",
+          "finalRank": 7,
+          "medal": null,
+          "ageBand": "2019 下半年",
+          "poolId": 168884,
+          "poolRank": 3,
+          "poolWins": 2,
+          "poolMatches": 4,
+          "poolDiff": -4,
+          "eliminationWins": 0,
+          "eliminationLosses": 1,
+          "eliminationDiff": -7
+        },
+        {
+          "id": "20180131M202605100931",
+          "name": "利炳林",
+          "licence": "20180131M202605100931",
+          "club": "海口嘉世",
+          "finalRank": 8,
+          "medal": null,
+          "ageBand": "2018 上半年",
+          "poolId": 168884,
+          "poolRank": 4,
+          "poolWins": 1,
+          "poolMatches": 4,
+          "poolDiff": -6,
+          "eliminationWins": 1,
+          "eliminationLosses": 1,
+          "eliminationDiff": 1
+        },
+        {
+          "id": "20200201M202604270117",
+          "name": "文允",
+          "licence": "20200201M202604270117",
+          "club": "个人",
+          "finalRank": 9,
+          "medal": null,
+          "ageBand": "2020 上半年",
+          "poolId": 168884,
+          "poolRank": 5,
+          "poolWins": 0,
+          "poolMatches": 4,
+          "poolDiff": -12,
+          "eliminationWins": 0,
+          "eliminationLosses": 1,
+          "eliminationDiff": -4
+        },
+        {
+          "id": "20210106M202605081026",
+          "name": "林煜轩",
+          "licence": "20210106M202605081026",
+          "club": "个人",
+          "finalRank": 10,
+          "medal": null,
+          "ageBand": "2021 上半年",
+          "poolId": 168883,
+          "poolRank": 5,
+          "poolWins": 0,
+          "poolMatches": 4,
+          "poolDiff": -20,
+          "eliminationWins": 0,
+          "eliminationLosses": 1,
+          "eliminationDiff": -9
+        }
+      ],
+      "clubProfiles": [
+        {
+          "id": "%E4%B8%AA%E4%BA%BA",
+          "club": "个人",
+          "entrants": 5,
+          "medals": 2,
+          "top8": 3,
+          "finalists": 1,
+          "bestRank": 1,
+          "athletes": [
+            {
+              "id": "20180418M202406091148",
+              "name": "钟昊哲",
+              "rank": 1,
+              "medal": "金"
+            },
+            {
+              "id": "20190512M202411111015",
+              "name": "李闫君",
+              "rank": 3,
+              "medal": "铜"
+            },
+            {
+              "id": "20191219M202605050934",
+              "name": "姚皓予",
+              "rank": 7,
+              "medal": null
+            },
+            {
+              "id": "20200201M202604270117",
+              "name": "文允",
+              "rank": 9,
+              "medal": null
+            }
+          ]
+        },
+        {
+          "id": "%E5%B9%BF%E8%A5%BF%E5%87%A1%E8%83%9C",
+          "club": "广西凡胜",
+          "entrants": 1,
+          "medals": 1,
+          "top8": 1,
+          "finalists": 1,
+          "bestRank": 2,
+          "athletes": [
+            {
+              "id": "20180927M202410060349",
+              "name": "陈炜胤",
+              "rank": 2,
+              "medal": "银"
+            }
+          ]
+        },
+        {
+          "id": "%E8%A5%BF%E5%AE%89%E4%B8%87%E5%9B%BD",
+          "club": "西安万国",
+          "entrants": 1,
+          "medals": 1,
+          "top8": 1,
+          "finalists": 0,
+          "bestRank": 3,
+          "athletes": [
+            {
+              "id": "20200601M202505101135",
+              "name": " 张棣涵",
+              "rank": 3,
+              "medal": "铜"
+            }
+          ]
+        },
+        {
+          "id": "%E6%88%90%E9%83%BD%E8%8A%AE%E6%AC%A7",
+          "club": "成都芮欧",
+          "entrants": 1,
+          "medals": 0,
+          "top8": 1,
+          "finalists": 0,
+          "bestRank": 5,
+          "athletes": [
+            {
+              "id": "20191211M202504150230",
+              "name": "杨以沐",
+              "rank": 5,
+              "medal": null
+            }
+          ]
+        },
+        {
+          "id": "%E6%B5%B7%E5%8D%97%E4%BD%BC%E4%BD%BC%E8%80%85",
+          "club": "海南佼佼者",
+          "entrants": 1,
+          "medals": 0,
+          "top8": 1,
+          "finalists": 0,
+          "bestRank": 6,
+          "athletes": [
+            {
+              "id": "20180912M202510140228",
+              "name": "张梓铄",
+              "rank": 6,
+              "medal": null
+            }
+          ]
+        },
+        {
+          "id": "%E6%B5%B7%E5%8F%A3%E5%98%89%E4%B8%96",
+          "club": "海口嘉世",
+          "entrants": 1,
+          "medals": 0,
+          "top8": 1,
+          "finalists": 0,
+          "bestRank": 8,
+          "athletes": [
+            {
+              "id": "20180131M202605100931",
+              "name": "利炳林",
+              "rank": 8,
+              "medal": null
+            }
+          ]
+        }
+      ],
+      "birthBuckets": [
+        {
+          "label": "2018 上半年",
+          "entrants": 2,
+          "top8": 2,
+          "medals": 1,
+          "bestRank": 1,
+          "top8Rate": 100
+        },
+        {
+          "label": "2018 下半年",
+          "entrants": 2,
+          "top8": 2,
+          "medals": 1,
+          "bestRank": 2,
+          "top8Rate": 100
+        },
+        {
+          "label": "2019 上半年",
+          "entrants": 1,
+          "top8": 1,
+          "medals": 1,
+          "bestRank": 3,
+          "top8Rate": 100
+        },
+        {
+          "label": "2019 下半年",
+          "entrants": 2,
+          "top8": 2,
+          "medals": 0,
+          "bestRank": 5,
+          "top8Rate": 100
+        },
+        {
+          "label": "2020 上半年",
+          "entrants": 2,
+          "top8": 1,
+          "medals": 1,
+          "bestRank": 3,
+          "top8Rate": 50
+        },
+        {
+          "label": "2021 上半年",
+          "entrants": 1,
+          "top8": 0,
+          "medals": 0,
+          "bestRank": 10,
+          "top8Rate": 0
+        }
+      ],
+      "clubDistribution": {
+        "个人": 5,
+        "成都芮欧": 1,
+        "广西凡胜": 1,
+        "海南佼佼者": 1,
+        "西安万国": 1,
+        "海口嘉世": 1
+      }
+    },
+    "RZSS2034020MEIU8": {
+      "fileName": "score-RZSS2034020MEIU8-analysis.json",
+      "eventCode": "RZSS2034020MEIU8",
+      "sportCode": "RZSS2034020",
+      "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+      "eventName": "U8男子重剑个人",
+      "shortEventName": "U8 男重",
+      "openDate": null,
+      "venue": "海南·儋州",
+      "competitionNo": 5,
+      "poolCount": 1,
+      "poolQualifyNo": 5,
+      "deStartPhase": "from Tableaus 8",
+      "eliminationMatchCount": 7,
+      "playedEliminationMatchCount": 4,
+      "byeMatchCount": 3,
+      "athleteNames": [
+        "于博圣",
+        "李沐霖",
+        "魏嘉茗",
+        "胡彧硕",
+        "朱格梓睦"
+      ],
+      "region": "海南儋州",
+      "distributions": {
+        "poolStatus": {
+          "7": 1
+        },
+        "poolRemark": {
+          "Q": 5
+        },
+        "tableau": {
+          "8表": 1,
+          "半决赛": 1,
+          "决赛": 1
+        },
+        "eliminationByPhase": {
+          "8表": 4,
+          "半决赛": 2,
+          "决赛": 1
+        },
+        "eliminationResult": {
+          "W/L": 4,
+          "L/W": 3
+        },
+        "medal": {
+          "金": 1,
+          "银": 1,
+          "铜": 2,
+          "(无奖牌)": 1
+        }
+      },
+      "topPoolStanding": [
+        {
+          "rank": 1,
+          "displayPosition": 1,
+          "name": "于博圣",
+          "licence": "20181215M202408010400",
+          "club": "哈尔滨博奕",
+          "wins": 4,
+          "matches": 4,
+          "winRate": 1,
+          "hitsScored": 20,
+          "hitsReceived": 8,
+          "indicator": 12,
+          "remark": "Q"
+        },
+        {
+          "rank": 2,
+          "displayPosition": 2,
+          "name": "李沐霖",
+          "licence": "20180522M202510210430",
+          "club": "湖南聚力",
+          "wins": 3,
+          "matches": 4,
+          "winRate": 0.75,
+          "hitsScored": 17,
+          "hitsReceived": 10,
+          "indicator": 7,
+          "remark": "Q"
+        },
+        {
+          "rank": 3,
+          "displayPosition": 3,
+          "name": "胡彧硕",
+          "licence": "20180123M202408011055",
+          "club": "海口嘉世",
+          "wins": 2,
+          "matches": 4,
+          "winRate": 0.5,
+          "hitsScored": 16,
+          "hitsReceived": 14,
+          "indicator": 2,
+          "remark": "Q"
+        },
+        {
+          "rank": 4,
+          "displayPosition": 4,
+          "name": "魏嘉茗",
+          "licence": "20180808M202605060841",
+          "club": "海南海外双优",
+          "wins": 1,
+          "matches": 4,
+          "winRate": 0.25,
+          "hitsScored": 8,
+          "hitsReceived": 18,
+          "indicator": -10,
+          "remark": "Q"
+        },
+        {
+          "rank": 5,
+          "displayPosition": 5,
+          "name": "朱格梓睦",
+          "licence": "20190717M202605060832",
+          "club": "海南海外双优",
+          "wins": 0,
+          "matches": 4,
+          "winRate": 0,
+          "hitsScored": 9,
+          "hitsReceived": 20,
+          "indicator": -11,
+          "remark": "Q"
+        }
+      ],
+      "latestMatches": [
+        {
+          "matchId": 497864,
+          "matchCode": "Pre001",
+          "phaseId": 168989,
+          "phase": {
+            "shortName": "T2",
+            "longName": "决赛",
+            "order": 3,
+            "code": "1",
+            "group": "3_0"
+          },
+          "groupCode": "1_0",
+          "innerOrder": 1,
+          "home": {
+            "position": 1,
+            "name": "于博圣",
+            "licence": "20181215M202408010400",
+            "club": "哈尔滨博奕",
+            "points": 10,
+            "result": "W"
+          },
+          "away": {
+            "position": 2,
+            "name": "李沐霖",
+            "licence": "20180522M202510210430",
+            "club": "湖南聚力",
+            "points": 8,
+            "result": "L"
+          },
+          "winner": {
+            "name": "于博圣",
+            "club": "哈尔滨博奕"
+          },
+          "piste": "",
+          "startTime": "",
+          "isBye": false
+        },
+        {
+          "matchId": 497863,
+          "matchCode": "Pre002",
+          "phaseId": 168988,
+          "phase": {
+            "shortName": "T4",
+            "longName": "半决赛",
+            "order": 2,
+            "code": "2",
+            "group": "2_0"
+          },
+          "groupCode": "2_0",
+          "innerOrder": 2,
+          "home": {
+            "position": 3,
+            "name": "胡彧硕",
+            "licence": "20180123M202408011055",
+            "club": "海口嘉世",
+            "points": 7,
+            "result": "L"
+          },
+          "away": {
+            "position": 2,
+            "name": "李沐霖",
+            "licence": "20180522M202510210430",
+            "club": "湖南聚力",
+            "points": 10,
+            "result": "W"
+          },
+          "winner": {
+            "name": "李沐霖",
+            "club": "湖南聚力"
+          },
+          "piste": "",
+          "startTime": "",
+          "isBye": false
+        },
+        {
+          "matchId": 497862,
+          "matchCode": "Pre001",
+          "phaseId": 168988,
+          "phase": {
+            "shortName": "T4",
+            "longName": "半决赛",
+            "order": 2,
+            "code": "2",
+            "group": "2_0"
+          },
+          "groupCode": "2_0",
+          "innerOrder": 1,
+          "home": {
+            "position": 1,
+            "name": "于博圣",
+            "licence": "20181215M202408010400",
+            "club": "哈尔滨博奕",
+            "points": 10,
+            "result": "W"
+          },
+          "away": {
+            "position": 4,
+            "name": "魏嘉茗",
+            "licence": "20180808M202605060841",
+            "club": "海南海外双优",
+            "points": 3,
+            "result": "L"
+          },
+          "winner": {
+            "name": "于博圣",
+            "club": "哈尔滨博奕"
+          },
+          "piste": "",
+          "startTime": "",
+          "isBye": false
+        },
+        {
+          "matchId": 497859,
+          "matchCode": "Pre002",
+          "phaseId": 168987,
+          "phase": {
+            "shortName": "T8",
+            "longName": "8表",
+            "order": 1,
+            "code": "3",
+            "group": "1_0"
+          },
+          "groupCode": "3_0",
+          "innerOrder": 2,
+          "home": {
+            "position": 5,
+            "name": "朱格梓睦",
+            "licence": "20190717M202605060832",
+            "club": "海南海外双优",
+            "points": 9,
+            "result": "L"
+          },
+          "away": {
+            "position": 4,
+            "name": "魏嘉茗",
+            "licence": "20180808M202605060841",
+            "club": "海南海外双优",
+            "points": 10,
+            "result": "W"
+          },
+          "winner": {
+            "name": "魏嘉茗",
+            "club": "海南海外双优"
+          },
+          "piste": "",
+          "startTime": "",
+          "isBye": false
+        }
+      ],
+      "eliminationPhaseGroups": [
+        {
+          "phase": "8表",
+          "order": 1,
+          "matches": [
+            {
+              "matchId": 497859,
+              "matchCode": "Pre002",
+              "phaseId": 168987,
+              "phase": {
+                "shortName": "T8",
+                "longName": "8表",
+                "order": 1,
+                "code": "3",
+                "group": "1_0"
+              },
+              "groupCode": "3_0",
+              "innerOrder": 2,
+              "home": {
+                "position": 5,
+                "name": "朱格梓睦",
+                "licence": "20190717M202605060832",
+                "club": "海南海外双优",
+                "points": 9,
+                "result": "L"
+              },
+              "away": {
+                "position": 4,
+                "name": "魏嘉茗",
+                "licence": "20180808M202605060841",
+                "club": "海南海外双优",
+                "points": 10,
+                "result": "W"
+              },
+              "winner": {
+                "name": "魏嘉茗",
+                "club": "海南海外双优"
+              },
+              "piste": "",
+              "startTime": "",
+              "isBye": false
+            }
+          ]
+        },
+        {
+          "phase": "半决赛",
+          "order": 2,
+          "matches": [
+            {
+              "matchId": 497862,
+              "matchCode": "Pre001",
+              "phaseId": 168988,
+              "phase": {
+                "shortName": "T4",
+                "longName": "半决赛",
+                "order": 2,
+                "code": "2",
+                "group": "2_0"
+              },
+              "groupCode": "2_0",
+              "innerOrder": 1,
+              "home": {
+                "position": 1,
+                "name": "于博圣",
+                "licence": "20181215M202408010400",
+                "club": "哈尔滨博奕",
+                "points": 10,
+                "result": "W"
+              },
+              "away": {
+                "position": 4,
+                "name": "魏嘉茗",
+                "licence": "20180808M202605060841",
+                "club": "海南海外双优",
+                "points": 3,
+                "result": "L"
+              },
+              "winner": {
+                "name": "于博圣",
+                "club": "哈尔滨博奕"
+              },
+              "piste": "",
+              "startTime": "",
+              "isBye": false
+            },
+            {
+              "matchId": 497863,
+              "matchCode": "Pre002",
+              "phaseId": 168988,
+              "phase": {
+                "shortName": "T4",
+                "longName": "半决赛",
+                "order": 2,
+                "code": "2",
+                "group": "2_0"
+              },
+              "groupCode": "2_0",
+              "innerOrder": 2,
+              "home": {
+                "position": 3,
+                "name": "胡彧硕",
+                "licence": "20180123M202408011055",
+                "club": "海口嘉世",
+                "points": 7,
+                "result": "L"
+              },
+              "away": {
+                "position": 2,
+                "name": "李沐霖",
+                "licence": "20180522M202510210430",
+                "club": "湖南聚力",
+                "points": 10,
+                "result": "W"
+              },
+              "winner": {
+                "name": "李沐霖",
+                "club": "湖南聚力"
+              },
+              "piste": "",
+              "startTime": "",
+              "isBye": false
+            }
+          ]
+        },
+        {
+          "phase": "决赛",
+          "order": 3,
+          "matches": [
+            {
+              "matchId": 497864,
+              "matchCode": "Pre001",
+              "phaseId": 168989,
+              "phase": {
+                "shortName": "T2",
+                "longName": "决赛",
+                "order": 3,
+                "code": "1",
+                "group": "3_0"
+              },
+              "groupCode": "1_0",
+              "innerOrder": 1,
+              "home": {
+                "position": 1,
+                "name": "于博圣",
+                "licence": "20181215M202408010400",
+                "club": "哈尔滨博奕",
+                "points": 10,
+                "result": "W"
+              },
+              "away": {
+                "position": 2,
+                "name": "李沐霖",
+                "licence": "20180522M202510210430",
+                "club": "湖南聚力",
+                "points": 8,
+                "result": "L"
+              },
+              "winner": {
+                "name": "于博圣",
+                "club": "哈尔滨博奕"
+              },
+              "piste": "",
+              "startTime": "",
+              "isBye": false
+            }
+          ]
+        }
+      ],
+      "poolBouts": [
+        {
+          "poolId": 168986,
+          "caseCode": "CASE5",
+          "order": 1,
+          "matchOrder": 1,
+          "homeNumber": 1,
+          "awayNumber": 2,
+          "homeLabel": "1：魏嘉茗(海南海外双优)",
+          "awayLabel": "2：朱格梓睦(海南海外双优)",
+          "homeScore": "V",
+          "awayScore": 3
+        },
+        {
+          "poolId": 168986,
+          "caseCode": "CASE5",
+          "order": 2,
+          "matchOrder": 2,
+          "homeNumber": 3,
+          "awayNumber": 4,
+          "homeLabel": "3：李沐霖(湖南聚力)",
+          "awayLabel": "4：于博圣(哈尔滨博奕)",
+          "homeScore": 2,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168986,
+          "caseCode": "CASE5",
+          "order": 3,
+          "matchOrder": 3,
+          "homeNumber": 5,
+          "awayNumber": 1,
+          "homeLabel": "5：胡彧硕(海口嘉世)",
+          "awayLabel": "1：魏嘉茗(海南海外双优)",
+          "homeScore": "V",
+          "awayScore": 1
+        },
+        {
+          "poolId": 168986,
+          "caseCode": "CASE5",
+          "order": 4,
+          "matchOrder": 4,
+          "homeNumber": 2,
+          "awayNumber": 3,
+          "homeLabel": "2：朱格梓睦(海南海外双优)",
+          "awayLabel": "3：李沐霖(湖南聚力)",
+          "homeScore": 1,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168986,
+          "caseCode": "CASE5",
+          "order": 5,
+          "matchOrder": 5,
+          "homeNumber": 5,
+          "awayNumber": 4,
+          "homeLabel": "5：胡彧硕(海口嘉世)",
+          "awayLabel": "4：于博圣(哈尔滨博奕)",
+          "homeScore": 3,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168986,
+          "caseCode": "CASE5",
+          "order": 6,
+          "matchOrder": 6,
+          "homeNumber": 1,
+          "awayNumber": 3,
+          "homeLabel": "1：魏嘉茗(海南海外双优)",
+          "awayLabel": "3：李沐霖(湖南聚力)",
+          "homeScore": 1,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168986,
+          "caseCode": "CASE5",
+          "order": 7,
+          "matchOrder": 7,
+          "homeNumber": 2,
+          "awayNumber": 5,
+          "homeLabel": "2：朱格梓睦(海南海外双优)",
+          "awayLabel": "5：胡彧硕(海口嘉世)",
+          "homeScore": 3,
+          "awayScore": "V"
+        },
+        {
+          "poolId": 168986,
+          "caseCode": "CASE5",
+          "order": 8,
+          "matchOrder": 8,
+          "homeNumber": 4,
+          "awayNumber": 1,
+          "homeLabel": "4：于博圣(哈尔滨博奕)",
+          "awayLabel": "1：魏嘉茗(海南海外双优)",
+          "homeScore": "V",
+          "awayScore": 1
+        },
+        {
+          "poolId": 168986,
+          "caseCode": "CASE5",
+          "order": 9,
+          "matchOrder": 9,
+          "homeNumber": 3,
+          "awayNumber": 5,
+          "homeLabel": "3：李沐霖(湖南聚力)",
+          "awayLabel": "5：胡彧硕(海口嘉世)",
+          "homeScore": "V",
+          "awayScore": 3
+        },
+        {
+          "poolId": 168986,
+          "caseCode": "CASE5",
+          "order": 10,
+          "matchOrder": 10,
+          "homeNumber": 4,
+          "awayNumber": 2,
+          "homeLabel": "4：于博圣(哈尔滨博奕)",
+          "awayLabel": "2：朱格梓睦(海南海外双优)",
+          "homeScore": "V",
+          "awayScore": 2
+        }
+      ],
+      "poolGroups": [
+        {
+          "poolId": 168986,
+          "title": "小组 1",
+          "athletes": [
+            {
+              "id": "20181215M202408010400",
+              "drawNo": 4,
+              "name": "于博圣",
+              "licence": "20181215M202408010400",
+              "club": "哈尔滨博奕",
+              "wins": 4,
+              "matches": 4,
+              "winRate": 1,
+              "scored": 20,
+              "received": 8,
+              "diff": 12,
+              "phaseRank": 1,
+              "finalRank": 1,
+              "medal": "金"
+            },
+            {
+              "id": "20180522M202510210430",
+              "drawNo": 3,
+              "name": "李沐霖",
+              "licence": "20180522M202510210430",
+              "club": "湖南聚力",
+              "wins": 3,
+              "matches": 4,
+              "winRate": 0.75,
+              "scored": 17,
+              "received": 10,
+              "diff": 7,
+              "phaseRank": 2,
+              "finalRank": 2,
+              "medal": "银"
+            },
+            {
+              "id": "20180123M202408011055",
+              "drawNo": 5,
+              "name": "胡彧硕",
+              "licence": "20180123M202408011055",
+              "club": "海口嘉世",
+              "wins": 2,
+              "matches": 4,
+              "winRate": 0.5,
+              "scored": 16,
+              "received": 14,
+              "diff": 2,
+              "phaseRank": 3,
+              "finalRank": 3,
+              "medal": "铜"
+            },
+            {
+              "id": "20180808M202605060841",
+              "drawNo": 1,
+              "name": "魏嘉茗",
+              "licence": "20180808M202605060841",
+              "club": "海南海外双优",
+              "wins": 1,
+              "matches": 4,
+              "winRate": 0.25,
+              "scored": 8,
+              "received": 18,
+              "diff": -10,
+              "phaseRank": 4,
+              "finalRank": 3,
+              "medal": "铜"
+            },
+            {
+              "id": "20190717M202605060832",
+              "drawNo": 2,
+              "name": "朱格梓睦",
+              "licence": "20190717M202605060832",
+              "club": "海南海外双优",
+              "wins": 0,
+              "matches": 4,
+              "winRate": 0,
+              "scored": 9,
+              "received": 20,
+              "diff": -11,
+              "phaseRank": 5,
+              "finalRank": 5,
+              "medal": null
+            }
+          ],
+          "bouts": [
+            {
+              "poolId": 168986,
+              "caseCode": "CASE5",
+              "order": 1,
+              "matchOrder": 1,
+              "homeNumber": 1,
+              "awayNumber": 2,
+              "homeLabel": "1：魏嘉茗(海南海外双优)",
+              "awayLabel": "2：朱格梓睦(海南海外双优)",
+              "homeScore": "V",
+              "awayScore": 3
+            },
+            {
+              "poolId": 168986,
+              "caseCode": "CASE5",
+              "order": 2,
+              "matchOrder": 2,
+              "homeNumber": 3,
+              "awayNumber": 4,
+              "homeLabel": "3：李沐霖(湖南聚力)",
+              "awayLabel": "4：于博圣(哈尔滨博奕)",
+              "homeScore": 2,
+              "awayScore": "V"
+            },
+            {
+              "poolId": 168986,
+              "caseCode": "CASE5",
+              "order": 3,
+              "matchOrder": 3,
+              "homeNumber": 5,
+              "awayNumber": 1,
+              "homeLabel": "5：胡彧硕(海口嘉世)",
+              "awayLabel": "1：魏嘉茗(海南海外双优)",
+              "homeScore": "V",
+              "awayScore": 1
+            },
+            {
+              "poolId": 168986,
+              "caseCode": "CASE5",
+              "order": 4,
+              "matchOrder": 4,
+              "homeNumber": 2,
+              "awayNumber": 3,
+              "homeLabel": "2：朱格梓睦(海南海外双优)",
+              "awayLabel": "3：李沐霖(湖南聚力)",
+              "homeScore": 1,
+              "awayScore": "V"
+            },
+            {
+              "poolId": 168986,
+              "caseCode": "CASE5",
+              "order": 5,
+              "matchOrder": 5,
+              "homeNumber": 5,
+              "awayNumber": 4,
+              "homeLabel": "5：胡彧硕(海口嘉世)",
+              "awayLabel": "4：于博圣(哈尔滨博奕)",
+              "homeScore": 3,
+              "awayScore": "V"
+            },
+            {
+              "poolId": 168986,
+              "caseCode": "CASE5",
+              "order": 6,
+              "matchOrder": 6,
+              "homeNumber": 1,
+              "awayNumber": 3,
+              "homeLabel": "1：魏嘉茗(海南海外双优)",
+              "awayLabel": "3：李沐霖(湖南聚力)",
+              "homeScore": 1,
+              "awayScore": "V"
+            },
+            {
+              "poolId": 168986,
+              "caseCode": "CASE5",
+              "order": 7,
+              "matchOrder": 7,
+              "homeNumber": 2,
+              "awayNumber": 5,
+              "homeLabel": "2：朱格梓睦(海南海外双优)",
+              "awayLabel": "5：胡彧硕(海口嘉世)",
+              "homeScore": 3,
+              "awayScore": "V"
+            },
+            {
+              "poolId": 168986,
+              "caseCode": "CASE5",
+              "order": 8,
+              "matchOrder": 8,
+              "homeNumber": 4,
+              "awayNumber": 1,
+              "homeLabel": "4：于博圣(哈尔滨博奕)",
+              "awayLabel": "1：魏嘉茗(海南海外双优)",
+              "homeScore": "V",
+              "awayScore": 1
+            },
+            {
+              "poolId": 168986,
+              "caseCode": "CASE5",
+              "order": 9,
+              "matchOrder": 9,
+              "homeNumber": 3,
+              "awayNumber": 5,
+              "homeLabel": "3：李沐霖(湖南聚力)",
+              "awayLabel": "5：胡彧硕(海口嘉世)",
+              "homeScore": "V",
+              "awayScore": 3
+            },
+            {
+              "poolId": 168986,
+              "caseCode": "CASE5",
+              "order": 10,
+              "matchOrder": 10,
+              "homeNumber": 4,
+              "awayNumber": 2,
+              "homeLabel": "4：于博圣(哈尔滨博奕)",
+              "awayLabel": "2：朱格梓睦(海南海外双优)",
+              "homeScore": "V",
+              "awayScore": 2
+            }
+          ]
+        }
+      ],
+      "participants": [
+        {
+          "id": "20181215M202408010400",
+          "name": "于博圣",
+          "licence": "20181215M202408010400",
+          "club": "哈尔滨博奕",
+          "finalRank": 1,
+          "medal": "金",
+          "ageBand": "2018 下半年",
+          "poolId": 168986,
+          "drawNo": 4,
+          "poolRank": 1,
+          "poolWins": 4,
+          "poolMatches": 4,
+          "poolDiff": 12,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 2,
+          "eliminationLosses": 0
+        },
+        {
+          "id": "20180522M202510210430",
+          "name": "李沐霖",
+          "licence": "20180522M202510210430",
+          "club": "湖南聚力",
+          "finalRank": 2,
+          "medal": "银",
+          "ageBand": "2018 上半年",
+          "poolId": 168986,
+          "drawNo": 3,
+          "poolRank": 2,
+          "poolWins": 3,
+          "poolMatches": 4,
+          "poolDiff": 7,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 1,
+          "eliminationLosses": 1
+        },
+        {
+          "id": "20180808M202605060841",
+          "name": "魏嘉茗",
+          "licence": "20180808M202605060841",
+          "club": "海南海外双优",
+          "finalRank": 3,
+          "medal": "铜",
+          "ageBand": "2018 下半年",
+          "poolId": 168986,
+          "drawNo": 1,
+          "poolRank": 4,
+          "poolWins": 1,
+          "poolMatches": 4,
+          "poolDiff": -10,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 1,
+          "eliminationLosses": 1
+        },
+        {
+          "id": "20180123M202408011055",
+          "name": "胡彧硕",
+          "licence": "20180123M202408011055",
+          "club": "海口嘉世",
+          "finalRank": 3,
+          "medal": "铜",
+          "ageBand": "2018 上半年",
+          "poolId": 168986,
+          "drawNo": 5,
+          "poolRank": 3,
+          "poolWins": 2,
+          "poolMatches": 4,
+          "poolDiff": 2,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 0,
+          "eliminationLosses": 1
+        },
+        {
+          "id": "20190717M202605060832",
+          "name": "朱格梓睦",
+          "licence": "20190717M202605060832",
+          "club": "海南海外双优",
+          "finalRank": 5,
+          "medal": null,
+          "ageBand": "2019 下半年",
+          "poolId": 168986,
+          "drawNo": 2,
+          "poolRank": 5,
+          "poolWins": 0,
+          "poolMatches": 4,
+          "poolDiff": -11,
+          "poolRemark": null,
+          "qualified": false,
+          "eliminationWins": 0,
+          "eliminationLosses": 1
+        }
+      ],
+      "eliminationLeaders": [
+        {
+          "id": "20181215M202408010400",
+          "name": "于博圣",
+          "club": "哈尔滨博奕",
+          "wins": 2,
+          "losses": 0,
+          "scored": 20,
+          "received": 11,
+          "diff": 9
+        },
+        {
+          "id": "20180522M202510210430",
+          "name": "李沐霖",
+          "club": "湖南聚力",
+          "wins": 1,
+          "losses": 1,
+          "scored": 18,
+          "received": 17,
+          "diff": 1
+        },
+        {
+          "id": "20180808M202605060841",
+          "name": "魏嘉茗",
+          "club": "海南海外双优",
+          "wins": 1,
+          "losses": 1,
+          "scored": 13,
+          "received": 19,
+          "diff": -6
+        },
+        {
+          "id": "20190717M202605060832",
+          "name": "朱格梓睦",
+          "club": "海南海外双优",
+          "wins": 0,
+          "losses": 1,
+          "scored": 9,
+          "received": 10,
+          "diff": -1
+        },
+        {
+          "id": "20180123M202408011055",
+          "name": "胡彧硕",
+          "club": "海口嘉世",
+          "wins": 0,
+          "losses": 1,
+          "scored": 7,
+          "received": 10,
+          "diff": -3
+        }
+      ],
+      "championPath": [
+        {
+          "phase": "半决赛",
+          "matchCode": "Pre001",
+          "championName": "于博圣",
+          "championClub": "哈尔滨博奕",
+          "championScore": 10,
+          "opponentName": "魏嘉茗",
+          "opponentClub": "海南海外双优",
+          "opponentScore": 3,
+          "isBye": false
+        },
+        {
+          "phase": "决赛",
+          "matchCode": "Pre001",
+          "championName": "于博圣",
+          "championClub": "哈尔滨博奕",
+          "championScore": 10,
+          "opponentName": "李沐霖",
+          "opponentClub": "湖南聚力",
+          "opponentScore": 8,
+          "isBye": false
+        }
+      ],
+      "keyOpponents": [
+        {
+          "id": "20181215M202408010400",
+          "name": "于博圣",
+          "club": "哈尔滨博奕",
+          "scored": 20,
+          "received": 11,
+          "matches": 2,
+          "wins": 2,
+          "losses": 0,
+          "diff": 9
+        },
+        {
+          "id": "20180522M202510210430",
+          "name": "李沐霖",
+          "club": "湖南聚力",
+          "scored": 18,
+          "received": 17,
+          "matches": 2,
+          "wins": 1,
+          "losses": 1,
+          "diff": 1
+        },
+        {
+          "id": "20180808M202605060841",
+          "name": "魏嘉茗",
+          "club": "海南海外双优",
+          "scored": 13,
+          "received": 19,
+          "matches": 2,
+          "wins": 1,
+          "losses": 1,
+          "diff": -6
+        },
+        {
+          "id": "20190717M202605060832",
+          "name": "朱格梓睦",
+          "club": "海南海外双优",
+          "scored": 9,
+          "received": 10,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "diff": -1
+        },
+        {
+          "id": "20180123M202408011055",
+          "name": "胡彧硕",
+          "club": "海口嘉世",
+          "scored": 7,
+          "received": 10,
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "diff": -3
+        }
+      ],
+      "insights": {
+        "headline": "于博圣 获得冠军，来自哈尔滨博奕",
+        "summaryCards": [
+          {
+            "title": "冠军",
+            "value": "于博圣",
+            "detail": "哈尔滨博奕 · 1名"
+          },
+          {
+            "title": "晋级线",
+            "value": "5 / 5",
+            "detail": "全部晋级"
+          },
+          {
+            "title": "淘汰赛密度",
+            "value": "4 场",
+            "detail": "含 3 场 Bye"
+          }
+        ],
+        "bullets": [
+          "于博圣 小组赛排第 1，最终夺冠。",
+          "海南海外双优 在当前样本里出现 2 次，是报名最集中的俱乐部。",
+          "该项目小组赛后全员晋级，淘汰赛主要用于重新排序。",
+          "淘汰赛包含较多 Bye，对阵密度偏低。"
+        ],
+        "breakout": [],
+        "fade": []
+      },
+      "athleteProfiles": [
+        {
+          "id": "20181215M202408010400",
+          "name": "于博圣",
+          "licence": "20181215M202408010400",
+          "club": "哈尔滨博奕",
+          "finalRank": 1,
+          "medal": "金",
+          "ageBand": "2018 下半年",
+          "poolId": 168986,
+          "poolRank": 1,
+          "poolWins": 4,
+          "poolMatches": 4,
+          "poolDiff": 12,
+          "eliminationWins": 2,
+          "eliminationLosses": 0,
+          "eliminationDiff": 9
+        },
+        {
+          "id": "20180522M202510210430",
+          "name": "李沐霖",
+          "licence": "20180522M202510210430",
+          "club": "湖南聚力",
+          "finalRank": 2,
+          "medal": "银",
+          "ageBand": "2018 上半年",
+          "poolId": 168986,
+          "poolRank": 2,
+          "poolWins": 3,
+          "poolMatches": 4,
+          "poolDiff": 7,
+          "eliminationWins": 1,
+          "eliminationLosses": 1,
+          "eliminationDiff": 1
+        },
+        {
+          "id": "20180808M202605060841",
+          "name": "魏嘉茗",
+          "licence": "20180808M202605060841",
+          "club": "海南海外双优",
+          "finalRank": 3,
+          "medal": "铜",
+          "ageBand": "2018 下半年",
+          "poolId": 168986,
+          "poolRank": 4,
+          "poolWins": 1,
+          "poolMatches": 4,
+          "poolDiff": -10,
+          "eliminationWins": 1,
+          "eliminationLosses": 1,
+          "eliminationDiff": -6
+        },
+        {
+          "id": "20180123M202408011055",
+          "name": "胡彧硕",
+          "licence": "20180123M202408011055",
+          "club": "海口嘉世",
+          "finalRank": 3,
+          "medal": "铜",
+          "ageBand": "2018 上半年",
+          "poolId": 168986,
+          "poolRank": 3,
+          "poolWins": 2,
+          "poolMatches": 4,
+          "poolDiff": 2,
+          "eliminationWins": 0,
+          "eliminationLosses": 1,
+          "eliminationDiff": -3
+        },
+        {
+          "id": "20190717M202605060832",
+          "name": "朱格梓睦",
+          "licence": "20190717M202605060832",
+          "club": "海南海外双优",
+          "finalRank": 5,
+          "medal": null,
+          "ageBand": "2019 下半年",
+          "poolId": 168986,
+          "poolRank": 5,
+          "poolWins": 0,
+          "poolMatches": 4,
+          "poolDiff": -11,
+          "eliminationWins": 0,
+          "eliminationLosses": 1,
+          "eliminationDiff": -1
+        }
+      ],
+      "clubProfiles": [
+        {
+          "id": "%E6%B5%B7%E5%8D%97%E6%B5%B7%E5%A4%96%E5%8F%8C%E4%BC%98",
+          "club": "海南海外双优",
+          "entrants": 2,
+          "medals": 1,
+          "top8": 2,
+          "finalists": 0,
+          "bestRank": 3,
+          "athletes": [
+            {
+              "id": "20180808M202605060841",
+              "name": "魏嘉茗",
+              "rank": 3,
+              "medal": "铜"
+            },
+            {
+              "id": "20190717M202605060832",
+              "name": "朱格梓睦",
+              "rank": 5,
+              "medal": null
+            }
+          ]
+        },
+        {
+          "id": "%E5%93%88%E5%B0%94%E6%BB%A8%E5%8D%9A%E5%A5%95",
+          "club": "哈尔滨博奕",
+          "entrants": 1,
+          "medals": 1,
+          "top8": 1,
+          "finalists": 1,
+          "bestRank": 1,
+          "athletes": [
+            {
+              "id": "20181215M202408010400",
+              "name": "于博圣",
+              "rank": 1,
+              "medal": "金"
+            }
+          ]
+        },
+        {
+          "id": "%E6%B9%96%E5%8D%97%E8%81%9A%E5%8A%9B",
+          "club": "湖南聚力",
+          "entrants": 1,
+          "medals": 1,
+          "top8": 1,
+          "finalists": 1,
+          "bestRank": 2,
+          "athletes": [
+            {
+              "id": "20180522M202510210430",
+              "name": "李沐霖",
+              "rank": 2,
+              "medal": "银"
+            }
+          ]
+        },
+        {
+          "id": "%E6%B5%B7%E5%8F%A3%E5%98%89%E4%B8%96",
+          "club": "海口嘉世",
+          "entrants": 1,
+          "medals": 1,
+          "top8": 1,
+          "finalists": 0,
+          "bestRank": 3,
+          "athletes": [
+            {
+              "id": "20180123M202408011055",
+              "name": "胡彧硕",
+              "rank": 3,
+              "medal": "铜"
+            }
+          ]
+        }
+      ],
+      "birthBuckets": [
+        {
+          "label": "2018 上半年",
+          "entrants": 2,
+          "top8": 2,
+          "medals": 2,
+          "bestRank": 2,
+          "top8Rate": 100
+        },
+        {
+          "label": "2018 下半年",
+          "entrants": 2,
+          "top8": 2,
+          "medals": 2,
+          "bestRank": 1,
+          "top8Rate": 100
+        },
+        {
+          "label": "2019 下半年",
+          "entrants": 1,
+          "top8": 1,
+          "medals": 0,
+          "bestRank": 5,
+          "top8Rate": 100
+        }
+      ],
+      "clubDistribution": {
+        "海南海外双优": 2,
+        "哈尔滨博奕": 1,
+        "湖南聚力": 1,
+        "海口嘉世": 1
+      }
+    },
     "RZSS20250309MFIU6": {
       "fileName": "score-RZSS20250309MFIU6-analysis.json",
       "eventCode": "RZSS20250309MFIU6",
@@ -85925,6 +111377,490 @@ export default {
         }
       ]
     },
+    "20160915M202304060808": {
+      "id": "20160915M202304060808",
+      "name": "徐潇然",
+      "club": "珠海剑一",
+      "bestRank": 1,
+      "medals": 2,
+      "appearances": 2,
+      "eliminationWins": 4,
+      "eliminationLosses": 1,
+      "latestRank": 3,
+      "latestEventName": "U12 男花",
+      "latestDate": null,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MFIU10",
+          "eventName": "U10男子花剑个人",
+          "shortEventName": "U10 男花",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 1,
+          "medal": "金",
+          "poolRank": 1,
+          "poolWins": 6,
+          "poolMatches": 6,
+          "poolDiff": 28,
+          "ageBand": "2016 下半年",
+          "eliminationWins": 3,
+          "eliminationLosses": 0
+        },
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MFIU12",
+          "eventName": "U12男子花剑个人",
+          "shortEventName": "U12 男花",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 3,
+          "medal": "铜",
+          "poolRank": 1,
+          "poolWins": 5,
+          "poolMatches": 5,
+          "poolDiff": 16,
+          "ageBand": "2016 下半年",
+          "eliminationWins": 1,
+          "eliminationLosses": 1
+        }
+      ],
+      "opponents": [
+        {
+          "id": "20170301M202211060131",
+          "name": "黄元懋",
+          "club": "深圳飙风",
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "scored": 10,
+          "received": 3,
+          "latestEventName": "U10 男花",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "10:3",
+          "latestPhase": "8表",
+          "diff": 7
+        },
+        {
+          "id": "20150214M202306150535",
+          "name": "刘奕辰",
+          "club": "广东",
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "scored": 10,
+          "received": 6,
+          "latestEventName": "U12 男花",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "10:6",
+          "latestPhase": "8表",
+          "diff": 4
+        },
+        {
+          "id": "20170523M202304140352",
+          "name": "汪柏霖",
+          "club": "深圳犀旺雷声",
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "scored": 10,
+          "received": 7,
+          "latestEventName": "U10 男花",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "10:7",
+          "latestPhase": "决赛",
+          "diff": 3
+        },
+        {
+          "id": "20161216M202304081110",
+          "name": "周嘉雄",
+          "club": "广州万国",
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "scored": 10,
+          "received": 9,
+          "latestEventName": "U10 男花",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "10:9",
+          "latestPhase": "半决赛",
+          "diff": 1
+        },
+        {
+          "id": "20150703M202205070736",
+          "name": "陈义洋",
+          "club": "福建",
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "scored": 8,
+          "received": 10,
+          "latestEventName": "U12 男花",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "8:10",
+          "latestPhase": "半决赛",
+          "diff": -2
+        }
+      ]
+    },
+    "20200601M202505101135": {
+      "id": "20200601M202505101135",
+      "name": " 张棣涵",
+      "club": "西安万国",
+      "bestRank": 1,
+      "medals": 2,
+      "appearances": 2,
+      "eliminationWins": 4,
+      "eliminationLosses": 1,
+      "latestRank": 3,
+      "latestEventName": "U8 男花",
+      "latestDate": null,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MFIU6",
+          "eventName": "U6男子花剑个人",
+          "shortEventName": "U6 男花",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 1,
+          "medal": "金",
+          "poolRank": 1,
+          "poolWins": 3,
+          "poolMatches": 3,
+          "poolDiff": 14,
+          "ageBand": "2020 上半年",
+          "eliminationWins": 2,
+          "eliminationLosses": 0
+        },
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MFIU8",
+          "eventName": "U8男子花剑个人",
+          "shortEventName": "U8 男花",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 3,
+          "medal": "铜",
+          "poolRank": 4,
+          "poolWins": 1,
+          "poolMatches": 4,
+          "poolDiff": 0,
+          "ageBand": "2020 上半年",
+          "eliminationWins": 2,
+          "eliminationLosses": 1
+        }
+      ],
+      "opponents": [
+        {
+          "id": "20210106M202605081026",
+          "name": "林煜轩",
+          "club": "个人",
+          "matches": 2,
+          "wins": 2,
+          "losses": 0,
+          "scored": 20,
+          "received": 5,
+          "latestEventName": "U8 男花",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "10:1",
+          "latestPhase": "16表",
+          "diff": 15
+        },
+        {
+          "id": "20200201M202604270117",
+          "name": "文允",
+          "club": "个人",
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "scored": 10,
+          "received": 4,
+          "latestEventName": "U6 男花",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "10:4",
+          "latestPhase": "决赛",
+          "diff": 6
+        },
+        {
+          "id": "20191211M202504150230",
+          "name": "杨以沐",
+          "club": "成都芮欧",
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "scored": 10,
+          "received": 6,
+          "latestEventName": "U8 男花",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "10:6",
+          "latestPhase": "8表",
+          "diff": 4
+        },
+        {
+          "id": "20180927M202410060349",
+          "name": "陈炜胤",
+          "club": "广西凡胜",
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "scored": 7,
+          "received": 10,
+          "latestEventName": "U8 男花",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "7:10",
+          "latestPhase": "半决赛",
+          "diff": -3
+        }
+      ]
+    },
+    "20161105M202307021013": {
+      "id": "20161105M202307021013",
+      "name": "张嘉盛",
+      "club": "上海嘉世",
+      "bestRank": 1,
+      "medals": 1,
+      "appearances": 2,
+      "eliminationWins": 4,
+      "eliminationLosses": 1,
+      "latestRank": 5,
+      "latestEventName": "U12 男重",
+      "latestDate": null,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MEIU10",
+          "eventName": "U10男子重剑个人",
+          "shortEventName": "U10 男重",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 1,
+          "medal": "金",
+          "poolRank": 1,
+          "poolWins": 4,
+          "poolMatches": 4,
+          "poolDiff": 8,
+          "ageBand": "2016 下半年",
+          "eliminationWins": 3,
+          "eliminationLosses": 0
+        },
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MEIU12",
+          "eventName": "U12男子重剑个人",
+          "shortEventName": "U12 男重",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 5,
+          "medal": null,
+          "poolRank": 2,
+          "poolWins": 4,
+          "poolMatches": 5,
+          "poolDiff": 8,
+          "ageBand": "2016 下半年",
+          "eliminationWins": 1,
+          "eliminationLosses": 1
+        }
+      ],
+      "opponents": [
+        {
+          "id": "20170209M202409270722",
+          "name": "杨启桢",
+          "club": "北京东城万国",
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "scored": 10,
+          "received": 3,
+          "latestEventName": "U10 男重",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "10:3",
+          "latestPhase": "半决赛",
+          "diff": 7
+        },
+        {
+          "id": "20160524M202408010202",
+          "name": "陈思然",
+          "club": "广州阳光剑匠",
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "scored": 10,
+          "received": 4,
+          "latestEventName": "U10 男重",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "10:4",
+          "latestPhase": "决赛",
+          "diff": 6
+        },
+        {
+          "id": "20160612M202304011118",
+          "name": "王璟泽",
+          "club": "海口嘉世",
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "scored": 10,
+          "received": 5,
+          "latestEventName": "U12 男重",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "10:5",
+          "latestPhase": "16表",
+          "diff": 5
+        },
+        {
+          "id": "20170322M202307060644",
+          "name": "宋浩宇",
+          "club": "北京圣剑",
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "scored": 10,
+          "received": 7,
+          "latestEventName": "U10 男重",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "10:7",
+          "latestPhase": "8表",
+          "diff": 3
+        },
+        {
+          "id": "20151020M202211070400",
+          "name": "杨岸霖",
+          "club": "湖北永尚",
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "scored": 1,
+          "received": 10,
+          "latestEventName": "U12 男重",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "1:10",
+          "latestPhase": "8表",
+          "diff": -9
+        }
+      ]
+    },
+    "20181215M202408010400": {
+      "id": "20181215M202408010400",
+      "name": "于博圣",
+      "club": "哈尔滨博奕",
+      "bestRank": 1,
+      "medals": 1,
+      "appearances": 2,
+      "eliminationWins": 2,
+      "eliminationLosses": 1,
+      "latestRank": 1,
+      "latestEventName": "U8 男重",
+      "latestDate": null,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MEIU10",
+          "eventName": "U10男子重剑个人",
+          "shortEventName": "U10 男重",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 13,
+          "medal": null,
+          "poolRank": 5,
+          "poolWins": 1,
+          "poolMatches": 5,
+          "poolDiff": -10,
+          "ageBand": "2018 下半年",
+          "eliminationWins": 0,
+          "eliminationLosses": 1
+        },
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MEIU8",
+          "eventName": "U8男子重剑个人",
+          "shortEventName": "U8 男重",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 1,
+          "medal": "金",
+          "poolRank": 1,
+          "poolWins": 4,
+          "poolMatches": 4,
+          "poolDiff": 12,
+          "ageBand": "2018 下半年",
+          "eliminationWins": 2,
+          "eliminationLosses": 0
+        }
+      ],
+      "opponents": [
+        {
+          "id": "20180808M202605060841",
+          "name": "魏嘉茗",
+          "club": "海南海外双优",
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "scored": 10,
+          "received": 3,
+          "latestEventName": "U8 男重",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "10:3",
+          "latestPhase": "半决赛",
+          "diff": 7
+        },
+        {
+          "id": "20180522M202510210430",
+          "name": "李沐霖",
+          "club": "湖南聚力",
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "scored": 10,
+          "received": 8,
+          "latestEventName": "U8 男重",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "10:8",
+          "latestPhase": "决赛",
+          "diff": 2
+        },
+        {
+          "id": "20170209M202409270722",
+          "name": "杨启桢",
+          "club": "北京东城万国",
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "scored": 4,
+          "received": 10,
+          "latestEventName": "U10 男重",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "4:10",
+          "latestPhase": "16表",
+          "diff": -6
+        }
+      ]
+    },
     "20190618M202311071015": {
       "id": "20190618M202311071015",
       "name": "马星野",
@@ -86203,6 +112139,370 @@ export default {
           "latestScore": "10:9",
           "latestPhase": "半决赛",
           "diff": 1
+        }
+      ]
+    },
+    "20141013M202107041143": {
+      "id": "20141013M202107041143",
+      "name": "赵禹瑞",
+      "club": "湖北永尚",
+      "bestRank": 1,
+      "medals": 1,
+      "appearances": 1,
+      "eliminationWins": 4,
+      "eliminationLosses": 0,
+      "latestRank": 1,
+      "latestEventName": "U12 男重",
+      "latestDate": null,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MEIU12",
+          "eventName": "U12男子重剑个人",
+          "shortEventName": "U12 男重",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 1,
+          "medal": "金",
+          "poolRank": 1,
+          "poolWins": 5,
+          "poolMatches": 5,
+          "poolDiff": 21,
+          "ageBand": "2014 下半年",
+          "eliminationWins": 4,
+          "eliminationLosses": 0
+        }
+      ],
+      "opponents": [
+        {
+          "id": "20140630M202510111255",
+          "name": "张嘉瑞",
+          "club": "海南海外双优",
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "scored": 10,
+          "received": 3,
+          "latestEventName": "U12 男重",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "10:3",
+          "latestPhase": "16表",
+          "diff": 7
+        },
+        {
+          "id": "20150820M202502220824",
+          "name": "韦俊宇",
+          "club": "济南奥伦",
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "scored": 10,
+          "received": 6,
+          "latestEventName": "U12 男重",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "10:6",
+          "latestPhase": "8表",
+          "diff": 4
+        },
+        {
+          "id": "20151020M202211070400",
+          "name": "杨岸霖",
+          "club": "湖北永尚",
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "scored": 10,
+          "received": 7,
+          "latestEventName": "U12 男重",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "10:7",
+          "latestPhase": "半决赛",
+          "diff": 3
+        },
+        {
+          "id": "20141108M202307200835",
+          "name": "金葆芮",
+          "club": "湖北永尚",
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "scored": 10,
+          "received": 7,
+          "latestEventName": "U12 男重",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "10:7",
+          "latestPhase": "决赛",
+          "diff": 3
+        }
+      ]
+    },
+    "20150703M202205070736": {
+      "id": "20150703M202205070736",
+      "name": "陈义洋",
+      "club": "福建",
+      "bestRank": 1,
+      "medals": 1,
+      "appearances": 1,
+      "eliminationWins": 4,
+      "eliminationLosses": 0,
+      "latestRank": 1,
+      "latestEventName": "U12 男花",
+      "latestDate": null,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MFIU12",
+          "eventName": "U12男子花剑个人",
+          "shortEventName": "U12 男花",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 1,
+          "medal": "金",
+          "poolRank": 1,
+          "poolWins": 4,
+          "poolMatches": 5,
+          "poolDiff": 11,
+          "ageBand": "2015 下半年",
+          "eliminationWins": 4,
+          "eliminationLosses": 0
+        }
+      ],
+      "opponents": [
+        {
+          "id": "20150320M202411040911",
+          "name": "汤采葑",
+          "club": "上海浦东万国",
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "scored": 10,
+          "received": 2,
+          "latestEventName": "U12 男花",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "10:2",
+          "latestPhase": "16表",
+          "diff": 8
+        },
+        {
+          "id": "20161216M202304081110",
+          "name": "周嘉雄",
+          "club": "广州万国",
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "scored": 10,
+          "received": 2,
+          "latestEventName": "U12 男花",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "10:2",
+          "latestPhase": "8表",
+          "diff": 8
+        },
+        {
+          "id": "20141024M202304070815",
+          "name": "翟立鸿",
+          "club": "广东",
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "scored": 10,
+          "received": 2,
+          "latestEventName": "U12 男花",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "10:2",
+          "latestPhase": "决赛",
+          "diff": 8
+        },
+        {
+          "id": "20160915M202304060808",
+          "name": "徐潇然",
+          "club": "珠海剑一",
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "scored": 10,
+          "received": 8,
+          "latestEventName": "U12 男花",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "10:8",
+          "latestPhase": "半决赛",
+          "diff": 2
+        }
+      ]
+    },
+    "20150120M202110150910": {
+      "id": "20150120M202110150910",
+      "name": "凌梓豪",
+      "club": "个人",
+      "bestRank": 1,
+      "medals": 1,
+      "appearances": 1,
+      "eliminationWins": 3,
+      "eliminationLosses": 0,
+      "latestRank": 1,
+      "latestEventName": "U14 男花",
+      "latestDate": null,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MFIU14",
+          "eventName": "U14男子花剑个人",
+          "shortEventName": "U14 男花",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 1,
+          "medal": "金",
+          "poolRank": 1,
+          "poolWins": 3,
+          "poolMatches": 3,
+          "poolDiff": 11,
+          "ageBand": "2015 上半年",
+          "eliminationWins": 3,
+          "eliminationLosses": 0
+        }
+      ],
+      "opponents": [
+        {
+          "id": "20140106M202307010521",
+          "name": "潘杍墨",
+          "club": "个人",
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "scored": 15,
+          "received": 6,
+          "latestEventName": "U14 男花",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "15:6",
+          "latestPhase": "8表",
+          "diff": 9
+        },
+        {
+          "id": "20141029M202307090543",
+          "name": "张浦宸",
+          "club": "海口嘉世",
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "scored": 15,
+          "received": 6,
+          "latestEventName": "U14 男花",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "15:6",
+          "latestPhase": "半决赛",
+          "diff": 9
+        },
+        {
+          "id": "20140313M201906101430",
+          "name": "张家华",
+          "club": "个人",
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "scored": 15,
+          "received": 11,
+          "latestEventName": "U14 男花",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "15:11",
+          "latestPhase": "决赛",
+          "diff": 4
+        }
+      ]
+    },
+    "20180418M202406091148": {
+      "id": "20180418M202406091148",
+      "name": "钟昊哲",
+      "club": "个人",
+      "bestRank": 1,
+      "medals": 1,
+      "appearances": 1,
+      "eliminationWins": 3,
+      "eliminationLosses": 0,
+      "latestRank": 1,
+      "latestEventName": "U8 男花",
+      "latestDate": null,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MFIU8",
+          "eventName": "U8男子花剑个人",
+          "shortEventName": "U8 男花",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 1,
+          "medal": "金",
+          "poolRank": 3,
+          "poolWins": 3,
+          "poolMatches": 4,
+          "poolDiff": 2,
+          "ageBand": "2018 上半年",
+          "eliminationWins": 3,
+          "eliminationLosses": 0
+        }
+      ],
+      "opponents": [
+        {
+          "id": "20180927M202410060349",
+          "name": "陈炜胤",
+          "club": "广西凡胜",
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "scored": 10,
+          "received": 3,
+          "latestEventName": "U8 男花",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "10:3",
+          "latestPhase": "决赛",
+          "diff": 7
+        },
+        {
+          "id": "20190512M202411111015",
+          "name": "李闫君",
+          "club": "个人",
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "scored": 10,
+          "received": 6,
+          "latestEventName": "U8 男花",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "10:6",
+          "latestPhase": "半决赛",
+          "diff": 4
+        },
+        {
+          "id": "20180912M202510140228",
+          "name": "张梓铄",
+          "club": "海南佼佼者",
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "scored": 10,
+          "received": 8,
+          "latestEventName": "U8 男花",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "10:8",
+          "latestPhase": "8表",
+          "diff": 2
         }
       ]
     },
@@ -86986,6 +113286,591 @@ export default {
         }
       ]
     },
+    "20160524M202408010202": {
+      "id": "20160524M202408010202",
+      "name": "陈思然",
+      "club": "广州阳光剑匠",
+      "bestRank": 2,
+      "medals": 1,
+      "appearances": 2,
+      "eliminationWins": 3,
+      "eliminationLosses": 2,
+      "latestRank": 14,
+      "latestEventName": "U12 男重",
+      "latestDate": null,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MEIU10",
+          "eventName": "U10男子重剑个人",
+          "shortEventName": "U10 男重",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 2,
+          "medal": "银",
+          "poolRank": 4,
+          "poolWins": 2,
+          "poolMatches": 5,
+          "poolDiff": 1,
+          "ageBand": "2016 上半年",
+          "eliminationWins": 3,
+          "eliminationLosses": 1
+        },
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MEIU12",
+          "eventName": "U12男子重剑个人",
+          "shortEventName": "U12 男重",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 14,
+          "medal": null,
+          "poolRank": 3,
+          "poolWins": 2,
+          "poolMatches": 5,
+          "poolDiff": -1,
+          "ageBand": "2016 上半年",
+          "eliminationWins": 0,
+          "eliminationLosses": 1
+        }
+      ],
+      "opponents": [
+        {
+          "id": "20160606M202311290422",
+          "name": "王琳溪",
+          "club": "海南海外双优",
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "scored": 10,
+          "received": 6,
+          "latestEventName": "U10 男重",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "10:6",
+          "latestPhase": "16表",
+          "diff": 4
+        },
+        {
+          "id": "20160215M202306281040",
+          "name": "刘栩辰",
+          "club": "广州阳光剑匠",
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "scored": 10,
+          "received": 7,
+          "latestEventName": "U10 男重",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "10:7",
+          "latestPhase": "半决赛",
+          "diff": 3
+        },
+        {
+          "id": "20160520M202307010456",
+          "name": "林恩霈",
+          "club": "个人",
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "scored": 10,
+          "received": 8,
+          "latestEventName": "U10 男重",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "10:8",
+          "latestPhase": "8表",
+          "diff": 2
+        },
+        {
+          "id": "20161105M202307021013",
+          "name": "张嘉盛",
+          "club": "上海嘉世",
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "scored": 4,
+          "received": 10,
+          "latestEventName": "U10 男重",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "4:10",
+          "latestPhase": "决赛",
+          "diff": -6
+        },
+        {
+          "id": "20151020M202211070400",
+          "name": "杨岸霖",
+          "club": "湖北永尚",
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "scored": 3,
+          "received": 10,
+          "latestEventName": "U12 男重",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "3:10",
+          "latestPhase": "16表",
+          "diff": -7
+        }
+      ]
+    },
+    "20180522M202510210430": {
+      "id": "20180522M202510210430",
+      "name": "李沐霖",
+      "club": "湖南聚力",
+      "bestRank": 2,
+      "medals": 1,
+      "appearances": 2,
+      "eliminationWins": 1,
+      "eliminationLosses": 1,
+      "latestRank": 2,
+      "latestEventName": "U8 男重",
+      "latestDate": null,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MEIU10",
+          "eventName": "U10男子重剑个人",
+          "shortEventName": "U10 男重",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 15,
+          "medal": null,
+          "poolRank": 6,
+          "poolWins": 1,
+          "poolMatches": 5,
+          "poolDiff": -10,
+          "ageBand": "2018 上半年",
+          "eliminationWins": 0,
+          "eliminationLosses": 0
+        },
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MEIU8",
+          "eventName": "U8男子重剑个人",
+          "shortEventName": "U8 男重",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 2,
+          "medal": "银",
+          "poolRank": 2,
+          "poolWins": 3,
+          "poolMatches": 4,
+          "poolDiff": 7,
+          "ageBand": "2018 上半年",
+          "eliminationWins": 1,
+          "eliminationLosses": 1
+        }
+      ],
+      "opponents": [
+        {
+          "id": "20180123M202408011055",
+          "name": "胡彧硕",
+          "club": "海口嘉世",
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "scored": 10,
+          "received": 7,
+          "latestEventName": "U8 男重",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "10:7",
+          "latestPhase": "半决赛",
+          "diff": 3
+        },
+        {
+          "id": "20181215M202408010400",
+          "name": "于博圣",
+          "club": "哈尔滨博奕",
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "scored": 8,
+          "received": 10,
+          "latestEventName": "U8 男重",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "8:10",
+          "latestPhase": "决赛",
+          "diff": -2
+        }
+      ]
+    },
+    "20170523M202304140352": {
+      "id": "20170523M202304140352",
+      "name": "汪柏霖",
+      "club": "深圳犀旺雷声",
+      "bestRank": 2,
+      "medals": 1,
+      "appearances": 2,
+      "eliminationWins": 3,
+      "eliminationLosses": 2,
+      "latestRank": 6,
+      "latestEventName": "U12 男花",
+      "latestDate": null,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MFIU10",
+          "eventName": "U10男子花剑个人",
+          "shortEventName": "U10 男花",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 2,
+          "medal": "银",
+          "poolRank": 3,
+          "poolWins": 3,
+          "poolMatches": 6,
+          "poolDiff": -3,
+          "ageBand": "2017 上半年",
+          "eliminationWins": 2,
+          "eliminationLosses": 1
+        },
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MFIU12",
+          "eventName": "U12男子花剑个人",
+          "shortEventName": "U12 男花",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 6,
+          "medal": null,
+          "poolRank": 3,
+          "poolWins": 4,
+          "poolMatches": 5,
+          "poolDiff": 7,
+          "ageBand": "2017 上半年",
+          "eliminationWins": 1,
+          "eliminationLosses": 1
+        }
+      ],
+      "opponents": [
+        {
+          "id": "20150116M202304031258",
+          "name": "冯翊宸",
+          "club": "海口嘉世",
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "scored": 10,
+          "received": 5,
+          "latestEventName": "U12 男花",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "10:5",
+          "latestPhase": "16表",
+          "diff": 5
+        },
+        {
+          "id": "20170705M202307080345",
+          "name": "丁启宸",
+          "club": "珠海剑一",
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "scored": 10,
+          "received": 7,
+          "latestEventName": "U10 男花",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "10:7",
+          "latestPhase": "半决赛",
+          "diff": 3
+        },
+        {
+          "id": "20170509M202305281055",
+          "name": "谢君墨",
+          "club": "北京艾鲁特",
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "scored": 10,
+          "received": 8,
+          "latestEventName": "U10 男花",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "10:8",
+          "latestPhase": "8表",
+          "diff": 2
+        },
+        {
+          "id": "20160915M202304060808",
+          "name": "徐潇然",
+          "club": "珠海剑一",
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "scored": 7,
+          "received": 10,
+          "latestEventName": "U10 男花",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "7:10",
+          "latestPhase": "决赛",
+          "diff": -3
+        },
+        {
+          "id": "20141024M202304070815",
+          "name": "翟立鸿",
+          "club": "广东",
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "scored": 1,
+          "received": 10,
+          "latestEventName": "U12 男花",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "1:10",
+          "latestPhase": "8表",
+          "diff": -9
+        }
+      ]
+    },
+    "20140313M201906101430": {
+      "id": "20140313M201906101430",
+      "name": "张家华",
+      "club": "个人",
+      "bestRank": 2,
+      "medals": 1,
+      "appearances": 2,
+      "eliminationWins": 3,
+      "eliminationLosses": 2,
+      "latestRank": 2,
+      "latestEventName": "U14 男花",
+      "latestDate": null,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MFIU12",
+          "eventName": "U12男子花剑个人",
+          "shortEventName": "U12 男花",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 7,
+          "medal": null,
+          "poolRank": 2,
+          "poolWins": 4,
+          "poolMatches": 5,
+          "poolDiff": 4,
+          "ageBand": "2014 上半年",
+          "eliminationWins": 1,
+          "eliminationLosses": 1
+        },
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MFIU14",
+          "eventName": "U14男子花剑个人",
+          "shortEventName": "U14 男花",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 2,
+          "medal": "银",
+          "poolRank": 1,
+          "poolWins": 2,
+          "poolMatches": 3,
+          "poolDiff": 6,
+          "ageBand": "2014 上半年",
+          "eliminationWins": 2,
+          "eliminationLosses": 1
+        }
+      ],
+      "opponents": [
+        {
+          "id": "20131022M202510150526",
+          "name": "吴清云",
+          "club": "海南佼佼者",
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "scored": 15,
+          "received": 2,
+          "latestEventName": "U14 男花",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "15:2",
+          "latestPhase": "半决赛",
+          "diff": 13
+        },
+        {
+          "id": "20130518M202506090651",
+          "name": "欧阳江林",
+          "club": "个人",
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "scored": 15,
+          "received": 3,
+          "latestEventName": "U14 男花",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "15:3",
+          "latestPhase": "8表",
+          "diff": 12
+        },
+        {
+          "id": "20170705M202307080345",
+          "name": "丁启宸",
+          "club": "珠海剑一",
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "scored": 10,
+          "received": 3,
+          "latestEventName": "U12 男花",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "10:3",
+          "latestPhase": "16表",
+          "diff": 7
+        },
+        {
+          "id": "20141126M202401150102",
+          "name": "徐睿泽",
+          "club": "深圳磐石",
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "scored": 7,
+          "received": 8,
+          "latestEventName": "U12 男花",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "7:8",
+          "latestPhase": "8表",
+          "diff": -1
+        },
+        {
+          "id": "20150120M202110150910",
+          "name": "凌梓豪",
+          "club": "个人",
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "scored": 11,
+          "received": 15,
+          "latestEventName": "U14 男花",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "11:15",
+          "latestPhase": "决赛",
+          "diff": -4
+        }
+      ]
+    },
+    "20200201M202604270117": {
+      "id": "20200201M202604270117",
+      "name": "文允",
+      "club": "个人",
+      "bestRank": 2,
+      "medals": 1,
+      "appearances": 2,
+      "eliminationWins": 1,
+      "eliminationLosses": 2,
+      "latestRank": 9,
+      "latestEventName": "U8 男花",
+      "latestDate": null,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MFIU6",
+          "eventName": "U6男子花剑个人",
+          "shortEventName": "U6 男花",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 2,
+          "medal": "银",
+          "poolRank": 2,
+          "poolWins": 2,
+          "poolMatches": 3,
+          "poolDiff": 2,
+          "ageBand": "2020 上半年",
+          "eliminationWins": 1,
+          "eliminationLosses": 1
+        },
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MFIU8",
+          "eventName": "U8男子花剑个人",
+          "shortEventName": "U8 男花",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 9,
+          "medal": null,
+          "poolRank": 5,
+          "poolWins": 0,
+          "poolMatches": 4,
+          "poolDiff": -12,
+          "ageBand": "2020 上半年",
+          "eliminationWins": 0,
+          "eliminationLosses": 1
+        }
+      ],
+      "opponents": [
+        {
+          "id": "20200305M202604250744",
+          "name": "郭锦瑞",
+          "club": "个人",
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "scored": 10,
+          "received": 2,
+          "latestEventName": "U6 男花",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "10:2",
+          "latestPhase": "半决赛",
+          "diff": 8
+        },
+        {
+          "id": "20180131M202605100931",
+          "name": "利炳林",
+          "club": "海口嘉世",
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "scored": 6,
+          "received": 10,
+          "latestEventName": "U8 男花",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "6:10",
+          "latestPhase": "16表",
+          "diff": -4
+        },
+        {
+          "id": "20200601M202505101135",
+          "name": " 张棣涵",
+          "club": "西安万国",
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "scored": 4,
+          "received": 10,
+          "latestEventName": "U6 男花",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "4:10",
+          "latestPhase": "决赛",
+          "diff": -6
+        }
+      ]
+    },
     "20180201M202308120726": {
       "id": "20180201M202308120726",
       "name": "曹熠烊",
@@ -87181,6 +114066,287 @@ export default {
           "latestScore": "8:10",
           "latestPhase": "决赛",
           "diff": -2
+        }
+      ]
+    },
+    "20141108M202307200835": {
+      "id": "20141108M202307200835",
+      "name": "金葆芮",
+      "club": "湖北永尚",
+      "bestRank": 2,
+      "medals": 1,
+      "appearances": 1,
+      "eliminationWins": 3,
+      "eliminationLosses": 1,
+      "latestRank": 2,
+      "latestEventName": "U12 男重",
+      "latestDate": null,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MEIU12",
+          "eventName": "U12男子重剑个人",
+          "shortEventName": "U12 男重",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 2,
+          "medal": "银",
+          "poolRank": 1,
+          "poolWins": 5,
+          "poolMatches": 5,
+          "poolDiff": 15,
+          "ageBand": "2014 下半年",
+          "eliminationWins": 3,
+          "eliminationLosses": 1
+        }
+      ],
+      "opponents": [
+        {
+          "id": "20150713M202304020341",
+          "name": "李润丞",
+          "club": "海口嘉世",
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "scored": 10,
+          "received": 4,
+          "latestEventName": "U12 男重",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "10:4",
+          "latestPhase": "8表",
+          "diff": 6
+        },
+        {
+          "id": "20150520M202501290854",
+          "name": "谢卓珉",
+          "club": "长沙博翼",
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "scored": 9,
+          "received": 5,
+          "latestEventName": "U12 男重",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "9:5",
+          "latestPhase": "16表",
+          "diff": 4
+        },
+        {
+          "id": "20140321M202506150705",
+          "name": "卢宏垚",
+          "club": "个人",
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "scored": 10,
+          "received": 6,
+          "latestEventName": "U12 男重",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "10:6",
+          "latestPhase": "半决赛",
+          "diff": 4
+        },
+        {
+          "id": "20141013M202107041143",
+          "name": "赵禹瑞",
+          "club": "湖北永尚",
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "scored": 7,
+          "received": 10,
+          "latestEventName": "U12 男重",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "7:10",
+          "latestPhase": "决赛",
+          "diff": -3
+        }
+      ]
+    },
+    "20141024M202304070815": {
+      "id": "20141024M202304070815",
+      "name": "翟立鸿",
+      "club": "广东",
+      "bestRank": 2,
+      "medals": 1,
+      "appearances": 1,
+      "eliminationWins": 3,
+      "eliminationLosses": 1,
+      "latestRank": 2,
+      "latestEventName": "U12 男花",
+      "latestDate": null,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MFIU12",
+          "eventName": "U12男子花剑个人",
+          "shortEventName": "U12 男花",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 2,
+          "medal": "银",
+          "poolRank": 2,
+          "poolWins": 4,
+          "poolMatches": 5,
+          "poolDiff": 13,
+          "ageBand": "2014 下半年",
+          "eliminationWins": 3,
+          "eliminationLosses": 1
+        }
+      ],
+      "opponents": [
+        {
+          "id": "20151022M202410240215",
+          "name": "邓淳译",
+          "club": "成都芮欧",
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "scored": 10,
+          "received": 1,
+          "latestEventName": "U12 男花",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "10:1",
+          "latestPhase": "16表",
+          "diff": 9
+        },
+        {
+          "id": "20170523M202304140352",
+          "name": "汪柏霖",
+          "club": "深圳犀旺雷声",
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "scored": 10,
+          "received": 1,
+          "latestEventName": "U12 男花",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "10:1",
+          "latestPhase": "8表",
+          "diff": 9
+        },
+        {
+          "id": "20141126M202401150102",
+          "name": "徐睿泽",
+          "club": "深圳磐石",
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "scored": 7,
+          "received": 5,
+          "latestEventName": "U12 男花",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "7:5",
+          "latestPhase": "半决赛",
+          "diff": 2
+        },
+        {
+          "id": "20150703M202205070736",
+          "name": "陈义洋",
+          "club": "福建",
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "scored": 2,
+          "received": 10,
+          "latestEventName": "U12 男花",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "2:10",
+          "latestPhase": "决赛",
+          "diff": -8
+        }
+      ]
+    },
+    "20180927M202410060349": {
+      "id": "20180927M202410060349",
+      "name": "陈炜胤",
+      "club": "广西凡胜",
+      "bestRank": 2,
+      "medals": 1,
+      "appearances": 1,
+      "eliminationWins": 2,
+      "eliminationLosses": 1,
+      "latestRank": 2,
+      "latestEventName": "U8 男花",
+      "latestDate": null,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MFIU8",
+          "eventName": "U8男子花剑个人",
+          "shortEventName": "U8 男花",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 2,
+          "medal": "银",
+          "poolRank": 1,
+          "poolWins": 3,
+          "poolMatches": 4,
+          "poolDiff": 11,
+          "ageBand": "2018 下半年",
+          "eliminationWins": 2,
+          "eliminationLosses": 1
+        }
+      ],
+      "opponents": [
+        {
+          "id": "20191219M202605050934",
+          "name": "姚皓予",
+          "club": "个人",
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "scored": 10,
+          "received": 3,
+          "latestEventName": "U8 男花",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "10:3",
+          "latestPhase": "8表",
+          "diff": 7
+        },
+        {
+          "id": "20200601M202505101135",
+          "name": " 张棣涵",
+          "club": "西安万国",
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "scored": 10,
+          "received": 7,
+          "latestEventName": "U8 男花",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "10:7",
+          "latestPhase": "半决赛",
+          "diff": 3
+        },
+        {
+          "id": "20180418M202406091148",
+          "name": "钟昊哲",
+          "club": "个人",
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "scored": 3,
+          "received": 10,
+          "latestEventName": "U8 男花",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "3:10",
+          "latestPhase": "决赛",
+          "diff": -7
         }
       ]
     },
@@ -88284,6 +115450,479 @@ export default {
         }
       ]
     },
+    "20161216M202304081110": {
+      "id": "20161216M202304081110",
+      "name": "周嘉雄",
+      "club": "广州万国",
+      "bestRank": 3,
+      "medals": 1,
+      "appearances": 2,
+      "eliminationWins": 2,
+      "eliminationLosses": 2,
+      "latestRank": 5,
+      "latestEventName": "U12 男花",
+      "latestDate": null,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MFIU10",
+          "eventName": "U10男子花剑个人",
+          "shortEventName": "U10 男花",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 3,
+          "medal": "铜",
+          "poolRank": 2,
+          "poolWins": 4,
+          "poolMatches": 5,
+          "poolDiff": 17,
+          "ageBand": "2016 下半年",
+          "eliminationWins": 1,
+          "eliminationLosses": 1
+        },
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MFIU12",
+          "eventName": "U12男子花剑个人",
+          "shortEventName": "U12 男花",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 5,
+          "medal": null,
+          "poolRank": 2,
+          "poolWins": 4,
+          "poolMatches": 5,
+          "poolDiff": 11,
+          "ageBand": "2016 下半年",
+          "eliminationWins": 1,
+          "eliminationLosses": 1
+        }
+      ],
+      "opponents": [
+        {
+          "id": "20170505M202408030933",
+          "name": "黄禹淙",
+          "club": "海口嘉世",
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "scored": 10,
+          "received": 2,
+          "latestEventName": "U10 男花",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "10:2",
+          "latestPhase": "8表",
+          "diff": 8
+        },
+        {
+          "id": "20170509M202305281055",
+          "name": "谢君墨",
+          "club": "北京艾鲁特",
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "scored": 10,
+          "received": 3,
+          "latestEventName": "U12 男花",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "10:3",
+          "latestPhase": "16表",
+          "diff": 7
+        },
+        {
+          "id": "20160915M202304060808",
+          "name": "徐潇然",
+          "club": "珠海剑一",
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "scored": 9,
+          "received": 10,
+          "latestEventName": "U10 男花",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "9:10",
+          "latestPhase": "半决赛",
+          "diff": -1
+        },
+        {
+          "id": "20150703M202205070736",
+          "name": "陈义洋",
+          "club": "福建",
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "scored": 2,
+          "received": 10,
+          "latestEventName": "U12 男花",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "2:10",
+          "latestPhase": "8表",
+          "diff": -8
+        }
+      ]
+    },
+    "20170705M202307080345": {
+      "id": "20170705M202307080345",
+      "name": "丁启宸",
+      "club": "珠海剑一",
+      "bestRank": 3,
+      "medals": 1,
+      "appearances": 2,
+      "eliminationWins": 1,
+      "eliminationLosses": 2,
+      "latestRank": 10,
+      "latestEventName": "U12 男花",
+      "latestDate": null,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MFIU10",
+          "eventName": "U10男子花剑个人",
+          "shortEventName": "U10 男花",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 3,
+          "medal": "铜",
+          "poolRank": 1,
+          "poolWins": 5,
+          "poolMatches": 5,
+          "poolDiff": 21,
+          "ageBand": "2017 下半年",
+          "eliminationWins": 1,
+          "eliminationLosses": 1
+        },
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MFIU12",
+          "eventName": "U12男子花剑个人",
+          "shortEventName": "U12 男花",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 10,
+          "medal": null,
+          "poolRank": 4,
+          "poolWins": 2,
+          "poolMatches": 5,
+          "poolDiff": 0,
+          "ageBand": "2017 下半年",
+          "eliminationWins": 0,
+          "eliminationLosses": 1
+        }
+      ],
+      "opponents": [
+        {
+          "id": "20171201M202509190843",
+          "name": "颜培亦",
+          "club": "广西佼佼者",
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "scored": 10,
+          "received": 3,
+          "latestEventName": "U10 男花",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "10:3",
+          "latestPhase": "8表",
+          "diff": 7
+        },
+        {
+          "id": "20170523M202304140352",
+          "name": "汪柏霖",
+          "club": "深圳犀旺雷声",
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "scored": 7,
+          "received": 10,
+          "latestEventName": "U10 男花",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "7:10",
+          "latestPhase": "半决赛",
+          "diff": -3
+        },
+        {
+          "id": "20140313M201906101430",
+          "name": "张家华",
+          "club": "个人",
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "scored": 3,
+          "received": 10,
+          "latestEventName": "U12 男花",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "3:10",
+          "latestPhase": "16表",
+          "diff": -7
+        }
+      ]
+    },
+    "20141126M202401150102": {
+      "id": "20141126M202401150102",
+      "name": "徐睿泽",
+      "club": "深圳磐石",
+      "bestRank": 3,
+      "medals": 1,
+      "appearances": 2,
+      "eliminationWins": 1,
+      "eliminationLosses": 1,
+      "latestRank": 9,
+      "latestEventName": "U14 男花",
+      "latestDate": null,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MFIU12",
+          "eventName": "U12男子花剑个人",
+          "shortEventName": "U12 男花",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 3,
+          "medal": "铜",
+          "poolRank": 1,
+          "poolWins": 4,
+          "poolMatches": 5,
+          "poolDiff": 16,
+          "ageBand": "2014 下半年",
+          "eliminationWins": 1,
+          "eliminationLosses": 1
+        },
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MFIU14",
+          "eventName": "U14男子花剑个人",
+          "shortEventName": "U14 男花",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 9,
+          "medal": null,
+          "poolRank": null,
+          "poolWins": null,
+          "poolMatches": null,
+          "poolDiff": null,
+          "ageBand": "2014 下半年",
+          "eliminationWins": 0,
+          "eliminationLosses": 0
+        }
+      ],
+      "opponents": [
+        {
+          "id": "20140313M201906101430",
+          "name": "张家华",
+          "club": "个人",
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "scored": 8,
+          "received": 7,
+          "latestEventName": "U12 男花",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "8:7",
+          "latestPhase": "8表",
+          "diff": 1
+        },
+        {
+          "id": "20141024M202304070815",
+          "name": "翟立鸿",
+          "club": "广东",
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "scored": 5,
+          "received": 7,
+          "latestEventName": "U12 男花",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "5:7",
+          "latestPhase": "半决赛",
+          "diff": -2
+        }
+      ]
+    },
+    "20141029M202307090543": {
+      "id": "20141029M202307090543",
+      "name": "张浦宸",
+      "club": "海口嘉世",
+      "bestRank": 3,
+      "medals": 1,
+      "appearances": 2,
+      "eliminationWins": 1,
+      "eliminationLosses": 2,
+      "latestRank": 3,
+      "latestEventName": "U14 男花",
+      "latestDate": null,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MFIU12",
+          "eventName": "U12男子花剑个人",
+          "shortEventName": "U12 男花",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 9,
+          "medal": null,
+          "poolRank": 3,
+          "poolWins": 3,
+          "poolMatches": 5,
+          "poolDiff": 9,
+          "ageBand": "2014 下半年",
+          "eliminationWins": 0,
+          "eliminationLosses": 1
+        },
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MFIU14",
+          "eventName": "U14男子花剑个人",
+          "shortEventName": "U14 男花",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 3,
+          "medal": "铜",
+          "poolRank": 2,
+          "poolWins": 2,
+          "poolMatches": 3,
+          "poolDiff": 1,
+          "ageBand": "2014 下半年",
+          "eliminationWins": 1,
+          "eliminationLosses": 1
+        }
+      ],
+      "opponents": [
+        {
+          "id": "20131101M202406221017",
+          "name": "吴俊霖",
+          "club": "个人",
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "scored": 15,
+          "received": 0,
+          "latestEventName": "U14 男花",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "15:0",
+          "latestPhase": "8表",
+          "diff": 15
+        },
+        {
+          "id": "20150214M202306150535",
+          "name": "刘奕辰",
+          "club": "广东",
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "scored": 5,
+          "received": 10,
+          "latestEventName": "U12 男花",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "5:10",
+          "latestPhase": "16表",
+          "diff": -5
+        },
+        {
+          "id": "20150120M202110150910",
+          "name": "凌梓豪",
+          "club": "个人",
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "scored": 6,
+          "received": 15,
+          "latestEventName": "U14 男花",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "6:15",
+          "latestPhase": "半决赛",
+          "diff": -9
+        }
+      ]
+    },
+    "20210106M202605081026": {
+      "id": "20210106M202605081026",
+      "name": "林煜轩",
+      "club": "个人",
+      "bestRank": 3,
+      "medals": 1,
+      "appearances": 2,
+      "eliminationWins": 0,
+      "eliminationLosses": 2,
+      "latestRank": 10,
+      "latestEventName": "U8 男花",
+      "latestDate": null,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MFIU6",
+          "eventName": "U6男子花剑个人",
+          "shortEventName": "U6 男花",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 3,
+          "medal": "铜",
+          "poolRank": 4,
+          "poolWins": 0,
+          "poolMatches": 3,
+          "poolDiff": -11,
+          "ageBand": "2021 上半年",
+          "eliminationWins": 0,
+          "eliminationLosses": 1
+        },
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MFIU8",
+          "eventName": "U8男子花剑个人",
+          "shortEventName": "U8 男花",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 10,
+          "medal": null,
+          "poolRank": 5,
+          "poolWins": 0,
+          "poolMatches": 4,
+          "poolDiff": -20,
+          "ageBand": "2021 上半年",
+          "eliminationWins": 0,
+          "eliminationLosses": 1
+        }
+      ],
+      "opponents": [
+        {
+          "id": "20200601M202505101135",
+          "name": " 张棣涵",
+          "club": "西安万国",
+          "matches": 2,
+          "wins": 0,
+          "losses": 2,
+          "scored": 5,
+          "received": 20,
+          "latestEventName": "U8 男花",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "1:10",
+          "latestPhase": "16表",
+          "diff": -15
+        }
+      ]
+    },
     "20180123M202306071130": {
       "id": "20180123M202306071130",
       "name": "宋叶蓁",
@@ -88845,6 +116484,625 @@ export default {
           "latestScore": "5:10",
           "latestPhase": "半决赛",
           "diff": -5
+        }
+      ]
+    },
+    "20170209M202409270722": {
+      "id": "20170209M202409270722",
+      "name": "杨启桢",
+      "club": "北京东城万国",
+      "bestRank": 3,
+      "medals": 1,
+      "appearances": 1,
+      "eliminationWins": 2,
+      "eliminationLosses": 1,
+      "latestRank": 3,
+      "latestEventName": "U10 男重",
+      "latestDate": null,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MEIU10",
+          "eventName": "U10男子重剑个人",
+          "shortEventName": "U10 男重",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 3,
+          "medal": "铜",
+          "poolRank": 2,
+          "poolWins": 4,
+          "poolMatches": 5,
+          "poolDiff": 10,
+          "ageBand": "2017 上半年",
+          "eliminationWins": 2,
+          "eliminationLosses": 1
+        }
+      ],
+      "opponents": [
+        {
+          "id": "20181215M202408010400",
+          "name": "于博圣",
+          "club": "哈尔滨博奕",
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "scored": 10,
+          "received": 4,
+          "latestEventName": "U10 男重",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "10:4",
+          "latestPhase": "16表",
+          "diff": 6
+        },
+        {
+          "id": "20171011M202405061217",
+          "name": "时铭泽",
+          "club": "个人",
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "scored": 10,
+          "received": 7,
+          "latestEventName": "U10 男重",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "10:7",
+          "latestPhase": "8表",
+          "diff": 3
+        },
+        {
+          "id": "20161105M202307021013",
+          "name": "张嘉盛",
+          "club": "上海嘉世",
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "scored": 3,
+          "received": 10,
+          "latestEventName": "U10 男重",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "3:10",
+          "latestPhase": "半决赛",
+          "diff": -7
+        }
+      ]
+    },
+    "20160215M202306281040": {
+      "id": "20160215M202306281040",
+      "name": "刘栩辰",
+      "club": "广州阳光剑匠",
+      "bestRank": 3,
+      "medals": 1,
+      "appearances": 1,
+      "eliminationWins": 1,
+      "eliminationLosses": 1,
+      "latestRank": 3,
+      "latestEventName": "U10 男重",
+      "latestDate": null,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MEIU10",
+          "eventName": "U10男子重剑个人",
+          "shortEventName": "U10 男重",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 3,
+          "medal": "铜",
+          "poolRank": 1,
+          "poolWins": 4,
+          "poolMatches": 5,
+          "poolDiff": 12,
+          "ageBand": "2016 上半年",
+          "eliminationWins": 1,
+          "eliminationLosses": 1
+        }
+      ],
+      "opponents": [
+        {
+          "id": "20161017M202406190604",
+          "name": "梁庭睿",
+          "club": "海口嘉世",
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "scored": 9,
+          "received": 4,
+          "latestEventName": "U10 男重",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "9:4",
+          "latestPhase": "8表",
+          "diff": 5
+        },
+        {
+          "id": "20160524M202408010202",
+          "name": "陈思然",
+          "club": "广州阳光剑匠",
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "scored": 7,
+          "received": 10,
+          "latestEventName": "U10 男重",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "7:10",
+          "latestPhase": "半决赛",
+          "diff": -3
+        }
+      ]
+    },
+    "20151020M202211070400": {
+      "id": "20151020M202211070400",
+      "name": "杨岸霖",
+      "club": "湖北永尚",
+      "bestRank": 3,
+      "medals": 1,
+      "appearances": 1,
+      "eliminationWins": 2,
+      "eliminationLosses": 1,
+      "latestRank": 3,
+      "latestEventName": "U12 男重",
+      "latestDate": null,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MEIU12",
+          "eventName": "U12男子重剑个人",
+          "shortEventName": "U12 男重",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 3,
+          "medal": "铜",
+          "poolRank": 1,
+          "poolWins": 4,
+          "poolMatches": 5,
+          "poolDiff": 13,
+          "ageBand": "2015 下半年",
+          "eliminationWins": 2,
+          "eliminationLosses": 1
+        }
+      ],
+      "opponents": [
+        {
+          "id": "20161105M202307021013",
+          "name": "张嘉盛",
+          "club": "上海嘉世",
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "scored": 10,
+          "received": 1,
+          "latestEventName": "U12 男重",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "10:1",
+          "latestPhase": "8表",
+          "diff": 9
+        },
+        {
+          "id": "20160524M202408010202",
+          "name": "陈思然",
+          "club": "广州阳光剑匠",
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "scored": 10,
+          "received": 3,
+          "latestEventName": "U12 男重",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "10:3",
+          "latestPhase": "16表",
+          "diff": 7
+        },
+        {
+          "id": "20141013M202107041143",
+          "name": "赵禹瑞",
+          "club": "湖北永尚",
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "scored": 7,
+          "received": 10,
+          "latestEventName": "U12 男重",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "7:10",
+          "latestPhase": "半决赛",
+          "diff": -3
+        }
+      ]
+    },
+    "20140321M202506150705": {
+      "id": "20140321M202506150705",
+      "name": "卢宏垚",
+      "club": "个人",
+      "bestRank": 3,
+      "medals": 1,
+      "appearances": 1,
+      "eliminationWins": 2,
+      "eliminationLosses": 1,
+      "latestRank": 3,
+      "latestEventName": "U12 男重",
+      "latestDate": null,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MEIU12",
+          "eventName": "U12男子重剑个人",
+          "shortEventName": "U12 男重",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 3,
+          "medal": "铜",
+          "poolRank": 3,
+          "poolWins": 4,
+          "poolMatches": 5,
+          "poolDiff": 4,
+          "ageBand": "2014 上半年",
+          "eliminationWins": 2,
+          "eliminationLosses": 1
+        }
+      ],
+      "opponents": [
+        {
+          "id": "20160606M202311290422",
+          "name": "王琳溪",
+          "club": "海南海外双优",
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "scored": 10,
+          "received": 1,
+          "latestEventName": "U12 男重",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "10:1",
+          "latestPhase": "8表",
+          "diff": 9
+        },
+        {
+          "id": "20150515M202501220920",
+          "name": "邱皓翔",
+          "club": "个人",
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "scored": 10,
+          "received": 6,
+          "latestEventName": "U12 男重",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "10:6",
+          "latestPhase": "16表",
+          "diff": 4
+        },
+        {
+          "id": "20141108M202307200835",
+          "name": "金葆芮",
+          "club": "湖北永尚",
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "scored": 6,
+          "received": 10,
+          "latestEventName": "U12 男重",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "6:10",
+          "latestPhase": "半决赛",
+          "diff": -4
+        }
+      ]
+    },
+    "20180808M202605060841": {
+      "id": "20180808M202605060841",
+      "name": "魏嘉茗",
+      "club": "海南海外双优",
+      "bestRank": 3,
+      "medals": 1,
+      "appearances": 1,
+      "eliminationWins": 1,
+      "eliminationLosses": 1,
+      "latestRank": 3,
+      "latestEventName": "U8 男重",
+      "latestDate": null,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MEIU8",
+          "eventName": "U8男子重剑个人",
+          "shortEventName": "U8 男重",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 3,
+          "medal": "铜",
+          "poolRank": 4,
+          "poolWins": 1,
+          "poolMatches": 4,
+          "poolDiff": -10,
+          "ageBand": "2018 下半年",
+          "eliminationWins": 1,
+          "eliminationLosses": 1
+        }
+      ],
+      "opponents": [
+        {
+          "id": "20190717M202605060832",
+          "name": "朱格梓睦",
+          "club": "海南海外双优",
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "scored": 10,
+          "received": 9,
+          "latestEventName": "U8 男重",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "10:9",
+          "latestPhase": "8表",
+          "diff": 1
+        },
+        {
+          "id": "20181215M202408010400",
+          "name": "于博圣",
+          "club": "哈尔滨博奕",
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "scored": 3,
+          "received": 10,
+          "latestEventName": "U8 男重",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "3:10",
+          "latestPhase": "半决赛",
+          "diff": -7
+        }
+      ]
+    },
+    "20180123M202408011055": {
+      "id": "20180123M202408011055",
+      "name": "胡彧硕",
+      "club": "海口嘉世",
+      "bestRank": 3,
+      "medals": 1,
+      "appearances": 1,
+      "eliminationWins": 0,
+      "eliminationLosses": 1,
+      "latestRank": 3,
+      "latestEventName": "U8 男重",
+      "latestDate": null,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MEIU8",
+          "eventName": "U8男子重剑个人",
+          "shortEventName": "U8 男重",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 3,
+          "medal": "铜",
+          "poolRank": 3,
+          "poolWins": 2,
+          "poolMatches": 4,
+          "poolDiff": 2,
+          "ageBand": "2018 上半年",
+          "eliminationWins": 0,
+          "eliminationLosses": 1
+        }
+      ],
+      "opponents": [
+        {
+          "id": "20180522M202510210430",
+          "name": "李沐霖",
+          "club": "湖南聚力",
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "scored": 7,
+          "received": 10,
+          "latestEventName": "U8 男重",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "7:10",
+          "latestPhase": "半决赛",
+          "diff": -3
+        }
+      ]
+    },
+    "20131022M202510150526": {
+      "id": "20131022M202510150526",
+      "name": "吴清云",
+      "club": "海南佼佼者",
+      "bestRank": 3,
+      "medals": 1,
+      "appearances": 1,
+      "eliminationWins": 1,
+      "eliminationLosses": 1,
+      "latestRank": 3,
+      "latestEventName": "U14 男花",
+      "latestDate": null,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MFIU14",
+          "eventName": "U14男子花剑个人",
+          "shortEventName": "U14 男花",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 3,
+          "medal": "铜",
+          "poolRank": 2,
+          "poolWins": 2,
+          "poolMatches": 3,
+          "poolDiff": 4,
+          "ageBand": "2013 下半年",
+          "eliminationWins": 1,
+          "eliminationLosses": 1
+        }
+      ],
+      "opponents": [
+        {
+          "id": "20131128M202510140413",
+          "name": "高鸣骏",
+          "club": "海南佼佼者",
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "scored": 15,
+          "received": 10,
+          "latestEventName": "U14 男花",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "15:10",
+          "latestPhase": "8表",
+          "diff": 5
+        },
+        {
+          "id": "20140313M201906101430",
+          "name": "张家华",
+          "club": "个人",
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "scored": 2,
+          "received": 15,
+          "latestEventName": "U14 男花",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "2:15",
+          "latestPhase": "半决赛",
+          "diff": -13
+        }
+      ]
+    },
+    "20200305M202604250744": {
+      "id": "20200305M202604250744",
+      "name": "郭锦瑞",
+      "club": "个人",
+      "bestRank": 3,
+      "medals": 1,
+      "appearances": 1,
+      "eliminationWins": 0,
+      "eliminationLosses": 1,
+      "latestRank": 3,
+      "latestEventName": "U6 男花",
+      "latestDate": null,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MFIU6",
+          "eventName": "U6男子花剑个人",
+          "shortEventName": "U6 男花",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 3,
+          "medal": "铜",
+          "poolRank": 3,
+          "poolWins": 1,
+          "poolMatches": 3,
+          "poolDiff": -5,
+          "ageBand": "2020 上半年",
+          "eliminationWins": 0,
+          "eliminationLosses": 1
+        }
+      ],
+      "opponents": [
+        {
+          "id": "20200201M202604270117",
+          "name": "文允",
+          "club": "个人",
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "scored": 2,
+          "received": 10,
+          "latestEventName": "U6 男花",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "2:10",
+          "latestPhase": "半决赛",
+          "diff": -8
+        }
+      ]
+    },
+    "20190512M202411111015": {
+      "id": "20190512M202411111015",
+      "name": "李闫君",
+      "club": "个人",
+      "bestRank": 3,
+      "medals": 1,
+      "appearances": 1,
+      "eliminationWins": 1,
+      "eliminationLosses": 1,
+      "latestRank": 3,
+      "latestEventName": "U8 男花",
+      "latestDate": null,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MFIU8",
+          "eventName": "U8男子花剑个人",
+          "shortEventName": "U8 男花",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 3,
+          "medal": "铜",
+          "poolRank": 1,
+          "poolWins": 4,
+          "poolMatches": 4,
+          "poolDiff": 11,
+          "ageBand": "2019 上半年",
+          "eliminationWins": 1,
+          "eliminationLosses": 1
+        }
+      ],
+      "opponents": [
+        {
+          "id": "20180131M202605100931",
+          "name": "利炳林",
+          "club": "海口嘉世",
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "scored": 10,
+          "received": 7,
+          "latestEventName": "U8 男花",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "10:7",
+          "latestPhase": "8表",
+          "diff": 3
+        },
+        {
+          "id": "20180418M202406091148",
+          "name": "钟昊哲",
+          "club": "个人",
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "scored": 6,
+          "received": 10,
+          "latestEventName": "U8 男花",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "6:10",
+          "latestPhase": "半决赛",
+          "diff": -4
         }
       ]
     },
@@ -89415,6 +117673,160 @@ export default {
         }
       ]
     },
+    "20160520M202307010456": {
+      "id": "20160520M202307010456",
+      "name": "林恩霈",
+      "club": "个人",
+      "bestRank": 5,
+      "medals": 0,
+      "appearances": 2,
+      "eliminationWins": 0,
+      "eliminationLosses": 1,
+      "latestRank": 21,
+      "latestEventName": "U12 男重",
+      "latestDate": null,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MEIU10",
+          "eventName": "U10男子重剑个人",
+          "shortEventName": "U10 男重",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 5,
+          "medal": null,
+          "poolRank": 1,
+          "poolWins": 4,
+          "poolMatches": 5,
+          "poolDiff": 10,
+          "ageBand": "2016 上半年",
+          "eliminationWins": 0,
+          "eliminationLosses": 1
+        },
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MEIU12",
+          "eventName": "U12男子重剑个人",
+          "shortEventName": "U12 男重",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 21,
+          "medal": null,
+          "poolRank": 6,
+          "poolWins": 1,
+          "poolMatches": 5,
+          "poolDiff": -10,
+          "ageBand": "2016 上半年",
+          "eliminationWins": 0,
+          "eliminationLosses": 0
+        }
+      ],
+      "opponents": [
+        {
+          "id": "20160524M202408010202",
+          "name": "陈思然",
+          "club": "广州阳光剑匠",
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "scored": 8,
+          "received": 10,
+          "latestEventName": "U10 男重",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "8:10",
+          "latestPhase": "8表",
+          "diff": -2
+        }
+      ]
+    },
+    "20170509M202305281055": {
+      "id": "20170509M202305281055",
+      "name": "谢君墨",
+      "club": "北京艾鲁特",
+      "bestRank": 5,
+      "medals": 0,
+      "appearances": 2,
+      "eliminationWins": 0,
+      "eliminationLosses": 2,
+      "latestRank": 12,
+      "latestEventName": "U12 男花",
+      "latestDate": null,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MFIU10",
+          "eventName": "U10男子花剑个人",
+          "shortEventName": "U10 男花",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 5,
+          "medal": null,
+          "poolRank": 2,
+          "poolWins": 5,
+          "poolMatches": 6,
+          "poolDiff": 13,
+          "ageBand": "2017 上半年",
+          "eliminationWins": 0,
+          "eliminationLosses": 1
+        },
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MFIU12",
+          "eventName": "U12男子花剑个人",
+          "shortEventName": "U12 男花",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 12,
+          "medal": null,
+          "poolRank": 5,
+          "poolWins": 2,
+          "poolMatches": 5,
+          "poolDiff": -4,
+          "ageBand": "2017 上半年",
+          "eliminationWins": 0,
+          "eliminationLosses": 1
+        }
+      ],
+      "opponents": [
+        {
+          "id": "20170523M202304140352",
+          "name": "汪柏霖",
+          "club": "深圳犀旺雷声",
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "scored": 8,
+          "received": 10,
+          "latestEventName": "U10 男花",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "8:10",
+          "latestPhase": "8表",
+          "diff": -2
+        },
+        {
+          "id": "20161216M202304081110",
+          "name": "周嘉雄",
+          "club": "广州万国",
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "scored": 3,
+          "received": 10,
+          "latestEventName": "U12 男花",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "3:10",
+          "latestPhase": "16表",
+          "diff": -7
+        }
+      ]
+    },
     "20190814M202405220304": {
       "id": "20190814M202405220304",
       "name": "张成蹊",
@@ -89715,6 +118127,159 @@ export default {
           "latestScore": "5:10",
           "latestPhase": "8表",
           "diff": -5
+        }
+      ]
+    },
+    "20190717M202605060832": {
+      "id": "20190717M202605060832",
+      "name": "朱格梓睦",
+      "club": "海南海外双优",
+      "bestRank": 5,
+      "medals": 0,
+      "appearances": 1,
+      "eliminationWins": 0,
+      "eliminationLosses": 1,
+      "latestRank": 5,
+      "latestEventName": "U8 男重",
+      "latestDate": null,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MEIU8",
+          "eventName": "U8男子重剑个人",
+          "shortEventName": "U8 男重",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 5,
+          "medal": null,
+          "poolRank": 5,
+          "poolWins": 0,
+          "poolMatches": 4,
+          "poolDiff": -11,
+          "ageBand": "2019 下半年",
+          "eliminationWins": 0,
+          "eliminationLosses": 1
+        }
+      ],
+      "opponents": [
+        {
+          "id": "20180808M202605060841",
+          "name": "魏嘉茗",
+          "club": "海南海外双优",
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "scored": 9,
+          "received": 10,
+          "latestEventName": "U8 男重",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "9:10",
+          "latestPhase": "8表",
+          "diff": -1
+        }
+      ]
+    },
+    "20131101M202406221017": {
+      "id": "20131101M202406221017",
+      "name": "吴俊霖",
+      "club": "个人",
+      "bestRank": 5,
+      "medals": 0,
+      "appearances": 1,
+      "eliminationWins": 0,
+      "eliminationLosses": 1,
+      "latestRank": 5,
+      "latestEventName": "U14 男花",
+      "latestDate": null,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MFIU14",
+          "eventName": "U14男子花剑个人",
+          "shortEventName": "U14 男花",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 5,
+          "medal": null,
+          "poolRank": 3,
+          "poolWins": 2,
+          "poolMatches": 3,
+          "poolDiff": -2,
+          "ageBand": "2013 下半年",
+          "eliminationWins": 0,
+          "eliminationLosses": 1
+        }
+      ],
+      "opponents": [
+        {
+          "id": "20141029M202307090543",
+          "name": "张浦宸",
+          "club": "海口嘉世",
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "scored": 0,
+          "received": 15,
+          "latestEventName": "U14 男花",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "0:15",
+          "latestPhase": "8表",
+          "diff": -15
+        }
+      ]
+    },
+    "20191211M202504150230": {
+      "id": "20191211M202504150230",
+      "name": "杨以沐",
+      "club": "成都芮欧",
+      "bestRank": 5,
+      "medals": 0,
+      "appearances": 1,
+      "eliminationWins": 0,
+      "eliminationLosses": 1,
+      "latestRank": 5,
+      "latestEventName": "U8 男花",
+      "latestDate": null,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MFIU8",
+          "eventName": "U8男子花剑个人",
+          "shortEventName": "U8 男花",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 5,
+          "medal": null,
+          "poolRank": 2,
+          "poolWins": 3,
+          "poolMatches": 4,
+          "poolDiff": 11,
+          "ageBand": "2019 下半年",
+          "eliminationWins": 0,
+          "eliminationLosses": 1
+        }
+      ],
+      "opponents": [
+        {
+          "id": "20200601M202505101135",
+          "name": " 张棣涵",
+          "club": "西安万国",
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "scored": 6,
+          "received": 10,
+          "latestEventName": "U8 男花",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "6:10",
+          "latestPhase": "8表",
+          "diff": -4
         }
       ]
     },
@@ -90371,6 +118936,160 @@ export default {
         }
       ]
     },
+    "20171011M202405061217": {
+      "id": "20171011M202405061217",
+      "name": "时铭泽",
+      "club": "个人",
+      "bestRank": 6,
+      "medals": 0,
+      "appearances": 2,
+      "eliminationWins": 1,
+      "eliminationLosses": 1,
+      "latestRank": 20,
+      "latestEventName": "U12 男重",
+      "latestDate": null,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MEIU10",
+          "eventName": "U10男子重剑个人",
+          "shortEventName": "U10 男重",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 6,
+          "medal": null,
+          "poolRank": 3,
+          "poolWins": 4,
+          "poolMatches": 5,
+          "poolDiff": 9,
+          "ageBand": "2017 下半年",
+          "eliminationWins": 1,
+          "eliminationLosses": 1
+        },
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MEIU12",
+          "eventName": "U12男子重剑个人",
+          "shortEventName": "U12 男重",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 20,
+          "medal": null,
+          "poolRank": 5,
+          "poolWins": 1,
+          "poolMatches": 5,
+          "poolDiff": -8,
+          "ageBand": "2017 下半年",
+          "eliminationWins": 0,
+          "eliminationLosses": 0
+        }
+      ],
+      "opponents": [
+        {
+          "id": "20160707M202304031135",
+          "name": "赵一帆",
+          "club": "海口嘉世",
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "scored": 10,
+          "received": 7,
+          "latestEventName": "U10 男重",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "10:7",
+          "latestPhase": "16表",
+          "diff": 3
+        },
+        {
+          "id": "20170209M202409270722",
+          "name": "杨启桢",
+          "club": "北京东城万国",
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "scored": 7,
+          "received": 10,
+          "latestEventName": "U10 男重",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "7:10",
+          "latestPhase": "8表",
+          "diff": -3
+        }
+      ]
+    },
+    "20170505M202408030933": {
+      "id": "20170505M202408030933",
+      "name": "黄禹淙",
+      "club": "海口嘉世",
+      "bestRank": 6,
+      "medals": 0,
+      "appearances": 2,
+      "eliminationWins": 0,
+      "eliminationLosses": 1,
+      "latestRank": 17,
+      "latestEventName": "U12 男花",
+      "latestDate": null,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MFIU10",
+          "eventName": "U10男子花剑个人",
+          "shortEventName": "U10 男花",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 6,
+          "medal": null,
+          "poolRank": 3,
+          "poolWins": 3,
+          "poolMatches": 5,
+          "poolDiff": -3,
+          "ageBand": "2017 上半年",
+          "eliminationWins": 0,
+          "eliminationLosses": 1
+        },
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MFIU12",
+          "eventName": "U12男子花剑个人",
+          "shortEventName": "U12 男花",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 17,
+          "medal": null,
+          "poolRank": 6,
+          "poolWins": 0,
+          "poolMatches": 5,
+          "poolDiff": -19,
+          "ageBand": "2017 上半年",
+          "eliminationWins": 0,
+          "eliminationLosses": 0
+        }
+      ],
+      "opponents": [
+        {
+          "id": "20161216M202304081110",
+          "name": "周嘉雄",
+          "club": "广州万国",
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "scored": 2,
+          "received": 10,
+          "latestEventName": "U10 男花",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "2:10",
+          "latestPhase": "8表",
+          "diff": -8
+        }
+      ]
+    },
     "20190517M202402280502": {
       "id": "20190517M202402280502",
       "name": "于桢航",
@@ -90518,6 +119237,175 @@ export default {
           "latestScore": "0:10",
           "latestPhase": "8表",
           "diff": -10
+        }
+      ]
+    },
+    "20150820M202502220824": {
+      "id": "20150820M202502220824",
+      "name": "韦俊宇",
+      "club": "济南奥伦",
+      "bestRank": 6,
+      "medals": 0,
+      "appearances": 1,
+      "eliminationWins": 1,
+      "eliminationLosses": 1,
+      "latestRank": 6,
+      "latestEventName": "U12 男重",
+      "latestDate": null,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MEIU12",
+          "eventName": "U12男子重剑个人",
+          "shortEventName": "U12 男重",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 6,
+          "medal": null,
+          "poolRank": 2,
+          "poolWins": 3,
+          "poolMatches": 5,
+          "poolDiff": 4,
+          "ageBand": "2015 下半年",
+          "eliminationWins": 1,
+          "eliminationLosses": 1
+        }
+      ],
+      "opponents": [
+        {
+          "id": "20170215M202501150309",
+          "name": "林诺禧",
+          "club": "香港剑乐会",
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "scored": 10,
+          "received": 5,
+          "latestEventName": "U12 男重",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "10:5",
+          "latestPhase": "16表",
+          "diff": 5
+        },
+        {
+          "id": "20141013M202107041143",
+          "name": "赵禹瑞",
+          "club": "湖北永尚",
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "scored": 6,
+          "received": 10,
+          "latestEventName": "U12 男重",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "6:10",
+          "latestPhase": "8表",
+          "diff": -4
+        }
+      ]
+    },
+    "20131128M202510140413": {
+      "id": "20131128M202510140413",
+      "name": "高鸣骏",
+      "club": "海南佼佼者",
+      "bestRank": 6,
+      "medals": 0,
+      "appearances": 1,
+      "eliminationWins": 0,
+      "eliminationLosses": 1,
+      "latestRank": 6,
+      "latestEventName": "U14 男花",
+      "latestDate": null,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MFIU14",
+          "eventName": "U14男子花剑个人",
+          "shortEventName": "U14 男花",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 6,
+          "medal": null,
+          "poolRank": 3,
+          "poolWins": 1,
+          "poolMatches": 3,
+          "poolDiff": -3,
+          "ageBand": "2013 下半年",
+          "eliminationWins": 0,
+          "eliminationLosses": 1
+        }
+      ],
+      "opponents": [
+        {
+          "id": "20131022M202510150526",
+          "name": "吴清云",
+          "club": "海南佼佼者",
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "scored": 10,
+          "received": 15,
+          "latestEventName": "U14 男花",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "10:15",
+          "latestPhase": "8表",
+          "diff": -5
+        }
+      ]
+    },
+    "20180912M202510140228": {
+      "id": "20180912M202510140228",
+      "name": "张梓铄",
+      "club": "海南佼佼者",
+      "bestRank": 6,
+      "medals": 0,
+      "appearances": 1,
+      "eliminationWins": 0,
+      "eliminationLosses": 1,
+      "latestRank": 6,
+      "latestEventName": "U8 男花",
+      "latestDate": null,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MFIU8",
+          "eventName": "U8男子花剑个人",
+          "shortEventName": "U8 男花",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 6,
+          "medal": null,
+          "poolRank": 2,
+          "poolWins": 3,
+          "poolMatches": 4,
+          "poolDiff": 7,
+          "ageBand": "2018 下半年",
+          "eliminationWins": 0,
+          "eliminationLosses": 1
+        }
+      ],
+      "opponents": [
+        {
+          "id": "20180418M202406091148",
+          "name": "钟昊哲",
+          "club": "个人",
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "scored": 8,
+          "received": 10,
+          "latestEventName": "U8 男花",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "8:10",
+          "latestPhase": "8表",
+          "diff": -2
         }
       ]
     },
@@ -91190,6 +120078,91 @@ export default {
         }
       ]
     },
+    "20170322M202307060644": {
+      "id": "20170322M202307060644",
+      "name": "宋浩宇",
+      "club": "北京圣剑",
+      "bestRank": 7,
+      "medals": 0,
+      "appearances": 2,
+      "eliminationWins": 1,
+      "eliminationLosses": 1,
+      "latestRank": 24,
+      "latestEventName": "U12 男重",
+      "latestDate": null,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MEIU10",
+          "eventName": "U10男子重剑个人",
+          "shortEventName": "U10 男重",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 7,
+          "medal": null,
+          "poolRank": 2,
+          "poolWins": 2,
+          "poolMatches": 4,
+          "poolDiff": 6,
+          "ageBand": "2017 上半年",
+          "eliminationWins": 1,
+          "eliminationLosses": 1
+        },
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MEIU12",
+          "eventName": "U12男子重剑个人",
+          "shortEventName": "U12 男重",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 24,
+          "medal": null,
+          "poolRank": 6,
+          "poolWins": 0,
+          "poolMatches": 5,
+          "poolDiff": -13,
+          "ageBand": "2017 上半年",
+          "eliminationWins": 0,
+          "eliminationLosses": 0
+        }
+      ],
+      "opponents": [
+        {
+          "id": "20170215M202501150309",
+          "name": "林诺禧",
+          "club": "香港剑乐会",
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "scored": 10,
+          "received": 5,
+          "latestEventName": "U10 男重",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "10:5",
+          "latestPhase": "16表",
+          "diff": 5
+        },
+        {
+          "id": "20161105M202307021013",
+          "name": "张嘉盛",
+          "club": "上海嘉世",
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "scored": 7,
+          "received": 10,
+          "latestEventName": "U10 男重",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "7:10",
+          "latestPhase": "8表",
+          "diff": -3
+        }
+      ]
+    },
     "20190722M202410290950": {
       "id": "20190722M202410290950",
       "name": "张麒岳",
@@ -91388,6 +120361,242 @@ export default {
           "latestScore": "0:10",
           "latestPhase": "8表",
           "diff": -10
+        }
+      ]
+    },
+    "20150713M202304020341": {
+      "id": "20150713M202304020341",
+      "name": "李润丞",
+      "club": "海口嘉世",
+      "bestRank": 7,
+      "medals": 0,
+      "appearances": 1,
+      "eliminationWins": 1,
+      "eliminationLosses": 1,
+      "latestRank": 7,
+      "latestEventName": "U12 男重",
+      "latestDate": null,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MEIU12",
+          "eventName": "U12男子重剑个人",
+          "shortEventName": "U12 男重",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 7,
+          "medal": null,
+          "poolRank": 2,
+          "poolWins": 3,
+          "poolMatches": 5,
+          "poolDiff": 2,
+          "ageBand": "2015 下半年",
+          "eliminationWins": 1,
+          "eliminationLosses": 1
+        }
+      ],
+      "opponents": [
+        {
+          "id": "20140408M202304010816",
+          "name": "孙铭杨",
+          "club": "上海嘉世",
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "scored": 10,
+          "received": 3,
+          "latestEventName": "U12 男重",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "10:3",
+          "latestPhase": "16表",
+          "diff": 7
+        },
+        {
+          "id": "20141108M202307200835",
+          "name": "金葆芮",
+          "club": "湖北永尚",
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "scored": 4,
+          "received": 10,
+          "latestEventName": "U12 男重",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "4:10",
+          "latestPhase": "8表",
+          "diff": -6
+        }
+      ]
+    },
+    "20170301M202211060131": {
+      "id": "20170301M202211060131",
+      "name": "黄元懋",
+      "club": "深圳飙风",
+      "bestRank": 7,
+      "medals": 0,
+      "appearances": 1,
+      "eliminationWins": 1,
+      "eliminationLosses": 1,
+      "latestRank": 7,
+      "latestEventName": "U10 男花",
+      "latestDate": null,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MFIU10",
+          "eventName": "U10男子花剑个人",
+          "shortEventName": "U10 男花",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 7,
+          "medal": null,
+          "poolRank": 4,
+          "poolWins": 2,
+          "poolMatches": 5,
+          "poolDiff": -4,
+          "ageBand": "2017 上半年",
+          "eliminationWins": 1,
+          "eliminationLosses": 1
+        }
+      ],
+      "opponents": [
+        {
+          "id": "20160903M202206171051",
+          "name": "陈君岳",
+          "club": "海口嘉世",
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "scored": 10,
+          "received": 5,
+          "latestEventName": "U10 男花",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "10:5",
+          "latestPhase": "16表",
+          "diff": 5
+        },
+        {
+          "id": "20160915M202304060808",
+          "name": "徐潇然",
+          "club": "珠海剑一",
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "scored": 3,
+          "received": 10,
+          "latestEventName": "U10 男花",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "3:10",
+          "latestPhase": "8表",
+          "diff": -7
+        }
+      ]
+    },
+    "20130518M202506090651": {
+      "id": "20130518M202506090651",
+      "name": "欧阳江林",
+      "club": "个人",
+      "bestRank": 7,
+      "medals": 0,
+      "appearances": 1,
+      "eliminationWins": 0,
+      "eliminationLosses": 1,
+      "latestRank": 7,
+      "latestEventName": "U14 男花",
+      "latestDate": null,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MFIU14",
+          "eventName": "U14男子花剑个人",
+          "shortEventName": "U14 男花",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 7,
+          "medal": null,
+          "poolRank": 4,
+          "poolWins": 0,
+          "poolMatches": 3,
+          "poolDiff": -8,
+          "ageBand": "2013 上半年",
+          "eliminationWins": 0,
+          "eliminationLosses": 1
+        }
+      ],
+      "opponents": [
+        {
+          "id": "20140313M201906101430",
+          "name": "张家华",
+          "club": "个人",
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "scored": 3,
+          "received": 15,
+          "latestEventName": "U14 男花",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "3:15",
+          "latestPhase": "8表",
+          "diff": -12
+        }
+      ]
+    },
+    "20191219M202605050934": {
+      "id": "20191219M202605050934",
+      "name": "姚皓予",
+      "club": "个人",
+      "bestRank": 7,
+      "medals": 0,
+      "appearances": 1,
+      "eliminationWins": 0,
+      "eliminationLosses": 1,
+      "latestRank": 7,
+      "latestEventName": "U8 男花",
+      "latestDate": null,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MFIU8",
+          "eventName": "U8男子花剑个人",
+          "shortEventName": "U8 男花",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 7,
+          "medal": null,
+          "poolRank": 3,
+          "poolWins": 2,
+          "poolMatches": 4,
+          "poolDiff": -4,
+          "ageBand": "2019 下半年",
+          "eliminationWins": 0,
+          "eliminationLosses": 1
+        }
+      ],
+      "opponents": [
+        {
+          "id": "20180927M202410060349",
+          "name": "陈炜胤",
+          "club": "广西凡胜",
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "scored": 3,
+          "received": 10,
+          "latestEventName": "U8 男花",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "3:10",
+          "latestPhase": "8表",
+          "diff": -7
         }
       ]
     },
@@ -91794,6 +121003,224 @@ export default {
         }
       ]
     },
+    "20161017M202406190604": {
+      "id": "20161017M202406190604",
+      "name": "梁庭睿",
+      "club": "海口嘉世",
+      "bestRank": 8,
+      "medals": 0,
+      "appearances": 2,
+      "eliminationWins": 1,
+      "eliminationLosses": 2,
+      "latestRank": 9,
+      "latestEventName": "U12 男重",
+      "latestDate": null,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MEIU10",
+          "eventName": "U10男子重剑个人",
+          "shortEventName": "U10 男重",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 8,
+          "medal": null,
+          "poolRank": 4,
+          "poolWins": 2,
+          "poolMatches": 4,
+          "poolDiff": -2,
+          "ageBand": "2016 下半年",
+          "eliminationWins": 1,
+          "eliminationLosses": 1
+        },
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MEIU12",
+          "eventName": "U12男子重剑个人",
+          "shortEventName": "U12 男重",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 9,
+          "medal": null,
+          "poolRank": 1,
+          "poolWins": 5,
+          "poolMatches": 5,
+          "poolDiff": 8,
+          "ageBand": "2016 下半年",
+          "eliminationWins": 0,
+          "eliminationLosses": 1
+        }
+      ],
+      "opponents": [
+        {
+          "id": "20160612M202304011118",
+          "name": "王璟泽",
+          "club": "海口嘉世",
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "scored": 8,
+          "received": 5,
+          "latestEventName": "U10 男重",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "8:5",
+          "latestPhase": "16表",
+          "diff": 3
+        },
+        {
+          "id": "20160606M202311290422",
+          "name": "王琳溪",
+          "club": "海南海外双优",
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "scored": 7,
+          "received": 8,
+          "latestEventName": "U12 男重",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "7:8",
+          "latestPhase": "16表",
+          "diff": -1
+        },
+        {
+          "id": "20160215M202306281040",
+          "name": "刘栩辰",
+          "club": "广州阳光剑匠",
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "scored": 4,
+          "received": 9,
+          "latestEventName": "U10 男重",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "4:9",
+          "latestPhase": "8表",
+          "diff": -5
+        }
+      ]
+    },
+    "20160606M202311290422": {
+      "id": "20160606M202311290422",
+      "name": "王琳溪",
+      "club": "海南海外双优",
+      "bestRank": 8,
+      "medals": 0,
+      "appearances": 2,
+      "eliminationWins": 2,
+      "eliminationLosses": 2,
+      "latestRank": 8,
+      "latestEventName": "U12 男重",
+      "latestDate": null,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MEIU10",
+          "eventName": "U10男子重剑个人",
+          "shortEventName": "U10 男重",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 9,
+          "medal": null,
+          "poolRank": 2,
+          "poolWins": 4,
+          "poolMatches": 5,
+          "poolDiff": 5,
+          "ageBand": "2016 上半年",
+          "eliminationWins": 0,
+          "eliminationLosses": 1
+        },
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MEIU12",
+          "eventName": "U12男子重剑个人",
+          "shortEventName": "U12 男重",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 8,
+          "medal": null,
+          "poolRank": 4,
+          "poolWins": 2,
+          "poolMatches": 5,
+          "poolDiff": -5,
+          "ageBand": "2016 上半年",
+          "eliminationWins": 2,
+          "eliminationLosses": 1
+        }
+      ],
+      "opponents": [
+        {
+          "id": "20151025M202510171050",
+          "name": "富泳霖",
+          "club": "海南海外双优",
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "scored": 10,
+          "received": 8,
+          "latestEventName": "U12 男重",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "10:8",
+          "latestPhase": "32表",
+          "diff": 2
+        },
+        {
+          "id": "20161017M202406190604",
+          "name": "梁庭睿",
+          "club": "海口嘉世",
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "scored": 8,
+          "received": 7,
+          "latestEventName": "U12 男重",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "8:7",
+          "latestPhase": "16表",
+          "diff": 1
+        },
+        {
+          "id": "20160524M202408010202",
+          "name": "陈思然",
+          "club": "广州阳光剑匠",
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "scored": 6,
+          "received": 10,
+          "latestEventName": "U10 男重",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "6:10",
+          "latestPhase": "16表",
+          "diff": -4
+        },
+        {
+          "id": "20140321M202506150705",
+          "name": "卢宏垚",
+          "club": "个人",
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "scored": 1,
+          "received": 10,
+          "latestEventName": "U12 男重",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "1:10",
+          "latestPhase": "8表",
+          "diff": -9
+        }
+      ]
+    },
     "20180625M202506270606": {
       "id": "20180625M202506270606",
       "name": "董嘉瑞",
@@ -92042,6 +121469,258 @@ export default {
           "latestScore": "4:10",
           "latestPhase": "8表",
           "diff": -6
+        }
+      ]
+    },
+    "20171201M202509190843": {
+      "id": "20171201M202509190843",
+      "name": "颜培亦",
+      "club": "广西佼佼者",
+      "bestRank": 8,
+      "medals": 0,
+      "appearances": 1,
+      "eliminationWins": 1,
+      "eliminationLosses": 1,
+      "latestRank": 8,
+      "latestEventName": "U10 男花",
+      "latestDate": null,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MFIU10",
+          "eventName": "U10男子花剑个人",
+          "shortEventName": "U10 男花",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 8,
+          "medal": null,
+          "poolRank": 6,
+          "poolWins": 2,
+          "poolMatches": 6,
+          "poolDiff": -6,
+          "ageBand": "2017 下半年",
+          "eliminationWins": 1,
+          "eliminationLosses": 1
+        }
+      ],
+      "opponents": [
+        {
+          "id": "20161117M202511180353",
+          "name": "彭浩宇",
+          "club": "东莞浩洋",
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "scored": 10,
+          "received": 9,
+          "latestEventName": "U10 男花",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "10:9",
+          "latestPhase": "16表",
+          "diff": 1
+        },
+        {
+          "id": "20170705M202307080345",
+          "name": "丁启宸",
+          "club": "珠海剑一",
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "scored": 3,
+          "received": 10,
+          "latestEventName": "U10 男花",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "3:10",
+          "latestPhase": "8表",
+          "diff": -7
+        }
+      ]
+    },
+    "20150214M202306150535": {
+      "id": "20150214M202306150535",
+      "name": "刘奕辰",
+      "club": "广东",
+      "bestRank": 8,
+      "medals": 0,
+      "appearances": 1,
+      "eliminationWins": 1,
+      "eliminationLosses": 1,
+      "latestRank": 8,
+      "latestEventName": "U12 男花",
+      "latestDate": null,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MFIU12",
+          "eventName": "U12男子花剑个人",
+          "shortEventName": "U12 男花",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 8,
+          "medal": null,
+          "poolRank": 3,
+          "poolWins": 3,
+          "poolMatches": 5,
+          "poolDiff": 8,
+          "ageBand": "2015 上半年",
+          "eliminationWins": 1,
+          "eliminationLosses": 1
+        }
+      ],
+      "opponents": [
+        {
+          "id": "20141029M202307090543",
+          "name": "张浦宸",
+          "club": "海口嘉世",
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "scored": 10,
+          "received": 5,
+          "latestEventName": "U12 男花",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "10:5",
+          "latestPhase": "16表",
+          "diff": 5
+        },
+        {
+          "id": "20160915M202304060808",
+          "name": "徐潇然",
+          "club": "珠海剑一",
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "scored": 6,
+          "received": 10,
+          "latestEventName": "U12 男花",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "6:10",
+          "latestPhase": "8表",
+          "diff": -4
+        }
+      ]
+    },
+    "20140106M202307010521": {
+      "id": "20140106M202307010521",
+      "name": "潘杍墨",
+      "club": "个人",
+      "bestRank": 8,
+      "medals": 0,
+      "appearances": 1,
+      "eliminationWins": 0,
+      "eliminationLosses": 1,
+      "latestRank": 8,
+      "latestEventName": "U14 男花",
+      "latestDate": null,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MFIU14",
+          "eventName": "U14男子花剑个人",
+          "shortEventName": "U14 男花",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 8,
+          "medal": null,
+          "poolRank": 4,
+          "poolWins": 0,
+          "poolMatches": 3,
+          "poolDiff": -9,
+          "ageBand": "2014 上半年",
+          "eliminationWins": 0,
+          "eliminationLosses": 1
+        }
+      ],
+      "opponents": [
+        {
+          "id": "20150120M202110150910",
+          "name": "凌梓豪",
+          "club": "个人",
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "scored": 6,
+          "received": 15,
+          "latestEventName": "U14 男花",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "6:15",
+          "latestPhase": "8表",
+          "diff": -9
+        }
+      ]
+    },
+    "20180131M202605100931": {
+      "id": "20180131M202605100931",
+      "name": "利炳林",
+      "club": "海口嘉世",
+      "bestRank": 8,
+      "medals": 0,
+      "appearances": 1,
+      "eliminationWins": 1,
+      "eliminationLosses": 1,
+      "latestRank": 8,
+      "latestEventName": "U8 男花",
+      "latestDate": null,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MFIU8",
+          "eventName": "U8男子花剑个人",
+          "shortEventName": "U8 男花",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 8,
+          "medal": null,
+          "poolRank": 4,
+          "poolWins": 1,
+          "poolMatches": 4,
+          "poolDiff": -6,
+          "ageBand": "2018 上半年",
+          "eliminationWins": 1,
+          "eliminationLosses": 1
+        }
+      ],
+      "opponents": [
+        {
+          "id": "20200201M202604270117",
+          "name": "文允",
+          "club": "个人",
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "scored": 10,
+          "received": 6,
+          "latestEventName": "U8 男花",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "10:6",
+          "latestPhase": "16表",
+          "diff": 4
+        },
+        {
+          "id": "20190512M202411111015",
+          "name": "李闫君",
+          "club": "个人",
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "scored": 7,
+          "received": 10,
+          "latestEventName": "U8 男花",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "7:10",
+          "latestPhase": "8表",
+          "diff": -3
         }
       ]
     },
@@ -92498,6 +122177,57 @@ export default {
         }
       ]
     },
+    "20161117M202511180353": {
+      "id": "20161117M202511180353",
+      "name": "彭浩宇",
+      "club": "东莞浩洋",
+      "bestRank": 9,
+      "medals": 0,
+      "appearances": 1,
+      "eliminationWins": 0,
+      "eliminationLosses": 1,
+      "latestRank": 9,
+      "latestEventName": "U10 男花",
+      "latestDate": null,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MFIU10",
+          "eventName": "U10男子花剑个人",
+          "shortEventName": "U10 男花",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 9,
+          "medal": null,
+          "poolRank": 4,
+          "poolWins": 3,
+          "poolMatches": 6,
+          "poolDiff": -4,
+          "ageBand": "2016 下半年",
+          "eliminationWins": 0,
+          "eliminationLosses": 1
+        }
+      ],
+      "opponents": [
+        {
+          "id": "20171201M202509190843",
+          "name": "颜培亦",
+          "club": "广西佼佼者",
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "scored": 9,
+          "received": 10,
+          "latestEventName": "U10 男花",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "9:10",
+          "latestPhase": "16表",
+          "diff": -1
+        }
+      ]
+    },
     "20171116M202406201107": {
       "id": "20171116M202406201107",
       "name": "孙景晴",
@@ -92562,6 +122292,91 @@ export default {
           "latestScore": "8:10",
           "latestPhase": "16表",
           "diff": -2
+        }
+      ]
+    },
+    "20160612M202304011118": {
+      "id": "20160612M202304011118",
+      "name": "王璟泽",
+      "club": "海口嘉世",
+      "bestRank": 10,
+      "medals": 0,
+      "appearances": 2,
+      "eliminationWins": 0,
+      "eliminationLosses": 2,
+      "latestRank": 13,
+      "latestEventName": "U12 男重",
+      "latestDate": null,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MEIU10",
+          "eventName": "U10男子重剑个人",
+          "shortEventName": "U10 男重",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 10,
+          "medal": null,
+          "poolRank": 3,
+          "poolWins": 3,
+          "poolMatches": 5,
+          "poolDiff": 4,
+          "ageBand": "2016 上半年",
+          "eliminationWins": 0,
+          "eliminationLosses": 1
+        },
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MEIU12",
+          "eventName": "U12男子重剑个人",
+          "shortEventName": "U12 男重",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 13,
+          "medal": null,
+          "poolRank": 3,
+          "poolWins": 3,
+          "poolMatches": 5,
+          "poolDiff": -3,
+          "ageBand": "2016 上半年",
+          "eliminationWins": 0,
+          "eliminationLosses": 1
+        }
+      ],
+      "opponents": [
+        {
+          "id": "20161017M202406190604",
+          "name": "梁庭睿",
+          "club": "海口嘉世",
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "scored": 5,
+          "received": 8,
+          "latestEventName": "U10 男重",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "5:8",
+          "latestPhase": "16表",
+          "diff": -3
+        },
+        {
+          "id": "20161105M202307021013",
+          "name": "张嘉盛",
+          "club": "上海嘉世",
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "scored": 5,
+          "received": 10,
+          "latestEventName": "U12 男重",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "5:10",
+          "latestPhase": "16表",
+          "diff": -5
         }
       ]
     },
@@ -92781,6 +122596,108 @@ export default {
           "latestScore": "9:10",
           "latestPhase": "16表",
           "diff": -1
+        }
+      ]
+    },
+    "20140408M202304010816": {
+      "id": "20140408M202304010816",
+      "name": "孙铭杨",
+      "club": "上海嘉世",
+      "bestRank": 10,
+      "medals": 0,
+      "appearances": 1,
+      "eliminationWins": 0,
+      "eliminationLosses": 1,
+      "latestRank": 10,
+      "latestEventName": "U12 男重",
+      "latestDate": null,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MEIU12",
+          "eventName": "U12男子重剑个人",
+          "shortEventName": "U12 男重",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 10,
+          "medal": null,
+          "poolRank": 2,
+          "poolWins": 3,
+          "poolMatches": 5,
+          "poolDiff": 8,
+          "ageBand": "2014 上半年",
+          "eliminationWins": 0,
+          "eliminationLosses": 1
+        }
+      ],
+      "opponents": [
+        {
+          "id": "20150713M202304020341",
+          "name": "李润丞",
+          "club": "海口嘉世",
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "scored": 3,
+          "received": 10,
+          "latestEventName": "U12 男重",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "3:10",
+          "latestPhase": "16表",
+          "diff": -7
+        }
+      ]
+    },
+    "20160903M202206171051": {
+      "id": "20160903M202206171051",
+      "name": "陈君岳",
+      "club": "海口嘉世",
+      "bestRank": 10,
+      "medals": 0,
+      "appearances": 1,
+      "eliminationWins": 0,
+      "eliminationLosses": 1,
+      "latestRank": 10,
+      "latestEventName": "U10 男花",
+      "latestDate": null,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MFIU10",
+          "eventName": "U10男子花剑个人",
+          "shortEventName": "U10 男花",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 10,
+          "medal": null,
+          "poolRank": 5,
+          "poolWins": 2,
+          "poolMatches": 6,
+          "poolDiff": -5,
+          "ageBand": "2016 下半年",
+          "eliminationWins": 0,
+          "eliminationLosses": 1
+        }
+      ],
+      "opponents": [
+        {
+          "id": "20170301M202211060131",
+          "name": "黄元懋",
+          "club": "深圳飙风",
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "scored": 5,
+          "received": 10,
+          "latestEventName": "U10 男花",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "5:10",
+          "latestPhase": "16表",
+          "diff": -5
         }
       ]
     },
@@ -93171,6 +123088,91 @@ export default {
         }
       ]
     },
+    "20170215M202501150309": {
+      "id": "20170215M202501150309",
+      "name": "林诺禧",
+      "club": "香港剑乐会",
+      "bestRank": 11,
+      "medals": 0,
+      "appearances": 2,
+      "eliminationWins": 0,
+      "eliminationLosses": 2,
+      "latestRank": 11,
+      "latestEventName": "U12 男重",
+      "latestDate": null,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MEIU10",
+          "eventName": "U10男子重剑个人",
+          "shortEventName": "U10 男重",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 11,
+          "medal": null,
+          "poolRank": 3,
+          "poolWins": 2,
+          "poolMatches": 4,
+          "poolDiff": 3,
+          "ageBand": "2017 上半年",
+          "eliminationWins": 0,
+          "eliminationLosses": 1
+        },
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MEIU12",
+          "eventName": "U12男子重剑个人",
+          "shortEventName": "U12 男重",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 11,
+          "medal": null,
+          "poolRank": 3,
+          "poolWins": 3,
+          "poolMatches": 5,
+          "poolDiff": 3,
+          "ageBand": "2017 上半年",
+          "eliminationWins": 0,
+          "eliminationLosses": 1
+        }
+      ],
+      "opponents": [
+        {
+          "id": "20170322M202307060644",
+          "name": "宋浩宇",
+          "club": "北京圣剑",
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "scored": 5,
+          "received": 10,
+          "latestEventName": "U10 男重",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "5:10",
+          "latestPhase": "16表",
+          "diff": -5
+        },
+        {
+          "id": "20150820M202502220824",
+          "name": "韦俊宇",
+          "club": "济南奥伦",
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "scored": 5,
+          "received": 10,
+          "latestEventName": "U12 男重",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "5:10",
+          "latestPhase": "16表",
+          "diff": -5
+        }
+      ]
+    },
     "20160605M202602250233": {
       "id": "20160605M202602250233",
       "name": "林晟铭",
@@ -93374,6 +123376,91 @@ export default {
         }
       ]
     },
+    "20161024M202407260800": {
+      "id": "20161024M202407260800",
+      "name": "潘乐天",
+      "club": "广西凡胜",
+      "bestRank": 11,
+      "medals": 0,
+      "appearances": 1,
+      "eliminationWins": 0,
+      "eliminationLosses": 0,
+      "latestRank": 11,
+      "latestEventName": "U10 男花",
+      "latestDate": null,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MFIU10",
+          "eventName": "U10男子花剑个人",
+          "shortEventName": "U10 男花",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 11,
+          "medal": null,
+          "poolRank": 5,
+          "poolWins": 1,
+          "poolMatches": 5,
+          "poolDiff": -10,
+          "ageBand": "2016 下半年",
+          "eliminationWins": 0,
+          "eliminationLosses": 0
+        }
+      ],
+      "opponents": []
+    },
+    "20150116M202304031258": {
+      "id": "20150116M202304031258",
+      "name": "冯翊宸",
+      "club": "海口嘉世",
+      "bestRank": 11,
+      "medals": 0,
+      "appearances": 1,
+      "eliminationWins": 0,
+      "eliminationLosses": 1,
+      "latestRank": 11,
+      "latestEventName": "U12 男花",
+      "latestDate": null,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MFIU12",
+          "eventName": "U12男子花剑个人",
+          "shortEventName": "U12 男花",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 11,
+          "medal": null,
+          "poolRank": 4,
+          "poolWins": 2,
+          "poolMatches": 5,
+          "poolDiff": -1,
+          "ageBand": "2015 上半年",
+          "eliminationWins": 0,
+          "eliminationLosses": 1
+        }
+      ],
+      "opponents": [
+        {
+          "id": "20170523M202304140352",
+          "name": "汪柏霖",
+          "club": "深圳犀旺雷声",
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "scored": 5,
+          "received": 10,
+          "latestEventName": "U12 男花",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "5:10",
+          "latestPhase": "16表",
+          "diff": -5
+        }
+      ]
+    },
     "20170411M202408240325": {
       "id": "20170411M202408240325",
       "name": "张博文",
@@ -93469,6 +123556,142 @@ export default {
           "poolMatches": 6,
           "poolDiff": -18,
           "ageBand": "2019 上半年",
+          "eliminationWins": 0,
+          "eliminationLosses": 0
+        }
+      ],
+      "opponents": []
+    },
+    "20160707M202304031135": {
+      "id": "20160707M202304031135",
+      "name": "赵一帆",
+      "club": "海口嘉世",
+      "bestRank": 12,
+      "medals": 0,
+      "appearances": 1,
+      "eliminationWins": 0,
+      "eliminationLosses": 1,
+      "latestRank": 12,
+      "latestEventName": "U10 男重",
+      "latestDate": null,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MEIU10",
+          "eventName": "U10男子重剑个人",
+          "shortEventName": "U10 男重",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 12,
+          "medal": null,
+          "poolRank": 4,
+          "poolWins": 2,
+          "poolMatches": 5,
+          "poolDiff": -3,
+          "ageBand": "2016 下半年",
+          "eliminationWins": 0,
+          "eliminationLosses": 1
+        }
+      ],
+      "opponents": [
+        {
+          "id": "20171011M202405061217",
+          "name": "时铭泽",
+          "club": "个人",
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "scored": 7,
+          "received": 10,
+          "latestEventName": "U10 男重",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "7:10",
+          "latestPhase": "16表",
+          "diff": -3
+        }
+      ]
+    },
+    "20150515M202501220920": {
+      "id": "20150515M202501220920",
+      "name": "邱皓翔",
+      "club": "个人",
+      "bestRank": 12,
+      "medals": 0,
+      "appearances": 1,
+      "eliminationWins": 0,
+      "eliminationLosses": 1,
+      "latestRank": 12,
+      "latestEventName": "U12 男重",
+      "latestDate": null,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MEIU12",
+          "eventName": "U12男子重剑个人",
+          "shortEventName": "U12 男重",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 12,
+          "medal": null,
+          "poolRank": 4,
+          "poolWins": 3,
+          "poolMatches": 5,
+          "poolDiff": 2,
+          "ageBand": "2015 上半年",
+          "eliminationWins": 0,
+          "eliminationLosses": 1
+        }
+      ],
+      "opponents": [
+        {
+          "id": "20140321M202506150705",
+          "name": "卢宏垚",
+          "club": "个人",
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "scored": 6,
+          "received": 10,
+          "latestEventName": "U12 男重",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "6:10",
+          "latestPhase": "16表",
+          "diff": -4
+        }
+      ]
+    },
+    "20160917M202604251040": {
+      "id": "20160917M202604251040",
+      "name": "张岩松",
+      "club": "个人",
+      "bestRank": 12,
+      "medals": 0,
+      "appearances": 1,
+      "eliminationWins": 0,
+      "eliminationLosses": 0,
+      "latestRank": 12,
+      "latestEventName": "U10 男花",
+      "latestDate": null,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MFIU10",
+          "eventName": "U10男子花剑个人",
+          "shortEventName": "U10 男花",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 12,
+          "medal": null,
+          "poolRank": 6,
+          "poolWins": 0,
+          "poolMatches": 5,
+          "poolDiff": -21,
+          "ageBand": "2016 下半年",
           "eliminationWins": 0,
           "eliminationLosses": 0
         }
@@ -93640,6 +123863,91 @@ export default {
           "latestScore": "5:6",
           "latestPhase": "16表",
           "diff": -1
+        }
+      ]
+    },
+    "20170829M202304030120": {
+      "id": "20170829M202304030120",
+      "name": "陈犹耀",
+      "club": "海口嘉世",
+      "bestRank": 13,
+      "medals": 0,
+      "appearances": 1,
+      "eliminationWins": 0,
+      "eliminationLosses": 0,
+      "latestRank": 13,
+      "latestEventName": "U10 男花",
+      "latestDate": null,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MFIU10",
+          "eventName": "U10男子花剑个人",
+          "shortEventName": "U10 男花",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 13,
+          "medal": null,
+          "poolRank": 7,
+          "poolWins": 0,
+          "poolMatches": 6,
+          "poolDiff": -23,
+          "ageBand": "2017 下半年",
+          "eliminationWins": 0,
+          "eliminationLosses": 0
+        }
+      ],
+      "opponents": []
+    },
+    "20150320M202411040911": {
+      "id": "20150320M202411040911",
+      "name": "汤采葑",
+      "club": "上海浦东万国",
+      "bestRank": 13,
+      "medals": 0,
+      "appearances": 1,
+      "eliminationWins": 0,
+      "eliminationLosses": 1,
+      "latestRank": 13,
+      "latestEventName": "U12 男花",
+      "latestDate": null,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MFIU12",
+          "eventName": "U12男子花剑个人",
+          "shortEventName": "U12 男花",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 13,
+          "medal": null,
+          "poolRank": 4,
+          "poolWins": 2,
+          "poolMatches": 5,
+          "poolDiff": -4,
+          "ageBand": "2015 上半年",
+          "eliminationWins": 0,
+          "eliminationLosses": 1
+        }
+      ],
+      "opponents": [
+        {
+          "id": "20150703M202205070736",
+          "name": "陈义洋",
+          "club": "福建",
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "scored": 2,
+          "received": 10,
+          "latestEventName": "U12 男花",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "2:10",
+          "latestPhase": "16表",
+          "diff": -8
         }
       ]
     },
@@ -94013,6 +124321,91 @@ export default {
         }
       ]
     },
+    "20170414M202605090753": {
+      "id": "20170414M202605090753",
+      "name": "张渊垣",
+      "club": "海口嘉世",
+      "bestRank": 14,
+      "medals": 0,
+      "appearances": 1,
+      "eliminationWins": 0,
+      "eliminationLosses": 0,
+      "latestRank": 14,
+      "latestEventName": "U10 男重",
+      "latestDate": null,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MEIU10",
+          "eventName": "U10男子重剑个人",
+          "shortEventName": "U10 男重",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 14,
+          "medal": null,
+          "poolRank": 5,
+          "poolWins": 1,
+          "poolMatches": 5,
+          "poolDiff": -10,
+          "ageBand": "2017 上半年",
+          "eliminationWins": 0,
+          "eliminationLosses": 0
+        }
+      ],
+      "opponents": []
+    },
+    "20151022M202410240215": {
+      "id": "20151022M202410240215",
+      "name": "邓淳译",
+      "club": "成都芮欧",
+      "bestRank": 14,
+      "medals": 0,
+      "appearances": 1,
+      "eliminationWins": 0,
+      "eliminationLosses": 1,
+      "latestRank": 14,
+      "latestEventName": "U12 男花",
+      "latestDate": null,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MFIU12",
+          "eventName": "U12男子花剑个人",
+          "shortEventName": "U12 男花",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 14,
+          "medal": null,
+          "poolRank": 5,
+          "poolWins": 1,
+          "poolMatches": 5,
+          "poolDiff": -13,
+          "ageBand": "2015 下半年",
+          "eliminationWins": 0,
+          "eliminationLosses": 1
+        }
+      ],
+      "opponents": [
+        {
+          "id": "20141024M202304070815",
+          "name": "翟立鸿",
+          "club": "广东",
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "scored": 1,
+          "received": 10,
+          "latestEventName": "U12 男花",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "1:10",
+          "latestPhase": "16表",
+          "diff": -9
+        }
+      ]
+    },
     "20180127M202305030657": {
       "id": "20180127M202305030657",
       "name": "XU NACHUAN",
@@ -94348,6 +124741,107 @@ export default {
           "diff": -10
         }
       ]
+    },
+    "20150520M202501290854": {
+      "id": "20150520M202501290854",
+      "name": "谢卓珉",
+      "club": "长沙博翼",
+      "bestRank": 15,
+      "medals": 0,
+      "appearances": 1,
+      "eliminationWins": 1,
+      "eliminationLosses": 1,
+      "latestRank": 15,
+      "latestEventName": "U12 男重",
+      "latestDate": null,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MEIU12",
+          "eventName": "U12男子重剑个人",
+          "shortEventName": "U12 男重",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 15,
+          "medal": null,
+          "poolRank": 4,
+          "poolWins": 2,
+          "poolMatches": 5,
+          "poolDiff": -5,
+          "ageBand": "2015 上半年",
+          "eliminationWins": 1,
+          "eliminationLosses": 1
+        }
+      ],
+      "opponents": [
+        {
+          "id": "20150812M202304010414",
+          "name": "冯子轩",
+          "club": "上海嘉世",
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "scored": 10,
+          "received": 6,
+          "latestEventName": "U12 男重",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "10:6",
+          "latestPhase": "32表",
+          "diff": 4
+        },
+        {
+          "id": "20141108M202307200835",
+          "name": "金葆芮",
+          "club": "湖北永尚",
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "scored": 5,
+          "received": 9,
+          "latestEventName": "U12 男重",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "5:9",
+          "latestPhase": "16表",
+          "diff": -4
+        }
+      ]
+    },
+    "20151226M202112100547": {
+      "id": "20151226M202112100547",
+      "name": "陈厚兆",
+      "club": "海口嘉世",
+      "bestRank": 15,
+      "medals": 0,
+      "appearances": 1,
+      "eliminationWins": 0,
+      "eliminationLosses": 0,
+      "latestRank": 15,
+      "latestEventName": "U12 男花",
+      "latestDate": null,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MFIU12",
+          "eventName": "U12男子花剑个人",
+          "shortEventName": "U12 男花",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 15,
+          "medal": null,
+          "poolRank": 5,
+          "poolWins": 1,
+          "poolMatches": 5,
+          "poolDiff": -14,
+          "ageBand": "2015 下半年",
+          "eliminationWins": 0,
+          "eliminationLosses": 0
+        }
+      ],
+      "opponents": []
     },
     "20170310M202406200934": {
       "id": "20170310M202406200934",
@@ -94853,6 +125347,141 @@ export default {
           "diff": -8
         }
       ]
+    },
+    "20170529M202406221006": {
+      "id": "20170529M202406221006",
+      "name": "胡肖南",
+      "club": "个人",
+      "bestRank": 16,
+      "medals": 0,
+      "appearances": 1,
+      "eliminationWins": 0,
+      "eliminationLosses": 0,
+      "latestRank": 16,
+      "latestEventName": "U10 男重",
+      "latestDate": null,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MEIU10",
+          "eventName": "U10男子重剑个人",
+          "shortEventName": "U10 男重",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 16,
+          "medal": null,
+          "poolRank": 5,
+          "poolWins": 0,
+          "poolMatches": 4,
+          "poolDiff": -15,
+          "ageBand": "2017 上半年",
+          "eliminationWins": 0,
+          "eliminationLosses": 0
+        }
+      ],
+      "opponents": []
+    },
+    "20140630M202510111255": {
+      "id": "20140630M202510111255",
+      "name": "张嘉瑞",
+      "club": "海南海外双优",
+      "bestRank": 16,
+      "medals": 0,
+      "appearances": 1,
+      "eliminationWins": 1,
+      "eliminationLosses": 1,
+      "latestRank": 16,
+      "latestEventName": "U12 男重",
+      "latestDate": null,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MEIU12",
+          "eventName": "U12男子重剑个人",
+          "shortEventName": "U12 男重",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 16,
+          "medal": null,
+          "poolRank": 4,
+          "poolWins": 2,
+          "poolMatches": 5,
+          "poolDiff": -9,
+          "ageBand": "2014 上半年",
+          "eliminationWins": 1,
+          "eliminationLosses": 1
+        }
+      ],
+      "opponents": [
+        {
+          "id": "20151028M202407191059",
+          "name": "章瀚尧",
+          "club": "个人",
+          "matches": 1,
+          "wins": 1,
+          "losses": 0,
+          "scored": 10,
+          "received": 9,
+          "latestEventName": "U12 男重",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "10:9",
+          "latestPhase": "32表",
+          "diff": 1
+        },
+        {
+          "id": "20141013M202107041143",
+          "name": "赵禹瑞",
+          "club": "湖北永尚",
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "scored": 3,
+          "received": 10,
+          "latestEventName": "U12 男重",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "3:10",
+          "latestPhase": "16表",
+          "diff": -7
+        }
+      ]
+    },
+    "20150910M202408080458": {
+      "id": "20150910M202408080458",
+      "name": "林雨昊",
+      "club": "海口嘉世",
+      "bestRank": 16,
+      "medals": 0,
+      "appearances": 1,
+      "eliminationWins": 0,
+      "eliminationLosses": 0,
+      "latestRank": 16,
+      "latestEventName": "U12 男花",
+      "latestDate": null,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MFIU12",
+          "eventName": "U12男子花剑个人",
+          "shortEventName": "U12 男花",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 16,
+          "medal": null,
+          "poolRank": 6,
+          "poolWins": 0,
+          "poolMatches": 5,
+          "poolDiff": -16,
+          "ageBand": "2015 下半年",
+          "eliminationWins": 0,
+          "eliminationLosses": 0
+        }
+      ],
+      "opponents": []
     },
     "20180115M202508170710": {
       "id": "20180115M202508170710",
@@ -95381,6 +126010,91 @@ export default {
         }
       ]
     },
+    "20160719M202605180436": {
+      "id": "20160719M202605180436",
+      "name": "孙望哲",
+      "club": "个人",
+      "bestRank": 17,
+      "medals": 0,
+      "appearances": 1,
+      "eliminationWins": 0,
+      "eliminationLosses": 0,
+      "latestRank": 17,
+      "latestEventName": "U10 男重",
+      "latestDate": null,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MEIU10",
+          "eventName": "U10男子重剑个人",
+          "shortEventName": "U10 男重",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 17,
+          "medal": null,
+          "poolRank": 6,
+          "poolWins": 0,
+          "poolMatches": 5,
+          "poolDiff": -18,
+          "ageBand": "2016 下半年",
+          "eliminationWins": 0,
+          "eliminationLosses": 0
+        }
+      ],
+      "opponents": []
+    },
+    "20151028M202407191059": {
+      "id": "20151028M202407191059",
+      "name": "章瀚尧",
+      "club": "个人",
+      "bestRank": 17,
+      "medals": 0,
+      "appearances": 1,
+      "eliminationWins": 0,
+      "eliminationLosses": 1,
+      "latestRank": 17,
+      "latestEventName": "U12 男重",
+      "latestDate": null,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MEIU12",
+          "eventName": "U12男子重剑个人",
+          "shortEventName": "U12 男重",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 17,
+          "medal": null,
+          "poolRank": 5,
+          "poolWins": 2,
+          "poolMatches": 5,
+          "poolDiff": -6,
+          "ageBand": "2015 下半年",
+          "eliminationWins": 0,
+          "eliminationLosses": 1
+        }
+      ],
+      "opponents": [
+        {
+          "id": "20140630M202510111255",
+          "name": "张嘉瑞",
+          "club": "海南海外双优",
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "scored": 9,
+          "received": 10,
+          "latestEventName": "U12 男重",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "9:10",
+          "latestPhase": "32表",
+          "diff": -1
+        }
+      ]
+    },
     "20170223M202503040802": {
       "id": "20170223M202503040802",
       "name": "龚夫",
@@ -95568,6 +126282,91 @@ export default {
         }
       ]
     },
+    "20150812M202304010414": {
+      "id": "20150812M202304010414",
+      "name": "冯子轩",
+      "club": "上海嘉世",
+      "bestRank": 18,
+      "medals": 0,
+      "appearances": 1,
+      "eliminationWins": 0,
+      "eliminationLosses": 1,
+      "latestRank": 18,
+      "latestEventName": "U12 男重",
+      "latestDate": null,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MEIU12",
+          "eventName": "U12男子重剑个人",
+          "shortEventName": "U12 男重",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 18,
+          "medal": null,
+          "poolRank": 5,
+          "poolWins": 1,
+          "poolMatches": 5,
+          "poolDiff": -4,
+          "ageBand": "2015 下半年",
+          "eliminationWins": 0,
+          "eliminationLosses": 1
+        }
+      ],
+      "opponents": [
+        {
+          "id": "20150520M202501290854",
+          "name": "谢卓珉",
+          "club": "长沙博翼",
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "scored": 6,
+          "received": 10,
+          "latestEventName": "U12 男重",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "latestDate": null,
+          "latestScore": "6:10",
+          "latestPhase": "32表",
+          "diff": -4
+        }
+      ]
+    },
+    "20151016M202604290343": {
+      "id": "20151016M202604290343",
+      "name": "陈煜文",
+      "club": "个人",
+      "bestRank": 18,
+      "medals": 0,
+      "appearances": 1,
+      "eliminationWins": 0,
+      "eliminationLosses": 0,
+      "latestRank": 18,
+      "latestEventName": "U12 男花",
+      "latestDate": null,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MFIU12",
+          "eventName": "U12男子花剑个人",
+          "shortEventName": "U12 男花",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 18,
+          "medal": null,
+          "poolRank": 6,
+          "poolWins": 0,
+          "poolMatches": 5,
+          "poolDiff": -24,
+          "ageBand": "2015 下半年",
+          "eliminationWins": 0,
+          "eliminationLosses": 0
+        }
+      ],
+      "opponents": []
+    },
     "20170910M202403050153": {
       "id": "20170910M202403050153",
       "name": "James Wan",
@@ -95714,6 +126513,57 @@ export default {
           "received": 10,
           "latestEventName": "U8 男花",
           "latestSportName": "2026年“滨海杯”秦皇岛击剑公开赛",
+          "latestDate": null,
+          "latestScore": "8:10",
+          "latestPhase": "32表",
+          "diff": -2
+        }
+      ]
+    },
+    "20151025M202510171050": {
+      "id": "20151025M202510171050",
+      "name": "富泳霖",
+      "club": "海南海外双优",
+      "bestRank": 19,
+      "medals": 0,
+      "appearances": 1,
+      "eliminationWins": 0,
+      "eliminationLosses": 1,
+      "latestRank": 19,
+      "latestEventName": "U12 男重",
+      "latestDate": null,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MEIU12",
+          "eventName": "U12男子重剑个人",
+          "shortEventName": "U12 男重",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 19,
+          "medal": null,
+          "poolRank": 5,
+          "poolWins": 1,
+          "poolMatches": 5,
+          "poolDiff": -5,
+          "ageBand": "2015 下半年",
+          "eliminationWins": 0,
+          "eliminationLosses": 1
+        }
+      ],
+      "opponents": [
+        {
+          "id": "20160606M202311290422",
+          "name": "王琳溪",
+          "club": "海南海外双优",
+          "matches": 1,
+          "wins": 0,
+          "losses": 1,
+          "scored": 8,
+          "received": 10,
+          "latestEventName": "U12 男重",
+          "latestSportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
           "latestDate": null,
           "latestScore": "8:10",
           "latestPhase": "32表",
@@ -96455,6 +127305,40 @@ export default {
         }
       ]
     },
+    "20140607M202605190732": {
+      "id": "20140607M202605190732",
+      "name": "孙靖哲",
+      "club": "个人",
+      "bestRank": 22,
+      "medals": 0,
+      "appearances": 1,
+      "eliminationWins": 0,
+      "eliminationLosses": 0,
+      "latestRank": 22,
+      "latestEventName": "U12 男重",
+      "latestDate": null,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MEIU12",
+          "eventName": "U12男子重剑个人",
+          "shortEventName": "U12 男重",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 22,
+          "medal": null,
+          "poolRank": 6,
+          "poolWins": 1,
+          "poolMatches": 5,
+          "poolDiff": -11,
+          "ageBand": "2014 上半年",
+          "eliminationWins": 0,
+          "eliminationLosses": 0
+        }
+      ],
+      "opponents": []
+    },
     "20171015M202503090614": {
       "id": "20171015M202503090614",
       "name": "周萧然",
@@ -96625,6 +127509,40 @@ export default {
           "diff": -2
         }
       ]
+    },
+    "20140908M202403110858": {
+      "id": "20140908M202403110858",
+      "name": "谭思源",
+      "club": "武汉海外双优",
+      "bestRank": 23,
+      "medals": 0,
+      "appearances": 1,
+      "eliminationWins": 0,
+      "eliminationLosses": 0,
+      "latestRank": 23,
+      "latestEventName": "U12 男重",
+      "latestDate": null,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MEIU12",
+          "eventName": "U12男子重剑个人",
+          "shortEventName": "U12 男重",
+          "openDate": null,
+          "venue": "海南·儋州",
+          "finalRank": 23,
+          "medal": null,
+          "poolRank": 6,
+          "poolWins": 0,
+          "poolMatches": 5,
+          "poolDiff": -8,
+          "ageBand": "2014 下半年",
+          "eliminationWins": 0,
+          "eliminationLosses": 0
+        }
+      ],
+      "opponents": []
     },
     "20190325M202408150709": {
       "id": "20190325M202408150709",
@@ -100004,6 +130922,116 @@ export default {
     }
   },
   "clubsById": {
+    "%E4%B8%AA%E4%BA%BA": {
+      "id": "%E4%B8%AA%E4%BA%BA",
+      "club": "个人",
+      "medals": 9,
+      "top8": 18,
+      "entrants": 42,
+      "bestRank": 1,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MFIU14",
+          "eventName": "U14男子花剑个人",
+          "entrants": 5,
+          "medals": 2,
+          "top8": 5,
+          "bestRank": 1
+        },
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MFIU8",
+          "eventName": "U8男子花剑个人",
+          "entrants": 5,
+          "medals": 2,
+          "top8": 3,
+          "bestRank": 1
+        },
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MFIU6",
+          "eventName": "U6男子花剑个人",
+          "entrants": 3,
+          "medals": 3,
+          "top8": 3,
+          "bestRank": 2
+        },
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MEIU12",
+          "eventName": "U12男子重剑个人",
+          "entrants": 6,
+          "medals": 1,
+          "top8": 1,
+          "bestRank": 3
+        },
+        {
+          "sportCode": "RZSS2036022",
+          "sportName": "2026年城市副中心击剑公开赛",
+          "eventCode": "RZSS2036022MFIU6",
+          "eventName": "U6男子花剑个人",
+          "entrants": 1,
+          "medals": 1,
+          "top8": 1,
+          "bestRank": 3
+        },
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MEIU10",
+          "eventName": "U10男子重剑个人",
+          "entrants": 4,
+          "medals": 0,
+          "top8": 2,
+          "bestRank": 5
+        },
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MFIU12",
+          "eventName": "U12男子花剑个人",
+          "entrants": 2,
+          "medals": 0,
+          "top8": 1,
+          "bestRank": 7
+        },
+        {
+          "sportCode": "RZSS2036022",
+          "sportName": "2026年城市副中心击剑公开赛",
+          "eventCode": "RZSS2036022MFIU8",
+          "eventName": "U8男子花剑个人",
+          "entrants": 5,
+          "medals": 0,
+          "top8": 1,
+          "bestRank": 7
+        },
+        {
+          "sportCode": "RZSSSH0120251220",
+          "sportName": "2025年上海“闵行论剑”击剑公开赛",
+          "eventCode": "RZSSSH0120251220MFIU8",
+          "eventName": "U8男子花剑个人",
+          "entrants": 4,
+          "medals": 0,
+          "top8": 1,
+          "bestRank": 8
+        },
+        {
+          "sportCode": "RZSS2036010",
+          "sportName": "2026年北京海淀击剑公开赛",
+          "eventCode": "RZSS2036010MFIU8",
+          "eventName": "U8男子花剑个人",
+          "entrants": 7,
+          "medals": 0,
+          "top8": 0,
+          "bestRank": 12
+        }
+      ]
+    },
     "%E5%8C%97%E4%BA%AC%E6%B8%85%E9%A6%99": {
       "id": "%E5%8C%97%E4%BA%AC%E6%B8%85%E9%A6%99",
       "club": "北京清香",
@@ -100234,6 +131262,96 @@ export default {
         }
       ]
     },
+    "%E8%A5%BF%E5%AE%89%E4%B8%87%E5%9B%BD": {
+      "id": "%E8%A5%BF%E5%AE%89%E4%B8%87%E5%9B%BD",
+      "club": "西安万国",
+      "medals": 3,
+      "top8": 3,
+      "entrants": 3,
+      "bestRank": 1,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MFIU6",
+          "eventName": "U6男子花剑个人",
+          "entrants": 1,
+          "medals": 1,
+          "top8": 1,
+          "bestRank": 1
+        },
+        {
+          "sportCode": "RZSS2033120",
+          "sportName": "2026年“滨海杯”秦皇岛击剑公开赛",
+          "eventCode": "RZSS2033120MFIU6",
+          "eventName": "U6男子花剑个人",
+          "entrants": 1,
+          "medals": 1,
+          "top8": 1,
+          "bestRank": 2
+        },
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MFIU8",
+          "eventName": "U8男子花剑个人",
+          "entrants": 1,
+          "medals": 1,
+          "top8": 1,
+          "bestRank": 3
+        }
+      ]
+    },
+    "%E6%B9%96%E5%8C%97%E6%B0%B8%E5%B0%9A": {
+      "id": "%E6%B9%96%E5%8C%97%E6%B0%B8%E5%B0%9A",
+      "club": "湖北永尚",
+      "medals": 3,
+      "top8": 3,
+      "entrants": 3,
+      "bestRank": 1,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MEIU12",
+          "eventName": "U12男子重剑个人",
+          "entrants": 3,
+          "medals": 3,
+          "top8": 3,
+          "bestRank": 1
+        }
+      ]
+    },
+    "%E7%8F%A0%E6%B5%B7%E5%89%91%E4%B8%80": {
+      "id": "%E7%8F%A0%E6%B5%B7%E5%89%91%E4%B8%80",
+      "club": "珠海剑一",
+      "medals": 3,
+      "top8": 3,
+      "entrants": 4,
+      "bestRank": 1,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MFIU10",
+          "eventName": "U10男子花剑个人",
+          "entrants": 2,
+          "medals": 2,
+          "top8": 2,
+          "bestRank": 1
+        },
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MFIU12",
+          "eventName": "U12男子花剑个人",
+          "entrants": 2,
+          "medals": 1,
+          "top8": 1,
+          "bestRank": 3
+        }
+      ]
+    },
     "%E4%B8%8A%E6%B5%B7%E6%B5%A6%E4%B8%9C%E4%B8%87%E5%9B%BD": {
       "id": "%E4%B8%8A%E6%B5%B7%E6%B5%A6%E4%B8%9C%E4%B8%87%E5%9B%BD",
       "club": "上海浦东万国",
@@ -100251,6 +131369,86 @@ export default {
           "medals": 3,
           "top8": 3,
           "bestRank": 1
+        }
+      ]
+    },
+    "%E6%B5%B7%E5%8F%A3%E5%98%89%E4%B8%96": {
+      "id": "%E6%B5%B7%E5%8F%A3%E5%98%89%E4%B8%96",
+      "club": "海口嘉世",
+      "medals": 2,
+      "top8": 6,
+      "entrants": 18,
+      "bestRank": 3,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MEIU8",
+          "eventName": "U8男子重剑个人",
+          "entrants": 1,
+          "medals": 1,
+          "top8": 1,
+          "bestRank": 3
+        },
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MFIU14",
+          "eventName": "U14男子花剑个人",
+          "entrants": 1,
+          "medals": 1,
+          "top8": 1,
+          "bestRank": 3
+        },
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MFIU10",
+          "eventName": "U10男子花剑个人",
+          "entrants": 3,
+          "medals": 0,
+          "top8": 1,
+          "bestRank": 6
+        },
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MEIU12",
+          "eventName": "U12男子重剑个人",
+          "entrants": 3,
+          "medals": 0,
+          "top8": 1,
+          "bestRank": 7
+        },
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MEIU10",
+          "eventName": "U10男子重剑个人",
+          "entrants": 4,
+          "medals": 0,
+          "top8": 1,
+          "bestRank": 8
+        },
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MFIU8",
+          "eventName": "U8男子花剑个人",
+          "entrants": 1,
+          "medals": 0,
+          "top8": 1,
+          "bestRank": 8
+        },
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MFIU12",
+          "eventName": "U12男子花剑个人",
+          "entrants": 5,
+          "medals": 0,
+          "top8": 0,
+          "bestRank": 9
         }
       ]
     },
@@ -100291,6 +131489,46 @@ export default {
           "medals": 0,
           "top8": 0,
           "bestRank": 10
+        }
+      ]
+    },
+    "%E6%B7%B1%E5%9C%B3%E7%8A%80%E6%97%BA%E9%9B%B7%E5%A3%B0": {
+      "id": "%E6%B7%B1%E5%9C%B3%E7%8A%80%E6%97%BA%E9%9B%B7%E5%A3%B0",
+      "club": "深圳犀旺雷声",
+      "medals": 2,
+      "top8": 3,
+      "entrants": 3,
+      "bestRank": 2,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MFIU10",
+          "eventName": "U10男子花剑个人",
+          "entrants": 1,
+          "medals": 1,
+          "top8": 1,
+          "bestRank": 2
+        },
+        {
+          "sportCode": "RZSS2033120",
+          "sportName": "2026年“滨海杯”秦皇岛击剑公开赛",
+          "eventCode": "RZSS2033120MFIU8",
+          "eventName": "U8男子花剑个人",
+          "entrants": 1,
+          "medals": 1,
+          "top8": 1,
+          "bestRank": 3
+        },
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MFIU12",
+          "eventName": "U12男子花剑个人",
+          "entrants": 1,
+          "medals": 0,
+          "top8": 1,
+          "bestRank": 6
         }
       ]
     },
@@ -100364,6 +131602,36 @@ export default {
         }
       ]
     },
+    "%E5%B9%BF%E5%B7%9E%E9%98%B3%E5%85%89%E5%89%91%E5%8C%A0": {
+      "id": "%E5%B9%BF%E5%B7%9E%E9%98%B3%E5%85%89%E5%89%91%E5%8C%A0",
+      "club": "广州阳光剑匠",
+      "medals": 2,
+      "top8": 2,
+      "entrants": 3,
+      "bestRank": 2,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MEIU10",
+          "eventName": "U10男子重剑个人",
+          "entrants": 2,
+          "medals": 2,
+          "top8": 2,
+          "bestRank": 2
+        },
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MEIU12",
+          "eventName": "U12男子重剑个人",
+          "entrants": 1,
+          "medals": 0,
+          "top8": 0,
+          "bestRank": 14
+        }
+      ]
+    },
     "%E5%8C%97%E4%BA%AC%E7%91%9E%E5%89%91": {
       "id": "%E5%8C%97%E4%BA%AC%E7%91%9E%E5%89%91",
       "club": "北京瑞剑",
@@ -100394,53 +131662,123 @@ export default {
         }
       ]
     },
-    "%E4%B8%AA%E4%BA%BA": {
-      "id": "%E4%B8%AA%E4%BA%BA",
-      "club": "个人",
+    "%E6%B5%B7%E5%8D%97%E6%B5%B7%E5%A4%96%E5%8F%8C%E4%BC%98": {
+      "id": "%E6%B5%B7%E5%8D%97%E6%B5%B7%E5%A4%96%E5%8F%8C%E4%BC%98",
+      "club": "海南海外双优",
       "medals": 1,
       "top8": 3,
-      "entrants": 17,
+      "entrants": 6,
       "bestRank": 3,
       "events": [
         {
-          "sportCode": "RZSS2036022",
-          "sportName": "2026年城市副中心击剑公开赛",
-          "eventCode": "RZSS2036022MFIU6",
-          "eventName": "U6男子花剑个人",
-          "entrants": 1,
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MEIU8",
+          "eventName": "U8男子重剑个人",
+          "entrants": 2,
           "medals": 1,
-          "top8": 1,
+          "top8": 2,
           "bestRank": 3
         },
         {
-          "sportCode": "RZSS2036022",
-          "sportName": "2026年城市副中心击剑公开赛",
-          "eventCode": "RZSS2036022MFIU8",
-          "eventName": "U8男子花剑个人",
-          "entrants": 5,
-          "medals": 0,
-          "top8": 1,
-          "bestRank": 7
-        },
-        {
-          "sportCode": "RZSSSH0120251220",
-          "sportName": "2025年上海“闵行论剑”击剑公开赛",
-          "eventCode": "RZSSSH0120251220MFIU8",
-          "eventName": "U8男子花剑个人",
-          "entrants": 4,
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MEIU12",
+          "eventName": "U12男子重剑个人",
+          "entrants": 3,
           "medals": 0,
           "top8": 1,
           "bestRank": 8
         },
         {
-          "sportCode": "RZSS2036010",
-          "sportName": "2026年北京海淀击剑公开赛",
-          "eventCode": "RZSS2036010MFIU8",
-          "eventName": "U8男子花剑个人",
-          "entrants": 7,
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MEIU10",
+          "eventName": "U10男子重剑个人",
+          "entrants": 1,
           "medals": 0,
           "top8": 0,
-          "bestRank": 12
+          "bestRank": 9
+        }
+      ]
+    },
+    "%E6%B5%B7%E5%8D%97%E4%BD%BC%E4%BD%BC%E8%80%85": {
+      "id": "%E6%B5%B7%E5%8D%97%E4%BD%BC%E4%BD%BC%E8%80%85",
+      "club": "海南佼佼者",
+      "medals": 1,
+      "top8": 3,
+      "entrants": 3,
+      "bestRank": 3,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MFIU14",
+          "eventName": "U14男子花剑个人",
+          "entrants": 2,
+          "medals": 1,
+          "top8": 2,
+          "bestRank": 3
+        },
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MFIU8",
+          "eventName": "U8男子花剑个人",
+          "entrants": 1,
+          "medals": 0,
+          "top8": 1,
+          "bestRank": 6
+        }
+      ]
+    },
+    "%E4%B8%8A%E6%B5%B7%E5%98%89%E4%B8%96": {
+      "id": "%E4%B8%8A%E6%B5%B7%E5%98%89%E4%B8%96",
+      "club": "上海嘉世",
+      "medals": 1,
+      "top8": 2,
+      "entrants": 4,
+      "bestRank": 1,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MEIU10",
+          "eventName": "U10男子重剑个人",
+          "entrants": 1,
+          "medals": 1,
+          "top8": 1,
+          "bestRank": 1
+        },
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MEIU12",
+          "eventName": "U12男子重剑个人",
+          "entrants": 3,
+          "medals": 0,
+          "top8": 1,
+          "bestRank": 5
+        }
+      ]
+    },
+    "%E5%B9%BF%E4%B8%9C": {
+      "id": "%E5%B9%BF%E4%B8%9C",
+      "club": "广东",
+      "medals": 1,
+      "top8": 2,
+      "entrants": 2,
+      "bestRank": 2,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MFIU12",
+          "eventName": "U12男子花剑个人",
+          "entrants": 2,
+          "medals": 1,
+          "top8": 2,
+          "bestRank": 2
         }
       ]
     },
@@ -100461,6 +131799,36 @@ export default {
           "medals": 1,
           "top8": 2,
           "bestRank": 3
+        }
+      ]
+    },
+    "%E5%B9%BF%E5%B7%9E%E4%B8%87%E5%9B%BD": {
+      "id": "%E5%B9%BF%E5%B7%9E%E4%B8%87%E5%9B%BD",
+      "club": "广州万国",
+      "medals": 1,
+      "top8": 2,
+      "entrants": 2,
+      "bestRank": 3,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MFIU10",
+          "eventName": "U10男子花剑个人",
+          "entrants": 1,
+          "medals": 1,
+          "top8": 1,
+          "bestRank": 3
+        },
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MFIU12",
+          "eventName": "U12男子花剑个人",
+          "entrants": 1,
+          "medals": 0,
+          "top8": 1,
+          "bestRank": 5
         }
       ]
     },
@@ -100514,6 +131882,46 @@ export default {
         }
       ]
     },
+    "%E5%93%88%E5%B0%94%E6%BB%A8%E5%8D%9A%E5%A5%95": {
+      "id": "%E5%93%88%E5%B0%94%E6%BB%A8%E5%8D%9A%E5%A5%95",
+      "club": "哈尔滨博奕",
+      "medals": 1,
+      "top8": 1,
+      "entrants": 1,
+      "bestRank": 1,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MEIU8",
+          "eventName": "U8男子重剑个人",
+          "entrants": 1,
+          "medals": 1,
+          "top8": 1,
+          "bestRank": 1
+        }
+      ]
+    },
+    "%E7%A6%8F%E5%BB%BA": {
+      "id": "%E7%A6%8F%E5%BB%BA",
+      "club": "福建",
+      "medals": 1,
+      "top8": 1,
+      "entrants": 1,
+      "bestRank": 1,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MFIU12",
+          "eventName": "U12男子花剑个人",
+          "entrants": 1,
+          "medals": 1,
+          "top8": 1,
+          "bestRank": 1
+        }
+      ]
+    },
     "%E5%8C%97%E4%BA%AC%E4%BB%B2%E6%BB%A1": {
       "id": "%E5%8C%97%E4%BA%AC%E4%BB%B2%E6%BB%A1",
       "club": "北京仲满",
@@ -100554,19 +131962,39 @@ export default {
         }
       ]
     },
-    "%E8%A5%BF%E5%AE%89%E4%B8%87%E5%9B%BD": {
-      "id": "%E8%A5%BF%E5%AE%89%E4%B8%87%E5%9B%BD",
-      "club": "西安万国",
+    "%E6%B9%96%E5%8D%97%E8%81%9A%E5%8A%9B": {
+      "id": "%E6%B9%96%E5%8D%97%E8%81%9A%E5%8A%9B",
+      "club": "湖南聚力",
       "medals": 1,
       "top8": 1,
       "entrants": 1,
       "bestRank": 2,
       "events": [
         {
-          "sportCode": "RZSS2033120",
-          "sportName": "2026年“滨海杯”秦皇岛击剑公开赛",
-          "eventCode": "RZSS2033120MFIU6",
-          "eventName": "U6男子花剑个人",
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MEIU8",
+          "eventName": "U8男子重剑个人",
+          "entrants": 1,
+          "medals": 1,
+          "top8": 1,
+          "bestRank": 2
+        }
+      ]
+    },
+    "%E5%B9%BF%E8%A5%BF%E5%87%A1%E8%83%9C": {
+      "id": "%E5%B9%BF%E8%A5%BF%E5%87%A1%E8%83%9C",
+      "club": "广西凡胜",
+      "medals": 1,
+      "top8": 1,
+      "entrants": 1,
+      "bestRank": 2,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MFIU8",
+          "eventName": "U8男子花剑个人",
           "entrants": 1,
           "medals": 1,
           "top8": 1,
@@ -100594,23 +132022,53 @@ export default {
         }
       ]
     },
-    "%E6%B7%B1%E5%9C%B3%E7%8A%80%E6%97%BA%E9%9B%B7%E5%A3%B0": {
-      "id": "%E6%B7%B1%E5%9C%B3%E7%8A%80%E6%97%BA%E9%9B%B7%E5%A3%B0",
-      "club": "深圳犀旺雷声",
+    "%E5%8C%97%E4%BA%AC%E4%B8%9C%E5%9F%8E%E4%B8%87%E5%9B%BD": {
+      "id": "%E5%8C%97%E4%BA%AC%E4%B8%9C%E5%9F%8E%E4%B8%87%E5%9B%BD",
+      "club": "北京东城万国",
       "medals": 1,
       "top8": 1,
       "entrants": 1,
       "bestRank": 3,
       "events": [
         {
-          "sportCode": "RZSS2033120",
-          "sportName": "2026年“滨海杯”秦皇岛击剑公开赛",
-          "eventCode": "RZSS2033120MFIU8",
-          "eventName": "U8男子花剑个人",
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MEIU10",
+          "eventName": "U10男子重剑个人",
           "entrants": 1,
           "medals": 1,
           "top8": 1,
           "bestRank": 3
+        }
+      ]
+    },
+    "%E6%B7%B1%E5%9C%B3%E7%A3%90%E7%9F%B3": {
+      "id": "%E6%B7%B1%E5%9C%B3%E7%A3%90%E7%9F%B3",
+      "club": "深圳磐石",
+      "medals": 1,
+      "top8": 1,
+      "entrants": 2,
+      "bestRank": 3,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MFIU12",
+          "eventName": "U12男子花剑个人",
+          "entrants": 1,
+          "medals": 1,
+          "top8": 1,
+          "bestRank": 3
+        },
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MFIU14",
+          "eventName": "U14男子花剑个人",
+          "entrants": 1,
+          "medals": 0,
+          "top8": 0,
+          "bestRank": 9
         }
       ]
     },
@@ -100631,6 +132089,46 @@ export default {
           "medals": 1,
           "top8": 1,
           "bestRank": 3
+        }
+      ]
+    },
+    "%E5%8C%97%E4%BA%AC%E8%89%BE%E9%B2%81%E7%89%B9": {
+      "id": "%E5%8C%97%E4%BA%AC%E8%89%BE%E9%B2%81%E7%89%B9",
+      "club": "北京艾鲁特",
+      "medals": 0,
+      "top8": 3,
+      "entrants": 13,
+      "bestRank": 5,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MFIU10",
+          "eventName": "U10男子花剑个人",
+          "entrants": 1,
+          "medals": 0,
+          "top8": 1,
+          "bestRank": 5
+        },
+        {
+          "sportCode": "RZSS2033120",
+          "sportName": "2026年“滨海杯”秦皇岛击剑公开赛",
+          "eventCode": "RZSS2033120MFIU8",
+          "eventName": "U8男子花剑个人",
+          "entrants": 3,
+          "medals": 0,
+          "top8": 1,
+          "bestRank": 6
+        },
+        {
+          "sportCode": "RZSS2036022",
+          "sportName": "2026年城市副中心击剑公开赛",
+          "eventCode": "RZSS2036022MFIU8",
+          "eventName": "U8男子花剑个人",
+          "entrants": 9,
+          "medals": 0,
+          "top8": 1,
+          "bestRank": 8
         }
       ]
     },
@@ -100724,36 +132222,6 @@ export default {
         }
       ]
     },
-    "%E5%8C%97%E4%BA%AC%E8%89%BE%E9%B2%81%E7%89%B9": {
-      "id": "%E5%8C%97%E4%BA%AC%E8%89%BE%E9%B2%81%E7%89%B9",
-      "club": "北京艾鲁特",
-      "medals": 0,
-      "top8": 2,
-      "entrants": 12,
-      "bestRank": 6,
-      "events": [
-        {
-          "sportCode": "RZSS2033120",
-          "sportName": "2026年“滨海杯”秦皇岛击剑公开赛",
-          "eventCode": "RZSS2033120MFIU8",
-          "eventName": "U8男子花剑个人",
-          "entrants": 3,
-          "medals": 0,
-          "top8": 1,
-          "bestRank": 6
-        },
-        {
-          "sportCode": "RZSS2036022",
-          "sportName": "2026年城市副中心击剑公开赛",
-          "eventCode": "RZSS2036022MFIU8",
-          "eventName": "U8男子花剑个人",
-          "entrants": 9,
-          "medals": 0,
-          "top8": 1,
-          "bestRank": 8
-        }
-      ]
-    },
     "%E5%B1%B1%E4%B8%9C%E6%B3%B0%E7%9B%9B": {
       "id": "%E5%B1%B1%E4%B8%9C%E6%B3%B0%E7%9B%9B",
       "club": "山东泰盛",
@@ -100814,6 +132282,26 @@ export default {
         }
       ]
     },
+    "%E6%88%90%E9%83%BD%E8%8A%AE%E6%AC%A7": {
+      "id": "%E6%88%90%E9%83%BD%E8%8A%AE%E6%AC%A7",
+      "club": "成都芮欧",
+      "medals": 0,
+      "top8": 1,
+      "entrants": 1,
+      "bestRank": 5,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MFIU8",
+          "eventName": "U8男子花剑个人",
+          "entrants": 1,
+          "medals": 0,
+          "top8": 1,
+          "bestRank": 5
+        }
+      ]
+    },
     "%E4%B8%8A%E6%B5%B7%E7%9A%87%E5%98%89": {
       "id": "%E4%B8%8A%E6%B5%B7%E7%9A%87%E5%98%89",
       "club": "上海皇嘉",
@@ -100831,6 +132319,26 @@ export default {
           "medals": 0,
           "top8": 1,
           "bestRank": 5
+        }
+      ]
+    },
+    "%E6%B5%8E%E5%8D%97%E5%A5%A5%E4%BC%A6": {
+      "id": "%E6%B5%8E%E5%8D%97%E5%A5%A5%E4%BC%A6",
+      "club": "济南奥伦",
+      "medals": 0,
+      "top8": 1,
+      "entrants": 1,
+      "bestRank": 6,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MEIU12",
+          "eventName": "U12男子重剑个人",
+          "entrants": 1,
+          "medals": 0,
+          "top8": 1,
+          "bestRank": 6
         }
       ]
     },
@@ -100934,6 +132442,46 @@ export default {
         }
       ]
     },
+    "%E5%8C%97%E4%BA%AC%E5%9C%A3%E5%89%91": {
+      "id": "%E5%8C%97%E4%BA%AC%E5%9C%A3%E5%89%91",
+      "club": "北京圣剑",
+      "medals": 0,
+      "top8": 1,
+      "entrants": 1,
+      "bestRank": 7,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MEIU10",
+          "eventName": "U10男子重剑个人",
+          "entrants": 1,
+          "medals": 0,
+          "top8": 1,
+          "bestRank": 7
+        }
+      ]
+    },
+    "%E6%B7%B1%E5%9C%B3%E9%A3%99%E9%A3%8E": {
+      "id": "%E6%B7%B1%E5%9C%B3%E9%A3%99%E9%A3%8E",
+      "club": "深圳飙风",
+      "medals": 0,
+      "top8": 1,
+      "entrants": 1,
+      "bestRank": 7,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MFIU10",
+          "eventName": "U10男子花剑个人",
+          "entrants": 1,
+          "medals": 0,
+          "top8": 1,
+          "bestRank": 7
+        }
+      ]
+    },
     "%E5%8C%97%E4%BA%AC%E9%87%91%E6%B1%89": {
       "id": "%E5%8C%97%E4%BA%AC%E9%87%91%E6%B1%89",
       "club": "北京金汉",
@@ -100974,6 +132522,26 @@ export default {
         }
       ]
     },
+    "%E5%B9%BF%E8%A5%BF%E4%BD%BC%E4%BD%BC%E8%80%85": {
+      "id": "%E5%B9%BF%E8%A5%BF%E4%BD%BC%E4%BD%BC%E8%80%85",
+      "club": "广西佼佼者",
+      "medals": 0,
+      "top8": 1,
+      "entrants": 1,
+      "bestRank": 8,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MFIU10",
+          "eventName": "U10男子花剑个人",
+          "entrants": 1,
+          "medals": 0,
+          "top8": 1,
+          "bestRank": 8
+        }
+      ]
+    },
     "%E9%9D%92%E5%B2%9B%E5%89%91%E5%BF%83": {
       "id": "%E9%9D%92%E5%B2%9B%E5%89%91%E5%BF%83",
       "club": "青岛剑心",
@@ -100987,6 +132555,26 @@ export default {
           "sportName": "2025年济南“奥伦杯”击剑公开赛",
           "eventCode": "RZSS20250309MFIU6",
           "eventName": "U6男子花剑个人",
+          "entrants": 1,
+          "medals": 0,
+          "top8": 0,
+          "bestRank": 9
+        }
+      ]
+    },
+    "%E4%B8%9C%E8%8E%9E%E6%B5%A9%E6%B4%8B": {
+      "id": "%E4%B8%9C%E8%8E%9E%E6%B5%A9%E6%B4%8B",
+      "club": "东莞浩洋",
+      "medals": 0,
+      "top8": 0,
+      "entrants": 1,
+      "bestRank": 9,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MFIU10",
+          "eventName": "U10男子花剑个人",
           "entrants": 1,
           "medals": 0,
           "top8": 0,
@@ -101031,6 +132619,36 @@ export default {
           "medals": 0,
           "top8": 0,
           "bestRank": 10
+        }
+      ]
+    },
+    "%E9%A6%99%E6%B8%AF%E5%89%91%E4%B9%90%E4%BC%9A": {
+      "id": "%E9%A6%99%E6%B8%AF%E5%89%91%E4%B9%90%E4%BC%9A",
+      "club": "香港剑乐会",
+      "medals": 0,
+      "top8": 0,
+      "entrants": 2,
+      "bestRank": 11,
+      "events": [
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MEIU10",
+          "eventName": "U10男子重剑个人",
+          "entrants": 1,
+          "medals": 0,
+          "top8": 0,
+          "bestRank": 11
+        },
+        {
+          "sportCode": "RZSS2034020",
+          "sportName": "“奔跑吧少年”2026年海南省青少年击剑公开赛",
+          "eventCode": "RZSS2034020MEIU12",
+          "eventName": "U12男子重剑个人",
+          "entrants": 1,
+          "medals": 0,
+          "top8": 0,
+          "bestRank": 11
         }
       ]
     },

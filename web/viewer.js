@@ -243,6 +243,30 @@ function rosterStatusLabel(status) {
   return '暂无报名名单';
 }
 
+function coverageLabel(competition) {
+  if (competition.isPlatformEventList && !(competition.items || []).length) return '赛事列表';
+  if (competition.rosterStatus === 'partial' || competition.rosterStatus === 'complete') return '报名名单';
+  if (competition.isPreEvent) return '项目清单';
+  return '成绩对阵';
+}
+
+function coverageClass(competition) {
+  if (competition.isPlatformEventList && !(competition.items || []).length) return 'coverage-list';
+  if (competition.rosterStatus === 'partial' || competition.rosterStatus === 'complete') return 'coverage-roster';
+  if (competition.isPreEvent) return 'coverage-project';
+  return 'coverage-score';
+}
+
+function coverageDetail(competition) {
+  if (competition.isPlatformEventList && !(competition.items || []).length) {
+    return '当前只有赛事名称、时间、地区和组别；继续补 projectlist 后才有具体项目。';
+  }
+  if (competition.rosterStatus === 'partial') return '已导入部分报名名单，可做初步赛前对标，完整度仍需继续补。';
+  if (competition.rosterStatus === 'complete') return '报名名单已完整，可做赛前对手、强手和熟悉对手分析。';
+  if (competition.isPreEvent) return '已导入项目清单，可查看项目、人数规模和赛前数据缺口。';
+  return '已导入成绩和对阵，可查看排名、小组赛、淘汰赛和选手画像。';
+}
+
 function entityMatchScore(entity, keyword, fields) {
   if (!keyword) return 0;
   const compactKeyword = compactText(keyword);
@@ -1072,6 +1096,7 @@ function renderCompetitionList() {
       <button class="competition-card" data-sport-code="${escapeHtml(competition.sportCode)}">
         <div class="status-row">
           <span class="status-badge status-${escapeHtml(competition.status || 'completed')}">${escapeHtml(statusLabel(competition.status || 'completed'))}</span>
+          <span class="coverage-badge ${escapeHtml(coverageClass(competition))}">${escapeHtml(coverageLabel(competition))}</span>
           ${competition.isPreEvent ? `<span class="roster-badge">${escapeHtml(rosterStatusLabel(competition.rosterStatus))}</span>` : ''}
         </div>
         <strong>${escapeHtml(competition.sportName)}</strong>
@@ -1122,10 +1147,12 @@ function renderCompetitionHero(competition) {
   competitionHero.innerHTML = `
     <div class="status-row">
       <span class="status-badge status-${escapeHtml(competition.status || 'completed')}">${escapeHtml(statusLabel(competition.status || 'completed'))}</span>
+      <span class="coverage-badge ${escapeHtml(coverageClass(competition))}">${escapeHtml(coverageLabel(competition))}</span>
       ${competition.isPreEvent ? `<span class="roster-badge">${escapeHtml(rosterStatusLabel(competition.rosterStatus))}</span>` : ''}
     </div>
     <div class="hero-title">${escapeHtml(competition.sportName)}</div>
     <div class="hero-sub">${escapeHtml(competition.venue || '地点待确认')} · ${escapeHtml(competition.dateLabel)}</div>
+    <div class="hero-sub coverage-copy">${escapeHtml(coverageDetail(competition))}</div>
     <div class="event-chip-row">${chips.visible.map((label) => `<span>${escapeHtml(label)}</span>`).join('')}</div>
   `;
 }

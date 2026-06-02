@@ -761,7 +761,8 @@ select:focus {
 }
 
 .status-badge,
-.roster-badge {
+.roster-badge,
+.coverage-badge {
   display: inline-flex;
   align-items: center;
   min-height: 24px;
@@ -799,6 +800,35 @@ select:focus {
 
 .roster-badge {
   background: rgba(82, 96, 112, 0.08);
+  color: #526070;
+}
+
+.coverage-badge {
+  background: rgba(16, 24, 40, 0.06);
+  color: #263241;
+}
+
+.coverage-list {
+  background: rgba(82, 96, 112, 0.1);
+  color: #526070;
+}
+
+.coverage-project {
+  background: rgba(21, 95, 194, 0.1);
+  color: var(--primary);
+}
+
+.coverage-roster {
+  background: rgba(13, 125, 103, 0.12);
+  color: var(--teal);
+}
+
+.coverage-score {
+  background: rgba(20, 142, 75, 0.12);
+  color: #14753f;
+}
+
+.coverage-copy {
   color: #526070;
 }
 
