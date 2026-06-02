@@ -1055,6 +1055,17 @@ function renderAthleteSearchResults(keyword) {
   });
 }
 
+function competitionChips(competition, limit = Infinity) {
+  const itemLabels = (competition.items || []).map((item) => displayEventName(item)).filter(Boolean);
+  const groupLabels = itemLabels.length ? [] : (competition.groupLabels || []);
+  const labels = [...itemLabels, ...groupLabels].filter(Boolean);
+  const visible = labels.slice(0, limit);
+  return {
+    visible,
+    remaining: Math.max(0, labels.length - visible.length),
+  };
+}
+
 function renderCompetitionList() {
   competitionList.innerHTML = state.filteredCompetitions.length
     ? state.filteredCompetitions.map((competition) => `
@@ -1069,8 +1080,8 @@ function renderCompetitionList() {
           <span class="badge">${escapeHtml(competition.venue || competition.region || '地点待确认')}</span>
         </div>
         <div class="event-chip-row">
-          ${competition.items.slice(0, 4).map((item) => `<span>${escapeHtml(displayEventName(item))}</span>`).join('')}
-          ${competition.items.length > 4 ? `<span>+${competition.items.length - 4}</span>` : ''}
+          ${competitionChips(competition, 4).visible.map((label) => `<span>${escapeHtml(label)}</span>`).join('')}
+          ${competitionChips(competition, 4).remaining ? `<span>+${competitionChips(competition, 4).remaining}</span>` : ''}
         </div>
         <div class="card-insight">${escapeHtml(competitionListInsight(competition))}</div>
       </button>
@@ -1083,6 +1094,11 @@ function renderCompetitionList() {
 }
 
 function competitionListInsight(competition) {
+  if (competition.isPlatformEventList && !competition.items.length) {
+    const type = competition.platformMeta?.gameDesc || '赛事类型待确认';
+    const groups = competition.groupLabels?.length ? `${competition.groupLabels.length} 个组别` : '组别待补齐';
+    return `${type}，${groups}。已接入赛事列表；项目、名单和成绩需继续补齐。`;
+  }
   if (competition.isPreEvent) {
     const summary = competition.registrationSummary || {};
     const rosterText = summary.rosterCount
@@ -1101,6 +1117,7 @@ function competitionListInsight(competition) {
 }
 
 function renderCompetitionHero(competition) {
+  const chips = competitionChips(competition);
   competitionHero.classList.add('compact');
   competitionHero.innerHTML = `
     <div class="status-row">
@@ -1109,7 +1126,7 @@ function renderCompetitionHero(competition) {
     </div>
     <div class="hero-title">${escapeHtml(competition.sportName)}</div>
     <div class="hero-sub">${escapeHtml(competition.venue || '地点待确认')} · ${escapeHtml(competition.dateLabel)}</div>
-    <div class="event-chip-row">${competition.items.map((item) => `<span>${escapeHtml(displayEventName(item))}</span>`).join('')}</div>
+    <div class="event-chip-row">${chips.visible.map((label) => `<span>${escapeHtml(label)}</span>`).join('')}</div>
   `;
 }
 
@@ -1181,6 +1198,15 @@ function setInlineError(container, message) {
 }
 
 function renderEventList(competition) {
+  if (!competition.items.length) {
+    eventList.innerHTML = `
+      <div class="empty compact-empty">
+        已接入赛事列表，但还没有导入项目清单。继续导入 projectlist 后，这里会显示具体组别、剑种、报名人数和后续成绩入口。
+      </div>
+    `;
+    return;
+  }
+
   eventList.innerHTML = competition.items.map((item) => `
     <button class="event-card" data-event-code="${escapeHtml(item.eventCode)}">
       <strong>${escapeHtml(displayEventName(item))}</strong>

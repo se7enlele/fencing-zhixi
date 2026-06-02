@@ -6,6 +6,7 @@ import { analyzeRecords, parseOfficialResultUrl, stableStringify } from './tools
 import { buildScoreReport } from './tools/parse-score.mjs';
 import { buildProjectListReport } from './tools/parse-projectlist.mjs';
 import { buildRegistrationRosterReport, looksLikeRegistrationRoster } from './tools/parse-registration-roster.mjs';
+import { buildFrontSportEventListReport, looksLikeFrontSportEventList } from './tools/parse-frontsporteventlist.mjs';
 import { buildPreEventCompetitions } from './tools/pre-event-data.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -124,19 +125,23 @@ async function getPreEventReports() {
     const files = await readdir(analysisDir).catch(() => []);
     const projectLists = [];
     const rosterBatches = [];
+    const platformEventLists = [];
     for (const fileName of files.filter((file) => file.endsWith('.json'))) {
-      if (!fileName.startsWith('projectlist-') && !fileName.startsWith('registration-roster-')) continue;
+      if (!fileName.startsWith('projectlist-') && !fileName.startsWith('registration-roster-') && fileName !== 'frontsporteventlist-analysis.json') continue;
       try {
         const report = JSON.parse(await readFile(path.join(analysisDir, fileName), 'utf8'));
         if (fileName.startsWith('projectlist-')) projectLists.push({ fileName, report });
         if (fileName.startsWith('registration-roster-') && report.importType === 'registration-roster') {
           rosterBatches.push({ fileName, report });
         }
+        if (fileName === 'frontsporteventlist-analysis.json' && report.importType === 'frontsporteventlist') {
+          platformEventLists.push({ fileName, report });
+        }
       } catch {
         // Ignore malformed pre-event reports.
       }
     }
-    preEventReportsCache = { projectLists, rosterBatches };
+    preEventReportsCache = { projectLists, rosterBatches, platformEventLists };
   }
   return preEventReportsCache;
 }
@@ -151,7 +156,8 @@ async function getPublicEventsPayload() {
     const reports = await getScoreReports();
     const scoreCompetitions = groupReportsBySport(reports);
     const scoreSportCodes = new Set(scoreCompetitions.map((competition) => competition.sportCode));
-    const preEventCompetitions = (await getPreEventCompetitions())
+    const preEventReports = await getPreEventReports();
+    const preEventCompetitions = buildPreEventCompetitions(preEventReports)
       .filter((competition) => !scoreSportCodes.has(competition.sportCode));
     const analysisDir = path.join(__dirname, 'data', 'analysis');
     const analysisFiles = await readdir(analysisDir).catch(() => []);
@@ -170,6 +176,7 @@ async function getPublicEventsPayload() {
         scorePackages: reports.length,
         analysisFiles: analysisFiles.filter((file) => file.endsWith('.json')).length,
         previewFiles: analysisFiles.filter((file) => file.startsWith('web-analysis-')).length,
+        platformEvents: preEventReports.platformEventLists?.reduce((sum, item) => sum + (item.report.summary?.eventCount || 0), 0) || 0,
       },
     };
   }
@@ -352,7 +359,7 @@ async function summarizeRosterImport(preview) {
 }
 
 function parseUploadedJsonText(content) {
-  const text = String(content || '').trim();
+  const text = String(content || '').replace(/^\uFEFF/, '').trim();
   if (!text) throw new Error('上传内容为空。');
 
   try {
@@ -362,6 +369,39 @@ function parseUploadedJsonText(content) {
     if (!objectMatch) throw new Error('无法识别 JSON 或官方 score JS 数据。');
     return JSON.parse(objectMatch[1]);
   }
+}
+
+function previewFrontSportEventListImport(payload, meta = {}) {
+  if (!looksLikeFrontSportEventList(payload)) return null;
+  const report = buildFrontSportEventListReport(payload, {
+    fileName: meta.fileName || null,
+    sourceUrl: meta.sourceUrl || null,
+    importedAt: new Date().toISOString(),
+  });
+  return {
+    importType: 'frontsporteventlist',
+    eventCode: null,
+    targetFile: 'frontsporteventlist-analysis.json',
+    general: {
+      sportName: 'Platform event list',
+      eventName: `${report.summary.eventCount} events`,
+      openDate: null,
+      venue: null,
+    },
+    summary: {
+      eventCount: report.summary.eventCount,
+      seasons: report.summary.seasons,
+      sportactive: report.distributions.sportactive,
+      sigupactive: report.distributions.sigupactive,
+      classmentCount: null,
+      poolCount: null,
+      poolBoutCount: null,
+      playedEliminationMatchCount: null,
+      byeMatchCount: null,
+    },
+    report,
+    note: 'This is the platform competition list. It enables event-level browsing; projectlist, roster and score imports are still needed for item, athlete and bout analysis.',
+  };
 }
 
 function previewScoreImport(payload, meta = {}) {
@@ -464,6 +504,8 @@ function previewRegistrationRosterImport(payload, meta = {}) {
 }
 
 function previewImportPayload(payload, meta = {}) {
+  const frontSportEventList = previewFrontSportEventListImport(payload, meta);
+  if (frontSportEventList) return frontSportEventList;
   const projectList = previewProjectListImport(payload, meta);
   if (projectList) return projectList;
   const roster = previewRegistrationRosterImport(payload, meta);

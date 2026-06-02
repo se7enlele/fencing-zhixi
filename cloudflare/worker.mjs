@@ -198,8 +198,18 @@ async function getMergedData(env) {
 
   const scoreCompetitions = groupEventsBySport(events);
   const scoreSportCodes = new Set(scoreCompetitions.map((competition) => competition.sportCode));
-  const preEventCompetitions = buildPreEventCompetitions(preEventReports)
+  const bundledPreEventCompetitions = (data.publicEvents.competitions || [])
     .filter((competition) => !scoreSportCodes.has(competition.sportCode));
+  const dynamicPreEventCompetitions = buildPreEventCompetitions(preEventReports)
+    .filter((competition) => !scoreSportCodes.has(competition.sportCode));
+  const preEventBySport = new Map();
+  for (const competition of bundledPreEventCompetitions) {
+    preEventBySport.set(competition.sportCode, competition);
+  }
+  for (const competition of dynamicPreEventCompetitions) {
+    preEventBySport.set(competition.sportCode, competition);
+  }
+  const preEventCompetitions = [...preEventBySport.values()];
   Object.assign(eventsByCode, buildPreEventDetails(preEventCompetitions));
 
   return {

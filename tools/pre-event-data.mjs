@@ -12,6 +12,20 @@ function inferStatusFromDates(items) {
   return 'registration';
 }
 
+function inferPlatformStatus(event) {
+  const now = Date.now();
+  const start = parseDate(event.startDate);
+  const end = parseDate(event.endDate);
+  const signStart = parseDate(event.signStartDate);
+  const signEnd = parseDate(event.signAthEndDate);
+
+  if (String(event.sportactive) === '2' || (end && end < now)) return 'completed';
+  if (String(event.sigupactive) === '1') return 'registration';
+  if (signStart && signEnd && signStart <= now && signEnd >= now) return 'registration';
+  if (start && end && start <= now && end >= now) return 'live';
+  return 'upcoming';
+}
+
 function normalizeProjectItem(item) {
   return {
     sportId: item.sourceSportId || item.sportId || null,
@@ -35,7 +49,67 @@ function competitionNameFor(sportCode, items, rosterRows) {
   return sportId ? `赛前赛事 ${sportId}` : `赛前赛事 ${sportCode}`;
 }
 
-export function buildPreEventCompetitions({ projectLists = [], rosterBatches = [], completeRosters = new Set() }) {
+function buildPlatformEventCompetition(event) {
+  const venue = [event.provinceName, event.cityName].filter(Boolean).join(' ');
+  const groupLabels = event.groupLabels || event.groups?.map((group) => group.groupName).filter(Boolean) || [];
+  const status = inferPlatformStatus(event);
+
+  return {
+    sportCode: event.sportCode || String(event.sportId),
+    sportId: event.sportId,
+    sportName: event.sportName,
+    venue,
+    region: event.areaDesc || event.provinceName || '',
+    dateLabel: [event.startDate, event.endDate].filter(Boolean).join(' / ') || '日期待确认',
+    status,
+    rosterStatus: 'none',
+    isPreEvent: true,
+    isPlatformEventList: true,
+    itemCount: 0,
+    groupLabels,
+    platformMeta: {
+      season: event.season || null,
+      gameDesc: event.gameDesc || null,
+      gameLevel: event.gameLevel || null,
+      sportactive: event.sportactive,
+      sigupactive: event.sigupactive,
+      signStartDate: event.signStartDate || null,
+      signAthEndDate: event.signAthEndDate || null,
+      sourceCoverage: 'event-list-only',
+    },
+    registrationSummary: {
+      rosterCount: 0,
+      expectedRegistrationCount: 0,
+      itemCount: 0,
+    },
+    insights: {
+      summaryCards: [
+        {
+          title: '赛事状态',
+          value: status,
+          detail: event.gameDesc || '类型待确认',
+        },
+        {
+          title: '组别覆盖',
+          value: groupLabels.length,
+          detail: groupLabels.slice(0, 3).join(' / ') || '组别待确认',
+        },
+      ],
+      bullets: [
+        '已接入平台赛事列表。项目清单、报名名单和成绩对阵仍需继续补齐，才能做更深的赛前/赛后分析。',
+      ],
+      eventCharts: [],
+    },
+    items: [],
+  };
+}
+
+export function buildPreEventCompetitions({
+  projectLists = [],
+  rosterBatches = [],
+  completeRosters = new Set(),
+  platformEventLists = [],
+}) {
   const rosterByEvent = new Map();
   const rosterRows = [];
 
@@ -49,6 +123,14 @@ export function buildPreEventCompetitions({ projectLists = [], rosterBatches = [
   }
 
   const competitions = new Map();
+
+  for (const { report } of platformEventLists) {
+    for (const event of report.normalizedEvents || []) {
+      const sportCode = event.sportCode || String(event.sportId || '');
+      if (!sportCode || competitions.has(sportCode)) continue;
+      competitions.set(sportCode, buildPlatformEventCompetition(event));
+    }
+  }
 
   for (const { report } of projectLists) {
     const items = (report.normalizedItems || []).map(normalizeProjectItem);
@@ -68,7 +150,14 @@ export function buildPreEventCompetitions({ projectLists = [], rosterBatches = [
       }
 
       const roster = [...(rosterByEvent.get(item.eventCode)?.values() || [])];
-      competitions.get(item.sportCode).items.push({
+      const competition = competitions.get(item.sportCode);
+      if (competition.platformMeta) {
+        competition.platformMeta = {
+          ...competition.platformMeta,
+          sourceCoverage: 'event-list-plus-projectlist',
+        };
+      }
+      competition.items.push({
         eventCode: item.eventCode,
         eventName: item.eventName,
         shortEventName: item.eventName,
@@ -88,11 +177,15 @@ export function buildPreEventCompetitions({ projectLists = [], rosterBatches = [
     const rosterCount = competition.items.reduce((sum, item) => sum + item.registrationCount, 0);
     const expectedRegistrationCount = competition.items.reduce((sum, item) => sum + item.expectedRegistrationCount, 0);
     const isComplete = completeRosters.has(competition.sportCode);
+    const dateLabel = competition.items.map((item) => item.openDate).filter(Boolean).sort().join(' / ')
+      || competition.dateLabel
+      || '日期待确认';
+
     return {
       ...competition,
       itemCount: competition.items.length,
-      dateLabel: competition.items.map((item) => item.openDate).filter(Boolean).sort().join(' / ') || '日期待确认',
-      status: inferStatusFromDates(competition.items),
+      dateLabel,
+      status: competition.items.length ? inferStatusFromDates(competition.items) : competition.status,
       rosterStatus: rosterCount ? (isComplete ? 'complete' : 'partial') : 'none',
       registrationSummary: {
         rosterCount,

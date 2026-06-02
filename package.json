@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "node server.mjs",
-    "smoke": "node tools/filter-options-test.mjs && node tools/athlete-detail-view-test.mjs && node tools/search-follow-test.mjs && node tools/pre-event-import-test.mjs && node tools/pre-event-view-test.mjs && node tools/smoke-test.mjs",
+    "smoke": "node tools/filter-options-test.mjs && node tools/athlete-detail-view-test.mjs && node tools/search-follow-test.mjs && node tools/pre-event-import-test.mjs && node tools/platform-event-list-test.mjs && node tools/pre-event-view-test.mjs && node tools/smoke-test.mjs",
     "analyze:sample": "node tools/analyze-sample.mjs",
     "analyze:url": "node tools/analyze-sample.mjs --url",
     "parse:projectlist": "node tools/parse-projectlist.mjs",
