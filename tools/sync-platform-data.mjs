@@ -156,6 +156,8 @@ async function fetchTextWithPowerShell(url, timeoutSec) {
   ].join('; ');
   const { stdout } = await execFileAsync('powershell.exe', ['-NoProfile', '-Command', script], {
     maxBuffer: 25 * 1024 * 1024,
+    timeout: (timeout + 5) * 1000,
+    killSignal: 'SIGTERM',
   });
   return stdout;
 }
