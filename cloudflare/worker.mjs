@@ -1,4 +1,3 @@
-import data from './data/public-data.mjs';
 import adminImportHtml from '../web/admin-import.html';
 import viewerHtml from '../web/viewer.html';
 import { buildPreEventCompetitions } from '../tools/pre-event-data.mjs';
@@ -11,12 +10,13 @@ import {
   previewImportPayload,
 } from './edge-data.mjs';
 
-const APP_VERSION = data.version || 'fencingai-cloudflare';
+const APP_VERSION = 'fencingai-cloudflare';
 const ADMIN_TOKEN = 'fencingai-admin-2026';
 const SCORE_INDEX_KEY = 'score:index';
 const PROJECTLIST_INDEX_KEY = 'projectlist:index';
 const ROSTER_INDEX_KEY = 'registration-roster:index';
 const MAX_IMPORT_BYTES = 20 * 1024 * 1024;
+let bundledDataPromise = null;
 
 function json(payload, status = 200) {
   return new Response(JSON.stringify(payload), {
@@ -54,6 +54,19 @@ async function readJsonKv(kv, key, fallback = null) {
   } catch {
     return fallback;
   }
+}
+
+async function loadBundledData(env) {
+  if (!bundledDataPromise) {
+    bundledDataPromise = (async () => {
+      const response = await env.ASSETS.fetch(new Request('https://assets.local/data/public-data.json'));
+      if (!response.ok) {
+        throw new Error(`Unable to load bundled data asset: ${response.status}`);
+      }
+      return response.json();
+    })();
+  }
+  return bundledDataPromise;
 }
 
 async function readFollows(env, deviceId) {
@@ -166,9 +179,23 @@ function buildPreEventDetails(competitions) {
 }
 
 async function getMergedData(env) {
+  const data = await loadBundledData(env);
+  const baseVersion = data.version || APP_VERSION;
   const dynamicReports = await readDynamicScoreReports(env);
   const preEventReports = await readDynamicPreEventReports(env);
-  if (!dynamicReports.length && !preEventReports.projectLists.length && !preEventReports.rosterBatches.length) return data;
+  if (!dynamicReports.length && !preEventReports.projectLists.length && !preEventReports.rosterBatches.length) {
+    return {
+      version: baseVersion,
+      publicEvents: {
+        ...data.publicEvents,
+        athletes: Object.values(data.athletesById || {}).slice(0, 500),
+        clubs: Object.values(data.clubsById || {}).slice(0, 300),
+      },
+      eventsByCode: data.eventsByCode || {},
+      athletesById: data.athletesById || {},
+      clubsById: data.clubsById || {},
+    };
+  }
 
   const eventsByCode = { ...data.eventsByCode };
   for (const { fileName, report } of dynamicReports) {
@@ -213,10 +240,10 @@ async function getMergedData(env) {
   Object.assign(eventsByCode, buildPreEventDetails(preEventCompetitions));
 
   return {
-    version: `${APP_VERSION}+kv${dynamicReports.length}`,
+    version: `${baseVersion}+kv${dynamicReports.length}`,
     publicEvents: {
       ok: true,
-      version: `${APP_VERSION}+kv${dynamicReports.length}`,
+      version: `${baseVersion}+kv${dynamicReports.length}`,
       events,
       competitions: [...scoreCompetitions, ...preEventCompetitions],
       athletes: Object.values(buildAthleteDirectoryFromEvents(eventsByCode)).slice(0, 500),
@@ -352,13 +379,6 @@ async function handleAdminImport(request, env, url) {
 async function routeApi(request, env, url) {
   if (url.pathname === '/api/events' && request.method === 'GET') {
     const merged = await getMergedData(env);
-    if (merged === data) {
-      return json({
-        ...data.publicEvents,
-        athletes: Object.values(data.athletesById || {}).slice(0, 500),
-        clubs: Object.values(data.clubsById || {}).slice(0, 300),
-      });
-    }
     return json(merged.publicEvents);
   }
 

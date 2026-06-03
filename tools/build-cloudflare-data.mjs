@@ -7,8 +7,10 @@ import {
   getPublicEventsPayload,
 } from '../server.mjs';
 
-const outDir = path.join('cloudflare', 'data');
-const outPath = path.join(outDir, 'public-data.mjs');
+const assetOutDir = path.join('web', 'data');
+const assetOutPath = path.join(assetOutDir, 'public-data.json');
+const moduleOutDir = path.join('cloudflare', 'data');
+const moduleOutPath = path.join(moduleOutDir, 'public-data.mjs');
 
 const publicEvents = await getPublicEventsPayload();
 const {
@@ -30,11 +32,14 @@ const payload = {
   clubsById: Object.fromEntries(clubs.map((club) => [club.id, club])),
 };
 
-await mkdir(outDir, { recursive: true });
-await writeFile(outPath, `export default ${JSON.stringify(payload, null, 2)};\n`, 'utf8');
+await mkdir(assetOutDir, { recursive: true });
+await mkdir(moduleOutDir, { recursive: true });
+await writeFile(assetOutPath, `${JSON.stringify(payload)}\n`, 'utf8');
+await writeFile(moduleOutPath, `export default { version: ${JSON.stringify(payload.version)}, assetPath: '/data/public-data.json' };\n`, 'utf8');
 console.log(JSON.stringify({
   ok: true,
-  outPath,
+  outPath: assetOutPath,
+  moduleOutPath,
   events: publicEvents.events.length,
   competitions: publicEvents.competitions.length,
   athletes: athletes.length,
