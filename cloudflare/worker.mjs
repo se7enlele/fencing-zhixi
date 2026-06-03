@@ -59,11 +59,28 @@ async function readJsonKv(kv, key, fallback = null) {
 async function loadBundledData(env) {
   if (!bundledDataPromise) {
     bundledDataPromise = (async () => {
-      const response = await env.ASSETS.fetch(new Request('https://assets.local/data/public-data.json'));
+      const response = await env.ASSETS.fetch(new Request('https://assets.local/data/public-data-index.json'));
       if (!response.ok) {
         throw new Error(`Unable to load bundled data asset: ${response.status}`);
       }
-      return response.json();
+      const index = await response.json();
+      const loadChunks = async (paths = []) => {
+        const objects = await Promise.all(paths.map(async (assetPath) => {
+          const chunkResponse = await env.ASSETS.fetch(new Request(`https://assets.local${assetPath}`));
+          if (!chunkResponse.ok) {
+            throw new Error(`Unable to load bundled data chunk ${assetPath}: ${chunkResponse.status}`);
+          }
+          return chunkResponse.json();
+        }));
+        return Object.assign({}, ...objects);
+      };
+      return {
+        version: index.version,
+        publicEvents: index.publicEvents,
+        eventsByCode: await loadChunks(index.chunks?.eventsByCode),
+        athletesById: await loadChunks(index.chunks?.athletesById),
+        clubsById: await loadChunks(index.chunks?.clubsById),
+      };
     })();
   }
   return bundledDataPromise;
