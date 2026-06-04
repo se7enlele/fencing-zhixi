@@ -357,6 +357,32 @@ function rosterUserType(item) {
   return item.itemTypeCode === 'T' || item.itemType === '团体' ? 'team' : 'athlete';
 }
 
+function expectedRosterPages(report, pageSize) {
+  const total = Number(report?.page?.total) || 0;
+  return total > 0 ? Math.ceil(total / pageSize) : null;
+}
+
+async function fetchRosterReport(url, body, source, args) {
+  const attempts = 3;
+  let lastError = null;
+  for (let attempt = 1; attempt <= attempts; attempt += 1) {
+    try {
+      const payload = parseJsonOrJsObject(await postJsonText(url, body, args.timeoutSec));
+      if (payload?.code !== undefined && Number(payload.code) !== 0) {
+        throw new Error(payload.msg || `roster API code ${payload.code}`);
+      }
+      return buildRegistrationRosterReport(payload, source);
+    } catch (error) {
+      lastError = error;
+      if (attempt < attempts) {
+        progress(args, 'roster retry', { eventCode: source.eventCode, page: source.page, attempt, message: error.message });
+        await sleep(Math.max(args.delayMs, 500) * attempt);
+      }
+    }
+  }
+  throw lastError;
+}
+
 async function syncRosterItem(item, args, files, log) {
   const eventCode = item.sourceEventCode || item.eventCode;
   const sportCode = item.sourceSportCode || item.sportCode;
@@ -375,6 +401,9 @@ async function syncRosterItem(item, args, files, log) {
     if (!args.forceRoster && files.has(fileName)) {
       log.rosters.skipped += 1;
       progress(args, 'roster skipped', { eventCode, page });
+      const existingReport = JSON.parse(stripBom(await readFile(path.join(args.outputDir, fileName), 'utf8')));
+      const expectedPages = expectedRosterPages(existingReport, pageSize);
+      if (expectedPages && page >= expectedPages) break;
       continue;
     }
 
@@ -386,24 +415,19 @@ async function syncRosterItem(item, args, files, log) {
 
     try {
       progress(args, 'roster fetch', { eventCode, page, userType: body.userType });
-      const payload = parseJsonOrJsObject(await postJsonText(url, body, args.timeoutSec));
-      if (payload?.code !== undefined && Number(payload.code) !== 0) {
-        throw new Error(payload.msg || `roster API code ${payload.code}`);
-      }
-      const report = buildRegistrationRosterReport(payload, {
+      const report = await fetchRosterReport(url, body, {
         sourceUrl: url,
         eventCode,
         sportCode,
         page,
         importedAt: new Date().toISOString(),
-      });
+      }, args);
       await writeReport(args.outputDir, fileName, report);
       files.add(fileName);
       log.rosters.imported += 1;
       progress(args, 'roster imported', { eventCode, page, records: report.summary.recordCount, total: report.page.total });
 
-      const total = Number(report.page.total) || 0;
-      const expectedPages = total > 0 ? Math.ceil(total / pageSize) : page;
+      const expectedPages = expectedRosterPages(report, pageSize) || page;
       if (report.summary.recordCount === 0 || page >= expectedPages) break;
       await sleep(args.delayMs);
     } catch (error) {
