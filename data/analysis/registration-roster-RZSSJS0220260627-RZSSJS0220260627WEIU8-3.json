@@ -1,0 +1,58 @@
+{
+  "ok": true,
+  "importType": "registration-roster",
+  "source": {
+    "sourceUrl": "https://fencing.yy-sport.com.cn/fencingapi/sigup/memberlistbytype?current=3&size=10",
+    "eventCode": "RZSSJS0220260627WEIU8",
+    "sportCode": "RZSSJS0220260627",
+    "page": 3,
+    "importedAt": "2026-06-04T12:40:00.337Z"
+  },
+  "page": {
+    "current": 3,
+    "size": 10,
+    "total": 21
+  },
+  "summary": {
+    "recordCount": 1,
+    "sportCodes": [
+      "RZSSJS0220260627"
+    ],
+    "eventCodes": [
+      "RZSSJS0220260627WEIU8"
+    ],
+    "athleteCount": 1,
+    "clubCount": 1
+  },
+  "normalized": {
+    "records": [
+      {
+        "sigupId": "256467866",
+        "registerType": "athlete",
+        "registerId": "20180122F202507110945",
+        "registerCode": "20180122F202507110945",
+        "athleteName": "张昕然",
+        "birthday": "2018-01-22",
+        "sex": "F",
+        "sexDes": "女",
+        "weapon": "E",
+        "weaponDes": "重剑",
+        "hand": "R",
+        "sportCode": "RZSSJS0220260627",
+        "sportName": "2026年“艾鲁特杯”无锡击剑公开赛",
+        "eventCode": "RZSSJS0220260627WEIU8",
+        "eventName": "U8女子重剑个人",
+        "organCode": "JISHKTY0001",
+        "organShortName": "无锡汇科",
+        "organName": "无锡汇科击剑俱乐部",
+        "approveStatus": "2",
+        "sigupTime": "2026-06-01 16:01:47",
+        "sigupPoints": null,
+        "sigupRank": null,
+        "regType": "1",
+        "regTypeDes": "大众",
+        "dedupeKey": "sigup:256467866"
+      }
+    ]
+  }
+}
