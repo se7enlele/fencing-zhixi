@@ -1,0 +1,58 @@
+{
+  "ok": true,
+  "importType": "registration-roster",
+  "source": {
+    "sourceUrl": "https://fencing.yy-sport.com.cn/fencingapi/sigup/memberlistbytype?current=4&size=10",
+    "eventCode": "RZSSAH1220260606MEIU8",
+    "sportCode": "RZSSAH1220260606",
+    "page": 4,
+    "importedAt": "2026-06-04T12:16:29.780Z"
+  },
+  "page": {
+    "current": 4,
+    "size": 10,
+    "total": 31
+  },
+  "summary": {
+    "recordCount": 1,
+    "sportCodes": [
+      "RZSSAH1220260606"
+    ],
+    "eventCodes": [
+      "RZSSAH1220260606MEIU8"
+    ],
+    "athleteCount": 1,
+    "clubCount": 1
+  },
+  "normalized": {
+    "records": [
+      {
+        "sigupId": "256127546",
+        "registerType": "athlete",
+        "registerId": "20181224M202307111030",
+        "registerCode": "20181224M202307111030",
+        "athleteName": "GAVIN JIANG",
+        "birthday": "2018-12-24",
+        "sex": "M",
+        "sexDes": "男",
+        "weapon": "E",
+        "weaponDes": "重剑",
+        "hand": "R",
+        "sportCode": "RZSSAH1220260606",
+        "sportName": "2026年上海之星击剑公开赛",
+        "eventCode": "RZSSAH1220260606MEIU8",
+        "eventName": "U8男子重剑个人",
+        "organCode": "SHHAXGJJJ0001",
+        "organShortName": "上海昂熹国际",
+        "organName": "上海昂熹国际击剑俱乐部",
+        "approveStatus": "2",
+        "sigupTime": "2026-05-13 10:00:27",
+        "sigupPoints": null,
+        "sigupRank": null,
+        "regType": "1",
+        "regTypeDes": "大众",
+        "dedupeKey": "sigup:256127546"
+      }
+    ]
+  }
+}

@@ -40,12 +40,8 @@ function normalizeProjectItem(item) {
     openDate: item.startDate || item.openDate || null,
     closeDate: item.endDate || item.closeDate || null,
     participantCount,
-    expectedRegistrationCount: isCredibleRegistrationCount(participantCount) ? participantCount : 0,
+    expectedRegistrationCount: 0,
   };
-}
-
-function isCredibleRegistrationCount(value) {
-  return Number.isFinite(value) && value > 0 && value < 1000;
 }
 
 function competitionNameFor(sportCode, items, rosterRows) {

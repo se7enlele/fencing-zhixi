@@ -77,7 +77,8 @@ competitions = buildPreEventCompetitions({
 
 const enriched = competitions.find((row) => row.sportCode === 'REG001');
 assert.equal(enriched.items.length, 1);
-assert.equal(enriched.items[0].competitionNo, 24);
+assert.equal(enriched.items[0].competitionNo, 0);
+assert.equal(enriched.registrationSummary.expectedRegistrationCount, 0);
 assert.equal(enriched.platformMeta.sourceCoverage, 'event-list-plus-projectlist');
 assert.equal(enriched.status, 'registration');
 
