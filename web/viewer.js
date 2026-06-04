@@ -18,6 +18,7 @@ const followPanel = document.querySelector('#followPanel');
 const memberCta = document.querySelector('#memberCta');
 const homeStats = document.querySelector('#homeStats');
 const homeStatsScope = document.querySelector('#homeStatsScope');
+const dataCoverageSummary = document.querySelector('#dataCoverageSummary');
 const competitionList = document.querySelector('#competitionList');
 const competitionHero = document.querySelector('#competitionHero');
 const competitionInsightCards = document.querySelector('#competitionInsightCards');
@@ -766,6 +767,74 @@ function sumCompetitionItems(competitions, getter) {
   ), 0);
 }
 
+function summarizeDataCoverage(competitions) {
+  const summary = {
+    directory: 0,
+    project: 0,
+    roster: 0,
+    score: 0,
+  };
+
+  for (const competition of competitions) {
+    if (competition.rosterStatus === 'partial' || competition.rosterStatus === 'complete') {
+      summary.roster += 1;
+    } else if (competition.isPlatformEventList && !(competition.items || []).length) {
+      summary.directory += 1;
+    } else if (competition.isPreEvent) {
+      summary.project += 1;
+    } else {
+      summary.score += 1;
+    }
+  }
+
+  summary.actionable = summary.project + summary.roster + summary.score;
+  return summary;
+}
+
+function renderDataCoverageSummary(source) {
+  if (!dataCoverageSummary) return;
+  if (!source.length) {
+    dataCoverageSummary.innerHTML = '';
+    return;
+  }
+
+  const coverage = summarizeDataCoverage(source);
+  const total = source.length || 1;
+  const scorePercent = Math.round((coverage.score / total) * 100);
+  const actionablePercent = Math.round((coverage.actionable / total) * 100);
+  const sourceNote = state.dataCoverage?.platformEvents
+    ? `平台赛事 ${state.dataCoverage.platformEvents} 条已收录`
+    : `${source.length} 条赛事已收录`;
+
+  dataCoverageSummary.innerHTML = `
+    <div class="coverage-summary-head">
+      <div>
+        <strong>数据可分析度</strong>
+        <span>${escapeHtml(sourceNote)}，当前范围 ${escapeHtml(source.length)} 条</span>
+      </div>
+      <em>${escapeHtml(actionablePercent)}% 已进入分析层</em>
+    </div>
+    <div class="coverage-level-grid">
+      <div>
+        <strong>${escapeHtml(coverage.directory)}</strong>
+        <span>赛事目录</span>
+        <small>可用于筛选和赛历浏览</small>
+      </div>
+      <div>
+        <strong>${escapeHtml(coverage.project + coverage.roster)}</strong>
+        <span>项目/报名</span>
+        <small>可用于赛前情报</small>
+      </div>
+      <div>
+        <strong>${escapeHtml(coverage.score)}</strong>
+        <span>成绩对阵</span>
+        <small>可用于成长和队伍分析</small>
+      </div>
+    </div>
+    <p>补齐优先级：先补近期报名和目标俱乐部相关赛事，再补青少年组别成绩对阵；成绩对阵覆盖率当前为 ${escapeHtml(scorePercent)}%。</p>
+  `;
+}
+
 function isFilteringActive() {
   return Boolean(normalizeSearchText(searchInput.value))
     || state.selectedYear !== '全部年份'
@@ -778,11 +847,13 @@ function renderHomeStats() {
   if (state.isDataLoading) {
     if (homeStatsScope) homeStatsScope.textContent = '加载中';
     homeStats.innerHTML = '<div class="loading-row">正在加载数据</div>';
+    if (dataCoverageSummary) dataCoverageSummary.innerHTML = '';
     return;
   }
   if (state.dataLoadError) {
     if (homeStatsScope) homeStatsScope.textContent = '加载失败';
     homeStats.innerHTML = '';
+    if (dataCoverageSummary) dataCoverageSummary.innerHTML = '';
     return;
   }
   const source = state.filteredCompetitions.length || isFilteringActive() ? state.filteredCompetitions : state.competitions;
@@ -805,6 +876,7 @@ function renderHomeStats() {
       <span>${escapeHtml(detail)}</span>
     </div>
   `).join('');
+  renderDataCoverageSummary(source);
 }
 
 function roleLabel(role) {

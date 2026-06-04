@@ -11,6 +11,8 @@
     "parse:projectlist": "node tools/parse-projectlist.mjs",
     "parse:classmentrank": "node tools/parse-classmentrank.mjs",
     "parse:score": "node tools/parse-score.mjs",
+    "coverage:data": "node tools/data-coverage-report.mjs",
+    "coverage:data:online": "node tools/data-coverage-report.mjs --url=https://fencingai.uk/api/events",
     "cf:build-data": "node tools/build-cloudflare-data.mjs",
     "cf:deploy": "npm run cf:build-data && npx wrangler deploy"
   },
