@@ -1263,12 +1263,62 @@ function buildAthleteDirectory(reports) {
     .sort((a, b) => (a.bestRank ?? 999) - (b.bestRank ?? 999) || b.medals - a.medals || b.appearances - a.appearances);
 }
 
+function getEventClubRows(event) {
+  const athletes = event.athleteProfiles || event.participants || [];
+  if (!athletes.length) return event.clubProfiles || [];
+
+  const clubs = new Map();
+  for (const athlete of athletes) {
+    const clubName = athlete.club || '未知俱乐部';
+    const id = makeClubId(clubName);
+    if (!clubs.has(id)) {
+      clubs.set(id, {
+        id,
+        club: clubName,
+        entrants: 0,
+        medals: 0,
+        top8: 0,
+        finalists: 0,
+        bestRank: null,
+        athletes: [],
+      });
+    }
+
+    const row = clubs.get(id);
+    const rank = athlete.finalRank ?? athlete.rank ?? null;
+    row.entrants += 1;
+    if (athlete.medal) row.medals += 1;
+    if (rank && rank <= 8) row.top8 += 1;
+    if (rank && rank <= 2) row.finalists += 1;
+    if (rank && (!row.bestRank || rank < row.bestRank)) row.bestRank = rank;
+    row.athletes.push({
+      id: athlete.id || makeAthleteId(athlete.name, athlete.licence, athlete.club),
+      name: athlete.name,
+      rank,
+      medal: athlete.medal,
+    });
+  }
+
+  return [...clubs.values()].map((club) => ({
+    ...club,
+    athletes: club.athletes.sort((a, b) => (a.rank ?? 999) - (b.rank ?? 999)).slice(0, 4),
+  }));
+}
+
+function sortClubEvents(events) {
+  return events.sort((a, b) => (
+    String(b.openDate || '').localeCompare(String(a.openDate || ''), 'zh-CN')
+    || (a.bestRank ?? 999) - (b.bestRank ?? 999)
+    || (Number(b.entrants) || 0) - (Number(a.entrants) || 0)
+  ));
+}
+
 function buildClubDirectory(reports) {
   const clubs = new Map();
 
   for (const { fileName, report } of reports) {
     const event = buildEventDetail(report, fileName);
-    for (const club of event.clubProfiles || []) {
+    for (const club of getEventClubRows(event)) {
       const id = makeClubId(club.club);
       if (!clubs.has(id)) {
         clubs.set(id, {
@@ -1283,6 +1333,9 @@ function buildClubDirectory(reports) {
             sportName: event.sportName,
             eventCode: event.eventCode,
             eventName: event.eventName,
+            shortEventName: event.shortEventName,
+            openDate: event.openDate,
+            venue: event.venue,
             entrants: club.entrants,
             medals: club.medals,
             top8: club.top8,
@@ -1302,6 +1355,9 @@ function buildClubDirectory(reports) {
           sportName: event.sportName,
           eventCode: event.eventCode,
           eventName: event.eventName,
+          shortEventName: event.shortEventName,
+          openDate: event.openDate,
+          venue: event.venue,
           entrants: club.entrants,
           medals: club.medals,
           top8: club.top8,
@@ -1314,7 +1370,7 @@ function buildClubDirectory(reports) {
   return [...clubs.values()]
     .map((club) => ({
       ...club,
-      events: club.events.sort((a, b) => (a.bestRank ?? 999) - (b.bestRank ?? 999)),
+      events: sortClubEvents(club.events),
     }))
     .sort((a, b) => b.medals - a.medals || b.top8 - a.top8 || (a.bestRank ?? 999) - (b.bestRank ?? 999));
 }
