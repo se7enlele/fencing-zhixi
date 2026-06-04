@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { inferPlatformStatus, selectEvents } from './sync-platform-data.mjs';
+import { inferPlatformStatus, selectEvents, selectEventsForSync } from './sync-platform-data.mjs';
 
 const events = [
   {
@@ -41,5 +41,7 @@ assert.deepEqual(selectEvents(events, { status: 'completed', limit: 5 }).map((ev
 assert.deepEqual(selectEvents(events, { status: 'registration', limit: 5 }).map((event) => event.sportCode), ['REG']);
 assert.equal(selectEvents(events, { status: 'all', limit: 2 }).length, 2);
 assert.deepEqual(selectEvents(events, { status: 'all', limit: 5, startAfterSportId: 2 }).map((event) => event.sportCode), ['DONE']);
+assert.deepEqual(selectEventsForSync(events, { sportId: 2 }).map((event) => event.sportCode), ['REG']);
+assert.deepEqual(selectEventsForSync(events, { sportId: 999 }).map((event) => event.sportCode), []);
 
 console.log('platform sync planning is covered');
