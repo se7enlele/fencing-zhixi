@@ -841,8 +841,16 @@ function getSelectedChild(candidates = childCandidates()) {
 }
 
 function eventYear(event) {
-  const date = parseDateCandidates([event.openDate, event.sportName, event.eventName].filter(Boolean).join(' '))[0];
-  return date ? String(date.getFullYear()) : '待确认';
+  const text = [
+    event.openDate,
+    event.date,
+    event.dateLabel,
+    event.sportName,
+    event.competitionName,
+    event.eventName,
+  ].filter(Boolean).join(' ');
+  const date = parseDateCandidates(text)[0];
+  return date ? String(date.getFullYear()) : (String(text).match(/20\d{2}/)?.[0] || '待确认');
 }
 
 function buildParentGrowthModel(athlete) {
@@ -871,17 +879,17 @@ function buildParentGrowthModel(athlete) {
     .slice(0, 4)
     .map(([label, value]) => ({ label, value, display: `${value} 场` }));
 
-  let investment = '观察积累';
+  let investment = '持续观察';
   let advice = '数据还在积累，先看参赛连续性、小组赛稳定性和淘汰赛突破。';
   if (events.length >= 4 && (poolRate ?? 0) >= 60 && (top8Count || medalCount || totalElimWins > totalElimLosses)) {
-    investment = '值得继续投入';
-    advice = '已有连续参赛和可见竞争力，建议继续投入，并把训练重点放在强手对局和淘汰赛关键分。';
+    investment = '成长势头良好';
+    advice = '已有连续参赛和可见竞争力，建议保持训练节奏，并把重点放在强手对局和淘汰赛关键分。';
   } else if (events.length >= 3 && (poolRate ?? 0) >= 45) {
-    investment = '稳定投入';
+    investment = '稳步成长中';
     advice = '基础稳定性正在形成，建议保持参赛频率，重点观察名次是否能持续前移。';
   } else if (events.length >= 2) {
-    investment = '谨慎投入';
-    advice = '参赛记录已有基础，但成绩稳定性还不足，建议先控制投入，优先补基本功和比赛经验。';
+    investment = '夯实基础期';
+    advice = '参赛记录已有基础，建议先提升小组赛稳定性，继续积累比赛经验。';
   }
 
   return { events, latest, previous, best, poolRate, totalPoolWins, totalPoolMatches, totalElimWins, totalElimLosses, top8Count, medalCount, trend, yearRows, investment, advice };
@@ -929,7 +937,7 @@ function renderParentWorkspace() {
       </div>
       ${childOptions}
       <div class="parent-decision">
-        <span>投入判断</span>
+        <span>成长建议</span>
         <strong>${escapeHtml(model.investment)}</strong>
         <p>${escapeHtml(model.advice)}</p>
       </div>
@@ -1084,7 +1092,7 @@ function renderRoleWorkspacePremium() {
       <div class="role-grid">
         <button type="button" data-role="parent">
           <strong>家长工作台</strong>
-          <span>成长趋势、投入判断、对手分析</span>
+          <span>成长趋势、阶段建议、对手分析</span>
         </button>
         <button type="button" data-role="coach">
           <strong>教练工作台</strong>
@@ -1130,8 +1138,8 @@ function focusAthleteCards() {
 
 function parseDateCandidates(value) {
   const text = String(value || '');
-  const matches = [...text.matchAll(/(20\d{2})[.\-/年](\d{1,2})(?:[.\-/月](\d{1,2}))?/g)];
-  return matches.map((match) => new Date(Number(match[1]), Number(match[2]) - 1, Number(match[3] || 1)))
+  const matches = [...text.matchAll(/(20\d{2})(?:[^\d]{0,3}(\d{1,2})(?:[^\d]{0,3}(\d{1,2}))?)?/g)];
+  return matches.map((match) => new Date(Number(match[1]), Number(match[2] || 1) - 1, Number(match[3] || 1)))
     .filter((date) => !Number.isNaN(date.getTime()));
 }
 
@@ -2244,8 +2252,8 @@ function renderAthleteDetail(athlete) {
         <div class="hero-title">${escapeHtml(athlete.name)}</div>
         <div class="hero-sub">${escapeHtml(athlete.club || '俱乐部待确认')}</div>
       </div>
-      <button class="follow-icon-button ${followed ? 'active' : ''}" id="followAthleteBtn" type="button" aria-pressed="${followed ? 'true' : 'false'}" aria-label="${followed ? '取消关注' : '关注这个孩子'}" title="${followed ? '已关注' : '关注'}">
-        <span aria-hidden="true">${followed ? '✓' : '+'}</span>
+      <button class="follow-status-tag ${followed ? 'active' : ''}" id="followAthleteBtn" type="button" aria-pressed="${followed ? 'true' : 'false'}" aria-label="${followed ? '取消关注' : '关注这个孩子'}">
+        ${followed ? '已关注' : '未关注'}
       </button>
     </div>
     <div class="badge-row">
