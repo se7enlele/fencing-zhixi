@@ -357,10 +357,47 @@ select:focus {
   padding-bottom: 10px;
 }
 
-.role-workspace {
+.role-workspace,
+.role-home-shell {
   display: grid;
   gap: 10px;
   margin-bottom: 10px;
+}
+
+.role-home-shell {
+  padding-top: 10px;
+}
+
+.role-home-panel {
+  min-height: calc(100vh - 86px);
+  align-content: start;
+}
+
+.role-hero {
+  display: grid;
+  gap: 8px;
+  padding: 8px 2px 4px;
+}
+
+.role-hero span {
+  width: fit-content;
+  border-radius: 999px;
+  background: rgba(21, 95, 194, 0.08);
+  color: var(--primary);
+  font-size: 12px;
+  font-weight: 900;
+  padding: 5px 9px;
+}
+
+.role-hero strong {
+  font-size: 24px;
+  line-height: 1.22;
+}
+
+.role-hero p {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.55;
 }
 
 .role-panel {

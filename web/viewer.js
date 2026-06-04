@@ -11,6 +11,7 @@ const filterSheetTitle = document.querySelector('#filterSheetTitle');
 const filterSheetOptions = document.querySelector('#filterSheetOptions');
 const searchShell = document.querySelector('.search-shell');
 const roleWorkspace = document.querySelector('#roleWorkspace');
+const parentDashboard = document.querySelector('#parentDashboard');
 const feedPanel = document.querySelector('#feedPanel');
 const searchAthletesPanel = document.querySelector('#searchAthletesPanel');
 const followPanel = document.querySelector('#followPanel');
@@ -50,6 +51,10 @@ const ROLE_KEY = 'fencingai.role.v1';
 const CHILD_KEY = 'fencingai.parentChildId.v1';
 
 const views = {
+  roleHome: document.querySelector('#view-role-home'),
+  parentHome: document.querySelector('#view-parent-home'),
+  coachHome: document.querySelector('#view-coach-home'),
+  clubHome: document.querySelector('#view-club-home'),
   competitions: document.querySelector('#view-competitions'),
   competition: document.querySelector('#view-competition-detail'),
   event: document.querySelector('#view-event-detail'),
@@ -74,7 +79,7 @@ const state = {
   selectedItem: '全部项目',
   selectedStatus: '全部状态',
   apiVersion: '',
-  viewStack: ['competitions'],
+  viewStack: ['roleHome'],
   deviceId: getDeviceId(),
   userRole: localStorage.getItem(ROLE_KEY) || '',
   selectedChildId: localStorage.getItem(CHILD_KEY) || '',
@@ -98,14 +103,24 @@ function saveFollowedAthletes() {
 function setUserRole(role) {
   state.userRole = role;
   localStorage.setItem(ROLE_KEY, role);
-  renderRoleWorkspace();
+  renderRoleWorkspaceHome();
+  if (role === 'parent') {
+    renderParentDashboard();
+    navigateTo('parentHome');
+  } else if (role === 'coach') {
+    navigateTo('coachHome');
+  } else if (role === 'club') {
+    navigateTo('clubHome');
+  } else {
+    navigateTo('competitions');
+  }
 }
 
 function setSelectedChild(athleteId) {
   state.selectedChildId = athleteId || '';
   if (state.selectedChildId) localStorage.setItem(CHILD_KEY, state.selectedChildId);
   else localStorage.removeItem(CHILD_KEY);
-  renderRoleWorkspace();
+  renderParentDashboard();
 }
 
 function getDeviceId() {
@@ -130,7 +145,8 @@ async function syncFollowedAthletes() {
     state.followedAthletes = loadFollowedAthletes();
   }
   renderFollowPanel();
-  renderRoleWorkspace();
+  renderRoleWorkspaceHome();
+  renderParentDashboard();
 }
 
 function isFollowedAthlete(id) {
@@ -151,7 +167,8 @@ async function upsertFollowedAthlete(athlete) {
   ];
   saveFollowedAthletes();
   renderFollowPanel();
-  renderRoleWorkspace();
+  renderRoleWorkspaceHome();
+  renderParentDashboard();
   try {
     const response = await fetch('/api/me/follows', {
       method: 'POST',
@@ -163,7 +180,8 @@ async function upsertFollowedAthlete(athlete) {
     state.followedAthletes = result.follows || state.followedAthletes;
     saveFollowedAthletes();
     renderFollowPanel();
-    renderRoleWorkspace();
+    renderRoleWorkspaceHome();
+    renderParentDashboard();
   } catch {
     // Keep local follow as offline fallback.
   }
@@ -174,7 +192,8 @@ async function removeFollowedAthlete(id) {
   saveFollowedAthletes();
   renderFollowPanel();
   if (state.selectedChildId === id) state.selectedChildId = '';
-  renderRoleWorkspace();
+  renderRoleWorkspaceHome();
+  renderParentDashboard();
   try {
     const response = await fetch('/api/me/follows', {
       method: 'DELETE',
@@ -187,7 +206,8 @@ async function removeFollowedAthlete(id) {
     saveFollowedAthletes();
     renderFollowPanel();
     if (state.selectedChildId === id) state.selectedChildId = '';
-    renderRoleWorkspace();
+    renderRoleWorkspaceHome();
+    renderParentDashboard();
   } catch {
     // Local removal has already been applied.
   }
@@ -505,7 +525,7 @@ function showView(name) {
     view.classList.toggle('active', key === name);
   });
   searchShell.classList.toggle('collapsed', name !== 'competitions');
-  topBack.classList.toggle('visible', name !== 'competitions');
+  topBack.classList.toggle('visible', name !== 'roleHome');
 }
 
 function scrollToPageTop() {
@@ -525,7 +545,7 @@ function navigateTo(name) {
 
 function goBack() {
   if (state.viewStack.length <= 1) {
-    showView('competitions');
+    showView('roleHome');
     scrollToPageTop();
     return;
   }
@@ -901,7 +921,7 @@ function renderParentWorkspace() {
   `;
 }
 
-function renderRoleWorkspace() {
+function renderRoleWorkspaceLegacy() {
   if (!roleWorkspace) return;
   if (!state.userRole) {
     roleWorkspace.innerHTML = `
@@ -956,7 +976,7 @@ function renderRoleWorkspace() {
       state.selectedChildId = '';
       localStorage.removeItem(ROLE_KEY);
       localStorage.removeItem(CHILD_KEY);
-      renderRoleWorkspace();
+      renderRoleWorkspaceHome();
     });
   });
   roleWorkspace.querySelectorAll('[data-child-id]').forEach((button) => {
@@ -964,6 +984,64 @@ function renderRoleWorkspace() {
   });
   roleWorkspace.querySelectorAll('[data-athlete-id]').forEach((button) => {
     button.addEventListener('click', () => openAthlete(button.dataset.athleteId));
+  });
+}
+
+function renderParentDashboard() {
+  if (!parentDashboard) return;
+  parentDashboard.innerHTML = renderParentWorkspace();
+  parentDashboard.querySelectorAll('[data-role-reset]').forEach((button) => {
+    button.addEventListener('click', () => {
+      state.userRole = '';
+      state.selectedChildId = '';
+      localStorage.removeItem(ROLE_KEY);
+      localStorage.removeItem(CHILD_KEY);
+      state.viewStack = ['roleHome'];
+      renderRoleWorkspaceHome();
+      showView('roleHome');
+      scrollToPageTop();
+    });
+  });
+  parentDashboard.querySelectorAll('[data-child-id]').forEach((button) => {
+    button.addEventListener('click', () => setSelectedChild(button.dataset.childId));
+  });
+  parentDashboard.querySelectorAll('[data-athlete-id]').forEach((button) => {
+    button.addEventListener('click', () => openAthlete(button.dataset.athleteId));
+  });
+}
+
+function renderRoleWorkspaceHome() {
+  if (!roleWorkspace) return;
+  roleWorkspace.innerHTML = `
+    <section class="panel role-panel role-home-panel">
+      <div class="role-hero">
+        <span>FencingAI</span>
+        <strong>你想用什么身份看击剑数据？</strong>
+        <p>同一份赛事、选手和对阵数据，会按不同角色生成不同分析。只有选择“只看比赛成绩”才进入原来的比赛成绩页面。</p>
+      </div>
+      <div class="role-grid">
+        <button type="button" data-role="parent">
+          <strong>我是家长</strong>
+          <span>看孩子长期成长、是否进步、是否值得继续投入</span>
+        </button>
+        <button type="button" data-role="coach">
+          <strong>我是教练</strong>
+          <span>看学员池、成绩提升、留存风险和招生亮点</span>
+        </button>
+        <button type="button" data-role="club">
+          <strong>我是俱乐部负责人</strong>
+          <span>看队伍增长、口碑位置和区域竞争</span>
+        </button>
+        <button type="button" data-role="data">
+          <strong>只看比赛成绩</strong>
+          <span>进入赛事、选手、俱乐部的数据浏览页面</span>
+        </button>
+      </div>
+    </section>
+  `;
+
+  roleWorkspace.querySelectorAll('[data-role]').forEach((button) => {
+    button.addEventListener('click', () => setUserRole(button.dataset.role));
   });
 }
 
@@ -2452,6 +2530,20 @@ filterSheetOptions.addEventListener('click', (event) => {
 memberCta?.addEventListener('click', () => {
   alert('会员能力后续会围绕成长报告、重点对手、俱乐部分析和无广告体验设计。当前版本先开放免费查看。');
 });
+document.querySelectorAll('[data-nav-role-home]').forEach((button) => {
+  button.addEventListener('click', () => {
+    state.userRole = '';
+    localStorage.removeItem(ROLE_KEY);
+    state.viewStack = ['roleHome'];
+    renderRoleWorkspaceHome();
+    showView('roleHome');
+    scrollToPageTop();
+  });
+});
+document.querySelectorAll('[data-nav-competitions]').forEach((button) => {
+  button.addEventListener('click', () => navigateTo('competitions'));
+});
+
 async function init() {
   homeStats.innerHTML = '<div class="loading-row">正在加载数据</div>';
   competitionList.innerHTML = '<div class="loading-row">正在整理比赛列表</div>';
@@ -2466,7 +2558,8 @@ async function init() {
   state.athleteSearchIndex = buildAthleteSearchIndex();
   state.clubSearchIndex = buildClubSearchIndex();
   renderHomeStats();
-  renderRoleWorkspace();
+  renderRoleWorkspaceHome();
+  renderParentDashboard();
   renderFeedPanel();
   await syncFollowedAthletes();
   renderYearSelect();
