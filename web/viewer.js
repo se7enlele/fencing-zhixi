@@ -103,7 +103,7 @@ function saveFollowedAthletes() {
 function setUserRole(role) {
   state.userRole = role;
   localStorage.setItem(ROLE_KEY, role);
-  renderRoleWorkspaceHome();
+  renderRoleWorkspacePremium();
   if (role === 'parent') {
     renderParentDashboard();
     navigateTo('parentHome');
@@ -145,7 +145,7 @@ async function syncFollowedAthletes() {
     state.followedAthletes = loadFollowedAthletes();
   }
   renderFollowPanel();
-  renderRoleWorkspaceHome();
+  renderRoleWorkspacePremium();
   renderParentDashboard();
 }
 
@@ -167,7 +167,7 @@ async function upsertFollowedAthlete(athlete) {
   ];
   saveFollowedAthletes();
   renderFollowPanel();
-  renderRoleWorkspaceHome();
+  renderRoleWorkspacePremium();
   renderParentDashboard();
   try {
     const response = await fetch('/api/me/follows', {
@@ -180,7 +180,7 @@ async function upsertFollowedAthlete(athlete) {
     state.followedAthletes = result.follows || state.followedAthletes;
     saveFollowedAthletes();
     renderFollowPanel();
-    renderRoleWorkspaceHome();
+    renderRoleWorkspacePremium();
     renderParentDashboard();
   } catch {
     // Keep local follow as offline fallback.
@@ -192,7 +192,7 @@ async function removeFollowedAthlete(id) {
   saveFollowedAthletes();
   renderFollowPanel();
   if (state.selectedChildId === id) state.selectedChildId = '';
-  renderRoleWorkspaceHome();
+  renderRoleWorkspacePremium();
   renderParentDashboard();
   try {
     const response = await fetch('/api/me/follows', {
@@ -206,7 +206,7 @@ async function removeFollowedAthlete(id) {
     saveFollowedAthletes();
     renderFollowPanel();
     if (state.selectedChildId === id) state.selectedChildId = '';
-    renderRoleWorkspaceHome();
+    renderRoleWorkspacePremium();
     renderParentDashboard();
   } catch {
     // Local removal has already been applied.
@@ -928,7 +928,7 @@ function renderRoleWorkspaceLegacy() {
       <section class="panel role-panel">
         <div class="section-title">
           <h2>先选择你的视角</h2>
-          <span>同一份数据，不同分析</span>
+          <span>专业分析入口</span>
         </div>
         <div class="role-grid">
           <button type="button" data-role="parent">
@@ -958,7 +958,7 @@ function renderRoleWorkspaceLegacy() {
         <div class="role-panel-head">
           <div>
             <span>当前角色：${escapeHtml(roleLabel(state.userRole))}</span>
-            <strong>${state.userRole === 'coach' ? '教练工作台正在接入' : state.userRole === 'club' ? '俱乐部经营视角正在接入' : '数据浏览模式'}</strong>
+            <strong>${state.userRole === 'coach' ? '教练工作台' : state.userRole === 'club' ? '俱乐部工作台' : '赛事数据'}</strong>
             <em>${state.userRole === 'data' ? '你可以继续使用搜索、筛选和赛事入口。' : '当前先保留完整数据浏览，下一阶段会接入角色专属分析。'}</em>
           </div>
           <button type="button" data-role-reset>切换角色</button>
@@ -976,7 +976,7 @@ function renderRoleWorkspaceLegacy() {
       state.selectedChildId = '';
       localStorage.removeItem(ROLE_KEY);
       localStorage.removeItem(CHILD_KEY);
-      renderRoleWorkspaceHome();
+      renderRoleWorkspacePremium();
     });
   });
   roleWorkspace.querySelectorAll('[data-child-id]').forEach((button) => {
@@ -997,7 +997,7 @@ function renderParentDashboard() {
       localStorage.removeItem(ROLE_KEY);
       localStorage.removeItem(CHILD_KEY);
       state.viewStack = ['roleHome'];
-      renderRoleWorkspaceHome();
+      renderRoleWorkspacePremium();
       showView('roleHome');
       scrollToPageTop();
     });
@@ -1015,9 +1015,8 @@ function renderRoleWorkspaceHome() {
   roleWorkspace.innerHTML = `
     <section class="panel role-panel role-home-panel">
       <div class="role-hero">
-        <span>FencingAI</span>
-        <strong>你想用什么身份看击剑数据？</strong>
-        <p>同一份赛事、选手和对阵数据，会按不同角色生成不同分析。只有选择“只看比赛成绩”才进入原来的比赛成绩页面。</p>
+        <strong>选择工作台</strong>
+        <p>面向击剑训练、竞赛与成长决策的分析系统。</p>
       </div>
       <div class="role-grid">
         <button type="button" data-role="parent">
@@ -1035,6 +1034,40 @@ function renderRoleWorkspaceHome() {
         <button type="button" data-role="data">
           <strong>只看比赛成绩</strong>
           <span>进入赛事、选手、俱乐部的数据浏览页面</span>
+        </button>
+      </div>
+    </section>
+  `;
+
+  roleWorkspace.querySelectorAll('[data-role]').forEach((button) => {
+    button.addEventListener('click', () => setUserRole(button.dataset.role));
+  });
+}
+
+function renderRoleWorkspacePremium() {
+  if (!roleWorkspace) return;
+  roleWorkspace.innerHTML = `
+    <section class="panel role-panel role-home-panel">
+      <div class="role-hero">
+        <strong>选择工作台</strong>
+        <p>面向击剑训练、竞赛与成长决策的分析系统。</p>
+      </div>
+      <div class="role-grid">
+        <button type="button" data-role="parent">
+          <strong>家长工作台</strong>
+          <span>成长趋势、投入判断、对手分析</span>
+        </button>
+        <button type="button" data-role="coach">
+          <strong>教练工作台</strong>
+          <span>学员表现、训练反馈、留存线索</span>
+        </button>
+        <button type="button" data-role="club">
+          <strong>俱乐部工作台</strong>
+          <span>队伍增长、成绩资产、区域位置</span>
+        </button>
+        <button type="button" data-role="data">
+          <strong>赛事数据</strong>
+          <span>比赛、选手、俱乐部检索</span>
         </button>
       </div>
     </section>
@@ -2535,7 +2568,7 @@ document.querySelectorAll('[data-nav-role-home]').forEach((button) => {
     state.userRole = '';
     localStorage.removeItem(ROLE_KEY);
     state.viewStack = ['roleHome'];
-    renderRoleWorkspaceHome();
+    renderRoleWorkspacePremium();
     showView('roleHome');
     scrollToPageTop();
   });
@@ -2558,7 +2591,7 @@ async function init() {
   state.athleteSearchIndex = buildAthleteSearchIndex();
   state.clubSearchIndex = buildClubSearchIndex();
   renderHomeStats();
-  renderRoleWorkspaceHome();
+  renderRoleWorkspacePremium();
   renderParentDashboard();
   renderFeedPanel();
   await syncFollowedAthletes();
