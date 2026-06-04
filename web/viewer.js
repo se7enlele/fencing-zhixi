@@ -2429,63 +2429,195 @@ function buildOpponentAdvice(athlete) {
   return `${athlete.name} 淘汰赛记录里与 ${top.name} 交手最多，当前 ${top.wins}胜${top.losses}负。`;
 }
 
+function clubWorkspaceAthletes(club) {
+  const compactClub = compactText(club.club);
+  const rows = Object.values(state.athletesById || {}).length
+    ? Object.values(state.athletesById || {})
+    : state.athleteSearchIndex || [];
+  const merged = new Map();
+  rows.forEach((athlete) => {
+    if (!athlete?.name || !compactText(athlete.club).includes(compactClub)) return;
+    const key = athlete.id || `${athlete.name}__${athlete.club || ''}`;
+    if (!merged.has(key)) merged.set(key, athlete);
+  });
+  return [...merged.values()]
+    .sort((a, b) => (a.bestRank ?? 999) - (b.bestRank ?? 999) || (b.medals || 0) - (a.medals || 0) || (b.appearances || 0) - (a.appearances || 0));
+}
+
+function clubProjectRows(club) {
+  const grouped = new Map();
+  for (const event of club.events || []) {
+    const label = displayEventName(event);
+    if (!grouped.has(label)) {
+      grouped.set(label, {
+        label,
+        entrants: 0,
+        medals: 0,
+        top8: 0,
+        bestRank: null,
+        events: [],
+      });
+    }
+    const row = grouped.get(label);
+    row.entrants += Number(event.entrants) || 0;
+    row.medals += Number(event.medals) || 0;
+    row.top8 += Number(event.top8) || 0;
+    row.bestRank = row.bestRank === null ? event.bestRank : Math.min(row.bestRank, event.bestRank ?? 999);
+    row.events.push(event);
+  }
+  return [...grouped.values()].sort((a, b) => b.entrants - a.entrants || (a.bestRank ?? 999) - (b.bestRank ?? 999));
+}
+
+function buildClubOwnerSummary(club, projectRows) {
+  if (!projectRows.length) return `${club.club} 目前还需要继续补充比赛样本，先从参赛记录和项目覆盖开始建立队伍画像。`;
+  const topInvestment = projectRows[0];
+  const bestProject = [...projectRows].sort((a, b) => (a.bestRank ?? 999) - (b.bestRank ?? 999))[0];
+  const medalProjects = projectRows.filter((row) => row.medals > 0).length;
+  const top8Projects = projectRows.filter((row) => row.top8 > 0).length;
+  return `${club.club} 当前以 ${topInvestment.label} 投入最多，${bestProject.label} 已形成最好第 ${bestProject.bestRank ?? '-'} 名的成绩资产；${top8Projects} 个项目有前八表现，${medalProjects} 个项目有奖牌记录。`;
+}
+
+function clubAthleteBuckets(athletes) {
+  return {
+    focus: athletes.filter((athlete) => (athlete.bestRank ?? 999) <= 8 || (athlete.medals || 0) > 0).slice(0, 4),
+    steady: athletes.filter((athlete) => (athlete.bestRank ?? 999) > 8 && (athlete.appearances || 0) >= 2).slice(0, 4),
+    observe: athletes.filter((athlete) => (athlete.appearances || 0) <= 1 && (athlete.bestRank ?? 999) > 8).slice(0, 4),
+  };
+}
+
+function renderCoachAthleteBucket(title, note, rows) {
+  if (!rows.length) return '';
+  return `
+    <div class="coach-bucket">
+      <div class="coach-bucket-head">
+        <strong>${escapeHtml(title)}</strong>
+        <span>${escapeHtml(note)}</span>
+      </div>
+      <div class="coach-athlete-list">
+        ${rows.map((athlete) => `
+          <button type="button" data-athlete-id="${escapeHtml(athlete.id || '')}">
+            <strong>${escapeHtml(athlete.name)}</strong>
+            <span>${escapeHtml(athlete.club || '俱乐部待确认')}</span>
+            <em>最好第 ${escapeHtml(athlete.bestRank ?? '-')} 名 · ${escapeHtml(athlete.appearances ?? 0)} 次</em>
+          </button>
+        `).join('')}
+      </div>
+    </div>
+  `;
+}
+
+function buildClubGrowthHighlights(club, projectRows, athletes) {
+  const bestProject = [...projectRows].sort((a, b) => (a.bestRank ?? 999) - (b.bestRank ?? 999))[0];
+  const topInvestment = projectRows[0];
+  const topAthlete = athletes[0];
+  return [
+    bestProject ? `${bestProject.label} 已有最好第 ${bestProject.bestRank ?? '-'} 名，可作为对外展示的成绩亮点。` : '',
+    topInvestment ? `${topInvestment.label} 参赛基础最完整，适合沉淀成稳定班型和家长沟通素材。` : '',
+    topAthlete ? `${topAthlete.name} 是当前代表学员之一，可围绕成长过程讲清训练成果。` : '',
+  ].filter(Boolean);
+}
+
+function projectCoachAdvice(row) {
+  if (row.medals > 0) return '可作为口碑项目继续强化，沉淀代表学员和比赛复盘。';
+  if (row.top8 > 0) return '已有前八基础，下一步重点提升淘汰赛稳定性。';
+  if (row.entrants >= 4) return '人数基础不错，需要观察小组赛胜率和名次前移。';
+  return '样本仍少，先保持参赛连续性，积累可判断的数据。';
+}
+
 function renderClubDetail(club) {
   const events = club.events || [];
-  const topEvents = [...events].sort((a, b) => (Number(b.entrants) || 0) - (Number(a.entrants) || 0)).slice(0, 5);
+  const projectRows = clubProjectRows(club);
+  const athletes = clubWorkspaceAthletes(club);
+  const athleteBuckets = clubAthleteBuckets(athletes);
+  const highlights = buildClubGrowthHighlights(club, projectRows, athletes);
   const top8Rate = Number(club.entrants) ? Math.round((Number(club.top8 || 0) / Number(club.entrants)) * 100) : 0;
   const medalRate = Number(club.entrants) ? Math.round((Number(club.medals || 0) / Number(club.entrants)) * 100) : 0;
+
   clubHero.innerHTML = `
     <div class="hero-title">${escapeHtml(club.club)}</div>
-    <div class="hero-sub">队伍表现 · 教练视角</div>
+    <div class="hero-sub">馆长工作台 · 教练视角</div>
     <div class="badge-row">
       <span class="badge">参赛 ${escapeHtml(club.entrants ?? 0)} 人次</span>
-      <span class="badge">${escapeHtml(club.medals ?? 0)} 枚奖牌</span>
       <span class="badge">前八 ${escapeHtml(club.top8 ?? 0)} 人次</span>
+      <span class="badge">${escapeHtml(club.medals ?? 0)} 枚奖牌</span>
       <span class="badge">最好第 ${escapeHtml(club.bestRank ?? '-')} 名</span>
     </div>
   `;
 
   clubEvents.innerHTML = events.length
     ? `
+      <section class="coach-section">
+        <div class="section-title">
+          <h2>馆长摘要</h2>
+          <span>先看经营判断</span>
+        </div>
+        <div class="coach-summary-card">
+          <strong>${escapeHtml(buildClubOwnerSummary(club, projectRows))}</strong>
+          <span>建议先把强项项目、代表学员和近期比赛复盘讲清楚，用于续费沟通和招生转化。</span>
+        </div>
+      </section>
+
       <div class="report-grid">
         <div class="report-card"><strong>${escapeHtml(top8Rate)}%</strong><span>前八率</span></div>
         <div class="report-card"><strong>${escapeHtml(medalRate)}%</strong><span>奖牌率</span></div>
-        <div class="report-card"><strong>${escapeHtml(events.length)}</strong><span>覆盖项目</span></div>
-        <div class="report-card"><strong>${escapeHtml(club.bestRank ?? '-')}</strong><span>最好名次</span></div>
+        <div class="report-card"><strong>${escapeHtml(projectRows.length)}</strong><span>项目组别</span></div>
+        <div class="report-card"><strong>${escapeHtml(athletes.length || '-')}</strong><span>识别学员</span></div>
       </div>
-      ${barChart('项目投入', topEvents.map((event) => ({
-        label: displayEventName(event),
-        value: event.entrants,
-        display: `${event.entrants} 人`,
-      })), { tone: 'teal' })}
-      <div class="insight-note compact">${escapeHtml(buildClubCoachNote(club))}</div>
-      ${events.map((event) => `
-      <button class="event-card" data-event-code="${escapeHtml(event.eventCode)}">
-        <strong>${escapeHtml(displayEventName(event))}</strong>
-        <div class="subline">${escapeHtml(event.sportName)} · ${escapeHtml(event.venue || '')}</div>
-        <div class="event-meta">
-          <span class="badge">参赛 ${escapeHtml(event.entrants ?? 0)} 人</span>
-          <span class="badge">奖牌 ${escapeHtml(event.medals ?? 0)}</span>
-          <span class="badge">前八 ${escapeHtml(event.top8 ?? 0)}</span>
-          <span class="badge">最好第 ${escapeHtml(event.bestRank ?? '-')} 名</span>
+
+      <section class="coach-section">
+        <div class="section-title">
+          <h2>带好现有学员</h2>
+          <span>提升成绩与留存</span>
         </div>
-      </button>
-      `).join('')}
+        ${renderCoachAthleteBucket('重点培养', '已有名次或奖牌表现', athleteBuckets.focus)}
+        ${renderCoachAthleteBucket('稳定基础', '有参赛连续性，适合复盘训练', athleteBuckets.steady)}
+        ${renderCoachAthleteBucket('继续观察', '样本较少，先积累比赛记录', athleteBuckets.observe)}
+        ${athletes.length ? '' : '<div class="empty compact-empty">当前俱乐部学员画像还不完整，后续需要继续补充更多成绩包。</div>'}
+      </section>
+
+      <section class="coach-section">
+        <div class="section-title">
+          <h2>项目经营</h2>
+          <span>班型与训练重点</span>
+        </div>
+        ${barChart('项目投入', projectRows.slice(0, 5).map((row) => ({
+          label: row.label,
+          value: row.entrants,
+          display: `${row.entrants} 人`,
+        })), { tone: 'teal' })}
+        <div class="project-advice-list">
+          ${projectRows.map((row) => `
+            <button class="project-advice-card" type="button" data-event-code="${escapeHtml(row.events[0]?.eventCode || '')}">
+              <div>
+                <strong>${escapeHtml(row.label)}</strong>
+                <span>${escapeHtml(projectCoachAdvice(row))}</span>
+              </div>
+              <em>参赛 ${escapeHtml(row.entrants)} · 前八 ${escapeHtml(row.top8)} · 奖牌 ${escapeHtml(row.medals)} · 最好第 ${escapeHtml(row.bestRank ?? '-')}</em>
+            </button>
+          `).join('')}
+        </div>
+      </section>
+
+      <section class="coach-section">
+        <div class="section-title">
+          <h2>增长与口碑</h2>
+          <span>招生素材</span>
+        </div>
+        <div class="growth-highlight-list">
+          ${highlights.map((text) => `<div class="growth-highlight">${escapeHtml(text)}</div>`).join('')}
+        </div>
+      </section>
     `
     : '<div class="empty">暂无参赛项目</div>';
 
   clubEvents.querySelectorAll('[data-event-code]').forEach((button) => {
+    if (!button.dataset.eventCode) return;
     button.addEventListener('click', () => openEvent(button.dataset.eventCode));
   });
-}
-
-function buildClubCoachNote(club) {
-  const events = club.events || [];
-  if (!events.length) return '暂无队伍项目数据。';
-  const topEvent = [...events].sort((a, b) => (Number(b.entrants) || 0) - (Number(a.entrants) || 0))[0];
-  const medalEvents = events.filter((event) => Number(event.medals) > 0).length;
-  const top8Events = events.filter((event) => Number(event.top8) > 0).length;
-  return `${club.club} 当前覆盖 ${events.length} 个项目，${displayEventName(topEvent)} 投入人数最多；${top8Events} 个项目有人进入前八，${medalEvents} 个项目获得奖牌。`;
+  clubEvents.querySelectorAll('[data-athlete-id]').forEach((button) => {
+    if (!button.dataset.athleteId) return;
+    button.addEventListener('click', () => openAthlete(button.dataset.athleteId));
+  });
 }
 
 async function openAthlete(athleteId) {

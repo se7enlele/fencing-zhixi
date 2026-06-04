@@ -1587,6 +1587,145 @@ select:focus {
   font-size: 13px;
 }
 
+.coach-section {
+  display: grid;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.coach-summary-card {
+  display: grid;
+  gap: 6px;
+  border: 1px solid rgba(8, 119, 96, 0.14);
+  border-radius: 10px;
+  background: linear-gradient(180deg, rgba(235, 249, 245, 0.9), rgba(255, 255, 255, 0.9));
+  padding: 12px;
+}
+
+.coach-summary-card strong {
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.coach-summary-card span {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.coach-bucket {
+  display: grid;
+  gap: 8px;
+}
+
+.coach-bucket-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.coach-bucket-head strong {
+  font-size: 14px;
+}
+
+.coach-bucket-head span {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.coach-athlete-list,
+.project-advice-list,
+.growth-highlight-list {
+  display: grid;
+  gap: 8px;
+}
+
+.coach-athlete-list {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.coach-athlete-list button,
+.project-advice-card {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.88);
+  color: var(--text);
+  font: inherit;
+  text-align: left;
+}
+
+.coach-athlete-list button {
+  padding: 9px;
+}
+
+.coach-athlete-list strong,
+.coach-athlete-list span,
+.coach-athlete-list em {
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.coach-athlete-list strong {
+  font-size: 14px;
+}
+
+.coach-athlete-list span,
+.coach-athlete-list em,
+.project-advice-card span,
+.project-advice-card em {
+  color: var(--muted);
+  font-size: 12px;
+  font-style: normal;
+}
+
+.coach-athlete-list em {
+  margin-top: 4px;
+  color: var(--primary);
+  font-weight: 800;
+}
+
+.project-advice-card {
+  display: grid;
+  gap: 8px;
+  padding: 11px;
+}
+
+.project-advice-card strong,
+.project-advice-card span,
+.project-advice-card em {
+  display: block;
+}
+
+.project-advice-card strong {
+  font-size: 14px;
+  line-height: 1.35;
+}
+
+.project-advice-card span {
+  margin-top: 3px;
+  line-height: 1.45;
+}
+
+.project-advice-card em {
+  padding-top: 8px;
+  border-top: 1px solid rgba(16, 24, 40, 0.06);
+  color: var(--primary);
+  font-weight: 800;
+}
+
+.growth-highlight {
+  border: 1px solid rgba(15, 92, 192, 0.1);
+  border-radius: 10px;
+  background: rgba(15, 92, 192, 0.04);
+  padding: 10px 11px;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
 .chart-grid {
   display: grid;
   gap: 10px;
