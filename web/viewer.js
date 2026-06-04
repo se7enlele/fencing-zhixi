@@ -10,6 +10,7 @@ const filterSheetClose = document.querySelector('#filterSheetClose');
 const filterSheetTitle = document.querySelector('#filterSheetTitle');
 const filterSheetOptions = document.querySelector('#filterSheetOptions');
 const searchShell = document.querySelector('.search-shell');
+const roleWorkspace = document.querySelector('#roleWorkspace');
 const feedPanel = document.querySelector('#feedPanel');
 const searchAthletesPanel = document.querySelector('#searchAthletesPanel');
 const followPanel = document.querySelector('#followPanel');
@@ -45,6 +46,8 @@ const athleteGrowth = document.querySelector('#athleteGrowth');
 const tabs = document.querySelector('#tabs');
 const FOLLOW_KEY = 'fencingai.followedAthletes.v1';
 const DEVICE_KEY = 'fencingai.deviceId.v1';
+const ROLE_KEY = 'fencingai.role.v1';
+const CHILD_KEY = 'fencingai.parentChildId.v1';
 
 const views = {
   competitions: document.querySelector('#view-competitions'),
@@ -73,6 +76,8 @@ const state = {
   apiVersion: '',
   viewStack: ['competitions'],
   deviceId: getDeviceId(),
+  userRole: localStorage.getItem(ROLE_KEY) || '',
+  selectedChildId: localStorage.getItem(CHILD_KEY) || '',
   followedAthletes: [],
 };
 
@@ -88,6 +93,19 @@ function loadFollowedAthletes() {
 
 function saveFollowedAthletes() {
   localStorage.setItem(FOLLOW_KEY, JSON.stringify(state.followedAthletes.slice(0, 20)));
+}
+
+function setUserRole(role) {
+  state.userRole = role;
+  localStorage.setItem(ROLE_KEY, role);
+  renderRoleWorkspace();
+}
+
+function setSelectedChild(athleteId) {
+  state.selectedChildId = athleteId || '';
+  if (state.selectedChildId) localStorage.setItem(CHILD_KEY, state.selectedChildId);
+  else localStorage.removeItem(CHILD_KEY);
+  renderRoleWorkspace();
 }
 
 function getDeviceId() {
@@ -112,6 +130,7 @@ async function syncFollowedAthletes() {
     state.followedAthletes = loadFollowedAthletes();
   }
   renderFollowPanel();
+  renderRoleWorkspace();
 }
 
 function isFollowedAthlete(id) {
@@ -132,6 +151,7 @@ async function upsertFollowedAthlete(athlete) {
   ];
   saveFollowedAthletes();
   renderFollowPanel();
+  renderRoleWorkspace();
   try {
     const response = await fetch('/api/me/follows', {
       method: 'POST',
@@ -143,6 +163,7 @@ async function upsertFollowedAthlete(athlete) {
     state.followedAthletes = result.follows || state.followedAthletes;
     saveFollowedAthletes();
     renderFollowPanel();
+    renderRoleWorkspace();
   } catch {
     // Keep local follow as offline fallback.
   }
@@ -152,6 +173,8 @@ async function removeFollowedAthlete(id) {
   state.followedAthletes = state.followedAthletes.filter((item) => item.id !== id);
   saveFollowedAthletes();
   renderFollowPanel();
+  if (state.selectedChildId === id) state.selectedChildId = '';
+  renderRoleWorkspace();
   try {
     const response = await fetch('/api/me/follows', {
       method: 'DELETE',
@@ -163,6 +186,8 @@ async function removeFollowedAthlete(id) {
     state.followedAthletes = result.follows || state.followedAthletes;
     saveFollowedAthletes();
     renderFollowPanel();
+    if (state.selectedChildId === id) state.selectedChildId = '';
+    renderRoleWorkspace();
   } catch {
     // Local removal has already been applied.
   }
@@ -732,6 +757,214 @@ function renderHomeStats() {
       <span>${escapeHtml(detail)}</span>
     </div>
   `).join('');
+}
+
+function roleLabel(role) {
+  return {
+    parent: '家长',
+    coach: '教练',
+    club: '俱乐部负责人',
+    data: '数据浏览',
+  }[role] || '未选择';
+}
+
+function childCandidates() {
+  const merged = new Map();
+  for (const follow of state.followedAthletes || []) {
+    const athlete = state.athletesById[follow.id] || follow;
+    if (athlete?.id) merged.set(athlete.id, { ...follow, ...athlete });
+  }
+  for (const athlete of state.athleteSearchIndex || []) {
+    if (!athlete.id || merged.has(athlete.id)) continue;
+    merged.set(athlete.id, athlete);
+    if (merged.size >= 8) break;
+  }
+  return [...merged.values()];
+}
+
+function getSelectedChild(candidates = childCandidates()) {
+  if (state.selectedChildId && state.athletesById[state.selectedChildId]) return state.athletesById[state.selectedChildId];
+  if (state.selectedChildId) {
+    const indexed = candidates.find((athlete) => athlete.id === state.selectedChildId);
+    if (indexed) return indexed;
+  }
+  return candidates[0] || null;
+}
+
+function eventYear(event) {
+  const date = parseDateCandidates([event.openDate, event.sportName, event.eventName].filter(Boolean).join(' '))[0];
+  return date ? String(date.getFullYear()) : '待确认';
+}
+
+function buildParentGrowthModel(athlete) {
+  const events = athlete?.events || [];
+  const rankedEvents = events.filter((event) => Number(event.finalRank));
+  const latest = events[0] || null;
+  const previous = events[1] || null;
+  const best = [...rankedEvents].sort((a, b) => Number(a.finalRank) - Number(b.finalRank))[0] || null;
+  const totalPoolWins = events.reduce((sum, event) => sum + (Number(event.poolWins) || 0), 0);
+  const totalPoolMatches = events.reduce((sum, event) => sum + (Number(event.poolMatches) || 0), 0);
+  const poolRate = totalPoolMatches ? Math.round((totalPoolWins / totalPoolMatches) * 100) : null;
+  const totalElimWins = events.reduce((sum, event) => sum + (Number(event.eliminationWins) || 0), 0);
+  const totalElimLosses = events.reduce((sum, event) => sum + (Number(event.eliminationLosses) || 0), 0);
+  const top8Count = rankedEvents.filter((event) => Number(event.finalRank) <= 8).length;
+  const medalCount = events.filter((event) => event.medal).length;
+  const trend = latest && previous && Number(latest.finalRank) && Number(previous.finalRank)
+    ? Number(previous.finalRank) - Number(latest.finalRank)
+    : null;
+  const byYear = events.reduce((acc, event) => {
+    const year = eventYear(event);
+    acc[year] = (acc[year] || 0) + 1;
+    return acc;
+  }, {});
+  const yearRows = Object.entries(byYear)
+    .sort((a, b) => String(b[0]).localeCompare(String(a[0]), 'zh-CN'))
+    .slice(0, 4)
+    .map(([label, value]) => ({ label, value, display: `${value} 场` }));
+
+  let investment = '观察积累';
+  let advice = '数据还在积累，先看参赛连续性、小组赛稳定性和淘汰赛突破。';
+  if (events.length >= 4 && (poolRate ?? 0) >= 60 && (top8Count || medalCount || totalElimWins > totalElimLosses)) {
+    investment = '值得继续投入';
+    advice = '已有连续参赛和可见竞争力，建议继续投入，并把训练重点放在强手对局和淘汰赛关键分。';
+  } else if (events.length >= 3 && (poolRate ?? 0) >= 45) {
+    investment = '稳定投入';
+    advice = '基础稳定性正在形成，建议保持参赛频率，重点观察名次是否能持续前移。';
+  } else if (events.length >= 2) {
+    investment = '谨慎投入';
+    advice = '参赛记录已有基础，但成绩稳定性还不足，建议先控制投入，优先补基本功和比赛经验。';
+  }
+
+  return { events, latest, previous, best, poolRate, totalPoolWins, totalPoolMatches, totalElimWins, totalElimLosses, top8Count, medalCount, trend, yearRows, investment, advice };
+}
+
+function renderParentWorkspace() {
+  const candidates = childCandidates();
+  const child = getSelectedChild(candidates);
+  const model = child ? buildParentGrowthModel(child) : null;
+  const childOptions = candidates.length ? `
+    <div class="child-picker">
+      ${candidates.slice(0, 6).map((athlete) => `
+        <button type="button" class="${athlete.id === child?.id ? 'active' : ''}" data-child-id="${escapeHtml(athlete.id)}">
+          <strong>${escapeHtml(athlete.name)}</strong>
+          <span>${escapeHtml(athlete.club || '俱乐部待确认')}</span>
+        </button>
+      `).join('')}
+    </div>
+  ` : `
+    <div class="empty compact-empty">先搜索孩子姓名，进入选手详情后点击“关注这个孩子”，这里就会生成成长分析。</div>
+  `;
+
+  if (!child || !model) {
+    return `
+      <section class="panel role-panel">
+        <div class="section-title">
+          <h2>家长成长视角</h2>
+          <span>先绑定孩子</span>
+        </div>
+        ${childOptions}
+      </section>
+    `;
+  }
+
+  const trendLabel = model.trend === null ? '趋势待确认' : model.trend > 0 ? `进步 ${model.trend} 名` : model.trend < 0 ? `后退 ${Math.abs(model.trend)} 名` : '名次持平';
+  return `
+    <section class="panel role-panel parent-panel">
+      <div class="role-panel-head">
+        <div>
+          <span>当前角色：家长</span>
+          <strong>${escapeHtml(child.name)} 的成长报告</strong>
+          <em>${escapeHtml(child.club || '俱乐部待确认')}</em>
+        </div>
+        <button type="button" data-role-reset>切换角色</button>
+      </div>
+      ${childOptions}
+      <div class="parent-decision">
+        <span>投入判断</span>
+        <strong>${escapeHtml(model.investment)}</strong>
+        <p>${escapeHtml(model.advice)}</p>
+      </div>
+      <div class="report-grid">
+        <div class="report-card"><strong>${escapeHtml(model.events.length)}</strong><span>参赛记录</span></div>
+        <div class="report-card"><strong>${escapeHtml(model.best?.finalRank ? `第${model.best.finalRank}名` : '-')}</strong><span>最好名次</span></div>
+        <div class="report-card"><strong>${escapeHtml(model.poolRate === null ? '-' : `${model.poolRate}%`)}</strong><span>小组胜率</span></div>
+        <div class="report-card"><strong>${escapeHtml(`${model.totalElimWins}胜${model.totalElimLosses}负`)}</strong><span>淘汰赛</span></div>
+      </div>
+      <div class="parent-insight-grid">
+        <div class="insight-note compact">最近一次：${escapeHtml(model.latest ? `${displayEventName(model.latest)} 第${model.latest.finalRank ?? '-'}名` : '暂无记录')}</div>
+        <div class="insight-note compact">近期变化：${escapeHtml(trendLabel)}</div>
+        <div class="insight-note compact">突破信号：${escapeHtml(model.top8Count ? `${model.top8Count} 次进入前八` : '尚未形成前八突破')}</div>
+      </div>
+      ${model.yearRows.length ? barChart('年度参赛频率', model.yearRows, { tone: 'teal' }) : ''}
+      <button class="primary-action compact-action" type="button" data-athlete-id="${escapeHtml(child.id)}">查看完整选手画像</button>
+    </section>
+  `;
+}
+
+function renderRoleWorkspace() {
+  if (!roleWorkspace) return;
+  if (!state.userRole) {
+    roleWorkspace.innerHTML = `
+      <section class="panel role-panel">
+        <div class="section-title">
+          <h2>先选择你的视角</h2>
+          <span>同一份数据，不同分析</span>
+        </div>
+        <div class="role-grid">
+          <button type="button" data-role="parent">
+            <strong>我是家长</strong>
+            <span>看孩子是否进步、是否值得继续投入</span>
+          </button>
+          <button type="button" data-role="coach">
+            <strong>我是教练</strong>
+            <span>看学员、成绩提升和留存风险</span>
+          </button>
+          <button type="button" data-role="club">
+            <strong>我是俱乐部负责人</strong>
+            <span>看队伍增长、口碑和竞争位置</span>
+          </button>
+          <button type="button" data-role="data">
+            <strong>数据浏览</strong>
+            <span>继续按赛事、选手、俱乐部检索</span>
+          </button>
+        </div>
+      </section>
+    `;
+  } else if (state.userRole === 'parent') {
+    roleWorkspace.innerHTML = renderParentWorkspace();
+  } else {
+    roleWorkspace.innerHTML = `
+      <section class="panel role-panel">
+        <div class="role-panel-head">
+          <div>
+            <span>当前角色：${escapeHtml(roleLabel(state.userRole))}</span>
+            <strong>${state.userRole === 'coach' ? '教练工作台正在接入' : state.userRole === 'club' ? '俱乐部经营视角正在接入' : '数据浏览模式'}</strong>
+            <em>${state.userRole === 'data' ? '你可以继续使用搜索、筛选和赛事入口。' : '当前先保留完整数据浏览，下一阶段会接入角色专属分析。'}</em>
+          </div>
+          <button type="button" data-role-reset>切换角色</button>
+        </div>
+      </section>
+    `;
+  }
+
+  roleWorkspace.querySelectorAll('[data-role]').forEach((button) => {
+    button.addEventListener('click', () => setUserRole(button.dataset.role));
+  });
+  roleWorkspace.querySelectorAll('[data-role-reset]').forEach((button) => {
+    button.addEventListener('click', () => {
+      state.userRole = '';
+      state.selectedChildId = '';
+      localStorage.removeItem(ROLE_KEY);
+      localStorage.removeItem(CHILD_KEY);
+      renderRoleWorkspace();
+    });
+  });
+  roleWorkspace.querySelectorAll('[data-child-id]').forEach((button) => {
+    button.addEventListener('click', () => setSelectedChild(button.dataset.childId));
+  });
+  roleWorkspace.querySelectorAll('[data-athlete-id]').forEach((button) => {
+    button.addEventListener('click', () => openAthlete(button.dataset.athleteId));
+  });
 }
 
 function focusAthleteCards() {
@@ -2233,6 +2466,7 @@ async function init() {
   state.athleteSearchIndex = buildAthleteSearchIndex();
   state.clubSearchIndex = buildClubSearchIndex();
   renderHomeStats();
+  renderRoleWorkspace();
   renderFeedPanel();
   await syncFollowedAthletes();
   renderYearSelect();

@@ -357,6 +357,134 @@ select:focus {
   padding-bottom: 10px;
 }
 
+.role-workspace {
+  display: grid;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.role-panel {
+  display: grid;
+  gap: 10px;
+}
+
+.role-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.role-grid button,
+.child-picker button {
+  min-width: 0;
+  border: 1px solid rgba(16, 24, 40, 0.08);
+  border-radius: 8px;
+  background: linear-gradient(180deg, #fff, #f7fbfa);
+  color: var(--text);
+  font: inherit;
+  text-align: left;
+  padding: 10px;
+}
+
+.role-grid strong,
+.child-picker strong {
+  display: block;
+  font-size: 14px;
+  line-height: 1.3;
+}
+
+.role-grid span,
+.child-picker span,
+.role-panel-head span,
+.role-panel-head em {
+  display: block;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.4;
+  font-style: normal;
+  margin-top: 4px;
+}
+
+.role-panel-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
+  gap: 10px;
+}
+
+.role-panel-head strong {
+  display: block;
+  font-size: 18px;
+  line-height: 1.28;
+  margin-top: 2px;
+}
+
+.role-panel-head button {
+  border: 1px solid rgba(21, 95, 194, 0.14);
+  border-radius: 8px;
+  background: rgba(21, 95, 194, 0.08);
+  color: var(--primary);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 900;
+  padding: 7px 9px;
+  white-space: nowrap;
+}
+
+.child-picker {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(136px, 44%);
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 2px;
+}
+
+.child-picker::-webkit-scrollbar {
+  display: none;
+}
+
+.child-picker button.active {
+  border-color: rgba(21, 95, 194, 0.42);
+  background: rgba(21, 95, 194, 0.1);
+  color: var(--primary);
+}
+
+.parent-decision {
+  display: grid;
+  gap: 5px;
+  border: 1px solid rgba(8, 119, 96, 0.14);
+  border-radius: 8px;
+  background: linear-gradient(180deg, rgba(234, 248, 244, 0.95), rgba(255, 255, 255, 0.95));
+  padding: 11px;
+}
+
+.parent-decision span {
+  color: var(--teal);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.parent-decision strong {
+  font-size: 20px;
+  line-height: 1.25;
+}
+
+.parent-decision p {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.parent-insight-grid {
+  display: grid;
+  gap: 8px;
+}
+
+.compact-action {
+  min-height: 38px;
+}
+
 .athlete-result-list {
   display: grid;
   gap: 8px;
