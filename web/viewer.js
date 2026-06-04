@@ -834,6 +834,14 @@ function resolveAthleteReference(reference) {
   return resolved ? { ...reference, ...resolved } : reference;
 }
 
+function findAthleteByReference(reference) {
+  const resolved = resolveAthleteReference(reference);
+  if (resolved?.id || resolved?.events?.length) return resolved;
+  const nameKey = compactText(reference?.name);
+  if (!nameKey) return null;
+  return (state.athleteSearchIndex || []).find((athlete) => compactText(athlete.name) === nameKey) || null;
+}
+
 function childCandidates() {
   const merged = new Map();
   for (const follow of state.followedAthletes || []) {
@@ -2652,16 +2660,33 @@ function renderClubDetail(club) {
 }
 
 async function openAthlete(athleteId) {
+  const localAthlete = findAthleteByReference({ id: athleteId });
   try {
-    const response = await fetch(`/api/athletes/${athleteId}`);
+    if (!athleteId || athleteId === 'undefined' || athleteId === 'null') {
+      if (localAthlete?.events?.length) {
+        renderAthleteDetail(localAthlete);
+        navigateTo('athlete');
+        return;
+      }
+      throw new Error('缺少选手ID，请重新搜索并进入选手详情。');
+    }
+    const response = await fetch(`/api/athletes/${encodeURIComponent(athleteId)}`);
+    const contentType = response.headers.get('content-type') || '';
+    if (!contentType.includes('application/json')) {
+      throw new Error(`接口返回异常：${response.status}`);
+    }
     const result = await response.json();
     if (!result.ok) throw new Error(result.message);
     renderAthleteDetail(result.athlete);
   } catch (error) {
-    setInlineError(athleteHero, `选手详情读取失败：${error.message}`);
-    athleteActionPanel.innerHTML = '';
-    athleteGrowth.innerHTML = '';
-    athleteEvents.innerHTML = '';
+    if (localAthlete?.events?.length) {
+      renderAthleteDetail(localAthlete);
+    } else {
+      setInlineError(athleteHero, `选手详情读取失败：${error.message}`);
+      athleteActionPanel.innerHTML = '';
+      athleteGrowth.innerHTML = '';
+      athleteEvents.innerHTML = '';
+    }
   }
   navigateTo('athlete');
 }
