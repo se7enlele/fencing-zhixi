@@ -107,10 +107,6 @@ function setUserRole(role) {
   if (role === 'parent') {
     renderParentDashboard();
     navigateTo('parentHome');
-  } else if (role === 'coach') {
-    navigateTo('coachHome');
-  } else if (role === 'club') {
-    navigateTo('clubHome');
   } else {
     navigateTo('competitions');
   }
