@@ -1,0 +1,687 @@
+{
+  "ok": true,
+  "source": {
+    "sourceUrl": "https://fencing-proxy.aixindiandian.workers.dev/Resource/score/RZSS2029011MFIU16.js",
+    "importedAt": "2026-06-04T21:26:09.397Z"
+  },
+  "general": {
+    "sportName": "2024“大运河”杯青少年击剑系列赛（宋明·总决赛）",
+    "eventName": "U16男子花剑个人",
+    "openDate": "2024.12.15",
+    "venue": "江苏•扬州市",
+    "competitionNo": 2,
+    "exemptionNo": 0,
+    "poolFencerNo": 2,
+    "poolQualifyNo": 2,
+    "preDeStartPhase": "none",
+    "deStartPhase": "from Tableaus 决赛",
+    "sportCode": "RZSS2029011",
+    "eventCode": "RZSS2029011MFIU16"
+  },
+  "summary": {
+    "classmentCount": 2,
+    "initialSeedCount": 2,
+    "poolCount": 0,
+    "poolStandingCount": 0,
+    "poolResultCount": 0,
+    "poolBoutCount": 0,
+    "tableauCount": 1,
+    "eliminationMatchCount": 1,
+    "playedEliminationMatchCount": 1,
+    "byeMatchCount": 0,
+    "athleteCountByLicence": 2
+  },
+  "distributions": {
+    "poolStatus": {},
+    "poolRemark": {},
+    "tableau": {
+      "决赛": 1
+    },
+    "eliminationByPhase": {
+      "决赛": 1
+    },
+    "eliminationResult": {
+      "W/L": 1
+    },
+    "medal": {
+      "金": 1,
+      "银": 1
+    }
+  },
+  "normalized": {
+    "classment": [
+      {
+        "rank": 1,
+        "displayRank": "1",
+        "name": "顾乐淇",
+        "licence": "20090728M201610281055",
+        "club": "上海市体校",
+        "birthday": "2009-07-28",
+        "medal": "金",
+        "status": "N",
+        "sourcePosition": 1
+      },
+      {
+        "rank": 2,
+        "displayRank": "2",
+        "name": "张彦廷",
+        "licence": "20090827M201801171349",
+        "club": "南京鹰博",
+        "birthday": "2009-08-27",
+        "medal": "银",
+        "status": "N",
+        "sourcePosition": 2
+      }
+    ],
+    "poolStandings": [],
+    "poolResults": [],
+    "poolBouts": [],
+    "eliminationMatches": [
+      {
+        "matchId": 358530,
+        "matchCode": "Pre001",
+        "phaseId": 125444,
+        "phase": {
+          "shortName": "T2",
+          "longName": "决赛",
+          "order": 1,
+          "code": "1",
+          "group": "1_0"
+        },
+        "groupCode": "1_0",
+        "innerOrder": 1,
+        "home": {
+          "position": null,
+          "name": "顾乐淇",
+          "licence": "20090728M201610281055",
+          "club": "上海市体校",
+          "points": 15,
+          "result": "W"
+        },
+        "away": {
+          "position": null,
+          "name": "张彦廷",
+          "licence": "20090827M201801171349",
+          "club": "南京鹰博",
+          "points": 6,
+          "result": "L"
+        },
+        "winner": {
+          "name": "顾乐淇",
+          "club": "上海市体校"
+        },
+        "piste": "29",
+        "startTime": "08:30",
+        "isBye": false
+      }
+    ]
+  },
+  "completeness": [
+    {
+      "section": "General",
+      "rows": 1,
+      "fields": [
+        {
+          "key": "SportName",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "2024“大运河”杯青少年击剑系列赛（宋明·总决赛）"
+          ]
+        },
+        {
+          "key": "EventName",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "U16男子花剑个人"
+          ]
+        },
+        {
+          "key": "OpenDate",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "2024.12.15"
+          ]
+        },
+        {
+          "key": "Venue",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "江苏•扬州市"
+          ]
+        },
+        {
+          "key": "CompetitionNo",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            2
+          ]
+        },
+        {
+          "key": "ExemptionNo",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            0
+          ]
+        },
+        {
+          "key": "PoolFencerNo",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            2
+          ]
+        },
+        {
+          "key": "PoolQualifyNo",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            2
+          ]
+        },
+        {
+          "key": "PDEstartPhase",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "none"
+          ]
+        },
+        {
+          "key": "DEstartPhase",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "from Tableaus 决赛"
+          ]
+        },
+        {
+          "key": "Scode",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "RZSS2029011"
+          ]
+        },
+        {
+          "key": "Ecode",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "RZSS2029011MFIU16"
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Classment",
+      "rows": 2,
+      "fields": [
+        {
+          "key": "EventShowRank",
+          "nonEmpty": 2,
+          "fillRate": 1,
+          "sampleValues": [
+            "1",
+            "2"
+          ]
+        },
+        {
+          "key": "EventRank",
+          "nonEmpty": 2,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2
+          ]
+        },
+        {
+          "key": "Fencer",
+          "nonEmpty": 2,
+          "fillRate": 1,
+          "sampleValues": [
+            "顾乐淇",
+            "张彦廷"
+          ]
+        },
+        {
+          "key": "Licence",
+          "nonEmpty": 2,
+          "fillRate": 1,
+          "sampleValues": [
+            "20090728M201610281055",
+            "20090827M201801171349"
+          ]
+        },
+        {
+          "key": "NOCCode",
+          "nonEmpty": 2,
+          "fillRate": 1,
+          "sampleValues": [
+            "上海市体校",
+            "南京鹰博"
+          ]
+        },
+        {
+          "key": "Birthday",
+          "nonEmpty": 2,
+          "fillRate": 1,
+          "sampleValues": [
+            "2009-07-28",
+            "2009-08-27"
+          ]
+        },
+        {
+          "key": "Medal",
+          "nonEmpty": 2,
+          "fillRate": 1,
+          "sampleValues": [
+            "金",
+            "银"
+          ]
+        },
+        {
+          "key": "Statut",
+          "nonEmpty": 2,
+          "fillRate": 1,
+          "sampleValues": [
+            "N"
+          ]
+        },
+        {
+          "key": "F_EventDisPos",
+          "nonEmpty": 2,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2
+          ]
+        }
+      ]
+    },
+    {
+      "section": "IniStarts",
+      "rows": 2,
+      "fields": [
+        {
+          "key": "IRank",
+          "nonEmpty": 2,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            3
+          ]
+        },
+        {
+          "key": "IPoints",
+          "nonEmpty": 1,
+          "fillRate": 0.5,
+          "sampleValues": [
+            "394.50"
+          ]
+        },
+        {
+          "key": "Fencer",
+          "nonEmpty": 2,
+          "fillRate": 1,
+          "sampleValues": [
+            "顾乐淇",
+            "张彦廷"
+          ]
+        },
+        {
+          "key": "NOCCode",
+          "nonEmpty": 2,
+          "fillRate": 1,
+          "sampleValues": [
+            "上海市体校",
+            "南京鹰博"
+          ]
+        },
+        {
+          "key": "Birthday",
+          "nonEmpty": 2,
+          "fillRate": 1,
+          "sampleValues": [
+            "2009-07-28",
+            "2009-08-27"
+          ]
+        },
+        {
+          "key": "Licence",
+          "nonEmpty": 2,
+          "fillRate": 1,
+          "sampleValues": [
+            "20090728M201610281055",
+            "20090827M201801171349"
+          ]
+        },
+        {
+          "key": "DisPos",
+          "nonEmpty": 2,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2
+          ]
+        }
+      ]
+    },
+    {
+      "section": "PoolStanding",
+      "rows": 0,
+      "fields": []
+    },
+    {
+      "section": "Pools",
+      "rows": 0,
+      "fields": []
+    },
+    {
+      "section": "PoolResults",
+      "rows": 0,
+      "fields": []
+    },
+    {
+      "section": "PRDetails",
+      "rows": 0,
+      "fields": []
+    },
+    {
+      "section": "Phases",
+      "rows": 1,
+      "fields": [
+        {
+          "key": "PhasePID",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            125443
+          ]
+        },
+        {
+          "key": "PhaseName",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "直接淘汰赛"
+          ]
+        },
+        {
+          "key": "Porder",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            3
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Tableaus",
+      "rows": 1,
+      "fields": [
+        {
+          "key": "PshortDes",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "T2"
+          ]
+        },
+        {
+          "key": "PLongDes",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "决赛"
+          ]
+        },
+        {
+          "key": "Porder",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            1
+          ]
+        },
+        {
+          "key": "PhaseID",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            125444
+          ]
+        },
+        {
+          "key": "PhasePID",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            125443
+          ]
+        },
+        {
+          "key": "PhaseGroup",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "1_0"
+          ]
+        },
+        {
+          "key": "PhaseCode",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "1"
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Matchs",
+      "rows": 1,
+      "fields": [
+        {
+          "key": "MatchCode",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "Pre001"
+          ]
+        },
+        {
+          "key": "HomePosition",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "HomeFencer",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "顾乐淇"
+          ]
+        },
+        {
+          "key": "HomeLicence",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "20090728M201610281055"
+          ]
+        },
+        {
+          "key": "HomeNOC",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "上海市体校"
+          ]
+        },
+        {
+          "key": "HomePoints",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            15
+          ]
+        },
+        {
+          "key": "HomeWLT",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "W"
+          ]
+        },
+        {
+          "key": "AwayPosition",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "AwayFencer",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "张彦廷"
+          ]
+        },
+        {
+          "key": "AwayLicence",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "20090827M201801171349"
+          ]
+        },
+        {
+          "key": "AwayNOC",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "南京鹰博"
+          ]
+        },
+        {
+          "key": "AwayPoints",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            6
+          ]
+        },
+        {
+          "key": "AwayWLT",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "L"
+          ]
+        },
+        {
+          "key": "Piste",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "29"
+          ]
+        },
+        {
+          "key": "StartTime",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "08:30"
+          ]
+        },
+        {
+          "key": "Winner",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "顾乐淇"
+          ]
+        },
+        {
+          "key": "WinnerNOC",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "上海市体校"
+          ]
+        },
+        {
+          "key": "MatchID",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            358530
+          ]
+        },
+        {
+          "key": "PhaseID",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            125444
+          ]
+        },
+        {
+          "key": "GroupCode",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "1_0"
+          ]
+        },
+        {
+          "key": "F_InnerOrder",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            1
+          ]
+        }
+      ]
+    }
+  ],
+  "analysisCapabilities": [
+    "项目概要",
+    "最终排名",
+    "初始排位",
+    "小组赛排名",
+    "小组赛每场比分",
+    "小组赛晋级人数",
+    "淘汰赛阶段结构",
+    "淘汰赛每场比分",
+    "选手完整比赛路径",
+    "对手交手记录",
+    "胜负和净胜剑统计"
+  ],
+  "privacyRecommendation": {
+    "publicFields": [
+      "rank",
+      "name",
+      "club",
+      "scores",
+      "winner",
+      "medal"
+    ],
+    "privateFields": [
+      "Licence",
+      "Birthday"
+    ],
+    "note": "Licence 和 Birthday 只用于内部消歧，不建议公开展示。"
+  }
+}
