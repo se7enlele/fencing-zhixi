@@ -71,6 +71,7 @@ globalThis.athleteSearchResultLimit = athleteSearchResultLimit;
   };
   const context = {
     state: {
+      userRole: 'parent',
       athletesById: Object.fromEntries(payload.athletes.map((athlete) => [athlete.id, athlete])),
       followedAthletes: [{
         id: 'athlete-1',
@@ -93,6 +94,11 @@ globalThis.renderFollowPanel = renderFollowPanel;
   context.renderFollowPanel();
   assert.equal(followPanel.hidden, false, 'follow panel should be visible when followed athletes exist');
   assert.match(followPanel.innerHTML, new RegExp(caiName));
+
+  context.state.userRole = 'coach';
+  context.renderFollowPanel();
+  assert.equal(followPanel.hidden, true, 'follow panel should be hidden outside parent role');
+  assert.equal(followPanel.innerHTML, '', 'follow panel should not render child content for coach role');
 }
 
 {

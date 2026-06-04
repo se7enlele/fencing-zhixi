@@ -1289,6 +1289,11 @@ function renderFeedPanel() {
 }
 
 function renderFollowPanel() {
+  if (state.userRole !== 'parent') {
+    followPanel.hidden = true;
+    followPanel.innerHTML = '';
+    return;
+  }
   const follows = focusAthleteCards();
   followPanel.hidden = !follows.length;
   followPanel.innerHTML = follows.length
