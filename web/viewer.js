@@ -784,16 +784,29 @@ function roleLabel(role) {
   }[role] || '未选择';
 }
 
+function resolveAthleteReference(reference) {
+  if (!reference) return null;
+  const athleteMap = state.athletesById || {};
+  if (reference.id && athleteMap[reference.id]) return { ...reference, ...athleteMap[reference.id] };
+
+  const nameKey = compactText(reference.name);
+  const clubKey = compactText(reference.club);
+  if (!nameKey) return reference;
+
+  const athletes = Object.values(athleteMap);
+  const sameName = athletes.filter((athlete) => compactText(athlete.name) === nameKey);
+  const sameClub = clubKey
+    ? sameName.find((athlete) => compactText(athlete.club) === clubKey)
+    : null;
+  const resolved = sameClub || (sameName.length === 1 ? sameName[0] : sameName.sort((a, b) => (b.appearances || 0) - (a.appearances || 0))[0]);
+  return resolved ? { ...reference, ...resolved } : reference;
+}
+
 function childCandidates() {
   const merged = new Map();
   for (const follow of state.followedAthletes || []) {
-    const athlete = state.athletesById[follow.id] || follow;
-    if (athlete?.id) merged.set(athlete.id, { ...follow, ...athlete });
-  }
-  for (const athlete of state.athleteSearchIndex || []) {
-    if (!athlete.id || merged.has(athlete.id)) continue;
-    merged.set(athlete.id, athlete);
-    if (merged.size >= 8) break;
+    const athlete = resolveAthleteReference(follow);
+    if (athlete?.id) merged.set(athlete.id, athlete);
   }
   return [...merged.values()];
 }
@@ -1075,9 +1088,8 @@ function renderRoleWorkspacePremium() {
 }
 
 function focusAthleteCards() {
-  const athleteMap = state.athletesById || {};
   return (state.followedAthletes || []).map((follow) => {
-    const athlete = athleteMap[follow.id] || follow;
+    const athlete = resolveAthleteReference(follow);
     const events = athlete.events || [];
     const latest = events[0] || {};
     const best = [...events].sort((a, b) => (a.finalRank ?? 999) - (b.finalRank ?? 999))[0] || {};
@@ -1224,7 +1236,7 @@ function renderFeedPanel() {
 }
 
 function renderFollowPanel() {
-  const follows = state.followedAthletes || [];
+  const follows = focusAthleteCards();
   followPanel.hidden = !follows.length;
   followPanel.innerHTML = follows.length
     ? `

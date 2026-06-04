@@ -4,9 +4,12 @@ import vm from 'node:vm';
 import { getPublicEventsPayload } from '../server.mjs';
 
 const payload = await getPublicEventsPayload();
+const caiName = '\u8521\u5ef7\u5f67';
+const personalClub = '\u4e2a\u4eba';
+const caiId = '20190918M202510090308';
 
 assert.ok(Array.isArray(payload.athletes), 'public events payload should include athlete directory');
-assert.ok(payload.athletes.some((athlete) => athlete.name === '蔡廷彧'), 'athlete directory should include 蔡廷彧');
+assert.ok(payload.athletes.some((athlete) => athlete.name === caiName), 'athlete directory should include Cai Tingyu');
 
 const source = await readFile(new URL('../web/viewer.js', import.meta.url), 'utf8');
 
@@ -33,12 +36,12 @@ globalThis.athleteSearchResultLimit = athleteSearchResultLimit;
 `, context);
 
   const index = context.buildAthleteSearchIndex();
-  const cai = index.find((athlete) => athlete.name === '蔡廷彧');
-  assert.ok(cai, 'search index should include 蔡廷彧');
-  assert.ok(cai.searchText.includes('蔡'), 'single-character surname should be searchable');
+  const cai = index.find((athlete) => athlete.name === caiName);
+  assert.ok(cai, 'search index should include Cai Tingyu');
+  assert.ok(cai.searchText.includes(caiName.slice(0, 1)), 'single-character surname should be searchable');
   assert.ok(cai.id, 'search result should keep athlete id for opening detail page');
 
-  const maKeyword = context.normalizeSearchText('马');
+  const maKeyword = context.normalizeSearchText('\u9a6c');
   const maTokens = context.searchTokens(maKeyword);
   const maCompact = maKeyword.replace(/\s+/g, '');
   const allMaMatches = index.filter((athlete) => athlete.searchText.includes(maCompact));
@@ -68,16 +71,18 @@ globalThis.athleteSearchResultLimit = athleteSearchResultLimit;
   };
   const context = {
     state: {
+      athletesById: Object.fromEntries(payload.athletes.map((athlete) => [athlete.id, athlete])),
       followedAthletes: [{
         id: 'athlete-1',
-        name: '蔡廷彧',
-        club: '个人',
+        name: caiName,
+        club: personalClub,
         bestRank: 32,
         appearances: 2,
       }],
     },
     followPanel,
     escapeHtml: (value) => String(value ?? ''),
+    focusAthleteCards: () => context.state.followedAthletes,
     openAthlete: () => {},
   };
   vm.createContext(context);
@@ -87,7 +92,43 @@ globalThis.renderFollowPanel = renderFollowPanel;
 
   context.renderFollowPanel();
   assert.equal(followPanel.hidden, false, 'follow panel should be visible when followed athletes exist');
-  assert.match(followPanel.innerHTML, /蔡廷彧/);
+  assert.match(followPanel.innerHTML, new RegExp(caiName));
+}
+
+{
+  const start = source.indexOf('function normalizeSearchText');
+  const end = source.indexOf('function eventYear');
+  if (start === -1 || end === -1 || end <= start) {
+    throw new Error('Unable to locate parent athlete resolution helpers in viewer.js');
+  }
+
+  const cai = payload.athletes.find((athlete) => athlete.id === caiId);
+  assert.ok(cai, 'fixture should include complete followed athlete profile');
+  assert.ok((cai.events || []).length > 0, 'complete athlete profile should include event data');
+
+  const context = {
+    state: {
+      athletesById: Object.fromEntries(payload.athletes.map((athlete) => [athlete.id, athlete])),
+      followedAthletes: [{
+        id: 'stale-follow-id',
+        name: cai.name,
+        club: cai.club,
+        appearances: 0,
+        bestRank: null,
+      }],
+      athleteSearchIndex: payload.athletes.slice(0, 8),
+    },
+  };
+  vm.createContext(context);
+  vm.runInContext(`${source.slice(start, end)}
+globalThis.childCandidates = childCandidates;
+globalThis.resolveAthleteReference = resolveAthleteReference;
+`, context);
+
+  const candidates = context.childCandidates();
+  assert.equal(candidates.length, 1, 'parent child picker should only show followed athletes');
+  assert.equal(candidates[0].id, cai.id, 'stale follow record should resolve to the complete athlete profile');
+  assert.equal(candidates[0].events.length, cai.events.length, 'resolved child should keep full event history');
 }
 
 console.log('search and follow panel behavior is covered');
