@@ -1,0 +1,713 @@
+{
+  "ok": true,
+  "source": {
+    "sourceUrl": "https://fencing-proxy.aixindiandian.workers.dev/fencingapi/competition/projectlist?sportId=100722",
+    "sportId": 100722,
+    "sportCode": "D05GJSFJ1020250315",
+    "importedAt": "2026-06-04T03:06:46.151Z"
+  },
+  "summary": {
+    "itemCount": 6,
+    "sportIds": [
+      100722
+    ],
+    "sportCodes": [
+      "D05GJSFJ1020250315"
+    ],
+    "eventCodeCount": 6,
+    "totalParticipants": 6000,
+    "participantStats": {
+      "min": 1000,
+      "max": 1000,
+      "total": 6000,
+      "average": 1000
+    },
+    "ageMinStats": {
+      "min": 13,
+      "max": 13,
+      "total": 78,
+      "average": 13
+    },
+    "ageMaxStats": {
+      "min": 19,
+      "max": 70,
+      "total": 318,
+      "average": 53
+    }
+  },
+  "distributions": {
+    "weapon": {
+      "花剑": 6
+    },
+    "gender": {
+      "男": 3,
+      "女": 3
+    },
+    "ageGroup": {
+      "青年组": 2,
+      "成年组": 4
+    },
+    "itemType": {
+      "个人": 4,
+      "团体": 2
+    },
+    "dateRange": {
+      "2025-03-22 08:00:00": 6
+    }
+  },
+  "completeness": [
+    {
+      "key": "eventId",
+      "label": "项目内部 ID",
+      "target": "event_items.source_event_id",
+      "nonEmpty": 6,
+      "total": 6,
+      "fillRate": 1,
+      "sampleValues": [
+        81828,
+        81829,
+        81830,
+        81831,
+        81833,
+        81835
+      ],
+      "note": "官方项目记录主键，适合作为源系统唯一键。"
+    },
+    {
+      "key": "eventCode",
+      "label": "项目编码",
+      "target": "event_items.source_event_code",
+      "nonEmpty": 6,
+      "total": 6,
+      "fillRate": 1,
+      "sampleValues": [
+        "D05GJSFJ1020250315MFIPJ",
+        "D05GJSFJ1020250315MFIPS",
+        "D05GJSFJ1020250315WFIPJ",
+        "D05GJSFJ1020250315WFIPS",
+        "D05GJSFJ1020250315MFTPS",
+        "D05GJSFJ1020250315WFTPS"
+      ],
+      "note": "结果页 eventCode，后续请求成绩和对阵时会用到。"
+    },
+    {
+      "key": "sportId",
+      "label": "赛事 ID",
+      "target": "events.source_event_id",
+      "nonEmpty": 6,
+      "total": 6,
+      "fillRate": 1,
+      "sampleValues": [
+        100722
+      ],
+      "note": "官方赛事 ID，同一赛事下所有项目相同。"
+    },
+    {
+      "key": "sportCode",
+      "label": "赛事编码",
+      "target": "events.source_sport_code",
+      "nonEmpty": 6,
+      "total": 6,
+      "fillRate": 1,
+      "sampleValues": [
+        "D05GJSFJ1020250315"
+      ],
+      "note": "官方赛事编码，可辅助去重。"
+    },
+    {
+      "key": "eventName",
+      "label": "项目名称",
+      "target": "event_items.item_name",
+      "nonEmpty": 6,
+      "total": 6,
+      "fillRate": 1,
+      "sampleValues": [
+        "青年组男子花剑个人",
+        "成年组男子花剑个人",
+        "青年组女子花剑个人",
+        "成年组女子花剑个人",
+        "成年组男子花剑团体",
+        "成年组女子花剑团体"
+      ],
+      "note": "例如 U10男子花剑个人。"
+    },
+    {
+      "key": "weaponCode",
+      "label": "剑种编码",
+      "target": "event_items.weapon_code",
+      "nonEmpty": 6,
+      "total": 6,
+      "fillRate": 1,
+      "sampleValues": [
+        "F"
+      ],
+      "note": "F=花剑，E=重剑，S=佩剑。"
+    },
+    {
+      "key": "weaponDesc",
+      "label": "剑种",
+      "target": "event_items.weapon",
+      "nonEmpty": 6,
+      "total": 6,
+      "fillRate": 1,
+      "sampleValues": [
+        "花剑"
+      ],
+      "note": "中文剑种名称。"
+    },
+    {
+      "key": "gender",
+      "label": "性别编码",
+      "target": "event_items.gender_code",
+      "nonEmpty": 6,
+      "total": 6,
+      "fillRate": 1,
+      "sampleValues": [
+        "M",
+        "F"
+      ],
+      "note": "M=男，F=女。"
+    },
+    {
+      "key": "genderDesc",
+      "label": "性别",
+      "target": "event_items.gender",
+      "nonEmpty": 6,
+      "total": 6,
+      "fillRate": 1,
+      "sampleValues": [
+        "男",
+        "女"
+      ],
+      "note": "中文性别。"
+    },
+    {
+      "key": "groupCode",
+      "label": "年龄组编码",
+      "target": "event_items.age_group_code",
+      "nonEmpty": 6,
+      "total": 6,
+      "fillRate": 1,
+      "sampleValues": [
+        "PJ",
+        "PS"
+      ],
+      "note": "例如 U10、U12、17+。"
+    },
+    {
+      "key": "groupName",
+      "label": "年龄组",
+      "target": "event_items.age_group",
+      "nonEmpty": 6,
+      "total": 6,
+      "fillRate": 1,
+      "sampleValues": [
+        "青年组",
+        "成年组"
+      ],
+      "note": "展示用年龄组。"
+    },
+    {
+      "key": "itemType",
+      "label": "项目类型编码",
+      "target": "event_items.item_type_code",
+      "nonEmpty": 6,
+      "total": 6,
+      "fillRate": 1,
+      "sampleValues": [
+        "I",
+        "T"
+      ],
+      "note": "I=个人，T 通常表示团体。"
+    },
+    {
+      "key": "itemTypeDesc",
+      "label": "项目类型",
+      "target": "event_items.item_type",
+      "nonEmpty": 6,
+      "total": 6,
+      "fillRate": 1,
+      "sampleValues": [
+        "个人",
+        "团体"
+      ],
+      "note": "个人或团体。"
+    },
+    {
+      "key": "regType",
+      "label": "报名类型",
+      "target": "event_items.registration_type",
+      "nonEmpty": 0,
+      "total": 6,
+      "fillRate": 0,
+      "sampleValues": [],
+      "note": "当前样本为空，先保留。"
+    },
+    {
+      "key": "openDate",
+      "label": "项目开始日期",
+      "target": "event_items.start_date",
+      "nonEmpty": 6,
+      "total": 6,
+      "fillRate": 1,
+      "sampleValues": [
+        "2025-03-22 08:00:00"
+      ],
+      "note": "项目比赛或开放日期，需和赛事详情中的比赛时间交叉确认。"
+    },
+    {
+      "key": "closeDate",
+      "label": "项目结束日期",
+      "target": "event_items.end_date",
+      "nonEmpty": 6,
+      "total": 6,
+      "fillRate": 1,
+      "sampleValues": [
+        "2025-03-24 22:00:00"
+      ],
+      "note": "项目结束日期。"
+    },
+    {
+      "key": "ageMin",
+      "label": "最小年龄",
+      "target": "event_items.age_min",
+      "nonEmpty": 6,
+      "total": 6,
+      "fillRate": 1,
+      "sampleValues": [
+        13
+      ],
+      "note": "年龄范围下限。"
+    },
+    {
+      "key": "ageMax",
+      "label": "最大年龄",
+      "target": "event_items.age_max",
+      "nonEmpty": 6,
+      "total": 6,
+      "fillRate": 1,
+      "sampleValues": [
+        19,
+        70
+      ],
+      "note": "年龄范围上限。"
+    },
+    {
+      "key": "proAgeMax",
+      "label": "专业组最大年龄",
+      "target": "event_items.pro_age_max",
+      "nonEmpty": 0,
+      "total": 6,
+      "fillRate": 0,
+      "sampleValues": [],
+      "note": "当前样本为空，先保留。"
+    },
+    {
+      "key": "proAgeMin",
+      "label": "专业组最小年龄",
+      "target": "event_items.pro_age_min",
+      "nonEmpty": 0,
+      "total": 6,
+      "fillRate": 0,
+      "sampleValues": [],
+      "note": "当前样本为空，先保留。"
+    },
+    {
+      "key": "amtAgeMax",
+      "label": "业余组最大年龄",
+      "target": "event_items.amateur_age_max",
+      "nonEmpty": 0,
+      "total": 6,
+      "fillRate": 0,
+      "sampleValues": [],
+      "note": "当前样本为空，先保留。"
+    },
+    {
+      "key": "amtAgeMin",
+      "label": "业余组最小年龄",
+      "target": "event_items.amateur_age_min",
+      "nonEmpty": 0,
+      "total": 6,
+      "fillRate": 0,
+      "sampleValues": [],
+      "note": "当前样本为空，先保留。"
+    },
+    {
+      "key": "totalRegNumber",
+      "label": "报名人数",
+      "target": "event_items.participant_count",
+      "nonEmpty": 6,
+      "total": 6,
+      "fillRate": 1,
+      "sampleValues": [
+        1000
+      ],
+      "note": "项目人数，是后续热度和项目规模分析的重要字段。"
+    },
+    {
+      "key": "seedsNumber",
+      "label": "种子人数",
+      "target": "event_items.seed_count",
+      "nonEmpty": 0,
+      "total": 6,
+      "fillRate": 0,
+      "sampleValues": [],
+      "note": "当前样本为空，先保留。"
+    },
+    {
+      "key": "poolRegNumber",
+      "label": "小组赛人数",
+      "target": "event_items.pool_participant_count",
+      "nonEmpty": 0,
+      "total": 6,
+      "fillRate": 0,
+      "sampleValues": [],
+      "note": "当前样本为空，先保留。"
+    },
+    {
+      "key": "poolQualify",
+      "label": "小组赛晋级人数",
+      "target": "event_items.pool_qualify_count",
+      "nonEmpty": 0,
+      "total": 6,
+      "fillRate": 0,
+      "sampleValues": [],
+      "note": "当前样本为空，先保留。"
+    },
+    {
+      "key": "perdeStartPhaseDes",
+      "label": "预淘汰开始阶段",
+      "target": "event_items.pre_de_start_phase",
+      "nonEmpty": 0,
+      "total": 6,
+      "fillRate": 0,
+      "sampleValues": [],
+      "note": "当前样本为空，先保留。"
+    },
+    {
+      "key": "deStartPhaseDes",
+      "label": "淘汰赛开始阶段",
+      "target": "event_items.de_start_phase",
+      "nonEmpty": 0,
+      "total": 6,
+      "fillRate": 0,
+      "sampleValues": [],
+      "note": "当前样本为空，先保留。"
+    },
+    {
+      "key": "ruleId",
+      "label": "规则 ID",
+      "target": "event_items.rule_id",
+      "nonEmpty": 0,
+      "total": 6,
+      "fillRate": 0,
+      "sampleValues": [],
+      "note": "当前样本为空，先保留。"
+    }
+  ],
+  "fieldMap": {
+    "eventId": {
+      "target": "event_items.source_event_id",
+      "label": "项目内部 ID",
+      "note": "官方项目记录主键，适合作为源系统唯一键。"
+    },
+    "eventCode": {
+      "target": "event_items.source_event_code",
+      "label": "项目编码",
+      "note": "结果页 eventCode，后续请求成绩和对阵时会用到。"
+    },
+    "sportId": {
+      "target": "events.source_event_id",
+      "label": "赛事 ID",
+      "note": "官方赛事 ID，同一赛事下所有项目相同。"
+    },
+    "sportCode": {
+      "target": "events.source_sport_code",
+      "label": "赛事编码",
+      "note": "官方赛事编码，可辅助去重。"
+    },
+    "eventName": {
+      "target": "event_items.item_name",
+      "label": "项目名称",
+      "note": "例如 U10男子花剑个人。"
+    },
+    "weaponCode": {
+      "target": "event_items.weapon_code",
+      "label": "剑种编码",
+      "note": "F=花剑，E=重剑，S=佩剑。"
+    },
+    "weaponDesc": {
+      "target": "event_items.weapon",
+      "label": "剑种",
+      "note": "中文剑种名称。"
+    },
+    "gender": {
+      "target": "event_items.gender_code",
+      "label": "性别编码",
+      "note": "M=男，F=女。"
+    },
+    "genderDesc": {
+      "target": "event_items.gender",
+      "label": "性别",
+      "note": "中文性别。"
+    },
+    "groupCode": {
+      "target": "event_items.age_group_code",
+      "label": "年龄组编码",
+      "note": "例如 U10、U12、17+。"
+    },
+    "groupName": {
+      "target": "event_items.age_group",
+      "label": "年龄组",
+      "note": "展示用年龄组。"
+    },
+    "itemType": {
+      "target": "event_items.item_type_code",
+      "label": "项目类型编码",
+      "note": "I=个人，T 通常表示团体。"
+    },
+    "itemTypeDesc": {
+      "target": "event_items.item_type",
+      "label": "项目类型",
+      "note": "个人或团体。"
+    },
+    "regType": {
+      "target": "event_items.registration_type",
+      "label": "报名类型",
+      "note": "当前样本为空，先保留。"
+    },
+    "openDate": {
+      "target": "event_items.start_date",
+      "label": "项目开始日期",
+      "note": "项目比赛或开放日期，需和赛事详情中的比赛时间交叉确认。"
+    },
+    "closeDate": {
+      "target": "event_items.end_date",
+      "label": "项目结束日期",
+      "note": "项目结束日期。"
+    },
+    "ageMin": {
+      "target": "event_items.age_min",
+      "label": "最小年龄",
+      "note": "年龄范围下限。"
+    },
+    "ageMax": {
+      "target": "event_items.age_max",
+      "label": "最大年龄",
+      "note": "年龄范围上限。"
+    },
+    "proAgeMax": {
+      "target": "event_items.pro_age_max",
+      "label": "专业组最大年龄",
+      "note": "当前样本为空，先保留。"
+    },
+    "proAgeMin": {
+      "target": "event_items.pro_age_min",
+      "label": "专业组最小年龄",
+      "note": "当前样本为空，先保留。"
+    },
+    "amtAgeMax": {
+      "target": "event_items.amateur_age_max",
+      "label": "业余组最大年龄",
+      "note": "当前样本为空，先保留。"
+    },
+    "amtAgeMin": {
+      "target": "event_items.amateur_age_min",
+      "label": "业余组最小年龄",
+      "note": "当前样本为空，先保留。"
+    },
+    "totalRegNumber": {
+      "target": "event_items.participant_count",
+      "label": "报名人数",
+      "note": "项目人数，是后续热度和项目规模分析的重要字段。"
+    },
+    "seedsNumber": {
+      "target": "event_items.seed_count",
+      "label": "种子人数",
+      "note": "当前样本为空，先保留。"
+    },
+    "poolRegNumber": {
+      "target": "event_items.pool_participant_count",
+      "label": "小组赛人数",
+      "note": "当前样本为空，先保留。"
+    },
+    "poolQualify": {
+      "target": "event_items.pool_qualify_count",
+      "label": "小组赛晋级人数",
+      "note": "当前样本为空，先保留。"
+    },
+    "perdeStartPhaseDes": {
+      "target": "event_items.pre_de_start_phase",
+      "label": "预淘汰开始阶段",
+      "note": "当前样本为空，先保留。"
+    },
+    "deStartPhaseDes": {
+      "target": "event_items.de_start_phase",
+      "label": "淘汰赛开始阶段",
+      "note": "当前样本为空，先保留。"
+    },
+    "ruleId": {
+      "target": "event_items.rule_id",
+      "label": "规则 ID",
+      "note": "当前样本为空，先保留。"
+    }
+  },
+  "normalizedItems": [
+    {
+      "sourceEventId": 81828,
+      "sourceEventCode": "D05GJSFJ1020250315MFIPJ",
+      "sourceSportId": 100722,
+      "sourceSportCode": "D05GJSFJ1020250315",
+      "itemName": "青年组男子花剑个人",
+      "weaponCode": "F",
+      "weapon": "花剑",
+      "genderCode": "M",
+      "gender": "男",
+      "ageGroupCode": "PJ",
+      "ageGroup": "青年组",
+      "itemTypeCode": "I",
+      "itemType": "个人",
+      "startDate": "2025-03-22 08:00:00",
+      "endDate": "2025-03-24 22:00:00",
+      "ageMin": 13,
+      "ageMax": 19,
+      "participantCount": 1000,
+      "resultLookup": {
+        "sportId": 100722,
+        "eventCode": "D05GJSFJ1020250315MFIPJ",
+        "expectedResultPath": "/fencingapi/matchresult/100722/D05GJSFJ1020250315MFIPJ",
+        "expectedScoreResource": "/Resource/score/D05GJSFJ1020250315MFIPJ.js"
+      }
+    },
+    {
+      "sourceEventId": 81829,
+      "sourceEventCode": "D05GJSFJ1020250315MFIPS",
+      "sourceSportId": 100722,
+      "sourceSportCode": "D05GJSFJ1020250315",
+      "itemName": "成年组男子花剑个人",
+      "weaponCode": "F",
+      "weapon": "花剑",
+      "genderCode": "M",
+      "gender": "男",
+      "ageGroupCode": "PS",
+      "ageGroup": "成年组",
+      "itemTypeCode": "I",
+      "itemType": "个人",
+      "startDate": "2025-03-22 08:00:00",
+      "endDate": "2025-03-24 22:00:00",
+      "ageMin": 13,
+      "ageMax": 70,
+      "participantCount": 1000,
+      "resultLookup": {
+        "sportId": 100722,
+        "eventCode": "D05GJSFJ1020250315MFIPS",
+        "expectedResultPath": "/fencingapi/matchresult/100722/D05GJSFJ1020250315MFIPS",
+        "expectedScoreResource": "/Resource/score/D05GJSFJ1020250315MFIPS.js"
+      }
+    },
+    {
+      "sourceEventId": 81830,
+      "sourceEventCode": "D05GJSFJ1020250315WFIPJ",
+      "sourceSportId": 100722,
+      "sourceSportCode": "D05GJSFJ1020250315",
+      "itemName": "青年组女子花剑个人",
+      "weaponCode": "F",
+      "weapon": "花剑",
+      "genderCode": "F",
+      "gender": "女",
+      "ageGroupCode": "PJ",
+      "ageGroup": "青年组",
+      "itemTypeCode": "I",
+      "itemType": "个人",
+      "startDate": "2025-03-22 08:00:00",
+      "endDate": "2025-03-24 22:00:00",
+      "ageMin": 13,
+      "ageMax": 19,
+      "participantCount": 1000,
+      "resultLookup": {
+        "sportId": 100722,
+        "eventCode": "D05GJSFJ1020250315WFIPJ",
+        "expectedResultPath": "/fencingapi/matchresult/100722/D05GJSFJ1020250315WFIPJ",
+        "expectedScoreResource": "/Resource/score/D05GJSFJ1020250315WFIPJ.js"
+      }
+    },
+    {
+      "sourceEventId": 81831,
+      "sourceEventCode": "D05GJSFJ1020250315WFIPS",
+      "sourceSportId": 100722,
+      "sourceSportCode": "D05GJSFJ1020250315",
+      "itemName": "成年组女子花剑个人",
+      "weaponCode": "F",
+      "weapon": "花剑",
+      "genderCode": "F",
+      "gender": "女",
+      "ageGroupCode": "PS",
+      "ageGroup": "成年组",
+      "itemTypeCode": "I",
+      "itemType": "个人",
+      "startDate": "2025-03-22 08:00:00",
+      "endDate": "2025-03-24 22:00:00",
+      "ageMin": 13,
+      "ageMax": 70,
+      "participantCount": 1000,
+      "resultLookup": {
+        "sportId": 100722,
+        "eventCode": "D05GJSFJ1020250315WFIPS",
+        "expectedResultPath": "/fencingapi/matchresult/100722/D05GJSFJ1020250315WFIPS",
+        "expectedScoreResource": "/Resource/score/D05GJSFJ1020250315WFIPS.js"
+      }
+    },
+    {
+      "sourceEventId": 81833,
+      "sourceEventCode": "D05GJSFJ1020250315MFTPS",
+      "sourceSportId": 100722,
+      "sourceSportCode": "D05GJSFJ1020250315",
+      "itemName": "成年组男子花剑团体",
+      "weaponCode": "F",
+      "weapon": "花剑",
+      "genderCode": "M",
+      "gender": "男",
+      "ageGroupCode": "PS",
+      "ageGroup": "成年组",
+      "itemTypeCode": "T",
+      "itemType": "团体",
+      "startDate": "2025-03-22 08:00:00",
+      "endDate": "2025-03-24 22:00:00",
+      "ageMin": 13,
+      "ageMax": 70,
+      "participantCount": 1000,
+      "resultLookup": {
+        "sportId": 100722,
+        "eventCode": "D05GJSFJ1020250315MFTPS",
+        "expectedResultPath": "/fencingapi/matchresult/100722/D05GJSFJ1020250315MFTPS",
+        "expectedScoreResource": "/Resource/score/D05GJSFJ1020250315MFTPS.js"
+      }
+    },
+    {
+      "sourceEventId": 81835,
+      "sourceEventCode": "D05GJSFJ1020250315WFTPS",
+      "sourceSportId": 100722,
+      "sourceSportCode": "D05GJSFJ1020250315",
+      "itemName": "成年组女子花剑团体",
+      "weaponCode": "F",
+      "weapon": "花剑",
+      "genderCode": "F",
+      "gender": "女",
+      "ageGroupCode": "PS",
+      "ageGroup": "成年组",
+      "itemTypeCode": "T",
+      "itemType": "团体",
+      "startDate": "2025-03-22 08:00:00",
+      "endDate": "2025-03-24 22:00:00",
+      "ageMin": 13,
+      "ageMax": 70,
+      "participantCount": 1000,
+      "resultLookup": {
+        "sportId": 100722,
+        "eventCode": "D05GJSFJ1020250315WFTPS",
+        "expectedResultPath": "/fencingapi/matchresult/100722/D05GJSFJ1020250315WFTPS",
+        "expectedScoreResource": "/Resource/score/D05GJSFJ1020250315WFTPS.js"
+      }
+    }
+  ]
+}
