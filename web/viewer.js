@@ -84,6 +84,8 @@ const state = {
   userRole: localStorage.getItem(ROLE_KEY) || '',
   selectedChildId: localStorage.getItem(CHILD_KEY) || '',
   followedAthletes: [],
+  isDataLoading: true,
+  dataLoadError: '',
 };
 
 state.followedAthletes = loadFollowedAthletes();
@@ -773,6 +775,16 @@ function isFilteringActive() {
 }
 
 function renderHomeStats() {
+  if (state.isDataLoading) {
+    if (homeStatsScope) homeStatsScope.textContent = '加载中';
+    homeStats.innerHTML = '<div class="loading-row">正在加载数据</div>';
+    return;
+  }
+  if (state.dataLoadError) {
+    if (homeStatsScope) homeStatsScope.textContent = '加载失败';
+    homeStats.innerHTML = '';
+    return;
+  }
   const source = state.filteredCompetitions.length || isFilteringActive() ? state.filteredCompetitions : state.competitions;
   const eventCount = source.reduce((sum, competition) => sum + competition.items.length, 0);
   const athleteStarts = sumCompetitionItems(source, (item) => item.competitionNo);
@@ -1229,6 +1241,11 @@ function buildRecommendationCards() {
 
 function renderFeedPanel() {
   if (!feedPanel) return;
+  if (state.isDataLoading || state.dataLoadError) {
+    feedPanel.hidden = true;
+    feedPanel.innerHTML = '';
+    return;
+  }
   if (isFilteringActive()) {
     feedPanel.hidden = true;
     feedPanel.innerHTML = '';
@@ -1471,6 +1488,20 @@ function competitionChips(competition, limit = Infinity) {
 }
 
 function renderCompetitionList() {
+  if (state.isDataLoading) {
+    competitionList.innerHTML = '<div class="loading-row">正在整理比赛列表</div>';
+    return;
+  }
+  if (state.dataLoadError) {
+    competitionList.innerHTML = `
+      <div class="load-error">
+        <strong>数据加载失败</strong>
+        <span>${escapeHtml(state.dataLoadError)}</span>
+        <button type="button" onclick="window.location.reload()">重新加载</button>
+      </div>
+    `;
+    return;
+  }
   competitionList.innerHTML = state.filteredCompetitions.length
     ? state.filteredCompetitions.map((competition) => `
       <button class="competition-card" data-sport-code="${escapeHtml(competition.sportCode)}">
@@ -2749,11 +2780,14 @@ document.querySelectorAll('[data-nav-competitions]').forEach((button) => {
 });
 
 async function init() {
+  state.isDataLoading = true;
+  state.dataLoadError = '';
   homeStats.innerHTML = '<div class="loading-row">正在加载数据</div>';
   competitionList.innerHTML = '<div class="loading-row">正在整理比赛列表</div>';
   const response = await fetch('/api/events');
   const result = await response.json();
   if (!result.ok) throw new Error(result.message);
+  state.isDataLoading = false;
   state.apiVersion = result.version || '';
   state.dataCoverage = result.dataCoverage || null;
   state.athletesById = Object.fromEntries((result.athletes || []).map((athlete) => [athlete.id, athlete]));
@@ -2772,13 +2806,18 @@ async function init() {
   applyCompetitionFilter();
 }
 
+renderRoleWorkspacePremium();
+renderParentDashboard();
+renderFollowPanel();
+renderFilters();
+renderHomeStats();
+renderFeedPanel();
+renderCompetitionList();
+
 init().catch((error) => {
-  homeStats.innerHTML = '';
-  competitionList.innerHTML = `
-    <div class="load-error">
-      <strong>数据加载失败</strong>
-      <span>${escapeHtml(error.message)}</span>
-      <button type="button" onclick="window.location.reload()">重新加载</button>
-    </div>
-  `;
+  state.isDataLoading = false;
+  state.dataLoadError = error.message;
+  renderHomeStats();
+  renderFeedPanel();
+  renderCompetitionList();
 });
