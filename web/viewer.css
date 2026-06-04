@@ -43,8 +43,18 @@ body {
   gap: 8px;
   min-height: 48px;
   padding: 4px 0;
+  isolation: isolate;
+}
+
+.topbar::before {
+  content: "";
+  position: absolute;
+  inset: 0 50%;
+  z-index: -1;
+  width: 100vw;
+  transform: translateX(-50%);
   border-bottom: 1px solid var(--hairline);
-  background: rgba(245, 249, 247, 0.88);
+  background: rgba(245, 249, 247, 0.92);
   backdrop-filter: blur(14px);
 }
 
@@ -56,9 +66,45 @@ p {
 
 h1 {
   justify-self: center;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
   font-size: 20px;
   line-height: 1.2;
   font-weight: 900;
+}
+
+.brand-mark {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #155fc2, #087760);
+  box-shadow: 0 8px 16px rgba(21, 95, 194, 0.18);
+}
+
+.brand-mark::before {
+  content: "";
+  position: absolute;
+  left: 6px;
+  top: 5px;
+  width: 12px;
+  height: 3px;
+  border-radius: 999px;
+  background: #fff;
+  transform: rotate(-34deg);
+  transform-origin: left center;
+}
+
+.brand-mark::after {
+  content: "";
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
+  width: 4px;
+  height: 4px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.88);
 }
 
 h2 {
