@@ -2629,18 +2629,18 @@ function renderPreMatchIntelligence(club, projectRows, athletes) {
   const opponentPool = coachStrongOpponentPool(club, projectRows);
   const topProjects = projectRows.slice(0, 3);
   const readiness = rosterRows.length
-    ? `已识别 ${rosterRows.length} 条本馆报名记录，可以开始生成赛前对手情报。`
-    : '当前还没有识别到本馆报名名单；导入报名名单后，这里会自动生成本馆出战、重点对手和突破机会。';
+    ? `本次已有 ${rosterRows.length} 条本馆出战记录，可以先看重点对手和突破机会。`
+    : '当前适合先做项目级备赛：锁定优势项目、近期赛事和历史强手，确认参赛名单后再细化到每个学员。';
 
   return `
     <section class="coach-section prematch-section">
       <div class="section-title">
         <h2>赛前情报包</h2>
-        <span>报名后优先看</span>
+        <span>赛前优先看</span>
       </div>
       <div class="coach-summary-card prematch-ready">
         <strong>${escapeHtml(readiness)}</strong>
-        <span>第一版先按本馆强项项目、近期赛事和历史强手池做备赛提示；报名名单补齐后会升级为逐个学员的对手分析。</span>
+        <span>建议先把本馆重点项目和可能遇到的强手过一遍，再安排学员的赛前训练重点。</span>
       </div>
       ${rosterRows.length ? `
         <div class="prematch-block">
@@ -2699,7 +2699,7 @@ function renderPreMatchIntelligence(club, projectRows, athletes) {
               <span>${escapeHtml(athlete.club || '俱乐部待确认')}</span>
               <em>最好第 ${escapeHtml(athlete.bestRank ?? '-')} 名 · ${escapeHtml(athlete.appearances ?? 0)} 次</em>
             </button>
-          `).join('') : '<div class="empty compact-empty">强手池需要更多同项目选手画像，后续随成绩包继续补齐。</div>'}
+          `).join('') : '<div class="empty compact-empty">当前同项目强手样本还少，建议先围绕本馆重点项目做训练准备。</div>'}
         </div>
       </div>
     </section>
