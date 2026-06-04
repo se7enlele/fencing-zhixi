@@ -27,6 +27,7 @@ function inferPlatformStatus(event) {
 }
 
 function normalizeProjectItem(item) {
+  const participantCount = Number(item.participantCount ?? item.totalRegNumber) || 0;
   return {
     sportId: item.sourceSportId || item.sportId || null,
     sportCode: item.sourceSportCode || item.sportCode || null,
@@ -38,8 +39,13 @@ function normalizeProjectItem(item) {
     itemType: item.itemType || item.itemTypeDesc || '',
     openDate: item.startDate || item.openDate || null,
     closeDate: item.endDate || item.closeDate || null,
-    participantCount: Number(item.participantCount ?? item.totalRegNumber) || 0,
+    participantCount,
+    expectedRegistrationCount: isCredibleRegistrationCount(participantCount) ? participantCount : 0,
   };
+}
+
+function isCredibleRegistrationCount(value) {
+  return Number.isFinite(value) && value > 0 && value < 1000;
 }
 
 function competitionNameFor(sportCode, items, rosterRows) {
@@ -163,9 +169,9 @@ export function buildPreEventCompetitions({
         shortEventName: item.eventName,
         openDate: item.openDate,
         closeDate: item.closeDate,
-        competitionNo: item.participantCount || roster.length,
+        competitionNo: item.expectedRegistrationCount || roster.length,
         registrationCount: roster.length,
-        expectedRegistrationCount: item.participantCount,
+        expectedRegistrationCount: item.expectedRegistrationCount,
         roster,
         status: 'upcoming',
         isPreEvent: true,
