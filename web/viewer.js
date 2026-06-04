@@ -140,9 +140,28 @@ async function syncFollowedAthletes() {
   } catch {
     state.followedAthletes = loadFollowedAthletes();
   }
+  await hydrateFollowedAthleteProfiles();
   renderFollowPanel();
   renderRoleWorkspacePremium();
   renderParentDashboard();
+}
+
+async function hydrateFollowedAthleteProfiles() {
+  const follows = state.followedAthletes || [];
+  const missing = follows.filter((follow) => follow?.id && !(state.athletesById?.[follow.id]?.events || []).length);
+  if (!missing.length) return;
+  const profiles = await Promise.all(missing.map(async (follow) => {
+    try {
+      const response = await fetch(`/api/athletes/${encodeURIComponent(follow.id)}`);
+      const result = await response.json();
+      return result.ok && result.athlete?.id ? result.athlete : null;
+    } catch {
+      return null;
+    }
+  }));
+  for (const athlete of profiles.filter(Boolean)) {
+    state.athletesById[athlete.id] = athlete;
+  }
 }
 
 function isFollowedAthlete(id) {
@@ -175,6 +194,7 @@ async function upsertFollowedAthlete(athlete) {
     if (!result.ok) throw new Error(result.message);
     state.followedAthletes = result.follows || state.followedAthletes;
     saveFollowedAthletes();
+    await hydrateFollowedAthleteProfiles();
     renderFollowPanel();
     renderRoleWorkspacePremium();
     renderParentDashboard();
@@ -2217,9 +2237,17 @@ function buildPoolPerformanceRows(events) {
 }
 
 function renderAthleteDetail(athlete) {
+  const followed = isFollowedAthlete(athlete.id);
   athleteHero.innerHTML = `
-    <div class="hero-title">${escapeHtml(athlete.name)}</div>
-    <div class="hero-sub">${escapeHtml(athlete.club || '俱乐部待确认')}</div>
+    <div class="athlete-hero-head">
+      <div>
+        <div class="hero-title">${escapeHtml(athlete.name)}</div>
+        <div class="hero-sub">${escapeHtml(athlete.club || '俱乐部待确认')}</div>
+      </div>
+      <button class="follow-icon-button ${followed ? 'active' : ''}" id="followAthleteBtn" type="button" aria-pressed="${followed ? 'true' : 'false'}" aria-label="${followed ? '取消关注' : '关注这个孩子'}" title="${followed ? '已关注' : '关注'}">
+        <span aria-hidden="true">${followed ? '✓' : '+'}</span>
+      </button>
+    </div>
     <div class="badge-row">
       <span class="badge">最好第 ${escapeHtml(athlete.bestRank ?? '-')} 名</span>
       <span class="badge">${escapeHtml(athlete.medals ?? 0)} 枚奖牌</span>
@@ -2227,14 +2255,9 @@ function renderAthleteDetail(athlete) {
     </div>
   `;
 
-  const followed = isFollowedAthlete(athlete.id);
-  athleteActionPanel.innerHTML = `
-    <button class="primary-action" id="followAthleteBtn" type="button">
-      ${followed ? '已关注，移除' : '关注这个孩子'}
-    </button>
-    <div class="action-note">${followed ? '已放入首页关注，后续可直接查看成长趋势。' : '关注后会出现在首页，适合家长长期查看孩子变化。'}</div>
-  `;
-  athleteActionPanel.querySelector('#followAthleteBtn').addEventListener('click', async () => {
+  athleteActionPanel.hidden = true;
+  athleteActionPanel.innerHTML = '';
+  athleteHero.querySelector('#followAthleteBtn').addEventListener('click', async () => {
     if (isFollowedAthlete(athlete.id)) {
       await removeFollowedAthlete(athlete.id);
     } else {
