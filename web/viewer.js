@@ -2568,6 +2568,144 @@ function projectCoachAdvice(row) {
   return '样本仍少，先保持参赛连续性，积累可判断的数据。';
 }
 
+function rosterClubText(row) {
+  return [row.organShortName, row.organName, row.club, row.clubName].filter(Boolean).join(' ');
+}
+
+function clubRosterRows(club) {
+  const compactClub = compactText(club.club);
+  const rows = [];
+  for (const competition of state.competitions || []) {
+    for (const item of competition.items || []) {
+      for (const roster of item.roster || []) {
+        if (!compactText(rosterClubText(roster)).includes(compactClub)) continue;
+        rows.push({
+          ...roster,
+          sportName: roster.sportName || competition.sportName,
+          eventName: roster.eventName || item.eventName,
+          eventCode: roster.eventCode || item.eventCode,
+          competition,
+          item,
+        });
+      }
+    }
+  }
+  return rows;
+}
+
+function relevantPreMatchCompetitions(projectRows) {
+  const projectLabels = projectRows.map((row) => compactText(row.label)).filter(Boolean);
+  return [...(state.competitions || [])]
+    .filter((competition) => ['registration', 'upcoming'].includes(competition.status) || competition.isPreEvent)
+    .map((competition) => {
+      const matchedItems = (competition.items || []).filter((item) => {
+        const itemLabel = compactText(displayEventName(item));
+        return projectLabels.some((label) => itemLabel.includes(label) || label.includes(itemLabel));
+      });
+      return { competition, matchedItems };
+    })
+    .filter((row) => row.matchedItems.length || row.competition.status === 'registration')
+    .sort((a, b) => Math.abs(daysFromToday(competitionDateValue(a.competition))) - Math.abs(daysFromToday(competitionDateValue(b.competition))))
+    .slice(0, 3);
+}
+
+function coachStrongOpponentPool(club, projectRows) {
+  const compactClub = compactText(club.club);
+  const labels = projectRows.slice(0, 5).map((row) => compactText(row.label)).filter(Boolean);
+  return [...(state.athleteSearchIndex || [])]
+    .filter((athlete) => {
+      if (!athlete.name || compactText(athlete.club).includes(compactClub)) return false;
+      if ((athlete.bestRank ?? 999) > 16) return false;
+      const eventText = compactText([...(athlete.eventLabels || []), ...(athlete.events || []).map((event) => displayEventName(event))].join(' '));
+      return labels.some((label) => eventText.includes(label) || label.includes(eventText));
+    })
+    .sort((a, b) => (a.bestRank ?? 999) - (b.bestRank ?? 999) || (b.appearances || 0) - (a.appearances || 0))
+    .slice(0, 6);
+}
+
+function renderPreMatchIntelligence(club, projectRows, athletes) {
+  const rosterRows = clubRosterRows(club);
+  const relevantCompetitions = relevantPreMatchCompetitions(projectRows);
+  const opponentPool = coachStrongOpponentPool(club, projectRows);
+  const topProjects = projectRows.slice(0, 3);
+  const readiness = rosterRows.length
+    ? `已识别 ${rosterRows.length} 条本馆报名记录，可以开始生成赛前对手情报。`
+    : '当前还没有识别到本馆报名名单；导入报名名单后，这里会自动生成本馆出战、重点对手和突破机会。';
+
+  return `
+    <section class="coach-section prematch-section">
+      <div class="section-title">
+        <h2>赛前情报包</h2>
+        <span>报名后优先看</span>
+      </div>
+      <div class="coach-summary-card prematch-ready">
+        <strong>${escapeHtml(readiness)}</strong>
+        <span>第一版先按本馆强项项目、近期赛事和历史强手池做备赛提示；报名名单补齐后会升级为逐个学员的对手分析。</span>
+      </div>
+      ${rosterRows.length ? `
+        <div class="prematch-block">
+          <div class="coach-bucket-head">
+            <strong>本馆出战</strong>
+            <span>${escapeHtml(rosterRows.length)} 条报名</span>
+          </div>
+          <div class="coach-athlete-list">
+            ${rosterRows.slice(0, 6).map((row) => `
+              <button type="button" data-athlete-id="${escapeHtml(row.registerCode || '')}">
+                <strong>${escapeHtml(row.athleteName || '未命名选手')}</strong>
+                <span>${escapeHtml(displayEventName(row))}</span>
+                <em>${escapeHtml(row.sportName || '赛事待确认')}</em>
+              </button>
+            `).join('')}
+          </div>
+        </div>
+      ` : ''}
+      <div class="prematch-grid">
+        <div class="prematch-block">
+          <div class="coach-bucket-head">
+            <strong>优先备赛项目</strong>
+            <span>按本馆历史基础</span>
+          </div>
+          <div class="growth-highlight-list">
+            ${topProjects.map((row) => `<div class="growth-highlight">${escapeHtml(`${row.label}：参赛 ${row.entrants}，前八 ${row.top8}，最好第 ${row.bestRank ?? '-'} 名`)}</div>`).join('')}
+          </div>
+        </div>
+        <div class="prematch-block">
+          <div class="coach-bucket-head">
+            <strong>近期可关注赛事</strong>
+            <span>${escapeHtml(relevantCompetitions.length || 0)} 场</span>
+          </div>
+          <div class="project-advice-list">
+            ${relevantCompetitions.length ? relevantCompetitions.map(({ competition, matchedItems }) => `
+              <button class="project-advice-card" type="button" data-sport-code="${escapeHtml(competition.sportCode)}">
+                <div>
+                  <strong>${escapeHtml(competition.sportName)}</strong>
+                  <span>${escapeHtml([competition.dateLabel, competition.venue || competition.region].filter(Boolean).join(' · '))}</span>
+                </div>
+                <em>${escapeHtml(matchedItems.length ? `匹配 ${matchedItems.map(displayEventName).slice(0, 2).join(' / ')}` : coverageLabel(competition))}</em>
+              </button>
+            `).join('') : '<div class="empty compact-empty">暂未发现与本馆强项直接匹配的近期赛事。</div>'}
+          </div>
+        </div>
+      </div>
+      <div class="prematch-block">
+        <div class="coach-bucket-head">
+          <strong>历史强手池</strong>
+          <span>先用于备赛关注</span>
+        </div>
+        <div class="coach-athlete-list">
+          ${opponentPool.length ? opponentPool.map((athlete) => `
+            <button type="button" data-athlete-id="${escapeHtml(athlete.id || '')}">
+              <strong>${escapeHtml(athlete.name)}</strong>
+              <span>${escapeHtml(athlete.club || '俱乐部待确认')}</span>
+              <em>最好第 ${escapeHtml(athlete.bestRank ?? '-')} 名 · ${escapeHtml(athlete.appearances ?? 0)} 次</em>
+            </button>
+          `).join('') : '<div class="empty compact-empty">强手池需要更多同项目选手画像，后续随成绩包继续补齐。</div>'}
+        </div>
+      </div>
+    </section>
+  `;
+}
+
 function renderClubDetail(club) {
   const events = club.events || [];
   const projectRows = clubProjectRows(club);
@@ -2600,6 +2738,8 @@ function renderClubDetail(club) {
           <span>建议先把强项项目、代表学员和近期比赛复盘讲清楚，用于续费沟通和招生转化。</span>
         </div>
       </section>
+
+      ${renderPreMatchIntelligence(club, projectRows, athletes)}
 
       <div class="report-grid">
         <div class="report-card"><strong>${escapeHtml(top8Rate)}%</strong><span>前八率</span></div>
@@ -2657,6 +2797,10 @@ function renderClubDetail(club) {
   clubEvents.querySelectorAll('[data-event-code]').forEach((button) => {
     if (!button.dataset.eventCode) return;
     button.addEventListener('click', () => openEvent(button.dataset.eventCode));
+  });
+  clubEvents.querySelectorAll('[data-sport-code]').forEach((button) => {
+    if (!button.dataset.sportCode) return;
+    button.addEventListener('click', () => openCompetition(button.dataset.sportCode));
   });
   clubEvents.querySelectorAll('[data-athlete-id]').forEach((button) => {
     if (!button.dataset.athleteId) return;

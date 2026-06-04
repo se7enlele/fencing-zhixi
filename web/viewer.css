@@ -1613,6 +1613,24 @@ select:focus {
   line-height: 1.45;
 }
 
+.prematch-section {
+  border: 1px solid rgba(21, 95, 194, 0.1);
+  border-radius: 12px;
+  background: linear-gradient(180deg, rgba(241, 247, 255, 0.78), rgba(255, 255, 255, 0.88));
+  padding: 12px;
+}
+
+.prematch-ready {
+  border-color: rgba(21, 95, 194, 0.14);
+  background: rgba(255, 255, 255, 0.78);
+}
+
+.prematch-grid,
+.prematch-block {
+  display: grid;
+  gap: 9px;
+}
+
 .coach-bucket {
   display: grid;
   gap: 8px;
