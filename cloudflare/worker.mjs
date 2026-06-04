@@ -424,8 +424,9 @@ async function routeApi(request, env, url) {
 
   if (url.pathname.startsWith('/api/clubs/') && request.method === 'GET') {
     const merged = await getMergedData(env);
-    const clubId = decodeURIComponent(url.pathname.replace('/api/clubs/', ''));
-    const club = merged.clubsById[clubId];
+    const rawClubId = url.pathname.replace('/api/clubs/', '');
+    const decodedClubId = decodeURIComponent(rawClubId);
+    const club = merged.clubsById[rawClubId] || merged.clubsById[decodedClubId] || merged.clubsById[encodeURIComponent(decodedClubId)];
     return club ? json({ ok: true, version: merged.version, club }) : json({ ok: false, message: '俱乐部不存在。' }, 404);
   }
 

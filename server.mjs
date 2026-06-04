@@ -1566,9 +1566,10 @@ const server = createServer(async (request, response) => {
 
   if (request.method === 'GET' && url.pathname.startsWith('/api/clubs/')) {
     try {
-      const clubId = url.pathname.replace('/api/clubs/', '');
+      const rawClubId = url.pathname.replace('/api/clubs/', '');
+      const decodedClubId = decodeURIComponent(rawClubId);
       const clubs = await getClubDirectory();
-      const found = clubs.find((club) => club.id === clubId);
+      const found = clubs.find((club) => club.id === rawClubId || club.id === decodedClubId || club.id === encodeURIComponent(decodedClubId));
       if (!found) {
         sendJson(response, 404, { ok: false, message: '未找到俱乐部画像。' });
         return;
