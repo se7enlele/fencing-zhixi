@@ -1,0 +1,3177 @@
+{
+  "ok": true,
+  "source": {
+    "sourceUrl": "https://fencing-proxy.aixindiandian.workers.dev/Resource/score/RZSS20250308MFIU6.js",
+    "importedAt": "2026-06-04T16:55:44.428Z"
+  },
+  "general": {
+    "sportName": "2025年长沙市青少年击剑公开赛",
+    "eventName": "U6男子花剑个人",
+    "openDate": "2025.03.09",
+    "venue": "湖南•长沙市",
+    "competitionNo": 14,
+    "exemptionNo": 0,
+    "poolFencerNo": 14,
+    "poolQualifyNo": 11,
+    "preDeStartPhase": "none",
+    "deStartPhase": "from Tableaus 16",
+    "sportCode": "RZSS20250308",
+    "eventCode": "RZSS20250308MFIU6"
+  },
+  "summary": {
+    "classmentCount": 14,
+    "initialSeedCount": 14,
+    "poolCount": 2,
+    "poolStandingCount": 14,
+    "poolResultCount": 14,
+    "poolBoutCount": 42,
+    "tableauCount": 4,
+    "eliminationMatchCount": 15,
+    "playedEliminationMatchCount": 10,
+    "byeMatchCount": 5,
+    "athleteCountByLicence": 14
+  },
+  "distributions": {
+    "poolStatus": {
+      "7": 2
+    },
+    "poolRemark": {
+      "Q": 11,
+      "E": 3
+    },
+    "tableau": {
+      "16表": 1,
+      "8表": 1,
+      "半决赛": 1,
+      "决赛": 1
+    },
+    "eliminationByPhase": {
+      "16表": 8,
+      "8表": 4,
+      "半决赛": 2,
+      "决赛": 1
+    },
+    "eliminationResult": {
+      "W/L": 8,
+      "L/W": 7
+    },
+    "medal": {
+      "金": 1,
+      "银": 1,
+      "铜": 2,
+      "(无奖牌)": 10
+    }
+  },
+  "normalized": {
+    "classment": [
+      {
+        "rank": 1,
+        "displayRank": "1",
+        "name": "马星野",
+        "licence": "20190618M202311071015",
+        "club": "南京艾鲁特",
+        "birthday": "2019-06-18",
+        "medal": "金",
+        "status": "N",
+        "sourcePosition": 1,
+        "qualifyStatusId": 1
+      },
+      {
+        "rank": 2,
+        "displayRank": "2",
+        "name": "栗南乔",
+        "licence": "20190718M202501140613",
+        "club": "个人",
+        "birthday": "2019-07-18",
+        "medal": "银",
+        "status": "N",
+        "sourcePosition": 2,
+        "qualifyStatusId": 1
+      },
+      {
+        "rank": 3,
+        "displayRank": "3",
+        "name": "郭希霖",
+        "licence": "20190305M202402210402",
+        "club": "安徽熊猫",
+        "birthday": "2019-03-05",
+        "medal": "铜",
+        "status": "N",
+        "sourcePosition": 3,
+        "qualifyStatusId": 1
+      },
+      {
+        "rank": 3,
+        "displayRank": "3",
+        "name": "李沐勋",
+        "licence": "20191205M202502160628",
+        "club": "武汉武昌万国",
+        "birthday": "2019-12-05",
+        "medal": "铜",
+        "status": "N",
+        "sourcePosition": 4,
+        "qualifyStatusId": 1
+      },
+      {
+        "rank": 5,
+        "displayRank": "5",
+        "name": "罗安玄",
+        "licence": "20190315M202502070438",
+        "club": "个人",
+        "birthday": "2019-03-15",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": 5,
+        "qualifyStatusId": 1
+      },
+      {
+        "rank": 6,
+        "displayRank": "6",
+        "name": "熊翊清",
+        "licence": "19810614M202104130417",
+        "club": "湖北优肯",
+        "birthday": "2019-01-08",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": 6,
+        "qualifyStatusId": 1
+      },
+      {
+        "rank": 7,
+        "displayRank": "7",
+        "name": "周衍",
+        "licence": "20190317M202408040612",
+        "club": "安徽熊猫",
+        "birthday": "2019-03-17",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": 7,
+        "qualifyStatusId": 1
+      },
+      {
+        "rank": 8,
+        "displayRank": "8",
+        "name": "王博言",
+        "licence": "20190221M202303280645",
+        "club": "武汉风云",
+        "birthday": "2019-02-21",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": 8,
+        "qualifyStatusId": 1
+      },
+      {
+        "rank": 9,
+        "displayRank": "9",
+        "name": "韩释成",
+        "licence": "20200217M202502090249",
+        "club": "湖南振翔",
+        "birthday": "2020-02-17",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": 9,
+        "qualifyStatusId": 1
+      },
+      {
+        "rank": 10,
+        "displayRank": "10",
+        "name": "方子豪",
+        "licence": "20190106M202410180425",
+        "club": "个人",
+        "birthday": "2019-01-06",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": 10,
+        "qualifyStatusId": 1
+      },
+      {
+        "rank": 11,
+        "displayRank": "11",
+        "name": "吴著宸",
+        "licence": "20190110M202501201154",
+        "club": "武汉海外双优",
+        "birthday": "2019-01-10",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": 11,
+        "qualifyStatusId": 1
+      },
+      {
+        "rank": 12,
+        "displayRank": "12",
+        "name": "周平安",
+        "licence": "20190117M202402081202",
+        "club": "武汉御剑",
+        "birthday": "2019-01-17",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": 12,
+        "qualifyStatusId": 0
+      },
+      {
+        "rank": 13,
+        "displayRank": "13",
+        "name": "田亦珉",
+        "licence": "20190105M202502130845",
+        "club": "湖南聚力",
+        "birthday": "2019-01-05",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": 13,
+        "qualifyStatusId": 0
+      },
+      {
+        "rank": 14,
+        "displayRank": "14",
+        "name": "蔡嘉懿",
+        "licence": "20200115M202502080956",
+        "club": "湖南省剑协",
+        "birthday": "2020-01-15",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": 14,
+        "qualifyStatusId": 0
+      }
+    ],
+    "poolStandings": [
+      {
+        "rank": 1,
+        "displayPosition": 1,
+        "name": "马星野",
+        "licence": "20190618M202311071015",
+        "club": "南京艾鲁特",
+        "wins": 6,
+        "matches": 6,
+        "winRate": 1,
+        "hitsScored": 30,
+        "hitsReceived": 4,
+        "indicator": 26,
+        "remark": "Q"
+      },
+      {
+        "rank": 2,
+        "displayPosition": 2,
+        "name": "栗南乔",
+        "licence": "20190718M202501140613",
+        "club": "个人",
+        "wins": 6,
+        "matches": 6,
+        "winRate": 1,
+        "hitsScored": 28,
+        "hitsReceived": 6,
+        "indicator": 22,
+        "remark": "Q"
+      },
+      {
+        "rank": 3,
+        "displayPosition": 3,
+        "name": "李沐勋",
+        "licence": "20191205M202502160628",
+        "club": "武汉武昌万国",
+        "wins": 5,
+        "matches": 6,
+        "winRate": 0.833,
+        "hitsScored": 26,
+        "hitsReceived": 11,
+        "indicator": 15,
+        "remark": "Q"
+      },
+      {
+        "rank": 4,
+        "displayPosition": 4,
+        "name": "郭希霖",
+        "licence": "20190305M202402210402",
+        "club": "安徽熊猫",
+        "wins": 4,
+        "matches": 6,
+        "winRate": 0.667,
+        "hitsScored": 26,
+        "hitsReceived": 8,
+        "indicator": 18,
+        "remark": "Q"
+      },
+      {
+        "rank": 5,
+        "displayPosition": 5,
+        "name": "罗安玄",
+        "licence": "20190315M202502070438",
+        "club": "个人",
+        "wins": 4,
+        "matches": 6,
+        "winRate": 0.667,
+        "hitsScored": 25,
+        "hitsReceived": 18,
+        "indicator": 7,
+        "remark": "Q"
+      },
+      {
+        "rank": 6,
+        "displayPosition": 6,
+        "name": "熊翊清",
+        "licence": "19810614M202104130417",
+        "club": "湖北优肯",
+        "wins": 4,
+        "matches": 6,
+        "winRate": 0.667,
+        "hitsScored": 24,
+        "hitsReceived": 19,
+        "indicator": 5,
+        "remark": "Q"
+      },
+      {
+        "rank": 7,
+        "displayPosition": 7,
+        "name": "周衍",
+        "licence": "20190317M202408040612",
+        "club": "安徽熊猫",
+        "wins": 3,
+        "matches": 6,
+        "winRate": 0.5,
+        "hitsScored": 23,
+        "hitsReceived": 21,
+        "indicator": 2,
+        "remark": "Q"
+      },
+      {
+        "rank": 8,
+        "displayPosition": 8,
+        "name": "王博言",
+        "licence": "20190221M202303280645",
+        "club": "武汉风云",
+        "wins": 3,
+        "matches": 6,
+        "winRate": 0.5,
+        "hitsScored": 18,
+        "hitsReceived": 19,
+        "indicator": -1,
+        "remark": "Q"
+      },
+      {
+        "rank": 9,
+        "displayPosition": 9,
+        "name": "韩释成",
+        "licence": "20200217M202502090249",
+        "club": "湖南振翔",
+        "wins": 2,
+        "matches": 6,
+        "winRate": 0.333,
+        "hitsScored": 15,
+        "hitsReceived": 21,
+        "indicator": -6,
+        "remark": "Q"
+      },
+      {
+        "rank": 10,
+        "displayPosition": 10,
+        "name": "方子豪",
+        "licence": "20190106M202410180425",
+        "club": "个人",
+        "wins": 2,
+        "matches": 6,
+        "winRate": 0.333,
+        "hitsScored": 14,
+        "hitsReceived": 24,
+        "indicator": -10,
+        "remark": "Q"
+      },
+      {
+        "rank": 11,
+        "displayPosition": 11,
+        "name": "吴著宸",
+        "licence": "20190110M202501201154",
+        "club": "武汉海外双优",
+        "wins": 1,
+        "matches": 6,
+        "winRate": 0.167,
+        "hitsScored": 12,
+        "hitsReceived": 27,
+        "indicator": -15,
+        "remark": "Q"
+      },
+      {
+        "rank": 12,
+        "displayPosition": 12,
+        "name": "周平安",
+        "licence": "20190117M202402081202",
+        "club": "武汉御剑",
+        "wins": 1,
+        "matches": 6,
+        "winRate": 0.167,
+        "hitsScored": 11,
+        "hitsReceived": 29,
+        "indicator": -18,
+        "remark": "E"
+      },
+      {
+        "rank": 13,
+        "displayPosition": 13,
+        "name": "田亦珉",
+        "licence": "20190105M202502130845",
+        "club": "湖南聚力",
+        "wins": 1,
+        "matches": 6,
+        "winRate": 0.167,
+        "hitsScored": 8,
+        "hitsReceived": 29,
+        "indicator": -21,
+        "remark": "E"
+      },
+      {
+        "rank": 14,
+        "displayPosition": 14,
+        "name": "蔡嘉懿",
+        "licence": "20200115M202502080956",
+        "club": "湖南省剑协",
+        "wins": 0,
+        "matches": 6,
+        "winRate": 0,
+        "hitsScored": 6,
+        "hitsReceived": 30,
+        "indicator": -24,
+        "remark": "E"
+      }
+    ],
+    "poolResults": [
+      {
+        "drawNo": 1,
+        "name": "栗南乔",
+        "licence": "20190718M202501140613",
+        "club": "个人",
+        "poolId": 135188,
+        "boutCells": {
+          "Result1": "",
+          "Result2": "V",
+          "Result3": "V",
+          "Result4": "V",
+          "Result5": "V3",
+          "Result6": "V",
+          "Result7": "V"
+        },
+        "wins": 6,
+        "matches": 6,
+        "winRate": 1,
+        "hitsScored": 28,
+        "hitsReceived": 6,
+        "indicator": 22,
+        "phaseRank": 1
+      },
+      {
+        "drawNo": 2,
+        "name": "田亦珉",
+        "licence": "20190105M202502130845",
+        "club": "湖南聚力",
+        "poolId": 135188,
+        "boutCells": {
+          "Result1": "0",
+          "Result2": "",
+          "Result3": "0",
+          "Result4": "V",
+          "Result5": "0",
+          "Result6": "2",
+          "Result7": "1"
+        },
+        "wins": 1,
+        "matches": 6,
+        "winRate": 0.167,
+        "hitsScored": 8,
+        "hitsReceived": 29,
+        "indicator": -21,
+        "phaseRank": 7
+      },
+      {
+        "drawNo": 3,
+        "name": "李沐勋",
+        "licence": "20191205M202502160628",
+        "club": "武汉武昌万国",
+        "poolId": 135188,
+        "boutCells": {
+          "Result1": "1",
+          "Result2": "V",
+          "Result3": "",
+          "Result4": "V",
+          "Result5": "V",
+          "Result6": "V",
+          "Result7": "V"
+        },
+        "wins": 5,
+        "matches": 6,
+        "winRate": 0.833,
+        "hitsScored": 26,
+        "hitsReceived": 11,
+        "indicator": 15,
+        "phaseRank": 2
+      },
+      {
+        "drawNo": 4,
+        "name": "周平安",
+        "licence": "20190117M202402081202",
+        "club": "武汉御剑",
+        "poolId": 135188,
+        "boutCells": {
+          "Result1": "0",
+          "Result2": "4",
+          "Result3": "0",
+          "Result4": "",
+          "Result5": "0",
+          "Result6": "V",
+          "Result7": "2"
+        },
+        "wins": 1,
+        "matches": 6,
+        "winRate": 0.167,
+        "hitsScored": 11,
+        "hitsReceived": 29,
+        "indicator": -18,
+        "phaseRank": 6
+      },
+      {
+        "drawNo": 5,
+        "name": "郭希霖",
+        "licence": "20190305M202402210402",
+        "club": "安徽熊猫",
+        "poolId": 135188,
+        "boutCells": {
+          "Result1": "2",
+          "Result2": "V",
+          "Result3": "4",
+          "Result4": "V",
+          "Result5": "",
+          "Result6": "V",
+          "Result7": "V"
+        },
+        "wins": 4,
+        "matches": 6,
+        "winRate": 0.667,
+        "hitsScored": 26,
+        "hitsReceived": 8,
+        "indicator": 18,
+        "phaseRank": 3
+      },
+      {
+        "drawNo": 6,
+        "name": "吴著宸",
+        "licence": "20190110M202501201154",
+        "club": "武汉海外双优",
+        "poolId": 135188,
+        "boutCells": {
+          "Result1": "2",
+          "Result2": "V",
+          "Result3": "0",
+          "Result4": "4",
+          "Result5": "0",
+          "Result6": "",
+          "Result7": "1"
+        },
+        "wins": 1,
+        "matches": 6,
+        "winRate": 0.167,
+        "hitsScored": 12,
+        "hitsReceived": 27,
+        "indicator": -15,
+        "phaseRank": 5
+      },
+      {
+        "drawNo": 7,
+        "name": "王博言",
+        "licence": "20190221M202303280645",
+        "club": "武汉风云",
+        "poolId": 135188,
+        "boutCells": {
+          "Result1": "1",
+          "Result2": "V",
+          "Result3": "2",
+          "Result4": "V",
+          "Result5": "0",
+          "Result6": "V",
+          "Result7": ""
+        },
+        "wins": 3,
+        "matches": 6,
+        "winRate": 0.5,
+        "hitsScored": 18,
+        "hitsReceived": 19,
+        "indicator": -1,
+        "phaseRank": 4
+      },
+      {
+        "drawNo": 1,
+        "name": "罗安玄",
+        "licence": "20190315M202502070438",
+        "club": "个人",
+        "poolId": 135189,
+        "boutCells": {
+          "Result1": "",
+          "Result2": "V",
+          "Result3": "V",
+          "Result4": "V",
+          "Result5": "2",
+          "Result6": "V",
+          "Result7": "3"
+        },
+        "wins": 4,
+        "matches": 6,
+        "winRate": 0.667,
+        "hitsScored": 25,
+        "hitsReceived": 18,
+        "indicator": 7,
+        "phaseRank": 2
+      },
+      {
+        "drawNo": 2,
+        "name": "韩释成",
+        "licence": "20200217M202502090249",
+        "club": "湖南振翔",
+        "poolId": 135189,
+        "boutCells": {
+          "Result1": "1",
+          "Result2": "",
+          "Result3": "V",
+          "Result4": "V",
+          "Result5": "0",
+          "Result6": "3",
+          "Result7": "1"
+        },
+        "wins": 2,
+        "matches": 6,
+        "winRate": 0.333,
+        "hitsScored": 15,
+        "hitsReceived": 21,
+        "indicator": -6,
+        "phaseRank": 5
+      },
+      {
+        "drawNo": 3,
+        "name": "蔡嘉懿",
+        "licence": "20200115M202502080956",
+        "club": "湖南省剑协",
+        "poolId": 135189,
+        "boutCells": {
+          "Result1": "2",
+          "Result2": "1",
+          "Result3": "",
+          "Result4": "1",
+          "Result5": "0",
+          "Result6": "1",
+          "Result7": "1"
+        },
+        "wins": 0,
+        "matches": 6,
+        "winRate": 0,
+        "hitsScored": 6,
+        "hitsReceived": 30,
+        "indicator": -24,
+        "phaseRank": 7
+      },
+      {
+        "drawNo": 4,
+        "name": "方子豪",
+        "licence": "20190106M202410180425",
+        "club": "个人",
+        "poolId": 135189,
+        "boutCells": {
+          "Result1": "2",
+          "Result2": "0",
+          "Result3": "V",
+          "Result4": "",
+          "Result5": "0",
+          "Result6": "2",
+          "Result7": "V"
+        },
+        "wins": 2,
+        "matches": 6,
+        "winRate": 0.333,
+        "hitsScored": 14,
+        "hitsReceived": 24,
+        "indicator": -10,
+        "phaseRank": 6
+      },
+      {
+        "drawNo": 5,
+        "name": "马星野",
+        "licence": "20190618M202311071015",
+        "club": "南京艾鲁特",
+        "poolId": 135189,
+        "boutCells": {
+          "Result1": "V",
+          "Result2": "V",
+          "Result3": "V",
+          "Result4": "V",
+          "Result5": "",
+          "Result6": "V",
+          "Result7": "V"
+        },
+        "wins": 6,
+        "matches": 6,
+        "winRate": 1,
+        "hitsScored": 30,
+        "hitsReceived": 4,
+        "indicator": 26,
+        "phaseRank": 1
+      },
+      {
+        "drawNo": 6,
+        "name": "周衍",
+        "licence": "20190317M202408040612",
+        "club": "安徽熊猫",
+        "poolId": 135189,
+        "boutCells": {
+          "Result1": "3",
+          "Result2": "V",
+          "Result3": "V",
+          "Result4": "V",
+          "Result5": "1",
+          "Result6": "",
+          "Result7": "4"
+        },
+        "wins": 3,
+        "matches": 6,
+        "winRate": 0.5,
+        "hitsScored": 23,
+        "hitsReceived": 21,
+        "indicator": 2,
+        "phaseRank": 4
+      },
+      {
+        "drawNo": 7,
+        "name": "熊翊清",
+        "licence": "19810614M202104130417",
+        "club": "湖北优肯",
+        "poolId": 135189,
+        "boutCells": {
+          "Result1": "V",
+          "Result2": "V",
+          "Result3": "V",
+          "Result4": "3",
+          "Result5": "1",
+          "Result6": "V",
+          "Result7": ""
+        },
+        "wins": 4,
+        "matches": 6,
+        "winRate": 0.667,
+        "hitsScored": 24,
+        "hitsReceived": 19,
+        "indicator": 5,
+        "phaseRank": 3
+      }
+    ],
+    "poolBouts": [
+      {
+        "poolId": 135188,
+        "caseCode": "CASE7",
+        "order": 1,
+        "matchOrder": 1,
+        "homeNumber": 1,
+        "awayNumber": 4,
+        "homeLabel": "1：栗南乔(个人)",
+        "awayLabel": "4：周平安(武汉御剑)",
+        "homeScore": "V",
+        "awayScore": 0
+      },
+      {
+        "poolId": 135188,
+        "caseCode": "CASE7",
+        "order": 2,
+        "matchOrder": 2,
+        "homeNumber": 2,
+        "awayNumber": 5,
+        "homeLabel": "2：田亦珉(湖南聚力)",
+        "awayLabel": "5：郭希霖(安徽熊猫)",
+        "homeScore": 0,
+        "awayScore": "V"
+      },
+      {
+        "poolId": 135188,
+        "caseCode": "CASE7",
+        "order": 3,
+        "matchOrder": 3,
+        "homeNumber": 3,
+        "awayNumber": 6,
+        "homeLabel": "3：李沐勋(武汉武昌万国)",
+        "awayLabel": "6：吴著宸(武汉海外双优)",
+        "homeScore": "V",
+        "awayScore": 0
+      },
+      {
+        "poolId": 135188,
+        "caseCode": "CASE7",
+        "order": 4,
+        "matchOrder": 4,
+        "homeNumber": 7,
+        "awayNumber": 1,
+        "homeLabel": "7：王博言(武汉风云)",
+        "awayLabel": "1：栗南乔(个人)",
+        "homeScore": 1,
+        "awayScore": "V"
+      },
+      {
+        "poolId": 135188,
+        "caseCode": "CASE7",
+        "order": 5,
+        "matchOrder": 5,
+        "homeNumber": 5,
+        "awayNumber": 4,
+        "homeLabel": "5：郭希霖(安徽熊猫)",
+        "awayLabel": "4：周平安(武汉御剑)",
+        "homeScore": "V",
+        "awayScore": 0
+      },
+      {
+        "poolId": 135188,
+        "caseCode": "CASE7",
+        "order": 6,
+        "matchOrder": 6,
+        "homeNumber": 2,
+        "awayNumber": 3,
+        "homeLabel": "2：田亦珉(湖南聚力)",
+        "awayLabel": "3：李沐勋(武汉武昌万国)",
+        "homeScore": 0,
+        "awayScore": "V"
+      },
+      {
+        "poolId": 135188,
+        "caseCode": "CASE7",
+        "order": 7,
+        "matchOrder": 7,
+        "homeNumber": 6,
+        "awayNumber": 7,
+        "homeLabel": "6：吴著宸(武汉海外双优)",
+        "awayLabel": "7：王博言(武汉风云)",
+        "homeScore": 1,
+        "awayScore": "V"
+      },
+      {
+        "poolId": 135188,
+        "caseCode": "CASE7",
+        "order": 8,
+        "matchOrder": 8,
+        "homeNumber": 5,
+        "awayNumber": 1,
+        "homeLabel": "5：郭希霖(安徽熊猫)",
+        "awayLabel": "1：栗南乔(个人)",
+        "homeScore": 2,
+        "awayScore": null
+      },
+      {
+        "poolId": 135188,
+        "caseCode": "CASE7",
+        "order": 9,
+        "matchOrder": 9,
+        "homeNumber": 4,
+        "awayNumber": 3,
+        "homeLabel": "4：周平安(武汉御剑)",
+        "awayLabel": "3：李沐勋(武汉武昌万国)",
+        "homeScore": 0,
+        "awayScore": "V"
+      },
+      {
+        "poolId": 135188,
+        "caseCode": "CASE7",
+        "order": 10,
+        "matchOrder": 10,
+        "homeNumber": 6,
+        "awayNumber": 2,
+        "homeLabel": "6：吴著宸(武汉海外双优)",
+        "awayLabel": "2：田亦珉(湖南聚力)",
+        "homeScore": "V",
+        "awayScore": 2
+      },
+      {
+        "poolId": 135188,
+        "caseCode": "CASE7",
+        "order": 11,
+        "matchOrder": 11,
+        "homeNumber": 5,
+        "awayNumber": 7,
+        "homeLabel": "5：郭希霖(安徽熊猫)",
+        "awayLabel": "7：王博言(武汉风云)",
+        "homeScore": "V",
+        "awayScore": 0
+      },
+      {
+        "poolId": 135188,
+        "caseCode": "CASE7",
+        "order": 12,
+        "matchOrder": 12,
+        "homeNumber": 3,
+        "awayNumber": 1,
+        "homeLabel": "3：李沐勋(武汉武昌万国)",
+        "awayLabel": "1：栗南乔(个人)",
+        "homeScore": 1,
+        "awayScore": "V"
+      },
+      {
+        "poolId": 135188,
+        "caseCode": "CASE7",
+        "order": 13,
+        "matchOrder": 13,
+        "homeNumber": 4,
+        "awayNumber": 6,
+        "homeLabel": "4：周平安(武汉御剑)",
+        "awayLabel": "6：吴著宸(武汉海外双优)",
+        "homeScore": "V",
+        "awayScore": 4
+      },
+      {
+        "poolId": 135188,
+        "caseCode": "CASE7",
+        "order": 14,
+        "matchOrder": 14,
+        "homeNumber": 7,
+        "awayNumber": 2,
+        "homeLabel": "7：王博言(武汉风云)",
+        "awayLabel": "2：田亦珉(湖南聚力)",
+        "homeScore": "V",
+        "awayScore": 1
+      },
+      {
+        "poolId": 135188,
+        "caseCode": "CASE7",
+        "order": 15,
+        "matchOrder": 15,
+        "homeNumber": 3,
+        "awayNumber": 5,
+        "homeLabel": "3：李沐勋(武汉武昌万国)",
+        "awayLabel": "5：郭希霖(安徽熊猫)",
+        "homeScore": "V",
+        "awayScore": 4
+      },
+      {
+        "poolId": 135188,
+        "caseCode": "CASE7",
+        "order": 16,
+        "matchOrder": 16,
+        "homeNumber": 1,
+        "awayNumber": 6,
+        "homeLabel": "1：栗南乔(个人)",
+        "awayLabel": "6：吴著宸(武汉海外双优)",
+        "homeScore": "V",
+        "awayScore": 2
+      },
+      {
+        "poolId": 135188,
+        "caseCode": "CASE7",
+        "order": 17,
+        "matchOrder": 17,
+        "homeNumber": 2,
+        "awayNumber": 4,
+        "homeLabel": "2：田亦珉(湖南聚力)",
+        "awayLabel": "4：周平安(武汉御剑)",
+        "homeScore": "V",
+        "awayScore": 4
+      },
+      {
+        "poolId": 135188,
+        "caseCode": "CASE7",
+        "order": 18,
+        "matchOrder": 18,
+        "homeNumber": 7,
+        "awayNumber": 3,
+        "homeLabel": "7：王博言(武汉风云)",
+        "awayLabel": "3：李沐勋(武汉武昌万国)",
+        "homeScore": 2,
+        "awayScore": "V"
+      },
+      {
+        "poolId": 135188,
+        "caseCode": "CASE7",
+        "order": 19,
+        "matchOrder": 19,
+        "homeNumber": 6,
+        "awayNumber": 5,
+        "homeLabel": "6：吴著宸(武汉海外双优)",
+        "awayLabel": "5：郭希霖(安徽熊猫)",
+        "homeScore": 0,
+        "awayScore": "V"
+      },
+      {
+        "poolId": 135188,
+        "caseCode": "CASE7",
+        "order": 20,
+        "matchOrder": 20,
+        "homeNumber": 1,
+        "awayNumber": 2,
+        "homeLabel": "1：栗南乔(个人)",
+        "awayLabel": "2：田亦珉(湖南聚力)",
+        "homeScore": "V",
+        "awayScore": 0
+      },
+      {
+        "poolId": 135188,
+        "caseCode": "CASE7",
+        "order": 21,
+        "matchOrder": 21,
+        "homeNumber": 4,
+        "awayNumber": 7,
+        "homeLabel": "4：周平安(武汉御剑)",
+        "awayLabel": "7：王博言(武汉风云)",
+        "homeScore": 2,
+        "awayScore": "V"
+      },
+      {
+        "poolId": 135189,
+        "caseCode": "CASE7",
+        "order": 1,
+        "matchOrder": 1,
+        "homeNumber": 1,
+        "awayNumber": 4,
+        "homeLabel": "1：罗安玄(个人)",
+        "awayLabel": "4：方子豪(个人)",
+        "homeScore": "V",
+        "awayScore": 2
+      },
+      {
+        "poolId": 135189,
+        "caseCode": "CASE7",
+        "order": 2,
+        "matchOrder": 2,
+        "homeNumber": 2,
+        "awayNumber": 5,
+        "homeLabel": "2：韩释成(湖南振翔)",
+        "awayLabel": "5：马星野(南京艾鲁特)",
+        "homeScore": 0,
+        "awayScore": "V"
+      },
+      {
+        "poolId": 135189,
+        "caseCode": "CASE7",
+        "order": 3,
+        "matchOrder": 3,
+        "homeNumber": 3,
+        "awayNumber": 6,
+        "homeLabel": "3：蔡嘉懿(湖南省剑协)",
+        "awayLabel": "6：周衍(安徽熊猫)",
+        "homeScore": 1,
+        "awayScore": "V"
+      },
+      {
+        "poolId": 135189,
+        "caseCode": "CASE7",
+        "order": 4,
+        "matchOrder": 4,
+        "homeNumber": 7,
+        "awayNumber": 1,
+        "homeLabel": "7：熊翊清(湖北优肯)",
+        "awayLabel": "1：罗安玄(个人)",
+        "homeScore": "V",
+        "awayScore": 3
+      },
+      {
+        "poolId": 135189,
+        "caseCode": "CASE7",
+        "order": 5,
+        "matchOrder": 5,
+        "homeNumber": 5,
+        "awayNumber": 4,
+        "homeLabel": "5：马星野(南京艾鲁特)",
+        "awayLabel": "4：方子豪(个人)",
+        "homeScore": "V",
+        "awayScore": 0
+      },
+      {
+        "poolId": 135189,
+        "caseCode": "CASE7",
+        "order": 6,
+        "matchOrder": 6,
+        "homeNumber": 2,
+        "awayNumber": 3,
+        "homeLabel": "2：韩释成(湖南振翔)",
+        "awayLabel": "3：蔡嘉懿(湖南省剑协)",
+        "homeScore": "V",
+        "awayScore": 1
+      },
+      {
+        "poolId": 135189,
+        "caseCode": "CASE7",
+        "order": 7,
+        "matchOrder": 7,
+        "homeNumber": 6,
+        "awayNumber": 7,
+        "homeLabel": "6：周衍(安徽熊猫)",
+        "awayLabel": "7：熊翊清(湖北优肯)",
+        "homeScore": 4,
+        "awayScore": "V"
+      },
+      {
+        "poolId": 135189,
+        "caseCode": "CASE7",
+        "order": 8,
+        "matchOrder": 8,
+        "homeNumber": 5,
+        "awayNumber": 1,
+        "homeLabel": "5：马星野(南京艾鲁特)",
+        "awayLabel": "1：罗安玄(个人)",
+        "homeScore": "V",
+        "awayScore": 2
+      },
+      {
+        "poolId": 135189,
+        "caseCode": "CASE7",
+        "order": 9,
+        "matchOrder": 9,
+        "homeNumber": 4,
+        "awayNumber": 3,
+        "homeLabel": "4：方子豪(个人)",
+        "awayLabel": "3：蔡嘉懿(湖南省剑协)",
+        "homeScore": "V",
+        "awayScore": 1
+      },
+      {
+        "poolId": 135189,
+        "caseCode": "CASE7",
+        "order": 10,
+        "matchOrder": 10,
+        "homeNumber": 6,
+        "awayNumber": 2,
+        "homeLabel": "6：周衍(安徽熊猫)",
+        "awayLabel": "2：韩释成(湖南振翔)",
+        "homeScore": "V",
+        "awayScore": 3
+      },
+      {
+        "poolId": 135189,
+        "caseCode": "CASE7",
+        "order": 11,
+        "matchOrder": 11,
+        "homeNumber": 5,
+        "awayNumber": 7,
+        "homeLabel": "5：马星野(南京艾鲁特)",
+        "awayLabel": "7：熊翊清(湖北优肯)",
+        "homeScore": "V",
+        "awayScore": 1
+      },
+      {
+        "poolId": 135189,
+        "caseCode": "CASE7",
+        "order": 12,
+        "matchOrder": 12,
+        "homeNumber": 3,
+        "awayNumber": 1,
+        "homeLabel": "3：蔡嘉懿(湖南省剑协)",
+        "awayLabel": "1：罗安玄(个人)",
+        "homeScore": 2,
+        "awayScore": "V"
+      },
+      {
+        "poolId": 135189,
+        "caseCode": "CASE7",
+        "order": 13,
+        "matchOrder": 13,
+        "homeNumber": 4,
+        "awayNumber": 6,
+        "homeLabel": "4：方子豪(个人)",
+        "awayLabel": "6：周衍(安徽熊猫)",
+        "homeScore": 2,
+        "awayScore": "V"
+      },
+      {
+        "poolId": 135189,
+        "caseCode": "CASE7",
+        "order": 14,
+        "matchOrder": 14,
+        "homeNumber": 7,
+        "awayNumber": 2,
+        "homeLabel": "7：熊翊清(湖北优肯)",
+        "awayLabel": "2：韩释成(湖南振翔)",
+        "homeScore": "V",
+        "awayScore": 1
+      },
+      {
+        "poolId": 135189,
+        "caseCode": "CASE7",
+        "order": 15,
+        "matchOrder": 15,
+        "homeNumber": 3,
+        "awayNumber": 5,
+        "homeLabel": "3：蔡嘉懿(湖南省剑协)",
+        "awayLabel": "5：马星野(南京艾鲁特)",
+        "homeScore": 0,
+        "awayScore": "V"
+      },
+      {
+        "poolId": 135189,
+        "caseCode": "CASE7",
+        "order": 16,
+        "matchOrder": 16,
+        "homeNumber": 1,
+        "awayNumber": 6,
+        "homeLabel": "1：罗安玄(个人)",
+        "awayLabel": "6：周衍(安徽熊猫)",
+        "homeScore": "V",
+        "awayScore": 3
+      },
+      {
+        "poolId": 135189,
+        "caseCode": "CASE7",
+        "order": 17,
+        "matchOrder": 17,
+        "homeNumber": 2,
+        "awayNumber": 4,
+        "homeLabel": "2：韩释成(湖南振翔)",
+        "awayLabel": "4：方子豪(个人)",
+        "homeScore": "V",
+        "awayScore": 0
+      },
+      {
+        "poolId": 135189,
+        "caseCode": "CASE7",
+        "order": 18,
+        "matchOrder": 18,
+        "homeNumber": 7,
+        "awayNumber": 3,
+        "homeLabel": "7：熊翊清(湖北优肯)",
+        "awayLabel": "3：蔡嘉懿(湖南省剑协)",
+        "homeScore": "V",
+        "awayScore": 1
+      },
+      {
+        "poolId": 135189,
+        "caseCode": "CASE7",
+        "order": 19,
+        "matchOrder": 19,
+        "homeNumber": 6,
+        "awayNumber": 5,
+        "homeLabel": "6：周衍(安徽熊猫)",
+        "awayLabel": "5：马星野(南京艾鲁特)",
+        "homeScore": 1,
+        "awayScore": "V"
+      },
+      {
+        "poolId": 135189,
+        "caseCode": "CASE7",
+        "order": 20,
+        "matchOrder": 20,
+        "homeNumber": 1,
+        "awayNumber": 2,
+        "homeLabel": "1：罗安玄(个人)",
+        "awayLabel": "2：韩释成(湖南振翔)",
+        "homeScore": "V",
+        "awayScore": 1
+      },
+      {
+        "poolId": 135189,
+        "caseCode": "CASE7",
+        "order": 21,
+        "matchOrder": 21,
+        "homeNumber": 4,
+        "awayNumber": 7,
+        "homeLabel": "4：方子豪(个人)",
+        "awayLabel": "7：熊翊清(湖北优肯)",
+        "homeScore": "V",
+        "awayScore": 3
+      }
+    ],
+    "eliminationMatches": [
+      {
+        "matchId": 390143,
+        "matchCode": "Pre001",
+        "phaseId": 135190,
+        "phase": {
+          "shortName": "T16",
+          "longName": "16表",
+          "order": 1,
+          "code": "4",
+          "group": "1_0"
+        },
+        "groupCode": "4_0",
+        "innerOrder": 1,
+        "home": {
+          "position": 1,
+          "name": "马星野",
+          "licence": "20190618M202311071015",
+          "club": "南京艾鲁特",
+          "points": null,
+          "result": "W"
+        },
+        "away": {
+          "position": 16,
+          "name": "Bye",
+          "licence": null,
+          "club": null,
+          "points": null,
+          "result": "L"
+        },
+        "winner": {
+          "name": "马星野",
+          "club": "南京艾鲁特"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": true
+      },
+      {
+        "matchId": 390144,
+        "matchCode": "Pre002",
+        "phaseId": 135190,
+        "phase": {
+          "shortName": "T16",
+          "longName": "16表",
+          "order": 1,
+          "code": "4",
+          "group": "1_0"
+        },
+        "groupCode": "4_0",
+        "innerOrder": 2,
+        "home": {
+          "position": 9,
+          "name": "韩释成",
+          "licence": "20200217M202502090249",
+          "club": "湖南振翔",
+          "points": 3,
+          "result": "L"
+        },
+        "away": {
+          "position": 8,
+          "name": "王博言",
+          "licence": "20190221M202303280645",
+          "club": "武汉风云",
+          "points": 10,
+          "result": "W"
+        },
+        "winner": {
+          "name": "王博言",
+          "club": "武汉风云"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 390145,
+        "matchCode": "Pre003",
+        "phaseId": 135190,
+        "phase": {
+          "shortName": "T16",
+          "longName": "16表",
+          "order": 1,
+          "code": "4",
+          "group": "1_0"
+        },
+        "groupCode": "4_1",
+        "innerOrder": 1,
+        "home": {
+          "position": 5,
+          "name": "罗安玄",
+          "licence": "20190315M202502070438",
+          "club": "个人",
+          "points": null,
+          "result": "W"
+        },
+        "away": {
+          "position": 12,
+          "name": "Bye",
+          "licence": null,
+          "club": null,
+          "points": null,
+          "result": "L"
+        },
+        "winner": {
+          "name": "罗安玄",
+          "club": "个人"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": true
+      },
+      {
+        "matchId": 390146,
+        "matchCode": "Pre004",
+        "phaseId": 135190,
+        "phase": {
+          "shortName": "T16",
+          "longName": "16表",
+          "order": 1,
+          "code": "4",
+          "group": "1_0"
+        },
+        "groupCode": "4_1",
+        "innerOrder": 2,
+        "home": {
+          "position": 13,
+          "name": "Bye",
+          "licence": null,
+          "club": null,
+          "points": null,
+          "result": "L"
+        },
+        "away": {
+          "position": 4,
+          "name": "郭希霖",
+          "licence": "20190305M202402210402",
+          "club": "安徽熊猫",
+          "points": null,
+          "result": "W"
+        },
+        "winner": {
+          "name": "郭希霖",
+          "club": "安徽熊猫"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": true
+      },
+      {
+        "matchId": 390147,
+        "matchCode": "Pre005",
+        "phaseId": 135190,
+        "phase": {
+          "shortName": "T16",
+          "longName": "16表",
+          "order": 1,
+          "code": "4",
+          "group": "1_0"
+        },
+        "groupCode": "4_2",
+        "innerOrder": 1,
+        "home": {
+          "position": 3,
+          "name": "李沐勋",
+          "licence": "20191205M202502160628",
+          "club": "武汉武昌万国",
+          "points": null,
+          "result": "W"
+        },
+        "away": {
+          "position": 14,
+          "name": "Bye",
+          "licence": null,
+          "club": null,
+          "points": null,
+          "result": "L"
+        },
+        "winner": {
+          "name": "李沐勋",
+          "club": "武汉武昌万国"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": true
+      },
+      {
+        "matchId": 390148,
+        "matchCode": "Pre006",
+        "phaseId": 135190,
+        "phase": {
+          "shortName": "T16",
+          "longName": "16表",
+          "order": 1,
+          "code": "4",
+          "group": "1_0"
+        },
+        "groupCode": "4_2",
+        "innerOrder": 2,
+        "home": {
+          "position": 11,
+          "name": "吴著宸",
+          "licence": "20190110M202501201154",
+          "club": "武汉海外双优",
+          "points": 4,
+          "result": "L"
+        },
+        "away": {
+          "position": 6,
+          "name": "熊翊清",
+          "licence": "19810614M202104130417",
+          "club": "湖北优肯",
+          "points": 10,
+          "result": "W"
+        },
+        "winner": {
+          "name": "熊翊清",
+          "club": "湖北优肯"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 390149,
+        "matchCode": "Pre007",
+        "phaseId": 135190,
+        "phase": {
+          "shortName": "T16",
+          "longName": "16表",
+          "order": 1,
+          "code": "4",
+          "group": "1_0"
+        },
+        "groupCode": "4_3",
+        "innerOrder": 1,
+        "home": {
+          "position": 7,
+          "name": "周衍",
+          "licence": "20190317M202408040612",
+          "club": "安徽熊猫",
+          "points": 10,
+          "result": "W"
+        },
+        "away": {
+          "position": 10,
+          "name": "方子豪",
+          "licence": "20190106M202410180425",
+          "club": "个人",
+          "points": 5,
+          "result": "L"
+        },
+        "winner": {
+          "name": "周衍",
+          "club": "安徽熊猫"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 390150,
+        "matchCode": "Pre008",
+        "phaseId": 135190,
+        "phase": {
+          "shortName": "T16",
+          "longName": "16表",
+          "order": 1,
+          "code": "4",
+          "group": "1_0"
+        },
+        "groupCode": "4_3",
+        "innerOrder": 2,
+        "home": {
+          "position": 15,
+          "name": "Bye",
+          "licence": null,
+          "club": null,
+          "points": null,
+          "result": "L"
+        },
+        "away": {
+          "position": 2,
+          "name": "栗南乔",
+          "licence": "20190718M202501140613",
+          "club": "个人",
+          "points": null,
+          "result": "W"
+        },
+        "winner": {
+          "name": "栗南乔",
+          "club": "个人"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": true
+      },
+      {
+        "matchId": 390151,
+        "matchCode": "Pre001",
+        "phaseId": 135191,
+        "phase": {
+          "shortName": "T8",
+          "longName": "8表",
+          "order": 2,
+          "code": "3",
+          "group": "2_0"
+        },
+        "groupCode": "3_0",
+        "innerOrder": 1,
+        "home": {
+          "position": 1,
+          "name": "马星野",
+          "licence": "20190618M202311071015",
+          "club": "南京艾鲁特",
+          "points": 10,
+          "result": "W"
+        },
+        "away": {
+          "position": 8,
+          "name": "王博言",
+          "licence": "20190221M202303280645",
+          "club": "武汉风云",
+          "points": 1,
+          "result": "L"
+        },
+        "winner": {
+          "name": "马星野",
+          "club": "南京艾鲁特"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 390152,
+        "matchCode": "Pre002",
+        "phaseId": 135191,
+        "phase": {
+          "shortName": "T8",
+          "longName": "8表",
+          "order": 2,
+          "code": "3",
+          "group": "2_0"
+        },
+        "groupCode": "3_0",
+        "innerOrder": 2,
+        "home": {
+          "position": 5,
+          "name": "罗安玄",
+          "licence": "20190315M202502070438",
+          "club": "个人",
+          "points": 7,
+          "result": "L"
+        },
+        "away": {
+          "position": 4,
+          "name": "郭希霖",
+          "licence": "20190305M202402210402",
+          "club": "安徽熊猫",
+          "points": 10,
+          "result": "W"
+        },
+        "winner": {
+          "name": "郭希霖",
+          "club": "安徽熊猫"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 390153,
+        "matchCode": "Pre003",
+        "phaseId": 135191,
+        "phase": {
+          "shortName": "T8",
+          "longName": "8表",
+          "order": 2,
+          "code": "3",
+          "group": "2_0"
+        },
+        "groupCode": "3_1",
+        "innerOrder": 1,
+        "home": {
+          "position": 3,
+          "name": "李沐勋",
+          "licence": "20191205M202502160628",
+          "club": "武汉武昌万国",
+          "points": 10,
+          "result": "W"
+        },
+        "away": {
+          "position": 6,
+          "name": "熊翊清",
+          "licence": "19810614M202104130417",
+          "club": "湖北优肯",
+          "points": 4,
+          "result": "L"
+        },
+        "winner": {
+          "name": "李沐勋",
+          "club": "武汉武昌万国"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 390154,
+        "matchCode": "Pre004",
+        "phaseId": 135191,
+        "phase": {
+          "shortName": "T8",
+          "longName": "8表",
+          "order": 2,
+          "code": "3",
+          "group": "2_0"
+        },
+        "groupCode": "3_1",
+        "innerOrder": 2,
+        "home": {
+          "position": 7,
+          "name": "周衍",
+          "licence": "20190317M202408040612",
+          "club": "安徽熊猫",
+          "points": 6,
+          "result": "L"
+        },
+        "away": {
+          "position": 2,
+          "name": "栗南乔",
+          "licence": "20190718M202501140613",
+          "club": "个人",
+          "points": 10,
+          "result": "W"
+        },
+        "winner": {
+          "name": "栗南乔",
+          "club": "个人"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 390155,
+        "matchCode": "Pre001",
+        "phaseId": 135192,
+        "phase": {
+          "shortName": "T4",
+          "longName": "半决赛",
+          "order": 3,
+          "code": "2",
+          "group": "3_0"
+        },
+        "groupCode": "2_0",
+        "innerOrder": 1,
+        "home": {
+          "position": 1,
+          "name": "马星野",
+          "licence": "20190618M202311071015",
+          "club": "南京艾鲁特",
+          "points": 10,
+          "result": "W"
+        },
+        "away": {
+          "position": 4,
+          "name": "郭希霖",
+          "licence": "20190305M202402210402",
+          "club": "安徽熊猫",
+          "points": 6,
+          "result": "L"
+        },
+        "winner": {
+          "name": "马星野",
+          "club": "南京艾鲁特"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 390156,
+        "matchCode": "Pre002",
+        "phaseId": 135192,
+        "phase": {
+          "shortName": "T4",
+          "longName": "半决赛",
+          "order": 3,
+          "code": "2",
+          "group": "3_0"
+        },
+        "groupCode": "2_0",
+        "innerOrder": 2,
+        "home": {
+          "position": 3,
+          "name": "李沐勋",
+          "licence": "20191205M202502160628",
+          "club": "武汉武昌万国",
+          "points": 4,
+          "result": "L"
+        },
+        "away": {
+          "position": 2,
+          "name": "栗南乔",
+          "licence": "20190718M202501140613",
+          "club": "个人",
+          "points": 10,
+          "result": "W"
+        },
+        "winner": {
+          "name": "栗南乔",
+          "club": "个人"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 390157,
+        "matchCode": "Pre001",
+        "phaseId": 135193,
+        "phase": {
+          "shortName": "T2",
+          "longName": "决赛",
+          "order": 4,
+          "code": "1",
+          "group": "4_0"
+        },
+        "groupCode": "1_0",
+        "innerOrder": 1,
+        "home": {
+          "position": 1,
+          "name": "马星野",
+          "licence": "20190618M202311071015",
+          "club": "南京艾鲁特",
+          "points": 10,
+          "result": "W"
+        },
+        "away": {
+          "position": 2,
+          "name": "栗南乔",
+          "licence": "20190718M202501140613",
+          "club": "个人",
+          "points": 6,
+          "result": "L"
+        },
+        "winner": {
+          "name": "马星野",
+          "club": "南京艾鲁特"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      }
+    ]
+  },
+  "completeness": [
+    {
+      "section": "General",
+      "rows": 1,
+      "fields": [
+        {
+          "key": "SportName",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "2025年长沙市青少年击剑公开赛"
+          ]
+        },
+        {
+          "key": "EventName",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "U6男子花剑个人"
+          ]
+        },
+        {
+          "key": "OpenDate",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "2025.03.09"
+          ]
+        },
+        {
+          "key": "Venue",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "湖南•长沙市"
+          ]
+        },
+        {
+          "key": "CompetitionNo",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            14
+          ]
+        },
+        {
+          "key": "ExemptionNo",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            0
+          ]
+        },
+        {
+          "key": "PoolFencerNo",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            14
+          ]
+        },
+        {
+          "key": "PoolQualifyNo",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            11
+          ]
+        },
+        {
+          "key": "PDEstartPhase",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "none"
+          ]
+        },
+        {
+          "key": "DEstartPhase",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "from Tableaus 16"
+          ]
+        },
+        {
+          "key": "Scode",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "RZSS20250308"
+          ]
+        },
+        {
+          "key": "Ecode",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "RZSS20250308MFIU6"
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Classment",
+      "rows": 14,
+      "fields": [
+        {
+          "key": "EventShowRank",
+          "nonEmpty": 14,
+          "fillRate": 1,
+          "sampleValues": [
+            "1",
+            "2",
+            "3",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9"
+          ]
+        },
+        {
+          "key": "EventRank",
+          "nonEmpty": 14,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            5,
+            6,
+            7,
+            8,
+            9
+          ]
+        },
+        {
+          "key": "Fencer",
+          "nonEmpty": 14,
+          "fillRate": 1,
+          "sampleValues": [
+            "马星野",
+            "栗南乔",
+            "郭希霖",
+            "李沐勋",
+            "罗安玄",
+            "熊翊清",
+            "周衍",
+            "王博言"
+          ]
+        },
+        {
+          "key": "Licence",
+          "nonEmpty": 14,
+          "fillRate": 1,
+          "sampleValues": [
+            "20190618M202311071015",
+            "20190718M202501140613",
+            "20190305M202402210402",
+            "20191205M202502160628",
+            "20190315M202502070438",
+            "19810614M202104130417",
+            "20190317M202408040612",
+            "20190221M202303280645"
+          ]
+        },
+        {
+          "key": "NOCCode",
+          "nonEmpty": 14,
+          "fillRate": 1,
+          "sampleValues": [
+            "南京艾鲁特",
+            "个人",
+            "安徽熊猫",
+            "武汉武昌万国",
+            "湖北优肯",
+            "武汉风云",
+            "湖南振翔",
+            "武汉海外双优"
+          ]
+        },
+        {
+          "key": "Birthday",
+          "nonEmpty": 14,
+          "fillRate": 1,
+          "sampleValues": [
+            "2019-06-18",
+            "2019-07-18",
+            "2019-03-05",
+            "2019-12-05",
+            "2019-03-15",
+            "2019-01-08",
+            "2019-03-17",
+            "2019-02-21"
+          ]
+        },
+        {
+          "key": "Medal",
+          "nonEmpty": 4,
+          "fillRate": 0.2857,
+          "sampleValues": [
+            "金",
+            "银",
+            "铜"
+          ]
+        },
+        {
+          "key": "Statut",
+          "nonEmpty": 14,
+          "fillRate": 1,
+          "sampleValues": [
+            "N"
+          ]
+        },
+        {
+          "key": "F_EventDisPos",
+          "nonEmpty": 14,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ]
+        },
+        {
+          "key": "QualifyStatusId",
+          "nonEmpty": 14,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "section": "IniStarts",
+      "rows": 14,
+      "fields": [
+        {
+          "key": "IRank",
+          "nonEmpty": 14,
+          "fillRate": 1,
+          "sampleValues": [
+            15
+          ]
+        },
+        {
+          "key": "IPoints",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "Fencer",
+          "nonEmpty": 14,
+          "fillRate": 1,
+          "sampleValues": [
+            "罗安玄",
+            "马星野",
+            "蔡嘉懿",
+            "李沐勋",
+            "郭希霖",
+            "栗南乔",
+            "方子豪",
+            "田亦珉"
+          ]
+        },
+        {
+          "key": "NOCCode",
+          "nonEmpty": 14,
+          "fillRate": 1,
+          "sampleValues": [
+            "个人",
+            "南京艾鲁特",
+            "湖南省剑协",
+            "武汉武昌万国",
+            "安徽熊猫",
+            "湖南聚力",
+            "湖北优肯",
+            "湖南振翔"
+          ]
+        },
+        {
+          "key": "Birthday",
+          "nonEmpty": 14,
+          "fillRate": 1,
+          "sampleValues": [
+            "2019-03-15",
+            "2019-06-18",
+            "2020-01-15",
+            "2019-12-05",
+            "2019-03-05",
+            "2019-07-18",
+            "2019-01-06",
+            "2019-01-05"
+          ]
+        },
+        {
+          "key": "Licence",
+          "nonEmpty": 14,
+          "fillRate": 1,
+          "sampleValues": [
+            "20190315M202502070438",
+            "20190618M202311071015",
+            "20200115M202502080956",
+            "20191205M202502160628",
+            "20190305M202402210402",
+            "20190718M202501140613",
+            "20190106M202410180425",
+            "20190105M202502130845"
+          ]
+        },
+        {
+          "key": "DisPos",
+          "nonEmpty": 14,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "section": "PoolStanding",
+      "rows": 14,
+      "fields": [
+        {
+          "key": "Rank",
+          "nonEmpty": 14,
+          "fillRate": 1,
+          "sampleValues": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8"
+          ]
+        },
+        {
+          "key": "DisPos",
+          "nonEmpty": 14,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ]
+        },
+        {
+          "key": "Name",
+          "nonEmpty": 14,
+          "fillRate": 1,
+          "sampleValues": [
+            "马星野",
+            "栗南乔",
+            "李沐勋",
+            "郭希霖",
+            "罗安玄",
+            "熊翊清",
+            "周衍",
+            "王博言"
+          ]
+        },
+        {
+          "key": "Licence",
+          "nonEmpty": 14,
+          "fillRate": 1,
+          "sampleValues": [
+            "20190618M202311071015",
+            "20190718M202501140613",
+            "20191205M202502160628",
+            "20190305M202402210402",
+            "20190315M202502070438",
+            "19810614M202104130417",
+            "20190317M202408040612",
+            "20190221M202303280645"
+          ]
+        },
+        {
+          "key": "Delegation",
+          "nonEmpty": 14,
+          "fillRate": 1,
+          "sampleValues": [
+            "南京艾鲁特",
+            "个人",
+            "武汉武昌万国",
+            "安徽熊猫",
+            "湖北优肯",
+            "武汉风云",
+            "湖南振翔",
+            "武汉海外双优"
+          ]
+        },
+        {
+          "key": "V",
+          "nonEmpty": 14,
+          "fillRate": 1,
+          "sampleValues": [
+            6,
+            5,
+            4,
+            3,
+            2,
+            1,
+            0
+          ]
+        },
+        {
+          "key": "M",
+          "nonEmpty": 14,
+          "fillRate": 1,
+          "sampleValues": [
+            6
+          ]
+        },
+        {
+          "key": "Index",
+          "nonEmpty": 14,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            0.833,
+            0.667,
+            0.5,
+            0.333,
+            0.167,
+            0
+          ]
+        },
+        {
+          "key": "HS",
+          "nonEmpty": 14,
+          "fillRate": 1,
+          "sampleValues": [
+            30,
+            28,
+            26,
+            25,
+            24,
+            23,
+            18,
+            15
+          ]
+        },
+        {
+          "key": "HR",
+          "nonEmpty": 14,
+          "fillRate": 1,
+          "sampleValues": [
+            4,
+            6,
+            11,
+            8,
+            18,
+            19,
+            21,
+            24
+          ]
+        },
+        {
+          "key": "HSMHR",
+          "nonEmpty": 14,
+          "fillRate": 1,
+          "sampleValues": [
+            26,
+            22,
+            15,
+            18,
+            7,
+            5,
+            2,
+            -1
+          ]
+        },
+        {
+          "key": "Remark",
+          "nonEmpty": 14,
+          "fillRate": 1,
+          "sampleValues": [
+            "Q",
+            "E"
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Pools",
+      "rows": 2,
+      "fields": [
+        {
+          "key": "PoolNo",
+          "nonEmpty": 2,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2
+          ]
+        },
+        {
+          "key": "Piste",
+          "nonEmpty": 2,
+          "fillRate": 1,
+          "sampleValues": [
+            "剑道：D3",
+            "剑道：D4"
+          ]
+        },
+        {
+          "key": "StartTime",
+          "nonEmpty": 2,
+          "fillRate": 1,
+          "sampleValues": [
+            "09:30"
+          ]
+        },
+        {
+          "key": "PoolReferee",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "PoolID",
+          "nonEmpty": 2,
+          "fillRate": 1,
+          "sampleValues": [
+            135188,
+            135189
+          ]
+        },
+        {
+          "key": "PhaseCode",
+          "nonEmpty": 2,
+          "fillRate": 1,
+          "sampleValues": [
+            "P1",
+            "P2"
+          ]
+        },
+        {
+          "key": "PoolStatus",
+          "nonEmpty": 2,
+          "fillRate": 1,
+          "sampleValues": [
+            7
+          ]
+        }
+      ]
+    },
+    {
+      "section": "PoolResults",
+      "rows": 14,
+      "fields": [
+        {
+          "key": "DrawNo",
+          "nonEmpty": 14,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ]
+        },
+        {
+          "key": "Fencer",
+          "nonEmpty": 14,
+          "fillRate": 1,
+          "sampleValues": [
+            "栗南乔",
+            "田亦珉",
+            "李沐勋",
+            "周平安",
+            "郭希霖",
+            "吴著宸",
+            "王博言",
+            "罗安玄"
+          ]
+        },
+        {
+          "key": "Licence",
+          "nonEmpty": 14,
+          "fillRate": 1,
+          "sampleValues": [
+            "20190718M202501140613",
+            "20190105M202502130845",
+            "20191205M202502160628",
+            "20190117M202402081202",
+            "20190305M202402210402",
+            "20190110M202501201154",
+            "20190221M202303280645",
+            "20190315M202502070438"
+          ]
+        },
+        {
+          "key": "Delegation",
+          "nonEmpty": 14,
+          "fillRate": 1,
+          "sampleValues": [
+            "个人",
+            "湖南聚力",
+            "武汉武昌万国",
+            "武汉御剑",
+            "安徽熊猫",
+            "武汉海外双优",
+            "武汉风云",
+            "湖南振翔"
+          ]
+        },
+        {
+          "key": "Result1",
+          "nonEmpty": 12,
+          "fillRate": 0.8571,
+          "sampleValues": [
+            "0",
+            "1",
+            "2",
+            "V",
+            "3"
+          ]
+        },
+        {
+          "key": "Result2",
+          "nonEmpty": 12,
+          "fillRate": 0.8571,
+          "sampleValues": [
+            "V",
+            "4",
+            "1",
+            "0"
+          ]
+        },
+        {
+          "key": "Result3",
+          "nonEmpty": 12,
+          "fillRate": 0.8571,
+          "sampleValues": [
+            "V",
+            "0",
+            "4",
+            "2"
+          ]
+        },
+        {
+          "key": "Result4",
+          "nonEmpty": 12,
+          "fillRate": 0.8571,
+          "sampleValues": [
+            "V",
+            "4",
+            "1",
+            "3"
+          ]
+        },
+        {
+          "key": "Result5",
+          "nonEmpty": 12,
+          "fillRate": 0.8571,
+          "sampleValues": [
+            "V3",
+            "0",
+            "V",
+            "2",
+            "1"
+          ]
+        },
+        {
+          "key": "Result6",
+          "nonEmpty": 12,
+          "fillRate": 0.8571,
+          "sampleValues": [
+            "V",
+            "2",
+            "3",
+            "1"
+          ]
+        },
+        {
+          "key": "Result7",
+          "nonEmpty": 12,
+          "fillRate": 0.8571,
+          "sampleValues": [
+            "V",
+            "1",
+            "2",
+            "3",
+            "4"
+          ]
+        },
+        {
+          "key": "WinCount",
+          "nonEmpty": 14,
+          "fillRate": 1,
+          "sampleValues": [
+            6,
+            1,
+            5,
+            4,
+            3,
+            2,
+            0
+          ]
+        },
+        {
+          "key": "MatchCount",
+          "nonEmpty": 14,
+          "fillRate": 1,
+          "sampleValues": [
+            6
+          ]
+        },
+        {
+          "key": "IndexChar",
+          "nonEmpty": 14,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            0.167,
+            0.833,
+            0.667,
+            0.5,
+            0.333,
+            0
+          ]
+        },
+        {
+          "key": "TG",
+          "nonEmpty": 14,
+          "fillRate": 1,
+          "sampleValues": [
+            28,
+            8,
+            26,
+            11,
+            12,
+            18,
+            25,
+            15
+          ]
+        },
+        {
+          "key": "TR",
+          "nonEmpty": 14,
+          "fillRate": 1,
+          "sampleValues": [
+            6,
+            29,
+            11,
+            8,
+            27,
+            19,
+            18,
+            21
+          ]
+        },
+        {
+          "key": "Diff",
+          "nonEmpty": 14,
+          "fillRate": 1,
+          "sampleValues": [
+            22,
+            -21,
+            15,
+            -18,
+            18,
+            -15,
+            -1,
+            7
+          ]
+        },
+        {
+          "key": "PhaseRank",
+          "nonEmpty": 14,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            7,
+            2,
+            6,
+            3,
+            5,
+            4
+          ]
+        },
+        {
+          "key": "PoolID",
+          "nonEmpty": 14,
+          "fillRate": 1,
+          "sampleValues": [
+            135188,
+            135189
+          ]
+        }
+      ]
+    },
+    {
+      "section": "PRDetails",
+      "rows": 42,
+      "fields": [
+        {
+          "key": "CaseCode",
+          "nonEmpty": 42,
+          "fillRate": 1,
+          "sampleValues": [
+            "CASE7"
+          ]
+        },
+        {
+          "key": "Order",
+          "nonEmpty": 42,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ]
+        },
+        {
+          "key": "NumberHome",
+          "nonEmpty": 42,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            7,
+            5,
+            6,
+            4
+          ]
+        },
+        {
+          "key": "NumberAway",
+          "nonEmpty": 42,
+          "fillRate": 1,
+          "sampleValues": [
+            4,
+            5,
+            6,
+            1,
+            3,
+            7,
+            2
+          ]
+        },
+        {
+          "key": "PoolID",
+          "nonEmpty": 42,
+          "fillRate": 1,
+          "sampleValues": [
+            135188,
+            135189
+          ]
+        },
+        {
+          "key": "MatchOrder",
+          "nonEmpty": 42,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ]
+        },
+        {
+          "key": "HomeFencer",
+          "nonEmpty": 42,
+          "fillRate": 1,
+          "sampleValues": [
+            "1：栗南乔(个人)",
+            "2：田亦珉(湖南聚力)",
+            "3：李沐勋(武汉武昌万国)",
+            "7：王博言(武汉风云)",
+            "5：郭希霖(安徽熊猫)",
+            "6：吴著宸(武汉海外双优)",
+            "4：周平安(武汉御剑)",
+            "1：罗安玄(个人)"
+          ]
+        },
+        {
+          "key": "AwayFencer",
+          "nonEmpty": 42,
+          "fillRate": 1,
+          "sampleValues": [
+            "4：周平安(武汉御剑)",
+            "5：郭希霖(安徽熊猫)",
+            "6：吴著宸(武汉海外双优)",
+            "1：栗南乔(个人)",
+            "3：李沐勋(武汉武昌万国)",
+            "7：王博言(武汉风云)",
+            "2：田亦珉(湖南聚力)",
+            "4：方子豪(个人)"
+          ]
+        },
+        {
+          "key": "HScore",
+          "nonEmpty": 42,
+          "fillRate": 1,
+          "sampleValues": [
+            "V",
+            "0",
+            "1",
+            "2",
+            "4"
+          ]
+        },
+        {
+          "key": "AScore",
+          "nonEmpty": 42,
+          "fillRate": 1,
+          "sampleValues": [
+            "0",
+            "V",
+            "V3",
+            "2",
+            "4",
+            "1",
+            "3"
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Phases",
+      "rows": 1,
+      "fields": [
+        {
+          "key": "PhasePID",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            135187
+          ]
+        },
+        {
+          "key": "PhaseName",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "直接淘汰赛"
+          ]
+        },
+        {
+          "key": "Porder",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            3
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Tableaus",
+      "rows": 4,
+      "fields": [
+        {
+          "key": "PshortDes",
+          "nonEmpty": 4,
+          "fillRate": 1,
+          "sampleValues": [
+            "T16",
+            "T8",
+            "T4",
+            "T2"
+          ]
+        },
+        {
+          "key": "PLongDes",
+          "nonEmpty": 4,
+          "fillRate": 1,
+          "sampleValues": [
+            "16表",
+            "8表",
+            "半决赛",
+            "决赛"
+          ]
+        },
+        {
+          "key": "Porder",
+          "nonEmpty": 4,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            4
+          ]
+        },
+        {
+          "key": "PhaseID",
+          "nonEmpty": 4,
+          "fillRate": 1,
+          "sampleValues": [
+            135190,
+            135191,
+            135192,
+            135193
+          ]
+        },
+        {
+          "key": "PhasePID",
+          "nonEmpty": 4,
+          "fillRate": 1,
+          "sampleValues": [
+            135187
+          ]
+        },
+        {
+          "key": "PhaseGroup",
+          "nonEmpty": 4,
+          "fillRate": 1,
+          "sampleValues": [
+            "1_0",
+            "2_0",
+            "3_0",
+            "4_0"
+          ]
+        },
+        {
+          "key": "PhaseCode",
+          "nonEmpty": 4,
+          "fillRate": 1,
+          "sampleValues": [
+            "4",
+            "3",
+            "2",
+            "1"
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Matchs",
+      "rows": 15,
+      "fields": [
+        {
+          "key": "MatchCode",
+          "nonEmpty": 15,
+          "fillRate": 1,
+          "sampleValues": [
+            "Pre001",
+            "Pre002",
+            "Pre003",
+            "Pre004",
+            "Pre005",
+            "Pre006",
+            "Pre007",
+            "Pre008"
+          ]
+        },
+        {
+          "key": "HomePosition",
+          "nonEmpty": 15,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            9,
+            5,
+            13,
+            3,
+            11,
+            7,
+            15
+          ]
+        },
+        {
+          "key": "HomeFencer",
+          "nonEmpty": 15,
+          "fillRate": 1,
+          "sampleValues": [
+            "马星野",
+            "韩释成",
+            "罗安玄",
+            "Bye",
+            "李沐勋",
+            "吴著宸",
+            "周衍"
+          ]
+        },
+        {
+          "key": "HomeLicence",
+          "nonEmpty": 13,
+          "fillRate": 0.8667,
+          "sampleValues": [
+            "20190618M202311071015",
+            "20200217M202502090249",
+            "20190315M202502070438",
+            "20191205M202502160628",
+            "20190110M202501201154",
+            "20190317M202408040612"
+          ]
+        },
+        {
+          "key": "HomeNOC",
+          "nonEmpty": 13,
+          "fillRate": 0.8667,
+          "sampleValues": [
+            "南京艾鲁特",
+            "湖南振翔",
+            "个人",
+            "武汉武昌万国",
+            "武汉海外双优",
+            "安徽熊猫"
+          ]
+        },
+        {
+          "key": "HomePoints",
+          "nonEmpty": 10,
+          "fillRate": 0.6667,
+          "sampleValues": [
+            3,
+            4,
+            10,
+            7,
+            6
+          ]
+        },
+        {
+          "key": "HomeWLT",
+          "nonEmpty": 15,
+          "fillRate": 1,
+          "sampleValues": [
+            "W",
+            "L"
+          ]
+        },
+        {
+          "key": "AwayPosition",
+          "nonEmpty": 15,
+          "fillRate": 1,
+          "sampleValues": [
+            16,
+            8,
+            12,
+            4,
+            14,
+            6,
+            10,
+            2
+          ]
+        },
+        {
+          "key": "AwayFencer",
+          "nonEmpty": 15,
+          "fillRate": 1,
+          "sampleValues": [
+            "Bye",
+            "王博言",
+            "郭希霖",
+            "熊翊清",
+            "方子豪",
+            "栗南乔"
+          ]
+        },
+        {
+          "key": "AwayLicence",
+          "nonEmpty": 12,
+          "fillRate": 0.8,
+          "sampleValues": [
+            "20190221M202303280645",
+            "20190305M202402210402",
+            "19810614M202104130417",
+            "20190106M202410180425",
+            "20190718M202501140613"
+          ]
+        },
+        {
+          "key": "AwayNOC",
+          "nonEmpty": 12,
+          "fillRate": 0.8,
+          "sampleValues": [
+            "武汉风云",
+            "安徽熊猫",
+            "湖北优肯",
+            "个人"
+          ]
+        },
+        {
+          "key": "AwayPoints",
+          "nonEmpty": 10,
+          "fillRate": 0.6667,
+          "sampleValues": [
+            10,
+            5,
+            1,
+            4,
+            6
+          ]
+        },
+        {
+          "key": "AwayWLT",
+          "nonEmpty": 15,
+          "fillRate": 1,
+          "sampleValues": [
+            "L",
+            "W"
+          ]
+        },
+        {
+          "key": "Piste",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "StartTime",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "Winner",
+          "nonEmpty": 15,
+          "fillRate": 1,
+          "sampleValues": [
+            "马星野",
+            "王博言",
+            "罗安玄",
+            "郭希霖",
+            "李沐勋",
+            "熊翊清",
+            "周衍",
+            "栗南乔"
+          ]
+        },
+        {
+          "key": "WinnerNOC",
+          "nonEmpty": 15,
+          "fillRate": 1,
+          "sampleValues": [
+            "南京艾鲁特",
+            "武汉风云",
+            "个人",
+            "安徽熊猫",
+            "武汉武昌万国",
+            "湖北优肯"
+          ]
+        },
+        {
+          "key": "MatchID",
+          "nonEmpty": 15,
+          "fillRate": 1,
+          "sampleValues": [
+            390143,
+            390144,
+            390145,
+            390146,
+            390147,
+            390148,
+            390149,
+            390150
+          ]
+        },
+        {
+          "key": "PhaseID",
+          "nonEmpty": 15,
+          "fillRate": 1,
+          "sampleValues": [
+            135190,
+            135191,
+            135192,
+            135193
+          ]
+        },
+        {
+          "key": "GroupCode",
+          "nonEmpty": 15,
+          "fillRate": 1,
+          "sampleValues": [
+            "4_0",
+            "4_1",
+            "4_2",
+            "4_3",
+            "3_0",
+            "3_1",
+            "2_0",
+            "1_0"
+          ]
+        },
+        {
+          "key": "F_InnerOrder",
+          "nonEmpty": 15,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2
+          ]
+        }
+      ]
+    }
+  ],
+  "analysisCapabilities": [
+    "项目概要",
+    "最终排名",
+    "初始排位",
+    "小组赛排名",
+    "小组赛每场比分",
+    "小组赛晋级人数",
+    "淘汰赛阶段结构",
+    "淘汰赛每场比分",
+    "选手完整比赛路径",
+    "对手交手记录",
+    "胜负和净胜剑统计"
+  ],
+  "privacyRecommendation": {
+    "publicFields": [
+      "rank",
+      "name",
+      "club",
+      "scores",
+      "winner",
+      "medal"
+    ],
+    "privateFields": [
+      "Licence",
+      "Birthday"
+    ],
+    "note": "Licence 和 Birthday 只用于内部消歧，不建议公开展示。"
+  }
+}
