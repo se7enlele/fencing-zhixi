@@ -206,7 +206,7 @@ export function buildPreEventCompetitions({
       ...competition,
       itemCount: competition.items.length,
       dateLabel,
-      status: competition.items.length ? inferStatusFromDates(competition.items) : competition.status,
+      status: competition.platformMeta ? competition.status : (competition.items.length ? inferStatusFromDates(competition.items) : competition.status),
       rosterStatus: rosterCount ? (isComplete ? 'complete' : 'partial') : 'none',
       registrationSummary: {
         rosterCount,

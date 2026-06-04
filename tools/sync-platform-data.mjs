@@ -32,6 +32,9 @@ function parseArgs(argv) {
     rosterLimit: 5,
     rosterPageSize: 10,
     rosterMaxPages: 3,
+    rosterAgeGroups: [],
+    rosterWeapons: [],
+    rosterItemTypes: [],
     sportId: null,
     startAfterSportId: null,
     progress: true,
@@ -58,6 +61,9 @@ function parseArgs(argv) {
     if (arg === '--roster-limit') args.rosterLimit = Number(argv[++i]);
     if (arg === '--roster-page-size') args.rosterPageSize = Number(argv[++i]);
     if (arg === '--roster-max-pages') args.rosterMaxPages = Number(argv[++i]);
+    if (arg === '--roster-age-groups') args.rosterAgeGroups = argv[++i].split(',').map((value) => value.trim()).filter(Boolean);
+    if (arg === '--roster-weapons') args.rosterWeapons = argv[++i].split(',').map((value) => value.trim()).filter(Boolean);
+    if (arg === '--roster-item-types') args.rosterItemTypes = argv[++i].split(',').map((value) => value.trim()).filter(Boolean);
     if (arg === '--sport-id') args.sportId = Number(argv[++i]);
     if (arg === '--start-after-sport-id') args.startAfterSportId = Number(argv[++i]);
     if (arg === '--quiet') args.progress = false;
@@ -290,6 +296,23 @@ async function writeReport(outputDir, fileName, report) {
   await writeFile(path.join(outputDir, fileName), stableStringify(report), 'utf8');
 }
 
+async function fetchJsonTextWithRetry(url, args, context = {}) {
+  const attempts = 3;
+  let lastError = null;
+  for (let attempt = 1; attempt <= attempts; attempt += 1) {
+    try {
+      return parseJsonOrJsObject(await fetchText(url, args.timeoutSec));
+    } catch (error) {
+      lastError = error;
+      if (attempt < attempts) {
+        progress(args, 'fetch retry', { ...context, attempt, message: error.message });
+        await sleep(Math.max(args.delayMs, 500) * attempt);
+      }
+    }
+  }
+  throw lastError;
+}
+
 async function syncProjectlist(event, args, files, log) {
   const fileName = projectlistFileName(event.sportId);
   if (!args.forceProjectlist && files.has(fileName)) {
@@ -305,7 +328,7 @@ async function syncProjectlist(event, args, files, log) {
   }
 
   progress(args, 'projectlist fetch', { sportId: event.sportId, sportCode: event.sportCode, sportName: event.sportName });
-  const payload = parseJsonOrJsObject(await fetchText(url, args.timeoutSec));
+  const payload = await fetchJsonTextWithRetry(url, args, { sportId: event.sportId, sportCode: event.sportCode, type: 'projectlist' });
   const rows = projectRowsFromPayload(payload);
   const report = buildProjectListReport(rows, {
     sourceUrl: url,
@@ -355,6 +378,15 @@ async function syncScoreItem(item, args, files, log) {
 
 function rosterUserType(item) {
   return item.itemTypeCode === 'T' || item.itemType === '团体' ? 'team' : 'athlete';
+}
+
+function filterRosterItems(items, args) {
+  return (items || []).filter((item) => {
+    if (args.rosterAgeGroups.length && !args.rosterAgeGroups.includes(item.ageGroup)) return false;
+    if (args.rosterWeapons.length && !args.rosterWeapons.includes(item.weapon)) return false;
+    if (args.rosterItemTypes.length && !args.rosterItemTypes.includes(item.itemType)) return false;
+    return true;
+  });
 }
 
 function expectedRosterPages(report, pageSize) {
@@ -456,6 +488,9 @@ async function main() {
     rosterLimit: args.rosterLimit,
     rosterPageSize: args.rosterPageSize,
     rosterMaxPages: args.rosterMaxPages,
+    rosterAgeGroups: args.rosterAgeGroups,
+    rosterWeapons: args.rosterWeapons,
+    rosterItemTypes: args.rosterItemTypes,
     sportId: args.sportId,
     startAfterSportId: args.startAfterSportId,
     selected: selected.map((event) => ({
@@ -509,9 +544,10 @@ async function main() {
         }
       }
       if (args.roster && projectReport) {
+        const filteredRosterItems = filterRosterItems(projectReport.normalizedItems || [], args);
         const rosterItems = Number.isFinite(args.rosterLimit) && args.rosterLimit > 0
-          ? (projectReport.normalizedItems || []).slice(0, args.rosterLimit)
-          : (projectReport.normalizedItems || []);
+          ? filteredRosterItems.slice(0, args.rosterLimit)
+          : filteredRosterItems;
         for (const item of rosterItems) {
           await syncRosterItem(item, args, files, log);
           await sleep(args.delayMs);

@@ -64,8 +64,8 @@ const projectListReport = {
     sourceSportCode: 'REG001',
     sourceEventCode: 'REG001U10MF',
     itemName: 'U10 Foil',
-    startDate: '2026-10-01 08:00:00',
-    endDate: '2026-10-02 18:00:00',
+    startDate: '2026-04-01 08:00:00',
+    endDate: '2026-04-02 18:00:00',
     participantCount: 24,
   }],
 };
@@ -79,5 +79,6 @@ const enriched = competitions.find((row) => row.sportCode === 'REG001');
 assert.equal(enriched.items.length, 1);
 assert.equal(enriched.items[0].competitionNo, 24);
 assert.equal(enriched.platformMeta.sourceCoverage, 'event-list-plus-projectlist');
+assert.equal(enriched.status, 'registration');
 
 console.log('platform event list parsing is covered');
