@@ -16,7 +16,9 @@ const SCORE_INDEX_KEY = 'score:index';
 const PROJECTLIST_INDEX_KEY = 'projectlist:index';
 const ROSTER_INDEX_KEY = 'registration-roster:index';
 const MAX_IMPORT_BYTES = 20 * 1024 * 1024;
+let bundledIndexPromise = null;
 let bundledDataPromise = null;
+const chunkObjectPromises = new Map();
 
 function json(payload, status = 200) {
   return new Response(JSON.stringify(payload), {
@@ -77,22 +79,50 @@ async function readJsonKv(kv, key, fallback = null) {
   }
 }
 
-async function loadBundledData(env) {
-  if (!bundledDataPromise) {
-    bundledDataPromise = (async () => {
+async function loadBundledIndex(env) {
+  if (!bundledIndexPromise) {
+    bundledIndexPromise = (async () => {
       const response = await env.ASSETS.fetch(new Request('https://assets.local/data/public-data-index.json'));
       if (!response.ok) {
         throw new Error(`Unable to load bundled data asset: ${response.status}`);
       }
-      const index = await response.json();
+      return response.json();
+    })();
+  }
+  return bundledIndexPromise;
+}
+
+async function loadChunkObject(env, assetPath) {
+  if (!assetPath) return {};
+  if (!chunkObjectPromises.has(assetPath)) {
+    chunkObjectPromises.set(assetPath, (async () => {
+      const response = await env.ASSETS.fetch(new Request(`https://assets.local${assetPath}`));
+      if (!response.ok) {
+        throw new Error(`Unable to load bundled data chunk ${assetPath}: ${response.status}`);
+      }
+      return response.json();
+    })());
+  }
+  return chunkObjectPromises.get(assetPath);
+}
+
+async function findInChunks(env, paths = [], key) {
+  if (!key) return null;
+  for (const assetPath of paths || []) {
+    const chunk = await loadChunkObject(env, assetPath);
+    if (chunk && Object.prototype.hasOwnProperty.call(chunk, key)) {
+      return chunk[key];
+    }
+  }
+  return null;
+}
+
+async function loadBundledData(env) {
+  if (!bundledDataPromise) {
+    bundledDataPromise = (async () => {
+      const index = await loadBundledIndex(env);
       const loadChunks = async (paths = []) => {
-        const objects = await Promise.all(paths.map(async (assetPath) => {
-          const chunkResponse = await env.ASSETS.fetch(new Request(`https://assets.local${assetPath}`));
-          if (!chunkResponse.ok) {
-            throw new Error(`Unable to load bundled data chunk ${assetPath}: ${chunkResponse.status}`);
-          }
-          return chunkResponse.json();
-        }));
+        const objects = await Promise.all((paths || []).map((assetPath) => loadChunkObject(env, assetPath)));
         return Object.assign({}, ...objects);
       };
       return {
@@ -416,39 +446,44 @@ async function handleAdminImport(request, env, url) {
 
 async function routeApi(request, env, url) {
   if (url.pathname === '/api/events' && request.method === 'GET') {
-    const merged = await getMergedData(env);
-    return json(merged.publicEvents);
+    const index = await loadBundledIndex(env);
+    return json(index.publicEvents);
   }
 
   if (url.pathname.startsWith('/api/competitions/') && request.method === 'GET') {
-    const merged = await getMergedData(env);
+    const index = await loadBundledIndex(env);
     const sportCode = decodeURIComponent(url.pathname.replace('/api/competitions/', ''));
-    const competition = merged.publicEvents.competitions.find((item) => item.sportCode === sportCode);
+    const competition = (index.publicEvents.competitions || []).find((item) => item.sportCode === sportCode);
     return competition
-      ? json({ ok: true, version: merged.version, competition })
+      ? json({ ok: true, version: index.version, competition })
       : json({ ok: false, message: '未找到比赛数据。' }, 404);
   }
 
   if (url.pathname.startsWith('/api/events/') && request.method === 'GET') {
-    const merged = await getMergedData(env);
+    const index = await loadBundledIndex(env);
     const eventCode = decodeURIComponent(url.pathname.replace('/api/events/', ''));
-    const event = merged.eventsByCode[eventCode] || findProjectOnlyEvent(merged.publicEvents, eventCode);
-    return event ? json({ ok: true, version: merged.version, event }) : json({ ok: false, message: '项目不存在。' }, 404);
+    const dynamicReport = await readJsonKv(env.FOLLOWS, `score:${eventCode}`, null);
+    const event = dynamicReport?.general?.eventCode
+      ? buildEventDetail(dynamicReport, `kv-score-${eventCode}-analysis.json`)
+      : await findInChunks(env, index.chunks?.eventsByCode, eventCode) || findProjectOnlyEvent(index.publicEvents, eventCode);
+    return event ? json({ ok: true, version: index.version, event }) : json({ ok: false, message: '项目不存在。' }, 404);
   }
 
   if (url.pathname.startsWith('/api/athletes/') && request.method === 'GET') {
-    const merged = await getMergedData(env);
+    const index = await loadBundledIndex(env);
     const athleteId = decodeURIComponent(url.pathname.replace('/api/athletes/', ''));
-    const athlete = merged.athletesById[athleteId];
-    return athlete ? json({ ok: true, version: merged.version, athlete }) : json({ ok: false, message: '选手不存在。' }, 404);
+    const athlete = await findInChunks(env, index.chunks?.athletesById, athleteId);
+    return athlete ? json({ ok: true, version: index.version, athlete }) : json({ ok: false, message: '选手不存在。' }, 404);
   }
 
   if (url.pathname.startsWith('/api/clubs/') && request.method === 'GET') {
-    const merged = await getMergedData(env);
+    const index = await loadBundledIndex(env);
     const rawClubId = url.pathname.replace('/api/clubs/', '');
     const decodedClubId = decodeURIComponent(rawClubId);
-    const club = merged.clubsById[rawClubId] || merged.clubsById[decodedClubId] || merged.clubsById[encodeURIComponent(decodedClubId)];
-    return club ? json({ ok: true, version: merged.version, club }) : json({ ok: false, message: '俱乐部不存在。' }, 404);
+    const club = await findInChunks(env, index.chunks?.clubsById, rawClubId)
+      || await findInChunks(env, index.chunks?.clubsById, decodedClubId)
+      || await findInChunks(env, index.chunks?.clubsById, encodeURIComponent(decodedClubId));
+    return club ? json({ ok: true, version: index.version, club }) : json({ ok: false, message: '俱乐部不存在。' }, 404);
   }
 
   if (url.pathname === '/api/me/follows') {

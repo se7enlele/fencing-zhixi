@@ -57,9 +57,41 @@ const eventEntries = await Promise.all(
 const athletes = await getAthleteDirectory();
 const clubs = await getClubDirectory();
 
+function compactAthleteForIndex(athlete) {
+  return {
+    id: athlete.id,
+    name: athlete.name,
+    club: athlete.club,
+    bestRank: athlete.bestRank ?? null,
+    appearances: athlete.appearances || 0,
+    medals: athlete.medals || 0,
+    top8: athlete.top8 || 0,
+    latestDate: athlete.latestDate || null,
+    latestRank: athlete.latestRank ?? null,
+    latestEventName: athlete.latestEventName || null,
+    eliminationWins: athlete.eliminationWins || 0,
+    eliminationLosses: athlete.eliminationLosses || 0,
+  };
+}
+
+function compactClubForIndex(club) {
+  return {
+    id: club.id,
+    club: club.club,
+    entrants: club.entrants || 0,
+    medals: club.medals || 0,
+    top8: club.top8 || 0,
+    bestRank: club.bestRank ?? null,
+  };
+}
+
 const payload = {
   version: publicEvents.version,
-  publicEvents: workerPublicEvents,
+  publicEvents: {
+    ...workerPublicEvents,
+    athletes: athletes.map(compactAthleteForIndex),
+    clubs: clubs.map(compactClubForIndex),
+  },
   eventsByCode: Object.fromEntries(eventEntries),
   athletesById: Object.fromEntries(athletes.map((athlete) => [athlete.id, athlete])),
   clubsById: Object.fromEntries(clubs.map((club) => [club.id, club])),

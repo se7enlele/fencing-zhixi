@@ -11,8 +11,14 @@ if (start === -1 || end === -1 || end <= start) {
 
 assert.match(
   source,
-  /merged\.eventsByCode\[eventCode\]\s*\|\|\s*findProjectOnlyEvent\(merged\.publicEvents,\s*eventCode\)/,
+  /findInChunks\(env,\s*index\.chunks\?\.eventsByCode,\s*eventCode\)\s*\|\|\s*findProjectOnlyEvent\(index\.publicEvents,\s*eventCode\)/,
   'Worker /api/events route must fall back to project-only event details',
+);
+
+assert.doesNotMatch(
+  source,
+  /url\.pathname === '\/api\/events'[\s\S]{0,160}getMergedData\(env\)/,
+  'Worker /api/events must not load the full bundled detail dataset',
 );
 
 const context = {};
