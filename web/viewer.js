@@ -2073,15 +2073,18 @@ function renderAnalysisCharts(event) {
 function renderLeaders(event) {
   const rows = event.eliminationLeaders || [];
   leadersList.innerHTML = rows.length
-    ? rows.map((row) => `
-      <div class="leader-card">
-        <div>
-          <strong>${escapeHtml(row.name)}</strong>
-          <div class="subline">${escapeHtml(row.club || '')} · ${row.wins}胜${row.losses}负 · 净胜 ${row.diff}</div>
+    ? rows.map((row) => {
+      const hasScore = row.scored !== undefined && row.scored !== null && row.received !== undefined && row.received !== null;
+      return `
+        <div class="leader-card">
+          <div>
+            <strong>${escapeHtml(row.name)}</strong>
+            <div class="subline">${escapeHtml(row.club || '')} · ${row.wins}胜${row.losses}负 · 净胜 ${row.diff}</div>
+          </div>
+          <div class="value">${hasScore ? `${escapeHtml(row.scored)}:${escapeHtml(row.received)}` : '-'}</div>
         </div>
-        <div class="value">${row.scored}:${row.received}</div>
-      </div>
-    `).join('')
+      `;
+    }).join('')
     : '<div class="empty">暂无淘汰赛统计</div>';
 }
 

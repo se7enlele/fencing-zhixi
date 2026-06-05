@@ -458,6 +458,23 @@ export function buildEventDetail(report, fileName) {
   const eliminationMatches = report.normalized?.eliminationMatches ?? [];
   const playedElimination = eliminationMatches.filter((match) => !match.isBye);
   const poolByLicence = new Map(poolResults.filter((row) => row.licence).map((row) => [row.licence, row]));
+  const athleteStats = new Map();
+
+  function ensureAthlete(name, licence, club) {
+    const key = licence || `${name || ''}-${club || ''}`;
+    if (!athleteStats.has(key)) {
+      athleteStats.set(key, {
+        name,
+        licence,
+        club,
+        wins: 0,
+        losses: 0,
+        scored: 0,
+        received: 0,
+      });
+    }
+    return athleteStats.get(key);
+  }
 
   const eliminationPhaseGroups = Object.values(playedElimination.reduce((groups, match) => {
     const key = match.phase?.longName || '淘汰赛';
@@ -466,8 +483,28 @@ export function buildEventDetail(report, fileName) {
     return groups;
   }, {})).sort((a, b) => a.order - b.order);
 
+  for (const match of playedElimination) {
+    const home = ensureAthlete(match.home.name, match.home.licence, match.home.club);
+    const away = ensureAthlete(match.away.name, match.away.licence, match.away.club);
+    const homeScore = Number(match.home.points ?? 0);
+    const awayScore = Number(match.away.points ?? 0);
+    home.scored += homeScore;
+    home.received += awayScore;
+    away.scored += awayScore;
+    away.received += homeScore;
+
+    if (match.home.result === 'W') {
+      home.wins += 1;
+      away.losses += 1;
+    } else {
+      home.losses += 1;
+      away.wins += 1;
+    }
+  }
+
   const participants = classment.map((entry) => {
     const pool = entry.licence ? poolByLicence.get(entry.licence) : null;
+    const elim = entry.licence ? athleteStats.get(entry.licence) : null;
     return {
       id: makeAthleteId(entry.name, entry.licence, entry.club),
       name: entry.name,
@@ -482,18 +519,10 @@ export function buildEventDetail(report, fileName) {
       poolWins: pool?.wins ?? null,
       poolMatches: pool?.matches ?? null,
       poolDiff: pool?.indicator ?? null,
-      eliminationWins: 0,
-      eliminationLosses: 0,
+      eliminationWins: elim?.wins ?? 0,
+      eliminationLosses: elim?.losses ?? 0,
     };
   });
-
-  const participantByLicence = new Map(participants.filter((item) => item.licence).map((item) => [item.licence, item]));
-  for (const match of playedElimination) {
-    const home = participantByLicence.get(match.home.licence);
-    const away = participantByLicence.get(match.away.licence);
-    if (home) match.home.result === 'W' ? home.eliminationWins += 1 : home.eliminationLosses += 1;
-    if (away) match.away.result === 'W' ? away.eliminationWins += 1 : away.eliminationLosses += 1;
-  }
 
   const poolGroups = Object.values(poolResults.reduce((groups, row) => {
     const poolId = row.poolId || 'unknown';
@@ -561,8 +590,17 @@ export function buildEventDetail(report, fileName) {
     poolBouts: poolBouts.slice(0, 40),
     poolGroups,
     participants,
-    eliminationLeaders: participants
-      .map((item) => ({ ...item, wins: item.eliminationWins, losses: item.eliminationLosses, diff: item.eliminationWins - item.eliminationLosses }))
+    eliminationLeaders: [...athleteStats.values()]
+      .map((item) => ({
+        id: makeAthleteId(item.name, item.licence, item.club),
+        name: item.name,
+        club: item.club,
+        wins: item.wins,
+        losses: item.losses,
+        scored: item.scored,
+        received: item.received,
+        diff: item.scored - item.received,
+      }))
       .sort((a, b) => b.wins - a.wins || b.diff - a.diff)
       .slice(0, 10),
     championPath: playedElimination.filter((match) => match.winner.name === champion?.name).map((match) => ({
