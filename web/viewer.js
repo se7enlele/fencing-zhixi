@@ -87,7 +87,11 @@ const state = {
   followedAthletes: [],
   isDataLoading: true,
   dataLoadError: '',
+  searchRequestId: 0,
+  lastSearchKeyword: '',
 };
+
+let searchDebounceTimer = null;
 
 async function fetchJson(path) {
   const response = await fetch(path);
@@ -750,28 +754,56 @@ function applyCompetitionFilter() {
     const matchKeyword = !keyword || tokens.every((token) => haystack.includes(token)) || haystack.includes(compactKeyword);
     return matchRegion && matchYear && matchItem && matchStatus && matchKeyword;
   });
-  state.athleteSearchResults = keyword ? state.athleteSearchIndex
-    .filter((athlete) => tokens.every((token) => athlete.searchText.includes(token)) || athlete.searchText.replace(/\s+/g, '').includes(compactKeyword))
-    .map((athlete) => ({
-      ...athlete,
-      matchScore: entityMatchScore(athlete, keyword, [athlete.name, athlete.club]),
-      matchReason: athleteMatchReason(athlete, keyword),
-    }))
-    .sort((a, b) => b.matchScore - a.matchScore || (a.name?.length || 99) - (b.name?.length || 99) || (a.bestRank ?? 999) - (b.bestRank ?? 999) || b.appearances - a.appearances)
-    .slice(0, athleteSearchResultLimit(keyword)) : [];
-  state.clubSearchResults = keyword ? state.clubSearchIndex
-    .filter((club) => tokens.every((token) => club.searchText.includes(token)) || club.searchText.replace(/\s+/g, '').includes(compactKeyword))
-    .map((club) => ({
-      ...club,
-      matchScore: entityMatchScore(club, keyword, [club.club]),
-      matchReason: clubMatchReason(club, keyword),
-    }))
-    .sort((a, b) => b.matchScore - a.matchScore || (a.club?.length || 99) - (b.club?.length || 99) || (a.bestRank ?? 999) - (b.bestRank ?? 999) || b.entrants - a.entrants)
-    .slice(0, 4) : [];
+  if (!keyword) {
+    state.athleteSearchResults = [];
+    state.clubSearchResults = [];
+    state.lastSearchKeyword = '';
+  }
   renderAthleteSearchResults(keyword);
   renderHomeStats();
   renderFeedPanel();
   renderCompetitionList();
+}
+
+async function refreshEntitySearch(keyword) {
+  const normalizedKeyword = normalizeSearchText(keyword);
+  const requestId = state.searchRequestId;
+  if (!normalizedKeyword) return;
+  const athleteLimit = athleteSearchResultLimit(normalizedKeyword) === Infinity ? 50 : 12;
+  const params = new URLSearchParams({
+    q: normalizedKeyword,
+    type: 'all',
+    athleteLimit: String(athleteLimit),
+    clubLimit: '4',
+  });
+  try {
+    const result = await fetchJson(`/api/search?${params.toString()}`);
+    if (requestId !== state.searchRequestId || normalizeSearchText(searchInput.value) !== normalizedKeyword) return;
+    state.lastSearchKeyword = normalizedKeyword;
+    state.athleteSearchResults = result.athletes || [];
+    state.clubSearchResults = result.clubs || [];
+    renderAthleteSearchResults(normalizedKeyword);
+  } catch {
+    if (requestId !== state.searchRequestId) return;
+    state.athleteSearchResults = [];
+    state.clubSearchResults = [];
+    renderAthleteSearchResults(normalizedKeyword);
+  }
+}
+
+function handleSearchInput() {
+  const keyword = normalizeSearchText(searchInput.value);
+  state.searchRequestId += 1;
+  if (searchDebounceTimer) clearTimeout(searchDebounceTimer);
+  state.athleteSearchResults = [];
+  state.clubSearchResults = [];
+  applyCompetitionFilter();
+  if (!keyword) return;
+  const requestId = state.searchRequestId;
+  searchDebounceTimer = setTimeout(() => {
+    if (requestId !== state.searchRequestId) return;
+    refreshEntitySearch(keyword);
+  }, 180);
 }
 
 function sumCompetitionItems(competitions, getter) {
@@ -2996,7 +3028,7 @@ tabs.addEventListener('click', (event) => {
   });
 });
 
-searchInput.addEventListener('input', applyCompetitionFilter);
+searchInput.addEventListener('input', handleSearchInput);
 yearFilterButton.addEventListener('click', () => openFilterSheet('year'));
 regionFilterButton.addEventListener('click', () => openFilterSheet('region'));
 itemFilterButton.addEventListener('click', () => openFilterSheet('item'));

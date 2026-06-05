@@ -6,9 +6,11 @@ import {
   getEventDetailByCode,
   getPublicEventsPayload,
 } from '../server.mjs';
+import { buildSearchIndexes } from './search-index.mjs';
 
 const assetOutDir = path.join('web', 'data');
 const assetOutPath = path.join(assetOutDir, 'public-data-index.json');
+const searchOutPath = path.join(assetOutDir, 'public-data-search-0.json');
 const moduleOutDir = path.join('cloudflare', 'data');
 const moduleOutPath = path.join(moduleOutDir, 'public-data.mjs');
 const maxChunkBytes = 8 * 1024 * 1024;
@@ -57,45 +59,14 @@ const eventEntries = await Promise.all(
 const athletes = await getAthleteDirectory();
 const clubs = await getClubDirectory();
 
-function compactAthleteForIndex(athlete) {
-  return {
-    id: athlete.id,
-    name: athlete.name,
-    club: athlete.club,
-    bestRank: athlete.bestRank ?? null,
-    appearances: athlete.appearances || 0,
-    medals: athlete.medals || 0,
-    top8: athlete.top8 || 0,
-    latestDate: athlete.latestDate || null,
-    latestRank: athlete.latestRank ?? null,
-    latestEventName: athlete.latestEventName || null,
-    eliminationWins: athlete.eliminationWins || 0,
-    eliminationLosses: athlete.eliminationLosses || 0,
-  };
-}
-
-function compactClubForIndex(club) {
-  return {
-    id: club.id,
-    club: club.club,
-    entrants: club.entrants || 0,
-    medals: club.medals || 0,
-    top8: club.top8 || 0,
-    bestRank: club.bestRank ?? null,
-  };
-}
-
 const payload = {
   version: publicEvents.version,
-  publicEvents: {
-    ...workerPublicEvents,
-    athletes: athletes.map(compactAthleteForIndex),
-    clubs: clubs.map(compactClubForIndex),
-  },
+  publicEvents: workerPublicEvents,
   eventsByCode: Object.fromEntries(eventEntries),
   athletesById: Object.fromEntries(athletes.map((athlete) => [athlete.id, athlete])),
   clubsById: Object.fromEntries(clubs.map((club) => [club.id, club])),
 };
+const searchIndexes = buildSearchIndexes(athletes, clubs);
 
 await mkdir(assetOutDir, { recursive: true });
 await mkdir(moduleOutDir, { recursive: true });
@@ -103,6 +74,7 @@ const chunks = {
   eventsByCode: await writeObjectChunks('events', payload.eventsByCode),
   athletesById: await writeObjectChunks('athletes', payload.athletesById),
   clubsById: await writeObjectChunks('clubs', payload.clubsById),
+  search: ['/data/public-data-search-0.json'],
 };
 const indexPayload = {
   version: payload.version,
@@ -110,6 +82,7 @@ const indexPayload = {
   chunks,
 };
 await writeFile(assetOutPath, `${JSON.stringify(indexPayload)}\n`, 'utf8');
+await writeFile(searchOutPath, `${JSON.stringify(searchIndexes)}\n`, 'utf8');
 await writeFile(moduleOutPath, `export default { version: ${JSON.stringify(payload.version)}, assetPath: '/data/public-data-index.json' };\n`, 'utf8');
 console.log(JSON.stringify({
   ok: true,

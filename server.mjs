@@ -8,6 +8,7 @@ import { buildProjectListReport } from './tools/parse-projectlist.mjs';
 import { buildRegistrationRosterReport, looksLikeRegistrationRoster } from './tools/parse-registration-roster.mjs';
 import { buildFrontSportEventListReport, looksLikeFrontSportEventList } from './tools/parse-frontsporteventlist.mjs';
 import { buildPreEventCompetitions } from './tools/pre-event-data.mjs';
+import { buildSearchIndexes, searchIndexes } from './tools/search-index.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PORT = Number(process.env.PORT ?? 5177);
@@ -110,6 +111,7 @@ let scoreReportsCache = null;
 let publicEventsCache = null;
 let athleteDirectoryCache = null;
 let clubDirectoryCache = null;
+let searchIndexCache = null;
 let preEventReportsCache = null;
 
 async function getScoreReports() {
@@ -195,6 +197,22 @@ async function getClubDirectory() {
     clubDirectoryCache = buildClubDirectory(await getScoreReports());
   }
   return clubDirectoryCache;
+}
+
+async function getSearchIndexes() {
+  if (!searchIndexCache) {
+    searchIndexCache = buildSearchIndexes(await getAthleteDirectory(), await getClubDirectory());
+  }
+  return searchIndexCache;
+}
+
+async function getPublicEventsIndexPayload() {
+  const {
+    athletes: _athletes,
+    clubs: _clubs,
+    ...payload
+  } = await getPublicEventsPayload();
+  return payload;
 }
 
 async function getEventDetailByCode(eventCode) {
@@ -1532,7 +1550,27 @@ const server = createServer(async (request, response) => {
 
   if (request.method === 'GET' && url.pathname === '/api/events') {
     try {
-      sendJson(response, 200, await getPublicEventsPayload());
+      sendJson(response, 200, await getPublicEventsIndexPayload());
+    } catch (error) {
+      sendJson(response, 500, { ok: false, message: error.message });
+    }
+    return;
+  }
+
+  if (request.method === 'GET' && url.pathname === '/api/search') {
+    try {
+      const query = url.searchParams.get('q') || '';
+      const type = url.searchParams.get('type') || 'all';
+      const athleteLimit = Number(url.searchParams.get('athleteLimit')) || undefined;
+      const clubLimit = Number(url.searchParams.get('clubLimit')) || undefined;
+      const indexes = await getSearchIndexes();
+      sendJson(response, 200, {
+        ok: true,
+        version: APP_VERSION,
+        query,
+        type,
+        ...searchIndexes(indexes, query, { type, athleteLimit, clubLimit }),
+      });
     } catch (error) {
       sendJson(response, 500, { ok: false, message: error.message });
     }

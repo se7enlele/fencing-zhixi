@@ -1,6 +1,7 @@
 import adminImportHtml from '../web/admin-import.html';
 import viewerHtml from '../web/viewer.html';
 import { buildPreEventCompetitions } from '../tools/pre-event-data.mjs';
+import { searchIndexes } from '../tools/search-index.mjs';
 import {
   buildAthleteDirectoryFromEvents,
   buildClubDirectoryFromEvents,
@@ -18,6 +19,7 @@ const ROSTER_INDEX_KEY = 'registration-roster:index';
 const MAX_IMPORT_BYTES = 20 * 1024 * 1024;
 let bundledIndexPromise = null;
 let bundledDataPromise = null;
+let bundledSearchPromise = null;
 const chunkObjectPromises = new Map();
 
 function json(payload, status = 200) {
@@ -115,6 +117,20 @@ async function findInChunks(env, paths = [], key) {
     }
   }
   return null;
+}
+
+async function loadSearchIndexes(env) {
+  if (!bundledSearchPromise) {
+    bundledSearchPromise = (async () => {
+      const index = await loadBundledIndex(env);
+      const chunks = await Promise.all((index.chunks?.search || []).map((assetPath) => loadChunkObject(env, assetPath)));
+      return chunks.reduce((merged, chunk) => ({
+        athletes: [...merged.athletes, ...(chunk.athletes || [])],
+        clubs: [...merged.clubs, ...(chunk.clubs || [])],
+      }), { athletes: [], clubs: [] });
+    })();
+  }
+  return bundledSearchPromise;
 }
 
 async function loadBundledData(env) {
@@ -448,6 +464,21 @@ async function routeApi(request, env, url) {
   if (url.pathname === '/api/events' && request.method === 'GET') {
     const index = await loadBundledIndex(env);
     return json(index.publicEvents);
+  }
+
+  if (url.pathname === '/api/search' && request.method === 'GET') {
+    const query = url.searchParams.get('q') || '';
+    const type = url.searchParams.get('type') || 'all';
+    const athleteLimit = Number(url.searchParams.get('athleteLimit')) || undefined;
+    const clubLimit = Number(url.searchParams.get('clubLimit')) || undefined;
+    const indexes = await loadSearchIndexes(env);
+    return json({
+      ok: true,
+      version: (await loadBundledIndex(env)).version,
+      query,
+      type,
+      ...searchIndexes(indexes, query, { type, athleteLimit, clubLimit }),
+    });
   }
 
   if (url.pathname.startsWith('/api/competitions/') && request.method === 'GET') {
