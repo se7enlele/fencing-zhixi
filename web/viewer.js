@@ -1280,6 +1280,22 @@ function parseDateCandidates(value) {
     .filter((date) => !Number.isNaN(date.getTime()));
 }
 
+function displayDateLabel(value, fallback = '日期待确认') {
+  const text = String(value || '').trim();
+  if (!text) return fallback;
+  const dates = [...text.matchAll(/(20\d{2})[.\-/年](\d{1,2})[.\-/月](\d{1,2})/g)]
+    .map((match) => {
+      const year = match[1];
+      const month = String(Number(match[2])).padStart(2, '0');
+      const day = String(Number(match[3])).padStart(2, '0');
+      return `${year}.${month}.${day}`;
+    });
+  const uniqueDates = [...new Set(dates)].sort();
+  if (!uniqueDates.length) return text;
+  if (uniqueDates.length === 1) return uniqueDates[0];
+  return `${uniqueDates[0]} / ${uniqueDates[uniqueDates.length - 1]}`;
+}
+
 function competitionDateValue(competition) {
   const dates = [
     ...parseDateCandidates(competition.dateLabel),
@@ -1342,7 +1358,7 @@ function buildRecommendationCards() {
     label: '近期比赛',
     id: competition.sportCode,
     title: competition.sportName,
-    meta: `${competition.dateLabel} · ${competition.venue || competition.region || '地点待确认'}`,
+    meta: `${displayDateLabel(competition.dateLabel)} · ${competition.venue || competition.region || '地点待确认'}`,
     reason: recommendationReasonForCompetition(competition),
   }));
   const clubs = topClubs(1).map((club) => ({
@@ -1510,7 +1526,7 @@ function renderClubSummaryResult(club, athleteRows) {
             ${competitions.map((competition) => `
               <button type="button" data-sport-code="${escapeHtml(competition.sportCode)}">
                 <strong>${escapeHtml(competition.sportName)}</strong>
-                <span>${escapeHtml(competition.dateLabel)} · ${escapeHtml(competition.venue || competition.region || '地点待确认')}</span>
+                <span>${escapeHtml(displayDateLabel(competition.dateLabel))} · ${escapeHtml(competition.venue || competition.region || '地点待确认')}</span>
               </button>
             `).join('')}
           </div>
@@ -1642,7 +1658,7 @@ function renderCompetitionList() {
         </div>
         <strong>${escapeHtml(competition.sportName)}</strong>
         <div class="meta-row">
-          <span class="badge">${escapeHtml(competition.dateLabel)}</span>
+          <span class="badge">${escapeHtml(displayDateLabel(competition.dateLabel))}</span>
           <span class="badge">${escapeHtml(competition.venue || competition.region || '地点待确认')}</span>
         </div>
         <div class="event-chip-row">
@@ -1692,7 +1708,7 @@ function renderCompetitionHero(competition) {
       ${competition.isPreEvent ? `<span class="roster-badge">${escapeHtml(rosterStatusLabel(competition.rosterStatus))}</span>` : ''}
     </div>
     <div class="hero-title">${escapeHtml(competition.sportName)}</div>
-    <div class="hero-sub">${escapeHtml(competition.venue || '地点待确认')} · ${escapeHtml(competition.dateLabel)}</div>
+    <div class="hero-sub">${escapeHtml(competition.venue || '地点待确认')} · ${escapeHtml(displayDateLabel(competition.dateLabel))}</div>
     <div class="hero-sub coverage-copy">${escapeHtml(coverageDetail(competition))}</div>
     <div class="event-chip-row">${chips.visible.map((label) => `<span>${escapeHtml(label)}</span>`).join('')}</div>
   `;
@@ -2832,7 +2848,7 @@ function renderPreMatchIntelligence(club, projectRows, athletes) {
               <button class="project-advice-card" type="button" data-sport-code="${escapeHtml(competition.sportCode)}">
                 <div>
                   <strong>${escapeHtml(competition.sportName)}</strong>
-                  <span>${escapeHtml([competition.dateLabel, competition.venue || competition.region].filter(Boolean).join(' · '))}</span>
+                  <span>${escapeHtml([displayDateLabel(competition.dateLabel), competition.venue || competition.region].filter(Boolean).join(' · '))}</span>
                 </div>
                 <em>${escapeHtml(matchedItems.length ? `匹配 ${matchedItems.map(displayEventName).slice(0, 2).join(' / ')}` : coverageLabel(competition))}</em>
               </button>

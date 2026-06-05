@@ -3,6 +3,22 @@ function parseDate(value) {
   return Number.isFinite(timestamp) ? timestamp : null;
 }
 
+function normalizeDateLabel(value) {
+  const text = String(value || '').trim();
+  if (!text) return '';
+  const dates = [...text.matchAll(/(20\d{2})[.\-/年](\d{1,2})[.\-/月](\d{1,2})/g)]
+    .map((match) => {
+      const year = match[1];
+      const month = String(Number(match[2])).padStart(2, '0');
+      const day = String(Number(match[3])).padStart(2, '0');
+      return `${year}.${month}.${day}`;
+    });
+  const uniqueDates = [...new Set(dates)].sort();
+  if (!uniqueDates.length) return text;
+  if (uniqueDates.length === 1) return uniqueDates[0];
+  return `${uniqueDates[0]} / ${uniqueDates[uniqueDates.length - 1]}`;
+}
+
 function inferStatusFromDates(items) {
   const now = Date.now();
   const starts = items.map((item) => parseDate(item.openDate || item.startDate)).filter((value) => value !== null);
@@ -62,7 +78,7 @@ function buildPlatformEventCompetition(event) {
     sportName: event.sportName,
     venue,
     region: event.areaDesc || event.provinceName || '',
-    dateLabel: [event.startDate, event.endDate].filter(Boolean).join(' / ') || '日期待确认',
+    dateLabel: normalizeDateLabel([event.startDate, event.endDate].filter(Boolean).join(' / ')) || '日期待确认',
     status,
     rosterStatus: 'none',
     isPreEvent: true,
@@ -179,8 +195,8 @@ export function buildPreEventCompetitions({
     const rosterCount = competition.items.reduce((sum, item) => sum + item.registrationCount, 0);
     const expectedRegistrationCount = competition.items.reduce((sum, item) => sum + item.expectedRegistrationCount, 0);
     const isComplete = completeRosters.has(competition.sportCode);
-    const dateLabel = competition.items.map((item) => item.openDate).filter(Boolean).sort().join(' / ')
-      || competition.dateLabel
+    const dateLabel = normalizeDateLabel(competition.items.map((item) => item.openDate).filter(Boolean).sort().join(' / '))
+      || normalizeDateLabel(competition.dateLabel)
       || '日期待确认';
 
     const insights = competition.insights || {

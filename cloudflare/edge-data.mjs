@@ -19,6 +19,22 @@ function countBy(rows, getter) {
   }, {});
 }
 
+function normalizeDateLabel(value) {
+  const text = String(value || '').trim();
+  if (!text) return '';
+  const dates = [...text.matchAll(/(20\d{2})[.\-/年](\d{1,2})[.\-/月](\d{1,2})/g)]
+    .map((match) => {
+      const year = match[1];
+      const month = String(Number(match[2])).padStart(2, '0');
+      const day = String(Number(match[3])).padStart(2, '0');
+      return `${year}.${month}.${day}`;
+    });
+  const uniqueDates = [...new Set(dates)].sort();
+  if (!uniqueDates.length) return text;
+  if (uniqueDates.length === 1) return uniqueDates[0];
+  return `${uniqueDates[0]} / ${uniqueDates[uniqueDates.length - 1]}`;
+}
+
 function isBye(match) {
   return match.HomeFencer === 'Bye' || match.AwayFencer === 'Bye';
 }
@@ -671,7 +687,8 @@ export function groupEventsBySport(events) {
       });
     }
     const bucket = grouped.get(sportCode);
-    if (event.openDate) bucket.dates.add(event.openDate);
+    const eventDateLabel = normalizeDateLabel(event.openDate);
+    if (eventDateLabel) bucket.dates.add(eventDateLabel);
     bucket.items.push(event);
   }
   return [...grouped.values()].map((bucket) => ({
