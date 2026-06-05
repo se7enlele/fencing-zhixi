@@ -215,6 +215,16 @@ async function getPublicEventsIndexPayload() {
   return payload;
 }
 
+async function getCompetitionIndexPayload() {
+  const payload = await getPublicEventsPayload();
+  return {
+    ok: true,
+    version: payload.version,
+    competitions: payload.competitions,
+    dataCoverage: payload.dataCoverage,
+  };
+}
+
 async function getEventDetailByCode(eventCode) {
   const reports = await getScoreReports();
   const found = reports.find(({ report }) => report.general?.eventCode === eventCode);
@@ -1551,6 +1561,15 @@ const server = createServer(async (request, response) => {
   if (request.method === 'GET' && url.pathname === '/api/events') {
     try {
       sendJson(response, 200, await getPublicEventsIndexPayload());
+    } catch (error) {
+      sendJson(response, 500, { ok: false, message: error.message });
+    }
+    return;
+  }
+
+  if (request.method === 'GET' && url.pathname === '/api/competitions') {
+    try {
+      sendJson(response, 200, await getCompetitionIndexPayload());
     } catch (error) {
       sendJson(response, 500, { ok: false, message: error.message });
     }

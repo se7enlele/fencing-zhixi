@@ -26,6 +26,18 @@ function waitForServer() {
 try {
   await waitForServer();
 
+  const competitionsResponse = await fetch(`${baseUrl}/api/competitions`);
+  const competitionsPayload = await competitionsResponse.json();
+  if (!competitionsResponse.ok || !competitionsPayload.ok) {
+    throw new Error(competitionsPayload.message || `competitions status ${competitionsResponse.status}`);
+  }
+  if (!Array.isArray(competitionsPayload.competitions) || competitionsPayload.competitions.length < 700) {
+    throw new Error('/api/competitions should include the competition index');
+  }
+  if ('events' in competitionsPayload || 'athletes' in competitionsPayload || 'clubs' in competitionsPayload) {
+    throw new Error('/api/competitions must only return the competition index payload');
+  }
+
   const eventsResponse = await fetch(`${baseUrl}/api/events`);
   const eventsPayload = await eventsResponse.json();
   if (!eventsResponse.ok || !eventsPayload.ok) {

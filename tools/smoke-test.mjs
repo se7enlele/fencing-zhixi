@@ -35,7 +35,7 @@ try {
   const adminPage = await fetch(`${baseUrl}/admin/import?token=fencingai-admin-2026`);
   if (!adminPage.ok) throw new Error(`admin import status ${adminPage.status}`);
 
-  const events = await fetch(`${baseUrl}/api/events`);
+  const events = await fetch(`${baseUrl}/api/competitions`);
   const eventsResult = await events.json();
   if (!events.ok || !eventsResult.ok) throw new Error(eventsResult.message || `events status ${events.status}`);
   if (!Array.isArray(eventsResult.competitions) || eventsResult.competitions.length === 0) {
@@ -214,7 +214,7 @@ try {
     pageStatus: page.status,
     viewerStatus: viewer.status,
     adminStatus: adminPage.status,
-    eventCount: eventsResult.events.length,
+    eventCount: eventsResult.competitions.reduce((sum, item) => sum + (item.items?.length || 0), 0),
     competitionCount: eventsResult.competitions.length,
     firstCompetition: competitionCode,
     firstEvent: eventCode,

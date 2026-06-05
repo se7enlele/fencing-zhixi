@@ -3066,7 +3066,7 @@ async function init() {
   state.dataLoadError = '';
   homeStats.innerHTML = '<div class="loading-row">正在加载数据</div>';
   competitionList.innerHTML = '<div class="loading-row">正在整理比赛列表</div>';
-  const response = await fetch('/api/events');
+  const response = await fetch('/api/competitions');
   const result = await response.json();
   if (!result.ok) throw new Error(result.message);
   state.isDataLoading = false;

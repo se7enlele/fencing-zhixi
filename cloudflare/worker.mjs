@@ -17,17 +17,20 @@ const SCORE_INDEX_KEY = 'score:index';
 const PROJECTLIST_INDEX_KEY = 'projectlist:index';
 const ROSTER_INDEX_KEY = 'registration-roster:index';
 const MAX_IMPORT_BYTES = 20 * 1024 * 1024;
+const NO_STORE_CACHE = 'no-store';
+const PUBLIC_INDEX_CACHE = 'public, max-age=60, s-maxage=3600, stale-while-revalidate=86400';
+const PUBLIC_DETAIL_CACHE = 'public, max-age=300, s-maxage=86400, stale-while-revalidate=604800';
 let bundledIndexPromise = null;
 let bundledDataPromise = null;
 let bundledSearchPromise = null;
 const chunkObjectPromises = new Map();
 
-function json(payload, status = 200) {
+function json(payload, status = 200, cacheControl = NO_STORE_CACHE) {
   return new Response(JSON.stringify(payload), {
     status,
     headers: {
       'Content-Type': 'application/json; charset=utf-8',
-      'Cache-Control': 'no-store',
+      'Cache-Control': cacheControl,
     },
   });
 }
@@ -461,9 +464,19 @@ async function handleAdminImport(request, env, url) {
 }
 
 async function routeApi(request, env, url) {
+  if (url.pathname === '/api/competitions' && request.method === 'GET') {
+    const index = await loadBundledIndex(env);
+    return json({
+      ok: true,
+      version: index.version,
+      competitions: index.publicEvents.competitions || [],
+      dataCoverage: index.publicEvents.dataCoverage || null,
+    }, 200, PUBLIC_INDEX_CACHE);
+  }
+
   if (url.pathname === '/api/events' && request.method === 'GET') {
     const index = await loadBundledIndex(env);
-    return json(index.publicEvents);
+    return json(index.publicEvents, 200, PUBLIC_INDEX_CACHE);
   }
 
   if (url.pathname === '/api/search' && request.method === 'GET') {
@@ -478,7 +491,7 @@ async function routeApi(request, env, url) {
       query,
       type,
       ...searchIndexes(indexes, query, { type, athleteLimit, clubLimit }),
-    });
+    }, 200, PUBLIC_INDEX_CACHE);
   }
 
   if (url.pathname.startsWith('/api/competitions/') && request.method === 'GET') {
@@ -486,7 +499,7 @@ async function routeApi(request, env, url) {
     const sportCode = decodeURIComponent(url.pathname.replace('/api/competitions/', ''));
     const competition = (index.publicEvents.competitions || []).find((item) => item.sportCode === sportCode);
     return competition
-      ? json({ ok: true, version: index.version, competition })
+      ? json({ ok: true, version: index.version, competition }, 200, PUBLIC_DETAIL_CACHE)
       : json({ ok: false, message: '未找到比赛数据。' }, 404);
   }
 
@@ -497,14 +510,14 @@ async function routeApi(request, env, url) {
     const event = dynamicReport?.general?.eventCode
       ? buildEventDetail(dynamicReport, `kv-score-${eventCode}-analysis.json`)
       : await findInChunks(env, index.chunks?.eventsByCode, eventCode) || findProjectOnlyEvent(index.publicEvents, eventCode);
-    return event ? json({ ok: true, version: index.version, event }) : json({ ok: false, message: '项目不存在。' }, 404);
+    return event ? json({ ok: true, version: index.version, event }, 200, PUBLIC_DETAIL_CACHE) : json({ ok: false, message: '项目不存在。' }, 404);
   }
 
   if (url.pathname.startsWith('/api/athletes/') && request.method === 'GET') {
     const index = await loadBundledIndex(env);
     const athleteId = decodeURIComponent(url.pathname.replace('/api/athletes/', ''));
     const athlete = await findInChunks(env, index.chunks?.athletesById, athleteId);
-    return athlete ? json({ ok: true, version: index.version, athlete }) : json({ ok: false, message: '选手不存在。' }, 404);
+    return athlete ? json({ ok: true, version: index.version, athlete }, 200, PUBLIC_DETAIL_CACHE) : json({ ok: false, message: '选手不存在。' }, 404);
   }
 
   if (url.pathname.startsWith('/api/clubs/') && request.method === 'GET') {
@@ -514,7 +527,7 @@ async function routeApi(request, env, url) {
     const club = await findInChunks(env, index.chunks?.clubsById, rawClubId)
       || await findInChunks(env, index.chunks?.clubsById, decodedClubId)
       || await findInChunks(env, index.chunks?.clubsById, encodeURIComponent(decodedClubId));
-    return club ? json({ ok: true, version: index.version, club }) : json({ ok: false, message: '俱乐部不存在。' }, 404);
+    return club ? json({ ok: true, version: index.version, club }, 200, PUBLIC_DETAIL_CACHE) : json({ ok: false, message: '俱乐部不存在。' }, 404);
   }
 
   if (url.pathname === '/api/me/follows') {
