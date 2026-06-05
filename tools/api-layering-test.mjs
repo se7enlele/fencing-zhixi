@@ -43,11 +43,11 @@ try {
   if (!eventsResponse.ok || !eventsPayload.ok) {
     throw new Error(eventsPayload.message || `events status ${eventsResponse.status}`);
   }
-  if (!Array.isArray(eventsPayload.competitions) || eventsPayload.competitions.length < 700) {
-    throw new Error('events payload should include the competition index');
+  if (!Array.isArray(eventsPayload.events) || eventsPayload.events.length < 700) {
+    throw new Error('/api/events should include the event index');
   }
-  if ('athletes' in eventsPayload || 'clubs' in eventsPayload) {
-    throw new Error('/api/events must not include athlete or club search indexes');
+  if ('competitions' in eventsPayload || 'athletes' in eventsPayload || 'clubs' in eventsPayload) {
+    throw new Error('/api/events must only return the event index payload');
   }
 
   const athleteSearch = await fetch(`${baseUrl}/api/search?q=${encodeURIComponent('蔡廷彧')}&type=athlete`);

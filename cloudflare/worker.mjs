@@ -476,7 +476,12 @@ async function routeApi(request, env, url) {
 
   if (url.pathname === '/api/events' && request.method === 'GET') {
     const index = await loadBundledIndex(env);
-    return json(index.publicEvents, 200, PUBLIC_INDEX_CACHE);
+    return json({
+      ok: true,
+      version: index.version,
+      events: index.publicEvents.events || [],
+      dataCoverage: index.publicEvents.dataCoverage || null,
+    }, 200, PUBLIC_INDEX_CACHE);
   }
 
   if (url.pathname === '/api/search' && request.method === 'GET') {

@@ -186,6 +186,32 @@ function buildReport(payload) {
   };
 }
 
+async function fetchJson(url) {
+  const response = await fetch(url);
+  if (!response.ok) throw new Error(`Fetch failed ${response.status}: ${url}`);
+  return response.json();
+}
+
+async function fetchOnlinePayload(url) {
+  const payload = await fetchJson(url);
+  if (payload.competitions?.length || !payload.events?.length) return payload;
+
+  const parsed = new URL(url);
+  parsed.pathname = '/api/competitions';
+  parsed.search = '';
+  const competitionsPayload = await fetchJson(parsed.toString());
+  return {
+    ok: true,
+    version: payload.version || competitionsPayload.version,
+    events: payload.events || [],
+    competitions: competitionsPayload.competitions || [],
+    dataCoverage: {
+      ...(competitionsPayload.dataCoverage || {}),
+      ...(payload.dataCoverage || {}),
+    },
+  };
+}
+
 function mdTable(rows, columns) {
   const header = `| ${columns.map((column) => column.title).join(' | ')} |`;
   const sep = `| ${columns.map(() => '---').join(' | ')} |`;
@@ -266,10 +292,7 @@ ${mdTable(report.priorityBuckets.coachClubManagement.slice(0, 20), [
 
 async function main() {
   const payload = onlineUrl
-    ? await fetch(onlineUrl).then(async (response) => {
-      if (!response.ok) throw new Error(`Fetch failed ${response.status}: ${onlineUrl}`);
-      return response.json();
-    })
+    ? await fetchOnlinePayload(onlineUrl)
     : await getPublicEventsPayload();
   const report = buildReport(payload);
   await mkdir(outputDir, { recursive: true });
