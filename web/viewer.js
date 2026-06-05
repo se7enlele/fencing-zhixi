@@ -321,14 +321,14 @@ function statusLabel(status) {
 function rosterStatusLabel(status) {
   if (status === 'partial') return '报名名单更新中';
   if (status === 'complete') return '报名名单已完整';
-  return '暂无报名名单';
+  return '名单待更新';
 }
 
 function coverageLabel(competition) {
-  if (competition.isPlatformEventList && !(competition.items || []).length) return '赛事列表';
-  if (competition.rosterStatus === 'partial' || competition.rosterStatus === 'complete') return '报名名单';
-  if (competition.isPreEvent) return '项目清单';
-  return '成绩对阵';
+  if (competition.isPlatformEventList && !(competition.items || []).length) return '基础信息';
+  if (competition.rosterStatus === 'partial' || competition.rosterStatus === 'complete') return '报名信息';
+  if (competition.isPreEvent) return '项目明细';
+  return '完整赛果';
 }
 
 function coverageClass(competition) {
@@ -340,12 +340,12 @@ function coverageClass(competition) {
 
 function coverageDetail(competition) {
   if (competition.isPlatformEventList && !(competition.items || []).length) {
-    return '当前只有赛事名称、时间、地区和组别；继续补 projectlist 后才有具体项目。';
+    return '赛事基础信息已收录，项目规模和名单信息更新后会自动完善。';
   }
-  if (competition.rosterStatus === 'partial') return '已导入部分报名名单，可做初步赛前对标，完整度仍需继续补。';
-  if (competition.rosterStatus === 'complete') return '报名名单已完整，可做赛前对手、强手和熟悉对手分析。';
-  if (competition.isPreEvent) return '已导入项目清单，可查看项目、人数规模和赛前数据缺口。';
-  return '已导入成绩和对阵，可查看排名、小组赛、淘汰赛和选手画像。';
+  if (competition.rosterStatus === 'partial') return '报名信息正在更新，可先查看项目规模和初步赛前对标。';
+  if (competition.rosterStatus === 'complete') return '报名信息已完整，可查看赛前对手、强手和熟悉对手分析。';
+  if (competition.isPreEvent) return '项目明细已收录，可查看组别、剑种和报名规模。';
+  return '赛果数据已完整，可查看排名、小组赛、淘汰赛和选手画像。';
 }
 
 function entityMatchScore(entity, keyword, fields) {
@@ -1296,6 +1296,11 @@ function displayDateLabel(value, fallback = '日期待确认') {
   return `${uniqueDates[0]} / ${uniqueDates[uniqueDates.length - 1]}`;
 }
 
+function displayMetricValue(value) {
+  if (['registration', 'upcoming', 'live', 'completed'].includes(value)) return statusLabel(value);
+  return value ?? '-';
+}
+
 function competitionDateValue(competition) {
   const dates = [
     ...parseDateCandidates(competition.dateLabel),
@@ -1678,14 +1683,14 @@ function renderCompetitionList() {
 function competitionListInsight(competition) {
   if (competition.isPlatformEventList && !competition.items.length) {
     const type = competition.platformMeta?.gameDesc || '赛事类型待确认';
-    const groups = competition.groupLabels?.length ? `${competition.groupLabels.length} 个组别` : '组别待补齐';
-    return `${type}，${groups}。已接入赛事列表；项目、名单和成绩需继续补齐。`;
+    const groups = competition.groupLabels?.length ? `${competition.groupLabels.length} 个组别` : '组别待确认';
+    return `${type}，${groups}。项目规模和名单信息更新后会自动完善。`;
   }
   if (competition.isPreEvent) {
     const summary = competition.registrationSummary || {};
     const rosterText = summary.rosterCount
-      ? `已导入 ${summary.rosterCount} 条报名记录`
-      : '暂未导入报名名单';
+      ? `已有 ${summary.rosterCount} 条报名记录`
+      : '报名名单待更新';
     const expectedText = summary.expectedRegistrationCount
       ? `官方项目报名人数 ${summary.expectedRegistrationCount}`
       : `${competition.items.length} 个赛前项目`;
@@ -1748,7 +1753,7 @@ function renderCompetitionInsights(competition) {
 
   competitionInsightCards.innerHTML = cards.slice(0, 2).map((item) => `
     <div class="metric">
-      <strong>${escapeHtml(item.value ?? '-')}</strong>
+      <strong>${escapeHtml(displayMetricValue(item.value))}</strong>
       <span>${escapeHtml(item.title)}</span>
       <span>${escapeHtml(item.detail || '')}</span>
     </div>
@@ -1818,7 +1823,7 @@ function renderEventList(competition) {
   if (!competition.items.length) {
     eventList.innerHTML = `
       <div class="empty compact-empty">
-        已接入赛事列表，但还没有导入项目清单。继续导入 projectlist 后，这里会显示具体组别、剑种、报名人数和后续成绩入口。
+        项目信息暂未更新。更新后会展示具体组别、剑种、报名规模和后续赛果入口。
       </div>
     `;
     return;
@@ -2682,7 +2687,7 @@ function clubProjectRows(club) {
 }
 
 function buildClubOwnerSummary(club, projectRows) {
-  if (!projectRows.length) return `${club.club} 目前还需要继续补充比赛样本，先从参赛记录和项目覆盖开始建立队伍画像。`;
+  if (!projectRows.length) return `${club.club} 当前比赛样本较少，可先从参赛记录和项目覆盖观察队伍画像。`;
   const topInvestment = projectRows[0];
   const bestProject = [...projectRows].sort((a, b) => (a.bestRank ?? 999) - (b.bestRank ?? 999))[0];
   const medalProjects = projectRows.filter((row) => row.medals > 0).length;
@@ -2925,7 +2930,7 @@ function renderClubDetail(club) {
         ${renderCoachAthleteBucket('重点培养', '已有名次或奖牌表现', athleteBuckets.focus)}
         ${renderCoachAthleteBucket('稳定基础', '有参赛连续性，适合复盘训练', athleteBuckets.steady)}
         ${renderCoachAthleteBucket('继续观察', '样本较少，先积累比赛记录', athleteBuckets.observe)}
-        ${athletes.length ? '' : '<div class="empty compact-empty">当前俱乐部学员画像还不完整，后续需要继续补充更多成绩包。</div>'}
+        ${athletes.length ? '' : '<div class="empty compact-empty">当前俱乐部学员画像还在形成中，更多赛果收录后会呈现更完整的队伍表现。</div>'}
       </section>
 
       <section class="coach-section">

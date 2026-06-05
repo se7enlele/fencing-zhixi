@@ -42,6 +42,14 @@ function inferPlatformStatus(event) {
   return 'upcoming';
 }
 
+function statusLabel(status) {
+  if (status === 'registration') return '报名中';
+  if (status === 'upcoming') return '未开赛';
+  if (status === 'live') return '进行中';
+  if (status === 'completed') return '已结束';
+  return '状态待确认';
+}
+
 function normalizeProjectItem(item) {
   const participantCount = Number(item.participantCount ?? item.totalRegNumber) || 0;
   return {
@@ -104,7 +112,7 @@ function buildPlatformEventCompetition(event) {
       summaryCards: [
         {
           title: '赛事状态',
-          value: status,
+          value: statusLabel(status),
           detail: event.gameDesc || '类型待确认',
         },
         {
@@ -114,7 +122,7 @@ function buildPlatformEventCompetition(event) {
         },
       ],
       bullets: [
-        '已接入平台赛事列表。项目清单、报名名单和成绩对阵仍需继续补齐，才能做更深的赛前/赛后分析。',
+        '赛事基础信息已收录。项目规模、报名名单和赛果更新后，会形成更完整的赛前/赛后分析。',
       ],
       eventCharts: [],
     },
@@ -181,9 +189,9 @@ export function buildPreEventCompetitions({
         shortEventName: item.eventName,
         openDate: item.openDate,
         closeDate: item.closeDate,
-        competitionNo: item.expectedRegistrationCount || roster.length,
+        competitionNo: item.participantCount || roster.length,
         registrationCount: roster.length,
-        expectedRegistrationCount: item.expectedRegistrationCount,
+        expectedRegistrationCount: item.participantCount,
         roster,
         status: 'upcoming',
         isPreEvent: true,
@@ -204,18 +212,18 @@ export function buildPreEventCompetitions({
         {
           title: '项目数量',
           value: competition.items.length,
-          detail: competition.status === 'completed' ? '已补项目清单' : '赛前项目清单',
+          detail: competition.status === 'completed' ? '项目明细' : '赛前项目',
         },
         {
           title: '报名规模',
           value: expectedRegistrationCount || rosterCount || '-',
-          detail: rosterCount ? `已导入名单 ${rosterCount}` : '名单待导入',
+          detail: rosterCount ? `已有名单 ${rosterCount}` : '名单待更新',
         },
       ],
       bullets: [
         rosterCount
-          ? `已导入 ${rosterCount} 条报名记录，可结合“我的孩子”做赛前对标。`
-          : '已导入项目清单；继续导入报名名单后，可分析同组对手、熟悉对手和潜在强手。',
+          ? `已有 ${rosterCount} 条报名记录，可结合关注选手做赛前对标。`
+          : '项目明细已收录；报名名单更新后，可分析同组对手、熟悉对手和潜在强手。',
       ],
       eventCharts: competition.items,
     };

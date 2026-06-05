@@ -79,8 +79,9 @@ assert.equal(competitions[0].sportCode, 'D05GJSSAN0820260104');
 assert.equal(competitions[0].status, 'upcoming');
 assert.equal(competitions[0].rosterStatus, 'partial');
 assert.equal(competitions[0].items[0].registrationCount, 1);
+assert.equal(competitions[0].items[0].competitionNo, 1000);
 assert.equal(competitions[0].items[0].roster.length, 1);
 assert.equal(competitions[0].registrationSummary.rosterCount, 1);
-assert.equal(competitions[0].registrationSummary.expectedRegistrationCount, 0);
+assert.equal(competitions[0].registrationSummary.expectedRegistrationCount, 1000);
 
 console.log('pre-event import parsing is covered');

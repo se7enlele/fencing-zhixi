@@ -11,8 +11,8 @@ if (start === -1 || end === -1 || end <= start) {
 
 assert.match(
   source,
-  /findInChunks\(env,\s*index\.chunks\?\.eventsByCode,\s*eventCode\)\s*\|\|\s*findProjectOnlyEvent\(index\.publicEvents,\s*eventCode\)/,
-  'Worker /api/events route must fall back to project-only event details',
+  /findInChunks\(env,\s*index\.chunks\?\.eventsByCode,\s*eventCode\)\s*\|\|\s*findProjectOnlyEvent\(\{\s*competitions\s*\},\s*eventCode\)/,
+  'Worker /api/events route must fall back to merged project-only event details',
 );
 
 assert.doesNotMatch(

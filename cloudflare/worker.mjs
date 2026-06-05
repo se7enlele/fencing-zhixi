@@ -243,6 +243,45 @@ async function readDynamicPreEventReports(env) {
   return { projectLists, rosterBatches };
 }
 
+function mergeDynamicCompetition(base, dynamicCompetition) {
+  if (!base) return dynamicCompetition;
+  return {
+    ...base,
+    ...dynamicCompetition,
+    sportName: dynamicCompetition.sportName?.startsWith('赛前赛事 ') ? base.sportName : (dynamicCompetition.sportName || base.sportName),
+    venue: dynamicCompetition.venue || base.venue,
+    region: dynamicCompetition.region || base.region,
+    dateLabel: dynamicCompetition.dateLabel || base.dateLabel,
+    groupLabels: dynamicCompetition.groupLabels?.length ? dynamicCompetition.groupLabels : base.groupLabels,
+    platformMeta: {
+      ...(base.platformMeta || {}),
+      ...(dynamicCompetition.platformMeta || {}),
+    },
+  };
+}
+
+async function getCompetitionIndex(env) {
+  const index = await loadBundledIndex(env);
+  const preEventReports = await readDynamicPreEventReports(env);
+  if (!preEventReports.projectLists.length && !preEventReports.rosterBatches.length) {
+    return { index, competitions: index.publicEvents.competitions || [], hasDynamicPreEvent: false };
+  }
+
+  const dynamicCompetitions = buildPreEventCompetitions(preEventReports);
+  const bySportCode = new Map((index.publicEvents.competitions || []).map((competition) => [competition.sportCode, competition]));
+  for (const competition of dynamicCompetitions) {
+    const current = bySportCode.get(competition.sportCode);
+    if (current && !current.isPreEvent && !current.isPlatformEventList) continue;
+    bySportCode.set(competition.sportCode, mergeDynamicCompetition(current, competition));
+  }
+
+  return {
+    index,
+    competitions: [...bySportCode.values()],
+    hasDynamicPreEvent: true,
+  };
+}
+
 function buildPreEventDetails(competitions) {
   const entries = {};
   for (const competition of competitions) {
@@ -465,13 +504,13 @@ async function handleAdminImport(request, env, url) {
 
 async function routeApi(request, env, url) {
   if (url.pathname === '/api/competitions' && request.method === 'GET') {
-    const index = await loadBundledIndex(env);
+    const { index, competitions, hasDynamicPreEvent } = await getCompetitionIndex(env);
     return json({
       ok: true,
       version: index.version,
-      competitions: index.publicEvents.competitions || [],
+      competitions,
       dataCoverage: index.publicEvents.dataCoverage || null,
-    }, 200, PUBLIC_INDEX_CACHE);
+    }, 200, hasDynamicPreEvent ? NO_STORE_CACHE : PUBLIC_INDEX_CACHE);
   }
 
   if (url.pathname === '/api/events' && request.method === 'GET') {
@@ -500,21 +539,22 @@ async function routeApi(request, env, url) {
   }
 
   if (url.pathname.startsWith('/api/competitions/') && request.method === 'GET') {
-    const index = await loadBundledIndex(env);
+    const { index, competitions, hasDynamicPreEvent } = await getCompetitionIndex(env);
     const sportCode = decodeURIComponent(url.pathname.replace('/api/competitions/', ''));
-    const competition = (index.publicEvents.competitions || []).find((item) => item.sportCode === sportCode);
+    const competition = competitions.find((item) => item.sportCode === sportCode);
     return competition
-      ? json({ ok: true, version: index.version, competition }, 200, PUBLIC_DETAIL_CACHE)
+      ? json({ ok: true, version: index.version, competition }, 200, hasDynamicPreEvent ? NO_STORE_CACHE : PUBLIC_DETAIL_CACHE)
       : json({ ok: false, message: '未找到比赛数据。' }, 404);
   }
 
   if (url.pathname.startsWith('/api/events/') && request.method === 'GET') {
     const index = await loadBundledIndex(env);
+    const { competitions } = await getCompetitionIndex(env);
     const eventCode = decodeURIComponent(url.pathname.replace('/api/events/', ''));
     const dynamicReport = await readJsonKv(env.FOLLOWS, `score:${eventCode}`, null);
     const event = dynamicReport?.general?.eventCode
       ? buildEventDetail(dynamicReport, `kv-score-${eventCode}-analysis.json`)
-      : await findInChunks(env, index.chunks?.eventsByCode, eventCode) || findProjectOnlyEvent(index.publicEvents, eventCode);
+      : await findInChunks(env, index.chunks?.eventsByCode, eventCode) || findProjectOnlyEvent({ competitions }, eventCode);
     return event ? json({ ok: true, version: index.version, event }, 200, PUBLIC_DETAIL_CACHE) : json({ ok: false, message: '项目不存在。' }, 404);
   }
 
