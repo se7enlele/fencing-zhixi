@@ -1698,6 +1698,33 @@ function renderCompetitionHero(competition) {
   `;
 }
 
+function compactCompetitionBarRows(rows, options = {}) {
+  const limit = options.limit || 5;
+  const otherLabel = options.otherLabel || '其他';
+  const valueKey = options.valueKey || 'value';
+  const aggregateKeys = options.aggregateKeys || [];
+  const normalized = (rows || [])
+    .map((row) => ({ ...row, [valueKey]: Number(row[valueKey]) || 0 }))
+    .filter((row) => row[valueKey] > 0)
+    .sort((a, b) => b[valueKey] - a[valueKey] || String(a.label || '').localeCompare(String(b.label || ''), 'zh-CN'));
+
+  if (normalized.length <= limit) return normalized;
+
+  const visible = normalized.slice(0, limit);
+  const rest = normalized.slice(limit);
+  const other = { label: otherLabel, [valueKey]: rest.reduce((sum, row) => sum + row[valueKey], 0) };
+  for (const key of aggregateKeys) {
+    other[key] = rest.reduce((sum, row) => sum + (Number(row[key]) || 0), 0);
+  }
+  return [...visible, other];
+}
+
+function compactCompetitionEventRows(rows, limit = 4) {
+  return [...(rows || [])]
+    .sort((a, b) => (Number(b.competitionNo) || 0) - (Number(a.competitionNo) || 0) || displayEventName(a).localeCompare(displayEventName(b), 'zh-CN'))
+    .slice(0, limit);
+}
+
 function renderCompetitionInsights(competition) {
   const insights = competition.insights || {};
   const cards = insights.summaryCards || [];
@@ -1712,6 +1739,7 @@ function renderCompetitionInsights(competition) {
   `).join('');
 
   const eventRows = insights.eventCharts || competition.items || [];
+  const primaryEventRows = compactCompetitionEventRows(eventRows);
   const sizeRows = eventRows.map((item) => ({
     label: displayEventName(item),
     value: item.competitionNo,
@@ -1743,7 +1771,12 @@ function renderCompetitionInsights(competition) {
       display: `${insights.totalBye ?? 0} 场`,
     },
   ];
-  const birthRows = (insights.birthBuckets || []).filter((row) => row.label !== '未知').map((row) => ({
+  const birthRows = compactCompetitionBarRows((insights.birthBuckets || []).filter((row) => row.label !== '未知'), {
+    limit: 5,
+    otherLabel: '其他年龄段',
+    valueKey: 'entrants',
+    aggregateKeys: ['top8'],
+  }).map((row) => ({
     label: row.label,
     value: row.entrants,
     display: `${row.entrants}人 / 前八${row.top8}`,
@@ -1751,8 +1784,8 @@ function renderCompetitionInsights(competition) {
 
   competitionInsightBullets.innerHTML = `
     ${donutChart('赛事结构', densityRows)}
-    ${birthRows.length ? barChart('年龄段分布', birthRows, { tone: 'orange' }) : '<div class="empty compact-empty">暂无年龄段数据</div>'}
-    ${eventRows.length > 1 ? eventTiles('项目对比', eventRows) : ''}
+    ${birthRows.length ? barChart('主要年龄段', birthRows, { tone: 'orange' }) : '<div class="empty compact-empty">暂无年龄段数据</div>'}
+    ${primaryEventRows.length > 1 ? eventTiles('主要项目对比', primaryEventRows) : ''}
     ${bullets.length ? `<div class="insight-note compact">${escapeHtml(bullets[0])}</div>` : ''}
   `;
 }
