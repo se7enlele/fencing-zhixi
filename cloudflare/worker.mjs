@@ -37,6 +37,27 @@ function html(content) {
   });
 }
 
+function findProjectOnlyEvent(publicEvents, eventCode) {
+  const competition = (publicEvents.competitions || []).find((item) => (
+    (item.items || []).some((project) => project.eventCode === eventCode)
+  ));
+  const project = competition?.items?.find((item) => item.eventCode === eventCode);
+  if (!competition || !project) return null;
+  return {
+    ...project,
+    sportCode: competition.sportCode,
+    sportName: competition.sportName,
+    venue: competition.venue,
+    participants: project.roster || [],
+    athleteProfiles: [],
+    clubProfiles: [],
+    poolGroups: [],
+    eliminationMatches: [],
+    status: project.status,
+    rosterStatus: competition.rosterStatus,
+  };
+}
+
 function normalizeDeviceId(deviceId) {
   const value = String(deviceId || '').trim();
   if (!/^[a-zA-Z0-9._-]{12,80}$/.test(value)) {
@@ -411,7 +432,7 @@ async function routeApi(request, env, url) {
   if (url.pathname.startsWith('/api/events/') && request.method === 'GET') {
     const merged = await getMergedData(env);
     const eventCode = decodeURIComponent(url.pathname.replace('/api/events/', ''));
-    const event = merged.eventsByCode[eventCode];
+    const event = merged.eventsByCode[eventCode] || findProjectOnlyEvent(merged.publicEvents, eventCode);
     return event ? json({ ok: true, version: merged.version, event }) : json({ ok: false, message: '项目不存在。' }, 404);
   }
 

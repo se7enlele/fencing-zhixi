@@ -89,6 +89,19 @@ const state = {
   dataLoadError: '',
 };
 
+async function fetchJson(path) {
+  const response = await fetch(path);
+  const contentType = response.headers.get('content-type') || '';
+  if (!contentType.includes('application/json')) {
+    throw new Error(`API returned non-JSON: ${response.status || 'unknown status'}`);
+  }
+  const result = await response.json();
+  if (!response.ok || !result.ok) {
+    throw new Error(result.message || `Request failed: ${response.status}`);
+  }
+  return result;
+}
+
 state.followedAthletes = loadFollowedAthletes();
 
 function loadFollowedAthletes() {
@@ -2891,13 +2904,7 @@ async function openAthlete(athleteId) {
       }
       throw new Error('缺少选手ID，请重新搜索并进入选手详情。');
     }
-    const response = await fetch(`/api/athletes/${encodeURIComponent(athleteId)}`);
-    const contentType = response.headers.get('content-type') || '';
-    if (!contentType.includes('application/json')) {
-      throw new Error(`接口返回异常：${response.status}`);
-    }
-    const result = await response.json();
-    if (!result.ok) throw new Error(result.message);
+    const result = await fetchJson(`/api/athletes/${encodeURIComponent(athleteId)}`);
     renderAthleteDetail(result.athlete);
   } catch (error) {
     if (localAthlete?.events?.length) {
@@ -2914,9 +2921,7 @@ async function openAthlete(athleteId) {
 
 async function openClub(clubId) {
   try {
-    const response = await fetch(`/api/clubs/${clubId}`);
-    const result = await response.json();
-    if (!result.ok) throw new Error(result.message);
+    const result = await fetchJson(`/api/clubs/${clubId}`);
     renderClubDetail(result.club);
   } catch (error) {
     setInlineError(clubHero, `俱乐部详情读取失败：${error.message}`);
@@ -2929,9 +2934,7 @@ async function openCompetition(sportCode) {
   const localCompetition = findCompetitionBySportCode(sportCode);
 
   try {
-    const response = await fetch(`/api/competitions/${encodeURIComponent(sportCode)}`);
-    const result = await response.json();
-    if (!result.ok) throw new Error(result.message);
+    const result = await fetchJson(`/api/competitions/${encodeURIComponent(sportCode)}`);
     state.currentCompetition = result.competition;
   } catch (error) {
     if (!localCompetition) throw error;
@@ -2946,9 +2949,7 @@ async function openCompetition(sportCode) {
 
 async function openEvent(eventCode) {
   try {
-    const response = await fetch(`/api/events/${encodeURIComponent(eventCode)}`);
-    const result = await response.json();
-    if (!result.ok) throw new Error(result.message);
+    const result = await fetchJson(`/api/events/${encodeURIComponent(eventCode)}`);
     state.currentEvent = result.event;
     renderEventHero(state.currentEvent);
     renderInsights(state.currentEvent);
