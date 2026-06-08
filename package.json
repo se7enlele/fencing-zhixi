@@ -12,6 +12,7 @@
     "parse:classmentrank": "node tools/parse-classmentrank.mjs",
     "parse:score": "node tools/parse-score.mjs",
     "coverage:data": "node tools/data-coverage-report.mjs",
+    "analysis:three-year": "node tools/three-year-analysis.mjs",
     "coverage:data:online": "node tools/data-coverage-report.mjs --url=https://fencingai.uk/api/events",
     "sync:platform": "node tools/sync-platform-data.mjs",
     "cf:build-data": "node tools/build-cloudflare-data.mjs",
