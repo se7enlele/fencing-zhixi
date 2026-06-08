@@ -1,4 +1,4 @@
-const topBack = document.querySelector('#topBack');
+﻿const topBack = document.querySelector('#topBack');
 const searchInput = document.querySelector('#searchInput');
 const yearFilterButton = document.querySelector('#yearFilterButton');
 const regionFilterButton = document.querySelector('#regionFilterButton');
@@ -12,6 +12,8 @@ const filterSheetOptions = document.querySelector('#filterSheetOptions');
 const searchShell = document.querySelector('.search-shell');
 const roleWorkspace = document.querySelector('#roleWorkspace');
 const parentDashboard = document.querySelector('#parentDashboard');
+const homePage = document.querySelector('#homePage');
+const focusPage = document.querySelector('#focusPage');
 const myPage = document.querySelector('#myPage');
 const bottomNav = document.querySelector('#bottomNav');
 const feedPanel = document.querySelector('#feedPanel');
@@ -57,6 +59,7 @@ const CHILD_KEY = 'fencingai.parentChildId.v1';
 
 const views = {
   roleHome: document.querySelector('#view-role-home'),
+  home: document.querySelector('#view-home'),
   parentHome: document.querySelector('#view-parent-home'),
   coachHome: document.querySelector('#view-coach-home'),
   clubHome: document.querySelector('#view-club-home'),
@@ -66,6 +69,7 @@ const views = {
   athlete: document.querySelector('#view-athlete-detail'),
   club: document.querySelector('#view-club-detail'),
   my: document.querySelector('#view-my'),
+  follow: document.querySelector('#view-follow'),
 };
 
 const state = {
@@ -85,7 +89,7 @@ const state = {
   selectedItem: '全部项目',
   selectedStatus: '全部状态',
   apiVersion: '',
-  viewStack: ['competitions'],
+  viewStack: ['home'],
   activeMainTab: 'home',
   deviceId: getDeviceId(),
   userRole: localStorage.getItem(ROLE_KEY) || '',
@@ -168,14 +172,14 @@ function upsertFollowedCompetition(competition) {
   ].slice(0, 30);
   saveStoredList(COMPETITION_FOLLOW_KEY, state.followedCompetitions, 30);
   renderCompetitionHero(competition);
-  renderMyPage();
+  renderPersonalPages();
 }
 
 function removeFollowedCompetition(sportCode) {
   state.followedCompetitions = state.followedCompetitions.filter((item) => item.sportCode !== sportCode);
   saveStoredList(COMPETITION_FOLLOW_KEY, state.followedCompetitions, 30);
   if (state.currentCompetition?.sportCode === sportCode) renderCompetitionHero(state.currentCompetition);
-  renderMyPage();
+  renderPersonalPages();
 }
 
 function trackRecentItem(item) {
@@ -185,7 +189,7 @@ function trackRecentItem(item) {
     ...state.recentItems.filter((row) => !(row.type === item.type && row.id === item.id)),
   ].slice(0, 20);
   saveStoredList(RECENT_KEY, state.recentItems, 20);
-  renderMyPage();
+  renderPersonalPages();
 }
 
 function setUserRole(role) {
@@ -208,7 +212,7 @@ function setSelectedChild(athleteId) {
   if (state.selectedChildId) localStorage.setItem(CHILD_KEY, state.selectedChildId);
   else localStorage.removeItem(CHILD_KEY);
   renderParentDashboard();
-  renderMyPage();
+  renderPersonalPages();
 }
 
 function getDeviceId() {
@@ -236,7 +240,7 @@ async function syncFollowedAthletes() {
   renderFollowPanel();
   renderRoleWorkspacePremium();
   renderParentDashboard();
-  renderMyPage();
+  renderPersonalPages();
 }
 
 async function hydrateFollowedAthleteProfiles() {
@@ -291,7 +295,7 @@ async function upsertFollowedAthlete(athlete) {
     renderFollowPanel();
     renderRoleWorkspacePremium();
     renderParentDashboard();
-    renderMyPage();
+    renderPersonalPages();
   } catch {
     // Keep local follow as offline fallback.
   }
@@ -304,7 +308,7 @@ async function removeFollowedAthlete(id) {
   if (state.selectedChildId === id) state.selectedChildId = '';
   renderRoleWorkspacePremium();
   renderParentDashboard();
-  renderMyPage();
+  renderPersonalPages();
   try {
     const response = await fetch('/api/me/follows', {
       method: 'DELETE',
@@ -319,7 +323,7 @@ async function removeFollowedAthlete(id) {
     if (state.selectedChildId === id) state.selectedChildId = '';
     renderRoleWorkspacePremium();
     renderParentDashboard();
-    renderMyPage();
+    renderPersonalPages();
   } catch {
     // Local removal has already been applied.
   }
@@ -637,10 +641,10 @@ function showView(name) {
     view.classList.toggle('active', key === name);
   });
   searchShell.classList.toggle('collapsed', name !== 'competitions');
-  const mainViews = ['roleHome', 'parentHome', 'competitions', 'my'];
+  const mainViews = ['roleHome', 'home', 'parentHome', 'competitions', 'follow', 'my'];
   topBack.classList.toggle('visible', !mainViews.includes(name));
   if (bottomNav) {
-    const showBottomNav = ['parentHome', 'competitions', 'my'].includes(name);
+    const showBottomNav = ['home', 'parentHome', 'competitions', 'follow', 'my'].includes(name);
     bottomNav.hidden = !showBottomNav;
     bottomNav.querySelectorAll('[data-main-tab]').forEach((button) => {
       const tab = button.dataset.mainTab;
@@ -660,15 +664,19 @@ function scrollToPageTop() {
 function navigateTo(name) {
   const current = state.viewStack[state.viewStack.length - 1];
   if (current !== name) state.viewStack.push(name);
-  if (name === 'my') renderMyPage();
+  if (name === 'home') renderHomePage();
+  if (name === 'follow') renderFocusPage();
+  if (name === 'my') renderPersonalPages();
   showView(name);
   scrollToPageTop();
 }
 
 function navigateMain(name) {
   state.activeMainTab = name;
-  const targetView = name === 'home' ? 'competitions' : name;
-  if (targetView === 'my') renderMyPage();
+  const targetView = name;
+  if (targetView === 'home') renderHomePage();
+  if (targetView === 'follow') renderFocusPage();
+  if (targetView === 'my') renderPersonalPages();
   state.viewStack = [targetView];
   showView(targetView);
   scrollToPageTop();
@@ -677,8 +685,9 @@ function navigateMain(name) {
 function goBack() {
   if (state.viewStack.length <= 1) {
     state.activeMainTab = 'home';
-    state.viewStack = ['competitions'];
-    showView('competitions');
+    state.viewStack = ['home'];
+    renderHomePage();
+    showView('home');
     scrollToPageTop();
     return;
   }
@@ -1390,6 +1399,129 @@ function myPageRow(row) {
       <em>${escapeHtml(subtitle)}</em>
     </button>
   `;
+}
+
+function bindPersonalList(container) {
+  if (!container) return;
+  container.querySelectorAll('[data-athlete-id]').forEach((button) => {
+    button.addEventListener('click', () => openAthlete(button.dataset.athleteId));
+  });
+  container.querySelectorAll('.my-list-row').forEach((button) => {
+    button.addEventListener('click', () => {
+      if (button.dataset.type === 'competition') openCompetition(button.dataset.id);
+      if (button.dataset.type === 'athlete') openAthlete(button.dataset.id);
+      if (button.dataset.type === 'club') openClub(button.dataset.id);
+    });
+  });
+}
+
+function renderHomePage() {
+  if (!homePage) return;
+  if (state.isDataLoading) {
+    homePage.innerHTML = '<section class="panel"><div class="loading-row">正在加载数据</div></section>';
+    return;
+  }
+  const competitions = topRecentCompetitions(3);
+  const children = focusAthleteCards();
+  const followedCompetitions = followedCompetitionCards();
+  const stats = [
+    { value: state.competitions.length, label: '赛事收录' },
+    { value: state.athleteSearchIndex.length, label: '选手画像' },
+    { value: state.clubSearchIndex.length, label: '俱乐部' },
+  ];
+  homePage.innerHTML = `
+    <section class="my-hero panel">
+      <div>
+        <span>FencingAI</span>
+        <strong>击剑数据看板</strong>
+        <em>近期赛事、关注动态和核心数据入口。</em>
+      </div>
+      <button type="button" data-home-competitions>赛事</button>
+    </section>
+    <section class="my-stat-grid">
+      ${stats.map((item) => `
+        <div class="my-stat">
+          <strong>${escapeHtml(item.value)}</strong>
+          <span>${escapeHtml(item.label)}</span>
+        </div>
+      `).join('')}
+    </section>
+    <section class="panel my-section">
+      <div class="section-title">
+        <h2>近期赛事</h2>
+        <span>快速查看</span>
+      </div>
+      <div class="my-list">
+        ${competitions.length ? competitions.map((competition) => myPageRow({
+          type: 'competition',
+          id: competition.sportCode,
+          title: competition.sportName,
+          dateLabel: competition.dateLabel,
+          venue: competition.venue || competition.region || '',
+        })).join('') : '<div class="empty compact-empty">暂无赛事数据。</div>'}
+      </div>
+    </section>
+    <section class="panel my-section">
+      <div class="section-title">
+        <h2>关注动态</h2>
+        <span>${children.length + followedCompetitions.length ? '已同步' : '待关注'}</span>
+      </div>
+      <div class="my-status-note">
+        <strong>${escapeHtml(children.length + followedCompetitions.length)}</strong>
+        <span>已关注的选手和赛事会集中在关注页，方便赛前快速查看。</span>
+      </div>
+    </section>
+  `;
+  homePage.querySelector('[data-home-competitions]')?.addEventListener('click', () => navigateMain('competitions'));
+  bindPersonalList(homePage);
+}
+
+function renderFocusPage() {
+  if (!focusPage) return;
+  const children = focusAthleteCards();
+  const followedCompetitions = followedCompetitionCards();
+  focusPage.innerHTML = `
+    <section class="panel my-section">
+      <div class="section-title">
+        <h2>关注选手</h2>
+        <span>${children.length ? '成长入口' : '待关注'}</span>
+      </div>
+      ${children.length ? `
+        <div class="follow-strip">
+          ${children.map((athlete) => `
+            <button class="follow-card" data-athlete-id="${escapeHtml(athlete.id)}">
+              <strong>${escapeHtml(athlete.name)}</strong>
+              <span>${escapeHtml(athlete.club || '个人')}</span>
+              <em>${escapeHtml(athlete.detail)}</em>
+              <small>${escapeHtml(athlete.summary)}</small>
+            </button>
+          `).join('')}
+        </div>
+      ` : '<div class="empty compact-empty">进入选手详情后，可把重点选手加入关注。</div>'}
+    </section>
+    <section class="panel my-section">
+      <div class="section-title">
+        <h2>关注赛事</h2>
+        <span>${followedCompetitions.length ? `${followedCompetitions.length} 场` : '赛前提醒'}</span>
+      </div>
+      <div class="my-list">
+        ${followedCompetitions.length ? followedCompetitions.map((competition) => myPageRow({
+          type: 'competition',
+          id: competition.sportCode,
+          title: competition.sportName,
+          dateLabel: competition.dateLabel,
+          venue: competition.venue,
+        })).join('') : '<div class="empty compact-empty">进入赛事详情后，可关注重要比赛。</div>'}
+      </div>
+    </section>
+  `;
+  bindPersonalList(focusPage);
+}
+
+function renderPersonalPages() {
+  renderHomePage();
+  renderFocusPage();
+  renderMyPage();
 }
 
 function renderMyPage() {
@@ -3414,13 +3546,15 @@ async function init() {
   renderRoleWorkspacePremium();
   renderParentDashboard();
   renderFeedPanel();
-  renderMyPage();
+  renderPersonalPages();
   await syncFollowedAthletes();
   renderYearSelect();
   renderRegionSelect();
   renderItemSelect();
   applyCompetitionFilter();
-  showView('competitions');
+  state.activeMainTab = 'home';
+  state.viewStack = ['home'];
+  showView('home');
 }
 
 renderRoleWorkspacePremium();
@@ -3430,7 +3564,7 @@ renderFilters();
 renderHomeStats();
 renderFeedPanel();
 renderCompetitionList();
-renderMyPage();
+renderPersonalPages();
 
 init().catch((error) => {
   state.isDataLoading = false;
@@ -3438,6 +3572,9 @@ init().catch((error) => {
   renderHomeStats();
   renderFeedPanel();
   renderCompetitionList();
-  renderMyPage();
-  showView('competitions');
+  renderPersonalPages();
+  state.activeMainTab = 'home';
+  state.viewStack = ['home'];
+  showView('home');
 });
+
