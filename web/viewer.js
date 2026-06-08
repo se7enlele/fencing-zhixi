@@ -85,7 +85,8 @@ const state = {
   selectedItem: '全部项目',
   selectedStatus: '全部状态',
   apiVersion: '',
-  viewStack: ['roleHome'],
+  viewStack: ['competitions'],
+  activeMainTab: 'home',
   deviceId: getDeviceId(),
   userRole: localStorage.getItem(ROLE_KEY) || '',
   selectedChildId: localStorage.getItem(CHILD_KEY) || '',
@@ -193,9 +194,12 @@ function setUserRole(role) {
   renderRoleWorkspacePremium();
   if (role === 'parent') {
     renderParentDashboard();
-    navigateTo('parentHome');
+    state.activeMainTab = 'home';
+    state.viewStack = ['parentHome'];
+    showView('parentHome');
+    scrollToPageTop();
   } else {
-    navigateTo('competitions');
+    navigateMain('home');
   }
 }
 
@@ -640,7 +644,7 @@ function showView(name) {
     bottomNav.hidden = !showBottomNav;
     bottomNav.querySelectorAll('[data-main-tab]').forEach((button) => {
       const tab = button.dataset.mainTab;
-      button.classList.toggle('active', tab === name || (tab === 'home' && name === 'parentHome'));
+      button.classList.toggle('active', tab === state.activeMainTab);
     });
   }
 }
@@ -662,15 +666,19 @@ function navigateTo(name) {
 }
 
 function navigateMain(name) {
-  if (name === 'my') renderMyPage();
-  state.viewStack = [name];
-  showView(name);
+  state.activeMainTab = name;
+  const targetView = name === 'home' ? 'competitions' : name;
+  if (targetView === 'my') renderMyPage();
+  state.viewStack = [targetView];
+  showView(targetView);
   scrollToPageTop();
 }
 
 function goBack() {
   if (state.viewStack.length <= 1) {
-    showView('roleHome');
+    state.activeMainTab = 'home';
+    state.viewStack = ['competitions'];
+    showView('competitions');
     scrollToPageTop();
     return;
   }
@@ -1260,6 +1268,7 @@ function renderParentDashboard() {
       localStorage.removeItem(ROLE_KEY);
       localStorage.removeItem(CHILD_KEY);
       state.viewStack = ['roleHome'];
+      state.activeMainTab = '';
       renderRoleWorkspacePremium();
       showView('roleHome');
       scrollToPageTop();
@@ -1482,6 +1491,7 @@ function renderMyPage() {
     localStorage.removeItem(ROLE_KEY);
     localStorage.removeItem(CHILD_KEY);
     state.viewStack = ['roleHome'];
+    state.activeMainTab = '';
     renderRoleWorkspacePremium();
     showView('roleHome');
     scrollToPageTop();
@@ -3367,22 +3377,19 @@ document.querySelectorAll('[data-nav-role-home]').forEach((button) => {
     state.userRole = '';
     localStorage.removeItem(ROLE_KEY);
     state.viewStack = ['roleHome'];
+    state.activeMainTab = '';
     renderRoleWorkspacePremium();
     showView('roleHome');
     scrollToPageTop();
   });
 });
 document.querySelectorAll('[data-nav-competitions]').forEach((button) => {
-  button.addEventListener('click', () => navigateTo('competitions'));
+  button.addEventListener('click', () => navigateMain('competitions'));
 });
 
 bottomNav?.querySelectorAll('[data-main-tab]').forEach((button) => {
   button.addEventListener('click', () => {
     const tab = button.dataset.mainTab;
-    if (tab === 'home') {
-      navigateMain(state.userRole === 'parent' ? 'parentHome' : 'competitions');
-      return;
-    }
     navigateMain(tab);
   });
 });
@@ -3413,6 +3420,7 @@ async function init() {
   renderRegionSelect();
   renderItemSelect();
   applyCompetitionFilter();
+  showView('competitions');
 }
 
 renderRoleWorkspacePremium();
@@ -3431,4 +3439,5 @@ init().catch((error) => {
   renderFeedPanel();
   renderCompetitionList();
   renderMyPage();
+  showView('competitions');
 });
