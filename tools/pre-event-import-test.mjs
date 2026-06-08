@@ -63,8 +63,8 @@ const projectListReport = {
     gender: '男',
     ageGroup: '青年组',
     itemType: '个人',
-    startDate: '2026-06-06 00:00:00',
-    endDate: '2026-06-08 00:00:00',
+    startDate: '2099-06-06 00:00:00',
+    endDate: '2099-06-08 00:00:00',
     participantCount: 1000,
   }],
 };

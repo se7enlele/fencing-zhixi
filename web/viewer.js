@@ -12,6 +12,8 @@ const filterSheetOptions = document.querySelector('#filterSheetOptions');
 const searchShell = document.querySelector('.search-shell');
 const roleWorkspace = document.querySelector('#roleWorkspace');
 const parentDashboard = document.querySelector('#parentDashboard');
+const myPage = document.querySelector('#myPage');
+const bottomNav = document.querySelector('#bottomNav');
 const feedPanel = document.querySelector('#feedPanel');
 const searchAthletesPanel = document.querySelector('#searchAthletesPanel');
 const followPanel = document.querySelector('#followPanel');
@@ -47,6 +49,8 @@ const momentumList = document.querySelector('#momentumList');
 const athleteGrowth = document.querySelector('#athleteGrowth');
 const tabs = document.querySelector('#tabs');
 const FOLLOW_KEY = 'fencingai.followedAthletes.v1';
+const COMPETITION_FOLLOW_KEY = 'fencingai.followedCompetitions.v1';
+const RECENT_KEY = 'fencingai.recentItems.v1';
 const DEVICE_KEY = 'fencingai.deviceId.v1';
 const ROLE_KEY = 'fencingai.role.v1';
 const CHILD_KEY = 'fencingai.parentChildId.v1';
@@ -61,6 +65,7 @@ const views = {
   event: document.querySelector('#view-event-detail'),
   athlete: document.querySelector('#view-athlete-detail'),
   club: document.querySelector('#view-club-detail'),
+  my: document.querySelector('#view-my'),
 };
 
 const state = {
@@ -85,6 +90,8 @@ const state = {
   userRole: localStorage.getItem(ROLE_KEY) || '',
   selectedChildId: localStorage.getItem(CHILD_KEY) || '',
   followedAthletes: [],
+  followedCompetitions: [],
+  recentItems: [],
   isDataLoading: true,
   dataLoadError: '',
   searchRequestId: 0,
@@ -107,6 +114,8 @@ async function fetchJson(path) {
 }
 
 state.followedAthletes = loadFollowedAthletes();
+state.followedCompetitions = loadStoredList(COMPETITION_FOLLOW_KEY);
+state.recentItems = loadStoredList(RECENT_KEY);
 
 function loadFollowedAthletes() {
   try {
@@ -116,8 +125,66 @@ function loadFollowedAthletes() {
   }
 }
 
+function loadStoredList(key) {
+  try {
+    const value = JSON.parse(localStorage.getItem(key) || '[]');
+    return Array.isArray(value) ? value : [];
+  } catch {
+    return [];
+  }
+}
+
+function saveStoredList(key, rows, limit = 30) {
+  localStorage.setItem(key, JSON.stringify((rows || []).slice(0, limit)));
+}
+
 function saveFollowedAthletes() {
   localStorage.setItem(FOLLOW_KEY, JSON.stringify(state.followedAthletes.slice(0, 20)));
+}
+
+function competitionSnapshot(competition) {
+  return {
+    sportCode: competition.sportCode,
+    sportName: competition.sportName,
+    venue: competition.venue || competition.region || '',
+    dateLabel: competition.dateLabel || '',
+    status: competition.status || '',
+    rosterStatus: competition.rosterStatus || '',
+    itemCount: competition.items?.length || competition.itemCount || 0,
+    expectedRegistrationCount: competition.registrationSummary?.expectedRegistrationCount || competition.expectedRegistrationCount || 0,
+  };
+}
+
+function isFollowedCompetition(sportCode) {
+  return state.followedCompetitions.some((item) => item.sportCode === sportCode);
+}
+
+function upsertFollowedCompetition(competition) {
+  if (!competition?.sportCode) return;
+  state.followedCompetitions = [
+    competitionSnapshot(competition),
+    ...state.followedCompetitions.filter((item) => item.sportCode !== competition.sportCode),
+  ].slice(0, 30);
+  saveStoredList(COMPETITION_FOLLOW_KEY, state.followedCompetitions, 30);
+  renderCompetitionHero(competition);
+  renderMyPage();
+}
+
+function removeFollowedCompetition(sportCode) {
+  state.followedCompetitions = state.followedCompetitions.filter((item) => item.sportCode !== sportCode);
+  saveStoredList(COMPETITION_FOLLOW_KEY, state.followedCompetitions, 30);
+  if (state.currentCompetition?.sportCode === sportCode) renderCompetitionHero(state.currentCompetition);
+  renderMyPage();
+}
+
+function trackRecentItem(item) {
+  if (!item?.id || !item?.type) return;
+  state.recentItems = [
+    { ...item, viewedAt: Date.now() },
+    ...state.recentItems.filter((row) => !(row.type === item.type && row.id === item.id)),
+  ].slice(0, 20);
+  saveStoredList(RECENT_KEY, state.recentItems, 20);
+  renderMyPage();
 }
 
 function setUserRole(role) {
@@ -137,6 +204,7 @@ function setSelectedChild(athleteId) {
   if (state.selectedChildId) localStorage.setItem(CHILD_KEY, state.selectedChildId);
   else localStorage.removeItem(CHILD_KEY);
   renderParentDashboard();
+  renderMyPage();
 }
 
 function getDeviceId() {
@@ -164,6 +232,7 @@ async function syncFollowedAthletes() {
   renderFollowPanel();
   renderRoleWorkspacePremium();
   renderParentDashboard();
+  renderMyPage();
 }
 
 async function hydrateFollowedAthleteProfiles() {
@@ -218,6 +287,7 @@ async function upsertFollowedAthlete(athlete) {
     renderFollowPanel();
     renderRoleWorkspacePremium();
     renderParentDashboard();
+    renderMyPage();
   } catch {
     // Keep local follow as offline fallback.
   }
@@ -230,6 +300,7 @@ async function removeFollowedAthlete(id) {
   if (state.selectedChildId === id) state.selectedChildId = '';
   renderRoleWorkspacePremium();
   renderParentDashboard();
+  renderMyPage();
   try {
     const response = await fetch('/api/me/follows', {
       method: 'DELETE',
@@ -244,6 +315,7 @@ async function removeFollowedAthlete(id) {
     if (state.selectedChildId === id) state.selectedChildId = '';
     renderRoleWorkspacePremium();
     renderParentDashboard();
+    renderMyPage();
   } catch {
     // Local removal has already been applied.
   }
@@ -561,7 +633,16 @@ function showView(name) {
     view.classList.toggle('active', key === name);
   });
   searchShell.classList.toggle('collapsed', name !== 'competitions');
-  topBack.classList.toggle('visible', name !== 'roleHome');
+  const mainViews = ['roleHome', 'parentHome', 'competitions', 'my'];
+  topBack.classList.toggle('visible', !mainViews.includes(name));
+  if (bottomNav) {
+    const showBottomNav = ['parentHome', 'competitions', 'my'].includes(name);
+    bottomNav.hidden = !showBottomNav;
+    bottomNav.querySelectorAll('[data-main-tab]').forEach((button) => {
+      const tab = button.dataset.mainTab;
+      button.classList.toggle('active', tab === name || (tab === 'home' && name === 'parentHome'));
+    });
+  }
 }
 
 function scrollToPageTop() {
@@ -575,6 +656,14 @@ function scrollToPageTop() {
 function navigateTo(name) {
   const current = state.viewStack[state.viewStack.length - 1];
   if (current !== name) state.viewStack.push(name);
+  if (name === 'my') renderMyPage();
+  showView(name);
+  scrollToPageTop();
+}
+
+function navigateMain(name) {
+  if (name === 'my') renderMyPage();
+  state.viewStack = [name];
   showView(name);
   scrollToPageTop();
 }
@@ -1273,6 +1362,142 @@ function focusAthleteCards() {
   }).filter((athlete) => athlete.id);
 }
 
+function followedCompetitionCards() {
+  return (state.followedCompetitions || []).map((follow) => {
+    const live = findCompetitionBySportCode(follow.sportCode);
+    return competitionSnapshot({ ...follow, ...(live || {}) });
+  }).filter((competition) => competition.sportCode);
+}
+
+function myPageRow(row) {
+  const subtitle = row.type === 'competition'
+    ? `${displayDateLabel(row.dateLabel)} · ${row.venue || '地点待确认'}`
+    : row.meta || '';
+  const label = row.type === 'competition' ? '赛事' : row.type === 'athlete' ? '选手' : '俱乐部';
+  return `
+    <button type="button" class="my-list-row" data-type="${escapeHtml(row.type)}" data-id="${escapeHtml(row.id)}">
+      <span>${escapeHtml(label)}</span>
+      <strong>${escapeHtml(row.title)}</strong>
+      <em>${escapeHtml(subtitle)}</em>
+    </button>
+  `;
+}
+
+function renderMyPage() {
+  if (!myPage) return;
+  const children = focusAthleteCards();
+  const followedCompetitions = followedCompetitionCards();
+  const recentRows = (state.recentItems || []).slice(0, 6);
+  const followedAthletes = children.slice(0, 6);
+  const stats = [
+    { value: children.length, label: '关注选手' },
+    { value: followedCompetitions.length, label: '关注赛事' },
+    { value: recentRows.length, label: '最近查看' },
+  ];
+
+  myPage.innerHTML = `
+    <section class="my-hero panel">
+      <div>
+        <span>当前工作台</span>
+        <strong>${escapeHtml(roleLabel(state.userRole))}</strong>
+        <em>${escapeHtml(state.selectedChildId ? '已选择重点关注孩子' : '可从选手详情页设置关注')}</em>
+      </div>
+      <button type="button" data-role-switch>切换</button>
+    </section>
+
+    <section class="my-stat-grid">
+      ${stats.map((item) => `
+        <div class="my-stat">
+          <strong>${escapeHtml(item.value)}</strong>
+          <span>${escapeHtml(item.label)}</span>
+        </div>
+      `).join('')}
+    </section>
+
+    <section class="panel my-section">
+      <div class="section-title">
+        <h2>我的孩子</h2>
+        <span>${children.length ? '成长入口' : '待关注'}</span>
+      </div>
+      ${children.length ? `
+        <div class="follow-strip">
+          ${children.map((athlete) => `
+            <button class="follow-card" data-athlete-id="${escapeHtml(athlete.id)}">
+              <strong>${escapeHtml(athlete.name)}</strong>
+              <span>${escapeHtml(athlete.club || '个人')}</span>
+              <em>${escapeHtml(athlete.detail)}</em>
+              <small>${escapeHtml(athlete.summary)}</small>
+            </button>
+          `).join('')}
+        </div>
+      ` : `
+        <div class="empty-follow">
+          <strong>还没有关注选手</strong>
+          <span>进入选手详情页后，可把孩子加入这里。</span>
+        </div>
+      `}
+    </section>
+
+    <section class="panel my-section">
+      <div class="section-title">
+        <h2>关注赛事</h2>
+        <span>${followedCompetitions.length ? `${followedCompetitions.length} 场` : '赛前提醒'}</span>
+      </div>
+      <div class="my-list">
+        ${followedCompetitions.length ? followedCompetitions.map((competition) => myPageRow({
+          type: 'competition',
+          id: competition.sportCode,
+          title: competition.sportName,
+          dateLabel: competition.dateLabel,
+          venue: competition.venue,
+        })).join('') : '<div class="empty compact-empty">进入赛事详情后，可关注重要比赛。</div>'}
+      </div>
+    </section>
+
+    <section class="panel my-section">
+      <div class="section-title">
+        <h2>最近查看</h2>
+        <span>快速返回</span>
+      </div>
+      <div class="my-list">
+        ${recentRows.length ? recentRows.map(myPageRow).join('') : '<div class="empty compact-empty">查看赛事、选手或俱乐部后会显示在这里。</div>'}
+      </div>
+    </section>
+
+    <section class="panel my-section">
+      <div class="section-title">
+        <h2>数据状态</h2>
+        <span>${escapeHtml(state.apiVersion || '本地缓存')}</span>
+      </div>
+      <div class="my-status-note">
+        <strong>${escapeHtml(state.dataCoverage?.scorePackages || state.competitions.length || 0)}</strong>
+        <span>赛事与项目数据持续更新；报名名单完整后，会自动形成赛前对手分析。</span>
+      </div>
+    </section>
+  `;
+
+  myPage.querySelector('[data-role-switch]')?.addEventListener('click', () => {
+    state.userRole = '';
+    state.selectedChildId = '';
+    localStorage.removeItem(ROLE_KEY);
+    localStorage.removeItem(CHILD_KEY);
+    state.viewStack = ['roleHome'];
+    renderRoleWorkspacePremium();
+    showView('roleHome');
+    scrollToPageTop();
+  });
+  myPage.querySelectorAll('[data-athlete-id]').forEach((button) => {
+    button.addEventListener('click', () => openAthlete(button.dataset.athleteId));
+  });
+  myPage.querySelectorAll('.my-list-row').forEach((button) => {
+    button.addEventListener('click', () => {
+      if (button.dataset.type === 'competition') openCompetition(button.dataset.id);
+      if (button.dataset.type === 'athlete') openAthlete(button.dataset.id);
+      if (button.dataset.type === 'club') openClub(button.dataset.id);
+    });
+  });
+}
+
 function parseDateCandidates(value) {
   const text = String(value || '');
   const matches = [...text.matchAll(/(20\d{2})(?:[^\d]{0,3}(\d{1,2})(?:[^\d]{0,3}(\d{1,2}))?)?/g)];
@@ -1705,6 +1930,7 @@ function competitionListInsight(competition) {
 
 function renderCompetitionHero(competition) {
   const chips = competitionChips(competition);
+  const followed = isFollowedCompetition(competition.sportCode);
   competitionHero.classList.add('compact');
   competitionHero.innerHTML = `
     <div class="status-row">
@@ -1712,11 +1938,18 @@ function renderCompetitionHero(competition) {
       <span class="coverage-badge ${escapeHtml(coverageClass(competition))}">${escapeHtml(coverageLabel(competition))}</span>
       ${competition.isPreEvent ? `<span class="roster-badge">${escapeHtml(rosterStatusLabel(competition.rosterStatus))}</span>` : ''}
     </div>
+    <button class="follow-status-tag competition-follow-tag ${followed ? 'active' : ''}" id="followCompetitionBtn" type="button" aria-pressed="${followed ? 'true' : 'false'}">
+      ${followed ? '已关注' : '关注'}
+    </button>
     <div class="hero-title">${escapeHtml(competition.sportName)}</div>
     <div class="hero-sub">${escapeHtml(competition.venue || '地点待确认')} · ${escapeHtml(displayDateLabel(competition.dateLabel))}</div>
     <div class="hero-sub coverage-copy">${escapeHtml(coverageDetail(competition))}</div>
     <div class="event-chip-row">${chips.visible.map((label) => `<span>${escapeHtml(label)}</span>`).join('')}</div>
   `;
+  competitionHero.querySelector('#followCompetitionBtn')?.addEventListener('click', () => {
+    if (isFollowedCompetition(competition.sportCode)) removeFollowedCompetition(competition.sportCode);
+    else upsertFollowedCompetition(competition);
+  });
 }
 
 function compactCompetitionBarRows(rows, options = {}) {
@@ -2984,6 +3217,7 @@ function renderClubDetail(club) {
 
 async function openAthlete(athleteId) {
   const localAthlete = findAthleteByReference({ id: athleteId });
+  let renderedAthlete = null;
   try {
     if (!athleteId || athleteId === 'undefined' || athleteId === 'null') {
       if (localAthlete?.events?.length) {
@@ -2995,9 +3229,11 @@ async function openAthlete(athleteId) {
     }
     const result = await fetchJson(`/api/athletes/${encodeURIComponent(athleteId)}`);
     renderAthleteDetail(result.athlete);
+    renderedAthlete = result.athlete;
   } catch (error) {
     if (localAthlete?.events?.length) {
       renderAthleteDetail(localAthlete);
+      renderedAthlete = localAthlete;
     } else {
       setInlineError(athleteHero, `选手详情读取失败：${error.message}`);
       athleteActionPanel.innerHTML = '';
@@ -3005,16 +3241,34 @@ async function openAthlete(athleteId) {
       athleteEvents.innerHTML = '';
     }
   }
+  if (renderedAthlete?.id) {
+    trackRecentItem({
+      type: 'athlete',
+      id: renderedAthlete.id,
+      title: renderedAthlete.name,
+      meta: renderedAthlete.club || '选手画像',
+    });
+  }
   navigateTo('athlete');
 }
 
 async function openClub(clubId) {
+  let renderedClub = null;
   try {
     const result = await fetchJson(`/api/clubs/${clubId}`);
     renderClubDetail(result.club);
+    renderedClub = result.club;
   } catch (error) {
     setInlineError(clubHero, `俱乐部详情读取失败：${error.message}`);
     clubEvents.innerHTML = '';
+  }
+  if (renderedClub?.id) {
+    trackRecentItem({
+      type: 'club',
+      id: renderedClub.id,
+      title: renderedClub.club,
+      meta: `参赛 ${renderedClub.entrants || 0} 人次`,
+    });
   }
   navigateTo('club');
 }
@@ -3033,6 +3287,13 @@ async function openCompetition(sportCode) {
   renderCompetitionHero(state.currentCompetition);
   renderCompetitionInsights(state.currentCompetition);
   renderEventList(state.currentCompetition);
+  trackRecentItem({
+    type: 'competition',
+    id: state.currentCompetition.sportCode,
+    title: state.currentCompetition.sportName,
+    dateLabel: state.currentCompetition.dateLabel,
+    venue: state.currentCompetition.venue || state.currentCompetition.region || '',
+  });
   navigateTo('competition');
 }
 
@@ -3115,6 +3376,17 @@ document.querySelectorAll('[data-nav-competitions]').forEach((button) => {
   button.addEventListener('click', () => navigateTo('competitions'));
 });
 
+bottomNav?.querySelectorAll('[data-main-tab]').forEach((button) => {
+  button.addEventListener('click', () => {
+    const tab = button.dataset.mainTab;
+    if (tab === 'home') {
+      navigateMain(state.userRole === 'parent' ? 'parentHome' : 'competitions');
+      return;
+    }
+    navigateMain(tab);
+  });
+});
+
 async function init() {
   state.isDataLoading = true;
   state.dataLoadError = '';
@@ -3135,6 +3407,7 @@ async function init() {
   renderRoleWorkspacePremium();
   renderParentDashboard();
   renderFeedPanel();
+  renderMyPage();
   await syncFollowedAthletes();
   renderYearSelect();
   renderRegionSelect();
@@ -3149,6 +3422,7 @@ renderFilters();
 renderHomeStats();
 renderFeedPanel();
 renderCompetitionList();
+renderMyPage();
 
 init().catch((error) => {
   state.isDataLoading = false;
@@ -3156,4 +3430,5 @@ init().catch((error) => {
   renderHomeStats();
   renderFeedPanel();
   renderCompetitionList();
+  renderMyPage();
 });

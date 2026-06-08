@@ -30,7 +30,7 @@ body {
 .app {
   width: min(100%, 430px);
   margin: 0 auto;
-  padding: 0 10px 30px;
+  padding: 0 10px 92px;
 }
 
 .topbar {
@@ -878,6 +878,55 @@ select:focus {
   color: var(--primary);
 }
 
+.bottom-nav {
+  position: fixed;
+  left: 50%;
+  bottom: 0;
+  z-index: 20;
+  width: min(100%, 430px);
+  transform: translateX(-50%);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2px;
+  padding: 7px 10px max(8px, env(safe-area-inset-bottom));
+  border-top: 1px solid var(--hairline);
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(16px);
+  box-shadow: 0 -10px 26px rgba(16, 24, 40, 0.08);
+}
+
+.bottom-nav[hidden] {
+  display: none;
+}
+
+.bottom-nav button {
+  display: grid;
+  justify-items: center;
+  gap: 3px;
+  min-height: 46px;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: #667085;
+  font: inherit;
+  padding: 4px 2px;
+}
+
+.bottom-nav span {
+  font-size: 21px;
+  line-height: 1;
+}
+
+.bottom-nav strong {
+  font-size: 11px;
+  line-height: 1;
+}
+
+.bottom-nav button.active {
+  background: rgba(8, 119, 96, 0.08);
+  color: var(--teal);
+}
+
 .view {
   display: none;
 }
@@ -1124,6 +1173,137 @@ select:focus {
 
 .empty-follow strong {
   font-size: 14px;
+}
+
+.my-page-shell {
+  display: grid;
+  gap: 10px;
+}
+
+.my-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: center;
+  border-left: 3px solid var(--teal);
+  background: linear-gradient(135deg, rgba(8, 119, 96, 0.1), rgba(255, 255, 255, 0.96));
+}
+
+.my-hero span,
+.my-hero em,
+.my-list-row span,
+.my-list-row em,
+.my-status-note span {
+  color: var(--muted);
+  font-size: 12px;
+  font-style: normal;
+}
+
+.my-hero strong {
+  display: block;
+  margin: 2px 0;
+  font-size: 22px;
+}
+
+.my-hero button {
+  height: 32px;
+  border: 1px solid rgba(21, 95, 194, 0.14);
+  border-radius: 999px;
+  background: rgba(21, 95, 194, 0.08);
+  color: var(--primary);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 900;
+  padding: 0 12px;
+}
+
+.my-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.my-stat {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 10px;
+  box-shadow: var(--shadow);
+}
+
+.my-stat strong,
+.my-stat span {
+  display: block;
+}
+
+.my-stat strong {
+  font-size: 20px;
+  line-height: 1;
+}
+
+.my-stat span {
+  margin-top: 5px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.my-section {
+  margin-bottom: 0;
+}
+
+.my-list {
+  display: grid;
+  gap: 8px;
+}
+
+.my-list-row {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 3px 10px;
+  align-items: center;
+  min-height: 58px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: #fff;
+  color: var(--text);
+  font: inherit;
+  text-align: left;
+  padding: 9px 10px;
+}
+
+.my-list-row span {
+  grid-row: span 2;
+  width: 38px;
+  height: 24px;
+  border-radius: 999px;
+  background: rgba(8, 119, 96, 0.08);
+  color: var(--teal);
+  display: inline-grid;
+  place-items: center;
+  font-weight: 900;
+}
+
+.my-list-row strong,
+.my-list-row em {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.my-status-note {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 10px;
+  align-items: center;
+  border-radius: 10px;
+  background: rgba(21, 95, 194, 0.06);
+  padding: 10px;
+}
+
+.my-status-note strong {
+  color: var(--primary);
+  font-size: 24px;
 }
 
 .member-panel {
@@ -1527,6 +1707,7 @@ select:focus {
 }
 
 .hero {
+  position: relative;
   display: grid;
   gap: 7px;
   margin-bottom: 10px;
@@ -1534,6 +1715,7 @@ select:focus {
 
 .hero.compact {
   padding-top: 11px;
+  padding-right: 76px;
   padding-bottom: 11px;
   gap: 6px;
 }
@@ -1571,6 +1753,13 @@ select:focus {
   border-color: rgba(8, 119, 96, 0.22);
   background: rgba(8, 119, 96, 0.1);
   color: #087760;
+}
+
+.competition-follow-tag {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  min-width: 52px;
 }
 
 .hero-sub {
@@ -2522,7 +2711,7 @@ body {
 
 .app {
   width: min(100%, 480px);
-  padding: 0 12px 34px;
+  padding: 0 12px 94px;
 }
 
 .topbar {
