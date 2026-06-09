@@ -1,0 +1,1378 @@
+{
+  "ok": true,
+  "source": {
+    "sourceUrl": "https://fencing-proxy.aixindiandian.workers.dev/Resource/score/RZSSAH0520260530METU12.js",
+    "sourceType": "score-resource",
+    "importedAt": "2026-06-09T06:50:21.313Z"
+  },
+  "general": {
+    "sportName": "2026年高淳国际慢城击剑公开赛",
+    "eventName": "U12男子重剑团体",
+    "openDate": "2026.05.31",
+    "venue": "江苏·南京",
+    "competitionNo": 5,
+    "exemptionNo": null,
+    "poolFencerNo": null,
+    "poolQualifyNo": 0,
+    "preDeStartPhase": "none",
+    "deStartPhase": "from Tableaus8",
+    "sportCode": "RZSSAH0520260530",
+    "eventCode": "RZSSAH0520260530METU12"
+  },
+  "summary": {
+    "classmentCount": 5,
+    "initialSeedCount": 5,
+    "poolCount": 0,
+    "poolStandingCount": 0,
+    "poolResultCount": 0,
+    "poolBoutCount": 0,
+    "tableauCount": 3,
+    "eliminationMatchCount": 8,
+    "playedEliminationMatchCount": 5,
+    "byeMatchCount": 3,
+    "athleteCountByLicence": 5
+  },
+  "distributions": {
+    "poolStatus": {},
+    "poolRemark": {},
+    "tableau": {
+      "8表": 1,
+      "半决赛": 1,
+      "决赛": 1
+    },
+    "eliminationByPhase": {
+      "8表": 4,
+      "半决赛": 2,
+      "决赛": 2
+    },
+    "eliminationResult": {
+      "W/L": 4,
+      "L/W": 4
+    },
+    "medal": {
+      "金": 1,
+      "银": 1,
+      "铜": 1,
+      "(无奖牌)": 2
+    }
+  },
+  "normalized": {
+    "classment": [
+      {
+        "rank": 1,
+        "displayRank": "1",
+        "name": "骑兵男重",
+        "licence": "RZSSAH0520260530METU12_577_WGRAB",
+        "club": "安徽骑兵",
+        "birthday": null,
+        "medal": "金",
+        "status": "N",
+        "sourcePosition": 1
+      },
+      {
+        "rank": 2,
+        "displayRank": "2",
+        "name": "秦淮一队",
+        "licence": "RZSSAH0520260530METU12_454_WQQFZ",
+        "club": "南京艾鲁特",
+        "birthday": null,
+        "medal": "银",
+        "status": "N",
+        "sourcePosition": 2
+      },
+      {
+        "rank": 3,
+        "displayRank": "3",
+        "name": "南京Allstar",
+        "licence": "RZSSAH0520260530METU12_528_SNJDM",
+        "club": "南京奥斯达",
+        "birthday": null,
+        "medal": "铜",
+        "status": "N",
+        "sourcePosition": 3
+      },
+      {
+        "rank": 4,
+        "displayRank": "4",
+        "name": "芜湖超人U12",
+        "licence": "RZSSAH0520260530METU12_11570_VHCMQ",
+        "club": "芜湖超人",
+        "birthday": null,
+        "medal": null,
+        "status": "N",
+        "sourcePosition": 4
+      },
+      {
+        "rank": 5,
+        "displayRank": "5",
+        "name": "江苏联合",
+        "licence": "RZSSAH0520260530METU12_65_XGZDM",
+        "club": "江苏",
+        "birthday": null,
+        "medal": null,
+        "status": "N",
+        "sourcePosition": 5
+      }
+    ],
+    "poolStandings": [],
+    "poolResults": [],
+    "poolBouts": [],
+    "eliminationMatches": [
+      {
+        "matchId": 495354,
+        "matchCode": "Pre001",
+        "phaseId": 169491,
+        "phase": {
+          "shortName": "T8",
+          "longName": "8表",
+          "order": 1,
+          "code": "3",
+          "group": "1_0"
+        },
+        "groupCode": "3_0",
+        "innerOrder": 1,
+        "home": {
+          "position": 1,
+          "name": "骑兵男重",
+          "licence": "RZSSAH0520260530METU12_577_WGRAB",
+          "club": "安徽骑兵",
+          "points": null,
+          "result": "W"
+        },
+        "away": {
+          "position": 8,
+          "name": "Bye",
+          "licence": null,
+          "club": null,
+          "points": null,
+          "result": "L"
+        },
+        "winner": {
+          "name": "骑兵男重",
+          "club": "安徽骑兵"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": true
+      },
+      {
+        "matchId": 495355,
+        "matchCode": "Pre002",
+        "phaseId": 169491,
+        "phase": {
+          "shortName": "T8",
+          "longName": "8表",
+          "order": 1,
+          "code": "3",
+          "group": "1_0"
+        },
+        "groupCode": "3_0",
+        "innerOrder": 2,
+        "home": {
+          "position": 5,
+          "name": "江苏联合",
+          "licence": "RZSSAH0520260530METU12_65_XGZDM",
+          "club": "江苏",
+          "points": 31,
+          "result": "L"
+        },
+        "away": {
+          "position": 4,
+          "name": "芜湖超人U12",
+          "licence": "RZSSAH0520260530METU12_11570_VHCMQ",
+          "club": "芜湖超人",
+          "points": 45,
+          "result": "W"
+        },
+        "winner": {
+          "name": "江苏联合",
+          "club": "芜湖超人"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 495356,
+        "matchCode": "Pre003",
+        "phaseId": 169491,
+        "phase": {
+          "shortName": "T8",
+          "longName": "8表",
+          "order": 1,
+          "code": "3",
+          "group": "1_0"
+        },
+        "groupCode": "3_1",
+        "innerOrder": 1,
+        "home": {
+          "position": 3,
+          "name": "南京Allstar",
+          "licence": "RZSSAH0520260530METU12_528_SNJDM",
+          "club": "南京奥斯达",
+          "points": null,
+          "result": "W"
+        },
+        "away": {
+          "position": 6,
+          "name": "Bye",
+          "licence": null,
+          "club": null,
+          "points": null,
+          "result": "L"
+        },
+        "winner": {
+          "name": "南京Allstar",
+          "club": "南京奥斯达"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": true
+      },
+      {
+        "matchId": 495357,
+        "matchCode": "Pre004",
+        "phaseId": 169491,
+        "phase": {
+          "shortName": "T8",
+          "longName": "8表",
+          "order": 1,
+          "code": "3",
+          "group": "1_0"
+        },
+        "groupCode": "3_1",
+        "innerOrder": 2,
+        "home": {
+          "position": 7,
+          "name": "Bye",
+          "licence": null,
+          "club": null,
+          "points": null,
+          "result": "L"
+        },
+        "away": {
+          "position": 2,
+          "name": "秦淮一队",
+          "licence": "RZSSAH0520260530METU12_454_WQQFZ",
+          "club": "南京艾鲁特",
+          "points": null,
+          "result": "W"
+        },
+        "winner": {
+          "name": null,
+          "club": "南京艾鲁特"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": true
+      },
+      {
+        "matchId": 495358,
+        "matchCode": "Pre001",
+        "phaseId": 169492,
+        "phase": {
+          "shortName": "T4",
+          "longName": "半决赛",
+          "order": 2,
+          "code": "2",
+          "group": "2_0"
+        },
+        "groupCode": "2_0",
+        "innerOrder": 1,
+        "home": {
+          "position": 1,
+          "name": "骑兵男重",
+          "licence": "RZSSAH0520260530METU12_577_WGRAB",
+          "club": "安徽骑兵",
+          "points": 45,
+          "result": "W"
+        },
+        "away": {
+          "position": 4,
+          "name": "芜湖超人U12",
+          "licence": "RZSSAH0520260530METU12_11570_VHCMQ",
+          "club": "芜湖超人",
+          "points": 37,
+          "result": "L"
+        },
+        "winner": {
+          "name": "骑兵男重",
+          "club": "安徽骑兵"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 495359,
+        "matchCode": "Pre002",
+        "phaseId": 169492,
+        "phase": {
+          "shortName": "T4",
+          "longName": "半决赛",
+          "order": 2,
+          "code": "2",
+          "group": "2_0"
+        },
+        "groupCode": "2_0",
+        "innerOrder": 2,
+        "home": {
+          "position": 3,
+          "name": "南京Allstar",
+          "licence": "RZSSAH0520260530METU12_528_SNJDM",
+          "club": "南京奥斯达",
+          "points": 36,
+          "result": "L"
+        },
+        "away": {
+          "position": 2,
+          "name": "秦淮一队",
+          "licence": "RZSSAH0520260530METU12_454_WQQFZ",
+          "club": "南京艾鲁特",
+          "points": 42,
+          "result": "W"
+        },
+        "winner": {
+          "name": "南京Allstar",
+          "club": "南京艾鲁特"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 495360,
+        "matchCode": "Pre001",
+        "phaseId": 169493,
+        "phase": {
+          "shortName": "T2",
+          "longName": "决赛",
+          "order": 3,
+          "code": "1",
+          "group": "3_0"
+        },
+        "groupCode": "1_0",
+        "innerOrder": 1,
+        "home": {
+          "position": 1,
+          "name": "骑兵男重",
+          "licence": "RZSSAH0520260530METU12_577_WGRAB",
+          "club": "安徽骑兵",
+          "points": 45,
+          "result": "W"
+        },
+        "away": {
+          "position": 2,
+          "name": "秦淮一队",
+          "licence": "RZSSAH0520260530METU12_454_WQQFZ",
+          "club": "南京艾鲁特",
+          "points": 35,
+          "result": "L"
+        },
+        "winner": {
+          "name": "骑兵男重",
+          "club": "安徽骑兵"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 495361,
+        "matchCode": "Pre002",
+        "phaseId": 169493,
+        "phase": {
+          "shortName": "T2",
+          "longName": "决赛",
+          "order": 3,
+          "code": "1",
+          "group": "3_0"
+        },
+        "groupCode": "1_0",
+        "innerOrder": 2,
+        "home": {
+          "position": 1,
+          "name": "芜湖超人U12",
+          "licence": "RZSSAH0520260530METU12_11570_VHCMQ",
+          "club": "芜湖超人",
+          "points": 41,
+          "result": "L"
+        },
+        "away": {
+          "position": 2,
+          "name": "南京Allstar",
+          "licence": "RZSSAH0520260530METU12_528_SNJDM",
+          "club": "南京奥斯达",
+          "points": 45,
+          "result": "W"
+        },
+        "winner": {
+          "name": "芜湖超人U12",
+          "club": "南京奥斯达"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      }
+    ]
+  },
+  "completeness": [
+    {
+      "section": "General",
+      "rows": 1,
+      "fields": [
+        {
+          "key": "SportName",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "2026年高淳国际慢城击剑公开赛"
+          ]
+        },
+        {
+          "key": "EventName",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "U12男子重剑团体"
+          ]
+        },
+        {
+          "key": "OpenDate",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "2026.05.31"
+          ]
+        },
+        {
+          "key": "Venue",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "江苏·南京"
+          ]
+        },
+        {
+          "key": "CompetitionNo",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            5
+          ]
+        },
+        {
+          "key": "ExemptionNo",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "PoolFencerNo",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "PoolQualifyNo",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            0
+          ]
+        },
+        {
+          "key": "PDEstartPhase",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "none"
+          ]
+        },
+        {
+          "key": "DEstartPhase",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "from Tableaus8"
+          ]
+        },
+        {
+          "key": "Scode",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "RZSSAH0520260530"
+          ]
+        },
+        {
+          "key": "Ecode",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "RZSSAH0520260530METU12"
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Classment",
+      "rows": 5,
+      "fields": [
+        {
+          "key": "EventShowRank",
+          "nonEmpty": 5,
+          "fillRate": 1,
+          "sampleValues": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5"
+          ]
+        },
+        {
+          "key": "EventRank",
+          "nonEmpty": 5,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        },
+        {
+          "key": "Fencer",
+          "nonEmpty": 5,
+          "fillRate": 1,
+          "sampleValues": [
+            "骑兵男重",
+            "秦淮一队",
+            "南京Allstar",
+            "芜湖超人U12",
+            "江苏联合"
+          ]
+        },
+        {
+          "key": "Licence",
+          "nonEmpty": 5,
+          "fillRate": 1,
+          "sampleValues": [
+            "RZSSAH0520260530METU12_577_WGRAB",
+            "RZSSAH0520260530METU12_454_WQQFZ",
+            "RZSSAH0520260530METU12_528_SNJDM",
+            "RZSSAH0520260530METU12_11570_VHCMQ",
+            "RZSSAH0520260530METU12_65_XGZDM"
+          ]
+        },
+        {
+          "key": "NOCCode",
+          "nonEmpty": 5,
+          "fillRate": 1,
+          "sampleValues": [
+            "安徽骑兵",
+            "南京艾鲁特",
+            "南京奥斯达",
+            "芜湖超人",
+            "江苏"
+          ]
+        },
+        {
+          "key": "Birthday",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "Medal",
+          "nonEmpty": 3,
+          "fillRate": 0.6,
+          "sampleValues": [
+            "金",
+            "银",
+            "铜"
+          ]
+        },
+        {
+          "key": "Statut",
+          "nonEmpty": 5,
+          "fillRate": 1,
+          "sampleValues": [
+            "N"
+          ]
+        },
+        {
+          "key": "F_EventDisPos",
+          "nonEmpty": 5,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        },
+        {
+          "key": "RID",
+          "nonEmpty": 5,
+          "fillRate": 1,
+          "sampleValues": [
+            90,
+            91,
+            87,
+            88,
+            89
+          ]
+        }
+      ]
+    },
+    {
+      "section": "ClassmentMember",
+      "rows": 17,
+      "fields": [
+        {
+          "key": "Fencer",
+          "nonEmpty": 17,
+          "fillRate": 1,
+          "sampleValues": [
+            "王皓宇",
+            "倪浚哲",
+            "陈敬轩",
+            "胡程策",
+            "徐若辰",
+            "王树维",
+            "吴宗瀚",
+            "廖铭晨"
+          ]
+        },
+        {
+          "key": "Licence",
+          "nonEmpty": 17,
+          "fillRate": 1,
+          "sampleValues": [
+            "20150826M202409131214",
+            "20141119M202306210425",
+            "20140523M202402200823",
+            "20150324M202304230736",
+            "20140516M202107150528",
+            "20140419M202106200852",
+            "20160121M202311151039",
+            "20151122M202303081201"
+          ]
+        },
+        {
+          "key": "NOCCode",
+          "nonEmpty": 17,
+          "fillRate": 1,
+          "sampleValues": [
+            "南京艾鲁特",
+            "安徽骑兵",
+            "江苏",
+            "芜湖超人",
+            "南京奥斯达"
+          ]
+        },
+        {
+          "key": "Birthday",
+          "nonEmpty": 17,
+          "fillRate": 1,
+          "sampleValues": [
+            "2015-08-26",
+            "2014-11-19",
+            "2014-05-23",
+            "2015-03-24",
+            "2014-05-16",
+            "2014-04-19",
+            "2016-01-21",
+            "2015-11-22"
+          ]
+        },
+        {
+          "key": "RID",
+          "nonEmpty": 17,
+          "fillRate": 1,
+          "sampleValues": [
+            91,
+            90,
+            89,
+            88,
+            87
+          ]
+        }
+      ]
+    },
+    {
+      "section": "IniStarts",
+      "rows": 5,
+      "fields": [
+        {
+          "key": "IRank",
+          "nonEmpty": 5,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        },
+        {
+          "key": "IPoints",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "Fencer",
+          "nonEmpty": 5,
+          "fillRate": 1,
+          "sampleValues": [
+            "骑兵男重",
+            "秦淮一队",
+            "南京Allstar",
+            "芜湖超人U12",
+            "江苏联合"
+          ]
+        },
+        {
+          "key": "NOCCode",
+          "nonEmpty": 5,
+          "fillRate": 1,
+          "sampleValues": [
+            "安徽骑兵",
+            "南京艾鲁特",
+            "南京奥斯达",
+            "芜湖超人",
+            "江苏"
+          ]
+        },
+        {
+          "key": "Licence",
+          "nonEmpty": 5,
+          "fillRate": 1,
+          "sampleValues": [
+            "RZSSAH0520260530METU12_577_WGRAB",
+            "RZSSAH0520260530METU12_454_WQQFZ",
+            "RZSSAH0520260530METU12_528_SNJDM",
+            "RZSSAH0520260530METU12_11570_VHCMQ",
+            "RZSSAH0520260530METU12_65_XGZDM"
+          ]
+        },
+        {
+          "key": "DisPos",
+          "nonEmpty": 5,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        },
+        {
+          "key": "RID",
+          "nonEmpty": 5,
+          "fillRate": 1,
+          "sampleValues": [
+            90,
+            91,
+            87,
+            88,
+            89
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Phases",
+      "rows": 1,
+      "fields": [
+        {
+          "key": "PhasePID",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            169490
+          ]
+        },
+        {
+          "key": "PhaseName",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "直接淘汰赛"
+          ]
+        },
+        {
+          "key": "Porder",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            3
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Tableaus",
+      "rows": 3,
+      "fields": [
+        {
+          "key": "PshortDes",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            "T8",
+            "T4",
+            "T2"
+          ]
+        },
+        {
+          "key": "PLongDes",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            "8表",
+            "半决赛",
+            "决赛"
+          ]
+        },
+        {
+          "key": "Porder",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3
+          ]
+        },
+        {
+          "key": "PhaseID",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            169491,
+            169492,
+            169493
+          ]
+        },
+        {
+          "key": "PhasePID",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            169490
+          ]
+        },
+        {
+          "key": "PhaseGroup",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            "1_0",
+            "2_0",
+            "3_0"
+          ]
+        },
+        {
+          "key": "PhaseCode",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            "3",
+            "2",
+            "1"
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Matchs",
+      "rows": 8,
+      "fields": [
+        {
+          "key": "MatchCode",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            "Pre001",
+            "Pre002",
+            "Pre003",
+            "Pre004"
+          ]
+        },
+        {
+          "key": "HomePosition",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            5,
+            3,
+            7
+          ]
+        },
+        {
+          "key": "HomeFencer",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            "骑兵男重",
+            "江苏联合",
+            "南京Allstar",
+            "Bye",
+            "芜湖超人U12"
+          ]
+        },
+        {
+          "key": "HomeLicence",
+          "nonEmpty": 7,
+          "fillRate": 0.875,
+          "sampleValues": [
+            "RZSSAH0520260530METU12_577_WGRAB",
+            "RZSSAH0520260530METU12_65_XGZDM",
+            "RZSSAH0520260530METU12_528_SNJDM",
+            "RZSSAH0520260530METU12_11570_VHCMQ"
+          ]
+        },
+        {
+          "key": "HomeNOC",
+          "nonEmpty": 7,
+          "fillRate": 0.875,
+          "sampleValues": [
+            "安徽骑兵",
+            "江苏",
+            "南京奥斯达",
+            "芜湖超人"
+          ]
+        },
+        {
+          "key": "HomePoints",
+          "nonEmpty": 5,
+          "fillRate": 0.625,
+          "sampleValues": [
+            31,
+            45,
+            36,
+            41
+          ]
+        },
+        {
+          "key": "HomeWLT",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            "W",
+            "L"
+          ]
+        },
+        {
+          "key": "AwayPosition",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            8,
+            4,
+            6,
+            2
+          ]
+        },
+        {
+          "key": "AwayFencer",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            "Bye",
+            "芜湖超人U12",
+            "秦淮一队",
+            "南京Allstar"
+          ]
+        },
+        {
+          "key": "AwayLicence",
+          "nonEmpty": 6,
+          "fillRate": 0.75,
+          "sampleValues": [
+            "RZSSAH0520260530METU12_11570_VHCMQ",
+            "RZSSAH0520260530METU12_454_WQQFZ",
+            "RZSSAH0520260530METU12_528_SNJDM"
+          ]
+        },
+        {
+          "key": "AwayNOC",
+          "nonEmpty": 6,
+          "fillRate": 0.75,
+          "sampleValues": [
+            "芜湖超人",
+            "南京艾鲁特",
+            "南京奥斯达"
+          ]
+        },
+        {
+          "key": "AwayPoints",
+          "nonEmpty": 5,
+          "fillRate": 0.625,
+          "sampleValues": [
+            45,
+            37,
+            42,
+            35
+          ]
+        },
+        {
+          "key": "AwayWLT",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            "L",
+            "W"
+          ]
+        },
+        {
+          "key": "Piste",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "StartTime",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "Winner",
+          "nonEmpty": 7,
+          "fillRate": 0.875,
+          "sampleValues": [
+            "骑兵男重",
+            "江苏联合",
+            "南京Allstar",
+            "芜湖超人U12"
+          ]
+        },
+        {
+          "key": "WinnerNOC",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            "安徽骑兵",
+            "芜湖超人",
+            "南京奥斯达",
+            "南京艾鲁特"
+          ]
+        },
+        {
+          "key": "MatchID",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            495354,
+            495355,
+            495356,
+            495357,
+            495358,
+            495359,
+            495360,
+            495361
+          ]
+        },
+        {
+          "key": "PhaseID",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            169491,
+            169492,
+            169493
+          ]
+        },
+        {
+          "key": "GroupCode",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            "3_0",
+            "3_1",
+            "2_0",
+            "1_0"
+          ]
+        },
+        {
+          "key": "F_InnerOrder",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2
+          ]
+        }
+      ]
+    },
+    {
+      "section": "TeamAnalyse",
+      "rows": 17,
+      "fields": [
+        {
+          "key": "F_RegisterID",
+          "nonEmpty": 17,
+          "fillRate": 1,
+          "sampleValues": [
+            497779,
+            497778,
+            497777,
+            497782,
+            497781,
+            497780,
+            497766,
+            497769
+          ]
+        },
+        {
+          "key": "F_FencerLicence",
+          "nonEmpty": 17,
+          "fillRate": 1,
+          "sampleValues": [
+            "20150324M202304230736",
+            "20140516M202107150528",
+            "20140419M202106200852",
+            "20150826M202409131214",
+            "20141119M202306210425",
+            "20140523M202402200823",
+            "20140315M202307160830",
+            "20150527M202506220328"
+          ]
+        },
+        {
+          "key": "F_TeamID",
+          "nonEmpty": 17,
+          "fillRate": 1,
+          "sampleValues": [
+            90,
+            91,
+            87,
+            88,
+            89
+          ]
+        },
+        {
+          "key": "F_TeamLicence",
+          "nonEmpty": 17,
+          "fillRate": 1,
+          "sampleValues": [
+            "RZSSAH0520260530METU12_577_WGRAB",
+            "RZSSAH0520260530METU12_454_WQQFZ",
+            "RZSSAH0520260530METU12_528_SNJDM",
+            "RZSSAH0520260530METU12_11570_VHCMQ",
+            "RZSSAH0520260530METU12_65_XGZDM"
+          ]
+        },
+        {
+          "key": "F_Rank",
+          "nonEmpty": 17,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        },
+        {
+          "key": "F_DisPos",
+          "nonEmpty": 17,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        },
+        {
+          "key": "F_ShowRank",
+          "nonEmpty": 17,
+          "fillRate": 1,
+          "sampleValues": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5"
+          ]
+        },
+        {
+          "key": "Fencer",
+          "nonEmpty": 17,
+          "fillRate": 1,
+          "sampleValues": [
+            "胡程策",
+            "徐若辰",
+            "王树维",
+            "王皓宇",
+            "倪浚哲",
+            "陈敬轩",
+            "许恒瑞",
+            "杨善淳"
+          ]
+        },
+        {
+          "key": "F_NOC",
+          "nonEmpty": 17,
+          "fillRate": 1,
+          "sampleValues": [
+            "安徽骑兵",
+            "南京艾鲁特",
+            "南京奥斯达",
+            "芜湖超人",
+            "江苏"
+          ]
+        },
+        {
+          "key": "F_NOCs",
+          "nonEmpty": 17,
+          "fillRate": 1,
+          "sampleValues": [
+            "安徽骑兵",
+            "南京艾鲁特",
+            "南京奥斯达",
+            "芜湖超人",
+            "江苏"
+          ]
+        },
+        {
+          "key": "F_IRM",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "AppearCount",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "MatchCount",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "F_Index",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "F_IndexLabel",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "F_TouchGive",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "F_TouchReceived",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "F_HSdivA",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "F_HSdivALabel",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "F_Diff",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "F_DiffLabel",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "F_NameLabel",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "TouchGive",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "TouchReceived",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "HSdivA",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "Diff",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        }
+      ]
+    }
+  ],
+  "analysisCapabilities": [
+    "项目概要",
+    "最终排名",
+    "初始排位",
+    "小组赛排名",
+    "小组赛每场比分",
+    "小组赛晋级人数",
+    "淘汰赛阶段结构",
+    "淘汰赛每场比分",
+    "选手完整比赛路径",
+    "对手交手记录",
+    "胜负和净胜剑统计"
+  ],
+  "privacyRecommendation": {
+    "publicFields": [
+      "rank",
+      "name",
+      "club",
+      "scores",
+      "winner",
+      "medal"
+    ],
+    "privateFields": [
+      "Licence",
+      "Birthday"
+    ],
+    "note": "Licence 和 Birthday 只用于内部消歧，不建议公开展示。"
+  }
+}

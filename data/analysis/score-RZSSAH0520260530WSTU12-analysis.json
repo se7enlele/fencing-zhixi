@@ -1,0 +1,1371 @@
+{
+  "ok": true,
+  "source": {
+    "sourceUrl": "https://fencing-proxy.aixindiandian.workers.dev/Resource/score/RZSSAH0520260530WSTU12.js",
+    "sourceType": "score-resource",
+    "importedAt": "2026-06-09T06:53:08.943Z"
+  },
+  "general": {
+    "sportName": "2026年高淳国际慢城击剑公开赛",
+    "eventName": "U12女子佩剑团体",
+    "openDate": "2026.05.31",
+    "venue": "江苏·南京",
+    "competitionNo": 5,
+    "exemptionNo": null,
+    "poolFencerNo": null,
+    "poolQualifyNo": 0,
+    "preDeStartPhase": "none",
+    "deStartPhase": "from Tableaus8",
+    "sportCode": "RZSSAH0520260530",
+    "eventCode": "RZSSAH0520260530WSTU12"
+  },
+  "summary": {
+    "classmentCount": 5,
+    "initialSeedCount": 5,
+    "poolCount": 0,
+    "poolStandingCount": 0,
+    "poolResultCount": 0,
+    "poolBoutCount": 0,
+    "tableauCount": 3,
+    "eliminationMatchCount": 8,
+    "playedEliminationMatchCount": 5,
+    "byeMatchCount": 3,
+    "athleteCountByLicence": 5
+  },
+  "distributions": {
+    "poolStatus": {},
+    "poolRemark": {},
+    "tableau": {
+      "8表": 1,
+      "半决赛": 1,
+      "决赛": 1
+    },
+    "eliminationByPhase": {
+      "8表": 4,
+      "半决赛": 2,
+      "决赛": 2
+    },
+    "eliminationResult": {
+      "W/L": 5,
+      "L/W": 3
+    },
+    "medal": {
+      "金": 1,
+      "银": 1,
+      "铜": 1,
+      "(无奖牌)": 2
+    }
+  },
+  "normalized": {
+    "classment": [
+      {
+        "rank": 1,
+        "displayRank": "1",
+        "name": "德菲特",
+        "licence": "RZSSAH0520260530WSTU12_65_MITKL",
+        "club": "江苏",
+        "birthday": null,
+        "medal": "金",
+        "status": "N",
+        "sourcePosition": 1
+      },
+      {
+        "rank": 2,
+        "displayRank": "2",
+        "name": "南京市体校",
+        "licence": "RZSSAH0520260530WSTU12_65_FZEEM",
+        "club": "江苏",
+        "birthday": null,
+        "medal": "银",
+        "status": "N",
+        "sourcePosition": 2
+      },
+      {
+        "rank": 3,
+        "displayRank": "3",
+        "name": "剑飞凡U12女佩",
+        "licence": "RZSSAH0520260530WSTU12_601_XFDYB",
+        "club": "合肥剑飞凡",
+        "birthday": null,
+        "medal": "铜",
+        "status": "N",
+        "sourcePosition": 3
+      },
+      {
+        "rank": 4,
+        "displayRank": "4",
+        "name": "江苏德菲特",
+        "licence": "RZSSAH0520260530WSTU12_579_DZTNQ",
+        "club": "江苏德菲特",
+        "birthday": null,
+        "medal": null,
+        "status": "N",
+        "sourcePosition": 4
+      },
+      {
+        "rank": 5,
+        "displayRank": "5",
+        "name": "连云港港队",
+        "licence": "RZSSAH0520260530WSTU12_12397_KKOUM",
+        "club": "连云港芃辉",
+        "birthday": null,
+        "medal": null,
+        "status": "N",
+        "sourcePosition": 5
+      }
+    ],
+    "poolStandings": [],
+    "poolResults": [],
+    "poolBouts": [],
+    "eliminationMatches": [
+      {
+        "matchId": 495338,
+        "matchCode": "Pre001",
+        "phaseId": 169481,
+        "phase": {
+          "shortName": "T8",
+          "longName": "8表",
+          "order": 1,
+          "code": "3",
+          "group": "1_0"
+        },
+        "groupCode": "3_0",
+        "innerOrder": 1,
+        "home": {
+          "position": 1,
+          "name": "德菲特",
+          "licence": "RZSSAH0520260530WSTU12_65_MITKL",
+          "club": "江苏",
+          "points": null,
+          "result": "W"
+        },
+        "away": {
+          "position": 8,
+          "name": "Bye",
+          "licence": null,
+          "club": null,
+          "points": null,
+          "result": "L"
+        },
+        "winner": {
+          "name": "德菲特",
+          "club": "江苏"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": true
+      },
+      {
+        "matchId": 495339,
+        "matchCode": "Pre002",
+        "phaseId": 169481,
+        "phase": {
+          "shortName": "T8",
+          "longName": "8表",
+          "order": 1,
+          "code": "3",
+          "group": "1_0"
+        },
+        "groupCode": "3_0",
+        "innerOrder": 2,
+        "home": {
+          "position": 5,
+          "name": "连云港港队",
+          "licence": "RZSSAH0520260530WSTU12_12397_KKOUM",
+          "club": "连云港芃辉",
+          "points": 22,
+          "result": "L"
+        },
+        "away": {
+          "position": 4,
+          "name": "剑飞凡U12女佩",
+          "licence": "RZSSAH0520260530WSTU12_601_XFDYB",
+          "club": "合肥剑飞凡",
+          "points": 45,
+          "result": "W"
+        },
+        "winner": {
+          "name": "连云港港队",
+          "club": "合肥剑飞凡"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 495340,
+        "matchCode": "Pre003",
+        "phaseId": 169481,
+        "phase": {
+          "shortName": "T8",
+          "longName": "8表",
+          "order": 1,
+          "code": "3",
+          "group": "1_0"
+        },
+        "groupCode": "3_1",
+        "innerOrder": 1,
+        "home": {
+          "position": 3,
+          "name": "江苏德菲特",
+          "licence": "RZSSAH0520260530WSTU12_579_DZTNQ",
+          "club": "江苏德菲特",
+          "points": null,
+          "result": "W"
+        },
+        "away": {
+          "position": 6,
+          "name": "Bye",
+          "licence": null,
+          "club": null,
+          "points": null,
+          "result": "L"
+        },
+        "winner": {
+          "name": "江苏德菲特",
+          "club": "江苏德菲特"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": true
+      },
+      {
+        "matchId": 495341,
+        "matchCode": "Pre004",
+        "phaseId": 169481,
+        "phase": {
+          "shortName": "T8",
+          "longName": "8表",
+          "order": 1,
+          "code": "3",
+          "group": "1_0"
+        },
+        "groupCode": "3_1",
+        "innerOrder": 2,
+        "home": {
+          "position": 7,
+          "name": "Bye",
+          "licence": null,
+          "club": null,
+          "points": null,
+          "result": "L"
+        },
+        "away": {
+          "position": 2,
+          "name": "南京市体校",
+          "licence": "RZSSAH0520260530WSTU12_65_FZEEM",
+          "club": "江苏",
+          "points": null,
+          "result": "W"
+        },
+        "winner": {
+          "name": null,
+          "club": "江苏"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": true
+      },
+      {
+        "matchId": 495342,
+        "matchCode": "Pre001",
+        "phaseId": 169482,
+        "phase": {
+          "shortName": "T4",
+          "longName": "半决赛",
+          "order": 2,
+          "code": "2",
+          "group": "2_0"
+        },
+        "groupCode": "2_0",
+        "innerOrder": 1,
+        "home": {
+          "position": 1,
+          "name": "德菲特",
+          "licence": "RZSSAH0520260530WSTU12_65_MITKL",
+          "club": "江苏",
+          "points": 45,
+          "result": "W"
+        },
+        "away": {
+          "position": 4,
+          "name": "剑飞凡U12女佩",
+          "licence": "RZSSAH0520260530WSTU12_601_XFDYB",
+          "club": "合肥剑飞凡",
+          "points": 12,
+          "result": "L"
+        },
+        "winner": {
+          "name": "德菲特",
+          "club": "江苏"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 495343,
+        "matchCode": "Pre002",
+        "phaseId": 169482,
+        "phase": {
+          "shortName": "T4",
+          "longName": "半决赛",
+          "order": 2,
+          "code": "2",
+          "group": "2_0"
+        },
+        "groupCode": "2_0",
+        "innerOrder": 2,
+        "home": {
+          "position": 3,
+          "name": "江苏德菲特",
+          "licence": "RZSSAH0520260530WSTU12_579_DZTNQ",
+          "club": "江苏德菲特",
+          "points": 28,
+          "result": "L"
+        },
+        "away": {
+          "position": 2,
+          "name": "南京市体校",
+          "licence": "RZSSAH0520260530WSTU12_65_FZEEM",
+          "club": "江苏",
+          "points": 45,
+          "result": "W"
+        },
+        "winner": {
+          "name": "江苏德菲特",
+          "club": "江苏"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 495344,
+        "matchCode": "Pre001",
+        "phaseId": 169483,
+        "phase": {
+          "shortName": "T2",
+          "longName": "决赛",
+          "order": 3,
+          "code": "1",
+          "group": "3_0"
+        },
+        "groupCode": "1_0",
+        "innerOrder": 1,
+        "home": {
+          "position": 1,
+          "name": "德菲特",
+          "licence": "RZSSAH0520260530WSTU12_65_MITKL",
+          "club": "江苏",
+          "points": 45,
+          "result": "W"
+        },
+        "away": {
+          "position": 2,
+          "name": "南京市体校",
+          "licence": "RZSSAH0520260530WSTU12_65_FZEEM",
+          "club": "江苏",
+          "points": 11,
+          "result": "L"
+        },
+        "winner": {
+          "name": "德菲特",
+          "club": "江苏"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 495345,
+        "matchCode": "Pre002",
+        "phaseId": 169483,
+        "phase": {
+          "shortName": "T2",
+          "longName": "决赛",
+          "order": 3,
+          "code": "1",
+          "group": "3_0"
+        },
+        "groupCode": "1_0",
+        "innerOrder": 2,
+        "home": {
+          "position": 1,
+          "name": "剑飞凡U12女佩",
+          "licence": "RZSSAH0520260530WSTU12_601_XFDYB",
+          "club": "合肥剑飞凡",
+          "points": 45,
+          "result": "W"
+        },
+        "away": {
+          "position": 2,
+          "name": "江苏德菲特",
+          "licence": "RZSSAH0520260530WSTU12_579_DZTNQ",
+          "club": "江苏德菲特",
+          "points": 42,
+          "result": "L"
+        },
+        "winner": {
+          "name": "剑飞凡U12女佩",
+          "club": "合肥剑飞凡"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      }
+    ]
+  },
+  "completeness": [
+    {
+      "section": "General",
+      "rows": 1,
+      "fields": [
+        {
+          "key": "SportName",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "2026年高淳国际慢城击剑公开赛"
+          ]
+        },
+        {
+          "key": "EventName",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "U12女子佩剑团体"
+          ]
+        },
+        {
+          "key": "OpenDate",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "2026.05.31"
+          ]
+        },
+        {
+          "key": "Venue",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "江苏·南京"
+          ]
+        },
+        {
+          "key": "CompetitionNo",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            5
+          ]
+        },
+        {
+          "key": "ExemptionNo",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "PoolFencerNo",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "PoolQualifyNo",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            0
+          ]
+        },
+        {
+          "key": "PDEstartPhase",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "none"
+          ]
+        },
+        {
+          "key": "DEstartPhase",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "from Tableaus8"
+          ]
+        },
+        {
+          "key": "Scode",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "RZSSAH0520260530"
+          ]
+        },
+        {
+          "key": "Ecode",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "RZSSAH0520260530WSTU12"
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Classment",
+      "rows": 5,
+      "fields": [
+        {
+          "key": "EventShowRank",
+          "nonEmpty": 5,
+          "fillRate": 1,
+          "sampleValues": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5"
+          ]
+        },
+        {
+          "key": "EventRank",
+          "nonEmpty": 5,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        },
+        {
+          "key": "Fencer",
+          "nonEmpty": 5,
+          "fillRate": 1,
+          "sampleValues": [
+            "德菲特",
+            "南京市体校",
+            "剑飞凡U12女佩",
+            "江苏德菲特",
+            "连云港港队"
+          ]
+        },
+        {
+          "key": "Licence",
+          "nonEmpty": 5,
+          "fillRate": 1,
+          "sampleValues": [
+            "RZSSAH0520260530WSTU12_65_MITKL",
+            "RZSSAH0520260530WSTU12_65_FZEEM",
+            "RZSSAH0520260530WSTU12_601_XFDYB",
+            "RZSSAH0520260530WSTU12_579_DZTNQ",
+            "RZSSAH0520260530WSTU12_12397_KKOUM"
+          ]
+        },
+        {
+          "key": "NOCCode",
+          "nonEmpty": 5,
+          "fillRate": 1,
+          "sampleValues": [
+            "江苏",
+            "合肥剑飞凡",
+            "江苏德菲特",
+            "连云港芃辉"
+          ]
+        },
+        {
+          "key": "Birthday",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "Medal",
+          "nonEmpty": 3,
+          "fillRate": 0.6,
+          "sampleValues": [
+            "金",
+            "银",
+            "铜"
+          ]
+        },
+        {
+          "key": "Statut",
+          "nonEmpty": 5,
+          "fillRate": 1,
+          "sampleValues": [
+            "N"
+          ]
+        },
+        {
+          "key": "F_EventDisPos",
+          "nonEmpty": 5,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        },
+        {
+          "key": "RID",
+          "nonEmpty": 5,
+          "fillRate": 1,
+          "sampleValues": [
+            55,
+            54,
+            53,
+            56,
+            57
+          ]
+        }
+      ]
+    },
+    {
+      "section": "ClassmentMember",
+      "rows": 18,
+      "fields": [
+        {
+          "key": "Fencer",
+          "nonEmpty": 18,
+          "fillRate": 1,
+          "sampleValues": [
+            "蒋雨芯",
+            "唐瑞浛",
+            "王涵阅",
+            "阚一萌",
+            "王方彧然",
+            "孙乐芯",
+            "段亦桐",
+            "王子恩"
+          ]
+        },
+        {
+          "key": "Licence",
+          "nonEmpty": 18,
+          "fillRate": 1,
+          "sampleValues": [
+            "20151202F202505220335",
+            "20150526F202603170248",
+            "20150514F202505220319",
+            "20151006F202604020704",
+            "20150922F202604020708",
+            "20141227F202302070428",
+            "20140826F202311230626",
+            "20160112F202403190637"
+          ]
+        },
+        {
+          "key": "NOCCode",
+          "nonEmpty": 18,
+          "fillRate": 1,
+          "sampleValues": [
+            "连云港芃辉",
+            "江苏德菲特",
+            "江苏",
+            "合肥剑飞凡"
+          ]
+        },
+        {
+          "key": "Birthday",
+          "nonEmpty": 18,
+          "fillRate": 1,
+          "sampleValues": [
+            "2015-12-02",
+            "2015-05-26",
+            "2015-05-14",
+            "2015-10-06",
+            "2015-09-22",
+            "2014-12-27",
+            "2014-08-26",
+            "2016-01-12"
+          ]
+        },
+        {
+          "key": "RID",
+          "nonEmpty": 18,
+          "fillRate": 1,
+          "sampleValues": [
+            57,
+            56,
+            55,
+            54,
+            53
+          ]
+        }
+      ]
+    },
+    {
+      "section": "IniStarts",
+      "rows": 5,
+      "fields": [
+        {
+          "key": "IRank",
+          "nonEmpty": 5,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        },
+        {
+          "key": "IPoints",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "Fencer",
+          "nonEmpty": 5,
+          "fillRate": 1,
+          "sampleValues": [
+            "德菲特",
+            "南京市体校",
+            "江苏德菲特",
+            "剑飞凡U12女佩",
+            "连云港港队"
+          ]
+        },
+        {
+          "key": "NOCCode",
+          "nonEmpty": 5,
+          "fillRate": 1,
+          "sampleValues": [
+            "江苏",
+            "江苏德菲特",
+            "合肥剑飞凡",
+            "连云港芃辉"
+          ]
+        },
+        {
+          "key": "Licence",
+          "nonEmpty": 5,
+          "fillRate": 1,
+          "sampleValues": [
+            "RZSSAH0520260530WSTU12_65_MITKL",
+            "RZSSAH0520260530WSTU12_65_FZEEM",
+            "RZSSAH0520260530WSTU12_579_DZTNQ",
+            "RZSSAH0520260530WSTU12_601_XFDYB",
+            "RZSSAH0520260530WSTU12_12397_KKOUM"
+          ]
+        },
+        {
+          "key": "DisPos",
+          "nonEmpty": 5,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        },
+        {
+          "key": "RID",
+          "nonEmpty": 5,
+          "fillRate": 1,
+          "sampleValues": [
+            55,
+            54,
+            56,
+            53,
+            57
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Phases",
+      "rows": 1,
+      "fields": [
+        {
+          "key": "PhasePID",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            169480
+          ]
+        },
+        {
+          "key": "PhaseName",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "直接淘汰赛"
+          ]
+        },
+        {
+          "key": "Porder",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            3
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Tableaus",
+      "rows": 3,
+      "fields": [
+        {
+          "key": "PshortDes",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            "T8",
+            "T4",
+            "T2"
+          ]
+        },
+        {
+          "key": "PLongDes",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            "8表",
+            "半决赛",
+            "决赛"
+          ]
+        },
+        {
+          "key": "Porder",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3
+          ]
+        },
+        {
+          "key": "PhaseID",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            169481,
+            169482,
+            169483
+          ]
+        },
+        {
+          "key": "PhasePID",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            169480
+          ]
+        },
+        {
+          "key": "PhaseGroup",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            "1_0",
+            "2_0",
+            "3_0"
+          ]
+        },
+        {
+          "key": "PhaseCode",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            "3",
+            "2",
+            "1"
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Matchs",
+      "rows": 8,
+      "fields": [
+        {
+          "key": "MatchCode",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            "Pre001",
+            "Pre002",
+            "Pre003",
+            "Pre004"
+          ]
+        },
+        {
+          "key": "HomePosition",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            5,
+            3,
+            7
+          ]
+        },
+        {
+          "key": "HomeFencer",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            "德菲特",
+            "连云港港队",
+            "江苏德菲特",
+            "Bye",
+            "剑飞凡U12女佩"
+          ]
+        },
+        {
+          "key": "HomeLicence",
+          "nonEmpty": 7,
+          "fillRate": 0.875,
+          "sampleValues": [
+            "RZSSAH0520260530WSTU12_65_MITKL",
+            "RZSSAH0520260530WSTU12_12397_KKOUM",
+            "RZSSAH0520260530WSTU12_579_DZTNQ",
+            "RZSSAH0520260530WSTU12_601_XFDYB"
+          ]
+        },
+        {
+          "key": "HomeNOC",
+          "nonEmpty": 7,
+          "fillRate": 0.875,
+          "sampleValues": [
+            "江苏",
+            "连云港芃辉",
+            "江苏德菲特",
+            "合肥剑飞凡"
+          ]
+        },
+        {
+          "key": "HomePoints",
+          "nonEmpty": 5,
+          "fillRate": 0.625,
+          "sampleValues": [
+            22,
+            45,
+            28
+          ]
+        },
+        {
+          "key": "HomeWLT",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            "W",
+            "L"
+          ]
+        },
+        {
+          "key": "AwayPosition",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            8,
+            4,
+            6,
+            2
+          ]
+        },
+        {
+          "key": "AwayFencer",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            "Bye",
+            "剑飞凡U12女佩",
+            "南京市体校",
+            "江苏德菲特"
+          ]
+        },
+        {
+          "key": "AwayLicence",
+          "nonEmpty": 6,
+          "fillRate": 0.75,
+          "sampleValues": [
+            "RZSSAH0520260530WSTU12_601_XFDYB",
+            "RZSSAH0520260530WSTU12_65_FZEEM",
+            "RZSSAH0520260530WSTU12_579_DZTNQ"
+          ]
+        },
+        {
+          "key": "AwayNOC",
+          "nonEmpty": 6,
+          "fillRate": 0.75,
+          "sampleValues": [
+            "合肥剑飞凡",
+            "江苏",
+            "江苏德菲特"
+          ]
+        },
+        {
+          "key": "AwayPoints",
+          "nonEmpty": 5,
+          "fillRate": 0.625,
+          "sampleValues": [
+            45,
+            12,
+            11,
+            42
+          ]
+        },
+        {
+          "key": "AwayWLT",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            "L",
+            "W"
+          ]
+        },
+        {
+          "key": "Piste",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "StartTime",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "Winner",
+          "nonEmpty": 7,
+          "fillRate": 0.875,
+          "sampleValues": [
+            "德菲特",
+            "连云港港队",
+            "江苏德菲特",
+            "剑飞凡U12女佩"
+          ]
+        },
+        {
+          "key": "WinnerNOC",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            "江苏",
+            "合肥剑飞凡",
+            "江苏德菲特"
+          ]
+        },
+        {
+          "key": "MatchID",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            495338,
+            495339,
+            495340,
+            495341,
+            495342,
+            495343,
+            495344,
+            495345
+          ]
+        },
+        {
+          "key": "PhaseID",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            169481,
+            169482,
+            169483
+          ]
+        },
+        {
+          "key": "GroupCode",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            "3_0",
+            "3_1",
+            "2_0",
+            "1_0"
+          ]
+        },
+        {
+          "key": "F_InnerOrder",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2
+          ]
+        }
+      ]
+    },
+    {
+      "section": "TeamAnalyse",
+      "rows": 18,
+      "fields": [
+        {
+          "key": "F_RegisterID",
+          "nonEmpty": 18,
+          "fillRate": 1,
+          "sampleValues": [
+            497633,
+            497632,
+            497631,
+            497630,
+            497629,
+            497628,
+            497627,
+            497626
+          ]
+        },
+        {
+          "key": "F_FencerLicence",
+          "nonEmpty": 18,
+          "fillRate": 1,
+          "sampleValues": [
+            "20160112F202403190637",
+            "20151012F202104210908",
+            "20150129M202203090336",
+            "20140930F202302070441",
+            "20150521F202402200530",
+            "20150203F202510230928",
+            "20141227F202409160321",
+            "20141223F202202230337"
+          ]
+        },
+        {
+          "key": "F_TeamID",
+          "nonEmpty": 18,
+          "fillRate": 1,
+          "sampleValues": [
+            55,
+            54,
+            53,
+            56,
+            57
+          ]
+        },
+        {
+          "key": "F_TeamLicence",
+          "nonEmpty": 18,
+          "fillRate": 1,
+          "sampleValues": [
+            "RZSSAH0520260530WSTU12_65_MITKL",
+            "RZSSAH0520260530WSTU12_65_FZEEM",
+            "RZSSAH0520260530WSTU12_601_XFDYB",
+            "RZSSAH0520260530WSTU12_579_DZTNQ",
+            "RZSSAH0520260530WSTU12_12397_KKOUM"
+          ]
+        },
+        {
+          "key": "F_Rank",
+          "nonEmpty": 18,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        },
+        {
+          "key": "F_DisPos",
+          "nonEmpty": 18,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        },
+        {
+          "key": "F_ShowRank",
+          "nonEmpty": 18,
+          "fillRate": 1,
+          "sampleValues": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5"
+          ]
+        },
+        {
+          "key": "Fencer",
+          "nonEmpty": 18,
+          "fillRate": 1,
+          "sampleValues": [
+            "王子恩",
+            "杨乐多",
+            "刘雨航",
+            "陈柔嘉",
+            "曹芯耘",
+            "高晨曦",
+            "蒋筱沐",
+            "王梓钦"
+          ]
+        },
+        {
+          "key": "F_NOC",
+          "nonEmpty": 18,
+          "fillRate": 1,
+          "sampleValues": [
+            "江苏",
+            "合肥剑飞凡",
+            "江苏德菲特",
+            "连云港芃辉"
+          ]
+        },
+        {
+          "key": "F_NOCs",
+          "nonEmpty": 18,
+          "fillRate": 1,
+          "sampleValues": [
+            "江苏",
+            "合肥剑飞凡",
+            "江苏德菲特",
+            "连云港芃辉"
+          ]
+        },
+        {
+          "key": "F_IRM",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "AppearCount",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "MatchCount",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "F_Index",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "F_IndexLabel",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "F_TouchGive",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "F_TouchReceived",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "F_HSdivA",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "F_HSdivALabel",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "F_Diff",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "F_DiffLabel",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "F_NameLabel",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "TouchGive",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "TouchReceived",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "HSdivA",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "Diff",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        }
+      ]
+    }
+  ],
+  "analysisCapabilities": [
+    "项目概要",
+    "最终排名",
+    "初始排位",
+    "小组赛排名",
+    "小组赛每场比分",
+    "小组赛晋级人数",
+    "淘汰赛阶段结构",
+    "淘汰赛每场比分",
+    "选手完整比赛路径",
+    "对手交手记录",
+    "胜负和净胜剑统计"
+  ],
+  "privacyRecommendation": {
+    "publicFields": [
+      "rank",
+      "name",
+      "club",
+      "scores",
+      "winner",
+      "medal"
+    ],
+    "privateFields": [
+      "Licence",
+      "Birthday"
+    ],
+    "note": "Licence 和 Birthday 只用于内部消歧，不建议公开展示。"
+  }
+}
