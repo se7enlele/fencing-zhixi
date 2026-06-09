@@ -646,7 +646,10 @@ function showView(name) {
   if (bottomNav) {
     const showBottomNav = ['home', 'parentHome', 'competitions', 'follow', 'my'].includes(name);
     bottomNav.hidden = !showBottomNav;
-    const activeTab = state.activeMainTab || (name === 'parentHome' ? 'home' : name);
+    const activeTab = ['home', 'competitions', 'follow', 'my'].includes(name)
+      ? name
+      : (name === 'parentHome' ? 'home' : state.activeMainTab);
+    if (activeTab) state.activeMainTab = activeTab;
     const buttons = [...bottomNav.querySelectorAll('[data-main-tab]')];
     buttons.forEach((button) => {
       button.classList.remove('active');
@@ -671,6 +674,7 @@ function scrollToPageTop() {
 function navigateTo(name) {
   const current = state.viewStack[state.viewStack.length - 1];
   if (current !== name) state.viewStack.push(name);
+  if (['home', 'competitions', 'follow', 'my'].includes(name)) state.activeMainTab = name;
   if (name === 'home') renderHomePage();
   if (name === 'follow') renderFocusPage();
   if (name === 'my') renderPersonalPages();
@@ -699,7 +703,9 @@ function goBack() {
     return;
   }
   state.viewStack.pop();
-  showView(state.viewStack[state.viewStack.length - 1]);
+  const target = state.viewStack[state.viewStack.length - 1];
+  if (['home', 'competitions', 'follow', 'my'].includes(target)) state.activeMainTab = target;
+  showView(target);
   scrollToPageTop();
 }
 

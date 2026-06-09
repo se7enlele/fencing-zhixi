@@ -18,6 +18,7 @@ assert.match(html, /<section class="view active" id="view-home">/, 'home dashboa
 assert.doesNotMatch(html, /<section class="view active" id="view-competitions">/, 'competition list must not be the default landing view');
 assert.doesNotMatch(html, /<section class="view active" id="view-role-home">/, 'role selection must not be the default landing view');
 assert.match(html, /<nav class="bottom-nav" id="bottomNav" aria-label="主导航">/, 'bottom navigation must be visible on first load');
+assert.doesNotMatch(html, /class="active"\s+data-main-tab=/, 'bottom navigation must not ship stale active classes in HTML');
 assert.equal(indexHtml, html, 'static index.html must stay in sync with viewer.html');
 
 assert.match(js, /COMPETITION_FOLLOW_KEY = 'fencingai\.followedCompetitions\.v1'/, 'competition follow state must be persisted');
