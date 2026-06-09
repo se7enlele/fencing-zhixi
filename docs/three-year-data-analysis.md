@@ -86,6 +86,24 @@ node tools/sync-platform-data.mjs --sport-id 101134 --roster --no-score --roster
 
 说明：当前同步脚本默认 `rosterLimit=5`，本次只补了项目清单中的前 5 个项目；如果要完整覆盖该赛事报名名单，需要继续扩大 `--roster-limit` 或按具体项目分批补齐。
 
+2026-06-09 第二批继续补报名中赛事：
+
+```bash
+node tools/sync-platform-data.mjs --sport-id 101228 --roster --no-score --roster-max-pages 4 --roster-page-size 20 --timeout-sec 25
+node tools/sync-platform-data.mjs --sport-id 101136 --roster --no-score --roster-max-pages 4 --roster-page-size 20 --timeout-sec 25
+node tools/sync-platform-data.mjs --sport-id 101299 --roster --no-score --roster-max-pages 4 --roster-page-size 20 --timeout-sec 25
+```
+
+结果：
+
+| sportId | sportCode | 赛事 | 结果 |
+| --- | --- | --- | --- |
+| 101228 | RZSS2036062 | 2026年“乐动长宁杯”上海击剑公开赛 | 已补前 5 个男子花剑项目报名名单，分析层聚合 165 人次，覆盖层级从 project 提升到 roster |
+| 101136 | RZSS2035021 | 2026年“长城之巅”击剑公开赛（石家庄站） | 官方当前返回 0 条，已记录，覆盖层级仍为 project |
+| 101299 | RZSSAH0120260620 | 2026年汕尾击剑公开赛 | 已补前 5 个男子花剑项目报名名单，分析层聚合 206 人次，覆盖层级从 project 提升到 roster |
+
+补完后，最近 3 年缺口变为：`补报名名单/成绩 32`，`补赛后成绩对阵 6`。
+
 ## 产品影响
 
 家长视角：

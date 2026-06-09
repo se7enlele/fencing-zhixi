@@ -1,0 +1,58 @@
+{
+  "ok": true,
+  "importType": "registration-roster",
+  "source": {
+    "sourceUrl": "https://fencing.yy-sport.com.cn/fencingapi/sigup/memberlistbytype?current=3&size=20",
+    "eventCode": "RZSSAH0120260620MFIU8",
+    "sportCode": "RZSSAH0120260620",
+    "page": 3,
+    "importedAt": "2026-06-09T01:13:23.092Z"
+  },
+  "page": {
+    "current": 3,
+    "size": 20,
+    "total": 41
+  },
+  "summary": {
+    "recordCount": 1,
+    "sportCodes": [
+      "RZSSAH0120260620"
+    ],
+    "eventCodes": [
+      "RZSSAH0120260620MFIU8"
+    ],
+    "athleteCount": 1,
+    "clubCount": 1
+  },
+  "normalized": {
+    "records": [
+      {
+        "sigupId": "260719643",
+        "registerType": "athlete",
+        "registerId": "20190615M202503130637",
+        "registerCode": "20190615M202503130637",
+        "athleteName": "KINGSLEY ZOU",
+        "birthday": "2019-06-15",
+        "sex": "M",
+        "sexDes": "男",
+        "weapon": "F",
+        "weaponDes": "花剑",
+        "hand": "R",
+        "sportCode": "RZSSAH0120260620",
+        "sportName": "2026年汕尾击剑公开赛",
+        "eventCode": "RZSSAH0120260620MFIU8",
+        "eventName": "U8男子花剑个人",
+        "organCode": "GUDQTJ0001",
+        "organShortName": "深圳南锋",
+        "organName": "深圳南锋击剑俱乐部",
+        "approveStatus": "2",
+        "sigupTime": "2026-05-27 10:00:23",
+        "sigupPoints": null,
+        "sigupRank": null,
+        "regType": "1",
+        "regTypeDes": "大众",
+        "dedupeKey": "sigup:260719643"
+      }
+    ]
+  }
+}
