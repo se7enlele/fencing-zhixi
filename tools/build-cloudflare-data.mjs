@@ -29,16 +29,25 @@ async function writeJsonFile(filePath, value) {
 async function writeObjectChunks(name, objectValue) {
   const entries = Object.entries(objectValue);
   const chunks = [];
+  const chunkLookup = {};
   let chunk = {};
   let chunkIndex = 0;
   let chunkBytes = 2;
 
+  async function flushChunk(currentChunk, currentIndex) {
+    const fileName = `public-data-${name}-${currentIndex}.json`;
+    const assetPath = `/data/${fileName}`;
+    await writeJsonFile(path.join(assetOutDir, fileName), currentChunk);
+    chunks.push(assetPath);
+    for (const key of Object.keys(currentChunk)) {
+      chunkLookup[key] = assetPath;
+    }
+  }
+
   for (const [key, value] of entries) {
     const entryBytes = byteLength(key) + byteLength(value) + 2;
     if (Object.keys(chunk).length && chunkBytes + entryBytes > maxChunkBytes) {
-      const fileName = `public-data-${name}-${chunkIndex}.json`;
-      await writeJsonFile(path.join(assetOutDir, fileName), chunk);
-      chunks.push(`/data/${fileName}`);
+      await flushChunk(chunk, chunkIndex);
       chunk = { [key]: value };
       chunkBytes = 2 + entryBytes;
       chunkIndex += 1;
@@ -49,12 +58,10 @@ async function writeObjectChunks(name, objectValue) {
   }
 
   if (Object.keys(chunk).length || !entries.length) {
-    const fileName = `public-data-${name}-${chunkIndex}.json`;
-    await writeJsonFile(path.join(assetOutDir, fileName), chunk);
-    chunks.push(`/data/${fileName}`);
+    await flushChunk(chunk, chunkIndex);
   }
 
-  return chunks;
+  return { chunks, chunkLookup };
 }
 
 async function mapLimit(items, limit, mapper) {
@@ -96,16 +103,25 @@ const searchIndexes = buildSearchIndexes(athletes, clubs);
 
 await mkdir(assetOutDir, { recursive: true });
 await mkdir(moduleOutDir, { recursive: true });
+const eventChunks = await writeObjectChunks('events', payload.eventsByCode);
+const athleteChunks = await writeObjectChunks('athletes', payload.athletesById);
+const clubChunks = await writeObjectChunks('clubs', payload.clubsById);
 const chunks = {
-  eventsByCode: await writeObjectChunks('events', payload.eventsByCode),
-  athletesById: await writeObjectChunks('athletes', payload.athletesById),
-  clubsById: await writeObjectChunks('clubs', payload.clubsById),
+  eventsByCode: eventChunks.chunks,
+  athletesById: athleteChunks.chunks,
+  clubsById: clubChunks.chunks,
   search: ['/data/public-data-search-0.json'],
+};
+const chunkLookup = {
+  eventsByCode: eventChunks.chunkLookup,
+  athletesById: athleteChunks.chunkLookup,
+  clubsById: clubChunks.chunkLookup,
 };
 const indexPayload = {
   version: payload.version,
   publicEvents: payload.publicEvents,
   chunks,
+  chunkLookup,
 };
 await writeFile(assetOutPath, `${JSON.stringify(indexPayload)}\n`, 'utf8');
 await writeFile(searchOutPath, `${JSON.stringify(searchIndexes)}\n`, 'utf8');

@@ -111,8 +111,13 @@ async function loadChunkObject(env, assetPath) {
   return chunkObjectPromises.get(assetPath);
 }
 
-async function findInChunks(env, paths = [], key) {
+async function findInChunks(env, paths = [], key, lookup = {}) {
   if (!key) return null;
+  const directPath = lookup?.[key];
+  if (directPath) {
+    const chunk = await loadChunkObject(env, directPath);
+    return chunk && Object.prototype.hasOwnProperty.call(chunk, key) ? chunk[key] : null;
+  }
   for (const assetPath of paths || []) {
     const chunk = await loadChunkObject(env, assetPath);
     if (chunk && Object.prototype.hasOwnProperty.call(chunk, key)) {
@@ -569,7 +574,7 @@ async function routeApi(request, env, url) {
   if (url.pathname.startsWith('/api/events/') && request.method === 'GET') {
     const index = await loadBundledIndex(env);
     const eventCode = decodeURIComponent(url.pathname.replace('/api/events/', ''));
-    let event = await findInChunks(env, index.chunks?.eventsByCode, eventCode);
+    let event = await findInChunks(env, index.chunks?.eventsByCode, eventCode, index.chunkLookup?.eventsByCode);
     if (!event) {
       const dynamicReport = await readJsonKv(env.FOLLOWS, `score:${eventCode}`, null);
       if (dynamicReport?.general?.eventCode) {
@@ -586,7 +591,7 @@ async function routeApi(request, env, url) {
   if (url.pathname.startsWith('/api/athletes/') && request.method === 'GET') {
     const index = await loadBundledIndex(env);
     const athleteId = decodeURIComponent(url.pathname.replace('/api/athletes/', ''));
-    const athlete = await findInChunks(env, index.chunks?.athletesById, athleteId);
+    const athlete = await findInChunks(env, index.chunks?.athletesById, athleteId, index.chunkLookup?.athletesById);
     return athlete ? json({ ok: true, version: index.version, athlete }, 200, PUBLIC_DETAIL_CACHE) : json({ ok: false, message: '选手不存在。' }, 404);
   }
 
@@ -594,9 +599,9 @@ async function routeApi(request, env, url) {
     const index = await loadBundledIndex(env);
     const rawClubId = url.pathname.replace('/api/clubs/', '');
     const decodedClubId = decodeURIComponent(rawClubId);
-    const club = await findInChunks(env, index.chunks?.clubsById, rawClubId)
-      || await findInChunks(env, index.chunks?.clubsById, decodedClubId)
-      || await findInChunks(env, index.chunks?.clubsById, encodeURIComponent(decodedClubId));
+    const club = await findInChunks(env, index.chunks?.clubsById, rawClubId, index.chunkLookup?.clubsById)
+      || await findInChunks(env, index.chunks?.clubsById, decodedClubId, index.chunkLookup?.clubsById)
+      || await findInChunks(env, index.chunks?.clubsById, encodeURIComponent(decodedClubId), index.chunkLookup?.clubsById);
     return club ? json({ ok: true, version: index.version, club }, 200, PUBLIC_DETAIL_CACHE) : json({ ok: false, message: '俱乐部不存在。' }, 404);
   }
 

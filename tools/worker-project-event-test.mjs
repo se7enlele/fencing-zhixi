@@ -11,8 +11,8 @@ if (start === -1 || end === -1 || end <= start) {
 
 assert.match(
   source,
-  /let event = await findInChunks\(env,\s*index\.chunks\?\.eventsByCode,\s*eventCode\);/,
-  'Worker /api/events route must read static event chunks before dynamic fallbacks',
+  /let event = await findInChunks\(env,\s*index\.chunks\?\.eventsByCode,\s*eventCode,\s*index\.chunkLookup\?\.eventsByCode\);/,
+  'Worker /api/events route must read static event chunks by lookup before dynamic fallbacks',
 );
 
 assert.match(
