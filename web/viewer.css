@@ -922,9 +922,13 @@ select:focus {
   line-height: 1;
 }
 
-.bottom-nav button.active {
+.bottom-nav button[aria-current="page"] {
   background: rgba(8, 119, 96, 0.08);
   color: var(--teal);
+}
+
+.bottom-nav button:focus:not(:focus-visible) {
+  outline: 0;
 }
 
 .view {

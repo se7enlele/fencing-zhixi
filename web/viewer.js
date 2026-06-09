@@ -650,8 +650,13 @@ function showView(name) {
     const buttons = [...bottomNav.querySelectorAll('[data-main-tab]')];
     buttons.forEach((button) => {
       button.classList.remove('active');
+      button.removeAttribute('aria-current');
     });
-    buttons.find((button) => button.dataset.mainTab === activeTab)?.classList.add('active');
+    const activeButton = buttons.find((button) => button.dataset.mainTab === activeTab);
+    if (activeButton) {
+      activeButton.classList.add('active');
+      activeButton.setAttribute('aria-current', 'page');
+    }
   }
 }
 
@@ -3524,6 +3529,7 @@ document.querySelectorAll('[data-nav-competitions]').forEach((button) => {
 bottomNav?.querySelectorAll('[data-main-tab]').forEach((button) => {
   button.addEventListener('click', () => {
     const tab = button.dataset.mainTab;
+    button.blur();
     navigateMain(tab);
   });
 });

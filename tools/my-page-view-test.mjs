@@ -25,7 +25,9 @@ assert.match(js, /RECENT_KEY = 'fencingai\.recentItems\.v1'/, 'recent view state
 assert.match(js, /viewStack: \['home'\]/, 'default navigation stack must start at home dashboard');
 assert.match(js, /activeMainTab: 'home'/, 'home tab must be active by default');
 assert.match(js, /button\.classList\.remove\('active'\)/, 'bottom tab rendering must clear stale active classes first');
+assert.match(js, /button\.removeAttribute\('aria-current'\)/, 'bottom tab rendering must clear stale aria-current state');
 assert.match(js, /button\.dataset\.mainTab === activeTab/, 'bottom tab rendering must activate exactly the current tab');
+assert.match(js, /setAttribute\('aria-current', 'page'\)/, 'bottom tab rendering must expose a single current page');
 assert.match(js, /function renderHomePage\(\)/, 'home page renderer must exist');
 assert.match(js, /function renderFocusPage\(\)/, 'follow page renderer must exist');
 assert.match(js, /function renderMyPage\(\)/, 'my page renderer must exist');
@@ -33,6 +35,7 @@ assert.match(js, /function upsertFollowedCompetition\(competition\)/, 'competiti
 assert.match(js, /trackRecentItem\(\{[\s\S]*type: 'competition'/, 'competition detail views must be tracked as recent items');
 
 assert.match(css, /\.bottom-nav/, 'bottom navigation styles must exist');
+assert.match(css, /\.bottom-nav button\[aria-current="page"\]/, 'bottom navigation selected style must be driven by aria-current');
 assert.match(css, /\.my-page-shell/, 'personal page styles must exist');
 assert.match(css, /\.competition-follow-tag/, 'competition follow tag styles must exist');
 
