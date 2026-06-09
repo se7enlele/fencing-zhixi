@@ -910,11 +910,12 @@ select:focus {
   color: #667085;
   font: inherit;
   padding: 4px 2px;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .bottom-nav button:not([aria-current="page"]) {
-  background: transparent;
-  color: #667085;
+  background: transparent !important;
+  color: #667085 !important;
 }
 
 .bottom-nav span {
@@ -934,9 +935,10 @@ select:focus {
 
 .bottom-nav button:not([aria-current="page"]):hover,
 .bottom-nav button:not([aria-current="page"]):focus,
+.bottom-nav button:not([aria-current="page"]):focus-visible,
 .bottom-nav button:not([aria-current="page"]):active {
-  background: transparent;
-  color: #667085;
+  background: transparent !important;
+  color: #667085 !important;
 }
 
 .bottom-nav button:focus,

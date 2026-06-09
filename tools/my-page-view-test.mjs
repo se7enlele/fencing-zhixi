@@ -14,6 +14,7 @@ assert.match(html, /data-main-tab="my"/, 'bottom navigation must expose my tab')
 assert.match(html, /data-main-tab="follow"/, 'bottom navigation must expose follow tab');
 assert.equal([...html.matchAll(/data-main-tab="my"/g)].length, 1, 'my tab must be unique');
 assert.equal([...html.matchAll(/data-main-tab="follow"/g)].length, 1, 'follow tab must be unique');
+assert.equal([...html.matchAll(/aria-current="page"/g)].length, 1, 'only one bottom navigation tab can be current in static HTML');
 assert.match(html, /<section class="view active" id="view-home">/, 'home dashboard must be the default landing view');
 assert.doesNotMatch(html, /<section class="view active" id="view-competitions">/, 'competition list must not be the default landing view');
 assert.doesNotMatch(html, /<section class="view active" id="view-role-home">/, 'role selection must not be the default landing view');
@@ -27,9 +28,11 @@ assert.match(js, /viewStack: \['home'\]/, 'default navigation stack must start a
 assert.match(js, /activeMainTab: 'home'/, 'home tab must be active by default');
 assert.match(js, /button\.classList\.remove\('active'\)/, 'bottom tab rendering must clear stale active classes first');
 assert.match(js, /button\.removeAttribute\('aria-current'\)/, 'bottom tab rendering must clear stale aria-current state');
+assert.match(js, /setAttribute\('aria-selected', 'false'\)/, 'bottom tab rendering must clear stale selected state');
 assert.match(js, /button\.blur\(\)/, 'bottom tab rendering must clear retained button focus');
 assert.match(js, /button\.dataset\.mainTab === activeTab/, 'bottom tab rendering must activate exactly the current tab');
 assert.match(js, /setAttribute\('aria-current', 'page'\)/, 'bottom tab rendering must expose a single current page');
+assert.match(js, /role === 'data'[\s\S]*navigateMain\('competitions'\)/, 'data workspace must open the competition page instead of the home dashboard');
 assert.match(js, /function renderHomePage\(\)/, 'home page renderer must exist');
 assert.match(js, /function renderFocusPage\(\)/, 'follow page renderer must exist');
 assert.match(js, /function renderMyPage\(\)/, 'my page renderer must exist');
@@ -39,6 +42,7 @@ assert.match(js, /trackRecentItem\(\{[\s\S]*type: 'competition'/, 'competition d
 assert.match(css, /\.bottom-nav/, 'bottom navigation styles must exist');
 assert.match(css, /\.bottom-nav button\[aria-current="page"\]/, 'bottom navigation selected style must be driven by aria-current');
 assert.match(css, /\.bottom-nav button:not\(\[aria-current="page"\]\)/, 'bottom navigation must explicitly reset non-current tabs');
+assert.match(css, /background: transparent !important/, 'non-current bottom tabs must not keep touch or focus selected backgrounds');
 assert.match(css, /\.my-page-shell/, 'personal page styles must exist');
 assert.match(css, /\.competition-follow-tag/, 'competition follow tag styles must exist');
 

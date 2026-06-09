@@ -202,6 +202,8 @@ function setUserRole(role) {
     state.viewStack = ['parentHome'];
     showView('parentHome');
     scrollToPageTop();
+  } else if (role === 'data') {
+    navigateMain('competitions');
   } else {
     navigateMain('home');
   }
@@ -654,11 +656,13 @@ function showView(name) {
     buttons.forEach((button) => {
       button.classList.remove('active');
       button.removeAttribute('aria-current');
+      button.setAttribute('aria-selected', 'false');
       button.blur();
     });
     const activeButton = buttons.find((button) => button.dataset.mainTab === activeTab);
     if (activeButton) {
       activeButton.setAttribute('aria-current', 'page');
+      activeButton.setAttribute('aria-selected', 'true');
     }
   }
 }
@@ -3536,8 +3540,12 @@ bottomNav?.querySelectorAll('[data-main-tab]').forEach((button) => {
   button.addEventListener('pointerdown', () => button.blur());
   button.addEventListener('click', () => {
     const tab = button.dataset.mainTab;
+    bottomNav.querySelectorAll('[data-main-tab]').forEach((navButton) => navButton.blur());
     button.blur();
     navigateMain(tab);
+    requestAnimationFrame(() => {
+      bottomNav.querySelectorAll('[data-main-tab]').forEach((navButton) => navButton.blur());
+    });
   });
 });
 
