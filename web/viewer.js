@@ -198,10 +198,7 @@ function setUserRole(role) {
   renderRoleWorkspacePremium();
   if (role === 'parent') {
     renderParentDashboard();
-    state.activeMainTab = 'home';
-    state.viewStack = ['parentHome'];
-    showView('parentHome');
-    scrollToPageTop();
+    navigateMain('home');
   } else if (role === 'data') {
     navigateMain('competitions');
   } else {
@@ -643,28 +640,31 @@ function showView(name) {
     view.classList.toggle('active', key === name);
   });
   searchShell.classList.toggle('collapsed', name !== 'competitions');
-  const mainViews = ['roleHome', 'home', 'parentHome', 'competitions', 'follow', 'my'];
+  const mainViews = ['roleHome', 'home', 'competitions', 'follow', 'my'];
   topBack.classList.toggle('visible', !mainViews.includes(name));
   if (bottomNav) {
-    const showBottomNav = ['home', 'parentHome', 'competitions', 'follow', 'my'].includes(name);
+    const showBottomNav = ['home', 'competitions', 'follow', 'my'].includes(name);
     bottomNav.hidden = !showBottomNav;
-    const activeTab = ['home', 'competitions', 'follow', 'my'].includes(name)
-      ? name
-      : (name === 'parentHome' ? 'home' : state.activeMainTab);
+    const activeTab = ['home', 'competitions', 'follow', 'my'].includes(name) ? name : state.activeMainTab;
     if (activeTab) state.activeMainTab = activeTab;
-    const buttons = [...bottomNav.querySelectorAll('[data-main-tab]')];
-    buttons.forEach((button) => {
-      button.classList.remove('active');
-      button.removeAttribute('aria-current');
-      button.setAttribute('aria-selected', 'false');
-      button.blur();
-    });
-    const activeButton = buttons.find((button) => button.dataset.mainTab === activeTab);
-    if (activeButton) {
-      activeButton.setAttribute('aria-current', 'page');
-      activeButton.setAttribute('aria-selected', 'true');
-    }
+    updateBottomNavState(activeTab);
   }
+}
+
+function updateBottomNavState(activeTab) {
+  if (!bottomNav) return;
+  [...bottomNav.querySelectorAll('[data-main-tab]')].forEach((button) => {
+    const isActive = button.dataset.mainTab === activeTab;
+    button.classList.remove('active');
+    button.removeAttribute('aria-current');
+    button.setAttribute('aria-selected', 'false');
+    if (isActive) {
+      button.classList.add('active');
+      button.setAttribute('aria-current', 'page');
+      button.setAttribute('aria-selected', 'true');
+    }
+    button.blur();
+  });
 }
 
 function scrollToPageTop() {
