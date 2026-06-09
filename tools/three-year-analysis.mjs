@@ -1,4 +1,4 @@
-import { mkdir, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, readdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { getPublicEventsPayload } from '../server.mjs';
 
@@ -198,6 +198,118 @@ function clubEventRows(clubs) {
       top8: Number(event.top8) || 0,
       bestRank: Number(event.bestRank) || null,
     })));
+}
+
+function rosterYear(record) {
+  return firstYear(record.sportName, record.eventName, record.sigupTime);
+}
+
+async function registrationRosterRows(inputDir = path.resolve('data', 'analysis')) {
+  const files = (await readdir(inputDir).catch(() => []))
+    .filter((file) => file.startsWith('registration-roster-') && file.endsWith('.json'));
+  const rowsByKey = new Map();
+
+  for (const file of files) {
+    const report = JSON.parse(await readFile(path.join(inputDir, file), 'utf8'));
+    const records = report?.normalized?.records || [];
+    for (const record of records) {
+      const year = rosterYear(record);
+      if (!yearSet.has(year)) continue;
+      const key = [
+        record.sportCode || '',
+        record.eventCode || '',
+        record.dedupeKey || record.sigupId || record.registerCode || record.athleteName || '',
+      ].join('|');
+      if (rowsByKey.has(key)) continue;
+      rowsByKey.set(key, {
+        year,
+        sportCode: record.sportCode || '',
+        sportName: record.sportName || '',
+        eventCode: record.eventCode || '',
+        eventName: record.eventName || '',
+        athleteId: record.registerCode || record.sigupId || `${record.athleteName || ''}:${record.birthday || ''}`,
+        athleteName: record.athleteName || '',
+        birthday: record.birthday || '',
+        sex: record.sexDes || record.sex || '',
+        weapon: record.weaponDes || record.weapon || '',
+        clubId: record.organCode || record.organName || record.organShortName || '',
+        club: record.organShortName || record.organName || '个人',
+        approveStatus: record.approveStatus || '',
+        sigupTime: record.sigupTime || '',
+      });
+    }
+  }
+
+  return [...rowsByKey.values()]
+    .sort((a, b) => String(b.year).localeCompare(String(a.year), 'zh-CN') || String(a.sportName).localeCompare(String(b.sportName), 'zh-CN'));
+}
+
+function aggregateRegistrationAthletes(rows) {
+  const map = new Map();
+  for (const row of rows) {
+    const key = row.athleteId || row.athleteName;
+    if (!key) continue;
+    const current = map.get(key) || {
+      athleteId: key,
+      name: row.athleteName,
+      club: row.club,
+      registrations: 0,
+      years: new Set(),
+      sports: new Set(),
+      events: new Set(),
+      weapons: new Set(),
+    };
+    current.registrations += 1;
+    current.years.add(row.year);
+    current.sports.add(row.sportCode);
+    current.events.add(row.eventCode);
+    if (row.weapon) current.weapons.add(row.weapon);
+    map.set(key, current);
+  }
+  return [...map.values()]
+    .map((row) => ({
+      ...row,
+      years: [...row.years].filter(Boolean).sort().join('/'),
+      sportCount: row.sports.size,
+      eventCount: row.events.size,
+      weapons: [...row.weapons].filter(Boolean).sort().join('/'),
+    }))
+    .sort((a, b) => b.registrations - a.registrations || String(a.name).localeCompare(String(b.name), 'zh-CN'));
+}
+
+function aggregateRegistrationClubs(rows) {
+  const map = new Map();
+  for (const row of rows) {
+    const key = row.clubId || row.club;
+    if (!key) continue;
+    const current = map.get(key) || {
+      clubId: key,
+      club: row.club,
+      registrations: 0,
+      athletes: new Set(),
+      years: new Set(),
+      sports: new Set(),
+      events: new Set(),
+      weapons: new Set(),
+    };
+    current.registrations += 1;
+    if (row.athleteId) current.athletes.add(row.athleteId);
+    current.years.add(row.year);
+    current.sports.add(row.sportCode);
+    current.events.add(row.eventCode);
+    if (row.weapon) current.weapons.add(row.weapon);
+    map.set(key, current);
+  }
+  return [...map.values()]
+    .map((row) => ({
+      ...row,
+      athleteCount: row.athletes.size,
+      years: [...row.years].filter(Boolean).sort().join('/'),
+      sportCount: row.sports.size,
+      eventCount: row.events.size,
+      weapons: [...row.weapons].filter(Boolean).sort().join('/'),
+    }))
+    .sort((a, b) => b.registrations - a.registrations || b.athleteCount - a.athleteCount || String(a.club).localeCompare(String(b.club), 'zh-CN'));
 }
 
 function aggregateAthletes(rows) {
@@ -435,6 +547,9 @@ async function main() {
   const athleteSummary = aggregateAthletes(rawAthleteRows);
   const rawClubRows = clubEventRows(payload.clubs || []);
   const clubSummary = aggregateClubs(rawClubRows);
+  const rawRegistrationRows = await registrationRosterRows();
+  const registrationAthleteSummary = aggregateRegistrationAthletes(rawRegistrationRows);
+  const registrationClubSummary = aggregateRegistrationClubs(rawRegistrationRows);
 
   await mkdir(outputDir, { recursive: true });
   await writeFile(path.join(outputDir, 'competitions.csv'), `${csv(competitionRows, [
@@ -483,6 +598,44 @@ async function main() {
     { title: 'top8Rate', value: (row) => row.top8Rate },
   ])}\n`, 'utf8');
 
+  await writeFile(path.join(outputDir, 'registration-rosters.csv'), `${csv(rawRegistrationRows, [
+    { title: 'year', value: (row) => row.year },
+    { title: 'sportCode', value: (row) => row.sportCode },
+    { title: 'sportName', value: (row) => row.sportName },
+    { title: 'eventCode', value: (row) => row.eventCode },
+    { title: 'eventName', value: (row) => row.eventName },
+    { title: 'athleteId', value: (row) => row.athleteId },
+    { title: 'athleteName', value: (row) => row.athleteName },
+    { title: 'sex', value: (row) => row.sex },
+    { title: 'weapon', value: (row) => row.weapon },
+    { title: 'clubId', value: (row) => row.clubId },
+    { title: 'club', value: (row) => row.club },
+    { title: 'approveStatus', value: (row) => row.approveStatus },
+    { title: 'sigupTime', value: (row) => row.sigupTime },
+  ])}\n`, 'utf8');
+
+  await writeFile(path.join(outputDir, 'registration-athletes.csv'), `${csv(registrationAthleteSummary, [
+    { title: 'athleteId', value: (row) => row.athleteId },
+    { title: 'name', value: (row) => row.name },
+    { title: 'club', value: (row) => row.club },
+    { title: 'years', value: (row) => row.years },
+    { title: 'registrations', value: (row) => row.registrations },
+    { title: 'sportCount', value: (row) => row.sportCount },
+    { title: 'eventCount', value: (row) => row.eventCount },
+    { title: 'weapons', value: (row) => row.weapons },
+  ])}\n`, 'utf8');
+
+  await writeFile(path.join(outputDir, 'registration-clubs.csv'), `${csv(registrationClubSummary, [
+    { title: 'clubId', value: (row) => row.clubId },
+    { title: 'club', value: (row) => row.club },
+    { title: 'years', value: (row) => row.years },
+    { title: 'registrations', value: (row) => row.registrations },
+    { title: 'athleteCount', value: (row) => row.athleteCount },
+    { title: 'sportCount', value: (row) => row.sportCount },
+    { title: 'eventCount', value: (row) => row.eventCount },
+    { title: 'weapons', value: (row) => row.weapons },
+  ])}\n`, 'utf8');
+
   await writeFile(path.join(outputDir, 'coverage-gaps.csv'), `${csv(competitionRows.filter((row) => row.coverage !== 'score'), [
     { title: 'sportCode', value: (row) => row.sportCode },
     { title: 'sportName', value: (row) => row.sportName },
@@ -520,16 +673,29 @@ async function main() {
       athletes: athleteSummary.length,
       clubEventRows: rawClubRows.length,
       clubs: clubSummary.length,
+      registrationRosterRows: rawRegistrationRows.length,
+      registrationAthletes: registrationAthleteSummary.length,
+      registrationClubs: registrationClubSummary.length,
     },
   };
   await writeFile(path.join(outputDir, 'summary.json'), `${JSON.stringify(reportJson, null, 2)}\n`, 'utf8');
-  await writeFile(path.join(outputDir, 'stats.md'), buildInsights({
+  const statsText = `${buildInsights({
     competitionRows,
     athleteRows: rawAthleteRows,
     athleteSummary,
     clubRows: rawClubRows,
     clubSummary,
-  }), 'utf8');
+  })}
+
+## Registration Layer Coverage
+
+| Metric | Count |
+| --- | --- |
+| Registration roster rows | ${rawRegistrationRows.length} |
+| Registration athletes | ${registrationAthleteSummary.length} |
+| Registration clubs | ${registrationClubSummary.length} |
+`;
+  await writeFile(path.join(outputDir, 'stats.md'), statsText, 'utf8');
 
   console.log(JSON.stringify({ ok: true, outputDir, ...reportJson.summary }, null, 2));
 }
