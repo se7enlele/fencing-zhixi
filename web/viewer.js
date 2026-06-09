@@ -665,6 +665,7 @@ function updateBottomNavState(activeTab) {
     }
     button.blur();
   });
+  bottomNav.dataset.activeTab = activeTab || '';
 }
 
 function scrollToPageTop() {
@@ -3537,7 +3538,9 @@ document.querySelectorAll('[data-nav-competitions]').forEach((button) => {
 });
 
 bottomNav?.querySelectorAll('[data-main-tab]').forEach((button) => {
-  button.addEventListener('pointerdown', () => button.blur());
+  button.addEventListener('pointerdown', () => {
+    bottomNav.querySelectorAll('[data-main-tab]').forEach((navButton) => navButton.blur());
+  });
   button.addEventListener('click', () => {
     const tab = button.dataset.mainTab;
     bottomNav.querySelectorAll('[data-main-tab]').forEach((navButton) => navButton.blur());
@@ -3545,6 +3548,7 @@ bottomNav?.querySelectorAll('[data-main-tab]').forEach((button) => {
     navigateMain(tab);
     requestAnimationFrame(() => {
       bottomNav.querySelectorAll('[data-main-tab]').forEach((navButton) => navButton.blur());
+      updateBottomNavState(state.activeMainTab);
     });
   });
 });

@@ -918,6 +918,13 @@ select:focus {
   color: #667085 !important;
 }
 
+.bottom-nav button.active:not([aria-current="page"]),
+.bottom-nav button[aria-selected="false"] {
+  background: transparent !important;
+  color: #667085 !important;
+  box-shadow: none !important;
+}
+
 .bottom-nav span {
   font-size: 21px;
   line-height: 1;
