@@ -72,6 +72,20 @@ node tools/sync-platform-data.mjs --status all --limit 5 --no-score --timeout-se
 
 这说明代理和解析链路可用；当前没有提升覆盖率，是因为这两场官方项目清单尚未开放。
 
+2026-06-09 继续按 `sync-targets.csv` 补报名名单：
+
+```bash
+node tools/sync-platform-data.mjs --sport-id 101134 --roster --no-score --roster-max-pages 4 --roster-page-size 20 --timeout-sec 25
+```
+
+结果：
+
+| sportId | sportCode | 赛事 | 结果 |
+| --- | --- | --- | --- |
+| 101134 | RZSS2035020 | 2026年九江“庐山杯”击剑公开赛 | 已补前 5 个男子花剑项目报名名单，原始分页 240 条，分析层聚合 239 人次，覆盖层级从 project 提升到 roster |
+
+说明：当前同步脚本默认 `rosterLimit=5`，本次只补了项目清单中的前 5 个项目；如果要完整覆盖该赛事报名名单，需要继续扩大 `--roster-limit` 或按具体项目分批补齐。
+
 ## 产品影响
 
 家长视角：
