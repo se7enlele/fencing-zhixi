@@ -1,0 +1,1374 @@
+{
+  "ok": true,
+  "source": {
+    "sourceUrl": "https://fencing-proxy.aixindiandian.workers.dev/Resource/score/RZSSSC0120251129MFTU10.js",
+    "sourceType": "score-resource",
+    "importedAt": "2026-06-09T18:52:34.828Z"
+  },
+  "general": {
+    "sportName": "2025年“活力简阳·剑耀蓉城”击剑公开赛",
+    "eventName": "U10男子花剑团体",
+    "openDate": "2025.12.06",
+    "venue": "四川·成都",
+    "competitionNo": 5,
+    "exemptionNo": null,
+    "poolFencerNo": null,
+    "poolQualifyNo": 0,
+    "preDeStartPhase": "none",
+    "deStartPhase": "from Tableaus8",
+    "sportCode": "RZSSSC0120251129",
+    "eventCode": "RZSSSC0120251129MFTU10"
+  },
+  "summary": {
+    "classmentCount": 5,
+    "initialSeedCount": 5,
+    "poolCount": 0,
+    "poolStandingCount": 0,
+    "poolResultCount": 0,
+    "poolBoutCount": 0,
+    "tableauCount": 3,
+    "eliminationMatchCount": 8,
+    "playedEliminationMatchCount": 5,
+    "byeMatchCount": 3,
+    "athleteCountByLicence": 5
+  },
+  "distributions": {
+    "poolStatus": {},
+    "poolRemark": {},
+    "tableau": {
+      "8表": 1,
+      "半决赛": 1,
+      "决赛": 1
+    },
+    "eliminationByPhase": {
+      "8表": 4,
+      "半决赛": 2,
+      "决赛": 2
+    },
+    "eliminationResult": {
+      "W/L": 3,
+      "L/W": 5
+    },
+    "medal": {
+      "金": 1,
+      "银": 1,
+      "铜": 1,
+      "(无奖牌)": 2
+    }
+  },
+  "normalized": {
+    "classment": [
+      {
+        "rank": 1,
+        "displayRank": "1",
+        "name": "黑悟空",
+        "licence": "RZSSSC0120251129MFTU10_653_UGMRW",
+        "club": "成都高新万国",
+        "birthday": null,
+        "medal": "金",
+        "status": "N",
+        "sourcePosition": 1
+      },
+      {
+        "rank": 2,
+        "displayRank": "2",
+        "name": "银刃追光联盟",
+        "licence": "RZSSSC0120251129MFTU10_653_YAWWL",
+        "club": "成都高新万国",
+        "birthday": null,
+        "medal": "银",
+        "status": "N",
+        "sourcePosition": 2
+      },
+      {
+        "rank": 3,
+        "displayRank": "3",
+        "name": "嘉爵少年队",
+        "licence": "RZSSSC0120251129MFTU10_224_KVLKM",
+        "club": "四川嘉爵",
+        "birthday": null,
+        "medal": "铜",
+        "status": "N",
+        "sourcePosition": 3
+      },
+      {
+        "rank": 4,
+        "displayRank": "4",
+        "name": "联合团体1队",
+        "licence": "UNITE1",
+        "club": "联合团体",
+        "birthday": null,
+        "medal": null,
+        "status": "N",
+        "sourcePosition": 4
+      },
+      {
+        "rank": 5,
+        "displayRank": "5",
+        "name": "成都蒙小冲锋队",
+        "licence": "RZSSSC0120251129MFTU10_11908_UXXCZ",
+        "club": "四川乐予",
+        "birthday": null,
+        "medal": null,
+        "status": "N",
+        "sourcePosition": 5
+      }
+    ],
+    "poolStandings": [],
+    "poolResults": [],
+    "poolBouts": [],
+    "eliminationMatches": [
+      {
+        "matchId": 474336,
+        "matchCode": "Pre001",
+        "phaseId": 163665,
+        "phase": {
+          "shortName": "T8",
+          "longName": "8表",
+          "order": 1,
+          "code": "3",
+          "group": "1_0"
+        },
+        "groupCode": "3_0",
+        "innerOrder": 1,
+        "home": {
+          "position": 1,
+          "name": "银刃追光联盟",
+          "licence": "RZSSSC0120251129MFTU10_653_YAWWL",
+          "club": "成都高新万国",
+          "points": null,
+          "result": "W"
+        },
+        "away": {
+          "position": 8,
+          "name": "Bye",
+          "licence": null,
+          "club": null,
+          "points": null,
+          "result": "L"
+        },
+        "winner": {
+          "name": "银刃追光联盟",
+          "club": "成都高新万国"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": true
+      },
+      {
+        "matchId": 474337,
+        "matchCode": "Pre002",
+        "phaseId": 163665,
+        "phase": {
+          "shortName": "T8",
+          "longName": "8表",
+          "order": 1,
+          "code": "3",
+          "group": "1_0"
+        },
+        "groupCode": "3_0",
+        "innerOrder": 2,
+        "home": {
+          "position": 5,
+          "name": "成都蒙小冲锋队",
+          "licence": "RZSSSC0120251129MFTU10_11908_UXXCZ",
+          "club": "四川乐予",
+          "points": 18,
+          "result": "L"
+        },
+        "away": {
+          "position": 4,
+          "name": "联合团体1队",
+          "licence": "UNITE1",
+          "club": "联合团体",
+          "points": 45,
+          "result": "W"
+        },
+        "winner": {
+          "name": "成都蒙小冲锋队",
+          "club": "联合团体"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 474338,
+        "matchCode": "Pre003",
+        "phaseId": 163665,
+        "phase": {
+          "shortName": "T8",
+          "longName": "8表",
+          "order": 1,
+          "code": "3",
+          "group": "1_0"
+        },
+        "groupCode": "3_1",
+        "innerOrder": 1,
+        "home": {
+          "position": 3,
+          "name": "嘉爵少年队",
+          "licence": "RZSSSC0120251129MFTU10_224_KVLKM",
+          "club": "四川嘉爵",
+          "points": null,
+          "result": "W"
+        },
+        "away": {
+          "position": 6,
+          "name": "Bye",
+          "licence": null,
+          "club": null,
+          "points": null,
+          "result": "L"
+        },
+        "winner": {
+          "name": "嘉爵少年队",
+          "club": "四川嘉爵"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": true
+      },
+      {
+        "matchId": 474339,
+        "matchCode": "Pre004",
+        "phaseId": 163665,
+        "phase": {
+          "shortName": "T8",
+          "longName": "8表",
+          "order": 1,
+          "code": "3",
+          "group": "1_0"
+        },
+        "groupCode": "3_1",
+        "innerOrder": 2,
+        "home": {
+          "position": 7,
+          "name": "Bye",
+          "licence": null,
+          "club": null,
+          "points": null,
+          "result": "L"
+        },
+        "away": {
+          "position": 2,
+          "name": "黑悟空",
+          "licence": "RZSSSC0120251129MFTU10_653_UGMRW",
+          "club": "成都高新万国",
+          "points": null,
+          "result": "W"
+        },
+        "winner": {
+          "name": null,
+          "club": "成都高新万国"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": true
+      },
+      {
+        "matchId": 474340,
+        "matchCode": "Pre001",
+        "phaseId": 163666,
+        "phase": {
+          "shortName": "T4",
+          "longName": "半决赛",
+          "order": 2,
+          "code": "2",
+          "group": "2_0"
+        },
+        "groupCode": "2_0",
+        "innerOrder": 1,
+        "home": {
+          "position": 1,
+          "name": "银刃追光联盟",
+          "licence": "RZSSSC0120251129MFTU10_653_YAWWL",
+          "club": "成都高新万国",
+          "points": 45,
+          "result": "W"
+        },
+        "away": {
+          "position": 4,
+          "name": "联合团体1队",
+          "licence": "UNITE1",
+          "club": "联合团体",
+          "points": 17,
+          "result": "L"
+        },
+        "winner": {
+          "name": "银刃追光联盟",
+          "club": "成都高新万国"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 474341,
+        "matchCode": "Pre002",
+        "phaseId": 163666,
+        "phase": {
+          "shortName": "T4",
+          "longName": "半决赛",
+          "order": 2,
+          "code": "2",
+          "group": "2_0"
+        },
+        "groupCode": "2_0",
+        "innerOrder": 2,
+        "home": {
+          "position": 3,
+          "name": "嘉爵少年队",
+          "licence": "RZSSSC0120251129MFTU10_224_KVLKM",
+          "club": "四川嘉爵",
+          "points": 30,
+          "result": "L"
+        },
+        "away": {
+          "position": 2,
+          "name": "黑悟空",
+          "licence": "RZSSSC0120251129MFTU10_653_UGMRW",
+          "club": "成都高新万国",
+          "points": 45,
+          "result": "W"
+        },
+        "winner": {
+          "name": "嘉爵少年队",
+          "club": "成都高新万国"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 474342,
+        "matchCode": "Pre001",
+        "phaseId": 163667,
+        "phase": {
+          "shortName": "T2",
+          "longName": "决赛",
+          "order": 3,
+          "code": "1",
+          "group": "3_0"
+        },
+        "groupCode": "1_0",
+        "innerOrder": 1,
+        "home": {
+          "position": 1,
+          "name": "银刃追光联盟",
+          "licence": "RZSSSC0120251129MFTU10_653_YAWWL",
+          "club": "成都高新万国",
+          "points": 41,
+          "result": "L"
+        },
+        "away": {
+          "position": 2,
+          "name": "黑悟空",
+          "licence": "RZSSSC0120251129MFTU10_653_UGMRW",
+          "club": "成都高新万国",
+          "points": 45,
+          "result": "W"
+        },
+        "winner": {
+          "name": "银刃追光联盟",
+          "club": "成都高新万国"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 474343,
+        "matchCode": "Pre002",
+        "phaseId": 163667,
+        "phase": {
+          "shortName": "T2",
+          "longName": "决赛",
+          "order": 3,
+          "code": "1",
+          "group": "3_0"
+        },
+        "groupCode": "1_0",
+        "innerOrder": 2,
+        "home": {
+          "position": 1,
+          "name": "联合团体1队",
+          "licence": "UNITE1",
+          "club": "联合团体",
+          "points": 29,
+          "result": "L"
+        },
+        "away": {
+          "position": 2,
+          "name": "嘉爵少年队",
+          "licence": "RZSSSC0120251129MFTU10_224_KVLKM",
+          "club": "四川嘉爵",
+          "points": 45,
+          "result": "W"
+        },
+        "winner": {
+          "name": "联合团体1队",
+          "club": "四川嘉爵"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      }
+    ]
+  },
+  "completeness": [
+    {
+      "section": "General",
+      "rows": 1,
+      "fields": [
+        {
+          "key": "SportName",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "2025年“活力简阳·剑耀蓉城”击剑公开赛"
+          ]
+        },
+        {
+          "key": "EventName",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "U10男子花剑团体"
+          ]
+        },
+        {
+          "key": "OpenDate",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "2025.12.06"
+          ]
+        },
+        {
+          "key": "Venue",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "四川·成都"
+          ]
+        },
+        {
+          "key": "CompetitionNo",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            5
+          ]
+        },
+        {
+          "key": "ExemptionNo",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "PoolFencerNo",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "PoolQualifyNo",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            0
+          ]
+        },
+        {
+          "key": "PDEstartPhase",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "none"
+          ]
+        },
+        {
+          "key": "DEstartPhase",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "from Tableaus8"
+          ]
+        },
+        {
+          "key": "Scode",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "RZSSSC0120251129"
+          ]
+        },
+        {
+          "key": "Ecode",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "RZSSSC0120251129MFTU10"
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Classment",
+      "rows": 5,
+      "fields": [
+        {
+          "key": "EventShowRank",
+          "nonEmpty": 5,
+          "fillRate": 1,
+          "sampleValues": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5"
+          ]
+        },
+        {
+          "key": "EventRank",
+          "nonEmpty": 5,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        },
+        {
+          "key": "Fencer",
+          "nonEmpty": 5,
+          "fillRate": 1,
+          "sampleValues": [
+            "黑悟空",
+            "银刃追光联盟",
+            "嘉爵少年队",
+            "联合团体1队",
+            "成都蒙小冲锋队"
+          ]
+        },
+        {
+          "key": "Licence",
+          "nonEmpty": 5,
+          "fillRate": 1,
+          "sampleValues": [
+            "RZSSSC0120251129MFTU10_653_UGMRW",
+            "RZSSSC0120251129MFTU10_653_YAWWL",
+            "RZSSSC0120251129MFTU10_224_KVLKM",
+            "UNITE1",
+            "RZSSSC0120251129MFTU10_11908_UXXCZ"
+          ]
+        },
+        {
+          "key": "NOCCode",
+          "nonEmpty": 5,
+          "fillRate": 1,
+          "sampleValues": [
+            "成都高新万国",
+            "四川嘉爵",
+            "联合团体",
+            "四川乐予"
+          ]
+        },
+        {
+          "key": "Birthday",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "Medal",
+          "nonEmpty": 3,
+          "fillRate": 0.6,
+          "sampleValues": [
+            "金",
+            "银",
+            "铜"
+          ]
+        },
+        {
+          "key": "Statut",
+          "nonEmpty": 5,
+          "fillRate": 1,
+          "sampleValues": [
+            "N"
+          ]
+        },
+        {
+          "key": "F_EventDisPos",
+          "nonEmpty": 5,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        },
+        {
+          "key": "RID",
+          "nonEmpty": 5,
+          "fillRate": 1,
+          "sampleValues": [
+            69,
+            70,
+            67,
+            72,
+            68
+          ]
+        }
+      ]
+    },
+    {
+      "section": "ClassmentMember",
+      "rows": 17,
+      "fields": [
+        {
+          "key": "Fencer",
+          "nonEmpty": 17,
+          "fillRate": 1,
+          "sampleValues": [
+            "陈硕翊",
+            "郑渝谱",
+            "王习铭",
+            "刘昊鑫",
+            "何家致",
+            "XU LUCAS",
+            "王之恒",
+            "郑嘉印"
+          ]
+        },
+        {
+          "key": "Licence",
+          "nonEmpty": 17,
+          "fillRate": 1,
+          "sampleValues": [
+            "20161111M202503260542",
+            "20161230M202409290412",
+            "20160916M202503041116",
+            "20151123M202305160715",
+            "20150925M202306280854",
+            "20150823M202203150349",
+            "20150202M202302050229",
+            "20170116M202402280343"
+          ]
+        },
+        {
+          "key": "NOCCode",
+          "nonEmpty": 17,
+          "fillRate": 1,
+          "sampleValues": [
+            "上海马良行",
+            "成都高新万国",
+            "重庆英博",
+            "四川乐予",
+            "四川嘉爵"
+          ]
+        },
+        {
+          "key": "Birthday",
+          "nonEmpty": 17,
+          "fillRate": 1,
+          "sampleValues": [
+            "2016-11-11",
+            "2016-12-30",
+            "2016-09-16",
+            "2015-11-23",
+            "2015-09-25",
+            "2015-08-23",
+            "2015-02-02",
+            "2017-01-16"
+          ]
+        },
+        {
+          "key": "RID",
+          "nonEmpty": 17,
+          "fillRate": 1,
+          "sampleValues": [
+            72,
+            70,
+            69,
+            68,
+            67
+          ]
+        }
+      ]
+    },
+    {
+      "section": "IniStarts",
+      "rows": 5,
+      "fields": [
+        {
+          "key": "IRank",
+          "nonEmpty": 5,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        },
+        {
+          "key": "IPoints",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "Fencer",
+          "nonEmpty": 5,
+          "fillRate": 1,
+          "sampleValues": [
+            "银刃追光联盟",
+            "黑悟空",
+            "嘉爵少年队",
+            "联合团体1队",
+            "成都蒙小冲锋队"
+          ]
+        },
+        {
+          "key": "NOCCode",
+          "nonEmpty": 5,
+          "fillRate": 1,
+          "sampleValues": [
+            "成都高新万国",
+            "四川嘉爵",
+            "联合团体",
+            "四川乐予"
+          ]
+        },
+        {
+          "key": "Licence",
+          "nonEmpty": 5,
+          "fillRate": 1,
+          "sampleValues": [
+            "RZSSSC0120251129MFTU10_653_YAWWL",
+            "RZSSSC0120251129MFTU10_653_UGMRW",
+            "RZSSSC0120251129MFTU10_224_KVLKM",
+            "UNITE1",
+            "RZSSSC0120251129MFTU10_11908_UXXCZ"
+          ]
+        },
+        {
+          "key": "DisPos",
+          "nonEmpty": 5,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        },
+        {
+          "key": "RID",
+          "nonEmpty": 5,
+          "fillRate": 1,
+          "sampleValues": [
+            70,
+            69,
+            67,
+            72,
+            68
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Phases",
+      "rows": 1,
+      "fields": [
+        {
+          "key": "PhasePID",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            163664
+          ]
+        },
+        {
+          "key": "PhaseName",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "直接淘汰赛"
+          ]
+        },
+        {
+          "key": "Porder",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            3
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Tableaus",
+      "rows": 3,
+      "fields": [
+        {
+          "key": "PshortDes",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            "T8",
+            "T4",
+            "T2"
+          ]
+        },
+        {
+          "key": "PLongDes",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            "8表",
+            "半决赛",
+            "决赛"
+          ]
+        },
+        {
+          "key": "Porder",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3
+          ]
+        },
+        {
+          "key": "PhaseID",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            163665,
+            163666,
+            163667
+          ]
+        },
+        {
+          "key": "PhasePID",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            163664
+          ]
+        },
+        {
+          "key": "PhaseGroup",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            "1_0",
+            "2_0",
+            "3_0"
+          ]
+        },
+        {
+          "key": "PhaseCode",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            "3",
+            "2",
+            "1"
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Matchs",
+      "rows": 8,
+      "fields": [
+        {
+          "key": "MatchCode",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            "Pre001",
+            "Pre002",
+            "Pre003",
+            "Pre004"
+          ]
+        },
+        {
+          "key": "HomePosition",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            5,
+            3,
+            7
+          ]
+        },
+        {
+          "key": "HomeFencer",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            "银刃追光联盟",
+            "成都蒙小冲锋队",
+            "嘉爵少年队",
+            "Bye",
+            "联合团体1队"
+          ]
+        },
+        {
+          "key": "HomeLicence",
+          "nonEmpty": 7,
+          "fillRate": 0.875,
+          "sampleValues": [
+            "RZSSSC0120251129MFTU10_653_YAWWL",
+            "RZSSSC0120251129MFTU10_11908_UXXCZ",
+            "RZSSSC0120251129MFTU10_224_KVLKM",
+            "UNITE1"
+          ]
+        },
+        {
+          "key": "HomeNOC",
+          "nonEmpty": 7,
+          "fillRate": 0.875,
+          "sampleValues": [
+            "成都高新万国",
+            "四川乐予",
+            "四川嘉爵",
+            "联合团体"
+          ]
+        },
+        {
+          "key": "HomePoints",
+          "nonEmpty": 5,
+          "fillRate": 0.625,
+          "sampleValues": [
+            18,
+            45,
+            30,
+            41,
+            29
+          ]
+        },
+        {
+          "key": "HomeWLT",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            "W",
+            "L"
+          ]
+        },
+        {
+          "key": "AwayPosition",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            8,
+            4,
+            6,
+            2
+          ]
+        },
+        {
+          "key": "AwayFencer",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            "Bye",
+            "联合团体1队",
+            "黑悟空",
+            "嘉爵少年队"
+          ]
+        },
+        {
+          "key": "AwayLicence",
+          "nonEmpty": 6,
+          "fillRate": 0.75,
+          "sampleValues": [
+            "UNITE1",
+            "RZSSSC0120251129MFTU10_653_UGMRW",
+            "RZSSSC0120251129MFTU10_224_KVLKM"
+          ]
+        },
+        {
+          "key": "AwayNOC",
+          "nonEmpty": 6,
+          "fillRate": 0.75,
+          "sampleValues": [
+            "联合团体",
+            "成都高新万国",
+            "四川嘉爵"
+          ]
+        },
+        {
+          "key": "AwayPoints",
+          "nonEmpty": 5,
+          "fillRate": 0.625,
+          "sampleValues": [
+            45,
+            17
+          ]
+        },
+        {
+          "key": "AwayWLT",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            "L",
+            "W"
+          ]
+        },
+        {
+          "key": "Piste",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "StartTime",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "Winner",
+          "nonEmpty": 7,
+          "fillRate": 0.875,
+          "sampleValues": [
+            "银刃追光联盟",
+            "成都蒙小冲锋队",
+            "嘉爵少年队",
+            "联合团体1队"
+          ]
+        },
+        {
+          "key": "WinnerNOC",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            "成都高新万国",
+            "联合团体",
+            "四川嘉爵"
+          ]
+        },
+        {
+          "key": "MatchID",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            474336,
+            474337,
+            474338,
+            474339,
+            474340,
+            474341,
+            474342,
+            474343
+          ]
+        },
+        {
+          "key": "PhaseID",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            163665,
+            163666,
+            163667
+          ]
+        },
+        {
+          "key": "GroupCode",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            "3_0",
+            "3_1",
+            "2_0",
+            "1_0"
+          ]
+        },
+        {
+          "key": "F_InnerOrder",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2
+          ]
+        }
+      ]
+    },
+    {
+      "section": "TeamAnalyse",
+      "rows": 17,
+      "fields": [
+        {
+          "key": "F_RegisterID",
+          "nonEmpty": 17,
+          "fillRate": 1,
+          "sampleValues": [
+            5229,
+            5228,
+            5227,
+            5233,
+            5232,
+            5231,
+            5230,
+            5223
+          ]
+        },
+        {
+          "key": "F_FencerLicence",
+          "nonEmpty": 17,
+          "fillRate": 1,
+          "sampleValues": [
+            "20170116M202402280343",
+            "20160206M202307051038",
+            "20160101M202307080254",
+            "20151123M202305160715",
+            "20150925M202306280854",
+            "20150823M202203150349",
+            "20150202M202302050229",
+            "20151228M202202230626"
+          ]
+        },
+        {
+          "key": "F_TeamID",
+          "nonEmpty": 17,
+          "fillRate": 1,
+          "sampleValues": [
+            69,
+            70,
+            67,
+            72,
+            68
+          ]
+        },
+        {
+          "key": "F_TeamLicence",
+          "nonEmpty": 17,
+          "fillRate": 1,
+          "sampleValues": [
+            "RZSSSC0120251129MFTU10_653_UGMRW",
+            "RZSSSC0120251129MFTU10_653_YAWWL",
+            "RZSSSC0120251129MFTU10_224_KVLKM",
+            "UNITE1",
+            "RZSSSC0120251129MFTU10_11908_UXXCZ"
+          ]
+        },
+        {
+          "key": "F_Rank",
+          "nonEmpty": 17,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        },
+        {
+          "key": "F_DisPos",
+          "nonEmpty": 17,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        },
+        {
+          "key": "F_ShowRank",
+          "nonEmpty": 17,
+          "fillRate": 1,
+          "sampleValues": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5"
+          ]
+        },
+        {
+          "key": "Fencer",
+          "nonEmpty": 17,
+          "fillRate": 1,
+          "sampleValues": [
+            "郑嘉印",
+            "李愈霈",
+            "徐昀铉",
+            "刘昊鑫",
+            "何家致",
+            "XU LUCAS",
+            "王之恒",
+            "岳子谦"
+          ]
+        },
+        {
+          "key": "F_NOC",
+          "nonEmpty": 17,
+          "fillRate": 1,
+          "sampleValues": [
+            "成都高新万国",
+            "四川嘉爵",
+            "上海马良行",
+            "重庆英博",
+            "四川乐予"
+          ]
+        },
+        {
+          "key": "F_NOCs",
+          "nonEmpty": 17,
+          "fillRate": 1,
+          "sampleValues": [
+            "成都高新万国",
+            "四川嘉爵",
+            "上海马良行",
+            "重庆英博",
+            "四川乐予"
+          ]
+        },
+        {
+          "key": "F_IRM",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "AppearCount",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "MatchCount",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "F_Index",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "F_IndexLabel",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "F_TouchGive",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "F_TouchReceived",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "F_HSdivA",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "F_HSdivALabel",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "F_Diff",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "F_DiffLabel",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "F_NameLabel",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "TouchGive",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "TouchReceived",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "HSdivA",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "Diff",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        }
+      ]
+    }
+  ],
+  "analysisCapabilities": [
+    "项目概要",
+    "最终排名",
+    "初始排位",
+    "小组赛排名",
+    "小组赛每场比分",
+    "小组赛晋级人数",
+    "淘汰赛阶段结构",
+    "淘汰赛每场比分",
+    "选手完整比赛路径",
+    "对手交手记录",
+    "胜负和净胜剑统计"
+  ],
+  "privacyRecommendation": {
+    "publicFields": [
+      "rank",
+      "name",
+      "club",
+      "scores",
+      "winner",
+      "medal"
+    ],
+    "privateFields": [
+      "Licence",
+      "Birthday"
+    ],
+    "note": "Licence 和 Birthday 只用于内部消歧，不建议公开展示。"
+  }
+}
