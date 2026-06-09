@@ -6,6 +6,7 @@ import {
   isHttpStatusError,
   selectEvents,
   selectEventsForSync,
+  sliceScoreItems,
 } from './sync-platform-data.mjs';
 import { buildScoreReport } from './parse-score.mjs';
 
@@ -53,6 +54,8 @@ assert.deepEqual(selectEventsForSync(events, { sportId: 2 }).map((event) => even
 assert.deepEqual(selectEventsForSync(events, { sportId: 999 }).map((event) => event.sportCode), []);
 assert.equal(isHttpStatusError(new Error('HTTP 404 Not Found: missing')), true);
 assert.equal(isHttpStatusError(new Error('The operation was aborted')), false);
+assert.deepEqual(sliceScoreItems([1, 2, 3, 4], { scoreStart: 1, scoreLimit: 2 }), [2, 3]);
+assert.deepEqual(sliceScoreItems([1, 2, 3], { scoreStart: 2, scoreLimit: 0 }), [3]);
 
 const scorePayload = buildScorePayloadFromClassmentRank({
   code: 0,

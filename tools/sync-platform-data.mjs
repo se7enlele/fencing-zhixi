@@ -28,6 +28,7 @@ function parseArgs(argv) {
     limit: 5,
     delayMs: 400,
     timeoutSec: 20,
+    scoreStart: 0,
     scoreLimit: 3,
     rosterLimit: 5,
     rosterPageSize: 10,
@@ -57,6 +58,7 @@ function parseArgs(argv) {
     if (arg === '--limit') args.limit = Number(argv[++i]);
     if (arg === '--delay-ms') args.delayMs = Number(argv[++i]);
     if (arg === '--timeout-sec') args.timeoutSec = Number(argv[++i]);
+    if (arg === '--score-start') args.scoreStart = Number(argv[++i]);
     if (arg === '--score-limit') args.scoreLimit = Number(argv[++i]);
     if (arg === '--roster-limit') args.rosterLimit = Number(argv[++i]);
     if (arg === '--roster-page-size') args.rosterPageSize = Number(argv[++i]);
@@ -399,6 +401,14 @@ export function hasScoreRankingRows(report) {
   return Number(report?.summary?.classmentCount) > 0;
 }
 
+export function sliceScoreItems(items, args) {
+  const start = Math.max(0, Number(args.scoreStart) || 0);
+  const sourceItems = (items || []).slice(start);
+  return Number.isFinite(args.scoreLimit) && args.scoreLimit > 0
+    ? sourceItems.slice(0, args.scoreLimit)
+    : sourceItems;
+}
+
 async function fetchScorePayload(item, event, url, args) {
   try {
     return {
@@ -576,6 +586,7 @@ async function main() {
     status: args.status,
     limit: args.limit,
     timeoutSec: args.timeoutSec,
+    scoreStart: args.scoreStart,
     scoreLimit: args.scoreLimit,
     rosterLimit: args.rosterLimit,
     rosterPageSize: args.rosterPageSize,
@@ -627,9 +638,7 @@ async function main() {
       }
 
       if (args.score && event.inferredStatus === 'completed' && projectReport) {
-        const scoreItems = Number.isFinite(args.scoreLimit) && args.scoreLimit > 0
-          ? (projectReport.normalizedItems || []).slice(0, args.scoreLimit)
-          : (projectReport.normalizedItems || []);
+        const scoreItems = sliceScoreItems(projectReport.normalizedItems || [], args);
         for (const item of scoreItems) {
           await syncScoreItem(item, event, args, files, log);
           await sleep(args.delayMs);
