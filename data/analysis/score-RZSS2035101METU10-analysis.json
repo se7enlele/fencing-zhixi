@@ -1,0 +1,1837 @@
+{
+  "ok": true,
+  "source": {
+    "sourceUrl": "https://fencing-proxy.aixindiandian.workers.dev/Resource/score/RZSS2035101METU10.js",
+    "sourceType": "score-resource",
+    "importedAt": "2026-06-09T10:06:35.904Z"
+  },
+  "general": {
+    "sportName": "2026年新昌“珠江文体杯”青少年击剑公开赛",
+    "eventName": "U10男子重剑团体",
+    "openDate": null,
+    "venue": "浙江·绍兴",
+    "competitionNo": 10,
+    "exemptionNo": null,
+    "poolFencerNo": null,
+    "poolQualifyNo": null,
+    "preDeStartPhase": "none",
+    "deStartPhase": "from Tableaus16",
+    "sportCode": "RZSS2035101",
+    "eventCode": "RZSS2035101METU10"
+  },
+  "summary": {
+    "classmentCount": 10,
+    "initialSeedCount": 10,
+    "poolCount": 0,
+    "poolStandingCount": 0,
+    "poolResultCount": 0,
+    "poolBoutCount": 0,
+    "tableauCount": 4,
+    "eliminationMatchCount": 16,
+    "playedEliminationMatchCount": 10,
+    "byeMatchCount": 6,
+    "athleteCountByLicence": 10
+  },
+  "distributions": {
+    "poolStatus": {},
+    "poolRemark": {},
+    "tableau": {
+      "16表": 1,
+      "8表": 1,
+      "半决赛": 1,
+      "决赛": 1
+    },
+    "eliminationByPhase": {
+      "16表": 8,
+      "8表": 4,
+      "半决赛": 2,
+      "决赛": 2
+    },
+    "eliminationResult": {
+      "W/L": 11,
+      "L/W": 5
+    },
+    "medal": {
+      "金": 1,
+      "银": 1,
+      "铜": 1,
+      "(无奖牌)": 7
+    }
+  },
+  "normalized": {
+    "classment": [
+      {
+        "rank": 1,
+        "displayRank": "1",
+        "name": "久也F4",
+        "licence": "RZSS2035101METU10_11426_ROOYE",
+        "club": "杭州久也",
+        "birthday": null,
+        "medal": "金",
+        "status": "N",
+        "sourcePosition": 1
+      },
+      {
+        "rank": 2,
+        "displayRank": "2",
+        "name": "勇攀高锋",
+        "licence": "RZSS2035101METU10_467_QVMIV",
+        "club": "杭州艾鲁特",
+        "birthday": null,
+        "medal": "银",
+        "status": "N",
+        "sourcePosition": 2
+      },
+      {
+        "rank": 3,
+        "displayRank": "3",
+        "name": "宁波英联魔童",
+        "licence": "RZSS2035101METU10_560_VLSUZ",
+        "club": "宁波英联",
+        "birthday": null,
+        "medal": "铜",
+        "status": "N",
+        "sourcePosition": 3
+      },
+      {
+        "rank": 4,
+        "displayRank": "4",
+        "name": "义乌冠恒",
+        "licence": "RZSS2035101METU10_11651_IXUJP",
+        "club": "义乌冠恒",
+        "birthday": null,
+        "medal": null,
+        "status": "N",
+        "sourcePosition": 4
+      },
+      {
+        "rank": 5,
+        "displayRank": "5",
+        "name": "温州一对一",
+        "licence": "RZSS2035101METU10_360_AQGOM",
+        "club": "温州一对一",
+        "birthday": null,
+        "medal": null,
+        "status": "N",
+        "sourcePosition": 5
+      },
+      {
+        "rank": 6,
+        "displayRank": "6",
+        "name": "联合团体1队",
+        "licence": "UNITE1",
+        "club": null,
+        "birthday": null,
+        "medal": null,
+        "status": "N",
+        "sourcePosition": 6
+      },
+      {
+        "rank": 7,
+        "displayRank": "7",
+        "name": "联合团体2队",
+        "licence": "UNITE2",
+        "club": null,
+        "birthday": null,
+        "medal": null,
+        "status": "N",
+        "sourcePosition": 7
+      },
+      {
+        "rank": 8,
+        "displayRank": "8",
+        "name": "欧恩",
+        "licence": "RZSS2035101METU10_696_XROCM",
+        "club": "浙江欧恩",
+        "birthday": null,
+        "medal": null,
+        "status": "N",
+        "sourcePosition": 8
+      },
+      {
+        "rank": 9,
+        "displayRank": "9",
+        "name": "联合团体3队",
+        "licence": "UNITE3",
+        "club": null,
+        "birthday": null,
+        "medal": null,
+        "status": "N",
+        "sourcePosition": 9
+      },
+      {
+        "rank": 10,
+        "displayRank": "10",
+        "name": "淡定小将队",
+        "licence": "RZSS2035101METU10_11426_WBYSU",
+        "club": "杭州久也",
+        "birthday": null,
+        "medal": null,
+        "status": "N",
+        "sourcePosition": 10
+      }
+    ],
+    "poolStandings": [],
+    "poolResults": [],
+    "poolBouts": [],
+    "eliminationMatches": [
+      {
+        "matchId": 491537,
+        "matchCode": "Pre001",
+        "phaseId": 168003,
+        "phase": {
+          "shortName": "T16",
+          "longName": "16表",
+          "order": 1,
+          "code": "4",
+          "group": "1_0"
+        },
+        "groupCode": "4_0",
+        "innerOrder": 1,
+        "home": {
+          "position": 1,
+          "name": "久也F4",
+          "licence": "RZSS2035101METU10_11426_ROOYE",
+          "club": "杭州久也",
+          "points": null,
+          "result": "W"
+        },
+        "away": {
+          "position": 16,
+          "name": "Bye",
+          "licence": null,
+          "club": null,
+          "points": null,
+          "result": "L"
+        },
+        "winner": {
+          "name": "久也F4",
+          "club": "杭州久也"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": true
+      },
+      {
+        "matchId": 491538,
+        "matchCode": "Pre002",
+        "phaseId": 168003,
+        "phase": {
+          "shortName": "T16",
+          "longName": "16表",
+          "order": 1,
+          "code": "4",
+          "group": "1_0"
+        },
+        "groupCode": "4_0",
+        "innerOrder": 2,
+        "home": {
+          "position": 9,
+          "name": "欧恩",
+          "licence": "RZSS2035101METU10_696_XROCM",
+          "club": "浙江欧恩",
+          "points": 33,
+          "result": "W"
+        },
+        "away": {
+          "position": 8,
+          "name": "联合团体3队",
+          "licence": "UNITE3",
+          "club": null,
+          "points": 18,
+          "result": "L"
+        },
+        "winner": {
+          "name": "欧恩",
+          "club": "浙江欧恩"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 491539,
+        "matchCode": "Pre003",
+        "phaseId": 168003,
+        "phase": {
+          "shortName": "T16",
+          "longName": "16表",
+          "order": 1,
+          "code": "4",
+          "group": "1_0"
+        },
+        "groupCode": "4_1",
+        "innerOrder": 1,
+        "home": {
+          "position": 5,
+          "name": "温州一对一",
+          "licence": "RZSS2035101METU10_360_AQGOM",
+          "club": "温州一对一",
+          "points": null,
+          "result": "W"
+        },
+        "away": {
+          "position": 12,
+          "name": "Bye",
+          "licence": null,
+          "club": null,
+          "points": null,
+          "result": "L"
+        },
+        "winner": {
+          "name": "温州一对一",
+          "club": "温州一对一"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": true
+      },
+      {
+        "matchId": 491540,
+        "matchCode": "Pre004",
+        "phaseId": 168003,
+        "phase": {
+          "shortName": "T16",
+          "longName": "16表",
+          "order": 1,
+          "code": "4",
+          "group": "1_0"
+        },
+        "groupCode": "4_1",
+        "innerOrder": 2,
+        "home": {
+          "position": 13,
+          "name": "Bye",
+          "licence": null,
+          "club": null,
+          "points": null,
+          "result": "L"
+        },
+        "away": {
+          "position": 4,
+          "name": "宁波英联魔童",
+          "licence": "RZSS2035101METU10_560_VLSUZ",
+          "club": "宁波英联",
+          "points": null,
+          "result": "W"
+        },
+        "winner": {
+          "name": null,
+          "club": "宁波英联"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": true
+      },
+      {
+        "matchId": 491541,
+        "matchCode": "Pre005",
+        "phaseId": 168003,
+        "phase": {
+          "shortName": "T16",
+          "longName": "16表",
+          "order": 1,
+          "code": "4",
+          "group": "1_0"
+        },
+        "groupCode": "4_2",
+        "innerOrder": 1,
+        "home": {
+          "position": 3,
+          "name": "勇攀高锋",
+          "licence": "RZSS2035101METU10_467_QVMIV",
+          "club": "杭州艾鲁特",
+          "points": null,
+          "result": "W"
+        },
+        "away": {
+          "position": 14,
+          "name": "Bye",
+          "licence": null,
+          "club": null,
+          "points": null,
+          "result": "L"
+        },
+        "winner": {
+          "name": "勇攀高锋",
+          "club": "杭州艾鲁特"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": true
+      },
+      {
+        "matchId": 491542,
+        "matchCode": "Pre006",
+        "phaseId": 168003,
+        "phase": {
+          "shortName": "T16",
+          "longName": "16表",
+          "order": 1,
+          "code": "4",
+          "group": "1_0"
+        },
+        "groupCode": "4_2",
+        "innerOrder": 2,
+        "home": {
+          "position": 11,
+          "name": "Bye",
+          "licence": null,
+          "club": null,
+          "points": null,
+          "result": "L"
+        },
+        "away": {
+          "position": 6,
+          "name": "联合团体1队",
+          "licence": "UNITE1",
+          "club": null,
+          "points": null,
+          "result": "W"
+        },
+        "winner": {
+          "name": null,
+          "club": null
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": true
+      },
+      {
+        "matchId": 491543,
+        "matchCode": "Pre007",
+        "phaseId": 168003,
+        "phase": {
+          "shortName": "T16",
+          "longName": "16表",
+          "order": 1,
+          "code": "4",
+          "group": "1_0"
+        },
+        "groupCode": "4_3",
+        "innerOrder": 1,
+        "home": {
+          "position": 7,
+          "name": "联合团体2队",
+          "licence": "UNITE2",
+          "club": null,
+          "points": 45,
+          "result": "W"
+        },
+        "away": {
+          "position": 10,
+          "name": "淡定小将队",
+          "licence": "RZSS2035101METU10_11426_WBYSU",
+          "club": "杭州久也",
+          "points": 40,
+          "result": "L"
+        },
+        "winner": {
+          "name": "联合团体2队",
+          "club": null
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 491544,
+        "matchCode": "Pre008",
+        "phaseId": 168003,
+        "phase": {
+          "shortName": "T16",
+          "longName": "16表",
+          "order": 1,
+          "code": "4",
+          "group": "1_0"
+        },
+        "groupCode": "4_3",
+        "innerOrder": 2,
+        "home": {
+          "position": 15,
+          "name": "Bye",
+          "licence": null,
+          "club": null,
+          "points": null,
+          "result": "L"
+        },
+        "away": {
+          "position": 2,
+          "name": "义乌冠恒",
+          "licence": "RZSS2035101METU10_11651_IXUJP",
+          "club": "义乌冠恒",
+          "points": null,
+          "result": "W"
+        },
+        "winner": {
+          "name": null,
+          "club": "义乌冠恒"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": true
+      },
+      {
+        "matchId": 491545,
+        "matchCode": "Pre001",
+        "phaseId": 168004,
+        "phase": {
+          "shortName": "T8",
+          "longName": "8表",
+          "order": 2,
+          "code": "3",
+          "group": "2_0"
+        },
+        "groupCode": "3_0",
+        "innerOrder": 1,
+        "home": {
+          "position": 1,
+          "name": "久也F4",
+          "licence": "RZSS2035101METU10_11426_ROOYE",
+          "club": "杭州久也",
+          "points": 45,
+          "result": "W"
+        },
+        "away": {
+          "position": 8,
+          "name": "欧恩",
+          "licence": "RZSS2035101METU10_696_XROCM",
+          "club": "浙江欧恩",
+          "points": 25,
+          "result": "L"
+        },
+        "winner": {
+          "name": "久也F4",
+          "club": "杭州久也"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 491546,
+        "matchCode": "Pre002",
+        "phaseId": 168004,
+        "phase": {
+          "shortName": "T8",
+          "longName": "8表",
+          "order": 2,
+          "code": "3",
+          "group": "2_0"
+        },
+        "groupCode": "3_0",
+        "innerOrder": 2,
+        "home": {
+          "position": 5,
+          "name": "温州一对一",
+          "licence": "RZSS2035101METU10_360_AQGOM",
+          "club": "温州一对一",
+          "points": 29,
+          "result": "L"
+        },
+        "away": {
+          "position": 4,
+          "name": "宁波英联魔童",
+          "licence": "RZSS2035101METU10_560_VLSUZ",
+          "club": "宁波英联",
+          "points": 45,
+          "result": "W"
+        },
+        "winner": {
+          "name": "温州一对一",
+          "club": "宁波英联"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 491547,
+        "matchCode": "Pre003",
+        "phaseId": 168004,
+        "phase": {
+          "shortName": "T8",
+          "longName": "8表",
+          "order": 2,
+          "code": "3",
+          "group": "2_0"
+        },
+        "groupCode": "3_1",
+        "innerOrder": 1,
+        "home": {
+          "position": 3,
+          "name": "勇攀高锋",
+          "licence": "RZSS2035101METU10_467_QVMIV",
+          "club": "杭州艾鲁特",
+          "points": 22,
+          "result": "W"
+        },
+        "away": {
+          "position": 6,
+          "name": "联合团体1队",
+          "licence": "UNITE1",
+          "club": null,
+          "points": 6,
+          "result": "L"
+        },
+        "winner": {
+          "name": "勇攀高锋",
+          "club": "杭州艾鲁特"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 491548,
+        "matchCode": "Pre004",
+        "phaseId": 168004,
+        "phase": {
+          "shortName": "T8",
+          "longName": "8表",
+          "order": 2,
+          "code": "3",
+          "group": "2_0"
+        },
+        "groupCode": "3_1",
+        "innerOrder": 2,
+        "home": {
+          "position": 7,
+          "name": "联合团体2队",
+          "licence": "UNITE2",
+          "club": null,
+          "points": 32,
+          "result": "L"
+        },
+        "away": {
+          "position": 2,
+          "name": "义乌冠恒",
+          "licence": "RZSS2035101METU10_11651_IXUJP",
+          "club": "义乌冠恒",
+          "points": 45,
+          "result": "W"
+        },
+        "winner": {
+          "name": "联合团体2队",
+          "club": "义乌冠恒"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 491549,
+        "matchCode": "Pre001",
+        "phaseId": 168005,
+        "phase": {
+          "shortName": "T4",
+          "longName": "半决赛",
+          "order": 3,
+          "code": "2",
+          "group": "3_0"
+        },
+        "groupCode": "2_0",
+        "innerOrder": 1,
+        "home": {
+          "position": 1,
+          "name": "久也F4",
+          "licence": "RZSS2035101METU10_11426_ROOYE",
+          "club": "杭州久也",
+          "points": 45,
+          "result": "W"
+        },
+        "away": {
+          "position": 4,
+          "name": "宁波英联魔童",
+          "licence": "RZSS2035101METU10_560_VLSUZ",
+          "club": "宁波英联",
+          "points": 17,
+          "result": "L"
+        },
+        "winner": {
+          "name": "久也F4",
+          "club": "杭州久也"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 491550,
+        "matchCode": "Pre002",
+        "phaseId": 168005,
+        "phase": {
+          "shortName": "T4",
+          "longName": "半决赛",
+          "order": 3,
+          "code": "2",
+          "group": "3_0"
+        },
+        "groupCode": "2_0",
+        "innerOrder": 2,
+        "home": {
+          "position": 3,
+          "name": "勇攀高锋",
+          "licence": "RZSS2035101METU10_467_QVMIV",
+          "club": "杭州艾鲁特",
+          "points": 45,
+          "result": "W"
+        },
+        "away": {
+          "position": 2,
+          "name": "义乌冠恒",
+          "licence": "RZSS2035101METU10_11651_IXUJP",
+          "club": "义乌冠恒",
+          "points": 38,
+          "result": "L"
+        },
+        "winner": {
+          "name": "勇攀高锋",
+          "club": "杭州艾鲁特"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 491551,
+        "matchCode": "Pre001",
+        "phaseId": 168006,
+        "phase": {
+          "shortName": "T2",
+          "longName": "决赛",
+          "order": 4,
+          "code": "1",
+          "group": "4_0"
+        },
+        "groupCode": "1_0",
+        "innerOrder": 1,
+        "home": {
+          "position": 1,
+          "name": "久也F4",
+          "licence": "RZSS2035101METU10_11426_ROOYE",
+          "club": "杭州久也",
+          "points": 45,
+          "result": "W"
+        },
+        "away": {
+          "position": 2,
+          "name": "勇攀高锋",
+          "licence": "RZSS2035101METU10_467_QVMIV",
+          "club": "杭州艾鲁特",
+          "points": 9,
+          "result": "L"
+        },
+        "winner": {
+          "name": "久也F4",
+          "club": "杭州久也"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 491552,
+        "matchCode": "Pre002",
+        "phaseId": 168006,
+        "phase": {
+          "shortName": "T2",
+          "longName": "决赛",
+          "order": 4,
+          "code": "1",
+          "group": "4_0"
+        },
+        "groupCode": "1_0",
+        "innerOrder": 2,
+        "home": {
+          "position": 1,
+          "name": "宁波英联魔童",
+          "licence": "RZSS2035101METU10_560_VLSUZ",
+          "club": "宁波英联",
+          "points": 39,
+          "result": "W"
+        },
+        "away": {
+          "position": 2,
+          "name": "义乌冠恒",
+          "licence": "RZSS2035101METU10_11651_IXUJP",
+          "club": "义乌冠恒",
+          "points": 35,
+          "result": "L"
+        },
+        "winner": {
+          "name": "宁波英联魔童",
+          "club": "宁波英联"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      }
+    ]
+  },
+  "completeness": [
+    {
+      "section": "General",
+      "rows": 1,
+      "fields": [
+        {
+          "key": "SportName",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "2026年新昌“珠江文体杯”青少年击剑公开赛"
+          ]
+        },
+        {
+          "key": "EventName",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "U10男子重剑团体"
+          ]
+        },
+        {
+          "key": "OpenDate",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "Venue",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "浙江·绍兴"
+          ]
+        },
+        {
+          "key": "CompetitionNo",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            10
+          ]
+        },
+        {
+          "key": "ExemptionNo",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "PoolFencerNo",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "PoolQualifyNo",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "PDEstartPhase",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "none"
+          ]
+        },
+        {
+          "key": "DEstartPhase",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "from Tableaus16"
+          ]
+        },
+        {
+          "key": "Scode",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "RZSS2035101"
+          ]
+        },
+        {
+          "key": "Ecode",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "RZSS2035101METU10"
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Classment",
+      "rows": 10,
+      "fields": [
+        {
+          "key": "EventShowRank",
+          "nonEmpty": 10,
+          "fillRate": 1,
+          "sampleValues": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8"
+          ]
+        },
+        {
+          "key": "EventRank",
+          "nonEmpty": 10,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ]
+        },
+        {
+          "key": "Fencer",
+          "nonEmpty": 10,
+          "fillRate": 1,
+          "sampleValues": [
+            "久也F4",
+            "勇攀高锋",
+            "宁波英联魔童",
+            "义乌冠恒",
+            "温州一对一",
+            "联合团体1队",
+            "联合团体2队",
+            "欧恩"
+          ]
+        },
+        {
+          "key": "Licence",
+          "nonEmpty": 10,
+          "fillRate": 1,
+          "sampleValues": [
+            "RZSS2035101METU10_11426_ROOYE",
+            "RZSS2035101METU10_467_QVMIV",
+            "RZSS2035101METU10_560_VLSUZ",
+            "RZSS2035101METU10_11651_IXUJP",
+            "RZSS2035101METU10_360_AQGOM",
+            "UNITE1",
+            "UNITE2",
+            "RZSS2035101METU10_696_XROCM"
+          ]
+        },
+        {
+          "key": "NOCCode",
+          "nonEmpty": 7,
+          "fillRate": 0.7,
+          "sampleValues": [
+            "杭州久也",
+            "杭州艾鲁特",
+            "宁波英联",
+            "义乌冠恒",
+            "温州一对一",
+            "浙江欧恩"
+          ]
+        },
+        {
+          "key": "Birthday",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "Medal",
+          "nonEmpty": 3,
+          "fillRate": 0.3,
+          "sampleValues": [
+            "金",
+            "银",
+            "铜"
+          ]
+        },
+        {
+          "key": "Statut",
+          "nonEmpty": 10,
+          "fillRate": 1,
+          "sampleValues": [
+            "N"
+          ]
+        },
+        {
+          "key": "F_EventDisPos",
+          "nonEmpty": 10,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ]
+        },
+        {
+          "key": "RID",
+          "nonEmpty": 10,
+          "fillRate": 1,
+          "sampleValues": [
+            116,
+            111,
+            117,
+            115,
+            112,
+            119,
+            120,
+            114
+          ]
+        }
+      ]
+    },
+    {
+      "section": "ClassmentMember",
+      "rows": 33,
+      "fields": [
+        {
+          "key": "Fencer",
+          "nonEmpty": 33,
+          "fillRate": 1,
+          "sampleValues": [
+            "王骁逸",
+            "成巍",
+            "钟宇轩",
+            "于璨彰",
+            "王颢霖",
+            "夏麦泽",
+            "高绍弘",
+            "李禹泽"
+          ]
+        },
+        {
+          "key": "Licence",
+          "nonEmpty": 33,
+          "fillRate": 1,
+          "sampleValues": [
+            "20160522M202505110507",
+            "20160116M202405310445",
+            "20160925M202603301206",
+            "20160916M202603130936",
+            "20160510M202602250350",
+            "20160925M202503180653",
+            "20160705M202411180253",
+            "20160527M202306301049"
+          ]
+        },
+        {
+          "key": "NOCCode",
+          "nonEmpty": 33,
+          "fillRate": 1,
+          "sampleValues": [
+            "温州乂鲸",
+            "个人",
+            "福建东方剑杰",
+            "宁波玉博",
+            "宁波英联",
+            "杭州久也",
+            "义乌冠恒",
+            "浙江欧恩"
+          ]
+        },
+        {
+          "key": "Birthday",
+          "nonEmpty": 33,
+          "fillRate": 1,
+          "sampleValues": [
+            "2016-05-22",
+            "2016-01-16",
+            "2016-09-25",
+            "2016-09-16",
+            "2016-05-10",
+            "2016-07-05",
+            "2016-05-27",
+            "2016-09-21"
+          ]
+        },
+        {
+          "key": "RID",
+          "nonEmpty": 33,
+          "fillRate": 1,
+          "sampleValues": [
+            121,
+            120,
+            119,
+            117,
+            116,
+            115,
+            114,
+            113
+          ]
+        }
+      ]
+    },
+    {
+      "section": "IniStarts",
+      "rows": 10,
+      "fields": [
+        {
+          "key": "IRank",
+          "nonEmpty": 10,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ]
+        },
+        {
+          "key": "IPoints",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "Fencer",
+          "nonEmpty": 10,
+          "fillRate": 1,
+          "sampleValues": [
+            "久也F4",
+            "义乌冠恒",
+            "勇攀高锋",
+            "宁波英联魔童",
+            "温州一对一",
+            "联合团体1队",
+            "联合团体2队",
+            "联合团体3队"
+          ]
+        },
+        {
+          "key": "NOCCode",
+          "nonEmpty": 7,
+          "fillRate": 0.7,
+          "sampleValues": [
+            "杭州久也",
+            "义乌冠恒",
+            "杭州艾鲁特",
+            "宁波英联",
+            "温州一对一",
+            "浙江欧恩"
+          ]
+        },
+        {
+          "key": "Licence",
+          "nonEmpty": 10,
+          "fillRate": 1,
+          "sampleValues": [
+            "RZSS2035101METU10_11426_ROOYE",
+            "RZSS2035101METU10_11651_IXUJP",
+            "RZSS2035101METU10_467_QVMIV",
+            "RZSS2035101METU10_560_VLSUZ",
+            "RZSS2035101METU10_360_AQGOM",
+            "UNITE1",
+            "UNITE2",
+            "UNITE3"
+          ]
+        },
+        {
+          "key": "DisPos",
+          "nonEmpty": 10,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ]
+        },
+        {
+          "key": "RID",
+          "nonEmpty": 10,
+          "fillRate": 1,
+          "sampleValues": [
+            116,
+            115,
+            111,
+            117,
+            112,
+            119,
+            120,
+            121
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Phases",
+      "rows": 1,
+      "fields": [
+        {
+          "key": "PhasePID",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            168002
+          ]
+        },
+        {
+          "key": "PhaseName",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "直接淘汰赛"
+          ]
+        },
+        {
+          "key": "Porder",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            3
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Tableaus",
+      "rows": 4,
+      "fields": [
+        {
+          "key": "PshortDes",
+          "nonEmpty": 4,
+          "fillRate": 1,
+          "sampleValues": [
+            "T16",
+            "T8",
+            "T4",
+            "T2"
+          ]
+        },
+        {
+          "key": "PLongDes",
+          "nonEmpty": 4,
+          "fillRate": 1,
+          "sampleValues": [
+            "16表",
+            "8表",
+            "半决赛",
+            "决赛"
+          ]
+        },
+        {
+          "key": "Porder",
+          "nonEmpty": 4,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            4
+          ]
+        },
+        {
+          "key": "PhaseID",
+          "nonEmpty": 4,
+          "fillRate": 1,
+          "sampleValues": [
+            168003,
+            168004,
+            168005,
+            168006
+          ]
+        },
+        {
+          "key": "PhasePID",
+          "nonEmpty": 4,
+          "fillRate": 1,
+          "sampleValues": [
+            168002
+          ]
+        },
+        {
+          "key": "PhaseGroup",
+          "nonEmpty": 4,
+          "fillRate": 1,
+          "sampleValues": [
+            "1_0",
+            "2_0",
+            "3_0",
+            "4_0"
+          ]
+        },
+        {
+          "key": "PhaseCode",
+          "nonEmpty": 4,
+          "fillRate": 1,
+          "sampleValues": [
+            "4",
+            "3",
+            "2",
+            "1"
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Matchs",
+      "rows": 16,
+      "fields": [
+        {
+          "key": "MatchCode",
+          "nonEmpty": 16,
+          "fillRate": 1,
+          "sampleValues": [
+            "Pre001",
+            "Pre002",
+            "Pre003",
+            "Pre004",
+            "Pre005",
+            "Pre006",
+            "Pre007",
+            "Pre008"
+          ]
+        },
+        {
+          "key": "HomePosition",
+          "nonEmpty": 16,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            9,
+            5,
+            13,
+            3,
+            11,
+            7,
+            15
+          ]
+        },
+        {
+          "key": "HomeFencer",
+          "nonEmpty": 16,
+          "fillRate": 1,
+          "sampleValues": [
+            "久也F4",
+            "欧恩",
+            "温州一对一",
+            "Bye",
+            "勇攀高锋",
+            "联合团体2队",
+            "宁波英联魔童"
+          ]
+        },
+        {
+          "key": "HomeLicence",
+          "nonEmpty": 13,
+          "fillRate": 0.8125,
+          "sampleValues": [
+            "RZSS2035101METU10_11426_ROOYE",
+            "RZSS2035101METU10_696_XROCM",
+            "RZSS2035101METU10_360_AQGOM",
+            "RZSS2035101METU10_467_QVMIV",
+            "UNITE2",
+            "RZSS2035101METU10_560_VLSUZ"
+          ]
+        },
+        {
+          "key": "HomeNOC",
+          "nonEmpty": 11,
+          "fillRate": 0.6875,
+          "sampleValues": [
+            "杭州久也",
+            "浙江欧恩",
+            "温州一对一",
+            "杭州艾鲁特",
+            "宁波英联"
+          ]
+        },
+        {
+          "key": "HomePoints",
+          "nonEmpty": 10,
+          "fillRate": 0.625,
+          "sampleValues": [
+            33,
+            45,
+            29,
+            22,
+            32,
+            39
+          ]
+        },
+        {
+          "key": "HomeWLT",
+          "nonEmpty": 16,
+          "fillRate": 1,
+          "sampleValues": [
+            "W",
+            "L"
+          ]
+        },
+        {
+          "key": "AwayPosition",
+          "nonEmpty": 16,
+          "fillRate": 1,
+          "sampleValues": [
+            16,
+            8,
+            12,
+            4,
+            14,
+            6,
+            10,
+            2
+          ]
+        },
+        {
+          "key": "AwayFencer",
+          "nonEmpty": 16,
+          "fillRate": 1,
+          "sampleValues": [
+            "Bye",
+            "联合团体3队",
+            "宁波英联魔童",
+            "联合团体1队",
+            "淡定小将队",
+            "义乌冠恒",
+            "欧恩",
+            "勇攀高锋"
+          ]
+        },
+        {
+          "key": "AwayLicence",
+          "nonEmpty": 13,
+          "fillRate": 0.8125,
+          "sampleValues": [
+            "UNITE3",
+            "RZSS2035101METU10_560_VLSUZ",
+            "UNITE1",
+            "RZSS2035101METU10_11426_WBYSU",
+            "RZSS2035101METU10_11651_IXUJP",
+            "RZSS2035101METU10_696_XROCM",
+            "RZSS2035101METU10_467_QVMIV"
+          ]
+        },
+        {
+          "key": "AwayNOC",
+          "nonEmpty": 10,
+          "fillRate": 0.625,
+          "sampleValues": [
+            "宁波英联",
+            "杭州久也",
+            "义乌冠恒",
+            "浙江欧恩",
+            "杭州艾鲁特"
+          ]
+        },
+        {
+          "key": "AwayPoints",
+          "nonEmpty": 10,
+          "fillRate": 0.625,
+          "sampleValues": [
+            18,
+            40,
+            25,
+            45,
+            6,
+            17,
+            38,
+            9
+          ]
+        },
+        {
+          "key": "AwayWLT",
+          "nonEmpty": 16,
+          "fillRate": 1,
+          "sampleValues": [
+            "L",
+            "W"
+          ]
+        },
+        {
+          "key": "Piste",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "StartTime",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "Winner",
+          "nonEmpty": 13,
+          "fillRate": 0.8125,
+          "sampleValues": [
+            "久也F4",
+            "欧恩",
+            "温州一对一",
+            "勇攀高锋",
+            "联合团体2队",
+            "宁波英联魔童"
+          ]
+        },
+        {
+          "key": "WinnerNOC",
+          "nonEmpty": 14,
+          "fillRate": 0.875,
+          "sampleValues": [
+            "杭州久也",
+            "浙江欧恩",
+            "温州一对一",
+            "宁波英联",
+            "杭州艾鲁特",
+            "义乌冠恒"
+          ]
+        },
+        {
+          "key": "MatchID",
+          "nonEmpty": 16,
+          "fillRate": 1,
+          "sampleValues": [
+            491537,
+            491538,
+            491539,
+            491540,
+            491541,
+            491542,
+            491543,
+            491544
+          ]
+        },
+        {
+          "key": "PhaseID",
+          "nonEmpty": 16,
+          "fillRate": 1,
+          "sampleValues": [
+            168003,
+            168004,
+            168005,
+            168006
+          ]
+        },
+        {
+          "key": "GroupCode",
+          "nonEmpty": 16,
+          "fillRate": 1,
+          "sampleValues": [
+            "4_0",
+            "4_1",
+            "4_2",
+            "4_3",
+            "3_0",
+            "3_1",
+            "2_0",
+            "1_0"
+          ]
+        },
+        {
+          "key": "F_InnerOrder",
+          "nonEmpty": 16,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2
+          ]
+        }
+      ]
+    },
+    {
+      "section": "TeamAnalyse",
+      "rows": 33,
+      "fields": [
+        {
+          "key": "F_RegisterID",
+          "nonEmpty": 33,
+          "fillRate": 1,
+          "sampleValues": [
+            494362,
+            494361,
+            494360,
+            494359,
+            494345,
+            494344,
+            494343,
+            494346
+          ]
+        },
+        {
+          "key": "F_FencerLicence",
+          "nonEmpty": 33,
+          "fillRate": 1,
+          "sampleValues": [
+            "20161008M202404281032",
+            "20160216M202405050737",
+            "20160128M202404281041",
+            "20160101M202405050750",
+            "20170207M202402021259",
+            "20160908M202511040931",
+            "20160212M202406130220",
+            "20171222M202511040517"
+          ]
+        },
+        {
+          "key": "F_TeamID",
+          "nonEmpty": 33,
+          "fillRate": 1,
+          "sampleValues": [
+            116,
+            111,
+            117,
+            115,
+            112,
+            119,
+            120,
+            114
+          ]
+        },
+        {
+          "key": "F_TeamLicence",
+          "nonEmpty": 33,
+          "fillRate": 1,
+          "sampleValues": [
+            "RZSS2035101METU10_11426_ROOYE",
+            "RZSS2035101METU10_467_QVMIV",
+            "RZSS2035101METU10_560_VLSUZ",
+            "RZSS2035101METU10_11651_IXUJP",
+            "RZSS2035101METU10_360_AQGOM",
+            "UNITE1",
+            "UNITE2",
+            "RZSS2035101METU10_696_XROCM"
+          ]
+        },
+        {
+          "key": "F_Rank",
+          "nonEmpty": 33,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ]
+        },
+        {
+          "key": "F_DisPos",
+          "nonEmpty": 33,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ]
+        },
+        {
+          "key": "F_ShowRank",
+          "nonEmpty": 33,
+          "fillRate": 1,
+          "sampleValues": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8"
+          ]
+        },
+        {
+          "key": "Fencer",
+          "nonEmpty": 33,
+          "fillRate": 1,
+          "sampleValues": [
+            "来杅哲",
+            "曾宸翊",
+            "胡曦文",
+            "周一成",
+            "周泊翰",
+            "方品杰",
+            "张浩宣",
+            "鱼一凡"
+          ]
+        },
+        {
+          "key": "F_NOC",
+          "nonEmpty": 33,
+          "fillRate": 1,
+          "sampleValues": [
+            "杭州久也",
+            "杭州艾鲁特",
+            "宁波英联",
+            "义乌冠恒",
+            "温州一对一",
+            "个人",
+            "宁波玉博",
+            "浙江欧恩"
+          ]
+        },
+        {
+          "key": "F_NOCs",
+          "nonEmpty": 33,
+          "fillRate": 1,
+          "sampleValues": [
+            "杭州久也",
+            "杭州艾鲁特",
+            "宁波英联",
+            "义乌冠恒",
+            "温州一对一",
+            "个人",
+            "宁波玉博",
+            "浙江欧恩"
+          ]
+        },
+        {
+          "key": "F_IRM",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "AppearCount",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "MatchCount",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "F_Index",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "F_IndexLabel",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "F_TouchGive",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "F_TouchReceived",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "F_HSdivA",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "F_HSdivALabel",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "F_Diff",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "F_DiffLabel",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "F_NameLabel",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "TouchGive",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "TouchReceived",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "HSdivA",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "Diff",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        }
+      ]
+    }
+  ],
+  "analysisCapabilities": [
+    "项目概要",
+    "最终排名",
+    "初始排位",
+    "小组赛排名",
+    "小组赛每场比分",
+    "小组赛晋级人数",
+    "淘汰赛阶段结构",
+    "淘汰赛每场比分",
+    "选手完整比赛路径",
+    "对手交手记录",
+    "胜负和净胜剑统计"
+  ],
+  "privacyRecommendation": {
+    "publicFields": [
+      "rank",
+      "name",
+      "club",
+      "scores",
+      "winner",
+      "medal"
+    ],
+    "privateFields": [
+      "Licence",
+      "Birthday"
+    ],
+    "note": "Licence 和 Birthday 只用于内部消歧，不建议公开展示。"
+  }
+}
