@@ -39,6 +39,7 @@ npm run analysis:three-year
 | `analysis-output/three-year/athletes.csv` | 最近 3 年选手聚合表 |
 | `analysis-output/three-year/clubs.csv` | 最近 3 年俱乐部聚合表 |
 | `analysis-output/three-year/coverage-gaps.csv` | 仍缺项目、报名或成绩的比赛清单 |
+| `analysis-output/three-year/sync-targets.csv` | 按业务优先级排序的下一批补数目标 |
 | `analysis-output/three-year/summary.json` | 机器可读摘要 |
 | `analysis-output/three-year/stats.md` | 统计分析报告 |
 
@@ -89,3 +90,4 @@ node tools/sync-platform-data.mjs --status all --limit 5 --no-score --timeout-se
 3. 目标俱乐部相关赛事优先补成绩对阵，用于教练样板用户。
 4. 青少年 U6/U8/U10/U12 花剑、重剑项目优先级高于泛成人赛事。
 5. 每次补数后运行 `npm run analysis:three-year`，查看覆盖率和缺口变化。
+6. 具体补数顺序以 `analysis-output/three-year/sync-targets.csv` 为准，里面包含建议执行命令。

@@ -69,6 +69,15 @@ function statusOf(competition) {
   return competition.status || 'unknown';
 }
 
+function parseDateValue(...values) {
+  for (const value of values) {
+    const normalized = String(value || '').replace(/\./g, '-').replace(' ', 'T');
+    const timestamp = Date.parse(normalized);
+    if (Number.isFinite(timestamp)) return timestamp;
+  }
+  return 0;
+}
+
 function regionOf(row) {
   return row.region || row.venue || row.areaDesc || row.provinceName || '待确认';
 }
@@ -87,6 +96,63 @@ function summarize(rows, keyFn, limit = rows.length) {
 
 function rate(value, total) {
   return total ? `${Math.round((value / total) * 100)}%` : '0%';
+}
+
+function isYouthItem(label) {
+  return /U6|U8|U10|U12|U14|青少年/.test(label || '');
+}
+
+function isFoilOrEpee(label) {
+  return /花剑|重剑|FI|EI/.test(label || '');
+}
+
+function priorityForCompetition(row) {
+  let score = 0;
+  const reasons = [];
+  if (row.coverage === 'directory') {
+    score += 50;
+    reasons.push('缺项目清单');
+  } else if (row.coverage === 'project') {
+    score += 40;
+    reasons.push('缺报名/成绩');
+  } else if (row.coverage === 'roster') {
+    score += 30;
+    reasons.push('缺赛后成绩');
+  }
+  if (['registration', 'upcoming', 'live'].includes(row.status)) {
+    score += 35;
+    reasons.push('近期赛前');
+  }
+  if (row.year === String(currentYear)) {
+    score += 20;
+    reasons.push('当前赛季');
+  }
+  if (row.itemLabels.some(isYouthItem) || /青少年|少年|U\d+/.test(row.sportName)) {
+    score += 15;
+    reasons.push('青少年');
+  }
+  if (row.itemLabels.some(isFoilOrEpee) || /花剑|重剑/.test(row.sportName)) {
+    score += 10;
+    reasons.push('花剑/重剑');
+  }
+  if (/山东|济南|青岛|潍坊|泰安|威海|小众体育/.test([row.sportName, row.venue, row.region].join(' '))) {
+    score += 12;
+    reasons.push('山东/目标样板');
+  }
+  return { score, reasons };
+}
+
+function syncCommandFor(row) {
+  if (row.coverage === 'directory') {
+    return `node tools/sync-platform-data.mjs --sport-id ${row.sportId} --no-score`;
+  }
+  if (row.coverage === 'project') {
+    return `node tools/sync-platform-data.mjs --sport-id ${row.sportId} --roster --no-score`;
+  }
+  if (row.coverage === 'roster') {
+    return `node tools/sync-platform-data.mjs --sport-id ${row.sportId}`;
+  }
+  return '';
 }
 
 function athleteEventRows(athletes) {
@@ -222,6 +288,10 @@ function buildInsights({ competitionRows, athleteRows, athleteSummary, clubRows,
   const topClubs = clubSummary.slice(0, 20);
   const statusRows = summarize(competitionRows, (row) => row.status);
   const needs = summarize(competitionRows, (row) => row.nextDataNeed);
+  const syncTargets = competitionRows
+    .filter((row) => row.coverage !== 'score')
+    .sort((a, b) => b.priorityScore - a.priorityScore || b.dateValue - a.dateValue)
+    .slice(0, 30);
 
   return `# 最近 3 年击剑数据清洗与分析
 
@@ -298,6 +368,17 @@ ${mdTable(needs, [
   { title: '比赛数', value: (row) => row.count },
 ])}
 
+## 下一批同步目标 TOP30
+
+${mdTable(syncTargets, [
+  { title: '赛事', value: (row) => row.sportName },
+  { title: '年份', value: (row) => row.year },
+  { title: '状态', value: (row) => row.status },
+  { title: '覆盖', value: (row) => row.coverage },
+  { title: '优先级', value: (row) => row.priorityScore },
+  { title: '原因', value: (row) => row.priorityReasons.join('、') },
+])}
+
 ## 产品判断
 
 1. 最近 3 年的数据已经能支撑选手成长、俱乐部表现和部分赛事画像，但完整赛前情报还依赖报名名单与项目清单继续补齐。
@@ -316,12 +397,13 @@ async function main() {
       const year = competitionYear(competition);
       const itemLabels = [...new Set((competition.items || []).map(itemName).filter(Boolean))];
       const coverage = coverageOfCompetition(competition, scoreSportCodes);
-      return {
+      const row = {
         sportCode: competition.sportCode,
         sportId: competition.sportId || competition.platformMeta?.sportId || '',
         sportName: competition.sportName,
         year,
         dateLabel: competition.dateLabel || '',
+        dateValue: parseDateValue(competition.dateLabel, ...(competition.items || []).map((item) => item.openDate)),
         venue: competition.venue || '',
         region: regionOf(competition),
         status: statusOf(competition),
@@ -337,6 +419,13 @@ async function main() {
             : coverage === 'roster'
               ? '补赛后成绩对阵'
               : '可分析',
+      };
+      const priority = priorityForCompetition(row);
+      return {
+        ...row,
+        priorityScore: priority.score,
+        priorityReasons: priority.reasons,
+        suggestedCommand: syncCommandFor(row),
       };
     })
     .filter((row) => yearSet.has(row.year))
@@ -402,6 +491,22 @@ async function main() {
     { title: 'status', value: (row) => row.status },
     { title: 'coverage', value: (row) => row.coverage },
     { title: 'nextDataNeed', value: (row) => row.nextDataNeed },
+  ])}\n`, 'utf8');
+
+  const syncTargets = competitionRows
+    .filter((row) => row.coverage !== 'score')
+    .sort((a, b) => b.priorityScore - a.priorityScore || b.dateValue - a.dateValue);
+  await writeFile(path.join(outputDir, 'sync-targets.csv'), `${csv(syncTargets, [
+    { title: 'sportId', value: (row) => row.sportId },
+    { title: 'sportCode', value: (row) => row.sportCode },
+    { title: 'sportName', value: (row) => row.sportName },
+    { title: 'year', value: (row) => row.year },
+    { title: 'status', value: (row) => row.status },
+    { title: 'coverage', value: (row) => row.coverage },
+    { title: 'priorityScore', value: (row) => row.priorityScore },
+    { title: 'priorityReasons', value: (row) => row.priorityReasons.join(' / ') },
+    { title: 'nextDataNeed', value: (row) => row.nextDataNeed },
+    { title: 'suggestedCommand', value: (row) => row.suggestedCommand },
   ])}\n`, 'utf8');
 
   const reportJson = {
