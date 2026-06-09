@@ -30,6 +30,7 @@ function parseArgs(argv) {
     timeoutSec: 20,
     scoreStart: 0,
     scoreLimit: 3,
+    scoreConcurrency: 1,
     rosterLimit: 5,
     rosterPageSize: 10,
     rosterMaxPages: 3,
@@ -60,6 +61,7 @@ function parseArgs(argv) {
     if (arg === '--timeout-sec') args.timeoutSec = Number(argv[++i]);
     if (arg === '--score-start') args.scoreStart = Number(argv[++i]);
     if (arg === '--score-limit') args.scoreLimit = Number(argv[++i]);
+    if (arg === '--score-concurrency') args.scoreConcurrency = Number(argv[++i]);
     if (arg === '--roster-limit') args.rosterLimit = Number(argv[++i]);
     if (arg === '--roster-page-size') args.rosterPageSize = Number(argv[++i]);
     if (arg === '--roster-max-pages') args.rosterMaxPages = Number(argv[++i]);
@@ -409,6 +411,23 @@ export function sliceScoreItems(items, args) {
     : sourceItems;
 }
 
+export function normalizeConcurrency(value) {
+  const concurrency = Math.floor(Number(value) || 1);
+  return Math.max(1, Math.min(concurrency, 8));
+}
+
+async function runConcurrent(items, concurrency, worker) {
+  let nextIndex = 0;
+  const workerCount = normalizeConcurrency(concurrency);
+  await Promise.all(Array.from({ length: workerCount }, async () => {
+    while (nextIndex < items.length) {
+      const item = items[nextIndex];
+      nextIndex += 1;
+      await worker(item);
+    }
+  }));
+}
+
 async function fetchScorePayload(item, event, url, args) {
   try {
     return {
@@ -588,6 +607,7 @@ async function main() {
     timeoutSec: args.timeoutSec,
     scoreStart: args.scoreStart,
     scoreLimit: args.scoreLimit,
+    scoreConcurrency: normalizeConcurrency(args.scoreConcurrency),
     rosterLimit: args.rosterLimit,
     rosterPageSize: args.rosterPageSize,
     rosterMaxPages: args.rosterMaxPages,
@@ -639,10 +659,10 @@ async function main() {
 
       if (args.score && event.inferredStatus === 'completed' && projectReport) {
         const scoreItems = sliceScoreItems(projectReport.normalizedItems || [], args);
-        for (const item of scoreItems) {
+        await runConcurrent(scoreItems, args.scoreConcurrency, async (item) => {
           await syncScoreItem(item, event, args, files, log);
           await sleep(args.delayMs);
-        }
+        });
       }
       if (args.roster && projectReport) {
         const filteredRosterItems = filterRosterItems(projectReport.normalizedItems || [], args);

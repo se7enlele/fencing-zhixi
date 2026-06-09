@@ -4,6 +4,7 @@ import {
   hasScoreRankingRows,
   inferPlatformStatus,
   isHttpStatusError,
+  normalizeConcurrency,
   selectEvents,
   selectEventsForSync,
   sliceScoreItems,
@@ -56,6 +57,9 @@ assert.equal(isHttpStatusError(new Error('HTTP 404 Not Found: missing')), true);
 assert.equal(isHttpStatusError(new Error('The operation was aborted')), false);
 assert.deepEqual(sliceScoreItems([1, 2, 3, 4], { scoreStart: 1, scoreLimit: 2 }), [2, 3]);
 assert.deepEqual(sliceScoreItems([1, 2, 3], { scoreStart: 2, scoreLimit: 0 }), [3]);
+assert.equal(normalizeConcurrency(0), 1);
+assert.equal(normalizeConcurrency(3), 3);
+assert.equal(normalizeConcurrency(20), 8);
 
 const scorePayload = buildScorePayloadFromClassmentRank({
   code: 0,
