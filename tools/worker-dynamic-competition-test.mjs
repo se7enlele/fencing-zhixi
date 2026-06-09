@@ -51,4 +51,29 @@ assert.equal(merged.venue, '天津 天津市');
 assert.equal(merged.itemCount, 66);
 assert.equal(merged.items.length, 1);
 
+const scoreMerged = context.mergeDynamicCompetition({
+  sportCode: 'D05GJSSD1820260221',
+  sportName: '2025 score competition',
+  isPreEvent: false,
+  itemCount: 1,
+  items: [{ eventCode: 'D05GJSSD1820260221MFIU10', eventName: 'U10' }],
+  insights: { source: 'score' },
+}, {
+  sportCode: 'D05GJSSD1820260221',
+  sportName: 'pre event 101246',
+  isPreEvent: true,
+  itemCount: 72,
+  items: [
+    { eventCode: 'D05GJSSD1820260221MFIU10', eventName: 'U10', isPreEvent: true },
+    { eventCode: 'D05GJSSD1820260221WFIU16', eventName: 'W U16', isPreEvent: true },
+  ],
+  insights: { source: 'projectlist' },
+});
+
+assert.equal(scoreMerged.itemCount, 72);
+assert.equal(scoreMerged.items.length, 2);
+assert.equal(scoreMerged.items.find((item) => item.eventCode === 'D05GJSSD1820260221MFIU10').isPreEvent, undefined);
+assert.equal(scoreMerged.items.some((item) => item.eventCode === 'D05GJSSD1820260221WFIU16' && item.isPreEvent), true);
+assert.equal(scoreMerged.insights.source, 'score');
+
 console.log('worker dynamic competition projectlists are covered');

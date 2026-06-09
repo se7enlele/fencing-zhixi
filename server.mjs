@@ -173,10 +173,9 @@ async function getPublicEventsPayload() {
   if (!publicEventsCache) {
     const reports = await getScoreReports();
     const scoreCompetitions = groupReportsBySport(reports);
-    const scoreSportCodes = new Set(scoreCompetitions.map((competition) => competition.sportCode));
     const preEventReports = await getPreEventReports();
-    const preEventCompetitions = buildPreEventCompetitions(preEventReports)
-      .filter((competition) => !scoreSportCodes.has(competition.sportCode));
+    const preEventCompetitions = buildPreEventCompetitions(preEventReports);
+    const competitions = mergeCompetitionLayers(scoreCompetitions, preEventCompetitions);
     const analysisDir = path.join(__dirname, 'data', 'analysis');
     const analysisFiles = await readdir(analysisDir).catch(() => []);
     const athletes = buildAthleteDirectory(reports);
@@ -187,7 +186,7 @@ async function getPublicEventsPayload() {
       events: reports
         .map(({ fileName, report }) => toEventSummary(report, fileName))
         .sort((a, b) => String(a.sportName).localeCompare(String(b.sportName), 'zh-CN') || String(a.eventName).localeCompare(String(b.eventName), 'zh-CN')),
-      competitions: [...scoreCompetitions, ...preEventCompetitions],
+      competitions,
       athletes,
       clubs,
       dataCoverage: {
@@ -1476,6 +1475,62 @@ function groupReportsBySport(reports) {
     insights: buildCompetitionInsights(bucket),
     items: bucket.items.sort((a, b) => String(a.eventName).localeCompare(String(b.eventName), 'zh-CN')),
   })).sort((a, b) => String(a.sportName).localeCompare(String(b.sportName), 'zh-CN'));
+}
+
+function sortCompetitionItems(items) {
+  return items.sort((a, b) => String(a.eventName || '').localeCompare(String(b.eventName || ''), 'zh-CN'));
+}
+
+function mergeCompetitionItems(primaryItems = [], secondaryItems = []) {
+  const byEventCode = new Map();
+  for (const item of primaryItems || []) {
+    if (!item?.eventCode) continue;
+    byEventCode.set(item.eventCode, item);
+  }
+  for (const item of secondaryItems || []) {
+    if (!item?.eventCode || byEventCode.has(item.eventCode)) continue;
+    byEventCode.set(item.eventCode, item);
+  }
+  return sortCompetitionItems([...byEventCode.values()]);
+}
+
+function mergeCompetition(base, incoming) {
+  if (!base) return incoming;
+  if (!incoming) return base;
+
+  const items = mergeCompetitionItems(base.items, incoming.items);
+  const dateLabel = normalizeDateLabel(items.map((item) => item.openDate).filter(Boolean).join(' / '))
+    || base.dateLabel
+    || incoming.dateLabel;
+
+  return {
+    ...incoming,
+    ...base,
+    venue: base.venue || incoming.venue,
+    region: base.region || incoming.region,
+    dateLabel,
+    itemCount: Math.max(items.length, Number(base.itemCount) || 0, Number(incoming.itemCount) || 0),
+    groupLabels: base.groupLabels?.length ? base.groupLabels : incoming.groupLabels,
+    platformMeta: {
+      ...(incoming.platformMeta || {}),
+      ...(base.platformMeta || {}),
+    },
+    registrationSummary: incoming.registrationSummary || base.registrationSummary,
+    rosterStatus: incoming.rosterStatus || base.rosterStatus,
+    items,
+  };
+}
+
+function mergeCompetitionLayers(scoreCompetitions, preEventCompetitions) {
+  const bySportCode = new Map();
+  for (const competition of scoreCompetitions || []) {
+    bySportCode.set(competition.sportCode, competition);
+  }
+  for (const competition of preEventCompetitions || []) {
+    const current = bySportCode.get(competition.sportCode);
+    bySportCode.set(competition.sportCode, current ? mergeCompetition(current, competition) : competition);
+  }
+  return [...bySportCode.values()].sort((a, b) => String(a.sportName).localeCompare(String(b.sportName), 'zh-CN'));
 }
 
 async function readRequestBody(request) {

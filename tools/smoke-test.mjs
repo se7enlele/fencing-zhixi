@@ -42,12 +42,17 @@ try {
     throw new Error('competitions payload missing');
   }
 
-  const competitionCode = eventsResult.competitions[0].sportCode;
+  const smokeCompetition = eventsResult.competitions.find((competition) => (
+    (competition.items || []).some((item) => !item.isPreEvent && item.eventCode)
+  ));
+  if (!smokeCompetition) throw new Error('competition with score-backed event missing');
+
+  const competitionCode = smokeCompetition.sportCode;
   const competition = await fetch(`${baseUrl}/api/competitions/${encodeURIComponent(competitionCode)}`);
   const competitionResult = await competition.json();
   if (!competition.ok || !competitionResult.ok) throw new Error(competitionResult.message || `competition status ${competition.status}`);
 
-  const eventCode = competitionResult.competition.items[0].eventCode;
+  const eventCode = competitionResult.competition.items.find((item) => !item.isPreEvent && item.eventCode).eventCode;
   const event = await fetch(`${baseUrl}/api/events/${encodeURIComponent(eventCode)}`);
   const eventResult = await event.json();
   if (!event.ok || !eventResult.ok) throw new Error(eventResult.message || `event status ${event.status}`);

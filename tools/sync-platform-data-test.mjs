@@ -1,10 +1,12 @@
 import assert from 'node:assert/strict';
 import {
+  buildScorePayloadFromClassmentRank,
   inferPlatformStatus,
   isHttpStatusError,
   selectEvents,
   selectEventsForSync,
 } from './sync-platform-data.mjs';
+import { buildScoreReport } from './parse-score.mjs';
 
 const events = [
   {
@@ -50,5 +52,37 @@ assert.deepEqual(selectEventsForSync(events, { sportId: 2 }).map((event) => even
 assert.deepEqual(selectEventsForSync(events, { sportId: 999 }).map((event) => event.sportCode), []);
 assert.equal(isHttpStatusError(new Error('HTTP 404 Not Found: missing')), true);
 assert.equal(isHttpStatusError(new Error('The operation was aborted')), false);
+
+const scorePayload = buildScorePayloadFromClassmentRank({
+  code: 0,
+  msg: 'ok',
+  data: [{
+    eventshowrank: '1',
+    eventrank: '1',
+    fencer: '李禹辰',
+    licence: '20160205M202403240521',
+    noccode: '北京金石',
+    birthday: null,
+    medal: '金',
+    statut: null,
+    feventdispos: '1',
+    ecode: 'D05GJSSD1820260221MFIU10',
+    qualifystatusid: '1',
+  }],
+}, {
+  sourceEventCode: 'D05GJSSD1820260221MFIU10',
+  sourceSportCode: 'D05GJSSD1820260221',
+  itemName: 'U10男子花剑个人',
+  startDate: '2026-05-02 00:00:00',
+}, {
+  sportName: '2026年中国击剑俱乐部联赛（第二站）',
+  venue: '山东',
+});
+const scoreReport = buildScoreReport(scorePayload, { sourceType: 'classmentrank' });
+assert.equal(scoreReport.general.eventCode, 'D05GJSSD1820260221MFIU10');
+assert.equal(scoreReport.general.sportCode, 'D05GJSSD1820260221');
+assert.equal(scoreReport.summary.classmentCount, 1);
+assert.equal(scoreReport.normalized.classment[0].name, '李禹辰');
+assert.equal(scoreReport.normalized.classment[0].rank, 1);
 
 console.log('platform sync planning is covered');

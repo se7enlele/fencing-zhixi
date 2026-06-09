@@ -183,7 +183,7 @@ export function buildPreEventCompetitions({
           sourceCoverage: 'event-list-plus-projectlist',
         };
       }
-      competition.items.push({
+      const nextItem = {
         eventCode: item.eventCode,
         eventName: item.eventName,
         shortEventName: item.eventName,
@@ -195,7 +195,21 @@ export function buildPreEventCompetitions({
         roster,
         status: 'upcoming',
         isPreEvent: true,
-      });
+      };
+
+      const existingItem = competition.items.find((row) => row.eventCode === item.eventCode);
+      if (existingItem) {
+        existingItem.eventName = existingItem.eventName || nextItem.eventName;
+        existingItem.shortEventName = existingItem.shortEventName || nextItem.shortEventName;
+        existingItem.openDate = existingItem.openDate || nextItem.openDate;
+        existingItem.closeDate = existingItem.closeDate || nextItem.closeDate;
+        existingItem.competitionNo = Math.max(Number(existingItem.competitionNo) || 0, Number(nextItem.competitionNo) || 0);
+        existingItem.registrationCount = Math.max(Number(existingItem.registrationCount) || 0, Number(nextItem.registrationCount) || 0);
+        existingItem.expectedRegistrationCount = Math.max(Number(existingItem.expectedRegistrationCount) || 0, Number(nextItem.expectedRegistrationCount) || 0);
+        if ((nextItem.roster || []).length > (existingItem.roster || []).length) existingItem.roster = nextItem.roster;
+      } else {
+        competition.items.push(nextItem);
+      }
     }
   }
 

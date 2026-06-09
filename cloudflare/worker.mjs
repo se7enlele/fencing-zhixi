@@ -245,19 +245,36 @@ async function readDynamicPreEventReports(env) {
 
 function mergeDynamicCompetition(base, dynamicCompetition) {
   if (!base) return dynamicCompetition;
+  const items = mergeCompetitionItems(base.items, dynamicCompetition.items);
+  const baseHasScores = !base.isPreEvent && !base.isPlatformEventList;
   return {
-    ...base,
-    ...dynamicCompetition,
+    ...(baseHasScores ? dynamicCompetition : base),
+    ...(baseHasScores ? base : dynamicCompetition),
     sportName: dynamicCompetition.sportName?.startsWith('赛前赛事 ') ? base.sportName : (dynamicCompetition.sportName || base.sportName),
     venue: dynamicCompetition.venue || base.venue,
     region: dynamicCompetition.region || base.region,
     dateLabel: dynamicCompetition.dateLabel || base.dateLabel,
+    itemCount: Math.max(items.length, Number(base.itemCount) || 0, Number(dynamicCompetition.itemCount) || 0),
     groupLabels: dynamicCompetition.groupLabels?.length ? dynamicCompetition.groupLabels : base.groupLabels,
     platformMeta: {
       ...(base.platformMeta || {}),
       ...(dynamicCompetition.platformMeta || {}),
     },
+    items,
   };
+}
+
+function mergeCompetitionItems(primaryItems = [], secondaryItems = []) {
+  const byEventCode = new Map();
+  for (const item of primaryItems || []) {
+    if (!item?.eventCode) continue;
+    byEventCode.set(item.eventCode, item);
+  }
+  for (const item of secondaryItems || []) {
+    if (!item?.eventCode || byEventCode.has(item.eventCode)) continue;
+    byEventCode.set(item.eventCode, item);
+  }
+  return [...byEventCode.values()].sort((a, b) => String(a.eventName || '').localeCompare(String(b.eventName || ''), 'zh-CN'));
 }
 
 async function getCompetitionIndex(env) {
@@ -271,7 +288,6 @@ async function getCompetitionIndex(env) {
   const bySportCode = new Map((index.publicEvents.competitions || []).map((competition) => [competition.sportCode, competition]));
   for (const competition of dynamicCompetitions) {
     const current = bySportCode.get(competition.sportCode);
-    if (current && !current.isPreEvent && !current.isPlatformEventList) continue;
     bySportCode.set(competition.sportCode, mergeDynamicCompetition(current, competition));
   }
 
@@ -286,6 +302,7 @@ function buildPreEventDetails(competitions) {
   const entries = {};
   for (const competition of competitions) {
     for (const item of competition.items || []) {
+      if (!item.isPreEvent) continue;
       entries[item.eventCode] = {
         ...item,
         sportCode: competition.sportCode,
@@ -350,11 +367,8 @@ async function getMergedData(env) {
     .sort((a, b) => String(a.sportName).localeCompare(String(b.sportName), 'zh-CN') || String(a.eventName).localeCompare(String(b.eventName), 'zh-CN'));
 
   const scoreCompetitions = groupEventsBySport(events);
-  const scoreSportCodes = new Set(scoreCompetitions.map((competition) => competition.sportCode));
-  const bundledPreEventCompetitions = (data.publicEvents.competitions || [])
-    .filter((competition) => !scoreSportCodes.has(competition.sportCode));
-  const dynamicPreEventCompetitions = buildPreEventCompetitions(preEventReports)
-    .filter((competition) => !scoreSportCodes.has(competition.sportCode));
+  const bundledPreEventCompetitions = data.publicEvents.competitions || [];
+  const dynamicPreEventCompetitions = buildPreEventCompetitions(preEventReports);
   const preEventBySport = new Map();
   for (const competition of bundledPreEventCompetitions) {
     preEventBySport.set(competition.sportCode, competition);
@@ -362,8 +376,13 @@ async function getMergedData(env) {
   for (const competition of dynamicPreEventCompetitions) {
     preEventBySport.set(competition.sportCode, competition);
   }
-  const preEventCompetitions = [...preEventBySport.values()];
-  Object.assign(eventsByCode, buildPreEventDetails(preEventCompetitions));
+  const competitionsBySport = new Map(scoreCompetitions.map((competition) => [competition.sportCode, competition]));
+  for (const competition of preEventBySport.values()) {
+    const current = competitionsBySport.get(competition.sportCode);
+    competitionsBySport.set(competition.sportCode, mergeDynamicCompetition(current, competition));
+  }
+  const mergedCompetitions = [...competitionsBySport.values()];
+  Object.assign(eventsByCode, buildPreEventDetails(mergedCompetitions));
 
   return {
     version: `${baseVersion}+kv${dynamicReports.length}`,
@@ -371,7 +390,7 @@ async function getMergedData(env) {
       ok: true,
       version: `${baseVersion}+kv${dynamicReports.length}`,
       events,
-      competitions: [...scoreCompetitions, ...preEventCompetitions],
+      competitions: mergedCompetitions,
       athletes: Object.values(buildAthleteDirectoryFromEvents(eventsByCode)).slice(0, 500),
       clubs: Object.values(buildClubDirectoryFromEvents(eventsByCode)).slice(0, 300),
       dataCoverage: {

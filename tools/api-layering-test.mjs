@@ -37,6 +37,16 @@ try {
   if ('events' in competitionsPayload || 'athletes' in competitionsPayload || 'clubs' in competitionsPayload) {
     throw new Error('/api/competitions must only return the competition index payload');
   }
+  const partialScoreCompetition = competitionsPayload.competitions.find((competition) => competition.sportCode === 'D05GJSSD1820260221');
+  if (!partialScoreCompetition) {
+    throw new Error('partial score competition should remain in the competition index');
+  }
+  if ((partialScoreCompetition.items || []).length < 72) {
+    throw new Error('partial score competition should keep projectlist items without score imports');
+  }
+  if (!partialScoreCompetition.items.some((item) => item.eventCode === 'D05GJSSD1820260221WFIU16' && item.isPreEvent)) {
+    throw new Error('partial score competition should keep missing score items as pre-event project items');
+  }
 
   const eventsResponse = await fetch(`${baseUrl}/api/events`);
   const eventsPayload = await eventsResponse.json();

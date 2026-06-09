@@ -232,6 +232,49 @@ async function fetchText(url, timeoutSec = 20) {
   }
 }
 
+function classmentRankToScorePayload(payload, item, event = {}) {
+  const rows = payload?.data;
+  if (!Array.isArray(rows)) {
+    throw new Error('classmentrank payload must include data array.');
+  }
+  const eventCode = item.sourceEventCode || item.eventCode || rows.find((row) => row?.ecode)?.ecode;
+  return {
+    General: [{
+      SportName: event.sportName || item.sportName || item.sourceSportCode || event.sportCode || '',
+      EventName: item.itemName || item.eventName || eventCode || '',
+      OpenDate: item.startDate || event.startDate || null,
+      Venue: event.venue || event.cityName || event.provinceName || null,
+      CompetitionNo: rows.length,
+      ExemptionNo: null,
+      PoolFencerNo: null,
+      PoolQualifyNo: null,
+      PDEstartPhase: null,
+      DEstartPhase: null,
+      Scode: item.sourceSportCode || item.sportCode || event.sportCode || null,
+      Ecode: eventCode,
+    }],
+    Classment: rows.map((row) => ({
+      EventRank: row.eventrank,
+      EventShowRank: row.eventshowrank,
+      Fencer: row.fencer,
+      Licence: row.licence,
+      NOCCode: row.noccode,
+      Birthday: row.birthday,
+      Medal: row.medal,
+      Statut: row.statut,
+      F_EventDisPos: row.feventdispos,
+      QualifyStatusId: row.qualifystatusid,
+    })),
+    Pools: [],
+    PoolStanding: [],
+    PoolResults: [],
+    PRDetails: [],
+    Tableaus: [],
+    Matchs: [],
+    IniStarts: [],
+  };
+}
+
 async function postJsonTextWithNode(url, body, timeoutSec) {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), Math.max(1, timeoutSec) * 1000);
@@ -348,7 +391,36 @@ async function syncProjectlist(event, args, files, log) {
   return report;
 }
 
-async function syncScoreItem(item, args, files, log) {
+export function buildScorePayloadFromClassmentRank(payload, item, event = {}) {
+  return classmentRankToScorePayload(payload, item, event);
+}
+
+async function fetchScorePayload(item, event, url, args) {
+  try {
+    return {
+      payload: parseJsonOrJsObject(await fetchText(url, args.timeoutSec)),
+      sourceUrl: url,
+      sourceType: 'score-resource',
+    };
+  } catch (scoreError) {
+    const eventCode = item.sourceEventCode || item.eventCode;
+    const rankUrl = `${args.proxyBase}/fencingapi/matchresult/classmentrank/${encodeURIComponent(eventCode)}`;
+    progress(args, 'score fallback classmentrank fetch', { eventCode, message: scoreError.message });
+    const rankPayload = parseJsonOrJsObject(await fetchText(rankUrl, args.timeoutSec));
+    if (rankPayload?.code !== undefined && Number(rankPayload.code) !== 0) {
+      throw new Error(rankPayload.msg || `classmentrank API code ${rankPayload.code}`);
+    }
+    return {
+      payload: classmentRankToScorePayload(rankPayload, item, event),
+      sourceUrl: rankUrl,
+      sourceType: 'classmentrank',
+      fallbackFrom: url,
+      fallbackMessage: scoreError.message,
+    };
+  }
+}
+
+async function syncScoreItem(item, event, args, files, log) {
   const eventCode = item.sourceEventCode || item.eventCode;
   if (!eventCode) return;
   const fileName = scoreFileName(eventCode);
@@ -360,21 +432,28 @@ async function syncScoreItem(item, args, files, log) {
 
   const url = `${args.proxyBase}/Resource/score/${encodeURIComponent(eventCode)}.js`;
   if (args.dryRun) {
-    log.scores.dryRun.push({ eventCode, url });
+    log.scores.dryRun.push({
+      eventCode,
+      url,
+      fallbackUrl: `${args.proxyBase}/fencingapi/matchresult/classmentrank/${encodeURIComponent(eventCode)}`,
+    });
     return;
   }
 
   try {
     progress(args, 'score fetch', { eventCode });
-    const payload = parseJsonOrJsObject(await fetchText(url, args.timeoutSec));
-    const report = buildScoreReport(payload, {
-      sourceUrl: url,
+    const fetched = await fetchScorePayload(item, event, url, args);
+    const report = buildScoreReport(fetched.payload, {
+      sourceUrl: fetched.sourceUrl,
+      sourceType: fetched.sourceType,
+      fallbackFrom: fetched.fallbackFrom,
+      fallbackMessage: fetched.fallbackMessage,
       importedAt: new Date().toISOString(),
     });
     await writeReport(args.outputDir, fileName, report);
     files.add(fileName);
     log.scores.imported += 1;
-    progress(args, 'score imported', { eventCode, athletes: report.summary.classmentCount });
+    progress(args, 'score imported', { eventCode, sourceType: fetched.sourceType, athletes: report.summary.classmentCount });
   } catch (error) {
     log.scores.failed.push({ eventCode, message: error.message });
     progress(args, 'score failed', { eventCode, message: error.message });
@@ -545,7 +624,7 @@ async function main() {
           ? (projectReport.normalizedItems || []).slice(0, args.scoreLimit)
           : (projectReport.normalizedItems || []);
         for (const item of scoreItems) {
-          await syncScoreItem(item, args, files, log);
+          await syncScoreItem(item, event, args, files, log);
           await sleep(args.delayMs);
         }
       }
