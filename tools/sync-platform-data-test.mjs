@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import {
   buildScorePayloadFromClassmentRank,
+  hasScoreRankingRows,
   inferPlatformStatus,
   isHttpStatusError,
   selectEvents,
@@ -84,5 +85,20 @@ assert.equal(scoreReport.general.sportCode, 'D05GJSSD1820260221');
 assert.equal(scoreReport.summary.classmentCount, 1);
 assert.equal(scoreReport.normalized.classment[0].name, '李禹辰');
 assert.equal(scoreReport.normalized.classment[0].rank, 1);
+assert.equal(hasScoreRankingRows(scoreReport), true);
+
+const emptyScoreReport = buildScoreReport(buildScorePayloadFromClassmentRank({
+  code: 0,
+  msg: 'ok',
+  data: [],
+}, {
+  sourceEventCode: 'RZSS2035011MFIU6',
+  sourceSportCode: 'RZSS2035011',
+  itemName: 'U6',
+}, {
+  sportName: 'Nanyang',
+}), { sourceType: 'classmentrank' });
+assert.equal(emptyScoreReport.summary.classmentCount, 0);
+assert.equal(hasScoreRankingRows(emptyScoreReport), false);
 
 console.log('platform sync planning is covered');

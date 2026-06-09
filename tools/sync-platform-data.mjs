@@ -395,6 +395,10 @@ export function buildScorePayloadFromClassmentRank(payload, item, event = {}) {
   return classmentRankToScorePayload(payload, item, event);
 }
 
+export function hasScoreRankingRows(report) {
+  return Number(report?.summary?.classmentCount) > 0;
+}
+
 async function fetchScorePayload(item, event, url, args) {
   try {
     return {
@@ -450,6 +454,9 @@ async function syncScoreItem(item, event, args, files, log) {
       fallbackMessage: fetched.fallbackMessage,
       importedAt: new Date().toISOString(),
     });
+    if (!hasScoreRankingRows(report)) {
+      throw new Error(`score payload has no ranking rows from ${fetched.sourceType}`);
+    }
     await writeReport(args.outputDir, fileName, report);
     files.add(fileName);
     log.scores.imported += 1;
