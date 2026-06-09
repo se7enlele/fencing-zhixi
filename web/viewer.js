@@ -658,7 +658,6 @@ function showView(name) {
     });
     const activeButton = buttons.find((button) => button.dataset.mainTab === activeTab);
     if (activeButton) {
-      activeButton.classList.add('active');
       activeButton.setAttribute('aria-current', 'page');
     }
   }
@@ -1446,9 +1445,9 @@ function renderHomePage() {
   homePage.innerHTML = `
     <section class="my-hero panel">
       <div>
-        <span>FencingAI</span>
+        <span>数据首页</span>
         <strong>击剑数据看板</strong>
-        <em>近期赛事、关注动态和核心数据入口。</em>
+        <em>汇总关注动态、近期变化和常用入口。</em>
       </div>
       <button type="button" data-home-competitions>赛事</button>
     </section>
@@ -1463,7 +1462,7 @@ function renderHomePage() {
     <section class="panel my-section">
       <div class="section-title">
         <h2>近期赛事</h2>
-        <span>快速查看</span>
+        <span>推荐入口</span>
       </div>
       <div class="my-list">
         ${competitions.length ? competitions.map((competition) => myPageRow({
@@ -3534,6 +3533,7 @@ document.querySelectorAll('[data-nav-competitions]').forEach((button) => {
 });
 
 bottomNav?.querySelectorAll('[data-main-tab]').forEach((button) => {
+  button.addEventListener('pointerdown', () => button.blur());
   button.addEventListener('click', () => {
     const tab = button.dataset.mainTab;
     button.blur();

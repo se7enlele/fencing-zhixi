@@ -932,6 +932,15 @@ select:focus {
   color: var(--teal);
 }
 
+.bottom-nav button:not([aria-current="page"]):hover,
+.bottom-nav button:not([aria-current="page"]):focus,
+.bottom-nav button:not([aria-current="page"]):active {
+  background: transparent;
+  color: #667085;
+}
+
+.bottom-nav button:focus,
+.bottom-nav button:focus-visible,
 .bottom-nav button:focus:not(:focus-visible) {
   outline: 0;
 }
