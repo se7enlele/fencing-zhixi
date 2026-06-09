@@ -1,5 +1,6 @@
 export function extractRosterRows(payload) {
   if (Array.isArray(payload)) return payload;
+  if (payload?.data === null) return [];
   if (Array.isArray(payload?.data?.records)) return payload.data.records;
   if (Array.isArray(payload?.records)) return payload.records;
   return null;
@@ -60,9 +61,9 @@ export function buildRegistrationRosterReport(payload, source = {}) {
     importType: 'registration-roster',
     source,
     page: {
-      current: payload?.data?.current ?? payload?.current ?? null,
-      size: payload?.data?.size ?? payload?.size ?? records.length,
-      total: payload?.data?.total ?? payload?.total ?? null,
+      current: payload?.data?.current ?? payload?.current ?? source.page ?? null,
+      size: payload?.data?.size ?? payload?.size ?? source.pageSize ?? records.length,
+      total: payload?.data?.total ?? payload?.total ?? records.length,
     },
     summary: {
       recordCount: records.length,

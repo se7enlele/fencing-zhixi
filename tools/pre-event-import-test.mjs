@@ -51,6 +51,15 @@ assert.equal(report.page.total, 11);
 assert.equal(report.normalized.records[0].athleteName, '李才博');
 assert.equal(report.normalized.records[0].dedupeKey, 'sigup:253478895');
 
+const emptyRosterReport = buildRegistrationRosterReport(
+  { code: 0, msg: null, data: null },
+  { fileName: 'empty-member-page-1.json', page: 1 },
+);
+assert.equal(emptyRosterReport.importType, 'registration-roster');
+assert.equal(emptyRosterReport.summary.recordCount, 0);
+assert.equal(emptyRosterReport.page.current, 1);
+assert.equal(emptyRosterReport.page.total, 0);
+
 const projectListReport = {
   ok: true,
   summary: { itemCount: 1, totalParticipants: 1000 },

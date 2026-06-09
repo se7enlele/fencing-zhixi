@@ -1,5 +1,10 @@
 import assert from 'node:assert/strict';
-import { inferPlatformStatus, selectEvents, selectEventsForSync } from './sync-platform-data.mjs';
+import {
+  inferPlatformStatus,
+  isHttpStatusError,
+  selectEvents,
+  selectEventsForSync,
+} from './sync-platform-data.mjs';
 
 const events = [
   {
@@ -43,5 +48,7 @@ assert.equal(selectEvents(events, { status: 'all', limit: 2 }).length, 2);
 assert.deepEqual(selectEvents(events, { status: 'all', limit: 5, startAfterSportId: 2 }).map((event) => event.sportCode), ['DONE']);
 assert.deepEqual(selectEventsForSync(events, { sportId: 2 }).map((event) => event.sportCode), ['REG']);
 assert.deepEqual(selectEventsForSync(events, { sportId: 999 }).map((event) => event.sportCode), []);
+assert.equal(isHttpStatusError(new Error('HTTP 404 Not Found: missing')), true);
+assert.equal(isHttpStatusError(new Error('The operation was aborted')), false);
 
 console.log('platform sync planning is covered');

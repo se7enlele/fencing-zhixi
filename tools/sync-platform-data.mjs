@@ -215,10 +215,15 @@ async function fetchTextWithPowerShell(url, timeoutSec) {
   return stdout;
 }
 
+export function isHttpStatusError(error) {
+  return /^HTTP \d{3}\b/.test(error?.message || '');
+}
+
 async function fetchText(url, timeoutSec = 20) {
   try {
     return await fetchTextWithNode(url, timeoutSec);
   } catch (error) {
+    if (isHttpStatusError(error)) throw error;
     try {
       return await fetchTextWithPowerShell(url, timeoutSec);
     } catch (fallbackError) {
@@ -452,6 +457,7 @@ async function syncRosterItem(item, args, files, log) {
         eventCode,
         sportCode,
         page,
+        pageSize,
         importedAt: new Date().toISOString(),
       }, args);
       await writeReport(args.outputDir, fileName, report);
