@@ -11,7 +11,13 @@ if (start === -1 || end === -1 || end <= start) {
 
 assert.match(
   source,
-  /findInChunks\(env,\s*index\.chunks\?\.eventsByCode,\s*eventCode\)\s*\|\|\s*findProjectOnlyEvent\(\{\s*competitions\s*\},\s*eventCode\)/,
+  /let event = await findInChunks\(env,\s*index\.chunks\?\.eventsByCode,\s*eventCode\);/,
+  'Worker /api/events route must read static event chunks before dynamic fallbacks',
+);
+
+assert.match(
+  source,
+  /event = findProjectOnlyEvent\(\{\s*competitions\s*\},\s*eventCode\)/,
   'Worker /api/events route must fall back to merged project-only event details',
 );
 

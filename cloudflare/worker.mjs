@@ -568,12 +568,18 @@ async function routeApi(request, env, url) {
 
   if (url.pathname.startsWith('/api/events/') && request.method === 'GET') {
     const index = await loadBundledIndex(env);
-    const { competitions } = await getCompetitionIndex(env);
     const eventCode = decodeURIComponent(url.pathname.replace('/api/events/', ''));
-    const dynamicReport = await readJsonKv(env.FOLLOWS, `score:${eventCode}`, null);
-    const event = dynamicReport?.general?.eventCode
-      ? buildEventDetail(dynamicReport, `kv-score-${eventCode}-analysis.json`)
-      : await findInChunks(env, index.chunks?.eventsByCode, eventCode) || findProjectOnlyEvent({ competitions }, eventCode);
+    let event = await findInChunks(env, index.chunks?.eventsByCode, eventCode);
+    if (!event) {
+      const dynamicReport = await readJsonKv(env.FOLLOWS, `score:${eventCode}`, null);
+      if (dynamicReport?.general?.eventCode) {
+        event = buildEventDetail(dynamicReport, `kv-score-${eventCode}-analysis.json`);
+      }
+    }
+    if (!event) {
+      const { competitions } = await getCompetitionIndex(env);
+      event = findProjectOnlyEvent({ competitions }, eventCode);
+    }
     return event ? json({ ok: true, version: index.version, event }, 200, PUBLIC_DETAIL_CACHE) : json({ ok: false, message: '项目不存在。' }, 404);
   }
 
