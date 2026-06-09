@@ -1,0 +1,3081 @@
+{
+  "ok": true,
+  "source": {
+    "sourceUrl": "https://fencing-proxy.aixindiandian.workers.dev/Resource/score/RZSSAH0120260530WSIU16.js",
+    "sourceType": "score-resource",
+    "importedAt": "2026-06-09T07:34:46.975Z"
+  },
+  "general": {
+    "sportName": "2026年上海闵行击剑公开赛",
+    "eventName": "U16女子佩剑个人",
+    "openDate": null,
+    "venue": "上海·闵行",
+    "competitionNo": 15,
+    "exemptionNo": 0,
+    "poolFencerNo": 15,
+    "poolQualifyNo": 12,
+    "preDeStartPhase": "none",
+    "deStartPhase": "from Tableaus 16",
+    "sportCode": "RZSSAH0120260530",
+    "eventCode": "RZSSAH0120260530WSIU16"
+  },
+  "summary": {
+    "classmentCount": 15,
+    "initialSeedCount": 15,
+    "poolCount": 3,
+    "poolStandingCount": 15,
+    "poolResultCount": 15,
+    "poolBoutCount": 30,
+    "tableauCount": 4,
+    "eliminationMatchCount": 15,
+    "playedEliminationMatchCount": 11,
+    "byeMatchCount": 4,
+    "athleteCountByLicence": 15
+  },
+  "distributions": {
+    "poolStatus": {
+      "7": 3
+    },
+    "poolRemark": {
+      "Q": 12,
+      "E": 3
+    },
+    "tableau": {
+      "16表": 1,
+      "8表": 1,
+      "半决赛": 1,
+      "决赛": 1
+    },
+    "eliminationByPhase": {
+      "16表": 8,
+      "8表": 4,
+      "半决赛": 2,
+      "决赛": 1
+    },
+    "eliminationResult": {
+      "W/L": 8,
+      "L/W": 7
+    },
+    "medal": {
+      "金": 1,
+      "银": 1,
+      "铜": 2,
+      "(无奖牌)": 11
+    }
+  },
+  "normalized": {
+    "classment": [
+      {
+        "rank": 1,
+        "displayRank": "1",
+        "name": "王子琳",
+        "licence": "20120804F202103310319",
+        "club": "上海市体校",
+        "birthday": "2012-08-04",
+        "medal": "金",
+        "status": "N",
+        "sourcePosition": 1,
+        "qualifyStatusId": 1
+      },
+      {
+        "rank": 2,
+        "displayRank": "2",
+        "name": "徐令仪",
+        "licence": "20130723F202202210740",
+        "club": "上海尼米兹",
+        "birthday": "2013-07-23",
+        "medal": "银",
+        "status": "N",
+        "sourcePosition": 2,
+        "qualifyStatusId": 1
+      },
+      {
+        "rank": 3,
+        "displayRank": "3",
+        "name": "蔡咏昕",
+        "licence": "20120810F202302060244",
+        "club": "上海市体校",
+        "birthday": "2012-08-10",
+        "medal": "铜",
+        "status": "N",
+        "sourcePosition": 3,
+        "qualifyStatusId": 1
+      },
+      {
+        "rank": 3,
+        "displayRank": "3",
+        "name": "陈梓暄",
+        "licence": "20130620F202308310152",
+        "club": "上海尼米兹",
+        "birthday": "2013-06-20",
+        "medal": "铜",
+        "status": "N",
+        "sourcePosition": 4,
+        "qualifyStatusId": 1
+      },
+      {
+        "rank": 5,
+        "displayRank": "5",
+        "name": "刘禹初",
+        "licence": "20120320F202503030749",
+        "club": "上海盈搏",
+        "birthday": "2012-03-20",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": 5,
+        "qualifyStatusId": 1
+      },
+      {
+        "rank": 6,
+        "displayRank": "6",
+        "name": "李沚诺",
+        "licence": "20120323F202305220911",
+        "club": "上海静安",
+        "birthday": "2012-03-23",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": 6,
+        "qualifyStatusId": 1
+      },
+      {
+        "rank": 7,
+        "displayRank": "7",
+        "name": "朱珠",
+        "licence": "20130113F202406240143",
+        "club": "上海静安",
+        "birthday": "2013-01-13",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": 7,
+        "qualifyStatusId": 1
+      },
+      {
+        "rank": 8,
+        "displayRank": "8",
+        "name": "张云涵",
+        "licence": "20100301F201903071514",
+        "club": "深圳罗湖万国",
+        "birthday": "2010-03-01",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": 8,
+        "qualifyStatusId": 1
+      },
+      {
+        "rank": 9,
+        "displayRank": "9",
+        "name": "王琳熙",
+        "licence": "20120721F202211280621",
+        "club": "上海盈搏",
+        "birthday": "2012-07-21",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": 9,
+        "qualifyStatusId": 1
+      },
+      {
+        "rank": 10,
+        "displayRank": "10",
+        "name": "杨淏辰",
+        "licence": "20121011F202406010432",
+        "club": "上海盈搏",
+        "birthday": "2012-10-11",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": 10,
+        "qualifyStatusId": 1
+      },
+      {
+        "rank": 11,
+        "displayRank": "11",
+        "name": "徐雨攸",
+        "licence": "20120619F201902271313",
+        "club": "上海尼米兹",
+        "birthday": "2012-06-19",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": 11,
+        "qualifyStatusId": 1
+      },
+      {
+        "rank": 12,
+        "displayRank": "12",
+        "name": "姜枫",
+        "licence": "20130621F202302081226",
+        "club": "上海静安",
+        "birthday": "2013-06-21",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": 12,
+        "qualifyStatusId": 1
+      },
+      {
+        "rank": 13,
+        "displayRank": "13",
+        "name": "沙家逸",
+        "licence": "20111130F202103290549",
+        "club": "上海静安",
+        "birthday": "2011-11-30",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": 13,
+        "qualifyStatusId": 0
+      },
+      {
+        "rank": 14,
+        "displayRank": "14",
+        "name": "曹舒涵",
+        "licence": "20130829M202502210207",
+        "club": "上海颖行",
+        "birthday": "2013-08-29",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": 14,
+        "qualifyStatusId": 0
+      },
+      {
+        "rank": 15,
+        "displayRank": "15",
+        "name": "熊冰玥",
+        "licence": "20130311F202502070114",
+        "club": "上海普陀少体",
+        "birthday": "2013-03-11",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": 15,
+        "qualifyStatusId": 0
+      }
+    ],
+    "poolStandings": [
+      {
+        "rank": 1,
+        "displayPosition": 1,
+        "name": "蔡咏昕",
+        "licence": "20120810F202302060244",
+        "club": "上海市体校",
+        "wins": 4,
+        "matches": 4,
+        "winRate": 1,
+        "hitsScored": 20,
+        "hitsReceived": 9,
+        "indicator": 11,
+        "remark": "Q"
+      },
+      {
+        "rank": 2,
+        "displayPosition": 2,
+        "name": "刘禹初",
+        "licence": "20120320F202503030749",
+        "club": "上海盈搏",
+        "wins": 4,
+        "matches": 4,
+        "winRate": 1,
+        "hitsScored": 20,
+        "hitsReceived": 9,
+        "indicator": 11,
+        "remark": "Q"
+      },
+      {
+        "rank": 3,
+        "displayPosition": 3,
+        "name": "李沚诺",
+        "licence": "20120323F202305220911",
+        "club": "上海静安",
+        "wins": 4,
+        "matches": 4,
+        "winRate": 1,
+        "hitsScored": 20,
+        "hitsReceived": 10,
+        "indicator": 10,
+        "remark": "Q"
+      },
+      {
+        "rank": 4,
+        "displayPosition": 4,
+        "name": "王子琳",
+        "licence": "20120804F202103310319",
+        "club": "上海市体校",
+        "wins": 3,
+        "matches": 4,
+        "winRate": 0.75,
+        "hitsScored": 18,
+        "hitsReceived": 8,
+        "indicator": 10,
+        "remark": "Q"
+      },
+      {
+        "rank": 5,
+        "displayPosition": 5,
+        "name": "朱珠",
+        "licence": "20130113F202406240143",
+        "club": "上海静安",
+        "wins": 3,
+        "matches": 4,
+        "winRate": 0.75,
+        "hitsScored": 17,
+        "hitsReceived": 12,
+        "indicator": 5,
+        "remark": "Q"
+      },
+      {
+        "rank": 6,
+        "displayPosition": 6,
+        "name": "徐令仪",
+        "licence": "20130723F202202210740",
+        "club": "上海尼米兹",
+        "wins": 2,
+        "matches": 4,
+        "winRate": 0.5,
+        "hitsScored": 16,
+        "hitsReceived": 11,
+        "indicator": 5,
+        "remark": "Q"
+      },
+      {
+        "rank": 7,
+        "displayPosition": 7,
+        "name": "王琳熙",
+        "licence": "20120721F202211280621",
+        "club": "上海盈搏",
+        "wins": 2,
+        "matches": 4,
+        "winRate": 0.5,
+        "hitsScored": 14,
+        "hitsReceived": 14,
+        "indicator": 0,
+        "remark": "Q"
+      },
+      {
+        "rank": 8,
+        "displayPosition": 8,
+        "name": "杨淏辰",
+        "licence": "20121011F202406010432",
+        "club": "上海盈搏",
+        "wins": 2,
+        "matches": 4,
+        "winRate": 0.5,
+        "hitsScored": 13,
+        "hitsReceived": 16,
+        "indicator": -3,
+        "remark": "Q"
+      },
+      {
+        "rank": 9,
+        "displayPosition": 9,
+        "name": "张云涵",
+        "licence": "20100301F201903071514",
+        "club": "深圳罗湖万国",
+        "wins": 1,
+        "matches": 4,
+        "winRate": 0.25,
+        "hitsScored": 13,
+        "hitsReceived": 16,
+        "indicator": -3,
+        "remark": "Q"
+      },
+      {
+        "rank": 10,
+        "displayPosition": 10,
+        "name": "陈梓暄",
+        "licence": "20130620F202308310152",
+        "club": "上海尼米兹",
+        "wins": 1,
+        "matches": 4,
+        "winRate": 0.25,
+        "hitsScored": 12,
+        "hitsReceived": 16,
+        "indicator": -4,
+        "remark": "Q"
+      },
+      {
+        "rank": 11,
+        "displayPosition": 11,
+        "name": "徐雨攸",
+        "licence": "20120619F201902271313",
+        "club": "上海尼米兹",
+        "wins": 1,
+        "matches": 4,
+        "winRate": 0.25,
+        "hitsScored": 14,
+        "hitsReceived": 19,
+        "indicator": -5,
+        "remark": "Q"
+      },
+      {
+        "rank": 12,
+        "displayPosition": 12,
+        "name": "姜枫",
+        "licence": "20130621F202302081226",
+        "club": "上海静安",
+        "wins": 1,
+        "matches": 4,
+        "winRate": 0.25,
+        "hitsScored": 12,
+        "hitsReceived": 17,
+        "indicator": -5,
+        "remark": "Q"
+      },
+      {
+        "rank": 13,
+        "displayPosition": 13,
+        "name": "沙家逸",
+        "licence": "20111130F202103290549",
+        "club": "上海静安",
+        "wins": 1,
+        "matches": 4,
+        "winRate": 0.25,
+        "hitsScored": 9,
+        "hitsReceived": 19,
+        "indicator": -10,
+        "remark": "E"
+      },
+      {
+        "rank": 14,
+        "displayPosition": 14,
+        "name": "曹舒涵",
+        "licence": "20130829M202502210207",
+        "club": "上海颖行",
+        "wins": 1,
+        "matches": 4,
+        "winRate": 0.25,
+        "hitsScored": 8,
+        "hitsReceived": 19,
+        "indicator": -11,
+        "remark": "E"
+      },
+      {
+        "rank": 15,
+        "displayPosition": 15,
+        "name": "熊冰玥",
+        "licence": "20130311F202502070114",
+        "club": "上海普陀少体",
+        "wins": 0,
+        "matches": 4,
+        "winRate": 0,
+        "hitsScored": 9,
+        "hitsReceived": 20,
+        "indicator": -11,
+        "remark": "E"
+      }
+    ],
+    "poolResults": [
+      {
+        "drawNo": 1,
+        "name": "姜枫",
+        "licence": "20130621F202302081226",
+        "club": "上海静安",
+        "poolId": 171723,
+        "boutCells": {
+          "Result1": "",
+          "Result2": "4",
+          "Result3": "2",
+          "Result4": "1",
+          "Result5": "V",
+          "Result6": "",
+          "Result7": ""
+        },
+        "wins": 1,
+        "matches": 4,
+        "winRate": 0.25,
+        "hitsScored": 12,
+        "hitsReceived": 17,
+        "indicator": -5,
+        "phaseRank": 4
+      },
+      {
+        "drawNo": 2,
+        "name": "李沚诺",
+        "licence": "20120323F202305220911",
+        "club": "上海静安",
+        "poolId": 171723,
+        "boutCells": {
+          "Result1": "V",
+          "Result2": "",
+          "Result3": "V",
+          "Result4": "V",
+          "Result5": "V",
+          "Result6": "",
+          "Result7": ""
+        },
+        "wins": 4,
+        "matches": 4,
+        "winRate": 1,
+        "hitsScored": 20,
+        "hitsReceived": 10,
+        "indicator": 10,
+        "phaseRank": 1
+      },
+      {
+        "drawNo": 3,
+        "name": "王子琳",
+        "licence": "20120804F202103310319",
+        "club": "上海市体校",
+        "poolId": 171723,
+        "boutCells": {
+          "Result1": "V",
+          "Result2": "3",
+          "Result3": "",
+          "Result4": "V",
+          "Result5": "V",
+          "Result6": "",
+          "Result7": ""
+        },
+        "wins": 3,
+        "matches": 4,
+        "winRate": 0.75,
+        "hitsScored": 18,
+        "hitsReceived": 8,
+        "indicator": 10,
+        "phaseRank": 2
+      },
+      {
+        "drawNo": 4,
+        "name": "陈梓暄",
+        "licence": "20130620F202308310152",
+        "club": "上海尼米兹",
+        "poolId": 171723,
+        "boutCells": {
+          "Result1": "V",
+          "Result2": "2",
+          "Result3": "1",
+          "Result4": "",
+          "Result5": "4",
+          "Result6": "",
+          "Result7": ""
+        },
+        "wins": 1,
+        "matches": 4,
+        "winRate": 0.25,
+        "hitsScored": 12,
+        "hitsReceived": 16,
+        "indicator": -4,
+        "phaseRank": 3
+      },
+      {
+        "drawNo": 5,
+        "name": "曹舒涵",
+        "licence": "20130829M202502210207",
+        "club": "上海颖行",
+        "poolId": 171723,
+        "boutCells": {
+          "Result1": "2",
+          "Result2": "1",
+          "Result3": "0",
+          "Result4": "V",
+          "Result5": "",
+          "Result6": "",
+          "Result7": ""
+        },
+        "wins": 1,
+        "matches": 4,
+        "winRate": 0.25,
+        "hitsScored": 8,
+        "hitsReceived": 19,
+        "indicator": -11,
+        "phaseRank": 5
+      },
+      {
+        "drawNo": 1,
+        "name": "刘禹初",
+        "licence": "20120320F202503030749",
+        "club": "上海盈搏",
+        "poolId": 171724,
+        "boutCells": {
+          "Result1": "",
+          "Result2": "V",
+          "Result3": "V",
+          "Result4": "V",
+          "Result5": "V",
+          "Result6": "",
+          "Result7": ""
+        },
+        "wins": 4,
+        "matches": 4,
+        "winRate": 1,
+        "hitsScored": 20,
+        "hitsReceived": 9,
+        "indicator": 11,
+        "phaseRank": 1
+      },
+      {
+        "drawNo": 2,
+        "name": "杨淏辰",
+        "licence": "20121011F202406010432",
+        "club": "上海盈搏",
+        "poolId": 171724,
+        "boutCells": {
+          "Result1": "3",
+          "Result2": "",
+          "Result3": "V",
+          "Result4": "0",
+          "Result5": "V",
+          "Result6": "",
+          "Result7": ""
+        },
+        "wins": 2,
+        "matches": 4,
+        "winRate": 0.5,
+        "hitsScored": 13,
+        "hitsReceived": 16,
+        "indicator": -3,
+        "phaseRank": 3
+      },
+      {
+        "drawNo": 3,
+        "name": "张云涵",
+        "licence": "20100301F201903071514",
+        "club": "深圳罗湖万国",
+        "poolId": 171724,
+        "boutCells": {
+          "Result1": "4",
+          "Result2": "3",
+          "Result3": "",
+          "Result4": "1",
+          "Result5": "V",
+          "Result6": "",
+          "Result7": ""
+        },
+        "wins": 1,
+        "matches": 4,
+        "winRate": 0.25,
+        "hitsScored": 13,
+        "hitsReceived": 16,
+        "indicator": -3,
+        "phaseRank": 4
+      },
+      {
+        "drawNo": 4,
+        "name": "徐令仪",
+        "licence": "20130723F202202210740",
+        "club": "上海尼米兹",
+        "poolId": 171724,
+        "boutCells": {
+          "Result1": "2",
+          "Result2": "V",
+          "Result3": "V",
+          "Result4": "",
+          "Result5": "4",
+          "Result6": "",
+          "Result7": ""
+        },
+        "wins": 2,
+        "matches": 4,
+        "winRate": 0.5,
+        "hitsScored": 16,
+        "hitsReceived": 11,
+        "indicator": 5,
+        "phaseRank": 2
+      },
+      {
+        "drawNo": 5,
+        "name": "沙家逸",
+        "licence": "20111130F202103290549",
+        "club": "上海静安",
+        "poolId": 171724,
+        "boutCells": {
+          "Result1": "0",
+          "Result2": "3",
+          "Result3": "1",
+          "Result4": "V",
+          "Result5": "",
+          "Result6": "",
+          "Result7": ""
+        },
+        "wins": 1,
+        "matches": 4,
+        "winRate": 0.25,
+        "hitsScored": 9,
+        "hitsReceived": 19,
+        "indicator": -10,
+        "phaseRank": 5
+      },
+      {
+        "drawNo": 1,
+        "name": "蔡咏昕",
+        "licence": "20120810F202302060244",
+        "club": "上海市体校",
+        "poolId": 171725,
+        "boutCells": {
+          "Result1": "",
+          "Result2": "V",
+          "Result3": "V",
+          "Result4": "V",
+          "Result5": "V",
+          "Result6": "",
+          "Result7": ""
+        },
+        "wins": 4,
+        "matches": 4,
+        "winRate": 1,
+        "hitsScored": 20,
+        "hitsReceived": 9,
+        "indicator": 11,
+        "phaseRank": 1
+      },
+      {
+        "drawNo": 2,
+        "name": "徐雨攸",
+        "licence": "20120619F201902271313",
+        "club": "上海尼米兹",
+        "poolId": 171725,
+        "boutCells": {
+          "Result1": "3",
+          "Result2": "",
+          "Result3": "V",
+          "Result4": "3",
+          "Result5": "3",
+          "Result6": "",
+          "Result7": ""
+        },
+        "wins": 1,
+        "matches": 4,
+        "winRate": 0.25,
+        "hitsScored": 14,
+        "hitsReceived": 19,
+        "indicator": -5,
+        "phaseRank": 4
+      },
+      {
+        "drawNo": 3,
+        "name": "熊冰玥",
+        "licence": "20130311F202502070114",
+        "club": "上海普陀少体",
+        "poolId": 171725,
+        "boutCells": {
+          "Result1": "0",
+          "Result2": "4",
+          "Result3": "",
+          "Result4": "4",
+          "Result5": "1",
+          "Result6": "",
+          "Result7": ""
+        },
+        "wins": 0,
+        "matches": 4,
+        "winRate": 0,
+        "hitsScored": 9,
+        "hitsReceived": 20,
+        "indicator": -11,
+        "phaseRank": 5
+      },
+      {
+        "drawNo": 4,
+        "name": "朱珠",
+        "licence": "20130113F202406240143",
+        "club": "上海静安",
+        "poolId": 171725,
+        "boutCells": {
+          "Result1": "2",
+          "Result2": "V",
+          "Result3": "V",
+          "Result4": "",
+          "Result5": "V",
+          "Result6": "",
+          "Result7": ""
+        },
+        "wins": 3,
+        "matches": 4,
+        "winRate": 0.75,
+        "hitsScored": 17,
+        "hitsReceived": 12,
+        "indicator": 5,
+        "phaseRank": 2
+      },
+      {
+        "drawNo": 5,
+        "name": "王琳熙",
+        "licence": "20120721F202211280621",
+        "club": "上海盈搏",
+        "poolId": 171725,
+        "boutCells": {
+          "Result1": "4",
+          "Result2": "V",
+          "Result3": "V",
+          "Result4": "0",
+          "Result5": "",
+          "Result6": "",
+          "Result7": ""
+        },
+        "wins": 2,
+        "matches": 4,
+        "winRate": 0.5,
+        "hitsScored": 14,
+        "hitsReceived": 14,
+        "indicator": 0,
+        "phaseRank": 3
+      }
+    ],
+    "poolBouts": [
+      {
+        "poolId": 171723,
+        "caseCode": "CASE5",
+        "order": 1,
+        "matchOrder": 1,
+        "homeNumber": 1,
+        "awayNumber": 2,
+        "homeLabel": "1：姜枫(上海静安)",
+        "awayLabel": "2：李沚诺(上海静安)",
+        "homeScore": 4,
+        "awayScore": "V"
+      },
+      {
+        "poolId": 171723,
+        "caseCode": "CASE5",
+        "order": 2,
+        "matchOrder": 2,
+        "homeNumber": 3,
+        "awayNumber": 4,
+        "homeLabel": "3：王子琳(上海市体校)",
+        "awayLabel": "4：陈梓暄(上海尼米兹)",
+        "homeScore": "V",
+        "awayScore": 1
+      },
+      {
+        "poolId": 171723,
+        "caseCode": "CASE5",
+        "order": 3,
+        "matchOrder": 3,
+        "homeNumber": 5,
+        "awayNumber": 1,
+        "homeLabel": "5：曹舒涵(上海颖行)",
+        "awayLabel": "1：姜枫(上海静安)",
+        "homeScore": 2,
+        "awayScore": "V"
+      },
+      {
+        "poolId": 171723,
+        "caseCode": "CASE5",
+        "order": 4,
+        "matchOrder": 4,
+        "homeNumber": 2,
+        "awayNumber": 3,
+        "homeLabel": "2：李沚诺(上海静安)",
+        "awayLabel": "3：王子琳(上海市体校)",
+        "homeScore": "V",
+        "awayScore": 3
+      },
+      {
+        "poolId": 171723,
+        "caseCode": "CASE5",
+        "order": 5,
+        "matchOrder": 5,
+        "homeNumber": 5,
+        "awayNumber": 4,
+        "homeLabel": "5：曹舒涵(上海颖行)",
+        "awayLabel": "4：陈梓暄(上海尼米兹)",
+        "homeScore": "V",
+        "awayScore": 4
+      },
+      {
+        "poolId": 171723,
+        "caseCode": "CASE5",
+        "order": 6,
+        "matchOrder": 6,
+        "homeNumber": 1,
+        "awayNumber": 3,
+        "homeLabel": "1：姜枫(上海静安)",
+        "awayLabel": "3：王子琳(上海市体校)",
+        "homeScore": 2,
+        "awayScore": "V"
+      },
+      {
+        "poolId": 171723,
+        "caseCode": "CASE5",
+        "order": 7,
+        "matchOrder": 7,
+        "homeNumber": 2,
+        "awayNumber": 5,
+        "homeLabel": "2：李沚诺(上海静安)",
+        "awayLabel": "5：曹舒涵(上海颖行)",
+        "homeScore": "V",
+        "awayScore": 1
+      },
+      {
+        "poolId": 171723,
+        "caseCode": "CASE5",
+        "order": 8,
+        "matchOrder": 8,
+        "homeNumber": 4,
+        "awayNumber": 1,
+        "homeLabel": "4：陈梓暄(上海尼米兹)",
+        "awayLabel": "1：姜枫(上海静安)",
+        "homeScore": "V",
+        "awayScore": 1
+      },
+      {
+        "poolId": 171723,
+        "caseCode": "CASE5",
+        "order": 9,
+        "matchOrder": 9,
+        "homeNumber": 3,
+        "awayNumber": 5,
+        "homeLabel": "3：王子琳(上海市体校)",
+        "awayLabel": "5：曹舒涵(上海颖行)",
+        "homeScore": "V",
+        "awayScore": 0
+      },
+      {
+        "poolId": 171723,
+        "caseCode": "CASE5",
+        "order": 10,
+        "matchOrder": 10,
+        "homeNumber": 4,
+        "awayNumber": 2,
+        "homeLabel": "4：陈梓暄(上海尼米兹)",
+        "awayLabel": "2：李沚诺(上海静安)",
+        "homeScore": 2,
+        "awayScore": "V"
+      },
+      {
+        "poolId": 171724,
+        "caseCode": "CASE5",
+        "order": 1,
+        "matchOrder": 1,
+        "homeNumber": 1,
+        "awayNumber": 2,
+        "homeLabel": "1：刘禹初(上海盈搏)",
+        "awayLabel": "2：杨淏辰(上海盈搏)",
+        "homeScore": "V",
+        "awayScore": 3
+      },
+      {
+        "poolId": 171724,
+        "caseCode": "CASE5",
+        "order": 2,
+        "matchOrder": 2,
+        "homeNumber": 3,
+        "awayNumber": 4,
+        "homeLabel": "3：张云涵(深圳罗湖万国)",
+        "awayLabel": "4：徐令仪(上海尼米兹)",
+        "homeScore": 1,
+        "awayScore": "V"
+      },
+      {
+        "poolId": 171724,
+        "caseCode": "CASE5",
+        "order": 3,
+        "matchOrder": 3,
+        "homeNumber": 5,
+        "awayNumber": 1,
+        "homeLabel": "5：沙家逸(上海静安)",
+        "awayLabel": "1：刘禹初(上海盈搏)",
+        "homeScore": 0,
+        "awayScore": "V"
+      },
+      {
+        "poolId": 171724,
+        "caseCode": "CASE5",
+        "order": 4,
+        "matchOrder": 4,
+        "homeNumber": 2,
+        "awayNumber": 3,
+        "homeLabel": "2：杨淏辰(上海盈搏)",
+        "awayLabel": "3：张云涵(深圳罗湖万国)",
+        "homeScore": "V",
+        "awayScore": 3
+      },
+      {
+        "poolId": 171724,
+        "caseCode": "CASE5",
+        "order": 5,
+        "matchOrder": 5,
+        "homeNumber": 5,
+        "awayNumber": 4,
+        "homeLabel": "5：沙家逸(上海静安)",
+        "awayLabel": "4：徐令仪(上海尼米兹)",
+        "homeScore": "V",
+        "awayScore": 4
+      },
+      {
+        "poolId": 171724,
+        "caseCode": "CASE5",
+        "order": 6,
+        "matchOrder": 6,
+        "homeNumber": 1,
+        "awayNumber": 3,
+        "homeLabel": "1：刘禹初(上海盈搏)",
+        "awayLabel": "3：张云涵(深圳罗湖万国)",
+        "homeScore": "V",
+        "awayScore": 4
+      },
+      {
+        "poolId": 171724,
+        "caseCode": "CASE5",
+        "order": 7,
+        "matchOrder": 7,
+        "homeNumber": 2,
+        "awayNumber": 5,
+        "homeLabel": "2：杨淏辰(上海盈搏)",
+        "awayLabel": "5：沙家逸(上海静安)",
+        "homeScore": "V",
+        "awayScore": 3
+      },
+      {
+        "poolId": 171724,
+        "caseCode": "CASE5",
+        "order": 8,
+        "matchOrder": 8,
+        "homeNumber": 4,
+        "awayNumber": 1,
+        "homeLabel": "4：徐令仪(上海尼米兹)",
+        "awayLabel": "1：刘禹初(上海盈搏)",
+        "homeScore": 2,
+        "awayScore": "V"
+      },
+      {
+        "poolId": 171724,
+        "caseCode": "CASE5",
+        "order": 9,
+        "matchOrder": 9,
+        "homeNumber": 3,
+        "awayNumber": 5,
+        "homeLabel": "3：张云涵(深圳罗湖万国)",
+        "awayLabel": "5：沙家逸(上海静安)",
+        "homeScore": "V",
+        "awayScore": 1
+      },
+      {
+        "poolId": 171724,
+        "caseCode": "CASE5",
+        "order": 10,
+        "matchOrder": 10,
+        "homeNumber": 4,
+        "awayNumber": 2,
+        "homeLabel": "4：徐令仪(上海尼米兹)",
+        "awayLabel": "2：杨淏辰(上海盈搏)",
+        "homeScore": "V",
+        "awayScore": 0
+      },
+      {
+        "poolId": 171725,
+        "caseCode": "CASE5",
+        "order": 1,
+        "matchOrder": 1,
+        "homeNumber": 1,
+        "awayNumber": 2,
+        "homeLabel": "1：蔡咏昕(上海市体校)",
+        "awayLabel": "2：徐雨攸(上海尼米兹)",
+        "homeScore": "V",
+        "awayScore": 3
+      },
+      {
+        "poolId": 171725,
+        "caseCode": "CASE5",
+        "order": 2,
+        "matchOrder": 2,
+        "homeNumber": 3,
+        "awayNumber": 4,
+        "homeLabel": "3：熊冰玥(上海普陀少体)",
+        "awayLabel": "4：朱珠(上海静安)",
+        "homeScore": 4,
+        "awayScore": "V"
+      },
+      {
+        "poolId": 171725,
+        "caseCode": "CASE5",
+        "order": 3,
+        "matchOrder": 3,
+        "homeNumber": 5,
+        "awayNumber": 1,
+        "homeLabel": "5：王琳熙(上海盈搏)",
+        "awayLabel": "1：蔡咏昕(上海市体校)",
+        "homeScore": 4,
+        "awayScore": "V"
+      },
+      {
+        "poolId": 171725,
+        "caseCode": "CASE5",
+        "order": 4,
+        "matchOrder": 4,
+        "homeNumber": 2,
+        "awayNumber": 3,
+        "homeLabel": "2：徐雨攸(上海尼米兹)",
+        "awayLabel": "3：熊冰玥(上海普陀少体)",
+        "homeScore": "V",
+        "awayScore": 4
+      },
+      {
+        "poolId": 171725,
+        "caseCode": "CASE5",
+        "order": 5,
+        "matchOrder": 5,
+        "homeNumber": 5,
+        "awayNumber": 4,
+        "homeLabel": "5：王琳熙(上海盈搏)",
+        "awayLabel": "4：朱珠(上海静安)",
+        "homeScore": 0,
+        "awayScore": "V"
+      },
+      {
+        "poolId": 171725,
+        "caseCode": "CASE5",
+        "order": 6,
+        "matchOrder": 6,
+        "homeNumber": 1,
+        "awayNumber": 3,
+        "homeLabel": "1：蔡咏昕(上海市体校)",
+        "awayLabel": "3：熊冰玥(上海普陀少体)",
+        "homeScore": "V",
+        "awayScore": 0
+      },
+      {
+        "poolId": 171725,
+        "caseCode": "CASE5",
+        "order": 7,
+        "matchOrder": 7,
+        "homeNumber": 2,
+        "awayNumber": 5,
+        "homeLabel": "2：徐雨攸(上海尼米兹)",
+        "awayLabel": "5：王琳熙(上海盈搏)",
+        "homeScore": 3,
+        "awayScore": "V"
+      },
+      {
+        "poolId": 171725,
+        "caseCode": "CASE5",
+        "order": 8,
+        "matchOrder": 8,
+        "homeNumber": 4,
+        "awayNumber": 1,
+        "homeLabel": "4：朱珠(上海静安)",
+        "awayLabel": "1：蔡咏昕(上海市体校)",
+        "homeScore": 2,
+        "awayScore": "V"
+      },
+      {
+        "poolId": 171725,
+        "caseCode": "CASE5",
+        "order": 9,
+        "matchOrder": 9,
+        "homeNumber": 3,
+        "awayNumber": 5,
+        "homeLabel": "3：熊冰玥(上海普陀少体)",
+        "awayLabel": "5：王琳熙(上海盈搏)",
+        "homeScore": 1,
+        "awayScore": "V"
+      },
+      {
+        "poolId": 171725,
+        "caseCode": "CASE5",
+        "order": 10,
+        "matchOrder": 10,
+        "homeNumber": 4,
+        "awayNumber": 2,
+        "homeLabel": "4：朱珠(上海静安)",
+        "awayLabel": "2：徐雨攸(上海尼米兹)",
+        "homeScore": "V",
+        "awayScore": 3
+      }
+    ],
+    "eliminationMatches": [
+      {
+        "matchId": 508429,
+        "matchCode": "Pre001",
+        "phaseId": 171726,
+        "phase": {
+          "shortName": "T16",
+          "longName": "16表",
+          "order": 1,
+          "code": "4",
+          "group": "1_0"
+        },
+        "groupCode": "4_0",
+        "innerOrder": 1,
+        "home": {
+          "position": 1,
+          "name": "蔡咏昕",
+          "licence": "20120810F202302060244",
+          "club": "上海市体校",
+          "points": null,
+          "result": "W"
+        },
+        "away": {
+          "position": 16,
+          "name": "Bye",
+          "licence": null,
+          "club": null,
+          "points": null,
+          "result": "L"
+        },
+        "winner": {
+          "name": "蔡咏昕",
+          "club": "上海市体校"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": true
+      },
+      {
+        "matchId": 508430,
+        "matchCode": "Pre002",
+        "phaseId": 171726,
+        "phase": {
+          "shortName": "T16",
+          "longName": "16表",
+          "order": 1,
+          "code": "4",
+          "group": "1_0"
+        },
+        "groupCode": "4_0",
+        "innerOrder": 2,
+        "home": {
+          "position": 9,
+          "name": "张云涵",
+          "licence": "20100301F201903071514",
+          "club": "深圳罗湖万国",
+          "points": 15,
+          "result": "W"
+        },
+        "away": {
+          "position": 8,
+          "name": "杨淏辰",
+          "licence": "20121011F202406010432",
+          "club": "上海盈搏",
+          "points": 11,
+          "result": "L"
+        },
+        "winner": {
+          "name": "张云涵",
+          "club": "深圳罗湖万国"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 508431,
+        "matchCode": "Pre003",
+        "phaseId": 171726,
+        "phase": {
+          "shortName": "T16",
+          "longName": "16表",
+          "order": 1,
+          "code": "4",
+          "group": "1_0"
+        },
+        "groupCode": "4_1",
+        "innerOrder": 1,
+        "home": {
+          "position": 5,
+          "name": "朱珠",
+          "licence": "20130113F202406240143",
+          "club": "上海静安",
+          "points": 15,
+          "result": "W"
+        },
+        "away": {
+          "position": 12,
+          "name": "姜枫",
+          "licence": "20130621F202302081226",
+          "club": "上海静安",
+          "points": 9,
+          "result": "L"
+        },
+        "winner": {
+          "name": "朱珠",
+          "club": "上海静安"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 508432,
+        "matchCode": "Pre004",
+        "phaseId": 171726,
+        "phase": {
+          "shortName": "T16",
+          "longName": "16表",
+          "order": 1,
+          "code": "4",
+          "group": "1_0"
+        },
+        "groupCode": "4_1",
+        "innerOrder": 2,
+        "home": {
+          "position": 13,
+          "name": "Bye",
+          "licence": null,
+          "club": null,
+          "points": null,
+          "result": "L"
+        },
+        "away": {
+          "position": 4,
+          "name": "王子琳",
+          "licence": "20120804F202103310319",
+          "club": "上海市体校",
+          "points": null,
+          "result": "W"
+        },
+        "winner": {
+          "name": "王子琳",
+          "club": "上海市体校"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": true
+      },
+      {
+        "matchId": 508433,
+        "matchCode": "Pre005",
+        "phaseId": 171726,
+        "phase": {
+          "shortName": "T16",
+          "longName": "16表",
+          "order": 1,
+          "code": "4",
+          "group": "1_0"
+        },
+        "groupCode": "4_2",
+        "innerOrder": 1,
+        "home": {
+          "position": 3,
+          "name": "李沚诺",
+          "licence": "20120323F202305220911",
+          "club": "上海静安",
+          "points": null,
+          "result": "W"
+        },
+        "away": {
+          "position": 14,
+          "name": "Bye",
+          "licence": null,
+          "club": null,
+          "points": null,
+          "result": "L"
+        },
+        "winner": {
+          "name": "李沚诺",
+          "club": "上海静安"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": true
+      },
+      {
+        "matchId": 508434,
+        "matchCode": "Pre006",
+        "phaseId": 171726,
+        "phase": {
+          "shortName": "T16",
+          "longName": "16表",
+          "order": 1,
+          "code": "4",
+          "group": "1_0"
+        },
+        "groupCode": "4_2",
+        "innerOrder": 2,
+        "home": {
+          "position": 11,
+          "name": "徐雨攸",
+          "licence": "20120619F201902271313",
+          "club": "上海尼米兹",
+          "points": 4,
+          "result": "L"
+        },
+        "away": {
+          "position": 6,
+          "name": "徐令仪",
+          "licence": "20130723F202202210740",
+          "club": "上海尼米兹",
+          "points": 15,
+          "result": "W"
+        },
+        "winner": {
+          "name": "徐令仪",
+          "club": "上海尼米兹"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 508435,
+        "matchCode": "Pre007",
+        "phaseId": 171726,
+        "phase": {
+          "shortName": "T16",
+          "longName": "16表",
+          "order": 1,
+          "code": "4",
+          "group": "1_0"
+        },
+        "groupCode": "4_3",
+        "innerOrder": 1,
+        "home": {
+          "position": 7,
+          "name": "王琳熙",
+          "licence": "20120721F202211280621",
+          "club": "上海盈搏",
+          "points": 0,
+          "result": "L"
+        },
+        "away": {
+          "position": 10,
+          "name": "陈梓暄",
+          "licence": "20130620F202308310152",
+          "club": "上海尼米兹",
+          "points": 1,
+          "result": "W"
+        },
+        "winner": {
+          "name": "陈梓暄",
+          "club": "上海尼米兹"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 508436,
+        "matchCode": "Pre008",
+        "phaseId": 171726,
+        "phase": {
+          "shortName": "T16",
+          "longName": "16表",
+          "order": 1,
+          "code": "4",
+          "group": "1_0"
+        },
+        "groupCode": "4_3",
+        "innerOrder": 2,
+        "home": {
+          "position": 15,
+          "name": "Bye",
+          "licence": null,
+          "club": null,
+          "points": null,
+          "result": "L"
+        },
+        "away": {
+          "position": 2,
+          "name": "刘禹初",
+          "licence": "20120320F202503030749",
+          "club": "上海盈搏",
+          "points": null,
+          "result": "W"
+        },
+        "winner": {
+          "name": "刘禹初",
+          "club": "上海盈搏"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": true
+      },
+      {
+        "matchId": 508437,
+        "matchCode": "Pre001",
+        "phaseId": 171727,
+        "phase": {
+          "shortName": "T8",
+          "longName": "8表",
+          "order": 2,
+          "code": "3",
+          "group": "2_0"
+        },
+        "groupCode": "3_0",
+        "innerOrder": 1,
+        "home": {
+          "position": 1,
+          "name": "蔡咏昕",
+          "licence": "20120810F202302060244",
+          "club": "上海市体校",
+          "points": 15,
+          "result": "W"
+        },
+        "away": {
+          "position": 8,
+          "name": "张云涵",
+          "licence": "20100301F201903071514",
+          "club": "深圳罗湖万国",
+          "points": 5,
+          "result": "L"
+        },
+        "winner": {
+          "name": "蔡咏昕",
+          "club": "上海市体校"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 508438,
+        "matchCode": "Pre002",
+        "phaseId": 171727,
+        "phase": {
+          "shortName": "T8",
+          "longName": "8表",
+          "order": 2,
+          "code": "3",
+          "group": "2_0"
+        },
+        "groupCode": "3_0",
+        "innerOrder": 2,
+        "home": {
+          "position": 5,
+          "name": "朱珠",
+          "licence": "20130113F202406240143",
+          "club": "上海静安",
+          "points": 3,
+          "result": "L"
+        },
+        "away": {
+          "position": 4,
+          "name": "王子琳",
+          "licence": "20120804F202103310319",
+          "club": "上海市体校",
+          "points": 15,
+          "result": "W"
+        },
+        "winner": {
+          "name": "王子琳",
+          "club": "上海市体校"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 508439,
+        "matchCode": "Pre003",
+        "phaseId": 171727,
+        "phase": {
+          "shortName": "T8",
+          "longName": "8表",
+          "order": 2,
+          "code": "3",
+          "group": "2_0"
+        },
+        "groupCode": "3_1",
+        "innerOrder": 1,
+        "home": {
+          "position": 3,
+          "name": "李沚诺",
+          "licence": "20120323F202305220911",
+          "club": "上海静安",
+          "points": 10,
+          "result": "L"
+        },
+        "away": {
+          "position": 6,
+          "name": "徐令仪",
+          "licence": "20130723F202202210740",
+          "club": "上海尼米兹",
+          "points": 15,
+          "result": "W"
+        },
+        "winner": {
+          "name": "徐令仪",
+          "club": "上海尼米兹"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 508440,
+        "matchCode": "Pre004",
+        "phaseId": 171727,
+        "phase": {
+          "shortName": "T8",
+          "longName": "8表",
+          "order": 2,
+          "code": "3",
+          "group": "2_0"
+        },
+        "groupCode": "3_1",
+        "innerOrder": 2,
+        "home": {
+          "position": 7,
+          "name": "陈梓暄",
+          "licence": "20130620F202308310152",
+          "club": "上海尼米兹",
+          "points": 15,
+          "result": "W"
+        },
+        "away": {
+          "position": 2,
+          "name": "刘禹初",
+          "licence": "20120320F202503030749",
+          "club": "上海盈搏",
+          "points": 13,
+          "result": "L"
+        },
+        "winner": {
+          "name": "陈梓暄",
+          "club": "上海尼米兹"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 508441,
+        "matchCode": "Pre001",
+        "phaseId": 171728,
+        "phase": {
+          "shortName": "T4",
+          "longName": "半决赛",
+          "order": 3,
+          "code": "2",
+          "group": "3_0"
+        },
+        "groupCode": "2_0",
+        "innerOrder": 1,
+        "home": {
+          "position": 1,
+          "name": "蔡咏昕",
+          "licence": "20120810F202302060244",
+          "club": "上海市体校",
+          "points": 7,
+          "result": "L"
+        },
+        "away": {
+          "position": 4,
+          "name": "王子琳",
+          "licence": "20120804F202103310319",
+          "club": "上海市体校",
+          "points": 15,
+          "result": "W"
+        },
+        "winner": {
+          "name": "王子琳",
+          "club": "上海市体校"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 508442,
+        "matchCode": "Pre002",
+        "phaseId": 171728,
+        "phase": {
+          "shortName": "T4",
+          "longName": "半决赛",
+          "order": 3,
+          "code": "2",
+          "group": "3_0"
+        },
+        "groupCode": "2_0",
+        "innerOrder": 2,
+        "home": {
+          "position": 3,
+          "name": "徐令仪",
+          "licence": "20130723F202202210740",
+          "club": "上海尼米兹",
+          "points": 15,
+          "result": "W"
+        },
+        "away": {
+          "position": 2,
+          "name": "陈梓暄",
+          "licence": "20130620F202308310152",
+          "club": "上海尼米兹",
+          "points": 12,
+          "result": "L"
+        },
+        "winner": {
+          "name": "徐令仪",
+          "club": "上海尼米兹"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 508443,
+        "matchCode": "Pre001",
+        "phaseId": 171729,
+        "phase": {
+          "shortName": "T2",
+          "longName": "决赛",
+          "order": 4,
+          "code": "1",
+          "group": "4_0"
+        },
+        "groupCode": "1_0",
+        "innerOrder": 1,
+        "home": {
+          "position": 1,
+          "name": "王子琳",
+          "licence": "20120804F202103310319",
+          "club": "上海市体校",
+          "points": 15,
+          "result": "W"
+        },
+        "away": {
+          "position": 2,
+          "name": "徐令仪",
+          "licence": "20130723F202202210740",
+          "club": "上海尼米兹",
+          "points": 12,
+          "result": "L"
+        },
+        "winner": {
+          "name": "王子琳",
+          "club": "上海市体校"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      }
+    ]
+  },
+  "completeness": [
+    {
+      "section": "General",
+      "rows": 1,
+      "fields": [
+        {
+          "key": "SportName",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "2026年上海闵行击剑公开赛"
+          ]
+        },
+        {
+          "key": "EventName",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "U16女子佩剑个人"
+          ]
+        },
+        {
+          "key": "OpenDate",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "Venue",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "上海·闵行"
+          ]
+        },
+        {
+          "key": "CompetitionNo",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            15
+          ]
+        },
+        {
+          "key": "ExemptionNo",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            0
+          ]
+        },
+        {
+          "key": "PoolFencerNo",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            15
+          ]
+        },
+        {
+          "key": "PoolQualifyNo",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            12
+          ]
+        },
+        {
+          "key": "PDEstartPhase",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "none"
+          ]
+        },
+        {
+          "key": "DEstartPhase",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "from Tableaus 16"
+          ]
+        },
+        {
+          "key": "Scode",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "RZSSAH0120260530"
+          ]
+        },
+        {
+          "key": "Ecode",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "RZSSAH0120260530WSIU16"
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Classment",
+      "rows": 15,
+      "fields": [
+        {
+          "key": "EventShowRank",
+          "nonEmpty": 15,
+          "fillRate": 1,
+          "sampleValues": [
+            "1",
+            "2",
+            "3",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9"
+          ]
+        },
+        {
+          "key": "EventRank",
+          "nonEmpty": 15,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            5,
+            6,
+            7,
+            8,
+            9
+          ]
+        },
+        {
+          "key": "Fencer",
+          "nonEmpty": 15,
+          "fillRate": 1,
+          "sampleValues": [
+            "王子琳",
+            "徐令仪",
+            "蔡咏昕",
+            "陈梓暄",
+            "刘禹初",
+            "李沚诺",
+            "朱珠",
+            "张云涵"
+          ]
+        },
+        {
+          "key": "Licence",
+          "nonEmpty": 15,
+          "fillRate": 1,
+          "sampleValues": [
+            "20120804F202103310319",
+            "20130723F202202210740",
+            "20120810F202302060244",
+            "20130620F202308310152",
+            "20120320F202503030749",
+            "20120323F202305220911",
+            "20130113F202406240143",
+            "20100301F201903071514"
+          ]
+        },
+        {
+          "key": "NOCCode",
+          "nonEmpty": 15,
+          "fillRate": 1,
+          "sampleValues": [
+            "上海市体校",
+            "上海尼米兹",
+            "上海盈搏",
+            "上海静安",
+            "深圳罗湖万国",
+            "上海颖行",
+            "上海普陀少体"
+          ]
+        },
+        {
+          "key": "Birthday",
+          "nonEmpty": 15,
+          "fillRate": 1,
+          "sampleValues": [
+            "2012-08-04",
+            "2013-07-23",
+            "2012-08-10",
+            "2013-06-20",
+            "2012-03-20",
+            "2012-03-23",
+            "2013-01-13",
+            "2010-03-01"
+          ]
+        },
+        {
+          "key": "Medal",
+          "nonEmpty": 4,
+          "fillRate": 0.2667,
+          "sampleValues": [
+            "金",
+            "银",
+            "铜"
+          ]
+        },
+        {
+          "key": "Statut",
+          "nonEmpty": 15,
+          "fillRate": 1,
+          "sampleValues": [
+            "N"
+          ]
+        },
+        {
+          "key": "F_EventDisPos",
+          "nonEmpty": 15,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ]
+        },
+        {
+          "key": "QualifyStatusId",
+          "nonEmpty": 15,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "section": "IniStarts",
+      "rows": 15,
+      "fields": [
+        {
+          "key": "IRank",
+          "nonEmpty": 15,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ]
+        },
+        {
+          "key": "IPoints",
+          "nonEmpty": 15,
+          "fillRate": 1,
+          "sampleValues": [
+            "1692.00",
+            "1192.00",
+            "1026.00",
+            "864.00",
+            "810.00",
+            "793.50",
+            "558.00",
+            "453.00"
+          ]
+        },
+        {
+          "key": "Fencer",
+          "nonEmpty": 15,
+          "fillRate": 1,
+          "sampleValues": [
+            "王子琳",
+            "沙家逸",
+            "蔡咏昕",
+            "朱珠",
+            "徐令仪",
+            "李沚诺",
+            "陈梓暄",
+            "刘禹初"
+          ]
+        },
+        {
+          "key": "NOCCode",
+          "nonEmpty": 15,
+          "fillRate": 1,
+          "sampleValues": [
+            "上海市体校",
+            "上海静安",
+            "上海尼米兹",
+            "上海盈搏",
+            "上海普陀少体",
+            "深圳罗湖万国",
+            "上海颖行"
+          ]
+        },
+        {
+          "key": "Birthday",
+          "nonEmpty": 15,
+          "fillRate": 1,
+          "sampleValues": [
+            "2012-08-04",
+            "2011-11-30",
+            "2012-08-10",
+            "2013-01-13",
+            "2013-07-23",
+            "2012-03-23",
+            "2013-06-20",
+            "2012-03-20"
+          ]
+        },
+        {
+          "key": "Licence",
+          "nonEmpty": 15,
+          "fillRate": 1,
+          "sampleValues": [
+            "20120804F202103310319",
+            "20111130F202103290549",
+            "20120810F202302060244",
+            "20130113F202406240143",
+            "20130723F202202210740",
+            "20120323F202305220911",
+            "20130620F202308310152",
+            "20120320F202503030749"
+          ]
+        },
+        {
+          "key": "DisPos",
+          "nonEmpty": 15,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "section": "PoolStanding",
+      "rows": 15,
+      "fields": [
+        {
+          "key": "Rank",
+          "nonEmpty": 15,
+          "fillRate": 1,
+          "sampleValues": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8"
+          ]
+        },
+        {
+          "key": "DisPos",
+          "nonEmpty": 15,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ]
+        },
+        {
+          "key": "Name",
+          "nonEmpty": 15,
+          "fillRate": 1,
+          "sampleValues": [
+            "蔡咏昕",
+            "刘禹初",
+            "李沚诺",
+            "王子琳",
+            "朱珠",
+            "徐令仪",
+            "王琳熙",
+            "杨淏辰"
+          ]
+        },
+        {
+          "key": "Licence",
+          "nonEmpty": 15,
+          "fillRate": 1,
+          "sampleValues": [
+            "20120810F202302060244",
+            "20120320F202503030749",
+            "20120323F202305220911",
+            "20120804F202103310319",
+            "20130113F202406240143",
+            "20130723F202202210740",
+            "20120721F202211280621",
+            "20121011F202406010432"
+          ]
+        },
+        {
+          "key": "Delegation",
+          "nonEmpty": 15,
+          "fillRate": 1,
+          "sampleValues": [
+            "上海市体校",
+            "上海盈搏",
+            "上海静安",
+            "上海尼米兹",
+            "深圳罗湖万国",
+            "上海颖行",
+            "上海普陀少体"
+          ]
+        },
+        {
+          "key": "V",
+          "nonEmpty": 15,
+          "fillRate": 1,
+          "sampleValues": [
+            4,
+            3,
+            2,
+            1,
+            0
+          ]
+        },
+        {
+          "key": "M",
+          "nonEmpty": 15,
+          "fillRate": 1,
+          "sampleValues": [
+            4
+          ]
+        },
+        {
+          "key": "Index",
+          "nonEmpty": 15,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            0.75,
+            0.5,
+            0.25,
+            0
+          ]
+        },
+        {
+          "key": "HS",
+          "nonEmpty": 15,
+          "fillRate": 1,
+          "sampleValues": [
+            20,
+            18,
+            17,
+            16,
+            14,
+            13,
+            12,
+            9
+          ]
+        },
+        {
+          "key": "HR",
+          "nonEmpty": 15,
+          "fillRate": 1,
+          "sampleValues": [
+            9,
+            10,
+            8,
+            12,
+            11,
+            14,
+            16,
+            19
+          ]
+        },
+        {
+          "key": "HSMHR",
+          "nonEmpty": 15,
+          "fillRate": 1,
+          "sampleValues": [
+            11,
+            10,
+            5,
+            0,
+            -3,
+            -4,
+            -5,
+            -10
+          ]
+        },
+        {
+          "key": "Remark",
+          "nonEmpty": 15,
+          "fillRate": 1,
+          "sampleValues": [
+            "Q",
+            "E"
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Pools",
+      "rows": 3,
+      "fields": [
+        {
+          "key": "PoolNo",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3
+          ]
+        },
+        {
+          "key": "Piste",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            "剑道：A4",
+            "剑道：A5",
+            "剑道：A6"
+          ]
+        },
+        {
+          "key": "StartTime",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            "13:00"
+          ]
+        },
+        {
+          "key": "PoolReferee",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "PoolID",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            171723,
+            171724,
+            171725
+          ]
+        },
+        {
+          "key": "PhaseCode",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            "P1",
+            "P2",
+            "P3"
+          ]
+        },
+        {
+          "key": "PoolStatus",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            7
+          ]
+        }
+      ]
+    },
+    {
+      "section": "PoolResults",
+      "rows": 15,
+      "fields": [
+        {
+          "key": "DrawNo",
+          "nonEmpty": 15,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        },
+        {
+          "key": "Fencer",
+          "nonEmpty": 15,
+          "fillRate": 1,
+          "sampleValues": [
+            "姜枫",
+            "李沚诺",
+            "王子琳",
+            "陈梓暄",
+            "曹舒涵",
+            "刘禹初",
+            "杨淏辰",
+            "张云涵"
+          ]
+        },
+        {
+          "key": "Licence",
+          "nonEmpty": 15,
+          "fillRate": 1,
+          "sampleValues": [
+            "20130621F202302081226",
+            "20120323F202305220911",
+            "20120804F202103310319",
+            "20130620F202308310152",
+            "20130829M202502210207",
+            "20120320F202503030749",
+            "20121011F202406010432",
+            "20100301F201903071514"
+          ]
+        },
+        {
+          "key": "Delegation",
+          "nonEmpty": 15,
+          "fillRate": 1,
+          "sampleValues": [
+            "上海静安",
+            "上海市体校",
+            "上海尼米兹",
+            "上海颖行",
+            "上海盈搏",
+            "深圳罗湖万国",
+            "上海普陀少体"
+          ]
+        },
+        {
+          "key": "Result1",
+          "nonEmpty": 12,
+          "fillRate": 0.8,
+          "sampleValues": [
+            "V",
+            "2",
+            "3",
+            "4",
+            "0"
+          ]
+        },
+        {
+          "key": "Result2",
+          "nonEmpty": 12,
+          "fillRate": 0.8,
+          "sampleValues": [
+            "4",
+            "3",
+            "2",
+            "1",
+            "V"
+          ]
+        },
+        {
+          "key": "Result3",
+          "nonEmpty": 12,
+          "fillRate": 0.8,
+          "sampleValues": [
+            "2",
+            "V",
+            "1",
+            "0"
+          ]
+        },
+        {
+          "key": "Result4",
+          "nonEmpty": 12,
+          "fillRate": 0.8,
+          "sampleValues": [
+            "1",
+            "V",
+            "0",
+            "3",
+            "4"
+          ]
+        },
+        {
+          "key": "Result5",
+          "nonEmpty": 12,
+          "fillRate": 0.8,
+          "sampleValues": [
+            "V",
+            "4",
+            "3",
+            "1"
+          ]
+        },
+        {
+          "key": "Result6",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "Result7",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "WinCount",
+          "nonEmpty": 15,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            4,
+            3,
+            2,
+            0
+          ]
+        },
+        {
+          "key": "MatchCount",
+          "nonEmpty": 15,
+          "fillRate": 1,
+          "sampleValues": [
+            4
+          ]
+        },
+        {
+          "key": "IndexChar",
+          "nonEmpty": 15,
+          "fillRate": 1,
+          "sampleValues": [
+            0.25,
+            1,
+            0.75,
+            0.5,
+            0
+          ]
+        },
+        {
+          "key": "TG",
+          "nonEmpty": 15,
+          "fillRate": 1,
+          "sampleValues": [
+            12,
+            20,
+            18,
+            8,
+            13,
+            16,
+            9,
+            14
+          ]
+        },
+        {
+          "key": "TR",
+          "nonEmpty": 15,
+          "fillRate": 1,
+          "sampleValues": [
+            17,
+            10,
+            8,
+            16,
+            19,
+            9,
+            11,
+            20
+          ]
+        },
+        {
+          "key": "Diff",
+          "nonEmpty": 15,
+          "fillRate": 1,
+          "sampleValues": [
+            -5,
+            10,
+            -4,
+            -11,
+            11,
+            -3,
+            5,
+            -10
+          ]
+        },
+        {
+          "key": "PhaseRank",
+          "nonEmpty": 15,
+          "fillRate": 1,
+          "sampleValues": [
+            4,
+            1,
+            2,
+            3,
+            5
+          ]
+        },
+        {
+          "key": "PoolID",
+          "nonEmpty": 15,
+          "fillRate": 1,
+          "sampleValues": [
+            171723,
+            171724,
+            171725
+          ]
+        }
+      ]
+    },
+    {
+      "section": "PRDetails",
+      "rows": 30,
+      "fields": [
+        {
+          "key": "CaseCode",
+          "nonEmpty": 30,
+          "fillRate": 1,
+          "sampleValues": [
+            "CASE5"
+          ]
+        },
+        {
+          "key": "Order",
+          "nonEmpty": 30,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ]
+        },
+        {
+          "key": "NumberHome",
+          "nonEmpty": 30,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            3,
+            5,
+            2,
+            4
+          ]
+        },
+        {
+          "key": "NumberAway",
+          "nonEmpty": 30,
+          "fillRate": 1,
+          "sampleValues": [
+            2,
+            4,
+            1,
+            3,
+            5
+          ]
+        },
+        {
+          "key": "PoolID",
+          "nonEmpty": 30,
+          "fillRate": 1,
+          "sampleValues": [
+            171723,
+            171724,
+            171725
+          ]
+        },
+        {
+          "key": "MatchOrder",
+          "nonEmpty": 30,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ]
+        },
+        {
+          "key": "HomeFencer",
+          "nonEmpty": 30,
+          "fillRate": 1,
+          "sampleValues": [
+            "1：姜枫(上海静安)",
+            "3：王子琳(上海市体校)",
+            "5：曹舒涵(上海颖行)",
+            "2：李沚诺(上海静安)",
+            "4：陈梓暄(上海尼米兹)",
+            "1：刘禹初(上海盈搏)",
+            "3：张云涵(深圳罗湖万国)",
+            "5：沙家逸(上海静安)"
+          ]
+        },
+        {
+          "key": "AwayFencer",
+          "nonEmpty": 30,
+          "fillRate": 1,
+          "sampleValues": [
+            "2：李沚诺(上海静安)",
+            "4：陈梓暄(上海尼米兹)",
+            "1：姜枫(上海静安)",
+            "3：王子琳(上海市体校)",
+            "5：曹舒涵(上海颖行)",
+            "2：杨淏辰(上海盈搏)",
+            "4：徐令仪(上海尼米兹)",
+            "1：刘禹初(上海盈搏)"
+          ]
+        },
+        {
+          "key": "HScore",
+          "nonEmpty": 30,
+          "fillRate": 1,
+          "sampleValues": [
+            "4",
+            "V",
+            "2",
+            "1",
+            "0",
+            "3"
+          ]
+        },
+        {
+          "key": "AScore",
+          "nonEmpty": 30,
+          "fillRate": 1,
+          "sampleValues": [
+            "V",
+            "1",
+            "3",
+            "4",
+            "0"
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Phases",
+      "rows": 1,
+      "fields": [
+        {
+          "key": "PhasePID",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            171722
+          ]
+        },
+        {
+          "key": "PhaseName",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "直接淘汰赛"
+          ]
+        },
+        {
+          "key": "Porder",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            3
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Tableaus",
+      "rows": 4,
+      "fields": [
+        {
+          "key": "PshortDes",
+          "nonEmpty": 4,
+          "fillRate": 1,
+          "sampleValues": [
+            "T16",
+            "T8",
+            "T4",
+            "T2"
+          ]
+        },
+        {
+          "key": "PLongDes",
+          "nonEmpty": 4,
+          "fillRate": 1,
+          "sampleValues": [
+            "16表",
+            "8表",
+            "半决赛",
+            "决赛"
+          ]
+        },
+        {
+          "key": "Porder",
+          "nonEmpty": 4,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            4
+          ]
+        },
+        {
+          "key": "PhaseID",
+          "nonEmpty": 4,
+          "fillRate": 1,
+          "sampleValues": [
+            171726,
+            171727,
+            171728,
+            171729
+          ]
+        },
+        {
+          "key": "PhasePID",
+          "nonEmpty": 4,
+          "fillRate": 1,
+          "sampleValues": [
+            171722
+          ]
+        },
+        {
+          "key": "PhaseGroup",
+          "nonEmpty": 4,
+          "fillRate": 1,
+          "sampleValues": [
+            "1_0",
+            "2_0",
+            "3_0",
+            "4_0"
+          ]
+        },
+        {
+          "key": "PhaseCode",
+          "nonEmpty": 4,
+          "fillRate": 1,
+          "sampleValues": [
+            "4",
+            "3",
+            "2",
+            "1"
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Matchs",
+      "rows": 15,
+      "fields": [
+        {
+          "key": "MatchCode",
+          "nonEmpty": 15,
+          "fillRate": 1,
+          "sampleValues": [
+            "Pre001",
+            "Pre002",
+            "Pre003",
+            "Pre004",
+            "Pre005",
+            "Pre006",
+            "Pre007",
+            "Pre008"
+          ]
+        },
+        {
+          "key": "HomePosition",
+          "nonEmpty": 15,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            9,
+            5,
+            13,
+            3,
+            11,
+            7,
+            15
+          ]
+        },
+        {
+          "key": "HomeFencer",
+          "nonEmpty": 15,
+          "fillRate": 1,
+          "sampleValues": [
+            "蔡咏昕",
+            "张云涵",
+            "朱珠",
+            "Bye",
+            "李沚诺",
+            "徐雨攸",
+            "王琳熙",
+            "陈梓暄"
+          ]
+        },
+        {
+          "key": "HomeLicence",
+          "nonEmpty": 13,
+          "fillRate": 0.8667,
+          "sampleValues": [
+            "20120810F202302060244",
+            "20100301F201903071514",
+            "20130113F202406240143",
+            "20120323F202305220911",
+            "20120619F201902271313",
+            "20120721F202211280621",
+            "20130620F202308310152",
+            "20130723F202202210740"
+          ]
+        },
+        {
+          "key": "HomeNOC",
+          "nonEmpty": 13,
+          "fillRate": 0.8667,
+          "sampleValues": [
+            "上海市体校",
+            "深圳罗湖万国",
+            "上海静安",
+            "上海尼米兹",
+            "上海盈搏"
+          ]
+        },
+        {
+          "key": "HomePoints",
+          "nonEmpty": 11,
+          "fillRate": 0.7333,
+          "sampleValues": [
+            15,
+            4,
+            0,
+            3,
+            10,
+            7
+          ]
+        },
+        {
+          "key": "HomeWLT",
+          "nonEmpty": 15,
+          "fillRate": 1,
+          "sampleValues": [
+            "W",
+            "L"
+          ]
+        },
+        {
+          "key": "AwayPosition",
+          "nonEmpty": 15,
+          "fillRate": 1,
+          "sampleValues": [
+            16,
+            8,
+            12,
+            4,
+            14,
+            6,
+            10,
+            2
+          ]
+        },
+        {
+          "key": "AwayFencer",
+          "nonEmpty": 15,
+          "fillRate": 1,
+          "sampleValues": [
+            "Bye",
+            "杨淏辰",
+            "姜枫",
+            "王子琳",
+            "徐令仪",
+            "陈梓暄",
+            "刘禹初",
+            "张云涵"
+          ]
+        },
+        {
+          "key": "AwayLicence",
+          "nonEmpty": 13,
+          "fillRate": 0.8667,
+          "sampleValues": [
+            "20121011F202406010432",
+            "20130621F202302081226",
+            "20120804F202103310319",
+            "20130723F202202210740",
+            "20130620F202308310152",
+            "20120320F202503030749",
+            "20100301F201903071514"
+          ]
+        },
+        {
+          "key": "AwayNOC",
+          "nonEmpty": 13,
+          "fillRate": 0.8667,
+          "sampleValues": [
+            "上海盈搏",
+            "上海静安",
+            "上海市体校",
+            "上海尼米兹",
+            "深圳罗湖万国"
+          ]
+        },
+        {
+          "key": "AwayPoints",
+          "nonEmpty": 11,
+          "fillRate": 0.7333,
+          "sampleValues": [
+            11,
+            9,
+            15,
+            1,
+            5,
+            13,
+            12
+          ]
+        },
+        {
+          "key": "AwayWLT",
+          "nonEmpty": 15,
+          "fillRate": 1,
+          "sampleValues": [
+            "L",
+            "W"
+          ]
+        },
+        {
+          "key": "Piste",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "StartTime",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "Winner",
+          "nonEmpty": 15,
+          "fillRate": 1,
+          "sampleValues": [
+            "蔡咏昕",
+            "张云涵",
+            "朱珠",
+            "王子琳",
+            "李沚诺",
+            "徐令仪",
+            "陈梓暄",
+            "刘禹初"
+          ]
+        },
+        {
+          "key": "WinnerNOC",
+          "nonEmpty": 15,
+          "fillRate": 1,
+          "sampleValues": [
+            "上海市体校",
+            "深圳罗湖万国",
+            "上海静安",
+            "上海尼米兹",
+            "上海盈搏"
+          ]
+        },
+        {
+          "key": "MatchID",
+          "nonEmpty": 15,
+          "fillRate": 1,
+          "sampleValues": [
+            508429,
+            508430,
+            508431,
+            508432,
+            508433,
+            508434,
+            508435,
+            508436
+          ]
+        },
+        {
+          "key": "PhaseID",
+          "nonEmpty": 15,
+          "fillRate": 1,
+          "sampleValues": [
+            171726,
+            171727,
+            171728,
+            171729
+          ]
+        },
+        {
+          "key": "GroupCode",
+          "nonEmpty": 15,
+          "fillRate": 1,
+          "sampleValues": [
+            "4_0",
+            "4_1",
+            "4_2",
+            "4_3",
+            "3_0",
+            "3_1",
+            "2_0",
+            "1_0"
+          ]
+        },
+        {
+          "key": "F_InnerOrder",
+          "nonEmpty": 15,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2
+          ]
+        }
+      ]
+    }
+  ],
+  "analysisCapabilities": [
+    "项目概要",
+    "最终排名",
+    "初始排位",
+    "小组赛排名",
+    "小组赛每场比分",
+    "小组赛晋级人数",
+    "淘汰赛阶段结构",
+    "淘汰赛每场比分",
+    "选手完整比赛路径",
+    "对手交手记录",
+    "胜负和净胜剑统计"
+  ],
+  "privacyRecommendation": {
+    "publicFields": [
+      "rank",
+      "name",
+      "club",
+      "scores",
+      "winner",
+      "medal"
+    ],
+    "privateFields": [
+      "Licence",
+      "Birthday"
+    ],
+    "note": "Licence 和 Birthday 只用于内部消歧，不建议公开展示。"
+  }
+}
