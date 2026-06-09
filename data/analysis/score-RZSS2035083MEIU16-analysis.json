@@ -1,0 +1,1519 @@
+{
+  "ok": true,
+  "source": {
+    "sourceUrl": "https://fencing-proxy.aixindiandian.workers.dev/Resource/score/RZSS2035083MEIU16.js",
+    "sourceType": "score-resource",
+    "importedAt": "2026-06-09T12:24:52.249Z"
+  },
+  "general": {
+    "sportName": "2026年“泗海杯”击剑公开赛·青岛站",
+    "eventName": "U16男子重剑个人",
+    "openDate": "2026.04.19",
+    "venue": "山东·青岛",
+    "competitionNo": 4,
+    "exemptionNo": 0,
+    "poolFencerNo": 4,
+    "poolQualifyNo": 4,
+    "preDeStartPhase": "none",
+    "deStartPhase": "from Tableaus 半决赛",
+    "sportCode": "RZSS2035083",
+    "eventCode": "RZSS2035083MEIU16"
+  },
+  "summary": {
+    "classmentCount": 4,
+    "initialSeedCount": 4,
+    "poolCount": 1,
+    "poolStandingCount": 3,
+    "poolResultCount": 4,
+    "poolBoutCount": 6,
+    "tableauCount": 2,
+    "eliminationMatchCount": 3,
+    "playedEliminationMatchCount": 2,
+    "byeMatchCount": 1,
+    "athleteCountByLicence": 4
+  },
+  "distributions": {
+    "poolStatus": {
+      "7": 1
+    },
+    "poolRemark": {
+      "Q": 3
+    },
+    "tableau": {
+      "半决赛": 1,
+      "决赛": 1
+    },
+    "eliminationByPhase": {
+      "半决赛": 2,
+      "决赛": 1
+    },
+    "eliminationResult": {
+      "W/L": 2,
+      "L/W": 1
+    },
+    "medal": {
+      "金": 1,
+      "银": 1,
+      "铜": 1,
+      "(无奖牌)": 1
+    }
+  },
+  "normalized": {
+    "classment": [
+      {
+        "rank": 1,
+        "displayRank": "1",
+        "name": "郭潪霖",
+        "licence": "20130509M202302100721",
+        "club": "山东",
+        "birthday": "2013-05-09",
+        "medal": "金",
+        "status": "N",
+        "sourcePosition": 1,
+        "qualifyStatusId": 1
+      },
+      {
+        "rank": 2,
+        "displayRank": "2",
+        "name": "曹钧铭",
+        "licence": "20120518M202302131230",
+        "club": "山东",
+        "birthday": "2012-05-18",
+        "medal": "银",
+        "status": "N",
+        "sourcePosition": 2,
+        "qualifyStatusId": 1
+      },
+      {
+        "rank": 3,
+        "displayRank": "3",
+        "name": "林默涵",
+        "licence": "20100719M20260115072339",
+        "club": "河北",
+        "birthday": "2010-07-19",
+        "medal": "铜",
+        "status": "N",
+        "sourcePosition": 3,
+        "qualifyStatusId": 1
+      },
+      {
+        "rank": 4,
+        "displayRank": "DNS",
+        "name": "董奕辰",
+        "licence": "20120404M202107211114",
+        "club": "青岛润东",
+        "birthday": "2012-04-04",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": 4,
+        "qualifyStatusId": 0
+      }
+    ],
+    "poolStandings": [
+      {
+        "rank": 1,
+        "displayPosition": 1,
+        "name": "郭潪霖",
+        "licence": "20130509M202302100721",
+        "club": "山东",
+        "wins": 2,
+        "matches": 2,
+        "winRate": 1,
+        "hitsScored": 10,
+        "hitsReceived": 5,
+        "indicator": 5,
+        "remark": "Q"
+      },
+      {
+        "rank": 2,
+        "displayPosition": 2,
+        "name": "曹钧铭",
+        "licence": "20120518M202302131230",
+        "club": "山东",
+        "wins": 1,
+        "matches": 2,
+        "winRate": 0.5,
+        "hitsScored": 9,
+        "hitsReceived": 7,
+        "indicator": 2,
+        "remark": "Q"
+      },
+      {
+        "rank": 3,
+        "displayPosition": 3,
+        "name": "林默涵",
+        "licence": "20100719M20260115072339",
+        "club": "河北",
+        "wins": 0,
+        "matches": 2,
+        "winRate": 0,
+        "hitsScored": 3,
+        "hitsReceived": 10,
+        "indicator": -7,
+        "remark": "Q"
+      }
+    ],
+    "poolResults": [
+      {
+        "drawNo": 1,
+        "name": "曹钧铭",
+        "licence": "20120518M202302131230",
+        "club": "山东",
+        "poolId": 162051,
+        "boutCells": {
+          "Result1": "",
+          "Result2": "4",
+          "Result3": "X",
+          "Result4": "V",
+          "Result5": "",
+          "Result6": "",
+          "Result7": ""
+        },
+        "wins": 1,
+        "matches": 2,
+        "winRate": 0.5,
+        "hitsScored": 9,
+        "hitsReceived": 7,
+        "indicator": 2,
+        "phaseRank": 2
+      },
+      {
+        "drawNo": 2,
+        "name": "郭潪霖",
+        "licence": "20130509M202302100721",
+        "club": "山东",
+        "poolId": 162051,
+        "boutCells": {
+          "Result1": "V",
+          "Result2": "",
+          "Result3": "X",
+          "Result4": "V",
+          "Result5": "",
+          "Result6": "",
+          "Result7": ""
+        },
+        "wins": 2,
+        "matches": 2,
+        "winRate": 1,
+        "hitsScored": 10,
+        "hitsReceived": 5,
+        "indicator": 5,
+        "phaseRank": 1
+      },
+      {
+        "drawNo": 3,
+        "name": "董奕辰",
+        "licence": "20120404M202107211114",
+        "club": "青岛润东",
+        "poolId": 162051,
+        "boutCells": {
+          "Result1": "X",
+          "Result2": "X",
+          "Result3": "",
+          "Result4": "X",
+          "Result5": "",
+          "Result6": "",
+          "Result7": ""
+        },
+        "wins": null,
+        "matches": null,
+        "winRate": null,
+        "hitsScored": null,
+        "hitsReceived": null,
+        "indicator": null,
+        "phaseRank": null
+      },
+      {
+        "drawNo": 4,
+        "name": "林默涵",
+        "licence": "20100719M20260115072339",
+        "club": "河北",
+        "poolId": 162051,
+        "boutCells": {
+          "Result1": "2",
+          "Result2": "1",
+          "Result3": "X",
+          "Result4": "",
+          "Result5": "",
+          "Result6": "",
+          "Result7": ""
+        },
+        "wins": 0,
+        "matches": 2,
+        "winRate": 0,
+        "hitsScored": 3,
+        "hitsReceived": 10,
+        "indicator": -7,
+        "phaseRank": 3
+      }
+    ],
+    "poolBouts": [
+      {
+        "poolId": 162051,
+        "caseCode": "CASE4",
+        "order": 1,
+        "matchOrder": 1,
+        "homeNumber": 1,
+        "awayNumber": 4,
+        "homeLabel": "1：曹钧铭(山东)",
+        "awayLabel": "4：林默涵(河北)",
+        "homeScore": "V",
+        "awayScore": 2
+      },
+      {
+        "poolId": 162051,
+        "caseCode": "CASE4",
+        "order": 2,
+        "matchOrder": 2,
+        "homeNumber": 2,
+        "awayNumber": 3,
+        "homeLabel": "2：郭潪霖(山东)",
+        "awayLabel": "3：董奕辰(青岛润东)",
+        "homeScore": null,
+        "awayScore": null
+      },
+      {
+        "poolId": 162051,
+        "caseCode": "CASE4",
+        "order": 3,
+        "matchOrder": 3,
+        "homeNumber": 3,
+        "awayNumber": 1,
+        "homeLabel": "3：董奕辰(青岛润东)",
+        "awayLabel": "1：曹钧铭(山东)",
+        "homeScore": null,
+        "awayScore": null
+      },
+      {
+        "poolId": 162051,
+        "caseCode": "CASE4",
+        "order": 4,
+        "matchOrder": 4,
+        "homeNumber": 4,
+        "awayNumber": 2,
+        "homeLabel": "4：林默涵(河北)",
+        "awayLabel": "2：郭潪霖(山东)",
+        "homeScore": 1,
+        "awayScore": "V"
+      },
+      {
+        "poolId": 162051,
+        "caseCode": "CASE4",
+        "order": 5,
+        "matchOrder": 5,
+        "homeNumber": 4,
+        "awayNumber": 3,
+        "homeLabel": "4：林默涵(河北)",
+        "awayLabel": "3：董奕辰(青岛润东)",
+        "homeScore": null,
+        "awayScore": null
+      },
+      {
+        "poolId": 162051,
+        "caseCode": "CASE4",
+        "order": 6,
+        "matchOrder": 6,
+        "homeNumber": 1,
+        "awayNumber": 2,
+        "homeLabel": "1：曹钧铭(山东)",
+        "awayLabel": "2：郭潪霖(山东)",
+        "homeScore": 4,
+        "awayScore": "V"
+      }
+    ],
+    "eliminationMatches": [
+      {
+        "matchId": 468515,
+        "matchCode": "Pre001",
+        "phaseId": 162052,
+        "phase": {
+          "shortName": "T4",
+          "longName": "半决赛",
+          "order": 1,
+          "code": "2",
+          "group": "1_0"
+        },
+        "groupCode": "2_0",
+        "innerOrder": 1,
+        "home": {
+          "position": 1,
+          "name": "郭潪霖",
+          "licence": "20130509M202302100721",
+          "club": "山东",
+          "points": null,
+          "result": "W"
+        },
+        "away": {
+          "position": 4,
+          "name": "Bye",
+          "licence": null,
+          "club": null,
+          "points": null,
+          "result": "L"
+        },
+        "winner": {
+          "name": "郭潪霖",
+          "club": "山东"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": true
+      },
+      {
+        "matchId": 468516,
+        "matchCode": "Pre002",
+        "phaseId": 162052,
+        "phase": {
+          "shortName": "T4",
+          "longName": "半决赛",
+          "order": 1,
+          "code": "2",
+          "group": "1_0"
+        },
+        "groupCode": "2_0",
+        "innerOrder": 2,
+        "home": {
+          "position": 3,
+          "name": "林默涵",
+          "licence": "20100719M20260115072339",
+          "club": "河北",
+          "points": 6,
+          "result": "L"
+        },
+        "away": {
+          "position": 2,
+          "name": "曹钧铭",
+          "licence": "20120518M202302131230",
+          "club": "山东",
+          "points": 15,
+          "result": "W"
+        },
+        "winner": {
+          "name": "曹钧铭",
+          "club": "山东"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 468517,
+        "matchCode": "Pre001",
+        "phaseId": 162053,
+        "phase": {
+          "shortName": "T2",
+          "longName": "决赛",
+          "order": 2,
+          "code": "1",
+          "group": "2_0"
+        },
+        "groupCode": "1_0",
+        "innerOrder": 1,
+        "home": {
+          "position": 1,
+          "name": "郭潪霖",
+          "licence": "20130509M202302100721",
+          "club": "山东",
+          "points": 15,
+          "result": "W"
+        },
+        "away": {
+          "position": 2,
+          "name": "曹钧铭",
+          "licence": "20120518M202302131230",
+          "club": "山东",
+          "points": 5,
+          "result": "L"
+        },
+        "winner": {
+          "name": "郭潪霖",
+          "club": "山东"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      }
+    ]
+  },
+  "completeness": [
+    {
+      "section": "General",
+      "rows": 1,
+      "fields": [
+        {
+          "key": "SportName",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "2026年“泗海杯”击剑公开赛·青岛站"
+          ]
+        },
+        {
+          "key": "EventName",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "U16男子重剑个人"
+          ]
+        },
+        {
+          "key": "OpenDate",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "2026.04.19"
+          ]
+        },
+        {
+          "key": "Venue",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "山东·青岛"
+          ]
+        },
+        {
+          "key": "CompetitionNo",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            4
+          ]
+        },
+        {
+          "key": "ExemptionNo",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            0
+          ]
+        },
+        {
+          "key": "PoolFencerNo",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            4
+          ]
+        },
+        {
+          "key": "PoolQualifyNo",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            4
+          ]
+        },
+        {
+          "key": "PDEstartPhase",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "none"
+          ]
+        },
+        {
+          "key": "DEstartPhase",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "from Tableaus 半决赛"
+          ]
+        },
+        {
+          "key": "Scode",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "RZSS2035083"
+          ]
+        },
+        {
+          "key": "Ecode",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "RZSS2035083MEIU16"
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Classment",
+      "rows": 4,
+      "fields": [
+        {
+          "key": "EventShowRank",
+          "nonEmpty": 4,
+          "fillRate": 1,
+          "sampleValues": [
+            "1",
+            "2",
+            "3",
+            "DNS"
+          ]
+        },
+        {
+          "key": "EventRank",
+          "nonEmpty": 4,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            4
+          ]
+        },
+        {
+          "key": "Fencer",
+          "nonEmpty": 4,
+          "fillRate": 1,
+          "sampleValues": [
+            "郭潪霖",
+            "曹钧铭",
+            "林默涵",
+            "董奕辰"
+          ]
+        },
+        {
+          "key": "Licence",
+          "nonEmpty": 4,
+          "fillRate": 1,
+          "sampleValues": [
+            "20130509M202302100721",
+            "20120518M202302131230",
+            "20100719M20260115072339",
+            "20120404M202107211114"
+          ]
+        },
+        {
+          "key": "NOCCode",
+          "nonEmpty": 4,
+          "fillRate": 1,
+          "sampleValues": [
+            "山东",
+            "河北",
+            "青岛润东"
+          ]
+        },
+        {
+          "key": "Birthday",
+          "nonEmpty": 4,
+          "fillRate": 1,
+          "sampleValues": [
+            "2013-05-09",
+            "2012-05-18",
+            "2010-07-19",
+            "2012-04-04"
+          ]
+        },
+        {
+          "key": "Medal",
+          "nonEmpty": 3,
+          "fillRate": 0.75,
+          "sampleValues": [
+            "金",
+            "银",
+            "铜"
+          ]
+        },
+        {
+          "key": "Statut",
+          "nonEmpty": 4,
+          "fillRate": 1,
+          "sampleValues": [
+            "N"
+          ]
+        },
+        {
+          "key": "F_EventDisPos",
+          "nonEmpty": 4,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            4
+          ]
+        },
+        {
+          "key": "QualifyStatusId",
+          "nonEmpty": 4,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "section": "IniStarts",
+      "rows": 4,
+      "fields": [
+        {
+          "key": "IRank",
+          "nonEmpty": 4,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            5
+          ]
+        },
+        {
+          "key": "IPoints",
+          "nonEmpty": 3,
+          "fillRate": 0.75,
+          "sampleValues": [
+            "261.00",
+            "55.00",
+            "3.00"
+          ]
+        },
+        {
+          "key": "Fencer",
+          "nonEmpty": 4,
+          "fillRate": 1,
+          "sampleValues": [
+            "郭潪霖",
+            "董奕辰",
+            "曹钧铭",
+            "林默涵"
+          ]
+        },
+        {
+          "key": "NOCCode",
+          "nonEmpty": 4,
+          "fillRate": 1,
+          "sampleValues": [
+            "山东",
+            "青岛润东",
+            "河北"
+          ]
+        },
+        {
+          "key": "Birthday",
+          "nonEmpty": 4,
+          "fillRate": 1,
+          "sampleValues": [
+            "2013-05-09",
+            "2012-04-04",
+            "2012-05-18",
+            "2010-07-19"
+          ]
+        },
+        {
+          "key": "Licence",
+          "nonEmpty": 4,
+          "fillRate": 1,
+          "sampleValues": [
+            "20130509M202302100721",
+            "20120404M202107211114",
+            "20120518M202302131230",
+            "20100719M20260115072339"
+          ]
+        },
+        {
+          "key": "DisPos",
+          "nonEmpty": 4,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            4
+          ]
+        }
+      ]
+    },
+    {
+      "section": "PoolStanding",
+      "rows": 3,
+      "fields": [
+        {
+          "key": "Rank",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            "1",
+            "2",
+            "3"
+          ]
+        },
+        {
+          "key": "DisPos",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3
+          ]
+        },
+        {
+          "key": "Name",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            "郭潪霖",
+            "曹钧铭",
+            "林默涵"
+          ]
+        },
+        {
+          "key": "Licence",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            "20130509M202302100721",
+            "20120518M202302131230",
+            "20100719M20260115072339"
+          ]
+        },
+        {
+          "key": "Delegation",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            "山东",
+            "河北"
+          ]
+        },
+        {
+          "key": "V",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            2,
+            1,
+            0
+          ]
+        },
+        {
+          "key": "M",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            2
+          ]
+        },
+        {
+          "key": "Index",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            0.5,
+            0
+          ]
+        },
+        {
+          "key": "HS",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            10,
+            9,
+            3
+          ]
+        },
+        {
+          "key": "HR",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            5,
+            7,
+            10
+          ]
+        },
+        {
+          "key": "HSMHR",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            5,
+            2,
+            -7
+          ]
+        },
+        {
+          "key": "Remark",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            "Q"
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Pools",
+      "rows": 1,
+      "fields": [
+        {
+          "key": "PoolNo",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            1
+          ]
+        },
+        {
+          "key": "Piste",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "剑道：24"
+          ]
+        },
+        {
+          "key": "StartTime",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "08:30"
+          ]
+        },
+        {
+          "key": "PoolReferee",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "PoolID",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            162051
+          ]
+        },
+        {
+          "key": "PhaseCode",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "P1"
+          ]
+        },
+        {
+          "key": "PoolStatus",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            7
+          ]
+        }
+      ]
+    },
+    {
+      "section": "PoolResults",
+      "rows": 4,
+      "fields": [
+        {
+          "key": "DrawNo",
+          "nonEmpty": 4,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            4
+          ]
+        },
+        {
+          "key": "Fencer",
+          "nonEmpty": 4,
+          "fillRate": 1,
+          "sampleValues": [
+            "曹钧铭",
+            "郭潪霖",
+            "董奕辰",
+            "林默涵"
+          ]
+        },
+        {
+          "key": "Licence",
+          "nonEmpty": 4,
+          "fillRate": 1,
+          "sampleValues": [
+            "20120518M202302131230",
+            "20130509M202302100721",
+            "20120404M202107211114",
+            "20100719M20260115072339"
+          ]
+        },
+        {
+          "key": "Delegation",
+          "nonEmpty": 4,
+          "fillRate": 1,
+          "sampleValues": [
+            "山东",
+            "青岛润东",
+            "河北"
+          ]
+        },
+        {
+          "key": "Result1",
+          "nonEmpty": 3,
+          "fillRate": 0.75,
+          "sampleValues": [
+            "V",
+            "X",
+            "2"
+          ]
+        },
+        {
+          "key": "Result2",
+          "nonEmpty": 3,
+          "fillRate": 0.75,
+          "sampleValues": [
+            "4",
+            "X",
+            "1"
+          ]
+        },
+        {
+          "key": "Result3",
+          "nonEmpty": 3,
+          "fillRate": 0.75,
+          "sampleValues": [
+            "X"
+          ]
+        },
+        {
+          "key": "Result4",
+          "nonEmpty": 3,
+          "fillRate": 0.75,
+          "sampleValues": [
+            "V",
+            "X"
+          ]
+        },
+        {
+          "key": "Result5",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "Result6",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "Result7",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "WinCount",
+          "nonEmpty": 3,
+          "fillRate": 0.75,
+          "sampleValues": [
+            1,
+            2,
+            0
+          ]
+        },
+        {
+          "key": "MatchCount",
+          "nonEmpty": 3,
+          "fillRate": 0.75,
+          "sampleValues": [
+            2
+          ]
+        },
+        {
+          "key": "IndexChar",
+          "nonEmpty": 3,
+          "fillRate": 0.75,
+          "sampleValues": [
+            0.5,
+            1,
+            0
+          ]
+        },
+        {
+          "key": "TG",
+          "nonEmpty": 3,
+          "fillRate": 0.75,
+          "sampleValues": [
+            9,
+            10,
+            3
+          ]
+        },
+        {
+          "key": "TR",
+          "nonEmpty": 3,
+          "fillRate": 0.75,
+          "sampleValues": [
+            7,
+            5,
+            10
+          ]
+        },
+        {
+          "key": "Diff",
+          "nonEmpty": 3,
+          "fillRate": 0.75,
+          "sampleValues": [
+            2,
+            5,
+            -7
+          ]
+        },
+        {
+          "key": "PhaseRank",
+          "nonEmpty": 3,
+          "fillRate": 0.75,
+          "sampleValues": [
+            2,
+            1,
+            3
+          ]
+        },
+        {
+          "key": "PoolID",
+          "nonEmpty": 4,
+          "fillRate": 1,
+          "sampleValues": [
+            162051
+          ]
+        }
+      ]
+    },
+    {
+      "section": "PRDetails",
+      "rows": 6,
+      "fields": [
+        {
+          "key": "CaseCode",
+          "nonEmpty": 6,
+          "fillRate": 1,
+          "sampleValues": [
+            "CASE4"
+          ]
+        },
+        {
+          "key": "Order",
+          "nonEmpty": 6,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ]
+        },
+        {
+          "key": "NumberHome",
+          "nonEmpty": 6,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            4
+          ]
+        },
+        {
+          "key": "NumberAway",
+          "nonEmpty": 6,
+          "fillRate": 1,
+          "sampleValues": [
+            4,
+            3,
+            1,
+            2
+          ]
+        },
+        {
+          "key": "PoolID",
+          "nonEmpty": 6,
+          "fillRate": 1,
+          "sampleValues": [
+            162051
+          ]
+        },
+        {
+          "key": "MatchOrder",
+          "nonEmpty": 6,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ]
+        },
+        {
+          "key": "HomeFencer",
+          "nonEmpty": 6,
+          "fillRate": 1,
+          "sampleValues": [
+            "1：曹钧铭(山东)",
+            "2：郭潪霖(山东)",
+            "3：董奕辰(青岛润东)",
+            "4：林默涵(河北)"
+          ]
+        },
+        {
+          "key": "AwayFencer",
+          "nonEmpty": 6,
+          "fillRate": 1,
+          "sampleValues": [
+            "4：林默涵(河北)",
+            "3：董奕辰(青岛润东)",
+            "1：曹钧铭(山东)",
+            "2：郭潪霖(山东)"
+          ]
+        },
+        {
+          "key": "HScore",
+          "nonEmpty": 6,
+          "fillRate": 1,
+          "sampleValues": [
+            "V",
+            "X",
+            "1",
+            "4"
+          ]
+        },
+        {
+          "key": "AScore",
+          "nonEmpty": 6,
+          "fillRate": 1,
+          "sampleValues": [
+            "2",
+            "X",
+            "V"
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Phases",
+      "rows": 1,
+      "fields": [
+        {
+          "key": "PhasePID",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            162050
+          ]
+        },
+        {
+          "key": "PhaseName",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "直接淘汰赛"
+          ]
+        },
+        {
+          "key": "Porder",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            3
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Tableaus",
+      "rows": 2,
+      "fields": [
+        {
+          "key": "PshortDes",
+          "nonEmpty": 2,
+          "fillRate": 1,
+          "sampleValues": [
+            "T4",
+            "T2"
+          ]
+        },
+        {
+          "key": "PLongDes",
+          "nonEmpty": 2,
+          "fillRate": 1,
+          "sampleValues": [
+            "半决赛",
+            "决赛"
+          ]
+        },
+        {
+          "key": "Porder",
+          "nonEmpty": 2,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2
+          ]
+        },
+        {
+          "key": "PhaseID",
+          "nonEmpty": 2,
+          "fillRate": 1,
+          "sampleValues": [
+            162052,
+            162053
+          ]
+        },
+        {
+          "key": "PhasePID",
+          "nonEmpty": 2,
+          "fillRate": 1,
+          "sampleValues": [
+            162050
+          ]
+        },
+        {
+          "key": "PhaseGroup",
+          "nonEmpty": 2,
+          "fillRate": 1,
+          "sampleValues": [
+            "1_0",
+            "2_0"
+          ]
+        },
+        {
+          "key": "PhaseCode",
+          "nonEmpty": 2,
+          "fillRate": 1,
+          "sampleValues": [
+            "2",
+            "1"
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Matchs",
+      "rows": 3,
+      "fields": [
+        {
+          "key": "MatchCode",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            "Pre001",
+            "Pre002"
+          ]
+        },
+        {
+          "key": "HomePosition",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            3
+          ]
+        },
+        {
+          "key": "HomeFencer",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            "郭潪霖",
+            "林默涵"
+          ]
+        },
+        {
+          "key": "HomeLicence",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            "20130509M202302100721",
+            "20100719M20260115072339"
+          ]
+        },
+        {
+          "key": "HomeNOC",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            "山东",
+            "河北"
+          ]
+        },
+        {
+          "key": "HomePoints",
+          "nonEmpty": 2,
+          "fillRate": 0.6667,
+          "sampleValues": [
+            6,
+            15
+          ]
+        },
+        {
+          "key": "HomeWLT",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            "W",
+            "L"
+          ]
+        },
+        {
+          "key": "AwayPosition",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            4,
+            2
+          ]
+        },
+        {
+          "key": "AwayFencer",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            "Bye",
+            "曹钧铭"
+          ]
+        },
+        {
+          "key": "AwayLicence",
+          "nonEmpty": 2,
+          "fillRate": 0.6667,
+          "sampleValues": [
+            "20120518M202302131230"
+          ]
+        },
+        {
+          "key": "AwayNOC",
+          "nonEmpty": 2,
+          "fillRate": 0.6667,
+          "sampleValues": [
+            "山东"
+          ]
+        },
+        {
+          "key": "AwayPoints",
+          "nonEmpty": 2,
+          "fillRate": 0.6667,
+          "sampleValues": [
+            15,
+            5
+          ]
+        },
+        {
+          "key": "AwayWLT",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            "L",
+            "W"
+          ]
+        },
+        {
+          "key": "Piste",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "StartTime",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "Winner",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            "郭潪霖",
+            "曹钧铭"
+          ]
+        },
+        {
+          "key": "WinnerNOC",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            "山东"
+          ]
+        },
+        {
+          "key": "MatchID",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            468515,
+            468516,
+            468517
+          ]
+        },
+        {
+          "key": "PhaseID",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            162052,
+            162053
+          ]
+        },
+        {
+          "key": "GroupCode",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            "2_0",
+            "1_0"
+          ]
+        },
+        {
+          "key": "F_InnerOrder",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2
+          ]
+        }
+      ]
+    }
+  ],
+  "analysisCapabilities": [
+    "项目概要",
+    "最终排名",
+    "初始排位",
+    "小组赛排名",
+    "小组赛每场比分",
+    "小组赛晋级人数",
+    "淘汰赛阶段结构",
+    "淘汰赛每场比分",
+    "选手完整比赛路径",
+    "对手交手记录",
+    "胜负和净胜剑统计"
+  ],
+  "privacyRecommendation": {
+    "publicFields": [
+      "rank",
+      "name",
+      "club",
+      "scores",
+      "winner",
+      "medal"
+    ],
+    "privateFields": [
+      "Licence",
+      "Birthday"
+    ],
+    "note": "Licence 和 Birthday 只用于内部消歧，不建议公开展示。"
+  }
+}
