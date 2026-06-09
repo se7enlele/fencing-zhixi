@@ -1,0 +1,85 @@
+{
+  "ok": true,
+  "importType": "registration-roster",
+  "source": {
+    "sourceUrl": "https://fencing.yy-sport.com.cn/fencingapi/sigup/memberlistbytype?current=7&size=20",
+    "eventCode": "RZSS2035030MSIU14",
+    "sportCode": "RZSS2035030",
+    "page": 7,
+    "importedAt": "2026-06-09T02:00:08.827Z"
+  },
+  "page": {
+    "current": 7,
+    "size": 20,
+    "total": 122
+  },
+  "summary": {
+    "recordCount": 2,
+    "sportCodes": [
+      "RZSS2035030"
+    ],
+    "eventCodes": [
+      "RZSS2035030MSIU14"
+    ],
+    "athleteCount": 2,
+    "clubCount": 2
+  },
+  "normalized": {
+    "records": [
+      {
+        "sigupId": "260435937",
+        "registerType": "athlete",
+        "registerId": "20130531M202402210558",
+        "registerCode": "20130531M202402210558",
+        "athleteName": "刘沛盛",
+        "birthday": "2013-05-31",
+        "sex": "M",
+        "sexDes": "男",
+        "weapon": "S",
+        "weaponDes": "佩剑",
+        "hand": "R",
+        "sportCode": "RZSS2035030",
+        "sportName": "2026年武汉击剑公开赛",
+        "eventCode": "RZSS2035030MSIU14",
+        "eventName": "U14男子佩剑个人",
+        "organCode": "Empty",
+        "organShortName": "个人",
+        "organName": "个人会员",
+        "approveStatus": "2",
+        "sigupTime": "2026-05-18 14:00:32",
+        "sigupPoints": "358.0",
+        "sigupRank": "226",
+        "regType": "1",
+        "regTypeDes": "大众",
+        "dedupeKey": "sigup:260435937"
+      },
+      {
+        "sigupId": "260435938",
+        "registerType": "athlete",
+        "registerId": "20120925M202501240940",
+        "registerCode": "20120925M202501240940",
+        "athleteName": "冯炜智",
+        "birthday": "2012-09-25",
+        "sex": "M",
+        "sexDes": "男",
+        "weapon": "S",
+        "weaponDes": "佩剑",
+        "hand": "R",
+        "sportCode": "RZSS2035030",
+        "sportName": "2026年武汉击剑公开赛",
+        "eventCode": "RZSS2035030MSIU14",
+        "eventName": "U14男子佩剑个人",
+        "organCode": "GUDGZHX0001",
+        "organShortName": "广州华辛",
+        "organName": "广州市华辛击剑俱乐部",
+        "approveStatus": "5",
+        "sigupTime": "2026-05-18 14:00:32",
+        "sigupPoints": "68.0",
+        "sigupRank": "521",
+        "regType": "1",
+        "regTypeDes": "大众",
+        "dedupeKey": "sigup:260435938"
+      }
+    ]
+  }
+}

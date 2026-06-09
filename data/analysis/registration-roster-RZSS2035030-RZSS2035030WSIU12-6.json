@@ -1,0 +1,58 @@
+{
+  "ok": true,
+  "importType": "registration-roster",
+  "source": {
+    "sourceUrl": "https://fencing.yy-sport.com.cn/fencingapi/sigup/memberlistbytype?current=6&size=20",
+    "eventCode": "RZSS2035030WSIU12",
+    "sportCode": "RZSS2035030",
+    "page": 6,
+    "importedAt": "2026-06-09T02:02:43.817Z"
+  },
+  "page": {
+    "current": 6,
+    "size": 20,
+    "total": 101
+  },
+  "summary": {
+    "recordCount": 1,
+    "sportCodes": [
+      "RZSS2035030"
+    ],
+    "eventCodes": [
+      "RZSS2035030WSIU12"
+    ],
+    "athleteCount": 1,
+    "clubCount": 1
+  },
+  "normalized": {
+    "records": [
+      {
+        "sigupId": "260824804",
+        "registerType": "athlete",
+        "registerId": "20140326F202211030235",
+        "registerCode": "20140326F202211030235",
+        "athleteName": "秦砚羲",
+        "birthday": "2014-03-26",
+        "sex": "F",
+        "sexDes": "女",
+        "weapon": "S",
+        "weaponDes": "佩剑",
+        "hand": "R",
+        "sportCode": "RZSS2035030",
+        "sportName": "2026年武汉击剑公开赛",
+        "eventCode": "RZSS2035030WSIU12",
+        "eventName": "U12女子佩剑个人",
+        "organCode": "GUDFTWG0001",
+        "organShortName": "深圳罗湖万国",
+        "organName": "深圳罗湖万国击剑俱乐部",
+        "approveStatus": "2",
+        "sigupTime": "2026-05-18 14:00:32",
+        "sigupPoints": "505.0",
+        "sigupRank": "149",
+        "regType": "1",
+        "regTypeDes": "大众",
+        "dedupeKey": "sigup:260824804"
+      }
+    ]
+  }
+}

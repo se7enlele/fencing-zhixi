@@ -1,0 +1,85 @@
+{
+  "ok": true,
+  "importType": "registration-roster",
+  "source": {
+    "sourceUrl": "https://fencing.yy-sport.com.cn/fencingapi/sigup/memberlistbytype?current=1&size=20",
+    "eventCode": "RZSSSAN0120260612METU14",
+    "sportCode": "RZSSSAN0120260612",
+    "page": 1,
+    "importedAt": "2026-06-09T01:51:00.363Z"
+  },
+  "page": {
+    "current": 1,
+    "size": 20,
+    "total": 2
+  },
+  "summary": {
+    "recordCount": 2,
+    "sportCodes": [
+      "RZSSSAN0120260612"
+    ],
+    "eventCodes": [
+      "RZSSSAN0120260612METU14"
+    ],
+    "athleteCount": 0,
+    "clubCount": 2
+  },
+  "normalized": {
+    "records": [
+      {
+        "sigupId": "258994102",
+        "registerType": "team",
+        "registerId": "RZSSSAN0120260612METU14_780_RBUDC",
+        "registerCode": null,
+        "athleteName": "",
+        "birthday": null,
+        "sex": null,
+        "sexDes": null,
+        "weapon": null,
+        "weaponDes": null,
+        "hand": null,
+        "sportCode": "RZSSSAN0120260612",
+        "sportName": "2026年西安市\"万河荟″杯Rapier击剑公开赛",
+        "eventCode": "RZSSSAN0120260612METU14",
+        "eventName": "U14男子重剑团体",
+        "organCode": "SHASXLW0001",
+        "organShortName": "陕西朗沃",
+        "organName": "陕西朗沃击剑俱乐部",
+        "approveStatus": "2",
+        "sigupTime": "2026-05-25 15:55:19",
+        "sigupPoints": null,
+        "sigupRank": null,
+        "regType": null,
+        "regTypeDes": null,
+        "dedupeKey": "sigup:258994102"
+      },
+      {
+        "sigupId": "258994088",
+        "registerType": "team",
+        "registerId": "RZSSSAN0120260612METU14_11368_GKLVA",
+        "registerCode": null,
+        "athleteName": "",
+        "birthday": null,
+        "sex": null,
+        "sexDes": null,
+        "weapon": null,
+        "weaponDes": null,
+        "hand": null,
+        "sportCode": "RZSSSAN0120260612",
+        "sportName": "2026年西安市\"万河荟″杯Rapier击剑公开赛",
+        "eventCode": "RZSSSAN0120260612METU14",
+        "eventName": "U14男子重剑团体",
+        "organCode": "SHAYZJJ0001",
+        "organShortName": "西安英姿",
+        "organName": "西安英姿击剑俱乐部",
+        "approveStatus": "2",
+        "sigupTime": "2026-05-19 18:07:55",
+        "sigupPoints": null,
+        "sigupRank": null,
+        "regType": null,
+        "regTypeDes": null,
+        "dedupeKey": "sigup:258994088"
+      }
+    ]
+  }
+}

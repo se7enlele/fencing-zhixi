@@ -1,0 +1,58 @@
+{
+  "ok": true,
+  "importType": "registration-roster",
+  "source": {
+    "sourceUrl": "https://fencing.yy-sport.com.cn/fencingapi/sigup/memberlistbytype?current=1&size=20",
+    "eventCode": "RZSS2034123MFIU6",
+    "sportCode": "RZSS2034123",
+    "page": 1,
+    "importedAt": "2026-06-09T01:42:01.162Z"
+  },
+  "page": {
+    "current": 1,
+    "size": 20,
+    "total": 1
+  },
+  "summary": {
+    "recordCount": 1,
+    "sportCodes": [
+      "RZSS2034123"
+    ],
+    "eventCodes": [
+      "RZSS2034123MFIU6"
+    ],
+    "athleteCount": 1,
+    "clubCount": 1
+  },
+  "normalized": {
+    "records": [
+      {
+        "sigupId": "260627761",
+        "registerType": "athlete",
+        "registerId": "20200924M202407090640",
+        "registerCode": "20200924M202407090640",
+        "athleteName": "关宇辰",
+        "birthday": "2020-09-24",
+        "sex": "M",
+        "sexDes": "男",
+        "weapon": "F",
+        "weaponDes": "花剑",
+        "hand": "R",
+        "sportCode": "RZSS2034123",
+        "sportName": "2026年凉都论剑少年锋芒击剑公开赛",
+        "eventCode": "RZSS2034123MFIU6",
+        "eventName": "U6男子花剑个人",
+        "organCode": "LINWTJJ0001",
+        "organShortName": "辽宁万泰",
+        "organName": "辽宁省万泰国际击剑运动中心",
+        "approveStatus": "0",
+        "sigupTime": "2026-05-17 19:48:58",
+        "sigupPoints": null,
+        "sigupRank": null,
+        "regType": "1",
+        "regTypeDes": "大众",
+        "dedupeKey": "sigup:260627761"
+      }
+    ]
+  }
+}

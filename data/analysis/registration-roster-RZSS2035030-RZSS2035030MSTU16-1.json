@@ -1,0 +1,85 @@
+{
+  "ok": true,
+  "importType": "registration-roster",
+  "source": {
+    "sourceUrl": "https://fencing.yy-sport.com.cn/fencingapi/sigup/memberlistbytype?current=1&size=20",
+    "eventCode": "RZSS2035030MSTU16",
+    "sportCode": "RZSS2035030",
+    "page": 1,
+    "importedAt": "2026-06-09T02:03:40.552Z"
+  },
+  "page": {
+    "current": 1,
+    "size": 20,
+    "total": 2
+  },
+  "summary": {
+    "recordCount": 2,
+    "sportCodes": [
+      "RZSS2035030"
+    ],
+    "eventCodes": [
+      "RZSS2035030MSTU16"
+    ],
+    "athleteCount": 0,
+    "clubCount": 2
+  },
+  "normalized": {
+    "records": [
+      {
+        "sigupId": "260824611",
+        "registerType": "team",
+        "registerId": "RZSS2035030MSTU16_11802_FKVCU",
+        "registerCode": null,
+        "athleteName": "",
+        "birthday": null,
+        "sex": null,
+        "sexDes": null,
+        "weapon": null,
+        "weaponDes": null,
+        "hand": null,
+        "sportCode": "RZSS2035030",
+        "sportName": "2026年武汉击剑公开赛",
+        "eventCode": "RZSS2035030MSTU16",
+        "eventName": "U16男子佩剑团体",
+        "organCode": "XIGHKCF0001",
+        "organShortName": "香港冠軍",
+        "organName": "香港冠軍劍撃會",
+        "approveStatus": "2",
+        "sigupTime": "2026-05-20 11:42:04",
+        "sigupPoints": null,
+        "sigupRank": null,
+        "regType": null,
+        "regTypeDes": null,
+        "dedupeKey": "sigup:260824611"
+      },
+      {
+        "sigupId": "260824609",
+        "registerType": "team",
+        "registerId": "RZSS2035030MSTU16_617_IRJCV",
+        "registerCode": null,
+        "athleteName": "",
+        "birthday": null,
+        "sex": null,
+        "sexDes": null,
+        "weapon": null,
+        "weaponDes": null,
+        "hand": null,
+        "sportCode": "RZSS2035030",
+        "sportName": "2026年武汉击剑公开赛",
+        "eventCode": "RZSS2035030MSTU16",
+        "eventName": "U16男子佩剑团体",
+        "organCode": "HUNHN0001",
+        "organShortName": "湖南",
+        "organName": "湖南击剑队",
+        "approveStatus": "2",
+        "sigupTime": "2026-05-20 11:18:34",
+        "sigupPoints": null,
+        "sigupRank": null,
+        "regType": null,
+        "regTypeDes": null,
+        "dedupeKey": "sigup:260824609"
+      }
+    ]
+  }
+}

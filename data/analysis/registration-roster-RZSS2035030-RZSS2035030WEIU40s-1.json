@@ -1,0 +1,58 @@
+{
+  "ok": true,
+  "importType": "registration-roster",
+  "source": {
+    "sourceUrl": "https://fencing.yy-sport.com.cn/fencingapi/sigup/memberlistbytype?current=1&size=20",
+    "eventCode": "RZSS2035030WEIU40s",
+    "sportCode": "RZSS2035030",
+    "page": 1,
+    "importedAt": "2026-06-09T02:02:18.526Z"
+  },
+  "page": {
+    "current": 1,
+    "size": 20,
+    "total": 1
+  },
+  "summary": {
+    "recordCount": 1,
+    "sportCodes": [
+      "RZSS2035030"
+    ],
+    "eventCodes": [
+      "RZSS2035030WEIU40s"
+    ],
+    "athleteCount": 1,
+    "clubCount": 1
+  },
+  "normalized": {
+    "records": [
+      {
+        "sigupId": "260827765",
+        "registerType": "athlete",
+        "registerId": "19861218F202104200500",
+        "registerCode": "19861218F202104200500",
+        "athleteName": "覃文柯",
+        "birthday": "1986-12-18",
+        "sex": "F",
+        "sexDes": "女",
+        "weapon": "E",
+        "weaponDes": "重剑",
+        "hand": "R",
+        "sportCode": "RZSS2035030",
+        "sportName": "2026年武汉击剑公开赛",
+        "eventCode": "RZSS2035030WEIU40s",
+        "eventName": "老将组女子重剑个人",
+        "organCode": "HUBYSJLH0001",
+        "organShortName": "湖北永尚",
+        "organName": "湖北永尚剑乐会国际击剑中心",
+        "approveStatus": "2",
+        "sigupTime": "2026-05-26 10:00:00",
+        "sigupPoints": null,
+        "sigupRank": null,
+        "regType": "1",
+        "regTypeDes": "大众",
+        "dedupeKey": "sigup:260827765"
+      }
+    ]
+  }
+}

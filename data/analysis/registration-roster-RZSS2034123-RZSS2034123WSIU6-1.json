@@ -1,0 +1,58 @@
+{
+  "ok": true,
+  "importType": "registration-roster",
+  "source": {
+    "sourceUrl": "https://fencing.yy-sport.com.cn/fencingapi/sigup/memberlistbytype?current=1&size=20",
+    "eventCode": "RZSS2034123WSIU6",
+    "sportCode": "RZSS2034123",
+    "page": 1,
+    "importedAt": "2026-06-09T01:47:01.650Z"
+  },
+  "page": {
+    "current": 1,
+    "size": 20,
+    "total": 1
+  },
+  "summary": {
+    "recordCount": 1,
+    "sportCodes": [
+      "RZSS2034123"
+    ],
+    "eventCodes": [
+      "RZSS2034123WSIU6"
+    ],
+    "athleteCount": 1,
+    "clubCount": 1
+  },
+  "normalized": {
+    "records": [
+      {
+        "sigupId": "260627799",
+        "registerType": "athlete",
+        "registerId": "20200116F202510150554",
+        "registerCode": "20200116F202510150554",
+        "athleteName": "周蒋子衿",
+        "birthday": "2020-01-16",
+        "sex": "F",
+        "sexDes": "女",
+        "weapon": "S",
+        "weaponDes": "佩剑",
+        "hand": "L",
+        "sportCode": "RZSS2034123",
+        "sportName": "2026年凉都论剑少年锋芒击剑公开赛",
+        "eventCode": "RZSS2034123WSIU6",
+        "eventName": "U6女子佩剑个人",
+        "organCode": "Empty",
+        "organShortName": "个人",
+        "organName": "个人会员",
+        "approveStatus": "6",
+        "sigupTime": "2026-05-21 09:56:19",
+        "sigupPoints": null,
+        "sigupRank": null,
+        "regType": "1",
+        "regTypeDes": "大众",
+        "dedupeKey": "sigup:260627799"
+      }
+    ]
+  }
+}

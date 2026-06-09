@@ -1,0 +1,58 @@
+{
+  "ok": true,
+  "importType": "registration-roster",
+  "source": {
+    "sourceUrl": "https://fencing.yy-sport.com.cn/fencingapi/sigup/memberlistbytype?current=1&size=20",
+    "eventCode": "RZSSSAN0120260612MSTU8",
+    "sportCode": "RZSSSAN0120260612",
+    "page": 1,
+    "importedAt": "2026-06-09T01:51:04.857Z"
+  },
+  "page": {
+    "current": 1,
+    "size": 20,
+    "total": 1
+  },
+  "summary": {
+    "recordCount": 1,
+    "sportCodes": [
+      "RZSSSAN0120260612"
+    ],
+    "eventCodes": [
+      "RZSSSAN0120260612MSTU8"
+    ],
+    "athleteCount": 0,
+    "clubCount": 1
+  },
+  "normalized": {
+    "records": [
+      {
+        "sigupId": "258994114",
+        "registerType": "team",
+        "registerId": "RZSSSAN0120260612MSTU8_11974_OJQCJ",
+        "registerCode": null,
+        "athleteName": "",
+        "birthday": null,
+        "sex": null,
+        "sexDes": null,
+        "weapon": null,
+        "weaponDes": null,
+        "hand": null,
+        "sportCode": "RZSSSAN0120260612",
+        "sportName": "2026年西安市\"万河荟″杯Rapier击剑公开赛",
+        "eventCode": "RZSSSAN0120260612MSTU8",
+        "eventName": "U8男子佩剑团体",
+        "organCode": "SHAXALDXQ0001",
+        "organShortName": "西安莲动星球",
+        "organName": "西安莲动星球击剑俱乐部",
+        "approveStatus": "2",
+        "sigupTime": "2026-05-28 18:33:28",
+        "sigupPoints": null,
+        "sigupRank": null,
+        "regType": null,
+        "regTypeDes": null,
+        "dedupeKey": "sigup:258994114"
+      }
+    ]
+  }
+}

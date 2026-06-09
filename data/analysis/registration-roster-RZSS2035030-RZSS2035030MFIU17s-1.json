@@ -1,0 +1,85 @@
+{
+  "ok": true,
+  "importType": "registration-roster",
+  "source": {
+    "sourceUrl": "https://fencing.yy-sport.com.cn/fencingapi/sigup/memberlistbytype?current=1&size=20",
+    "eventCode": "RZSS2035030MFIU17s",
+    "sportCode": "RZSS2035030",
+    "page": 1,
+    "importedAt": "2026-06-09T01:42:54.402Z"
+  },
+  "page": {
+    "current": 1,
+    "size": 20,
+    "total": 2
+  },
+  "summary": {
+    "recordCount": 2,
+    "sportCodes": [
+      "RZSS2035030"
+    ],
+    "eventCodes": [
+      "RZSS2035030MFIU17s"
+    ],
+    "athleteCount": 2,
+    "clubCount": 2
+  },
+  "normalized": {
+    "records": [
+      {
+        "sigupId": "260438997",
+        "registerType": "athlete",
+        "registerId": "20090528M201804051629",
+        "registerCode": "20090528M201804051629",
+        "athleteName": "李思淯",
+        "birthday": "2009-05-28",
+        "sex": "M",
+        "sexDes": "男",
+        "weapon": "F",
+        "weaponDes": "花剑",
+        "hand": "R",
+        "sportCode": "RZSS2035030",
+        "sportName": "2026年武汉击剑公开赛",
+        "eventCode": "RZSS2035030MFIU17s",
+        "eventName": "17+男子花剑个人",
+        "organCode": "HUBHBYKJJ0001",
+        "organShortName": "湖北优肯",
+        "organName": "湖北优肯国际击剑俱乐部",
+        "approveStatus": "2",
+        "sigupTime": "2026-05-29 10:00:40",
+        "sigupPoints": null,
+        "sigupRank": null,
+        "regType": "1",
+        "regTypeDes": "大众",
+        "dedupeKey": "sigup:260438997"
+      },
+      {
+        "sigupId": "260439022",
+        "registerType": "athlete",
+        "registerId": "20090222M202009151404",
+        "registerCode": "20090222M202009151404",
+        "athleteName": "涂艺睿",
+        "birthday": "2009-02-22",
+        "sex": "M",
+        "sexDes": "男",
+        "weapon": "F",
+        "weaponDes": "花剑",
+        "hand": "R",
+        "sportCode": "RZSS2035030",
+        "sportName": "2026年武汉击剑公开赛",
+        "eventCode": "RZSS2035030MFIU17s",
+        "eventName": "17+男子花剑个人",
+        "organCode": "Empty",
+        "organShortName": "个人",
+        "organName": "个人会员",
+        "approveStatus": "2",
+        "sigupTime": "2026-05-29 10:00:40",
+        "sigupPoints": null,
+        "sigupRank": null,
+        "regType": "1",
+        "regTypeDes": "大众",
+        "dedupeKey": "sigup:260439022"
+      }
+    ]
+  }
+}

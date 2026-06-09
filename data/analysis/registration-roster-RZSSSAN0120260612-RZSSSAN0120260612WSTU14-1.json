@@ -1,0 +1,58 @@
+{
+  "ok": true,
+  "importType": "registration-roster",
+  "source": {
+    "sourceUrl": "https://fencing.yy-sport.com.cn/fencingapi/sigup/memberlistbytype?current=1&size=20",
+    "eventCode": "RZSSSAN0120260612WSTU14",
+    "sportCode": "RZSSSAN0120260612",
+    "page": 1,
+    "importedAt": "2026-06-09T01:51:46.178Z"
+  },
+  "page": {
+    "current": 1,
+    "size": 20,
+    "total": 1
+  },
+  "summary": {
+    "recordCount": 1,
+    "sportCodes": [
+      "RZSSSAN0120260612"
+    ],
+    "eventCodes": [
+      "RZSSSAN0120260612WSTU14"
+    ],
+    "athleteCount": 0,
+    "clubCount": 1
+  },
+  "normalized": {
+    "records": [
+      {
+        "sigupId": "258994129",
+        "registerType": "team",
+        "registerId": "RZSSSAN0120260612WSTU14_795_QEYDL",
+        "registerCode": null,
+        "athleteName": "",
+        "birthday": null,
+        "sex": null,
+        "sexDes": null,
+        "weapon": null,
+        "weaponDes": null,
+        "hand": null,
+        "sportCode": "RZSSSAN0120260612",
+        "sportName": "2026年西安市\"万河荟″杯Rapier击剑公开赛",
+        "eventCode": "RZSSSAN0120260612WSTU14",
+        "eventName": "U14女子佩剑团体",
+        "organCode": "SHAXA0002",
+        "organShortName": "西安",
+        "organName": "西安击剑队",
+        "approveStatus": "2",
+        "sigupTime": "2026-05-31 14:22:03",
+        "sigupPoints": null,
+        "sigupRank": null,
+        "regType": null,
+        "regTypeDes": null,
+        "dedupeKey": "sigup:258994129"
+      }
+    ]
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "ok": true,
+  "importType": "registration-roster",
+  "source": {
+    "sourceUrl": "https://fencing.yy-sport.com.cn/fencingapi/sigup/memberlistbytype?current=1&size=20",
+    "eventCode": "RZSS2034123WEIU14",
+    "sportCode": "RZSS2034123",
+    "page": 1,
+    "importedAt": "2026-06-09T01:46:47.719Z"
+  },
+  "page": {
+    "current": 1,
+    "size": 20,
+    "total": 2
+  },
+  "summary": {
+    "recordCount": 2,
+    "sportCodes": [
+      "RZSS2034123"
+    ],
+    "eventCodes": [
+      "RZSS2034123WEIU14"
+    ],
+    "athleteCount": 2,
+    "clubCount": 1
+  },
+  "normalized": {
+    "records": [
+      {
+        "sigupId": "260627772",
+        "registerType": "athlete",
+        "registerId": "20121029F202403110317",
+        "registerCode": "20121029F202403110317",
+        "athleteName": "陈玥巧若",
+        "birthday": "2012-10-29",
+        "sex": "F",
+        "sexDes": "女",
+        "weapon": "E",
+        "weaponDes": "重剑",
+        "hand": "R",
+        "sportCode": "RZSS2034123",
+        "sportName": "2026年凉都论剑少年锋芒击剑公开赛",
+        "eventCode": "RZSS2034123WEIU14",
+        "eventName": "U14女子重剑个人",
+        "organCode": "GUZGZDD0001",
+        "organShortName": "贵州斗点",
+        "organName": "贵州斗点击剑俱乐部",
+        "approveStatus": "0",
+        "sigupTime": "2026-05-18 14:49:48",
+        "sigupPoints": null,
+        "sigupRank": null,
+        "regType": "1",
+        "regTypeDes": "大众",
+        "dedupeKey": "sigup:260627772"
+      },
+      {
+        "sigupId": "260627653",
+        "registerType": "athlete",
+        "registerId": "20120817F202604110407",
+        "registerCode": "20120817F202604110407",
+        "athleteName": "骆姿孜",
+        "birthday": "2012-08-17",
+        "sex": "F",
+        "sexDes": "女",
+        "weapon": "E",
+        "weaponDes": "重剑",
+        "hand": "R",
+        "sportCode": "RZSS2034123",
+        "sportName": "2026年凉都论剑少年锋芒击剑公开赛",
+        "eventCode": "RZSS2034123WEIU14",
+        "eventName": "U14女子重剑个人",
+        "organCode": "GUZGZDD0001",
+        "organShortName": "贵州斗点",
+        "organName": "贵州斗点击剑俱乐部",
+        "approveStatus": "0",
+        "sigupTime": "2026-05-13 20:59:49",
+        "sigupPoints": null,
+        "sigupRank": null,
+        "regType": "1",
+        "regTypeDes": "大众",
+        "dedupeKey": "sigup:260627653"
+      }
+    ]
+  }
+}

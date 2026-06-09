@@ -1,0 +1,112 @@
+{
+  "ok": true,
+  "importType": "registration-roster",
+  "source": {
+    "sourceUrl": "https://fencing.yy-sport.com.cn/fencingapi/sigup/memberlistbytype?current=2&size=20",
+    "eventCode": "RZSS2036041WFIU14",
+    "sportCode": "RZSS2036041",
+    "page": 2,
+    "importedAt": "2026-06-09T01:46:49.763Z"
+  },
+  "page": {
+    "current": 2,
+    "size": 20,
+    "total": 23
+  },
+  "summary": {
+    "recordCount": 3,
+    "sportCodes": [
+      "RZSS2036041"
+    ],
+    "eventCodes": [
+      "RZSS2036041WFIU14"
+    ],
+    "athleteCount": 3,
+    "clubCount": 3
+  },
+  "normalized": {
+    "records": [
+      {
+        "sigupId": "260398737",
+        "registerType": "athlete",
+        "registerId": "20130831F202505130754",
+        "registerCode": "20130831F202505130754",
+        "athleteName": "岑音诺",
+        "birthday": "2013-08-31",
+        "sex": "F",
+        "sexDes": "女",
+        "weapon": "F",
+        "weaponDes": "花剑",
+        "hand": "R",
+        "sportCode": "RZSS2036041",
+        "sportName": "2026年东体之星击剑公开赛（宁波站）",
+        "eventCode": "RZSS2036041WFIU14",
+        "eventName": "U14女子花剑个人",
+        "organCode": "ZHJNBYC0001",
+        "organShortName": "宁波亿驰",
+        "organName": "宁波亿驰击剑俱乐部",
+        "approveStatus": "2",
+        "sigupTime": "2026-05-19 10:03:26",
+        "sigupPoints": "1.2",
+        "sigupRank": "787",
+        "regType": "1",
+        "regTypeDes": "大众",
+        "dedupeKey": "sigup:260398737"
+      },
+      {
+        "sigupId": "260398642",
+        "registerType": "athlete",
+        "registerId": "20130925F202404030103",
+        "registerCode": "20130925F202404030103",
+        "athleteName": "熊予菲",
+        "birthday": "2013-09-25",
+        "sex": "F",
+        "sexDes": "女",
+        "weapon": "F",
+        "weaponDes": "花剑",
+        "hand": "R",
+        "sportCode": "RZSS2036041",
+        "sportName": "2026年东体之星击剑公开赛（宁波站）",
+        "eventCode": "RZSS2036041WFIU14",
+        "eventName": "U14女子花剑个人",
+        "organCode": "SHAJYJJ0001",
+        "organShortName": "陕西剑一",
+        "organName": "陕西剑一国际击剑俱乐部",
+        "approveStatus": "2",
+        "sigupTime": "2026-05-19 10:01:33",
+        "sigupPoints": "792.6",
+        "sigupRank": "102",
+        "regType": "1",
+        "regTypeDes": "大众",
+        "dedupeKey": "sigup:260398642"
+      },
+      {
+        "sigupId": "260398520",
+        "registerType": "athlete",
+        "registerId": "20140210F202304120959",
+        "registerCode": "20140210F202304120959",
+        "athleteName": "吴宛嫣",
+        "birthday": "2014-02-10",
+        "sex": "F",
+        "sexDes": "女",
+        "weapon": "F",
+        "weaponDes": "花剑",
+        "hand": "R",
+        "sportCode": "RZSS2036041",
+        "sportName": "2026年东体之星击剑公开赛（宁波站）",
+        "eventCode": "RZSS2036041WFIU14",
+        "eventName": "U14女子花剑个人",
+        "organCode": "ZHJSXCF0002",
+        "organShortName": "绍兴超凡",
+        "organName": "绍兴超凡击剑俱乐部",
+        "approveStatus": "2",
+        "sigupTime": "2026-05-19 10:00:41",
+        "sigupPoints": "219.0",
+        "sigupRank": "287",
+        "regType": "1",
+        "regTypeDes": "大众",
+        "dedupeKey": "sigup:260398520"
+      }
+    ]
+  }
+}

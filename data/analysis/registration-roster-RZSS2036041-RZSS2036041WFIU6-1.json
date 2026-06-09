@@ -1,0 +1,58 @@
+{
+  "ok": true,
+  "importType": "registration-roster",
+  "source": {
+    "sourceUrl": "https://fencing.yy-sport.com.cn/fencingapi/sigup/memberlistbytype?current=1&size=20",
+    "eventCode": "RZSS2036041WFIU6",
+    "sportCode": "RZSS2036041",
+    "page": 1,
+    "importedAt": "2026-06-09T01:46:07.659Z"
+  },
+  "page": {
+    "current": 1,
+    "size": 20,
+    "total": 1
+  },
+  "summary": {
+    "recordCount": 1,
+    "sportCodes": [
+      "RZSS2036041"
+    ],
+    "eventCodes": [
+      "RZSS2036041WFIU6"
+    ],
+    "athleteCount": 1,
+    "clubCount": 1
+  },
+  "normalized": {
+    "records": [
+      {
+        "sigupId": "260398654",
+        "registerType": "athlete",
+        "registerId": "20200127F202603310214",
+        "registerCode": "20200127F202603310214",
+        "athleteName": "陈安欣",
+        "birthday": "2020-01-27",
+        "sex": "F",
+        "sexDes": "女",
+        "weapon": "F",
+        "weaponDes": "花剑",
+        "hand": "R",
+        "sportCode": "RZSS2036041",
+        "sportName": "2026年东体之星击剑公开赛（宁波站）",
+        "eventCode": "RZSS2036041WFIU6",
+        "eventName": "U6女子花剑个人",
+        "organCode": "ZHJYBJJ0001",
+        "organShortName": "宁波玉博",
+        "organName": "宁波玉博击剑俱乐部",
+        "approveStatus": "5",
+        "sigupTime": "2026-05-19 10:01:45",
+        "sigupPoints": null,
+        "sigupRank": null,
+        "regType": "1",
+        "regTypeDes": "大众",
+        "dedupeKey": "sigup:260398654"
+      }
+    ]
+  }
+}

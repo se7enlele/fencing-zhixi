@@ -1,0 +1,85 @@
+{
+  "ok": true,
+  "importType": "registration-roster",
+  "source": {
+    "sourceUrl": "https://fencing.yy-sport.com.cn/fencingapi/sigup/memberlistbytype?current=6&size=20",
+    "eventCode": "RZSSSAN0120260612MFIU10",
+    "sportCode": "RZSSSAN0120260612",
+    "page": 6,
+    "importedAt": "2026-06-09T01:44:29.109Z"
+  },
+  "page": {
+    "current": 6,
+    "size": 20,
+    "total": 102
+  },
+  "summary": {
+    "recordCount": 2,
+    "sportCodes": [
+      "RZSSSAN0120260612"
+    ],
+    "eventCodes": [
+      "RZSSSAN0120260612MFIU10"
+    ],
+    "athleteCount": 2,
+    "clubCount": 2
+  },
+  "normalized": {
+    "records": [
+      {
+        "sigupId": "258994179",
+        "registerType": "athlete",
+        "registerId": "20180406M202302081207",
+        "registerCode": "20180406M202302081207",
+        "athleteName": "苏逸辰",
+        "birthday": "2018-04-06",
+        "sex": "M",
+        "sexDes": "男",
+        "weapon": "F",
+        "weaponDes": "花剑",
+        "hand": "R",
+        "sportCode": "RZSSSAN0120260612",
+        "sportName": "2026年西安市\"万河荟″杯Rapier击剑公开赛",
+        "eventCode": "RZSSSAN0120260612MFIU10",
+        "eventName": "U10男子花剑个人",
+        "organCode": "SHAJYJJ0001",
+        "organShortName": "陕西剑一",
+        "organName": "陕西剑一国际击剑俱乐部",
+        "approveStatus": "2",
+        "sigupTime": "2026-05-18 14:01:09",
+        "sigupPoints": "61.5",
+        "sigupRank": "652",
+        "regType": "1",
+        "regTypeDes": "大众",
+        "dedupeKey": "sigup:258994179"
+      },
+      {
+        "sigupId": "258994166",
+        "registerType": "athlete",
+        "registerId": "20160407M202310070653",
+        "registerCode": "20160407M202310070653",
+        "athleteName": "凌越",
+        "birthday": "2016-04-07",
+        "sex": "M",
+        "sexDes": "男",
+        "weapon": "F",
+        "weaponDes": "花剑",
+        "hand": "R",
+        "sportCode": "RZSSSAN0120260612",
+        "sportName": "2026年西安市\"万河荟″杯Rapier击剑公开赛",
+        "eventCode": "RZSSSAN0120260612MFIU10",
+        "eventName": "U10男子花剑个人",
+        "organCode": "FUJFJXQ0001",
+        "organShortName": "福建雄沁",
+        "organName": "福建雄沁国际青少年击剑俱乐部",
+        "approveStatus": "2",
+        "sigupTime": "2026-05-18 14:00:39",
+        "sigupPoints": "1158.0",
+        "sigupRank": "36",
+        "regType": "1",
+        "regTypeDes": "大众",
+        "dedupeKey": "sigup:258994166"
+      }
+    ]
+  }
+}

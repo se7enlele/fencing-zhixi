@@ -1,0 +1,85 @@
+{
+  "ok": true,
+  "importType": "registration-roster",
+  "source": {
+    "sourceUrl": "https://fencing.yy-sport.com.cn/fencingapi/sigup/memberlistbytype?current=1&size=20",
+    "eventCode": "RZSS2034123MEIU16",
+    "sportCode": "RZSS2034123",
+    "page": 1,
+    "importedAt": "2026-06-09T01:44:55.044Z"
+  },
+  "page": {
+    "current": 1,
+    "size": 20,
+    "total": 2
+  },
+  "summary": {
+    "recordCount": 2,
+    "sportCodes": [
+      "RZSS2034123"
+    ],
+    "eventCodes": [
+      "RZSS2034123MEIU16"
+    ],
+    "athleteCount": 2,
+    "clubCount": 2
+  },
+  "normalized": {
+    "records": [
+      {
+        "sigupId": "260627809",
+        "registerType": "athlete",
+        "registerId": "20100808M202403210108",
+        "registerCode": "20100808M202403210108",
+        "athleteName": "张瑞",
+        "birthday": "2010-08-08",
+        "sex": "M",
+        "sexDes": "男",
+        "weapon": "E",
+        "weaponDes": "重剑",
+        "hand": "R",
+        "sportCode": "RZSS2034123",
+        "sportName": "2026年凉都论剑少年锋芒击剑公开赛",
+        "eventCode": "RZSS2034123MEIU16",
+        "eventName": "U16男子重剑个人",
+        "organCode": "GUZGZ0001",
+        "organShortName": "贵州",
+        "organName": "贵州击剑队",
+        "approveStatus": "0",
+        "sigupTime": "2026-05-22 21:44:34",
+        "sigupPoints": "13.5",
+        "sigupRank": "806",
+        "regType": "0",
+        "regTypeDes": "竞技",
+        "dedupeKey": "sigup:260627809"
+      },
+      {
+        "sigupId": "260627737",
+        "registerType": "athlete",
+        "registerId": "20130220M202103191018",
+        "registerCode": "20130220M202103191018",
+        "athleteName": "李嘉澍",
+        "birthday": "2013-02-20",
+        "sex": "M",
+        "sexDes": "男",
+        "weapon": "E",
+        "weaponDes": "重剑",
+        "hand": "R",
+        "sportCode": "RZSS2034123",
+        "sportName": "2026年凉都论剑少年锋芒击剑公开赛",
+        "eventCode": "RZSS2034123MEIU16",
+        "eventName": "U16男子重剑个人",
+        "organCode": "BEJHBJJ0001",
+        "organShortName": "北京庹通",
+        "organName": "北京实诚庹通击剑训练中心",
+        "approveStatus": "6",
+        "sigupTime": "2026-05-15 11:03:56",
+        "sigupPoints": null,
+        "sigupRank": null,
+        "regType": "1",
+        "regTypeDes": "大众",
+        "dedupeKey": "sigup:260627737"
+      }
+    ]
+  }
+}

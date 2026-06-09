@@ -1,0 +1,58 @@
+{
+  "ok": true,
+  "importType": "registration-roster",
+  "source": {
+    "sourceUrl": "https://fencing.yy-sport.com.cn/fencingapi/sigup/memberlistbytype?current=3&size=20",
+    "eventCode": "RZSSSAN0120260612WEIU14",
+    "sportCode": "RZSSSAN0120260612",
+    "page": 3,
+    "importedAt": "2026-06-09T01:49:28.315Z"
+  },
+  "page": {
+    "current": 3,
+    "size": 20,
+    "total": 41
+  },
+  "summary": {
+    "recordCount": 1,
+    "sportCodes": [
+      "RZSSSAN0120260612"
+    ],
+    "eventCodes": [
+      "RZSSSAN0120260612WEIU14"
+    ],
+    "athleteCount": 1,
+    "clubCount": 1
+  },
+  "normalized": {
+    "records": [
+      {
+        "sigupId": "258994184",
+        "registerType": "athlete",
+        "registerId": "20130930F202401180314",
+        "registerCode": "20130930F202401180314",
+        "athleteName": "叶逸倬",
+        "birthday": "2013-09-30",
+        "sex": "F",
+        "sexDes": "女",
+        "weapon": "E",
+        "weaponDes": "重剑",
+        "hand": "R",
+        "sportCode": "RZSSSAN0120260612",
+        "sportName": "2026年西安市\"万河荟″杯Rapier击剑公开赛",
+        "eventCode": "RZSSSAN0120260612WEIU14",
+        "eventName": "U14女子重剑个人",
+        "organCode": "BEJBJSJ0001",
+        "organShortName": "北京圣剑",
+        "organName": "北京圣剑国际击剑俱乐部",
+        "approveStatus": "2",
+        "sigupTime": "2026-05-18 14:01:09",
+        "sigupPoints": "399.2",
+        "sigupRank": "231",
+        "regType": "1",
+        "regTypeDes": "大众",
+        "dedupeKey": "sigup:258994184"
+      }
+    ]
+  }
+}

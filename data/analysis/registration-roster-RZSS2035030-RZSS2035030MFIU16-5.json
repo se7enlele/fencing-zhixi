@@ -1,0 +1,85 @@
+{
+  "ok": true,
+  "importType": "registration-roster",
+  "source": {
+    "sourceUrl": "https://fencing.yy-sport.com.cn/fencingapi/sigup/memberlistbytype?current=5&size=20",
+    "eventCode": "RZSS2035030MFIU16",
+    "sportCode": "RZSS2035030",
+    "page": 5,
+    "importedAt": "2026-06-09T01:58:40.260Z"
+  },
+  "page": {
+    "current": 5,
+    "size": 20,
+    "total": 82
+  },
+  "summary": {
+    "recordCount": 2,
+    "sportCodes": [
+      "RZSS2035030"
+    ],
+    "eventCodes": [
+      "RZSS2035030MFIU16"
+    ],
+    "athleteCount": 2,
+    "clubCount": 2
+  },
+  "normalized": {
+    "records": [
+      {
+        "sigupId": "260436035",
+        "registerType": "athlete",
+        "registerId": "20120928M202509190621",
+        "registerCode": "20120928M202509190621",
+        "athleteName": "赵元皓",
+        "birthday": "2012-09-28",
+        "sex": "M",
+        "sexDes": "男",
+        "weapon": "F",
+        "weaponDes": "花剑",
+        "hand": "L",
+        "sportCode": "RZSS2035030",
+        "sportName": "2026年武汉击剑公开赛",
+        "eventCode": "RZSS2035030MFIU16",
+        "eventName": "U16男子花剑个人",
+        "organCode": "SHHSHGD0001",
+        "organShortName": "上海盖德",
+        "organName": "上海翰阅盖德击剑俱乐部",
+        "approveStatus": "2",
+        "sigupTime": "2026-05-18 14:00:47",
+        "sigupPoints": "100.0",
+        "sigupRank": "393",
+        "regType": "1",
+        "regTypeDes": "大众",
+        "dedupeKey": "sigup:260436035"
+      },
+      {
+        "sigupId": "260435987",
+        "registerType": "athlete",
+        "registerId": "20101026M201804101758",
+        "registerCode": "20101026M201804101758",
+        "athleteName": "周靖雄",
+        "birthday": "2010-10-26",
+        "sex": "M",
+        "sexDes": "男",
+        "weapon": "F",
+        "weaponDes": "花剑",
+        "hand": "R",
+        "sportCode": "RZSS2035030",
+        "sportName": "2026年武汉击剑公开赛",
+        "eventCode": "RZSS2035030MFIU16",
+        "eventName": "U16男子花剑个人",
+        "organCode": "GUDGZYD0001",
+        "organShortName": "广州伊顿",
+        "organName": "广州市伊顿击剑俱乐部",
+        "approveStatus": "2",
+        "sigupTime": "2026-05-18 14:00:39",
+        "sigupPoints": "770.5",
+        "sigupRank": "103",
+        "regType": "1",
+        "regTypeDes": "大众",
+        "dedupeKey": "sigup:260435987"
+      }
+    ]
+  }
+}

@@ -1,0 +1,112 @@
+{
+  "ok": true,
+  "importType": "registration-roster",
+  "source": {
+    "sourceUrl": "https://fencing.yy-sport.com.cn/fencingapi/sigup/memberlistbytype?current=1&size=20",
+    "eventCode": "RZSS2034123MEIU8",
+    "sportCode": "RZSS2034123",
+    "page": 1,
+    "importedAt": "2026-06-09T01:44:36.940Z"
+  },
+  "page": {
+    "current": 1,
+    "size": 20,
+    "total": 3
+  },
+  "summary": {
+    "recordCount": 3,
+    "sportCodes": [
+      "RZSS2034123"
+    ],
+    "eventCodes": [
+      "RZSS2034123MEIU8"
+    ],
+    "athleteCount": 3,
+    "clubCount": 2
+  },
+  "normalized": {
+    "records": [
+      {
+        "sigupId": "260627820",
+        "registerType": "athlete",
+        "registerId": "20180328M202507101133",
+        "registerCode": "20180328M202507101133",
+        "athleteName": "陈泺宇",
+        "birthday": "2018-03-28",
+        "sex": "M",
+        "sexDes": "男",
+        "weapon": "E",
+        "weaponDes": "重剑",
+        "hand": "R",
+        "sportCode": "RZSS2034123",
+        "sportName": "2026年凉都论剑少年锋芒击剑公开赛",
+        "eventCode": "RZSS2034123MEIU8",
+        "eventName": "U8男子重剑个人",
+        "organCode": "GUZFLJJ0001",
+        "organShortName": "贵阳菲力",
+        "organName": "贵阳菲力击剑俱乐部",
+        "approveStatus": "0",
+        "sigupTime": "2026-05-25 20:59:03",
+        "sigupPoints": null,
+        "sigupRank": null,
+        "regType": "1",
+        "regTypeDes": "大众",
+        "dedupeKey": "sigup:260627820"
+      },
+      {
+        "sigupId": "260627579",
+        "registerType": "athlete",
+        "registerId": "20180112M202410060525",
+        "registerCode": "20180112M202410060525",
+        "athleteName": "王麒翔",
+        "birthday": "2018-01-12",
+        "sex": "M",
+        "sexDes": "男",
+        "weapon": "E",
+        "weaponDes": "重剑",
+        "hand": "R",
+        "sportCode": "RZSS2034123",
+        "sportName": "2026年凉都论剑少年锋芒击剑公开赛",
+        "eventCode": "RZSS2034123MEIU8",
+        "eventName": "U8男子重剑个人",
+        "organCode": "SICCDGXWG0002",
+        "organShortName": "成都高新万国",
+        "organName": "成都高新万国击剑俱乐部",
+        "approveStatus": "0",
+        "sigupTime": "2026-05-13 10:43:05",
+        "sigupPoints": null,
+        "sigupRank": null,
+        "regType": "1",
+        "regTypeDes": "大众",
+        "dedupeKey": "sigup:260627579"
+      },
+      {
+        "sigupId": "260627580",
+        "registerType": "athlete",
+        "registerId": "20180427M202504130228",
+        "registerCode": "20180427M202504130228",
+        "athleteName": "范加乐",
+        "birthday": "2018-04-27",
+        "sex": "M",
+        "sexDes": "男",
+        "weapon": "E",
+        "weaponDes": "重剑",
+        "hand": "R",
+        "sportCode": "RZSS2034123",
+        "sportName": "2026年凉都论剑少年锋芒击剑公开赛",
+        "eventCode": "RZSS2034123MEIU8",
+        "eventName": "U8男子重剑个人",
+        "organCode": "SICCDGXWG0002",
+        "organShortName": "成都高新万国",
+        "organName": "成都高新万国击剑俱乐部",
+        "approveStatus": "0",
+        "sigupTime": "2026-05-13 10:43:05",
+        "sigupPoints": null,
+        "sigupRank": null,
+        "regType": "1",
+        "regTypeDes": "大众",
+        "dedupeKey": "sigup:260627580"
+      }
+    ]
+  }
+}

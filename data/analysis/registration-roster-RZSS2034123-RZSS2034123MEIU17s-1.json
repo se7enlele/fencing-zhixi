@@ -1,0 +1,58 @@
+{
+  "ok": true,
+  "importType": "registration-roster",
+  "source": {
+    "sourceUrl": "https://fencing.yy-sport.com.cn/fencingapi/sigup/memberlistbytype?current=1&size=20",
+    "eventCode": "RZSS2034123MEIU17s",
+    "sportCode": "RZSS2034123",
+    "page": 1,
+    "importedAt": "2026-06-09T01:44:58.369Z"
+  },
+  "page": {
+    "current": 1,
+    "size": 20,
+    "total": 1
+  },
+  "summary": {
+    "recordCount": 1,
+    "sportCodes": [
+      "RZSS2034123"
+    ],
+    "eventCodes": [
+      "RZSS2034123MEIU17s"
+    ],
+    "athleteCount": 1,
+    "clubCount": 1
+  },
+  "normalized": {
+    "records": [
+      {
+        "sigupId": "260627876",
+        "registerType": "athlete",
+        "registerId": "19731108M201703021722",
+        "registerCode": "19731108M201703021722",
+        "athleteName": "马岳",
+        "birthday": "1973-11-08",
+        "sex": "M",
+        "sexDes": "男",
+        "weapon": "E",
+        "weaponDes": "重剑",
+        "hand": "R",
+        "sportCode": "RZSS2034123",
+        "sportName": "2026年凉都论剑少年锋芒击剑公开赛",
+        "eventCode": "RZSS2034123MEIU17s",
+        "eventName": "17+男子重剑个人",
+        "organCode": "Empty",
+        "organShortName": "个人",
+        "organName": "个人会员",
+        "approveStatus": "6",
+        "sigupTime": "2026-06-04 20:53:59",
+        "sigupPoints": null,
+        "sigupRank": null,
+        "regType": "1",
+        "regTypeDes": "大众",
+        "dedupeKey": "sigup:260627876"
+      }
+    ]
+  }
+}

@@ -1,0 +1,112 @@
+{
+  "ok": true,
+  "importType": "registration-roster",
+  "source": {
+    "sourceUrl": "https://fencing.yy-sport.com.cn/fencingapi/sigup/memberlistbytype?current=2&size=20",
+    "eventCode": "RZSS2036041MSIU8",
+    "sportCode": "RZSS2036041",
+    "page": 2,
+    "importedAt": "2026-06-09T01:45:37.489Z"
+  },
+  "page": {
+    "current": 2,
+    "size": 20,
+    "total": 23
+  },
+  "summary": {
+    "recordCount": 3,
+    "sportCodes": [
+      "RZSS2036041"
+    ],
+    "eventCodes": [
+      "RZSS2036041MSIU8"
+    ],
+    "athleteCount": 3,
+    "clubCount": 1
+  },
+  "normalized": {
+    "records": [
+      {
+        "sigupId": "260398464",
+        "registerType": "athlete",
+        "registerId": "20180201M202511081059",
+        "registerCode": "20180201M202511081059",
+        "athleteName": "朱延宇",
+        "birthday": "2018-02-01",
+        "sex": "M",
+        "sexDes": "男",
+        "weapon": "S",
+        "weaponDes": "佩剑",
+        "hand": "R",
+        "sportCode": "RZSS2036041",
+        "sportName": "2026年东体之星击剑公开赛（宁波站）",
+        "eventCode": "RZSS2036041MSIU8",
+        "eventName": "U8男子佩剑个人",
+        "organCode": "ZHJSXKQ0001",
+        "organShortName": "绍兴林俊",
+        "organName": "绍兴林俊击剑俱乐部",
+        "approveStatus": "2",
+        "sigupTime": "2026-05-19 10:00:23",
+        "sigupPoints": null,
+        "sigupRank": null,
+        "regType": "1",
+        "regTypeDes": "大众",
+        "dedupeKey": "sigup:260398464"
+      },
+      {
+        "sigupId": "260398470",
+        "registerType": "athlete",
+        "registerId": "20180320M202305221012",
+        "registerCode": "20180320M202305221012",
+        "athleteName": "孙焕冉",
+        "birthday": "2018-03-20",
+        "sex": "M",
+        "sexDes": "男",
+        "weapon": "S",
+        "weaponDes": "佩剑",
+        "hand": "R",
+        "sportCode": "RZSS2036041",
+        "sportName": "2026年东体之星击剑公开赛（宁波站）",
+        "eventCode": "RZSS2036041MSIU8",
+        "eventName": "U8男子佩剑个人",
+        "organCode": "ZHJSXKQ0001",
+        "organShortName": "绍兴林俊",
+        "organName": "绍兴林俊击剑俱乐部",
+        "approveStatus": "2",
+        "sigupTime": "2026-05-19 10:00:23",
+        "sigupPoints": null,
+        "sigupRank": null,
+        "regType": "1",
+        "regTypeDes": "大众",
+        "dedupeKey": "sigup:260398470"
+      },
+      {
+        "sigupId": "260398467",
+        "registerType": "athlete",
+        "registerId": "20180213M202511080218",
+        "registerCode": "20180213M202511080218",
+        "athleteName": "成思境",
+        "birthday": "2018-02-13",
+        "sex": "M",
+        "sexDes": "男",
+        "weapon": "S",
+        "weaponDes": "佩剑",
+        "hand": "R",
+        "sportCode": "RZSS2036041",
+        "sportName": "2026年东体之星击剑公开赛（宁波站）",
+        "eventCode": "RZSS2036041MSIU8",
+        "eventName": "U8男子佩剑个人",
+        "organCode": "ZHJSXKQ0001",
+        "organShortName": "绍兴林俊",
+        "organName": "绍兴林俊击剑俱乐部",
+        "approveStatus": "2",
+        "sigupTime": "2026-05-19 10:00:23",
+        "sigupPoints": null,
+        "sigupRank": null,
+        "regType": "1",
+        "regTypeDes": "大众",
+        "dedupeKey": "sigup:260398467"
+      }
+    ]
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "ok": true,
+  "importType": "registration-roster",
+  "source": {
+    "sourceUrl": "https://fencing.yy-sport.com.cn/fencingapi/sigup/memberlistbytype?current=1&size=20",
+    "eventCode": "RZSSSAN0120260612WEICOPEN",
+    "sportCode": "RZSSSAN0120260612",
+    "page": 1,
+    "importedAt": "2026-06-09T01:49:33.154Z"
+  },
+  "page": {
+    "current": 1,
+    "size": 20,
+    "total": 1
+  },
+  "summary": {
+    "recordCount": 1,
+    "sportCodes": [
+      "RZSSSAN0120260612"
+    ],
+    "eventCodes": [
+      "RZSSSAN0120260612WEICOPEN"
+    ],
+    "athleteCount": 1,
+    "clubCount": 1
+  },
+  "normalized": {
+    "records": [
+      {
+        "sigupId": "258995117",
+        "registerType": "athlete",
+        "registerId": "20120618F202410030104",
+        "registerCode": "20120618F202410030104",
+        "athleteName": "韩璟萱",
+        "birthday": "2012-06-18",
+        "sex": "F",
+        "sexDes": "女",
+        "weapon": "E",
+        "weaponDes": "重剑",
+        "hand": "R",
+        "sportCode": "RZSSSAN0120260612",
+        "sportName": "2026年西安市\"万河荟″杯Rapier击剑公开赛",
+        "eventCode": "RZSSSAN0120260612WEICOPEN",
+        "eventName": "公开组女子重剑个人",
+        "organCode": "Empty",
+        "organShortName": "个人",
+        "organName": "个人会员",
+        "approveStatus": "6",
+        "sigupTime": "2026-05-24 11:33:22",
+        "sigupPoints": null,
+        "sigupRank": null,
+        "regType": "1",
+        "regTypeDes": "大众",
+        "dedupeKey": "sigup:258995117"
+      }
+    ]
+  }
+}

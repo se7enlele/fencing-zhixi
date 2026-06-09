@@ -1,0 +1,58 @@
+{
+  "ok": true,
+  "importType": "registration-roster",
+  "source": {
+    "sourceUrl": "https://fencing.yy-sport.com.cn/fencingapi/sigup/memberlistbytype?current=5&size=20",
+    "eventCode": "RZSS2036041MFIU12",
+    "sportCode": "RZSS2036041",
+    "page": 5,
+    "importedAt": "2026-06-09T01:44:29.957Z"
+  },
+  "page": {
+    "current": 5,
+    "size": 20,
+    "total": 81
+  },
+  "summary": {
+    "recordCount": 1,
+    "sportCodes": [
+      "RZSS2036041"
+    ],
+    "eventCodes": [
+      "RZSS2036041MFIU12"
+    ],
+    "athleteCount": 1,
+    "clubCount": 1
+  },
+  "normalized": {
+    "records": [
+      {
+        "sigupId": "260398460",
+        "registerType": "athlete",
+        "registerId": "20150206M202309070921",
+        "registerCode": "20150206M202309070921",
+        "athleteName": "成灵曦",
+        "birthday": "2015-02-06",
+        "sex": "M",
+        "sexDes": "男",
+        "weapon": "F",
+        "weaponDes": "花剑",
+        "hand": "R",
+        "sportCode": "RZSS2036041",
+        "sportName": "2026年东体之星击剑公开赛（宁波站）",
+        "eventCode": "RZSS2036041MFIU12",
+        "eventName": "U12男子花剑个人",
+        "organCode": "BEJBJALT0001",
+        "organShortName": "北京艾鲁特",
+        "organName": "北京艾鲁特击剑俱乐部",
+        "approveStatus": "2",
+        "sigupTime": "2026-05-19 10:00:18",
+        "sigupPoints": "614.0",
+        "sigupRank": "154",
+        "regType": "1",
+        "regTypeDes": "大众",
+        "dedupeKey": "sigup:260398460"
+      }
+    ]
+  }
+}

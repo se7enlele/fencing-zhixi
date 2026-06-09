@@ -1,0 +1,85 @@
+{
+  "ok": true,
+  "importType": "registration-roster",
+  "source": {
+    "sourceUrl": "https://fencing.yy-sport.com.cn/fencingapi/sigup/memberlistbytype?current=2&size=20",
+    "eventCode": "RZSSSAN0120260612MFIU16",
+    "sportCode": "RZSSSAN0120260612",
+    "page": 2,
+    "importedAt": "2026-06-09T01:42:47.488Z"
+  },
+  "page": {
+    "current": 2,
+    "size": 20,
+    "total": 22
+  },
+  "summary": {
+    "recordCount": 2,
+    "sportCodes": [
+      "RZSSSAN0120260612"
+    ],
+    "eventCodes": [
+      "RZSSSAN0120260612MFIU16"
+    ],
+    "athleteCount": 2,
+    "clubCount": 2
+  },
+  "normalized": {
+    "records": [
+      {
+        "sigupId": "258994438",
+        "registerType": "athlete",
+        "registerId": "20130418M202103300608",
+        "registerCode": "20130418M202103300608",
+        "athleteName": "薛锦鸿",
+        "birthday": "2013-04-18",
+        "sex": "M",
+        "sexDes": "男",
+        "weapon": "F",
+        "weaponDes": "花剑",
+        "hand": "R",
+        "sportCode": "RZSSSAN0120260612",
+        "sportName": "2026年西安市\"万河荟″杯Rapier击剑公开赛",
+        "eventCode": "RZSSSAN0120260612MFIU16",
+        "eventName": "U16男子花剑个人",
+        "organCode": "Empty",
+        "organShortName": "个人",
+        "organName": "个人会员",
+        "approveStatus": "6",
+        "sigupTime": "2026-05-18 14:04:38",
+        "sigupPoints": null,
+        "sigupRank": null,
+        "regType": "1",
+        "regTypeDes": "大众",
+        "dedupeKey": "sigup:258994438"
+      },
+      {
+        "sigupId": "258994416",
+        "registerType": "athlete",
+        "registerId": "20100612M201905291747",
+        "registerCode": "20100612M201905291747",
+        "athleteName": "李宸锐",
+        "birthday": "2010-06-12",
+        "sex": "M",
+        "sexDes": "男",
+        "weapon": "F",
+        "weaponDes": "花剑",
+        "hand": "R",
+        "sportCode": "RZSSSAN0120260612",
+        "sportName": "2026年西安市\"万河荟″杯Rapier击剑公开赛",
+        "eventCode": "RZSSSAN0120260612MFIU16",
+        "eventName": "U16男子花剑个人",
+        "organCode": "SHARJJ0001",
+        "organShortName": "陕西锐",
+        "organName": "陕西人本锐国际击剑俱乐部",
+        "approveStatus": "2",
+        "sigupTime": "2026-05-18 14:04:23",
+        "sigupPoints": "612.0",
+        "sigupRank": "129",
+        "regType": "1",
+        "regTypeDes": "大众",
+        "dedupeKey": "sigup:258994416"
+      }
+    ]
+  }
+}

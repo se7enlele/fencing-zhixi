@@ -123,3 +123,37 @@ node tools/sync-platform-data.mjs --sport-id 101299 --roster --no-score --roster
 4. 青少年 U6/U8/U10/U12 花剑、重剑项目优先级高于泛成人赛事。
 5. 每次补数后运行 `npm run analysis:three-year`，查看覆盖率和缺口变化。
 6. 具体补数顺序以 `analysis-output/three-year/sync-targets.csv` 为准，里面包含建议执行命令。
+
+## 2026-06-09 第三批报名名单补齐
+
+本轮继续按 `analysis-output/three-year/sync-targets.csv` 处理报名中/近期未开赛赛事，重点补齐赛前报名名单。执行时已将默认限制从 `rosterLimit=5 / rosterMaxPages=4` 扩大为 `--roster-limit 0` 和更高分页上限，避免只得到前几个项目的样本数据。
+
+执行命令：
+
+```bash
+node tools/sync-platform-data.mjs --sport-id 101127 --roster --no-score --roster-limit 0 --roster-max-pages 10 --roster-page-size 20 --timeout-sec 25
+node tools/sync-platform-data.mjs --sport-id 101318 --roster --no-score --roster-limit 0 --roster-max-pages 12 --roster-page-size 20 --timeout-sec 25
+node tools/sync-platform-data.mjs --sport-id 101218 --roster --no-score --roster-limit 0 --roster-max-pages 12 --roster-page-size 20 --timeout-sec 25
+node tools/sync-platform-data.mjs --sport-id 101150 --roster --no-score --roster-limit 0 --roster-max-pages 14 --roster-page-size 20 --timeout-sec 25
+npm run analysis:three-year
+```
+
+补齐结果：
+
+| sportId | sportCode | 赛事 | 覆盖变化 | 分析层 rosterCount | 完整度 |
+| --- | --- | --- | --- | ---: | --- |
+| 101127 | RZSS2034123 | 2026年凉都论剑少年锋芒击剑公开赛 | project -> roster | 378 | 44/44 项完整 |
+| 101318 | RZSSSAN0120260612 | 2026年西安市“万河荟”杯 Rapier 击剑公开赛 | project -> roster | 1332 | 58/58 项完整 |
+| 101218 | RZSS2036041 | 2026年东体之星击剑公开赛（宁波站） | project -> roster | 777 | 31/34 项完整，3 项接口返回结构异常 |
+| 101150 | RZSS2035030 | 2026年武汉击剑公开赛 | project -> roster | 2549 | 60/62 项完整，2 项接口返回结构异常 |
+
+本轮新增赛前报名分析规模：4 场赛事、约 5036 条去重报名记录进入赛事分析层。`analysis-output/three-year/competitions.csv` 已显示这 4 场覆盖层均为 `roster`。
+
+重新生成后的缺口变化：
+
+| 缺口类型 | 上轮 | 本轮 |
+| --- | ---: | ---: |
+| 补报名名单/成绩 | 32 | 28 |
+| 补赛后成绩对阵 | 6 | 10 |
+
+说明：`athleteEventRows / athletes / clubEventRows / clubs` 当前仍只统计成绩层选手和俱乐部表现，不统计赛前报名名单。因此本轮补入的报名名单会提升赛事覆盖层和赛前分析能力，但不会改变成绩类选手/俱乐部聚合指标。后续如要把“已报名但未参赛”的选手、俱乐部纳入单独分析，应在 `three-year-analysis.mjs` 中新增 `registrationAthleteRows`、`registrationClubRows`、`registrationClubs` 等独立指标，避免和赛后成绩指标混在一起。

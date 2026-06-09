@@ -1,0 +1,85 @@
+{
+  "ok": true,
+  "importType": "registration-roster",
+  "source": {
+    "sourceUrl": "https://fencing.yy-sport.com.cn/fencingapi/sigup/memberlistbytype?current=1&size=20",
+    "eventCode": "RZSSSAN0120260612WETU10",
+    "sportCode": "RZSSSAN0120260612",
+    "page": 1,
+    "importedAt": "2026-06-09T01:51:30.471Z"
+  },
+  "page": {
+    "current": 1,
+    "size": 20,
+    "total": 2
+  },
+  "summary": {
+    "recordCount": 2,
+    "sportCodes": [
+      "RZSSSAN0120260612"
+    ],
+    "eventCodes": [
+      "RZSSSAN0120260612WETU10"
+    ],
+    "athleteCount": 0,
+    "clubCount": 2
+  },
+  "normalized": {
+    "records": [
+      {
+        "sigupId": "258994138",
+        "registerType": "team",
+        "registerId": "RZSSSAN0120260612WETU10_878_USVAI",
+        "registerCode": null,
+        "athleteName": "",
+        "birthday": null,
+        "sex": null,
+        "sexDes": null,
+        "weapon": null,
+        "weaponDes": null,
+        "hand": null,
+        "sportCode": "RZSSSAN0120260612",
+        "sportName": "2026年西安市\"万河荟″杯Rapier击剑公开赛",
+        "eventCode": "RZSSSAN0120260612WETU10",
+        "eventName": "U10女子重剑团体",
+        "organCode": "SHARJJ0001",
+        "organShortName": "陕西锐",
+        "organName": "陕西人本锐国际击剑俱乐部",
+        "approveStatus": "0",
+        "sigupTime": "2026-05-31 22:11:00",
+        "sigupPoints": null,
+        "sigupRank": null,
+        "regType": null,
+        "regTypeDes": null,
+        "dedupeKey": "sigup:258994138"
+      },
+      {
+        "sigupId": "258994091",
+        "registerType": "team",
+        "registerId": "RZSSSAN0120260612WETU10_608_XUNDK",
+        "registerCode": null,
+        "athleteName": "",
+        "birthday": null,
+        "sex": null,
+        "sexDes": null,
+        "weapon": null,
+        "weaponDes": null,
+        "hand": null,
+        "sportCode": "RZSSSAN0120260612",
+        "sportName": "2026年西安市\"万河荟″杯Rapier击剑公开赛",
+        "eventCode": "RZSSSAN0120260612WETU10",
+        "eventName": "U10女子重剑团体",
+        "organCode": "SHAXJYJJ0001",
+        "organShortName": "西安新剑语",
+        "organName": "西安新剑语击剑俱乐部",
+        "approveStatus": "6",
+        "sigupTime": "2026-05-20 21:57:19",
+        "sigupPoints": null,
+        "sigupRank": null,
+        "regType": null,
+        "regTypeDes": null,
+        "dedupeKey": "sigup:258994091"
+      }
+    ]
+  }
+}

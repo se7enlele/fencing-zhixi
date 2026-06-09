@@ -1,0 +1,112 @@
+{
+  "ok": true,
+  "importType": "registration-roster",
+  "source": {
+    "sourceUrl": "https://fencing.yy-sport.com.cn/fencingapi/sigup/memberlistbytype?current=1&size=20",
+    "eventCode": "RZSS2034123MEIU14",
+    "sportCode": "RZSS2034123",
+    "page": 1,
+    "importedAt": "2026-06-09T01:44:51.611Z"
+  },
+  "page": {
+    "current": 1,
+    "size": 20,
+    "total": 3
+  },
+  "summary": {
+    "recordCount": 3,
+    "sportCodes": [
+      "RZSS2034123"
+    ],
+    "eventCodes": [
+      "RZSS2034123MEIU14"
+    ],
+    "athleteCount": 3,
+    "clubCount": 3
+  },
+  "normalized": {
+    "records": [
+      {
+        "sigupId": "260627894",
+        "registerType": "athlete",
+        "registerId": "20140812M202406110829",
+        "registerCode": "20140812M202406110829",
+        "athleteName": "李暢堃",
+        "birthday": "2014-08-12",
+        "sex": "M",
+        "sexDes": "男",
+        "weapon": "E",
+        "weaponDes": "重剑",
+        "hand": "L",
+        "sportCode": "RZSS2034123",
+        "sportName": "2026年凉都论剑少年锋芒击剑公开赛",
+        "eventCode": "RZSS2034123MEIU14",
+        "eventName": "U14男子重剑个人",
+        "organCode": "SICCDJZJJ0001",
+        "organShortName": "四川剑星",
+        "organName": "四川剑星击剑俱乐部",
+        "approveStatus": "0",
+        "sigupTime": "2026-06-06 17:39:23",
+        "sigupPoints": "56.0",
+        "sigupRank": "754",
+        "regType": "1",
+        "regTypeDes": "大众",
+        "dedupeKey": "sigup:260627894"
+      },
+      {
+        "sigupId": "260627766",
+        "registerType": "athlete",
+        "registerId": "20120316M202401170315",
+        "registerCode": "20120316M202401170315",
+        "athleteName": "张连成",
+        "birthday": "2012-03-16",
+        "sex": "M",
+        "sexDes": "男",
+        "weapon": "E",
+        "weaponDes": "重剑",
+        "hand": "R",
+        "sportCode": "RZSS2034123",
+        "sportName": "2026年凉都论剑少年锋芒击剑公开赛",
+        "eventCode": "RZSS2034123MEIU14",
+        "eventName": "U14男子重剑个人",
+        "organCode": "Empty",
+        "organShortName": "个人",
+        "organName": "个人会员",
+        "approveStatus": "0",
+        "sigupTime": "2026-05-18 06:49:47",
+        "sigupPoints": "198.0",
+        "sigupRank": "418",
+        "regType": "1",
+        "regTypeDes": "大众",
+        "dedupeKey": "sigup:260627766"
+      },
+      {
+        "sigupId": "260627736",
+        "registerType": "athlete",
+        "registerId": "20130220M202103191018",
+        "registerCode": "20130220M202103191018",
+        "athleteName": "李嘉澍",
+        "birthday": "2013-02-20",
+        "sex": "M",
+        "sexDes": "男",
+        "weapon": "E",
+        "weaponDes": "重剑",
+        "hand": "R",
+        "sportCode": "RZSS2034123",
+        "sportName": "2026年凉都论剑少年锋芒击剑公开赛",
+        "eventCode": "RZSS2034123MEIU14",
+        "eventName": "U14男子重剑个人",
+        "organCode": "BEJHBJJ0001",
+        "organShortName": "北京庹通",
+        "organName": "北京实诚庹通击剑训练中心",
+        "approveStatus": "6",
+        "sigupTime": "2026-05-15 11:02:41",
+        "sigupPoints": "958.6",
+        "sigupRank": "81",
+        "regType": "1",
+        "regTypeDes": "大众",
+        "dedupeKey": "sigup:260627736"
+      }
+    ]
+  }
+}

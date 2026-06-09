@@ -1,0 +1,112 @@
+{
+  "ok": true,
+  "importType": "registration-roster",
+  "source": {
+    "sourceUrl": "https://fencing.yy-sport.com.cn/fencingapi/sigup/memberlistbytype?current=1&size=20",
+    "eventCode": "RZSSSAN0120260612WFTU12",
+    "sportCode": "RZSSSAN0120260612",
+    "page": 1,
+    "importedAt": "2026-06-09T01:51:20.626Z"
+  },
+  "page": {
+    "current": 1,
+    "size": 20,
+    "total": 3
+  },
+  "summary": {
+    "recordCount": 3,
+    "sportCodes": [
+      "RZSSSAN0120260612"
+    ],
+    "eventCodes": [
+      "RZSSSAN0120260612WFTU12"
+    ],
+    "athleteCount": 0,
+    "clubCount": 2
+  },
+  "normalized": {
+    "records": [
+      {
+        "sigupId": "258994146",
+        "registerType": "team",
+        "registerId": "RZSSSAN0120260612WFTU12_878_QFMMD",
+        "registerCode": null,
+        "athleteName": "",
+        "birthday": null,
+        "sex": null,
+        "sexDes": null,
+        "weapon": null,
+        "weaponDes": null,
+        "hand": null,
+        "sportCode": "RZSSSAN0120260612",
+        "sportName": "2026年西安市\"万河荟″杯Rapier击剑公开赛",
+        "eventCode": "RZSSSAN0120260612WFTU12",
+        "eventName": "U12女子花剑团体",
+        "organCode": "SHARJJ0001",
+        "organShortName": "陕西锐",
+        "organName": "陕西人本锐国际击剑俱乐部",
+        "approveStatus": "2",
+        "sigupTime": "2026-06-01 18:19:01",
+        "sigupPoints": null,
+        "sigupRank": null,
+        "regType": null,
+        "regTypeDes": null,
+        "dedupeKey": "sigup:258994146"
+      },
+      {
+        "sigupId": "258994124",
+        "registerType": "team",
+        "registerId": "RZSSSAN0120260612WFTU12_12406_ZUIFO",
+        "registerCode": null,
+        "athleteName": "",
+        "birthday": null,
+        "sex": null,
+        "sexDes": null,
+        "weapon": null,
+        "weaponDes": null,
+        "hand": null,
+        "sportCode": "RZSSSAN0120260612",
+        "sportName": "2026年西安市\"万河荟″杯Rapier击剑公开赛",
+        "eventCode": "RZSSSAN0120260612WFTU12",
+        "eventName": "U12女子花剑团体",
+        "organCode": "SHAJYJJ0001",
+        "organShortName": "陕西剑一",
+        "organName": "陕西剑一国际击剑俱乐部",
+        "approveStatus": "2",
+        "sigupTime": "2026-05-31 12:52:55",
+        "sigupPoints": null,
+        "sigupRank": null,
+        "regType": null,
+        "regTypeDes": null,
+        "dedupeKey": "sigup:258994124"
+      },
+      {
+        "sigupId": "258994122",
+        "registerType": "team",
+        "registerId": "RZSSSAN0120260612WFTU12_12406_QAFZV",
+        "registerCode": null,
+        "athleteName": "",
+        "birthday": null,
+        "sex": null,
+        "sexDes": null,
+        "weapon": null,
+        "weaponDes": null,
+        "hand": null,
+        "sportCode": "RZSSSAN0120260612",
+        "sportName": "2026年西安市\"万河荟″杯Rapier击剑公开赛",
+        "eventCode": "RZSSSAN0120260612WFTU12",
+        "eventName": "U12女子花剑团体",
+        "organCode": "SHAJYJJ0001",
+        "organShortName": "陕西剑一",
+        "organName": "陕西剑一国际击剑俱乐部",
+        "approveStatus": "2",
+        "sigupTime": "2026-05-31 10:48:47",
+        "sigupPoints": null,
+        "sigupRank": null,
+        "regType": null,
+        "regTypeDes": null,
+        "dedupeKey": "sigup:258994122"
+      }
+    ]
+  }
+}

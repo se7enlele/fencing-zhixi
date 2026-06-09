@@ -1,0 +1,58 @@
+{
+  "ok": true,
+  "importType": "registration-roster",
+  "source": {
+    "sourceUrl": "https://fencing.yy-sport.com.cn/fencingapi/sigup/memberlistbytype?current=1&size=20",
+    "eventCode": "RZSS2035030WFIU40s",
+    "sportCode": "RZSS2035030",
+    "page": 1,
+    "importedAt": "2026-06-09T02:01:18.851Z"
+  },
+  "page": {
+    "current": 1,
+    "size": 20,
+    "total": 1
+  },
+  "summary": {
+    "recordCount": 1,
+    "sportCodes": [
+      "RZSS2035030"
+    ],
+    "eventCodes": [
+      "RZSS2035030WFIU40s"
+    ],
+    "athleteCount": 1,
+    "clubCount": 1
+  },
+  "normalized": {
+    "records": [
+      {
+        "sigupId": "260438738",
+        "registerType": "athlete",
+        "registerId": "19550717F201508272157",
+        "registerCode": "19550717F201508272157",
+        "athleteName": "张利娜",
+        "birthday": "1955-07-17",
+        "sex": "F",
+        "sexDes": "女",
+        "weapon": "F",
+        "weaponDes": "花剑",
+        "hand": "R",
+        "sportCode": "RZSS2035030",
+        "sportName": "2026年武汉击剑公开赛",
+        "eventCode": "RZSS2035030WFIU40s",
+        "eventName": "老将组女子花剑个人",
+        "organCode": "BEJBJXQ0001",
+        "organShortName": "北京鑫奇",
+        "organName": "北京剑高励业鑫奇击剑培训中心",
+        "approveStatus": "2",
+        "sigupTime": "2026-05-22 09:59:57",
+        "sigupPoints": "1521.0",
+        "sigupRank": "7",
+        "regType": "1",
+        "regTypeDes": "大众",
+        "dedupeKey": "sigup:260438738"
+      }
+    ]
+  }
+}

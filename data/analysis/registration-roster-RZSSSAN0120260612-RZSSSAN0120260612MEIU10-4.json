@@ -1,0 +1,58 @@
+{
+  "ok": true,
+  "importType": "registration-roster",
+  "source": {
+    "sourceUrl": "https://fencing.yy-sport.com.cn/fencingapi/sigup/memberlistbytype?current=4&size=20",
+    "eventCode": "RZSSSAN0120260612MEIU10",
+    "sportCode": "RZSSSAN0120260612",
+    "page": 4,
+    "importedAt": "2026-06-09T01:44:50.687Z"
+  },
+  "page": {
+    "current": 4,
+    "size": 20,
+    "total": 61
+  },
+  "summary": {
+    "recordCount": 1,
+    "sportCodes": [
+      "RZSSSAN0120260612"
+    ],
+    "eventCodes": [
+      "RZSSSAN0120260612MEIU10"
+    ],
+    "athleteCount": 1,
+    "clubCount": 1
+  },
+  "normalized": {
+    "records": [
+      {
+        "sigupId": "258994167",
+        "registerType": "athlete",
+        "registerId": "20160404M202501230601",
+        "registerCode": "20160404M202501230601",
+        "athleteName": "SHENG YUELI",
+        "birthday": "2016-04-04",
+        "sex": "M",
+        "sexDes": "男",
+        "weapon": "E",
+        "weaponDes": "重剑",
+        "hand": "R",
+        "sportCode": "RZSSSAN0120260612",
+        "sportName": "2026年西安市\"万河荟″杯Rapier击剑公开赛",
+        "eventCode": "RZSSSAN0120260612MEIU10",
+        "eventName": "U10男子重剑个人",
+        "organCode": "BEJBJHXJJ0001",
+        "organShortName": "北京和信",
+        "organName": "北京和信击剑训练中心",
+        "approveStatus": "2",
+        "sigupTime": "2026-05-18 14:00:47",
+        "sigupPoints": "241.0",
+        "sigupRank": "280",
+        "regType": "1",
+        "regTypeDes": "大众",
+        "dedupeKey": "sigup:258994167"
+      }
+    ]
+  }
+}

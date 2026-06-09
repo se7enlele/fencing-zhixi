@@ -1,0 +1,58 @@
+{
+  "ok": true,
+  "importType": "registration-roster",
+  "source": {
+    "sourceUrl": "https://fencing.yy-sport.com.cn/fencingapi/sigup/memberlistbytype?current=2&size=20",
+    "eventCode": "RZSSSAN0120260612MEICOPEN",
+    "sportCode": "RZSSSAN0120260612",
+    "page": 2,
+    "importedAt": "2026-06-09T01:45:34.522Z"
+  },
+  "page": {
+    "current": 2,
+    "size": 20,
+    "total": 21
+  },
+  "summary": {
+    "recordCount": 1,
+    "sportCodes": [
+      "RZSSSAN0120260612"
+    ],
+    "eventCodes": [
+      "RZSSSAN0120260612MEICOPEN"
+    ],
+    "athleteCount": 1,
+    "clubCount": 1
+  },
+  "normalized": {
+    "records": [
+      {
+        "sigupId": "258994565",
+        "registerType": "athlete",
+        "registerId": "20090520M202409270659",
+        "registerCode": "20090520M202409270659",
+        "athleteName": "陈哲萱",
+        "birthday": "2009-05-20",
+        "sex": "M",
+        "sexDes": "男",
+        "weapon": "E",
+        "weaponDes": "重剑",
+        "hand": "R",
+        "sportCode": "RZSSSAN0120260612",
+        "sportName": "2026年西安市\"万河荟″杯Rapier击剑公开赛",
+        "eventCode": "RZSSSAN0120260612MEICOPEN",
+        "eventName": "公开组男子重剑个人",
+        "organCode": "SHAXAWG0001",
+        "organShortName": "西安万国",
+        "organName": "西安万国击剑俱乐部",
+        "approveStatus": "2",
+        "sigupTime": "2026-05-18 14:09:56",
+        "sigupPoints": "219.0",
+        "sigupRank": "269",
+        "regType": "1",
+        "regTypeDes": "大众",
+        "dedupeKey": "sigup:258994565"
+      }
+    ]
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "ok": true,
+  "importType": "registration-roster",
+  "source": {
+    "sourceUrl": "https://fencing.yy-sport.com.cn/fencingapi/sigup/memberlistbytype?current=1&size=20",
+    "eventCode": "RZSS2034123WEICOPEN",
+    "sportCode": "RZSS2034123",
+    "page": 1,
+    "importedAt": "2026-06-09T01:46:58.170Z"
+  },
+  "page": {
+    "current": 1,
+    "size": 20,
+    "total": 1
+  },
+  "summary": {
+    "recordCount": 1,
+    "sportCodes": [
+      "RZSS2034123"
+    ],
+    "eventCodes": [
+      "RZSS2034123WEICOPEN"
+    ],
+    "athleteCount": 1,
+    "clubCount": 1
+  },
+  "normalized": {
+    "records": [
+      {
+        "sigupId": "260627794",
+        "registerType": "athlete",
+        "registerId": "20081223F20240312102353",
+        "registerCode": "20081223F20240312102353",
+        "athleteName": "李唯娜",
+        "birthday": "2008-12-23",
+        "sex": "F",
+        "sexDes": "女",
+        "weapon": "E",
+        "weaponDes": "重剑",
+        "hand": "R",
+        "sportCode": "RZSS2034123",
+        "sportName": "2026年凉都论剑少年锋芒击剑公开赛",
+        "eventCode": "RZSS2034123WEICOPEN",
+        "eventName": "公开组女子重剑个人",
+        "organCode": "GUZGZ0001",
+        "organShortName": "贵州",
+        "organName": "贵州击剑队",
+        "approveStatus": "0",
+        "sigupTime": "2026-05-19 19:36:14",
+        "sigupPoints": "137.0",
+        "sigupRank": "222",
+        "regType": "0",
+        "regTypeDes": "竞技",
+        "dedupeKey": "sigup:260627794"
+      }
+    ]
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "ok": true,
+  "importType": "registration-roster",
+  "source": {
+    "sourceUrl": "https://fencing.yy-sport.com.cn/fencingapi/sigup/memberlistbytype?current=1&size=20",
+    "eventCode": "RZSS2035030MEIU40s",
+    "sportCode": "RZSS2035030",
+    "page": 1,
+    "importedAt": "2026-06-09T01:59:11.271Z"
+  },
+  "page": {
+    "current": 1,
+    "size": 20,
+    "total": 1
+  },
+  "summary": {
+    "recordCount": 1,
+    "sportCodes": [
+      "RZSS2035030"
+    ],
+    "eventCodes": [
+      "RZSS2035030MEIU40s"
+    ],
+    "athleteCount": 1,
+    "clubCount": 1
+  },
+  "normalized": {
+    "records": [
+      {
+        "sigupId": "260436593",
+        "registerType": "athlete",
+        "registerId": "19821120M202505211044",
+        "registerCode": "19821120M202505211044",
+        "athleteName": "蒋亚康",
+        "birthday": "1982-11-20",
+        "sex": "M",
+        "sexDes": "男",
+        "weapon": "E",
+        "weaponDes": "重剑",
+        "hand": "R",
+        "sportCode": "RZSS2035030",
+        "sportName": "2026年武汉击剑公开赛",
+        "eventCode": "RZSS2035030MEIU40s",
+        "eventName": "老将组男子重剑个人",
+        "organCode": "BEJBJLS0001",
+        "organShortName": "北京龙昇",
+        "organName": "北京龙昇击剑训练中心",
+        "approveStatus": "2",
+        "sigupTime": "2026-05-18 14:02:00",
+        "sigupPoints": "252.0",
+        "sigupRank": "51",
+        "regType": "1",
+        "regTypeDes": "大众",
+        "dedupeKey": "sigup:260436593"
+      }
+    ]
+  }
+}
