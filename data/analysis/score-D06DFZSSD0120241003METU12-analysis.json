@@ -1,0 +1,658 @@
+{
+  "ok": true,
+  "source": {
+    "sourceUrl": "https://fencing-proxy.aixindiandian.workers.dev/fencingapi/matchresult/classmentrank/D06DFZSSD0120241003METU12",
+    "sourceType": "classmentrank",
+    "fallbackFrom": "https://fencing-proxy.aixindiandian.workers.dev/Resource/score/D06DFZSSD0120241003METU12.js",
+    "fallbackMessage": "Unable to parse JSON or official score JS object.",
+    "importedAt": "2026-06-09T13:31:04.536Z"
+  },
+  "general": {
+    "sportName": "2024年中国击剑俱乐部联赛全国赛（第四站）",
+    "eventName": "U12男子重剑团体",
+    "openDate": "2024-10-03 08:00:00",
+    "venue": "济南市",
+    "competitionNo": 27,
+    "exemptionNo": null,
+    "poolFencerNo": null,
+    "poolQualifyNo": null,
+    "preDeStartPhase": null,
+    "deStartPhase": null,
+    "sportCode": "D06DFZSSD0120241003",
+    "eventCode": "D06DFZSSD0120241003METU12"
+  },
+  "summary": {
+    "classmentCount": 27,
+    "initialSeedCount": 0,
+    "poolCount": 0,
+    "poolStandingCount": 0,
+    "poolResultCount": 0,
+    "poolBoutCount": 0,
+    "tableauCount": 0,
+    "eliminationMatchCount": 0,
+    "playedEliminationMatchCount": 0,
+    "byeMatchCount": 0,
+    "athleteCountByLicence": 27
+  },
+  "distributions": {
+    "poolStatus": {},
+    "poolRemark": {},
+    "tableau": {},
+    "eliminationByPhase": {},
+    "eliminationResult": {},
+    "medal": {
+      "(无奖牌)": 27
+    }
+  },
+  "normalized": {
+    "classment": [
+      {
+        "rank": 1,
+        "displayRank": "1",
+        "name": "上海普陀少体",
+        "licence": "D06DFZSSD0120241003METU12_251_VOHWK",
+        "club": "上海普陀少体",
+        "birthday": null,
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "1",
+        "qualifyStatusId": null
+      },
+      {
+        "rank": 2,
+        "displayRank": "2",
+        "name": "喜闻乐剑",
+        "licence": "D06DFZSSD0120241003METU12_11903_MKYXI",
+        "club": "北京东城万国",
+        "birthday": null,
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "2",
+        "qualifyStatusId": null
+      },
+      {
+        "rank": 3,
+        "displayRank": "3",
+        "name": "龙战骑士",
+        "licence": "D06DFZSSD0120241003METU12_586_YNBTL",
+        "club": "上海浦东万国",
+        "birthday": null,
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "3",
+        "qualifyStatusId": null
+      },
+      {
+        "rank": 4,
+        "displayRank": "4",
+        "name": "湖北永尚",
+        "licence": "D06DFZSSD0120241003METU12_684_ASIXO",
+        "club": "湖北永尚",
+        "birthday": null,
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "4",
+        "qualifyStatusId": null
+      },
+      {
+        "rank": 5,
+        "displayRank": "5",
+        "name": "庹通勇往直前队",
+        "licence": "D06DFZSSD0120241003METU12_863_SRJDL",
+        "club": "北京庹通",
+        "birthday": null,
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "5",
+        "qualifyStatusId": null
+      },
+      {
+        "rank": 6,
+        "displayRank": "6",
+        "name": "阳光少年",
+        "licence": "D06DFZSSD0120241003METU12_744_UUPWE",
+        "club": "广州阳光剑匠",
+        "birthday": null,
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "6",
+        "qualifyStatusId": null
+      },
+      {
+        "rank": 7,
+        "displayRank": "7",
+        "name": "岭南剑客",
+        "licence": "D06DFZSSD0120241003METU12_11601_LHWOM",
+        "club": "深圳南锋",
+        "birthday": null,
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "7",
+        "qualifyStatusId": null
+      },
+      {
+        "rank": 8,
+        "displayRank": "8",
+        "name": "上海锋弈",
+        "licence": "D06DFZSSD0120241003METU12_11772_ZOCKR",
+        "club": "上海锋弈",
+        "birthday": null,
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "8",
+        "qualifyStatusId": null
+      },
+      {
+        "rank": 9,
+        "displayRank": "9",
+        "name": "成都高新万国",
+        "licence": "D06DFZSSD0120241003METU12_653_VQSYC",
+        "club": "成都高新万国",
+        "birthday": null,
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "9",
+        "qualifyStatusId": null
+      },
+      {
+        "rank": 10,
+        "displayRank": "10",
+        "name": "王者战将",
+        "licence": "D06DFZSSD0120241003METU12_759_NOMAD",
+        "club": "北京海淀万国",
+        "birthday": null,
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "10",
+        "qualifyStatusId": null
+      },
+      {
+        "rank": 11,
+        "displayRank": "11",
+        "name": "安徽剑影",
+        "licence": "D06DFZSSD0120241003METU12_11863_RYCVU",
+        "club": "安徽剑影",
+        "birthday": null,
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "11",
+        "qualifyStatusId": null
+      },
+      {
+        "rank": 12,
+        "displayRank": "12",
+        "name": "广东",
+        "licence": "D06DFZSSD0120241003METU12_60_KWYVK",
+        "club": "广东",
+        "birthday": null,
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "12",
+        "qualifyStatusId": null
+      },
+      {
+        "rank": 13,
+        "displayRank": "13",
+        "name": "南京艾鲁特U12男团 崛起队",
+        "licence": "D06DFZSSD0120241003METU12_454_TKGVV",
+        "club": "南京艾鲁特",
+        "birthday": null,
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "13",
+        "qualifyStatusId": null
+      },
+      {
+        "rank": 14,
+        "displayRank": "14",
+        "name": "北多泊亚斯战队",
+        "licence": "D06DFZSSD0120241003METU12_467_LWMKE",
+        "club": "杭州艾鲁特",
+        "birthday": null,
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "14",
+        "qualifyStatusId": null
+      },
+      {
+        "rank": 15,
+        "displayRank": "15",
+        "name": "多大点事",
+        "licence": "D06DFZSSD0120241003METU12_577_OYDMV",
+        "club": "安徽骑兵",
+        "birthday": null,
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "15",
+        "qualifyStatusId": null
+      },
+      {
+        "rank": 16,
+        "displayRank": "16",
+        "name": "绍兴艾鲁特",
+        "licence": "D06DFZSSD0120241003METU12_450_XZQAC",
+        "club": "绍兴艾鲁特",
+        "birthday": null,
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "16",
+        "qualifyStatusId": null
+      },
+      {
+        "rank": 17,
+        "displayRank": "17",
+        "name": "永尚队",
+        "licence": "D06DFZSSD0120241003METU12_684_WRHRF",
+        "club": "湖北永尚",
+        "birthday": null,
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "17",
+        "qualifyStatusId": null
+      },
+      {
+        "rank": 18,
+        "displayRank": "18",
+        "name": "杭州钱江万国",
+        "licence": "D06DFZSSD0120241003METU12_564_OAFYB",
+        "club": "杭州钱江万国",
+        "birthday": null,
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "18",
+        "qualifyStatusId": null
+      },
+      {
+        "rank": 19,
+        "displayRank": "19",
+        "name": "Gov（够威）",
+        "licence": "D06DFZSSD0120241003METU12_685_YAVUZ",
+        "club": "重庆渝北万国",
+        "birthday": null,
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "19",
+        "qualifyStatusId": null
+      },
+      {
+        "rank": 20,
+        "displayRank": "20",
+        "name": "智桥一队",
+        "licence": "D06DFZSSD0120241003METU12_103_PAFOB",
+        "club": "天津智桥",
+        "birthday": null,
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "20",
+        "qualifyStatusId": null
+      },
+      {
+        "rank": 21,
+        "displayRank": "21",
+        "name": "昆明搏乐",
+        "licence": "D06DFZSSD0120241003METU12_174_WPLAA",
+        "club": "昆明搏乐",
+        "birthday": null,
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "21",
+        "qualifyStatusId": null
+      },
+      {
+        "rank": 22,
+        "displayRank": "22",
+        "name": "傲佰仕u12男重",
+        "licence": "D06DFZSSD0120241003METU12_11909_MYDGY",
+        "club": "青岛傲佰仕",
+        "birthday": null,
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "22",
+        "qualifyStatusId": null
+      },
+      {
+        "rank": 23,
+        "displayRank": "23",
+        "name": "遥遥领先",
+        "licence": "D06DFZSSD0120241003METU12_11733_NIWYC",
+        "club": "青岛各抒己剑",
+        "birthday": null,
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "23",
+        "qualifyStatusId": null
+      },
+      {
+        "rank": 24,
+        "displayRank": "24",
+        "name": "厦门",
+        "licence": "D06DFZSSD0120241003METU12_59_TIUHR",
+        "club": "福建",
+        "birthday": null,
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "24",
+        "qualifyStatusId": null
+      },
+      {
+        "rank": 25,
+        "displayRank": "25",
+        "name": "干啥都队",
+        "licence": "D06DFZSSD0120241003METU12_731_HLKFD",
+        "club": "北京和信",
+        "birthday": null,
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "25",
+        "qualifyStatusId": null
+      },
+      {
+        "rank": 26,
+        "displayRank": "26",
+        "name": "唐山傲国",
+        "licence": "D06DFZSSD0120241003METU12_211_KZOKS",
+        "club": "唐山傲国",
+        "birthday": null,
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "26",
+        "qualifyStatusId": null
+      },
+      {
+        "rank": 27,
+        "displayRank": "27",
+        "name": "大连建军",
+        "licence": "D06DFZSSD0120241003METU12_873_ZJCZG",
+        "club": "大连建军",
+        "birthday": null,
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "27",
+        "qualifyStatusId": null
+      }
+    ],
+    "poolStandings": [],
+    "poolResults": [],
+    "poolBouts": [],
+    "eliminationMatches": []
+  },
+  "completeness": [
+    {
+      "section": "General",
+      "rows": 1,
+      "fields": [
+        {
+          "key": "SportName",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "2024年中国击剑俱乐部联赛全国赛（第四站）"
+          ]
+        },
+        {
+          "key": "EventName",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "U12男子重剑团体"
+          ]
+        },
+        {
+          "key": "OpenDate",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "2024-10-03 08:00:00"
+          ]
+        },
+        {
+          "key": "Venue",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "济南市"
+          ]
+        },
+        {
+          "key": "CompetitionNo",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            27
+          ]
+        },
+        {
+          "key": "ExemptionNo",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "PoolFencerNo",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "PoolQualifyNo",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "PDEstartPhase",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "DEstartPhase",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "Scode",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "D06DFZSSD0120241003"
+          ]
+        },
+        {
+          "key": "Ecode",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "D06DFZSSD0120241003METU12"
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Classment",
+      "rows": 27,
+      "fields": [
+        {
+          "key": "EventRank",
+          "nonEmpty": 27,
+          "fillRate": 1,
+          "sampleValues": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8"
+          ]
+        },
+        {
+          "key": "EventShowRank",
+          "nonEmpty": 27,
+          "fillRate": 1,
+          "sampleValues": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8"
+          ]
+        },
+        {
+          "key": "Fencer",
+          "nonEmpty": 27,
+          "fillRate": 1,
+          "sampleValues": [
+            "上海普陀少体",
+            "喜闻乐剑",
+            "龙战骑士",
+            "湖北永尚",
+            "庹通勇往直前队",
+            "阳光少年",
+            "岭南剑客",
+            "上海锋弈"
+          ]
+        },
+        {
+          "key": "Licence",
+          "nonEmpty": 27,
+          "fillRate": 1,
+          "sampleValues": [
+            "D06DFZSSD0120241003METU12_251_VOHWK",
+            "D06DFZSSD0120241003METU12_11903_MKYXI",
+            "D06DFZSSD0120241003METU12_586_YNBTL",
+            "D06DFZSSD0120241003METU12_684_ASIXO",
+            "D06DFZSSD0120241003METU12_863_SRJDL",
+            "D06DFZSSD0120241003METU12_744_UUPWE",
+            "D06DFZSSD0120241003METU12_11601_LHWOM",
+            "D06DFZSSD0120241003METU12_11772_ZOCKR"
+          ]
+        },
+        {
+          "key": "NOCCode",
+          "nonEmpty": 27,
+          "fillRate": 1,
+          "sampleValues": [
+            "上海普陀少体",
+            "北京东城万国",
+            "上海浦东万国",
+            "湖北永尚",
+            "北京庹通",
+            "广州阳光剑匠",
+            "深圳南锋",
+            "上海锋弈"
+          ]
+        },
+        {
+          "key": "Birthday",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "Medal",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "Statut",
+          "nonEmpty": 27,
+          "fillRate": 1,
+          "sampleValues": [
+            "N"
+          ]
+        },
+        {
+          "key": "F_EventDisPos",
+          "nonEmpty": 27,
+          "fillRate": 1,
+          "sampleValues": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8"
+          ]
+        },
+        {
+          "key": "QualifyStatusId",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        }
+      ]
+    },
+    {
+      "section": "Pools",
+      "rows": 0,
+      "fields": []
+    },
+    {
+      "section": "PoolStanding",
+      "rows": 0,
+      "fields": []
+    },
+    {
+      "section": "PoolResults",
+      "rows": 0,
+      "fields": []
+    },
+    {
+      "section": "PRDetails",
+      "rows": 0,
+      "fields": []
+    },
+    {
+      "section": "Tableaus",
+      "rows": 0,
+      "fields": []
+    },
+    {
+      "section": "Matchs",
+      "rows": 0,
+      "fields": []
+    },
+    {
+      "section": "IniStarts",
+      "rows": 0,
+      "fields": []
+    }
+  ],
+  "analysisCapabilities": [
+    "项目概要",
+    "最终排名",
+    "初始排位",
+    "小组赛排名",
+    "小组赛每场比分",
+    "小组赛晋级人数",
+    "淘汰赛阶段结构",
+    "淘汰赛每场比分",
+    "选手完整比赛路径",
+    "对手交手记录",
+    "胜负和净胜剑统计"
+  ],
+  "privacyRecommendation": {
+    "publicFields": [
+      "rank",
+      "name",
+      "club",
+      "scores",
+      "winner",
+      "medal"
+    ],
+    "privateFields": [
+      "Licence",
+      "Birthday"
+    ],
+    "note": "Licence 和 Birthday 只用于内部消歧，不建议公开展示。"
+  }
+}
