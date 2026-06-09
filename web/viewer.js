@@ -654,6 +654,7 @@ function showView(name) {
     buttons.forEach((button) => {
       button.classList.remove('active');
       button.removeAttribute('aria-current');
+      button.blur();
     });
     const activeButton = buttons.find((button) => button.dataset.mainTab === activeTab);
     if (activeButton) {
