@@ -653,19 +653,24 @@ function showView(name) {
 
 function updateBottomNavState(activeTab) {
   if (!bottomNav) return;
+  activeTab = ['home', 'competitions', 'follow', 'my'].includes(activeTab) ? activeTab : 'home';
   [...bottomNav.querySelectorAll('[data-main-tab]')].forEach((button) => {
     const isActive = button.dataset.mainTab === activeTab;
     button.classList.remove('active');
+    button.classList.remove('is-current');
     button.removeAttribute('aria-current');
     button.setAttribute('aria-selected', 'false');
+    button.dataset.active = 'false';
     if (isActive) {
       button.classList.add('active');
+      button.classList.add('is-current');
       button.setAttribute('aria-current', 'page');
       button.setAttribute('aria-selected', 'true');
+      button.dataset.active = 'true';
     }
     button.blur();
   });
-  bottomNav.dataset.activeTab = activeTab || '';
+  bottomNav.dataset.activeTab = activeTab;
 }
 
 function scrollToPageTop() {
@@ -1450,11 +1455,11 @@ function renderHomePage() {
   homePage.innerHTML = `
     <section class="my-hero panel">
       <div>
-        <span>数据首页</span>
-        <strong>击剑数据看板</strong>
-        <em>汇总关注动态、近期变化和常用入口。</em>
+        <span>首页</span>
+        <strong>今日概览</strong>
+        <em>集中查看关注对象、近期赛事和数据更新。</em>
       </div>
-      <button type="button" data-home-competitions>赛事</button>
+      <button type="button" data-home-competitions>进入赛事</button>
     </section>
     <section class="my-stat-grid">
       ${stats.map((item) => `
@@ -1466,8 +1471,8 @@ function renderHomePage() {
     </section>
     <section class="panel my-section">
       <div class="section-title">
-        <h2>近期赛事</h2>
-        <span>推荐入口</span>
+        <h2>近期值得看</h2>
+        <span>快速进入</span>
       </div>
       <div class="my-list">
         ${competitions.length ? competitions.map((competition) => myPageRow({
@@ -1481,12 +1486,12 @@ function renderHomePage() {
     </section>
     <section class="panel my-section">
       <div class="section-title">
-        <h2>关注动态</h2>
+        <h2>关注概览</h2>
         <span>${children.length + followedCompetitions.length ? '已同步' : '待关注'}</span>
       </div>
       <div class="my-status-note">
         <strong>${escapeHtml(children.length + followedCompetitions.length)}</strong>
-        <span>已关注的选手和赛事会集中在关注页，方便赛前快速查看。</span>
+        <span>关注的选手和赛事会集中在关注页，方便赛前快速查看。</span>
       </div>
     </section>
   `;

@@ -911,15 +911,19 @@ select:focus {
   font: inherit;
   padding: 4px 2px;
   -webkit-tap-highlight-color: transparent;
+  appearance: none;
 }
 
-.bottom-nav button:not([aria-current="page"]) {
+.bottom-nav button:not([aria-current="page"]),
+.bottom-nav button:not([data-active="true"]) {
   background: transparent !important;
   color: #667085 !important;
+  box-shadow: none !important;
 }
 
-.bottom-nav button.active:not([aria-current="page"]),
-.bottom-nav button[aria-selected="false"] {
+.bottom-nav button.active:not([data-active="true"]),
+.bottom-nav button[aria-selected="false"],
+.bottom-nav button:not(.is-current) {
   background: transparent !important;
   color: #667085 !important;
   box-shadow: none !important;
@@ -935,6 +939,7 @@ select:focus {
   line-height: 1;
 }
 
+.bottom-nav button[data-active="true"],
 .bottom-nav button[aria-current="page"] {
   background: rgba(8, 119, 96, 0.08);
   color: var(--teal);
@@ -943,9 +948,14 @@ select:focus {
 .bottom-nav button:not([aria-current="page"]):hover,
 .bottom-nav button:not([aria-current="page"]):focus,
 .bottom-nav button:not([aria-current="page"]):focus-visible,
-.bottom-nav button:not([aria-current="page"]):active {
+.bottom-nav button:not([aria-current="page"]):active,
+.bottom-nav button:not([data-active="true"]):hover,
+.bottom-nav button:not([data-active="true"]):focus,
+.bottom-nav button:not([data-active="true"]):focus-visible,
+.bottom-nav button:not([data-active="true"]):active {
   background: transparent !important;
   color: #667085 !important;
+  box-shadow: none !important;
 }
 
 .bottom-nav button:focus,
