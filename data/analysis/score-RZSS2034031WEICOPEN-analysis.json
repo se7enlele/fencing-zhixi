@@ -1,0 +1,2455 @@
+{
+  "ok": true,
+  "source": {
+    "sourceUrl": "https://fencing-proxy.aixindiandian.workers.dev/Resource/score/RZSS2034031WEICOPEN.js",
+    "sourceType": "score-resource",
+    "importedAt": "2026-06-09T11:03:40.811Z"
+  },
+  "general": {
+    "sportName": "2026年大庆“利斯杯”击剑邀请赛",
+    "eventName": "公开组女子重剑个人",
+    "openDate": null,
+    "venue": "黑龙江·大庆",
+    "competitionNo": 11,
+    "exemptionNo": 0,
+    "poolFencerNo": 11,
+    "poolQualifyNo": 8,
+    "preDeStartPhase": "none",
+    "deStartPhase": "from Tableaus 8",
+    "sportCode": "RZSS2034031",
+    "eventCode": "RZSS2034031WEICOPEN"
+  },
+  "summary": {
+    "classmentCount": 11,
+    "initialSeedCount": 11,
+    "poolCount": 2,
+    "poolStandingCount": 10,
+    "poolResultCount": 11,
+    "poolBoutCount": 25,
+    "tableauCount": 3,
+    "eliminationMatchCount": 7,
+    "playedEliminationMatchCount": 7,
+    "byeMatchCount": 0,
+    "athleteCountByLicence": 11
+  },
+  "distributions": {
+    "poolStatus": {
+      "7": 2
+    },
+    "poolRemark": {
+      "Q": 8,
+      "E": 2
+    },
+    "tableau": {
+      "8表": 1,
+      "半决赛": 1,
+      "决赛": 1
+    },
+    "eliminationByPhase": {
+      "8表": 4,
+      "半决赛": 2,
+      "决赛": 1
+    },
+    "eliminationResult": {
+      "W/L": 2,
+      "L/W": 5
+    },
+    "medal": {
+      "金": 1,
+      "银": 1,
+      "铜": 2,
+      "(无奖牌)": 7
+    }
+  },
+  "normalized": {
+    "classment": [
+      {
+        "rank": 1,
+        "displayRank": "1",
+        "name": "白羽",
+        "licence": "20080404F202307110658",
+        "club": "黑龙江",
+        "birthday": "2008-04-04",
+        "medal": "金",
+        "status": "N",
+        "sourcePosition": 1,
+        "qualifyStatusId": 1
+      },
+      {
+        "rank": 2,
+        "displayRank": "2",
+        "name": "TKHORENKO ARINA",
+        "licence": "20110531F202604041051",
+        "club": "大庆利斯",
+        "birthday": "2011-05-31",
+        "medal": "银",
+        "status": "N",
+        "sourcePosition": 2,
+        "qualifyStatusId": 1
+      },
+      {
+        "rank": 3,
+        "displayRank": "3",
+        "name": "REZNICHENKO DARIA",
+        "licence": "20101129F202604040127",
+        "club": "大庆利斯",
+        "birthday": "2010-11-29",
+        "medal": "铜",
+        "status": "N",
+        "sourcePosition": 3,
+        "qualifyStatusId": 1
+      },
+      {
+        "rank": 3,
+        "displayRank": "3",
+        "name": "郑煦濛",
+        "licence": "20090510F202207210420",
+        "club": "吉林",
+        "birthday": "2009-05-10",
+        "medal": "铜",
+        "status": "N",
+        "sourcePosition": 4,
+        "qualifyStatusId": 1
+      },
+      {
+        "rank": 5,
+        "displayRank": "5",
+        "name": "哈斯托娅",
+        "licence": "20070516F202107260552",
+        "club": "黑龙江",
+        "birthday": "2007-05-16",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": 5,
+        "qualifyStatusId": 1
+      },
+      {
+        "rank": 6,
+        "displayRank": "6",
+        "name": "GMAR ALISA",
+        "licence": "20100829F202604040131",
+        "club": "大庆利斯",
+        "birthday": "2010-08-29",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": 6,
+        "qualifyStatusId": 1
+      },
+      {
+        "rank": 7,
+        "displayRank": "7",
+        "name": "张欣怡",
+        "licence": "20090216M202505120704",
+        "club": "辽宁",
+        "birthday": "2009-02-16",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": 7,
+        "qualifyStatusId": 1
+      },
+      {
+        "rank": 8,
+        "displayRank": "8",
+        "name": "SINGUR MARIIA",
+        "licence": "20110828F202604040150",
+        "club": "大庆利斯",
+        "birthday": "2011-08-28",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": 8,
+        "qualifyStatusId": 1
+      },
+      {
+        "rank": 9,
+        "displayRank": "9",
+        "name": "徐国凤",
+        "licence": "19640315F202512090743",
+        "club": "哈尔滨佳爵",
+        "birthday": "1964-03-15",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": 9,
+        "qualifyStatusId": 0
+      },
+      {
+        "rank": 10,
+        "displayRank": "10",
+        "name": "张文慧",
+        "licence": "19910125F202604180126",
+        "club": "哈尔滨佳爵",
+        "birthday": "1991-01-25",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": 10,
+        "qualifyStatusId": 0
+      },
+      {
+        "rank": 11,
+        "displayRank": "DNS",
+        "name": "MAZUR ALINA",
+        "licence": "19941012F202604070344",
+        "club": "大庆利斯",
+        "birthday": "1994-10-12",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": 11,
+        "qualifyStatusId": 0
+      }
+    ],
+    "poolStandings": [
+      {
+        "rank": 1,
+        "displayPosition": 1,
+        "name": "REZNICHENKO DARIA",
+        "licence": "20101129F202604040127",
+        "club": "大庆利斯",
+        "wins": 3,
+        "matches": 3,
+        "winRate": 1,
+        "hitsScored": 15,
+        "hitsReceived": 5,
+        "indicator": 10,
+        "remark": "Q"
+      },
+      {
+        "rank": 2,
+        "displayPosition": 2,
+        "name": "TKHORENKO ARINA",
+        "licence": "20110531F202604041051",
+        "club": "大庆利斯",
+        "wins": 4,
+        "matches": 5,
+        "winRate": 0.8,
+        "hitsScored": 24,
+        "hitsReceived": 13,
+        "indicator": 11,
+        "remark": "Q"
+      },
+      {
+        "rank": 3,
+        "displayPosition": 3,
+        "name": "哈斯托娅",
+        "licence": "20070516F202107260552",
+        "club": "黑龙江",
+        "wins": 4,
+        "matches": 5,
+        "winRate": 0.8,
+        "hitsScored": 21,
+        "hitsReceived": 17,
+        "indicator": 4,
+        "remark": "Q"
+      },
+      {
+        "rank": 4,
+        "displayPosition": 4,
+        "name": "白羽",
+        "licence": "20080404F202307110658",
+        "club": "黑龙江",
+        "wins": 2,
+        "matches": 3,
+        "winRate": 0.667,
+        "hitsScored": 10,
+        "hitsReceived": 11,
+        "indicator": -1,
+        "remark": "Q"
+      },
+      {
+        "rank": 5,
+        "displayPosition": 5,
+        "name": "GMAR ALISA",
+        "licence": "20100829F202604040131",
+        "club": "大庆利斯",
+        "wins": 3,
+        "matches": 5,
+        "winRate": 0.6,
+        "hitsScored": 23,
+        "hitsReceived": 19,
+        "indicator": 4,
+        "remark": "Q"
+      },
+      {
+        "rank": 6,
+        "displayPosition": 6,
+        "name": "郑煦濛",
+        "licence": "20090510F202207210420",
+        "club": "吉林",
+        "wins": 2,
+        "matches": 5,
+        "winRate": 0.4,
+        "hitsScored": 21,
+        "hitsReceived": 19,
+        "indicator": 2,
+        "remark": "Q"
+      },
+      {
+        "rank": 7,
+        "displayPosition": 7,
+        "name": "张欣怡",
+        "licence": "20090216M202505120704",
+        "club": "辽宁",
+        "wins": 2,
+        "matches": 5,
+        "winRate": 0.4,
+        "hitsScored": 17,
+        "hitsReceived": 19,
+        "indicator": -2,
+        "remark": "Q"
+      },
+      {
+        "rank": 8,
+        "displayPosition": 8,
+        "name": "SINGUR MARIIA",
+        "licence": "20110828F202604040150",
+        "club": "大庆利斯",
+        "wins": 1,
+        "matches": 3,
+        "winRate": 0.333,
+        "hitsScored": 11,
+        "hitsReceived": 14,
+        "indicator": -3,
+        "remark": "Q"
+      },
+      {
+        "rank": 9,
+        "displayPosition": 9,
+        "name": "徐国凤",
+        "licence": "19640315F202512090743",
+        "club": "哈尔滨佳爵",
+        "wins": 0,
+        "matches": 3,
+        "winRate": 0,
+        "hitsScored": 9,
+        "hitsReceived": 15,
+        "indicator": -6,
+        "remark": "E"
+      },
+      {
+        "rank": 10,
+        "displayPosition": 10,
+        "name": "张文慧",
+        "licence": "19910125F202604180126",
+        "club": "哈尔滨佳爵",
+        "wins": 0,
+        "matches": 5,
+        "winRate": 0,
+        "hitsScored": 5,
+        "hitsReceived": 24,
+        "indicator": -19,
+        "remark": "E"
+      }
+    ],
+    "poolResults": [
+      {
+        "drawNo": 1,
+        "name": "MAZUR ALINA",
+        "licence": "19941012F202604070344",
+        "club": "大庆利斯",
+        "poolId": 163195,
+        "boutCells": {
+          "Result1": "",
+          "Result2": "X",
+          "Result3": "X",
+          "Result4": "X",
+          "Result5": "X",
+          "Result6": "",
+          "Result7": ""
+        },
+        "wins": null,
+        "matches": null,
+        "winRate": null,
+        "hitsScored": null,
+        "hitsReceived": null,
+        "indicator": null,
+        "phaseRank": null
+      },
+      {
+        "drawNo": 2,
+        "name": "REZNICHENKO DARIA",
+        "licence": "20101129F202604040127",
+        "club": "大庆利斯",
+        "poolId": 163195,
+        "boutCells": {
+          "Result1": "X",
+          "Result2": "",
+          "Result3": "V",
+          "Result4": "V",
+          "Result5": "V",
+          "Result6": "",
+          "Result7": ""
+        },
+        "wins": 3,
+        "matches": 3,
+        "winRate": 1,
+        "hitsScored": 15,
+        "hitsReceived": 5,
+        "indicator": 10,
+        "phaseRank": 1
+      },
+      {
+        "drawNo": 3,
+        "name": "SINGUR MARIIA",
+        "licence": "20110828F202604040150",
+        "club": "大庆利斯",
+        "poolId": 163195,
+        "boutCells": {
+          "Result1": "X",
+          "Result2": "3",
+          "Result3": "",
+          "Result4": "3",
+          "Result5": "V",
+          "Result6": "",
+          "Result7": ""
+        },
+        "wins": 1,
+        "matches": 3,
+        "winRate": 0.333,
+        "hitsScored": 11,
+        "hitsReceived": 14,
+        "indicator": -3,
+        "phaseRank": 3
+      },
+      {
+        "drawNo": 4,
+        "name": "白羽",
+        "licence": "20080404F202307110658",
+        "club": "黑龙江",
+        "poolId": 163195,
+        "boutCells": {
+          "Result1": "X",
+          "Result2": "0",
+          "Result3": "V",
+          "Result4": "",
+          "Result5": "V",
+          "Result6": "",
+          "Result7": ""
+        },
+        "wins": 2,
+        "matches": 3,
+        "winRate": 0.667,
+        "hitsScored": 10,
+        "hitsReceived": 11,
+        "indicator": -1,
+        "phaseRank": 2
+      },
+      {
+        "drawNo": 5,
+        "name": "徐国凤",
+        "licence": "19640315F202512090743",
+        "club": "哈尔滨佳爵",
+        "poolId": 163195,
+        "boutCells": {
+          "Result1": "X",
+          "Result2": "2",
+          "Result3": "4",
+          "Result4": "3",
+          "Result5": "",
+          "Result6": "",
+          "Result7": ""
+        },
+        "wins": 0,
+        "matches": 3,
+        "winRate": 0,
+        "hitsScored": 9,
+        "hitsReceived": 15,
+        "indicator": -6,
+        "phaseRank": 4
+      },
+      {
+        "drawNo": 1,
+        "name": "TKHORENKO ARINA",
+        "licence": "20110531F202604041051",
+        "club": "大庆利斯",
+        "poolId": 163196,
+        "boutCells": {
+          "Result1": "",
+          "Result2": "4",
+          "Result3": "V",
+          "Result4": "V",
+          "Result5": "V",
+          "Result6": "V",
+          "Result7": ""
+        },
+        "wins": 4,
+        "matches": 5,
+        "winRate": 0.8,
+        "hitsScored": 24,
+        "hitsReceived": 13,
+        "indicator": 11,
+        "phaseRank": 1
+      },
+      {
+        "drawNo": 2,
+        "name": "GMAR ALISA",
+        "licence": "20100829F202604040131",
+        "club": "大庆利斯",
+        "poolId": 163196,
+        "boutCells": {
+          "Result1": "V",
+          "Result2": "",
+          "Result3": "4",
+          "Result4": "4",
+          "Result5": "V",
+          "Result6": "V",
+          "Result7": ""
+        },
+        "wins": 3,
+        "matches": 5,
+        "winRate": 0.6,
+        "hitsScored": 23,
+        "hitsReceived": 19,
+        "indicator": 4,
+        "phaseRank": 3
+      },
+      {
+        "drawNo": 3,
+        "name": "哈斯托娅",
+        "licence": "20070516F202107260552",
+        "club": "黑龙江",
+        "poolId": 163196,
+        "boutCells": {
+          "Result1": "1",
+          "Result2": "V",
+          "Result3": "",
+          "Result4": "V",
+          "Result5": "V",
+          "Result6": "V",
+          "Result7": ""
+        },
+        "wins": 4,
+        "matches": 5,
+        "winRate": 0.8,
+        "hitsScored": 21,
+        "hitsReceived": 17,
+        "indicator": 4,
+        "phaseRank": 2
+      },
+      {
+        "drawNo": 4,
+        "name": "张欣怡",
+        "licence": "20090216M202505120704",
+        "club": "辽宁",
+        "poolId": 163196,
+        "boutCells": {
+          "Result1": "3",
+          "Result2": "V",
+          "Result3": "4",
+          "Result4": "",
+          "Result5": "1",
+          "Result6": "V4",
+          "Result7": ""
+        },
+        "wins": 2,
+        "matches": 5,
+        "winRate": 0.4,
+        "hitsScored": 17,
+        "hitsReceived": 19,
+        "indicator": -2,
+        "phaseRank": 5
+      },
+      {
+        "drawNo": 5,
+        "name": "郑煦濛",
+        "licence": "20090510F202207210420",
+        "club": "吉林",
+        "poolId": 163196,
+        "boutCells": {
+          "Result1": "4",
+          "Result2": "4",
+          "Result3": "4",
+          "Result4": "V4",
+          "Result5": "",
+          "Result6": "V",
+          "Result7": ""
+        },
+        "wins": 2,
+        "matches": 5,
+        "winRate": 0.4,
+        "hitsScored": 21,
+        "hitsReceived": 19,
+        "indicator": 2,
+        "phaseRank": 4
+      },
+      {
+        "drawNo": 6,
+        "name": "张文慧",
+        "licence": "19910125F202604180126",
+        "club": "哈尔滨佳爵",
+        "poolId": 163196,
+        "boutCells": {
+          "Result1": "0",
+          "Result2": "1",
+          "Result3": "0",
+          "Result4": "1",
+          "Result5": "3",
+          "Result6": "",
+          "Result7": ""
+        },
+        "wins": 0,
+        "matches": 5,
+        "winRate": 0,
+        "hitsScored": 5,
+        "hitsReceived": 24,
+        "indicator": -19,
+        "phaseRank": 6
+      }
+    ],
+    "poolBouts": [
+      {
+        "poolId": 163195,
+        "caseCode": "CASE5",
+        "order": 1,
+        "matchOrder": 1,
+        "homeNumber": 1,
+        "awayNumber": 2,
+        "homeLabel": "1：MAZUR ALINA(大庆利斯)",
+        "awayLabel": "2：REZNICHENKO DARIA(大庆利斯)",
+        "homeScore": null,
+        "awayScore": null
+      },
+      {
+        "poolId": 163195,
+        "caseCode": "CASE5",
+        "order": 2,
+        "matchOrder": 2,
+        "homeNumber": 3,
+        "awayNumber": 4,
+        "homeLabel": "3：SINGUR MARIIA(大庆利斯)",
+        "awayLabel": "4：白羽(黑龙江)",
+        "homeScore": 3,
+        "awayScore": "V"
+      },
+      {
+        "poolId": 163195,
+        "caseCode": "CASE5",
+        "order": 3,
+        "matchOrder": 3,
+        "homeNumber": 5,
+        "awayNumber": 1,
+        "homeLabel": "5：徐国凤(哈尔滨佳爵)",
+        "awayLabel": "1：MAZUR ALINA(大庆利斯)",
+        "homeScore": null,
+        "awayScore": null
+      },
+      {
+        "poolId": 163195,
+        "caseCode": "CASE5",
+        "order": 4,
+        "matchOrder": 4,
+        "homeNumber": 2,
+        "awayNumber": 3,
+        "homeLabel": "2：REZNICHENKO DARIA(大庆利斯)",
+        "awayLabel": "3：SINGUR MARIIA(大庆利斯)",
+        "homeScore": "V",
+        "awayScore": 3
+      },
+      {
+        "poolId": 163195,
+        "caseCode": "CASE5",
+        "order": 5,
+        "matchOrder": 5,
+        "homeNumber": 5,
+        "awayNumber": 4,
+        "homeLabel": "5：徐国凤(哈尔滨佳爵)",
+        "awayLabel": "4：白羽(黑龙江)",
+        "homeScore": 3,
+        "awayScore": "V"
+      },
+      {
+        "poolId": 163195,
+        "caseCode": "CASE5",
+        "order": 6,
+        "matchOrder": 6,
+        "homeNumber": 1,
+        "awayNumber": 3,
+        "homeLabel": "1：MAZUR ALINA(大庆利斯)",
+        "awayLabel": "3：SINGUR MARIIA(大庆利斯)",
+        "homeScore": null,
+        "awayScore": null
+      },
+      {
+        "poolId": 163195,
+        "caseCode": "CASE5",
+        "order": 7,
+        "matchOrder": 7,
+        "homeNumber": 2,
+        "awayNumber": 5,
+        "homeLabel": "2：REZNICHENKO DARIA(大庆利斯)",
+        "awayLabel": "5：徐国凤(哈尔滨佳爵)",
+        "homeScore": "V",
+        "awayScore": 2
+      },
+      {
+        "poolId": 163195,
+        "caseCode": "CASE5",
+        "order": 8,
+        "matchOrder": 8,
+        "homeNumber": 4,
+        "awayNumber": 1,
+        "homeLabel": "4：白羽(黑龙江)",
+        "awayLabel": "1：MAZUR ALINA(大庆利斯)",
+        "homeScore": null,
+        "awayScore": null
+      },
+      {
+        "poolId": 163195,
+        "caseCode": "CASE5",
+        "order": 9,
+        "matchOrder": 9,
+        "homeNumber": 3,
+        "awayNumber": 5,
+        "homeLabel": "3：SINGUR MARIIA(大庆利斯)",
+        "awayLabel": "5：徐国凤(哈尔滨佳爵)",
+        "homeScore": "V",
+        "awayScore": 4
+      },
+      {
+        "poolId": 163195,
+        "caseCode": "CASE5",
+        "order": 10,
+        "matchOrder": 10,
+        "homeNumber": 4,
+        "awayNumber": 2,
+        "homeLabel": "4：白羽(黑龙江)",
+        "awayLabel": "2：REZNICHENKO DARIA(大庆利斯)",
+        "homeScore": 0,
+        "awayScore": "V"
+      },
+      {
+        "poolId": 163196,
+        "caseCode": "CASE6",
+        "order": 1,
+        "matchOrder": 1,
+        "homeNumber": 1,
+        "awayNumber": 2,
+        "homeLabel": "1：TKHORENKO ARINA(大庆利斯)",
+        "awayLabel": "2：GMAR ALISA(大庆利斯)",
+        "homeScore": 4,
+        "awayScore": "V"
+      },
+      {
+        "poolId": 163196,
+        "caseCode": "CASE6",
+        "order": 2,
+        "matchOrder": 2,
+        "homeNumber": 4,
+        "awayNumber": 3,
+        "homeLabel": "4：张欣怡(辽宁)",
+        "awayLabel": "3：哈斯托娅(黑龙江)",
+        "homeScore": 4,
+        "awayScore": "V"
+      },
+      {
+        "poolId": 163196,
+        "caseCode": "CASE6",
+        "order": 3,
+        "matchOrder": 3,
+        "homeNumber": 6,
+        "awayNumber": 5,
+        "homeLabel": "6：张文慧(哈尔滨佳爵)",
+        "awayLabel": "5：郑煦濛(吉林)",
+        "homeScore": 3,
+        "awayScore": "V"
+      },
+      {
+        "poolId": 163196,
+        "caseCode": "CASE6",
+        "order": 4,
+        "matchOrder": 4,
+        "homeNumber": 3,
+        "awayNumber": 1,
+        "homeLabel": "3：哈斯托娅(黑龙江)",
+        "awayLabel": "1：TKHORENKO ARINA(大庆利斯)",
+        "homeScore": 1,
+        "awayScore": "V"
+      },
+      {
+        "poolId": 163196,
+        "caseCode": "CASE6",
+        "order": 5,
+        "matchOrder": 5,
+        "homeNumber": 2,
+        "awayNumber": 6,
+        "homeLabel": "2：GMAR ALISA(大庆利斯)",
+        "awayLabel": "6：张文慧(哈尔滨佳爵)",
+        "homeScore": "V",
+        "awayScore": 1
+      },
+      {
+        "poolId": 163196,
+        "caseCode": "CASE6",
+        "order": 6,
+        "matchOrder": 6,
+        "homeNumber": 5,
+        "awayNumber": 4,
+        "homeLabel": "5：郑煦濛(吉林)",
+        "awayLabel": "4：张欣怡(辽宁)",
+        "homeScore": null,
+        "awayScore": 1
+      },
+      {
+        "poolId": 163196,
+        "caseCode": "CASE6",
+        "order": 7,
+        "matchOrder": 7,
+        "homeNumber": 1,
+        "awayNumber": 6,
+        "homeLabel": "1：TKHORENKO ARINA(大庆利斯)",
+        "awayLabel": "6：张文慧(哈尔滨佳爵)",
+        "homeScore": "V",
+        "awayScore": 0
+      },
+      {
+        "poolId": 163196,
+        "caseCode": "CASE6",
+        "order": 8,
+        "matchOrder": 8,
+        "homeNumber": 3,
+        "awayNumber": 5,
+        "homeLabel": "3：哈斯托娅(黑龙江)",
+        "awayLabel": "5：郑煦濛(吉林)",
+        "homeScore": "V",
+        "awayScore": 4
+      },
+      {
+        "poolId": 163196,
+        "caseCode": "CASE6",
+        "order": 9,
+        "matchOrder": 9,
+        "homeNumber": 4,
+        "awayNumber": 2,
+        "homeLabel": "4：张欣怡(辽宁)",
+        "awayLabel": "2：GMAR ALISA(大庆利斯)",
+        "homeScore": "V",
+        "awayScore": 4
+      },
+      {
+        "poolId": 163196,
+        "caseCode": "CASE6",
+        "order": 10,
+        "matchOrder": 10,
+        "homeNumber": 5,
+        "awayNumber": 1,
+        "homeLabel": "5：郑煦濛(吉林)",
+        "awayLabel": "1：TKHORENKO ARINA(大庆利斯)",
+        "homeScore": 4,
+        "awayScore": "V"
+      },
+      {
+        "poolId": 163196,
+        "caseCode": "CASE6",
+        "order": 11,
+        "matchOrder": 11,
+        "homeNumber": 6,
+        "awayNumber": 4,
+        "homeLabel": "6：张文慧(哈尔滨佳爵)",
+        "awayLabel": "4：张欣怡(辽宁)",
+        "homeScore": 1,
+        "awayScore": null
+      },
+      {
+        "poolId": 163196,
+        "caseCode": "CASE6",
+        "order": 12,
+        "matchOrder": 12,
+        "homeNumber": 2,
+        "awayNumber": 3,
+        "homeLabel": "2：GMAR ALISA(大庆利斯)",
+        "awayLabel": "3：哈斯托娅(黑龙江)",
+        "homeScore": 4,
+        "awayScore": "V"
+      },
+      {
+        "poolId": 163196,
+        "caseCode": "CASE6",
+        "order": 13,
+        "matchOrder": 13,
+        "homeNumber": 1,
+        "awayNumber": 4,
+        "homeLabel": "1：TKHORENKO ARINA(大庆利斯)",
+        "awayLabel": "4：张欣怡(辽宁)",
+        "homeScore": "V",
+        "awayScore": 3
+      },
+      {
+        "poolId": 163196,
+        "caseCode": "CASE6",
+        "order": 14,
+        "matchOrder": 14,
+        "homeNumber": 5,
+        "awayNumber": 2,
+        "homeLabel": "5：郑煦濛(吉林)",
+        "awayLabel": "2：GMAR ALISA(大庆利斯)",
+        "homeScore": 4,
+        "awayScore": "V"
+      },
+      {
+        "poolId": 163196,
+        "caseCode": "CASE6",
+        "order": 15,
+        "matchOrder": 15,
+        "homeNumber": 3,
+        "awayNumber": 6,
+        "homeLabel": "3：哈斯托娅(黑龙江)",
+        "awayLabel": "6：张文慧(哈尔滨佳爵)",
+        "homeScore": "V",
+        "awayScore": 0
+      }
+    ],
+    "eliminationMatches": [
+      {
+        "matchId": 471201,
+        "matchCode": "Pre001",
+        "phaseId": 163197,
+        "phase": {
+          "shortName": "T8",
+          "longName": "8表",
+          "order": 1,
+          "code": "3",
+          "group": "1_0"
+        },
+        "groupCode": "3_0",
+        "innerOrder": 1,
+        "home": {
+          "position": 1,
+          "name": "REZNICHENKO DARIA",
+          "licence": "20101129F202604040127",
+          "club": "大庆利斯",
+          "points": 15,
+          "result": "W"
+        },
+        "away": {
+          "position": 8,
+          "name": "SINGUR MARIIA",
+          "licence": "20110828F202604040150",
+          "club": "大庆利斯",
+          "points": 14,
+          "result": "L"
+        },
+        "winner": {
+          "name": "REZNICHENKO DARIA",
+          "club": "大庆利斯"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 471202,
+        "matchCode": "Pre002",
+        "phaseId": 163197,
+        "phase": {
+          "shortName": "T8",
+          "longName": "8表",
+          "order": 1,
+          "code": "3",
+          "group": "1_0"
+        },
+        "groupCode": "3_0",
+        "innerOrder": 2,
+        "home": {
+          "position": 5,
+          "name": "GMAR ALISA",
+          "licence": "20100829F202604040131",
+          "club": "大庆利斯",
+          "points": 14,
+          "result": "L"
+        },
+        "away": {
+          "position": 4,
+          "name": "白羽",
+          "licence": "20080404F202307110658",
+          "club": "黑龙江",
+          "points": 15,
+          "result": "W"
+        },
+        "winner": {
+          "name": "白羽",
+          "club": "黑龙江"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 471203,
+        "matchCode": "Pre003",
+        "phaseId": 163197,
+        "phase": {
+          "shortName": "T8",
+          "longName": "8表",
+          "order": 1,
+          "code": "3",
+          "group": "1_0"
+        },
+        "groupCode": "3_1",
+        "innerOrder": 1,
+        "home": {
+          "position": 3,
+          "name": "哈斯托娅",
+          "licence": "20070516F202107260552",
+          "club": "黑龙江",
+          "points": 14,
+          "result": "L"
+        },
+        "away": {
+          "position": 6,
+          "name": "郑煦濛",
+          "licence": "20090510F202207210420",
+          "club": "吉林",
+          "points": 15,
+          "result": "W"
+        },
+        "winner": {
+          "name": "郑煦濛",
+          "club": "吉林"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 471204,
+        "matchCode": "Pre004",
+        "phaseId": 163197,
+        "phase": {
+          "shortName": "T8",
+          "longName": "8表",
+          "order": 1,
+          "code": "3",
+          "group": "1_0"
+        },
+        "groupCode": "3_1",
+        "innerOrder": 2,
+        "home": {
+          "position": 7,
+          "name": "张欣怡",
+          "licence": "20090216M202505120704",
+          "club": "辽宁",
+          "points": 13,
+          "result": "L"
+        },
+        "away": {
+          "position": 2,
+          "name": "TKHORENKO ARINA",
+          "licence": "20110531F202604041051",
+          "club": "大庆利斯",
+          "points": 15,
+          "result": "W"
+        },
+        "winner": {
+          "name": "TKHORENKO ARINA",
+          "club": "大庆利斯"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 471205,
+        "matchCode": "Pre001",
+        "phaseId": 163198,
+        "phase": {
+          "shortName": "T4",
+          "longName": "半决赛",
+          "order": 2,
+          "code": "2",
+          "group": "2_0"
+        },
+        "groupCode": "2_0",
+        "innerOrder": 1,
+        "home": {
+          "position": 1,
+          "name": "REZNICHENKO DARIA",
+          "licence": "20101129F202604040127",
+          "club": "大庆利斯",
+          "points": 10,
+          "result": "L"
+        },
+        "away": {
+          "position": 4,
+          "name": "白羽",
+          "licence": "20080404F202307110658",
+          "club": "黑龙江",
+          "points": 15,
+          "result": "W"
+        },
+        "winner": {
+          "name": "白羽",
+          "club": "黑龙江"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 471206,
+        "matchCode": "Pre002",
+        "phaseId": 163198,
+        "phase": {
+          "shortName": "T4",
+          "longName": "半决赛",
+          "order": 2,
+          "code": "2",
+          "group": "2_0"
+        },
+        "groupCode": "2_0",
+        "innerOrder": 2,
+        "home": {
+          "position": 3,
+          "name": "郑煦濛",
+          "licence": "20090510F202207210420",
+          "club": "吉林",
+          "points": 10,
+          "result": "L"
+        },
+        "away": {
+          "position": 2,
+          "name": "TKHORENKO ARINA",
+          "licence": "20110531F202604041051",
+          "club": "大庆利斯",
+          "points": 15,
+          "result": "W"
+        },
+        "winner": {
+          "name": "TKHORENKO ARINA",
+          "club": "大庆利斯"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 471207,
+        "matchCode": "Pre001",
+        "phaseId": 163199,
+        "phase": {
+          "shortName": "T2",
+          "longName": "决赛",
+          "order": 3,
+          "code": "1",
+          "group": "3_0"
+        },
+        "groupCode": "1_0",
+        "innerOrder": 1,
+        "home": {
+          "position": 1,
+          "name": "白羽",
+          "licence": "20080404F202307110658",
+          "club": "黑龙江",
+          "points": 15,
+          "result": "W"
+        },
+        "away": {
+          "position": 2,
+          "name": "TKHORENKO ARINA",
+          "licence": "20110531F202604041051",
+          "club": "大庆利斯",
+          "points": 12,
+          "result": "L"
+        },
+        "winner": {
+          "name": "白羽",
+          "club": "黑龙江"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      }
+    ]
+  },
+  "completeness": [
+    {
+      "section": "General",
+      "rows": 1,
+      "fields": [
+        {
+          "key": "SportName",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "2026年大庆“利斯杯”击剑邀请赛"
+          ]
+        },
+        {
+          "key": "EventName",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "公开组女子重剑个人"
+          ]
+        },
+        {
+          "key": "OpenDate",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "Venue",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "黑龙江·大庆"
+          ]
+        },
+        {
+          "key": "CompetitionNo",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            11
+          ]
+        },
+        {
+          "key": "ExemptionNo",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            0
+          ]
+        },
+        {
+          "key": "PoolFencerNo",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            11
+          ]
+        },
+        {
+          "key": "PoolQualifyNo",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            8
+          ]
+        },
+        {
+          "key": "PDEstartPhase",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "none"
+          ]
+        },
+        {
+          "key": "DEstartPhase",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "from Tableaus 8"
+          ]
+        },
+        {
+          "key": "Scode",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "RZSS2034031"
+          ]
+        },
+        {
+          "key": "Ecode",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "RZSS2034031WEICOPEN"
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Classment",
+      "rows": 11,
+      "fields": [
+        {
+          "key": "EventShowRank",
+          "nonEmpty": 11,
+          "fillRate": 1,
+          "sampleValues": [
+            "1",
+            "2",
+            "3",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9"
+          ]
+        },
+        {
+          "key": "EventRank",
+          "nonEmpty": 11,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            5,
+            6,
+            7,
+            8,
+            9
+          ]
+        },
+        {
+          "key": "Fencer",
+          "nonEmpty": 11,
+          "fillRate": 1,
+          "sampleValues": [
+            "白羽",
+            "TKHORENKO ARINA",
+            "REZNICHENKO DARIA",
+            "郑煦濛",
+            "哈斯托娅",
+            "GMAR ALISA",
+            "张欣怡",
+            "SINGUR MARIIA"
+          ]
+        },
+        {
+          "key": "Licence",
+          "nonEmpty": 11,
+          "fillRate": 1,
+          "sampleValues": [
+            "20080404F202307110658",
+            "20110531F202604041051",
+            "20101129F202604040127",
+            "20090510F202207210420",
+            "20070516F202107260552",
+            "20100829F202604040131",
+            "20090216M202505120704",
+            "20110828F202604040150"
+          ]
+        },
+        {
+          "key": "NOCCode",
+          "nonEmpty": 11,
+          "fillRate": 1,
+          "sampleValues": [
+            "黑龙江",
+            "大庆利斯",
+            "吉林",
+            "辽宁",
+            "哈尔滨佳爵"
+          ]
+        },
+        {
+          "key": "Birthday",
+          "nonEmpty": 11,
+          "fillRate": 1,
+          "sampleValues": [
+            "2008-04-04",
+            "2011-05-31",
+            "2010-11-29",
+            "2009-05-10",
+            "2007-05-16",
+            "2010-08-29",
+            "2009-02-16",
+            "2011-08-28"
+          ]
+        },
+        {
+          "key": "Medal",
+          "nonEmpty": 4,
+          "fillRate": 0.3636,
+          "sampleValues": [
+            "金",
+            "银",
+            "铜"
+          ]
+        },
+        {
+          "key": "Statut",
+          "nonEmpty": 11,
+          "fillRate": 1,
+          "sampleValues": [
+            "N"
+          ]
+        },
+        {
+          "key": "F_EventDisPos",
+          "nonEmpty": 11,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ]
+        },
+        {
+          "key": "QualifyStatusId",
+          "nonEmpty": 11,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "section": "IniStarts",
+      "rows": 11,
+      "fields": [
+        {
+          "key": "IRank",
+          "nonEmpty": 11,
+          "fillRate": 1,
+          "sampleValues": [
+            12
+          ]
+        },
+        {
+          "key": "IPoints",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "Fencer",
+          "nonEmpty": 11,
+          "fillRate": 1,
+          "sampleValues": [
+            "哈斯托娅",
+            "徐国凤",
+            "张文慧",
+            "张欣怡",
+            "郑煦濛",
+            "白羽",
+            "MAZUR ALINA",
+            "REZNICHENKO DARIA"
+          ]
+        },
+        {
+          "key": "NOCCode",
+          "nonEmpty": 11,
+          "fillRate": 1,
+          "sampleValues": [
+            "黑龙江",
+            "哈尔滨佳爵",
+            "辽宁",
+            "吉林",
+            "大庆利斯"
+          ]
+        },
+        {
+          "key": "Birthday",
+          "nonEmpty": 11,
+          "fillRate": 1,
+          "sampleValues": [
+            "2007-05-16",
+            "1964-03-15",
+            "1991-01-25",
+            "2009-02-16",
+            "2009-05-10",
+            "2008-04-04",
+            "1994-10-12",
+            "2010-11-29"
+          ]
+        },
+        {
+          "key": "Licence",
+          "nonEmpty": 11,
+          "fillRate": 1,
+          "sampleValues": [
+            "20070516F202107260552",
+            "19640315F202512090743",
+            "19910125F202604180126",
+            "20090216M202505120704",
+            "20090510F202207210420",
+            "20080404F202307110658",
+            "19941012F202604070344",
+            "20101129F202604040127"
+          ]
+        },
+        {
+          "key": "DisPos",
+          "nonEmpty": 11,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "section": "PoolStanding",
+      "rows": 10,
+      "fields": [
+        {
+          "key": "Rank",
+          "nonEmpty": 10,
+          "fillRate": 1,
+          "sampleValues": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8"
+          ]
+        },
+        {
+          "key": "DisPos",
+          "nonEmpty": 10,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ]
+        },
+        {
+          "key": "Name",
+          "nonEmpty": 10,
+          "fillRate": 1,
+          "sampleValues": [
+            "REZNICHENKO DARIA",
+            "TKHORENKO ARINA",
+            "哈斯托娅",
+            "白羽",
+            "GMAR ALISA",
+            "郑煦濛",
+            "张欣怡",
+            "SINGUR MARIIA"
+          ]
+        },
+        {
+          "key": "Licence",
+          "nonEmpty": 10,
+          "fillRate": 1,
+          "sampleValues": [
+            "20101129F202604040127",
+            "20110531F202604041051",
+            "20070516F202107260552",
+            "20080404F202307110658",
+            "20100829F202604040131",
+            "20090510F202207210420",
+            "20090216M202505120704",
+            "20110828F202604040150"
+          ]
+        },
+        {
+          "key": "Delegation",
+          "nonEmpty": 10,
+          "fillRate": 1,
+          "sampleValues": [
+            "大庆利斯",
+            "黑龙江",
+            "吉林",
+            "辽宁",
+            "哈尔滨佳爵"
+          ]
+        },
+        {
+          "key": "V",
+          "nonEmpty": 10,
+          "fillRate": 1,
+          "sampleValues": [
+            3,
+            4,
+            2,
+            1,
+            0
+          ]
+        },
+        {
+          "key": "M",
+          "nonEmpty": 10,
+          "fillRate": 1,
+          "sampleValues": [
+            3,
+            5
+          ]
+        },
+        {
+          "key": "Index",
+          "nonEmpty": 10,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            0.8,
+            0.667,
+            0.6,
+            0.4,
+            0.333,
+            0
+          ]
+        },
+        {
+          "key": "HS",
+          "nonEmpty": 10,
+          "fillRate": 1,
+          "sampleValues": [
+            15,
+            24,
+            21,
+            10,
+            23,
+            17,
+            11,
+            9
+          ]
+        },
+        {
+          "key": "HR",
+          "nonEmpty": 10,
+          "fillRate": 1,
+          "sampleValues": [
+            5,
+            13,
+            17,
+            11,
+            19,
+            14,
+            15,
+            24
+          ]
+        },
+        {
+          "key": "HSMHR",
+          "nonEmpty": 10,
+          "fillRate": 1,
+          "sampleValues": [
+            10,
+            11,
+            4,
+            -1,
+            2,
+            -2,
+            -3,
+            -6
+          ]
+        },
+        {
+          "key": "Remark",
+          "nonEmpty": 10,
+          "fillRate": 1,
+          "sampleValues": [
+            "Q",
+            "E"
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Pools",
+      "rows": 2,
+      "fields": [
+        {
+          "key": "PoolNo",
+          "nonEmpty": 2,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2
+          ]
+        },
+        {
+          "key": "Piste",
+          "nonEmpty": 2,
+          "fillRate": 1,
+          "sampleValues": [
+            "剑道：11",
+            "剑道：12"
+          ]
+        },
+        {
+          "key": "StartTime",
+          "nonEmpty": 2,
+          "fillRate": 1,
+          "sampleValues": [
+            "08:00"
+          ]
+        },
+        {
+          "key": "PoolReferee",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "PoolID",
+          "nonEmpty": 2,
+          "fillRate": 1,
+          "sampleValues": [
+            163195,
+            163196
+          ]
+        },
+        {
+          "key": "PhaseCode",
+          "nonEmpty": 2,
+          "fillRate": 1,
+          "sampleValues": [
+            "P1",
+            "P2"
+          ]
+        },
+        {
+          "key": "PoolStatus",
+          "nonEmpty": 2,
+          "fillRate": 1,
+          "sampleValues": [
+            7
+          ]
+        }
+      ]
+    },
+    {
+      "section": "PoolResults",
+      "rows": 11,
+      "fields": [
+        {
+          "key": "DrawNo",
+          "nonEmpty": 11,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ]
+        },
+        {
+          "key": "Fencer",
+          "nonEmpty": 11,
+          "fillRate": 1,
+          "sampleValues": [
+            "MAZUR ALINA",
+            "REZNICHENKO DARIA",
+            "SINGUR MARIIA",
+            "白羽",
+            "徐国凤",
+            "TKHORENKO ARINA",
+            "GMAR ALISA",
+            "哈斯托娅"
+          ]
+        },
+        {
+          "key": "Licence",
+          "nonEmpty": 11,
+          "fillRate": 1,
+          "sampleValues": [
+            "19941012F202604070344",
+            "20101129F202604040127",
+            "20110828F202604040150",
+            "20080404F202307110658",
+            "19640315F202512090743",
+            "20110531F202604041051",
+            "20100829F202604040131",
+            "20070516F202107260552"
+          ]
+        },
+        {
+          "key": "Delegation",
+          "nonEmpty": 11,
+          "fillRate": 1,
+          "sampleValues": [
+            "大庆利斯",
+            "黑龙江",
+            "哈尔滨佳爵",
+            "辽宁",
+            "吉林"
+          ]
+        },
+        {
+          "key": "Result1",
+          "nonEmpty": 9,
+          "fillRate": 0.8182,
+          "sampleValues": [
+            "X",
+            "V",
+            "1",
+            "3",
+            "4",
+            "0"
+          ]
+        },
+        {
+          "key": "Result2",
+          "nonEmpty": 9,
+          "fillRate": 0.8182,
+          "sampleValues": [
+            "X",
+            "3",
+            "0",
+            "2",
+            "4",
+            "V",
+            "1"
+          ]
+        },
+        {
+          "key": "Result3",
+          "nonEmpty": 9,
+          "fillRate": 0.8182,
+          "sampleValues": [
+            "X",
+            "V",
+            "4",
+            "0"
+          ]
+        },
+        {
+          "key": "Result4",
+          "nonEmpty": 9,
+          "fillRate": 0.8182,
+          "sampleValues": [
+            "X",
+            "V",
+            "3",
+            "4",
+            "V4",
+            "1"
+          ]
+        },
+        {
+          "key": "Result5",
+          "nonEmpty": 9,
+          "fillRate": 0.8182,
+          "sampleValues": [
+            "X",
+            "V",
+            "1",
+            "3"
+          ]
+        },
+        {
+          "key": "Result6",
+          "nonEmpty": 5,
+          "fillRate": 0.4545,
+          "sampleValues": [
+            "V",
+            "V4"
+          ]
+        },
+        {
+          "key": "Result7",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "WinCount",
+          "nonEmpty": 10,
+          "fillRate": 0.9091,
+          "sampleValues": [
+            3,
+            1,
+            2,
+            0,
+            4
+          ]
+        },
+        {
+          "key": "MatchCount",
+          "nonEmpty": 10,
+          "fillRate": 0.9091,
+          "sampleValues": [
+            3,
+            5
+          ]
+        },
+        {
+          "key": "IndexChar",
+          "nonEmpty": 10,
+          "fillRate": 0.9091,
+          "sampleValues": [
+            1,
+            0.333,
+            0.667,
+            0,
+            0.8,
+            0.6,
+            0.4
+          ]
+        },
+        {
+          "key": "TG",
+          "nonEmpty": 10,
+          "fillRate": 0.9091,
+          "sampleValues": [
+            15,
+            11,
+            10,
+            9,
+            24,
+            23,
+            21,
+            17
+          ]
+        },
+        {
+          "key": "TR",
+          "nonEmpty": 10,
+          "fillRate": 0.9091,
+          "sampleValues": [
+            5,
+            14,
+            11,
+            15,
+            13,
+            19,
+            17,
+            24
+          ]
+        },
+        {
+          "key": "Diff",
+          "nonEmpty": 10,
+          "fillRate": 0.9091,
+          "sampleValues": [
+            10,
+            -3,
+            -1,
+            -6,
+            11,
+            4,
+            -2,
+            2
+          ]
+        },
+        {
+          "key": "PhaseRank",
+          "nonEmpty": 10,
+          "fillRate": 0.9091,
+          "sampleValues": [
+            1,
+            3,
+            2,
+            4,
+            5,
+            6
+          ]
+        },
+        {
+          "key": "PoolID",
+          "nonEmpty": 11,
+          "fillRate": 1,
+          "sampleValues": [
+            163195,
+            163196
+          ]
+        }
+      ]
+    },
+    {
+      "section": "PRDetails",
+      "rows": 25,
+      "fields": [
+        {
+          "key": "CaseCode",
+          "nonEmpty": 25,
+          "fillRate": 1,
+          "sampleValues": [
+            "CASE5",
+            "CASE6"
+          ]
+        },
+        {
+          "key": "Order",
+          "nonEmpty": 25,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ]
+        },
+        {
+          "key": "NumberHome",
+          "nonEmpty": 25,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            3,
+            5,
+            2,
+            4,
+            6
+          ]
+        },
+        {
+          "key": "NumberAway",
+          "nonEmpty": 25,
+          "fillRate": 1,
+          "sampleValues": [
+            2,
+            4,
+            1,
+            3,
+            5,
+            6
+          ]
+        },
+        {
+          "key": "PoolID",
+          "nonEmpty": 25,
+          "fillRate": 1,
+          "sampleValues": [
+            163195,
+            163196
+          ]
+        },
+        {
+          "key": "MatchOrder",
+          "nonEmpty": 25,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ]
+        },
+        {
+          "key": "HomeFencer",
+          "nonEmpty": 25,
+          "fillRate": 1,
+          "sampleValues": [
+            "1：MAZUR ALINA(大庆利斯)",
+            "3：SINGUR MARIIA(大庆利斯)",
+            "5：徐国凤(哈尔滨佳爵)",
+            "2：REZNICHENKO DARIA(大庆利斯)",
+            "4：白羽(黑龙江)",
+            "1：TKHORENKO ARINA(大庆利斯)",
+            "4：张欣怡(辽宁)",
+            "6：张文慧(哈尔滨佳爵)"
+          ]
+        },
+        {
+          "key": "AwayFencer",
+          "nonEmpty": 25,
+          "fillRate": 1,
+          "sampleValues": [
+            "2：REZNICHENKO DARIA(大庆利斯)",
+            "4：白羽(黑龙江)",
+            "1：MAZUR ALINA(大庆利斯)",
+            "3：SINGUR MARIIA(大庆利斯)",
+            "5：徐国凤(哈尔滨佳爵)",
+            "2：GMAR ALISA(大庆利斯)",
+            "3：哈斯托娅(黑龙江)",
+            "5：郑煦濛(吉林)"
+          ]
+        },
+        {
+          "key": "HScore",
+          "nonEmpty": 25,
+          "fillRate": 1,
+          "sampleValues": [
+            "X",
+            "3",
+            "V",
+            "0",
+            "4",
+            "1",
+            "V4"
+          ]
+        },
+        {
+          "key": "AScore",
+          "nonEmpty": 25,
+          "fillRate": 1,
+          "sampleValues": [
+            "X",
+            "V",
+            "3",
+            "2",
+            "4",
+            "1",
+            "0",
+            "V4"
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Phases",
+      "rows": 1,
+      "fields": [
+        {
+          "key": "PhasePID",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            163194
+          ]
+        },
+        {
+          "key": "PhaseName",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "直接淘汰赛"
+          ]
+        },
+        {
+          "key": "Porder",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            3
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Tableaus",
+      "rows": 3,
+      "fields": [
+        {
+          "key": "PshortDes",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            "T8",
+            "T4",
+            "T2"
+          ]
+        },
+        {
+          "key": "PLongDes",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            "8表",
+            "半决赛",
+            "决赛"
+          ]
+        },
+        {
+          "key": "Porder",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3
+          ]
+        },
+        {
+          "key": "PhaseID",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            163197,
+            163198,
+            163199
+          ]
+        },
+        {
+          "key": "PhasePID",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            163194
+          ]
+        },
+        {
+          "key": "PhaseGroup",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            "1_0",
+            "2_0",
+            "3_0"
+          ]
+        },
+        {
+          "key": "PhaseCode",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            "3",
+            "2",
+            "1"
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Matchs",
+      "rows": 7,
+      "fields": [
+        {
+          "key": "MatchCode",
+          "nonEmpty": 7,
+          "fillRate": 1,
+          "sampleValues": [
+            "Pre001",
+            "Pre002",
+            "Pre003",
+            "Pre004"
+          ]
+        },
+        {
+          "key": "HomePosition",
+          "nonEmpty": 7,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            5,
+            3,
+            7
+          ]
+        },
+        {
+          "key": "HomeFencer",
+          "nonEmpty": 7,
+          "fillRate": 1,
+          "sampleValues": [
+            "REZNICHENKO DARIA",
+            "GMAR ALISA",
+            "哈斯托娅",
+            "张欣怡",
+            "郑煦濛",
+            "白羽"
+          ]
+        },
+        {
+          "key": "HomeLicence",
+          "nonEmpty": 7,
+          "fillRate": 1,
+          "sampleValues": [
+            "20101129F202604040127",
+            "20100829F202604040131",
+            "20070516F202107260552",
+            "20090216M202505120704",
+            "20090510F202207210420",
+            "20080404F202307110658"
+          ]
+        },
+        {
+          "key": "HomeNOC",
+          "nonEmpty": 7,
+          "fillRate": 1,
+          "sampleValues": [
+            "大庆利斯",
+            "黑龙江",
+            "辽宁",
+            "吉林"
+          ]
+        },
+        {
+          "key": "HomePoints",
+          "nonEmpty": 7,
+          "fillRate": 1,
+          "sampleValues": [
+            15,
+            14,
+            13,
+            10
+          ]
+        },
+        {
+          "key": "HomeWLT",
+          "nonEmpty": 7,
+          "fillRate": 1,
+          "sampleValues": [
+            "W",
+            "L"
+          ]
+        },
+        {
+          "key": "AwayPosition",
+          "nonEmpty": 7,
+          "fillRate": 1,
+          "sampleValues": [
+            8,
+            4,
+            6,
+            2
+          ]
+        },
+        {
+          "key": "AwayFencer",
+          "nonEmpty": 7,
+          "fillRate": 1,
+          "sampleValues": [
+            "SINGUR MARIIA",
+            "白羽",
+            "郑煦濛",
+            "TKHORENKO ARINA"
+          ]
+        },
+        {
+          "key": "AwayLicence",
+          "nonEmpty": 7,
+          "fillRate": 1,
+          "sampleValues": [
+            "20110828F202604040150",
+            "20080404F202307110658",
+            "20090510F202207210420",
+            "20110531F202604041051"
+          ]
+        },
+        {
+          "key": "AwayNOC",
+          "nonEmpty": 7,
+          "fillRate": 1,
+          "sampleValues": [
+            "大庆利斯",
+            "黑龙江",
+            "吉林"
+          ]
+        },
+        {
+          "key": "AwayPoints",
+          "nonEmpty": 7,
+          "fillRate": 1,
+          "sampleValues": [
+            14,
+            15,
+            12
+          ]
+        },
+        {
+          "key": "AwayWLT",
+          "nonEmpty": 7,
+          "fillRate": 1,
+          "sampleValues": [
+            "L",
+            "W"
+          ]
+        },
+        {
+          "key": "Piste",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "StartTime",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "Winner",
+          "nonEmpty": 7,
+          "fillRate": 1,
+          "sampleValues": [
+            "REZNICHENKO DARIA",
+            "白羽",
+            "郑煦濛",
+            "TKHORENKO ARINA"
+          ]
+        },
+        {
+          "key": "WinnerNOC",
+          "nonEmpty": 7,
+          "fillRate": 1,
+          "sampleValues": [
+            "大庆利斯",
+            "黑龙江",
+            "吉林"
+          ]
+        },
+        {
+          "key": "MatchID",
+          "nonEmpty": 7,
+          "fillRate": 1,
+          "sampleValues": [
+            471201,
+            471202,
+            471203,
+            471204,
+            471205,
+            471206,
+            471207
+          ]
+        },
+        {
+          "key": "PhaseID",
+          "nonEmpty": 7,
+          "fillRate": 1,
+          "sampleValues": [
+            163197,
+            163198,
+            163199
+          ]
+        },
+        {
+          "key": "GroupCode",
+          "nonEmpty": 7,
+          "fillRate": 1,
+          "sampleValues": [
+            "3_0",
+            "3_1",
+            "2_0",
+            "1_0"
+          ]
+        },
+        {
+          "key": "F_InnerOrder",
+          "nonEmpty": 7,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2
+          ]
+        }
+      ]
+    }
+  ],
+  "analysisCapabilities": [
+    "项目概要",
+    "最终排名",
+    "初始排位",
+    "小组赛排名",
+    "小组赛每场比分",
+    "小组赛晋级人数",
+    "淘汰赛阶段结构",
+    "淘汰赛每场比分",
+    "选手完整比赛路径",
+    "对手交手记录",
+    "胜负和净胜剑统计"
+  ],
+  "privacyRecommendation": {
+    "publicFields": [
+      "rank",
+      "name",
+      "club",
+      "scores",
+      "winner",
+      "medal"
+    ],
+    "privateFields": [
+      "Licence",
+      "Birthday"
+    ],
+    "note": "Licence 和 Birthday 只用于内部消歧，不建议公开展示。"
+  }
+}

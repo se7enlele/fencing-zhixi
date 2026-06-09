@@ -1,0 +1,1471 @@
+{
+  "ok": true,
+  "source": {
+    "sourceUrl": "https://fencing-proxy.aixindiandian.workers.dev/Resource/score/RZSS2034031METU8.js",
+    "sourceType": "score-resource",
+    "importedAt": "2026-06-09T11:05:58.579Z"
+  },
+  "general": {
+    "sportName": "2026年大庆“利斯杯”击剑邀请赛",
+    "eventName": "U8男子重剑团体",
+    "openDate": null,
+    "venue": "黑龙江·大庆",
+    "competitionNo": 8,
+    "exemptionNo": null,
+    "poolFencerNo": null,
+    "poolQualifyNo": null,
+    "preDeStartPhase": "none",
+    "deStartPhase": "from Tableaus8",
+    "sportCode": "RZSS2034031",
+    "eventCode": "RZSS2034031METU8"
+  },
+  "summary": {
+    "classmentCount": 8,
+    "initialSeedCount": 8,
+    "poolCount": 0,
+    "poolStandingCount": 0,
+    "poolResultCount": 0,
+    "poolBoutCount": 0,
+    "tableauCount": 3,
+    "eliminationMatchCount": 8,
+    "playedEliminationMatchCount": 8,
+    "byeMatchCount": 0,
+    "athleteCountByLicence": 8
+  },
+  "distributions": {
+    "poolStatus": {},
+    "poolRemark": {},
+    "tableau": {
+      "8表": 1,
+      "半决赛": 1,
+      "决赛": 1
+    },
+    "eliminationByPhase": {
+      "8表": 4,
+      "半决赛": 2,
+      "决赛": 2
+    },
+    "eliminationResult": {
+      "W/L": 3,
+      "L/W": 5
+    },
+    "medal": {
+      "金": 1,
+      "银": 1,
+      "铜": 1,
+      "(无奖牌)": 5
+    }
+  },
+  "normalized": {
+    "classment": [
+      {
+        "rank": 1,
+        "displayRank": "1",
+        "name": "哈尔滨博奕",
+        "licence": "RZSS2034031METU8_11267_FTRCN",
+        "club": "哈尔滨博奕",
+        "birthday": null,
+        "medal": "金",
+        "status": "N",
+        "sourcePosition": 1
+      },
+      {
+        "rank": 2,
+        "displayRank": "2",
+        "name": "大连西岗繁星",
+        "licence": "RZSS2034031METU8_599_WBDZQ",
+        "club": "大连西岗繁星",
+        "birthday": null,
+        "medal": "银",
+        "status": "N",
+        "sourcePosition": 2
+      },
+      {
+        "rank": 3,
+        "displayRank": "3",
+        "name": "联合团体2队",
+        "licence": "UNITE2",
+        "club": null,
+        "birthday": null,
+        "medal": "铜",
+        "status": "N",
+        "sourcePosition": 3
+      },
+      {
+        "rank": 4,
+        "displayRank": "4",
+        "name": "哈尔滨佳爵",
+        "licence": "RZSS2034031METU8_11365_MBEQW",
+        "club": "哈尔滨佳爵",
+        "birthday": null,
+        "medal": null,
+        "status": "N",
+        "sourcePosition": 4
+      },
+      {
+        "rank": 5,
+        "displayRank": "5",
+        "name": "旺旺队",
+        "licence": "RZSS2034031METU8_205_PQOIQ",
+        "club": "哈尔滨超越",
+        "birthday": null,
+        "medal": null,
+        "status": "N",
+        "sourcePosition": 5
+      },
+      {
+        "rank": 6,
+        "displayRank": "6",
+        "name": "联合团体1队",
+        "licence": "UNITE1",
+        "club": null,
+        "birthday": null,
+        "medal": null,
+        "status": "N",
+        "sourcePosition": 6
+      },
+      {
+        "rank": 7,
+        "displayRank": "7",
+        "name": "联合团体3队",
+        "licence": "UNITE3",
+        "club": null,
+        "birthday": null,
+        "medal": null,
+        "status": "N",
+        "sourcePosition": 7
+      },
+      {
+        "rank": 8,
+        "displayRank": "8",
+        "name": "联合团体4队",
+        "licence": "UNITE4",
+        "club": null,
+        "birthday": null,
+        "medal": null,
+        "status": "N",
+        "sourcePosition": 8
+      }
+    ],
+    "poolStandings": [],
+    "poolResults": [],
+    "poolBouts": [],
+    "eliminationMatches": [
+      {
+        "matchId": 471320,
+        "matchCode": "Pre001",
+        "phaseId": 163302,
+        "phase": {
+          "shortName": "T8",
+          "longName": "8表",
+          "order": 1,
+          "code": "3",
+          "group": "1_0"
+        },
+        "groupCode": "3_0",
+        "innerOrder": 1,
+        "home": {
+          "position": 1,
+          "name": "哈尔滨博奕",
+          "licence": "RZSS2034031METU8_11267_FTRCN",
+          "club": "哈尔滨博奕",
+          "points": 45,
+          "result": "W"
+        },
+        "away": {
+          "position": 8,
+          "name": "联合团体4队",
+          "licence": "UNITE4",
+          "club": null,
+          "points": 5,
+          "result": "L"
+        },
+        "winner": {
+          "name": "哈尔滨博奕",
+          "club": "哈尔滨博奕"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 471321,
+        "matchCode": "Pre002",
+        "phaseId": 163302,
+        "phase": {
+          "shortName": "T8",
+          "longName": "8表",
+          "order": 1,
+          "code": "3",
+          "group": "1_0"
+        },
+        "groupCode": "3_0",
+        "innerOrder": 2,
+        "home": {
+          "position": 5,
+          "name": "联合团体1队",
+          "licence": "UNITE1",
+          "club": null,
+          "points": 44,
+          "result": "L"
+        },
+        "away": {
+          "position": 4,
+          "name": "哈尔滨佳爵",
+          "licence": "RZSS2034031METU8_11365_MBEQW",
+          "club": "哈尔滨佳爵",
+          "points": 45,
+          "result": "W"
+        },
+        "winner": {
+          "name": "联合团体1队",
+          "club": "哈尔滨佳爵"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 471322,
+        "matchCode": "Pre003",
+        "phaseId": 163302,
+        "phase": {
+          "shortName": "T8",
+          "longName": "8表",
+          "order": 1,
+          "code": "3",
+          "group": "1_0"
+        },
+        "groupCode": "3_1",
+        "innerOrder": 1,
+        "home": {
+          "position": 3,
+          "name": "旺旺队",
+          "licence": "RZSS2034031METU8_205_PQOIQ",
+          "club": "哈尔滨超越",
+          "points": 36,
+          "result": "L"
+        },
+        "away": {
+          "position": 6,
+          "name": "联合团体2队",
+          "licence": "UNITE2",
+          "club": null,
+          "points": 45,
+          "result": "W"
+        },
+        "winner": {
+          "name": "旺旺队",
+          "club": null
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 471323,
+        "matchCode": "Pre004",
+        "phaseId": 163302,
+        "phase": {
+          "shortName": "T8",
+          "longName": "8表",
+          "order": 1,
+          "code": "3",
+          "group": "1_0"
+        },
+        "groupCode": "3_1",
+        "innerOrder": 2,
+        "home": {
+          "position": 7,
+          "name": "联合团体3队",
+          "licence": "UNITE3",
+          "club": null,
+          "points": 28,
+          "result": "L"
+        },
+        "away": {
+          "position": 2,
+          "name": "大连西岗繁星",
+          "licence": "RZSS2034031METU8_599_WBDZQ",
+          "club": "大连西岗繁星",
+          "points": 45,
+          "result": "W"
+        },
+        "winner": {
+          "name": "联合团体3队",
+          "club": "大连西岗繁星"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 471324,
+        "matchCode": "Pre001",
+        "phaseId": 163303,
+        "phase": {
+          "shortName": "T4",
+          "longName": "半决赛",
+          "order": 2,
+          "code": "2",
+          "group": "2_0"
+        },
+        "groupCode": "2_0",
+        "innerOrder": 1,
+        "home": {
+          "position": 1,
+          "name": "哈尔滨博奕",
+          "licence": "RZSS2034031METU8_11267_FTRCN",
+          "club": "哈尔滨博奕",
+          "points": 45,
+          "result": "W"
+        },
+        "away": {
+          "position": 4,
+          "name": "哈尔滨佳爵",
+          "licence": "RZSS2034031METU8_11365_MBEQW",
+          "club": "哈尔滨佳爵",
+          "points": 24,
+          "result": "L"
+        },
+        "winner": {
+          "name": "哈尔滨博奕",
+          "club": "哈尔滨博奕"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 471325,
+        "matchCode": "Pre002",
+        "phaseId": 163303,
+        "phase": {
+          "shortName": "T4",
+          "longName": "半决赛",
+          "order": 2,
+          "code": "2",
+          "group": "2_0"
+        },
+        "groupCode": "2_0",
+        "innerOrder": 2,
+        "home": {
+          "position": 3,
+          "name": "联合团体2队",
+          "licence": "UNITE2",
+          "club": null,
+          "points": 31,
+          "result": "L"
+        },
+        "away": {
+          "position": 2,
+          "name": "大连西岗繁星",
+          "licence": "RZSS2034031METU8_599_WBDZQ",
+          "club": "大连西岗繁星",
+          "points": 45,
+          "result": "W"
+        },
+        "winner": {
+          "name": "联合团体2队",
+          "club": "大连西岗繁星"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 471326,
+        "matchCode": "Pre001",
+        "phaseId": 163304,
+        "phase": {
+          "shortName": "T2",
+          "longName": "决赛",
+          "order": 3,
+          "code": "1",
+          "group": "3_0"
+        },
+        "groupCode": "1_0",
+        "innerOrder": 1,
+        "home": {
+          "position": 1,
+          "name": "哈尔滨博奕",
+          "licence": "RZSS2034031METU8_11267_FTRCN",
+          "club": "哈尔滨博奕",
+          "points": 45,
+          "result": "W"
+        },
+        "away": {
+          "position": 2,
+          "name": "大连西岗繁星",
+          "licence": "RZSS2034031METU8_599_WBDZQ",
+          "club": "大连西岗繁星",
+          "points": 38,
+          "result": "L"
+        },
+        "winner": {
+          "name": "哈尔滨博奕",
+          "club": "哈尔滨博奕"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 471327,
+        "matchCode": "Pre002",
+        "phaseId": 163304,
+        "phase": {
+          "shortName": "T2",
+          "longName": "决赛",
+          "order": 3,
+          "code": "1",
+          "group": "3_0"
+        },
+        "groupCode": "1_0",
+        "innerOrder": 2,
+        "home": {
+          "position": 1,
+          "name": "哈尔滨佳爵",
+          "licence": "RZSS2034031METU8_11365_MBEQW",
+          "club": "哈尔滨佳爵",
+          "points": 38,
+          "result": "L"
+        },
+        "away": {
+          "position": 2,
+          "name": "联合团体2队",
+          "licence": "UNITE2",
+          "club": null,
+          "points": 43,
+          "result": "W"
+        },
+        "winner": {
+          "name": "哈尔滨佳爵",
+          "club": null
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      }
+    ]
+  },
+  "completeness": [
+    {
+      "section": "General",
+      "rows": 1,
+      "fields": [
+        {
+          "key": "SportName",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "2026年大庆“利斯杯”击剑邀请赛"
+          ]
+        },
+        {
+          "key": "EventName",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "U8男子重剑团体"
+          ]
+        },
+        {
+          "key": "OpenDate",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "Venue",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "黑龙江·大庆"
+          ]
+        },
+        {
+          "key": "CompetitionNo",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            8
+          ]
+        },
+        {
+          "key": "ExemptionNo",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "PoolFencerNo",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "PoolQualifyNo",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "PDEstartPhase",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "none"
+          ]
+        },
+        {
+          "key": "DEstartPhase",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "from Tableaus8"
+          ]
+        },
+        {
+          "key": "Scode",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "RZSS2034031"
+          ]
+        },
+        {
+          "key": "Ecode",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "RZSS2034031METU8"
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Classment",
+      "rows": 8,
+      "fields": [
+        {
+          "key": "EventShowRank",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8"
+          ]
+        },
+        {
+          "key": "EventRank",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ]
+        },
+        {
+          "key": "Fencer",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            "哈尔滨博奕",
+            "大连西岗繁星",
+            "联合团体2队",
+            "哈尔滨佳爵",
+            "旺旺队",
+            "联合团体1队",
+            "联合团体3队",
+            "联合团体4队"
+          ]
+        },
+        {
+          "key": "Licence",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            "RZSS2034031METU8_11267_FTRCN",
+            "RZSS2034031METU8_599_WBDZQ",
+            "UNITE2",
+            "RZSS2034031METU8_11365_MBEQW",
+            "RZSS2034031METU8_205_PQOIQ",
+            "UNITE1",
+            "UNITE3",
+            "UNITE4"
+          ]
+        },
+        {
+          "key": "NOCCode",
+          "nonEmpty": 4,
+          "fillRate": 0.5,
+          "sampleValues": [
+            "哈尔滨博奕",
+            "大连西岗繁星",
+            "哈尔滨佳爵",
+            "哈尔滨超越"
+          ]
+        },
+        {
+          "key": "Birthday",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "Medal",
+          "nonEmpty": 3,
+          "fillRate": 0.375,
+          "sampleValues": [
+            "金",
+            "银",
+            "铜"
+          ]
+        },
+        {
+          "key": "Statut",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            "N"
+          ]
+        },
+        {
+          "key": "F_EventDisPos",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ]
+        },
+        {
+          "key": "RID",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            59,
+            58,
+            64,
+            60,
+            61,
+            63,
+            65,
+            66
+          ]
+        }
+      ]
+    },
+    {
+      "section": "ClassmentMember",
+      "rows": 27,
+      "fields": [
+        {
+          "key": "Fencer",
+          "nonEmpty": 27,
+          "fillRate": 1,
+          "sampleValues": [
+            "曲宁睿",
+            "王璟言",
+            "付煜旸",
+            "KEVIN ZIYU GAO",
+            "张侯嘉煊",
+            "李明泽",
+            "郭晨羿",
+            "司修阳"
+          ]
+        },
+        {
+          "key": "Licence",
+          "nonEmpty": 27,
+          "fillRate": 1,
+          "sampleValues": [
+            "20180606M202507010503",
+            "20181115M202507011102",
+            "20190318M202507250425",
+            "20191008M202505130749",
+            "20180927M202306210145",
+            "20191031M202506220841",
+            "20180102M202603190911",
+            "20190306M202604040130"
+          ]
+        },
+        {
+          "key": "NOCCode",
+          "nonEmpty": 27,
+          "fillRate": 1,
+          "sampleValues": [
+            "黑龙江朝晖",
+            "哈尔滨乐剑",
+            "哈尔滨博奕",
+            "大庆利斯",
+            "河北梵星",
+            "个人",
+            "吉林遇剑",
+            "哈尔滨超越"
+          ]
+        },
+        {
+          "key": "Birthday",
+          "nonEmpty": 27,
+          "fillRate": 1,
+          "sampleValues": [
+            "2018-06-06",
+            "2018-11-15",
+            "2019-03-18",
+            "2019-10-08",
+            "2018-09-27",
+            "2019-10-31",
+            "2018-01-02",
+            "2019-03-06"
+          ]
+        },
+        {
+          "key": "RID",
+          "nonEmpty": 27,
+          "fillRate": 1,
+          "sampleValues": [
+            66,
+            65,
+            64,
+            63,
+            61,
+            60,
+            59,
+            58
+          ]
+        }
+      ]
+    },
+    {
+      "section": "IniStarts",
+      "rows": 8,
+      "fields": [
+        {
+          "key": "IRank",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ]
+        },
+        {
+          "key": "IPoints",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "Fencer",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            "哈尔滨博奕",
+            "大连西岗繁星",
+            "旺旺队",
+            "哈尔滨佳爵",
+            "联合团体1队",
+            "联合团体2队",
+            "联合团体3队",
+            "联合团体4队"
+          ]
+        },
+        {
+          "key": "NOCCode",
+          "nonEmpty": 4,
+          "fillRate": 0.5,
+          "sampleValues": [
+            "哈尔滨博奕",
+            "大连西岗繁星",
+            "哈尔滨超越",
+            "哈尔滨佳爵"
+          ]
+        },
+        {
+          "key": "Licence",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            "RZSS2034031METU8_11267_FTRCN",
+            "RZSS2034031METU8_599_WBDZQ",
+            "RZSS2034031METU8_205_PQOIQ",
+            "RZSS2034031METU8_11365_MBEQW",
+            "UNITE1",
+            "UNITE2",
+            "UNITE3",
+            "UNITE4"
+          ]
+        },
+        {
+          "key": "DisPos",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ]
+        },
+        {
+          "key": "RID",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            59,
+            58,
+            61,
+            60,
+            63,
+            64,
+            65,
+            66
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Phases",
+      "rows": 1,
+      "fields": [
+        {
+          "key": "PhasePID",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            163301
+          ]
+        },
+        {
+          "key": "PhaseName",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "直接淘汰赛"
+          ]
+        },
+        {
+          "key": "Porder",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            3
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Tableaus",
+      "rows": 3,
+      "fields": [
+        {
+          "key": "PshortDes",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            "T8",
+            "T4",
+            "T2"
+          ]
+        },
+        {
+          "key": "PLongDes",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            "8表",
+            "半决赛",
+            "决赛"
+          ]
+        },
+        {
+          "key": "Porder",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3
+          ]
+        },
+        {
+          "key": "PhaseID",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            163302,
+            163303,
+            163304
+          ]
+        },
+        {
+          "key": "PhasePID",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            163301
+          ]
+        },
+        {
+          "key": "PhaseGroup",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            "1_0",
+            "2_0",
+            "3_0"
+          ]
+        },
+        {
+          "key": "PhaseCode",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            "3",
+            "2",
+            "1"
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Matchs",
+      "rows": 8,
+      "fields": [
+        {
+          "key": "MatchCode",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            "Pre001",
+            "Pre002",
+            "Pre003",
+            "Pre004"
+          ]
+        },
+        {
+          "key": "HomePosition",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            5,
+            3,
+            7
+          ]
+        },
+        {
+          "key": "HomeFencer",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            "哈尔滨博奕",
+            "联合团体1队",
+            "旺旺队",
+            "联合团体3队",
+            "联合团体2队",
+            "哈尔滨佳爵"
+          ]
+        },
+        {
+          "key": "HomeLicence",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            "RZSS2034031METU8_11267_FTRCN",
+            "UNITE1",
+            "RZSS2034031METU8_205_PQOIQ",
+            "UNITE3",
+            "UNITE2",
+            "RZSS2034031METU8_11365_MBEQW"
+          ]
+        },
+        {
+          "key": "HomeNOC",
+          "nonEmpty": 5,
+          "fillRate": 0.625,
+          "sampleValues": [
+            "哈尔滨博奕",
+            "哈尔滨超越",
+            "哈尔滨佳爵"
+          ]
+        },
+        {
+          "key": "HomePoints",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            45,
+            44,
+            36,
+            28,
+            31,
+            38
+          ]
+        },
+        {
+          "key": "HomeWLT",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            "W",
+            "L"
+          ]
+        },
+        {
+          "key": "AwayPosition",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            8,
+            4,
+            6,
+            2
+          ]
+        },
+        {
+          "key": "AwayFencer",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            "联合团体4队",
+            "哈尔滨佳爵",
+            "联合团体2队",
+            "大连西岗繁星"
+          ]
+        },
+        {
+          "key": "AwayLicence",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            "UNITE4",
+            "RZSS2034031METU8_11365_MBEQW",
+            "UNITE2",
+            "RZSS2034031METU8_599_WBDZQ"
+          ]
+        },
+        {
+          "key": "AwayNOC",
+          "nonEmpty": 5,
+          "fillRate": 0.625,
+          "sampleValues": [
+            "哈尔滨佳爵",
+            "大连西岗繁星"
+          ]
+        },
+        {
+          "key": "AwayPoints",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            5,
+            45,
+            24,
+            38,
+            43
+          ]
+        },
+        {
+          "key": "AwayWLT",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            "L",
+            "W"
+          ]
+        },
+        {
+          "key": "Piste",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "StartTime",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "Winner",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            "哈尔滨博奕",
+            "联合团体1队",
+            "旺旺队",
+            "联合团体3队",
+            "联合团体2队",
+            "哈尔滨佳爵"
+          ]
+        },
+        {
+          "key": "WinnerNOC",
+          "nonEmpty": 6,
+          "fillRate": 0.75,
+          "sampleValues": [
+            "哈尔滨博奕",
+            "哈尔滨佳爵",
+            "大连西岗繁星"
+          ]
+        },
+        {
+          "key": "MatchID",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            471320,
+            471321,
+            471322,
+            471323,
+            471324,
+            471325,
+            471326,
+            471327
+          ]
+        },
+        {
+          "key": "PhaseID",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            163302,
+            163303,
+            163304
+          ]
+        },
+        {
+          "key": "GroupCode",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            "3_0",
+            "3_1",
+            "2_0",
+            "1_0"
+          ]
+        },
+        {
+          "key": "F_InnerOrder",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2
+          ]
+        }
+      ]
+    },
+    {
+      "section": "TeamAnalyse",
+      "rows": 27,
+      "fields": [
+        {
+          "key": "F_RegisterID",
+          "nonEmpty": 27,
+          "fillRate": 1,
+          "sampleValues": [
+            481203,
+            481202,
+            481205,
+            481204,
+            481201,
+            481200,
+            481199,
+            481198
+          ]
+        },
+        {
+          "key": "F_FencerLicence",
+          "nonEmpty": 27,
+          "fillRate": 1,
+          "sampleValues": [
+            "20180818M202408010405",
+            "20180322M202303040821",
+            "20181215M202408010400",
+            "20180818M202408010408",
+            "20190817M202602081014",
+            "20180517M202503230857",
+            "20180309M202503230847",
+            "20180119M202510130807"
+          ]
+        },
+        {
+          "key": "F_TeamID",
+          "nonEmpty": 27,
+          "fillRate": 1,
+          "sampleValues": [
+            59,
+            58,
+            64,
+            60,
+            61,
+            63,
+            65,
+            66
+          ]
+        },
+        {
+          "key": "F_TeamLicence",
+          "nonEmpty": 27,
+          "fillRate": 1,
+          "sampleValues": [
+            "RZSS2034031METU8_11267_FTRCN",
+            "RZSS2034031METU8_599_WBDZQ",
+            "UNITE2",
+            "RZSS2034031METU8_11365_MBEQW",
+            "RZSS2034031METU8_205_PQOIQ",
+            "UNITE1",
+            "UNITE3",
+            "UNITE4"
+          ]
+        },
+        {
+          "key": "F_Rank",
+          "nonEmpty": 27,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ]
+        },
+        {
+          "key": "F_DisPos",
+          "nonEmpty": 27,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ]
+        },
+        {
+          "key": "F_ShowRank",
+          "nonEmpty": 27,
+          "fillRate": 1,
+          "sampleValues": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8"
+          ]
+        },
+        {
+          "key": "Fencer",
+          "nonEmpty": 27,
+          "fillRate": 1,
+          "sampleValues": [
+            "AUGUST CHEN",
+            "于霆睿",
+            "于博圣",
+            "AUBREY CHEN",
+            "阎吉杭",
+            "于皓源",
+            "赵烜",
+            "刘家康"
+          ]
+        },
+        {
+          "key": "F_NOC",
+          "nonEmpty": 27,
+          "fillRate": 1,
+          "sampleValues": [
+            "哈尔滨博奕",
+            "大连西岗繁星",
+            "北理实验",
+            "河北梵星",
+            "哈尔滨佳爵",
+            "哈尔滨超越",
+            "大庆利斯",
+            "黑龙江润龙"
+          ]
+        },
+        {
+          "key": "F_NOCs",
+          "nonEmpty": 27,
+          "fillRate": 1,
+          "sampleValues": [
+            "哈尔滨博奕",
+            "大连西岗繁星",
+            "北理实验",
+            "河北梵星",
+            "哈尔滨佳爵",
+            "哈尔滨超越",
+            "大庆利斯",
+            "黑龙江润龙"
+          ]
+        },
+        {
+          "key": "F_IRM",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "AppearCount",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "MatchCount",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "F_Index",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "F_IndexLabel",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "F_TouchGive",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "F_TouchReceived",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "F_HSdivA",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "F_HSdivALabel",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "F_Diff",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "F_DiffLabel",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "F_NameLabel",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "TouchGive",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "TouchReceived",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "HSdivA",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "Diff",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        }
+      ]
+    }
+  ],
+  "analysisCapabilities": [
+    "项目概要",
+    "最终排名",
+    "初始排位",
+    "小组赛排名",
+    "小组赛每场比分",
+    "小组赛晋级人数",
+    "淘汰赛阶段结构",
+    "淘汰赛每场比分",
+    "选手完整比赛路径",
+    "对手交手记录",
+    "胜负和净胜剑统计"
+  ],
+  "privacyRecommendation": {
+    "publicFields": [
+      "rank",
+      "name",
+      "club",
+      "scores",
+      "winner",
+      "medal"
+    ],
+    "privateFields": [
+      "Licence",
+      "Birthday"
+    ],
+    "note": "Licence 和 Birthday 只用于内部消歧，不建议公开展示。"
+  }
+}

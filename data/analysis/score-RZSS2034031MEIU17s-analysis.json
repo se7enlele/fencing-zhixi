@@ -1,0 +1,1513 @@
+{
+  "ok": true,
+  "source": {
+    "sourceUrl": "https://fencing-proxy.aixindiandian.workers.dev/Resource/score/RZSS2034031MEIU17s.js",
+    "sourceType": "score-resource",
+    "importedAt": "2026-06-09T11:01:25.970Z"
+  },
+  "general": {
+    "sportName": "2026年大庆“利斯杯”击剑邀请赛",
+    "eventName": "17+男子重剑个人",
+    "openDate": "2026.05.04",
+    "venue": "黑龙江·大庆",
+    "competitionNo": 4,
+    "exemptionNo": 0,
+    "poolFencerNo": 4,
+    "poolQualifyNo": 4,
+    "preDeStartPhase": "none",
+    "deStartPhase": "from Tableaus 半决赛",
+    "sportCode": "RZSS2034031",
+    "eventCode": "RZSS2034031MEIU17s"
+  },
+  "summary": {
+    "classmentCount": 4,
+    "initialSeedCount": 4,
+    "poolCount": 1,
+    "poolStandingCount": 4,
+    "poolResultCount": 4,
+    "poolBoutCount": 6,
+    "tableauCount": 2,
+    "eliminationMatchCount": 3,
+    "playedEliminationMatchCount": 3,
+    "byeMatchCount": 0,
+    "athleteCountByLicence": 3
+  },
+  "distributions": {
+    "poolStatus": {
+      "7": 1
+    },
+    "poolRemark": {
+      "Q": 4
+    },
+    "tableau": {
+      "半决赛": 1,
+      "决赛": 1
+    },
+    "eliminationByPhase": {
+      "半决赛": 2,
+      "决赛": 1
+    },
+    "eliminationResult": {
+      "W/L": 2,
+      "L/W": 1
+    },
+    "medal": {
+      "金": 1,
+      "银": 1,
+      "铜": 2
+    }
+  },
+  "normalized": {
+    "classment": [
+      {
+        "rank": 1,
+        "displayRank": "1",
+        "name": "宋朴贤",
+        "licence": "sportathlete0001",
+        "club": "个人",
+        "birthday": null,
+        "medal": "金",
+        "status": "N",
+        "sourcePosition": 1,
+        "qualifyStatusId": 1
+      },
+      {
+        "rank": 2,
+        "displayRank": "2",
+        "name": "卞展鹏",
+        "licence": "sportathlete0002",
+        "club": "个人",
+        "birthday": null,
+        "medal": "银",
+        "status": "N",
+        "sourcePosition": 2,
+        "qualifyStatusId": 1
+      },
+      {
+        "rank": 3,
+        "displayRank": "3",
+        "name": "刘星岐",
+        "licence": "sportathlete0001",
+        "club": "个人",
+        "birthday": null,
+        "medal": "铜",
+        "status": "N",
+        "sourcePosition": 3,
+        "qualifyStatusId": 1
+      },
+      {
+        "rank": 3,
+        "displayRank": "3",
+        "name": "王誉霖",
+        "licence": "sportathlete0003",
+        "club": "个人",
+        "birthday": null,
+        "medal": "铜",
+        "status": "N",
+        "sourcePosition": 4,
+        "qualifyStatusId": 1
+      }
+    ],
+    "poolStandings": [
+      {
+        "rank": 1,
+        "displayPosition": 1,
+        "name": "宋朴贤",
+        "licence": "sportathlete0001",
+        "club": "个人",
+        "wins": 3,
+        "matches": 3,
+        "winRate": 1,
+        "hitsScored": 15,
+        "hitsReceived": 4,
+        "indicator": 11,
+        "remark": "Q"
+      },
+      {
+        "rank": 2,
+        "displayPosition": 2,
+        "name": "卞展鹏",
+        "licence": "sportathlete0002",
+        "club": "个人",
+        "wins": 2,
+        "matches": 3,
+        "winRate": 0.667,
+        "hitsScored": 11,
+        "hitsReceived": 10,
+        "indicator": 1,
+        "remark": "Q"
+      },
+      {
+        "rank": 3,
+        "displayPosition": 3,
+        "name": "王誉霖",
+        "licence": "sportathlete0003",
+        "club": "个人",
+        "wins": 1,
+        "matches": 3,
+        "winRate": 0.333,
+        "hitsScored": 10,
+        "hitsReceived": 13,
+        "indicator": -3,
+        "remark": "Q"
+      },
+      {
+        "rank": 4,
+        "displayPosition": 4,
+        "name": "刘星岐",
+        "licence": "sportathlete0001",
+        "club": "个人",
+        "wins": 0,
+        "matches": 3,
+        "winRate": 0,
+        "hitsScored": 6,
+        "hitsReceived": 15,
+        "indicator": -9,
+        "remark": "Q"
+      }
+    ],
+    "poolResults": [
+      {
+        "drawNo": 1,
+        "name": "宋朴贤",
+        "licence": "sportathlete0001",
+        "club": "个人",
+        "poolId": 163291,
+        "boutCells": {
+          "Result1": "",
+          "Result2": "V",
+          "Result3": "V",
+          "Result4": "V",
+          "Result5": "",
+          "Result6": "",
+          "Result7": ""
+        },
+        "wins": 3,
+        "matches": 3,
+        "winRate": 1,
+        "hitsScored": 15,
+        "hitsReceived": 4,
+        "indicator": 11,
+        "phaseRank": 1
+      },
+      {
+        "drawNo": 2,
+        "name": "卞展鹏",
+        "licence": "sportathlete0002",
+        "club": "个人",
+        "poolId": 163291,
+        "boutCells": {
+          "Result1": "1",
+          "Result2": "",
+          "Result3": "V",
+          "Result4": "V",
+          "Result5": "",
+          "Result6": "",
+          "Result7": ""
+        },
+        "wins": 2,
+        "matches": 3,
+        "winRate": 0.667,
+        "hitsScored": 11,
+        "hitsReceived": 10,
+        "indicator": 1,
+        "phaseRank": 2
+      },
+      {
+        "drawNo": 3,
+        "name": "王誉霖",
+        "licence": "sportathlete0003",
+        "club": "个人",
+        "poolId": 163291,
+        "boutCells": {
+          "Result1": "2",
+          "Result2": "3",
+          "Result3": "",
+          "Result4": "V",
+          "Result5": "",
+          "Result6": "",
+          "Result7": ""
+        },
+        "wins": 1,
+        "matches": 3,
+        "winRate": 0.333,
+        "hitsScored": 10,
+        "hitsReceived": 13,
+        "indicator": -3,
+        "phaseRank": 3
+      },
+      {
+        "drawNo": 4,
+        "name": "刘星岐",
+        "licence": "sportathlete0001",
+        "club": "个人",
+        "poolId": 163291,
+        "boutCells": {
+          "Result1": "1",
+          "Result2": "2",
+          "Result3": "3",
+          "Result4": "",
+          "Result5": "",
+          "Result6": "",
+          "Result7": ""
+        },
+        "wins": 0,
+        "matches": 3,
+        "winRate": 0,
+        "hitsScored": 6,
+        "hitsReceived": 15,
+        "indicator": -9,
+        "phaseRank": 4
+      }
+    ],
+    "poolBouts": [
+      {
+        "poolId": 163291,
+        "caseCode": "CASE4",
+        "order": 1,
+        "matchOrder": 1,
+        "homeNumber": 1,
+        "awayNumber": 4,
+        "homeLabel": "1：宋朴贤(个人)",
+        "awayLabel": "4：刘星岐(个人)",
+        "homeScore": "V",
+        "awayScore": 1
+      },
+      {
+        "poolId": 163291,
+        "caseCode": "CASE4",
+        "order": 2,
+        "matchOrder": 2,
+        "homeNumber": 2,
+        "awayNumber": 3,
+        "homeLabel": "2：卞展鹏(个人)",
+        "awayLabel": "3：王誉霖(个人)",
+        "homeScore": "V",
+        "awayScore": 3
+      },
+      {
+        "poolId": 163291,
+        "caseCode": "CASE4",
+        "order": 3,
+        "matchOrder": 3,
+        "homeNumber": 3,
+        "awayNumber": 1,
+        "homeLabel": "3：王誉霖(个人)",
+        "awayLabel": "1：宋朴贤(个人)",
+        "homeScore": 2,
+        "awayScore": "V"
+      },
+      {
+        "poolId": 163291,
+        "caseCode": "CASE4",
+        "order": 4,
+        "matchOrder": 4,
+        "homeNumber": 4,
+        "awayNumber": 2,
+        "homeLabel": "4：刘星岐(个人)",
+        "awayLabel": "2：卞展鹏(个人)",
+        "homeScore": 2,
+        "awayScore": "V"
+      },
+      {
+        "poolId": 163291,
+        "caseCode": "CASE4",
+        "order": 5,
+        "matchOrder": 5,
+        "homeNumber": 4,
+        "awayNumber": 3,
+        "homeLabel": "4：刘星岐(个人)",
+        "awayLabel": "3：王誉霖(个人)",
+        "homeScore": 3,
+        "awayScore": "V"
+      },
+      {
+        "poolId": 163291,
+        "caseCode": "CASE4",
+        "order": 6,
+        "matchOrder": 6,
+        "homeNumber": 1,
+        "awayNumber": 2,
+        "homeLabel": "1：宋朴贤(个人)",
+        "awayLabel": "2：卞展鹏(个人)",
+        "homeScore": "V",
+        "awayScore": 1
+      }
+    ],
+    "eliminationMatches": [
+      {
+        "matchId": 471301,
+        "matchCode": "Pre001",
+        "phaseId": 163292,
+        "phase": {
+          "shortName": "T4",
+          "longName": "半决赛",
+          "order": 1,
+          "code": "2",
+          "group": "1_0"
+        },
+        "groupCode": "2_0",
+        "innerOrder": 1,
+        "home": {
+          "position": 1,
+          "name": "宋朴贤",
+          "licence": "sportathlete0001",
+          "club": "个人",
+          "points": 15,
+          "result": "W"
+        },
+        "away": {
+          "position": 4,
+          "name": "刘星岐",
+          "licence": "sportathlete0001",
+          "club": "个人",
+          "points": 3,
+          "result": "L"
+        },
+        "winner": {
+          "name": "宋朴贤",
+          "club": "个人"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 471302,
+        "matchCode": "Pre002",
+        "phaseId": 163292,
+        "phase": {
+          "shortName": "T4",
+          "longName": "半决赛",
+          "order": 1,
+          "code": "2",
+          "group": "1_0"
+        },
+        "groupCode": "2_0",
+        "innerOrder": 2,
+        "home": {
+          "position": 3,
+          "name": "王誉霖",
+          "licence": "sportathlete0003",
+          "club": "个人",
+          "points": 7,
+          "result": "L"
+        },
+        "away": {
+          "position": 2,
+          "name": "卞展鹏",
+          "licence": "sportathlete0002",
+          "club": "个人",
+          "points": 15,
+          "result": "W"
+        },
+        "winner": {
+          "name": "卞展鹏",
+          "club": "个人"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 471303,
+        "matchCode": "Pre001",
+        "phaseId": 163293,
+        "phase": {
+          "shortName": "T2",
+          "longName": "决赛",
+          "order": 2,
+          "code": "1",
+          "group": "2_0"
+        },
+        "groupCode": "1_0",
+        "innerOrder": 1,
+        "home": {
+          "position": 1,
+          "name": "宋朴贤",
+          "licence": "sportathlete0001",
+          "club": "个人",
+          "points": 15,
+          "result": "W"
+        },
+        "away": {
+          "position": 2,
+          "name": "卞展鹏",
+          "licence": "sportathlete0002",
+          "club": "个人",
+          "points": 8,
+          "result": "L"
+        },
+        "winner": {
+          "name": "宋朴贤",
+          "club": "个人"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      }
+    ]
+  },
+  "completeness": [
+    {
+      "section": "General",
+      "rows": 1,
+      "fields": [
+        {
+          "key": "SportName",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "2026年大庆“利斯杯”击剑邀请赛"
+          ]
+        },
+        {
+          "key": "EventName",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "17+男子重剑个人"
+          ]
+        },
+        {
+          "key": "OpenDate",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "2026.05.04"
+          ]
+        },
+        {
+          "key": "Venue",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "黑龙江·大庆"
+          ]
+        },
+        {
+          "key": "CompetitionNo",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            4
+          ]
+        },
+        {
+          "key": "ExemptionNo",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            0
+          ]
+        },
+        {
+          "key": "PoolFencerNo",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            4
+          ]
+        },
+        {
+          "key": "PoolQualifyNo",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            4
+          ]
+        },
+        {
+          "key": "PDEstartPhase",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "none"
+          ]
+        },
+        {
+          "key": "DEstartPhase",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "from Tableaus 半决赛"
+          ]
+        },
+        {
+          "key": "Scode",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "RZSS2034031"
+          ]
+        },
+        {
+          "key": "Ecode",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "RZSS2034031MEIU17s"
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Classment",
+      "rows": 4,
+      "fields": [
+        {
+          "key": "EventShowRank",
+          "nonEmpty": 4,
+          "fillRate": 1,
+          "sampleValues": [
+            "1",
+            "2",
+            "3"
+          ]
+        },
+        {
+          "key": "EventRank",
+          "nonEmpty": 4,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3
+          ]
+        },
+        {
+          "key": "Fencer",
+          "nonEmpty": 4,
+          "fillRate": 1,
+          "sampleValues": [
+            "宋朴贤",
+            "卞展鹏",
+            "刘星岐",
+            "王誉霖"
+          ]
+        },
+        {
+          "key": "Licence",
+          "nonEmpty": 4,
+          "fillRate": 1,
+          "sampleValues": [
+            "sportathlete0001",
+            "sportathlete0002",
+            "sportathlete0003"
+          ]
+        },
+        {
+          "key": "NOCCode",
+          "nonEmpty": 4,
+          "fillRate": 1,
+          "sampleValues": [
+            "个人"
+          ]
+        },
+        {
+          "key": "Birthday",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "Medal",
+          "nonEmpty": 4,
+          "fillRate": 1,
+          "sampleValues": [
+            "金",
+            "银",
+            "铜"
+          ]
+        },
+        {
+          "key": "Statut",
+          "nonEmpty": 4,
+          "fillRate": 1,
+          "sampleValues": [
+            "N"
+          ]
+        },
+        {
+          "key": "F_EventDisPos",
+          "nonEmpty": 4,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            4
+          ]
+        },
+        {
+          "key": "QualifyStatusId",
+          "nonEmpty": 4,
+          "fillRate": 1,
+          "sampleValues": [
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "section": "IniStarts",
+      "rows": 4,
+      "fields": [
+        {
+          "key": "IRank",
+          "nonEmpty": 4,
+          "fillRate": 1,
+          "sampleValues": [
+            5
+          ]
+        },
+        {
+          "key": "IPoints",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "Fencer",
+          "nonEmpty": 4,
+          "fillRate": 1,
+          "sampleValues": [
+            "宋朴贤",
+            "卞展鹏",
+            "王誉霖",
+            "刘星岐"
+          ]
+        },
+        {
+          "key": "NOCCode",
+          "nonEmpty": 4,
+          "fillRate": 1,
+          "sampleValues": [
+            "个人"
+          ]
+        },
+        {
+          "key": "Birthday",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "Licence",
+          "nonEmpty": 4,
+          "fillRate": 1,
+          "sampleValues": [
+            "sportathlete0001",
+            "sportathlete0002",
+            "sportathlete0003"
+          ]
+        },
+        {
+          "key": "DisPos",
+          "nonEmpty": 4,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            4
+          ]
+        }
+      ]
+    },
+    {
+      "section": "PoolStanding",
+      "rows": 4,
+      "fields": [
+        {
+          "key": "Rank",
+          "nonEmpty": 4,
+          "fillRate": 1,
+          "sampleValues": [
+            "1",
+            "2",
+            "3",
+            "4"
+          ]
+        },
+        {
+          "key": "DisPos",
+          "nonEmpty": 4,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            4
+          ]
+        },
+        {
+          "key": "Name",
+          "nonEmpty": 4,
+          "fillRate": 1,
+          "sampleValues": [
+            "宋朴贤",
+            "卞展鹏",
+            "王誉霖",
+            "刘星岐"
+          ]
+        },
+        {
+          "key": "Licence",
+          "nonEmpty": 4,
+          "fillRate": 1,
+          "sampleValues": [
+            "sportathlete0001",
+            "sportathlete0002",
+            "sportathlete0003"
+          ]
+        },
+        {
+          "key": "Delegation",
+          "nonEmpty": 4,
+          "fillRate": 1,
+          "sampleValues": [
+            "个人"
+          ]
+        },
+        {
+          "key": "V",
+          "nonEmpty": 4,
+          "fillRate": 1,
+          "sampleValues": [
+            3,
+            2,
+            1,
+            0
+          ]
+        },
+        {
+          "key": "M",
+          "nonEmpty": 4,
+          "fillRate": 1,
+          "sampleValues": [
+            3
+          ]
+        },
+        {
+          "key": "Index",
+          "nonEmpty": 4,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            0.667,
+            0.333,
+            0
+          ]
+        },
+        {
+          "key": "HS",
+          "nonEmpty": 4,
+          "fillRate": 1,
+          "sampleValues": [
+            15,
+            11,
+            10,
+            6
+          ]
+        },
+        {
+          "key": "HR",
+          "nonEmpty": 4,
+          "fillRate": 1,
+          "sampleValues": [
+            4,
+            10,
+            13,
+            15
+          ]
+        },
+        {
+          "key": "HSMHR",
+          "nonEmpty": 4,
+          "fillRate": 1,
+          "sampleValues": [
+            11,
+            1,
+            -3,
+            -9
+          ]
+        },
+        {
+          "key": "Remark",
+          "nonEmpty": 4,
+          "fillRate": 1,
+          "sampleValues": [
+            "Q"
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Pools",
+      "rows": 1,
+      "fields": [
+        {
+          "key": "PoolNo",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            1
+          ]
+        },
+        {
+          "key": "Piste",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "剑道："
+          ]
+        },
+        {
+          "key": "StartTime",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "PoolReferee",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "PoolID",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            163291
+          ]
+        },
+        {
+          "key": "PhaseCode",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "P1"
+          ]
+        },
+        {
+          "key": "PoolStatus",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            7
+          ]
+        }
+      ]
+    },
+    {
+      "section": "PoolResults",
+      "rows": 4,
+      "fields": [
+        {
+          "key": "DrawNo",
+          "nonEmpty": 4,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            4
+          ]
+        },
+        {
+          "key": "Fencer",
+          "nonEmpty": 4,
+          "fillRate": 1,
+          "sampleValues": [
+            "宋朴贤",
+            "卞展鹏",
+            "王誉霖",
+            "刘星岐"
+          ]
+        },
+        {
+          "key": "Licence",
+          "nonEmpty": 4,
+          "fillRate": 1,
+          "sampleValues": [
+            "sportathlete0001",
+            "sportathlete0002",
+            "sportathlete0003"
+          ]
+        },
+        {
+          "key": "Delegation",
+          "nonEmpty": 4,
+          "fillRate": 1,
+          "sampleValues": [
+            "个人"
+          ]
+        },
+        {
+          "key": "Result1",
+          "nonEmpty": 3,
+          "fillRate": 0.75,
+          "sampleValues": [
+            "1",
+            "2"
+          ]
+        },
+        {
+          "key": "Result2",
+          "nonEmpty": 3,
+          "fillRate": 0.75,
+          "sampleValues": [
+            "V",
+            "3",
+            "2"
+          ]
+        },
+        {
+          "key": "Result3",
+          "nonEmpty": 3,
+          "fillRate": 0.75,
+          "sampleValues": [
+            "V",
+            "3"
+          ]
+        },
+        {
+          "key": "Result4",
+          "nonEmpty": 3,
+          "fillRate": 0.75,
+          "sampleValues": [
+            "V"
+          ]
+        },
+        {
+          "key": "Result5",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "Result6",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "Result7",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "WinCount",
+          "nonEmpty": 4,
+          "fillRate": 1,
+          "sampleValues": [
+            3,
+            2,
+            1,
+            0
+          ]
+        },
+        {
+          "key": "MatchCount",
+          "nonEmpty": 4,
+          "fillRate": 1,
+          "sampleValues": [
+            3
+          ]
+        },
+        {
+          "key": "IndexChar",
+          "nonEmpty": 4,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            0.667,
+            0.333,
+            0
+          ]
+        },
+        {
+          "key": "TG",
+          "nonEmpty": 4,
+          "fillRate": 1,
+          "sampleValues": [
+            15,
+            11,
+            10,
+            6
+          ]
+        },
+        {
+          "key": "TR",
+          "nonEmpty": 4,
+          "fillRate": 1,
+          "sampleValues": [
+            4,
+            10,
+            13,
+            15
+          ]
+        },
+        {
+          "key": "Diff",
+          "nonEmpty": 4,
+          "fillRate": 1,
+          "sampleValues": [
+            11,
+            1,
+            -3,
+            -9
+          ]
+        },
+        {
+          "key": "PhaseRank",
+          "nonEmpty": 4,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            4
+          ]
+        },
+        {
+          "key": "PoolID",
+          "nonEmpty": 4,
+          "fillRate": 1,
+          "sampleValues": [
+            163291
+          ]
+        }
+      ]
+    },
+    {
+      "section": "PRDetails",
+      "rows": 6,
+      "fields": [
+        {
+          "key": "CaseCode",
+          "nonEmpty": 6,
+          "fillRate": 1,
+          "sampleValues": [
+            "CASE4"
+          ]
+        },
+        {
+          "key": "Order",
+          "nonEmpty": 6,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ]
+        },
+        {
+          "key": "NumberHome",
+          "nonEmpty": 6,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            4
+          ]
+        },
+        {
+          "key": "NumberAway",
+          "nonEmpty": 6,
+          "fillRate": 1,
+          "sampleValues": [
+            4,
+            3,
+            1,
+            2
+          ]
+        },
+        {
+          "key": "PoolID",
+          "nonEmpty": 6,
+          "fillRate": 1,
+          "sampleValues": [
+            163291
+          ]
+        },
+        {
+          "key": "MatchOrder",
+          "nonEmpty": 6,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ]
+        },
+        {
+          "key": "HomeFencer",
+          "nonEmpty": 6,
+          "fillRate": 1,
+          "sampleValues": [
+            "1：宋朴贤(个人)",
+            "2：卞展鹏(个人)",
+            "3：王誉霖(个人)",
+            "4：刘星岐(个人)"
+          ]
+        },
+        {
+          "key": "AwayFencer",
+          "nonEmpty": 6,
+          "fillRate": 1,
+          "sampleValues": [
+            "4：刘星岐(个人)",
+            "3：王誉霖(个人)",
+            "1：宋朴贤(个人)",
+            "2：卞展鹏(个人)"
+          ]
+        },
+        {
+          "key": "HScore",
+          "nonEmpty": 6,
+          "fillRate": 1,
+          "sampleValues": [
+            "V",
+            "2",
+            "3"
+          ]
+        },
+        {
+          "key": "AScore",
+          "nonEmpty": 6,
+          "fillRate": 1,
+          "sampleValues": [
+            "1",
+            "3",
+            "V"
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Phases",
+      "rows": 1,
+      "fields": [
+        {
+          "key": "PhasePID",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            163290
+          ]
+        },
+        {
+          "key": "PhaseName",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "直接淘汰赛"
+          ]
+        },
+        {
+          "key": "Porder",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            3
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Tableaus",
+      "rows": 2,
+      "fields": [
+        {
+          "key": "PshortDes",
+          "nonEmpty": 2,
+          "fillRate": 1,
+          "sampleValues": [
+            "T4",
+            "T2"
+          ]
+        },
+        {
+          "key": "PLongDes",
+          "nonEmpty": 2,
+          "fillRate": 1,
+          "sampleValues": [
+            "半决赛",
+            "决赛"
+          ]
+        },
+        {
+          "key": "Porder",
+          "nonEmpty": 2,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2
+          ]
+        },
+        {
+          "key": "PhaseID",
+          "nonEmpty": 2,
+          "fillRate": 1,
+          "sampleValues": [
+            163292,
+            163293
+          ]
+        },
+        {
+          "key": "PhasePID",
+          "nonEmpty": 2,
+          "fillRate": 1,
+          "sampleValues": [
+            163290
+          ]
+        },
+        {
+          "key": "PhaseGroup",
+          "nonEmpty": 2,
+          "fillRate": 1,
+          "sampleValues": [
+            "1_0",
+            "2_0"
+          ]
+        },
+        {
+          "key": "PhaseCode",
+          "nonEmpty": 2,
+          "fillRate": 1,
+          "sampleValues": [
+            "2",
+            "1"
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Matchs",
+      "rows": 3,
+      "fields": [
+        {
+          "key": "MatchCode",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            "Pre001",
+            "Pre002"
+          ]
+        },
+        {
+          "key": "HomePosition",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            3
+          ]
+        },
+        {
+          "key": "HomeFencer",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            "宋朴贤",
+            "王誉霖"
+          ]
+        },
+        {
+          "key": "HomeLicence",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            "sportathlete0001",
+            "sportathlete0003"
+          ]
+        },
+        {
+          "key": "HomeNOC",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            "个人"
+          ]
+        },
+        {
+          "key": "HomePoints",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            15,
+            7
+          ]
+        },
+        {
+          "key": "HomeWLT",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            "W",
+            "L"
+          ]
+        },
+        {
+          "key": "AwayPosition",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            4,
+            2
+          ]
+        },
+        {
+          "key": "AwayFencer",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            "刘星岐",
+            "卞展鹏"
+          ]
+        },
+        {
+          "key": "AwayLicence",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            "sportathlete0001",
+            "sportathlete0002"
+          ]
+        },
+        {
+          "key": "AwayNOC",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            "个人"
+          ]
+        },
+        {
+          "key": "AwayPoints",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            3,
+            15,
+            8
+          ]
+        },
+        {
+          "key": "AwayWLT",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            "L",
+            "W"
+          ]
+        },
+        {
+          "key": "Piste",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "StartTime",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "Winner",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            "宋朴贤",
+            "卞展鹏"
+          ]
+        },
+        {
+          "key": "WinnerNOC",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            "个人"
+          ]
+        },
+        {
+          "key": "MatchID",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            471301,
+            471302,
+            471303
+          ]
+        },
+        {
+          "key": "PhaseID",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            163292,
+            163293
+          ]
+        },
+        {
+          "key": "GroupCode",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            "2_0",
+            "1_0"
+          ]
+        },
+        {
+          "key": "F_InnerOrder",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2
+          ]
+        }
+      ]
+    }
+  ],
+  "analysisCapabilities": [
+    "项目概要",
+    "最终排名",
+    "初始排位",
+    "小组赛排名",
+    "小组赛每场比分",
+    "小组赛晋级人数",
+    "淘汰赛阶段结构",
+    "淘汰赛每场比分",
+    "选手完整比赛路径",
+    "对手交手记录",
+    "胜负和净胜剑统计"
+  ],
+  "privacyRecommendation": {
+    "publicFields": [
+      "rank",
+      "name",
+      "club",
+      "scores",
+      "winner",
+      "medal"
+    ],
+    "privateFields": [
+      "Licence",
+      "Birthday"
+    ],
+    "note": "Licence 和 Birthday 只用于内部消歧，不建议公开展示。"
+  }
+}
