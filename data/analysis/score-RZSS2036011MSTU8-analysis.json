@@ -1,0 +1,928 @@
+{
+  "ok": true,
+  "source": {
+    "sourceUrl": "https://fencing-proxy.aixindiandian.workers.dev/Resource/score/RZSS2036011MSTU8.js",
+    "sourceType": "score-resource",
+    "importedAt": "2026-06-09T08:44:43.305Z"
+  },
+  "general": {
+    "sportName": "2026年北京昌平青少年击剑公开赛",
+    "eventName": "U8男子佩剑团体",
+    "openDate": "2026.05.23",
+    "venue": "北京·昌平",
+    "competitionNo": 2,
+    "exemptionNo": null,
+    "poolFencerNo": null,
+    "poolQualifyNo": 0,
+    "preDeStartPhase": "none",
+    "deStartPhase": "from Tableaus决赛",
+    "sportCode": "RZSS2036011",
+    "eventCode": "RZSS2036011MSTU8"
+  },
+  "summary": {
+    "classmentCount": 2,
+    "initialSeedCount": 2,
+    "poolCount": 0,
+    "poolStandingCount": 0,
+    "poolResultCount": 0,
+    "poolBoutCount": 0,
+    "tableauCount": 1,
+    "eliminationMatchCount": 1,
+    "playedEliminationMatchCount": 1,
+    "byeMatchCount": 0,
+    "athleteCountByLicence": 2
+  },
+  "distributions": {
+    "poolStatus": {},
+    "poolRemark": {},
+    "tableau": {
+      "决赛": 1
+    },
+    "eliminationByPhase": {
+      "决赛": 1
+    },
+    "eliminationResult": {
+      "L/W": 1
+    },
+    "medal": {
+      "金": 1,
+      "银": 1
+    }
+  },
+  "normalized": {
+    "classment": [
+      {
+        "rank": 1,
+        "displayRank": "1",
+        "name": "联合团体1队",
+        "licence": "UNITE1",
+        "club": null,
+        "birthday": null,
+        "medal": "金",
+        "status": "N",
+        "sourcePosition": 1
+      },
+      {
+        "rank": 2,
+        "displayRank": "2",
+        "name": "跃腾赤兔",
+        "licence": "RZSS2036011MSTU8_11456_BFUUK",
+        "club": "北京跃腾",
+        "birthday": null,
+        "medal": "银",
+        "status": "N",
+        "sourcePosition": 2
+      }
+    ],
+    "poolStandings": [],
+    "poolResults": [],
+    "poolBouts": [],
+    "eliminationMatches": [
+      {
+        "matchId": 476424,
+        "matchCode": "Pre001",
+        "phaseId": 164693,
+        "phase": {
+          "shortName": "T2",
+          "longName": "决赛",
+          "order": 1,
+          "code": "1",
+          "group": "1_0"
+        },
+        "groupCode": "1_0",
+        "innerOrder": 1,
+        "home": {
+          "position": null,
+          "name": "跃腾赤兔",
+          "licence": "RZSS2036011MSTU8_11456_BFUUK",
+          "club": "北京跃腾",
+          "points": 44,
+          "result": "L"
+        },
+        "away": {
+          "position": null,
+          "name": "联合团体1队",
+          "licence": "UNITE1",
+          "club": null,
+          "points": 45,
+          "result": "W"
+        },
+        "winner": {
+          "name": "跃腾赤兔",
+          "club": null
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      }
+    ]
+  },
+  "completeness": [
+    {
+      "section": "General",
+      "rows": 1,
+      "fields": [
+        {
+          "key": "SportName",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "2026年北京昌平青少年击剑公开赛"
+          ]
+        },
+        {
+          "key": "EventName",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "U8男子佩剑团体"
+          ]
+        },
+        {
+          "key": "OpenDate",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "2026.05.23"
+          ]
+        },
+        {
+          "key": "Venue",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "北京·昌平"
+          ]
+        },
+        {
+          "key": "CompetitionNo",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            2
+          ]
+        },
+        {
+          "key": "ExemptionNo",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "PoolFencerNo",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "PoolQualifyNo",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            0
+          ]
+        },
+        {
+          "key": "PDEstartPhase",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "none"
+          ]
+        },
+        {
+          "key": "DEstartPhase",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "from Tableaus决赛"
+          ]
+        },
+        {
+          "key": "Scode",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "RZSS2036011"
+          ]
+        },
+        {
+          "key": "Ecode",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "RZSS2036011MSTU8"
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Classment",
+      "rows": 2,
+      "fields": [
+        {
+          "key": "EventShowRank",
+          "nonEmpty": 2,
+          "fillRate": 1,
+          "sampleValues": [
+            "1",
+            "2"
+          ]
+        },
+        {
+          "key": "EventRank",
+          "nonEmpty": 2,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2
+          ]
+        },
+        {
+          "key": "Fencer",
+          "nonEmpty": 2,
+          "fillRate": 1,
+          "sampleValues": [
+            "联合团体1队",
+            "跃腾赤兔"
+          ]
+        },
+        {
+          "key": "Licence",
+          "nonEmpty": 2,
+          "fillRate": 1,
+          "sampleValues": [
+            "UNITE1",
+            "RZSS2036011MSTU8_11456_BFUUK"
+          ]
+        },
+        {
+          "key": "NOCCode",
+          "nonEmpty": 1,
+          "fillRate": 0.5,
+          "sampleValues": [
+            "北京跃腾"
+          ]
+        },
+        {
+          "key": "Birthday",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "Medal",
+          "nonEmpty": 2,
+          "fillRate": 1,
+          "sampleValues": [
+            "金",
+            "银"
+          ]
+        },
+        {
+          "key": "Statut",
+          "nonEmpty": 2,
+          "fillRate": 1,
+          "sampleValues": [
+            "N"
+          ]
+        },
+        {
+          "key": "F_EventDisPos",
+          "nonEmpty": 2,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2
+          ]
+        },
+        {
+          "key": "RID",
+          "nonEmpty": 2,
+          "fillRate": 1,
+          "sampleValues": [
+            70,
+            31
+          ]
+        }
+      ]
+    },
+    {
+      "section": "ClassmentMember",
+      "rows": 6,
+      "fields": [
+        {
+          "key": "Fencer",
+          "nonEmpty": 6,
+          "fillRate": 1,
+          "sampleValues": [
+            "郝万泽",
+            "高兴",
+            "赫苡哲",
+            "李北平",
+            "李浩铭",
+            "李维其"
+          ]
+        },
+        {
+          "key": "Licence",
+          "nonEmpty": 6,
+          "fillRate": 1,
+          "sampleValues": [
+            "20180704M202603040952",
+            "20190625M202603171024",
+            "20180913M202603230227",
+            "20200724M202506301000",
+            "20181205M202404151109",
+            "20180828M202306050221"
+          ]
+        },
+        {
+          "key": "NOCCode",
+          "nonEmpty": 6,
+          "fillRate": 1,
+          "sampleValues": [
+            "北京金汉",
+            "个人",
+            "北京跃腾"
+          ]
+        },
+        {
+          "key": "Birthday",
+          "nonEmpty": 6,
+          "fillRate": 1,
+          "sampleValues": [
+            "2018-07-04",
+            "2019-06-25",
+            "2018-09-13",
+            "2020-07-24",
+            "2018-12-05",
+            "2018-08-28"
+          ]
+        },
+        {
+          "key": "RID",
+          "nonEmpty": 6,
+          "fillRate": 1,
+          "sampleValues": [
+            70,
+            31
+          ]
+        }
+      ]
+    },
+    {
+      "section": "IniStarts",
+      "rows": 2,
+      "fields": [
+        {
+          "key": "IRank",
+          "nonEmpty": 2,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2
+          ]
+        },
+        {
+          "key": "IPoints",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "Fencer",
+          "nonEmpty": 2,
+          "fillRate": 1,
+          "sampleValues": [
+            "跃腾赤兔",
+            "联合团体1队"
+          ]
+        },
+        {
+          "key": "NOCCode",
+          "nonEmpty": 1,
+          "fillRate": 0.5,
+          "sampleValues": [
+            "北京跃腾"
+          ]
+        },
+        {
+          "key": "Licence",
+          "nonEmpty": 2,
+          "fillRate": 1,
+          "sampleValues": [
+            "RZSS2036011MSTU8_11456_BFUUK",
+            "UNITE1"
+          ]
+        },
+        {
+          "key": "DisPos",
+          "nonEmpty": 2,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2
+          ]
+        },
+        {
+          "key": "RID",
+          "nonEmpty": 2,
+          "fillRate": 1,
+          "sampleValues": [
+            31,
+            70
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Phases",
+      "rows": 1,
+      "fields": [
+        {
+          "key": "PhasePID",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            164692
+          ]
+        },
+        {
+          "key": "PhaseName",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "直接淘汰赛"
+          ]
+        },
+        {
+          "key": "Porder",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            3
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Tableaus",
+      "rows": 1,
+      "fields": [
+        {
+          "key": "PshortDes",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "T2"
+          ]
+        },
+        {
+          "key": "PLongDes",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "决赛"
+          ]
+        },
+        {
+          "key": "Porder",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            1
+          ]
+        },
+        {
+          "key": "PhaseID",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            164693
+          ]
+        },
+        {
+          "key": "PhasePID",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            164692
+          ]
+        },
+        {
+          "key": "PhaseGroup",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "1_0"
+          ]
+        },
+        {
+          "key": "PhaseCode",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "1"
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Matchs",
+      "rows": 1,
+      "fields": [
+        {
+          "key": "MatchCode",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "Pre001"
+          ]
+        },
+        {
+          "key": "HomePosition",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "HomeFencer",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "跃腾赤兔"
+          ]
+        },
+        {
+          "key": "HomeLicence",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "RZSS2036011MSTU8_11456_BFUUK"
+          ]
+        },
+        {
+          "key": "HomeNOC",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "北京跃腾"
+          ]
+        },
+        {
+          "key": "HomePoints",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            44
+          ]
+        },
+        {
+          "key": "HomeWLT",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "L"
+          ]
+        },
+        {
+          "key": "AwayPosition",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "AwayFencer",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "联合团体1队"
+          ]
+        },
+        {
+          "key": "AwayLicence",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "UNITE1"
+          ]
+        },
+        {
+          "key": "AwayNOC",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "AwayPoints",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            45
+          ]
+        },
+        {
+          "key": "AwayWLT",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "W"
+          ]
+        },
+        {
+          "key": "Piste",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "StartTime",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "Winner",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "跃腾赤兔"
+          ]
+        },
+        {
+          "key": "WinnerNOC",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "MatchID",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            476424
+          ]
+        },
+        {
+          "key": "PhaseID",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            164693
+          ]
+        },
+        {
+          "key": "GroupCode",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "1_0"
+          ]
+        },
+        {
+          "key": "F_InnerOrder",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "section": "TeamAnalyse",
+      "rows": 6,
+      "fields": [
+        {
+          "key": "F_RegisterID",
+          "nonEmpty": 6,
+          "fillRate": 1,
+          "sampleValues": [
+            484081,
+            484083,
+            484082,
+            484078,
+            484080,
+            484079
+          ]
+        },
+        {
+          "key": "F_FencerLicence",
+          "nonEmpty": 6,
+          "fillRate": 1,
+          "sampleValues": [
+            "20180704M202603040952",
+            "20190625M202603171024",
+            "20180913M202603230227",
+            "20180828M202306050221",
+            "20200724M202506301000",
+            "20181205M202404151109"
+          ]
+        },
+        {
+          "key": "F_TeamID",
+          "nonEmpty": 6,
+          "fillRate": 1,
+          "sampleValues": [
+            70,
+            31
+          ]
+        },
+        {
+          "key": "F_TeamLicence",
+          "nonEmpty": 6,
+          "fillRate": 1,
+          "sampleValues": [
+            "UNITE1",
+            "RZSS2036011MSTU8_11456_BFUUK"
+          ]
+        },
+        {
+          "key": "F_Rank",
+          "nonEmpty": 6,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2
+          ]
+        },
+        {
+          "key": "F_DisPos",
+          "nonEmpty": 6,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2
+          ]
+        },
+        {
+          "key": "F_ShowRank",
+          "nonEmpty": 6,
+          "fillRate": 1,
+          "sampleValues": [
+            "1",
+            "2"
+          ]
+        },
+        {
+          "key": "Fencer",
+          "nonEmpty": 6,
+          "fillRate": 1,
+          "sampleValues": [
+            "郝万泽",
+            "高兴",
+            "赫苡哲",
+            "李维其",
+            "李北平",
+            "李浩铭"
+          ]
+        },
+        {
+          "key": "F_NOC",
+          "nonEmpty": 6,
+          "fillRate": 1,
+          "sampleValues": [
+            "北京金汉",
+            "个人",
+            "北京跃腾"
+          ]
+        },
+        {
+          "key": "F_NOCs",
+          "nonEmpty": 6,
+          "fillRate": 1,
+          "sampleValues": [
+            "北京金汉",
+            "个人",
+            "北京跃腾"
+          ]
+        },
+        {
+          "key": "F_IRM",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "AppearCount",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "MatchCount",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "F_Index",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "F_IndexLabel",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "F_TouchGive",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "F_TouchReceived",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "F_HSdivA",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "F_HSdivALabel",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "F_Diff",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "F_DiffLabel",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "F_NameLabel",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "TouchGive",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "TouchReceived",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "HSdivA",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "Diff",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        }
+      ]
+    }
+  ],
+  "analysisCapabilities": [
+    "项目概要",
+    "最终排名",
+    "初始排位",
+    "小组赛排名",
+    "小组赛每场比分",
+    "小组赛晋级人数",
+    "淘汰赛阶段结构",
+    "淘汰赛每场比分",
+    "选手完整比赛路径",
+    "对手交手记录",
+    "胜负和净胜剑统计"
+  ],
+  "privacyRecommendation": {
+    "publicFields": [
+      "rank",
+      "name",
+      "club",
+      "scores",
+      "winner",
+      "medal"
+    ],
+    "privateFields": [
+      "Licence",
+      "Birthday"
+    ],
+    "note": "Licence 和 Birthday 只用于内部消歧，不建议公开展示。"
+  }
+}
