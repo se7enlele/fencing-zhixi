@@ -1,0 +1,1444 @@
+{
+  "ok": true,
+  "source": {
+    "sourceUrl": "https://fencing-proxy.aixindiandian.workers.dev/Resource/score/RZSS2035082METU12.js",
+    "sourceType": "score-resource",
+    "importedAt": "2026-06-09T08:07:07.753Z"
+  },
+  "general": {
+    "sportName": "“好运山东”2026年泰安青少年击剑公开赛",
+    "eventName": "U12男子重剑团体",
+    "openDate": null,
+    "venue": "山东·泰安",
+    "competitionNo": 7,
+    "exemptionNo": null,
+    "poolFencerNo": null,
+    "poolQualifyNo": null,
+    "preDeStartPhase": "none",
+    "deStartPhase": "from Tableaus8",
+    "sportCode": "RZSS2035082",
+    "eventCode": "RZSS2035082METU12"
+  },
+  "summary": {
+    "classmentCount": 7,
+    "initialSeedCount": 7,
+    "poolCount": 0,
+    "poolStandingCount": 0,
+    "poolResultCount": 0,
+    "poolBoutCount": 0,
+    "tableauCount": 3,
+    "eliminationMatchCount": 8,
+    "playedEliminationMatchCount": 7,
+    "byeMatchCount": 1,
+    "athleteCountByLicence": 7
+  },
+  "distributions": {
+    "poolStatus": {},
+    "poolRemark": {},
+    "tableau": {
+      "8表": 1,
+      "半决赛": 1,
+      "决赛": 1
+    },
+    "eliminationByPhase": {
+      "8表": 4,
+      "半决赛": 2,
+      "决赛": 2
+    },
+    "eliminationResult": {
+      "W/L": 4,
+      "L/W": 4
+    },
+    "medal": {
+      "金": 1,
+      "银": 1,
+      "铜": 1,
+      "(无奖牌)": 4
+    }
+  },
+  "normalized": {
+    "classment": [
+      {
+        "rank": 1,
+        "displayRank": "1",
+        "name": "万国少年",
+        "licence": "RZSS2035082METU12_759_SDGAY",
+        "club": "北京海淀万国",
+        "birthday": null,
+        "medal": "金",
+        "status": "N",
+        "sourcePosition": 1
+      },
+      {
+        "rank": 2,
+        "displayRank": "2",
+        "name": "济南市中剑协",
+        "licence": "RZSS2035082METU12_12606_QHWNR",
+        "club": "济南市中",
+        "birthday": null,
+        "medal": "银",
+        "status": "N",
+        "sourcePosition": 2
+      },
+      {
+        "rank": 3,
+        "displayRank": "3",
+        "name": "吃饭不排队",
+        "licence": "RZSS2035082METU12_11903_WWDSD",
+        "club": "北京东城万国",
+        "birthday": null,
+        "medal": "铜",
+        "status": "N",
+        "sourcePosition": 3
+      },
+      {
+        "rank": 4,
+        "displayRank": "4",
+        "name": "唐山傲国",
+        "licence": "RZSS2035082METU12_211_KYUBZ",
+        "club": "唐山傲国",
+        "birthday": null,
+        "medal": null,
+        "status": "N",
+        "sourcePosition": 4
+      },
+      {
+        "rank": 5,
+        "displayRank": "5",
+        "name": "三胖",
+        "licence": "RZSS2035082METU12_11736_YOMOZ",
+        "club": "济南奥星赛扬",
+        "birthday": null,
+        "medal": null,
+        "status": "N",
+        "sourcePosition": 5
+      },
+      {
+        "rank": 6,
+        "displayRank": "6",
+        "name": "联合团体1队",
+        "licence": "UNITE1",
+        "club": null,
+        "birthday": null,
+        "medal": null,
+        "status": "N",
+        "sourcePosition": 6
+      },
+      {
+        "rank": 7,
+        "displayRank": "7",
+        "name": "联合团体2队",
+        "licence": "UNITE2",
+        "club": null,
+        "birthday": null,
+        "medal": null,
+        "status": "N",
+        "sourcePosition": 7
+      }
+    ],
+    "poolStandings": [],
+    "poolResults": [],
+    "poolBouts": [],
+    "eliminationMatches": [
+      {
+        "matchId": 493685,
+        "matchCode": "Pre001",
+        "phaseId": 168805,
+        "phase": {
+          "shortName": "T8",
+          "longName": "8表",
+          "order": 1,
+          "code": "3",
+          "group": "1_0"
+        },
+        "groupCode": "3_0",
+        "innerOrder": 1,
+        "home": {
+          "position": 1,
+          "name": "万国少年",
+          "licence": "RZSS2035082METU12_759_SDGAY",
+          "club": "北京海淀万国",
+          "points": null,
+          "result": "W"
+        },
+        "away": {
+          "position": 8,
+          "name": "Bye",
+          "licence": null,
+          "club": null,
+          "points": null,
+          "result": "L"
+        },
+        "winner": {
+          "name": "万国少年",
+          "club": "北京海淀万国"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": true
+      },
+      {
+        "matchId": 493686,
+        "matchCode": "Pre002",
+        "phaseId": 168805,
+        "phase": {
+          "shortName": "T8",
+          "longName": "8表",
+          "order": 1,
+          "code": "3",
+          "group": "1_0"
+        },
+        "groupCode": "3_0",
+        "innerOrder": 2,
+        "home": {
+          "position": 5,
+          "name": "三胖",
+          "licence": "RZSS2035082METU12_11736_YOMOZ",
+          "club": "济南奥星赛扬",
+          "points": 39,
+          "result": "L"
+        },
+        "away": {
+          "position": 4,
+          "name": "唐山傲国",
+          "licence": "RZSS2035082METU12_211_KYUBZ",
+          "club": "唐山傲国",
+          "points": 45,
+          "result": "W"
+        },
+        "winner": {
+          "name": "三胖",
+          "club": "唐山傲国"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 493687,
+        "matchCode": "Pre003",
+        "phaseId": 168805,
+        "phase": {
+          "shortName": "T8",
+          "longName": "8表",
+          "order": 1,
+          "code": "3",
+          "group": "1_0"
+        },
+        "groupCode": "3_1",
+        "innerOrder": 1,
+        "home": {
+          "position": 3,
+          "name": "吃饭不排队",
+          "licence": "RZSS2035082METU12_11903_WWDSD",
+          "club": "北京东城万国",
+          "points": 45,
+          "result": "W"
+        },
+        "away": {
+          "position": 6,
+          "name": "联合团体1队",
+          "licence": "UNITE1",
+          "club": null,
+          "points": 23,
+          "result": "L"
+        },
+        "winner": {
+          "name": "吃饭不排队",
+          "club": "北京东城万国"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 493688,
+        "matchCode": "Pre004",
+        "phaseId": 168805,
+        "phase": {
+          "shortName": "T8",
+          "longName": "8表",
+          "order": 1,
+          "code": "3",
+          "group": "1_0"
+        },
+        "groupCode": "3_1",
+        "innerOrder": 2,
+        "home": {
+          "position": 7,
+          "name": "联合团体2队",
+          "licence": "UNITE2",
+          "club": null,
+          "points": 21,
+          "result": "L"
+        },
+        "away": {
+          "position": 2,
+          "name": "济南市中剑协",
+          "licence": "RZSS2035082METU12_12606_QHWNR",
+          "club": "济南市中",
+          "points": 45,
+          "result": "W"
+        },
+        "winner": {
+          "name": "联合团体2队",
+          "club": "济南市中"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 493689,
+        "matchCode": "Pre001",
+        "phaseId": 168806,
+        "phase": {
+          "shortName": "T4",
+          "longName": "半决赛",
+          "order": 2,
+          "code": "2",
+          "group": "2_0"
+        },
+        "groupCode": "2_0",
+        "innerOrder": 1,
+        "home": {
+          "position": 1,
+          "name": "万国少年",
+          "licence": "RZSS2035082METU12_759_SDGAY",
+          "club": "北京海淀万国",
+          "points": 45,
+          "result": "W"
+        },
+        "away": {
+          "position": 4,
+          "name": "唐山傲国",
+          "licence": "RZSS2035082METU12_211_KYUBZ",
+          "club": "唐山傲国",
+          "points": 27,
+          "result": "L"
+        },
+        "winner": {
+          "name": "万国少年",
+          "club": "北京海淀万国"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 493690,
+        "matchCode": "Pre002",
+        "phaseId": 168806,
+        "phase": {
+          "shortName": "T4",
+          "longName": "半决赛",
+          "order": 2,
+          "code": "2",
+          "group": "2_0"
+        },
+        "groupCode": "2_0",
+        "innerOrder": 2,
+        "home": {
+          "position": 3,
+          "name": "吃饭不排队",
+          "licence": "RZSS2035082METU12_11903_WWDSD",
+          "club": "北京东城万国",
+          "points": 41,
+          "result": "L"
+        },
+        "away": {
+          "position": 2,
+          "name": "济南市中剑协",
+          "licence": "RZSS2035082METU12_12606_QHWNR",
+          "club": "济南市中",
+          "points": 45,
+          "result": "W"
+        },
+        "winner": {
+          "name": "吃饭不排队",
+          "club": "济南市中"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 493691,
+        "matchCode": "Pre001",
+        "phaseId": 168807,
+        "phase": {
+          "shortName": "T2",
+          "longName": "决赛",
+          "order": 3,
+          "code": "1",
+          "group": "3_0"
+        },
+        "groupCode": "1_0",
+        "innerOrder": 1,
+        "home": {
+          "position": 1,
+          "name": "万国少年",
+          "licence": "RZSS2035082METU12_759_SDGAY",
+          "club": "北京海淀万国",
+          "points": 45,
+          "result": "W"
+        },
+        "away": {
+          "position": 2,
+          "name": "济南市中剑协",
+          "licence": "RZSS2035082METU12_12606_QHWNR",
+          "club": "济南市中",
+          "points": 40,
+          "result": "L"
+        },
+        "winner": {
+          "name": "万国少年",
+          "club": "北京海淀万国"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 493692,
+        "matchCode": "Pre002",
+        "phaseId": 168807,
+        "phase": {
+          "shortName": "T2",
+          "longName": "决赛",
+          "order": 3,
+          "code": "1",
+          "group": "3_0"
+        },
+        "groupCode": "1_0",
+        "innerOrder": 2,
+        "home": {
+          "position": 1,
+          "name": "唐山傲国",
+          "licence": "RZSS2035082METU12_211_KYUBZ",
+          "club": "唐山傲国",
+          "points": 28,
+          "result": "L"
+        },
+        "away": {
+          "position": 2,
+          "name": "吃饭不排队",
+          "licence": "RZSS2035082METU12_11903_WWDSD",
+          "club": "北京东城万国",
+          "points": 45,
+          "result": "W"
+        },
+        "winner": {
+          "name": "唐山傲国",
+          "club": "北京东城万国"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      }
+    ]
+  },
+  "completeness": [
+    {
+      "section": "General",
+      "rows": 1,
+      "fields": [
+        {
+          "key": "SportName",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "“好运山东”2026年泰安青少年击剑公开赛"
+          ]
+        },
+        {
+          "key": "EventName",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "U12男子重剑团体"
+          ]
+        },
+        {
+          "key": "OpenDate",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "Venue",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "山东·泰安"
+          ]
+        },
+        {
+          "key": "CompetitionNo",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            7
+          ]
+        },
+        {
+          "key": "ExemptionNo",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "PoolFencerNo",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "PoolQualifyNo",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "PDEstartPhase",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "none"
+          ]
+        },
+        {
+          "key": "DEstartPhase",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "from Tableaus8"
+          ]
+        },
+        {
+          "key": "Scode",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "RZSS2035082"
+          ]
+        },
+        {
+          "key": "Ecode",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "RZSS2035082METU12"
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Classment",
+      "rows": 7,
+      "fields": [
+        {
+          "key": "EventShowRank",
+          "nonEmpty": 7,
+          "fillRate": 1,
+          "sampleValues": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"
+          ]
+        },
+        {
+          "key": "EventRank",
+          "nonEmpty": 7,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ]
+        },
+        {
+          "key": "Fencer",
+          "nonEmpty": 7,
+          "fillRate": 1,
+          "sampleValues": [
+            "万国少年",
+            "济南市中剑协",
+            "吃饭不排队",
+            "唐山傲国",
+            "三胖",
+            "联合团体1队",
+            "联合团体2队"
+          ]
+        },
+        {
+          "key": "Licence",
+          "nonEmpty": 7,
+          "fillRate": 1,
+          "sampleValues": [
+            "RZSS2035082METU12_759_SDGAY",
+            "RZSS2035082METU12_12606_QHWNR",
+            "RZSS2035082METU12_11903_WWDSD",
+            "RZSS2035082METU12_211_KYUBZ",
+            "RZSS2035082METU12_11736_YOMOZ",
+            "UNITE1",
+            "UNITE2"
+          ]
+        },
+        {
+          "key": "NOCCode",
+          "nonEmpty": 5,
+          "fillRate": 0.7143,
+          "sampleValues": [
+            "北京海淀万国",
+            "济南市中",
+            "北京东城万国",
+            "唐山傲国",
+            "济南奥星赛扬"
+          ]
+        },
+        {
+          "key": "Birthday",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "Medal",
+          "nonEmpty": 3,
+          "fillRate": 0.4286,
+          "sampleValues": [
+            "金",
+            "银",
+            "铜"
+          ]
+        },
+        {
+          "key": "Statut",
+          "nonEmpty": 7,
+          "fillRate": 1,
+          "sampleValues": [
+            "N"
+          ]
+        },
+        {
+          "key": "F_EventDisPos",
+          "nonEmpty": 7,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ]
+        },
+        {
+          "key": "RID",
+          "nonEmpty": 7,
+          "fillRate": 1,
+          "sampleValues": [
+            19,
+            16,
+            17,
+            20,
+            18,
+            22,
+            23
+          ]
+        }
+      ]
+    },
+    {
+      "section": "ClassmentMember",
+      "rows": 24,
+      "fields": [
+        {
+          "key": "Fencer",
+          "nonEmpty": 24,
+          "fillRate": 1,
+          "sampleValues": [
+            "薛钧灿",
+            "郑舒桐",
+            "王冠智",
+            "楚恩润",
+            "杨国屾",
+            "李楚岳",
+            "许柏瑄",
+            "戴承彧"
+          ]
+        },
+        {
+          "key": "Licence",
+          "nonEmpty": 24,
+          "fillRate": 1,
+          "sampleValues": [
+            "20150718M202505181000",
+            "20151207M202105290414",
+            "20140930M202403171118",
+            "20140913M202306191016",
+            "20141008M202505250532",
+            "20140620M202402270522",
+            "20151217M202308230259",
+            "20151006M202307060630"
+          ]
+        },
+        {
+          "key": "NOCCode",
+          "nonEmpty": 24,
+          "fillRate": 1,
+          "sampleValues": [
+            "泰安剑协",
+            "山东小众体育",
+            "个人",
+            "唐山傲国",
+            "北京海淀万国",
+            "济南奥星赛扬",
+            "北京东城万国",
+            "济南市中"
+          ]
+        },
+        {
+          "key": "Birthday",
+          "nonEmpty": 24,
+          "fillRate": 1,
+          "sampleValues": [
+            "2015-07-18",
+            "2015-12-07",
+            "2014-09-30",
+            "2014-09-13",
+            "2014-10-08",
+            "2014-06-20",
+            "2015-12-17",
+            "2015-10-06"
+          ]
+        },
+        {
+          "key": "RID",
+          "nonEmpty": 24,
+          "fillRate": 1,
+          "sampleValues": [
+            23,
+            22,
+            20,
+            19,
+            18,
+            17,
+            16
+          ]
+        }
+      ]
+    },
+    {
+      "section": "IniStarts",
+      "rows": 7,
+      "fields": [
+        {
+          "key": "IRank",
+          "nonEmpty": 7,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ]
+        },
+        {
+          "key": "IPoints",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "Fencer",
+          "nonEmpty": 7,
+          "fillRate": 1,
+          "sampleValues": [
+            "万国少年",
+            "济南市中剑协",
+            "吃饭不排队",
+            "唐山傲国",
+            "三胖",
+            "联合团体1队",
+            "联合团体2队"
+          ]
+        },
+        {
+          "key": "NOCCode",
+          "nonEmpty": 5,
+          "fillRate": 0.7143,
+          "sampleValues": [
+            "北京海淀万国",
+            "济南市中",
+            "北京东城万国",
+            "唐山傲国",
+            "济南奥星赛扬"
+          ]
+        },
+        {
+          "key": "Licence",
+          "nonEmpty": 7,
+          "fillRate": 1,
+          "sampleValues": [
+            "RZSS2035082METU12_759_SDGAY",
+            "RZSS2035082METU12_12606_QHWNR",
+            "RZSS2035082METU12_11903_WWDSD",
+            "RZSS2035082METU12_211_KYUBZ",
+            "RZSS2035082METU12_11736_YOMOZ",
+            "UNITE1",
+            "UNITE2"
+          ]
+        },
+        {
+          "key": "DisPos",
+          "nonEmpty": 7,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ]
+        },
+        {
+          "key": "RID",
+          "nonEmpty": 7,
+          "fillRate": 1,
+          "sampleValues": [
+            19,
+            16,
+            17,
+            20,
+            18,
+            22,
+            23
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Phases",
+      "rows": 1,
+      "fields": [
+        {
+          "key": "PhasePID",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            168804
+          ]
+        },
+        {
+          "key": "PhaseName",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "直接淘汰赛"
+          ]
+        },
+        {
+          "key": "Porder",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            3
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Tableaus",
+      "rows": 3,
+      "fields": [
+        {
+          "key": "PshortDes",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            "T8",
+            "T4",
+            "T2"
+          ]
+        },
+        {
+          "key": "PLongDes",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            "8表",
+            "半决赛",
+            "决赛"
+          ]
+        },
+        {
+          "key": "Porder",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3
+          ]
+        },
+        {
+          "key": "PhaseID",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            168805,
+            168806,
+            168807
+          ]
+        },
+        {
+          "key": "PhasePID",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            168804
+          ]
+        },
+        {
+          "key": "PhaseGroup",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            "1_0",
+            "2_0",
+            "3_0"
+          ]
+        },
+        {
+          "key": "PhaseCode",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            "3",
+            "2",
+            "1"
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Matchs",
+      "rows": 8,
+      "fields": [
+        {
+          "key": "MatchCode",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            "Pre001",
+            "Pre002",
+            "Pre003",
+            "Pre004"
+          ]
+        },
+        {
+          "key": "HomePosition",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            5,
+            3,
+            7
+          ]
+        },
+        {
+          "key": "HomeFencer",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            "万国少年",
+            "三胖",
+            "吃饭不排队",
+            "联合团体2队",
+            "唐山傲国"
+          ]
+        },
+        {
+          "key": "HomeLicence",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            "RZSS2035082METU12_759_SDGAY",
+            "RZSS2035082METU12_11736_YOMOZ",
+            "RZSS2035082METU12_11903_WWDSD",
+            "UNITE2",
+            "RZSS2035082METU12_211_KYUBZ"
+          ]
+        },
+        {
+          "key": "HomeNOC",
+          "nonEmpty": 7,
+          "fillRate": 0.875,
+          "sampleValues": [
+            "北京海淀万国",
+            "济南奥星赛扬",
+            "北京东城万国",
+            "唐山傲国"
+          ]
+        },
+        {
+          "key": "HomePoints",
+          "nonEmpty": 7,
+          "fillRate": 0.875,
+          "sampleValues": [
+            39,
+            45,
+            21,
+            41,
+            28
+          ]
+        },
+        {
+          "key": "HomeWLT",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            "W",
+            "L"
+          ]
+        },
+        {
+          "key": "AwayPosition",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            8,
+            4,
+            6,
+            2
+          ]
+        },
+        {
+          "key": "AwayFencer",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            "Bye",
+            "唐山傲国",
+            "联合团体1队",
+            "济南市中剑协",
+            "吃饭不排队"
+          ]
+        },
+        {
+          "key": "AwayLicence",
+          "nonEmpty": 7,
+          "fillRate": 0.875,
+          "sampleValues": [
+            "RZSS2035082METU12_211_KYUBZ",
+            "UNITE1",
+            "RZSS2035082METU12_12606_QHWNR",
+            "RZSS2035082METU12_11903_WWDSD"
+          ]
+        },
+        {
+          "key": "AwayNOC",
+          "nonEmpty": 6,
+          "fillRate": 0.75,
+          "sampleValues": [
+            "唐山傲国",
+            "济南市中",
+            "北京东城万国"
+          ]
+        },
+        {
+          "key": "AwayPoints",
+          "nonEmpty": 7,
+          "fillRate": 0.875,
+          "sampleValues": [
+            45,
+            23,
+            27,
+            40
+          ]
+        },
+        {
+          "key": "AwayWLT",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            "L",
+            "W"
+          ]
+        },
+        {
+          "key": "Piste",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "StartTime",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "Winner",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            "万国少年",
+            "三胖",
+            "吃饭不排队",
+            "联合团体2队",
+            "唐山傲国"
+          ]
+        },
+        {
+          "key": "WinnerNOC",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            "北京海淀万国",
+            "唐山傲国",
+            "北京东城万国",
+            "济南市中"
+          ]
+        },
+        {
+          "key": "MatchID",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            493685,
+            493686,
+            493687,
+            493688,
+            493689,
+            493690,
+            493691,
+            493692
+          ]
+        },
+        {
+          "key": "PhaseID",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            168805,
+            168806,
+            168807
+          ]
+        },
+        {
+          "key": "GroupCode",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            "3_0",
+            "3_1",
+            "2_0",
+            "1_0"
+          ]
+        },
+        {
+          "key": "F_InnerOrder",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2
+          ]
+        }
+      ]
+    },
+    {
+      "section": "TeamAnalyse",
+      "rows": 24,
+      "fields": [
+        {
+          "key": "F_RegisterID",
+          "nonEmpty": 24,
+          "fillRate": 1,
+          "sampleValues": [
+            496005,
+            496004,
+            496003,
+            496002,
+            495993,
+            495992,
+            495994,
+            495998
+          ]
+        },
+        {
+          "key": "F_FencerLicence",
+          "nonEmpty": 24,
+          "fillRate": 1,
+          "sampleValues": [
+            "20150912M202310060246",
+            "20150612M202302071129",
+            "20150608M202303061055",
+            "20140520M202409180953",
+            "20140616M202502050508",
+            "20140430M202307080406",
+            "20141005M202305170713",
+            "20151015M202408180942"
+          ]
+        },
+        {
+          "key": "F_TeamID",
+          "nonEmpty": 24,
+          "fillRate": 1,
+          "sampleValues": [
+            19,
+            16,
+            17,
+            20,
+            18,
+            22,
+            23
+          ]
+        },
+        {
+          "key": "F_TeamLicence",
+          "nonEmpty": 24,
+          "fillRate": 1,
+          "sampleValues": [
+            "RZSS2035082METU12_759_SDGAY",
+            "RZSS2035082METU12_12606_QHWNR",
+            "RZSS2035082METU12_11903_WWDSD",
+            "RZSS2035082METU12_211_KYUBZ",
+            "RZSS2035082METU12_11736_YOMOZ",
+            "UNITE1",
+            "UNITE2"
+          ]
+        },
+        {
+          "key": "F_Rank",
+          "nonEmpty": 24,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ]
+        },
+        {
+          "key": "F_DisPos",
+          "nonEmpty": 24,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ]
+        },
+        {
+          "key": "F_ShowRank",
+          "nonEmpty": 24,
+          "fillRate": 1,
+          "sampleValues": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"
+          ]
+        },
+        {
+          "key": "Fencer",
+          "nonEmpty": 24,
+          "fillRate": 1,
+          "sampleValues": [
+            "徐靖凯",
+            "李梓霆",
+            "陈韦铭",
+            "王泽洋",
+            "韩厚泽",
+            "尹天睿",
+            "魏子航",
+            "朱宸锋"
+          ]
+        },
+        {
+          "key": "F_NOC",
+          "nonEmpty": 24,
+          "fillRate": 1,
+          "sampleValues": [
+            "北京海淀万国",
+            "济南市中",
+            "北京东城万国",
+            "唐山傲国",
+            "济南奥星赛扬",
+            "山东小众体育",
+            "泰安剑协",
+            "个人"
+          ]
+        },
+        {
+          "key": "F_NOCs",
+          "nonEmpty": 24,
+          "fillRate": 1,
+          "sampleValues": [
+            "北京海淀万国",
+            "济南市中",
+            "北京东城万国",
+            "唐山傲国",
+            "济南奥星赛扬",
+            "山东小众体育",
+            "泰安剑协",
+            "个人"
+          ]
+        },
+        {
+          "key": "F_IRM",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "AppearCount",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "MatchCount",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "F_Index",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "F_IndexLabel",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "F_TouchGive",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "F_TouchReceived",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "F_HSdivA",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "F_HSdivALabel",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "F_Diff",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "F_DiffLabel",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "F_NameLabel",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "TouchGive",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "TouchReceived",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "HSdivA",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "Diff",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        }
+      ]
+    }
+  ],
+  "analysisCapabilities": [
+    "项目概要",
+    "最终排名",
+    "初始排位",
+    "小组赛排名",
+    "小组赛每场比分",
+    "小组赛晋级人数",
+    "淘汰赛阶段结构",
+    "淘汰赛每场比分",
+    "选手完整比赛路径",
+    "对手交手记录",
+    "胜负和净胜剑统计"
+  ],
+  "privacyRecommendation": {
+    "publicFields": [
+      "rank",
+      "name",
+      "club",
+      "scores",
+      "winner",
+      "medal"
+    ],
+    "privateFields": [
+      "Licence",
+      "Birthday"
+    ],
+    "note": "Licence 和 Birthday 只用于内部消歧，不建议公开展示。"
+  }
+}
