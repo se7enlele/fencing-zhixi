@@ -1,0 +1,1442 @@
+{
+  "ok": true,
+  "source": {
+    "sourceUrl": "https://fencing-proxy.aixindiandian.workers.dev/Resource/score/RZSS2035011WETU10.js",
+    "sourceType": "score-resource",
+    "importedAt": "2026-06-09T05:53:39.726Z"
+  },
+  "general": {
+    "sportName": "2026年“中原亮剑 卧龙腾飞”南阳击剑公开赛",
+    "eventName": "U10女子重剑团体",
+    "openDate": null,
+    "venue": "河南·南阳",
+    "competitionNo": 7,
+    "exemptionNo": null,
+    "poolFencerNo": null,
+    "poolQualifyNo": null,
+    "preDeStartPhase": "none",
+    "deStartPhase": "from Tableaus8",
+    "sportCode": "RZSS2035011",
+    "eventCode": "RZSS2035011WETU10"
+  },
+  "summary": {
+    "classmentCount": 7,
+    "initialSeedCount": 7,
+    "poolCount": 0,
+    "poolStandingCount": 0,
+    "poolResultCount": 0,
+    "poolBoutCount": 0,
+    "tableauCount": 3,
+    "eliminationMatchCount": 8,
+    "playedEliminationMatchCount": 7,
+    "byeMatchCount": 1,
+    "athleteCountByLicence": 7
+  },
+  "distributions": {
+    "poolStatus": {},
+    "poolRemark": {},
+    "tableau": {
+      "8表": 1,
+      "半决赛": 1,
+      "决赛": 1
+    },
+    "eliminationByPhase": {
+      "8表": 4,
+      "半决赛": 2,
+      "决赛": 2
+    },
+    "eliminationResult": {
+      "W/L": 5,
+      "L/W": 3
+    },
+    "medal": {
+      "金": 1,
+      "银": 1,
+      "铜": 1,
+      "(无奖牌)": 4
+    }
+  },
+  "normalized": {
+    "classment": [
+      {
+        "rank": 1,
+        "displayRank": "1",
+        "name": "利刃精灵",
+        "licence": "RZSS2035011WETU10_878_EIPUV",
+        "club": "陕西锐",
+        "birthday": null,
+        "medal": "金",
+        "status": "N",
+        "sourcePosition": 1
+      },
+      {
+        "rank": 2,
+        "displayRank": "2",
+        "name": "齐豫飞扬",
+        "licence": "RZSS2035011WETU10_11294_NIZPY",
+        "club": "山东小众体育",
+        "birthday": null,
+        "medal": "银",
+        "status": "N",
+        "sourcePosition": 2
+      },
+      {
+        "rank": 3,
+        "displayRank": "3",
+        "name": "联合团体3队",
+        "licence": "UNITE3",
+        "club": null,
+        "birthday": null,
+        "medal": "铜",
+        "status": "N",
+        "sourcePosition": 3
+      },
+      {
+        "rank": 4,
+        "displayRank": "4",
+        "name": "联合团体2队",
+        "licence": "UNITE2",
+        "club": null,
+        "birthday": null,
+        "medal": null,
+        "status": "N",
+        "sourcePosition": 4
+      },
+      {
+        "rank": 5,
+        "displayRank": "5",
+        "name": "平顶山泰格女子1队。",
+        "licence": "RZSS2035011WETU10_11814_WIMMY",
+        "club": "平顶山泰格",
+        "birthday": null,
+        "medal": null,
+        "status": "N",
+        "sourcePosition": 5
+      },
+      {
+        "rank": 6,
+        "displayRank": "6",
+        "name": "启扬击剑",
+        "licence": "RZSS2035011WETU10_12349_YRXHJ",
+        "club": "周口击剑",
+        "birthday": null,
+        "medal": null,
+        "status": "N",
+        "sourcePosition": 6
+      },
+      {
+        "rank": 7,
+        "displayRank": "7",
+        "name": "联合团体1队",
+        "licence": "UNITE1",
+        "club": null,
+        "birthday": null,
+        "medal": null,
+        "status": "N",
+        "sourcePosition": 7
+      }
+    ],
+    "poolStandings": [],
+    "poolResults": [],
+    "poolBouts": [],
+    "eliminationMatches": [
+      {
+        "matchId": 497475,
+        "matchCode": "Pre001",
+        "phaseId": 168732,
+        "phase": {
+          "shortName": "T8",
+          "longName": "8表",
+          "order": 1,
+          "code": "3",
+          "group": "1_0"
+        },
+        "groupCode": "3_0",
+        "innerOrder": 1,
+        "home": {
+          "position": 1,
+          "name": "利刃精灵",
+          "licence": "RZSS2035011WETU10_878_EIPUV",
+          "club": "陕西锐",
+          "points": null,
+          "result": "W"
+        },
+        "away": {
+          "position": 8,
+          "name": "Bye",
+          "licence": null,
+          "club": null,
+          "points": null,
+          "result": "L"
+        },
+        "winner": {
+          "name": "利刃精灵",
+          "club": "陕西锐"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": true
+      },
+      {
+        "matchId": 497476,
+        "matchCode": "Pre002",
+        "phaseId": 168732,
+        "phase": {
+          "shortName": "T8",
+          "longName": "8表",
+          "order": 1,
+          "code": "3",
+          "group": "1_0"
+        },
+        "groupCode": "3_0",
+        "innerOrder": 2,
+        "home": {
+          "position": 5,
+          "name": "联合团体2队",
+          "licence": "UNITE2",
+          "club": null,
+          "points": 45,
+          "result": "W"
+        },
+        "away": {
+          "position": 4,
+          "name": "联合团体1队",
+          "licence": "UNITE1",
+          "club": null,
+          "points": 32,
+          "result": "L"
+        },
+        "winner": {
+          "name": "联合团体2队",
+          "club": null
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 497477,
+        "matchCode": "Pre003",
+        "phaseId": 168732,
+        "phase": {
+          "shortName": "T8",
+          "longName": "8表",
+          "order": 1,
+          "code": "3",
+          "group": "1_0"
+        },
+        "groupCode": "3_1",
+        "innerOrder": 1,
+        "home": {
+          "position": 3,
+          "name": "启扬击剑",
+          "licence": "RZSS2035011WETU10_12349_YRXHJ",
+          "club": "周口击剑",
+          "points": 42,
+          "result": "L"
+        },
+        "away": {
+          "position": 6,
+          "name": "联合团体3队",
+          "licence": "UNITE3",
+          "club": null,
+          "points": 45,
+          "result": "W"
+        },
+        "winner": {
+          "name": "启扬击剑",
+          "club": null
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 497478,
+        "matchCode": "Pre004",
+        "phaseId": 168732,
+        "phase": {
+          "shortName": "T8",
+          "longName": "8表",
+          "order": 1,
+          "code": "3",
+          "group": "1_0"
+        },
+        "groupCode": "3_1",
+        "innerOrder": 2,
+        "home": {
+          "position": 7,
+          "name": "齐豫飞扬",
+          "licence": "RZSS2035011WETU10_11294_NIZPY",
+          "club": "山东小众体育",
+          "points": 45,
+          "result": "W"
+        },
+        "away": {
+          "position": 2,
+          "name": "平顶山泰格女子1队。",
+          "licence": "RZSS2035011WETU10_11814_WIMMY",
+          "club": "平顶山泰格",
+          "points": 44,
+          "result": "L"
+        },
+        "winner": {
+          "name": "齐豫飞扬",
+          "club": "山东小众体育"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 497479,
+        "matchCode": "Pre001",
+        "phaseId": 168733,
+        "phase": {
+          "shortName": "T4",
+          "longName": "半决赛",
+          "order": 2,
+          "code": "2",
+          "group": "2_0"
+        },
+        "groupCode": "2_0",
+        "innerOrder": 1,
+        "home": {
+          "position": 1,
+          "name": "利刃精灵",
+          "licence": "RZSS2035011WETU10_878_EIPUV",
+          "club": "陕西锐",
+          "points": 41,
+          "result": "W"
+        },
+        "away": {
+          "position": 4,
+          "name": "联合团体2队",
+          "licence": "UNITE2",
+          "club": null,
+          "points": 40,
+          "result": "L"
+        },
+        "winner": {
+          "name": "利刃精灵",
+          "club": "陕西锐"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 497480,
+        "matchCode": "Pre002",
+        "phaseId": 168733,
+        "phase": {
+          "shortName": "T4",
+          "longName": "半决赛",
+          "order": 2,
+          "code": "2",
+          "group": "2_0"
+        },
+        "groupCode": "2_0",
+        "innerOrder": 2,
+        "home": {
+          "position": 3,
+          "name": "联合团体3队",
+          "licence": "UNITE3",
+          "club": null,
+          "points": 35,
+          "result": "L"
+        },
+        "away": {
+          "position": 2,
+          "name": "齐豫飞扬",
+          "licence": "RZSS2035011WETU10_11294_NIZPY",
+          "club": "山东小众体育",
+          "points": 45,
+          "result": "W"
+        },
+        "winner": {
+          "name": "联合团体3队",
+          "club": "山东小众体育"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 497481,
+        "matchCode": "Pre001",
+        "phaseId": 168734,
+        "phase": {
+          "shortName": "T2",
+          "longName": "决赛",
+          "order": 3,
+          "code": "1",
+          "group": "3_0"
+        },
+        "groupCode": "1_0",
+        "innerOrder": 1,
+        "home": {
+          "position": 1,
+          "name": "利刃精灵",
+          "licence": "RZSS2035011WETU10_878_EIPUV",
+          "club": "陕西锐",
+          "points": 45,
+          "result": "W"
+        },
+        "away": {
+          "position": 2,
+          "name": "齐豫飞扬",
+          "licence": "RZSS2035011WETU10_11294_NIZPY",
+          "club": "山东小众体育",
+          "points": 38,
+          "result": "L"
+        },
+        "winner": {
+          "name": "利刃精灵",
+          "club": "陕西锐"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 497482,
+        "matchCode": "Pre002",
+        "phaseId": 168734,
+        "phase": {
+          "shortName": "T2",
+          "longName": "决赛",
+          "order": 3,
+          "code": "1",
+          "group": "3_0"
+        },
+        "groupCode": "1_0",
+        "innerOrder": 2,
+        "home": {
+          "position": 1,
+          "name": "联合团体2队",
+          "licence": "UNITE2",
+          "club": null,
+          "points": 25,
+          "result": "L"
+        },
+        "away": {
+          "position": 2,
+          "name": "联合团体3队",
+          "licence": "UNITE3",
+          "club": null,
+          "points": 26,
+          "result": "W"
+        },
+        "winner": {
+          "name": "联合团体2队",
+          "club": null
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      }
+    ]
+  },
+  "completeness": [
+    {
+      "section": "General",
+      "rows": 1,
+      "fields": [
+        {
+          "key": "SportName",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "2026年“中原亮剑 卧龙腾飞”南阳击剑公开赛"
+          ]
+        },
+        {
+          "key": "EventName",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "U10女子重剑团体"
+          ]
+        },
+        {
+          "key": "OpenDate",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "Venue",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "河南·南阳"
+          ]
+        },
+        {
+          "key": "CompetitionNo",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            7
+          ]
+        },
+        {
+          "key": "ExemptionNo",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "PoolFencerNo",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "PoolQualifyNo",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "PDEstartPhase",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "none"
+          ]
+        },
+        {
+          "key": "DEstartPhase",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "from Tableaus8"
+          ]
+        },
+        {
+          "key": "Scode",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "RZSS2035011"
+          ]
+        },
+        {
+          "key": "Ecode",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "RZSS2035011WETU10"
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Classment",
+      "rows": 7,
+      "fields": [
+        {
+          "key": "EventShowRank",
+          "nonEmpty": 7,
+          "fillRate": 1,
+          "sampleValues": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"
+          ]
+        },
+        {
+          "key": "EventRank",
+          "nonEmpty": 7,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ]
+        },
+        {
+          "key": "Fencer",
+          "nonEmpty": 7,
+          "fillRate": 1,
+          "sampleValues": [
+            "利刃精灵",
+            "齐豫飞扬",
+            "联合团体3队",
+            "联合团体2队",
+            "平顶山泰格女子1队。",
+            "启扬击剑",
+            "联合团体1队"
+          ]
+        },
+        {
+          "key": "Licence",
+          "nonEmpty": 7,
+          "fillRate": 1,
+          "sampleValues": [
+            "RZSS2035011WETU10_878_EIPUV",
+            "RZSS2035011WETU10_11294_NIZPY",
+            "UNITE3",
+            "UNITE2",
+            "RZSS2035011WETU10_11814_WIMMY",
+            "RZSS2035011WETU10_12349_YRXHJ",
+            "UNITE1"
+          ]
+        },
+        {
+          "key": "NOCCode",
+          "nonEmpty": 4,
+          "fillRate": 0.5714,
+          "sampleValues": [
+            "陕西锐",
+            "山东小众体育",
+            "平顶山泰格",
+            "周口击剑"
+          ]
+        },
+        {
+          "key": "Birthday",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "Medal",
+          "nonEmpty": 3,
+          "fillRate": 0.4286,
+          "sampleValues": [
+            "金",
+            "银",
+            "铜"
+          ]
+        },
+        {
+          "key": "Statut",
+          "nonEmpty": 7,
+          "fillRate": 1,
+          "sampleValues": [
+            "N"
+          ]
+        },
+        {
+          "key": "F_EventDisPos",
+          "nonEmpty": 7,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ]
+        },
+        {
+          "key": "RID",
+          "nonEmpty": 7,
+          "fillRate": 1,
+          "sampleValues": [
+            74,
+            77,
+            81,
+            80,
+            75,
+            76,
+            79
+          ]
+        }
+      ]
+    },
+    {
+      "section": "ClassmentMember",
+      "rows": 24,
+      "fields": [
+        {
+          "key": "Fencer",
+          "nonEmpty": 24,
+          "fillRate": 1,
+          "sampleValues": [
+            "赵梓萱",
+            "刘昀诺",
+            "王筱钧",
+            "谢旻君",
+            "张雅晴",
+            "任琬睿",
+            "赵紫瞳",
+            "丁伊霖"
+          ]
+        },
+        {
+          "key": "Licence",
+          "nonEmpty": 24,
+          "fillRate": 1,
+          "sampleValues": [
+            "20170107F202601310511",
+            "20171028F202601110645",
+            "20171218F202402270202",
+            "20161025F202309251103",
+            "20161204M202309251111",
+            "20170208F202408101146",
+            "20180218F202309250442",
+            "20160416F202406040202"
+          ]
+        },
+        {
+          "key": "NOCCode",
+          "nonEmpty": 24,
+          "fillRate": 1,
+          "sampleValues": [
+            "陕西锐",
+            "平顶山泰格",
+            "周口击剑",
+            "山东小众体育",
+            "个人",
+            "河南一诺",
+            "杭州未象",
+            "河南三一"
+          ]
+        },
+        {
+          "key": "Birthday",
+          "nonEmpty": 24,
+          "fillRate": 1,
+          "sampleValues": [
+            "2017-01-07",
+            "2017-10-28",
+            "2017-12-18",
+            "2016-10-25",
+            "2016-12-04",
+            "2017-02-08",
+            "2018-02-18",
+            "2016-04-16"
+          ]
+        },
+        {
+          "key": "RID",
+          "nonEmpty": 24,
+          "fillRate": 1,
+          "sampleValues": [
+            74,
+            75,
+            76,
+            77,
+            81,
+            80,
+            79
+          ]
+        }
+      ]
+    },
+    {
+      "section": "IniStarts",
+      "rows": 7,
+      "fields": [
+        {
+          "key": "IRank",
+          "nonEmpty": 7,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ]
+        },
+        {
+          "key": "IPoints",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "Fencer",
+          "nonEmpty": 7,
+          "fillRate": 1,
+          "sampleValues": [
+            "利刃精灵",
+            "平顶山泰格女子1队。",
+            "启扬击剑",
+            "联合团体1队",
+            "联合团体2队",
+            "联合团体3队",
+            "齐豫飞扬"
+          ]
+        },
+        {
+          "key": "NOCCode",
+          "nonEmpty": 4,
+          "fillRate": 0.5714,
+          "sampleValues": [
+            "陕西锐",
+            "平顶山泰格",
+            "周口击剑",
+            "山东小众体育"
+          ]
+        },
+        {
+          "key": "Licence",
+          "nonEmpty": 7,
+          "fillRate": 1,
+          "sampleValues": [
+            "RZSS2035011WETU10_878_EIPUV",
+            "RZSS2035011WETU10_11814_WIMMY",
+            "RZSS2035011WETU10_12349_YRXHJ",
+            "UNITE1",
+            "UNITE2",
+            "UNITE3",
+            "RZSS2035011WETU10_11294_NIZPY"
+          ]
+        },
+        {
+          "key": "DisPos",
+          "nonEmpty": 7,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ]
+        },
+        {
+          "key": "RID",
+          "nonEmpty": 7,
+          "fillRate": 1,
+          "sampleValues": [
+            74,
+            75,
+            76,
+            79,
+            80,
+            81,
+            77
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Phases",
+      "rows": 1,
+      "fields": [
+        {
+          "key": "PhasePID",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            168731
+          ]
+        },
+        {
+          "key": "PhaseName",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "直接淘汰赛"
+          ]
+        },
+        {
+          "key": "Porder",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            3
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Tableaus",
+      "rows": 3,
+      "fields": [
+        {
+          "key": "PshortDes",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            "T8",
+            "T4",
+            "T2"
+          ]
+        },
+        {
+          "key": "PLongDes",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            "8表",
+            "半决赛",
+            "决赛"
+          ]
+        },
+        {
+          "key": "Porder",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3
+          ]
+        },
+        {
+          "key": "PhaseID",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            168732,
+            168733,
+            168734
+          ]
+        },
+        {
+          "key": "PhasePID",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            168731
+          ]
+        },
+        {
+          "key": "PhaseGroup",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            "1_0",
+            "2_0",
+            "3_0"
+          ]
+        },
+        {
+          "key": "PhaseCode",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            "3",
+            "2",
+            "1"
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Matchs",
+      "rows": 8,
+      "fields": [
+        {
+          "key": "MatchCode",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            "Pre001",
+            "Pre002",
+            "Pre003",
+            "Pre004"
+          ]
+        },
+        {
+          "key": "HomePosition",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            5,
+            3,
+            7
+          ]
+        },
+        {
+          "key": "HomeFencer",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            "利刃精灵",
+            "联合团体2队",
+            "启扬击剑",
+            "齐豫飞扬",
+            "联合团体3队"
+          ]
+        },
+        {
+          "key": "HomeLicence",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            "RZSS2035011WETU10_878_EIPUV",
+            "UNITE2",
+            "RZSS2035011WETU10_12349_YRXHJ",
+            "RZSS2035011WETU10_11294_NIZPY",
+            "UNITE3"
+          ]
+        },
+        {
+          "key": "HomeNOC",
+          "nonEmpty": 5,
+          "fillRate": 0.625,
+          "sampleValues": [
+            "陕西锐",
+            "周口击剑",
+            "山东小众体育"
+          ]
+        },
+        {
+          "key": "HomePoints",
+          "nonEmpty": 7,
+          "fillRate": 0.875,
+          "sampleValues": [
+            45,
+            42,
+            41,
+            35,
+            25
+          ]
+        },
+        {
+          "key": "HomeWLT",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            "W",
+            "L"
+          ]
+        },
+        {
+          "key": "AwayPosition",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            8,
+            4,
+            6,
+            2
+          ]
+        },
+        {
+          "key": "AwayFencer",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            "Bye",
+            "联合团体1队",
+            "联合团体3队",
+            "平顶山泰格女子1队。",
+            "联合团体2队",
+            "齐豫飞扬"
+          ]
+        },
+        {
+          "key": "AwayLicence",
+          "nonEmpty": 7,
+          "fillRate": 0.875,
+          "sampleValues": [
+            "UNITE1",
+            "UNITE3",
+            "RZSS2035011WETU10_11814_WIMMY",
+            "UNITE2",
+            "RZSS2035011WETU10_11294_NIZPY"
+          ]
+        },
+        {
+          "key": "AwayNOC",
+          "nonEmpty": 3,
+          "fillRate": 0.375,
+          "sampleValues": [
+            "平顶山泰格",
+            "山东小众体育"
+          ]
+        },
+        {
+          "key": "AwayPoints",
+          "nonEmpty": 7,
+          "fillRate": 0.875,
+          "sampleValues": [
+            32,
+            45,
+            44,
+            40,
+            38,
+            26
+          ]
+        },
+        {
+          "key": "AwayWLT",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            "L",
+            "W"
+          ]
+        },
+        {
+          "key": "Piste",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "StartTime",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "Winner",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            "利刃精灵",
+            "联合团体2队",
+            "启扬击剑",
+            "齐豫飞扬",
+            "联合团体3队"
+          ]
+        },
+        {
+          "key": "WinnerNOC",
+          "nonEmpty": 5,
+          "fillRate": 0.625,
+          "sampleValues": [
+            "陕西锐",
+            "山东小众体育"
+          ]
+        },
+        {
+          "key": "MatchID",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            497475,
+            497476,
+            497477,
+            497478,
+            497479,
+            497480,
+            497481,
+            497482
+          ]
+        },
+        {
+          "key": "PhaseID",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            168732,
+            168733,
+            168734
+          ]
+        },
+        {
+          "key": "GroupCode",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            "3_0",
+            "3_1",
+            "2_0",
+            "1_0"
+          ]
+        },
+        {
+          "key": "F_InnerOrder",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2
+          ]
+        }
+      ]
+    },
+    {
+      "section": "TeamAnalyse",
+      "rows": 24,
+      "fields": [
+        {
+          "key": "F_RegisterID",
+          "nonEmpty": 24,
+          "fillRate": 1,
+          "sampleValues": [
+            502286,
+            502284,
+            502285,
+            502295,
+            502296,
+            502297,
+            502298,
+            502308
+          ]
+        },
+        {
+          "key": "F_FencerLicence",
+          "nonEmpty": 24,
+          "fillRate": 1,
+          "sampleValues": [
+            "20171218F202402270202",
+            "20170107F202601310511",
+            "20171028F202601110645",
+            "20160704F202604241133",
+            "20160729F202511130340",
+            "20161229F202309130341",
+            "20170607F202603170443",
+            "20171010F202604250503"
+          ]
+        },
+        {
+          "key": "F_TeamID",
+          "nonEmpty": 24,
+          "fillRate": 1,
+          "sampleValues": [
+            74,
+            77,
+            81,
+            80,
+            75,
+            76,
+            79
+          ]
+        },
+        {
+          "key": "F_TeamLicence",
+          "nonEmpty": 24,
+          "fillRate": 1,
+          "sampleValues": [
+            "RZSS2035011WETU10_878_EIPUV",
+            "RZSS2035011WETU10_11294_NIZPY",
+            "UNITE3",
+            "UNITE2",
+            "RZSS2035011WETU10_11814_WIMMY",
+            "RZSS2035011WETU10_12349_YRXHJ",
+            "UNITE1"
+          ]
+        },
+        {
+          "key": "F_Rank",
+          "nonEmpty": 24,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ]
+        },
+        {
+          "key": "F_DisPos",
+          "nonEmpty": 24,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ]
+        },
+        {
+          "key": "F_ShowRank",
+          "nonEmpty": 24,
+          "fillRate": 1,
+          "sampleValues": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"
+          ]
+        },
+        {
+          "key": "Fencer",
+          "nonEmpty": 24,
+          "fillRate": 1,
+          "sampleValues": [
+            "王筱钧",
+            "赵梓萱",
+            "刘昀诺",
+            "郑壹心",
+            "霍雅琪",
+            "杨清原",
+            "李婧滔",
+            "来华阳"
+          ]
+        },
+        {
+          "key": "F_NOC",
+          "nonEmpty": 24,
+          "fillRate": 1,
+          "sampleValues": [
+            "陕西锐",
+            "山东小众体育",
+            "个人",
+            "河南三一",
+            "南阳剑协",
+            "杭州未象",
+            "重庆晓育",
+            "平顶山泰格"
+          ]
+        },
+        {
+          "key": "F_NOCs",
+          "nonEmpty": 24,
+          "fillRate": 1,
+          "sampleValues": [
+            "陕西锐",
+            "山东小众体育",
+            "个人",
+            "河南三一",
+            "南阳剑协",
+            "杭州未象",
+            "重庆晓育",
+            "平顶山泰格"
+          ]
+        },
+        {
+          "key": "F_IRM",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "AppearCount",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "MatchCount",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "F_Index",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "F_IndexLabel",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "F_TouchGive",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "F_TouchReceived",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "F_HSdivA",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "F_HSdivALabel",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "F_Diff",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "F_DiffLabel",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "F_NameLabel",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "TouchGive",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "TouchReceived",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "HSdivA",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "Diff",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        }
+      ]
+    }
+  ],
+  "analysisCapabilities": [
+    "项目概要",
+    "最终排名",
+    "初始排位",
+    "小组赛排名",
+    "小组赛每场比分",
+    "小组赛晋级人数",
+    "淘汰赛阶段结构",
+    "淘汰赛每场比分",
+    "选手完整比赛路径",
+    "对手交手记录",
+    "胜负和净胜剑统计"
+  ],
+  "privacyRecommendation": {
+    "publicFields": [
+      "rank",
+      "name",
+      "club",
+      "scores",
+      "winner",
+      "medal"
+    ],
+    "privateFields": [
+      "Licence",
+      "Birthday"
+    ],
+    "note": "Licence 和 Birthday 只用于内部消歧，不建议公开展示。"
+  }
+}
