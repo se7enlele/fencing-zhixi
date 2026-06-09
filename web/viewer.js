@@ -646,10 +646,12 @@ function showView(name) {
   if (bottomNav) {
     const showBottomNav = ['home', 'parentHome', 'competitions', 'follow', 'my'].includes(name);
     bottomNav.hidden = !showBottomNav;
-    bottomNav.querySelectorAll('[data-main-tab]').forEach((button) => {
-      const tab = button.dataset.mainTab;
-      button.classList.toggle('active', tab === state.activeMainTab);
+    const activeTab = state.activeMainTab || (name === 'parentHome' ? 'home' : name);
+    const buttons = [...bottomNav.querySelectorAll('[data-main-tab]')];
+    buttons.forEach((button) => {
+      button.classList.remove('active');
     });
+    buttons.find((button) => button.dataset.mainTab === activeTab)?.classList.add('active');
   }
 }
 
