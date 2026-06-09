@@ -1,0 +1,2615 @@
+{
+  "ok": true,
+  "source": {
+    "sourceUrl": "https://fencing-proxy.aixindiandian.workers.dev/Resource/score/RZSS2032061MFTU10.js",
+    "sourceType": "score-resource",
+    "importedAt": "2026-06-09T21:15:45.461Z"
+  },
+  "general": {
+    "sportName": "2025年“楚天杯”湖北省青少年击剑联赛",
+    "eventName": "U10男子花剑团体",
+    "openDate": "2025.04.04",
+    "venue": "湖北•武汉市",
+    "competitionNo": 24,
+    "exemptionNo": null,
+    "poolFencerNo": null,
+    "poolQualifyNo": 0,
+    "preDeStartPhase": "none",
+    "deStartPhase": "from Tableaus32",
+    "sportCode": "RZSS2032061",
+    "eventCode": "RZSS2032061MFTU10"
+  },
+  "summary": {
+    "classmentCount": 24,
+    "initialSeedCount": 24,
+    "poolCount": 0,
+    "poolStandingCount": 0,
+    "poolResultCount": 0,
+    "poolBoutCount": 0,
+    "tableauCount": 5,
+    "eliminationMatchCount": 32,
+    "playedEliminationMatchCount": 24,
+    "byeMatchCount": 8,
+    "athleteCountByLicence": 24
+  },
+  "distributions": {
+    "poolStatus": {},
+    "poolRemark": {},
+    "tableau": {
+      "32表": 1,
+      "16表": 1,
+      "8表": 1,
+      "半决赛": 1,
+      "决赛": 1
+    },
+    "eliminationByPhase": {
+      "32表": 16,
+      "16表": 8,
+      "8表": 4,
+      "半决赛": 2,
+      "决赛": 2
+    },
+    "eliminationResult": {
+      "W/L": 12,
+      "L/W": 20
+    },
+    "medal": {
+      "金": 1,
+      "银": 1,
+      "铜": 1,
+      "(无奖牌)": 21
+    }
+  },
+  "normalized": {
+    "classment": [
+      {
+        "rank": 1,
+        "displayRank": "1",
+        "name": "翌昱卓然剑",
+        "licence": "RZSS2032061MFTU10_585_YANVR",
+        "club": "武汉武昌万国",
+        "birthday": null,
+        "medal": "金",
+        "status": "N",
+        "sourcePosition": 1
+      },
+      {
+        "rank": 2,
+        "displayRank": "2",
+        "name": "杭州久也",
+        "licence": "RZSS2032061MFTU10_11426_FMTGG",
+        "club": "杭州久也",
+        "birthday": null,
+        "medal": "银",
+        "status": "N",
+        "sourcePosition": 2
+      },
+      {
+        "rank": 3,
+        "displayRank": "3",
+        "name": "御剑九头鸟一队",
+        "licence": "RZSS2032061MFTU10_619_VBYKR",
+        "club": "武汉御剑",
+        "birthday": null,
+        "medal": "铜",
+        "status": "N",
+        "sourcePosition": 3
+      },
+      {
+        "rank": 4,
+        "displayRank": "4",
+        "name": "小火山队",
+        "licence": "RZSS2032061MFTU10_666_VXFHU",
+        "club": "湖南省剑协",
+        "birthday": null,
+        "medal": null,
+        "status": "N",
+        "sourcePosition": 4
+      },
+      {
+        "rank": 5,
+        "displayRank": "5",
+        "name": "一剑封侯",
+        "licence": "RZSS2032061MFTU10_586_QOOZL",
+        "club": "上海浦东万国",
+        "birthday": null,
+        "medal": null,
+        "status": "N",
+        "sourcePosition": 5
+      },
+      {
+        "rank": 6,
+        "displayRank": "6",
+        "name": "御剑九头鸟三队",
+        "licence": "RZSS2032061MFTU10_619_OJQOM",
+        "club": "武汉御剑",
+        "birthday": null,
+        "medal": null,
+        "status": "N",
+        "sourcePosition": 6
+      },
+      {
+        "rank": 7,
+        "displayRank": "7",
+        "name": "剑破苍穹",
+        "licence": "RZSS2032061MFTU10_11419_VSYTI",
+        "club": "长沙星博",
+        "birthday": null,
+        "medal": null,
+        "status": "N",
+        "sourcePosition": 7
+      },
+      {
+        "rank": 8,
+        "displayRank": "8",
+        "name": "剑锋逐梦",
+        "licence": "RZSS2032061MFTU10_11631_XLVIN",
+        "club": "沈阳凡星蒂姆",
+        "birthday": null,
+        "medal": null,
+        "status": "N",
+        "sourcePosition": 8
+      },
+      {
+        "rank": 9,
+        "displayRank": "9",
+        "name": "湖北永尚",
+        "licence": "RZSS2032061MFTU10_684_QFRVV",
+        "club": "湖北永尚",
+        "birthday": null,
+        "medal": null,
+        "status": "N",
+        "sourcePosition": 9
+      },
+      {
+        "rank": 10,
+        "displayRank": "10",
+        "name": "永尚突击队",
+        "licence": "RZSS2032061MFTU10_684_TVJVS",
+        "club": "湖北永尚",
+        "birthday": null,
+        "medal": null,
+        "status": "N",
+        "sourcePosition": 10
+      },
+      {
+        "rank": 11,
+        "displayRank": "11",
+        "name": "御剑九头鸟二队",
+        "licence": "RZSS2032061MFTU10_619_BZWSV",
+        "club": "武汉御剑",
+        "birthday": null,
+        "medal": null,
+        "status": "N",
+        "sourcePosition": 11
+      },
+      {
+        "rank": 12,
+        "displayRank": "12",
+        "name": "巳巳如意",
+        "licence": "RZSS2032061MFTU10_585_XCOAW",
+        "club": "武汉武昌万国",
+        "birthday": null,
+        "medal": null,
+        "status": "N",
+        "sourcePosition": 12
+      },
+      {
+        "rank": 13,
+        "displayRank": "13",
+        "name": "交个朋友",
+        "licence": "RZSS2032061MFTU10_422_XZMRQ",
+        "club": "上海剑缘",
+        "birthday": null,
+        "medal": null,
+        "status": "N",
+        "sourcePosition": 13
+      },
+      {
+        "rank": 14,
+        "displayRank": "14",
+        "name": "联合团体3队",
+        "licence": "UNITE3",
+        "club": "联合团体",
+        "birthday": null,
+        "medal": null,
+        "status": "N",
+        "sourcePosition": 14
+      },
+      {
+        "rank": 15,
+        "displayRank": "15",
+        "name": "联合团体2队",
+        "licence": "UNITE2",
+        "club": "联合团体",
+        "birthday": null,
+        "medal": null,
+        "status": "N",
+        "sourcePosition": 15
+      },
+      {
+        "rank": 16,
+        "displayRank": "16",
+        "name": "联合团体8队",
+        "licence": "UNITE8",
+        "club": "联合团体",
+        "birthday": null,
+        "medal": null,
+        "status": "N",
+        "sourcePosition": 16
+      },
+      {
+        "rank": 17,
+        "displayRank": "17",
+        "name": "联合团体1队",
+        "licence": "UNITE1",
+        "club": "联合团体",
+        "birthday": null,
+        "medal": null,
+        "status": "N",
+        "sourcePosition": 17
+      },
+      {
+        "rank": 18,
+        "displayRank": "18",
+        "name": "联合团体4队",
+        "licence": "UNITE4",
+        "club": "联合团体",
+        "birthday": null,
+        "medal": null,
+        "status": "N",
+        "sourcePosition": 18
+      },
+      {
+        "rank": 19,
+        "displayRank": "19",
+        "name": "联合团体5队",
+        "licence": "UNITE5",
+        "club": "联合团体",
+        "birthday": null,
+        "medal": null,
+        "status": "N",
+        "sourcePosition": 19
+      },
+      {
+        "rank": 20,
+        "displayRank": "20",
+        "name": "联合团体7队",
+        "licence": "UNITE7",
+        "club": "联合团体",
+        "birthday": null,
+        "medal": null,
+        "status": "N",
+        "sourcePosition": 20
+      },
+      {
+        "rank": 21,
+        "displayRank": "21",
+        "name": "联合团体6队",
+        "licence": "UNITE6",
+        "club": "联合团体",
+        "birthday": null,
+        "medal": null,
+        "status": "N",
+        "sourcePosition": 21
+      },
+      {
+        "rank": 22,
+        "displayRank": "22",
+        "name": "孟一博剑队",
+        "licence": "RZSS2032061MFTU10_585_SZDAV",
+        "club": "武汉武昌万国",
+        "birthday": null,
+        "medal": null,
+        "status": "N",
+        "sourcePosition": 22
+      },
+      {
+        "rank": 23,
+        "displayRank": "23",
+        "name": "武汉风云",
+        "licence": "RZSS2032061MFTU10_11687_FGXTJ",
+        "club": "武汉风云",
+        "birthday": null,
+        "medal": null,
+        "status": "N",
+        "sourcePosition": 23
+      },
+      {
+        "rank": 24,
+        "displayRank": "24",
+        "name": "擎剑三队",
+        "licence": "RZSS2032061MFTU10_938_AIBVF",
+        "club": "武汉擎剑",
+        "birthday": null,
+        "medal": null,
+        "status": "N",
+        "sourcePosition": 24
+      }
+    ],
+    "poolStandings": [],
+    "poolResults": [],
+    "poolBouts": [],
+    "eliminationMatches": [
+      {
+        "matchId": 411425,
+        "matchCode": "Pre001",
+        "phaseId": 142416,
+        "phase": {
+          "shortName": "T32",
+          "longName": "32表",
+          "order": 1,
+          "code": "5",
+          "group": "1_0"
+        },
+        "groupCode": "5_0",
+        "innerOrder": 1,
+        "home": {
+          "position": 1,
+          "name": "一剑封侯",
+          "licence": "RZSS2032061MFTU10_586_QOOZL",
+          "club": "上海浦东万国",
+          "points": null,
+          "result": "W"
+        },
+        "away": {
+          "position": 32,
+          "name": "Bye",
+          "licence": null,
+          "club": null,
+          "points": null,
+          "result": "L"
+        },
+        "winner": {
+          "name": "一剑封侯",
+          "club": "上海浦东万国"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": true
+      },
+      {
+        "matchId": 411426,
+        "matchCode": "Pre002",
+        "phaseId": 142416,
+        "phase": {
+          "shortName": "T32",
+          "longName": "32表",
+          "order": 1,
+          "code": "5",
+          "group": "1_0"
+        },
+        "groupCode": "5_0",
+        "innerOrder": 2,
+        "home": {
+          "position": 17,
+          "name": "联合团体4队",
+          "licence": "UNITE4",
+          "club": "联合团体",
+          "points": 38,
+          "result": "L"
+        },
+        "away": {
+          "position": 16,
+          "name": "联合团体2队",
+          "licence": "UNITE2",
+          "club": "联合团体",
+          "points": 45,
+          "result": "W"
+        },
+        "winner": {
+          "name": "联合团体4队",
+          "club": "联合团体"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 411427,
+        "matchCode": "Pre003",
+        "phaseId": 142416,
+        "phase": {
+          "shortName": "T32",
+          "longName": "32表",
+          "order": 1,
+          "code": "5",
+          "group": "1_0"
+        },
+        "groupCode": "5_1",
+        "innerOrder": 1,
+        "home": {
+          "position": 9,
+          "name": "永尚突击队",
+          "licence": "RZSS2032061MFTU10_684_TVJVS",
+          "club": "湖北永尚",
+          "points": 45,
+          "result": "W"
+        },
+        "away": {
+          "position": 24,
+          "name": "擎剑三队",
+          "licence": "RZSS2032061MFTU10_938_AIBVF",
+          "club": "武汉擎剑",
+          "points": 11,
+          "result": "L"
+        },
+        "winner": {
+          "name": "永尚突击队",
+          "club": "湖北永尚"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 411428,
+        "matchCode": "Pre004",
+        "phaseId": 142416,
+        "phase": {
+          "shortName": "T32",
+          "longName": "32表",
+          "order": 1,
+          "code": "5",
+          "group": "1_0"
+        },
+        "groupCode": "5_1",
+        "innerOrder": 2,
+        "home": {
+          "position": 25,
+          "name": "Bye",
+          "licence": null,
+          "club": null,
+          "points": null,
+          "result": "L"
+        },
+        "away": {
+          "position": 8,
+          "name": "小火山队",
+          "licence": "RZSS2032061MFTU10_666_VXFHU",
+          "club": "湖南省剑协",
+          "points": null,
+          "result": "W"
+        },
+        "winner": {
+          "name": null,
+          "club": "湖南省剑协"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": true
+      },
+      {
+        "matchId": 411429,
+        "matchCode": "Pre005",
+        "phaseId": 142416,
+        "phase": {
+          "shortName": "T32",
+          "longName": "32表",
+          "order": 1,
+          "code": "5",
+          "group": "1_0"
+        },
+        "groupCode": "5_2",
+        "innerOrder": 1,
+        "home": {
+          "position": 5,
+          "name": "湖北永尚",
+          "licence": "RZSS2032061MFTU10_684_QFRVV",
+          "club": "湖北永尚",
+          "points": null,
+          "result": "W"
+        },
+        "away": {
+          "position": 28,
+          "name": "Bye",
+          "licence": null,
+          "club": null,
+          "points": null,
+          "result": "L"
+        },
+        "winner": {
+          "name": "湖北永尚",
+          "club": "湖北永尚"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": true
+      },
+      {
+        "matchId": 411430,
+        "matchCode": "Pre006",
+        "phaseId": 142416,
+        "phase": {
+          "shortName": "T32",
+          "longName": "32表",
+          "order": 1,
+          "code": "5",
+          "group": "1_0"
+        },
+        "groupCode": "5_2",
+        "innerOrder": 2,
+        "home": {
+          "position": 21,
+          "name": "联合团体6队",
+          "licence": "UNITE6",
+          "club": "联合团体",
+          "points": 15,
+          "result": "L"
+        },
+        "away": {
+          "position": 12,
+          "name": "剑锋逐梦",
+          "licence": "RZSS2032061MFTU10_11631_XLVIN",
+          "club": "沈阳凡星蒂姆",
+          "points": 45,
+          "result": "W"
+        },
+        "winner": {
+          "name": "联合团体6队",
+          "club": "沈阳凡星蒂姆"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 411431,
+        "matchCode": "Pre007",
+        "phaseId": 142416,
+        "phase": {
+          "shortName": "T32",
+          "longName": "32表",
+          "order": 1,
+          "code": "5",
+          "group": "1_0"
+        },
+        "groupCode": "5_3",
+        "innerOrder": 1,
+        "home": {
+          "position": 13,
+          "name": "交个朋友",
+          "licence": "RZSS2032061MFTU10_422_XZMRQ",
+          "club": "上海剑缘",
+          "points": 45,
+          "result": "W"
+        },
+        "away": {
+          "position": 20,
+          "name": "联合团体7队",
+          "licence": "UNITE7",
+          "club": "联合团体",
+          "points": 40,
+          "result": "L"
+        },
+        "winner": {
+          "name": "交个朋友",
+          "club": "上海剑缘"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 411432,
+        "matchCode": "Pre008",
+        "phaseId": 142416,
+        "phase": {
+          "shortName": "T32",
+          "longName": "32表",
+          "order": 1,
+          "code": "5",
+          "group": "1_0"
+        },
+        "groupCode": "5_3",
+        "innerOrder": 2,
+        "home": {
+          "position": 29,
+          "name": "Bye",
+          "licence": null,
+          "club": null,
+          "points": null,
+          "result": "L"
+        },
+        "away": {
+          "position": 4,
+          "name": "杭州久也",
+          "licence": "RZSS2032061MFTU10_11426_FMTGG",
+          "club": "杭州久也",
+          "points": null,
+          "result": "W"
+        },
+        "winner": {
+          "name": null,
+          "club": "杭州久也"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": true
+      },
+      {
+        "matchId": 411433,
+        "matchCode": "Pre009",
+        "phaseId": 142416,
+        "phase": {
+          "shortName": "T32",
+          "longName": "32表",
+          "order": 1,
+          "code": "5",
+          "group": "1_0"
+        },
+        "groupCode": "5_4",
+        "innerOrder": 1,
+        "home": {
+          "position": 3,
+          "name": "御剑九头鸟三队",
+          "licence": "RZSS2032061MFTU10_619_OJQOM",
+          "club": "武汉御剑",
+          "points": null,
+          "result": "W"
+        },
+        "away": {
+          "position": 30,
+          "name": "Bye",
+          "licence": null,
+          "club": null,
+          "points": null,
+          "result": "L"
+        },
+        "winner": {
+          "name": "御剑九头鸟三队",
+          "club": "武汉御剑"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": true
+      },
+      {
+        "matchId": 411434,
+        "matchCode": "Pre010",
+        "phaseId": 142416,
+        "phase": {
+          "shortName": "T32",
+          "longName": "32表",
+          "order": 1,
+          "code": "5",
+          "group": "1_0"
+        },
+        "groupCode": "5_4",
+        "innerOrder": 2,
+        "home": {
+          "position": 19,
+          "name": "联合团体8队",
+          "licence": "UNITE8",
+          "club": "联合团体",
+          "points": 44,
+          "result": "W"
+        },
+        "away": {
+          "position": 14,
+          "name": "联合团体1队",
+          "licence": "UNITE1",
+          "club": "联合团体",
+          "points": 43,
+          "result": "L"
+        },
+        "winner": {
+          "name": "联合团体8队",
+          "club": "联合团体"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 411435,
+        "matchCode": "Pre011",
+        "phaseId": 142416,
+        "phase": {
+          "shortName": "T32",
+          "longName": "32表",
+          "order": 1,
+          "code": "5",
+          "group": "1_0"
+        },
+        "groupCode": "5_5",
+        "innerOrder": 1,
+        "home": {
+          "position": 11,
+          "name": "巳巳如意",
+          "licence": "RZSS2032061MFTU10_585_XCOAW",
+          "club": "武汉武昌万国",
+          "points": 44,
+          "result": "W"
+        },
+        "away": {
+          "position": 22,
+          "name": "孟一博剑队",
+          "licence": "RZSS2032061MFTU10_585_SZDAV",
+          "club": "武汉武昌万国",
+          "points": 30,
+          "result": "L"
+        },
+        "winner": {
+          "name": "巳巳如意",
+          "club": "武汉武昌万国"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 411436,
+        "matchCode": "Pre012",
+        "phaseId": 142416,
+        "phase": {
+          "shortName": "T32",
+          "longName": "32表",
+          "order": 1,
+          "code": "5",
+          "group": "1_0"
+        },
+        "groupCode": "5_5",
+        "innerOrder": 2,
+        "home": {
+          "position": 27,
+          "name": "Bye",
+          "licence": null,
+          "club": null,
+          "points": null,
+          "result": "L"
+        },
+        "away": {
+          "position": 6,
+          "name": "御剑九头鸟一队",
+          "licence": "RZSS2032061MFTU10_619_VBYKR",
+          "club": "武汉御剑",
+          "points": null,
+          "result": "W"
+        },
+        "winner": {
+          "name": null,
+          "club": "武汉御剑"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": true
+      },
+      {
+        "matchId": 411437,
+        "matchCode": "Pre013",
+        "phaseId": 142416,
+        "phase": {
+          "shortName": "T32",
+          "longName": "32表",
+          "order": 1,
+          "code": "5",
+          "group": "1_0"
+        },
+        "groupCode": "5_6",
+        "innerOrder": 1,
+        "home": {
+          "position": 7,
+          "name": "剑破苍穹",
+          "licence": "RZSS2032061MFTU10_11419_VSYTI",
+          "club": "长沙星博",
+          "points": null,
+          "result": "W"
+        },
+        "away": {
+          "position": 26,
+          "name": "Bye",
+          "licence": null,
+          "club": null,
+          "points": null,
+          "result": "L"
+        },
+        "winner": {
+          "name": "剑破苍穹",
+          "club": "长沙星博"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": true
+      },
+      {
+        "matchId": 411438,
+        "matchCode": "Pre014",
+        "phaseId": 142416,
+        "phase": {
+          "shortName": "T32",
+          "longName": "32表",
+          "order": 1,
+          "code": "5",
+          "group": "1_0"
+        },
+        "groupCode": "5_6",
+        "innerOrder": 2,
+        "home": {
+          "position": 23,
+          "name": "武汉风云",
+          "licence": "RZSS2032061MFTU10_11687_FGXTJ",
+          "club": "武汉风云",
+          "points": 21,
+          "result": "L"
+        },
+        "away": {
+          "position": 10,
+          "name": "御剑九头鸟二队",
+          "licence": "RZSS2032061MFTU10_619_BZWSV",
+          "club": "武汉御剑",
+          "points": 45,
+          "result": "W"
+        },
+        "winner": {
+          "name": "武汉风云",
+          "club": "武汉御剑"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 411439,
+        "matchCode": "Pre015",
+        "phaseId": 142416,
+        "phase": {
+          "shortName": "T32",
+          "longName": "32表",
+          "order": 1,
+          "code": "5",
+          "group": "1_0"
+        },
+        "groupCode": "5_7",
+        "innerOrder": 1,
+        "home": {
+          "position": 15,
+          "name": "联合团体3队",
+          "licence": "UNITE3",
+          "club": "联合团体",
+          "points": 45,
+          "result": "W"
+        },
+        "away": {
+          "position": 18,
+          "name": "联合团体5队",
+          "licence": "UNITE5",
+          "club": "联合团体",
+          "points": 40,
+          "result": "L"
+        },
+        "winner": {
+          "name": "联合团体3队",
+          "club": "联合团体"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 411440,
+        "matchCode": "Pre016",
+        "phaseId": 142416,
+        "phase": {
+          "shortName": "T32",
+          "longName": "32表",
+          "order": 1,
+          "code": "5",
+          "group": "1_0"
+        },
+        "groupCode": "5_7",
+        "innerOrder": 2,
+        "home": {
+          "position": 31,
+          "name": "Bye",
+          "licence": null,
+          "club": null,
+          "points": null,
+          "result": "L"
+        },
+        "away": {
+          "position": 2,
+          "name": "翌昱卓然剑",
+          "licence": "RZSS2032061MFTU10_585_YANVR",
+          "club": "武汉武昌万国",
+          "points": null,
+          "result": "W"
+        },
+        "winner": {
+          "name": null,
+          "club": "武汉武昌万国"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": true
+      },
+      {
+        "matchId": 411441,
+        "matchCode": "Pre001",
+        "phaseId": 142417,
+        "phase": {
+          "shortName": "T16",
+          "longName": "16表",
+          "order": 2,
+          "code": "4",
+          "group": "2_0"
+        },
+        "groupCode": "4_0",
+        "innerOrder": 1,
+        "home": {
+          "position": 1,
+          "name": "一剑封侯",
+          "licence": "RZSS2032061MFTU10_586_QOOZL",
+          "club": "上海浦东万国",
+          "points": 45,
+          "result": "W"
+        },
+        "away": {
+          "position": 16,
+          "name": "联合团体2队",
+          "licence": "UNITE2",
+          "club": "联合团体",
+          "points": 22,
+          "result": "L"
+        },
+        "winner": {
+          "name": "一剑封侯",
+          "club": "上海浦东万国"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 411442,
+        "matchCode": "Pre002",
+        "phaseId": 142417,
+        "phase": {
+          "shortName": "T16",
+          "longName": "16表",
+          "order": 2,
+          "code": "4",
+          "group": "2_0"
+        },
+        "groupCode": "4_0",
+        "innerOrder": 2,
+        "home": {
+          "position": 9,
+          "name": "永尚突击队",
+          "licence": "RZSS2032061MFTU10_684_TVJVS",
+          "club": "湖北永尚",
+          "points": 35,
+          "result": "L"
+        },
+        "away": {
+          "position": 8,
+          "name": "小火山队",
+          "licence": "RZSS2032061MFTU10_666_VXFHU",
+          "club": "湖南省剑协",
+          "points": 45,
+          "result": "W"
+        },
+        "winner": {
+          "name": "永尚突击队",
+          "club": "湖南省剑协"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 411443,
+        "matchCode": "Pre003",
+        "phaseId": 142417,
+        "phase": {
+          "shortName": "T16",
+          "longName": "16表",
+          "order": 2,
+          "code": "4",
+          "group": "2_0"
+        },
+        "groupCode": "4_1",
+        "innerOrder": 1,
+        "home": {
+          "position": 5,
+          "name": "湖北永尚",
+          "licence": "RZSS2032061MFTU10_684_QFRVV",
+          "club": "湖北永尚",
+          "points": 44,
+          "result": "L"
+        },
+        "away": {
+          "position": 12,
+          "name": "剑锋逐梦",
+          "licence": "RZSS2032061MFTU10_11631_XLVIN",
+          "club": "沈阳凡星蒂姆",
+          "points": 45,
+          "result": "W"
+        },
+        "winner": {
+          "name": "湖北永尚",
+          "club": "沈阳凡星蒂姆"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 411444,
+        "matchCode": "Pre004",
+        "phaseId": 142417,
+        "phase": {
+          "shortName": "T16",
+          "longName": "16表",
+          "order": 2,
+          "code": "4",
+          "group": "2_0"
+        },
+        "groupCode": "4_1",
+        "innerOrder": 2,
+        "home": {
+          "position": 13,
+          "name": "交个朋友",
+          "licence": "RZSS2032061MFTU10_422_XZMRQ",
+          "club": "上海剑缘",
+          "points": 24,
+          "result": "L"
+        },
+        "away": {
+          "position": 4,
+          "name": "杭州久也",
+          "licence": "RZSS2032061MFTU10_11426_FMTGG",
+          "club": "杭州久也",
+          "points": 45,
+          "result": "W"
+        },
+        "winner": {
+          "name": "交个朋友",
+          "club": "杭州久也"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 411445,
+        "matchCode": "Pre005",
+        "phaseId": 142417,
+        "phase": {
+          "shortName": "T16",
+          "longName": "16表",
+          "order": 2,
+          "code": "4",
+          "group": "2_0"
+        },
+        "groupCode": "4_2",
+        "innerOrder": 1,
+        "home": {
+          "position": 3,
+          "name": "御剑九头鸟三队",
+          "licence": "RZSS2032061MFTU10_619_OJQOM",
+          "club": "武汉御剑",
+          "points": 45,
+          "result": "W"
+        },
+        "away": {
+          "position": 14,
+          "name": "联合团体8队",
+          "licence": "UNITE8",
+          "club": "联合团体",
+          "points": 25,
+          "result": "L"
+        },
+        "winner": {
+          "name": "御剑九头鸟三队",
+          "club": "武汉御剑"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 411446,
+        "matchCode": "Pre006",
+        "phaseId": 142417,
+        "phase": {
+          "shortName": "T16",
+          "longName": "16表",
+          "order": 2,
+          "code": "4",
+          "group": "2_0"
+        },
+        "groupCode": "4_2",
+        "innerOrder": 2,
+        "home": {
+          "position": 11,
+          "name": "巳巳如意",
+          "licence": "RZSS2032061MFTU10_585_XCOAW",
+          "club": "武汉武昌万国",
+          "points": 27,
+          "result": "L"
+        },
+        "away": {
+          "position": 6,
+          "name": "御剑九头鸟一队",
+          "licence": "RZSS2032061MFTU10_619_VBYKR",
+          "club": "武汉御剑",
+          "points": 45,
+          "result": "W"
+        },
+        "winner": {
+          "name": "巳巳如意",
+          "club": "武汉御剑"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 411447,
+        "matchCode": "Pre007",
+        "phaseId": 142417,
+        "phase": {
+          "shortName": "T16",
+          "longName": "16表",
+          "order": 2,
+          "code": "4",
+          "group": "2_0"
+        },
+        "groupCode": "4_3",
+        "innerOrder": 1,
+        "home": {
+          "position": 7,
+          "name": "剑破苍穹",
+          "licence": "RZSS2032061MFTU10_11419_VSYTI",
+          "club": "长沙星博",
+          "points": 45,
+          "result": "W"
+        },
+        "away": {
+          "position": 10,
+          "name": "御剑九头鸟二队",
+          "licence": "RZSS2032061MFTU10_619_BZWSV",
+          "club": "武汉御剑",
+          "points": 27,
+          "result": "L"
+        },
+        "winner": {
+          "name": "剑破苍穹",
+          "club": "长沙星博"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 411448,
+        "matchCode": "Pre008",
+        "phaseId": 142417,
+        "phase": {
+          "shortName": "T16",
+          "longName": "16表",
+          "order": 2,
+          "code": "4",
+          "group": "2_0"
+        },
+        "groupCode": "4_3",
+        "innerOrder": 2,
+        "home": {
+          "position": 15,
+          "name": "联合团体3队",
+          "licence": "UNITE3",
+          "club": "联合团体",
+          "points": 36,
+          "result": "L"
+        },
+        "away": {
+          "position": 2,
+          "name": "翌昱卓然剑",
+          "licence": "RZSS2032061MFTU10_585_YANVR",
+          "club": "武汉武昌万国",
+          "points": 45,
+          "result": "W"
+        },
+        "winner": {
+          "name": "联合团体3队",
+          "club": "武汉武昌万国"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 411449,
+        "matchCode": "Pre001",
+        "phaseId": 142418,
+        "phase": {
+          "shortName": "T8",
+          "longName": "8表",
+          "order": 3,
+          "code": "3",
+          "group": "3_0"
+        },
+        "groupCode": "3_0",
+        "innerOrder": 1,
+        "home": {
+          "position": 1,
+          "name": "一剑封侯",
+          "licence": "RZSS2032061MFTU10_586_QOOZL",
+          "club": "上海浦东万国",
+          "points": 35,
+          "result": "L"
+        },
+        "away": {
+          "position": 8,
+          "name": "小火山队",
+          "licence": "RZSS2032061MFTU10_666_VXFHU",
+          "club": "湖南省剑协",
+          "points": 45,
+          "result": "W"
+        },
+        "winner": {
+          "name": "一剑封侯",
+          "club": "湖南省剑协"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 411450,
+        "matchCode": "Pre002",
+        "phaseId": 142418,
+        "phase": {
+          "shortName": "T8",
+          "longName": "8表",
+          "order": 3,
+          "code": "3",
+          "group": "3_0"
+        },
+        "groupCode": "3_0",
+        "innerOrder": 2,
+        "home": {
+          "position": 5,
+          "name": "剑锋逐梦",
+          "licence": "RZSS2032061MFTU10_11631_XLVIN",
+          "club": "沈阳凡星蒂姆",
+          "points": 39,
+          "result": "L"
+        },
+        "away": {
+          "position": 4,
+          "name": "杭州久也",
+          "licence": "RZSS2032061MFTU10_11426_FMTGG",
+          "club": "杭州久也",
+          "points": 45,
+          "result": "W"
+        },
+        "winner": {
+          "name": "剑锋逐梦",
+          "club": "杭州久也"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 411451,
+        "matchCode": "Pre003",
+        "phaseId": 142418,
+        "phase": {
+          "shortName": "T8",
+          "longName": "8表",
+          "order": 3,
+          "code": "3",
+          "group": "3_0"
+        },
+        "groupCode": "3_1",
+        "innerOrder": 1,
+        "home": {
+          "position": 3,
+          "name": "御剑九头鸟三队",
+          "licence": "RZSS2032061MFTU10_619_OJQOM",
+          "club": "武汉御剑",
+          "points": 35,
+          "result": "L"
+        },
+        "away": {
+          "position": 6,
+          "name": "御剑九头鸟一队",
+          "licence": "RZSS2032061MFTU10_619_VBYKR",
+          "club": "武汉御剑",
+          "points": 45,
+          "result": "W"
+        },
+        "winner": {
+          "name": "御剑九头鸟三队",
+          "club": "武汉御剑"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 411452,
+        "matchCode": "Pre004",
+        "phaseId": 142418,
+        "phase": {
+          "shortName": "T8",
+          "longName": "8表",
+          "order": 3,
+          "code": "3",
+          "group": "3_0"
+        },
+        "groupCode": "3_1",
+        "innerOrder": 2,
+        "home": {
+          "position": 7,
+          "name": "剑破苍穹",
+          "licence": "RZSS2032061MFTU10_11419_VSYTI",
+          "club": "长沙星博",
+          "points": 23,
+          "result": "L"
+        },
+        "away": {
+          "position": 2,
+          "name": "翌昱卓然剑",
+          "licence": "RZSS2032061MFTU10_585_YANVR",
+          "club": "武汉武昌万国",
+          "points": 45,
+          "result": "W"
+        },
+        "winner": {
+          "name": "剑破苍穹",
+          "club": "武汉武昌万国"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 411453,
+        "matchCode": "Pre001",
+        "phaseId": 142419,
+        "phase": {
+          "shortName": "T4",
+          "longName": "半决赛",
+          "order": 4,
+          "code": "2",
+          "group": "4_0"
+        },
+        "groupCode": "2_0",
+        "innerOrder": 1,
+        "home": {
+          "position": 1,
+          "name": "小火山队",
+          "licence": "RZSS2032061MFTU10_666_VXFHU",
+          "club": "湖南省剑协",
+          "points": 36,
+          "result": "L"
+        },
+        "away": {
+          "position": 4,
+          "name": "杭州久也",
+          "licence": "RZSS2032061MFTU10_11426_FMTGG",
+          "club": "杭州久也",
+          "points": 45,
+          "result": "W"
+        },
+        "winner": {
+          "name": "小火山队",
+          "club": "杭州久也"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 411454,
+        "matchCode": "Pre002",
+        "phaseId": 142419,
+        "phase": {
+          "shortName": "T4",
+          "longName": "半决赛",
+          "order": 4,
+          "code": "2",
+          "group": "4_0"
+        },
+        "groupCode": "2_0",
+        "innerOrder": 2,
+        "home": {
+          "position": 3,
+          "name": "御剑九头鸟一队",
+          "licence": "RZSS2032061MFTU10_619_VBYKR",
+          "club": "武汉御剑",
+          "points": 23,
+          "result": "L"
+        },
+        "away": {
+          "position": 2,
+          "name": "翌昱卓然剑",
+          "licence": "RZSS2032061MFTU10_585_YANVR",
+          "club": "武汉武昌万国",
+          "points": 45,
+          "result": "W"
+        },
+        "winner": {
+          "name": "御剑九头鸟一队",
+          "club": "武汉武昌万国"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 411455,
+        "matchCode": "Pre001",
+        "phaseId": 142420,
+        "phase": {
+          "shortName": "T2",
+          "longName": "决赛",
+          "order": 5,
+          "code": "1",
+          "group": "5_0"
+        },
+        "groupCode": "1_0",
+        "innerOrder": 1,
+        "home": {
+          "position": 1,
+          "name": "杭州久也",
+          "licence": "RZSS2032061MFTU10_11426_FMTGG",
+          "club": "杭州久也",
+          "points": 18,
+          "result": "L"
+        },
+        "away": {
+          "position": 2,
+          "name": "翌昱卓然剑",
+          "licence": "RZSS2032061MFTU10_585_YANVR",
+          "club": "武汉武昌万国",
+          "points": 45,
+          "result": "W"
+        },
+        "winner": {
+          "name": "杭州久也",
+          "club": "武汉武昌万国"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 411456,
+        "matchCode": "Pre002",
+        "phaseId": 142420,
+        "phase": {
+          "shortName": "T2",
+          "longName": "决赛",
+          "order": 5,
+          "code": "1",
+          "group": "5_0"
+        },
+        "groupCode": "1_0",
+        "innerOrder": 2,
+        "home": {
+          "position": 1,
+          "name": "小火山队",
+          "licence": "RZSS2032061MFTU10_666_VXFHU",
+          "club": "湖南省剑协",
+          "points": 38,
+          "result": "L"
+        },
+        "away": {
+          "position": 2,
+          "name": "御剑九头鸟一队",
+          "licence": "RZSS2032061MFTU10_619_VBYKR",
+          "club": "武汉御剑",
+          "points": 39,
+          "result": "W"
+        },
+        "winner": {
+          "name": "小火山队",
+          "club": "武汉御剑"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      }
+    ]
+  },
+  "completeness": [
+    {
+      "section": "General",
+      "rows": 1,
+      "fields": [
+        {
+          "key": "SportName",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "2025年“楚天杯”湖北省青少年击剑联赛"
+          ]
+        },
+        {
+          "key": "EventName",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "U10男子花剑团体"
+          ]
+        },
+        {
+          "key": "OpenDate",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "2025.04.04"
+          ]
+        },
+        {
+          "key": "Venue",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "湖北•武汉市"
+          ]
+        },
+        {
+          "key": "CompetitionNo",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            24
+          ]
+        },
+        {
+          "key": "ExemptionNo",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "PoolFencerNo",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "PoolQualifyNo",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            0
+          ]
+        },
+        {
+          "key": "PDEstartPhase",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "none"
+          ]
+        },
+        {
+          "key": "DEstartPhase",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "from Tableaus32"
+          ]
+        },
+        {
+          "key": "Scode",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "RZSS2032061"
+          ]
+        },
+        {
+          "key": "Ecode",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "RZSS2032061MFTU10"
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Classment",
+      "rows": 24,
+      "fields": [
+        {
+          "key": "EventShowRank",
+          "nonEmpty": 24,
+          "fillRate": 1,
+          "sampleValues": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8"
+          ]
+        },
+        {
+          "key": "EventRank",
+          "nonEmpty": 24,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ]
+        },
+        {
+          "key": "Fencer",
+          "nonEmpty": 24,
+          "fillRate": 1,
+          "sampleValues": [
+            "翌昱卓然剑",
+            "杭州久也",
+            "御剑九头鸟一队",
+            "小火山队",
+            "一剑封侯",
+            "御剑九头鸟三队",
+            "剑破苍穹",
+            "剑锋逐梦"
+          ]
+        },
+        {
+          "key": "Licence",
+          "nonEmpty": 24,
+          "fillRate": 1,
+          "sampleValues": [
+            "RZSS2032061MFTU10_585_YANVR",
+            "RZSS2032061MFTU10_11426_FMTGG",
+            "RZSS2032061MFTU10_619_VBYKR",
+            "RZSS2032061MFTU10_666_VXFHU",
+            "RZSS2032061MFTU10_586_QOOZL",
+            "RZSS2032061MFTU10_619_OJQOM",
+            "RZSS2032061MFTU10_11419_VSYTI",
+            "RZSS2032061MFTU10_11631_XLVIN"
+          ]
+        },
+        {
+          "key": "NOCCode",
+          "nonEmpty": 24,
+          "fillRate": 1,
+          "sampleValues": [
+            "武汉武昌万国",
+            "杭州久也",
+            "武汉御剑",
+            "湖南省剑协",
+            "上海浦东万国",
+            "长沙星博",
+            "沈阳凡星蒂姆",
+            "湖北永尚"
+          ]
+        },
+        {
+          "key": "Birthday",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "Medal",
+          "nonEmpty": 3,
+          "fillRate": 0.125,
+          "sampleValues": [
+            "金",
+            "银",
+            "铜"
+          ]
+        },
+        {
+          "key": "Statut",
+          "nonEmpty": 24,
+          "fillRate": 1,
+          "sampleValues": [
+            "N"
+          ]
+        },
+        {
+          "key": "F_EventDisPos",
+          "nonEmpty": 24,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ]
+        },
+        {
+          "key": "RID",
+          "nonEmpty": 24,
+          "fillRate": 1,
+          "sampleValues": [
+            4612,
+            4600,
+            4604,
+            4608,
+            4611,
+            4602,
+            4610,
+            4609
+          ]
+        }
+      ]
+    },
+    {
+      "section": "ClassmentMember",
+      "rows": 75,
+      "fields": [
+        {
+          "key": "Fencer",
+          "nonEmpty": 75,
+          "fillRate": 1,
+          "sampleValues": [
+            "胡宸尧",
+            "刘丁鹏",
+            "向夏星辰",
+            "肖明轩",
+            "王煦博",
+            "赵鲲杰",
+            "何谦桐",
+            "王梓诺"
+          ]
+        },
+        {
+          "key": "Licence",
+          "nonEmpty": 75,
+          "fillRate": 1,
+          "sampleValues": [
+            "20160530M202503130735",
+            "20150604M202402270616",
+            "20150608M202502271011",
+            "20151024M202307211017",
+            "20130525M202203311009",
+            "20160930M202309281237",
+            "20150224M202302080251",
+            "20151026M202404220506"
+          ]
+        },
+        {
+          "key": "NOCCode",
+          "nonEmpty": 75,
+          "fillRate": 1,
+          "sampleValues": [
+            "武汉海外双优",
+            "个人",
+            "恩施星禾",
+            "湖北优肯",
+            "南昌威锐",
+            "安徽张亮亮",
+            "新疆思路",
+            "四川剑星"
+          ]
+        },
+        {
+          "key": "Birthday",
+          "nonEmpty": 75,
+          "fillRate": 1,
+          "sampleValues": [
+            "2016-05-30",
+            "2015-06-04",
+            "2015-06-08",
+            "2015-10-24",
+            "2016-06-07",
+            "2016-09-30",
+            "2015-02-24",
+            "2015-10-26"
+          ]
+        },
+        {
+          "key": "RID",
+          "nonEmpty": 75,
+          "fillRate": 1,
+          "sampleValues": [
+            4623,
+            4622,
+            4621,
+            4620,
+            4619,
+            4618,
+            4617,
+            4616
+          ]
+        }
+      ]
+    },
+    {
+      "section": "IniStarts",
+      "rows": 24,
+      "fields": [
+        {
+          "key": "IRank",
+          "nonEmpty": 24,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ]
+        },
+        {
+          "key": "IPoints",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "Fencer",
+          "nonEmpty": 24,
+          "fillRate": 1,
+          "sampleValues": [
+            "一剑封侯",
+            "翌昱卓然剑",
+            "御剑九头鸟三队",
+            "杭州久也",
+            "湖北永尚",
+            "御剑九头鸟一队",
+            "剑破苍穹",
+            "小火山队"
+          ]
+        },
+        {
+          "key": "NOCCode",
+          "nonEmpty": 24,
+          "fillRate": 1,
+          "sampleValues": [
+            "上海浦东万国",
+            "武汉武昌万国",
+            "武汉御剑",
+            "杭州久也",
+            "湖北永尚",
+            "长沙星博",
+            "湖南省剑协",
+            "沈阳凡星蒂姆"
+          ]
+        },
+        {
+          "key": "Licence",
+          "nonEmpty": 24,
+          "fillRate": 1,
+          "sampleValues": [
+            "RZSS2032061MFTU10_586_QOOZL",
+            "RZSS2032061MFTU10_585_YANVR",
+            "RZSS2032061MFTU10_619_OJQOM",
+            "RZSS2032061MFTU10_11426_FMTGG",
+            "RZSS2032061MFTU10_684_QFRVV",
+            "RZSS2032061MFTU10_619_VBYKR",
+            "RZSS2032061MFTU10_11419_VSYTI",
+            "RZSS2032061MFTU10_666_VXFHU"
+          ]
+        },
+        {
+          "key": "DisPos",
+          "nonEmpty": 24,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ]
+        },
+        {
+          "key": "RID",
+          "nonEmpty": 24,
+          "fillRate": 1,
+          "sampleValues": [
+            4611,
+            4612,
+            4602,
+            4600,
+            4605,
+            4604,
+            4610,
+            4608
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Phases",
+      "rows": 1,
+      "fields": [
+        {
+          "key": "PhasePID",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            142415
+          ]
+        },
+        {
+          "key": "PhaseName",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "直接淘汰赛"
+          ]
+        },
+        {
+          "key": "Porder",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            3
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Tableaus",
+      "rows": 5,
+      "fields": [
+        {
+          "key": "PshortDes",
+          "nonEmpty": 5,
+          "fillRate": 1,
+          "sampleValues": [
+            "T32",
+            "T16",
+            "T8",
+            "T4",
+            "T2"
+          ]
+        },
+        {
+          "key": "PLongDes",
+          "nonEmpty": 5,
+          "fillRate": 1,
+          "sampleValues": [
+            "32表",
+            "16表",
+            "8表",
+            "半决赛",
+            "决赛"
+          ]
+        },
+        {
+          "key": "Porder",
+          "nonEmpty": 5,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        },
+        {
+          "key": "PhaseID",
+          "nonEmpty": 5,
+          "fillRate": 1,
+          "sampleValues": [
+            142416,
+            142417,
+            142418,
+            142419,
+            142420
+          ]
+        },
+        {
+          "key": "PhasePID",
+          "nonEmpty": 5,
+          "fillRate": 1,
+          "sampleValues": [
+            142415
+          ]
+        },
+        {
+          "key": "PhaseGroup",
+          "nonEmpty": 5,
+          "fillRate": 1,
+          "sampleValues": [
+            "1_0",
+            "2_0",
+            "3_0",
+            "4_0",
+            "5_0"
+          ]
+        },
+        {
+          "key": "PhaseCode",
+          "nonEmpty": 5,
+          "fillRate": 1,
+          "sampleValues": [
+            "5",
+            "4",
+            "3",
+            "2",
+            "1"
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Matchs",
+      "rows": 32,
+      "fields": [
+        {
+          "key": "MatchCode",
+          "nonEmpty": 32,
+          "fillRate": 1,
+          "sampleValues": [
+            "Pre001",
+            "Pre002",
+            "Pre003",
+            "Pre004",
+            "Pre005",
+            "Pre006",
+            "Pre007",
+            "Pre008"
+          ]
+        },
+        {
+          "key": "HomePosition",
+          "nonEmpty": 32,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            17,
+            9,
+            25,
+            5,
+            21,
+            13,
+            29
+          ]
+        },
+        {
+          "key": "HomeFencer",
+          "nonEmpty": 32,
+          "fillRate": 1,
+          "sampleValues": [
+            "一剑封侯",
+            "联合团体4队",
+            "永尚突击队",
+            "Bye",
+            "湖北永尚",
+            "联合团体6队",
+            "交个朋友",
+            "御剑九头鸟三队"
+          ]
+        },
+        {
+          "key": "HomeLicence",
+          "nonEmpty": 28,
+          "fillRate": 0.875,
+          "sampleValues": [
+            "RZSS2032061MFTU10_586_QOOZL",
+            "UNITE4",
+            "RZSS2032061MFTU10_684_TVJVS",
+            "RZSS2032061MFTU10_684_QFRVV",
+            "UNITE6",
+            "RZSS2032061MFTU10_422_XZMRQ",
+            "RZSS2032061MFTU10_619_OJQOM",
+            "UNITE8"
+          ]
+        },
+        {
+          "key": "HomeNOC",
+          "nonEmpty": 28,
+          "fillRate": 0.875,
+          "sampleValues": [
+            "上海浦东万国",
+            "联合团体",
+            "湖北永尚",
+            "上海剑缘",
+            "武汉御剑",
+            "武汉武昌万国",
+            "长沙星博",
+            "武汉风云"
+          ]
+        },
+        {
+          "key": "HomePoints",
+          "nonEmpty": 24,
+          "fillRate": 0.75,
+          "sampleValues": [
+            38,
+            45,
+            15,
+            44,
+            21,
+            35,
+            24,
+            27
+          ]
+        },
+        {
+          "key": "HomeWLT",
+          "nonEmpty": 32,
+          "fillRate": 1,
+          "sampleValues": [
+            "W",
+            "L"
+          ]
+        },
+        {
+          "key": "AwayPosition",
+          "nonEmpty": 32,
+          "fillRate": 1,
+          "sampleValues": [
+            32,
+            16,
+            24,
+            8,
+            28,
+            12,
+            20,
+            4
+          ]
+        },
+        {
+          "key": "AwayFencer",
+          "nonEmpty": 32,
+          "fillRate": 1,
+          "sampleValues": [
+            "Bye",
+            "联合团体2队",
+            "擎剑三队",
+            "小火山队",
+            "剑锋逐梦",
+            "联合团体7队",
+            "杭州久也",
+            "联合团体1队"
+          ]
+        },
+        {
+          "key": "AwayLicence",
+          "nonEmpty": 28,
+          "fillRate": 0.875,
+          "sampleValues": [
+            "UNITE2",
+            "RZSS2032061MFTU10_938_AIBVF",
+            "RZSS2032061MFTU10_666_VXFHU",
+            "RZSS2032061MFTU10_11631_XLVIN",
+            "UNITE7",
+            "RZSS2032061MFTU10_11426_FMTGG",
+            "UNITE1",
+            "RZSS2032061MFTU10_585_SZDAV"
+          ]
+        },
+        {
+          "key": "AwayNOC",
+          "nonEmpty": 28,
+          "fillRate": 0.875,
+          "sampleValues": [
+            "联合团体",
+            "武汉擎剑",
+            "湖南省剑协",
+            "沈阳凡星蒂姆",
+            "杭州久也",
+            "武汉武昌万国",
+            "武汉御剑"
+          ]
+        },
+        {
+          "key": "AwayPoints",
+          "nonEmpty": 24,
+          "fillRate": 0.75,
+          "sampleValues": [
+            45,
+            11,
+            40,
+            43,
+            30,
+            22,
+            25,
+            27
+          ]
+        },
+        {
+          "key": "AwayWLT",
+          "nonEmpty": 32,
+          "fillRate": 1,
+          "sampleValues": [
+            "L",
+            "W"
+          ]
+        },
+        {
+          "key": "Piste",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "StartTime",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "Winner",
+          "nonEmpty": 28,
+          "fillRate": 0.875,
+          "sampleValues": [
+            "一剑封侯",
+            "联合团体4队",
+            "永尚突击队",
+            "湖北永尚",
+            "联合团体6队",
+            "交个朋友",
+            "御剑九头鸟三队",
+            "联合团体8队"
+          ]
+        },
+        {
+          "key": "WinnerNOC",
+          "nonEmpty": 32,
+          "fillRate": 1,
+          "sampleValues": [
+            "上海浦东万国",
+            "联合团体",
+            "湖北永尚",
+            "湖南省剑协",
+            "沈阳凡星蒂姆",
+            "上海剑缘",
+            "杭州久也",
+            "武汉御剑"
+          ]
+        },
+        {
+          "key": "MatchID",
+          "nonEmpty": 32,
+          "fillRate": 1,
+          "sampleValues": [
+            411425,
+            411426,
+            411427,
+            411428,
+            411429,
+            411430,
+            411431,
+            411432
+          ]
+        },
+        {
+          "key": "PhaseID",
+          "nonEmpty": 32,
+          "fillRate": 1,
+          "sampleValues": [
+            142416,
+            142417,
+            142418,
+            142419,
+            142420
+          ]
+        },
+        {
+          "key": "GroupCode",
+          "nonEmpty": 32,
+          "fillRate": 1,
+          "sampleValues": [
+            "5_0",
+            "5_1",
+            "5_2",
+            "5_3",
+            "5_4",
+            "5_5",
+            "5_6",
+            "5_7"
+          ]
+        },
+        {
+          "key": "F_InnerOrder",
+          "nonEmpty": 32,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2
+          ]
+        }
+      ]
+    },
+    {
+      "section": "TeamAnalyse",
+      "rows": 75,
+      "fields": [
+        {
+          "key": "F_RegisterID",
+          "nonEmpty": 75,
+          "fillRate": 1,
+          "sampleValues": [
+            421605,
+            421604,
+            421603,
+            421567,
+            421566,
+            421565,
+            421564,
+            421578
+          ]
+        },
+        {
+          "key": "F_FencerLicence",
+          "nonEmpty": 75,
+          "fillRate": 1,
+          "sampleValues": [
+            "20151028M202302020422",
+            "20150925M202302020337",
+            "20150203M202107110309",
+            "20161223M202306191102",
+            "20161208M202206280925",
+            "20160225M202107090544",
+            "20150227M202305310227",
+            "20150906M202107080531"
+          ]
+        },
+        {
+          "key": "F_TeamID",
+          "nonEmpty": 75,
+          "fillRate": 1,
+          "sampleValues": [
+            4612,
+            4600,
+            4604,
+            4608,
+            4611,
+            4602,
+            4610,
+            4609
+          ]
+        },
+        {
+          "key": "F_TeamLicence",
+          "nonEmpty": 75,
+          "fillRate": 1,
+          "sampleValues": [
+            "RZSS2032061MFTU10_585_YANVR",
+            "RZSS2032061MFTU10_11426_FMTGG",
+            "RZSS2032061MFTU10_619_VBYKR",
+            "RZSS2032061MFTU10_666_VXFHU",
+            "RZSS2032061MFTU10_586_QOOZL",
+            "RZSS2032061MFTU10_619_OJQOM",
+            "RZSS2032061MFTU10_11419_VSYTI",
+            "RZSS2032061MFTU10_11631_XLVIN"
+          ]
+        },
+        {
+          "key": "F_Rank",
+          "nonEmpty": 75,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ]
+        },
+        {
+          "key": "F_DisPos",
+          "nonEmpty": 75,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ]
+        },
+        {
+          "key": "F_ShowRank",
+          "nonEmpty": 75,
+          "fillRate": 1,
+          "sampleValues": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8"
+          ]
+        },
+        {
+          "key": "Fencer",
+          "nonEmpty": 75,
+          "fillRate": 1,
+          "sampleValues": [
+            "吴昱霖",
+            "向修卓",
+            "鲁琛翌",
+            "张铄",
+            "邢墨然",
+            "孙恺",
+            "蒋潇",
+            "燕杨兴"
+          ]
+        },
+        {
+          "key": "F_NOC",
+          "nonEmpty": 75,
+          "fillRate": 1,
+          "sampleValues": [
+            "武汉武昌万国",
+            "杭州久也",
+            "武汉御剑",
+            "湖南省剑协",
+            "上海浦东万国",
+            "长沙星博",
+            "沈阳凡星蒂姆",
+            "湖北永尚"
+          ]
+        },
+        {
+          "key": "F_NOCs",
+          "nonEmpty": 75,
+          "fillRate": 1,
+          "sampleValues": [
+            "武汉武昌万国",
+            "杭州久也",
+            "武汉御剑",
+            "湖南省剑协",
+            "上海浦东万国",
+            "长沙星博",
+            "沈阳凡星蒂姆",
+            "湖北永尚"
+          ]
+        },
+        {
+          "key": "F_IRM",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "AppearCount",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "MatchCount",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "F_Index",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "F_IndexLabel",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "F_TouchGive",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "F_TouchReceived",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "F_HSdivA",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "F_HSdivALabel",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "F_Diff",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "F_DiffLabel",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "F_NameLabel",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "TouchGive",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "TouchReceived",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "HSdivA",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "Diff",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        }
+      ]
+    }
+  ],
+  "analysisCapabilities": [
+    "项目概要",
+    "最终排名",
+    "初始排位",
+    "小组赛排名",
+    "小组赛每场比分",
+    "小组赛晋级人数",
+    "淘汰赛阶段结构",
+    "淘汰赛每场比分",
+    "选手完整比赛路径",
+    "对手交手记录",
+    "胜负和净胜剑统计"
+  ],
+  "privacyRecommendation": {
+    "publicFields": [
+      "rank",
+      "name",
+      "club",
+      "scores",
+      "winner",
+      "medal"
+    ],
+    "privateFields": [
+      "Licence",
+      "Birthday"
+    ],
+    "note": "Licence 和 Birthday 只用于内部消歧，不建议公开展示。"
+  }
+}
