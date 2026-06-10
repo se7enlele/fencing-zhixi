@@ -36,6 +36,8 @@ assert.match(js, /role === 'data'[\s\S]*navigateMain\('competitions'\)/, 'data w
 assert.match(js, /function renderHomePage\(\)/, 'home page renderer must exist');
 assert.match(js, /function renderAiWorkspace\(\)/, 'home page must include an AI workspace renderer');
 assert.match(js, /function buildAiAnswer\(query\)/, 'AI workspace must build structured answers from local data');
+assert.match(js, /function buildAiCompetitionStats\(query, filters\)/, 'AI workspace must answer year and region competition statistics');
+assert.match(js, /data-sport-code/, 'AI evidence cards must link back to competition details');
 assert.match(js, /replaceAll\('马消', '马潇'\)/, 'AI workspace must tolerate common athlete name typos');
 assert.match(js, /function renderFocusPage\(\)/, 'follow page renderer must exist');
 assert.match(js, /function renderMyPage\(\)/, 'my page renderer must exist');

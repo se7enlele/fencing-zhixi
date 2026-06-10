@@ -1632,6 +1632,9 @@ function buildAiAnswer(query) {
     };
   }
 
+  const competitionQuery = detectCompetitionStatsQuery(text);
+  if (competitionQuery) return buildAiCompetitionStats(text, competitionQuery);
+
   const athletes = detectAthletesInQuery(text);
   if (athletes.length >= 2) return buildAiAthleteComparison(text, athletes[0], athletes[1]);
   if (athletes.length === 1) return buildAiAthleteGrowth(text, athletes[0]);
@@ -1649,6 +1652,94 @@ function buildAiAnswer(query) {
       ['可问赛事', `${state.competitions.length} 场赛事`],
     ],
     evidence: [],
+  };
+}
+
+function detectCompetitionStatsQuery(query) {
+  const normalized = compactText(query);
+  const hasCompetitionIntent = /(比赛|赛事|公开赛|冠军赛|锦标赛|有几场|多少场|几场)/.test(normalized);
+  if (!hasCompetitionIntent) return null;
+
+  const year = normalized.match(/20\d{2}/)?.[0] || '';
+  const region = detectRegionInQuery(normalized);
+  const status = detectStatusInQuery(normalized);
+  if (!year && !region && !status) return null;
+  return { year, region, status };
+}
+
+function detectRegionInQuery(normalizedQuery) {
+  const regionSet = new Set();
+  state.competitions.forEach((competition) => {
+    [competition.venue, competition.region].filter(Boolean).forEach((value) => {
+      String(value).split(/[·•\s,，/]+/).forEach((part) => {
+        const clean = compactText(part).replace(/市$|省$|区$|县$|自治区$|特别行政区$/g, '');
+        if (clean.length >= 2) regionSet.add(clean);
+      });
+    });
+  });
+  return [...regionSet]
+    .filter((region) => normalizedQuery.includes(region))
+    .sort((a, b) => b.length - a.length)[0] || '';
+}
+
+function detectStatusInQuery(normalizedQuery) {
+  if (normalizedQuery.includes('报名')) return 'registration';
+  if (normalizedQuery.includes('未开赛') || normalizedQuery.includes('未开始') || normalizedQuery.includes('待开赛')) return 'upcoming';
+  if (normalizedQuery.includes('已结束') || normalizedQuery.includes('结束')) return 'completed';
+  if (normalizedQuery.includes('进行中')) return 'live';
+  return '';
+}
+
+function buildAiCompetitionStats(query, filters) {
+  const rows = state.competitions.filter((competition) => {
+    const yearOk = filters.year ? competitionYear(competition) === filters.year : true;
+    const regionText = compactText([competition.venue, competition.region, competition.sportName].filter(Boolean).join(' '));
+    const regionOk = filters.region ? regionText.includes(filters.region) : true;
+    const statusOk = filters.status ? competition.status === filters.status : true;
+    return yearOk && regionOk && statusOk;
+  }).sort((a, b) => String(a.dateLabel || '').localeCompare(String(b.dateLabel || ''), 'zh-CN'));
+
+  const statusCounts = rows.reduce((map, competition) => {
+    const label = statusLabel(competition.status);
+    map.set(label, (map.get(label) || 0) + 1);
+    return map;
+  }, new Map());
+  const regionLabel = filters.region || '全部地区';
+  const yearLabel = filters.year || '全部年份';
+  const statusLabelText = filters.status ? statusLabel(filters.status) : '全部状态';
+  const title = `${yearLabel}${regionLabel === '全部地区' ? '' : regionLabel}赛事统计`;
+  const summary = rows.length
+    ? `${yearLabel} ${regionLabel} 共收录 ${rows.length} 场赛事${filters.status ? `，状态为${statusLabelText}` : ''}。`
+    : `当前没有匹配到 ${yearLabel} ${regionLabel} ${statusLabelText} 的赛事记录。`;
+
+  return {
+    type: 'competition-stats',
+    title,
+    summary,
+    cards: [
+      ['赛事数量', `${rows.length} 场`],
+      ['年份', yearLabel],
+      ['地区', regionLabel],
+      ['状态', statusLabelText],
+    ],
+    sections: rows.length ? [
+      {
+        title: '状态分布',
+        rows: [...statusCounts.entries()].map(([label, count]) => `${label}：${count} 场`),
+      },
+      {
+        title: '匹配赛事',
+        rows: rows.slice(0, 6).map((competition) => `${competition.sportName} · ${competition.dateLabel || '日期待确认'} · ${competition.venue || competition.region || ''}`),
+      },
+    ] : [],
+    evidence: rows.slice(0, 8).map((competition) => ({
+      label: competition.sportName,
+      detail: `${competition.dateLabel || '日期待确认'} · ${competition.venue || competition.region || ''} · ${statusLabel(competition.status)}`,
+      sportCode: competition.sportCode,
+    })),
+    actions: [
+      { label: '进入赛事列表', mainTab: 'competitions' },
+    ],
   };
 }
 
@@ -1864,7 +1955,7 @@ function renderAiAnswer(report) {
         <div class="ai-evidence">
           <div class="chart-title">证据来源</div>
           ${report.evidence.map((row) => `
-            <button type="button" data-event-code="${escapeHtml(row.eventCode || '')}">
+            <button type="button" ${row.eventCode ? `data-event-code="${escapeHtml(row.eventCode)}"` : ''} ${row.sportCode ? `data-sport-code="${escapeHtml(row.sportCode)}"` : ''}>
               <strong>${escapeHtml(row.label)}</strong>
               <span>${escapeHtml(row.detail)}</span>
             </button>
@@ -1874,7 +1965,7 @@ function renderAiAnswer(report) {
       ${report.actions?.length ? `
         <div class="ai-action-row">
           ${report.actions.map((action) => `
-            <button type="button" ${action.athleteId ? `data-athlete-id="${escapeHtml(action.athleteId)}"` : ''} ${action.clubId ? `data-club-id="${escapeHtml(action.clubId)}"` : ''}>
+            <button type="button" ${action.athleteId ? `data-athlete-id="${escapeHtml(action.athleteId)}"` : ''} ${action.clubId ? `data-club-id="${escapeHtml(action.clubId)}"` : ''} ${action.mainTab ? `data-main-target="${escapeHtml(action.mainTab)}"` : ''}>
               ${escapeHtml(action.label)}
             </button>
           `).join('')}
@@ -1890,11 +1981,19 @@ function bindAiAnswerActions(container) {
       if (button.dataset.eventCode) openEvent(button.dataset.eventCode);
     });
   });
+  container.querySelectorAll('[data-sport-code]').forEach((button) => {
+    button.addEventListener('click', () => {
+      if (button.dataset.sportCode) openCompetition(button.dataset.sportCode);
+    });
+  });
   container.querySelectorAll('[data-athlete-id]').forEach((button) => {
     button.addEventListener('click', () => openAthlete(button.dataset.athleteId));
   });
   container.querySelectorAll('[data-club-id]').forEach((button) => {
     button.addEventListener('click', () => openClub(button.dataset.clubId));
+  });
+  container.querySelectorAll('[data-main-target]').forEach((button) => {
+    button.addEventListener('click', () => navigateMain(button.dataset.mainTarget));
   });
 }
 
