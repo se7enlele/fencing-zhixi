@@ -1455,12 +1455,13 @@ function renderHomePage() {
   homePage.innerHTML = `
     <section class="my-hero panel">
       <div>
-        <span>首页</span>
-        <strong>今日概览</strong>
-        <em>集中查看关注对象、近期赛事和数据更新。</em>
+        <span>FencingAI 助手</span>
+        <strong>直接问击剑数据</strong>
+        <em>输入选手、俱乐部或赛事问题，返回结论和可追溯证据。</em>
       </div>
       <button type="button" data-home-competitions>进入赛事</button>
     </section>
+    ${renderAiWorkspace()}
     <section class="my-stat-grid">
       ${stats.map((item) => `
         <div class="my-stat">
@@ -1496,7 +1497,405 @@ function renderHomePage() {
     </section>
   `;
   homePage.querySelector('[data-home-competitions]')?.addEventListener('click', () => navigateMain('competitions'));
+  bindAiWorkspace(homePage);
   bindPersonalList(homePage);
+}
+
+function aiPromptPresets() {
+  const athletes = focusAthleteCards();
+  const primary = athletes[0] || state.athleteSearchIndex.find((athlete) => athlete.events?.length);
+  const secondary = athletes[1] || state.athleteSearchIndex.find((athlete) => athlete.name !== primary?.name && athlete.events?.length);
+  return [
+    primary && secondary ? `分析${primary.name}和${secondary.name}的对比情况` : '分析马潇和陶嘉月的对比情况',
+    primary ? `${primary.name}最近几场有没有进步` : '蔡廷彧最近几场有没有进步',
+    '山东小众体育最近哪些项目表现最好',
+  ];
+}
+
+function renderAiWorkspace() {
+  const presets = aiPromptPresets();
+  return `
+    <section class="panel ai-workspace" id="aiWorkspace">
+      <div class="section-title">
+        <h2>AI 数据助手</h2>
+        <span>结论可溯源</span>
+      </div>
+      <form class="ai-query-form" id="aiQueryForm">
+        <textarea id="aiQueryInput" rows="3" placeholder="例如：帮我分析马消和陶嘉月的对战情况"></textarea>
+        <button type="submit">分析</button>
+      </form>
+      <div class="ai-preset-row">
+        ${presets.map((preset) => `<button type="button" data-ai-preset="${escapeHtml(preset)}">${escapeHtml(preset)}</button>`).join('')}
+      </div>
+      <div class="ai-answer" id="aiAnswer">
+        <div class="ai-empty">
+          <strong>可以直接问问题</strong>
+          <span>当前先用结构化数据生成回答；后续接入 LLM 后，表达层会更自然，但结论仍以比赛数据为准。</span>
+        </div>
+      </div>
+    </section>
+  `;
+}
+
+function bindAiWorkspace(container) {
+  const form = container.querySelector('#aiQueryForm');
+  const input = container.querySelector('#aiQueryInput');
+  const answer = container.querySelector('#aiAnswer');
+  if (!form || !input || !answer) return;
+
+  const run = (query) => {
+    const report = buildAiAnswer(query);
+    answer.innerHTML = renderAiAnswer(report);
+    bindAiAnswerActions(answer);
+  };
+
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    run(input.value);
+  });
+
+  container.querySelectorAll('[data-ai-preset]').forEach((button) => {
+    button.addEventListener('click', () => {
+      input.value = button.dataset.aiPreset || '';
+      run(input.value);
+    });
+  });
+}
+
+function normalizeAiName(value) {
+  return compactText(value)
+    .replaceAll('马消', '马潇')
+    .replaceAll('廷或', '廷彧');
+}
+
+function aiAthletePool() {
+  const rows = Object.values(state.athletesById || {}).length
+    ? Object.values(state.athletesById || {})
+    : state.athleteSearchIndex || [];
+  const merged = new Map();
+  rows.forEach((athlete) => {
+    if (!athlete?.name) return;
+    const key = athlete.id || `${athlete.name}__${athlete.club || ''}`;
+    const existing = merged.get(key);
+    if (!existing || (athlete.events?.length || 0) > (existing.events?.length || 0)) merged.set(key, athlete);
+  });
+  return [...merged.values()];
+}
+
+function detectAthletesInQuery(query) {
+  const normalizedQuery = normalizeAiName(query);
+  const exact = aiAthletePool()
+    .filter((athlete) => normalizeAiName(athlete.name) && normalizedQuery.includes(normalizeAiName(athlete.name)))
+    .sort((a, b) => normalizeAiName(b.name).length - normalizeAiName(a.name).length || (b.appearances || 0) - (a.appearances || 0));
+  if (exact.length) return uniqueBy(exact, (athlete) => athlete.id || `${athlete.name}__${athlete.club}`).slice(0, 3);
+
+  const tokens = [...normalizedQuery].filter((char) => /[\u4e00-\u9fa5]/.test(char));
+  const fuzzy = aiAthletePool()
+    .map((athlete) => {
+      const name = normalizeAiName(athlete.name);
+      if (!name) return null;
+      const hit = tokens.filter((char) => name.includes(char)).length;
+      return hit >= Math.min(2, name.length) ? { athlete, score: hit * 10 + (athlete.appearances || 0) } : null;
+    })
+    .filter(Boolean)
+    .sort((a, b) => b.score - a.score)
+    .map((row) => row.athlete);
+  return uniqueBy(fuzzy, (athlete) => athlete.id || `${athlete.name}__${athlete.club}`).slice(0, 3);
+}
+
+function detectClubInQuery(query) {
+  const normalizedQuery = compactText(query);
+  return (state.clubSearchIndex || [])
+    .filter((club) => compactText(club.club) && normalizedQuery.includes(compactText(club.club)))
+    .sort((a, b) => compactText(b.club).length - compactText(a.club).length || (b.entrants || 0) - (a.entrants || 0))[0] || null;
+}
+
+function uniqueBy(rows, keyFn) {
+  const seen = new Set();
+  return rows.filter((row) => {
+    const key = keyFn(row);
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+}
+
+function buildAiAnswer(query) {
+  const text = String(query || '').trim();
+  if (!text) {
+    return {
+      type: 'empty',
+      title: '先输入一个问题',
+      summary: '可以问选手对比、成长趋势、俱乐部表现或赛前对手分析。',
+      cards: [],
+      evidence: [],
+    };
+  }
+
+  const athletes = detectAthletesInQuery(text);
+  if (athletes.length >= 2) return buildAiAthleteComparison(text, athletes[0], athletes[1]);
+  if (athletes.length === 1) return buildAiAthleteGrowth(text, athletes[0]);
+
+  const club = detectClubInQuery(text);
+  if (club) return buildAiClubReport(text, club);
+
+  return {
+    type: 'fallback',
+    title: '暂未识别到明确对象',
+    summary: '请在问题里写出选手姓名或俱乐部名称，例如“分析马潇和陶嘉月的对比情况”。',
+    cards: [
+      ['可问选手', `${state.athleteSearchIndex.length} 个画像`],
+      ['可问俱乐部', `${state.clubSearchIndex.length} 个俱乐部`],
+      ['可问赛事', `${state.competitions.length} 场赛事`],
+    ],
+    evidence: [],
+  };
+}
+
+function buildAiAthleteComparison(query, left, right) {
+  const leftEvents = left.events || [];
+  const rightEvents = right.events || [];
+  const shared = sharedAthleteEvents(left, right);
+  const direct = directOpponentRows(left, right);
+  const leftScore = athleteStrengthScore(left);
+  const rightScore = athleteStrengthScore(right);
+  const leader = leftScore >= rightScore ? left : right;
+  const other = leader === left ? right : left;
+  const summaryParts = [];
+  if (direct.length) summaryParts.push(`发现 ${direct.length} 条直接或对手记录`);
+  if (shared.length) summaryParts.push(`两人共同出现在 ${shared.length} 个项目里`);
+  summaryParts.push(`${leader.name} 的综合记录更占优，主要来自最好名次、奖牌和参赛连续性`);
+
+  return {
+    type: 'comparison',
+    title: `${left.name} vs ${right.name}`,
+    summary: summaryParts.join('；') + '。',
+    cards: [
+      [left.name, athleteMetricLine(left)],
+      [right.name, athleteMetricLine(right)],
+      ['当前判断', `${leader.name} 略优于 ${other.name}`],
+      ['证据强度', direct.length || shared.length ? '有共同数据' : '以历史画像对比为主'],
+    ],
+    sections: [
+      direct.length ? {
+        title: '直接交手/对手记录',
+        rows: direct.slice(0, 4).map((row) => `${row.phase || '淘汰赛'}：${row.name}，${row.record || row.score || ''}`),
+      } : null,
+      shared.length ? {
+        title: '共同赛事项目',
+        rows: shared.slice(0, 5).map((row) => `${row.eventName} · ${row.sportName} · ${row.leftRank}/${row.rightRank}`),
+      } : null,
+    ].filter(Boolean),
+    evidence: [
+      ...shared.slice(0, 5).map((row) => ({
+        label: row.eventName,
+        detail: `${row.sportName} · ${left.name} 第${row.leftRank || '-'}名，${right.name} 第${row.rightRank || '-'}名`,
+        eventCode: row.eventCode,
+      })),
+      ...topEvidenceEvents(leftEvents, left.name, 2),
+      ...topEvidenceEvents(rightEvents, right.name, 2),
+    ].slice(0, 7),
+    actions: [
+      left.id ? { label: `查看${left.name}`, athleteId: left.id } : null,
+      right.id ? { label: `查看${right.name}`, athleteId: right.id } : null,
+    ].filter(Boolean),
+  };
+}
+
+function buildAiAthleteGrowth(query, athlete) {
+  const events = athlete.events || [];
+  const latest = events[0] || null;
+  const best = [...events].sort((a, b) => (Number(a.finalRank) || 999) - (Number(b.finalRank) || 999))[0] || null;
+  const trend = athleteTrendLabel(events);
+  return {
+    type: 'growth',
+    title: `${athlete.name}的成长分析`,
+    summary: `${athlete.name} 当前收录 ${events.length || athlete.appearances || 0} 条参赛记录，最好名次${best?.finalRank ? `第${best.finalRank}名` : '待确认'}，近期变化：${trend}。`,
+    cards: [
+      ['最好名次', best?.finalRank ? `第${best.finalRank}名` : '-'],
+      ['最近一次', latest?.finalRank ? `第${latest.finalRank}名` : '-'],
+      ['奖牌', `${athlete.medals || 0} 枚`],
+      ['淘汰赛', `${athlete.eliminationWins || 0}胜${athlete.eliminationLosses || 0}负`],
+    ],
+    sections: [
+      {
+        title: '近期参赛',
+        rows: events.slice(0, 5).map((event) => `${displayEventName(event)} · 第${event.finalRank ?? '-'}名 · ${event.sportName}`),
+      },
+      (athlete.opponents || []).length ? {
+        title: '重点对手',
+        rows: athlete.opponents.slice(0, 4).map((opponent) => `${opponent.name}：${opponent.wins}胜${opponent.losses}负 · ${opponent.latestPhase || '淘汰赛'}`),
+      } : null,
+    ].filter(Boolean),
+    evidence: topEvidenceEvents(events, athlete.name, 7),
+    actions: athlete.id ? [{ label: '查看完整选手画像', athleteId: athlete.id }] : [],
+  };
+}
+
+function buildAiClubReport(query, club) {
+  const athletes = clubWorkspaceAthletes(club).slice(0, 5);
+  const projects = clubProjectRows(club).slice(0, 5);
+  const bestProject = projects[0] || null;
+  return {
+    type: 'club',
+    title: `${club.club}分析`,
+    summary: `${club.club} 当前收录 ${club.entrants || 0} 人次、${club.top8 || 0} 次前八、${club.medals || 0} 枚奖牌。${bestProject ? `优势项目集中在 ${bestProject.label}。` : ''}`,
+    cards: [
+      ['参赛人次', club.entrants || 0],
+      ['前八', club.top8 || 0],
+      ['奖牌', club.medals || 0],
+      ['最好名次', club.bestRank ? `第${club.bestRank}名` : '-'],
+    ],
+    sections: [
+      athletes.length ? {
+        title: '代表选手',
+        rows: athletes.map((athlete) => `${athlete.name} · 最好第${athlete.bestRank || '-'}名 · ${athlete.appearances || 0}次记录`),
+      } : null,
+      projects.length ? {
+        title: '优势项目',
+        rows: projects.map((row) => `${row.label}：${row.entrants}人次，前八${row.top8}，奖牌${row.medals}`),
+      } : null,
+    ].filter(Boolean),
+    evidence: (club.events || []).slice(0, 7).map((event) => ({
+      label: displayEventName(event),
+      detail: `${event.sportName || ''} · ${event.openDate || ''}`,
+      eventCode: event.eventCode,
+    })),
+    actions: club.id ? [{ label: '查看俱乐部画像', clubId: club.id }] : [],
+  };
+}
+
+function athleteStrengthScore(athlete) {
+  const bestRankScore = athlete.bestRank ? Math.max(0, 120 - Number(athlete.bestRank) * 6) : 0;
+  return bestRankScore + (athlete.medals || 0) * 12 + (athlete.appearances || 0) * 1.5 + (athlete.eliminationWins || 0) * 2 - (athlete.eliminationLosses || 0);
+}
+
+function athleteMetricLine(athlete) {
+  return `最好第${athlete.bestRank || '-'}名 · ${athlete.appearances || athlete.events?.length || 0}次 · ${athlete.medals || 0}奖牌`;
+}
+
+function athleteTrendLabel(events) {
+  if (!events?.length) return '暂无记录';
+  if (events.length === 1) return '需要更多比赛确认';
+  const latest = Number(events[0].finalRank || 0);
+  const previous = Number(events[1].finalRank || 0);
+  if (!latest || !previous) return '部分名次缺失';
+  if (latest < previous) return `较上次提升 ${previous - latest} 名`;
+  if (latest > previous) return `较上次后退 ${latest - previous} 名`;
+  return '最近两次名次稳定';
+}
+
+function sharedAthleteEvents(left, right) {
+  const rightByEvent = new Map((right.events || []).map((event) => [event.eventCode, event]));
+  return (left.events || [])
+    .filter((event) => event.eventCode && rightByEvent.has(event.eventCode))
+    .map((event) => {
+      const other = rightByEvent.get(event.eventCode);
+      return {
+        eventCode: event.eventCode,
+        eventName: displayEventName(event),
+        sportName: event.sportName,
+        leftRank: event.finalRank,
+        rightRank: other.finalRank,
+      };
+    });
+}
+
+function directOpponentRows(left, right) {
+  const rightName = compactText(right.name);
+  const leftName = compactText(left.name);
+  const rows = [];
+  for (const opponent of left.opponents || []) {
+    if (compactText(opponent.name) === rightName) {
+      rows.push({
+        name: `${left.name} vs ${right.name}`,
+        phase: opponent.latestPhase,
+        record: `${left.name} ${opponent.wins}胜${opponent.losses}负`,
+        score: opponent.latestScore,
+      });
+    }
+  }
+  for (const opponent of right.opponents || []) {
+    if (compactText(opponent.name) === leftName) {
+      rows.push({
+        name: `${right.name} vs ${left.name}`,
+        phase: opponent.latestPhase,
+        record: `${right.name} ${opponent.wins}胜${opponent.losses}负`,
+        score: opponent.latestScore,
+      });
+    }
+  }
+  return rows;
+}
+
+function topEvidenceEvents(events, owner, limit = 5) {
+  return (events || []).slice(0, limit).map((event) => ({
+    label: displayEventName(event),
+    detail: `${owner} · ${event.sportName || ''} · 第${event.finalRank ?? '-'}名 · ${event.openDate || ''}`,
+    eventCode: event.eventCode,
+  }));
+}
+
+function renderAiAnswer(report) {
+  return `
+    <div class="ai-answer-card">
+      <div class="ai-answer-head">
+        <span>${escapeHtml(report.type === 'comparison' ? '选手对比' : report.type === 'growth' ? '成长分析' : report.type === 'club' ? '俱乐部画像' : '数据助手')}</span>
+        <strong>${escapeHtml(report.title)}</strong>
+        <p>${escapeHtml(report.summary)}</p>
+      </div>
+      ${report.cards?.length ? `
+        <div class="ai-metric-grid">
+          ${report.cards.map(([label, value]) => `
+            <div class="ai-metric">
+              <strong>${escapeHtml(value)}</strong>
+              <span>${escapeHtml(label)}</span>
+            </div>
+          `).join('')}
+        </div>
+      ` : ''}
+      ${(report.sections || []).map((section) => `
+        <div class="ai-section">
+          <strong>${escapeHtml(section.title)}</strong>
+          ${section.rows.map((row) => `<span>${escapeHtml(row)}</span>`).join('')}
+        </div>
+      `).join('')}
+      ${report.evidence?.length ? `
+        <div class="ai-evidence">
+          <div class="chart-title">证据来源</div>
+          ${report.evidence.map((row) => `
+            <button type="button" data-event-code="${escapeHtml(row.eventCode || '')}">
+              <strong>${escapeHtml(row.label)}</strong>
+              <span>${escapeHtml(row.detail)}</span>
+            </button>
+          `).join('')}
+        </div>
+      ` : ''}
+      ${report.actions?.length ? `
+        <div class="ai-action-row">
+          ${report.actions.map((action) => `
+            <button type="button" ${action.athleteId ? `data-athlete-id="${escapeHtml(action.athleteId)}"` : ''} ${action.clubId ? `data-club-id="${escapeHtml(action.clubId)}"` : ''}>
+              ${escapeHtml(action.label)}
+            </button>
+          `).join('')}
+        </div>
+      ` : ''}
+    </div>
+  `;
+}
+
+function bindAiAnswerActions(container) {
+  container.querySelectorAll('[data-event-code]').forEach((button) => {
+    button.addEventListener('click', () => {
+      if (button.dataset.eventCode) openEvent(button.dataset.eventCode);
+    });
+  });
+  container.querySelectorAll('[data-athlete-id]').forEach((button) => {
+    button.addEventListener('click', () => openAthlete(button.dataset.athleteId));
+  });
+  container.querySelectorAll('[data-club-id]').forEach((button) => {
+    button.addEventListener('click', () => openClub(button.dataset.clubId));
+  });
 }
 
 function renderFocusPage() {

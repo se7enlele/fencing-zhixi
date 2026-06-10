@@ -34,6 +34,9 @@ assert.match(js, /button\.dataset\.mainTab === activeTab/, 'bottom tab rendering
 assert.match(js, /setAttribute\('aria-current', 'page'\)/, 'bottom tab rendering must expose a single current page');
 assert.match(js, /role === 'data'[\s\S]*navigateMain\('competitions'\)/, 'data workspace must open the competition page instead of the home dashboard');
 assert.match(js, /function renderHomePage\(\)/, 'home page renderer must exist');
+assert.match(js, /function renderAiWorkspace\(\)/, 'home page must include an AI workspace renderer');
+assert.match(js, /function buildAiAnswer\(query\)/, 'AI workspace must build structured answers from local data');
+assert.match(js, /replaceAll\('马消', '马潇'\)/, 'AI workspace must tolerate common athlete name typos');
 assert.match(js, /function renderFocusPage\(\)/, 'follow page renderer must exist');
 assert.match(js, /function renderMyPage\(\)/, 'my page renderer must exist');
 assert.match(js, /function upsertFollowedCompetition\(competition\)/, 'competition follow handler must exist');
@@ -43,6 +46,8 @@ assert.match(css, /\.bottom-nav/, 'bottom navigation styles must exist');
 assert.match(css, /\.bottom-nav button\[aria-current="page"\]/, 'bottom navigation selected style must be driven by aria-current');
 assert.match(css, /\.bottom-nav button:not\(\[aria-current="page"\]\)/, 'bottom navigation must explicitly reset non-current tabs');
 assert.match(css, /background: transparent !important/, 'non-current bottom tabs must not keep touch or focus selected backgrounds');
+assert.match(css, /\.ai-workspace/, 'AI workspace styles must exist');
+assert.match(css, /\.ai-evidence/, 'AI workspace must style source evidence cards');
 assert.match(css, /\.my-page-shell/, 'personal page styles must exist');
 assert.match(css, /\.competition-follow-tag/, 'competition follow tag styles must exist');
 
