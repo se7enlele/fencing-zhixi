@@ -2907,6 +2907,26 @@ function competitionChips(competition, limit = Infinity) {
   };
 }
 
+function competitionProjectSummaryChips(competition) {
+  const itemLabels = (competition.items || []).map((item) => displayEventName(item)).filter(Boolean);
+  const fallbackLabels = itemLabels.length ? [] : (competition.groupLabels || []);
+  const labels = [...itemLabels, ...fallbackLabels].filter(Boolean);
+  if (!labels.length) return [];
+
+  const ages = [...new Set(labels.map((label) => String(label).match(/U\d+|\d+\+|年龄开放组/)?.[0]).filter(Boolean))];
+  const weapons = [...new Set(labels.map((label) => {
+    const text = compactText(label);
+    if (text.includes('花')) return '花剑';
+    if (text.includes('重')) return '重剑';
+    if (text.includes('佩')) return '佩剑';
+    return '';
+  }).filter(Boolean))];
+  const chips = [`${labels.length} 个项目/组别`];
+  if (ages.length) chips.push(`${ages.slice(0, 3).join(' / ')}${ages.length > 3 ? ` +${ages.length - 3}` : ''}`);
+  if (weapons.length) chips.push(`${weapons.join(' / ')}`);
+  return chips;
+}
+
 function renderCompetitionList() {
   if (state.isDataLoading) {
     competitionList.innerHTML = '<div class="loading-row">正在整理比赛列表</div>';
@@ -2973,7 +2993,7 @@ function competitionListInsight(competition) {
 }
 
 function renderCompetitionHero(competition) {
-  const chips = competitionChips(competition, 5);
+  const chips = competitionProjectSummaryChips(competition);
   const followed = isFollowedCompetition(competition.sportCode);
   competitionHero.classList.add('compact');
   competitionHero.innerHTML = `
@@ -2988,9 +3008,8 @@ function renderCompetitionHero(competition) {
     <div class="hero-title">${escapeHtml(competition.sportName)}</div>
     <div class="hero-sub">${escapeHtml(competition.venue || '地点待确认')} · ${escapeHtml(displayDateLabel(competition.dateLabel))}</div>
     <div class="hero-sub coverage-copy">${escapeHtml(coverageDetail(competition))}</div>
-    <div class="event-chip-row">
-      ${chips.visible.map((label) => `<span>${escapeHtml(label)}</span>`).join('')}
-      ${chips.remaining ? `<span class="muted-chip">+${escapeHtml(chips.remaining)} 项</span>` : ''}
+    <div class="event-chip-row project-summary-row">
+      ${chips.map((label) => `<span>${escapeHtml(label)}</span>`).join('')}
     </div>
   `;
   competitionHero.querySelector('#followCompetitionBtn')?.addEventListener('click', () => {

@@ -71,7 +71,10 @@ const sortedEventRows = context.sortedCompetitionEventRows([
 ]);
 assert.equal(JSON.stringify(sortedEventRows.map((row) => row.shortEventName)), JSON.stringify(['U10 男花', 'U8 男花', 'U14 男花']));
 
-assert.match(source, /competitionChips\(competition, 5\)/, 'competition hero must limit chips and summarize the rest');
+assert.match(source, /competitionChips\(competition, 4\)/, 'competition list cards must limit raw project chips and summarize the rest');
+assert.match(source, /function competitionProjectSummaryChips\(competition\)/, 'competition hero must summarize project structure instead of listing raw labels');
+assert.match(source, /const chips = competitionProjectSummaryChips\(competition\)/, 'competition hero must use structural project summary chips');
+assert.match(source, /project-summary-row/, 'competition hero project summary must have a dedicated compact row');
 assert.match(source, /class="event-list-more"/, 'competition event list must hide lower-priority projects behind an expandable section');
 assert.match(source, /secondaryItems\.length/, 'competition event list must keep full project access without showing everything by default');
 

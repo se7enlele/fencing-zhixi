@@ -2125,6 +2125,16 @@ select:focus {
   color: var(--muted);
 }
 
+.project-summary-row span {
+  background: rgba(15, 92, 192, 0.08);
+  color: var(--primary);
+}
+
+.project-summary-row span:first-child {
+  background: rgba(8, 119, 96, 0.1);
+  color: var(--teal);
+}
+
 .event-list-more {
   display: grid;
   gap: 8px;
