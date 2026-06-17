@@ -4096,14 +4096,63 @@ function coachStrongOpponentPool(club, projectRows) {
     .slice(0, 6);
 }
 
+function rosterAthleteLabel(row) {
+  return row.athleteName || row.memberName || row.name || row.userName || '未命名选手';
+}
+
+function rosterEventLabel(row) {
+  return displayEventName(row.item || row) || row.eventName || '项目待确认';
+}
+
+function rosterCompetitionLabel(row) {
+  return row.sportName || row.competition?.sportName || '赛事待确认';
+}
+
+function rosterItemSummary(rosterRows) {
+  const map = new Map();
+  for (const row of rosterRows) {
+    const key = rosterEventLabel(row);
+    const current = map.get(key) || { label: key, count: 0, athletes: [] };
+    current.count += 1;
+    const athlete = rosterAthleteLabel(row);
+    if (athlete && !current.athletes.includes(athlete)) current.athletes.push(athlete);
+    map.set(key, current);
+  }
+  return [...map.values()]
+    .sort((a, b) => b.count - a.count || a.label.localeCompare(b.label, 'zh-CN'))
+    .slice(0, 4);
+}
+
+function preMatchActionCards(rosterRows, opponentPool, relevantCompetitions) {
+  return [
+    {
+      title: '确认名单',
+      value: rosterRows.length ? `${rosterRows.length} 条本馆报名` : '等待名单',
+      detail: rosterRows.length ? '可以按项目拆训练重点。' : '先关注近期报名赛事，名单出现后再细化到学员。',
+    },
+    {
+      title: '锁定强手',
+      value: opponentPool.length ? `${opponentPool.length} 名可关注选手` : '样本积累中',
+      detail: opponentPool.length ? '优先看同项目、最好名次靠前的选手。' : '先用本馆历史强项做备赛框架。',
+    },
+    {
+      title: '近期赛程',
+      value: relevantCompetitions.length ? `${relevantCompetitions.length} 场相关赛事` : '暂无匹配',
+      detail: relevantCompetitions.length ? '用于安排赛前节奏和家长沟通。' : '继续积累项目和报名数据。',
+    },
+  ];
+}
+
 function renderPreMatchIntelligence(club, projectRows, athletes) {
   const rosterRows = clubRosterRows(club);
   const relevantCompetitions = relevantPreMatchCompetitions(projectRows);
   const opponentPool = coachStrongOpponentPool(club, projectRows);
   const topProjects = projectRows.slice(0, 3);
+  const rosterSummary = rosterItemSummary(rosterRows);
+  const actionCards = preMatchActionCards(rosterRows, opponentPool, relevantCompetitions);
   const readiness = rosterRows.length
-    ? `本次已有 ${rosterRows.length} 条本馆出战记录，可以先看重点对手和突破机会。`
-    : '当前适合先做项目级备赛：锁定优势项目、近期赛事和历史强手，确认参赛名单后再细化到每个学员。';
+    ? `已识别到 ${rosterRows.length} 条本馆报名记录，可以按项目拆解备赛重点。`
+    : '当前先看近期赛事、优势项目和历史强手；报名名单更新后，再细化到每个学员。';
 
   return `
     <section class="coach-section prematch-section">
@@ -4113,7 +4162,16 @@ function renderPreMatchIntelligence(club, projectRows, athletes) {
       </div>
       <div class="coach-summary-card prematch-ready">
         <strong>${escapeHtml(readiness)}</strong>
-        <span>建议先把本馆重点项目和可能遇到的强手过一遍，再安排学员的赛前训练重点。</span>
+        <span>建议先确认参赛项目，再看同项目强手和近期赛事，用于安排训练重点与家长沟通。</span>
+      </div>
+      <div class="prematch-action-grid">
+        ${actionCards.map((card) => `
+          <div class="prematch-action-card">
+            <span>${escapeHtml(card.title)}</span>
+            <strong>${escapeHtml(card.value)}</strong>
+            <em>${escapeHtml(card.detail)}</em>
+          </div>
+        `).join('')}
       </div>
       ${rosterRows.length ? `
         <div class="prematch-block">
@@ -4121,12 +4179,22 @@ function renderPreMatchIntelligence(club, projectRows, athletes) {
             <strong>本馆出战</strong>
             <span>${escapeHtml(rosterRows.length)} 条报名</span>
           </div>
+          ${rosterSummary.length ? `
+            <div class="prematch-roster-summary">
+              ${rosterSummary.map((row) => `
+                <div>
+                  <strong>${escapeHtml(row.label)}</strong>
+                  <span>${escapeHtml(row.count)} 人 · ${escapeHtml(row.athletes.slice(0, 3).join(' / '))}</span>
+                </div>
+              `).join('')}
+            </div>
+          ` : ''}
           <div class="coach-athlete-list">
             ${rosterRows.slice(0, 6).map((row) => `
-              <button type="button" data-athlete-id="${escapeHtml(row.registerCode || '')}">
-                <strong>${escapeHtml(row.athleteName || '未命名选手')}</strong>
-                <span>${escapeHtml(displayEventName(row))}</span>
-                <em>${escapeHtml(row.sportName || '赛事待确认')}</em>
+              <button type="button" data-athlete-id="${escapeHtml(row.registerCode || row.athleteId || '')}">
+                <strong>${escapeHtml(rosterAthleteLabel(row))}</strong>
+                <span>${escapeHtml(rosterEventLabel(row))}</span>
+                <em>${escapeHtml(rosterCompetitionLabel(row))}</em>
               </button>
             `).join('')}
           </div>

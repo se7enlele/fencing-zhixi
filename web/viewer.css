@@ -2350,10 +2350,84 @@ select:focus {
   background: rgba(255, 255, 255, 0.78);
 }
 
+.prematch-action-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.prematch-action-card {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+  border: 1px solid rgba(21, 95, 194, 0.09);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.82);
+  padding: 9px;
+}
+
+.prematch-action-card span,
+.prematch-action-card strong,
+.prematch-action-card em {
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.prematch-action-card span {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.prematch-action-card strong {
+  color: var(--primary);
+  font-size: 14px;
+}
+
+.prematch-action-card em {
+  color: var(--muted);
+  font-size: 11px;
+  font-style: normal;
+}
+
 .prematch-grid,
 .prematch-block {
   display: grid;
   gap: 9px;
+}
+
+.prematch-roster-summary {
+  display: grid;
+  gap: 7px;
+}
+
+.prematch-roster-summary div {
+  min-width: 0;
+  border: 1px solid rgba(13, 125, 103, 0.12);
+  border-radius: 9px;
+  background: rgba(13, 125, 103, 0.055);
+  padding: 9px 10px;
+}
+
+.prematch-roster-summary strong,
+.prematch-roster-summary span {
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.prematch-roster-summary strong {
+  font-size: 13px;
+}
+
+.prematch-roster-summary span {
+  margin-top: 3px;
+  color: var(--muted);
+  font-size: 12px;
 }
 
 .coach-bucket {
