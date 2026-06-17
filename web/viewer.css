@@ -3463,8 +3463,9 @@ th {
 }
 
 .pool-matrix {
-  width: max(100%, calc(112px + (var(--pool-size, 7) * 40px)));
-  min-width: max(100%, calc(112px + (var(--pool-size, 7) * 40px)));
+  width: max(100%, calc(94px + (var(--pool-size, 7) * 34px)));
+  min-width: max(100%, calc(94px + (var(--pool-size, 7) * 34px)));
+  table-layout: fixed;
 }
 
 .pool-matrix th,
@@ -3488,9 +3489,9 @@ th {
   position: sticky;
   left: 0;
   z-index: 2;
-  width: 112px;
-  min-width: 112px;
-  max-width: 112px;
+  width: 94px;
+  min-width: 94px;
+  max-width: 94px;
   background: #fff;
   box-shadow: 1px 0 0 rgba(16, 24, 40, 0.06);
 }
@@ -3502,6 +3503,7 @@ th {
 .pool-matrix th button {
   display: block;
   width: 100%;
+  min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -3514,9 +3516,10 @@ th {
 }
 
 .pool-matrix td {
-  width: 40px;
-  height: 42px;
-  font-size: 15px;
+  width: 34px;
+  height: 38px;
+  padding: 0;
+  font-size: 14px;
   color: var(--text);
 }
 
@@ -3567,6 +3570,35 @@ th {
 .pool-results-table {
   width: max(100%, 360px);
   min-width: max(100%, 360px);
+  table-layout: fixed;
+}
+
+.pool-results-table th,
+.pool-results-table td {
+  padding: 9px 6px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 13px;
+}
+
+.pool-results-table th:first-child,
+.pool-results-table td:first-child {
+  width: 86px;
+}
+
+.pool-results-table th:nth-child(4),
+.pool-results-table td:nth-child(4),
+.pool-results-table th:nth-child(5),
+.pool-results-table td:nth-child(5),
+.pool-results-table th:nth-child(6),
+.pool-results-table td:nth-child(6) {
+  width: 48px;
+}
+
+.pool-results-table th:last-child,
+.pool-results-table td:last-child {
+  width: 58px;
 }
 
 .pool-group-head {
