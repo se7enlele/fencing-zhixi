@@ -6,6 +6,10 @@ const worker = await readFile(new URL('../cloudflare/worker.mjs', import.meta.ur
 const server = await readFile(new URL('../server.mjs', import.meta.url), 'utf8');
 
 assert.match(js, /const result = await fetchJson\('\/api\/competitions'\)/, 'initial load must fetch only the competition index');
+assert.match(js, /const COMPETITION_LIST_PAGE_SIZE = 30;/, 'competition list must define a bounded render page size');
+assert.match(js, /state\.filteredCompetitions\.slice\(0, state\.visibleCompetitionLimit\)/, 'competition list must render only the visible page instead of every row');
+assert.match(js, /data-load-more-competitions/, 'competition list must expose an explicit load-more control');
+assert.match(js, /state\.visibleCompetitionLimit \+= COMPETITION_LIST_PAGE_SIZE/, 'load-more control must extend the visible competition page');
 assert.doesNotMatch(
   js,
   /state\.athletesById\s*=\s*Object\.fromEntries\(\(result\.athletes/,

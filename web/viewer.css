@@ -826,6 +826,27 @@ select:focus {
   line-height: 1.4;
 }
 
+.load-more-competitions {
+  width: 100%;
+  border: 1px solid rgba(21, 95, 194, 0.14);
+  border-radius: 10px;
+  background: rgba(21, 95, 194, 0.07);
+  color: var(--primary);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 900;
+  padding: 12px;
+  display: grid;
+  gap: 3px;
+  text-align: center;
+}
+
+.load-more-competitions span {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+}
+
 .filter-trigger.active::after {
   color: rgba(255, 255, 255, 0.86);
 }

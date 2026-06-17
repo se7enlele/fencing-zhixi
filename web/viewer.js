@@ -58,6 +58,7 @@ const RECENT_KEY = 'fencingai.recentItems.v1';
 const DEVICE_KEY = 'fencingai.deviceId.v1';
 const ROLE_KEY = 'fencingai.role.v1';
 const CHILD_KEY = 'fencingai.parentChildId.v1';
+const COMPETITION_LIST_PAGE_SIZE = 30;
 
 const views = {
   roleHome: document.querySelector('#view-role-home'),
@@ -91,6 +92,7 @@ const state = {
   selectedItem: '全部项目',
   selectedStatus: '全部状态',
   selectedAiMonth: '',
+  visibleCompetitionLimit: COMPETITION_LIST_PAGE_SIZE,
   apiVersion: '',
   dataGeneratedAt: '',
   viewStack: ['home'],
@@ -1027,6 +1029,7 @@ function renderItemSelect() {
 }
 
 function applyCompetitionFilter() {
+  state.visibleCompetitionLimit = COMPETITION_LIST_PAGE_SIZE;
   const keyword = normalizeSearchText(searchInput.value);
   const tokens = searchTokens(keyword);
   const compactKeyword = keyword.replace(/\s+/g, '');
@@ -3256,8 +3259,11 @@ function renderCompetitionList() {
     `;
     return;
   }
+  const visibleCompetitions = state.filteredCompetitions.slice(0, state.visibleCompetitionLimit);
+  const remainingCount = Math.max(0, state.filteredCompetitions.length - visibleCompetitions.length);
   competitionList.innerHTML = state.filteredCompetitions.length
-    ? state.filteredCompetitions.map((competition) => `
+    ? `
+      ${visibleCompetitions.map((competition) => `
       <button class="competition-card" data-sport-code="${escapeHtml(competition.sportCode)}">
         <div class="status-row">
           <span class="status-badge status-${escapeHtml(competition.status || 'completed')}">${escapeHtml(statusLabel(competition.status || 'completed'))}</span>
@@ -3275,11 +3281,22 @@ function renderCompetitionList() {
         </div>
         <div class="card-insight">${escapeHtml(competitionListInsight(competition))}</div>
       </button>
-    `).join('')
+    `).join('')}
+      ${remainingCount ? `
+        <button class="load-more-competitions" type="button" data-load-more-competitions>
+          继续查看 ${escapeHtml(Math.min(COMPETITION_LIST_PAGE_SIZE, remainingCount))} 场
+          <span>已显示 ${escapeHtml(visibleCompetitions.length)} / ${escapeHtml(state.filteredCompetitions.length)}</span>
+        </button>
+      ` : ''}
+    `
     : '<div class="empty">没有匹配的比赛</div>';
 
   competitionList.querySelectorAll('.competition-card').forEach((button) => {
     button.addEventListener('click', () => openCompetition(button.dataset.sportCode));
+  });
+  competitionList.querySelector('[data-load-more-competitions]')?.addEventListener('click', () => {
+    state.visibleCompetitionLimit += COMPETITION_LIST_PAGE_SIZE;
+    renderCompetitionList();
   });
 }
 
