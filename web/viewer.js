@@ -43,6 +43,7 @@ const leadersList = document.querySelector('#leadersList');
 const opponentList = document.querySelector('#opponentList');
 const participantsList = document.querySelector('#participantsList');
 const poolGroups = document.querySelector('#poolGroups');
+const poolStanding = document.querySelector('#poolStanding');
 const matchList = document.querySelector('#matchList');
 const clubList = document.querySelector('#clubList');
 const clubProfiles = document.querySelector('#clubProfiles');
@@ -3076,26 +3077,30 @@ function renderOpponents(event) {
 }
 
 function renderPoolStanding(event) {
-  const rows = event.topPoolStanding || [];
+  const rows = (event.poolGroups || []).flatMap((group, groupIndex) => (group.athletes || []).map((athlete) => ({
+    ...athlete,
+    groupLabel: group.title || `第 ${groupIndex + 1} 组`,
+  }))).sort((a, b) => (Number(a.groupLabel?.match(/\d+/)?.[0]) || 0) - (Number(b.groupLabel?.match(/\d+/)?.[0]) || 0)
+    || (Number(a.phaseRank) || 999) - (Number(b.phaseRank) || 999));
   if (!rows.length) {
     poolStanding.innerHTML = '<div class="empty">暂无小组赛排名</div>';
     return;
   }
 
   poolStanding.innerHTML = `
-    <table>
+    <table class="process-table">
       <thead>
-        <tr><th>名次</th><th>选手</th><th>俱乐部</th><th>胜场</th><th>净胜剑</th><th>晋级</th></tr>
+        <tr><th>小组</th><th>组内</th><th>选手</th><th>胜场</th><th>得失</th><th>最终</th></tr>
       </thead>
       <tbody>
         ${rows.map((row) => `
-          <tr>
-            <td>${escapeHtml(row.rank)}</td>
+          <tr data-athlete-id="${escapeHtml(row.id || '')}">
+            <td>${escapeHtml(row.groupLabel)}</td>
+            <td>${escapeHtml(row.phaseRank ? `第${row.phaseRank}` : '-')}</td>
             <td>${escapeHtml(row.name)}</td>
-            <td>${escapeHtml(row.club)}</td>
             <td>${escapeHtml(row.wins)}/${escapeHtml(row.matches)}</td>
-            <td>${escapeHtml(row.indicator)}</td>
-            <td>${escapeHtml(row.remark)}</td>
+            <td>${escapeHtml(row.scored ?? '-')} / ${escapeHtml(row.received ?? '-')}</td>
+            <td>${escapeHtml(row.finalRank ? `第${row.finalRank}` : '-')}</td>
           </tr>
         `).join('')}
       </tbody>
@@ -3130,8 +3135,8 @@ function renderParticipants(event) {
   const rows = event.participants || event.athleteProfiles || [];
   participantsList.innerHTML = rows.length
     ? rows.map((row) => `
-      <button class="participant-card" data-athlete-id="${escapeHtml(row.id)}">
-        <div class="rank-pill">${escapeHtml(row.finalRank ?? '-')}</div>
+      <button class="participant-card final-rank-card" data-athlete-id="${escapeHtml(row.id)}">
+        <div class="rank-pill ${Number(row.finalRank) <= 3 ? 'podium' : ''}">${escapeHtml(row.finalRank ?? '-')}</div>
         <div class="participant-main">
           <strong>${escapeHtml(row.name)}</strong>
           <span>${escapeHtml(row.club || '俱乐部待确认')}</span>
@@ -3152,82 +3157,160 @@ function renderParticipants(event) {
   });
 }
 
-function renderPoolGroups(event) {
+function poolBoutForPair(group, left, right) {
+  return (group.bouts || []).find((bout) => (
+    Number(bout.homeNumber) === Number(left.drawNo) && Number(bout.awayNumber) === Number(right.drawNo)
+  ) || (
+    Number(bout.homeNumber) === Number(right.drawNo) && Number(bout.awayNumber) === Number(left.drawNo)
+  )) || null;
+}
+
+function poolCellLabel(group, rowAthlete, colAthlete) {
+  if (Number(rowAthlete.drawNo) === Number(colAthlete.drawNo)) return '';
+  const bout = poolBoutForPair(group, rowAthlete, colAthlete);
+  if (!bout) return '-';
+  const rowIsHome = Number(bout.homeNumber) === Number(rowAthlete.drawNo);
+  return rowIsHome ? bout.homeScore : bout.awayScore;
+}
+
+function poolResultRows(group) {
+  return [...(group.athletes || [])].sort((a, b) => (Number(b.wins) || 0) - (Number(a.wins) || 0)
+    || (Number(b.diff) || 0) - (Number(a.diff) || 0)
+    || (Number(a.phaseRank) || 999) - (Number(b.phaseRank) || 999));
+}
+
+function renderPoolGroups(event, activeIndex = 0) {
   const groups = event.poolGroups || [];
-  poolGroups.innerHTML = groups.length
-    ? groups.map((group, index) => `
-      <section class="pool-group-card">
-        <div class="pool-group-head">
-          <strong>第 ${index + 1} 组</strong>
-          <span>${group.athletes?.length || 0} 人</span>
-        </div>
-        <div class="pool-athlete-list">
-          ${(group.athletes || []).map((athlete) => `
-            <button class="pool-athlete" data-athlete-id="${escapeHtml(athlete.id)}">
-              <div class="draw-no">${escapeHtml(athlete.drawNo ?? '-')}</div>
-              <div>
-                <strong>${escapeHtml(athlete.name)}</strong>
-                <span>${escapeHtml(athlete.club || '')}</span>
-              </div>
-              <div class="pool-score">
-                <strong>${escapeHtml(athlete.wins ?? 0)}/${escapeHtml(athlete.matches ?? 0)}</strong>
-                <span>净胜 ${escapeHtml(athlete.diff ?? 0)}</span>
-              </div>
-            </button>
-          `).join('')}
-        </div>
-        <div class="pool-bout-strip">
-          ${(group.bouts || []).slice(0, 4).map((bout) => {
-            const outcome = poolBoutOutcome(bout);
-            return `
-              <div class="pool-bout">
-                <span class="${outcome.homeWon ? 'win' : ''}">${escapeHtml(bout.homeLabel)}</span>
-                <strong>${escapeHtml(bout.homeScore)}:${escapeHtml(bout.awayScore)}</strong>
-                <span class="${outcome.awayWon ? 'win' : ''}">${escapeHtml(bout.awayLabel)}</span>
-              </div>
-            `;
-          }).join('')}
-        </div>
-      </section>
-    `).join('')
-    : '<div class="empty">暂无小组分组数据</div>';
+  if (!groups.length) {
+    poolGroups.innerHTML = '<div class="empty">暂无循环赛数据</div>';
+    return;
+  }
+  const index = Math.min(Math.max(Number(activeIndex) || 0, 0), groups.length - 1);
+  const group = groups[index];
+  const athletes = [...(group.athletes || [])].sort((a, b) => (Number(a.drawNo) || 0) - (Number(b.drawNo) || 0));
+  const resultRows = poolResultRows(group);
+
+  poolGroups.innerHTML = `
+    <div class="process-switch" aria-label="选择小组">
+      <span>小组</span>
+      ${groups.map((item, itemIndex) => `
+        <button type="button" class="${itemIndex === index ? 'active' : ''}" data-pool-index="${itemIndex}">
+          ${escapeHtml(itemIndex + 1)}
+        </button>
+      `).join('')}
+    </div>
+    <section class="pool-process-card">
+      <div class="pool-group-head">
+        <strong>${escapeHtml(group.title || `第 ${index + 1} 组`)}</strong>
+        <span>${escapeHtml(athletes.length)} 人 · ${escapeHtml(group.bouts?.length || 0)} 场</span>
+      </div>
+      <div class="pool-matrix-wrap">
+        <table class="pool-matrix">
+          <thead>
+            <tr>
+              <th>姓名</th>
+              ${athletes.map((athlete) => `<th>${escapeHtml(athlete.drawNo ?? '-')}</th>`).join('')}
+            </tr>
+          </thead>
+          <tbody>
+            ${athletes.map((rowAthlete) => `
+              <tr>
+                <th>
+                  <button type="button" data-athlete-id="${escapeHtml(rowAthlete.id || '')}">
+                    ${escapeHtml(rowAthlete.drawNo ?? '-')}.${escapeHtml(rowAthlete.name)}
+                  </button>
+                </th>
+                ${athletes.map((colAthlete) => {
+                  const isSelf = Number(rowAthlete.drawNo) === Number(colAthlete.drawNo);
+                  const label = poolCellLabel(group, rowAthlete, colAthlete);
+                  return `<td class="${isSelf ? 'self' : ''}">${escapeHtml(label)}</td>`;
+                }).join('')}
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      </div>
+      <div class="pool-result-table">
+        <div class="chart-title">成绩</div>
+        <table class="process-table">
+          <thead>
+            <tr><th>姓名</th><th>V</th><th>M</th><th>Ind</th><th>HS</th><th>HR</th><th>名次</th></tr>
+          </thead>
+          <tbody>
+            ${resultRows.map((athlete) => `
+              <tr data-athlete-id="${escapeHtml(athlete.id || '')}">
+                <td>${escapeHtml(athlete.name)}</td>
+                <td>${escapeHtml(athlete.wins ?? 0)}</td>
+                <td>${escapeHtml(athlete.matches ?? 0)}</td>
+                <td>${escapeHtml(athlete.winRate !== undefined ? Number(athlete.winRate).toFixed(2) : '-')}</td>
+                <td>${escapeHtml(athlete.scored ?? '-')}</td>
+                <td>${escapeHtml(athlete.received ?? '-')}</td>
+                <td>${escapeHtml(athlete.phaseRank ? `第${athlete.phaseRank}` : '-')}</td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      </div>
+    </section>
+  `;
+
+  poolGroups.querySelectorAll('[data-pool-index]').forEach((button) => {
+    button.addEventListener('click', () => renderPoolGroups(event, Number(button.dataset.poolIndex)));
+  });
 
   poolGroups.querySelectorAll('[data-athlete-id]').forEach((button) => {
     button.addEventListener('click', () => openAthlete(button.dataset.athleteId));
   });
 }
 
-function renderMatches(event) {
+function phaseSeed(match, side) {
+  const value = match?.[side]?.position;
+  return value || value === 0 ? `(${value})` : '';
+}
+
+function renderMatches(event, activeIndex = 0) {
   const groups = event.eliminationPhaseGroups?.length
     ? event.eliminationPhaseGroups
     : fallbackPhaseGroups(event.latestMatches || []);
-  matchList.innerHTML = groups.length
-    ? groups.map((group) => `
-      <section class="phase-group">
-        <div class="phase-header">
-          <div class="phase-title">${escapeHtml(group.phase)}</div>
-          <div class="phase-count">${group.matches.length} 场</div>
-        </div>
-        ${group.matches.map((match) => `
-          <div class="match">
-            <div class="match-phase">${escapeHtml(match.matchCode)}</div>
-            <div class="bout-card">
-              <div class="bout-side ${match.home.result === 'W' ? 'winner' : 'loser'}">
-                <strong>${escapeHtml(match.home.name)}</strong>
-                <span>${escapeHtml(match.home.club || '')}</span>
-              </div>
-              <div class="score-pair winner-score">${escapeHtml(match.home.points)}<span>:</span>${escapeHtml(match.away.points)}</div>
-              <div class="bout-side ${match.away.result === 'W' ? 'winner' : 'loser'}">
-                <strong>${escapeHtml(match.away.name)}</strong>
-                <span>${escapeHtml(match.away.club || '')}</span>
-              </div>
+  if (!groups.length) {
+    matchList.innerHTML = '<div class="empty">暂无单败表数据</div>';
+    return;
+  }
+  const index = Math.min(Math.max(Number(activeIndex) || 0, 0), groups.length - 1);
+  const group = groups[index];
+  matchList.innerHTML = `
+    <div class="process-switch phase-switch" aria-label="选择轮次">
+      ${groups.map((item, itemIndex) => `
+        <button type="button" class="${itemIndex === index ? 'active' : ''}" data-phase-index="${itemIndex}">
+          ${escapeHtml(item.phase)}
+        </button>
+      `).join('')}
+    </div>
+    <section class="bracket-board">
+      ${(group.matches || []).map((match) => {
+        const homeWon = match.home?.result === 'W';
+        const awayWon = match.away?.result === 'W';
+        return `
+          <div class="bracket-match">
+            <div class="match-phase">${escapeHtml(group.phase)} · ${escapeHtml(match.matchCode || '')}</div>
+            <div class="bracket-row ${homeWon ? 'winner' : ''}">
+              <span>${escapeHtml(`${phaseSeed(match, 'home')} ${match.home?.name || '空'}`.trim())}</span>
+              <strong>${escapeHtml(match.home?.points ?? '-')}</strong>
             </div>
-            <div class="winner-note">胜者：${escapeHtml(match.home.result === 'W' ? match.home.name : match.away.name)}</div>
+            <div class="bracket-row ${awayWon ? 'winner' : ''}">
+              <span>${escapeHtml(`${phaseSeed(match, 'away')} ${match.away?.name || '空'}`.trim())}</span>
+              <strong>${escapeHtml(match.away?.points ?? '-')}</strong>
+            </div>
+            <div class="winner-note">胜者：${escapeHtml(match.winner?.name || (homeWon ? match.home?.name : match.away?.name) || '-')}</div>
           </div>
-        `).join('')}
-      </section>
-    `).join('')
-    : '<div class="empty">暂无淘汰赛对阵</div>';
+        `;
+      }).join('')}
+    </section>
+  `;
+
+  matchList.querySelectorAll('[data-phase-index]').forEach((button) => {
+    button.addEventListener('click', () => renderMatches(event, Number(button.dataset.phaseIndex)));
+  });
 }
 
 function fallbackPhaseGroups(matches) {
@@ -3244,6 +3327,7 @@ function fallbackPhaseGroups(matches) {
 }
 
 function renderClubs(event) {
+  if (!clubList) return;
   const entries = Object.entries(event.clubDistribution || {});
   clubList.innerHTML = entries.length
     ? entries.map(([club, count]) => `
@@ -3964,6 +4048,7 @@ async function openEvent(eventCode) {
   try {
     const result = await fetchJson(`/api/events/${encodeURIComponent(eventCode)}`);
     state.currentEvent = result.event;
+    activateEventTab('overview');
     renderEventHero(state.currentEvent);
     renderInsights(state.currentEvent);
     renderAnalysisCharts(state.currentEvent);
@@ -3973,8 +4058,8 @@ async function openEvent(eventCode) {
     renderOpponents(state.currentEvent);
     renderParticipants(state.currentEvent);
     renderPoolGroups(state.currentEvent);
+    renderPoolStanding(state.currentEvent);
     renderMatches(state.currentEvent);
-    renderClubs(state.currentEvent);
     renderClubProfiles(state.currentEvent);
     renderAthleteProfiles(state.currentEvent);
     navigateTo('event');
@@ -3989,8 +4074,9 @@ async function openEvent(eventCode) {
     opponentList.innerHTML = '';
     participantsList.innerHTML = '';
     poolGroups.innerHTML = '';
+    poolStanding.innerHTML = '';
     matchList.innerHTML = '';
-    clubList.innerHTML = '';
+    if (clubList) clubList.innerHTML = '';
     clubProfiles.innerHTML = '';
     athleteProfiles.innerHTML = '';
     momentumList.innerHTML = '';
@@ -4000,13 +4086,19 @@ async function openEvent(eventCode) {
 
 topBack.addEventListener('click', goBack);
 
-tabs.addEventListener('click', (event) => {
-  const button = event.target.closest('.tab');
+function activateEventTab(tabName) {
+  const button = tabs.querySelector(`[data-tab="${tabName}"]`) || tabs.querySelector('.tab');
   if (!button) return;
   tabs.querySelectorAll('.tab').forEach((tab) => tab.classList.toggle('active', tab === button));
   document.querySelectorAll('.tab-panel').forEach((panel) => {
     panel.classList.toggle('active', panel.id === `tab-${button.dataset.tab}`);
   });
+}
+
+tabs.addEventListener('click', (event) => {
+  const button = event.target.closest('.tab');
+  if (!button) return;
+  activateEventTab(button.dataset.tab);
 });
 
 searchInput.addEventListener('input', handleSearchInput);

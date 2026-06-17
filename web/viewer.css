@@ -2067,6 +2067,42 @@ select:focus {
   color: #fff;
 }
 
+.process-tabs {
+  position: sticky;
+  top: 49px;
+  z-index: 8;
+  margin: 0 -12px 10px;
+  padding: 8px 12px;
+  background: rgba(246, 250, 249, 0.96);
+  border-bottom: 1px solid rgba(16, 24, 40, 0.06);
+  backdrop-filter: blur(16px);
+}
+
+.process-tabs .tab {
+  min-width: 86px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--text);
+  position: relative;
+}
+
+.process-tabs .tab.active {
+  background: transparent;
+  color: var(--primary);
+}
+
+.process-tabs .tab.active::after {
+  content: "";
+  position: absolute;
+  left: 18px;
+  right: 18px;
+  bottom: 1px;
+  height: 3px;
+  border-radius: 999px;
+  background: var(--primary);
+}
+
 .tab-panel {
   display: none;
 }
@@ -2613,6 +2649,11 @@ th {
   font-weight: 900;
 }
 
+.rank-pill.podium {
+  background: rgba(13, 125, 103, 0.12);
+  color: var(--teal);
+}
+
 .participant-main {
   min-width: 0;
 }
@@ -2661,6 +2702,129 @@ th {
   border-radius: 10px;
   background: rgba(255, 255, 255, 0.82);
   padding: 10px;
+}
+
+.process-switch {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding: 2px 0 10px;
+}
+
+.process-switch::-webkit-scrollbar {
+  display: none;
+}
+
+.process-switch span {
+  flex: 0 0 auto;
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.process-switch button {
+  flex: 0 0 auto;
+  min-width: 38px;
+  height: 38px;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(105, 117, 134, 0.18);
+  color: #fff;
+  font: inherit;
+  font-weight: 900;
+}
+
+.process-switch button.active {
+  background: var(--orange);
+  color: #fff;
+}
+
+.phase-switch {
+  padding-bottom: 12px;
+}
+
+.phase-switch button {
+  min-width: auto;
+  height: 36px;
+  padding: 0 14px;
+  border-radius: 0;
+  background: #fff;
+  color: var(--text);
+  border-bottom: 2px solid transparent;
+}
+
+.phase-switch button.active {
+  background: #fff;
+  color: var(--orange);
+  border-color: var(--orange);
+}
+
+.pool-process-card {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 10px;
+}
+
+.pool-matrix-wrap {
+  overflow-x: auto;
+  margin: 8px -10px 14px;
+  padding: 0 10px;
+}
+
+.pool-matrix,
+.process-table {
+  min-width: 620px;
+  border-collapse: collapse;
+  background: #fff;
+}
+
+.pool-matrix th,
+.pool-matrix td,
+.process-table th,
+.process-table td {
+  border: 1px solid rgba(16, 24, 40, 0.06);
+  border-bottom: 1px solid rgba(16, 24, 40, 0.06);
+  text-align: center;
+}
+
+.pool-matrix th:first-child,
+.pool-matrix td:first-child,
+.process-table th:first-child,
+.process-table td:first-child {
+  text-align: left;
+}
+
+.pool-matrix th:first-child {
+  min-width: 128px;
+}
+
+.pool-matrix th button {
+  border: 0;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  font-weight: 800;
+  text-align: left;
+}
+
+.pool-matrix td {
+  width: 52px;
+  height: 52px;
+  font-size: 16px;
+  color: var(--text);
+}
+
+.pool-matrix td.self {
+  background: var(--orange);
+  color: transparent;
+}
+
+.pool-result-table {
+  display: grid;
+  gap: 6px;
 }
 
 .pool-group-head {
@@ -2768,6 +2932,64 @@ th {
   color: var(--muted);
   font-size: 12px;
   font-weight: 700;
+}
+
+.bracket-board {
+  display: grid;
+  gap: 10px;
+}
+
+.bracket-match {
+  position: relative;
+  border: 1px solid rgba(215, 122, 35, 0.32);
+  border-radius: 10px;
+  background: #fff;
+  padding: 10px;
+}
+
+.bracket-match::after {
+  content: "";
+  position: absolute;
+  right: -8px;
+  top: 24px;
+  width: 8px;
+  height: 48px;
+  border-top: 1px solid rgba(215, 122, 35, 0.42);
+  border-right: 1px solid rgba(215, 122, 35, 0.42);
+  border-bottom: 1px solid rgba(215, 122, 35, 0.42);
+}
+
+.bracket-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: center;
+  min-height: 40px;
+  border: 1px solid rgba(16, 24, 40, 0.07);
+  border-radius: 8px;
+  padding: 8px 10px;
+}
+
+.bracket-row + .bracket-row {
+  margin-top: 8px;
+}
+
+.bracket-row span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 800;
+}
+
+.bracket-row strong {
+  color: var(--primary);
+  font-size: 18px;
+}
+
+.bracket-row.winner {
+  background: rgba(13, 125, 103, 0.08);
+  border-color: rgba(13, 125, 103, 0.2);
 }
 
 .match {
