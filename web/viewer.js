@@ -446,6 +446,18 @@ function competitionYear(competition) {
   return fromSeason || fromDate || fromName || '日期待确认';
 }
 
+function competitionMonth(competition) {
+  const text = [
+    competition.dateLabel,
+    competition.startDate,
+    competition.endDate,
+    competition.openDate,
+    competition.sportName,
+  ].filter(Boolean).join(' ');
+  const match = text.match(/20\d{2}[.\-/年](\d{1,2})/);
+  return match ? String(Number(match[1])) : '';
+}
+
 function itemFilterLabel(item) {
   const name = displayEventName(item);
   const age = name.match(/U\d+|\d+\+/)?.[0] || '';
@@ -2068,21 +2080,40 @@ function detectCompetitionStatsQuery(query) {
   const hasCompetitionIntent = /(比赛|赛事|公开赛|冠军赛|锦标赛|有几场|多少场|几场)/.test(normalized);
   if (!hasCompetitionIntent) return null;
 
-  const year = normalized.match(/20\d{2}/)?.[0] || '';
+  const year = detectYearInQuery(normalized);
+  const month = detectMonthInQuery(normalized);
   const region = detectRegionInQuery(normalized);
   const status = detectStatusInQuery(normalized);
-  if (!year && !region && !status) return null;
-  return { year, region, status };
+  if (!year && !month && !region && !status) return null;
+  return { year, month, region, status };
 }
 
 function detectPreMatchQuery(query) {
   const normalized = compactText(query);
   const hasPreMatchIntent = /(报名|名单|赛前|马上|近期|最近|未开赛|未开始|待开赛|即将)/.test(normalized);
   if (!hasPreMatchIntent) return null;
-  const year = normalized.match(/20\d{2}/)?.[0] || '';
+  const year = detectYearInQuery(normalized);
+  const month = detectMonthInQuery(normalized);
   const region = detectRegionInQuery(normalized);
   const status = detectStatusInQuery(normalized);
-  return { year, region, status };
+  return { year, month, region, status };
+}
+
+function detectYearInQuery(normalizedQuery) {
+  const explicit = normalizedQuery.match(/20\d{2}/)?.[0];
+  if (explicit) return explicit;
+  const currentYear = new Date().getFullYear();
+  if (normalizedQuery.includes('今年') || normalizedQuery.includes('本年')) return String(currentYear);
+  if (normalizedQuery.includes('明年')) return String(currentYear + 1);
+  if (normalizedQuery.includes('去年')) return String(currentYear - 1);
+  return '';
+}
+
+function detectMonthInQuery(normalizedQuery) {
+  const match = normalizedQuery.match(/(?:^|[^\d])(\d{1,2})月/);
+  if (!match) return '';
+  const month = Number(match[1]);
+  return month >= 1 && month <= 12 ? String(month) : '';
 }
 
 function detectRegionInQuery(normalizedQuery) {
@@ -2137,10 +2168,11 @@ function projectMatchesAiHints(label, hints) {
 function buildAiCompetitionStats(query, filters) {
   const rows = state.competitions.filter((competition) => {
     const yearOk = filters.year ? competitionYear(competition) === filters.year : true;
+    const monthOk = filters.month ? competitionMonth(competition) === filters.month : true;
     const regionText = compactText([competition.venue, competition.region, competition.sportName].filter(Boolean).join(' '));
     const regionOk = filters.region ? regionText.includes(filters.region) : true;
     const statusOk = filters.status ? competition.status === filters.status : true;
-    return yearOk && regionOk && statusOk;
+    return yearOk && monthOk && regionOk && statusOk;
   }).sort((a, b) => String(a.dateLabel || '').localeCompare(String(b.dateLabel || ''), 'zh-CN'));
 
   const statusCounts = rows.reduce((map, competition) => {
@@ -2157,11 +2189,12 @@ function buildAiCompetitionStats(query, filters) {
   }, new Map());
   const regionLabel = filters.region || '全部地区';
   const yearLabel = filters.year || '全部年份';
+  const monthLabel = filters.month ? `${filters.month}月` : '全部月份';
   const statusLabelText = filters.status ? statusLabel(filters.status) : '全部状态';
-  const title = `${yearLabel}${regionLabel === '全部地区' ? '' : regionLabel}赛事统计`;
+  const title = `${yearLabel}${filters.month ? monthLabel : ''}${regionLabel === '全部地区' ? '' : regionLabel}赛事统计`;
   const summary = rows.length
-    ? `${yearLabel} ${regionLabel} 共收录 ${rows.length} 场赛事${filters.status ? `，状态为${statusLabelText}` : ''}。`
-    : `当前没有匹配到 ${yearLabel} ${regionLabel} ${statusLabelText} 的赛事记录。`;
+    ? `${yearLabel} ${monthLabel} ${regionLabel} 共收录 ${rows.length} 场赛事${filters.status ? `，状态为${statusLabelText}` : ''}。`
+    : `当前没有匹配到 ${yearLabel} ${monthLabel} ${regionLabel} ${statusLabelText} 的赛事记录。`;
 
   return {
     type: 'competition-stats',
@@ -2170,6 +2203,7 @@ function buildAiCompetitionStats(query, filters) {
     cards: [
       ['赛事数量', `${rows.length} 场`],
       ['年份', yearLabel],
+      ['月份', monthLabel],
       ['地区', regionLabel],
       ['状态', statusLabelText],
     ],
@@ -2207,12 +2241,13 @@ function buildAiPreMatchReport(query, filters) {
   const rows = state.competitions
     .filter((competition) => {
       const yearOk = filters.year ? competitionYear(competition) === filters.year : true;
+      const monthOk = filters.month ? competitionMonth(competition) === filters.month : true;
       const regionText = compactText([competition.venue, competition.region, competition.sportName].filter(Boolean).join(' '));
       const regionOk = filters.region ? regionText.includes(filters.region) : true;
       const statusOk = filters.status
         ? competition.status === filters.status
         : ['registration', 'upcoming', 'live'].includes(competition.status) || competition.isPreEvent;
-      return yearOk && regionOk && statusOk;
+      return yearOk && monthOk && regionOk && statusOk;
     })
     .sort((a, b) => {
       const dayA = Math.abs(daysFromToday(competitionDateValue(a)));
@@ -2225,10 +2260,11 @@ function buildAiPreMatchReport(query, filters) {
   const rosterTotal = rows.reduce((sum, competition) => sum + (Number(competition.registrationSummary?.rosterCount) || 0), 0);
   const regionLabel = filters.region || '全部地区';
   const yearLabel = filters.year || '全部年份';
-  const title = `${yearLabel}${regionLabel === '全部地区' ? '' : regionLabel}赛前情报`;
+  const monthLabel = filters.month ? `${filters.month}月` : '全部月份';
+  const title = `${yearLabel}${filters.month ? monthLabel : ''}${regionLabel === '全部地区' ? '' : regionLabel}赛前情报`;
   const summary = rows.length
-    ? `${yearLabel} ${regionLabel} 当前匹配 ${rows.length} 场赛前相关赛事，其中 ${rosterRows.length} 场已有报名信息，${projectRows.length} 场已有项目明细。`
-    : `当前没有匹配到 ${yearLabel} ${regionLabel} 的赛前或报名赛事。`;
+    ? `${yearLabel} ${monthLabel} ${regionLabel} 当前匹配 ${rows.length} 场赛前相关赛事，其中 ${rosterRows.length} 场已有报名信息，${projectRows.length} 场已有项目明细。`
+    : `当前没有匹配到 ${yearLabel} ${monthLabel} ${regionLabel} 的赛前或报名赛事。`;
 
   return {
     type: 'prematch',

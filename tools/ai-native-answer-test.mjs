@@ -22,6 +22,9 @@ assert.match(js, /function aiProjectHints\(query\)/, 'AI club reports must detec
 assert.match(js, /function projectMatchesAiHints\(label, hints\)/, 'AI club reports must filter projects by question hints');
 assert.match(js, /title: hints\.length \? '匹配项目' : '优势项目'/, 'AI club reports must label scoped project answers');
 assert.match(js, /function detectPreMatchQuery\(query\)/, 'AI must detect prematch and registration questions');
+assert.match(js, /function detectYearInQuery\(normalizedQuery\)/, 'AI competition questions must support relative year wording');
+assert.match(js, /function detectMonthInQuery\(normalizedQuery\)/, 'AI competition questions must support month filters');
+assert.match(js, /function competitionMonth\(competition\)/, 'AI competition questions must filter competitions by month');
 assert.match(js, /function buildAiPreMatchReport\(query, filters\)/, 'AI must build prematch reports from registration and project data');
 assert.match(js, /report\.type === 'prematch' \? '赛前情报'/, 'AI answer header must label prematch reports');
 assert.match(js, /kind: '赛前赛事'/, 'AI prematch evidence must label prematch competitions');

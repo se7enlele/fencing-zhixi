@@ -30,6 +30,7 @@ const functionNames = [
   'competitionMetricTotal',
   'competitionHasItems',
   'competitionYear',
+  'competitionMonth',
   'normalizeSearchText',
   'compactText',
   'statusLabel',
@@ -50,6 +51,8 @@ const functionNames = [
   'buildAiAnswer',
   'detectCompetitionStatsQuery',
   'detectPreMatchQuery',
+  'detectYearInQuery',
+  'detectMonthInQuery',
   'detectRegionInQuery',
   'detectStatusInQuery',
   'aiProjectHints',
@@ -93,6 +96,18 @@ const sampleCompetitions = [
     region: '天津',
     status: 'completed',
     items: [{ eventCode: 'TJ2026DONE-U8MF', eventName: 'U8 男子花剑', shortEventName: 'U8 男花' }],
+  },
+  {
+    sportCode: 'TJ2026JUNE',
+    sportName: '\u0032\u0030\u0032\u0036\u5e74\u5929\u6d25\u516d\u6708\u51fb\u5251\u516c\u5f00\u8d5b',
+    dateLabel: '2026-06-12 / 2026-06-13',
+    venue: '\u5929\u6d25',
+    region: '\u5929\u6d25',
+    status: 'registration',
+    isPreEvent: true,
+    rosterStatus: 'partial',
+    registrationSummary: { expectedRegistrationCount: 80, rosterCount: 20 },
+    items: [{ eventCode: 'TJ2026JUNE-U10MF', eventName: 'U10 \u7537\u5b50\u82b1\u5251', shortEventName: 'U10 \u7537\u82b1' }],
   },
   {
     sportCode: 'TJSEASONONLY',
@@ -146,7 +161,7 @@ const context = {
   },
 };
 vm.createContext(context);
-vm.runInContext(`const state = globalThis.__state;\n${functionNames.map(extractFunction).join('\n')}\nglobalThis.buildAiAnswer = buildAiAnswer;\nglobalThis.aiAcceptanceQueryCases = aiAcceptanceQueryCases;\nglobalThis.detectRegionInQuery = detectRegionInQuery;\nglobalThis.aiEntityCandidateTerms = aiEntityCandidateTerms;`, context);
+vm.runInContext(`const state = globalThis.__state;\n${functionNames.map(extractFunction).join('\n')}\nglobalThis.buildAiAnswer = buildAiAnswer;\nglobalThis.aiAcceptanceQueryCases = aiAcceptanceQueryCases;\nglobalThis.detectRegionInQuery = detectRegionInQuery;\nglobalThis.detectYearInQuery = detectYearInQuery;\nglobalThis.aiEntityCandidateTerms = aiEntityCandidateTerms;`, context);
 
 assert.equal(context.detectRegionInQuery('2026年天津有几场比赛'), '天津', 'AI region detection must not depend on the current dataset containing that city');
 
@@ -159,7 +174,15 @@ assert.ok(clubTerms.includes('\u5c71\u4e1c\u5c0f\u4f17\u4f53\u80b2'), 'AI entity
 
 const seasonOnlyStats = context.buildAiAnswer('\u0032\u0030\u0032\u0036\u5e74\u5929\u6d25\u6709\u51e0\u573a\u6bd4\u8d5b');
 assert.equal(seasonOnlyStats.type, 'competition-stats', 'season-based regional query should route to competition stats');
-assert.equal(seasonOnlyStats.cards[0][1], '3 \u573a', 'AI competition stats should count events whose year is available only from season');
+assert.equal(seasonOnlyStats.cards[0][1], '4 \u573a', 'AI competition stats should count events whose year is available only from season');
+
+const juneStats = context.buildAiAnswer('\u0032\u0030\u0032\u0036\u5e74\u0036\u6708\u5929\u6d25\u6709\u51e0\u573a\u6bd4\u8d5b');
+assert.equal(juneStats.type, 'competition-stats', 'month-based regional query should route to competition stats');
+assert.equal(juneStats.cards[0][1], '2 \u573a', 'AI competition stats should filter by month');
+assert.equal(juneStats.cards.find(([label]) => label === '\u6708\u4efd')[1], '6\u6708', 'AI competition stats should expose the matched month');
+
+const currentYear = String(new Date().getFullYear());
+assert.equal(context.detectYearInQuery('\u4eca\u5e74\u5929\u6d25\u6709\u51e0\u573a\u6bd4\u8d5b'), currentYear, 'AI year detection should support current-year wording');
 
 for (const item of context.aiAcceptanceQueryCases()) {
   const report = context.buildAiAnswer(item.query);
