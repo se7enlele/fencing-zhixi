@@ -1679,7 +1679,17 @@ function aiPromptPresets() {
   return [
     primary && secondary ? `分析${primary.name}和${secondary.name}的对比情况` : '分析马潇和陶嘉月的对比情况',
     primary ? `${primary.name}最近几场有没有进步` : '蔡廷彧最近几场有没有进步',
-    '山东小众体育最近哪些项目表现最好',
+    ...aiAcceptanceQueryCases().slice(1, 4).map((item) => item.query),
+  ];
+}
+
+function aiAcceptanceQueryCases() {
+  return [
+    { query: '2026年天津有几场比赛', expectedType: 'competition-stats' },
+    { query: '天津近期报名情况', expectedType: 'prematch' },
+    { query: '山东小众体育 U8 男花怎么样', expectedType: 'club' },
+    { query: '蔡廷彧最近几场有没有进步', expectedType: 'growth' },
+    { query: '分析马潇和陶嘉月的对战情况', expectedType: 'comparison' },
   ];
 }
 

@@ -6,6 +6,13 @@ const css = await readFile(new URL('../web/viewer.css', import.meta.url), 'utf8'
 
 assert.match(js, /function athleteComparisonConfidence\(direct, shared\)/, 'AI athlete comparison must expose evidence strength');
 assert.match(js, /function athleteRankGapText\(left, right\)/, 'AI athlete comparison must explain rank gap');
+assert.match(js, /function aiAcceptanceQueryCases\(\)/, 'AI must keep a stable acceptance query set');
+assert.match(js, /expectedType: 'competition-stats'/, 'AI acceptance queries must cover regional competition stats');
+assert.match(js, /expectedType: 'prematch'/, 'AI acceptance queries must cover prematch registration questions');
+assert.match(js, /expectedType: 'club'/, 'AI acceptance queries must cover scoped club analysis');
+assert.match(js, /expectedType: 'growth'/, 'AI acceptance queries must cover athlete growth analysis');
+assert.match(js, /expectedType: 'comparison'/, 'AI acceptance queries must cover athlete comparison');
+assert.match(js, /aiAcceptanceQueryCases\(\)\.slice\(1, 4\)/, 'AI home presets must reuse acceptance questions');
 assert.match(js, /function detectExactAthletesInQuery\(normalizedQuery\)/, 'AI routing must separate exact athlete matches from fuzzy matches');
 assert.match(js, /const club = detectClubInQuery\(text\);[\s\S]*if \(club\) return buildAiClubReport\(text, club\);[\s\S]*const athletes = detectAthletesInQuery\(text\);/, 'AI routing must prefer exact club matches before fuzzy athlete guesses');
 assert.match(js, /function aiProjectHints\(query\)/, 'AI club reports must detect project hints like U8 male foil');
