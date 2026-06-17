@@ -3201,6 +3201,151 @@ function renderFollowedEventFocus(event) {
   });
 }
 
+function eventRosterRows(event) {
+  return [...(event.participants || [])].map((row) => ({
+    ...row,
+    eventName: row.eventName || event.eventName,
+    sportName: row.sportName || event.sportName,
+    eventCode: row.eventCode || event.eventCode,
+  }));
+}
+
+function rosterHistoryMatch(row) {
+  const nameKey = compactText(rosterAthleteLabel(row));
+  const clubKey = compactText(rosterClubText(row));
+  return (state.athleteSearchIndex || [])
+    .filter((athlete) => compactText(athlete.name) === nameKey)
+    .sort((a, b) => {
+      const aClub = compactText(a.club);
+      const bClub = compactText(b.club);
+      const aClubMatch = clubKey && aClub && (clubKey.includes(aClub) || aClub.includes(clubKey)) ? 0 : 1;
+      const bClubMatch = clubKey && bClub && (clubKey.includes(bClub) || bClub.includes(clubKey)) ? 0 : 1;
+      return aClubMatch - bClubMatch || (a.bestRank ?? 999) - (b.bestRank ?? 999) || (b.appearances || 0) - (a.appearances || 0);
+    })[0] || null;
+}
+
+function rosterRankValue(row) {
+  const rank = Number(row.sigupRank ?? row.rank ?? row.seedRank);
+  return Number.isFinite(rank) && rank > 0 ? rank : null;
+}
+
+function buildEventPreMatchModel(event) {
+  const rosterRows = eventRosterRows(event);
+  const expected = Number(event.expectedRegistrationCount || event.competitionNo || 0);
+  const registered = rosterRows.length || Number(event.registrationCount || 0);
+  const clubMap = new Map();
+  for (const row of rosterRows) {
+    const club = rosterClubText(row) || '俱乐部待确认';
+    const current = clubMap.get(club) || { club, count: 0, athletes: [] };
+    current.count += 1;
+    const athlete = rosterAthleteLabel(row);
+    if (athlete && !current.athletes.includes(athlete)) current.athletes.push(athlete);
+    clubMap.set(club, current);
+  }
+
+  const followedNames = new Set([
+    ...state.followedAthletes.map((athlete) => compactText(athlete.name)),
+    compactText(selectedChildAthlete()?.name),
+  ].filter(Boolean));
+  const followedRows = rosterRows.filter((row) => followedNames.has(compactText(rosterAthleteLabel(row)))).slice(0, 4);
+  const strongRows = rosterRows
+    .map((row) => {
+      const history = rosterHistoryMatch(row);
+      return {
+        row,
+        history,
+        rank: rosterRankValue(row),
+      };
+    })
+    .filter((item) => item.history || item.rank)
+    .sort((a, b) => (a.rank ?? a.history?.bestRank ?? 999) - (b.rank ?? b.history?.bestRank ?? 999)
+      || (b.history?.appearances || 0) - (a.history?.appearances || 0))
+    .slice(0, 5);
+
+  return {
+    rosterRows,
+    expected,
+    registered,
+    progress: expected ? Math.min(100, Math.round((registered / expected) * 100)) : 0,
+    clubRows: [...clubMap.values()].sort((a, b) => b.count - a.count || a.club.localeCompare(b.club, 'zh-CN')).slice(0, 5),
+    followedRows,
+    strongRows,
+  };
+}
+
+function renderEventPreMatchIntelligence(event) {
+  const isPreMatch = event.isPreEvent || ['registration', 'upcoming', 'live'].includes(event.status) || Number(event.registrationCount || 0) > 0;
+  if (!isPreMatch) return '';
+  const model = buildEventPreMatchModel(event);
+  const hasRoster = model.rosterRows.length > 0;
+  return `
+    <div class="chart-card event-prematch-card">
+      <div class="chart-title">赛前情报</div>
+      <div class="event-prematch-summary">
+        <strong>${escapeHtml(hasRoster ? `已识别 ${model.registered} 条报名记录` : '报名名单待更新')}</strong>
+        <span>${escapeHtml(hasRoster ? '先看报名规模、主要俱乐部和可重点关注选手。' : '当前先看项目规模和比赛时间，名单更新后会形成对手分析。')}</span>
+      </div>
+      <div class="event-prematch-metrics">
+        <div>
+          <strong>${escapeHtml(model.registered || '-')}</strong>
+          <span>已报名</span>
+        </div>
+        <div>
+          <strong>${escapeHtml(model.expected || '-')}</strong>
+          <span>预计规模</span>
+        </div>
+        <div>
+          <strong>${escapeHtml(model.clubRows.length || '-')}</strong>
+          <span>主要俱乐部</span>
+        </div>
+      </div>
+      ${model.expected ? `
+        <div class="progress-item event-prematch-progress">
+          <div class="progress-head">
+            <span>报名进度</span>
+            <strong>${escapeHtml(model.progress)}%</strong>
+          </div>
+          <div class="progress-track">
+            <div class="progress-fill" style="width: ${Math.max(2, model.progress)}%"></div>
+          </div>
+        </div>
+      ` : ''}
+      ${hasRoster ? `
+        <div class="event-prematch-grid">
+          <div>
+            <div class="mini-title">俱乐部分布</div>
+            <div class="event-prematch-list">
+              ${model.clubRows.map((row) => `
+                <div>
+                  <strong>${escapeHtml(row.club)}</strong>
+                  <span>${escapeHtml(row.count)} 人 · ${escapeHtml(row.athletes.slice(0, 3).join(' / '))}</span>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+          <div>
+            <div class="mini-title">重点关注</div>
+            <div class="event-prematch-list">
+              ${(model.followedRows.length ? model.followedRows.map((row) => ({
+                title: rosterAthleteLabel(row),
+                detail: `${rosterClubText(row) || '俱乐部待确认'} · 已关注`,
+              })) : model.strongRows.map((item) => ({
+                title: rosterAthleteLabel(item.row),
+                detail: `${rosterClubText(item.row) || '俱乐部待确认'} · ${item.rank ? `报名排名 ${item.rank}` : `历史最好第 ${item.history?.bestRank ?? '-'} 名`}`,
+              }))).slice(0, 4).map((row) => `
+                <div>
+                  <strong>${escapeHtml(row.title)}</strong>
+                  <span>${escapeHtml(row.detail)}</span>
+                </div>
+              `).join('') || '<div><strong>样本积累中</strong><span>关注孩子或补充名单后，会优先显示相关选手。</span></div>'}
+            </div>
+          </div>
+        </div>
+      ` : ''}
+    </div>
+  `;
+}
+
 function pathChart(title, rows) {
   return `
     <div class="chart-card">
@@ -3399,6 +3544,7 @@ function renderAnalysisCharts(event) {
   }));
 
   analysisCharts.innerHTML = [
+    renderEventPreMatchIntelligence(event),
     progressChart('比赛压力', structureRows, structureInterpretation(event)),
     (event.championPath || []).length ? pathChart('冠军路径', event.championPath) : '',
     birthRows.length ? barChart('年龄段分布', birthRows, { tone: 'orange' }) : '',

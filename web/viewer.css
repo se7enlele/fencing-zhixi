@@ -2628,6 +2628,98 @@ select:focus {
   padding: 12px;
 }
 
+.event-prematch-card {
+  border-color: rgba(13, 125, 103, 0.18);
+  background: linear-gradient(180deg, rgba(13, 125, 103, 0.06), rgba(255, 255, 255, 0.86));
+}
+
+.event-prematch-summary {
+  display: grid;
+  gap: 4px;
+  margin-bottom: 10px;
+}
+
+.event-prematch-summary strong,
+.event-prematch-summary span,
+.event-prematch-list strong,
+.event-prematch-list span {
+  display: block;
+  min-width: 0;
+}
+
+.event-prematch-summary strong {
+  font-size: 15px;
+}
+
+.event-prematch-summary span,
+.event-prematch-list span {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.event-prematch-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.event-prematch-metrics div {
+  border: 1px solid rgba(13, 125, 103, 0.12);
+  border-radius: 9px;
+  background: rgba(255, 255, 255, 0.72);
+  padding: 9px;
+}
+
+.event-prematch-metrics strong,
+.event-prematch-metrics span {
+  display: block;
+}
+
+.event-prematch-metrics strong {
+  font-size: 17px;
+}
+
+.event-prematch-metrics span {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.event-prematch-progress {
+  margin-bottom: 10px;
+}
+
+.event-prematch-grid {
+  display: grid;
+  gap: 10px;
+}
+
+.mini-title {
+  margin-bottom: 6px;
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.event-prematch-list {
+  display: grid;
+  gap: 7px;
+}
+
+.event-prematch-list div {
+  border: 1px solid rgba(16, 24, 40, 0.06);
+  border-radius: 9px;
+  background: rgba(255, 255, 255, 0.76);
+  padding: 8px 9px;
+}
+
+.event-prematch-list strong {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 13px;
+}
+
 .chart-title {
   font-size: 14px;
   font-weight: 800;
