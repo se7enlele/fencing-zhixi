@@ -2661,6 +2661,107 @@ select:focus {
   background: linear-gradient(180deg, rgba(15, 92, 192, 0.07), rgba(255, 255, 255, 0.9));
 }
 
+.club-share-section {
+  margin-top: -2px;
+}
+
+.club-share-card {
+  display: grid;
+  gap: 11px;
+  border: 1px solid rgba(13, 125, 103, 0.16);
+  border-radius: 12px;
+  background:
+    radial-gradient(circle at top right, rgba(21, 95, 194, 0.12), transparent 34%),
+    linear-gradient(160deg, rgba(240, 251, 247, 0.98), rgba(255, 255, 255, 0.95));
+  padding: 13px;
+  box-shadow: 0 10px 24px rgba(21, 95, 194, 0.08);
+}
+
+.club-share-head {
+  display: grid;
+  gap: 3px;
+}
+
+.club-share-head span {
+  width: max-content;
+  border-radius: 999px;
+  background: rgba(13, 125, 103, 0.1);
+  color: var(--teal);
+  font-size: 11px;
+  font-weight: 900;
+  padding: 3px 8px;
+}
+
+.club-share-head strong {
+  font-size: 20px;
+  line-height: 1.25;
+}
+
+.club-share-head em,
+.club-share-proof span,
+.club-share-proof em {
+  color: var(--muted);
+  font-size: 12px;
+  font-style: normal;
+}
+
+.club-share-kpis {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 7px;
+}
+
+.club-share-kpis span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  border: 1px solid rgba(21, 95, 194, 0.08);
+  border-radius: 9px;
+  background: rgba(255, 255, 255, 0.78);
+  color: var(--primary);
+  font-size: 12px;
+  font-weight: 900;
+  padding: 8px 9px;
+}
+
+.club-share-proof {
+  display: grid;
+  gap: 8px;
+}
+
+.club-share-proof div {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+  border-top: 1px solid rgba(16, 24, 40, 0.06);
+  padding-top: 9px;
+}
+
+.club-share-proof strong {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 15px;
+}
+
+.club-share-proof em {
+  line-height: 1.45;
+}
+
+.club-share-action {
+  height: 38px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--primary);
+  color: #fff;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 900;
+  box-shadow: 0 9px 18px rgba(21, 95, 194, 0.18);
+}
+
 .peer-card {
   border-color: rgba(13, 125, 103, 0.16);
 }

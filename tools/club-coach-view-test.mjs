@@ -6,6 +6,9 @@ const css = await readFile(new URL('../web/viewer.css', import.meta.url), 'utf8'
 
 assert.match(js, /function clubPeerRows\(club, projectRows\)/, 'club coach view must compute same-project peers');
 assert.match(js, /function buildClubBusinessCards\(club, projectRows, athletes, peerRows\)/, 'club coach view must build business-facing cards');
+assert.match(js, /function buildClubShareText\(club, projectRows, athletes\)/, 'club coach view must build shareable recruiting copy');
+assert.match(js, /function renderClubShareCard\(club, projectRows, athletes\)/, 'club coach view must render a shareable recruiting card');
+assert.match(js, /function copyTextToClipboard\(text\)/, 'club share card must support copy action');
 assert.match(js, /function buildCoachActionPlan\(\{ club, projectRows, athletes, athleteBuckets, peerRows, rosterRows \}\)/, 'club coach view must turn data into coach actions');
 assert.match(js, /function renderCoachActionPlan\(cards\)/, 'club coach view must render a weekly action plan');
 assert.match(js, /<h2>本周行动<\/h2>/, 'club detail must expose a coach action section');
@@ -16,10 +19,14 @@ assert.match(js, /招生素材/, 'coach action plan must include recruiting acti
 assert.match(js, /<h2>招生名片<\/h2>/, 'club detail must expose a recruiting card section');
 assert.match(js, /<h2>同项目对标<\/h2>/, 'club detail must expose peer benchmarking');
 assert.match(js, /data-club-id/, 'peer club cards must navigate to club profiles');
+assert.match(js, /data-share-club/, 'club recruiting card must expose a share action');
 assert.match(js, /openClub\(button\.dataset\.clubId\)/, 'peer cards must open the selected club profile');
 
 assert.match(css, /\.business-card-grid/, 'recruiting cards must have mobile layout styles');
 assert.match(css, /\.business-card:first-child/, 'primary recruiting card must be visually emphasized');
+assert.match(css, /\.club-share-card/, 'shareable recruiting card must have a distinct mobile card layout');
+assert.match(css, /\.club-share-kpis/, 'shareable recruiting card must expose compact proof points');
+assert.match(css, /\.club-share-action/, 'shareable recruiting card must style its copy action');
 assert.match(css, /\.coach-action-grid/, 'coach action plan must have a mobile grid layout');
 assert.match(css, /\.coach-action-card:first-child/, 'primary coach action must be visually emphasized');
 assert.match(css, /\.peer-card/, 'peer comparison cards must have a distinct style hook');

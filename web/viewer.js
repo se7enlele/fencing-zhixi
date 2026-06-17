@@ -4363,6 +4363,88 @@ function buildClubBusinessCards(club, projectRows, athletes, peerRows) {
   ];
 }
 
+function clubShareHighlights(club, projectRows, athletes) {
+  const bestProject = [...projectRows].sort((a, b) => (a.bestRank ?? 999) - (b.bestRank ?? 999))[0];
+  const topProject = projectRows[0];
+  const strongestAthlete = athletes[0];
+  return [
+    `参赛 ${club.entrants || 0} 人次`,
+    `${club.top8 || 0} 次前八`,
+    `${club.medals || 0} 枚奖牌`,
+    `最好第 ${club.bestRank ?? '-'} 名`,
+    topProject ? `主力项目 ${topProject.label}` : '',
+    bestProject ? `${bestProject.label} 最好第 ${bestProject.bestRank ?? '-'} 名` : '',
+    strongestAthlete ? `代表学员 ${strongestAthlete.name}` : '',
+  ].filter(Boolean);
+}
+
+function buildClubShareText(club, projectRows, athletes) {
+  const highlights = clubShareHighlights(club, projectRows, athletes);
+  const bestProject = [...projectRows].sort((a, b) => (a.bestRank ?? 999) - (b.bestRank ?? 999))[0];
+  const strongestAthlete = athletes[0];
+  const lines = [
+    `${club.club} 击剑成长数据名片`,
+    highlights.slice(0, 4).join('，'),
+    bestProject ? `优势项目：${bestProject.label}，参赛 ${bestProject.entrants || 0} 人次，最好第 ${bestProject.bestRank ?? '-'} 名。` : '',
+    strongestAthlete ? `代表学员：${strongestAthlete.name}，最好第 ${strongestAthlete.bestRank ?? '-'} 名，${strongestAthlete.appearances || 0} 次参赛记录。` : '',
+    '数据来自已收录赛事成绩，可用于家长沟通、续费反馈和招生展示。',
+  ].filter(Boolean);
+  return lines.join('\n');
+}
+
+function renderClubShareCard(club, projectRows, athletes) {
+  const highlights = clubShareHighlights(club, projectRows, athletes).slice(0, 4);
+  const bestProject = [...projectRows].sort((a, b) => (a.bestRank ?? 999) - (b.bestRank ?? 999))[0];
+  const strongestAthlete = athletes[0];
+  return `
+    <section class="coach-section club-share-section">
+      <div class="section-title">
+        <h2>分享名片</h2>
+        <span>家长可看</span>
+      </div>
+      <div class="club-share-card">
+        <div class="club-share-head">
+          <span>FencingAI</span>
+          <strong>${escapeHtml(club.club)}</strong>
+          <em>击剑成长数据名片</em>
+        </div>
+        <div class="club-share-kpis">
+          ${highlights.map((text) => `<span>${escapeHtml(text)}</span>`).join('')}
+        </div>
+        <div class="club-share-proof">
+          <div>
+            <span>优势项目</span>
+            <strong>${escapeHtml(bestProject?.label || '持续积累中')}</strong>
+            <em>${escapeHtml(bestProject ? `参赛 ${bestProject.entrants || 0} 人次，最好第 ${bestProject.bestRank ?? '-'} 名` : '更多成绩收录后会形成项目案例')}</em>
+          </div>
+          <div>
+            <span>代表学员</span>
+            <strong>${escapeHtml(strongestAthlete?.name || '持续积累中')}</strong>
+            <em>${escapeHtml(strongestAthlete ? `最好第 ${strongestAthlete.bestRank ?? '-'} 名，${strongestAthlete.appearances || 0} 次记录` : '更多学员成绩收录后会形成成长案例')}</em>
+          </div>
+        </div>
+        <button class="club-share-action" type="button" data-share-club>复制分享文案</button>
+      </div>
+    </section>
+  `;
+}
+
+async function copyTextToClipboard(text) {
+  if (navigator.clipboard?.writeText) {
+    await navigator.clipboard.writeText(text);
+    return;
+  }
+  const textarea = document.createElement('textarea');
+  textarea.value = text;
+  textarea.setAttribute('readonly', '');
+  textarea.style.position = 'fixed';
+  textarea.style.left = '-9999px';
+  document.body.appendChild(textarea);
+  textarea.select();
+  document.execCommand('copy');
+  textarea.remove();
+}
+
 function projectCoachAdvice(row) {
   if (row.medals > 0) return '可作为口碑项目继续强化，沉淀代表学员和比赛复盘。';
   if (row.top8 > 0) return '已有前八基础，下一步重点提升淘汰赛稳定性。';
@@ -4649,6 +4731,7 @@ function renderClubDetail(club) {
   const highlights = buildClubGrowthHighlights(club, projectRows, athletes);
   const peerRows = clubPeerRows(club, projectRows);
   const businessCards = buildClubBusinessCards(club, projectRows, athletes, peerRows);
+  const shareText = buildClubShareText(club, projectRows, athletes);
   const rosterRows = clubRosterRows(club);
   const actionPlan = buildCoachActionPlan({ club, projectRows, athletes, athleteBuckets, peerRows, rosterRows });
   const top8Rate = Number(club.entrants) ? Math.round((Number(club.top8 || 0) / Number(club.entrants)) * 100) : 0;
@@ -4695,6 +4778,8 @@ function renderClubDetail(club) {
           `).join('')}
         </div>
       </section>
+
+      ${renderClubShareCard(club, projectRows, athletes)}
 
       ${renderPreMatchIntelligence(club, projectRows, athletes, rosterRows)}
 
@@ -4784,6 +4869,20 @@ function renderClubDetail(club) {
   clubEvents.querySelectorAll('[data-club-id]').forEach((button) => {
     if (!button.dataset.clubId) return;
     button.addEventListener('click', () => openClub(button.dataset.clubId));
+  });
+  clubEvents.querySelectorAll('[data-share-club]').forEach((button) => {
+    button.addEventListener('click', async () => {
+      const originalLabel = button.textContent;
+      try {
+        await copyTextToClipboard(shareText);
+        button.textContent = '已复制';
+      } catch (error) {
+        button.textContent = '复制失败';
+      }
+      setTimeout(() => {
+        button.textContent = originalLabel;
+      }, 1400);
+    });
   });
 }
 
