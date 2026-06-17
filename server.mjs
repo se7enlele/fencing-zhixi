@@ -15,6 +15,7 @@ const PORT = Number(process.env.PORT ?? 5177);
 const MAX_BODY_BYTES = 20 * 1024 * 1024;
 const APP_VERSION = 'fencingai-product-20260528-1';
 const ADMIN_TOKEN = process.env.FENCINGAI_ADMIN_TOKEN || 'fencingai-admin-2026';
+let memoryFollowStore = { devices: {} };
 
 const MIME_TYPES = {
   '.html': 'text/html; charset=utf-8',
@@ -257,7 +258,21 @@ async function getEventDetailByCode(eventCode) {
 }
 
 function getFollowStorePath() {
+  if (process.env.USER_FOLLOWS_PATH) {
+    return path.resolve(process.env.USER_FOLLOWS_PATH);
+  }
   return path.join(__dirname, 'data', 'user-follows.json');
+}
+
+function useMemoryFollowStore() {
+  return process.env.USER_FOLLOWS_PATH === ':memory:';
+}
+
+function getAnalysisOutputDir() {
+  if (process.env.ANALYSIS_OUTPUT_DIR) {
+    return process.env.ANALYSIS_OUTPUT_DIR;
+  }
+  return path.join(__dirname, 'data', 'analysis');
 }
 
 function normalizeDeviceId(deviceId) {
@@ -269,6 +284,9 @@ function normalizeDeviceId(deviceId) {
 }
 
 async function readFollowStore() {
+  if (useMemoryFollowStore()) {
+    return memoryFollowStore;
+  }
   try {
     return JSON.parse(await readFile(getFollowStorePath(), 'utf8'));
   } catch {
@@ -277,6 +295,10 @@ async function readFollowStore() {
 }
 
 async function writeFollowStore(store) {
+  if (useMemoryFollowStore()) {
+    memoryFollowStore = store;
+    return;
+  }
   await mkdir(path.dirname(getFollowStorePath()), { recursive: true });
   await writeFile(getFollowStorePath(), stableStringify(store), 'utf8');
 }
@@ -1571,9 +1593,14 @@ async function handleAnalyze(request, response) {
       ...analysis,
     };
 
-    await mkdir(path.join(__dirname, 'data', 'analysis'), { recursive: true });
-    const outputPath = path.join(__dirname, 'data', 'analysis', `web-analysis-${Date.now()}.json`);
-    await writeFile(outputPath, stableStringify(report), 'utf8');
+    const analysisOutputDir = getAnalysisOutputDir();
+    const outputPath = analysisOutputDir === ':memory:'
+      ? null
+      : path.join(path.resolve(analysisOutputDir), `web-analysis-${Date.now()}.json`);
+    if (outputPath) {
+      await mkdir(path.dirname(outputPath), { recursive: true });
+      await writeFile(outputPath, stableStringify(report), 'utf8');
+    }
 
     sendJson(response, 200, {
       ...report,
@@ -1800,7 +1827,7 @@ const server = createServer(async (request, response) => {
   }
 });
 
-if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+if (path.basename(process.argv[1] || '') === 'server.mjs') {
   server.listen(PORT, '127.0.0.1', () => {
     console.log(`Fencing data admin is running at http://127.0.0.1:${PORT}`);
   });

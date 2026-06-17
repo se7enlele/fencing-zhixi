@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "node server.mjs",
-    "smoke": "node tools/filter-options-test.mjs && node tools/athlete-detail-view-test.mjs && node tools/event-leaders-view-test.mjs && node tools/competition-detail-view-test.mjs && node tools/date-label-normalization-test.mjs && node tools/my-page-view-test.mjs && node tools/search-follow-test.mjs && node tools/pre-event-import-test.mjs && node tools/platform-event-list-test.mjs && node tools/sync-platform-data-test.mjs && node tools/pre-event-view-test.mjs && node tools/worker-project-event-test.mjs && node tools/worker-dynamic-competition-test.mjs && node tools/worker-elimination-score-test.mjs && node tools/worker-cache-policy-test.mjs && node tools/api-layering-test.mjs && node tools/club-directory-test.mjs && node tools/smoke-test.mjs",
+    "smoke": "node tools/filter-options-test.mjs && node tools/athlete-detail-view-test.mjs && node tools/event-leaders-view-test.mjs && node tools/competition-detail-view-test.mjs && node tools/date-label-normalization-test.mjs && node tools/my-page-view-test.mjs && node tools/search-follow-test.mjs && node tools/pre-event-import-test.mjs && node tools/platform-event-list-test.mjs && node tools/sync-platform-data-test.mjs && node tools/scheduled-sync-test.mjs && node tools/pre-event-view-test.mjs && node tools/worker-project-event-test.mjs && node tools/worker-dynamic-competition-test.mjs && node tools/worker-elimination-score-test.mjs && node tools/worker-cache-policy-test.mjs && node tools/api-layering-test.mjs && node tools/club-directory-test.mjs && node tools/smoke-test.mjs",
     "analyze:sample": "node tools/analyze-sample.mjs",
     "analyze:url": "node tools/analyze-sample.mjs --url",
     "parse:projectlist": "node tools/parse-projectlist.mjs",
@@ -15,6 +15,8 @@
     "analysis:three-year": "node tools/three-year-analysis.mjs",
     "coverage:data:online": "node tools/data-coverage-report.mjs --url=https://fencingai.uk/api/events",
     "sync:platform": "node tools/sync-platform-data.mjs",
+    "sync:scheduled": "node tools/scheduled-sync.mjs",
+    "sync:scheduled:dry": "node tools/scheduled-sync.mjs --dry-run",
     "cf:build-data": "node tools/build-cloudflare-data.mjs",
     "cf:deploy": "npm run cf:build-data && npx wrangler deploy"
   },

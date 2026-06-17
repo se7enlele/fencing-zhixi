@@ -6,7 +6,12 @@ const baseUrl = `http://127.0.0.1:${port}`;
 
 const server = spawn(process.execPath, ['server.mjs'], {
   stdio: ['ignore', 'pipe', 'pipe'],
-  env: { ...process.env, PORT: String(port) },
+  env: {
+    ...process.env,
+    PORT: String(port),
+    USER_FOLLOWS_PATH: ':memory:',
+    ANALYSIS_OUTPUT_DIR: ':memory:',
+  },
 });
 
 function waitForServer() {
