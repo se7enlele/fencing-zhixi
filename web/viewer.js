@@ -1918,8 +1918,10 @@ function buildAiCompetitionStats(query, filters) {
       },
     ].filter(Boolean) : [],
     evidence: rows.slice(0, 8).map((competition) => ({
+      kind: '赛事记录',
       label: competition.sportName,
       detail: `${competition.dateLabel || '日期待确认'} · ${competition.venue || competition.region || ''} · ${statusLabel(competition.status)}`,
+      reason: '用于核对赛事数量、地区和状态',
       sportCode: competition.sportCode,
     })),
     actions: [
@@ -1978,8 +1980,10 @@ function buildAiAthleteComparison(query, left, right) {
     ].filter(Boolean),
     evidence: [
       ...shared.slice(0, 5).map((row) => ({
+        kind: '共同项目',
         label: row.eventName,
         detail: `${row.sportName} · ${left.name} 第${row.leftRank || '-'}名，${right.name} 第${row.rightRank || '-'}名`,
+        reason: '用于比较同一项目里的名次差距',
         eventCode: row.eventCode,
       })),
       ...topEvidenceEvents(leftEvents, left.name, 2),
@@ -2048,8 +2052,10 @@ function buildAiClubReport(query, club) {
       } : null,
     ].filter(Boolean),
     evidence: (club.events || []).slice(0, 7).map((event) => ({
+      kind: '俱乐部记录',
       label: displayEventName(event),
       detail: `${event.sportName || ''} · ${event.openDate || ''}`,
+      reason: '用于核对俱乐部参赛项目和成绩来源',
       eventCode: event.eventCode,
     })),
     actions: club.id ? [{ label: '查看俱乐部画像', clubId: club.id }] : [],
@@ -2138,10 +2144,16 @@ function directOpponentRows(left, right) {
 
 function topEvidenceEvents(events, owner, limit = 5) {
   return (events || []).slice(0, limit).map((event) => ({
+    kind: '选手成绩',
     label: displayEventName(event),
     detail: `${owner} · ${event.sportName || ''} · 第${event.finalRank ?? '-'}名 · ${event.openDate || ''}`,
+    reason: '用于核对选手名次、时间和参赛项目',
     eventCode: event.eventCode,
   }));
+}
+
+function aiEvidenceKind(row) {
+  return row.kind || (row.sportCode ? '赛事记录' : row.eventCode ? '项目记录' : '数据来源');
 }
 
 function renderAiAnswer(report) {
@@ -2173,8 +2185,10 @@ function renderAiAnswer(report) {
           <div class="chart-title">证据来源</div>
           ${report.evidence.map((row) => `
             <button type="button" ${row.eventCode ? `data-event-code="${escapeHtml(row.eventCode)}"` : ''} ${row.sportCode ? `data-sport-code="${escapeHtml(row.sportCode)}"` : ''}>
+              <em>${escapeHtml(aiEvidenceKind(row))}</em>
               <strong>${escapeHtml(row.label)}</strong>
               <span>${escapeHtml(row.detail)}</span>
+              ${row.reason ? `<small>${escapeHtml(row.reason)}</small>` : ''}
             </button>
           `).join('')}
         </div>

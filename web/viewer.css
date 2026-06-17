@@ -1412,12 +1412,33 @@ select:focus {
   padding: 9px;
 }
 
+.ai-evidence button em,
 .ai-evidence button strong,
-.ai-evidence button span {
+.ai-evidence button span,
+.ai-evidence button small {
+  display: block;
   min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.ai-evidence button em {
+  width: fit-content;
+  max-width: 100%;
+  border-radius: 999px;
+  background: rgba(21, 95, 194, 0.08);
+  color: var(--primary);
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 800;
+  padding: 2px 7px;
+}
+
+.ai-evidence button small {
+  color: var(--teal);
+  font-size: 11px;
+  font-weight: 700;
 }
 
 .ai-source-note {

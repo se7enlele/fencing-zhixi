@@ -9,8 +9,15 @@ assert.match(js, /function athleteRankGapText\(left, right\)/, 'AI athlete compa
 assert.match(js, /暂未发现两人的直接交手记录/, 'AI comparison must not imply direct bouts when none are found');
 assert.match(js, /没有直接交手时，不会推断真实胜负/, 'AI comparison must disclose data boundary');
 assert.match(js, /title: '时间分布'/, 'AI competition stats must include month distribution when available');
+assert.match(js, /kind: '共同项目'/, 'AI evidence must label shared project evidence');
+assert.match(js, /reason: '用于比较同一项目里的名次差距'/, 'AI evidence must explain why a source supports the answer');
+assert.match(js, /function aiEvidenceKind\(row\)/, 'AI evidence renderer must normalize evidence type labels');
 assert.match(js, /class="ai-source-note"/, 'AI answer must render data boundary notes');
+assert.match(js, /<em>\$\{escapeHtml\(aiEvidenceKind\(row\)\)\}<\/em>/, 'AI evidence cards must show evidence type');
+assert.match(js, /<small>\$\{escapeHtml\(row\.reason\)\}<\/small>/, 'AI evidence cards must show relevance reason');
 
 assert.match(css, /\.ai-source-note/, 'AI source note styles must exist');
+assert.match(css, /\.ai-evidence button em/, 'AI evidence type badge styles must exist');
+assert.match(css, /\.ai-evidence button small/, 'AI evidence reason styles must exist');
 
 console.log('AI native answers are covered');
