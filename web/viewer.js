@@ -1379,6 +1379,37 @@ function buildParentGrowthModel(athlete) {
   return { events, latest, previous, best, poolRate, totalPoolWins, totalPoolMatches, totalElimWins, totalElimLosses, top8Count, medalCount, trend, yearRows, investment, advice };
 }
 
+function parentNextFocusRows(model) {
+  const rows = [];
+  if (!model.events.length) {
+    return [
+      { title: '先建立参赛样本', detail: '至少积累 2-3 场记录后，再看趋势和项目稳定性。' },
+    ];
+  }
+
+  if (model.poolRate === null) {
+    rows.push({ title: '补齐小组赛表现', detail: '优先看小组胜负和净胜剑，判断基础稳定性。' });
+  } else if (model.poolRate >= 60) {
+    rows.push({ title: '保持小组赛稳定', detail: `当前小组胜率 ${model.poolRate}%，下一步看淘汰赛关键分。` });
+  } else {
+    rows.push({ title: '提升小组赛稳定性', detail: `当前小组胜率 ${model.poolRate}%，重点复盘开局和连续失分。` });
+  }
+
+  if (model.totalElimWins + model.totalElimLosses) {
+    rows.push(model.totalElimWins > model.totalElimLosses
+      ? { title: '扩大淘汰赛优势', detail: `${model.totalElimWins}胜${model.totalElimLosses}负，适合重点研究强手对局。` }
+      : { title: '积累淘汰赛经验', detail: `${model.totalElimWins}胜${model.totalElimLosses}负，下一步关注关键分处理。` });
+  } else {
+    rows.push({ title: '争取淘汰赛突破', detail: '当前还缺少淘汰赛胜负样本，先看能否稳定进入后续轮次。' });
+  }
+
+  rows.push(model.top8Count
+    ? { title: '沉淀优势项目', detail: `已有 ${model.top8Count} 次前八，建议围绕最好项目持续参赛。` }
+    : { title: '寻找突破项目', detail: '尚未形成前八突破，先看哪个项目名次最接近前八。' });
+
+  return rows.slice(0, 3);
+}
+
 function renderParentWorkspace() {
   const candidates = childCandidates();
   const child = getSelectedChild(candidates);
@@ -1409,6 +1440,7 @@ function renderParentWorkspace() {
   }
 
   const trendLabel = model.trend === null ? '趋势待确认' : model.trend > 0 ? `进步 ${model.trend} 名` : model.trend < 0 ? `后退 ${Math.abs(model.trend)} 名` : '名次持平';
+  const focusRows = parentNextFocusRows(model);
   return `
     <section class="panel role-panel parent-panel">
       <div class="role-panel-head">
@@ -1435,6 +1467,18 @@ function renderParentWorkspace() {
         <div class="insight-note compact">最近一次：${escapeHtml(model.latest ? `${displayEventName(model.latest)} 第${model.latest.finalRank ?? '-'}名` : '暂无记录')}</div>
         <div class="insight-note compact">近期变化：${escapeHtml(trendLabel)}</div>
         <div class="insight-note compact">突破信号：${escapeHtml(model.top8Count ? `${model.top8Count} 次进入前八` : '尚未形成前八突破')}</div>
+      </div>
+      <div class="parent-next-focus">
+        <div class="coach-bucket-head">
+          <strong>下一步关注点</strong>
+          <span>用于训练和参赛沟通</span>
+        </div>
+        ${focusRows.map((row) => `
+          <div class="parent-focus-row">
+            <strong>${escapeHtml(row.title)}</strong>
+            <span>${escapeHtml(row.detail)}</span>
+          </div>
+        `).join('')}
       </div>
       ${model.yearRows.length ? barChart('年度参赛频率', model.yearRows, { tone: 'teal' }) : ''}
       <button class="primary-action compact-action" type="button" data-athlete-id="${escapeHtml(child.id)}">查看完整选手画像</button>

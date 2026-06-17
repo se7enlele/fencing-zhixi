@@ -561,6 +561,36 @@ select:focus {
   gap: 8px;
 }
 
+.parent-next-focus {
+  display: grid;
+  gap: 8px;
+}
+
+.parent-focus-row {
+  display: grid;
+  gap: 3px;
+  border: 1px solid rgba(21, 95, 194, 0.1);
+  border-radius: 8px;
+  background: rgba(21, 95, 194, 0.045);
+  padding: 9px 10px;
+}
+
+.parent-focus-row strong,
+.parent-focus-row span {
+  display: block;
+  min-width: 0;
+}
+
+.parent-focus-row strong {
+  font-size: 13px;
+}
+
+.parent-focus-row span {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
 .compact-action {
   min-height: 38px;
 }

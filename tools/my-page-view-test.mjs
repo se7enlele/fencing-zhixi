@@ -34,6 +34,9 @@ assert.match(js, /button\.dataset\.mainTab === activeTab/, 'bottom tab rendering
 assert.match(js, /setAttribute\('aria-current', 'page'\)/, 'bottom tab rendering must expose a single current page');
 assert.match(js, /role === 'data'[\s\S]*navigateMain\('competitions'\)/, 'data workspace must open the competition page instead of the home dashboard');
 assert.match(js, /function renderHomePage\(\)/, 'home page renderer must exist');
+assert.match(js, /function parentNextFocusRows\(model\)/, 'parent dashboard must derive next-step focus points from growth data');
+assert.match(js, /下一步关注点/, 'parent dashboard must show actionable next-step focus copy');
+assert.match(js, /class="parent-next-focus"/, 'parent dashboard must render next focus rows');
 assert.match(js, /function renderAiWorkspace\(\)/, 'home page must include an AI workspace renderer');
 assert.match(js, /homePage\.innerHTML = `\s*\$\{renderAiWorkspace\('home'\)\}/, 'home page must start with the AI question workspace');
 assert.match(js, /<h2>闂?FencingAI<\/h2>|<h2>问 FencingAI<\/h2>/, 'AI workspace must be framed as the primary question entry');
@@ -56,6 +59,8 @@ assert.match(css, /\.ai-workspace/, 'AI workspace styles must exist');
 assert.match(css, /\.ai-home-primary/, 'AI home entry must have primary visual treatment');
 assert.match(css, /\.ai-home-actions/, 'AI home entry must expose secondary navigation actions');
 assert.match(css, /\.ai-evidence/, 'AI workspace must style source evidence cards');
+assert.match(css, /\.parent-next-focus/, 'parent next focus styles must exist');
+assert.match(css, /\.parent-focus-row/, 'parent focus row styles must exist');
 assert.match(css, /\.my-page-shell/, 'personal page styles must exist');
 assert.match(css, /\.competition-follow-tag/, 'competition follow tag styles must exist');
 
