@@ -3,6 +3,8 @@ import { readFile } from 'node:fs/promises';
 
 const js = await readFile(new URL('../web/viewer.js', import.meta.url), 'utf8');
 
+assert.match(js, /const result = await fetchJson\('\/api\/competitions'\)/, 'initial competition load must use safe JSON handling');
+assert.doesNotMatch(js, /const response = await fetch\('\/api\/competitions'\);[\s\S]*response\.json\(\)/, 'initial competition load must not parse raw non-JSON responses directly');
 assert.doesNotMatch(js, /API returned non-JSON/, 'frontend copy must not expose API/non-JSON wording');
 assert.doesNotMatch(js, /详情读取失败：\$\{error\.message\}/, 'detail pages must not expose raw error messages');
 assert.doesNotMatch(js, /Unexpected token|DOCTYPE/, 'frontend copy must not expose parser/runtime internals');
