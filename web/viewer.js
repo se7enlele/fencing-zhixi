@@ -3473,6 +3473,37 @@ function phaseSeed(match, side) {
   return value || value === 0 ? `(${value})` : '';
 }
 
+function matchWinnerName(match) {
+  const homeWon = match.home?.result === 'W';
+  return match.winner?.name || (homeWon ? match.home?.name : match.away?.name) || '-';
+}
+
+function matchScoreText(match) {
+  const home = match.home?.points ?? '-';
+  const away = match.away?.points ?? '-';
+  if (match.isBye) return '轮空';
+  if (home === 'V' || away === 'V') return `${home}:${away}`;
+  return `${home}:${away}`;
+}
+
+function sortedTableauMatches(matches) {
+  return [...(matches || [])].sort((a, b) => (
+    Number(a.innerOrder ?? a.matchCode ?? 0) - Number(b.innerOrder ?? b.matchCode ?? 0)
+    || String(a.matchCode || '').localeCompare(String(b.matchCode || ''), 'zh-CN')
+  ));
+}
+
+function tableauPhaseStats(matches) {
+  const rows = matches || [];
+  const bye = rows.filter((match) => match.isBye).length;
+  const played = rows.filter((match) => !match.isBye && (match.home?.result || match.away?.result)).length;
+  return {
+    total: rows.length,
+    played,
+    bye,
+  };
+}
+
 function renderMatches(event, activeIndex = 0) {
   const groups = event.eliminationPhaseGroups?.length
     ? event.eliminationPhaseGroups
@@ -3483,6 +3514,8 @@ function renderMatches(event, activeIndex = 0) {
   }
   const index = Math.min(Math.max(Number(activeIndex) || 0, 0), groups.length - 1);
   const group = groups[index];
+  const matches = sortedTableauMatches(group.matches || []);
+  const stats = tableauPhaseStats(matches);
   matchList.innerHTML = `
     <div class="process-switch phase-switch" aria-label="选择轮次">
       ${groups.map((item, itemIndex) => `
@@ -3491,24 +3524,39 @@ function renderMatches(event, activeIndex = 0) {
         </button>
       `).join('')}
     </div>
-    <section class="bracket-board">
-      ${(group.matches || []).map((match) => {
+    <section class="tableau-phase-summary">
+      <div>
+        <strong>${escapeHtml(group.phase)}</strong>
+        <span>${escapeHtml(stats.total)} 场对阵 · ${escapeHtml(stats.played)} 场已完成 · ${escapeHtml(stats.bye)} 场轮空</span>
+      </div>
+      <em>${escapeHtml(index + 1)} / ${escapeHtml(groups.length)}</em>
+    </section>
+    <section class="bracket-board tableau-board">
+      ${matches.map((match) => {
         const homeWon = match.home?.result === 'W';
         const awayWon = match.away?.result === 'W';
         const homeFocus = focusClassForAthlete(match.home);
         const awayFocus = focusClassForAthlete(match.away);
         return `
-          <div class="bracket-match ${homeFocus || awayFocus ? 'has-focus-athlete' : ''}">
-            <div class="match-phase">${escapeHtml(group.phase)} · ${escapeHtml(match.matchCode || '')}</div>
-            <div class="bracket-row ${homeWon ? 'winner' : ''} ${homeFocus}">
-              <span>${escapeHtml(`${phaseSeed(match, 'home')} ${match.home?.name || '空'}`.trim())}</span>
-              <strong>${escapeHtml(match.home?.points ?? '-')}</strong>
+          <div class="bracket-match tableau-match ${homeFocus || awayFocus ? 'has-focus-athlete' : ''}">
+            <div class="tableau-match-code">${escapeHtml(match.matchCode ? `对阵 ${match.matchCode}` : group.phase)}</div>
+            <div class="tableau-match-body">
+              <div class="tableau-player-stack">
+                <div class="bracket-row ${homeWon ? 'winner' : ''} ${homeFocus}">
+                  <span>${escapeHtml(`${phaseSeed(match, 'home')} ${match.home?.name || '空'}`.trim())}</span>
+                  <small>${escapeHtml(match.home?.club || '')}</small>
+                </div>
+                <div class="bracket-row ${awayWon ? 'winner' : ''} ${awayFocus}">
+                  <span>${escapeHtml(`${phaseSeed(match, 'away')} ${match.away?.name || '空'}`.trim())}</span>
+                  <small>${escapeHtml(match.away?.club || '')}</small>
+                </div>
+              </div>
+              <div class="tableau-score-pill">${escapeHtml(matchScoreText(match))}</div>
             </div>
-            <div class="bracket-row ${awayWon ? 'winner' : ''} ${awayFocus}">
-              <span>${escapeHtml(`${phaseSeed(match, 'away')} ${match.away?.name || '空'}`.trim())}</span>
-              <strong>${escapeHtml(match.away?.points ?? '-')}</strong>
+            <div class="tableau-advance-row">
+              <span>晋级</span>
+              <strong>${escapeHtml(matchWinnerName(match))}</strong>
             </div>
-            <div class="winner-note">胜者：${escapeHtml(match.winner?.name || (homeWon ? match.home?.name : match.away?.name) || '-')}</div>
           </div>
         `;
       }).join('')}
