@@ -1,5 +1,5 @@
 import { createServer } from 'node:http';
-import { readFile, writeFile, mkdir, readdir } from 'node:fs/promises';
+import { readFile, writeFile, mkdir, readdir, stat } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { analyzeRecords, parseOfficialResultUrl, stableStringify } from './tools/analyzer-core.mjs';
@@ -131,6 +131,22 @@ let clubDirectoryCache = null;
 let searchIndexCache = null;
 let preEventReportsCache = null;
 
+async function latestAnalysisGeneratedAt(files = null) {
+  const analysisDir = path.join(__dirname, 'data', 'analysis');
+  const analysisFiles = files || await readdir(analysisDir).catch(() => []);
+  const jsonFiles = analysisFiles.filter((file) => file.endsWith('.json'));
+  if (!jsonFiles.length) return new Date().toISOString();
+  const mtimes = await Promise.all(jsonFiles.map(async (file) => {
+    try {
+      return (await stat(path.join(analysisDir, file))).mtimeMs;
+    } catch {
+      return 0;
+    }
+  }));
+  const latest = Math.max(...mtimes);
+  return latest > 0 ? new Date(latest).toISOString() : new Date().toISOString();
+}
+
 async function getScoreReports() {
   if (!scoreReportsCache) {
     scoreReportsCache = await loadScoreReports();
@@ -184,6 +200,7 @@ async function getPublicEventsPayload() {
     publicEventsCache = {
       ok: true,
       version: APP_VERSION,
+      generatedAt: await latestAnalysisGeneratedAt(analysisFiles),
       events: reports
         .map(({ fileName, report }) => toEventSummary(report, fileName))
         .sort((a, b) => String(a.sportName).localeCompare(String(b.sportName), 'zh-CN') || String(a.eventName).localeCompare(String(b.eventName), 'zh-CN')),
@@ -236,6 +253,7 @@ async function getCompetitionIndexPayload() {
   return {
     ok: true,
     version: payload.version,
+    generatedAt: payload.generatedAt,
     competitions: payload.competitions,
     dataCoverage: payload.dataCoverage,
   };
@@ -246,6 +264,7 @@ async function getEventIndexPayload() {
   return {
     ok: true,
     version: payload.version,
+    generatedAt: payload.generatedAt,
     events: payload.events,
     dataCoverage: payload.dataCoverage,
   };

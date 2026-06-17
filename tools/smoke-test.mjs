@@ -46,6 +46,9 @@ try {
   if (!Array.isArray(eventsResult.competitions) || eventsResult.competitions.length === 0) {
     throw new Error('competitions payload missing');
   }
+  if (!eventsResult.generatedAt || Number.isNaN(new Date(eventsResult.generatedAt).getTime())) {
+    throw new Error('competitions payload generatedAt missing');
+  }
 
   const smokeCompetition = eventsResult.competitions.find((competition) => (
     (competition.items || []).some((item) => !item.isPreEvent && item.eventCode)
