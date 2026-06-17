@@ -1755,10 +1755,8 @@ function aiAthletePool() {
 
 function detectAthletesInQuery(query) {
   const normalizedQuery = normalizeAiName(query);
-  const exact = aiAthletePool()
-    .filter((athlete) => normalizeAiName(athlete.name) && normalizedQuery.includes(normalizeAiName(athlete.name)))
-    .sort((a, b) => normalizeAiName(b.name).length - normalizeAiName(a.name).length || (b.appearances || 0) - (a.appearances || 0));
-  if (exact.length) return uniqueBy(exact, (athlete) => athlete.id || `${athlete.name}__${athlete.club}`).slice(0, 3);
+  const exact = detectExactAthletesInQuery(normalizedQuery);
+  if (exact.length) return exact;
 
   const tokens = [...normalizedQuery].filter((char) => /[\u4e00-\u9fa5]/.test(char));
   const fuzzy = aiAthletePool()
@@ -1772,6 +1770,13 @@ function detectAthletesInQuery(query) {
     .sort((a, b) => b.score - a.score)
     .map((row) => row.athlete);
   return uniqueBy(fuzzy, (athlete) => athlete.id || `${athlete.name}__${athlete.club}`).slice(0, 3);
+}
+
+function detectExactAthletesInQuery(normalizedQuery) {
+  return uniqueBy(aiAthletePool()
+    .filter((athlete) => normalizeAiName(athlete.name) && normalizedQuery.includes(normalizeAiName(athlete.name)))
+    .sort((a, b) => normalizeAiName(b.name).length - normalizeAiName(a.name).length || (b.appearances || 0) - (a.appearances || 0)),
+  (athlete) => athlete.id || `${athlete.name}__${athlete.club}`).slice(0, 3);
 }
 
 function detectClubInQuery(query) {
@@ -1806,12 +1811,16 @@ function buildAiAnswer(query) {
   const competitionQuery = detectCompetitionStatsQuery(text);
   if (competitionQuery) return buildAiCompetitionStats(text, competitionQuery);
 
-  const athletes = detectAthletesInQuery(text);
-  if (athletes.length >= 2) return buildAiAthleteComparison(text, athletes[0], athletes[1]);
-  if (athletes.length === 1) return buildAiAthleteGrowth(text, athletes[0]);
+  const exactAthletes = detectExactAthletesInQuery(normalizeAiName(text));
+  if (exactAthletes.length >= 2) return buildAiAthleteComparison(text, exactAthletes[0], exactAthletes[1]);
+  if (exactAthletes.length === 1) return buildAiAthleteGrowth(text, exactAthletes[0]);
 
   const club = detectClubInQuery(text);
   if (club) return buildAiClubReport(text, club);
+
+  const athletes = detectAthletesInQuery(text);
+  if (athletes.length >= 2) return buildAiAthleteComparison(text, athletes[0], athletes[1]);
+  if (athletes.length === 1) return buildAiAthleteGrowth(text, athletes[0]);
 
   return {
     type: 'fallback',
@@ -1859,6 +1868,25 @@ function detectStatusInQuery(normalizedQuery) {
   if (normalizedQuery.includes('已结束') || normalizedQuery.includes('结束')) return 'completed';
   if (normalizedQuery.includes('进行中')) return 'live';
   return '';
+}
+
+function aiProjectHints(query) {
+  const normalized = compactText(query);
+  const hints = [];
+  const age = normalized.match(/u\d{1,2}/i)?.[0]?.toUpperCase();
+  if (age) hints.push(age);
+  if (normalized.includes('男')) hints.push('男');
+  if (normalized.includes('女')) hints.push('女');
+  if (normalized.includes('花剑') || normalized.includes('男花') || normalized.includes('女花')) hints.push('花');
+  if (normalized.includes('重剑') || normalized.includes('男重') || normalized.includes('女重')) hints.push('重');
+  if (normalized.includes('佩剑') || normalized.includes('男佩') || normalized.includes('女佩')) hints.push('佩');
+  return hints;
+}
+
+function projectMatchesAiHints(label, hints) {
+  if (!hints.length) return true;
+  const text = compactText(label);
+  return hints.every((hint) => text.includes(compactText(hint)));
 }
 
 function buildAiCompetitionStats(query, filters) {
@@ -2029,12 +2057,18 @@ function buildAiAthleteGrowth(query, athlete) {
 
 function buildAiClubReport(query, club) {
   const athletes = clubWorkspaceAthletes(club).slice(0, 5);
-  const projects = clubProjectRows(club).slice(0, 5);
+  const hints = aiProjectHints(query);
+  const allProjects = clubProjectRows(club);
+  const matchedProjects = hints.length
+    ? allProjects.filter((row) => projectMatchesAiHints(row.label, hints))
+    : allProjects;
+  const projects = (matchedProjects.length ? matchedProjects : allProjects).slice(0, 5);
   const bestProject = projects[0] || null;
+  const projectScope = hints.length ? hints.join(' ') : '';
   return {
     type: 'club',
-    title: `${club.club}分析`,
-    summary: `${club.club} 当前收录 ${club.entrants || 0} 人次、${club.top8 || 0} 次前八、${club.medals || 0} 枚奖牌。${bestProject ? `优势项目集中在 ${bestProject.label}。` : ''}`,
+    title: `${club.club}${projectScope ? ` ${projectScope}` : ''}分析`,
+    summary: `${club.club} 当前收录 ${club.entrants || 0} 人次、${club.top8 || 0} 次前八、${club.medals || 0} 枚奖牌。${hints.length && matchedProjects.length ? `本次问题重点匹配 ${matchedProjects.length} 个项目。` : ''}${bestProject ? `优势项目集中在 ${bestProject.label}。` : ''}`,
     cards: [
       ['参赛人次', club.entrants || 0],
       ['前八', club.top8 || 0],
@@ -2047,7 +2081,7 @@ function buildAiClubReport(query, club) {
         rows: athletes.map((athlete) => `${athlete.name} · 最好第${athlete.bestRank || '-'}名 · ${athlete.appearances || 0}次记录`),
       } : null,
       projects.length ? {
-        title: '优势项目',
+        title: hints.length ? '匹配项目' : '优势项目',
         rows: projects.map((row) => `${row.label}：${row.entrants}人次，前八${row.top8}，奖牌${row.medals}`),
       } : null,
     ].filter(Boolean),
