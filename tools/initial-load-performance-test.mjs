@@ -37,5 +37,10 @@ assert.doesNotMatch(
   'local competition index payload must not include entity directories',
 );
 assert.match(worker, /competitions:\s*compactCompetitionIndex\(competitions\)/, 'worker competition index should be compacted for initial load');
+assert.match(
+  await readFile(new URL('./competition-index.mjs', import.meta.url), 'utf8'),
+  /itemSummaries[\s\S]*itemFilters[\s\S]*metricTotals[\s\S]*projectScope/,
+  'competition index should expose summaries, filter labels, metric totals and project scope instead of full items',
+);
 
 console.log('initial load performance contract is covered');

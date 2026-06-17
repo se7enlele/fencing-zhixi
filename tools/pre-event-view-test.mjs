@@ -3,7 +3,7 @@ import { readFile } from 'node:fs/promises';
 import vm from 'node:vm';
 
 const source = await readFile(new URL('../web/viewer.js', import.meta.url), 'utf8');
-const start = source.indexOf('function normalizeSearchText');
+const start = source.indexOf('function itemFilterLabel');
 const end = source.indexOf('function competitionSearchHaystack');
 if (start === -1 || end === -1 || end <= start) {
   throw new Error('Unable to locate status helper functions in viewer.js');

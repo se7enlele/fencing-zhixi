@@ -35,8 +35,8 @@ try {
     throw new Error('/api/competitions should include the competition index');
   }
   const competitionBytes = Buffer.byteLength(JSON.stringify(competitionsPayload));
-  if (competitionBytes > 6 * 1024 * 1024) {
-    throw new Error(`/api/competitions is ${(competitionBytes / 1024 / 1024).toFixed(2)} MiB, expected <= 6 MiB`);
+  if (competitionBytes > 2.5 * 1024 * 1024) {
+    throw new Error(`/api/competitions is ${(competitionBytes / 1024 / 1024).toFixed(2)} MiB, expected <= 2.5 MiB`);
   }
   if ('events' in competitionsPayload || 'athletes' in competitionsPayload || 'clubs' in competitionsPayload) {
     throw new Error('/api/competitions must only return the competition index payload');
@@ -45,14 +45,20 @@ try {
   if (!partialScoreCompetition) {
     throw new Error('partial score competition should remain in the competition index');
   }
-  if ((partialScoreCompetition.items || []).length < 72) {
-    throw new Error('partial score competition should keep projectlist items without score imports');
+  if ((partialScoreCompetition.itemCount || 0) < 72) {
+    throw new Error('partial score competition should keep projectlist item counts without score imports');
   }
-  if (!partialScoreCompetition.items.some((item) => item.eventCode === 'D05GJSSD1820260221WFIU16' && item.isPreEvent)) {
-    throw new Error('partial score competition should keep missing score items as pre-event project items');
+  if ('items' in partialScoreCompetition) {
+    throw new Error('/api/competitions should not inline full project items');
   }
-  if (partialScoreCompetition.items.some((item) => 'closeDate' in item || 'deStartPhase' in item || 'roster' in item)) {
-    throw new Error('/api/competitions items should be compact and omit detail-only fields');
+  if (!Array.isArray(partialScoreCompetition.itemSummaries) || !partialScoreCompetition.itemSummaries.length) {
+    throw new Error('/api/competitions should include a small project preview');
+  }
+  if (!Array.isArray(partialScoreCompetition.itemFilters) || !partialScoreCompetition.itemFilters.length) {
+    throw new Error('/api/competitions should include filter labels without full project payloads');
+  }
+  if (partialScoreCompetition.itemSummaries.some((item) => 'closeDate' in item || 'deStartPhase' in item || 'roster' in item)) {
+    throw new Error('/api/competitions project previews should omit detail-only fields');
   }
 
   const detailResponse = await fetch(`${baseUrl}/api/competitions/${encodeURIComponent(partialScoreCompetition.sportCode)}`);
@@ -62,6 +68,9 @@ try {
   }
   if (!detailPayload.competition.items.some((item) => 'deStartPhase' in item || 'closeDate' in item)) {
     throw new Error('/api/competitions/:sportCode should keep full competition detail fields');
+  }
+  if (!detailPayload.competition.items.some((item) => item.eventCode === 'D05GJSSD1820260221WFIU16' && item.isPreEvent)) {
+    throw new Error('competition detail should keep missing score items as pre-event project items');
   }
 
   const eventsResponse = await fetch(`${baseUrl}/api/events`);

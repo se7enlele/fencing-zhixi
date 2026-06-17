@@ -51,9 +51,9 @@ try {
   }
 
   const smokeCompetition = eventsResult.competitions.find((competition) => (
-    (competition.items || []).some((item) => !item.isPreEvent && item.eventCode)
+    competition.coverageLevel === 'score' && (competition.itemCount || competition.itemSummaries?.length)
   ));
-  if (!smokeCompetition) throw new Error('competition with score-backed event missing');
+  if (!smokeCompetition) throw new Error('competition index entry with score-backed detail missing');
 
   const competitionCode = smokeCompetition.sportCode;
   const competition = await fetch(`${baseUrl}/api/competitions/${encodeURIComponent(competitionCode)}`);

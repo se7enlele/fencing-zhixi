@@ -24,6 +24,11 @@ function extractFunction(name) {
 const functionNames = [
   'shortEventName',
   'displayEventName',
+  'competitionItemSummaries',
+  'competitionItemCount',
+  'competitionItemFilterLabels',
+  'competitionMetricTotal',
+  'competitionHasItems',
   'competitionYear',
   'normalizeSearchText',
   'compactText',

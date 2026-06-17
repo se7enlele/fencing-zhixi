@@ -454,6 +454,28 @@ function itemFilterLabel(item) {
   return [age, weapon].filter(Boolean).join(' ');
 }
 
+function competitionItemSummaries(competition) {
+  return competition.items || competition.itemSummaries || [];
+}
+
+function competitionItemCount(competition) {
+  return Number(competition.itemCount ?? competitionItemSummaries(competition).length) || 0;
+}
+
+function competitionItemFilterLabels(competition) {
+  if (Array.isArray(competition.itemFilters)) return competition.itemFilters;
+  return [...new Set(competitionItemSummaries(competition).map(itemFilterLabel).filter(Boolean))];
+}
+
+function competitionMetricTotal(competition, key) {
+  if (competition.metricTotals && key in competition.metricTotals) return Number(competition.metricTotals[key]) || 0;
+  return competitionItemSummaries(competition).reduce((sum, item) => sum + (Number(item[key]) || 0), 0);
+}
+
+function competitionHasItems(competition) {
+  return competitionItemCount(competition) > 0;
+}
+
 function normalizeSearchText(value) {
   return String(value ?? '')
     .toLowerCase()
@@ -497,21 +519,21 @@ function formatDataGeneratedAt(value) {
 }
 
 function coverageLabel(competition) {
-  if (competition.isPlatformEventList && !(competition.items || []).length) return '基础信息';
+  if (competition.isPlatformEventList && !competitionHasItems(competition)) return '基础信息';
   if (competition.rosterStatus === 'partial' || competition.rosterStatus === 'complete') return '报名信息';
   if (competition.isPreEvent) return '项目明细';
   return '完整赛果';
 }
 
 function coverageClass(competition) {
-  if (competition.isPlatformEventList && !(competition.items || []).length) return 'coverage-list';
+  if (competition.isPlatformEventList && !competitionHasItems(competition)) return 'coverage-list';
   if (competition.rosterStatus === 'partial' || competition.rosterStatus === 'complete') return 'coverage-roster';
   if (competition.isPreEvent) return 'coverage-project';
   return 'coverage-score';
 }
 
 function coverageDetail(competition) {
-  if (competition.isPlatformEventList && !(competition.items || []).length) {
+  if (competition.isPlatformEventList && !competitionHasItems(competition)) {
     return '赛事基础信息已收录，项目规模和名单信息更新后会自动完善。';
   }
   if (competition.rosterStatus === 'partial') return '报名信息正在更新，可先查看项目规模和初步赛前对标。';
@@ -543,7 +565,8 @@ function competitionSearchHaystack(competition) {
     competitionYear(competition),
   ];
 
-  for (const item of competition.items || []) {
+  if (competition.itemSearchText) values.push(competition.itemSearchText);
+  for (const item of competitionItemSummaries(competition)) {
     values.push(
       displayEventName(item),
       item.eventName,
@@ -554,12 +577,6 @@ function competitionSearchHaystack(competition) {
       ...(item.athleteNames || []),
     );
   }
-  for (const club of state.clubSearchIndex || []) {
-    if ((club.events || []).some((event) => (competition.items || []).some((item) => item.eventCode === event.eventCode))) {
-      values.push(club.club);
-    }
-  }
-
   const normalized = normalizeSearchText(values.filter(Boolean).join(' '));
   return `${normalized} ${normalized.replace(/\s+/g, '')}`;
 }
@@ -887,10 +904,7 @@ function filterOptions(type) {
 
   const labels = new Set();
   for (const competition of state.competitions) {
-    for (const item of competition.items || []) {
-      const label = itemFilterLabel(item);
-      if (label) labels.add(label);
-    }
+    for (const label of competitionItemFilterLabels(competition)) if (label) labels.add(label);
   }
   return ['全部项目', ...sortItemLabels(labels)];
 }
@@ -970,7 +984,7 @@ function applyCompetitionFilter() {
   state.filteredCompetitions = state.competitions.filter((competition) => {
     const matchRegion = region === '全部地区' || (competition.region || '待确认') === region;
     const matchYear = year === '全部年份' || competitionYear(competition) === year;
-    const matchItem = itemFilter === '全部项目' || competition.items.some((item) => itemFilterLabel(item) === itemFilter);
+    const matchItem = itemFilter === '全部项目' || competitionItemFilterLabels(competition).includes(itemFilter);
     const matchStatus = statusFilter === '全部状态' || statusLabel(competition.status || 'completed') === statusFilter;
     const haystack = competitionSearchHaystack(competition);
     const matchKeyword = !keyword || tokens.every((token) => haystack.includes(token)) || haystack.includes(compactKeyword);
@@ -1030,7 +1044,7 @@ function handleSearchInput() {
 
 function sumCompetitionItems(competitions, getter) {
   return competitions.reduce((total, competition) => (
-    total + competition.items.reduce((sum, item) => sum + (Number(getter(item, competition)) || 0), 0)
+    total + competitionItemSummaries(competition).reduce((sum, item) => sum + (Number(getter(item, competition)) || 0), 0)
   ), 0);
 }
 
@@ -1045,7 +1059,7 @@ function summarizeDataCoverage(competitions) {
   for (const competition of competitions) {
     if (competition.rosterStatus === 'partial' || competition.rosterStatus === 'complete') {
       summary.roster += 1;
-    } else if (competition.isPlatformEventList && !(competition.items || []).length) {
+    } else if (competition.isPlatformEventList && !competitionHasItems(competition)) {
       summary.directory += 1;
     } else if (competition.isPreEvent) {
       summary.project += 1;
@@ -1068,6 +1082,7 @@ function coverageProductLabel(level) {
 }
 
 function competitionCoverageLevel(competition) {
+  if (competition.coverageLevel) return competition.coverageLevel;
   const items = competition.items || [];
   const hasScore = items.some((item) => (
     (item.athleteProfiles || []).length
@@ -1232,9 +1247,9 @@ function renderHomeStats() {
     return;
   }
   const source = state.filteredCompetitions.length || isFilteringActive() ? state.filteredCompetitions : state.competitions;
-  const eventCount = source.reduce((sum, competition) => sum + competition.items.length, 0);
-  const athleteStarts = sumCompetitionItems(source, (item) => item.competitionNo);
-  const eliminationMatches = sumCompetitionItems(source, (item) => item.playedEliminationMatchCount);
+  const eventCount = source.reduce((sum, competition) => sum + competitionItemCount(competition), 0);
+  const athleteStarts = source.reduce((sum, competition) => sum + competitionMetricTotal(competition, 'competitionNo'), 0);
+  const eliminationMatches = source.reduce((sum, competition) => sum + competitionMetricTotal(competition, 'playedEliminationMatchCount'), 0);
   const regions = new Set(source.map((competition) => competition.region).filter(Boolean)).size;
   const active = isFilteringActive();
   if (homeStatsScope) homeStatsScope.textContent = active ? '当前筛选' : '全部数据';
@@ -2039,7 +2054,7 @@ function buildAiPreMatchReport(query, filters) {
       return dayA - dayB || String(a.dateLabel || '').localeCompare(String(b.dateLabel || ''), 'zh-CN');
     });
   const rosterRows = rows.filter((competition) => competition.rosterStatus === 'partial' || competition.rosterStatus === 'complete');
-  const projectRows = rows.filter((competition) => (competition.items || []).length);
+  const projectRows = rows.filter(competitionHasItems);
   const expectedTotal = rows.reduce((sum, competition) => sum + (Number(competition.registrationSummary?.expectedRegistrationCount) || 0), 0);
   const rosterTotal = rows.reduce((sum, competition) => sum + (Number(competition.registrationSummary?.rosterCount) || 0), 0);
   const regionLabel = filters.region || '全部地区';
@@ -2602,8 +2617,8 @@ function daysFromToday(timestamp) {
 
 function recommendationReasonForCompetition(competition) {
   const days = daysFromToday(competitionDateValue(competition));
-  const topItem = [...(competition.items || [])].sort((a, b) => (Number(b.competitionNo) || 0) - (Number(a.competitionNo) || 0))[0];
-  const itemText = topItem ? `${displayEventName(topItem)}数据较完整` : '项目数据已收录';
+  const topItem = [...competitionItemSummaries(competition)].sort((a, b) => (Number(b.competitionNo) || Number(b.expectedRegistrationCount) || 0) - (Number(a.competitionNo) || Number(a.expectedRegistrationCount) || 0))[0];
+  const itemText = competition.topItemLabel || (topItem ? `${displayEventName(topItem)}数据较完整` : '项目数据已收录');
   if (days >= -90 && days <= 30) return `近期比赛 · ${itemText}`;
   if (days > 30 && days < 99999) return `后续赛程 · ${itemText}`;
   if (days < -90) return `历史样本 · ${itemText}`;
@@ -2771,8 +2786,10 @@ function clubRepresentativeAthletes(club, athleteRows) {
 
 function clubRelatedCompetitions(club) {
   const eventCodes = new Set((club.events || []).map((event) => event.eventCode).filter(Boolean));
+  const clubText = compactText(club.club);
   return (state.filteredCompetitions.length ? state.filteredCompetitions : state.competitions)
-    .filter((competition) => (competition.items || []).some((item) => eventCodes.has(item.eventCode) || compactText(item.eventName).includes(compactText(club.club))))
+    .filter((competition) => competitionItemSummaries(competition).some((item) => eventCodes.has(item.eventCode))
+      || compactText(competition.itemSearchText || '').includes(clubText))
     .slice(0, 3);
 }
 
@@ -2912,18 +2929,22 @@ function renderAthleteSearchResults(keyword) {
 }
 
 function competitionChips(competition, limit = Infinity) {
-  const itemLabels = (competition.items || []).map((item) => displayEventName(item)).filter(Boolean);
+  const itemLabels = (competition.itemLabels?.length
+    ? competition.itemLabels
+    : competitionItemSummaries(competition).map((item) => displayEventName(item))).filter(Boolean);
   const groupLabels = itemLabels.length ? [] : (competition.groupLabels || []);
   const labels = [...itemLabels, ...groupLabels].filter(Boolean);
   const visible = labels.slice(0, limit);
   return {
     visible,
-    remaining: Math.max(0, labels.length - visible.length),
+    remaining: Math.max(0, (competitionItemCount(competition) || labels.length) - visible.length),
   };
 }
 
 function competitionProjectSummaryChips(competition) {
-  const itemLabels = (competition.items || []).map((item) => displayEventName(item)).filter(Boolean);
+  const itemLabels = (competition.itemLabels?.length
+    ? competition.itemLabels
+    : competitionItemSummaries(competition).map((item) => displayEventName(item))).filter(Boolean);
   const fallbackLabels = itemLabels.length ? [] : (competition.groupLabels || []);
   const labels = [...itemLabels, ...fallbackLabels].filter(Boolean);
   if (!labels.length) return [];
@@ -2936,14 +2957,24 @@ function competitionProjectSummaryChips(competition) {
     if (text.includes('佩')) return '佩剑';
     return '';
   }).filter(Boolean))];
-  const chips = [`${labels.length} 个项目/组别`];
+  const chips = [`${competitionItemCount(competition) || labels.length} 个项目/组别`];
   if (ages.length) chips.push(`${ages.slice(0, 3).join(' / ')}${ages.length > 3 ? ` +${ages.length - 3}` : ''}`);
   if (weapons.length) chips.push(`${weapons.join(' / ')}`);
   return chips;
 }
 
 function competitionProjectScope(competition) {
-  const itemLabels = (competition.items || []).map((item) => displayEventName(item)).filter(Boolean);
+  if (competition.projectScope) {
+    return {
+      count: competitionItemCount(competition),
+      ageText: competition.projectScope.ageText || '待确认',
+      weaponText: competition.projectScope.weaponText || '待确认',
+      genderText: competition.projectScope.genderText || '待确认',
+    };
+  }
+  const itemLabels = (competition.itemLabels?.length
+    ? competition.itemLabels
+    : competitionItemSummaries(competition).map((item) => displayEventName(item))).filter(Boolean);
   const fallbackLabels = itemLabels.length ? [] : (competition.groupLabels || []);
   const labels = [...itemLabels, ...fallbackLabels].filter(Boolean);
   const ages = [...new Set(labels.map((label) => String(label).match(/U\d+|\d+\+|年龄开放组/)?.[0]).filter(Boolean))];
@@ -2969,7 +3000,7 @@ function competitionProjectScope(competition) {
 }
 
 function competitionHeroSummaryText(competition) {
-  if (competition.isPlatformEventList && !(competition.items || []).length) {
+  if (competition.isPlatformEventList && !competitionHasItems(competition)) {
     return '已收录赛事时间和地点，后续信息更新后会自动补充项目和名单。';
   }
   if (competition.rosterStatus === 'partial') return '可先查看报名组别和规模，名单继续更新后会完善赛前对标。';
@@ -3021,7 +3052,7 @@ function renderCompetitionList() {
 }
 
 function competitionListInsight(competition) {
-  if (competition.isPlatformEventList && !competition.items.length) {
+  if (competition.isPlatformEventList && !competitionHasItems(competition)) {
     const type = competition.platformMeta?.gameDesc || '赛事类型待确认';
     const groups = competition.groupLabels?.length ? `${competition.groupLabels.length} 个组别` : '组别待确认';
     return `${type}，${groups}。项目规模和名单信息更新后会自动完善。`;
@@ -3033,14 +3064,14 @@ function competitionListInsight(competition) {
       : '报名名单待更新';
     const expectedText = summary.expectedRegistrationCount
       ? `官方项目报名人数 ${summary.expectedRegistrationCount}`
-      : `${competition.items.length} 个赛前项目`;
+      : `${competitionItemCount(competition)} 个赛前项目`;
     return `${expectedText}，${rosterText}。关注孩子后，可在名单完整时做赛前对标分析。`;
   }
-  const total = competition.items.reduce((sum, item) => sum + (Number(item.competitionNo) || 0), 0);
-  const elimination = competition.items.reduce((sum, item) => sum + (Number(item.playedEliminationMatchCount) || 0), 0);
-  const topItem = [...competition.items].sort((a, b) => (Number(b.competitionNo) || 0) - (Number(a.competitionNo) || 0))[0];
-  if (!topItem) return '暂无项目数据';
-  return `${displayEventName(topItem)} 人数最多，${total} 人次参赛，${elimination} 场淘汰赛。`;
+  const total = competitionMetricTotal(competition, 'competitionNo');
+  const elimination = competitionMetricTotal(competition, 'playedEliminationMatchCount');
+  const topItemLabel = competition.topItemLabel || displayEventName(competitionItemSummaries(competition)[0]);
+  if (!topItemLabel) return '暂无项目数据';
+  return `${topItemLabel} 人数最多，${total} 人次参赛，${elimination} 场淘汰赛。`;
 }
 
 function renderCompetitionHero(competition) {
@@ -3179,7 +3210,8 @@ function setInlineError(container, message) {
 }
 
 function renderEventList(competition) {
-  if (!competition.items.length) {
+  const eventItems = competition.items || competition.itemSummaries || [];
+  if (!eventItems.length) {
     eventList.innerHTML = `
       <div class="empty compact-empty">
         项目信息暂未更新。更新后会展示具体组别、剑种、报名规模和后续赛果入口。
@@ -3188,7 +3220,7 @@ function renderEventList(competition) {
     return;
   }
 
-  const sortedItems = sortedCompetitionEventRows(competition.items);
+  const sortedItems = sortedCompetitionEventRows(eventItems);
   const primaryItems = sortedItems.slice(0, 4);
   const secondaryItems = sortedItems.slice(4);
   const eventCardHtml = (item) => `
@@ -4671,7 +4703,7 @@ function relevantPreMatchCompetitions(projectRows) {
   return [...(state.competitions || [])]
     .filter((competition) => ['registration', 'upcoming'].includes(competition.status) || competition.isPreEvent)
     .map((competition) => {
-      const matchedItems = (competition.items || []).filter((item) => {
+      const matchedItems = competitionItemSummaries(competition).filter((item) => {
         const itemLabel = compactText(displayEventName(item));
         return projectLabels.some((label) => itemLabel.includes(label) || label.includes(itemLabel));
       });
