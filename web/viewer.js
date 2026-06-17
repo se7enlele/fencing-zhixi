@@ -111,13 +111,17 @@ async function fetchJson(path) {
   const response = await fetch(path);
   const contentType = response.headers.get('content-type') || '';
   if (!contentType.includes('application/json')) {
-    throw new Error(`API returned non-JSON: ${response.status || 'unknown status'}`);
+    throw new Error(`Unexpected response: ${response.status || 'unknown status'}`);
   }
   const result = await response.json();
   if (!response.ok || !result.ok) {
     throw new Error(result.message || `Request failed: ${response.status}`);
   }
   return result;
+}
+
+function friendlyErrorMessage(scope) {
+  return `${scope}暂时无法打开。请稍后重试，或返回上一页重新进入。`;
 }
 
 state.followedAthletes = loadFollowedAthletes();
@@ -1117,7 +1121,7 @@ function renderHomeDataCoverage() {
       <div class="coverage-progress">
         <span style="width: ${escapeHtml(scorePercent)}%"></span>
       </div>
-      <p>成绩对阵覆盖率 ${escapeHtml(scorePercent)}%。近期报名、目标俱乐部相关赛事和青少年组别会优先补齐。</p>
+      <p>成绩对阵覆盖率 ${escapeHtml(scorePercent)}%。近期报名、目标俱乐部相关赛事和青少年组别会优先更新。</p>
       ${priorityRows.length ? `
         <div class="coverage-priority-list">
           ${priorityRows.map(({ competition, level }) => `
@@ -1172,7 +1176,7 @@ function renderDataCoverageSummary(source) {
         <small>可用于成长和队伍分析</small>
       </div>
     </div>
-    <p>补齐优先级：先补近期报名和目标俱乐部相关赛事，再补青少年组别成绩对阵；成绩对阵覆盖率当前为 ${escapeHtml(scorePercent)}%。</p>
+    <p>更新优先级：先看近期报名和目标俱乐部相关赛事，再完善青少年组别成绩对阵；成绩对阵覆盖率当前为 ${escapeHtml(scorePercent)}%。</p>
   `;
 }
 
@@ -4927,7 +4931,7 @@ async function openAthlete(athleteId) {
       renderAthleteDetail(localAthlete);
       renderedAthlete = localAthlete;
     } else {
-      setInlineError(athleteHero, `选手详情读取失败：${error.message}`);
+      setInlineError(athleteHero, friendlyErrorMessage('选手详情'));
       athleteActionPanel.innerHTML = '';
       athleteGrowth.innerHTML = '';
       athleteEvents.innerHTML = '';
@@ -4951,7 +4955,7 @@ async function openClub(clubId) {
     renderClubDetail(result.club);
     renderedClub = result.club;
   } catch (error) {
-    setInlineError(clubHero, `俱乐部详情读取失败：${error.message}`);
+    setInlineError(clubHero, friendlyErrorMessage('俱乐部详情'));
     clubEvents.innerHTML = '';
   }
   if (renderedClub?.id) {
@@ -5010,7 +5014,7 @@ async function openEvent(eventCode) {
     renderAthleteProfiles(state.currentEvent);
     navigateTo('event');
   } catch (error) {
-    setInlineError(eventHero, `项目详情读取失败：${error.message}`);
+    setInlineError(eventHero, friendlyErrorMessage('项目详情'));
     metricGrid.innerHTML = '';
     insightCards.innerHTML = '';
     insightBullets.innerHTML = '';
