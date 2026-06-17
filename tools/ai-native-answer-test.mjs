@@ -14,6 +14,9 @@ assert.match(js, /expectedType: 'growth'/, 'AI acceptance queries must cover ath
 assert.match(js, /expectedType: 'comparison'/, 'AI acceptance queries must cover athlete comparison');
 assert.match(js, /aiAcceptanceQueryCases\(\)\.slice\(1, 4\)/, 'AI home presets must reuse acceptance questions');
 assert.match(js, /function detectExactAthletesInQuery\(normalizedQuery\)/, 'AI routing must separate exact athlete matches from fuzzy matches');
+assert.match(js, /function aiEntityCandidateTerms\(query\)/, 'AI must extract entity candidates before answering from the home prompt');
+assert.match(js, /async function ensureAiEntityContext\(query\)/, 'AI must hydrate athlete and club context on demand');
+assert.match(js, /await ensureAiEntityContext\(normalizedQuery\)/, 'AI home prompt must load relevant entity context before building an answer');
 assert.match(js, /const club = detectClubInQuery\(text\);[\s\S]*if \(club\) return buildAiClubReport\(text, club\);[\s\S]*const athletes = detectAthletesInQuery\(text\);/, 'AI routing must prefer exact club matches before fuzzy athlete guesses');
 assert.match(js, /function aiProjectHints\(query\)/, 'AI club reports must detect project hints like U8 male foil');
 assert.match(js, /function projectMatchesAiHints\(label, hints\)/, 'AI club reports must filter projects by question hints');

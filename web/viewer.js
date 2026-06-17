@@ -104,6 +104,7 @@ const state = {
   dataLoadError: '',
   searchRequestId: 0,
   lastSearchKeyword: '',
+  aiHydratedTerms: new Set(),
   detailCache: {
     athletes: new Map(),
     clubs: new Map(),
@@ -1774,10 +1775,25 @@ function bindAiWorkspace(container) {
   const answer = container.querySelector('#aiAnswer');
   if (!form || !input || !answer) return;
 
-  const run = (query) => {
-    const report = buildAiAnswer(query);
-    answer.innerHTML = renderAiAnswer(report);
-    bindAiAnswerActions(answer);
+  const run = async (query) => {
+    const normalizedQuery = String(query || '').trim();
+    if (!normalizedQuery) {
+      answer.innerHTML = renderAiAnswer(buildAiAnswer(normalizedQuery));
+      bindAiAnswerActions(answer);
+      return;
+    }
+
+    answer.innerHTML = '<div class="loading-row">正在匹配相关画像</div>';
+    try {
+      await ensureAiEntityContext(normalizedQuery);
+      const report = buildAiAnswer(normalizedQuery);
+      answer.innerHTML = renderAiAnswer(report);
+      bindAiAnswerActions(answer);
+    } catch {
+      const report = buildAiAnswer(normalizedQuery);
+      answer.innerHTML = renderAiAnswer(report);
+      bindAiAnswerActions(answer);
+    }
   };
 
   form.addEventListener('submit', (event) => {
@@ -1797,6 +1813,91 @@ function normalizeAiName(value) {
   return compactText(value)
     .replaceAll('马消', '马潇')
     .replaceAll('廷或', '廷彧');
+}
+
+function aiEntityCandidateTerms(query) {
+  const stopWords = /(帮我|请问|分析|对比|对战|交手|情况|最近|有没有|是否|是不是|进步|怎么样|如何|表现|成长|比赛|赛事|报名|几场|多少场|当前|数据|查看|看一下|和|与|跟|的|vs)/ig;
+  const normalized = normalizeAiName(query).replace(stopWords, ' ');
+  const segments = normalized.match(/[\u4e00-\u9fa5]{2,12}|[a-z0-9]{2,12}/ig) || [];
+  const terms = [];
+  for (const segment of segments) {
+    const text = compactText(segment);
+    if (!text || /^u\d{1,2}$/i.test(text) || text.length < 2) continue;
+    terms.push(text);
+    if (/[\u4e00-\u9fa5]/.test(text) && text.length > 4) {
+      for (let length = Math.min(4, text.length); length >= 2; length -= 1) {
+        for (let index = 0; index <= text.length - length; index += 1) {
+          terms.push(text.slice(index, index + length));
+        }
+      }
+    }
+  }
+  return [...new Set(terms)]
+    .sort((a, b) => b.length - a.length || a.localeCompare(b, 'zh-CN'))
+    .slice(0, 14);
+}
+
+function mergeAiAthleteResult(athlete) {
+  if (!athlete?.id) return;
+  const existing = state.athletesById[athlete.id] || {};
+  state.athletesById[athlete.id] = { ...existing, ...athlete };
+  const index = state.athleteSearchIndex.findIndex((row) => row.id === athlete.id);
+  if (index >= 0) state.athleteSearchIndex[index] = { ...state.athleteSearchIndex[index], ...athlete };
+  else state.athleteSearchIndex.push(athlete);
+}
+
+function mergeAiClubResult(club) {
+  if (!club?.id) return;
+  const existing = state.clubsById[club.id] || {};
+  state.clubsById[club.id] = { ...existing, ...club };
+  const index = state.clubSearchIndex.findIndex((row) => row.id === club.id);
+  if (index >= 0) state.clubSearchIndex[index] = { ...state.clubSearchIndex[index], ...club };
+  else state.clubSearchIndex.push(club);
+}
+
+async function ensureAiEntityContext(query) {
+  const terms = aiEntityCandidateTerms(query).filter((term) => !state.aiHydratedTerms.has(term));
+  if (!terms.length) return;
+  terms.forEach((term) => state.aiHydratedTerms.add(term));
+
+  const searchResults = await Promise.all(terms.map(async (term) => {
+    try {
+      const params = new URLSearchParams({
+        q: term,
+        type: 'all',
+        athleteLimit: '3',
+        clubLimit: '2',
+      });
+      return await fetchJson(`/api/search?${params.toString()}`);
+    } catch {
+      return null;
+    }
+  }));
+
+  const athletes = uniqueBy(searchResults.flatMap((result) => result?.athletes || []), (athlete) => athlete.id).slice(0, 6);
+  const clubs = uniqueBy(searchResults.flatMap((result) => result?.clubs || []), (club) => club.id).slice(0, 4);
+  athletes.forEach(mergeAiAthleteResult);
+  clubs.forEach(mergeAiClubResult);
+
+  const athleteDetails = await Promise.all(athletes.map(async (athlete) => {
+    if (!athlete.id || state.athletesById[athlete.id]?.events?.length) return null;
+    try {
+      return await fetchCachedDetail('athletes', athlete.id, `/api/athletes/${encodeURIComponent(athlete.id)}`, (result) => result.athlete);
+    } catch {
+      return null;
+    }
+  }));
+  athleteDetails.filter(Boolean).forEach(mergeAiAthleteResult);
+
+  const clubDetails = await Promise.all(clubs.map(async (club) => {
+    if (!club.id || state.clubsById[club.id]?.events?.length) return null;
+    try {
+      return await fetchCachedDetail('clubs', club.id, `/api/clubs/${encodeURIComponent(club.id)}`, (result) => result.club);
+    } catch {
+      return null;
+    }
+  }));
+  clubDetails.filter(Boolean).forEach(mergeAiClubResult);
 }
 
 function aiAthletePool() {
