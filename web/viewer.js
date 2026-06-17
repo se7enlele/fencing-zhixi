@@ -1025,6 +1025,113 @@ function summarizeDataCoverage(competitions) {
   return summary;
 }
 
+function coverageProductLabel(level) {
+  return {
+    directory: '赛事目录',
+    project: '项目清单',
+    roster: '报名名单',
+    score: '成绩对阵',
+  }[level] || '待确认';
+}
+
+function competitionCoverageLevel(competition) {
+  const items = competition.items || [];
+  const hasScore = items.some((item) => (
+    (item.athleteProfiles || []).length
+    || (item.poolGroups || []).length
+    || (item.eliminationMatches || []).length
+    || (item.participants || []).length
+  ));
+  if (hasScore) return 'score';
+  const hasRoster = items.some((item) => (item.roster || []).length || Number(item.registrationCount) > 0);
+  if (hasRoster || competition.rosterStatus === 'partial' || competition.rosterStatus === 'complete') return 'roster';
+  if (items.length || competition.isPreEvent) return 'project';
+  return 'directory';
+}
+
+function competitionCoverageNeed(competition) {
+  const level = competitionCoverageLevel(competition);
+  if (level === 'directory') return '补项目清单';
+  if (level === 'project') return '补报名名单';
+  if (level === 'roster') return '补赛后成绩';
+  return '已可深度分析';
+}
+
+function dataCoveragePriorityRows(competitions, limit = 3) {
+  return [...competitions]
+    .map((competition) => {
+      const level = competitionCoverageLevel(competition);
+      const statusWeight = {
+        registration: 5,
+        upcoming: 4,
+        running: 4,
+        completed: 2,
+      }[competition.status] || 1;
+      const levelWeight = {
+        directory: 4,
+        project: 3,
+        roster: 2,
+        score: 0,
+      }[level] || 0;
+      const nearWeight = /2026|2025/.test(`${competition.sportName || ''} ${competition.dateLabel || ''}`) ? 2 : 0;
+      return {
+        competition,
+        level,
+        score: statusWeight + levelWeight + nearWeight,
+      };
+    })
+    .filter((row) => row.level !== 'score')
+    .sort((a, b) => b.score - a.score || String(b.competition.dateLabel || '').localeCompare(String(a.competition.dateLabel || ''), 'zh-CN'))
+    .slice(0, limit);
+}
+
+function renderHomeDataCoverage() {
+  const source = state.competitions || [];
+  if (!source.length) return '';
+  const coverage = summarizeDataCoverage(source);
+  const total = source.length || 1;
+  const scorePercent = Math.round((coverage.score / total) * 100);
+  const actionablePercent = Math.round((coverage.actionable / total) * 100);
+  const priorityRows = dataCoveragePriorityRows(source, 3);
+
+  return `
+    <section class="panel my-section data-status-panel">
+      <div class="section-title">
+        <h2>数据状态</h2>
+        <span>${escapeHtml(actionablePercent)}% 已进入分析层</span>
+      </div>
+      <div class="coverage-stage-strip">
+        <div>
+          <strong>${escapeHtml(coverage.directory)}</strong>
+          <span>赛事目录</span>
+        </div>
+        <div>
+          <strong>${escapeHtml(coverage.project + coverage.roster)}</strong>
+          <span>项目/报名</span>
+        </div>
+        <div>
+          <strong>${escapeHtml(coverage.score)}</strong>
+          <span>成绩对阵</span>
+        </div>
+      </div>
+      <div class="coverage-progress">
+        <span style="width: ${escapeHtml(scorePercent)}%"></span>
+      </div>
+      <p>成绩对阵覆盖率 ${escapeHtml(scorePercent)}%。近期报名、目标俱乐部相关赛事和青少年组别会优先补齐。</p>
+      ${priorityRows.length ? `
+        <div class="coverage-priority-list">
+          ${priorityRows.map(({ competition, level }) => `
+            <button type="button" data-coverage-competition="${escapeHtml(competition.sportCode)}">
+              <strong>${escapeHtml(competition.sportName)}</strong>
+              <span>${escapeHtml(coverageProductLabel(level))} · ${escapeHtml(competitionCoverageNeed(competition))}</span>
+            </button>
+          `).join('')}
+        </div>
+      ` : ''}
+    </section>
+  `;
+}
+
 function renderDataCoverageSummary(source) {
   if (!dataCoverageSummary) return;
   if (!source.length) {
@@ -1555,8 +1662,12 @@ function renderHomePage() {
         <span>关注的选手和赛事会集中在关注页，方便赛前快速查看。</span>
       </div>
     </section>
+    ${renderHomeDataCoverage()}
   `;
   homePage.querySelector('[data-home-competitions]')?.addEventListener('click', () => navigateMain('competitions'));
+  homePage.querySelectorAll('[data-coverage-competition]').forEach((button) => {
+    button.addEventListener('click', () => openCompetition(button.dataset.coverageCompetition));
+  });
   bindAiWorkspace(homePage);
   bindPersonalList(homePage);
 }
