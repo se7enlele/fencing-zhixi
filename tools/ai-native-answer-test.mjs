@@ -11,6 +11,11 @@ assert.match(js, /const club = detectClubInQuery\(text\);[\s\S]*if \(club\) retu
 assert.match(js, /function aiProjectHints\(query\)/, 'AI club reports must detect project hints like U8 male foil');
 assert.match(js, /function projectMatchesAiHints\(label, hints\)/, 'AI club reports must filter projects by question hints');
 assert.match(js, /title: hints\.length \? '匹配项目' : '优势项目'/, 'AI club reports must label scoped project answers');
+assert.match(js, /function detectPreMatchQuery\(query\)/, 'AI must detect prematch and registration questions');
+assert.match(js, /function buildAiPreMatchReport\(query, filters\)/, 'AI must build prematch reports from registration and project data');
+assert.match(js, /report\.type === 'prematch' \? '赛前情报'/, 'AI answer header must label prematch reports');
+assert.match(js, /kind: '赛前赛事'/, 'AI prematch evidence must label prematch competitions');
+assert.match(js, /名单未完整时，只做项目级和赛事级判断/, 'AI prematch report must disclose incomplete roster boundaries');
 assert.match(js, /暂未发现两人的直接交手记录/, 'AI comparison must not imply direct bouts when none are found');
 assert.match(js, /没有直接交手时，不会推断真实胜负/, 'AI comparison must disclose data boundary');
 assert.match(js, /title: '时间分布'/, 'AI competition stats must include month distribution when available');

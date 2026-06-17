@@ -1808,6 +1808,9 @@ function buildAiAnswer(query) {
     };
   }
 
+  const preMatchQuery = detectPreMatchQuery(text);
+  if (preMatchQuery) return buildAiPreMatchReport(text, preMatchQuery);
+
   const competitionQuery = detectCompetitionStatsQuery(text);
   if (competitionQuery) return buildAiCompetitionStats(text, competitionQuery);
 
@@ -1844,6 +1847,16 @@ function detectCompetitionStatsQuery(query) {
   const region = detectRegionInQuery(normalized);
   const status = detectStatusInQuery(normalized);
   if (!year && !region && !status) return null;
+  return { year, region, status };
+}
+
+function detectPreMatchQuery(query) {
+  const normalized = compactText(query);
+  const hasPreMatchIntent = /(报名|名单|赛前|马上|近期|最近|未开赛|未开始|待开赛|即将)/.test(normalized);
+  if (!hasPreMatchIntent) return null;
+  const year = normalized.match(/20\d{2}/)?.[0] || '';
+  const region = detectRegionInQuery(normalized);
+  const status = detectStatusInQuery(normalized);
   return { year, region, status };
 }
 
@@ -1955,6 +1968,71 @@ function buildAiCompetitionStats(query, filters) {
     actions: [
       { label: '进入赛事列表', mainTab: 'competitions' },
     ],
+  };
+}
+
+function buildAiPreMatchReport(query, filters) {
+  const rows = state.competitions
+    .filter((competition) => {
+      const yearOk = filters.year ? competitionYear(competition) === filters.year : true;
+      const regionText = compactText([competition.venue, competition.region, competition.sportName].filter(Boolean).join(' '));
+      const regionOk = filters.region ? regionText.includes(filters.region) : true;
+      const statusOk = filters.status
+        ? competition.status === filters.status
+        : ['registration', 'upcoming', 'live'].includes(competition.status) || competition.isPreEvent;
+      return yearOk && regionOk && statusOk;
+    })
+    .sort((a, b) => {
+      const dayA = Math.abs(daysFromToday(competitionDateValue(a)));
+      const dayB = Math.abs(daysFromToday(competitionDateValue(b)));
+      return dayA - dayB || String(a.dateLabel || '').localeCompare(String(b.dateLabel || ''), 'zh-CN');
+    });
+  const rosterRows = rows.filter((competition) => competition.rosterStatus === 'partial' || competition.rosterStatus === 'complete');
+  const projectRows = rows.filter((competition) => (competition.items || []).length);
+  const expectedTotal = rows.reduce((sum, competition) => sum + (Number(competition.registrationSummary?.expectedRegistrationCount) || 0), 0);
+  const rosterTotal = rows.reduce((sum, competition) => sum + (Number(competition.registrationSummary?.rosterCount) || 0), 0);
+  const regionLabel = filters.region || '全部地区';
+  const yearLabel = filters.year || '全部年份';
+  const title = `${yearLabel}${regionLabel === '全部地区' ? '' : regionLabel}赛前情报`;
+  const summary = rows.length
+    ? `${yearLabel} ${regionLabel} 当前匹配 ${rows.length} 场赛前相关赛事，其中 ${rosterRows.length} 场已有报名信息，${projectRows.length} 场已有项目明细。`
+    : `当前没有匹配到 ${yearLabel} ${regionLabel} 的赛前或报名赛事。`;
+
+  return {
+    type: 'prematch',
+    title,
+    summary,
+    cards: [
+      ['相关赛事', `${rows.length} 场`],
+      ['报名信息', `${rosterRows.length} 场`],
+      ['项目明细', `${projectRows.length} 场`],
+      ['报名记录', rosterTotal || expectedTotal ? `${rosterTotal || 0}/${expectedTotal || '-'}` : '-'],
+    ],
+    sections: rows.length ? [
+      {
+        title: '优先关注',
+        rows: rows.slice(0, 5).map((competition) => `${competition.sportName} · ${displayDateLabel(competition.dateLabel)} · ${statusLabel(competition.status)} · ${coverageLabel(competition)}`),
+      },
+      {
+        title: '数据状态',
+        rows: [
+          `已有报名信息：${rosterRows.length} 场`,
+          `已有项目明细：${projectRows.length} 场`,
+          `可用于赛前分析：${rows.filter((competition) => ['registration', 'upcoming', 'live'].includes(competition.status) || competition.isPreEvent).length} 场`,
+        ],
+      },
+    ] : [],
+    evidence: rows.slice(0, 8).map((competition) => ({
+      kind: '赛前赛事',
+      label: competition.sportName,
+      detail: `${displayDateLabel(competition.dateLabel)} · ${competition.venue || competition.region || '地点待确认'} · ${statusLabel(competition.status)}`,
+      reason: coverageDetail(competition),
+      sportCode: competition.sportCode,
+    })),
+    actions: [
+      { label: '进入赛事列表', mainTab: 'competitions' },
+    ],
+    sourceNote: '赛前情报基于赛事状态、项目明细和报名名单生成；名单未完整时，只做项目级和赛事级判断。',
   };
 }
 
@@ -2194,7 +2272,7 @@ function renderAiAnswer(report) {
   return `
     <div class="ai-answer-card">
       <div class="ai-answer-head">
-        <span>${escapeHtml(report.type === 'comparison' ? '选手对比' : report.type === 'growth' ? '成长分析' : report.type === 'club' ? '俱乐部画像' : '数据助手')}</span>
+        <span>${escapeHtml(report.type === 'comparison' ? '选手对比' : report.type === 'growth' ? '成长分析' : report.type === 'club' ? '俱乐部画像' : report.type === 'prematch' ? '赛前情报' : '数据助手')}</span>
         <strong>${escapeHtml(report.title)}</strong>
         <p>${escapeHtml(report.summary)}</p>
       </div>
