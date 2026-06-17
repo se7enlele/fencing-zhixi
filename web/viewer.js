@@ -2942,6 +2942,42 @@ function competitionProjectSummaryChips(competition) {
   return chips;
 }
 
+function competitionProjectScope(competition) {
+  const itemLabels = (competition.items || []).map((item) => displayEventName(item)).filter(Boolean);
+  const fallbackLabels = itemLabels.length ? [] : (competition.groupLabels || []);
+  const labels = [...itemLabels, ...fallbackLabels].filter(Boolean);
+  const ages = [...new Set(labels.map((label) => String(label).match(/U\d+|\d+\+|年龄开放组/)?.[0]).filter(Boolean))];
+  const weapons = [...new Set(labels.map((label) => {
+    const text = compactText(label);
+    if (text.includes('花')) return '花剑';
+    if (text.includes('重')) return '重剑';
+    if (text.includes('佩')) return '佩剑';
+    return '';
+  }).filter(Boolean))];
+  const genders = [...new Set(labels.map((label) => {
+    const text = compactText(label);
+    if (text.includes('男')) return '男子';
+    if (text.includes('女')) return '女子';
+    return '';
+  }).filter(Boolean))];
+  return {
+    count: labels.length,
+    ageText: ages.length ? `${ages.slice(0, 4).join(' / ')}${ages.length > 4 ? ` +${ages.length - 4}` : ''}` : '待确认',
+    weaponText: weapons.length ? weapons.join(' / ') : '待确认',
+    genderText: genders.length ? genders.join(' / ') : '待确认',
+  };
+}
+
+function competitionHeroSummaryText(competition) {
+  if (competition.isPlatformEventList && !(competition.items || []).length) {
+    return '已收录赛事时间和地点，后续信息更新后会自动补充项目和名单。';
+  }
+  if (competition.rosterStatus === 'partial') return '可先查看报名组别和规模，名单继续更新后会完善赛前对标。';
+  if (competition.rosterStatus === 'complete') return '报名名单已形成，可查看赛前对手、强手和熟悉对手分析。';
+  if (competition.isPreEvent) return '可查看报名组别、剑种和项目规模，适合赛前关注。';
+  return '可查看项目结构、晋级比例、赛程结果和选手表现。';
+}
+
 function renderCompetitionList() {
   if (state.isDataLoading) {
     competitionList.innerHTML = '<div class="loading-row">正在整理比赛列表</div>';
@@ -3009,6 +3045,7 @@ function competitionListInsight(competition) {
 
 function renderCompetitionHero(competition) {
   const chips = competitionProjectSummaryChips(competition);
+  const scope = competitionProjectScope(competition);
   const followed = isFollowedCompetition(competition.sportCode);
   competitionHero.classList.add('compact');
   competitionHero.innerHTML = `
@@ -3022,7 +3059,12 @@ function renderCompetitionHero(competition) {
     </button>
     <div class="hero-title">${escapeHtml(competition.sportName)}</div>
     <div class="hero-sub">${escapeHtml(competition.venue || '地点待确认')} · ${escapeHtml(displayDateLabel(competition.dateLabel))}</div>
-    <div class="hero-sub coverage-copy">${escapeHtml(coverageDetail(competition))}</div>
+    <div class="hero-sub coverage-copy">${escapeHtml(competitionHeroSummaryText(competition))}</div>
+    <div class="competition-scope-grid">
+      <div><strong>${escapeHtml(scope.count || '-')}</strong><span>项目/组别</span></div>
+      <div><strong>${escapeHtml(scope.ageText)}</strong><span>年龄段</span></div>
+      <div><strong>${escapeHtml(scope.weaponText)}</strong><span>剑种</span></div>
+    </div>
     <div class="event-chip-row project-summary-row">
       ${chips.map((label) => `<span>${escapeHtml(label)}</span>`).join('')}
     </div>
@@ -3077,7 +3119,7 @@ function renderCompetitionInsights(competition) {
   `).join('');
 
   const eventRows = insights.eventCharts || competition.items || [];
-  const primaryEventRows = compactCompetitionEventRows(eventRows);
+  const primaryEventRows = compactCompetitionEventRows(eventRows, 3);
   const sizeRows = eventRows.map((item) => ({
     label: displayEventName(item),
     value: item.competitionNo,
@@ -3110,7 +3152,7 @@ function renderCompetitionInsights(competition) {
     },
   ];
   const birthRows = compactCompetitionBarRows((insights.birthBuckets || []).filter((row) => row.label !== '未知'), {
-    limit: 5,
+    limit: 4,
     otherLabel: '其他年龄段',
     valueKey: 'entrants',
     aggregateKeys: ['top8'],
@@ -3147,8 +3189,8 @@ function renderEventList(competition) {
   }
 
   const sortedItems = sortedCompetitionEventRows(competition.items);
-  const primaryItems = sortedItems.slice(0, 6);
-  const secondaryItems = sortedItems.slice(6);
+  const primaryItems = sortedItems.slice(0, 4);
+  const secondaryItems = sortedItems.slice(4);
   const eventCardHtml = (item) => `
     <button class="event-card" data-event-code="${escapeHtml(item.eventCode)}">
       <strong>${escapeHtml(displayEventName(item))}</strong>
