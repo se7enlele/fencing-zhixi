@@ -4851,6 +4851,43 @@ function rosterItemSummary(rosterRows) {
     .slice(0, 4);
 }
 
+function rosterPreparationRows(rosterRows, knownAthletes = []) {
+  const knownByName = new Map();
+  for (const athlete of knownAthletes || []) {
+    const key = compactText(athlete.name);
+    if (!key) continue;
+    const current = knownByName.get(key);
+    if (!current || (athlete.bestRank ?? 999) < (current.bestRank ?? 999) || (athlete.appearances || 0) > (current.appearances || 0)) {
+      knownByName.set(key, athlete);
+    }
+  }
+
+  return (rosterRows || [])
+    .map((row) => {
+      const name = rosterAthleteLabel(row);
+      const history = rosterHistoryMatch(row) || knownByName.get(compactText(name)) || null;
+      const bestRank = history?.bestRank ?? null;
+      const appearances = history?.appearances ?? 0;
+      let label = '积累比赛经验';
+      if (bestRank && bestRank <= 8) label = '重点关注前八机会';
+      else if (appearances >= 3) label = '保持参赛稳定性';
+      else if (history) label = '结合历史项目复盘';
+      return {
+        row,
+        history,
+        name,
+        eventLabel: rosterEventLabel(row),
+        bestRank,
+        appearances,
+        label,
+      };
+    })
+    .sort((a, b) => (a.bestRank ?? 999) - (b.bestRank ?? 999)
+      || (b.appearances || 0) - (a.appearances || 0)
+      || a.name.localeCompare(b.name, 'zh-CN'))
+    .slice(0, 6);
+}
+
 function preMatchActionCards(rosterRows, opponentPool, relevantCompetitions) {
   return [
     {
@@ -4877,6 +4914,7 @@ function renderPreMatchIntelligence(club, projectRows, athletes, providedRosterR
   const opponentPool = coachStrongOpponentPool(club, projectRows);
   const topProjects = projectRows.slice(0, 3);
   const rosterSummary = rosterItemSummary(rosterRows);
+  const preparationRows = rosterPreparationRows(rosterRows, athletes);
   const actionCards = preMatchActionCards(rosterRows, opponentPool, relevantCompetitions);
   const readiness = rosterRows.length
     ? `已识别到 ${rosterRows.length} 条本馆报名记录，可以按项目拆解备赛重点。`
@@ -4926,6 +4964,23 @@ function renderPreMatchIntelligence(club, projectRows, athletes, providedRosterR
               </button>
             `).join('')}
           </div>
+          ${preparationRows.length ? `
+            <div class="prematch-roster-focus">
+              <div class="coach-bucket-head">
+                <strong>备赛名单画像</strong>
+                <span>按历史成绩提示重点</span>
+              </div>
+              <div class="coach-athlete-list">
+                ${preparationRows.map((item) => `
+                  <button type="button" data-athlete-id="${escapeHtml(item.history?.id || '')}">
+                    <strong>${escapeHtml(item.name)}</strong>
+                    <span>${escapeHtml(item.eventLabel)}</span>
+                    <em>${escapeHtml(item.label)} · 最好第 ${escapeHtml(item.bestRank ?? '-')} 名 · ${escapeHtml(item.appearances)} 次记录</em>
+                  </button>
+                `).join('')}
+              </div>
+            </div>
+          ` : ''}
         </div>
       ` : ''}
       <div class="prematch-grid">
