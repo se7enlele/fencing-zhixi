@@ -1420,6 +1420,16 @@ select:focus {
   white-space: nowrap;
 }
 
+.ai-source-note {
+  margin: 0;
+  border-radius: 9px;
+  background: rgba(105, 117, 134, 0.08);
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.45;
+  padding: 8px 9px;
+}
+
 .ai-action-row {
   display: flex;
   flex-wrap: wrap;

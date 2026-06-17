@@ -1875,6 +1875,13 @@ function buildAiCompetitionStats(query, filters) {
     map.set(label, (map.get(label) || 0) + 1);
     return map;
   }, new Map());
+  const monthCounts = rows.reduce((map, competition) => {
+    const month = String(competition.dateLabel || competition.startDate || '').match(/(?:20\d{2})[.\-/年](\d{1,2})/)?.[1];
+    if (!month) return map;
+    const label = `${Number(month)}月`;
+    map.set(label, (map.get(label) || 0) + 1);
+    return map;
+  }, new Map());
   const regionLabel = filters.region || '全部地区';
   const yearLabel = filters.year || '全部年份';
   const statusLabelText = filters.status ? statusLabel(filters.status) : '全部状态';
@@ -1898,11 +1905,18 @@ function buildAiCompetitionStats(query, filters) {
         title: '状态分布',
         rows: [...statusCounts.entries()].map(([label, count]) => `${label}：${count} 场`),
       },
+      monthCounts.size ? {
+        title: '时间分布',
+        rows: [...monthCounts.entries()]
+          .sort((a, b) => Number(b[1]) - Number(a[1]) || Number(a[0].replace('月', '')) - Number(b[0].replace('月', '')))
+          .slice(0, 6)
+          .map(([label, count]) => `${label}：${count} 场`),
+      } : null,
       {
         title: '匹配赛事',
         rows: rows.slice(0, 6).map((competition) => `${competition.sportName} · ${competition.dateLabel || '日期待确认'} · ${competition.venue || competition.region || ''}`),
       },
-    ] : [],
+    ].filter(Boolean) : [],
     evidence: rows.slice(0, 8).map((competition) => ({
       label: competition.sportName,
       detail: `${competition.dateLabel || '日期待确认'} · ${competition.venue || competition.region || ''} · ${statusLabel(competition.status)}`,
@@ -1923,8 +1937,11 @@ function buildAiAthleteComparison(query, left, right) {
   const rightScore = athleteStrengthScore(right);
   const leader = leftScore >= rightScore ? left : right;
   const other = leader === left ? right : left;
+  const rankGap = athleteRankGapText(left, right);
+  const confidence = athleteComparisonConfidence(direct, shared);
   const summaryParts = [];
-  if (direct.length) summaryParts.push(`发现 ${direct.length} 条直接或对手记录`);
+  if (direct.length) summaryParts.push(`发现 ${direct.length} 条直接交手或对手记录`);
+  if (!direct.length && /对战|交手|谁赢|打过/.test(compactText(query))) summaryParts.push('暂未发现两人的直接交手记录');
   if (shared.length) summaryParts.push(`两人共同出现在 ${shared.length} 个项目里`);
   summaryParts.push(`${leader.name} 的综合记录更占优，主要来自最好名次、奖牌和参赛连续性`);
 
@@ -1936,12 +1953,23 @@ function buildAiAthleteComparison(query, left, right) {
       [left.name, athleteMetricLine(left)],
       [right.name, athleteMetricLine(right)],
       ['当前判断', `${leader.name} 略优于 ${other.name}`],
-      ['证据强度', direct.length || shared.length ? '有共同数据' : '以历史画像对比为主'],
+      ['证据强度', confidence],
     ],
     sections: [
+      {
+        title: '差距来源',
+        rows: [
+          rankGap,
+          `${left.name}：${athleteMetricLine(left)}`,
+          `${right.name}：${athleteMetricLine(right)}`,
+        ],
+      },
       direct.length ? {
         title: '直接交手/对手记录',
         rows: direct.slice(0, 4).map((row) => `${row.phase || '淘汰赛'}：${row.name}，${row.record || row.score || ''}`),
+      } : /对战|交手|谁赢|打过/.test(compactText(query)) ? {
+        title: '直接交手',
+        rows: ['当前数据里没有识别到两人的直接交手；下面结论基于共同赛事和历史成绩画像。'],
       } : null,
       shared.length ? {
         title: '共同赛事项目',
@@ -1961,6 +1989,7 @@ function buildAiAthleteComparison(query, left, right) {
       left.id ? { label: `查看${left.name}`, athleteId: left.id } : null,
       right.id ? { label: `查看${right.name}`, athleteId: right.id } : null,
     ].filter(Boolean),
+    sourceNote: '回答由本地比赛成绩、选手画像和对阵记录生成；没有直接交手时，不会推断真实胜负。',
   };
 }
 
@@ -2034,6 +2063,23 @@ function athleteStrengthScore(athlete) {
 
 function athleteMetricLine(athlete) {
   return `最好第${athlete.bestRank || '-'}名 · ${athlete.appearances || athlete.events?.length || 0}次 · ${athlete.medals || 0}奖牌`;
+}
+
+function athleteComparisonConfidence(direct, shared) {
+  if (direct.length) return '有直接交手';
+  if (shared.length >= 3) return '共同赛事较多';
+  if (shared.length) return '有共同赛事';
+  return '历史画像对比';
+}
+
+function athleteRankGapText(left, right) {
+  const leftRank = Number(left.bestRank || 0);
+  const rightRank = Number(right.bestRank || 0);
+  if (!leftRank || !rightRank) return '最好名次：至少一方名次缺失，先看参赛次数和奖牌。';
+  if (leftRank === rightRank) return `最好名次：两人当前最好名次相同，都是第${leftRank}名。`;
+  const leader = leftRank < rightRank ? left : right;
+  const other = leader === left ? right : left;
+  return `最好名次：${leader.name} 第${Math.min(leftRank, rightRank)}名，领先 ${other.name} ${Math.abs(leftRank - rightRank)} 个名次。`;
 }
 
 function athleteTrendLabel(events) {
@@ -2133,6 +2179,7 @@ function renderAiAnswer(report) {
           `).join('')}
         </div>
       ` : ''}
+      ${report.sourceNote ? `<p class="ai-source-note">${escapeHtml(report.sourceNote)}</p>` : ''}
       ${report.actions?.length ? `
         <div class="ai-action-row">
           ${report.actions.map((action) => `
