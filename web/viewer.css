@@ -2253,6 +2253,57 @@ select:focus {
   margin-top: 8px;
 }
 
+.competition-prematch-panel {
+  display: grid;
+  gap: 10px;
+  border: 1px solid rgba(13, 125, 103, 0.16);
+  border-radius: 10px;
+  background: linear-gradient(180deg, rgba(13, 125, 103, 0.055), rgba(255, 255, 255, 0.86));
+  padding: 12px;
+}
+
+.competition-prematch-rows,
+.competition-prematch-items {
+  display: grid;
+  gap: 8px;
+}
+
+.competition-prematch-rows div,
+.competition-prematch-items div {
+  min-width: 0;
+  border: 1px solid rgba(16, 24, 40, 0.06);
+  border-radius: 9px;
+  background: rgba(255, 255, 255, 0.76);
+  padding: 9px 10px;
+}
+
+.competition-prematch-rows strong,
+.competition-prematch-rows span,
+.competition-prematch-items strong,
+.competition-prematch-items span {
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.competition-prematch-rows strong,
+.competition-prematch-items strong {
+  font-size: 13px;
+}
+
+.competition-prematch-rows span,
+.competition-prematch-items span {
+  margin-top: 3px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.competition-prematch-items {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
 .hero {
   position: relative;
   display: grid;

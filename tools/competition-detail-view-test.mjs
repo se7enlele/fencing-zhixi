@@ -74,9 +74,15 @@ assert.match(source, /competitionChips\(competition, 4\)/, 'competition list car
 assert.match(source, /function competitionProjectSummaryChips\(competition\)/, 'competition hero must summarize project structure instead of listing raw labels');
 assert.match(source, /function competitionProjectScope\(competition\)/, 'competition hero must render a structured project scope summary');
 assert.match(source, /function competitionHeroSummaryText\(competition\)/, 'competition hero must explain available value in user-facing language');
+assert.match(source, /function competitionRegistrationNumbers\(competition\)/, 'pre-event competition detail must summarize registration numbers');
+assert.match(source, /function competitionPreEventCards\(competition\)/, 'pre-event competition detail must use pre-match metric cards');
+assert.match(source, /function renderCompetitionPreEventPanel\(competition\)/, 'pre-event competition detail must render a dedicated preparation panel');
 assert.match(source, /const chips = competitionProjectSummaryChips\(competition\)/, 'competition hero must use structural project summary chips');
 assert.match(source, /class="competition-scope-grid"/, 'competition hero must show compact scope metrics instead of raw full labels');
 assert.match(source, /project-summary-row/, 'competition hero project summary must have a dedicated compact row');
+assert.match(source, /const isPreEventCompetition = competition\.isPreEvent \|\| \['registration', 'upcoming', 'live'\]\.includes\(competition\.status\)/, 'pre-event competitions must not reuse post-event chart assumptions');
+assert.match(source, /renderCompetitionPreEventPanel\(competition\)/, 'pre-event competition insight area must show preparation guidance');
+assert.match(source, /registered \? `报名 \$\{registered\}` : rosterStatusLabel\(competition\.rosterStatus\)/, 'pre-event project cards must show roster status instead of undefined post-event metrics');
 assert.match(source, /compactCompetitionEventRows\(eventRows, 3\)/, 'competition insight project comparison should stay compact on mobile');
 assert.match(source, /limit:\s*4,[\s\S]*otherLabel:\s*'其他年龄段'/, 'competition age distribution should aggregate lower-priority age buckets');
 assert.match(source, /const primaryItems = sortedItems\.slice\(0, 4\)/, 'competition event list should show only priority projects by default');
@@ -86,5 +92,7 @@ assert.match(source, /secondaryItems\.length/, 'competition event list must keep
 const css = await readFile(new URL('../web/viewer.css', import.meta.url), 'utf8');
 assert.match(css, /\.competition-scope-grid/, 'competition scope summary styles must exist');
 assert.match(css, /\.competition-scope-grid strong,[\s\S]*text-overflow:\s*ellipsis/, 'competition scope cells must truncate long summaries');
+assert.match(css, /\.competition-prematch-panel/, 'pre-event preparation panel styles must exist');
+assert.match(css, /\.competition-prematch-items/, 'pre-event priority project styles must exist');
 
 console.log('competition detail compact distributions are covered');

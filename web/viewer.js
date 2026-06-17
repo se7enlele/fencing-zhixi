@@ -3332,12 +3332,110 @@ function compactCompetitionEventRows(rows, limit = 4) {
   return sortedCompetitionEventRows(rows).slice(0, limit);
 }
 
+function competitionRegistrationNumbers(competition) {
+  const summary = competition.registrationSummary || {};
+  const items = competitionItemSummaries(competition);
+  const registered = Number(summary.rosterCount)
+    || items.reduce((sum, item) => sum + (Number(item.registrationCount) || Number(item.roster?.length) || 0), 0);
+  const expected = Number(summary.expectedRegistrationCount)
+    || items.reduce((sum, item) => sum + (Number(item.expectedRegistrationCount) || Number(item.competitionNo) || 0), 0);
+  return { registered, expected };
+}
+
+function competitionPreEventTopItems(competition, limit = 3) {
+  return sortedCompetitionEventRows(competitionItemSummaries(competition))
+    .map((item) => ({
+      item,
+      label: displayEventName(item),
+      count: Number(item.registrationCount) || Number(item.expectedRegistrationCount) || Number(item.competitionNo) || 0,
+      date: item.openDate || item.closeDate || competition.dateLabel || '',
+    }))
+    .filter((row) => row.label)
+    .sort((a, b) => b.count - a.count || a.label.localeCompare(b.label, 'zh-CN'))
+    .slice(0, limit);
+}
+
+function competitionPreEventCards(competition) {
+  const numbers = competitionRegistrationNumbers(competition);
+  return [
+    {
+      title: '赛事状态',
+      value: statusLabel(competition.status || 'upcoming'),
+      detail: rosterStatusLabel(competition.rosterStatus),
+    },
+    {
+      title: '项目覆盖',
+      value: competitionItemCount(competition),
+      detail: competitionItemFilterLabels(competition).slice(0, 3).join(' / ') || '组别待确认',
+    },
+    {
+      title: '报名规模',
+      value: numbers.registered || numbers.expected || '-',
+      detail: numbers.registered && numbers.expected ? `${numbers.registered}/${numbers.expected}` : '名单更新后会更准确',
+    },
+  ];
+}
+
+function competitionPreEventReadinessRows(competition) {
+  const numbers = competitionRegistrationNumbers(competition);
+  const topItems = competitionPreEventTopItems(competition, 3);
+  const rosterReady = competition.rosterStatus === 'partial' || competition.rosterStatus === 'complete' || numbers.registered > 0;
+  const rows = [];
+  if (topItems.length) {
+    rows.push({
+      title: '优先看项目',
+      detail: topItems.map((row) => `${row.label}${row.count ? ` ${row.count}人` : ''}`).join('，'),
+    });
+  }
+  rows.push({
+    title: '赛前可用信息',
+    detail: rosterReady
+      ? '已有报名线索，可先看同项目强手、熟悉对手和俱乐部分布。'
+      : '可先看比赛时间、地点、组别和项目规模，名单更新后再细化到选手对标。',
+  });
+  rows.push({
+    title: '关注方式',
+    detail: '关注赛事后，后续名单和成绩补齐时可快速回到这场比赛继续查看。',
+  });
+  return rows;
+}
+
+function renderCompetitionPreEventPanel(competition) {
+  const rows = competitionPreEventReadinessRows(competition);
+  const topItems = competitionPreEventTopItems(competition, 5);
+  return `
+    <div class="competition-prematch-panel">
+      <div class="chart-title">赛前准备</div>
+      <div class="competition-prematch-rows">
+        ${rows.map((row) => `
+          <div>
+            <strong>${escapeHtml(row.title)}</strong>
+            <span>${escapeHtml(row.detail)}</span>
+          </div>
+        `).join('')}
+      </div>
+      ${topItems.length ? `
+        <div class="competition-prematch-items">
+          ${topItems.map((row) => `
+            <div>
+              <strong>${escapeHtml(row.label)}</strong>
+              <span>${escapeHtml(row.count ? `${row.count} 人` : '规模待确认')}</span>
+            </div>
+          `).join('')}
+        </div>
+      ` : ''}
+    </div>
+  `;
+}
+
 function renderCompetitionInsights(competition) {
   const insights = competition.insights || {};
   const cards = insights.summaryCards || [];
   const bullets = insights.bullets || [];
+  const isPreEventCompetition = competition.isPreEvent || ['registration', 'upcoming', 'live'].includes(competition.status);
 
-  competitionInsightCards.innerHTML = cards.slice(0, 2).map((item) => `
+  const displayCards = isPreEventCompetition ? competitionPreEventCards(competition) : cards.slice(0, 2);
+  competitionInsightCards.innerHTML = displayCards.map((item) => `
     <div class="metric">
       <strong>${escapeHtml(displayMetricValue(item.value))}</strong>
       <span>${escapeHtml(item.title)}</span>
@@ -3389,6 +3487,15 @@ function renderCompetitionInsights(competition) {
     display: `${row.entrants}人 / 前八${row.top8}`,
   }));
 
+  if (isPreEventCompetition) {
+    competitionInsightBullets.innerHTML = `
+      ${renderCompetitionPreEventPanel(competition)}
+      ${primaryEventRows.length > 1 ? eventTiles('重点项目', primaryEventRows) : ''}
+      ${bullets.length ? `<div class="insight-note compact">${escapeHtml(bullets[0])}</div>` : ''}
+    `;
+    return;
+  }
+
   competitionInsightBullets.innerHTML = `
     ${donutChart('赛事结构', densityRows)}
     ${birthRows.length ? barChart('主要年龄段', birthRows, { tone: 'orange' }) : '<div class="empty compact-empty">暂无年龄段数据</div>'}
@@ -3419,17 +3526,30 @@ function renderEventList(competition) {
   const sortedItems = sortedCompetitionEventRows(eventItems);
   const primaryItems = sortedItems.slice(0, 4);
   const secondaryItems = sortedItems.slice(4);
-  const eventCardHtml = (item) => `
-    <button class="event-card" data-event-code="${escapeHtml(item.eventCode)}">
-      <strong>${escapeHtml(displayEventName(item))}</strong>
-      <div class="subline">${escapeHtml(item.openDate || competition.dateLabel)}</div>
-      <div class="event-meta">
-        <span class="badge">${item.competitionNo} 人</span>
-        <span class="badge">${item.poolQualifyNo} 晋级</span>
-        <span class="badge">${item.playedEliminationMatchCount} 场淘汰赛</span>
-      </div>
-    </button>
-  `;
+  const eventCardHtml = (item) => {
+    const expected = Number(item.expectedRegistrationCount) || Number(item.competitionNo) || 0;
+    const registered = Number(item.registrationCount) || Number(item.roster?.length) || 0;
+    const meta = competition.isPreEvent || ['registration', 'upcoming', 'live'].includes(competition.status)
+      ? [
+        expected ? `${expected} 人` : '规模待确认',
+        registered ? `报名 ${registered}` : rosterStatusLabel(competition.rosterStatus),
+        statusLabel(item.status || competition.status),
+      ]
+      : [
+        `${Number(item.competitionNo) || 0} 人`,
+        `${Number(item.poolQualifyNo) || 0} 晋级`,
+        `${Number(item.playedEliminationMatchCount) || 0} 场淘汰赛`,
+      ];
+    return `
+      <button class="event-card" data-event-code="${escapeHtml(item.eventCode)}">
+        <strong>${escapeHtml(displayEventName(item))}</strong>
+        <div class="subline">${escapeHtml(item.openDate || competition.dateLabel)}</div>
+        <div class="event-meta">
+          ${meta.map((label) => `<span class="badge">${escapeHtml(label)}</span>`).join('')}
+        </div>
+      </button>
+    `;
+  };
 
   eventList.innerHTML = `
     ${primaryItems.map(eventCardHtml).join('')}
