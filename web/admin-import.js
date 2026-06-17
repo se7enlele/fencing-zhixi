@@ -14,6 +14,51 @@ function setStatus(message, isError = false) {
   statusBox.classList.toggle('error', isError);
 }
 
+function pageCount(summary) {
+  const total = Number(summary.pageTotal) || 0;
+  const size = Number(summary.pageSize) || 0;
+  return total && size ? Math.ceil(total / size) : null;
+}
+
+function rosterProgressText(summary, importStats) {
+  const current = Number(summary.pageCurrent) || 1;
+  const pages = pageCount(summary);
+  const pageLabel = pages ? `第 ${current}/${pages} 页` : `第 ${current} 页`;
+  const incoming = importStats?.incomingRecords ?? summary.recordCount ?? 0;
+  const added = importStats?.newRecords ?? '-';
+  const duplicate = importStats?.duplicateRecords ?? '-';
+  const cumulative = importStats?.cumulativeRecords ?? '-';
+  return `${pageLabel}，本页 ${incoming} 条，预计新增 ${added} 条，重复 ${duplicate} 条，累计 ${cumulative} 条。`;
+}
+
+function renderRosterProgress(preview, importStats) {
+  if (preview.importType !== 'registration-roster') return '';
+  const summary = preview.summary || {};
+  const current = Number(summary.pageCurrent) || 1;
+  const pages = pageCount(summary);
+  const percent = pages ? Math.min(100, Math.round((current / pages) * 100)) : 0;
+  const status = pages && current >= pages ? '这已经是预计最后一页。' : '请继续按页导入，直到最后一页确认完成。';
+  return `
+    <div class="roster-progress">
+      <div class="roster-progress-head">
+        <strong>报名分页进度</strong>
+        <span>${rosterProgressText(summary, importStats)}</span>
+      </div>
+      ${pages ? `
+        <div class="roster-progress-bar" aria-label="报名分页进度">
+          <span style="width: ${percent}%"></span>
+        </div>
+      ` : ''}
+      <div class="roster-progress-grid">
+        <div><strong>${importStats?.newRecords ?? '-'}</strong><span>本页新增</span></div>
+        <div><strong>${importStats?.duplicateRecords ?? '-'}</strong><span>重复跳过</span></div>
+        <div><strong>${importStats?.cumulativeRecords ?? '-'}</strong><span>累计报名</span></div>
+      </div>
+      <p>${status}</p>
+    </div>
+  `;
+}
+
 function renderPreview(data) {
   const preview = data.preview;
   const general = preview.general || {};
@@ -35,6 +80,8 @@ function renderPreview(data) {
     ['项目数', summary.itemCount ?? '-'],
     ['报名人次', summary.totalParticipants ?? '-'],
     ['本页记录', summary.recordCount ?? '-'],
+    ['当前页', summary.pageCurrent ?? '-'],
+    ['报名总数', summary.pageTotal ?? '-'],
     ['选手数', summary.athleteCount ?? '-'],
     ['俱乐部数', summary.clubCount ?? '-'],
     ['预计新增', importStats?.newRecords ?? '-'],
@@ -50,6 +97,7 @@ function renderPreview(data) {
 
   previewBox.innerHTML = `
     ${preview.note ? `<div class="preview-note">${preview.note}</div>` : ''}
+    ${renderRosterProgress(preview, importStats)}
     ${cards.map(([label, value]) => `
       <div class="preview-card">
         <strong>${String(value)}</strong>
@@ -96,7 +144,11 @@ previewBtn.addEventListener('click', async () => {
     lastPayload = result.preview;
     renderPreview(result);
     commitBtn.disabled = false;
-    setStatus(result.exists ? '解析成功：该数据已存在，确认后会覆盖。' : '解析成功：确认后会写入系统。');
+    if (result.preview.importType === 'registration-roster') {
+      setStatus(`解析成功：${rosterProgressText(result.preview.summary || {}, result.importStats || null)}`);
+    } else {
+      setStatus(result.exists ? '解析成功：该数据已存在，确认后会覆盖。' : '解析成功：确认后会写入系统。');
+    }
   } catch (error) {
     lastPayload = null;
     commitBtn.disabled = true;
@@ -112,7 +164,7 @@ commitBtn.addEventListener('click', async () => {
     setStatus('正在写入...');
     const result = await postJson('/api/admin/import/commit');
     if (result.importStats) {
-      setStatus(`报名名单分页已入库：新增 ${result.importStats.newRecords} 条，重复跳过 ${result.importStats.duplicateRecords} 条，累计 ${result.importStats.cumulativeRecords} 条`);
+      setStatus(`报名名单分页已入库：${rosterProgressText(result.summary || {}, result.importStats)}`);
     } else {
       setStatus(`${result.overwritten ? '覆盖' : '新增'}成功：${result.targetFile || result.eventCode}`);
     }

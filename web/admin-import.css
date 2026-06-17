@@ -227,6 +227,74 @@ button:disabled {
   font-weight: 800;
 }
 
+.roster-progress {
+  grid-column: 1 / -1;
+  display: grid;
+  gap: 10px;
+  border: 1px solid rgba(8, 119, 96, 0.16);
+  border-radius: 10px;
+  background: linear-gradient(180deg, rgba(235, 249, 245, 0.94), rgba(255, 255, 255, 0.94));
+  padding: 13px;
+}
+
+.roster-progress-head {
+  display: grid;
+  gap: 4px;
+}
+
+.roster-progress-head strong {
+  font-size: 16px;
+}
+
+.roster-progress-head span,
+.roster-progress p,
+.roster-progress-grid span {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.roster-progress-bar {
+  height: 8px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(8, 119, 96, 0.1);
+}
+
+.roster-progress-bar span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--teal);
+}
+
+.roster-progress-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.roster-progress-grid div {
+  border: 1px solid rgba(8, 119, 96, 0.12);
+  border-radius: 9px;
+  background: rgba(255, 255, 255, 0.78);
+  padding: 10px;
+}
+
+.roster-progress-grid strong,
+.roster-progress-grid span {
+  display: block;
+}
+
+.roster-progress-grid strong {
+  font-size: 22px;
+  line-height: 1.1;
+}
+
+.roster-progress-grid span {
+  margin-top: 5px;
+}
+
 .preview-card {
   border: 1px solid var(--border);
   border-radius: 9px;
@@ -263,6 +331,10 @@ button:disabled {
   }
 
   .preview-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .roster-progress-grid {
     grid-template-columns: 1fr;
   }
 
