@@ -9,6 +9,7 @@ import { buildRegistrationRosterReport, looksLikeRegistrationRoster } from './to
 import { buildFrontSportEventListReport, looksLikeFrontSportEventList } from './tools/parse-frontsporteventlist.mjs';
 import { buildPreEventCompetitions } from './tools/pre-event-data.mjs';
 import { buildSearchIndexes, searchIndexes } from './tools/search-index.mjs';
+import { compactCompetitionIndex } from './tools/competition-index.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PORT = Number(process.env.PORT ?? 5177);
@@ -282,7 +283,7 @@ async function getCompetitionIndexPayload() {
     ok: true,
     version: payload.version,
     generatedAt: payload.generatedAt,
-    competitions: payload.competitions,
+    competitions: compactCompetitionIndex(payload.competitions),
     dataCoverage: payload.dataCoverage,
   };
 }

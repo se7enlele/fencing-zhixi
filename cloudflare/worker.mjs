@@ -2,6 +2,7 @@ import adminImportHtml from '../web/admin-import.html';
 import viewerHtml from '../web/viewer.html';
 import { buildPreEventCompetitions } from '../tools/pre-event-data.mjs';
 import { searchIndexes } from '../tools/search-index.mjs';
+import { compactCompetitionIndex } from '../tools/competition-index.mjs';
 import {
   buildAthleteDirectoryFromEvents,
   buildClubDirectoryFromEvents,
@@ -550,7 +551,7 @@ async function routeApi(request, env, url) {
       ok: true,
       version: index.version,
       generatedAt: index.generatedAt || null,
-      competitions,
+      competitions: compactCompetitionIndex(competitions),
       dataCoverage: index.publicEvents.dataCoverage || null,
     }, 200, hasDynamicPreEvent ? NO_STORE_CACHE : PUBLIC_INDEX_CACHE);
   }

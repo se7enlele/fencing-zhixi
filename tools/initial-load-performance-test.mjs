@@ -30,10 +30,12 @@ assert.match(competitionRoute, /getCompetitionIndex\(env\)/, 'worker competition
 assert.doesNotMatch(competitionRoute, /getMergedData\(env\)|loadBundledData\(env\)/, 'worker competition route must not load full detail chunks');
 
 assert.match(server, /async function getCompetitionIndexPayload\(\)/, 'local server must expose a dedicated competition index payload');
+assert.match(server, /compactCompetitionIndex\(payload\.competitions\)/, 'local competition index should be compacted for initial load');
 assert.doesNotMatch(
   server.slice(server.indexOf('async function getCompetitionIndexPayload()'), server.indexOf('async function getEventIndexPayload()')),
   /athletes|clubs/,
   'local competition index payload must not include entity directories',
 );
+assert.match(worker, /competitions:\s*compactCompetitionIndex\(competitions\)/, 'worker competition index should be compacted for initial load');
 
 console.log('initial load performance contract is covered');
