@@ -3279,6 +3279,8 @@ th {
 .pool-bout-strip {
   display: grid;
   gap: 8px;
+  min-width: 0;
+  max-width: 100%;
 }
 
 .participant-card {
@@ -3422,6 +3424,7 @@ th {
 }
 
 .pool-process-card {
+  width: 100%;
   min-width: 0;
   max-width: 100%;
   overflow: hidden;
@@ -3432,6 +3435,8 @@ th {
 }
 
 .pool-matrix-wrap {
+  width: 100%;
+  min-width: 0;
   max-width: 100%;
   overflow-x: auto;
   overflow-y: hidden;
@@ -3443,14 +3448,13 @@ th {
 
 .pool-matrix,
 .process-table {
-  min-width: 620px;
   border-collapse: collapse;
   background: #fff;
 }
 
 .pool-matrix {
-  width: max(100%, calc(132px + (var(--pool-size, 7) * 44px)));
-  min-width: max(100%, calc(132px + (var(--pool-size, 7) * 44px)));
+  width: max(100%, calc(112px + (var(--pool-size, 7) * 40px)));
+  min-width: max(100%, calc(112px + (var(--pool-size, 7) * 40px)));
 }
 
 .pool-matrix th,
@@ -3474,9 +3478,9 @@ th {
   position: sticky;
   left: 0;
   z-index: 2;
-  width: 132px;
-  min-width: 132px;
-  max-width: 132px;
+  width: 112px;
+  min-width: 112px;
+  max-width: 112px;
   background: #fff;
   box-shadow: 1px 0 0 rgba(16, 24, 40, 0.06);
 }
@@ -3500,9 +3504,9 @@ th {
 }
 
 .pool-matrix td {
-  width: 44px;
-  height: 46px;
-  font-size: 16px;
+  width: 40px;
+  height: 42px;
+  font-size: 15px;
   color: var(--text);
 }
 
@@ -3540,8 +3544,9 @@ th {
 }
 
 .pool-result-table {
-  display: grid;
+  display: block;
   gap: 6px;
+  width: 100%;
   min-width: 0;
   max-width: 100%;
   overflow-x: auto;
@@ -3550,7 +3555,8 @@ th {
 }
 
 .pool-results-table {
-  min-width: max(100%, 430px);
+  width: max(100%, 360px);
+  min-width: max(100%, 360px);
 }
 
 .pool-group-head {

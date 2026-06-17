@@ -24,8 +24,10 @@ assert.match(css, /\.app\s*\{[\s\S]*overflow-x:\s*hidden/, 'mobile app shell mus
 assert.match(css, /\.pool-matrix-wrap\s*\{[\s\S]*overflow-x:\s*auto/, 'pool matrix must scroll inside its card');
 assert.match(css, /\.pool-result-table\s*\{[\s\S]*overflow-x:\s*auto/, 'pool result table must scroll inside its card');
 assert.match(css, /\.pool-matrix\s*\{[\s\S]*--pool-size/, 'pool matrix width must be based on active group size');
+assert.match(css, /\.pool-matrix\s*\{[\s\S]*112px \+ \(var\(--pool-size, 7\) \* 40px\)/, 'pool matrix must use mobile-first compact column widths');
 assert.match(css, /\.pool-matrix th:first-child,[\s\S]*position:\s*sticky/, 'pool matrix first column must stay visible while scrolling');
-assert.match(css, /\.pool-results-table\s*\{[\s\S]*min-width:\s*max\(100%,\s*430px\)/, 'pool results table must not inherit the wider generic process table width');
+assert.match(css, /\.pool-result-table\s*\{[\s\S]*display:\s*block/, 'pool result scroll container must not expand as a grid min-content box');
+assert.match(css, /\.pool-results-table\s*\{[\s\S]*min-width:\s*max\(100%,\s*360px\)/, 'pool results table must use a compact mobile width contract');
 assert.match(css, /\.bracket-match\.has-focus-athlete/, 'bracket must visually mark followed athlete matches');
 assert.match(css, /\.participant-card\.is-primary-focus/, 'final ranking must visually mark selected child');
 
