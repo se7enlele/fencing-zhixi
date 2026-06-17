@@ -1231,6 +1231,31 @@ select:focus {
   gap: 10px;
 }
 
+.ai-home-primary {
+  border-color: rgba(21, 95, 194, 0.13);
+  background:
+    radial-gradient(circle at top right, rgba(13, 125, 103, 0.12), transparent 36%),
+    linear-gradient(180deg, rgba(246, 251, 250, 0.98), rgba(255, 255, 255, 0.96));
+  box-shadow: 0 16px 34px rgba(15, 37, 64, 0.08);
+}
+
+.ai-home-lead {
+  display: grid;
+  gap: 5px;
+}
+
+.ai-home-lead strong {
+  font-size: 22px;
+  line-height: 1.22;
+}
+
+.ai-home-lead span,
+.ai-home-actions span {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.45;
+}
+
 .ai-query-form {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
@@ -1240,7 +1265,7 @@ select:focus {
 
 .ai-query-form textarea {
   width: 100%;
-  min-height: 72px;
+  min-height: 84px;
   resize: vertical;
   border: 1px solid rgba(16, 24, 40, 0.1);
   border-radius: 10px;
@@ -1296,6 +1321,25 @@ select:focus {
   font-size: 12px;
   font-weight: 800;
   padding: 7px 10px;
+}
+
+.ai-home-actions {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  flex-wrap: wrap;
+}
+
+.ai-home-actions button {
+  min-height: 32px;
+  border: 1px solid rgba(21, 95, 194, 0.14);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.82);
+  color: var(--primary);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 900;
+  padding: 0 12px;
 }
 
 .ai-answer {

@@ -35,6 +35,10 @@ assert.match(js, /setAttribute\('aria-current', 'page'\)/, 'bottom tab rendering
 assert.match(js, /role === 'data'[\s\S]*navigateMain\('competitions'\)/, 'data workspace must open the competition page instead of the home dashboard');
 assert.match(js, /function renderHomePage\(\)/, 'home page renderer must exist');
 assert.match(js, /function renderAiWorkspace\(\)/, 'home page must include an AI workspace renderer');
+assert.match(js, /homePage\.innerHTML = `\s*\$\{renderAiWorkspace\('home'\)\}/, 'home page must start with the AI question workspace');
+assert.match(js, /<h2>闂?FencingAI<\/h2>|<h2>问 FencingAI<\/h2>/, 'AI workspace must be framed as the primary question entry');
+assert.match(js, /直接用问题查看击剑数据|鐩存帴鐢ㄩ棶棰樻煡鐪嬪嚮鍓戞暟鎹?/, 'AI home lead must explain question-first usage');
+assert.match(js, /data-home-competitions>赛事数据<\/button>|data-home-competitions>璧涗簨鏁版嵁<\/button>/, 'AI home must keep a secondary competition list entry');
 assert.match(js, /function buildAiAnswer\(query\)/, 'AI workspace must build structured answers from local data');
 assert.match(js, /function buildAiCompetitionStats\(query, filters\)/, 'AI workspace must answer year and region competition statistics');
 assert.match(js, /data-sport-code/, 'AI evidence cards must link back to competition details');
@@ -49,6 +53,8 @@ assert.match(css, /\.bottom-nav button\[aria-current="page"\]/, 'bottom navigati
 assert.match(css, /\.bottom-nav button:not\(\[aria-current="page"\]\)/, 'bottom navigation must explicitly reset non-current tabs');
 assert.match(css, /background: transparent !important/, 'non-current bottom tabs must not keep touch or focus selected backgrounds');
 assert.match(css, /\.ai-workspace/, 'AI workspace styles must exist');
+assert.match(css, /\.ai-home-primary/, 'AI home entry must have primary visual treatment');
+assert.match(css, /\.ai-home-actions/, 'AI home entry must expose secondary navigation actions');
 assert.match(css, /\.ai-evidence/, 'AI workspace must style source evidence cards');
 assert.match(css, /\.my-page-shell/, 'personal page styles must exist');
 assert.match(css, /\.competition-follow-tag/, 'competition follow tag styles must exist');

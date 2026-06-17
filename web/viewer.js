@@ -1624,15 +1624,7 @@ function renderHomePage() {
     { value: state.clubSearchIndex.length, label: '俱乐部' },
   ];
   homePage.innerHTML = `
-    <section class="my-hero panel">
-      <div>
-        <span>FencingAI 助手</span>
-        <strong>直接问击剑数据</strong>
-        <em>输入选手、俱乐部或赛事问题，返回结论和可追溯证据。</em>
-      </div>
-      <button type="button" data-home-competitions>进入赛事</button>
-    </section>
-    ${renderAiWorkspace()}
+    ${renderAiWorkspace('home')}
     <section class="my-stat-grid">
       ${stats.map((item) => `
         <div class="my-stat">
@@ -1700,22 +1692,30 @@ function aiAcceptanceQueryCases() {
 function renderAiWorkspace() {
   const presets = aiPromptPresets();
   return `
-    <section class="panel ai-workspace" id="aiWorkspace">
+    <section class="panel ai-workspace ai-home-primary" id="aiWorkspace">
       <div class="section-title">
-        <h2>AI 数据助手</h2>
-        <span>结论可溯源</span>
+        <h2>问 FencingAI</h2>
+        <span>数据可溯源</span>
+      </div>
+      <div class="ai-home-lead">
+        <strong>直接用问题查看击剑数据</strong>
+        <span>可以问赛事数量、报名情况、选手对比、成长变化和俱乐部表现。</span>
       </div>
       <form class="ai-query-form" id="aiQueryForm">
-        <textarea id="aiQueryInput" rows="3" placeholder="例如：帮我分析马消和陶嘉月的对战情况"></textarea>
-        <button type="submit">分析</button>
+        <textarea id="aiQueryInput" rows="3" placeholder="例如：2026年天津有几场比赛 / 分析马潇和陶嘉月的对战情况"></textarea>
+        <button type="submit">生成分析</button>
       </form>
       <div class="ai-preset-row">
         ${presets.map((preset) => `<button type="button" data-ai-preset="${escapeHtml(preset)}">${escapeHtml(preset)}</button>`).join('')}
       </div>
+      <div class="ai-home-actions">
+        <button type="button" data-home-competitions>赛事数据</button>
+        <span>保留传统检索入口，需要时可切回列表查看。</span>
+      </div>
       <div class="ai-answer" id="aiAnswer">
         <div class="ai-empty">
-          <strong>可以直接问问题</strong>
-          <span>当前先用结构化数据生成回答；后续接入 LLM 后，表达层会更自然，但结论仍以比赛数据为准。</span>
+          <strong>从问题开始</strong>
+          <span>回答会给出结论、关键指标和证据来源，点击证据可回到对应赛事、选手或俱乐部。</span>
         </div>
       </div>
     </section>
