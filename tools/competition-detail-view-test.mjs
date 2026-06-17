@@ -15,6 +15,7 @@ const context = {
 };
 vm.createContext(context);
 vm.runInContext(`${source.slice(start, end)}
+globalThis.sortedCompetitionEventRows = sortedCompetitionEventRows;
 globalThis.compactCompetitionBarRows = compactCompetitionBarRows;
 globalThis.compactCompetitionEventRows = compactCompetitionEventRows;
 `, context);
@@ -62,5 +63,16 @@ assert.equal(JSON.stringify(compactEventRows.map((row) => row.shortEventName)), 
   'U6 男花',
   'U12 男花',
 ]));
+
+const sortedEventRows = context.sortedCompetitionEventRows([
+  { shortEventName: 'U14 男花', competitionNo: 4 },
+  { shortEventName: 'U8 男花', competitionNo: 55 },
+  { shortEventName: 'U10 男花', competitionNo: 55 },
+]);
+assert.equal(JSON.stringify(sortedEventRows.map((row) => row.shortEventName)), JSON.stringify(['U10 男花', 'U8 男花', 'U14 男花']));
+
+assert.match(source, /competitionChips\(competition, 5\)/, 'competition hero must limit chips and summarize the rest');
+assert.match(source, /class="event-list-more"/, 'competition event list must hide lower-priority projects behind an expandable section');
+assert.match(source, /secondaryItems\.length/, 'competition event list must keep full project access without showing everything by default');
 
 console.log('competition detail compact distributions are covered');

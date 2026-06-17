@@ -2946,7 +2946,7 @@ function competitionListInsight(competition) {
 }
 
 function renderCompetitionHero(competition) {
-  const chips = competitionChips(competition);
+  const chips = competitionChips(competition, 5);
   const followed = isFollowedCompetition(competition.sportCode);
   competitionHero.classList.add('compact');
   competitionHero.innerHTML = `
@@ -2961,7 +2961,10 @@ function renderCompetitionHero(competition) {
     <div class="hero-title">${escapeHtml(competition.sportName)}</div>
     <div class="hero-sub">${escapeHtml(competition.venue || '地点待确认')} · ${escapeHtml(displayDateLabel(competition.dateLabel))}</div>
     <div class="hero-sub coverage-copy">${escapeHtml(coverageDetail(competition))}</div>
-    <div class="event-chip-row">${chips.visible.map((label) => `<span>${escapeHtml(label)}</span>`).join('')}</div>
+    <div class="event-chip-row">
+      ${chips.visible.map((label) => `<span>${escapeHtml(label)}</span>`).join('')}
+      ${chips.remaining ? `<span class="muted-chip">+${escapeHtml(chips.remaining)} 项</span>` : ''}
+    </div>
   `;
   competitionHero.querySelector('#followCompetitionBtn')?.addEventListener('click', () => {
     if (isFollowedCompetition(competition.sportCode)) removeFollowedCompetition(competition.sportCode);
@@ -2990,10 +2993,13 @@ function compactCompetitionBarRows(rows, options = {}) {
   return [...visible, other];
 }
 
-function compactCompetitionEventRows(rows, limit = 4) {
+function sortedCompetitionEventRows(rows) {
   return [...(rows || [])]
-    .sort((a, b) => (Number(b.competitionNo) || 0) - (Number(a.competitionNo) || 0) || displayEventName(a).localeCompare(displayEventName(b), 'zh-CN'))
-    .slice(0, limit);
+    .sort((a, b) => (Number(b.competitionNo) || 0) - (Number(a.competitionNo) || 0) || displayEventName(a).localeCompare(displayEventName(b), 'zh-CN'));
+}
+
+function compactCompetitionEventRows(rows, limit = 4) {
+  return sortedCompetitionEventRows(rows).slice(0, limit);
 }
 
 function renderCompetitionInsights(competition) {
@@ -3079,7 +3085,10 @@ function renderEventList(competition) {
     return;
   }
 
-  eventList.innerHTML = competition.items.map((item) => `
+  const sortedItems = sortedCompetitionEventRows(competition.items);
+  const primaryItems = sortedItems.slice(0, 6);
+  const secondaryItems = sortedItems.slice(6);
+  const eventCardHtml = (item) => `
     <button class="event-card" data-event-code="${escapeHtml(item.eventCode)}">
       <strong>${escapeHtml(displayEventName(item))}</strong>
       <div class="subline">${escapeHtml(item.openDate || competition.dateLabel)}</div>
@@ -3089,7 +3098,19 @@ function renderEventList(competition) {
         <span class="badge">${item.playedEliminationMatchCount} 场淘汰赛</span>
       </div>
     </button>
-  `).join('');
+  `;
+
+  eventList.innerHTML = `
+    ${primaryItems.map(eventCardHtml).join('')}
+    ${secondaryItems.length ? `
+      <details class="event-list-more">
+        <summary>查看其余 ${escapeHtml(secondaryItems.length)} 个项目</summary>
+        <div class="event-list-more-grid">
+          ${secondaryItems.map(eventCardHtml).join('')}
+        </div>
+      </details>
+    ` : ''}
+  `;
 
   eventList.querySelectorAll('.event-card').forEach((button) => {
     button.addEventListener('click', () => openEvent(button.dataset.eventCode));
