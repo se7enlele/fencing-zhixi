@@ -16,11 +16,16 @@ assert.match(js, /function renderFollowedEventFocus\(event\)/, 'event overview m
 assert.match(js, /focusClassForAthlete\(match\.home\)/, 'bracket rows must highlight followed athletes');
 assert.match(js, /focusClassForAthlete\(rowAthlete\)/, 'pool matrix rows must highlight followed athletes');
 assert.match(js, /focusLabelForAthlete\(row\)/, 'final ranking rows must label followed athletes');
+assert.match(js, /class="pool-matrix" style="--pool-size:/, 'pool matrix must size itself from the active group');
+assert.match(js, /class="process-table pool-results-table"/, 'pool result table must have a mobile-specific width contract');
 
 assert.match(css, /body\s*\{[\s\S]*overflow-x:\s*hidden/, 'mobile body must not scroll horizontally');
 assert.match(css, /\.app\s*\{[\s\S]*overflow-x:\s*hidden/, 'mobile app shell must not be widened by tables');
 assert.match(css, /\.pool-matrix-wrap\s*\{[\s\S]*overflow-x:\s*auto/, 'pool matrix must scroll inside its card');
 assert.match(css, /\.pool-result-table\s*\{[\s\S]*overflow-x:\s*auto/, 'pool result table must scroll inside its card');
+assert.match(css, /\.pool-matrix\s*\{[\s\S]*--pool-size/, 'pool matrix width must be based on active group size');
+assert.match(css, /\.pool-matrix th:first-child,[\s\S]*position:\s*sticky/, 'pool matrix first column must stay visible while scrolling');
+assert.match(css, /\.pool-results-table\s*\{[\s\S]*min-width:\s*max\(100%,\s*430px\)/, 'pool results table must not inherit the wider generic process table width');
 assert.match(css, /\.bracket-match\.has-focus-athlete/, 'bracket must visually mark followed athlete matches');
 assert.match(css, /\.participant-card\.is-primary-focus/, 'final ranking must visually mark selected child');
 

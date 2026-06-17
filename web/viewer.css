@@ -3106,6 +3106,7 @@ th {
   -webkit-overflow-scrolling: touch;
   margin: 8px -10px 14px;
   padding: 0 10px;
+  overscroll-behavior-x: contain;
 }
 
 .pool-matrix,
@@ -3113,6 +3114,11 @@ th {
   min-width: 620px;
   border-collapse: collapse;
   background: #fff;
+}
+
+.pool-matrix {
+  width: max(100%, calc(132px + (var(--pool-size, 7) * 44px)));
+  min-width: max(100%, calc(132px + (var(--pool-size, 7) * 44px)));
 }
 
 .pool-matrix th,
@@ -3131,11 +3137,28 @@ th {
   text-align: left;
 }
 
-.pool-matrix th:first-child {
-  min-width: 128px;
+.pool-matrix th:first-child,
+.pool-matrix td:first-child {
+  position: sticky;
+  left: 0;
+  z-index: 2;
+  width: 132px;
+  min-width: 132px;
+  max-width: 132px;
+  background: #fff;
+  box-shadow: 1px 0 0 rgba(16, 24, 40, 0.06);
+}
+
+.pool-matrix thead th:first-child {
+  z-index: 3;
 }
 
 .pool-matrix th button {
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   border: 0;
   background: transparent;
   color: var(--text);
@@ -3145,8 +3168,8 @@ th {
 }
 
 .pool-matrix td {
-  width: 52px;
-  height: 52px;
+  width: 44px;
+  height: 46px;
   font-size: 16px;
   color: var(--text);
 }
@@ -3167,6 +3190,14 @@ th {
   background: rgba(13, 125, 103, 0.1);
 }
 
+.pool-matrix tr.is-followed-focus th:first-child {
+  background: #f3f8ff;
+}
+
+.pool-matrix tr.is-primary-focus th:first-child {
+  background: #edf8f5;
+}
+
 .pool-matrix td.self {
   background: var(--orange);
   color: transparent;
@@ -3183,6 +3214,11 @@ th {
   max-width: 100%;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+}
+
+.pool-results-table {
+  min-width: max(100%, 430px);
 }
 
 .pool-group-head {

@@ -3592,7 +3592,7 @@ function renderPoolGroups(event, activeIndex = 0) {
         <span>${escapeHtml(athletes.length)} 人 · ${escapeHtml(group.bouts?.length || 0)} 场</span>
       </div>
       <div class="pool-matrix-wrap">
-        <table class="pool-matrix">
+        <table class="pool-matrix" style="--pool-size: ${escapeHtml(athletes.length)}">
           <thead>
             <tr>
               <th>姓名</th>
@@ -3620,7 +3620,7 @@ function renderPoolGroups(event, activeIndex = 0) {
       </div>
       <div class="pool-result-table">
         <div class="chart-title">成绩</div>
-        <table class="process-table">
+        <table class="process-table pool-results-table">
           <thead>
             <tr><th>姓名</th><th>V</th><th>M</th><th>Ind</th><th>HS</th><th>HR</th><th>名次</th></tr>
           </thead>
