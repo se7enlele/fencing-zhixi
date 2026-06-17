@@ -180,6 +180,7 @@ const juneStats = context.buildAiAnswer('\u0032\u0030\u0032\u0036\u5e74\u0036\u6
 assert.equal(juneStats.type, 'competition-stats', 'month-based regional query should route to competition stats');
 assert.equal(juneStats.cards[0][1], '2 \u573a', 'AI competition stats should filter by month');
 assert.equal(juneStats.cards.find(([label]) => label === '\u6708\u4efd')[1], '6\u6708', 'AI competition stats should expose the matched month');
+assert.equal(JSON.stringify(juneStats.actions[0].filters), JSON.stringify({ year: '2026', month: '6', region: '\u5929\u6d25', status: '' }), 'AI competition stats action should preserve the matched filters');
 
 const currentYear = String(new Date().getFullYear());
 assert.equal(context.detectYearInQuery('\u4eca\u5e74\u5929\u6d25\u6709\u51e0\u573a\u6bd4\u8d5b'), currentYear, 'AI year detection should support current-year wording');

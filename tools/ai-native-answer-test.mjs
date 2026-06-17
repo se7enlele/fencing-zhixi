@@ -25,7 +25,11 @@ assert.match(js, /function detectPreMatchQuery\(query\)/, 'AI must detect premat
 assert.match(js, /function detectYearInQuery\(normalizedQuery\)/, 'AI competition questions must support relative year wording');
 assert.match(js, /function detectMonthInQuery\(normalizedQuery\)/, 'AI competition questions must support month filters');
 assert.match(js, /function competitionMonth\(competition\)/, 'AI competition questions must filter competitions by month');
+assert.match(js, /function applyAiCompetitionFilters\(filters = \{\}\)/, 'AI answer actions must apply competition filters when entering the competition list');
 assert.match(js, /function buildAiPreMatchReport\(query, filters\)/, 'AI must build prematch reports from registration and project data');
+assert.match(js, /data-ai-filters/, 'AI answer action buttons must carry structured competition filters');
+assert.match(js, /JSON\.parse\(decodeURIComponent\(button\.dataset\.aiFilters\)\)/, 'AI answer action handlers must decode filter payloads before navigation');
+assert.match(js, /state\.selectedAiMonth/, 'AI competition filters must preserve month constraints that are not visible in the standard filter chips');
 assert.match(js, /report\.type === 'prematch' \? '赛前情报'/, 'AI answer header must label prematch reports');
 assert.match(js, /kind: '赛前赛事'/, 'AI prematch evidence must label prematch competitions');
 assert.match(js, /名单未完整时，只做项目级和赛事级判断/, 'AI prematch report must disclose incomplete roster boundaries');

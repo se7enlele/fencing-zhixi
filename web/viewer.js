@@ -90,6 +90,7 @@ const state = {
   selectedYear: '全部年份',
   selectedItem: '全部项目',
   selectedStatus: '全部状态',
+  selectedAiMonth: '',
   apiVersion: '',
   dataGeneratedAt: '',
   viewStack: ['home'],
@@ -958,8 +959,30 @@ function setFilterValue(type, value) {
   if (type === 'region') state.selectedRegion = value;
   if (type === 'item') state.selectedItem = value;
   if (type === 'status') state.selectedStatus = value;
+  state.selectedAiMonth = '';
   renderFilters();
   applyCompetitionFilter();
+}
+
+function matchingFilterOption(type, value) {
+  if (!value) return filterOptions(type)[0];
+  const options = filterOptions(type);
+  const normalized = compactText(value);
+  return options.find((option) => compactText(option) === normalized)
+    || options.find((option) => compactText(option).includes(normalized) || normalized.includes(compactText(option)))
+    || options[0];
+}
+
+function applyAiCompetitionFilters(filters = {}) {
+  state.selectedYear = filters.year ? matchingFilterOption('year', filters.year) : '全部年份';
+  state.selectedRegion = filters.region ? matchingFilterOption('region', filters.region) : '全部地区';
+  state.selectedStatus = filters.status ? matchingFilterOption('status', statusLabel(filters.status)) : '全部状态';
+  state.selectedItem = '全部项目';
+  state.selectedAiMonth = filters.month || '';
+  searchInput.value = '';
+  renderFilters();
+  applyCompetitionFilter();
+  navigateMain('competitions');
 }
 
 function renderFilters() {
@@ -1011,14 +1034,16 @@ function applyCompetitionFilter() {
   const year = state.selectedYear;
   const itemFilter = state.selectedItem;
   const statusFilter = state.selectedStatus;
+  const monthFilter = state.selectedAiMonth;
   state.filteredCompetitions = state.competitions.filter((competition) => {
     const matchRegion = region === '全部地区' || (competition.region || '待确认') === region;
     const matchYear = year === '全部年份' || competitionYear(competition) === year;
+    const matchMonth = !monthFilter || competitionMonth(competition) === monthFilter;
     const matchItem = itemFilter === '全部项目' || competitionItemFilterLabels(competition).includes(itemFilter);
     const matchStatus = statusFilter === '全部状态' || statusLabel(competition.status || 'completed') === statusFilter;
     const haystack = competitionSearchHaystack(competition);
     const matchKeyword = !keyword || tokens.every((token) => haystack.includes(token)) || haystack.includes(compactKeyword);
-    return matchRegion && matchYear && matchItem && matchStatus && matchKeyword;
+    return matchRegion && matchYear && matchMonth && matchItem && matchStatus && matchKeyword;
   });
   if (!keyword) {
     state.athleteSearchResults = [];
@@ -1061,6 +1086,7 @@ function handleSearchInput() {
   const keyword = normalizeSearchText(searchInput.value);
   state.searchRequestId += 1;
   if (searchDebounceTimer) clearTimeout(searchDebounceTimer);
+  state.selectedAiMonth = '';
   state.athleteSearchResults = [];
   state.clubSearchResults = [];
   applyCompetitionFilter();
@@ -2232,7 +2258,7 @@ function buildAiCompetitionStats(query, filters) {
       sportCode: competition.sportCode,
     })),
     actions: [
-      { label: '进入赛事列表', mainTab: 'competitions' },
+      { label: rows.length ? '查看匹配赛事' : '进入赛事列表', mainTab: 'competitions', filters },
     ],
   };
 }
@@ -2298,7 +2324,7 @@ function buildAiPreMatchReport(query, filters) {
       sportCode: competition.sportCode,
     })),
     actions: [
-      { label: '进入赛事列表', mainTab: 'competitions' },
+      { label: rows.length ? '查看赛前赛事' : '进入赛事列表', mainTab: 'competitions', filters },
     ],
     sourceNote: '赛前情报基于赛事状态、项目明细和报名名单生成；名单未完整时，只做项目级和赛事级判断。',
   };
@@ -2577,7 +2603,7 @@ function renderAiAnswer(report) {
       ${report.actions?.length ? `
         <div class="ai-action-row">
           ${report.actions.map((action) => `
-            <button type="button" ${action.athleteId ? `data-athlete-id="${escapeHtml(action.athleteId)}"` : ''} ${action.clubId ? `data-club-id="${escapeHtml(action.clubId)}"` : ''} ${action.mainTab ? `data-main-target="${escapeHtml(action.mainTab)}"` : ''}>
+            <button type="button" ${action.athleteId ? `data-athlete-id="${escapeHtml(action.athleteId)}"` : ''} ${action.clubId ? `data-club-id="${escapeHtml(action.clubId)}"` : ''} ${action.mainTab ? `data-main-target="${escapeHtml(action.mainTab)}"` : ''} ${action.filters ? `data-ai-filters="${escapeHtml(encodeURIComponent(JSON.stringify(action.filters)))}"` : ''}>
               ${escapeHtml(action.label)}
             </button>
           `).join('')}
@@ -2605,7 +2631,17 @@ function bindAiAnswerActions(container) {
     button.addEventListener('click', () => openClub(button.dataset.clubId));
   });
   container.querySelectorAll('[data-main-target]').forEach((button) => {
-    button.addEventListener('click', () => navigateMain(button.dataset.mainTarget));
+    button.addEventListener('click', () => {
+      if (button.dataset.mainTarget === 'competitions' && button.dataset.aiFilters) {
+        try {
+          applyAiCompetitionFilters(JSON.parse(decodeURIComponent(button.dataset.aiFilters)));
+          return;
+        } catch {
+          // Fall through to the requested tab if a saved action payload is malformed.
+        }
+      }
+      navigateMain(button.dataset.mainTarget);
+    });
   });
 }
 
