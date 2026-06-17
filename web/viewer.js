@@ -36,6 +36,7 @@ const clubHero = document.querySelector('#clubHero');
 const clubEvents = document.querySelector('#clubEvents');
 const insightCards = document.querySelector('#insightCards');
 const insightBullets = document.querySelector('#insightBullets');
+const followedEventFocus = document.querySelector('#followedEventFocus');
 const analysisCharts = document.querySelector('#analysisCharts');
 const metricGrid = document.querySelector('#metricGrid');
 const championPath = document.querySelector('#championPath');
@@ -263,6 +264,64 @@ async function hydrateFollowedAthleteProfiles() {
 
 function isFollowedAthlete(id) {
   return state.followedAthletes.some((item) => item.id === id);
+}
+
+function athleteIdentitySet(athlete) {
+  return new Set([
+    athlete?.id,
+    athlete?.licence,
+    athlete?.license,
+    athlete?.athleteId,
+    athlete?.name ? `name:${compactText(athlete.name)}` : '',
+  ].filter(Boolean).map(String));
+}
+
+function sameAthleteIdentity(a, b) {
+  const aIds = athleteIdentitySet(a);
+  const bIds = athleteIdentitySet(b);
+  for (const value of aIds) {
+    if (bIds.has(value)) return true;
+  }
+  return false;
+}
+
+function trackedAthleteReferences() {
+  const rows = [];
+  const selected = getSelectedChild();
+  if (selected?.id || selected?.name) rows.push({ ...selected, focusKind: 'primary' });
+  for (const follow of state.followedAthletes || []) {
+    const athlete = resolveAthleteReference(follow);
+    if (!athlete?.id && !athlete?.name) continue;
+    if (rows.some((row) => sameAthleteIdentity(row, athlete))) continue;
+    rows.push({ ...athlete, focusKind: 'followed' });
+  }
+  return rows;
+}
+
+function trackedAthleteMatch(athlete) {
+  return trackedAthleteReferences().find((tracked) => sameAthleteIdentity(athlete, tracked)) || null;
+}
+
+function focusClassForAthlete(athlete) {
+  const match = trackedAthleteMatch(athlete);
+  if (!match) return '';
+  return match.focusKind === 'primary' ? 'is-primary-focus' : 'is-followed-focus';
+}
+
+function focusLabelForAthlete(athlete) {
+  const match = trackedAthleteMatch(athlete);
+  if (!match) return '';
+  return match.focusKind === 'primary' ? '重点' : '关注';
+}
+
+function eventTrackedAthletes(event) {
+  const rows = event?.participants || event?.athleteProfiles || [];
+  return rows
+    .map((athlete) => {
+      const match = trackedAthleteMatch(athlete);
+      return match ? { ...athlete, focusKind: match.focusKind } : null;
+    })
+    .filter(Boolean);
 }
 
 async function upsertFollowedAthlete(athlete) {
@@ -2745,10 +2804,20 @@ function renderEventList(competition) {
 
 function renderEventHero(event) {
   eventHero.classList.add('compact');
+  const tracked = eventTrackedAthletes(event);
   eventHero.innerHTML = `
     <div class="hero-title">${escapeHtml(displayEventName(event))}</div>
     <div class="hero-sub">${escapeHtml(event.sportName)}</div>
     <div class="hero-sub">${escapeHtml(event.venue || '地点待确认')} · ${escapeHtml(event.openDate || '日期待确认')}</div>
+    ${tracked.length ? `
+      <div class="event-focus-strip">
+        ${tracked.slice(0, 3).map((athlete) => `
+          <span class="${athlete.focusKind === 'primary' ? 'primary' : ''}">
+            ${escapeHtml(athlete.focusKind === 'primary' ? '重点' : '关注')} · ${escapeHtml(athlete.name)}
+          </span>
+        `).join('')}
+      </div>
+    ` : ''}
   `;
 }
 
@@ -2812,6 +2881,30 @@ function renderInsights(event) {
       </div>
     `).join('')
     : '<div class="empty">当前样本不足以形成明显的排名反差</div>';
+}
+
+function renderFollowedEventFocus(event) {
+  const rows = eventTrackedAthletes(event);
+  followedEventFocus.innerHTML = rows.length
+    ? rows.map((athlete) => `
+      <button class="focus-athlete-row ${athlete.focusKind === 'primary' ? 'is-primary-focus' : 'is-followed-focus'}" type="button" data-athlete-id="${escapeHtml(athlete.id || '')}">
+        <div>
+          <strong>${escapeHtml(athlete.name)}</strong>
+          <span>${escapeHtml(athlete.club || '俱乐部待确认')}</span>
+        </div>
+        <div>
+          <b>${escapeHtml(athlete.finalRank ? `第${athlete.finalRank}名` : '-')}</b>
+          <span>${escapeHtml(athlete.poolWins !== undefined ? `小组 ${athlete.poolWins}/${athlete.poolMatches ?? '-'}` : '小组待确认')}</span>
+        </div>
+      </button>
+    `).join('')
+    : '<div class="empty compact-empty">本项目暂未发现已关注选手。关注孩子后，这里会直接显示本场表现。</div>';
+
+  followedEventFocus.querySelectorAll('[data-athlete-id]').forEach((button) => {
+    button.addEventListener('click', () => {
+      if (button.dataset.athleteId) openAthlete(button.dataset.athleteId);
+    });
+  });
 }
 
 function pathChart(title, rows) {
@@ -3094,7 +3187,7 @@ function renderPoolStanding(event) {
       </thead>
       <tbody>
         ${rows.map((row) => `
-          <tr data-athlete-id="${escapeHtml(row.id || '')}">
+          <tr class="${focusClassForAthlete(row)}" data-athlete-id="${escapeHtml(row.id || '')}">
             <td>${escapeHtml(row.groupLabel)}</td>
             <td>${escapeHtml(row.phaseRank ? `第${row.phaseRank}` : '-')}</td>
             <td>${escapeHtml(row.name)}</td>
@@ -3135,10 +3228,10 @@ function renderParticipants(event) {
   const rows = event.participants || event.athleteProfiles || [];
   participantsList.innerHTML = rows.length
     ? rows.map((row) => `
-      <button class="participant-card final-rank-card" data-athlete-id="${escapeHtml(row.id)}">
+      <button class="participant-card final-rank-card ${focusClassForAthlete(row)}" data-athlete-id="${escapeHtml(row.id)}">
         <div class="rank-pill ${Number(row.finalRank) <= 3 ? 'podium' : ''}">${escapeHtml(row.finalRank ?? '-')}</div>
         <div class="participant-main">
-          <strong>${escapeHtml(row.name)}</strong>
+          <strong>${escapeHtml(row.name)}${focusLabelForAthlete(row) ? `<span class="focus-inline-tag">${escapeHtml(focusLabelForAthlete(row))}</span>` : ''}</strong>
           <span>${escapeHtml(row.club || '俱乐部待确认')}</span>
           <div class="participant-tags">
             ${row.poolId ? `<em>小组 ${escapeHtml(row.poolId)}</em>` : ''}
@@ -3214,17 +3307,18 @@ function renderPoolGroups(event, activeIndex = 0) {
           </thead>
           <tbody>
             ${athletes.map((rowAthlete) => `
-              <tr>
-                <th>
-                  <button type="button" data-athlete-id="${escapeHtml(rowAthlete.id || '')}">
-                    ${escapeHtml(rowAthlete.drawNo ?? '-')}.${escapeHtml(rowAthlete.name)}
-                  </button>
-                </th>
-                ${athletes.map((colAthlete) => {
-                  const isSelf = Number(rowAthlete.drawNo) === Number(colAthlete.drawNo);
-                  const label = poolCellLabel(group, rowAthlete, colAthlete);
-                  return `<td class="${isSelf ? 'self' : ''}">${escapeHtml(label)}</td>`;
-                }).join('')}
+          <tr class="${focusClassForAthlete(rowAthlete)}">
+            <th>
+              <button class="${focusClassForAthlete(rowAthlete)}" type="button" data-athlete-id="${escapeHtml(rowAthlete.id || '')}">
+                ${escapeHtml(rowAthlete.drawNo ?? '-')}.${escapeHtml(rowAthlete.name)}
+              </button>
+            </th>
+            ${athletes.map((colAthlete) => {
+              const isSelf = Number(rowAthlete.drawNo) === Number(colAthlete.drawNo);
+              const isFocusLine = focusClassForAthlete(rowAthlete) || focusClassForAthlete(colAthlete);
+              const label = poolCellLabel(group, rowAthlete, colAthlete);
+              return `<td class="${isSelf ? 'self' : ''} ${isFocusLine ? 'focus-line' : ''}">${escapeHtml(label)}</td>`;
+            }).join('')}
               </tr>
             `).join('')}
           </tbody>
@@ -3238,7 +3332,7 @@ function renderPoolGroups(event, activeIndex = 0) {
           </thead>
           <tbody>
             ${resultRows.map((athlete) => `
-              <tr data-athlete-id="${escapeHtml(athlete.id || '')}">
+              <tr class="${focusClassForAthlete(athlete)}" data-athlete-id="${escapeHtml(athlete.id || '')}">
                 <td>${escapeHtml(athlete.name)}</td>
                 <td>${escapeHtml(athlete.wins ?? 0)}</td>
                 <td>${escapeHtml(athlete.matches ?? 0)}</td>
@@ -3290,14 +3384,16 @@ function renderMatches(event, activeIndex = 0) {
       ${(group.matches || []).map((match) => {
         const homeWon = match.home?.result === 'W';
         const awayWon = match.away?.result === 'W';
+        const homeFocus = focusClassForAthlete(match.home);
+        const awayFocus = focusClassForAthlete(match.away);
         return `
-          <div class="bracket-match">
+          <div class="bracket-match ${homeFocus || awayFocus ? 'has-focus-athlete' : ''}">
             <div class="match-phase">${escapeHtml(group.phase)} · ${escapeHtml(match.matchCode || '')}</div>
-            <div class="bracket-row ${homeWon ? 'winner' : ''}">
+            <div class="bracket-row ${homeWon ? 'winner' : ''} ${homeFocus}">
               <span>${escapeHtml(`${phaseSeed(match, 'home')} ${match.home?.name || '空'}`.trim())}</span>
               <strong>${escapeHtml(match.home?.points ?? '-')}</strong>
             </div>
-            <div class="bracket-row ${awayWon ? 'winner' : ''}">
+            <div class="bracket-row ${awayWon ? 'winner' : ''} ${awayFocus}">
               <span>${escapeHtml(`${phaseSeed(match, 'away')} ${match.away?.name || '空'}`.trim())}</span>
               <strong>${escapeHtml(match.away?.points ?? '-')}</strong>
             </div>
@@ -4051,6 +4147,7 @@ async function openEvent(eventCode) {
     activateEventTab('overview');
     renderEventHero(state.currentEvent);
     renderInsights(state.currentEvent);
+    renderFollowedEventFocus(state.currentEvent);
     renderAnalysisCharts(state.currentEvent);
     renderMetrics(state.currentEvent);
     renderChampionPath(state.currentEvent);
@@ -4068,6 +4165,7 @@ async function openEvent(eventCode) {
     metricGrid.innerHTML = '';
     insightCards.innerHTML = '';
     insightBullets.innerHTML = '';
+    followedEventFocus.innerHTML = '';
     analysisCharts.innerHTML = '';
     championPath.innerHTML = '';
     leadersList.innerHTML = '';

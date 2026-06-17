@@ -2013,6 +2013,40 @@ select:focus {
   line-height: 1.45;
 }
 
+.event-focus-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.event-focus-strip span,
+.focus-inline-tag {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  background: rgba(15, 92, 192, 0.08);
+  color: var(--primary);
+  font-size: 11px;
+  line-height: 1;
+  font-weight: 900;
+}
+
+.event-focus-strip span {
+  padding: 6px 8px;
+}
+
+.event-focus-strip span.primary {
+  background: rgba(13, 125, 103, 0.12);
+  color: var(--teal);
+}
+
+.focus-inline-tag {
+  margin-left: 6px;
+  padding: 4px 6px;
+  vertical-align: middle;
+}
+
 .metric-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -2142,6 +2176,47 @@ select:focus {
 .insight-note.compact {
   padding: 9px 10px;
   font-size: 13px;
+}
+
+.focus-athlete-row {
+  width: 100%;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: center;
+  border: 1px solid rgba(15, 92, 192, 0.14);
+  border-radius: 10px;
+  background: rgba(15, 92, 192, 0.04);
+  padding: 10px;
+  color: var(--text);
+  font: inherit;
+  text-align: left;
+}
+
+.focus-athlete-row.is-primary-focus {
+  border-color: rgba(13, 125, 103, 0.26);
+  background: rgba(13, 125, 103, 0.08);
+}
+
+.focus-athlete-row strong,
+.focus-athlete-row span,
+.focus-athlete-row b {
+  display: block;
+}
+
+.focus-athlete-row strong,
+.focus-athlete-row b {
+  font-size: 14px;
+}
+
+.focus-athlete-row span {
+  margin-top: 3px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.focus-athlete-row > div:last-child {
+  text-align: right;
 }
 
 .coach-section {
@@ -2836,9 +2911,29 @@ th {
   color: var(--text);
 }
 
+.participant-card.is-followed-focus,
+.pool-matrix tr.is-followed-focus th,
+.process-table tr.is-followed-focus,
+.bracket-row.is-followed-focus {
+  border-color: rgba(15, 92, 192, 0.24);
+  background: rgba(15, 92, 192, 0.06);
+}
+
+.participant-card.is-primary-focus,
+.pool-matrix tr.is-primary-focus th,
+.process-table tr.is-primary-focus,
+.bracket-row.is-primary-focus {
+  border-color: rgba(13, 125, 103, 0.32);
+  background: rgba(13, 125, 103, 0.1);
+}
+
 .pool-matrix td.self {
   background: var(--orange);
   color: transparent;
+}
+
+.pool-matrix td.focus-line:not(.self) {
+  background: rgba(15, 92, 192, 0.045);
 }
 
 .pool-result-table {
@@ -2980,6 +3075,11 @@ th {
   border-top: 1px solid rgba(215, 122, 35, 0.42);
   border-right: 1px solid rgba(215, 122, 35, 0.42);
   border-bottom: 1px solid rgba(215, 122, 35, 0.42);
+}
+
+.bracket-match.has-focus-athlete {
+  border-color: rgba(13, 125, 103, 0.32);
+  box-shadow: 0 8px 22px rgba(13, 125, 103, 0.08);
 }
 
 .bracket-row {
