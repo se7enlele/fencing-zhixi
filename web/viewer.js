@@ -520,6 +520,22 @@ function formatDataGeneratedAt(value) {
   return `${year}.${month}.${day} ${hour}:${minute}`;
 }
 
+function scheduledSyncStatusLabel(syncStatus) {
+  if (!syncStatus?.generatedAt) return '';
+  const generatedLabel = formatDataGeneratedAt(syncStatus.generatedAt);
+  if (!generatedLabel) return '';
+  const summary = syncStatus.summary || {};
+  const updatedCount = Number(summary.taskCount || 0);
+  const failedCount = Number(summary.failedCount || 0);
+  if (failedCount > 0) {
+    return `${generatedLabel} 更新检查发现 ${failedCount} 项异常`;
+  }
+  if (updatedCount > 0) {
+    return `${generatedLabel} 已完成 ${updatedCount} 项数据更新`;
+  }
+  return `${generatedLabel} 已完成数据检查`;
+}
+
 function coverageLabel(competition) {
   if (competition.isPlatformEventList && !competitionHasItems(competition)) return '基础信息';
   if (competition.rosterStatus === 'partial' || competition.rosterStatus === 'complete') return '报名信息';
@@ -1144,6 +1160,7 @@ function renderHomeDataCoverage() {
   const actionablePercent = Math.round((coverage.actionable / total) * 100);
   const priorityRows = dataCoveragePriorityRows(source, 3);
   const generatedLabel = formatDataGeneratedAt(state.dataGeneratedAt);
+  const syncLabel = scheduledSyncStatusLabel(state.dataCoverage?.scheduledSync);
 
   return `
     <section class="panel my-section data-status-panel">
@@ -1169,6 +1186,7 @@ function renderHomeDataCoverage() {
         <span style="width: ${escapeHtml(scorePercent)}%"></span>
       </div>
       <p>成绩对阵覆盖率 ${escapeHtml(scorePercent)}%。${generatedLabel ? `数据更新于 ${escapeHtml(generatedLabel)}，` : ''}近期报名赛事可用于赛前准备，完整成绩可用于成长复盘和队伍分析。</p>
+      ${syncLabel ? `<div class="sync-status-note">${escapeHtml(syncLabel)}</div>` : ''}
       ${priorityRows.length ? `
         <div class="coverage-priority-list">
           ${priorityRows.map(({ competition, level }) => `
@@ -1194,6 +1212,7 @@ function renderDataCoverageSummary(source) {
   const total = source.length || 1;
   const scorePercent = Math.round((coverage.score / total) * 100);
   const actionablePercent = Math.round((coverage.actionable / total) * 100);
+  const syncLabel = scheduledSyncStatusLabel(state.dataCoverage?.scheduledSync);
   const sourceNote = state.dataCoverage?.platformEvents
     ? `平台赛事 ${state.dataCoverage.platformEvents} 条已收录`
     : `${source.length} 条赛事已收录`;
@@ -1224,6 +1243,7 @@ function renderDataCoverageSummary(source) {
       </div>
     </div>
     <p>近期报名赛事可用于赛前准备，完整成绩可用于成长复盘和队伍分析；成绩对阵覆盖率当前为 ${escapeHtml(scorePercent)}%。</p>
+    ${syncLabel ? `<div class="sync-status-note">${escapeHtml(syncLabel)}</div>` : ''}
   `;
 }
 

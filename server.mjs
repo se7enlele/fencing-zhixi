@@ -131,6 +131,7 @@ let athleteDirectoryCache = null;
 let clubDirectoryCache = null;
 let searchIndexCache = null;
 let preEventReportsCache = null;
+let scheduledSyncStatusCache = null;
 
 function collectAnalysisTimestamps(value, timestamps = []) {
   if (!value || typeof value !== 'object') return timestamps;
@@ -215,6 +216,18 @@ async function getPreEventCompetitions() {
   return buildPreEventCompetitions(preEventReports);
 }
 
+async function getScheduledSyncStatus() {
+  if (!scheduledSyncStatusCache) {
+    const statusPath = path.join(__dirname, 'data', 'analysis', 'scheduled-sync-status.json');
+    try {
+      scheduledSyncStatusCache = JSON.parse(await readFile(statusPath, 'utf8'));
+    } catch {
+      scheduledSyncStatusCache = null;
+    }
+  }
+  return scheduledSyncStatusCache;
+}
+
 async function getPublicEventsPayload() {
   if (!publicEventsCache) {
     const reports = await getScoreReports();
@@ -241,6 +254,7 @@ async function getPublicEventsPayload() {
         analysisFiles: analysisFiles.filter((file) => file.endsWith('.json')).length,
         previewFiles: analysisFiles.filter((file) => file.startsWith('web-analysis-')).length,
         platformEvents: preEventReports.platformEventLists?.reduce((sum, item) => sum + (item.report.summary?.eventCount || 0), 0) || 0,
+        scheduledSync: await getScheduledSyncStatus(),
       },
     };
   }

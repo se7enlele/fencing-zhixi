@@ -2120,6 +2120,16 @@ select:focus {
   line-height: 1.5;
 }
 
+.sync-status-note {
+  border: 1px solid rgba(21, 95, 194, 0.08);
+  border-radius: 9px;
+  background: rgba(21, 95, 194, 0.045);
+  padding: 8px 10px;
+  color: var(--text);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
 .coverage-priority-list {
   display: grid;
   gap: 7px;

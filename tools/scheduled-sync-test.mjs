@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
-import { buildHistoricalBackfillTasks, buildScheduledSyncPlan } from './scheduled-sync.mjs';
+import { readFile } from 'node:fs/promises';
+import { buildHistoricalBackfillTasks, buildScheduledSyncPlan, buildScheduledSyncStatus } from './scheduled-sync.mjs';
 
 const events = [
   {
@@ -151,5 +152,36 @@ assert.deepEqual(
   ),
   ['--score-start', '0'],
 );
+
+const status = buildScheduledSyncStatus({
+  selected: {
+    active: plan.selected.active,
+    completed: plan.selected.completed,
+    backfill: [{ sportId: 104 }],
+  },
+  eventListRefresh: { ok: true, eventCount: 4 },
+  results: [
+    { ok: true, type: 'pre-event-roster', sportId: 101 },
+    { ok: true, type: 'completed-score', sportId: 103 },
+    { ok: false, type: 'historical-score-backfill', sportId: 104, eventCode: 'OLD2025MFIU6', message: 'network timeout' },
+  ],
+  summary: {
+    taskCount: 3,
+    successCount: 2,
+    failedCount: 1,
+  },
+});
+
+assert.equal(status.ok, false);
+assert.equal(status.summary.taskCount, 3);
+assert.equal(status.summary.activeCount, 2);
+assert.equal(status.summary.completedCount, 1);
+assert.equal(status.summary.backfillCount, 1);
+assert.equal(status.summary.taskTypes['pre-event-roster'], 1);
+assert.equal(status.failures[0].eventCode, 'OLD2025MFIU6');
+
+const workflow = await readFile(new URL('../.github/workflows/scheduled-sync.yml', import.meta.url), 'utf8');
+assert.match(workflow, /--fail-on-task-error/, 'scheduled workflow must stop before deploy when sync tasks fail');
+assert.match(workflow, /git add data\/analysis web\/data cloudflare\/data/, 'scheduled workflow must commit sync status with generated data');
 
 console.log('scheduled sync planning is covered');

@@ -50,7 +50,7 @@ jobs:
           COMPLETED_LIMIT: ${{ github.event.inputs.completed_limit || '4' }}
           ROSTER_MAX_PAGES: ${{ github.event.inputs.roster_max_pages || '12' }}
           BACKFILL_LIMIT: ${{ github.event.inputs.backfill_limit || '2' }}
-        run: npm run sync:scheduled -- --active-limit "$ACTIVE_LIMIT" --completed-limit "$COMPLETED_LIMIT" --roster-page-size 50 --roster-max-pages "$ROSTER_MAX_PAGES" --score-limit 12 --backfill-limit "$BACKFILL_LIMIT"
+        run: npm run sync:scheduled -- --active-limit "$ACTIVE_LIMIT" --completed-limit "$COMPLETED_LIMIT" --roster-page-size 50 --roster-max-pages "$ROSTER_MAX_PAGES" --score-limit 12 --backfill-limit "$BACKFILL_LIMIT" --fail-on-task-error
 
       - name: Rebuild analytics
         run: npm run analysis:three-year

@@ -395,6 +395,49 @@ async function writeRunReport(reportDir, report) {
   return outputPath;
 }
 
+export function buildScheduledSyncStatus(report) {
+  const results = Array.isArray(report?.results) ? report.results : [];
+  const selected = report?.selected || {};
+  const taskTypes = results.reduce((counts, result) => {
+    counts[result.type] = (counts[result.type] || 0) + 1;
+    return counts;
+  }, {});
+  const failures = results
+    .filter((result) => !result.ok)
+    .slice(0, 5)
+    .map((result) => ({
+      type: result.type,
+      sportId: result.sportId,
+      sportCode: result.sportCode,
+      sportName: result.sportName,
+      eventCode: result.eventCode,
+      message: result.message || result.stderr || result.stdout || 'task failed',
+    }));
+
+  return {
+    generatedAt: new Date().toISOString(),
+    ok: Number(report?.summary?.failedCount || 0) === 0,
+    summary: {
+      taskCount: Number(report?.summary?.taskCount || results.length || 0),
+      successCount: Number(report?.summary?.successCount || results.filter((result) => result.ok).length || 0),
+      failedCount: Number(report?.summary?.failedCount || results.filter((result) => !result.ok).length || 0),
+      activeCount: Array.isArray(selected.active) ? selected.active.length : 0,
+      completedCount: Array.isArray(selected.completed) ? selected.completed.length : 0,
+      backfillCount: Array.isArray(selected.backfill) ? selected.backfill.length : 0,
+      taskTypes,
+    },
+    eventListRefresh: report?.eventListRefresh || null,
+    failures,
+  };
+}
+
+async function writeSyncStatus(outputDir, report) {
+  await mkdir(outputDir, { recursive: true });
+  const outputPath = path.join(outputDir, 'scheduled-sync-status.json');
+  await writeFile(outputPath, stableStringify(buildScheduledSyncStatus(report)), 'utf8');
+  return outputPath;
+}
+
 async function main() {
   const args = parseArgs(process.argv);
   const eventListRefresh = args.dryRun || args.skipEventListRefresh
@@ -441,10 +484,12 @@ async function main() {
     },
   };
   const outputPath = await writeRunReport(args.reportDir, report);
+  const statusPath = await writeSyncStatus(args.outputDir, report);
 
   console.log(stableStringify({
     ok: report.summary.failedCount === 0,
     outputPath,
+    statusPath,
     ...report.summary,
   }));
 
