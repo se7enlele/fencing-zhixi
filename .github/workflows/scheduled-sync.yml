@@ -2,6 +2,19 @@ name: Scheduled data sync
 
 on:
   workflow_dispatch:
+    inputs:
+      active_limit:
+        description: 'Pre-event competitions to sync'
+        required: false
+        default: '1'
+      completed_limit:
+        description: 'Completed competitions to sync'
+        required: false
+        default: '0'
+      roster_max_pages:
+        description: 'Roster pages per project'
+        required: false
+        default: '2'
   schedule:
     # 00:20, 06:20, 12:20, 18:20 Asia/Shanghai.
     - cron: '20 16,22,4,10 * * *'
@@ -28,7 +41,11 @@ jobs:
           node-version: 20
 
       - name: Run scheduled sync
-        run: npm run sync:scheduled -- --active-limit 8 --completed-limit 4 --roster-page-size 50 --roster-max-pages 12 --score-limit 12
+        env:
+          ACTIVE_LIMIT: ${{ github.event.inputs.active_limit || '8' }}
+          COMPLETED_LIMIT: ${{ github.event.inputs.completed_limit || '4' }}
+          ROSTER_MAX_PAGES: ${{ github.event.inputs.roster_max_pages || '12' }}
+        run: npm run sync:scheduled -- --active-limit "$ACTIVE_LIMIT" --completed-limit "$COMPLETED_LIMIT" --roster-page-size 50 --roster-max-pages "$ROSTER_MAX_PAGES" --score-limit 12
 
       - name: Rebuild analytics
         run: npm run analysis:three-year
