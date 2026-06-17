@@ -219,19 +219,49 @@ async function fetchTextWithPowerShell(url, timeoutSec) {
   return stdout;
 }
 
+async function fetchTextWithCurl(url, timeoutSec) {
+  const timeout = Math.max(1, Number(timeoutSec) || 20);
+  const { stdout } = await execFileAsync('curl', [
+    '--location',
+    '--fail',
+    '--silent',
+    '--show-error',
+    '--max-time',
+    String(timeout),
+    '--header',
+    'Accept: application/json',
+    '--header',
+    'Referer: https://fencing.yy-sport.com.cn/',
+    '--header',
+    `User-Agent: ${DEFAULT_HEADERS['User-Agent']}`,
+    url,
+  ], {
+    maxBuffer: 25 * 1024 * 1024,
+    timeout: (timeout + 5) * 1000,
+    killSignal: 'SIGTERM',
+  });
+  return stdout;
+}
+
+async function fetchTextWithCommand(url, timeoutSec) {
+  return process.platform === 'win32'
+    ? fetchTextWithPowerShell(url, timeoutSec)
+    : fetchTextWithCurl(url, timeoutSec);
+}
+
 export function isHttpStatusError(error) {
   return /^HTTP \d{3}\b/.test(error?.message || '');
 }
 
-async function fetchText(url, timeoutSec = 20) {
+export async function fetchText(url, timeoutSec = 20) {
   try {
     return await fetchTextWithNode(url, timeoutSec);
   } catch (error) {
     if (isHttpStatusError(error)) throw error;
     try {
-      return await fetchTextWithPowerShell(url, timeoutSec);
+      return await fetchTextWithCommand(url, timeoutSec);
     } catch (fallbackError) {
-      throw new Error(`${error.message}; PowerShell fallback failed: ${fallbackError.message}`);
+      throw new Error(`${error.message}; command fallback failed: ${fallbackError.message}`);
     }
   }
 }
@@ -324,14 +354,50 @@ async function postJsonTextWithPowerShell(url, body, timeoutSec) {
   return stdout;
 }
 
+async function postJsonTextWithCurl(url, body, timeoutSec) {
+  const timeout = Math.max(1, Number(timeoutSec) || 20);
+  const { stdout } = await execFileAsync('curl', [
+    '--location',
+    '--fail',
+    '--silent',
+    '--show-error',
+    '--max-time',
+    String(timeout),
+    '--request',
+    'POST',
+    '--header',
+    'Accept: application/json',
+    '--header',
+    'Referer: https://fencing.yy-sport.com.cn/',
+    '--header',
+    'Content-Type: application/json;charset=UTF-8',
+    '--header',
+    `User-Agent: ${DEFAULT_HEADERS['User-Agent']}`,
+    '--data',
+    JSON.stringify(body || {}),
+    url,
+  ], {
+    maxBuffer: 25 * 1024 * 1024,
+    timeout: (timeout + 5) * 1000,
+    killSignal: 'SIGTERM',
+  });
+  return stdout;
+}
+
+async function postJsonTextWithCommand(url, body, timeoutSec) {
+  return process.platform === 'win32'
+    ? postJsonTextWithPowerShell(url, body, timeoutSec)
+    : postJsonTextWithCurl(url, body, timeoutSec);
+}
+
 async function postJsonText(url, body, timeoutSec = 20) {
   try {
     return await postJsonTextWithNode(url, body, timeoutSec);
   } catch (error) {
     try {
-      return await postJsonTextWithPowerShell(url, body, timeoutSec);
+      return await postJsonTextWithCommand(url, body, timeoutSec);
     } catch (fallbackError) {
-      throw new Error(`${error.message}; PowerShell fallback failed: ${fallbackError.message}`);
+      throw new Error(`${error.message}; command fallback failed: ${fallbackError.message}`);
     }
   }
 }

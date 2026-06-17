@@ -5,7 +5,7 @@ import process from 'node:process';
 import { promisify } from 'node:util';
 import { stableStringify } from './analyzer-core.mjs';
 import { buildFrontSportEventListReport } from './parse-frontsporteventlist.mjs';
-import { inferPlatformStatus, normalizeConcurrency } from './sync-platform-data.mjs';
+import { fetchText, inferPlatformStatus, normalizeConcurrency } from './sync-platform-data.mjs';
 
 const execFileAsync = promisify(execFile);
 const DEFAULT_PROXY_BASE = 'https://fencing-proxy.aixindiandian.workers.dev';
@@ -225,17 +225,7 @@ async function loadEvents(input) {
 }
 
 async function refreshEventList(args) {
-  const response = await fetch(args.eventListUrl, {
-    headers: {
-      Accept: 'application/json',
-      Referer: 'https://fencing.yy-sport.com.cn/',
-    },
-  });
-  if (!response.ok) {
-    throw new Error(`event list refresh failed: HTTP ${response.status} ${response.statusText}`);
-  }
-
-  const payload = await response.json();
+  const payload = JSON.parse(await fetchText(args.eventListUrl, args.timeoutSec));
   const report = buildFrontSportEventListReport(payload, {
     input: args.eventListUrl,
     sourceUrl: args.eventListUrl,

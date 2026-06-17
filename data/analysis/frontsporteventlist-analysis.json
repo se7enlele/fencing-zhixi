@@ -2,12 +2,12 @@
   "ok": true,
   "importType": "frontsporteventlist",
   "source": {
-    "input": "analysis-output\\fencing-platform\\frontsporteventlist.json",
+    "input": "https://fencing-proxy.aixindiandian.workers.dev/fencingapi/competition/frontsporteventlist?",
     "sourceUrl": "https://fencing-proxy.aixindiandian.workers.dev/fencingapi/competition/frontsporteventlist?",
-    "analyzedAt": "2026-06-02T07:04:13.641Z"
+    "analyzedAt": "2026-06-17T03:08:08.428Z"
   },
   "summary": {
-    "eventCount": 744,
+    "eventCount": 745,
     "sportIds": [
       1,
       2,
@@ -107,6 +107,7 @@
       100875,
       100894,
       101287,
+      101327,
       1116,
       1148,
       100217,
@@ -853,6 +854,7 @@
       "RZSS2032040",
       "RZSS2032081",
       "RZSSAH0120260516",
+      "RZSSSC1020260822",
       "D06DFZSCQ0120210723",
       "D03SNS2021052",
       "RZSS2024020",
@@ -1530,7 +1532,7 @@
       "2023": 97,
       "2024": 114,
       "2025": 158,
-      "2026": 135
+      "2026": 136
     },
     "gameDesc": {
       "全国冠军赛": 61,
@@ -1545,7 +1547,7 @@
       "青运会": 3,
       "俱乐部总决赛": 13,
       "国际青少年分站赛": 39,
-      "认证赛事": 474,
+      "认证赛事": 475,
       "俱乐部区域赛": 8,
       "少年区域赛": 4,
       "洲际青少年分站赛": 11,
@@ -1569,7 +1571,7 @@
       "山东": 49,
       "湖北": 21,
       "安徽": 34,
-      "四川": 17,
+      "四川": 18,
       "广东": 59,
       "山西": 12,
       "江西": 22,
@@ -1599,7 +1601,7 @@
       "埃及": 1
     },
     "areaDesc": {
-      "西南": 53,
+      "西南": 54,
       "华东": 329,
       "华北": 114,
       "东北": 46,
@@ -1608,13 +1610,13 @@
       "(empty)": 52
     },
     "sportactive": {
-      "0": 84,
-      "2": 660
+      "0": 75,
+      "2": 670
     },
     "sigupactive": {
-      "0": 67,
-      "1": 12,
-      "2": 665
+      "0": 58,
+      "1": 15,
+      "2": 672
     },
     "groups": {
       "成年组": 87,
@@ -1636,21 +1638,21 @@
       "少年U16": 7,
       "儿童U10": 7,
       "儿童U12": 7,
-      "老将组": 143,
+      "老将组": 137,
       "儿童组": 1,
       "少年组": 6,
       "A组U19": 9,
       "U19团体": 12,
       "B组U19": 3,
-      "公开组": 289,
-      "U10": 494,
-      "U12": 493,
-      "U14": 492,
-      "U16": 485,
-      "17+": 343,
-      "U8": 413,
-      "U6": 326,
-      "年龄开放组": 80,
+      "公开组": 294,
+      "U10": 495,
+      "U12": 494,
+      "U14": 493,
+      "U16": 486,
+      "17+": 342,
+      "U8": 417,
+      "U6": 329,
+      "年龄开放组": 74,
       "精英U16": 1,
       "A组U14": 10,
       "男子40+": 6,
@@ -7647,7 +7649,7 @@
       "gameDesc": "认证赛事",
       "gameLevel": "C",
       "startDate": "2026-06-06 00:00:00",
-      "endDate": "2026-06-07 00:00:00",
+      "endDate": "2026-06-07 23:59:59",
       "signStartDate": "2026-05-13 10:00:00",
       "signAthEndDate": "2026-05-31 23:59:59",
       "provinceName": "上海",
@@ -7655,7 +7657,7 @@
       "areaDesc": "华东",
       "organizer": "SHHJSQTYJ0001",
       "mainOrganizer": "临港新片区管理委员会商业和文体旅游处",
-      "sportactive": "0",
+      "sportactive": "2",
       "sigupactive": "2",
       "raceResType": "json",
       "weaponCodes": null,
@@ -8237,6 +8239,65 @@
           "fileType": "competitionRules",
           "fileTypeDesc": "竞赛规程",
           "fileUrl": "/fencingapi/file/xiaomei-8fd9d5f0893c45e696c10b9f5ce30f46.pdf"
+        }
+      ]
+    },
+    {
+      "sportId": 101327,
+      "sportCode": "RZSSSC1020260822",
+      "sportName": "2026年“新奥杯”四川乐山击剑公开赛暨老山击剑公开赛",
+      "season": "2026",
+      "gameType": "RZSS",
+      "gameDesc": "认证赛事",
+      "gameLevel": "C",
+      "startDate": "2026-08-22 08:00:00",
+      "endDate": "2026-08-23 18:00:00",
+      "signStartDate": "2026-08-01 00:00:00",
+      "signAthEndDate": "2026-08-17 00:00:00",
+      "provinceName": "四川",
+      "cityName": "乐山市",
+      "areaDesc": "西南",
+      "organizer": "SICCDGXJJ0001",
+      "mainOrganizer": "乐山市体育局",
+      "sportactive": "0",
+      "sigupactive": "0",
+      "raceResType": "json",
+      "weaponCodes": null,
+      "groups": [
+        {
+          "groupCode": "U8",
+          "groupName": "U8"
+        },
+        {
+          "groupCode": "U10",
+          "groupName": "U10"
+        },
+        {
+          "groupCode": "U12",
+          "groupName": "U12"
+        },
+        {
+          "groupCode": "U14",
+          "groupName": "U14"
+        },
+        {
+          "groupCode": "U16",
+          "groupName": "U16"
+        }
+      ],
+      "groupLabels": [
+        "U8",
+        "U10",
+        "U12",
+        "U14",
+        "U16"
+      ],
+      "files": [
+        {
+          "fileName": "空白.pdf",
+          "fileType": "competitionRules",
+          "fileTypeDesc": "竞赛规程",
+          "fileUrl": "/fencingapi/file/xiaomei-c7af8b427fb1421aac32c864c0d8ee83.pdf"
         }
       ]
     },
@@ -9676,7 +9737,7 @@
     {
       "sportId": 101228,
       "sportCode": "RZSS2036062",
-      "sportName": "2026年“乐动长宁杯”上海击剑公开赛",
+      "sportName": "2026年“乐动长宁·体彩杯”上海击剑公开赛",
       "season": "2026",
       "gameType": "RZSS",
       "gameDesc": "认证赛事",
@@ -9759,7 +9820,7 @@
       "areaDesc": "西北",
       "organizer": "SHASX0001",
       "mainOrganizer": "中国击剑协会",
-      "sportactive": "0",
+      "sportactive": "2",
       "sigupactive": "2",
       "raceResType": "json",
       "weaponCodes": null,
@@ -10266,7 +10327,7 @@
     {
       "sportId": 101065,
       "sportCode": "RZSS2033110",
-      "sportName": "“爽爽贵阳·美美观山湖”2026年贵阳击剑公开赛",
+      "sportName": "“爽爽贵阳 美美观山湖”2026年贵阳“菲力杯”击剑公开赛",
       "season": "2026",
       "gameType": "RZSS",
       "gameDesc": "认证赛事",
@@ -17380,7 +17441,7 @@
       "areaDesc": "中南",
       "organizer": "GUDGZJX0001",
       "mainOrganizer": "广州市击剑协会",
-      "sportactive": "0",
+      "sportactive": "2",
       "sigupactive": "2",
       "raceResType": "json",
       "weaponCodes": null,
@@ -18217,15 +18278,15 @@
       "gameLevel": "C",
       "startDate": "2026-07-11 10:00:00",
       "endDate": "2026-07-12 18:00:00",
-      "signStartDate": "2026-07-11 00:00:00",
-      "signAthEndDate": "2026-07-11 00:00:00",
+      "signStartDate": "2026-06-11 10:00:00",
+      "signAthEndDate": "2026-07-05 23:59:59",
       "provinceName": "河北",
       "cityName": "沧州市",
       "areaDesc": "华北",
       "organizer": "HEBCZJX0001",
       "mainOrganizer": "沧州市击剑协会",
       "sportactive": "0",
-      "sigupactive": "0",
+      "sigupactive": "1",
       "raceResType": "json",
       "weaponCodes": "F#E#S",
       "groups": [
@@ -18259,11 +18320,7 @@
         },
         {
           "groupCode": "COPEN",
-          "groupName": "年龄开放组"
-        },
-        {
-          "groupCode": "U40s",
-          "groupName": "老将组"
+          "groupName": "公开组"
         }
       ],
       "groupLabels": [
@@ -18274,80 +18331,31 @@
         "U14",
         "U16",
         "17+",
-        "年龄开放组",
-        "老将组"
+        "公开组"
       ],
       "files": [
         {
-          "fileName": "主办单位营业执照.pdf",
-          "fileType": "organizerVenue",
-          "fileTypeDesc": "附件一：主办单位营业执照照片",
-          "fileUrl": "/fencingapi/file/xiaomei-6c8bd021469f4c13b307eb69b08f1079.pdf"
-        },
-        {
-          "fileName": "主办单位营业执照.pdf",
-          "fileType": "businessLicense",
-          "fileTypeDesc": "附件二：承办单位营业执照照片",
-          "fileUrl": "/fencingapi/file/xiaomei-8949dc986336434d96f0b52ebc6bc059.pdf"
-        },
-        {
-          "fileName": "沧州竞赛规程.pdf",
-          "fileType": "rulesAndnotices",
-          "fileTypeDesc": "附件四：竞赛规程",
-          "fileUrl": "/fencingapi/file/xiaomei-726ca900ea954dd687b04db77438f4c8.pdf"
-        },
-        {
-          "fileName": "沧州推荐函.pdf",
-          "fileType": "recommendation",
-          "fileTypeDesc": "附件五：申请函",
-          "fileUrl": "/fencingapi/file/xiaomei-bbe0198f16a644338bd84ff49cb86ca0.pdf"
-        },
-        {
-          "fileName": "赛事历史介绍.pdf",
-          "fileType": "matchHistory",
-          "fileTypeDesc": "附件三：赛事历史介绍",
-          "fileUrl": "/fencingapi/file/xiaomei-f3105f729b8d4d319b03b2ad0aad036b.pdf"
-        },
-        {
-          "fileName": "组织方案.pdf",
-          "fileType": "eventPlan",
-          "fileTypeDesc": "附件六：赛事组织方案",
-          "fileUrl": "/fencingapi/file/xiaomei-b3e8a5396ea4476cb7f65d212182710b.pdf"
-        },
-        {
-          "fileName": "WechatIMG593.jpg",
-          "fileType": "schematicVenue",
-          "fileTypeDesc": "附件七：赛场示意图",
-          "fileUrl": "/fencingapi/file/xiaomei-105209e359d748d1bdbaae9653587423.jpg"
-        },
-        {
-          "fileName": "WechatIMG594.jpg",
-          "fileType": "matchEmergency",
-          "fileTypeDesc": "附件八：场馆照片示意图 ",
-          "fileUrl": "/fencingapi/file/xiaomei-21bb0b142508409faf0c0a3c3579cb01.jpg"
-        },
-        {
-          "fileName": "WechatIMG595.jpg",
-          "fileType": "matchEmergency",
-          "fileTypeDesc": "附件八：场馆照片示意图 ",
-          "fileUrl": "/fencingapi/file/xiaomei-2cccef2372b24f63a27db188bb471dc1.jpg"
+          "fileName": "沧州D赛(2).pdf",
+          "fileType": "competitionRules",
+          "fileTypeDesc": "竞赛规程",
+          "fileUrl": "/fencingapi/file/xiaomei-9e680865f74f4670a8b9886b5ee3d802.pdf"
         }
       ]
     },
     {
       "sportId": 101159,
       "sportCode": "RZSS2035041",
-      "sportName": "2026年浦东新区“剑耀浦东”击剑公开赛",
+      "sportName": "2026“剑耀浦东·川沙杯”击剑公开赛",
       "season": "2026",
       "gameType": "RZSS",
       "gameDesc": "认证赛事",
       "gameLevel": "C",
       "startDate": "2026-07-18 08:00:00",
       "endDate": "2026-07-19 18:00:00",
-      "signStartDate": "2026-06-10 08:00:00",
-      "signAthEndDate": "2026-07-10 23:59:59",
+      "signStartDate": "2026-06-17 14:00:00",
+      "signAthEndDate": "2026-07-11 23:59:59",
       "provinceName": "上海",
-      "cityName": "浦东新区",
+      "cityName": "上海市",
       "areaDesc": "华东",
       "organizer": "SHHYFJJ0001",
       "mainOrganizer": "上海市浦东新区体育总会",
@@ -18381,16 +18389,8 @@
           "groupName": "U16"
         },
         {
-          "groupCode": "U17s",
-          "groupName": "17+"
-        },
-        {
-          "groupCode": "U40s",
-          "groupName": "老将组"
-        },
-        {
           "groupCode": "COPEN",
-          "groupName": "年龄开放组"
+          "groupName": "公开组"
         }
       ],
       "groupLabels": [
@@ -18400,112 +18400,14 @@
         "U12",
         "U14",
         "U16",
-        "17+",
-        "老将组",
-        "年龄开放组"
+        "公开组"
       ],
       "files": [
         {
-          "fileName": "（2）承办单位营业执照.jpg",
-          "fileType": "businessLicense",
-          "fileTypeDesc": "附件二：承办单位营业执照照片",
-          "fileUrl": "/fencingapi/file/xiaomei-e58345e415b044cc8a08de7a9f22e465.jpg"
-        },
-        {
-          "fileName": "（3）赛事历史介绍.pdf",
-          "fileType": "matchHistory",
-          "fileTypeDesc": "附件三：赛事历史介绍",
-          "fileUrl": "/fencingapi/file/xiaomei-b6e8886faf584bd4a95c05c65da6932f.pdf"
-        },
-        {
-          "fileName": "（4）2026“剑耀浦东”击剑公开赛D级认证赛事竞赛规程.pdf",
-          "fileType": "rulesAndnotices",
-          "fileTypeDesc": "附件四：竞赛规程",
-          "fileUrl": "/fencingapi/file/xiaomei-2b93c524915944c6999a76d1a489a236.pdf"
-        },
-        {
-          "fileName": "（6）参赛指引.jpg",
-          "fileType": "eventPlan",
-          "fileTypeDesc": "附件六：赛事组织方案",
-          "fileUrl": "/fencingapi/file/xiaomei-dc7997dcd3b442b8b846469613399348.jpg"
-        },
-        {
-          "fileName": "（8）赛场1 场馆图片.jpg",
-          "fileType": "matchEmergency",
-          "fileTypeDesc": "附件八：场馆照片示意图 ",
-          "fileUrl": "/fencingapi/file/xiaomei-d5015f329ca44c2e9970f5efaa5988dd.jpg"
-        },
-        {
-          "fileName": "（8）赛场2 场馆图片.jpg",
-          "fileType": "matchEmergency",
-          "fileTypeDesc": "附件八：场馆照片示意图 ",
-          "fileUrl": "/fencingapi/file/xiaomei-4333774ebb6745caa0a5a109af404b8d.jpg"
-        },
-        {
-          "fileName": "（8）赛场3 场馆照片.jpg",
-          "fileType": "matchEmergency",
-          "fileTypeDesc": "附件八：场馆照片示意图 ",
-          "fileUrl": "/fencingapi/file/xiaomei-0899ac0cf6f14b4f8f21799d46fa32b4.jpg"
-        },
-        {
-          "fileName": "（8）赛场2 剑道布局图.jpg",
-          "fileType": "matchEmergency",
-          "fileTypeDesc": "附件八：场馆照片示意图 ",
-          "fileUrl": "/fencingapi/file/xiaomei-249a71c519ab403f9c52b427aa8eb631.jpg"
-        },
-        {
-          "fileName": "（8）赛场3 剑道布局图.jpg",
-          "fileType": "matchEmergency",
-          "fileTypeDesc": "附件八：场馆照片示意图 ",
-          "fileUrl": "/fencingapi/file/xiaomei-877397f91bd34ab3bc8f48aff67e4a2c.jpg"
-        },
-        {
-          "fileName": "（9）2026‘剑耀浦东’击剑公开赛医疗保障方案.pdf",
-          "fileType": "photosVenue",
-          "fileTypeDesc": "附件九：安全风险调查清单要求文件",
-          "fileUrl": "/fencingapi/file/xiaomei-a0ba88d21f6e41c8ba76294343d6521c.pdf"
-        },
-        {
-          "fileName": "（9）2026“剑耀浦东”击剑公开赛应急预案.pdf",
-          "fileType": "photosVenue",
-          "fileTypeDesc": "附件九：安全风险调查清单要求文件",
-          "fileUrl": "/fencingapi/file/xiaomei-a704fce6567b47ad820f2207358d5968.pdf"
-        },
-        {
-          "fileName": "（8）赛场1 剑道布局图.jpg",
-          "fileType": "matchEmergency",
-          "fileTypeDesc": "附件八：场馆照片示意图 ",
-          "fileUrl": "/fencingapi/file/xiaomei-73ec8c1f540947c4aace7e6559fd99ec.jpg"
-        },
-        {
-          "fileName": "（7）赛场1 赛场示意图.pdf",
-          "fileType": "schematicVenue",
-          "fileTypeDesc": "附件七：赛场示意图",
-          "fileUrl": "/fencingapi/file/xiaomei-ff047a21e9974bfbb2db246284a47c75.pdf"
-        },
-        {
-          "fileName": "（7）赛场2 赛场示意图.pdf",
-          "fileType": "schematicVenue",
-          "fileTypeDesc": "附件七：赛场示意图",
-          "fileUrl": "/fencingapi/file/xiaomei-d9b158d16d9646e0932d859f69e38c03.pdf"
-        },
-        {
-          "fileName": "（7）赛场3 赛场示意图.pdf",
-          "fileType": "schematicVenue",
-          "fileTypeDesc": "附件七：赛场示意图",
-          "fileUrl": "/fencingapi/file/xiaomei-e61bceaaa72c417291e005a1021ce459.pdf"
-        },
-        {
-          "fileName": "社会团体法人登记证书.pdf",
-          "fileType": "organizerVenue",
-          "fileTypeDesc": "附件一：主办单位营业执照照片",
-          "fileUrl": "/fencingapi/file/xiaomei-912628c55e7f4c60ab42fed196a9f976.pdf"
-        },
-        {
-          "fileName": "申请函 251216.pdf",
-          "fileType": "recommendation",
-          "fileTypeDesc": "附件五：申请函",
-          "fileUrl": "/fencingapi/file/xiaomei-62e746556a5143d081106261435bf50a.pdf"
+          "fileName": "2026“剑耀浦东川沙杯”击剑比赛竞赛规程(4).pdf",
+          "fileType": "competitionRules",
+          "fileTypeDesc": "竞赛规程",
+          "fileUrl": "/fencingapi/file/xiaomei-ddfcaa635999442b8d83d11e643ae68c.pdf"
         }
       ]
     },
@@ -18878,7 +18780,7 @@
       "sportactive": "0",
       "sigupactive": "0",
       "raceResType": "json",
-      "weaponCodes": null,
+      "weaponCodes": "F#E#S",
       "groups": [],
       "groupLabels": [],
       "files": []
@@ -18893,15 +18795,15 @@
       "gameLevel": "C",
       "startDate": "2025-10-01 00:00:00",
       "endDate": "2025-10-02 00:00:00",
-      "signStartDate": "2026-05-21 00:00:00",
-      "signAthEndDate": "2026-05-30 00:00:00",
+      "signStartDate": "2026-06-02 00:00:00",
+      "signAthEndDate": "2026-06-30 00:00:00",
       "provinceName": "江苏",
       "cityName": "常州市",
       "areaDesc": "华东",
       "organizer": "BEJXMKJ0002",
       "mainOrganizer": "SADSAD",
       "sportactive": "2",
-      "sigupactive": "2",
+      "sigupactive": "1",
       "raceResType": "json",
       "weaponCodes": "F#E#S",
       "groups": [
@@ -22948,22 +22850,22 @@
     {
       "sportId": 101217,
       "sportCode": "RZSS2036040",
-      "sportName": "2026年广西击剑公开赛",
+      "sportName": "2026年广西“国控杯”击剑公开赛",
       "season": "2026",
       "gameType": "RZSS",
       "gameDesc": "认证赛事",
       "gameLevel": "C",
-      "startDate": "2026-07-04 09:00:00",
-      "endDate": "2026-07-06 09:00:00",
-      "signStartDate": "2026-07-04 00:00:00",
-      "signAthEndDate": "2026-07-04 00:00:00",
+      "startDate": "2026-07-04 08:00:00",
+      "endDate": "2026-07-06 18:00:00",
+      "signStartDate": "2026-06-05 10:00:00",
+      "signAthEndDate": "2026-06-27 23:59:59",
       "provinceName": "广西",
       "cityName": "南宁市",
       "areaDesc": "中南",
       "organizer": "GUXQXWGTL0001",
       "mainOrganizer": "广西射击射箭运动发展中心",
       "sportactive": "0",
-      "sigupactive": "0",
+      "sigupactive": "1",
       "raceResType": "json",
       "weaponCodes": "F#E#S",
       "groups": [
@@ -23007,82 +22909,10 @@
       ],
       "files": [
         {
-          "fileName": "附件一-主办单位营业执照.jpg",
-          "fileType": "organizerVenue",
-          "fileTypeDesc": "附件一：主办单位营业执照照片",
-          "fileUrl": "/fencingapi/file/xiaomei-bee62a2347e54157bf127259d0af4f17.jpg"
-        },
-        {
-          "fileName": "附件二-承办单位营业执照.jpg",
-          "fileType": "businessLicense",
-          "fileTypeDesc": "附件二：承办单位营业执照照片",
-          "fileUrl": "/fencingapi/file/xiaomei-017af77889f34fc39c825a44fbd4b90f.jpg"
-        },
-        {
-          "fileName": "附件三-赛事历史简介—南宁市青秀区文化广电体育与旅游局.pdf",
-          "fileType": "matchHistory",
-          "fileTypeDesc": "附件三：赛事历史介绍",
-          "fileUrl": "/fencingapi/file/xiaomei-cec322523b624e82b79df70dea2b3826.pdf"
-        },
-        {
-          "fileName": "附件四-竞赛规程—2026年广西击剑公开赛（B级赛）(1).pdf",
-          "fileType": "rulesAndnotices",
-          "fileTypeDesc": "附件四：竞赛规程",
-          "fileUrl": "/fencingapi/file/xiaomei-1ac0e03615d2444d9a83e122983c2448.pdf"
-        },
-        {
-          "fileName": "附件六-赛事组织方案—2026年广西击剑公开赛(B级赛)1215(1).pdf",
-          "fileType": "eventPlan",
-          "fileTypeDesc": "附件六：赛事组织方案",
-          "fileUrl": "/fencingapi/file/xiaomei-809877e4a80a4b37b00b9921a26367ee.pdf"
-        },
-        {
-          "fileName": "附件七-赛场照片示意图.pdf",
-          "fileType": "schematicVenue",
-          "fileTypeDesc": "附件七：赛场示意图",
-          "fileUrl": "/fencingapi/file/xiaomei-50808945099d4f4c802c4be2b1e9b65d.pdf"
-        },
-        {
-          "fileName": "附件八-场馆照片示意图.pdf",
-          "fileType": "matchEmergency",
-          "fileTypeDesc": "附件八：场馆照片示意图 ",
-          "fileUrl": "/fencingapi/file/xiaomei-1ffef8eaed4142af91700163c5f92003.pdf"
-        },
-        {
-          "fileName": "附件九安全风险清单合并01.pdf",
-          "fileType": "photosVenue",
-          "fileTypeDesc": "附件九：安全风险调查清单要求文件",
-          "fileUrl": "/fencingapi/file/xiaomei-1142690256484c048d63e0d5bd1505f2.pdf"
-        },
-        {
-          "fileName": "附件九安全风险清单汇总合并02.pdf",
-          "fileType": "photosVenue",
-          "fileTypeDesc": "附件九：安全风险调查清单要求文件",
-          "fileUrl": "/fencingapi/file/xiaomei-c3688d342d2443338152248c6c29d5b0.pdf"
-        },
-        {
-          "fileName": "附件九安全风险清单汇总合并03.pdf",
-          "fileType": "photosVenue",
-          "fileTypeDesc": "附件九：安全风险调查清单要求文件",
-          "fileUrl": "/fencingapi/file/xiaomei-8d92cd614b254c6fb9d12ce536481f73.pdf"
-        },
-        {
-          "fileName": "附件九安全风险清单汇总合并04.pdf",
-          "fileType": "photosVenue",
-          "fileTypeDesc": "附件九：安全风险调查清单要求文件",
-          "fileUrl": "/fencingapi/file/xiaomei-0ec969ceb2384e4f991ff491b622d751.pdf"
-        },
-        {
-          "fileName": "附件九-安全风险清单汇总合并05.pdf",
-          "fileType": "photosVenue",
-          "fileTypeDesc": "附件九：安全风险调查清单要求文件",
-          "fileUrl": "/fencingapi/file/xiaomei-9761a276d310428ba5cac51653c70df9.pdf"
-        },
-        {
-          "fileName": "附件九-安全风险清单汇总合并06.pdf",
-          "fileType": "photosVenue",
-          "fileTypeDesc": "附件九：安全风险调查清单要求文件",
-          "fileUrl": "/fencingapi/file/xiaomei-84cbe25ed56f4404a06f8b0ecd6f7e18.pdf"
+          "fileName": "竞赛规程—2026年广西国控杯击剑公开赛（B级赛）E.pdf",
+          "fileType": "competitionRules",
+          "fileTypeDesc": "竞赛规程",
+          "fileUrl": "/fencingapi/file/xiaomei-42dcfb6ca88e4538bf4ada676fb80b51.pdf"
         }
       ]
     },
@@ -24511,17 +24341,17 @@
       "gameType": "RZSS",
       "gameDesc": "认证赛事",
       "gameLevel": "C",
-      "startDate": "2026-07-11 10:00:00",
+      "startDate": "2026-07-11 08:00:00",
       "endDate": "2026-07-12 18:00:00",
-      "signStartDate": "2026-07-11 00:00:00",
-      "signAthEndDate": "2026-07-11 00:00:00",
+      "signStartDate": "2026-06-07 10:00:00",
+      "signAthEndDate": "2026-07-06 23:59:59",
       "provinceName": "新疆",
       "cityName": "乌鲁木齐市",
       "areaDesc": "西北",
       "organizer": "XIJXJJYTY0001",
       "mainOrganizer": "乌鲁木齐市体育局",
       "sportactive": "0",
-      "sigupactive": "0",
+      "sigupactive": "1",
       "raceResType": "json",
       "weaponCodes": "F#E#S",
       "groups": [
@@ -24570,58 +24400,10 @@
       ],
       "files": [
         {
-          "fileName": "乌鲁木齐市体育局.jpg",
-          "fileType": "organizerVenue",
-          "fileTypeDesc": "附件一：主办单位营业执照照片",
-          "fileUrl": "/fencingapi/file/xiaomei-4559e8f32b5a45859c4fcc173057a4e3.jpg"
-        },
-        {
-          "fileName": "集英执照.jpg",
-          "fileType": "businessLicense",
-          "fileTypeDesc": "附件二：承办单位营业执照照片",
-          "fileUrl": "/fencingapi/file/xiaomei-222db8f3630549048e28c58c0d5985e7.jpg"
-        },
-        {
-          "fileName": "赛事申办条件介绍.pdf",
-          "fileType": "matchHistory",
-          "fileTypeDesc": "附件三：赛事历史介绍",
-          "fileUrl": "/fencingapi/file/xiaomei-ecc4a21c6362461e94526910e6313f17.pdf"
-        },
-        {
-          "fileName": "中国击剑协会大众击剑D级认证赛事2026年第二届乌鲁木齐击剑公开赛竞赛规程.pdf",
-          "fileType": "rulesAndnotices",
-          "fileTypeDesc": "附件四：竞赛规程",
-          "fileUrl": "/fencingapi/file/xiaomei-3d8b2af3bafc469b87d89ae29b09195c.pdf"
-        },
-        {
-          "fileName": "乌鲁木齐市体育局申请文件.pdf",
-          "fileType": "recommendation",
-          "fileTypeDesc": "附件五：申请函",
-          "fileUrl": "/fencingapi/file/xiaomei-c79f3181504445bb9e8a4b5b3f30af0a.pdf"
-        },
-        {
-          "fileName": "组织方案.pdf",
-          "fileType": "eventPlan",
-          "fileTypeDesc": "附件六：赛事组织方案",
-          "fileUrl": "/fencingapi/file/xiaomei-c4b72bd531c94f1eaba7c6dcbbcb64dc.pdf"
-        },
-        {
-          "fileName": "布局图.pdf",
-          "fileType": "schematicVenue",
-          "fileTypeDesc": "附件七：赛场示意图",
-          "fileUrl": "/fencingapi/file/xiaomei-97dc4df2dabb42b8b7278bc5131027ab.pdf"
-        },
-        {
-          "fileName": "场馆图片.pdf",
-          "fileType": "matchEmergency",
-          "fileTypeDesc": "附件八：场馆照片示意图 ",
-          "fileUrl": "/fencingapi/file/xiaomei-6f721322f6e44f0094d44b7b8f053bea.pdf"
-        },
-        {
-          "fileName": "大众击剑认证赛事赛前安全风险调查清单文件合集(3).pdf",
-          "fileType": "photosVenue",
-          "fileTypeDesc": "附件九：安全风险调查清单要求文件",
-          "fileUrl": "/fencingapi/file/xiaomei-035c9e797f984bfc9a5052750708a243.pdf"
+          "fileName": "中国击剑协会D级认证赛事2026年第二届新疆维吾尔自治区乌鲁木齐击剑公开赛竞赛规程（终稿）(3).pdf",
+          "fileType": "competitionRules",
+          "fileTypeDesc": "竞赛规程",
+          "fileUrl": "/fencingapi/file/xiaomei-ac54340d790247d29f927b45982c7964.pdf"
         }
       ]
     },
@@ -25544,8 +25326,8 @@
       "areaDesc": "西南",
       "organizer": "SHHDSTY0001",
       "mainOrganizer": "万国体育",
-      "sportactive": "0",
-      "sigupactive": "1",
+      "sportactive": "2",
+      "sigupactive": "2",
       "raceResType": "json",
       "weaponCodes": null,
       "groups": [
@@ -26177,15 +25959,15 @@
       "gameLevel": "C",
       "startDate": "2026-07-11 10:00:00",
       "endDate": "2026-07-12 18:00:00",
-      "signStartDate": "2026-07-11 00:00:00",
-      "signAthEndDate": "2026-07-11 00:00:00",
+      "signStartDate": "2026-06-08 10:00:00",
+      "signAthEndDate": "2026-07-09 23:59:59",
       "provinceName": "湖南",
       "cityName": "长沙市",
       "areaDesc": "中南",
       "organizer": "HUNZSJJXH0001",
       "mainOrganizer": "长沙市体育局",
       "sportactive": "0",
-      "sigupactive": "0",
+      "sigupactive": "1",
       "raceResType": "json",
       "weaponCodes": "F#E#S",
       "groups": [
@@ -26210,20 +25992,16 @@
           "groupName": "U14"
         },
         {
-          "groupCode": "U17s",
-          "groupName": "17+"
-        },
-        {
           "groupCode": "U16",
           "groupName": "U16"
         },
         {
-          "groupCode": "COPEN",
-          "groupName": "年龄开放组"
+          "groupCode": "U17s",
+          "groupName": "17+"
         },
         {
-          "groupCode": "U40s",
-          "groupName": "老将组"
+          "groupCode": "COPEN",
+          "groupName": "公开组"
         }
       ],
       "groupLabels": [
@@ -26232,89 +26010,16 @@
         "U10",
         "U12",
         "U14",
-        "17+",
         "U16",
-        "年龄开放组",
-        "老将组"
+        "17+",
+        "公开组"
       ],
       "files": [
         {
-          "fileName": "4b53ff0d8bd0b3e09b169bfa76f34de.jpg",
-          "fileType": "organizerVenue",
-          "fileTypeDesc": "附件一：主办单位营业执照照片",
-          "fileUrl": "/fencingapi/file/xiaomei-dd522263895b401dbf7352434c2e5fb5.jpg"
-        },
-        {
-          "fileName": "协会营业执照.jpg",
-          "fileType": "businessLicense",
-          "fileTypeDesc": "附件二：承办单位营业执照照片",
-          "fileUrl": "/fencingapi/file/xiaomei-035aa346ca8243a5bf16c66a7946a766.jpg"
-        },
-        {
-          "fileName": "赛事历史介绍.pdf",
-          "fileType": "matchHistory",
-          "fileTypeDesc": "附件三：赛事历史介绍",
-          "fileUrl": "/fencingapi/file/xiaomei-dbd82d5990b4428eb3bc1227759e6efe.pdf"
-        },
-        {
-          "fileName": "2026年长沙市“星城杯”青少年击剑公开赛.pdf",
-          "fileType": "rulesAndnotices",
-          "fileTypeDesc": "附件四：竞赛规程",
-          "fileUrl": "/fencingapi/file/xiaomei-572d1b142ede4a4b8ae13d8d2b7268d1.pdf"
-        },
-        {
-          "fileName": "赛事主办申请函.pdf",
-          "fileType": "recommendation",
-          "fileTypeDesc": "附件五：申请函",
-          "fileUrl": "/fencingapi/file/xiaomei-67b234fb81254036a4a4f4785fe9df05.pdf"
-        },
-        {
-          "fileName": "赛事组织方案.pdf",
-          "fileType": "eventPlan",
-          "fileTypeDesc": "附件六：赛事组织方案",
-          "fileUrl": "/fencingapi/file/xiaomei-05b8ee9711cc41ba900d20c5066f4693.pdf"
-        },
-        {
-          "fileName": "赛场示意图.jpg",
-          "fileType": "schematicVenue",
-          "fileTypeDesc": "附件七：赛场示意图",
-          "fileUrl": "/fencingapi/file/xiaomei-7c7d749fd1a94347a086e196fab11f51.jpg"
-        },
-        {
-          "fileName": "场馆照片示意图.jpg",
-          "fileType": "matchEmergency",
-          "fileTypeDesc": "附件八：场馆照片示意图 ",
-          "fileUrl": "/fencingapi/file/xiaomei-1c66955a73a74a73bc373243fce05ebd.jpg"
-        },
-        {
-          "fileName": "安全风险调查清单.pdf",
-          "fileType": "photosVenue",
-          "fileTypeDesc": "附件九：安全风险调查清单要求文件",
-          "fileUrl": "/fencingapi/file/xiaomei-8593d8b774dc464d89bcaa4538e7e062.pdf"
-        },
-        {
-          "fileName": "消防保障方案.pdf",
-          "fileType": "eventPlan",
-          "fileTypeDesc": "附件六：赛事组织方案",
-          "fileUrl": "/fencingapi/file/xiaomei-ce1e5299d8ce493fb5cc65daae1447d2.pdf"
-        },
-        {
-          "fileName": "赛事组织方案.pdf",
-          "fileType": "eventPlan",
-          "fileTypeDesc": "附件六：赛事组织方案",
-          "fileUrl": "/fencingapi/file/xiaomei-e85d0fd70c39404ca80872a5a7e9250b.pdf"
-        },
-        {
-          "fileName": "赛事医疗救护方案.pdf",
-          "fileType": "eventPlan",
-          "fileTypeDesc": "附件六：赛事组织方案",
-          "fileUrl": "/fencingapi/file/xiaomei-94df79a17672497093f307a8f2df5461.pdf"
-        },
-        {
-          "fileName": "芒果馆场地消防验收书.pdf",
-          "fileType": "matchEmergency",
-          "fileTypeDesc": "附件八：场馆照片示意图 ",
-          "fileUrl": "/fencingapi/file/xiaomei-637edf448df44c2e83e5dd3e126d3aba.pdf"
+          "fileName": "赛事竞赛规程(2)(3)(2).pdf",
+          "fileType": "competitionRules",
+          "fileTypeDesc": "竞赛规程",
+          "fileUrl": "/fencingapi/file/xiaomei-8eb632756eda4b53b62d2887a5f97939.pdf"
         }
       ]
     },
@@ -27006,8 +26711,8 @@
       "gameType": "C02DZJS",
       "gameDesc": "俱乐部总决赛",
       "gameLevel": "A1",
-      "startDate": "2026-11-21 00:00:00",
-      "endDate": "2026-11-23 00:00:00",
+      "startDate": "2026-11-28 00:00:00",
+      "endDate": "2026-11-30 00:00:00",
       "signStartDate": "2026-11-21 00:00:00",
       "signAthEndDate": "2026-11-21 00:00:00",
       "provinceName": "江苏",
@@ -28665,13 +28370,13 @@
     {
       "sportId": 101178,
       "sportCode": "RZSS2035071",
-      "sportName": "2026年大连“剑协杯”击剑公开赛",
+      "sportName": "2026年“大连剑协杯”击剑公开赛",
       "season": "2026",
       "gameType": "RZSS",
       "gameDesc": "认证赛事",
       "gameLevel": "C",
-      "startDate": "2026-08-15 10:00:00",
-      "endDate": "2026-08-16 18:00:00",
+      "startDate": "2026-08-08 08:00:00",
+      "endDate": "2026-08-09 18:00:00",
       "signStartDate": "2027-07-10 10:00:00",
       "signAthEndDate": "2027-08-08 23:59:59",
       "provinceName": "辽宁",
@@ -30516,7 +30221,7 @@
       "gameLevel": "C",
       "startDate": "2026-07-04 08:00:00",
       "endDate": "2026-07-05 18:00:00",
-      "signStartDate": "2026-06-04 10:00:00",
+      "signStartDate": "2026-06-05 10:00:00",
       "signAthEndDate": "2026-06-28 23:59:59",
       "provinceName": "江西",
       "cityName": "九江市",
@@ -30524,7 +30229,7 @@
       "organizer": "JIXJKSFJ0001",
       "mainOrganizer": "九江市体育局、九江经济技术开发区管委会",
       "sportactive": "0",
-      "sigupactive": "0",
+      "sigupactive": "1",
       "raceResType": "json",
       "weaponCodes": "F#E#S",
       "groups": [
@@ -30573,58 +30278,10 @@
       ],
       "files": [
         {
-          "fileName": "2026九江“庐山杯”击剑赛申请函.pdf",
-          "fileType": "recommendation",
-          "fileTypeDesc": "附件五：申请函",
-          "fileUrl": "/fencingapi/file/xiaomei-5cf36ab9b2df4e04b94b620c5c36df45.pdf"
-        },
-        {
-          "fileName": "2026九江“庐山杯”击剑赛申请函.pdf",
-          "fileType": "organizerVenue",
-          "fileTypeDesc": "附件一：主办单位营业执照照片",
-          "fileUrl": "/fencingapi/file/xiaomei-d5e8db8e30bb42f680277e478eccb34b.pdf"
-        },
-        {
-          "fileName": "2026九江“庐山杯”击剑赛申请函.pdf",
-          "fileType": "businessLicense",
-          "fileTypeDesc": "附件二：承办单位营业执照照片",
-          "fileUrl": "/fencingapi/file/xiaomei-4eb46bbf45614838bbab77ccde2ec978.pdf"
-        },
-        {
-          "fileName": "2026九江“庐山杯”击剑赛申请函.pdf",
-          "fileType": "matchHistory",
-          "fileTypeDesc": "附件三：赛事历史介绍",
-          "fileUrl": "/fencingapi/file/xiaomei-c1396d826e23483b8ebc13bf093b6e72.pdf"
-        },
-        {
-          "fileName": "2026九江“庐山杯”击剑赛申请函.pdf",
-          "fileType": "rulesAndnotices",
-          "fileTypeDesc": "附件四：竞赛规程",
-          "fileUrl": "/fencingapi/file/xiaomei-e644e6c00f4b467cac4a2710db3c0bf1.pdf"
-        },
-        {
-          "fileName": "2026九江“庐山杯”击剑赛申请函.pdf",
-          "fileType": "eventPlan",
-          "fileTypeDesc": "附件六：赛事组织方案",
-          "fileUrl": "/fencingapi/file/xiaomei-69639745260741d09a5ce1f27a67f0ee.pdf"
-        },
-        {
-          "fileName": "2026九江“庐山杯”击剑赛申请函.pdf",
-          "fileType": "schematicVenue",
-          "fileTypeDesc": "附件七：赛场示意图",
-          "fileUrl": "/fencingapi/file/xiaomei-96449828b1ca4010afc40f102ee8ac7d.pdf"
-        },
-        {
-          "fileName": "2026九江“庐山杯”击剑赛申请函.pdf",
-          "fileType": "matchEmergency",
-          "fileTypeDesc": "附件八：场馆照片示意图 ",
-          "fileUrl": "/fencingapi/file/xiaomei-af6d060b87274123ad0f42e2403352ac.pdf"
-        },
-        {
-          "fileName": "2026九江“庐山杯”击剑赛申请函.pdf",
-          "fileType": "photosVenue",
-          "fileTypeDesc": "附件九：安全风险调查清单要求文件",
-          "fileUrl": "/fencingapi/file/xiaomei-db078b7563074158ae5fb7621d017c0a.pdf"
+          "fileName": "2026年“庐山杯”九江击剑公开赛竞赛规程（0603）(1).pdf",
+          "fileType": "competitionRules",
+          "fileTypeDesc": "竞赛规程",
+          "fileUrl": "/fencingapi/file/xiaomei-568b0b2b16ee4861817201f8a3c01a81.pdf"
         }
       ]
     },
@@ -30898,7 +30555,7 @@
       "areaDesc": "华东",
       "organizer": "JISJS0001",
       "mainOrganizer": "中国击剑协会",
-      "sportactive": "0",
+      "sportactive": "2",
       "sigupactive": "2",
       "raceResType": "json",
       "weaponCodes": null,
@@ -31528,18 +31185,26 @@
       "gameLevel": "C",
       "startDate": "2026-07-11 08:00:00",
       "endDate": "2026-07-12 18:00:00",
-      "signStartDate": "2026-10-23 00:00:00",
-      "signAthEndDate": "2026-10-23 00:00:00",
+      "signStartDate": "2026-06-10 10:00:00",
+      "signAthEndDate": "2026-07-05 23:59:59",
       "provinceName": "江苏",
       "cityName": "盐城市",
       "areaDesc": "华东",
       "organizer": "盐城市击剑运动协会",
       "mainOrganizer": "江苏省击剑运动协会",
       "sportactive": "0",
-      "sigupactive": "0",
+      "sigupactive": "1",
       "raceResType": "json",
       "weaponCodes": null,
       "groups": [
+        {
+          "groupCode": "U6",
+          "groupName": "U6"
+        },
+        {
+          "groupCode": "U8",
+          "groupName": "U8"
+        },
         {
           "groupCode": "U10",
           "groupName": "U10"
@@ -31559,31 +31224,23 @@
         {
           "groupCode": "U17s",
           "groupName": "17+"
-        },
-        {
-          "groupCode": "COPEN",
-          "groupName": "公开组"
-        },
-        {
-          "groupCode": "U40s",
-          "groupName": "老将组"
         }
       ],
       "groupLabels": [
+        "U6",
+        "U8",
         "U10",
         "U12",
         "U14",
         "U16",
-        "17+",
-        "公开组",
-        "老将组"
+        "17+"
       ],
       "files": [
         {
-          "fileName": "3.27-29盐城B赛裁判员名单.pdf",
-          "fileType": "conferenceNotice",
-          "fileTypeDesc": "会议通知",
-          "fileUrl": "/fencingapi/file/xiaomei-87691718e8c4445cbc66ae6a79dc0e39.pdf"
+          "fileName": "2026年东方湿地“都市杯”击剑公开赛规程(4).pdf",
+          "fileType": "competitionRules",
+          "fileTypeDesc": "竞赛规程",
+          "fileUrl": "/fencingapi/file/xiaomei-5d80b22acd7649ae9f508ee1983591cc.pdf"
         }
       ]
     },
@@ -31887,8 +31544,8 @@
       "gameType": "RZSS",
       "gameDesc": "认证赛事",
       "gameLevel": "C",
-      "startDate": "2026-06-13 08:00:00",
-      "endDate": "2026-06-14 18:00:00",
+      "startDate": "2026-12-01 00:00:00",
+      "endDate": "2026-12-01 23:59:59",
       "signStartDate": "2026-05-19 10:00:00",
       "signAthEndDate": "2026-06-06 23:59:59",
       "provinceName": "浙江",
@@ -31897,7 +31554,7 @@
       "organizer": "ZHJNBYC0002",
       "mainOrganizer": "宁波市江北区体育局",
       "sportactive": "0",
-      "sigupactive": "1",
+      "sigupactive": "2",
       "raceResType": "json",
       "weaponCodes": "S#E#F",
       "groups": [
@@ -31951,7 +31608,7 @@
     {
       "sportId": 101318,
       "sportCode": "RZSSSAN0120260612",
-      "sportName": "2026年西安市\"万河荟″杯Rapier击剑公开赛",
+      "sportName": "2026 年西安市 Rapier 击剑公开赛",
       "season": "2026",
       "gameType": "RZSS",
       "gameDesc": "认证赛事",
@@ -31965,8 +31622,8 @@
       "areaDesc": "西北",
       "organizer": "JISWXALT0001",
       "mainOrganizer": "陕西省击剑协会",
-      "sportactive": "0",
-      "sigupactive": "1",
+      "sportactive": "2",
+      "sigupactive": "2",
       "raceResType": "json",
       "weaponCodes": null,
       "groups": [
@@ -32076,7 +31733,7 @@
       "areaDesc": "西南",
       "organizer": "YUNYN0001",
       "mainOrganizer": "中国击剑协会",
-      "sportactive": "0",
+      "sportactive": "2",
       "sigupactive": "2",
       "raceResType": "json",
       "weaponCodes": null,
@@ -33017,22 +32674,22 @@
     {
       "sportId": 101120,
       "sportCode": "RZSS2034110",
-      "sportName": "2026年昆明大众击剑比赛",
+      "sportName": "2026年昆明市大众击剑公开赛（第三站）",
       "season": "2026",
       "gameType": "RZSS",
       "gameDesc": "认证赛事",
       "gameLevel": "C",
-      "startDate": "2026-07-18 10:00:00",
+      "startDate": "2026-07-18 08:00:00",
       "endDate": "2026-07-19 18:00:00",
-      "signStartDate": "2026-06-10 08:00:00",
-      "signAthEndDate": "2026-07-10 23:59:59",
+      "signStartDate": "2026-06-13 10:00:00",
+      "signAthEndDate": "2026-07-13 23:59:59",
       "provinceName": "云南",
       "cityName": "昆明市",
       "areaDesc": "西南",
       "organizer": "YUNKJX0001",
       "mainOrganizer": "昆明击剑协会",
       "sportactive": "0",
-      "sigupactive": "0",
+      "sigupactive": "1",
       "raceResType": "json",
       "weaponCodes": "F#E#S",
       "groups": [
@@ -33045,12 +32702,12 @@
           "groupName": "U8"
         },
         {
-          "groupCode": "U12",
-          "groupName": "U12"
-        },
-        {
           "groupCode": "U10",
           "groupName": "U10"
+        },
+        {
+          "groupCode": "U12",
+          "groupName": "U12"
         },
         {
           "groupCode": "U14",
@@ -33062,7 +32719,7 @@
         },
         {
           "groupCode": "COPEN",
-          "groupName": "年龄开放组"
+          "groupName": "公开组"
         },
         {
           "groupCode": "U40s",
@@ -33076,74 +32733,20 @@
       "groupLabels": [
         "U6",
         "U8",
-        "U12",
         "U10",
+        "U12",
         "U14",
         "U16",
-        "年龄开放组",
+        "公开组",
         "老将组",
         "17+"
       ],
       "files": [
         {
-          "fileName": "2026年昆明市大众击剑比赛赛事策划组织方案(1).pdf",
-          "fileType": "eventPlan",
-          "fileTypeDesc": "附件六：赛事组织方案",
-          "fileUrl": "/fencingapi/file/xiaomei-21bb9dd9f6c54a5da70cdc465b0535e1.pdf"
-        },
-        {
-          "fileName": "图片1.jpg",
-          "fileType": "matchEmergency",
-          "fileTypeDesc": "附件八：场馆照片示意图 ",
-          "fileUrl": "/fencingapi/file/xiaomei-eeec116d507546b998189c7cf66e5719.jpg"
-        },
-        {
-          "fileName": "营业执照.pdf",
-          "fileType": "organizerVenue",
-          "fileTypeDesc": "附件一：主办单位营业执照照片",
-          "fileUrl": "/fencingapi/file/xiaomei-c75946be3bcf408c950fbf320b35445a.pdf"
-        },
-        {
-          "fileName": "昆明市击剑运动协会赛事历史.pdf",
-          "fileType": "matchHistory",
-          "fileTypeDesc": "附件三：赛事历史介绍",
-          "fileUrl": "/fencingapi/file/xiaomei-10c2f32ab3244958af548deb3116c2ca.pdf"
-        },
-        {
-          "fileName": "营业执照.pdf",
-          "fileType": "businessLicense",
-          "fileTypeDesc": "附件二：承办单位营业执照照片",
-          "fileUrl": "/fencingapi/file/xiaomei-a824d7459ec540c78d4244c23ba11a94.pdf"
-        },
-        {
-          "fileName": "26昆明c级比赛申请函.pdf",
-          "fileType": "recommendation",
-          "fileTypeDesc": "附件五：申请函",
-          "fileUrl": "/fencingapi/file/xiaomei-c6756a3039fa472980d9948922686a3c.pdf"
-        },
-        {
-          "fileName": "安全风险调查清单.pdf",
-          "fileType": "photosVenue",
-          "fileTypeDesc": "附件九：安全风险调查清单要求文件",
-          "fileUrl": "/fencingapi/file/xiaomei-916ffb4838a243e095662f316c37367c.pdf"
-        },
-        {
-          "fileName": "场地示意.pdf",
-          "fileType": "schematicVenue",
-          "fileTypeDesc": "附件七：赛场示意图",
-          "fileUrl": "/fencingapi/file/xiaomei-3a815902e20848bf8020b33748d8c7d3.pdf"
-        },
-        {
-          "fileName": "外场地.pdf",
-          "fileType": "schematicVenue",
-          "fileTypeDesc": "附件七：赛场示意图",
-          "fileUrl": "/fencingapi/file/xiaomei-91118635c24f48c7ad8c752b4f4ff4ee.pdf"
-        },
-        {
-          "fileName": "2026年昆明市大众击剑比赛中国大众击剑C级认证赛事竞赛规程.pdf",
-          "fileType": "rulesAndnotices",
-          "fileTypeDesc": "附件四：竞赛规程",
-          "fileUrl": "/fencingapi/file/xiaomei-b10a7bdc9ae84ce8b9b6c06994ab175d.pdf"
+          "fileName": "中国击剑协会大众击剑C级认证赛事竞赛规程(2)(3).pdf",
+          "fileType": "competitionRules",
+          "fileTypeDesc": "竞赛规程",
+          "fileUrl": "/fencingapi/file/xiaomei-fda9c1c960854a649150d08875367763.pdf"
         }
       ]
     },
@@ -35446,15 +35049,15 @@
       "gameLevel": "C",
       "startDate": "2026-06-13 00:00:00",
       "endDate": "2026-06-14 00:00:00",
-      "signStartDate": "2026-05-13 10:00:00",
-      "signAthEndDate": "2026-06-03 23:59:59",
+      "signStartDate": "2026-05-13 00:00:00",
+      "signAthEndDate": "2026-06-07 23:59:59",
       "provinceName": "贵州",
       "cityName": "六盘水市",
       "areaDesc": "西南",
       "organizer": "GUZXHYD0001",
       "mainOrganizer": "六盘水市文体广电旅游局",
-      "sportactive": "0",
-      "sigupactive": "1",
+      "sportactive": "2",
+      "sigupactive": "2",
       "raceResType": "json",
       "weaponCodes": "F#E#S",
       "groups": [
@@ -35594,15 +35197,15 @@
       "gameLevel": "C",
       "startDate": "2026-07-18 10:00:00",
       "endDate": "2026-07-19 10:00:00",
-      "signStartDate": "2026-06-22 08:00:00",
-      "signAthEndDate": "2026-07-11 23:59:59",
+      "signStartDate": "2026-06-13 10:00:00",
+      "signAthEndDate": "2026-07-13 10:00:00",
       "provinceName": "浙江",
       "cityName": "湖州市",
       "areaDesc": "华东",
       "organizer": "ZHJXCGJJJ0001",
       "mainOrganizer": "长兴县文化和广电旅游体育局",
       "sportactive": "0",
-      "sigupactive": "0",
+      "sigupactive": "1",
       "raceResType": "json",
       "weaponCodes": "S#E#F",
       "groups": [
@@ -35636,11 +35239,7 @@
         },
         {
           "groupCode": "COPEN",
-          "groupName": "年龄开放组"
-        },
-        {
-          "groupCode": "U40s",
-          "groupName": "老将组"
+          "groupName": "公开组"
         }
       ],
       "groupLabels": [
@@ -35651,69 +35250,14 @@
         "U14",
         "U16",
         "17+",
-        "年龄开放组",
-        "老将组"
+        "公开组"
       ],
       "files": [
         {
-          "fileName": "1.主办单位营业执照.pdf",
-          "fileType": "organizerVenue",
-          "fileTypeDesc": "附件一：主办单位营业执照照片",
-          "fileUrl": "/fencingapi/file/xiaomei-ac86a15b811344a5a2f717f5cd780f0d.pdf"
-        },
-        {
-          "fileName": "2.承办方营业执照湖州市星程国际击剑俱乐部.pdf",
-          "fileType": "businessLicense",
-          "fileTypeDesc": "附件二：承办单位营业执照照片",
-          "fileUrl": "/fencingapi/file/xiaomei-cf11a34719b64f1d84817282068ae0be.pdf"
-        },
-        {
-          "fileName": "2.承办方营业执照长兴县击剑协会.pdf",
-          "fileType": "businessLicense",
-          "fileTypeDesc": "附件二：承办单位营业执照照片",
-          "fileUrl": "/fencingapi/file/xiaomei-d5277748d2204a79a38790f4b4bcf50b.pdf"
-        },
-        {
-          "fileName": "3.赛事历史介绍.pdf",
-          "fileType": "matchHistory",
-          "fileTypeDesc": "附件三：赛事历史介绍",
-          "fileUrl": "/fencingapi/file/xiaomei-f30066caf0bc44bd921b7dcfec0bc039.pdf"
-        },
-        {
-          "fileName": "4.竞赛规程.pdf",
-          "fileType": "rulesAndnotices",
-          "fileTypeDesc": "附件四：竞赛规程",
-          "fileUrl": "/fencingapi/file/xiaomei-ad07130167ee4367ad1969c414b7310a.pdf"
-        },
-        {
-          "fileName": "5.C赛竞赛申请函长兴县击剑协会.pdf",
-          "fileType": "recommendation",
-          "fileTypeDesc": "附件五：申请函",
-          "fileUrl": "/fencingapi/file/xiaomei-201a8c8aee3045b983833bb5ac4752f1.pdf"
-        },
-        {
-          "fileName": "6.赛事组织方案.pdf",
-          "fileType": "eventPlan",
-          "fileTypeDesc": "附件六：赛事组织方案",
-          "fileUrl": "/fencingapi/file/xiaomei-a2bd14eb7dac40a189565085d6c12329.pdf"
-        },
-        {
-          "fileName": "7.剑道与赛场布局示意图.pdf",
-          "fileType": "schematicVenue",
-          "fileTypeDesc": "附件七：赛场示意图",
-          "fileUrl": "/fencingapi/file/xiaomei-0b16f7db897746748bf2a4dc515e2aa6.pdf"
-        },
-        {
-          "fileName": "8.场馆照片示意图.pdf",
-          "fileType": "matchEmergency",
-          "fileTypeDesc": "附件八：场馆照片示意图 ",
-          "fileUrl": "/fencingapi/file/xiaomei-117df3895e1a4bc29165752bd51b6855.pdf"
-        },
-        {
-          "fileName": "9.安全风险调查清单.pdf",
-          "fileType": "photosVenue",
-          "fileTypeDesc": "附件九：安全风险调查清单要求文件",
-          "fileUrl": "/fencingapi/file/xiaomei-645f759d545f45ae96592e8bba902542.pdf"
+          "fileName": "竞赛规程-2026年长兴“太湖九号公路”击剑公开赛(3)(1).pdf",
+          "fileType": "competitionRules",
+          "fileTypeDesc": "竞赛规程",
+          "fileUrl": "/fencingapi/file/xiaomei-5f5d4f724772441e8ef9edb21c05eb74.pdf"
         }
       ]
     },
@@ -37260,7 +36804,7 @@
       "organizer": "海南嘉世体育文化发展有限公司",
       "mainOrganizer": "汕尾文化广电旅游体育局",
       "sportactive": "0",
-      "sigupactive": "1",
+      "sigupactive": "2",
       "raceResType": "json",
       "weaponCodes": null,
       "groups": [
@@ -38598,8 +38142,8 @@
       "gameLevel": "C",
       "startDate": "2026-07-25 10:00:00",
       "endDate": "2026-07-26 18:00:00",
-      "signStartDate": "2026-06-11 08:00:00",
-      "signAthEndDate": "2026-07-18 23:59:59",
+      "signStartDate": "2026-07-24 00:00:00",
+      "signAthEndDate": "2026-07-24 00:00:00",
       "provinceName": "山东",
       "cityName": "聊城市",
       "areaDesc": "华东",
@@ -40241,17 +39785,17 @@
       "gameType": "RZSS",
       "gameDesc": "认证赛事",
       "gameLevel": "C",
-      "startDate": "2026-07-11 10:00:00",
+      "startDate": "2026-07-11 08:00:00",
       "endDate": "2026-07-12 18:00:00",
-      "signStartDate": "2026-07-02 00:00:00",
-      "signAthEndDate": "2026-07-03 00:00:00",
+      "signStartDate": "2026-06-10 10:00:00",
+      "signAthEndDate": "2026-07-04 23:59:59",
       "provinceName": "辽宁",
       "cityName": "沈阳市",
       "areaDesc": "东北",
       "organizer": "沈阳御剑体育文化有限公司",
       "mainOrganizer": "辽宁省体育事业发展中心",
       "sportactive": "0",
-      "sigupactive": "0",
+      "sigupactive": "1",
       "raceResType": "json",
       "weaponCodes": null,
       "groups": [
@@ -40278,6 +39822,14 @@
         {
           "groupCode": "COPEN",
           "groupName": "公开组"
+        },
+        {
+          "groupCode": "U6",
+          "groupName": "U6"
+        },
+        {
+          "groupCode": "U8",
+          "groupName": "U8"
         }
       ],
       "groupLabels": [
@@ -40286,9 +39838,18 @@
         "U14",
         "U16",
         "17+",
-        "公开组"
+        "公开组",
+        "U6",
+        "U8"
       ],
-      "files": []
+      "files": [
+        {
+          "fileName": "沈阳2026年中国大众击剑D级认证赛事竞赛规程(6).pdf",
+          "fileType": "competitionRules",
+          "fileTypeDesc": "竞赛规程",
+          "fileUrl": "/fencingapi/file/xiaomei-b137c4d2a7c94191b94c802fb9bc6457.pdf"
+        }
+      ]
     },
     {
       "sportId": 182,
@@ -43996,7 +43557,7 @@
       "organizer": "HUBWHJJXH0001",
       "mainOrganizer": "湖北省击剑协会",
       "sportactive": "0",
-      "sigupactive": "1",
+      "sigupactive": "2",
       "raceResType": "json",
       "weaponCodes": "F#E#S",
       "groups": [
@@ -47721,7 +47282,7 @@
       "organizer": "HEBHB0001",
       "mainOrganizer": "河北省体育局自行车中心",
       "sportactive": "0",
-      "sigupactive": "1",
+      "sigupactive": "2",
       "raceResType": "json",
       "weaponCodes": "F#S#E",
       "groups": [
@@ -48051,8 +47612,8 @@
       "areaDesc": "华东",
       "organizer": "JISSZZY0001",
       "mainOrganizer": "江苏省击剑运动协会",
-      "sportactive": "0",
-      "sigupactive": "1",
+      "sportactive": "2",
+      "sigupactive": "2",
       "raceResType": "json",
       "weaponCodes": null,
       "groups": [
@@ -50611,18 +50172,26 @@
       "gameLevel": "C",
       "startDate": "2026-07-04 10:00:00",
       "endDate": "2026-07-05 18:00:00",
-      "signStartDate": "2026-07-04 00:00:00",
-      "signAthEndDate": "2026-07-04 00:00:00",
+      "signStartDate": "2026-06-06 14:00:00",
+      "signAthEndDate": "2026-06-25 23:59:59",
       "provinceName": "陕西",
       "cityName": "咸阳市",
       "areaDesc": "西北",
       "organizer": "SHASSSQ0001",
       "mainOrganizer": "陕西省击剑协会",
       "sportactive": "0",
-      "sigupactive": "0",
+      "sigupactive": "1",
       "raceResType": "json",
       "weaponCodes": "F#E#S",
       "groups": [
+        {
+          "groupCode": "U6",
+          "groupName": "U6"
+        },
+        {
+          "groupCode": "U8",
+          "groupName": "U8"
+        },
         {
           "groupCode": "U10",
           "groupName": "U10"
@@ -50640,99 +50209,30 @@
           "groupName": "U16"
         },
         {
+          "groupCode": "COPEN",
+          "groupName": "公开组"
+        },
+        {
           "groupCode": "U17s",
           "groupName": "17+"
-        },
-        {
-          "groupCode": "COPEN",
-          "groupName": "年龄开放组"
-        },
-        {
-          "groupCode": "U40s",
-          "groupName": "老将组"
         }
       ],
       "groupLabels": [
+        "U6",
+        "U8",
         "U10",
         "U12",
         "U14",
         "U16",
-        "17+",
-        "年龄开放组",
-        "老将组"
+        "公开组",
+        "17+"
       ],
       "files": [
         {
-          "fileName": "附件1：主办单位营业执照.pdf",
-          "fileType": "organizerVenue",
-          "fileTypeDesc": "附件一：主办单位营业执照照片",
-          "fileUrl": "/fencingapi/file/xiaomei-e024c01675dd49109cf8463a6c1be494.pdf"
-        },
-        {
-          "fileName": "附件2：承办方营业执照.pdf",
-          "fileType": "businessLicense",
-          "fileTypeDesc": "附件二：承办单位营业执照照片",
-          "fileUrl": "/fencingapi/file/xiaomei-b6c541ad0cd44101935a055d2070d8db.pdf"
-        },
-        {
-          "fileName": "附件3：赛事历史介绍.pdf",
-          "fileType": "matchHistory",
-          "fileTypeDesc": "附件三：赛事历史介绍",
-          "fileUrl": "/fencingapi/file/xiaomei-e8f4c6b09fc4465bb23ae0ad7bf89aca.pdf"
-        },
-        {
-          "fileName": "附件3：赛事历史介绍.pdf",
-          "fileType": "matchHistory",
-          "fileTypeDesc": "附件三：赛事历史介绍",
-          "fileUrl": "/fencingapi/file/xiaomei-bd241e778c8b4d59895c07ceb8f8ce28.pdf"
-        },
-        {
-          "fileName": "附件7：赛场示意图.pdf",
-          "fileType": "schematicVenue",
-          "fileTypeDesc": "附件七：赛场示意图",
-          "fileUrl": "/fencingapi/file/xiaomei-7e3bcba9965842c99d2a370e2ba8640c.pdf"
-        },
-        {
-          "fileName": "推荐函（渭南）.pdf",
-          "fileType": "recommendation",
-          "fileTypeDesc": "附件五：申请函",
-          "fileUrl": "/fencingapi/file/xiaomei-0f2c2eb9add54a88a753dc26c8ebbfd2.pdf"
-        },
-        {
-          "fileName": "附件8：场馆照片示意图.pdf",
-          "fileType": "matchEmergency",
-          "fileTypeDesc": "附件八：场馆照片示意图 ",
-          "fileUrl": "/fencingapi/file/xiaomei-0288df10cc654ac1bc6fc838cb9df13d.pdf"
-        },
-        {
-          "fileName": "大众击剑认证赛事赛前安全风险调查清单.pdf",
-          "fileType": "photosVenue",
-          "fileTypeDesc": "附件九：安全风险调查清单要求文件",
-          "fileUrl": "/fencingapi/file/xiaomei-bca9b710b6174926b78e5c1b745b9790.pdf"
-        },
-        {
-          "fileName": "组织方案.pdf",
-          "fileType": "eventPlan",
-          "fileTypeDesc": "附件六：赛事组织方案",
-          "fileUrl": "/fencingapi/file/xiaomei-587b3a72f6b0420f8e1991d82a575de6.pdf"
-        },
-        {
-          "fileName": "附件5：竞赛规程.pdf",
-          "fileType": "rulesAndnotices",
-          "fileTypeDesc": "附件四：竞赛规程",
-          "fileUrl": "/fencingapi/file/xiaomei-bde0ff8297044172bf7ca8c68386a7e1.pdf"
-        },
-        {
-          "fileName": "附件6：赛事应急方案.pdf",
-          "fileType": "eventPlan",
-          "fileTypeDesc": "附件六：赛事组织方案",
-          "fileUrl": "/fencingapi/file/xiaomei-3bed9c1ad51c46b79f8885504bfe257f.pdf"
-        },
-        {
-          "fileName": "附件7：赛场示意图.pdf",
-          "fileType": "schematicVenue",
-          "fileTypeDesc": "附件七：赛场示意图",
-          "fileUrl": "/fencingapi/file/xiaomei-fc581d0a84bf4b00ae18f5a54e5faa60.pdf"
+          "fileName": "2026年陕西省“凌云杯”青少年击剑公开赛竞赛规程(4)(1)(1).pdf",
+          "fileType": "competitionRules",
+          "fileTypeDesc": "竞赛规程",
+          "fileUrl": "/fencingapi/file/xiaomei-2beb87243ba546a7a419e86c802ffbe5.pdf"
         }
       ]
     },
@@ -51006,7 +50506,7 @@
       "areaDesc": "华北",
       "organizer": "TIJSSSQ0001",
       "mainOrganizer": "天津市自行车击剑运动管理中心",
-      "sportactive": "0",
+      "sportactive": "2",
       "sigupactive": "2",
       "raceResType": "json",
       "weaponCodes": "F#E#S",
@@ -52939,8 +52439,8 @@
       "gameLevel": "C",
       "startDate": "2026-07-25 10:00:00",
       "endDate": "2026-07-26 18:00:00",
-      "signStartDate": "2026-06-15 10:00:00",
-      "signAthEndDate": "2026-07-15 23:59:59",
+      "signStartDate": "2026-07-24 00:00:00",
+      "signAthEndDate": "2026-07-24 00:00:00",
       "provinceName": "新疆",
       "cityName": "伊宁市",
       "areaDesc": "西北",
