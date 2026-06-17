@@ -54,6 +54,13 @@ function projectScope(labels) {
   };
 }
 
+function compactPlatformMeta(meta = null) {
+  if (!meta) return undefined;
+  return {
+    gameDesc: meta.gameDesc,
+  };
+}
+
 export function compactCompetitionForIndex(competition) {
   const items = competition.items || [];
   const itemLabels = items.map(displayItemName).filter(Boolean);
@@ -66,7 +73,6 @@ export function compactCompetitionForIndex(competition) {
     .map((item) => ({
       eventCode: item.eventCode,
       eventName: item.shortEventName || item.eventName,
-      shortEventName: item.shortEventName,
       openDate: item.openDate,
       status: item.status,
       isPreEvent: item.isPreEvent,
@@ -98,15 +104,17 @@ export function compactCompetitionForIndex(competition) {
     groupLabels: competition.groupLabels,
     isPreEvent: competition.isPreEvent,
     isPlatformEventList: competition.isPlatformEventList,
-    platformMeta: competition.platformMeta,
+    platformMeta: compactPlatformMeta(competition.platformMeta),
     rosterStatus: competition.rosterStatus,
     registrationSummary: competition.registrationSummary,
     coverageLevel: competitionCoverageLevel(competition),
     itemCount: items.length,
     itemSummaries,
-    itemLabels: itemLabels.slice(0, 8),
     itemFilters,
-    itemSearchText: compactText([...itemLabels, ...itemFilters, ...items.map((item) => item.eventCode)].filter(Boolean).join(' ')),
+    itemSearchText: compactText([
+      ...itemLabels.slice(0, 8),
+      ...itemFilters,
+    ].filter(Boolean).join(' ')),
     metricTotals,
     topItemLabel: topItem ? displayItemName(topItem) : '',
     projectScope: projectScope(itemLabels.length ? itemLabels : competition.groupLabels || []),

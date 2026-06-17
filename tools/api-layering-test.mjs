@@ -35,8 +35,8 @@ try {
     throw new Error('/api/competitions should include the competition index');
   }
   const competitionBytes = Buffer.byteLength(JSON.stringify(competitionsPayload));
-  if (competitionBytes > 2.5 * 1024 * 1024) {
-    throw new Error(`/api/competitions is ${(competitionBytes / 1024 / 1024).toFixed(2)} MiB, expected <= 2.5 MiB`);
+  if (competitionBytes > 1 * 1024 * 1024) {
+    throw new Error(`/api/competitions is ${(competitionBytes / 1024 / 1024).toFixed(2)} MiB, expected <= 1 MiB`);
   }
   if ('events' in competitionsPayload || 'athletes' in competitionsPayload || 'clubs' in competitionsPayload) {
     throw new Error('/api/competitions must only return the competition index payload');
@@ -56,6 +56,9 @@ try {
   }
   if (!Array.isArray(partialScoreCompetition.itemFilters) || !partialScoreCompetition.itemFilters.length) {
     throw new Error('/api/competitions should include filter labels without full project payloads');
+  }
+  if ('itemLabels' in partialScoreCompetition) {
+    throw new Error('/api/competitions should not duplicate project labels outside the preview rows');
   }
   if (partialScoreCompetition.itemSummaries.some((item) => 'closeDate' in item || 'deStartPhase' in item || 'roster' in item)) {
     throw new Error('/api/competitions project previews should omit detail-only fields');

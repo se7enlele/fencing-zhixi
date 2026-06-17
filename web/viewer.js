@@ -2929,9 +2929,7 @@ function renderAthleteSearchResults(keyword) {
 }
 
 function competitionChips(competition, limit = Infinity) {
-  const itemLabels = (competition.itemLabels?.length
-    ? competition.itemLabels
-    : competitionItemSummaries(competition).map((item) => displayEventName(item))).filter(Boolean);
+  const itemLabels = competitionItemSummaries(competition).map((item) => displayEventName(item)).filter(Boolean);
   const groupLabels = itemLabels.length ? [] : (competition.groupLabels || []);
   const labels = [...itemLabels, ...groupLabels].filter(Boolean);
   const visible = labels.slice(0, limit);
@@ -2942,9 +2940,7 @@ function competitionChips(competition, limit = Infinity) {
 }
 
 function competitionProjectSummaryChips(competition) {
-  const itemLabels = (competition.itemLabels?.length
-    ? competition.itemLabels
-    : competitionItemSummaries(competition).map((item) => displayEventName(item))).filter(Boolean);
+  const itemLabels = competitionItemSummaries(competition).map((item) => displayEventName(item)).filter(Boolean);
   const fallbackLabels = itemLabels.length ? [] : (competition.groupLabels || []);
   const labels = [...itemLabels, ...fallbackLabels].filter(Boolean);
   if (!labels.length) return [];
@@ -2972,9 +2968,7 @@ function competitionProjectScope(competition) {
       genderText: competition.projectScope.genderText || '待确认',
     };
   }
-  const itemLabels = (competition.itemLabels?.length
-    ? competition.itemLabels
-    : competitionItemSummaries(competition).map((item) => displayEventName(item))).filter(Boolean);
+  const itemLabels = competitionItemSummaries(competition).map((item) => displayEventName(item)).filter(Boolean);
   const fallbackLabels = itemLabels.length ? [] : (competition.groupLabels || []);
   const labels = [...itemLabels, ...fallbackLabels].filter(Boolean);
   const ages = [...new Set(labels.map((label) => String(label).match(/U\d+|\d+\+|年龄开放组/)?.[0]).filter(Boolean))];
