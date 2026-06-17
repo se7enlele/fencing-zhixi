@@ -439,9 +439,10 @@ function eventSummaryLabel(items) {
 }
 
 function competitionYear(competition) {
+  const fromSeason = String(competition.season || competition.platformMeta?.season || '').match(/20\d{2}/)?.[0];
   const fromName = String(competition.sportName || '').match(/20\d{2}/)?.[0];
   const fromDate = String(competition.dateLabel || '').match(/20\d{2}/)?.[0];
-  return fromDate || fromName || '日期待确认';
+  return fromSeason || fromDate || fromName || '日期待确认';
 }
 
 function itemFilterLabel(item) {

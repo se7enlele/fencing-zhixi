@@ -93,6 +93,17 @@ const sampleCompetitions = [
     status: 'completed',
     items: [{ eventCode: 'TJ2026DONE-U8MF', eventName: 'U8 男子花剑', shortEventName: 'U8 男花' }],
   },
+  {
+    sportCode: 'TJSEASONONLY',
+    sportName: '\u5929\u6d25\u8ba4\u8bc1\u8d5b',
+    season: '2026',
+    dateLabel: '\u65e5\u671f\u5f85\u786e\u8ba4',
+    venue: '\u5929\u6d25',
+    region: '\u5929\u6d25',
+    status: 'upcoming',
+    itemCount: 1,
+    itemSummaries: [{ eventCode: 'TJSEASONONLY-U10MF', eventName: 'U10 \u7537\u5b50\u82b1\u5251', shortEventName: 'U10 \u7537\u82b1' }],
+  },
 ];
 
 const caiEvents = [
@@ -137,6 +148,10 @@ vm.createContext(context);
 vm.runInContext(`const state = globalThis.__state;\n${functionNames.map(extractFunction).join('\n')}\nglobalThis.buildAiAnswer = buildAiAnswer;\nglobalThis.aiAcceptanceQueryCases = aiAcceptanceQueryCases;\nglobalThis.detectRegionInQuery = detectRegionInQuery;`, context);
 
 assert.equal(context.detectRegionInQuery('2026年天津有几场比赛'), '天津', 'AI region detection must not depend on the current dataset containing that city');
+
+const seasonOnlyStats = context.buildAiAnswer('\u0032\u0030\u0032\u0036\u5e74\u5929\u6d25\u6709\u51e0\u573a\u6bd4\u8d5b');
+assert.equal(seasonOnlyStats.type, 'competition-stats', 'season-based regional query should route to competition stats');
+assert.equal(seasonOnlyStats.cards[0][1], '3 \u573a', 'AI competition stats should count events whose year is available only from season');
 
 for (const item of context.aiAcceptanceQueryCases()) {
   const report = context.buildAiAnswer(item.query);
