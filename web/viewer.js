@@ -4370,6 +4370,71 @@ function projectCoachAdvice(row) {
   return '样本仍少，先保持参赛连续性，积累可判断的数据。';
 }
 
+function buildCoachActionPlan({ club, projectRows, athletes, athleteBuckets, peerRows, rosterRows }) {
+  const focusNames = athleteBuckets.focus.map((athlete) => athlete.name).filter(Boolean).slice(0, 2);
+  const steadyNames = athleteBuckets.steady.map((athlete) => athlete.name).filter(Boolean).slice(0, 2);
+  const topProject = projectRows[0];
+  const bestProject = [...projectRows].sort((a, b) => (a.bestRank ?? 999) - (b.bestRank ?? 999))[0];
+  const rosterProjects = rosterItemSummary(rosterRows);
+  return [
+    {
+      title: '训练安排',
+      value: focusNames.length ? focusNames.join(' / ') : (topProject?.label || '重点项目'),
+      detail: focusNames.length
+        ? `优先复盘重点学员最近比赛，围绕淘汰赛关键分和小组赛稳定性安排训练。`
+        : `先围绕 ${topProject?.label || '参赛最多项目'} 建立训练样本，继续积累可判断的数据。`,
+    },
+    {
+      title: '家长沟通',
+      value: steadyNames.length ? steadyNames.join(' / ') : `${athletes.length || 0} 名学员画像`,
+      detail: steadyNames.length
+        ? `用稳定参赛和阶段进步解释训练价值，降低家长只看单场名次的判断偏差。`
+        : `先把参赛次数、最好名次和近期变化讲清楚，形成可复用的成长反馈。`,
+    },
+    {
+      title: '赛前准备',
+      value: rosterRows.length ? `${rosterRows.length} 条报名` : (rosterProjects[0]?.label || '近期赛事'),
+      detail: rosterRows.length
+        ? `按 ${rosterProjects[0]?.label || '报名项目'} 拆备名单确认、重点对手和临场目标。`
+        : `先关注同项目近期赛事，名单更新后再细化到每个学员。`,
+    },
+    {
+      title: '招生素材',
+      value: bestProject?.label || `最好第 ${club.bestRank ?? '-'} 名`,
+      detail: bestProject
+        ? `用 ${bestProject.label} 最好第 ${bestProject.bestRank ?? '-'} 名、前八和代表学员做对外案例。`
+        : `先沉淀代表项目、代表学员和同项目对标，形成可分享成绩名片。`,
+    },
+    {
+      title: '竞争位置',
+      value: peerRows[0]?.club || '同项目对标',
+      detail: peerRows[0]
+        ? `重点观察 ${peerRows[0].club} 的重合项目表现，判断本馆优势和短板。`
+        : `同项目样本增加后，用前八率、奖牌和最好名次评估口碑位置。`,
+    },
+  ];
+}
+
+function renderCoachActionPlan(cards) {
+  return `
+    <section class="coach-section">
+      <div class="section-title">
+        <h2>本周行动</h2>
+        <span>训练、留存、增长</span>
+      </div>
+      <div class="coach-action-grid">
+        ${cards.map((card) => `
+          <div class="coach-action-card">
+            <span>${escapeHtml(card.title)}</span>
+            <strong>${escapeHtml(card.value)}</strong>
+            <em>${escapeHtml(card.detail)}</em>
+          </div>
+        `).join('')}
+      </div>
+    </section>
+  `;
+}
+
 function rosterClubText(row) {
   return [row.organShortName, row.organName, row.club, row.clubName].filter(Boolean).join(' ');
 }
@@ -4472,8 +4537,8 @@ function preMatchActionCards(rosterRows, opponentPool, relevantCompetitions) {
   ];
 }
 
-function renderPreMatchIntelligence(club, projectRows, athletes) {
-  const rosterRows = clubRosterRows(club);
+function renderPreMatchIntelligence(club, projectRows, athletes, providedRosterRows = null) {
+  const rosterRows = providedRosterRows || clubRosterRows(club);
   const relevantCompetitions = relevantPreMatchCompetitions(projectRows);
   const opponentPool = coachStrongOpponentPool(club, projectRows);
   const topProjects = projectRows.slice(0, 3);
@@ -4584,6 +4649,8 @@ function renderClubDetail(club) {
   const highlights = buildClubGrowthHighlights(club, projectRows, athletes);
   const peerRows = clubPeerRows(club, projectRows);
   const businessCards = buildClubBusinessCards(club, projectRows, athletes, peerRows);
+  const rosterRows = clubRosterRows(club);
+  const actionPlan = buildCoachActionPlan({ club, projectRows, athletes, athleteBuckets, peerRows, rosterRows });
   const top8Rate = Number(club.entrants) ? Math.round((Number(club.top8 || 0) / Number(club.entrants)) * 100) : 0;
   const medalRate = Number(club.entrants) ? Math.round((Number(club.medals || 0) / Number(club.entrants)) * 100) : 0;
 
@@ -4611,6 +4678,8 @@ function renderClubDetail(club) {
         </div>
       </section>
 
+      ${renderCoachActionPlan(actionPlan)}
+
       <section class="coach-section">
         <div class="section-title">
           <h2>招生名片</h2>
@@ -4627,7 +4696,7 @@ function renderClubDetail(club) {
         </div>
       </section>
 
-      ${renderPreMatchIntelligence(club, projectRows, athletes)}
+      ${renderPreMatchIntelligence(club, projectRows, athletes, rosterRows)}
 
       <div class="report-grid">
         <div class="report-card"><strong>${escapeHtml(top8Rate)}%</strong><span>前八率</span></div>
