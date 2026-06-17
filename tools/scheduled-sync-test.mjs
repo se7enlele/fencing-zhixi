@@ -64,6 +64,13 @@ assert.ok(rosterTask.scriptArgs.includes('--force-projectlist'));
 assert.ok(rosterTask.scriptArgs.includes('--force-roster'));
 assert.deepEqual(
   rosterTask.scriptArgs.slice(
+    rosterTask.scriptArgs.indexOf('--roster-base'),
+    rosterTask.scriptArgs.indexOf('--roster-base') + 2,
+  ),
+  ['--roster-base', 'https://fencing-proxy.aixindiandian.workers.dev'],
+);
+assert.deepEqual(
+  rosterTask.scriptArgs.slice(
     rosterTask.scriptArgs.indexOf('--roster-page-size'),
     rosterTask.scriptArgs.indexOf('--roster-page-size') + 2,
   ),
@@ -74,6 +81,13 @@ const scoreTask = plan.tasks[2];
 assert.equal(scoreTask.type, 'completed-score');
 assert.ok(scoreTask.scriptArgs.includes('--force-score'));
 assert.ok(!scoreTask.scriptArgs.includes('--roster'));
+assert.deepEqual(
+  scoreTask.scriptArgs.slice(
+    scoreTask.scriptArgs.indexOf('--proxy-base'),
+    scoreTask.scriptArgs.indexOf('--proxy-base') + 2,
+  ),
+  ['--proxy-base', 'https://fencing-proxy.aixindiandian.workers.dev'],
+);
 assert.deepEqual(
   scoreTask.scriptArgs.slice(
     scoreTask.scriptArgs.indexOf('--score-limit'),

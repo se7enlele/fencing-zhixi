@@ -41,6 +41,7 @@ Before selecting tasks, the script refreshes:
 - `data/analysis/frontsporteventlist-analysis.json`
 
 This keeps newly published competitions visible to the sync planner. Use `--skip-event-list-refresh` only for local debugging.
+All scheduled platform requests use `https://fencing-proxy.aixindiandian.workers.dev` by default, including project lists, score resources, and registration rosters. This avoids direct official-site requests from GitHub Actions.
 
 Pre-event tasks:
 
@@ -87,6 +88,12 @@ Manual high-volume run for a specific event:
 
 ```bash
 node tools/sync-platform-data.mjs --sport-id 101318 --roster --no-score --roster-limit 0 --roster-max-pages 20 --roster-page-size 50 --timeout-sec 25
+```
+
+Use the proxy explicitly if running `sync-platform-data.mjs` outside the scheduled wrapper:
+
+```bash
+node tools/sync-platform-data.mjs --sport-id 101318 --proxy-base https://fencing-proxy.aixindiandian.workers.dev --roster-base https://fencing-proxy.aixindiandian.workers.dev --roster --no-score --roster-limit 0 --roster-max-pages 20 --roster-page-size 50 --timeout-sec 25
 ```
 
 ## Required Secret

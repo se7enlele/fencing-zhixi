@@ -8,13 +8,16 @@ import { buildFrontSportEventListReport } from './parse-frontsporteventlist.mjs'
 import { inferPlatformStatus, normalizeConcurrency } from './sync-platform-data.mjs';
 
 const execFileAsync = promisify(execFile);
+const DEFAULT_PROXY_BASE = 'https://fencing-proxy.aixindiandian.workers.dev';
 
 function parseArgs(argv) {
   const args = {
     input: 'data/analysis/frontsporteventlist-analysis.json',
     outputDir: 'data/analysis',
     reportDir: 'analysis-output/scheduled-sync',
-    eventListUrl: 'https://fencing-proxy.aixindiandian.workers.dev/fencingapi/competition/frontsporteventlist?',
+    proxyBase: DEFAULT_PROXY_BASE,
+    rosterBase: DEFAULT_PROXY_BASE,
+    eventListUrl: `${DEFAULT_PROXY_BASE}/fencingapi/competition/frontsporteventlist?`,
     activeLimit: 8,
     completedLimit: 4,
     activeWindowDays: 120,
@@ -36,6 +39,8 @@ function parseArgs(argv) {
     if (arg === '--input') args.input = argv[++i];
     if (arg === '--output-dir' || arg === '-o') args.outputDir = argv[++i];
     if (arg === '--report-dir') args.reportDir = argv[++i];
+    if (arg === '--proxy-base') args.proxyBase = argv[++i].replace(/\/$/, '');
+    if (arg === '--roster-base') args.rosterBase = argv[++i].replace(/\/$/, '');
     if (arg === '--event-list-url') args.eventListUrl = argv[++i];
     if (arg === '--active-limit') args.activeLimit = Number(argv[++i]);
     if (arg === '--completed-limit') args.completedLimit = Number(argv[++i]);
@@ -75,6 +80,7 @@ function taskBaseArgs(event, args) {
     '--input', args.input,
     '--output-dir', args.outputDir,
     '--sport-id', String(event.sportId),
+    '--proxy-base', args.proxyBase,
     '--delay-ms', String(args.delayMs),
     '--timeout-sec', String(args.timeoutSec),
   ];
@@ -94,6 +100,7 @@ function preEventTask(event, args) {
       '--no-score',
       '--force-projectlist',
       '--force-roster',
+      '--roster-base', args.rosterBase,
       '--roster-limit', '0',
       '--roster-page-size', String(args.rosterPageSize),
       '--roster-max-pages', String(args.rosterMaxPages),
