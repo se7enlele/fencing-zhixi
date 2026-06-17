@@ -131,11 +131,39 @@ let clubDirectoryCache = null;
 let searchIndexCache = null;
 let preEventReportsCache = null;
 
+function collectAnalysisTimestamps(value, timestamps = []) {
+  if (!value || typeof value !== 'object') return timestamps;
+  for (const [key, item] of Object.entries(value)) {
+    if (
+      typeof item === 'string'
+      && /^(analyzedAt|generatedAt|importedAt|fetchedAt|updatedAt|createdAt)$/i.test(key)
+    ) {
+      const time = Date.parse(item);
+      if (Number.isFinite(time)) timestamps.push(time);
+    } else if (item && typeof item === 'object') {
+      collectAnalysisTimestamps(item, timestamps);
+    }
+  }
+  return timestamps;
+}
+
 async function latestAnalysisGeneratedAt(files = null) {
   const analysisDir = path.join(__dirname, 'data', 'analysis');
   const analysisFiles = files || await readdir(analysisDir).catch(() => []);
   const jsonFiles = analysisFiles.filter((file) => file.endsWith('.json'));
   if (!jsonFiles.length) return new Date().toISOString();
+  const contentTimestamps = [];
+  await Promise.all(jsonFiles.map(async (file) => {
+    try {
+      const report = JSON.parse(await readFile(path.join(analysisDir, file), 'utf8'));
+      collectAnalysisTimestamps(report, contentTimestamps);
+    } catch {
+      // Fall back to file mtimes below for legacy or malformed files.
+    }
+  }));
+  if (contentTimestamps.length) {
+    return new Date(Math.max(...contentTimestamps)).toISOString();
+  }
   const mtimes = await Promise.all(jsonFiles.map(async (file) => {
     try {
       return (await stat(path.join(analysisDir, file))).mtimeMs;

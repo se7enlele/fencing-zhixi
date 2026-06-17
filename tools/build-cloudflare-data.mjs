@@ -158,7 +158,7 @@ const chunkLookup = {
   athletesById: athleteChunks.chunkLookup,
   clubsById: clubChunks.chunkLookup,
 };
-const generatedAt = new Date().toISOString();
+const generatedAt = publicEvents.generatedAt;
 const indexPayload = {
   version: payload.version,
   generatedAt,
