@@ -21,6 +21,7 @@ const NO_STORE_CACHE = 'no-store';
 const PUBLIC_INDEX_CACHE = 'public, max-age=60, s-maxage=3600, stale-while-revalidate=86400';
 const PUBLIC_DETAIL_CACHE = 'public, max-age=300, s-maxage=86400, stale-while-revalidate=604800';
 let bundledIndexPromise = null;
+let bundledLookupPromise = null;
 let bundledDataPromise = null;
 let bundledSearchPromise = null;
 const chunkObjectPromises = new Map();
@@ -95,6 +96,22 @@ async function loadBundledIndex(env) {
     })();
   }
   return bundledIndexPromise;
+}
+
+async function loadBundledLookup(env) {
+  if (!bundledLookupPromise) {
+    bundledLookupPromise = (async () => {
+      const index = await loadBundledIndex(env);
+      const assetPath = index.lookupPath || '/data/public-data-lookup.json';
+      const response = await env.ASSETS.fetch(new Request(`https://assets.local${assetPath}`));
+      if (!response.ok) {
+        if (index.chunkLookup) return { version: index.version, chunkLookup: index.chunkLookup };
+        throw new Error(`Unable to load bundled data lookup ${assetPath}: ${response.status}`);
+      }
+      return response.json();
+    })();
+  }
+  return bundledLookupPromise;
 }
 
 async function loadChunkObject(env, assetPath) {
@@ -573,8 +590,9 @@ async function routeApi(request, env, url) {
 
   if (url.pathname.startsWith('/api/events/') && request.method === 'GET') {
     const index = await loadBundledIndex(env);
+    const lookup = await loadBundledLookup(env);
     const eventCode = decodeURIComponent(url.pathname.replace('/api/events/', ''));
-    let event = await findInChunks(env, index.chunks?.eventsByCode, eventCode, index.chunkLookup?.eventsByCode);
+    let event = await findInChunks(env, index.chunks?.eventsByCode, eventCode, lookup.chunkLookup?.eventsByCode);
     if (!event) {
       const dynamicReport = await readJsonKv(env.FOLLOWS, `score:${eventCode}`, null);
       if (dynamicReport?.general?.eventCode) {
@@ -590,18 +608,20 @@ async function routeApi(request, env, url) {
 
   if (url.pathname.startsWith('/api/athletes/') && request.method === 'GET') {
     const index = await loadBundledIndex(env);
+    const lookup = await loadBundledLookup(env);
     const athleteId = decodeURIComponent(url.pathname.replace('/api/athletes/', ''));
-    const athlete = await findInChunks(env, index.chunks?.athletesById, athleteId, index.chunkLookup?.athletesById);
+    const athlete = await findInChunks(env, index.chunks?.athletesById, athleteId, lookup.chunkLookup?.athletesById);
     return athlete ? json({ ok: true, version: index.version, athlete }, 200, PUBLIC_DETAIL_CACHE) : json({ ok: false, message: '选手不存在。' }, 404);
   }
 
   if (url.pathname.startsWith('/api/clubs/') && request.method === 'GET') {
     const index = await loadBundledIndex(env);
+    const lookup = await loadBundledLookup(env);
     const rawClubId = url.pathname.replace('/api/clubs/', '');
     const decodedClubId = decodeURIComponent(rawClubId);
-    const club = await findInChunks(env, index.chunks?.clubsById, rawClubId, index.chunkLookup?.clubsById)
-      || await findInChunks(env, index.chunks?.clubsById, decodedClubId, index.chunkLookup?.clubsById)
-      || await findInChunks(env, index.chunks?.clubsById, encodeURIComponent(decodedClubId), index.chunkLookup?.clubsById);
+    const club = await findInChunks(env, index.chunks?.clubsById, rawClubId, lookup.chunkLookup?.clubsById)
+      || await findInChunks(env, index.chunks?.clubsById, decodedClubId, lookup.chunkLookup?.clubsById)
+      || await findInChunks(env, index.chunks?.clubsById, encodeURIComponent(decodedClubId), lookup.chunkLookup?.clubsById);
     return club ? json({ ok: true, version: index.version, club }, 200, PUBLIC_DETAIL_CACHE) : json({ ok: false, message: '俱乐部不存在。' }, 404);
   }
 

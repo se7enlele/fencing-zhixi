@@ -10,6 +10,7 @@ import { buildSearchIndexes } from './search-index.mjs';
 
 const assetOutDir = path.join('web', 'data');
 const assetOutPath = path.join(assetOutDir, 'public-data-index.json');
+const lookupOutPath = path.join(assetOutDir, 'public-data-lookup.json');
 const searchOutPath = path.join(assetOutDir, 'public-data-search-0.json');
 const moduleOutDir = path.join('cloudflare', 'data');
 const moduleOutPath = path.join(moduleOutDir, 'public-data.mjs');
@@ -78,6 +79,43 @@ async function mapLimit(items, limit, mapper) {
   return results;
 }
 
+function stripListOnlyFields(value) {
+  if (Array.isArray(value)) return value.map(stripListOnlyFields);
+  if (value && typeof value === 'object') {
+    return Object.fromEntries(
+      Object.entries(value)
+        .filter(([key]) => key !== 'roster' && key !== 'athleteNames')
+        .map(([key, item]) => [key, stripListOnlyFields(item)]),
+    );
+  }
+  return value;
+}
+
+function buildPreEventDetailsFromCompetitions(competitions = []) {
+  const entries = {};
+  for (const competition of competitions) {
+    for (const item of competition.items || []) {
+      if (!item?.eventCode || !item.isPreEvent) continue;
+      entries[item.eventCode] = {
+        ...item,
+        sportCode: competition.sportCode,
+        sportName: competition.sportName,
+        venue: competition.venue,
+        participants: item.roster || [],
+        athleteProfiles: [],
+        clubProfiles: [],
+        poolGroups: [],
+        poolBouts: [],
+        poolStandings: [],
+        eliminationMatches: [],
+        status: item.status,
+        rosterStatus: competition.rosterStatus,
+      };
+    }
+  }
+  return entries;
+}
+
 const publicEvents = await getPublicEventsPayload();
 const {
   athletes: _athletesForLocalApi,
@@ -94,8 +132,11 @@ const clubs = await getClubDirectory();
 
 const payload = {
   version: publicEvents.version,
-  publicEvents: workerPublicEvents,
-  eventsByCode: Object.fromEntries(eventEntries),
+  publicEvents: stripListOnlyFields(workerPublicEvents),
+  eventsByCode: {
+    ...Object.fromEntries(eventEntries.filter(([, detail]) => detail)),
+    ...buildPreEventDetailsFromCompetitions(workerPublicEvents.competitions),
+  },
   athletesById: Object.fromEntries(athletes.map((athlete) => [athlete.id, athlete])),
   clubsById: Object.fromEntries(clubs.map((club) => [club.id, club])),
 };
@@ -121,9 +162,14 @@ const indexPayload = {
   version: payload.version,
   publicEvents: payload.publicEvents,
   chunks,
+  lookupPath: '/data/public-data-lookup.json',
+};
+const lookupPayload = {
+  version: payload.version,
   chunkLookup,
 };
 await writeFile(assetOutPath, `${JSON.stringify(indexPayload)}\n`, 'utf8');
+await writeFile(lookupOutPath, `${JSON.stringify(lookupPayload)}\n`, 'utf8');
 await writeFile(searchOutPath, `${JSON.stringify(searchIndexes)}\n`, 'utf8');
 await writeFile(moduleOutPath, `export default { version: ${JSON.stringify(payload.version)}, assetPath: '/data/public-data-index.json' };\n`, 'utf8');
 console.log(JSON.stringify({
