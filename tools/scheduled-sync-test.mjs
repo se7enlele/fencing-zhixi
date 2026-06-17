@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { buildScheduledSyncPlan } from './scheduled-sync.mjs';
+import { buildHistoricalBackfillTasks, buildScheduledSyncPlan } from './scheduled-sync.mjs';
 
 const events = [
   {
@@ -99,5 +99,57 @@ assert.deepEqual(
 assert.equal(plan.selected.completed.length, 1);
 assert.equal(plan.selected.completed[0].sportId, 103);
 assert.equal(plan.policy.scoreConcurrency, 2);
+
+const backfillTasks = buildHistoricalBackfillTasks(events, [
+  {
+    source: { sportId: 104 },
+    normalizedItems: [
+      {
+        sourceEventCode: 'OLD2025MFIU6',
+        itemName: 'U6 男花',
+        itemTypeCode: 'I',
+      },
+      {
+        sourceEventCode: 'OLD2025MTU6',
+        itemName: 'U6 男花团体',
+        itemTypeCode: 'T',
+      },
+      {
+        sourceEventCode: 'OLD2025WFIU8',
+        itemName: 'U8 女花',
+        itemTypeCode: 'I',
+      },
+    ],
+  },
+  {
+    source: { sportId: 103 },
+    normalizedItems: [
+      {
+        sourceEventCode: 'DONE2026MFIU6',
+        itemName: 'U6 男花',
+        itemTypeCode: 'I',
+      },
+    ],
+  },
+], new Set(['score-OLD2025WFIU8-analysis.json']), {
+  now: '2026-06-17T00:00:00+08:00',
+  backfillLimit: 10,
+  backfillBeforeDays: 45,
+});
+
+assert.equal(backfillTasks.length, 1);
+assert.equal(backfillTasks[0].type, 'historical-score-backfill');
+assert.equal(backfillTasks[0].sportId, 104);
+assert.equal(backfillTasks[0].eventCode, 'OLD2025MFIU6');
+assert.equal(backfillTasks[0].scoreStart, 0);
+assert.ok(backfillTasks[0].scriptArgs.includes('--no-projectlist'));
+assert.ok(!backfillTasks[0].scriptArgs.includes('--force-score'));
+assert.deepEqual(
+  backfillTasks[0].scriptArgs.slice(
+    backfillTasks[0].scriptArgs.indexOf('--score-start'),
+    backfillTasks[0].scriptArgs.indexOf('--score-start') + 2,
+  ),
+  ['--score-start', '0'],
+);
 
 console.log('scheduled sync planning is covered');

@@ -15,6 +15,10 @@ on:
         description: 'Roster pages per project'
         required: false
         default: '2'
+      backfill_limit:
+        description: 'Historical score items to backfill'
+        required: false
+        default: '0'
   schedule:
     # 00:20, 06:20, 12:20, 18:20 Asia/Shanghai.
     - cron: '20 16,22,4,10 * * *'
@@ -45,7 +49,8 @@ jobs:
           ACTIVE_LIMIT: ${{ github.event.inputs.active_limit || '8' }}
           COMPLETED_LIMIT: ${{ github.event.inputs.completed_limit || '4' }}
           ROSTER_MAX_PAGES: ${{ github.event.inputs.roster_max_pages || '12' }}
-        run: npm run sync:scheduled -- --active-limit "$ACTIVE_LIMIT" --completed-limit "$COMPLETED_LIMIT" --roster-page-size 50 --roster-max-pages "$ROSTER_MAX_PAGES" --score-limit 12
+          BACKFILL_LIMIT: ${{ github.event.inputs.backfill_limit || '2' }}
+        run: npm run sync:scheduled -- --active-limit "$ACTIVE_LIMIT" --completed-limit "$COMPLETED_LIMIT" --roster-page-size 50 --roster-max-pages "$ROSTER_MAX_PAGES" --score-limit 12 --backfill-limit "$BACKFILL_LIMIT"
 
       - name: Rebuild analytics
         run: npm run analysis:three-year

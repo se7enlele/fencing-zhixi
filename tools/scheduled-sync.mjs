@@ -1,5 +1,5 @@
 import { execFile } from 'node:child_process';
-import { mkdir, readFile, writeFile } from 'node:fs/promises';
+import { mkdir, readdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import process from 'node:process';
 import { promisify } from 'node:util';
@@ -28,6 +28,8 @@ function parseArgs(argv) {
     rosterMaxPages: 12,
     scoreLimit: 12,
     scoreConcurrency: 1,
+    backfillLimit: 0,
+    backfillBeforeDays: 45,
     dryRun: false,
     failOnTaskError: false,
     skipEventListRefresh: false,
@@ -52,6 +54,8 @@ function parseArgs(argv) {
     if (arg === '--roster-max-pages') args.rosterMaxPages = Number(argv[++i]);
     if (arg === '--score-limit') args.scoreLimit = Number(argv[++i]);
     if (arg === '--score-concurrency') args.scoreConcurrency = Number(argv[++i]);
+    if (arg === '--backfill-limit') args.backfillLimit = Number(argv[++i]);
+    if (arg === '--backfill-before-days') args.backfillBeforeDays = Number(argv[++i]);
     if (arg === '--now') args.now = argv[++i];
     if (arg === '--dry-run') args.dryRun = true;
     if (arg === '--fail-on-task-error') args.failOnTaskError = true;
@@ -126,6 +130,61 @@ function completedScoreTask(event, args) {
   };
 }
 
+function scoreFileName(eventCode) {
+  return `score-${eventCode}-analysis.json`;
+}
+
+function isIndividualItem(item) {
+  const typeCode = String(item?.itemTypeCode || item?.itemType || '').toUpperCase();
+  return typeCode !== 'T';
+}
+
+function isYouthItem(item) {
+  const text = [
+    item?.sourceEventCode,
+    item?.eventCode,
+    item?.itemName,
+    item?.ageGroup,
+    item?.ageGroupCode,
+  ].join(' ');
+  return /U\d{1,2}|青少|少儿/.test(text);
+}
+
+function backfillPriority(candidate) {
+  const event = candidate.event || {};
+  const year = Number(String(event.season || event.startDate || '').match(/\d{4}/)?.[0] || 0);
+  const provinceBoost = /山东|天津|北京/.test(String(event.provinceName || event.cityName || event.sportName || '')) ? 30 : 0;
+  const youthBoost = /U6|U8|U10|U12|U14|U16|青少/.test([
+    candidate.item.itemName,
+    candidate.item.ageGroup,
+    event.sportName,
+  ].join(' ')) ? 20 : 0;
+  return year * 100 + provinceBoost + youthBoost;
+}
+
+function historicalScoreBackfillTask(candidate, args) {
+  const event = candidate.event;
+  return {
+    type: 'historical-score-backfill',
+    sportId: event.sportId,
+    sportCode: event.sportCode,
+    sportName: event.sportName,
+    status: event.inferredStatus,
+    startDate: event.startDate,
+    endDate: event.endDate,
+    eventCode: candidate.eventCode,
+    itemName: candidate.item.itemName,
+    scoreStart: candidate.index,
+    scriptArgs: [
+      ...taskBaseArgs(event, args),
+      '--no-projectlist',
+      '--score-start', String(candidate.index),
+      '--score-limit', '1',
+      '--score-concurrency', '1',
+    ],
+  };
+}
+
 function annotateEvents(events, nowMs) {
   return events
     .filter((event) => event && event.sportId)
@@ -195,6 +254,8 @@ export function buildScheduledSyncPlan(events, options = {}) {
       rosterMaxPages: args.rosterMaxPages,
       scoreLimit: args.scoreLimit,
       scoreConcurrency: normalizeConcurrency(args.scoreConcurrency),
+      backfillLimit: numberOrDefault(args.backfillLimit, 0),
+      backfillBeforeDays: numberOrDefault(args.backfillBeforeDays, recentCompletedDays),
     },
     selected: {
       active: activeEvents.slice(0, activeLimit).map((event) => ({
@@ -214,6 +275,68 @@ export function buildScheduledSyncPlan(events, options = {}) {
     },
     tasks,
   };
+}
+
+export function buildHistoricalBackfillTasks(events, projectReports, existingFileNames, options = {}) {
+  const args = {
+    ...parseArgs(['node', 'tools/scheduled-sync.mjs']),
+    ...options,
+  };
+  const nowMs = parseDate(args.now) || Date.now();
+  const limit = numberOrDefault(args.backfillLimit, 0);
+  const backfillBeforeDays = numberOrDefault(args.backfillBeforeDays, numberOrDefault(args.recentCompletedDays, 45));
+  if (limit <= 0) return [];
+
+  const eventMap = new Map(annotateEvents(events, nowMs).map((event) => [String(event.sportId), event]));
+  const files = existingFileNames instanceof Set ? existingFileNames : new Set(existingFileNames || []);
+  const candidates = [];
+
+  for (const report of projectReports || []) {
+    const sportId = report?.source?.sportId || report?.normalizedItems?.[0]?.sourceSportId;
+    const event = eventMap.get(String(sportId));
+    if (!event || event.inferredStatus !== 'completed') continue;
+    if (event.daysSinceEnd !== null && event.daysSinceEnd <= backfillBeforeDays) continue;
+
+    (report.normalizedItems || []).forEach((item, index) => {
+      const eventCode = item?.sourceEventCode || item?.eventCode;
+      if (!eventCode || !isIndividualItem(item) || !isYouthItem(item)) return;
+      if (files.has(scoreFileName(eventCode))) return;
+      candidates.push({ event, item, index, eventCode });
+    });
+  }
+
+  return candidates
+    .sort((a, b) => backfillPriority(b) - backfillPriority(a)
+      || (b.event.endMs || b.event.startMs || 0) - (a.event.endMs || a.event.startMs || 0)
+      || String(a.eventCode).localeCompare(String(b.eventCode)))
+    .slice(0, limit)
+    .map((candidate) => historicalScoreBackfillTask(candidate, args));
+}
+
+function stripBom(value) {
+  return String(value || '').replace(/^\uFEFF/, '');
+}
+
+async function loadProjectReports(outputDir) {
+  const names = (await readdir(outputDir).catch(() => []))
+    .filter((name) => /^projectlist-.+-analysis\.json$/.test(name));
+  const reports = [];
+  for (const name of names) {
+    try {
+      reports.push(JSON.parse(stripBom(await readFile(path.join(outputDir, name), 'utf8'))));
+    } catch {
+      // Ignore malformed historical import files; the normal sync report still records new failures.
+    }
+  }
+  return reports;
+}
+
+async function buildLoadedHistoricalBackfillTasks(events, args) {
+  const [projectReports, files] = await Promise.all([
+    loadProjectReports(args.outputDir),
+    readdir(args.outputDir).catch(() => []),
+  ]);
+  return buildHistoricalBackfillTasks(events, projectReports, new Set(files), args);
 }
 
 async function loadEvents(input) {
@@ -279,6 +402,16 @@ async function main() {
     : await refreshEventList(args);
   const events = await loadEvents(args.input);
   const plan = buildScheduledSyncPlan(events, args);
+  const backfillTasks = await buildLoadedHistoricalBackfillTasks(events, args);
+  plan.tasks.push(...backfillTasks);
+  plan.selected.backfill = backfillTasks.map((task) => ({
+    sportId: task.sportId,
+    sportCode: task.sportCode,
+    sportName: task.sportName,
+    eventCode: task.eventCode,
+    itemName: task.itemName,
+    scoreStart: task.scoreStart,
+  }));
   plan.eventListRefresh = eventListRefresh;
 
   if (args.dryRun) {

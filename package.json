@@ -17,6 +17,8 @@
     "sync:platform": "node tools/sync-platform-data.mjs",
     "sync:scheduled": "node tools/scheduled-sync.mjs",
     "sync:scheduled:dry": "node tools/scheduled-sync.mjs --dry-run",
+    "sync:backfill:dry": "node tools/scheduled-sync.mjs --dry-run --active-limit 0 --completed-limit 0 --backfill-limit 10",
+    "sync:backfill": "node tools/scheduled-sync.mjs --active-limit 0 --completed-limit 0 --backfill-limit 10",
     "cf:build-data": "node tools/build-cloudflare-data.mjs",
     "cf:deploy": "npm run cf:build-data && npx wrangler deploy"
   },
