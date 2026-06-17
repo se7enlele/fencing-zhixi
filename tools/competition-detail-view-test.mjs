@@ -77,6 +77,9 @@ assert.match(source, /function competitionHeroSummaryText\(competition\)/, 'comp
 assert.match(source, /function competitionRegistrationNumbers\(competition\)/, 'pre-event competition detail must summarize registration numbers');
 assert.match(source, /function competitionPreEventCards\(competition\)/, 'pre-event competition detail must use pre-match metric cards');
 assert.match(source, /function renderCompetitionPreEventPanel\(competition\)/, 'pre-event competition detail must render a dedicated preparation panel');
+assert.match(source, /function competitionRosterRows\(competition\)/, 'pre-event competition detail must aggregate imported roster rows');
+assert.match(source, /function renderCompetitionRosterSnapshot\(competition\)/, 'pre-event competition detail must show a roster snapshot when registration data exists');
+assert.match(source, /function competitionRosterWatchRows\(rosterRows\)/, 'pre-event competition detail must identify watch-list athletes from roster rows');
 assert.match(source, /const chips = competitionProjectSummaryChips\(competition\)/, 'competition hero must use structural project summary chips');
 assert.match(source, /class="competition-scope-grid"/, 'competition hero must show compact scope metrics instead of raw full labels');
 assert.match(source, /project-summary-row/, 'competition hero project summary must have a dedicated compact row');
@@ -86,6 +89,7 @@ assert.match(source, /registered \? `报名 \$\{registered\}` : rosterStatusLabe
 assert.match(source, /compactCompetitionEventRows\(eventRows, 3\)/, 'competition insight project comparison should stay compact on mobile');
 assert.match(source, /limit:\s*4,[\s\S]*otherLabel:\s*'其他年龄段'/, 'competition age distribution should aggregate lower-priority age buckets');
 assert.match(source, /const primaryItems = sortedItems\.slice\(0, 4\)/, 'competition event list should show only priority projects by default');
+assert.match(source, /renderCompetitionRosterSnapshot\(competition\)/, 'pre-event competition insight area must include roster snapshot analysis');
 assert.match(source, /class="event-list-more"/, 'competition event list must hide lower-priority projects behind an expandable section');
 assert.match(source, /secondaryItems\.length/, 'competition event list must keep full project access without showing everything by default');
 
@@ -94,5 +98,7 @@ assert.match(css, /\.competition-scope-grid/, 'competition scope summary styles 
 assert.match(css, /\.competition-scope-grid strong,[\s\S]*text-overflow:\s*ellipsis/, 'competition scope cells must truncate long summaries');
 assert.match(css, /\.competition-prematch-panel/, 'pre-event preparation panel styles must exist');
 assert.match(css, /\.competition-prematch-items/, 'pre-event priority project styles must exist');
+assert.match(css, /\.competition-prematch-roster/, 'pre-event roster snapshot styles must exist');
+assert.match(css, /\.competition-prematch-roster-grid/, 'pre-event roster snapshot must use a mobile-safe layout');
 
 console.log('competition detail compact distributions are covered');

@@ -3436,6 +3436,104 @@ function competitionPreEventReadinessRows(competition) {
   return rows;
 }
 
+function competitionRosterRows(competition) {
+  return (competition.items || [])
+    .flatMap((item) => (item.roster || []).map((row) => ({
+      ...row,
+      sportName: row.sportName || competition.sportName,
+      eventName: row.eventName || item.eventName,
+      shortEventName: row.shortEventName || item.shortEventName,
+      eventCode: row.eventCode || item.eventCode,
+      item,
+    })));
+}
+
+function competitionRosterClubRows(rosterRows) {
+  const map = new Map();
+  for (const row of rosterRows) {
+    const club = rosterClubText(row) || '俱乐部待确认';
+    const current = map.get(club) || { club, count: 0, athletes: [] };
+    current.count += 1;
+    const athlete = rosterAthleteLabel(row);
+    if (athlete && !current.athletes.includes(athlete)) current.athletes.push(athlete);
+    map.set(club, current);
+  }
+  return [...map.values()]
+    .sort((a, b) => b.count - a.count || a.club.localeCompare(b.club, 'zh-CN'))
+    .slice(0, 4);
+}
+
+function competitionRosterWatchRows(rosterRows) {
+  return rosterRows
+    .map((row) => {
+      const history = rosterHistoryMatch(row);
+      const rank = rosterRankValue(row);
+      return {
+        row,
+        history,
+        rank,
+        score: (rank ? 1000 - rank : 0) + (history?.bestRank ? 200 - history.bestRank : 0) + (history?.appearances || 0),
+      };
+    })
+    .filter((item) => item.rank || item.history)
+    .sort((a, b) => b.score - a.score || rosterAthleteLabel(a.row).localeCompare(rosterAthleteLabel(b.row), 'zh-CN'))
+    .slice(0, 4);
+}
+
+function renderCompetitionRosterSnapshot(competition) {
+  const rosterRows = competitionRosterRows(competition);
+  if (!rosterRows.length) return '';
+  const itemRows = rosterItemSummary(rosterRows).slice(0, 3);
+  const clubRows = competitionRosterClubRows(rosterRows);
+  const watchRows = competitionRosterWatchRows(rosterRows);
+  const athleteCount = new Set(rosterRows.map((row) => compactText(rosterAthleteLabel(row))).filter(Boolean)).size || rosterRows.length;
+  return `
+    <div class="competition-prematch-roster">
+      <div class="competition-prematch-roster-head">
+        <strong>报名名单画像</strong>
+        <span>${escapeHtml(athleteCount)} 名选手 · ${escapeHtml(clubRows.length)} 个主要俱乐部</span>
+      </div>
+      <div class="competition-prematch-roster-grid">
+        <div>
+          <div class="mini-title">重点项目</div>
+          <div class="event-prematch-list">
+            ${itemRows.map((row) => `
+              <div>
+                <strong>${escapeHtml(row.label)}</strong>
+                <span>${escapeHtml(row.count)} 人 · ${escapeHtml(row.athletes.slice(0, 3).join(' / '))}</span>
+              </div>
+            `).join('') || '<div><strong>项目待确认</strong><span>名单更新后会按项目整理。</span></div>'}
+          </div>
+        </div>
+        <div>
+          <div class="mini-title">主要俱乐部</div>
+          <div class="event-prematch-list">
+            ${clubRows.map((row) => `
+              <div>
+                <strong>${escapeHtml(row.club)}</strong>
+                <span>${escapeHtml(row.count)} 人 · ${escapeHtml(row.athletes.slice(0, 3).join(' / '))}</span>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      </div>
+      ${watchRows.length ? `
+        <div class="competition-prematch-watch">
+          <div class="mini-title">可重点关注</div>
+          <div class="event-prematch-list">
+            ${watchRows.map((item) => `
+              <div>
+                <strong>${escapeHtml(rosterAthleteLabel(item.row))}</strong>
+                <span>${escapeHtml(rosterClubText(item.row) || '俱乐部待确认')} · ${escapeHtml(item.rank ? `报名排名 ${item.rank}` : `历史最好第 ${item.history?.bestRank ?? '-'} 名`)}</span>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      ` : ''}
+    </div>
+  `;
+}
+
 function renderCompetitionPreEventPanel(competition) {
   const rows = competitionPreEventReadinessRows(competition);
   const topItems = competitionPreEventTopItems(competition, 5);
@@ -3460,6 +3558,7 @@ function renderCompetitionPreEventPanel(competition) {
           `).join('')}
         </div>
       ` : ''}
+      ${renderCompetitionRosterSnapshot(competition)}
     </div>
   `;
 }

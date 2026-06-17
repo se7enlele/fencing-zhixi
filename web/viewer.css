@@ -2304,6 +2304,49 @@ select:focus {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
+.competition-prematch-roster {
+  display: grid;
+  gap: 10px;
+  border: 1px solid rgba(15, 92, 192, 0.1);
+  border-radius: 10px;
+  background: rgba(15, 92, 192, 0.045);
+  padding: 10px;
+}
+
+.competition-prematch-roster-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.competition-prematch-roster-head strong,
+.competition-prematch-roster-head span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.competition-prematch-roster-head strong {
+  font-size: 14px;
+}
+
+.competition-prematch-roster-head span {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.competition-prematch-roster-grid {
+  display: grid;
+  gap: 10px;
+}
+
+.competition-prematch-watch {
+  min-width: 0;
+}
+
 .hero {
   position: relative;
   display: grid;
