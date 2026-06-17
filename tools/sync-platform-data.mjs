@@ -754,7 +754,7 @@ async function main() {
   console.log(stableStringify(log));
 }
 
-if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+if (path.basename(process.argv[1] || '') === 'sync-platform-data.mjs') {
   main().catch((error) => {
     console.error(error);
     process.exitCode = 1;
