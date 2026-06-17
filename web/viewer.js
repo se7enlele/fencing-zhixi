@@ -5224,11 +5224,7 @@ async function init() {
   state.apiVersion = result.version || '';
   state.dataGeneratedAt = result.generatedAt || '';
   state.dataCoverage = result.dataCoverage || null;
-  state.athletesById = Object.fromEntries((result.athletes || []).map((athlete) => [athlete.id, athlete]));
-  state.clubsById = Object.fromEntries((result.clubs || []).map((club) => [club.id, club]));
   state.competitions = result.competitions?.length ? result.competitions : buildCompetitionsFromEvents(result.events);
-  state.athleteSearchIndex = buildAthleteSearchIndex();
-  state.clubSearchIndex = buildClubSearchIndex();
   renderHomeStats();
   renderRoleWorkspacePremium();
   renderParentDashboard();
