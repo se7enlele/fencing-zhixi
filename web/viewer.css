@@ -20,6 +20,8 @@
 body {
   margin: 0;
   min-height: 100vh;
+  max-width: 100%;
+  overflow-x: hidden;
   background:
     linear-gradient(180deg, rgba(197, 220, 220, 0.55) 0, rgba(245, 248, 247, 0.92) 170px, #eef4f3 100%);
   color: var(--text);
@@ -29,6 +31,9 @@ body {
 
 .app {
   width: min(100%, 430px);
+  max-width: 100%;
+  min-width: 0;
+  overflow-x: hidden;
   margin: 0 auto;
   padding: 0 10px 92px;
 }
@@ -153,6 +158,8 @@ h3 {
 }
 
 .panel {
+  min-width: 0;
+  max-width: 100%;
   background: var(--panel);
   border: 1px solid var(--border);
   border-radius: 8px;
@@ -966,6 +973,8 @@ select:focus {
 
 .view {
   display: none;
+  min-width: 0;
+  max-width: 100%;
 }
 
 .view.active {
@@ -2109,6 +2118,8 @@ select:focus {
 
 .tab-panel.active {
   display: block;
+  min-width: 0;
+  max-width: 100%;
 }
 
 .leader-card,
@@ -2587,6 +2598,8 @@ select:focus {
 
 .compact-table {
   overflow-x: auto;
+  max-width: 100%;
+  -webkit-overflow-scrolling: touch;
 }
 
 table {
@@ -2762,6 +2775,9 @@ th {
 }
 
 .pool-process-card {
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
   border: 1px solid var(--border);
   border-radius: 10px;
   background: rgba(255, 255, 255, 0.9);
@@ -2769,7 +2785,10 @@ th {
 }
 
 .pool-matrix-wrap {
+  max-width: 100%;
   overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
   margin: 8px -10px 14px;
   padding: 0 10px;
 }
@@ -2825,6 +2844,10 @@ th {
 .pool-result-table {
   display: grid;
   gap: 6px;
+  min-width: 0;
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .pool-group-head {
@@ -3504,7 +3527,7 @@ button.primary-action {
   #tab-participants.tab-panel.active,
   #tab-pool.tab-panel.active,
   #tab-tableau.tab-panel.active,
-  #tab-clubs.tab-panel.active {
+  #tab-standing.tab-panel.active {
     grid-template-columns: 1fr;
   }
 }
