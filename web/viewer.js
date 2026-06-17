@@ -567,7 +567,7 @@ function coverageClass(competition) {
 
 function coverageDetail(competition) {
   if (competition.isPlatformEventList && !competitionHasItems(competition)) {
-    return '赛事基础信息已收录，项目规模和名单信息更新后会自动完善。';
+    return '赛事基础信息已收录，可先关注赛程、地点和报名节奏。';
   }
   if (competition.rosterStatus === 'partial') return '报名信息正在更新，可先查看项目规模和初步赛前对标。';
   if (competition.rosterStatus === 'complete') return '报名信息已完整，可查看赛前对手、强手和熟悉对手分析。';
@@ -3302,19 +3302,19 @@ function renderCompetitionList() {
 
 function competitionListInsight(competition) {
   if (competition.isPlatformEventList && !competitionHasItems(competition)) {
-    const type = competition.platformMeta?.gameDesc || '赛事类型待确认';
+    const type = competition.platformMeta?.gameDesc || '认证赛事';
     const groups = competition.groupLabels?.length ? `${competition.groupLabels.length} 个组别` : '组别待确认';
-    return `${type}，${groups}。项目规模和名单信息更新后会自动完善。`;
+    return `${type}，覆盖 ${groups}。适合先关注赛程和报名窗口。`;
   }
   if (competition.isPreEvent) {
     const summary = competition.registrationSummary || {};
     const rosterText = summary.rosterCount
-      ? `已有 ${summary.rosterCount} 条报名记录`
-      : '报名名单待更新';
+      ? `已有 ${summary.rosterCount} 条报名动态`
+      : '报名动态持续更新';
     const expectedText = summary.expectedRegistrationCount
-      ? `官方项目报名人数 ${summary.expectedRegistrationCount}`
-      : `${competitionItemCount(competition)} 个赛前项目`;
-    return `${expectedText}，${rosterText}。关注孩子后，可在名单完整时做赛前对标分析。`;
+      ? `预计 ${summary.expectedRegistrationCount} 人次参与`
+      : `${competitionItemCount(competition)} 个项目开放`;
+    return `${expectedText}，${rosterText}。关注后可继续看同组对手和重点选手。`;
   }
   const total = competitionMetricTotal(competition, 'competitionNo');
   const elimination = competitionMetricTotal(competition, 'playedEliminationMatchCount');
@@ -3424,7 +3424,7 @@ function competitionPreEventCards(competition) {
     {
       title: '报名规模',
       value: numbers.registered || numbers.expected || '-',
-      detail: numbers.registered && numbers.expected ? `${numbers.registered}/${numbers.expected}` : '名单更新后会更准确',
+      detail: numbers.registered && numbers.expected ? `${numbers.registered}/${numbers.expected}` : '报名动态持续更新',
     },
   ];
 }
@@ -3444,7 +3444,7 @@ function competitionPreEventReadinessRows(competition) {
     title: '赛前可用信息',
     detail: rosterReady
       ? '已有报名线索，可先看同项目强手、熟悉对手和俱乐部分布。'
-      : '可先看比赛时间、地点、组别和项目规模，名单更新后再细化到选手对标。',
+      : '可先看比赛时间、地点和重点项目，后续再细化到选手对标。',
   });
   rows.push({
     title: '关注方式',
@@ -3519,7 +3519,7 @@ function renderCompetitionRosterSnapshot(competition) {
                 <strong>${escapeHtml(row.label)}</strong>
                 <span>${escapeHtml(row.count)} 人 · ${escapeHtml(row.athletes.slice(0, 3).join(' / '))}</span>
               </div>
-            `).join('') || '<div><strong>项目待确认</strong><span>名单更新后会按项目整理。</span></div>'}
+            `).join('') || '<div><strong>重点项目</strong><span>报名动态更新后会按项目整理。</span></div>'}
           </div>
         </div>
         <div>
@@ -3906,8 +3906,8 @@ function renderEventPreMatchIntelligence(event) {
     <div class="chart-card event-prematch-card">
       <div class="chart-title">赛前情报</div>
       <div class="event-prematch-summary">
-        <strong>${escapeHtml(hasRoster ? `已识别 ${model.registered} 条报名记录` : '报名名单待更新')}</strong>
-        <span>${escapeHtml(hasRoster ? '先看报名规模、主要俱乐部和可重点关注选手。' : '当前先看项目规模和比赛时间，名单更新后会形成对手分析。')}</span>
+        <strong>${escapeHtml(hasRoster ? `${model.registered} 条报名动态` : '报名动态持续更新')}</strong>
+        <span>${escapeHtml(hasRoster ? '先看报名热度、主要俱乐部和可重点关注选手。' : '当前先看比赛时间和项目热度，后续会形成对手分析。')}</span>
       </div>
       <div class="event-prematch-metrics">
         <div>
