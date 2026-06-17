@@ -103,6 +103,12 @@ const state = {
   dataLoadError: '',
   searchRequestId: 0,
   lastSearchKeyword: '',
+  detailCache: {
+    athletes: new Map(),
+    clubs: new Map(),
+    competitions: new Map(),
+    events: new Map(),
+  },
 };
 
 let searchDebounceTimer = null;
@@ -122,6 +128,16 @@ async function fetchJson(path) {
 
 function friendlyErrorMessage(scope) {
   return `${scope}暂时无法打开。请稍后重试，或返回上一页重新进入。`;
+}
+
+async function fetchCachedDetail(type, key, path, pick) {
+  const cache = state.detailCache?.[type];
+  const cacheKey = String(key || '');
+  if (cache?.has(cacheKey)) return cache.get(cacheKey);
+  const result = await fetchJson(path);
+  const detail = pick(result);
+  if (cache && cacheKey && detail) cache.set(cacheKey, detail);
+  return detail;
 }
 
 state.followedAthletes = loadFollowedAthletes();
@@ -4923,9 +4939,13 @@ async function openAthlete(athleteId) {
       }
       throw new Error('缺少选手ID，请重新搜索并进入选手详情。');
     }
-    const result = await fetchJson(`/api/athletes/${encodeURIComponent(athleteId)}`);
-    renderAthleteDetail(result.athlete);
-    renderedAthlete = result.athlete;
+    renderedAthlete = await fetchCachedDetail(
+      'athletes',
+      athleteId,
+      `/api/athletes/${encodeURIComponent(athleteId)}`,
+      (result) => result.athlete,
+    );
+    renderAthleteDetail(renderedAthlete);
   } catch (error) {
     if (localAthlete?.events?.length) {
       renderAthleteDetail(localAthlete);
@@ -4951,9 +4971,13 @@ async function openAthlete(athleteId) {
 async function openClub(clubId) {
   let renderedClub = null;
   try {
-    const result = await fetchJson(`/api/clubs/${clubId}`);
-    renderClubDetail(result.club);
-    renderedClub = result.club;
+    renderedClub = await fetchCachedDetail(
+      'clubs',
+      clubId,
+      `/api/clubs/${encodeURIComponent(clubId)}`,
+      (result) => result.club,
+    );
+    renderClubDetail(renderedClub);
   } catch (error) {
     setInlineError(clubHero, friendlyErrorMessage('俱乐部详情'));
     clubEvents.innerHTML = '';
@@ -4973,8 +4997,12 @@ async function openCompetition(sportCode) {
   const localCompetition = findCompetitionBySportCode(sportCode);
 
   try {
-    const result = await fetchJson(`/api/competitions/${encodeURIComponent(sportCode)}`);
-    state.currentCompetition = result.competition;
+    state.currentCompetition = await fetchCachedDetail(
+      'competitions',
+      sportCode,
+      `/api/competitions/${encodeURIComponent(sportCode)}`,
+      (result) => result.competition,
+    );
   } catch (error) {
     if (!localCompetition) throw error;
     state.currentCompetition = localCompetition;
@@ -4995,8 +5023,12 @@ async function openCompetition(sportCode) {
 
 async function openEvent(eventCode) {
   try {
-    const result = await fetchJson(`/api/events/${encodeURIComponent(eventCode)}`);
-    state.currentEvent = result.event;
+    state.currentEvent = await fetchCachedDetail(
+      'events',
+      eventCode,
+      `/api/events/${encodeURIComponent(eventCode)}`,
+      (result) => result.event,
+    );
     activateEventTab('overview');
     renderEventHero(state.currentEvent);
     renderInsights(state.currentEvent);
