@@ -158,14 +158,17 @@ const chunkLookup = {
   athletesById: athleteChunks.chunkLookup,
   clubsById: clubChunks.chunkLookup,
 };
+const generatedAt = new Date().toISOString();
 const indexPayload = {
   version: payload.version,
+  generatedAt,
   publicEvents: payload.publicEvents,
   chunks,
   lookupPath: '/data/public-data-lookup.json',
 };
 const lookupPayload = {
   version: payload.version,
+  generatedAt,
   chunkLookup,
 };
 await writeFile(assetOutPath, `${JSON.stringify(indexPayload)}\n`, 'utf8');

@@ -549,6 +549,7 @@ async function routeApi(request, env, url) {
     return json({
       ok: true,
       version: index.version,
+      generatedAt: index.generatedAt || null,
       competitions,
       dataCoverage: index.publicEvents.dataCoverage || null,
     }, 200, hasDynamicPreEvent ? NO_STORE_CACHE : PUBLIC_INDEX_CACHE);
@@ -559,6 +560,7 @@ async function routeApi(request, env, url) {
     return json({
       ok: true,
       version: index.version,
+      generatedAt: index.generatedAt || null,
       events: index.publicEvents.events || [],
       dataCoverage: index.publicEvents.dataCoverage || null,
     }, 200, PUBLIC_INDEX_CACHE);

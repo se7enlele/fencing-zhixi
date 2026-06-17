@@ -37,6 +37,7 @@ assert.ok(
 
 const index = JSON.parse(fs.readFileSync(INDEX_FILE, "utf8"));
 assert.equal(typeof index.version, "string", "public data index should expose a version");
+assert.equal(typeof index.generatedAt, "string", "public data index should expose a generatedAt timestamp");
 assert.ok(index.chunks && typeof index.chunks === "object", "public data index should expose chunks");
 assert.equal(index.chunkLookup, undefined, "public data index must not inline chunkLookup");
 assert.equal(index.lookupPath, "/data/public-data-lookup.json", "public data index should point to the lazy lookup asset");
@@ -50,6 +51,7 @@ assert.ok(
 );
 const lookupPayload = JSON.parse(fs.readFileSync(LOOKUP_FILE, "utf8"));
 assert.equal(lookupPayload.version, index.version, "lookup version should match index version");
+assert.equal(lookupPayload.generatedAt, index.generatedAt, "lookup generatedAt should match index generatedAt");
 assert.ok(lookupPayload.chunkLookup && typeof lookupPayload.chunkLookup === "object", "public data lookup should expose chunkLookup");
 
 const chunkPaths = new Set();

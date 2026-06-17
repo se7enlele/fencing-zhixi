@@ -91,6 +91,7 @@ const state = {
   selectedItem: '全部项目',
   selectedStatus: '全部状态',
   apiVersion: '',
+  dataGeneratedAt: '',
   viewStack: ['home'],
   activeMainTab: 'home',
   deviceId: getDeviceId(),
@@ -481,6 +482,18 @@ function rosterStatusLabel(status) {
   if (status === 'partial') return '报名名单更新中';
   if (status === 'complete') return '报名名单已完整';
   return '名单待更新';
+}
+
+function formatDataGeneratedAt(value) {
+  if (!value) return '';
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return '';
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  const hour = String(date.getHours()).padStart(2, '0');
+  const minute = String(date.getMinutes()).padStart(2, '0');
+  return `${year}.${month}.${day} ${hour}:${minute}`;
 }
 
 function coverageLabel(competition) {
@@ -1113,6 +1126,7 @@ function renderHomeDataCoverage() {
   const scorePercent = Math.round((coverage.score / total) * 100);
   const actionablePercent = Math.round((coverage.actionable / total) * 100);
   const priorityRows = dataCoveragePriorityRows(source, 3);
+  const generatedLabel = formatDataGeneratedAt(state.dataGeneratedAt);
 
   return `
     <section class="panel my-section data-status-panel">
@@ -1137,7 +1151,7 @@ function renderHomeDataCoverage() {
       <div class="coverage-progress">
         <span style="width: ${escapeHtml(scorePercent)}%"></span>
       </div>
-      <p>成绩对阵覆盖率 ${escapeHtml(scorePercent)}%。近期报名、目标俱乐部相关赛事和青少年组别会优先更新。</p>
+      <p>成绩对阵覆盖率 ${escapeHtml(scorePercent)}%。${generatedLabel ? `数据更新于 ${escapeHtml(generatedLabel)}，` : ''}近期报名、目标俱乐部相关赛事和青少年组别会优先更新。</p>
       ${priorityRows.length ? `
         <div class="coverage-priority-list">
           ${priorityRows.map(({ competition, level }) => `
@@ -2432,6 +2446,7 @@ function renderMyPage() {
   const followedCompetitions = followedCompetitionCards();
   const recentRows = (state.recentItems || []).slice(0, 6);
   const followedAthletes = children.slice(0, 6);
+  const generatedLabel = formatDataGeneratedAt(state.dataGeneratedAt);
   const stats = [
     { value: children.length, label: '关注选手' },
     { value: followedCompetitions.length, label: '关注赛事' },
@@ -2510,7 +2525,7 @@ function renderMyPage() {
     <section class="panel my-section">
       <div class="section-title">
         <h2>数据状态</h2>
-        <span>${escapeHtml(state.apiVersion || '本地缓存')}</span>
+        <span>${escapeHtml(generatedLabel || state.apiVersion || '本地缓存')}</span>
       </div>
       <div class="my-status-note">
         <strong>${escapeHtml(state.dataCoverage?.scorePackages || state.competitions.length || 0)}</strong>
@@ -5165,6 +5180,7 @@ async function init() {
   const result = await fetchJson('/api/competitions');
   state.isDataLoading = false;
   state.apiVersion = result.version || '';
+  state.dataGeneratedAt = result.generatedAt || '';
   state.dataCoverage = result.dataCoverage || null;
   state.athletesById = Object.fromEntries((result.athletes || []).map((athlete) => [athlete.id, athlete]));
   state.clubsById = Object.fromEntries((result.clubs || []).map((club) => [club.id, club]));
