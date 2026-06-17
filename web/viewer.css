@@ -2376,6 +2376,48 @@ select:focus {
   line-height: 1.5;
 }
 
+.business-card-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.business-card {
+  display: grid;
+  gap: 5px;
+  border: 1px solid rgba(13, 125, 103, 0.14);
+  border-radius: 10px;
+  background: linear-gradient(180deg, rgba(13, 125, 103, 0.06), rgba(255, 255, 255, 0.86));
+  padding: 10px;
+}
+
+.business-card span,
+.business-card em {
+  color: var(--muted);
+  font-size: 12px;
+  font-style: normal;
+  line-height: 1.4;
+}
+
+.business-card strong {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--text);
+  font-size: 15px;
+}
+
+.business-card:first-child {
+  grid-column: 1 / -1;
+  border-color: rgba(15, 92, 192, 0.16);
+  background: linear-gradient(180deg, rgba(15, 92, 192, 0.07), rgba(255, 255, 255, 0.9));
+}
+
+.peer-card {
+  border-color: rgba(13, 125, 103, 0.16);
+}
+
 .chart-grid {
   display: grid;
   gap: 10px;

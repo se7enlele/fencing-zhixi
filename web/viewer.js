@@ -3811,6 +3811,70 @@ function buildClubGrowthHighlights(club, projectRows, athletes) {
   ].filter(Boolean);
 }
 
+function clubPeerRows(club, projectRows) {
+  const currentClub = compactText(club.club);
+  const labels = new Set(projectRows.map((row) => compactText(row.label)).filter(Boolean));
+  if (!labels.size) return [];
+  const clubs = Object.values(state.clubsById || {});
+  return clubs
+    .filter((peer) => peer?.club && compactText(peer.club) !== currentClub && compactText(peer.club) !== '个人')
+    .map((peer) => {
+      const peerProjects = clubProjectRows(peer);
+      const overlapProjects = peerProjects.filter((row) => labels.has(compactText(row.label)));
+      const overlapEntrants = overlapProjects.reduce((sum, row) => sum + (Number(row.entrants) || 0), 0);
+      const overlapTop8 = overlapProjects.reduce((sum, row) => sum + (Number(row.top8) || 0), 0);
+      const overlapMedals = overlapProjects.reduce((sum, row) => sum + (Number(row.medals) || 0), 0);
+      const bestRank = overlapProjects.reduce((best, row) => Math.min(best, Number(row.bestRank) || 999), 999);
+      return {
+        id: peer.id,
+        club: peer.club,
+        overlapCount: overlapProjects.length,
+        overlapEntrants,
+        overlapTop8,
+        overlapMedals,
+        bestRank: bestRank === 999 ? null : bestRank,
+        overlapProjects,
+        score: overlapProjects.length * 20 + overlapTop8 * 4 + overlapMedals * 8 + Math.max(0, 20 - (bestRank === 999 ? 20 : bestRank)),
+      };
+    })
+    .filter((row) => row.overlapCount > 0)
+    .sort((a, b) => b.score - a.score || b.overlapEntrants - a.overlapEntrants)
+    .slice(0, 5);
+}
+
+function buildClubBusinessCards(club, projectRows, athletes, peerRows) {
+  const bestProject = [...projectRows].sort((a, b) => (a.bestRank ?? 999) - (b.bestRank ?? 999))[0];
+  const strongestAthlete = athletes[0];
+  const topProject = projectRows[0];
+  return [
+    {
+      title: '对外成绩名片',
+      value: `最好第 ${club.bestRank ?? '-'} 名`,
+      detail: `${club.top8 || 0} 次前八，${club.medals || 0} 枚奖牌，可用于家长沟通和招生展示。`,
+    },
+    {
+      title: '主力项目',
+      value: topProject?.label || '待积累',
+      detail: topProject ? `参赛 ${topProject.entrants} 人次，最好第 ${topProject.bestRank ?? '-'} 名。` : '更多成绩收录后会形成项目名片。',
+    },
+    {
+      title: '代表学员',
+      value: strongestAthlete?.name || '待识别',
+      detail: strongestAthlete ? `最好第 ${strongestAthlete.bestRank ?? '-'} 名，${strongestAthlete.appearances || 0} 次参赛记录。` : '关注学员参赛后可沉淀成长案例。',
+    },
+    {
+      title: '同项目参照',
+      value: peerRows[0]?.club || '待形成',
+      detail: peerRows[0] ? `${peerRows[0].overlapCount} 个项目重合，最好第 ${peerRows[0].bestRank ?? '-'} 名。` : '同项目数据增加后可做更清晰的对标。',
+    },
+    {
+      title: '突破机会',
+      value: bestProject?.label || '重点项目',
+      detail: bestProject ? `${bestProject.label} 已有成绩基础，适合继续做赛前复盘和强手研究。` : '先稳定参赛连续性，再看突破项目。',
+    },
+  ];
+}
+
 function projectCoachAdvice(row) {
   if (row.medals > 0) return '可作为口碑项目继续强化，沉淀代表学员和比赛复盘。';
   if (row.top8 > 0) return '已有前八基础，下一步重点提升淘汰赛稳定性。';
@@ -3962,6 +4026,8 @@ function renderClubDetail(club) {
   const athletes = clubWorkspaceAthletes(club);
   const athleteBuckets = clubAthleteBuckets(athletes);
   const highlights = buildClubGrowthHighlights(club, projectRows, athletes);
+  const peerRows = clubPeerRows(club, projectRows);
+  const businessCards = buildClubBusinessCards(club, projectRows, athletes, peerRows);
   const top8Rate = Number(club.entrants) ? Math.round((Number(club.top8 || 0) / Number(club.entrants)) * 100) : 0;
   const medalRate = Number(club.entrants) ? Math.round((Number(club.medals || 0) / Number(club.entrants)) * 100) : 0;
 
@@ -3986,6 +4052,22 @@ function renderClubDetail(club) {
         <div class="coach-summary-card">
           <strong>${escapeHtml(buildClubOwnerSummary(club, projectRows))}</strong>
           <span>建议先把强项项目、代表学员和近期比赛复盘讲清楚，用于续费沟通和招生转化。</span>
+        </div>
+      </section>
+
+      <section class="coach-section">
+        <div class="section-title">
+          <h2>招生名片</h2>
+          <span>对外可讲</span>
+        </div>
+        <div class="business-card-grid">
+          ${businessCards.map((card) => `
+            <div class="business-card">
+              <span>${escapeHtml(card.title)}</span>
+              <strong>${escapeHtml(card.value)}</strong>
+              <em>${escapeHtml(card.detail)}</em>
+            </div>
+          `).join('')}
         </div>
       </section>
 
@@ -4034,6 +4116,24 @@ function renderClubDetail(club) {
 
       <section class="coach-section">
         <div class="section-title">
+          <h2>同项目对标</h2>
+          <span>口碑位置</span>
+        </div>
+        <div class="project-advice-list">
+          ${peerRows.length ? peerRows.map((peer) => `
+            <button class="project-advice-card peer-card" type="button" data-club-id="${escapeHtml(peer.id || '')}">
+              <div>
+                <strong>${escapeHtml(peer.club)}</strong>
+                <span>${escapeHtml(peer.overlapProjects.map((row) => row.label).slice(0, 3).join(' / '))}</span>
+              </div>
+              <em>重合项目 ${escapeHtml(peer.overlapCount)} · 前八 ${escapeHtml(peer.overlapTop8)} · 奖牌 ${escapeHtml(peer.overlapMedals)} · 最好第 ${escapeHtml(peer.bestRank ?? '-')}</em>
+            </button>
+          `).join('') : '<div class="empty compact-empty">暂未形成稳定的同项目对标样本。</div>'}
+        </div>
+      </section>
+
+      <section class="coach-section">
+        <div class="section-title">
           <h2>增长与口碑</h2>
           <span>招生素材</span>
         </div>
@@ -4055,6 +4155,10 @@ function renderClubDetail(club) {
   clubEvents.querySelectorAll('[data-athlete-id]').forEach((button) => {
     if (!button.dataset.athleteId) return;
     button.addEventListener('click', () => openAthlete(button.dataset.athleteId));
+  });
+  clubEvents.querySelectorAll('[data-club-id]').forEach((button) => {
+    if (!button.dataset.clubId) return;
+    button.addEventListener('click', () => openClub(button.dataset.clubId));
   });
 }
 
