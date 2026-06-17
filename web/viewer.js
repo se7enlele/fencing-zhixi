@@ -1101,9 +1101,9 @@ function competitionCoverageLevel(competition) {
 
 function competitionCoverageNeed(competition) {
   const level = competitionCoverageLevel(competition);
-  if (level === 'directory') return '补项目清单';
-  if (level === 'project') return '补报名名单';
-  if (level === 'roster') return '补赛后成绩';
+  if (level === 'directory') return '适合查看赛历和地点';
+  if (level === 'project') return '适合关注项目规模';
+  if (level === 'roster') return '适合做赛前准备';
   return '已可深度分析';
 }
 
@@ -1168,7 +1168,7 @@ function renderHomeDataCoverage() {
       <div class="coverage-progress">
         <span style="width: ${escapeHtml(scorePercent)}%"></span>
       </div>
-      <p>成绩对阵覆盖率 ${escapeHtml(scorePercent)}%。${generatedLabel ? `数据更新于 ${escapeHtml(generatedLabel)}，` : ''}近期报名、目标俱乐部相关赛事和青少年组别会优先更新。</p>
+      <p>成绩对阵覆盖率 ${escapeHtml(scorePercent)}%。${generatedLabel ? `数据更新于 ${escapeHtml(generatedLabel)}，` : ''}近期报名赛事可用于赛前准备，完整成绩可用于成长复盘和队伍分析。</p>
       ${priorityRows.length ? `
         <div class="coverage-priority-list">
           ${priorityRows.map(({ competition, level }) => `
@@ -1223,7 +1223,7 @@ function renderDataCoverageSummary(source) {
         <small>可用于成长和队伍分析</small>
       </div>
     </div>
-    <p>更新优先级：先看近期报名和目标俱乐部相关赛事，再完善青少年组别成绩对阵；成绩对阵覆盖率当前为 ${escapeHtml(scorePercent)}%。</p>
+    <p>近期报名赛事可用于赛前准备，完整成绩可用于成长复盘和队伍分析；成绩对阵覆盖率当前为 ${escapeHtml(scorePercent)}%。</p>
   `;
 }
 
@@ -1480,7 +1480,7 @@ function renderRoleWorkspaceLegacy() {
           <div>
             <span>当前角色：${escapeHtml(roleLabel(state.userRole))}</span>
             <strong>${state.userRole === 'coach' ? '教练工作台' : state.userRole === 'club' ? '俱乐部工作台' : '赛事数据'}</strong>
-            <em>${state.userRole === 'data' ? '你可以继续使用搜索、筛选和赛事入口。' : '当前先保留完整数据浏览，下一阶段会接入角色专属分析。'}</em>
+            <em>${state.userRole === 'data' ? '你可以继续使用搜索、筛选和赛事入口。' : '可从赛事、选手和俱乐部数据进入对应分析。'}</em>
           </div>
           <button type="button" data-role-reset>切换角色</button>
         </div>
