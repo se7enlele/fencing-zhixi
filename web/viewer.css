@@ -2646,6 +2646,38 @@ select:focus {
   line-height: 1.45;
 }
 
+.club-script-list {
+  display: grid;
+  gap: 8px;
+}
+
+.club-script-card {
+  display: grid;
+  gap: 5px;
+  min-width: 0;
+  border: 1px solid rgba(13, 125, 103, 0.12);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.84);
+  padding: 10px 11px;
+}
+
+.club-script-card strong,
+.club-script-card span {
+  display: block;
+  min-width: 0;
+}
+
+.club-script-card strong {
+  color: var(--primary);
+  font-size: 13px;
+}
+
+.club-script-card span {
+  color: var(--text);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
 .prematch-section {
   border: 1px solid rgba(21, 95, 194, 0.1);
   border-radius: 12px;

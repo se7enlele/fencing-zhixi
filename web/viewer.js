@@ -4854,14 +4854,69 @@ function buildClubShareText(club, projectRows, athletes) {
   const highlights = clubShareHighlights(club, projectRows, athletes);
   const bestProject = [...projectRows].sort((a, b) => (a.bestRank ?? 999) - (b.bestRank ?? 999))[0];
   const strongestAthlete = athletes[0];
+  const scripts = buildClubCommunicationScripts(club, projectRows, athletes);
   const lines = [
     `${club.club} 击剑成长数据名片`,
     highlights.slice(0, 4).join('，'),
     bestProject ? `优势项目：${bestProject.label}，参赛 ${bestProject.entrants || 0} 人次，最好第 ${bestProject.bestRank ?? '-'} 名。` : '',
     strongestAthlete ? `代表学员：${strongestAthlete.name}，最好第 ${strongestAthlete.bestRank ?? '-'} 名，${strongestAthlete.appearances || 0} 次参赛记录。` : '',
+    scripts.length ? '对外沟通重点：' : '',
+    ...scripts.map((row) => `${row.title}：${row.detail}`),
     '数据来自已收录赛事成绩，可用于家长沟通、续费反馈和招生展示。',
   ].filter(Boolean);
   return lines.join('\n');
+}
+
+function buildClubCommunicationScripts(club, projectRows, athletes) {
+  const bestProject = [...projectRows].sort((a, b) => (a.bestRank ?? 999) - (b.bestRank ?? 999))[0];
+  const topProject = projectRows[0];
+  const strongestAthlete = athletes[0];
+  const steadyAthletes = athletes.filter((athlete) => (athlete.appearances || 0) >= 2).slice(0, 2);
+  return [
+    {
+      title: '成绩背书',
+      detail: `${club.club} 已收录 ${club.entrants || 0} 人次参赛，累计 ${club.top8 || 0} 次前八、${club.medals || 0} 枚奖牌，最好第 ${club.bestRank ?? '-'} 名。`,
+    },
+    bestProject ? {
+      title: '优势项目',
+      detail: `${bestProject.label} 是当前最适合对外展示的项目，已有最好第 ${bestProject.bestRank ?? '-'} 名和 ${bestProject.top8 || 0} 次前八表现。`,
+    } : topProject ? {
+      title: '重点项目',
+      detail: `${topProject.label} 参赛基础较完整，适合作为后续训练反馈和参赛规划的主线。`,
+    } : null,
+    strongestAthlete ? {
+      title: '成长案例',
+      detail: `${strongestAthlete.name} 已有 ${strongestAthlete.appearances || 0} 次参赛记录，最好第 ${strongestAthlete.bestRank ?? '-'} 名，可用于说明训练和比赛经验的积累。`,
+    } : steadyAthletes.length ? {
+      title: '成长案例',
+      detail: `${steadyAthletes.map((athlete) => athlete.name).join('、')} 已形成连续参赛记录，可作为后续成长复盘样本。`,
+    } : null,
+    {
+      title: '下一步',
+      detail: '建议围绕重点项目复盘近期比赛，把代表学员、强手对标和赛前准备讲清楚，形成稳定的家长沟通材料。',
+    },
+  ].filter(Boolean);
+}
+
+function renderClubCommunicationScripts(club, projectRows, athletes) {
+  const scripts = buildClubCommunicationScripts(club, projectRows, athletes);
+  if (!scripts.length) return '';
+  return `
+    <section class="coach-section club-script-section">
+      <div class="section-title">
+        <h2>对外沟通话术</h2>
+        <span>家长能听懂</span>
+      </div>
+      <div class="club-script-list">
+        ${scripts.map((row) => `
+          <div class="club-script-card">
+            <strong>${escapeHtml(row.title)}</strong>
+            <span>${escapeHtml(row.detail)}</span>
+          </div>
+        `).join('')}
+      </div>
+    </section>
+  `;
 }
 
 function renderClubShareCard(club, projectRows, athletes) {
@@ -5305,6 +5360,8 @@ function renderClubDetail(club) {
           `).join('')}
         </div>
       </section>
+
+      ${renderClubCommunicationScripts(club, projectRows, athletes)}
 
       ${renderClubShareCard(club, projectRows, athletes)}
 
