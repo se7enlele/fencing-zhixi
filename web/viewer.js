@@ -1818,9 +1818,6 @@ function buildAiAnswer(query) {
     };
   }
 
-  const preMatchQuery = detectPreMatchQuery(text);
-  if (preMatchQuery) return buildAiPreMatchReport(text, preMatchQuery);
-
   const competitionQuery = detectCompetitionStatsQuery(text);
   if (competitionQuery) return buildAiCompetitionStats(text, competitionQuery);
 
@@ -1830,6 +1827,9 @@ function buildAiAnswer(query) {
 
   const club = detectClubInQuery(text);
   if (club) return buildAiClubReport(text, club);
+
+  const preMatchQuery = detectPreMatchQuery(text);
+  if (preMatchQuery) return buildAiPreMatchReport(text, preMatchQuery);
 
   const athletes = detectAthletesInQuery(text);
   if (athletes.length >= 2) return buildAiAthleteComparison(text, athletes[0], athletes[1]);
