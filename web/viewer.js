@@ -3724,6 +3724,39 @@ function compactCompetitionEventRows(rows, limit = 4) {
   return sortedCompetitionEventRows(rows).slice(0, limit);
 }
 
+function projectAgeLabel(item) {
+  const label = displayEventName(item) || item.eventName || item.shortEventName || '';
+  return String(label).match(/U\d+|\d+\+|年龄开放组/)?.[0] || '其他组别';
+}
+
+function projectWeaponLabel(item) {
+  const text = compactText(displayEventName(item) || item.eventName || item.shortEventName || '');
+  if (text.includes('花')) return '花剑';
+  if (text.includes('重')) return '重剑';
+  if (text.includes('佩')) return '佩剑';
+  return '项目';
+}
+
+function competitionProjectGroups(items) {
+  const groups = new Map();
+  for (const item of items || []) {
+    const age = projectAgeLabel(item);
+    const current = groups.get(age) || { age, items: [], total: 0, weapons: new Set() };
+    current.items.push(item);
+    current.total += Number(item.registrationCount) || Number(item.expectedRegistrationCount) || Number(item.competitionNo) || 0;
+    const weapon = projectWeaponLabel(item);
+    if (weapon && weapon !== '项目') current.weapons.add(weapon);
+    groups.set(age, current);
+  }
+  return [...groups.values()]
+    .map((group) => ({
+      ...group,
+      items: sortedCompetitionEventRows(group.items),
+      weaponText: group.weapons.size ? [...group.weapons].join(' / ') : `${group.items.length} 个项目`,
+    }))
+    .sort((a, b) => b.total - a.total || a.age.localeCompare(b.age, 'zh-CN'));
+}
+
 function competitionRegistrationNumbers(competition) {
   const summary = competition.registrationSummary || {};
   const items = competitionItemSummaries(competition);
@@ -4115,6 +4148,28 @@ function renderCompetitionProjectGuide(competition, sortedItems) {
   `;
 }
 
+function renderCompetitionProjectGroups(competition, sortedItems, eventCardHtml) {
+  const groups = competitionProjectGroups(sortedItems);
+  return `
+    <details class="project-group-list">
+      <summary>按年龄段查看全部项目</summary>
+      <div class="project-group-stack">
+        ${groups.map((group, index) => `
+          <details class="project-group-card" ${index === 0 ? 'open' : ''}>
+            <summary>
+              <strong>${escapeHtml(group.age)}</strong>
+              <span>${escapeHtml(group.items.length)} 项 · ${escapeHtml(group.weaponText)}${group.total ? ` · ${escapeHtml(group.total)} 人` : ''}</span>
+            </summary>
+            <div class="event-list-more-grid">
+              ${group.items.map(eventCardHtml).join('')}
+            </div>
+          </details>
+        `).join('')}
+      </div>
+    </details>
+  `;
+}
+
 function renderEventList(competition) {
   const eventItems = competition.items || competition.itemSummaries || [];
   if (!eventItems.length) {
@@ -4159,10 +4214,8 @@ function renderEventList(competition) {
     ${primaryItems.map(eventCardHtml).join('')}
     ${secondaryItems.length ? `
       <details class="event-list-more">
-        <summary>查看其余 ${escapeHtml(secondaryItems.length)} 个项目</summary>
-        <div class="event-list-more-grid">
-          ${secondaryItems.map(eventCardHtml).join('')}
-        </div>
+        <summary>查看其余 ${escapeHtml(secondaryItems.length)} 个重点项目</summary>
+        ${renderCompetitionProjectGroups(competition, sortedItems, eventCardHtml)}
       </details>
     ` : ''}
   `;

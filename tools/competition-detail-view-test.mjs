@@ -14,6 +14,7 @@ if (start === -1 || end === -1 || end <= start) {
 const context = {
   displayEventName: (row) => row.shortEventName || row.eventName || '',
   competitionMetricTotal: () => 0,
+  compactText: (value) => String(value || '').replace(/\s+/g, ''),
 };
 vm.createContext(context);
 vm.runInContext(`${source.slice(start, end)}
@@ -21,6 +22,7 @@ globalThis.sortedCompetitionEventRows = sortedCompetitionEventRows;
 globalThis.compactCompetitionBarRows = compactCompetitionBarRows;
 globalThis.compactCompetitionEventRows = compactCompetitionEventRows;
 globalThis.competitionDigestRows = competitionDigestRows;
+globalThis.competitionProjectGroups = competitionProjectGroups;
 `, context);
 
 const compactAgeRows = context.compactCompetitionBarRows([
@@ -73,6 +75,16 @@ const sortedEventRows = context.sortedCompetitionEventRows([
 ]);
 assert.equal(JSON.stringify(sortedEventRows.map((row) => row.shortEventName)), JSON.stringify(['U10 Foil', 'U8 Foil', 'U14 Foil']));
 
+const groupedProjectRows = context.competitionProjectGroups([
+  { shortEventName: 'U8 男花', competitionNo: 12 },
+  { shortEventName: 'U10 男花', competitionNo: 8 },
+  { shortEventName: 'U8 女重', competitionNo: 7 },
+  { shortEventName: 'U12 男佩', competitionNo: 3 },
+]);
+assert.equal(groupedProjectRows[0].age, 'U8');
+assert.equal(groupedProjectRows[0].items.length, 2);
+assert.match(groupedProjectRows[0].weaponText, /花剑|重剑/);
+
 const digestRows = context.competitionDigestRows(
   {},
   { bullets: ['U8 foil is the strongest signal.'] },
@@ -98,6 +110,9 @@ assert.match(source, /function renderCompetitionRosterSnapshot\(competition\)/, 
 assert.match(source, /function competitionRosterWatchRows\(rosterRows\)/, 'pre-event competition detail must identify watch-list athletes from roster rows');
 assert.match(source, /function competitionProjectFocusRows\(competition, sortedItems\)/, 'competition detail must summarize what users should inspect first');
 assert.match(source, /function renderCompetitionProjectGuide\(competition, sortedItems\)/, 'competition detail must render a project guide before raw project cards');
+assert.match(source, /function competitionProjectGroups\(items\)/, 'competition detail must group full project access by age band');
+assert.match(source, /function renderCompetitionProjectGroups\(competition, sortedItems, eventCardHtml\)/, 'competition detail must render grouped full project access');
+assert.match(source, /按年龄段查看全部项目/, 'competition detail must offer grouped project navigation instead of a flat long list');
 assert.match(source, /const chips = competitionProjectSummaryChips\(competition\)/, 'competition hero must use structural project summary chips');
 assert.match(source, /class="competition-scope-grid"/, 'competition hero must show compact scope metrics instead of raw full labels');
 assert.match(source, /project-summary-row/, 'competition hero project summary must have a dedicated compact row');
@@ -125,5 +140,7 @@ assert.match(css, /\.competition-prematch-items/, 'pre-event priority project st
 assert.match(css, /\.competition-prematch-roster/, 'pre-event roster snapshot styles must exist');
 assert.match(css, /\.competition-prematch-roster-grid/, 'pre-event roster snapshot must use a mobile-safe layout');
 assert.match(css, /\.competition-project-guide/, 'project guide styles must exist');
+assert.match(css, /\.project-group-list/, 'grouped project list styles must exist');
+assert.match(css, /\.project-group-card > summary strong,[\s\S]*text-overflow:\s*ellipsis/, 'project group headers must stay mobile-safe');
 
 console.log('competition detail compact distributions are covered');

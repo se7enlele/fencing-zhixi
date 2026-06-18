@@ -2523,6 +2523,73 @@ select:focus {
   margin-top: 8px;
 }
 
+.project-group-list {
+  display: grid;
+  gap: 8px;
+}
+
+.project-group-list > summary {
+  list-style: none;
+  cursor: pointer;
+  border-radius: 8px;
+  background: rgba(13, 125, 103, 0.08);
+  color: var(--teal);
+  font-size: 13px;
+  font-weight: 900;
+  padding: 10px 11px;
+}
+
+.project-group-list > summary::-webkit-details-marker,
+.project-group-card > summary::-webkit-details-marker {
+  display: none;
+}
+
+.project-group-stack {
+  display: grid;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.project-group-card {
+  border: 1px solid rgba(16, 24, 40, 0.08);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.88);
+  overflow: hidden;
+}
+
+.project-group-card > summary {
+  display: grid;
+  gap: 3px;
+  cursor: pointer;
+  list-style: none;
+  padding: 10px 11px;
+}
+
+.project-group-card > summary strong,
+.project-group-card > summary span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.project-group-card > summary strong {
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.project-group-card > summary span {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.project-group-card .event-list-more-grid {
+  border-top: 1px solid rgba(16, 24, 40, 0.06);
+  margin-top: 0;
+  padding: 8px;
+}
+
 .competition-digest-panel {
   display: grid;
   gap: 10px;
