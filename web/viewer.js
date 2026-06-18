@@ -1768,9 +1768,9 @@ function renderHomePage() {
     homePage.innerHTML = '<section class="panel"><div class="loading-row">正在加载数据</div></section>';
     return;
   }
-  const competitions = topRecentCompetitions(3);
   const children = focusAthleteCards();
   const followedCompetitions = followedCompetitionCards();
+  const recentRows = (state.recentItems || []).slice(0, 3);
   const stats = [
     { value: state.competitions.length, label: '赛事收录' },
     { value: state.athleteSearchIndex.length, label: '选手画像' },
@@ -1788,17 +1788,22 @@ function renderHomePage() {
     </section>
     <section class="panel my-section">
       <div class="section-title">
-        <h2>近期值得看</h2>
-        <span>快速进入</span>
+        <h2>工作入口</h2>
+        <span>按任务进入</span>
       </div>
-      <div class="my-list">
-        ${competitions.length ? competitions.map((competition) => myPageRow({
-          type: 'competition',
-          id: competition.sportCode,
-          title: competition.sportName,
-          dateLabel: competition.dateLabel,
-          venue: competition.venue || competition.region || '',
-        })).join('') : '<div class="empty compact-empty">暂无赛事数据。</div>'}
+      <div class="home-action-grid">
+        <button type="button" data-home-competitions>
+          <strong>赛事数据</strong>
+          <span>搜索、筛选和进入赛事详情</span>
+        </button>
+        <button type="button" data-home-follow>
+          <strong>关注</strong>
+          <span>${escapeHtml(children.length + followedCompetitions.length ? `${children.length} 个选手 / ${followedCompetitions.length} 场赛事` : '添加重点选手和赛事')}</span>
+        </button>
+        <button type="button" data-home-my>
+          <strong>我的</strong>
+          <span>${escapeHtml(recentRows.length ? `最近查看 ${recentRows.length} 条` : '查看关注与访问记录')}</span>
+        </button>
       </div>
     </section>
     <section class="panel my-section">
@@ -1814,6 +1819,8 @@ function renderHomePage() {
     ${renderHomeDataCoverage()}
   `;
   homePage.querySelector('[data-home-competitions]')?.addEventListener('click', () => navigateMain('competitions'));
+  homePage.querySelector('[data-home-follow]')?.addEventListener('click', () => navigateMain('follow'));
+  homePage.querySelector('[data-home-my]')?.addEventListener('click', () => navigateMain('my'));
   homePage.querySelectorAll('[data-coverage-competition]').forEach((button) => {
     button.addEventListener('click', () => openCompetition(button.dataset.coverageCompetition));
   });

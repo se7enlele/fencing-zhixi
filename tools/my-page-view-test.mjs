@@ -39,6 +39,11 @@ assert.match(js, /下一步关注点/, 'parent dashboard must show actionable ne
 assert.match(js, /class="parent-next-focus"/, 'parent dashboard must render next focus rows');
 assert.match(js, /function renderAiWorkspace\(\)/, 'home page must include an AI workspace renderer');
 assert.match(js, /homePage\.innerHTML = `\s*\$\{renderAiWorkspace\('home'\)\}/, 'home page must start with the AI question workspace');
+assert.match(js, /<h2>工作入口<\/h2>/, 'home page must use task-oriented entry cards instead of another competition list');
+assert.match(js, /class="home-action-grid"/, 'home page must render compact task entry cards');
+assert.match(js, /data-home-follow/, 'home page must link directly to the follow tab');
+assert.match(js, /data-home-my/, 'home page must link directly to the my tab');
+assert.doesNotMatch(js, /function renderHomePage\(\)[\s\S]*<h2>近期值得看<\/h2>[\s\S]*function aiDefaultClub/, 'home page must not duplicate the competition list experience');
 assert.match(js, /<h2>闂?FencingAI<\/h2>|<h2>问 FencingAI<\/h2>/, 'AI workspace must be framed as the primary question entry');
 assert.match(js, /直接用问题查看击剑数据|鐩存帴鐢ㄩ棶棰樻煡鐪嬪嚮鍓戞暟鎹?/, 'AI home lead must explain question-first usage');
 assert.match(js, /data-home-competitions>赛事数据<\/button>|data-home-competitions>璧涗簨鏁版嵁<\/button>/, 'AI home must keep a secondary competition list entry');
@@ -64,6 +69,7 @@ assert.match(css, /background: transparent !important/, 'non-current bottom tabs
 assert.match(css, /\.ai-workspace/, 'AI workspace styles must exist');
 assert.match(css, /\.ai-home-primary/, 'AI home entry must have primary visual treatment');
 assert.match(css, /\.ai-home-actions/, 'AI home entry must expose secondary navigation actions');
+assert.match(css, /\.home-action-grid/, 'home action entry styles must exist');
 assert.match(css, /\.ai-evidence/, 'AI workspace must style source evidence cards');
 assert.match(css, /\.parent-next-focus/, 'parent next focus styles must exist');
 assert.match(css, /\.parent-focus-row/, 'parent focus row styles must exist');

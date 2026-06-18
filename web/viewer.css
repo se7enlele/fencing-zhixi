@@ -1686,6 +1686,45 @@ select:focus {
   margin-bottom: 0;
 }
 
+.home-action-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.home-action-grid button {
+  display: grid;
+  align-content: start;
+  gap: 5px;
+  min-height: 84px;
+  border: 1px solid rgba(16, 24, 40, 0.08);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--text);
+  font: inherit;
+  text-align: left;
+  padding: 10px;
+  box-shadow: var(--shadow);
+}
+
+.home-action-grid strong,
+.home-action-grid span {
+  display: block;
+  min-width: 0;
+}
+
+.home-action-grid strong {
+  color: var(--primary);
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.home-action-grid span {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.35;
+}
+
 .my-list {
   display: grid;
   gap: 8px;
