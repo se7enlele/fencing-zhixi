@@ -2330,7 +2330,11 @@ function buildAiCompetitionStats(query, filters) {
     const regionOk = filters.region ? regionText.includes(filters.region) : true;
     const statusOk = filters.status ? competition.status === filters.status : true;
     return yearOk && monthOk && regionOk && statusOk;
-  }).sort((a, b) => String(a.dateLabel || '').localeCompare(String(b.dateLabel || ''), 'zh-CN'));
+  }).sort((a, b) => {
+    const dayA = Math.abs(daysFromToday(competitionDateValue(a)));
+    const dayB = Math.abs(daysFromToday(competitionDateValue(b)));
+    return dayA - dayB || String(a.dateLabel || '').localeCompare(String(b.dateLabel || ''), 'zh-CN');
+  });
 
   const statusCounts = rows.reduce((map, competition) => {
     const label = statusLabel(competition.status);
@@ -2344,6 +2348,9 @@ function buildAiCompetitionStats(query, filters) {
     map.set(label, (map.get(label) || 0) + 1);
     return map;
   }, new Map());
+  const watchRows = rows
+    .filter((competition) => ['registration', 'upcoming', 'live'].includes(competition.status) || competition.isPreEvent)
+    .slice(0, 3);
   const regionLabel = filters.region || '全部地区';
   const yearLabel = filters.year || '全部年份';
   const monthLabel = filters.month ? `${filters.month}月` : '全部月份';
@@ -2369,6 +2376,10 @@ function buildAiCompetitionStats(query, filters) {
         title: '状态分布',
         rows: [...statusCounts.entries()].map(([label, count]) => `${label}：${count} 场`),
       },
+      watchRows.length ? {
+        title: '近期可看',
+        rows: watchRows.map((competition) => `${competition.sportName} · ${displayDateLabel(competition.dateLabel)} · ${statusLabel(competition.status)}`),
+      } : null,
       monthCounts.size ? {
         title: '时间分布',
         rows: [...monthCounts.entries()]
@@ -2389,8 +2400,9 @@ function buildAiCompetitionStats(query, filters) {
       sportCode: competition.sportCode,
     })),
     actions: [
+      watchRows[0]?.sportCode ? { label: '加入赛前提醒', followCompetitionCode: watchRows[0].sportCode } : null,
       { label: rows.length ? '查看匹配赛事' : '进入赛事列表', mainTab: 'competitions', filters },
-    ],
+    ].filter(Boolean),
   };
 }
 

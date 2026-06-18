@@ -36,6 +36,8 @@ assert.match(js, /名单未完整时，只做项目级和赛事级判断/, 'AI p
 assert.match(js, /暂未发现两人的直接交手记录/, 'AI comparison must not imply direct bouts when none are found');
 assert.match(js, /没有直接交手时，不会推断真实胜负/, 'AI comparison must disclose data boundary');
 assert.match(js, /title: '时间分布'/, 'AI competition stats must include month distribution when available');
+assert.match(js, /title: '近期可看'/, 'AI competition stats must surface actionable upcoming competitions');
+assert.match(js, /followCompetitionCode: watchRows\[0\]\.sportCode/, 'AI competition stats must allow users to add the nearest actionable competition to reminders');
 assert.match(js, /kind: '共同项目'/, 'AI evidence must label shared project evidence');
 assert.match(js, /reason: '用于比较同一项目里的名次差距'/, 'AI evidence must explain why a source supports the answer');
 assert.match(js, /function aiEvidenceKind\(row\)/, 'AI evidence renderer must normalize evidence type labels');
