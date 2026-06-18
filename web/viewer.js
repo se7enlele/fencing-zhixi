@@ -1962,11 +1962,21 @@ function bindAiWorkspace(container) {
   const answer = container.querySelector('#aiAnswer');
   if (!form || !input || !answer) return;
 
+  const bindAnswer = () => {
+    bindAiAnswerActions(answer);
+    answer.querySelectorAll('[data-ai-follow-up]').forEach((button) => {
+      button.addEventListener('click', () => {
+        input.value = button.dataset.aiFollowUp || '';
+        run(input.value);
+      });
+    });
+  };
+
   const run = async (query) => {
     const normalizedQuery = String(query || '').trim();
     if (!normalizedQuery) {
       answer.innerHTML = renderAiAnswer(buildAiAnswer(normalizedQuery));
-      bindAiAnswerActions(answer);
+      bindAnswer();
       return;
     }
 
@@ -1975,11 +1985,11 @@ function bindAiWorkspace(container) {
       await ensureAiEntityContext(normalizedQuery);
       const report = buildAiAnswer(normalizedQuery);
       answer.innerHTML = renderAiAnswer(report);
-      bindAiAnswerActions(answer);
+      bindAnswer();
     } catch {
       const report = buildAiAnswer(normalizedQuery);
       answer.innerHTML = renderAiAnswer(report);
-      bindAiAnswerActions(answer);
+      bindAnswer();
     }
   };
 
@@ -2688,7 +2698,46 @@ function aiNextStepRows(report) {
   ];
 }
 
+function aiFollowUpPrompts(report) {
+  const filters = report.actions?.find((action) => action.filters)?.filters || {};
+  const region = filters.region || '天津';
+  const year = filters.year || '2026';
+  const month = filters.month ? `${filters.month}月` : '';
+  if (report.type === 'competition-stats') {
+    return [
+      `${year}${month}${region}报名情况`,
+      `${region}近期有哪些比赛`,
+    ];
+  }
+  if (report.type === 'prematch') {
+    return [
+      `${year}${month}${region}有几场比赛`,
+      '山东小众体育 U8 男花怎么样',
+    ];
+  }
+  if (report.type === 'comparison') {
+    const [left, right] = String(report.title || '').split(/\s+vs\s+/i);
+    return [left && `${left}最近几场有没有进步`, right && `${right}最近几场有没有进步`].filter(Boolean);
+  }
+  if (report.type === 'growth') {
+    const athlete = String(report.title || '').replace(/的成长趋势$|成长报告$/g, '').trim();
+    return [
+      athlete ? `分析${athlete}和马潇的对比情况` : '分析马潇和陶嘉月的对比情况',
+      '天津近期报名情况',
+    ];
+  }
+  if (report.type === 'club') {
+    const clubName = String(report.title || '').split(' ')[0] || '山东小众体育';
+    return [
+      `${clubName}有哪些优势项目`,
+      '天津近期报名情况',
+    ];
+  }
+  return aiPromptPresets().slice(0, 2);
+}
+
 function renderAiAnswer(report) {
+  const followUps = aiFollowUpPrompts(report).slice(0, 2);
   return `
     <div class="ai-answer-card">
       <div class="ai-answer-head">
@@ -2730,6 +2779,14 @@ function renderAiAnswer(report) {
         <strong>下一步</strong>
         ${aiNextStepRows(report).map((row) => `<span>${escapeHtml(row)}</span>`).join('')}
       </div>
+      ${followUps.length ? `
+        <div class="ai-follow-up-row">
+          <strong>继续问</strong>
+          <div>
+            ${followUps.map((prompt) => `<button type="button" data-ai-follow-up="${escapeHtml(prompt)}">${escapeHtml(prompt)}</button>`).join('')}
+          </div>
+        </div>
+      ` : ''}
       ${report.actions?.length ? `
         <div class="ai-action-row">
           ${report.actions.map((action) => `

@@ -44,15 +44,20 @@ assert.match(js, /followAthleteId: athlete\.id/, 'AI growth answers must include
 assert.match(js, /data-follow-athlete-id/, 'AI action buttons must support follow-athlete actions');
 assert.match(js, /upsertFollowedAthlete\(athlete\)/, 'AI follow action must reuse the existing follow handler');
 assert.match(js, /function aiNextStepRows\(report\)/, 'AI answers must include contextual next-step guidance');
+assert.match(js, /function aiFollowUpPrompts\(report\)/, 'AI answers must generate related follow-up questions');
 assert.match(js, /prematch:\s*\[[\s\S]*同组对手、强手和主要俱乐部分布/, 'AI prematch answers must guide users toward opponent and club checks');
 assert.match(js, /comparison:\s*\[[\s\S]*共同项目和直接交手证据/, 'AI comparison answers must tell users to verify evidence before judging');
 assert.match(js, /<div class="ai-next-steps">/, 'AI answer renderer must show next-step guidance');
+assert.match(js, /class="ai-follow-up-row"/, 'AI answer renderer must show follow-up question chips');
+assert.match(js, /data-ai-follow-up/, 'AI follow-up chips must carry runnable query text');
+assert.match(js, /answer\.querySelectorAll\('\[data-ai-follow-up\]'\)/, 'AI workspace must bind follow-up chips after each answer');
 assert.match(js, /class="ai-source-note"/, 'AI answer must render data boundary notes');
 assert.match(js, /<em>\$\{escapeHtml\(aiEvidenceKind\(row\)\)\}<\/em>/, 'AI evidence cards must show evidence type');
 assert.match(js, /<small>\$\{escapeHtml\(row\.reason\)\}<\/small>/, 'AI evidence cards must show relevance reason');
 
 assert.match(css, /\.ai-source-note/, 'AI source note styles must exist');
 assert.match(css, /\.ai-next-steps/, 'AI next-step styles must exist');
+assert.match(css, /\.ai-follow-up-row/, 'AI follow-up question styles must exist');
 assert.match(css, /\.ai-evidence button em/, 'AI evidence type badge styles must exist');
 assert.match(css, /\.ai-evidence button small/, 'AI evidence reason styles must exist');
 assert.match(css, /contain: inline-size/, 'Pool process cards must contain wide tables inside the mobile viewport');
