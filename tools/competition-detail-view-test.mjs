@@ -3,6 +3,7 @@ import { readFile } from 'node:fs/promises';
 import vm from 'node:vm';
 
 const source = await readFile(new URL('../web/viewer.js', import.meta.url), 'utf8');
+const html = await readFile(new URL('../web/viewer.html', import.meta.url), 'utf8');
 const start = source.indexOf('function compactCompetitionBarRows');
 const end = source.indexOf('function renderCompetitionInsights');
 
@@ -95,6 +96,8 @@ assert.match(source, /function renderCompetitionPreEventPanel\(competition\)/, '
 assert.match(source, /function competitionRosterRows\(competition\)/, 'pre-event competition detail must aggregate imported roster rows');
 assert.match(source, /function renderCompetitionRosterSnapshot\(competition\)/, 'pre-event competition detail must show a roster snapshot when registration data exists');
 assert.match(source, /function competitionRosterWatchRows\(rosterRows\)/, 'pre-event competition detail must identify watch-list athletes from roster rows');
+assert.match(source, /function competitionProjectFocusRows\(competition, sortedItems\)/, 'competition detail must summarize what users should inspect first');
+assert.match(source, /function renderCompetitionProjectGuide\(competition, sortedItems\)/, 'competition detail must render a project guide before raw project cards');
 assert.match(source, /const chips = competitionProjectSummaryChips\(competition\)/, 'competition hero must use structural project summary chips');
 assert.match(source, /class="competition-scope-grid"/, 'competition hero must show compact scope metrics instead of raw full labels');
 assert.match(source, /project-summary-row/, 'competition hero project summary must have a dedicated compact row');
@@ -104,10 +107,13 @@ assert.match(source, /registered \? `报名 \$\{registered\}` : rosterStatusLabe
 assert.match(source, /compactCompetitionEventRows\(eventRows, 3\)/, 'competition insight project comparison should stay compact on mobile');
 assert.match(source, /limit:\s*4,[\s\S]*otherLabel:\s*'其他年龄段'/, 'competition age distribution should aggregate lower-priority age buckets');
 assert.match(source, /const primaryItems = sortedItems\.slice\(0, 4\)/, 'competition event list should show only priority projects by default');
+assert.match(source, /renderCompetitionProjectGuide\(competition, sortedItems\)/, 'competition event list must put user-facing project guidance before cards');
+assert.match(source, /默认展示最关键的 4 个项目/, 'project guide must explain collapsed project access in user-facing terms');
 assert.match(source, /renderCompetitionRosterSnapshot\(competition\)/, 'pre-event competition insight area must include roster snapshot analysis');
 assert.match(source, /class="event-list-more"/, 'competition event list must hide lower-priority projects behind an expandable section');
 assert.match(source, /secondaryItems\.length/, 'competition event list must keep full project access without showing everything by default');
 assert.doesNotMatch(source, /更新后会展示具体组别、剑种、报名规模和后续赛果入口/, 'empty project copy must not expose back-office update wording');
+assert.doesNotMatch(html, /赛事画像|结构与年龄段|项目列表/, 'competition detail headings must use product-facing language');
 
 const css = await readFile(new URL('../web/viewer.css', import.meta.url), 'utf8');
 assert.match(css, /\.competition-scope-grid/, 'competition scope summary styles must exist');
@@ -118,5 +124,6 @@ assert.match(css, /\.competition-prematch-panel/, 'pre-event preparation panel s
 assert.match(css, /\.competition-prematch-items/, 'pre-event priority project styles must exist');
 assert.match(css, /\.competition-prematch-roster/, 'pre-event roster snapshot styles must exist');
 assert.match(css, /\.competition-prematch-roster-grid/, 'pre-event roster snapshot must use a mobile-safe layout');
+assert.match(css, /\.competition-project-guide/, 'project guide styles must exist');
 
 console.log('competition detail compact distributions are covered');

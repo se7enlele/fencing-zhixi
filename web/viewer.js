@@ -3813,6 +3813,70 @@ function setInlineError(container, message) {
   container.innerHTML = `<div class="empty">${escapeHtml(message)}</div>`;
 }
 
+function competitionProjectFocusRows(competition, sortedItems) {
+  const isPreEventCompetition = competition.isPreEvent || ['registration', 'upcoming', 'live'].includes(competition.status);
+  const itemCount = sortedItems.length;
+  const primary = sortedItems[0] || null;
+  const secondaryCount = Math.max(0, itemCount - 4);
+  const rosterRows = isPreEventCompetition ? competitionRosterRows(competition) : [];
+  const registered = primary ? (Number(primary.registrationCount) || Number(primary.roster?.length) || 0) : 0;
+  const expected = primary ? (Number(primary.expectedRegistrationCount) || Number(primary.competitionNo) || 0) : 0;
+  const elimination = primary ? Number(primary.playedEliminationMatchCount) || 0 : 0;
+  const rows = [];
+
+  if (isPreEventCompetition) {
+    rows.push({
+      title: primary ? '优先看报名项目' : '优先看赛事安排',
+      detail: primary
+        ? `${displayEventName(primary)} · ${registered ? `报名 ${registered} 人` : expected ? `预计 ${expected} 人` : '规模待确认'}`
+        : '先关注比赛时间、地点和报名窗口。',
+    });
+    rows.push({
+      title: rosterRows.length ? '赛前可看对手' : '等待名单完善',
+      detail: rosterRows.length
+        ? `已收录 ${rosterRows.length} 条报名记录，可进入项目查看同组选手和重点对手。`
+        : `${itemCount || '多个'} 项目已开放，名单完善后再看对手分布和备赛重点。`,
+    });
+  } else {
+    rows.push({
+      title: primary ? '优先看重点项目' : '优先看比赛结果',
+      detail: primary
+        ? `${displayEventName(primary)} · ${Number(primary.competitionNo) || 0} 人，${Number(primary.poolQualifyNo) || 0} 人晋级`
+        : '先看总览，再进入具体项目复盘小组和单败路径。',
+    });
+    rows.push({
+      title: elimination ? '复盘淘汰赛' : '复盘小组表现',
+      detail: elimination
+        ? `重点项目已有 ${elimination} 场淘汰赛，可查看单败表和关键对手。`
+        : '优先看小组排名、晋级情况和最终排名变化。',
+    });
+  }
+
+  if (secondaryCount) {
+    rows.push({
+      title: '完整项目',
+      detail: `默认展示最关键的 4 个项目，其余 ${secondaryCount} 个可展开查看。`,
+    });
+  }
+
+  return rows;
+}
+
+function renderCompetitionProjectGuide(competition, sortedItems) {
+  const rows = competitionProjectFocusRows(competition, sortedItems);
+  if (!rows.length) return '';
+  return `
+    <div class="competition-project-guide">
+      ${rows.map((row) => `
+        <div>
+          <strong>${escapeHtml(row.title)}</strong>
+          <span>${escapeHtml(row.detail)}</span>
+        </div>
+      `).join('')}
+    </div>
+  `;
+}
+
 function renderEventList(competition) {
   const eventItems = competition.items || competition.itemSummaries || [];
   if (!eventItems.length) {
@@ -3853,6 +3917,7 @@ function renderEventList(competition) {
   };
 
   eventList.innerHTML = `
+    ${renderCompetitionProjectGuide(competition, sortedItems)}
     ${primaryItems.map(eventCardHtml).join('')}
     ${secondaryItems.length ? `
       <details class="event-list-more">

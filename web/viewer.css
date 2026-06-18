@@ -2259,6 +2259,41 @@ select:focus {
   color: var(--teal);
 }
 
+.competition-project-guide {
+  display: grid;
+  gap: 8px;
+  border: 1px solid rgba(13, 125, 103, 0.14);
+  border-radius: 10px;
+  background: linear-gradient(180deg, rgba(13, 125, 103, 0.055), rgba(255, 255, 255, 0.86));
+  padding: 10px;
+}
+
+.competition-project-guide div {
+  min-width: 0;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.72);
+  padding: 9px 10px;
+}
+
+.competition-project-guide strong,
+.competition-project-guide span {
+  display: block;
+  min-width: 0;
+}
+
+.competition-project-guide strong {
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.competition-project-guide span {
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
 .event-list-more {
   display: grid;
   gap: 8px;
