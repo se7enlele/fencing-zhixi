@@ -2861,6 +2861,18 @@ function renderAiAnswer(report) {
           ${section.rows.map((row) => `<span>${escapeHtml(row)}</span>`).join('')}
         </div>
       `).join('')}
+      ${report.actions?.length ? `
+        <div class="ai-action-block">
+          <strong>可继续操作</strong>
+          <div class="ai-action-row">
+            ${report.actions.map((action) => `
+              <button type="button" ${action.athleteId ? `data-athlete-id="${escapeHtml(action.athleteId)}"` : ''} ${action.followAthleteId ? `data-follow-athlete-id="${escapeHtml(action.followAthleteId)}"` : ''} ${action.followCompetitionCode ? `data-follow-competition-code="${escapeHtml(action.followCompetitionCode)}"` : ''} ${action.clubId ? `data-club-id="${escapeHtml(action.clubId)}"` : ''} ${action.mainTab ? `data-main-target="${escapeHtml(action.mainTab)}"` : ''} ${action.filters ? `data-ai-filters="${escapeHtml(encodeURIComponent(JSON.stringify(action.filters)))}"` : ''}>
+                ${escapeHtml(action.label)}
+              </button>
+            `).join('')}
+          </div>
+        </div>
+      ` : ''}
       ${report.evidence?.length ? `
         <div class="ai-evidence">
           <div class="chart-title">证据来源</div>
@@ -2885,15 +2897,6 @@ function renderAiAnswer(report) {
           <div>
             ${followUps.map((prompt) => `<button type="button" data-ai-follow-up="${escapeHtml(prompt)}">${escapeHtml(prompt)}</button>`).join('')}
           </div>
-        </div>
-      ` : ''}
-      ${report.actions?.length ? `
-        <div class="ai-action-row">
-          ${report.actions.map((action) => `
-            <button type="button" ${action.athleteId ? `data-athlete-id="${escapeHtml(action.athleteId)}"` : ''} ${action.followAthleteId ? `data-follow-athlete-id="${escapeHtml(action.followAthleteId)}"` : ''} ${action.followCompetitionCode ? `data-follow-competition-code="${escapeHtml(action.followCompetitionCode)}"` : ''} ${action.clubId ? `data-club-id="${escapeHtml(action.clubId)}"` : ''} ${action.mainTab ? `data-main-target="${escapeHtml(action.mainTab)}"` : ''} ${action.filters ? `data-ai-filters="${escapeHtml(encodeURIComponent(JSON.stringify(action.filters)))}"` : ''}>
-              ${escapeHtml(action.label)}
-            </button>
-          `).join('')}
         </div>
       ` : ''}
     </div>

@@ -50,6 +50,12 @@ assert.match(js, /function aiFollowAthleteAction\(athlete\)/, 'AI answers must e
 assert.match(js, /followAthleteId: athlete\.id/, 'AI growth answers must include follow athlete action payload');
 assert.match(js, /data-follow-athlete-id/, 'AI action buttons must support follow-athlete actions');
 assert.match(js, /upsertFollowedAthlete\(athlete\)/, 'AI follow action must reuse the existing follow handler');
+assert.match(js, /class="ai-action-block"/, 'AI answers must promote executable actions as a dedicated block');
+assert.match(js, /<strong>可继续操作<\/strong>/, 'AI action block must use product-facing action copy');
+assert.ok(
+  js.indexOf('class="ai-action-block"') > -1 && js.indexOf('class="ai-action-block"') < js.indexOf('class="ai-evidence"'),
+  'AI action block should appear before evidence so users can act first and verify next',
+);
 assert.match(js, /function aiNextStepRows\(report\)/, 'AI answers must include contextual next-step guidance');
 assert.match(js, /function aiFollowUpPrompts\(report\)/, 'AI answers must generate related follow-up questions');
 assert.match(js, /prematch:\s*\[[\s\S]*同组对手、强手和主要俱乐部分布/, 'AI prematch answers must guide users toward opponent and club checks');
@@ -63,6 +69,7 @@ assert.match(js, /<em>\$\{escapeHtml\(aiEvidenceKind\(row\)\)\}<\/em>/, 'AI evid
 assert.match(js, /<small>\$\{escapeHtml\(row\.reason\)\}<\/small>/, 'AI evidence cards must show relevance reason');
 
 assert.match(css, /\.ai-source-note/, 'AI source note styles must exist');
+assert.match(css, /\.ai-action-block/, 'AI action block styles must exist');
 assert.match(css, /\.ai-next-steps/, 'AI next-step styles must exist');
 assert.match(css, /\.ai-follow-up-row/, 'AI follow-up question styles must exist');
 assert.match(css, /\.ai-evidence button em/, 'AI evidence type badge styles must exist');

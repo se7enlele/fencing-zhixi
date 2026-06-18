@@ -1583,6 +1583,21 @@ select:focus {
   padding: 8px 9px;
 }
 
+.ai-action-block {
+  display: grid;
+  gap: 8px;
+  border: 1px solid rgba(21, 95, 194, 0.14);
+  border-radius: 10px;
+  background: rgba(21, 95, 194, 0.045);
+  padding: 10px;
+}
+
+.ai-action-block > strong {
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 900;
+}
+
 .ai-next-steps {
   display: grid;
   gap: 6px;
