@@ -1725,6 +1725,114 @@ select:focus {
   line-height: 1.35;
 }
 
+.focus-dashboard {
+  display: grid;
+  gap: 10px;
+  border-color: rgba(13, 125, 103, 0.14);
+  background:
+    radial-gradient(circle at top right, rgba(13, 125, 103, 0.12), transparent 36%),
+    rgba(255, 255, 255, 0.94);
+}
+
+.focus-dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.focus-dashboard-grid div {
+  min-width: 0;
+  border: 1px solid rgba(16, 24, 40, 0.06);
+  border-radius: 9px;
+  background: rgba(255, 255, 255, 0.78);
+  padding: 9px;
+}
+
+.focus-dashboard-grid strong,
+.focus-dashboard-grid span,
+.focus-next-step strong,
+.focus-next-step span {
+  display: block;
+  min-width: 0;
+}
+
+.focus-dashboard-grid strong {
+  color: var(--primary);
+  font-size: 20px;
+  line-height: 1;
+}
+
+.focus-dashboard-grid span {
+  margin-top: 5px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.focus-next-step {
+  border-radius: 10px;
+  background: rgba(13, 125, 103, 0.075);
+  padding: 10px;
+}
+
+.focus-next-step strong {
+  color: var(--teal);
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.focus-next-step span {
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.focus-alert-list {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.focus-alert-card {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+  border: 1px solid rgba(21, 95, 194, 0.1);
+  border-radius: 10px;
+  background: rgba(21, 95, 194, 0.045);
+  color: var(--text);
+  font: inherit;
+  text-align: left;
+  padding: 10px;
+}
+
+.focus-alert-card strong,
+.focus-alert-card span,
+.focus-alert-card em {
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.focus-alert-card strong {
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.focus-alert-card span {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.focus-alert-card em {
+  color: var(--primary);
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 800;
+}
+
 .my-list {
   display: grid;
   gap: 8px;

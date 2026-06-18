@@ -1734,6 +1734,28 @@ function followedCompetitionCards() {
   }).filter((competition) => competition.sportCode);
 }
 
+function focusCompetitionPriorityRows(competitions) {
+  return [...(competitions || [])]
+    .map((competition) => {
+      const days = daysFromToday(competitionDateValue(competition));
+      const timing = days === 0 ? '今天' : days > 0 && days <= 30 ? `${days} 天后` : days < 0 && days >= -14 ? `${Math.abs(days)} 天前` : statusLabel(competition.status);
+      const level = competitionCoverageLevel(competition);
+      const action = level === 'roster'
+        ? '可看报名名单和潜在对手'
+        : level === 'score'
+          ? '可复盘成绩和晋级路径'
+          : '先关注项目和赛程';
+      return {
+        ...competition,
+        days,
+        timing,
+        action,
+      };
+    })
+    .sort((a, b) => Math.abs(a.days) - Math.abs(b.days) || String(a.sportName).localeCompare(String(b.sportName), 'zh-CN'))
+    .slice(0, 3);
+}
+
 function myPageRow(row) {
   const subtitle = row.type === 'competition'
     ? `${displayDateLabel(row.dateLabel)} · ${row.venue || '地点待确认'}`
@@ -1758,6 +1780,11 @@ function bindPersonalList(container) {
       if (button.dataset.type === 'competition') openCompetition(button.dataset.id);
       if (button.dataset.type === 'athlete') openAthlete(button.dataset.id);
       if (button.dataset.type === 'club') openClub(button.dataset.id);
+    });
+  });
+  container.querySelectorAll('.focus-alert-card').forEach((button) => {
+    button.addEventListener('click', () => {
+      if (button.dataset.type === 'competition') openCompetition(button.dataset.id);
     });
   });
 }
@@ -2761,7 +2788,32 @@ function renderFocusPage() {
   if (!focusPage) return;
   const children = focusAthleteCards();
   const followedCompetitions = followedCompetitionCards();
+  const priorityCompetitions = focusCompetitionPriorityRows(followedCompetitions);
   focusPage.innerHTML = `
+    <section class="panel focus-dashboard">
+      <div class="section-title">
+        <h2>关注工作台</h2>
+        <span>赛前与成长</span>
+      </div>
+      <div class="focus-dashboard-grid">
+        <div>
+          <strong>${escapeHtml(children.length)}</strong>
+          <span>关注选手</span>
+        </div>
+        <div>
+          <strong>${escapeHtml(followedCompetitions.length)}</strong>
+          <span>关注赛事</span>
+        </div>
+        <div>
+          <strong>${escapeHtml(priorityCompetitions.length)}</strong>
+          <span>近期提醒</span>
+        </div>
+      </div>
+      <div class="focus-next-step">
+        <strong>${escapeHtml(priorityCompetitions.length ? '先看近期赛事' : children.length ? '先看成长变化' : '先添加关注')}</strong>
+        <span>${escapeHtml(priorityCompetitions[0]?.sportName || children[0]?.summary || '从选手或赛事详情页添加关注后，这里会形成赛前提醒和成长入口。')}</span>
+      </div>
+    </section>
     <section class="panel my-section">
       <div class="section-title">
         <h2>关注选手</h2>
@@ -2782,9 +2834,20 @@ function renderFocusPage() {
     </section>
     <section class="panel my-section">
       <div class="section-title">
-        <h2>关注赛事</h2>
-        <span>${followedCompetitions.length ? `${followedCompetitions.length} 场` : '赛前提醒'}</span>
+        <h2>赛前提醒</h2>
+        <span>${priorityCompetitions.length ? `${priorityCompetitions.length} 个重点` : '待关注'}</span>
       </div>
+      ${priorityCompetitions.length ? `
+        <div class="focus-alert-list">
+          ${priorityCompetitions.map((competition) => `
+            <button type="button" class="focus-alert-card" data-type="competition" data-id="${escapeHtml(competition.sportCode)}">
+              <strong>${escapeHtml(competition.sportName)}</strong>
+              <span>${escapeHtml(competition.timing)} · ${escapeHtml(displayDateLabel(competition.dateLabel))}</span>
+              <em>${escapeHtml(competition.action)}</em>
+            </button>
+          `).join('')}
+        </div>
+      ` : ''}
       <div class="my-list">
         ${followedCompetitions.length ? followedCompetitions.map((competition) => myPageRow({
           type: 'competition',

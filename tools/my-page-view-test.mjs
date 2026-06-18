@@ -58,6 +58,11 @@ assert.match(js, /function buildAiCompetitionStats\(query, filters\)/, 'AI works
 assert.match(js, /data-sport-code/, 'AI evidence cards must link back to competition details');
 assert.match(js, /replaceAll\('马消', '马潇'\)/, 'AI workspace must tolerate common athlete name typos');
 assert.match(js, /function renderFocusPage\(\)/, 'follow page renderer must exist');
+assert.match(js, /function focusCompetitionPriorityRows\(competitions\)/, 'follow page must prioritize followed competitions for reminders');
+assert.match(js, /class="panel focus-dashboard"/, 'follow page must render a dashboard summary');
+assert.match(js, /<h2>关注工作台<\/h2>/, 'follow page must frame follows as a workspace');
+assert.match(js, /<h2>赛前提醒<\/h2>/, 'follow page must expose pre-match reminders');
+assert.match(js, /class="focus-alert-card"/, 'follow page must render reminder cards for followed competitions');
 assert.match(js, /function renderMyPage\(\)/, 'my page renderer must exist');
 assert.match(js, /function upsertFollowedCompetition\(competition\)/, 'competition follow handler must exist');
 assert.match(js, /trackRecentItem\(\{[\s\S]*type: 'competition'/, 'competition detail views must be tracked as recent items');
@@ -73,6 +78,8 @@ assert.match(css, /\.home-action-grid/, 'home action entry styles must exist');
 assert.match(css, /\.ai-evidence/, 'AI workspace must style source evidence cards');
 assert.match(css, /\.parent-next-focus/, 'parent next focus styles must exist');
 assert.match(css, /\.parent-focus-row/, 'parent focus row styles must exist');
+assert.match(css, /\.focus-dashboard/, 'follow dashboard styles must exist');
+assert.match(css, /\.focus-alert-card/, 'follow alert card styles must exist');
 assert.match(css, /\.my-page-shell/, 'personal page styles must exist');
 assert.match(css, /\.competition-follow-tag/, 'competition follow tag styles must exist');
 
