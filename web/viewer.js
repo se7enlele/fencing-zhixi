@@ -544,11 +544,17 @@ function scheduledSyncStatusLabel(syncStatus) {
   const summary = syncStatus.summary || {};
   const updatedCount = Number(summary.taskCount || 0);
   const failedCount = Number(summary.failedCount || 0);
+  const taskTypes = summary.taskTypes || {};
+  const parts = [
+    Number(taskTypes['pre-event-roster'] || 0) ? `报名 ${Number(taskTypes['pre-event-roster'] || 0)}` : '',
+    Number(taskTypes['completed-score'] || 0) ? `成绩 ${Number(taskTypes['completed-score'] || 0)}` : '',
+    Number(taskTypes['historical-score-backfill'] || summary.backfillCount || 0) ? `历史补齐 ${Number(taskTypes['historical-score-backfill'] || summary.backfillCount || 0)}` : '',
+  ].filter(Boolean);
   if (failedCount > 0) {
-    return `${generatedLabel} 更新检查发现 ${failedCount} 项异常`;
+    return `${generatedLabel} 更新检查发现 ${failedCount} 项异常，已保留可用数据`;
   }
   if (updatedCount > 0) {
-    return `${generatedLabel} 已完成 ${updatedCount} 项数据更新`;
+    return `${generatedLabel} 已完成 ${updatedCount} 项更新${parts.length ? `：${parts.join('、')}` : ''}`;
   }
   return `${generatedLabel} 已完成数据检查`;
 }

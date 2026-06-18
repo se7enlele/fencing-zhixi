@@ -9,6 +9,11 @@ assert.match(js, /function dataCoveragePriorityRows\(competitions, limit = 3\)/,
 assert.match(js, /function renderHomeDataCoverage\(\)/, 'home page must render product-facing data coverage status');
 assert.match(js, /function formatDataGeneratedAt\(value\)/, 'data status must format generatedAt for users');
 assert.match(js, /function scheduledSyncStatusLabel\(syncStatus\)/, 'data status must format the latest scheduled sync status');
+assert.match(js, /taskTypes = summary\.taskTypes \|\| \{\}/, 'scheduled sync status must read task type counts');
+assert.match(js, /pre-event-roster/, 'scheduled sync status must expose pre-event roster work');
+assert.match(js, /completed-score/, 'scheduled sync status must expose completed score work');
+assert.match(js, /historical-score-backfill/, 'scheduled sync status must expose historical backfill work');
+assert.match(js, /历史补齐/, 'scheduled sync status must translate backfill into product-facing copy');
 assert.match(js, /state\.dataGeneratedAt = result\.generatedAt \|\| ''/, 'initial data load must store generatedAt from the public data index');
 assert.match(js, /state\.dataCoverage = result\.dataCoverage \|\| null/, 'initial data load must store data coverage and sync status');
 assert.match(js, /数据更新于/, 'home data status should show the data refresh time when available');
