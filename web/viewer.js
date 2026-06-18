@@ -5727,6 +5727,58 @@ function coachOpponentProjectRows(opponentPool, projectRows) {
     .filter((row) => row.opponents.length);
 }
 
+function athleteProjectLabelsForPrematch(athlete) {
+  return uniqueBy((athlete.events || [])
+    .map((event) => displayEventName(event))
+    .filter(Boolean), (label) => compactText(label)).slice(0, 3);
+}
+
+function coachAthleteOpponentRows({ rosterRows, athletes, opponentPool, projectRows }) {
+  const rows = [];
+  const used = new Set();
+  const rosterCandidates = (rosterRows || [])
+    .map((row) => {
+      const history = rosterHistoryMatch(row);
+      return {
+        id: history?.id || row.athleteId || row.registerCode || '',
+        name: rosterAthleteLabel(row),
+        projectLabel: rosterEventLabel(row),
+        bestRank: history?.bestRank ?? null,
+        appearances: history?.appearances ?? 0,
+        source: '报名名单',
+      };
+    });
+  const athleteCandidates = (athletes || []).map((athlete) => ({
+    id: athlete.id || '',
+    name: athlete.name,
+    projectLabel: athleteProjectLabelsForPrematch(athlete)[0] || projectRows[0]?.label || '',
+    bestRank: athlete.bestRank ?? null,
+    appearances: athlete.appearances ?? 0,
+    source: '历史学员',
+  }));
+
+  for (const candidate of [...rosterCandidates, ...athleteCandidates]) {
+    const key = compactText(candidate.name);
+    if (!key || used.has(key)) continue;
+    const projectLabel = candidate.projectLabel || projectRows[0]?.label || '';
+    const opponents = opponentPool
+      .filter((athlete) => athleteMatchesProjectLabel(athlete, projectLabel))
+      .filter((athlete) => compactText(athlete.name) !== key)
+      .sort((a, b) => (a.bestRank ?? 999) - (b.bestRank ?? 999) || (b.appearances || 0) - (a.appearances || 0))
+      .slice(0, 2);
+    if (!opponents.length) continue;
+    used.add(key);
+    rows.push({
+      ...candidate,
+      projectLabel,
+      opponents,
+    });
+    if (rows.length >= 4) break;
+  }
+
+  return rows;
+}
+
 function rosterAthleteLabel(row) {
   return row.athleteName || row.memberName || row.name || row.userName || '未命名选手';
 }
@@ -5819,6 +5871,7 @@ function renderPreMatchIntelligence(club, projectRows, athletes, providedRosterR
   const topProjects = projectRows.slice(0, 3);
   const rosterSummary = rosterItemSummary(rosterRows);
   const preparationRows = rosterPreparationRows(rosterRows, athletes);
+  const athleteOpponentRows = coachAthleteOpponentRows({ rosterRows, athletes, opponentPool, projectRows });
   const actionCards = preMatchActionCards(rosterRows, opponentPool, relevantCompetitions);
   const readiness = rosterRows.length
     ? `已识别到 ${rosterRows.length} 条本馆报名记录，可以按项目拆解备赛重点。`
@@ -5885,6 +5938,25 @@ function renderPreMatchIntelligence(club, projectRows, athletes, providedRosterR
               </div>
             </div>
           ` : ''}
+        </div>
+      ` : ''}
+      ${athleteOpponentRows.length ? `
+        <div class="prematch-block">
+          <div class="coach-bucket-head">
+            <strong>学员对手预案</strong>
+            <span>${escapeHtml(athleteOpponentRows.length)} 组</span>
+          </div>
+          <div class="athlete-opponent-plan-list">
+            ${athleteOpponentRows.map((row) => `
+              <button type="button" data-athlete-id="${escapeHtml(row.id || '')}">
+                <div>
+                  <strong>${escapeHtml(row.name)}</strong>
+                  <span>${escapeHtml(row.projectLabel || '项目待确认')} · ${escapeHtml(row.source)}</span>
+                </div>
+                <em>${escapeHtml(row.opponents.map((athlete) => `${athlete.name} 第${athlete.bestRank ?? '-'}名`).join(' / '))}</em>
+              </button>
+            `).join('')}
+          </div>
         </div>
       ` : ''}
       <div class="prematch-grid">

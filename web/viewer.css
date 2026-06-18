@@ -3151,7 +3151,8 @@ select:focus {
 .coach-athlete-list,
 .project-advice-list,
 .growth-highlight-list,
-.opponent-project-list {
+.opponent-project-list,
+.athlete-opponent-plan-list {
   display: grid;
   gap: 8px;
 }
@@ -3195,6 +3196,48 @@ select:focus {
   color: var(--muted);
   font-size: 12px;
   font-style: normal;
+}
+
+.athlete-opponent-plan-list button {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 5px;
+  width: 100%;
+  border: 1px solid rgba(13, 125, 103, 0.14);
+  border-radius: 10px;
+  background: rgba(13, 125, 103, 0.055);
+  color: var(--text);
+  font: inherit;
+  text-align: left;
+  padding: 10px;
+}
+
+.athlete-opponent-plan-list strong,
+.athlete-opponent-plan-list span,
+.athlete-opponent-plan-list em {
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.athlete-opponent-plan-list strong {
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.athlete-opponent-plan-list span {
+  margin-top: 3px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.athlete-opponent-plan-list em {
+  color: var(--teal);
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 800;
 }
 
 .coach-athlete-list {

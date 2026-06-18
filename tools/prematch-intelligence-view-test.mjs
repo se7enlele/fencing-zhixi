@@ -27,4 +27,10 @@ assert.match(js, /可关注强手/, 'prematch opponent summary must be coach-fac
 assert.match(css, /\.opponent-project-list/, 'project-level opponent summary layout must exist');
 assert.match(css, /\.opponent-project-card/, 'project-level opponent summary cards must be styled');
 
+assert.match(js, /function athleteProjectLabelsForPrematch\(athlete\)/, 'prematch intelligence must derive project labels for club athletes');
+assert.match(js, /function coachAthleteOpponentRows\(\{ rosterRows, athletes, opponentPool, projectRows \}\)/, 'prematch intelligence must pair club athletes with likely strong opponents');
+assert.match(js, /class="athlete-opponent-plan-list"/, 'prematch intelligence must render athlete-level opponent plans');
+assert.match(js, /学员对手预案/, 'prematch intelligence must expose athlete-opponent preparation as a coach-facing section');
+assert.match(css, /\.athlete-opponent-plan-list/, 'athlete-opponent preparation layout must exist');
+
 console.log('prematch intelligence view is covered');
