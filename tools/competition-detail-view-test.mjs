@@ -111,7 +111,7 @@ assert.match(source, /function competitionRosterWatchRows\(rosterRows\)/, 'pre-e
 assert.match(source, /function competitionProjectFocusRows\(competition, sortedItems\)/, 'competition detail must summarize what users should inspect first');
 assert.match(source, /function renderCompetitionProjectGuide\(competition, sortedItems\)/, 'competition detail must render a project guide before raw project cards');
 assert.match(source, /function competitionProjectGroups\(items\)/, 'competition detail must group full project access by age band');
-assert.match(source, /function renderCompetitionProjectGroups\(competition, sortedItems, eventCardHtml\)/, 'competition detail must render grouped full project access');
+assert.match(source, /function renderCompetitionProjectGroups\(competition, sortedItems, eventCardHtml, options = \{\}\)/, 'competition detail must render grouped full project access');
 assert.match(source, /按年龄段查看全部项目/, 'competition detail must offer grouped project navigation instead of a flat long list');
 assert.match(source, /const chips = competitionProjectSummaryChips\(competition\)/, 'competition hero must use structural project summary chips');
 assert.match(source, /class="competition-scope-grid"/, 'competition hero must show compact scope metrics instead of raw full labels');
@@ -125,7 +125,8 @@ assert.match(source, /const primaryItems = sortedItems\.slice\(0, 4\)/, 'competi
 assert.match(source, /renderCompetitionProjectGuide\(competition, sortedItems\)/, 'competition event list must put user-facing project guidance before cards');
 assert.match(source, /默认展示最关键的 4 个项目/, 'project guide must explain collapsed project access in user-facing terms');
 assert.match(source, /renderCompetitionRosterSnapshot\(competition\)/, 'pre-event competition insight area must include roster snapshot analysis');
-assert.match(source, /class="event-list-more"/, 'competition event list must hide lower-priority projects behind an expandable section');
+assert.match(source, /summary: `[\s\S]*\$\{sortedItems\.length\}[\s\S]*`/, 'competition event list must expose full project access as one grouped entry');
+assert.doesNotMatch(source, /class="event-list-more"/, 'competition event list must not add a second nested expand layer');
 assert.match(source, /secondaryItems\.length/, 'competition event list must keep full project access without showing everything by default');
 assert.doesNotMatch(source, /更新后会展示具体组别、剑种、报名规模和后续赛果入口/, 'empty project copy must not expose back-office update wording');
 assert.doesNotMatch(html, /赛事画像|结构与年龄段|项目列表/, 'competition detail headings must use product-facing language');
@@ -142,5 +143,6 @@ assert.match(css, /\.competition-prematch-roster-grid/, 'pre-event roster snapsh
 assert.match(css, /\.competition-project-guide/, 'project guide styles must exist');
 assert.match(css, /\.project-group-list/, 'grouped project list styles must exist');
 assert.match(css, /\.project-group-card > summary strong,[\s\S]*text-overflow:\s*ellipsis/, 'project group headers must stay mobile-safe');
+assert.doesNotMatch(css, /\.event-list-more\s*\{/, 'competition project access must not keep the removed nested expand shell');
 
 console.log('competition detail compact distributions are covered');

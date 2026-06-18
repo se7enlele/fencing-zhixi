@@ -2529,41 +2529,6 @@ select:focus {
   line-height: 1.45;
 }
 
-.event-list-more {
-  display: grid;
-  gap: 8px;
-  border: 1px dashed rgba(21, 95, 194, 0.18);
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.72);
-  padding: 8px;
-}
-
-.event-list-more summary {
-  cursor: pointer;
-  list-style: none;
-  border-radius: 8px;
-  background: rgba(21, 95, 194, 0.07);
-  color: var(--primary);
-  font-size: 13px;
-  font-weight: 900;
-  padding: 10px 11px;
-}
-
-.event-list-more summary::-webkit-details-marker {
-  display: none;
-}
-
-.event-list-more summary::after {
-  content: '展开';
-  float: right;
-  color: var(--muted);
-  font-size: 12px;
-}
-
-.event-list-more[open] summary::after {
-  content: '收起';
-}
-
 .event-list-more-grid {
   display: grid;
   gap: 8px;

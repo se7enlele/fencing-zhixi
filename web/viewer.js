@@ -4186,11 +4186,12 @@ function renderCompetitionProjectGuide(competition, sortedItems) {
   `;
 }
 
-function renderCompetitionProjectGroups(competition, sortedItems, eventCardHtml) {
+function renderCompetitionProjectGroups(competition, sortedItems, eventCardHtml, options = {}) {
   const groups = competitionProjectGroups(sortedItems);
+  const summary = options.summary || '按年龄段查看全部项目';
   return `
     <details class="project-group-list">
-      <summary>按年龄段查看全部项目</summary>
+      <summary>${escapeHtml(summary)}</summary>
       <div class="project-group-stack">
         ${groups.map((group, index) => `
           <details class="project-group-card" ${index === 0 ? 'open' : ''}>
@@ -4250,12 +4251,12 @@ function renderEventList(competition) {
   eventList.innerHTML = `
     ${renderCompetitionProjectGuide(competition, sortedItems)}
     ${primaryItems.map(eventCardHtml).join('')}
-    ${secondaryItems.length ? `
-      <details class="event-list-more">
-        <summary>查看其余 ${escapeHtml(secondaryItems.length)} 个重点项目</summary>
-        ${renderCompetitionProjectGroups(competition, sortedItems, eventCardHtml)}
-      </details>
-    ` : ''}
+    ${secondaryItems.length ? renderCompetitionProjectGroups(
+      competition,
+      sortedItems,
+      eventCardHtml,
+      { summary: `按年龄段查看全部 ${sortedItems.length} 个项目` },
+    ) : ''}
   `;
 
   eventList.querySelectorAll('.event-card').forEach((button) => {
