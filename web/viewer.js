@@ -2461,8 +2461,9 @@ function buildAiPreMatchReport(query, filters) {
       sportCode: competition.sportCode,
     })),
     actions: [
+      rows[0]?.sportCode ? { label: '加入赛前提醒', followCompetitionCode: rows[0].sportCode } : null,
       { label: rows.length ? '查看赛前赛事' : '进入赛事列表', mainTab: 'competitions', filters },
-    ],
+    ].filter(Boolean),
     sourceNote: '赛前情报基于赛事状态、项目明细和报名名单生成；名单未完整时，只做项目级和赛事级判断。',
   };
 }
@@ -2832,7 +2833,7 @@ function renderAiAnswer(report) {
       ${report.actions?.length ? `
         <div class="ai-action-row">
           ${report.actions.map((action) => `
-            <button type="button" ${action.athleteId ? `data-athlete-id="${escapeHtml(action.athleteId)}"` : ''} ${action.followAthleteId ? `data-follow-athlete-id="${escapeHtml(action.followAthleteId)}"` : ''} ${action.clubId ? `data-club-id="${escapeHtml(action.clubId)}"` : ''} ${action.mainTab ? `data-main-target="${escapeHtml(action.mainTab)}"` : ''} ${action.filters ? `data-ai-filters="${escapeHtml(encodeURIComponent(JSON.stringify(action.filters)))}"` : ''}>
+            <button type="button" ${action.athleteId ? `data-athlete-id="${escapeHtml(action.athleteId)}"` : ''} ${action.followAthleteId ? `data-follow-athlete-id="${escapeHtml(action.followAthleteId)}"` : ''} ${action.followCompetitionCode ? `data-follow-competition-code="${escapeHtml(action.followCompetitionCode)}"` : ''} ${action.clubId ? `data-club-id="${escapeHtml(action.clubId)}"` : ''} ${action.mainTab ? `data-main-target="${escapeHtml(action.mainTab)}"` : ''} ${action.filters ? `data-ai-filters="${escapeHtml(encodeURIComponent(JSON.stringify(action.filters)))}"` : ''}>
               ${escapeHtml(action.label)}
             </button>
           `).join('')}
@@ -2863,6 +2864,16 @@ function bindAiAnswerActions(container) {
       await upsertFollowedAthlete(athlete);
       button.textContent = '已关注这个孩子';
       button.setAttribute('aria-pressed', 'true');
+    });
+  });
+  container.querySelectorAll('[data-follow-competition-code]').forEach((button) => {
+    button.addEventListener('click', () => {
+      const competition = findCompetitionBySportCode(button.dataset.followCompetitionCode);
+      if (!competition?.sportCode) return;
+      upsertFollowedCompetition(competition);
+      button.textContent = '已加入赛前提醒';
+      button.setAttribute('aria-pressed', 'true');
+      navigateMain('follow');
     });
   });
   container.querySelectorAll('[data-club-id]').forEach((button) => {
