@@ -1100,6 +1100,38 @@ select:focus {
   line-height: 1.45;
 }
 
+.ai-filter-notice {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  min-width: 0;
+  border: 1px solid rgba(21, 95, 194, 0.12);
+  border-radius: 10px;
+  background: rgba(21, 95, 194, 0.055);
+  color: #344054;
+  padding: 9px 10px;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.ai-filter-notice span {
+  min-width: 0;
+}
+
+.ai-filter-notice button {
+  flex: 0 0 auto;
+  height: 28px;
+  border: 1px solid rgba(21, 95, 194, 0.16);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--primary);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 900;
+  padding: 0 10px;
+}
+
 .status-row {
   display: flex;
   flex-wrap: wrap;

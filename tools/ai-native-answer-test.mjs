@@ -31,8 +31,12 @@ assert.match(js, /function detectYearInQuery\(normalizedQuery\)/, 'AI competitio
 assert.match(js, /function detectMonthInQuery\(normalizedQuery\)/, 'AI competition questions must support month filters');
 assert.match(js, /function competitionMonth\(competition\)/, 'AI competition questions must filter competitions by month');
 assert.match(js, /function applyAiCompetitionFilters\(filters = \{\}\)/, 'AI answer actions must apply competition filters when entering the competition list');
+assert.match(js, /function aiCompetitionFilterSummary\(filters = \{\}\)/, 'AI competition filters must expose a visible summary for the competition list');
+assert.match(js, /function clearAiCompetitionFilter\(\)/, 'AI competition filters must be removable from the competition list');
 assert.match(js, /function buildAiPreMatchReport\(query, filters\)/, 'AI must build prematch reports from registration and project data');
 assert.match(js, /data-ai-filters/, 'AI answer action buttons must carry structured competition filters');
+assert.match(js, /state\.aiCompetitionFilterSummary = aiCompetitionFilterSummary\(filters\)/, 'AI filter actions must store a list-facing filter summary');
+assert.match(js, /data-clear-ai-filter/, 'AI filtered competition lists must expose a clear action');
 assert.match(js, /JSON\.parse\(decodeURIComponent\(button\.dataset\.aiFilters\)\)/, 'AI answer action handlers must decode filter payloads before navigation');
 assert.match(js, /state\.selectedAiMonth/, 'AI competition filters must preserve month constraints that are not visible in the standard filter chips');
 assert.match(js, /report\.type === 'prematch' \? '赛前情报'/, 'AI answer header must label prematch reports');
@@ -70,6 +74,7 @@ assert.match(js, /<small>\$\{escapeHtml\(row\.reason\)\}<\/small>/, 'AI evidence
 
 assert.match(css, /\.ai-source-note/, 'AI source note styles must exist');
 assert.match(css, /\.ai-action-block/, 'AI action block styles must exist');
+assert.match(css, /\.ai-filter-notice/, 'AI-filtered competition lists must show a visible filter notice');
 assert.match(css, /\.ai-next-steps/, 'AI next-step styles must exist');
 assert.match(css, /\.ai-follow-up-row/, 'AI follow-up question styles must exist');
 assert.match(css, /\.ai-evidence button em/, 'AI evidence type badge styles must exist');

@@ -92,6 +92,7 @@ const state = {
   selectedItem: '全部项目',
   selectedStatus: '全部状态',
   selectedAiMonth: '',
+  aiCompetitionFilterSummary: '',
   visibleCompetitionLimit: COMPETITION_LIST_PAGE_SIZE,
   apiVersion: '',
   dataGeneratedAt: '',
@@ -979,6 +980,7 @@ function setFilterValue(type, value) {
   if (type === 'item') state.selectedItem = value;
   if (type === 'status') state.selectedStatus = value;
   state.selectedAiMonth = '';
+  state.aiCompetitionFilterSummary = '';
   renderFilters();
   applyCompetitionFilter();
 }
@@ -992,16 +994,38 @@ function matchingFilterOption(type, value) {
     || options[0];
 }
 
+function aiCompetitionFilterSummary(filters = {}) {
+  const parts = [];
+  if (filters.year) parts.push(`${filters.year}年`);
+  if (filters.month) parts.push(`${filters.month}月`);
+  if (filters.region) parts.push(filters.region);
+  if (filters.status) parts.push(statusLabel(filters.status));
+  return parts.length ? `来自 AI 问答：${parts.join(' · ')}` : '';
+}
+
 function applyAiCompetitionFilters(filters = {}) {
   state.selectedYear = filters.year ? matchingFilterOption('year', filters.year) : '全部年份';
   state.selectedRegion = filters.region ? matchingFilterOption('region', filters.region) : '全部地区';
   state.selectedStatus = filters.status ? matchingFilterOption('status', statusLabel(filters.status)) : '全部状态';
   state.selectedItem = '全部项目';
   state.selectedAiMonth = filters.month || '';
+  state.aiCompetitionFilterSummary = aiCompetitionFilterSummary(filters);
   searchInput.value = '';
   renderFilters();
   applyCompetitionFilter();
   navigateMain('competitions');
+}
+
+function clearAiCompetitionFilter() {
+  state.selectedYear = '全部年份';
+  state.selectedRegion = '全部地区';
+  state.selectedItem = '全部项目';
+  state.selectedStatus = '全部状态';
+  state.selectedAiMonth = '';
+  state.aiCompetitionFilterSummary = '';
+  searchInput.value = '';
+  renderFilters();
+  applyCompetitionFilter();
 }
 
 function renderFilters() {
@@ -1107,6 +1131,7 @@ function handleSearchInput() {
   state.searchRequestId += 1;
   if (searchDebounceTimer) clearTimeout(searchDebounceTimer);
   state.selectedAiMonth = '';
+  state.aiCompetitionFilterSummary = '';
   state.athleteSearchResults = [];
   state.clubSearchResults = [];
   applyCompetitionFilter();
@@ -3603,8 +3628,17 @@ function renderCompetitionList() {
   }
   const visibleCompetitions = state.filteredCompetitions.slice(0, state.visibleCompetitionLimit);
   const remainingCount = Math.max(0, state.filteredCompetitions.length - visibleCompetitions.length);
+  const aiFilterNotice = state.aiCompetitionFilterSummary
+    ? `
+      <div class="ai-filter-notice">
+        <span>${escapeHtml(state.aiCompetitionFilterSummary)}，当前匹配 ${escapeHtml(state.filteredCompetitions.length)} 场</span>
+        <button type="button" data-clear-ai-filter>清除筛选</button>
+      </div>
+    `
+    : '';
   competitionList.innerHTML = state.filteredCompetitions.length
     ? `
+      ${aiFilterNotice}
       ${visibleCompetitions.map((competition) => `
       <button class="competition-card" data-sport-code="${escapeHtml(competition.sportCode)}">
         <div class="status-row">
@@ -3631,11 +3665,12 @@ function renderCompetitionList() {
         </button>
       ` : ''}
     `
-    : '<div class="empty">没有匹配的比赛</div>';
+    : `${aiFilterNotice}<div class="empty">没有匹配的比赛</div>`;
 
   competitionList.querySelectorAll('.competition-card').forEach((button) => {
     button.addEventListener('click', () => openCompetition(button.dataset.sportCode));
   });
+  competitionList.querySelector('[data-clear-ai-filter]')?.addEventListener('click', clearAiCompetitionFilter);
   competitionList.querySelector('[data-load-more-competitions]')?.addEventListener('click', () => {
     state.visibleCompetitionLimit += COMPETITION_LIST_PAGE_SIZE;
     renderCompetitionList();
