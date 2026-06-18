@@ -1583,6 +1583,32 @@ select:focus {
   padding: 8px 9px;
 }
 
+.ai-next-steps {
+  display: grid;
+  gap: 6px;
+  border: 1px solid rgba(13, 125, 103, 0.14);
+  border-radius: 10px;
+  background: rgba(13, 125, 103, 0.055);
+  padding: 10px;
+}
+
+.ai-next-steps strong,
+.ai-next-steps span {
+  display: block;
+}
+
+.ai-next-steps strong {
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.ai-next-steps span {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
 .ai-action-row {
   display: flex;
   flex-wrap: wrap;

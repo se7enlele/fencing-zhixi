@@ -39,11 +39,16 @@ assert.match(js, /title: '时间分布'/, 'AI competition stats must include mon
 assert.match(js, /kind: '共同项目'/, 'AI evidence must label shared project evidence');
 assert.match(js, /reason: '用于比较同一项目里的名次差距'/, 'AI evidence must explain why a source supports the answer');
 assert.match(js, /function aiEvidenceKind\(row\)/, 'AI evidence renderer must normalize evidence type labels');
+assert.match(js, /function aiNextStepRows\(report\)/, 'AI answers must include contextual next-step guidance');
+assert.match(js, /prematch:\s*\[[\s\S]*同组对手、强手和主要俱乐部分布/, 'AI prematch answers must guide users toward opponent and club checks');
+assert.match(js, /comparison:\s*\[[\s\S]*共同项目和直接交手证据/, 'AI comparison answers must tell users to verify evidence before judging');
+assert.match(js, /<div class="ai-next-steps">/, 'AI answer renderer must show next-step guidance');
 assert.match(js, /class="ai-source-note"/, 'AI answer must render data boundary notes');
 assert.match(js, /<em>\$\{escapeHtml\(aiEvidenceKind\(row\)\)\}<\/em>/, 'AI evidence cards must show evidence type');
 assert.match(js, /<small>\$\{escapeHtml\(row\.reason\)\}<\/small>/, 'AI evidence cards must show relevance reason');
 
 assert.match(css, /\.ai-source-note/, 'AI source note styles must exist');
+assert.match(css, /\.ai-next-steps/, 'AI next-step styles must exist');
 assert.match(css, /\.ai-evidence button em/, 'AI evidence type badge styles must exist');
 assert.match(css, /\.ai-evidence button small/, 'AI evidence reason styles must exist');
 

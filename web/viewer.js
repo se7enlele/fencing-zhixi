@@ -2565,6 +2565,34 @@ function aiEvidenceKind(row) {
   return row.kind || (row.sportCode ? '赛事记录' : row.eventCode ? '项目记录' : '数据来源');
 }
 
+function aiNextStepRows(report) {
+  const rowsByType = {
+    'competition-stats': [
+      '先进入匹配赛事列表，按状态和月份缩小范围。',
+      '如果关注某场比赛，打开详情后看项目、报名和赛后成绩入口。',
+    ],
+    prematch: [
+      '先看最近开赛和报名中的赛事，确认孩子或学员所在项目。',
+      '报名动态完整后，再重点看同组对手、强手和主要俱乐部分布。',
+    ],
+    comparison: [
+      '先核对共同项目和直接交手证据，再判断两名选手差距。',
+      '没有直接交手时，只把历史名次和共同赛事作为参考。',
+    ],
+    growth: [
+      '先看最近几场名次变化，再结合小组赛和淘汰赛表现复盘。',
+      '把孩子设为关注后，可从首页持续查看成长变化。',
+    ],
+    club: [
+      '先看优势项目和代表学员，再进入俱乐部画像查看队伍结构。',
+      '赛前可结合本馆项目和报名名单做备赛沟通。',
+    ],
+  };
+  return rowsByType[report.type] || [
+    '先打开证据来源核对数据，再进入对应页面继续查看。',
+  ];
+}
+
 function renderAiAnswer(report) {
   return `
     <div class="ai-answer-card">
@@ -2603,6 +2631,10 @@ function renderAiAnswer(report) {
         </div>
       ` : ''}
       ${report.sourceNote ? `<p class="ai-source-note">${escapeHtml(report.sourceNote)}</p>` : ''}
+      <div class="ai-next-steps">
+        <strong>下一步</strong>
+        ${aiNextStepRows(report).map((row) => `<span>${escapeHtml(row)}</span>`).join('')}
+      </div>
       ${report.actions?.length ? `
         <div class="ai-action-row">
           ${report.actions.map((action) => `
