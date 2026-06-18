@@ -33,4 +33,10 @@ assert.match(js, /class="athlete-opponent-plan-list"/, 'prematch intelligence mu
 assert.match(js, /学员对手预案/, 'prematch intelligence must expose athlete-opponent preparation as a coach-facing section');
 assert.match(css, /\.athlete-opponent-plan-list/, 'athlete-opponent preparation layout must exist');
 
+assert.match(js, /function submitAiQuery\(query\)/, 'prematch opponent plans must be able to submit an AI query');
+assert.match(js, /data-ai-query/, 'athlete-opponent plans must carry a runnable comparison query');
+assert.match(js, /clubEvents\.querySelectorAll\('\[data-ai-query\]'\)/, 'club detail must bind athlete-opponent AI query actions');
+assert.match(js, /submitAiQuery\(button\.dataset\.aiQuery\)/, 'club detail AI query actions must open the AI workspace');
+assert.match(css, /\.ai-plan-action/, 'athlete-opponent AI action chip must be styled');
+
 console.log('prematch intelligence view is covered');

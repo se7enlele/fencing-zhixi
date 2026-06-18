@@ -2006,6 +2006,17 @@ function bindAiWorkspace(container) {
   });
 }
 
+function submitAiQuery(query) {
+  const text = String(query || '').trim();
+  if (!text) return;
+  navigateMain('home');
+  const input = homePage?.querySelector('#aiQueryInput');
+  const form = homePage?.querySelector('#aiQueryForm');
+  if (!input || !form) return;
+  input.value = text;
+  form.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
+}
+
 function normalizeAiName(value) {
   return compactText(value)
     .replaceAll('马消', '马潇')
@@ -5948,12 +5959,13 @@ function renderPreMatchIntelligence(club, projectRows, athletes, providedRosterR
           </div>
           <div class="athlete-opponent-plan-list">
             ${athleteOpponentRows.map((row) => `
-              <button type="button" data-athlete-id="${escapeHtml(row.id || '')}">
+              <button type="button" data-ai-query="${escapeHtml(`分析${row.name}和${row.opponents[0]?.name || ''}的对战情况`)}">
                 <div>
                   <strong>${escapeHtml(row.name)}</strong>
                   <span>${escapeHtml(row.projectLabel || '项目待确认')} · ${escapeHtml(row.source)}</span>
                 </div>
                 <em>${escapeHtml(row.opponents.map((athlete) => `${athlete.name} 第${athlete.bestRank ?? '-'}名`).join(' / '))}</em>
+                <span class="ai-plan-action">生成对比分析</span>
               </button>
             `).join('')}
           </div>
@@ -6165,6 +6177,10 @@ function renderClubDetail(club) {
   clubEvents.querySelectorAll('[data-club-id]').forEach((button) => {
     if (!button.dataset.clubId) return;
     button.addEventListener('click', () => openClub(button.dataset.clubId));
+  });
+  clubEvents.querySelectorAll('[data-ai-query]').forEach((button) => {
+    if (!button.dataset.aiQuery) return;
+    button.addEventListener('click', () => submitAiQuery(button.dataset.aiQuery));
   });
   clubEvents.querySelectorAll('[data-share-club]').forEach((button) => {
     button.addEventListener('click', async () => {
