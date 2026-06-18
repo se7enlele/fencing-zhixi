@@ -8,7 +8,8 @@ function extractFunction(name) {
   const marker = `function ${name}(`;
   const start = source.indexOf(marker);
   if (start === -1) throw new Error(`Missing function ${name}`);
-  const bodyStart = source.indexOf('{', start);
+  const paramsEnd = source.indexOf(')', start);
+  const bodyStart = source.indexOf('{', paramsEnd);
   let depth = 0;
   for (let index = bodyStart; index < source.length; index += 1) {
     const char = source[index];
@@ -70,6 +71,7 @@ const functionNames = [
   'clubProjectRows',
   'athleteStrengthScore',
   'athleteMetricLine',
+  'athleteComparisonRiskRows',
   'athleteComparisonConfidence',
   'athleteRankGapText',
   'athleteTrendLabel',
@@ -211,5 +213,17 @@ const clubReport = context.buildAiAnswer('山东小众体育 U8 男花怎么样'
 assert.equal(clubReport.type, 'club');
 assert.match(clubReport.title, /U8 男 花|U8 男花|U8.*男.*花/, 'club scoped query should preserve project hints in title');
 assert.ok(clubReport.sections.some((section) => section.title === '匹配项目'), 'club scoped query should show matched projects');
+
+const comparisonReport = context.buildAiAnswer('\u5206\u6790\u9a6c\u6d88\u548c\u9676\u5609\u6708\u7684\u5bf9\u6218\u60c5\u51b5');
+assert.equal(comparisonReport.type, 'comparison', 'athlete comparison query should route to comparison report');
+assert.equal(
+  JSON.stringify(comparisonReport.sections.map((section) => section.title)),
+  JSON.stringify(['\u76f4\u63a5\u4ea4\u624b', '\u5171\u540c\u8d5b\u4e8b', '\u8fd1\u51b5\u5dee\u8ddd', '\u5173\u952e\u98ce\u9669']),
+  'athlete comparison report should use the prematch analysis section structure',
+);
+assert.ok(
+  comparisonReport.sections.find((section) => section.title === '\u5173\u952e\u98ce\u9669').rows.length,
+  'athlete comparison report should include actionable risk rows',
+);
 
 console.log('AI acceptance runtime queries are covered');

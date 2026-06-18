@@ -4059,7 +4059,19 @@ th {
   padding: 10px;
 }
 
+.tab-panel,
+#tab-pool,
+#tab-standing,
+#tab-tableau,
+#poolGroups,
+#poolStanding,
+#matchList {
+  min-width: 0;
+  max-width: 100%;
+}
+
 .pool-matrix-wrap {
+  display: block;
   width: 100%;
   min-width: 0;
   max-width: 100%;
@@ -4070,6 +4082,7 @@ th {
   padding: 0;
   overscroll-behavior-x: contain;
   touch-action: pan-x;
+  box-sizing: border-box;
 }
 
 .pool-matrix,
@@ -4190,6 +4203,7 @@ th {
   -webkit-overflow-scrolling: touch;
   overscroll-behavior-x: contain;
   touch-action: pan-x;
+  box-sizing: border-box;
 }
 
 .pool-results-table {
@@ -4231,6 +4245,51 @@ th {
 .pool-results-table th:last-child,
 .pool-results-table td:last-child {
   width: 42px;
+}
+
+@media (max-width: 430px) {
+  .pool-process-card {
+    padding: 8px;
+  }
+
+  .pool-matrix {
+    width: calc(82px + (var(--pool-size, 7) * 30px));
+    min-width: calc(82px + (var(--pool-size, 7) * 30px));
+  }
+
+  .pool-matrix th:first-child,
+  .pool-matrix td:first-child {
+    width: 82px;
+    min-width: 82px;
+    max-width: 82px;
+  }
+
+  .pool-matrix th:not(:first-child),
+  .pool-matrix td:not(:first-child) {
+    width: 30px;
+    min-width: 30px;
+    max-width: 30px;
+  }
+
+  .pool-matrix td {
+    height: 32px;
+    font-size: 12px;
+  }
+
+  .pool-results-table {
+    min-width: 300px;
+  }
+
+  .pool-results-table th,
+  .pool-results-table td {
+    padding: 7px 2px;
+    font-size: 11px;
+  }
+
+  .pool-results-table th:first-child,
+  .pool-results-table td:first-child {
+    width: 78px;
+  }
 }
 
 .pool-group-head {

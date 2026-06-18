@@ -2520,25 +2520,32 @@ function buildAiAthleteComparison(query, left, right) {
     ],
     sections: [
       {
-        title: '差距来源',
+        title: '直接交手',
+        rows: direct.length
+          ? direct.slice(0, 4).map((row) => `${row.phase || '淘汰赛'}：${row.name}，${row.record || row.score || ''}`)
+          : ['当前数据里没有识别到两人的直接交手；下面结论基于共同赛事、近期表现和历史成绩画像。'],
+      },
+      {
+        title: '共同赛事',
+        rows: shared.length
+          ? shared.slice(0, 5).map((row) => `${row.eventName} · ${row.sportName} · ${left.name}第${row.leftRank || '-'}名 / ${right.name}第${row.rightRank || '-'}名`)
+          : ['暂未发现两人出现在同一项目的记录，建议先把结论作为赛前观察线索。'],
+      },
+      {
+        title: '近况差距',
         rows: [
           rankGap,
           `${left.name}：${athleteMetricLine(left)}`,
           `${right.name}：${athleteMetricLine(right)}`,
+          `${left.name}近期：${athleteTrendLabel(leftEvents)}`,
+          `${right.name}近期：${athleteTrendLabel(rightEvents)}`,
         ],
       },
-      direct.length ? {
-        title: '直接交手/对手记录',
-        rows: direct.slice(0, 4).map((row) => `${row.phase || '淘汰赛'}：${row.name}，${row.record || row.score || ''}`),
-      } : /对战|交手|谁赢|打过/.test(compactText(query)) ? {
-        title: '直接交手',
-        rows: ['当前数据里没有识别到两人的直接交手；下面结论基于共同赛事和历史成绩画像。'],
-      } : null,
-      shared.length ? {
-        title: '共同赛事项目',
-        rows: shared.slice(0, 5).map((row) => `${row.eventName} · ${row.sportName} · ${row.leftRank}/${row.rightRank}`),
-      } : null,
-    ].filter(Boolean),
+      {
+        title: '关键风险',
+        rows: athleteComparisonRiskRows({ left, right, leader, other, direct, shared }),
+      },
+    ],
     evidence: [
       ...shared.slice(0, 5).map((row) => ({
         kind: '共同项目',
@@ -2557,6 +2564,17 @@ function buildAiAthleteComparison(query, left, right) {
     ].filter(Boolean),
     sourceNote: '回答由本地比赛成绩、选手画像和对阵记录生成；没有直接交手时，不会推断真实胜负。',
   };
+}
+
+function athleteComparisonRiskRows({ left, right, leader, other, direct, shared }) {
+  const rows = [];
+  if (!direct.length) rows.push('没有直接交手记录，不能把历史名次直接等同为真实胜负关系。');
+  if (!shared.length) rows.push('共同赛事不足，赛前更适合关注项目匹配和近期状态，而不是下确定结论。');
+  if (Math.abs((left.bestRank || 999) - (right.bestRank || 999)) <= 2) rows.push('最好名次接近，临场状态和签表位置可能比历史最好名次更关键。');
+  if ((other.eliminationWins || 0) > (leader.eliminationWins || 0)) rows.push((other.name || '对手') + ' 淘汰赛推进记录不弱，需要重点看关键分处理。');
+  if ((left.appearances || 0) < 2 || (right.appearances || 0) < 2) rows.push('一方参赛样本偏少，建议补看最近项目名单和同组对手。');
+  rows.push('当前更适合把 ' + (leader.name || '优势方') + ' 作为强度参照，同时保留对 ' + (other.name || '另一方') + ' 近期状态的观察。');
+  return rows.slice(0, 4);
 }
 
 function buildAiAthleteGrowth(query, athlete) {

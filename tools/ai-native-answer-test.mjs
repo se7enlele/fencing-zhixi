@@ -6,6 +6,11 @@ const css = await readFile(new URL('../web/viewer.css', import.meta.url), 'utf8'
 
 assert.match(js, /function athleteComparisonConfidence\(direct, shared\)/, 'AI athlete comparison must expose evidence strength');
 assert.match(js, /function athleteRankGapText\(left, right\)/, 'AI athlete comparison must explain rank gap');
+assert.match(js, /function athleteComparisonRiskRows\(\{ left, right, leader, other, direct, shared \}\)/, 'AI athlete comparison must expose prematch risk rows');
+assert.match(js, /title: '直接交手'/, 'AI athlete comparison must show direct bouts as a fixed section');
+assert.match(js, /title: '共同赛事'/, 'AI athlete comparison must show shared events as a fixed section');
+assert.match(js, /title: '近况差距'/, 'AI athlete comparison must show recent form gap as a fixed section');
+assert.match(js, /title: '关键风险'/, 'AI athlete comparison must show prematch risk as a fixed section');
 assert.match(js, /function aiAcceptanceQueryCases\(\)/, 'AI must keep a stable acceptance query set');
 assert.match(js, /expectedType: 'competition-stats'/, 'AI acceptance queries must cover regional competition stats');
 assert.match(js, /expectedType: 'prematch'/, 'AI acceptance queries must cover prematch registration questions');
@@ -64,6 +69,9 @@ assert.match(css, /\.ai-evidence button em/, 'AI evidence type badge styles must
 assert.match(css, /\.ai-evidence button small/, 'AI evidence reason styles must exist');
 assert.match(css, /contain: inline-size/, 'Pool process cards must contain wide tables inside the mobile viewport');
 assert.match(css, /touch-action: pan-x/, 'Pool tables must support horizontal pan without expanding the page');
-assert.match(css, /\.pool-results-table[\s\S]*min-width: 324px/, 'Pool result tables must fit mobile first and scroll inside their card when needed');
+assert.match(css, /\.tab-panel,[\s\S]*#matchList[\s\S]*min-width: 0;/, 'Competition process panels must not expand wider than the mobile viewport');
+assert.match(css, /\.pool-matrix-wrap[\s\S]*box-sizing: border-box;/, 'Pool matrix scrolling must stay inside the card');
+assert.match(css, /@media \(max-width: 430px\)[\s\S]*\.pool-matrix[\s\S]*82px[\s\S]*30px/, 'Pool matrix must use compact columns on phone screens');
+assert.match(css, /@media \(max-width: 430px\)[\s\S]*\.pool-results-table[\s\S]*min-width: 300px/, 'Pool result tables must fit mobile first and scroll inside their card when needed');
 
 console.log('AI native answers are covered');
