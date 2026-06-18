@@ -2585,7 +2585,7 @@ function buildAiAthleteGrowth(query, athlete) {
   return {
     type: 'growth',
     title: `${athlete.name}的成长分析`,
-    summary: `${athlete.name} 当前收录 ${events.length || athlete.appearances || 0} 条参赛记录，最好名次${best?.finalRank ? `第${best.finalRank}名` : '待确认'}，近期变化：${trend}。`,
+    summary: `${athlete.name} 已有 ${events.length || athlete.appearances || 0} 场参赛表现，最好名次${best?.finalRank ? `第${best.finalRank}名` : '待确认'}，近期变化：${trend}。`,
     cards: [
       ['最好名次', best?.finalRank ? `第${best.finalRank}名` : '-'],
       ['最近一次', latest?.finalRank ? `第${latest.finalRank}名` : '-'],
@@ -2623,7 +2623,7 @@ function buildAiClubReport(query, club) {
   return {
     type: 'club',
     title: `${club.club}${projectScope ? ` ${projectScope}` : ''}分析`,
-    summary: `${club.club} 当前收录 ${club.entrants || 0} 人次、${club.top8 || 0} 次前八、${club.medals || 0} 枚奖牌。${hints.length && matchedProjects.length ? `本次问题重点匹配 ${matchedProjects.length} 个项目。` : ''}${bestProject ? `优势项目集中在 ${bestProject.label}。` : ''}`,
+    summary: `${club.club} 已有 ${club.entrants || 0} 人次参赛、${club.top8 || 0} 次前八、${club.medals || 0} 枚奖牌表现。${hints.length && matchedProjects.length ? `本次问题重点匹配 ${matchedProjects.length} 个项目。` : ''}${bestProject ? `优势项目集中在 ${bestProject.label}。` : ''}`,
     cards: [
       ['参赛人次', club.entrants || 0],
       ['前八', club.top8 || 0],
@@ -3559,9 +3559,9 @@ function competitionProjectScope(competition) {
 
 function competitionHeroSummaryText(competition) {
   if (competition.isPlatformEventList && !competitionHasItems(competition)) {
-    return '已收录赛事时间和地点，后续信息更新后会自动补充项目和名单。';
+    return '适合先关注赛程、地点和报名窗口，作为近期参赛安排参考。';
   }
-  if (competition.rosterStatus === 'partial') return '可先查看报名组别和规模，名单继续更新后会完善赛前对标。';
+  if (competition.rosterStatus === 'partial') return '可先查看报名组别、规模和重点项目，用于提前判断参赛节奏。';
   if (competition.rosterStatus === 'complete') return '报名名单已形成，可查看赛前对手、强手和熟悉对手分析。';
   if (competition.isPreEvent) return '可查看报名组别、剑种和项目规模，适合赛前关注。';
   return '可查看项目结构、晋级比例、赛程结果和选手表现。';
@@ -4054,10 +4054,10 @@ function competitionProjectFocusRows(competition, sortedItems) {
         : '先关注比赛时间、地点和报名窗口。',
     });
     rows.push({
-      title: rosterRows.length ? '赛前可看对手' : '等待名单完善',
+      title: rosterRows.length ? '赛前可看对手' : '赛前观察重点',
       detail: rosterRows.length
         ? `已收录 ${rosterRows.length} 条报名记录，可进入项目查看同组选手和重点对手。`
-        : `${itemCount || '多个'} 项目已开放，名单完善后再看对手分布和备赛重点。`,
+        : `${itemCount || '多个'} 项目已开放，先根据项目规模和时间安排判断备赛优先级。`,
     });
   } else {
     rows.push({
@@ -5278,9 +5278,9 @@ function buildAthleteGrowthNote(athlete) {
   const latest = events[0];
   const best = [...events].sort((a, b) => (a.finalRank ?? 999) - (b.finalRank ?? 999))[0];
   if (events.length === 1) {
-    return `${athlete.name} 当前收录 1 场比赛，最终第 ${latest.finalRank ?? '-'} 名。后续数据增加后可形成趋势判断。`;
+    return `${athlete.name} 已有 1 场参赛表现，最终第 ${latest.finalRank ?? '-'} 名。下一场重点看名次稳定性和小组赛发挥。`;
   }
-  return `${athlete.name} 当前收录 ${events.length} 场比赛，最好名次第 ${best.finalRank ?? '-'} 名，最近一次第 ${latest.finalRank ?? '-'} 名。`;
+  return `${athlete.name} 已有 ${events.length} 场参赛表现，最好名次第 ${best.finalRank ?? '-'} 名，最近一次第 ${latest.finalRank ?? '-'} 名。`;
 }
 
 function buildAthleteParentAdvice(athlete, metrics) {
@@ -5295,7 +5295,7 @@ function buildAthleteParentAdvice(athlete, metrics) {
     if (delta < 0) parts.push(`最近一次比上次下降 ${Math.abs(delta)} 名，需要结合对手强度看原因`);
     if (delta === 0) parts.push('最近两次名次稳定');
   } else {
-    parts.push('当前只有 1 场记录，建议继续关注下一场变化');
+    parts.push('参赛样本还少，下一场重点看稳定性和临场发挥');
   }
   if (metrics.totalPoolMatches) {
     parts.push(metrics.poolRate >= 70 ? '小组赛胜率较高' : metrics.poolRate >= 45 ? '小组赛有竞争力' : '小组赛胜率偏低，适合重点复盘开局和稳定性');

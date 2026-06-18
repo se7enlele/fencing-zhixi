@@ -16,4 +16,7 @@ assert.match(js, /function friendlyErrorMessage\(scope\)/, 'detail failures must
 assert.match(js, /赛前准备/, 'data status should explain available data in user-facing product language');
 assert.match(js, /成长复盘和队伍分析/, 'data status should connect full score data to user-facing analysis value');
 
+assert.doesNotMatch(js, /后续信息更新|名单继续更新|等待名单完善|名单完善后/, 'competition detail copy must avoid back-office data-progress wording');
+assert.doesNotMatch(js, /当前收录|后续数据|当前只有/, 'athlete-facing copy must avoid database-progress wording');
+
 console.log('product-facing copy is covered');
