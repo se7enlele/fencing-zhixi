@@ -2274,6 +2274,44 @@ select:focus {
   margin-top: 8px;
 }
 
+.competition-digest-panel {
+  display: grid;
+  gap: 10px;
+  border: 1px solid rgba(21, 95, 194, 0.14);
+  border-radius: 10px;
+  background: linear-gradient(180deg, rgba(21, 95, 194, 0.055), rgba(255, 255, 255, 0.9));
+  padding: 12px;
+}
+
+.competition-digest-list {
+  display: grid;
+  gap: 8px;
+}
+
+.competition-digest-list div {
+  border-radius: 9px;
+  background: rgba(255, 255, 255, 0.76);
+  padding: 10px;
+}
+
+.competition-digest-list strong,
+.competition-digest-list span {
+  display: block;
+}
+
+.competition-digest-list strong {
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.competition-digest-list span {
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
 .competition-prematch-panel {
   display: grid;
   gap: 10px;

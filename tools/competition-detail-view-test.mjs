@@ -12,12 +12,14 @@ if (start === -1 || end === -1 || end <= start) {
 
 const context = {
   displayEventName: (row) => row.shortEventName || row.eventName || '',
+  competitionMetricTotal: () => 0,
 };
 vm.createContext(context);
 vm.runInContext(`${source.slice(start, end)}
 globalThis.sortedCompetitionEventRows = sortedCompetitionEventRows;
 globalThis.compactCompetitionBarRows = compactCompetitionBarRows;
 globalThis.compactCompetitionEventRows = compactCompetitionEventRows;
+globalThis.competitionDigestRows = competitionDigestRows;
 `, context);
 
 const compactAgeRows = context.compactCompetitionBarRows([
@@ -70,10 +72,23 @@ const sortedEventRows = context.sortedCompetitionEventRows([
 ]);
 assert.equal(JSON.stringify(sortedEventRows.map((row) => row.shortEventName)), JSON.stringify(['U10 Foil', 'U8 Foil', 'U14 Foil']));
 
+const digestRows = context.competitionDigestRows(
+  {},
+  { bullets: ['U8 foil is the strongest signal.'] },
+  [{ shortEventName: 'U8 Foil', competitionNo: 55 }],
+  [{ label: '2018 H1', value: 21, display: '21人 / 前八7' }],
+);
+assert.equal(digestRows.length, 3);
+assert.equal(digestRows[0].title, '重点项目');
+assert.equal(digestRows[1].title, '主要年龄段');
+assert.equal(digestRows[2].title, '赛事强度');
+
 assert.match(source, /competitionChips\(competition, 4\)/, 'competition list cards must limit raw project chips and summarize the rest');
 assert.match(source, /function competitionProjectSummaryChips\(competition\)/, 'competition hero must summarize project structure instead of listing raw labels');
 assert.match(source, /function competitionProjectScope\(competition\)/, 'competition hero must render a structured project scope summary');
 assert.match(source, /function competitionHeroSummaryText\(competition\)/, 'competition hero must explain available value in user-facing language');
+assert.match(source, /function competitionDigestRows\(competition, insights, primaryEventRows, birthRows\)/, 'post-event competition detail must put interpretation before raw charts');
+assert.match(source, /competitionDigestPanel\(digestRows\)/, 'post-event competition detail must render the interpretation summary first');
 assert.match(source, /function competitionRegistrationNumbers\(competition\)/, 'pre-event competition detail must summarize registration numbers');
 assert.match(source, /function competitionPreEventCards\(competition\)/, 'pre-event competition detail must use pre-match metric cards');
 assert.match(source, /function renderCompetitionPreEventPanel\(competition\)/, 'pre-event competition detail must render a dedicated preparation panel');
@@ -92,10 +107,13 @@ assert.match(source, /const primaryItems = sortedItems\.slice\(0, 4\)/, 'competi
 assert.match(source, /renderCompetitionRosterSnapshot\(competition\)/, 'pre-event competition insight area must include roster snapshot analysis');
 assert.match(source, /class="event-list-more"/, 'competition event list must hide lower-priority projects behind an expandable section');
 assert.match(source, /secondaryItems\.length/, 'competition event list must keep full project access without showing everything by default');
+assert.doesNotMatch(source, /更新后会展示具体组别、剑种、报名规模和后续赛果入口/, 'empty project copy must not expose back-office update wording');
 
 const css = await readFile(new URL('../web/viewer.css', import.meta.url), 'utf8');
 assert.match(css, /\.competition-scope-grid/, 'competition scope summary styles must exist');
 assert.match(css, /\.competition-scope-grid strong,[\s\S]*text-overflow:\s*ellipsis/, 'competition scope cells must truncate long summaries');
+assert.match(css, /\.competition-digest-panel/, 'post-event competition digest panel styles must exist');
+assert.match(css, /\.competition-digest-list/, 'post-event competition digest list styles must exist');
 assert.match(css, /\.competition-prematch-panel/, 'pre-event preparation panel styles must exist');
 assert.match(css, /\.competition-prematch-items/, 'pre-event priority project styles must exist');
 assert.match(css, /\.competition-prematch-roster/, 'pre-event roster snapshot styles must exist');

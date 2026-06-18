@@ -3429,6 +3429,54 @@ function competitionPreEventCards(competition) {
   ];
 }
 
+function competitionDigestRows(competition, insights, primaryEventRows, birthRows) {
+  const total = competitionMetricTotal(competition, 'competitionNo');
+  const elimination = competitionMetricTotal(competition, 'playedEliminationMatchCount');
+  const topItem = primaryEventRows[0];
+  const topAge = birthRows[0];
+  const rows = [];
+  if (topItem) {
+    rows.push({
+      title: '重点项目',
+      detail: `${displayEventName(topItem)} 参赛 ${Number(topItem.competitionNo) || 0} 人，是本场最值得先看的项目。`,
+    });
+  }
+  if (topAge) {
+    rows.push({
+      title: '主要年龄段',
+      detail: `${topAge.label} 人数最多，适合先观察同龄段竞争强度。`,
+    });
+  }
+  rows.push({
+    title: '赛事强度',
+    detail: `${total || 0} 人次参赛，${elimination || 0} 场淘汰赛，先看晋级率和淘汰赛完成度。`,
+  });
+  if (insights?.bullets?.[0]) {
+    rows.push({
+      title: '观察重点',
+      detail: insights.bullets[0],
+    });
+  }
+  return rows.slice(0, 3);
+}
+
+function competitionDigestPanel(rows) {
+  if (!rows.length) return '';
+  return `
+    <div class="competition-digest-panel">
+      <div class="chart-title">赛事解读</div>
+      <div class="competition-digest-list">
+        ${rows.map((row) => `
+          <div>
+            <strong>${escapeHtml(row.title)}</strong>
+            <span>${escapeHtml(row.detail)}</span>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `;
+}
+
 function competitionPreEventReadinessRows(competition) {
   const numbers = competitionRegistrationNumbers(competition);
   const topItems = competitionPreEventTopItems(competition, 3);
@@ -3643,16 +3691,16 @@ function renderCompetitionInsights(competition) {
     competitionInsightBullets.innerHTML = `
       ${renderCompetitionPreEventPanel(competition)}
       ${primaryEventRows.length > 1 ? eventTiles('重点项目', primaryEventRows) : ''}
-      ${bullets.length ? `<div class="insight-note compact">${escapeHtml(bullets[0])}</div>` : ''}
     `;
     return;
   }
 
+  const digestRows = competitionDigestRows(competition, insights, primaryEventRows, birthRows);
   competitionInsightBullets.innerHTML = `
+    ${competitionDigestPanel(digestRows)}
     ${donutChart('赛事结构', densityRows)}
     ${birthRows.length ? barChart('主要年龄段', birthRows, { tone: 'orange' }) : '<div class="empty compact-empty">暂无年龄段数据</div>'}
     ${primaryEventRows.length > 1 ? eventTiles('主要项目对比', primaryEventRows) : ''}
-    ${bullets.length ? `<div class="insight-note compact">${escapeHtml(bullets[0])}</div>` : ''}
   `;
 }
 
@@ -3669,7 +3717,7 @@ function renderEventList(competition) {
   if (!eventItems.length) {
     eventList.innerHTML = `
       <div class="empty compact-empty">
-        项目信息暂未更新。更新后会展示具体组别、剑种、报名规模和后续赛果入口。
+        目前可先关注赛事时间、地点和报名节奏；具体项目开放后会按重点项目整理。
       </div>
     `;
     return;
