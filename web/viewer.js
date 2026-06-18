@@ -109,6 +109,7 @@ const state = {
   lastSearchKeyword: '',
   aiHydratedTerms: new Set(),
   eventRenderedTabs: new Set(),
+  competitionSearchCache: new Map(),
   detailCache: {
     athletes: new Map(),
     clubs: new Map(),
@@ -615,6 +616,15 @@ function competitionSearchHaystack(competition) {
   return `${normalized} ${normalized.replace(/\s+/g, '')}`;
 }
 
+function cachedCompetitionSearchHaystack(competition) {
+  const key = competition.sportCode || competition.sportId || competition.sportName;
+  if (!key) return competitionSearchHaystack(competition);
+  if (!state.competitionSearchCache.has(key)) {
+    state.competitionSearchCache.set(key, competitionSearchHaystack(competition));
+  }
+  return state.competitionSearchCache.get(key);
+}
+
 function eventByCodeMap() {
   const map = new Map();
   for (const competition of state.competitions) {
@@ -1045,7 +1055,7 @@ function applyCompetitionFilter() {
     const matchMonth = !monthFilter || competitionMonth(competition) === monthFilter;
     const matchItem = itemFilter === '全部项目' || competitionItemFilterLabels(competition).includes(itemFilter);
     const matchStatus = statusFilter === '全部状态' || statusLabel(competition.status || 'completed') === statusFilter;
-    const haystack = competitionSearchHaystack(competition);
+    const haystack = cachedCompetitionSearchHaystack(competition);
     const matchKeyword = !keyword || tokens.every((token) => haystack.includes(token)) || haystack.includes(compactKeyword);
     return matchRegion && matchYear && matchMonth && matchItem && matchStatus && matchKeyword;
   });
@@ -6450,6 +6460,7 @@ async function init() {
   state.dataGeneratedAt = result.generatedAt || '';
   state.dataCoverage = result.dataCoverage || null;
   state.competitions = result.competitions?.length ? result.competitions : buildCompetitionsFromEvents(result.events);
+  state.competitionSearchCache.clear();
   renderHomeStats();
   renderRoleWorkspacePremium();
   renderParentDashboard();
