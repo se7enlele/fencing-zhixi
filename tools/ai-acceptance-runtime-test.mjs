@@ -56,6 +56,10 @@ const functionNames = [
   'detectRegionInQuery',
   'detectStatusInQuery',
   'aiProjectHints',
+  'aiFocusedAthletes',
+  'aiAthleteProjectLabels',
+  'competitionMatchesProjectLabel',
+  'aiPreMatchFocusRows',
   'projectMatchesAiHints',
   'buildAiCompetitionStats',
   'buildAiPreMatchReport',
@@ -159,6 +163,8 @@ const context = {
     athletesById: Object.fromEntries(athletes.map((athlete) => [athlete.id, athlete])),
     athleteSearchIndex: athletes,
     clubSearchIndex: [sampleClub],
+    followedAthletes: [{ id: 'cai', name: '\u8521\u5ef7\u5f67', club: '\u4e2a\u4eba' }],
+    selectedChildId: 'cai',
   },
 };
 vm.createContext(context);
