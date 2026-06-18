@@ -4558,6 +4558,16 @@ function poolResultRows(group) {
     || (Number(a.phaseRank) || 999) - (Number(b.phaseRank) || 999));
 }
 
+function poolQuickSummaryRows(group, resultRows) {
+  const rows = (resultRows || []).slice(0, 3);
+  if (!rows.length) return [];
+  return rows.map((athlete, index) => ({
+    label: index === 0 ? '当前领先' : `第 ${index + 1}`,
+    name: athlete.name || '-',
+    detail: `${athlete.wins ?? 0}/${athlete.matches ?? 0} 胜 · 净胜 ${athlete.diff ?? 0}${athlete.phaseRank ? ` · 小组第 ${athlete.phaseRank}` : ''}`,
+  }));
+}
+
 function renderPoolGroups(event, activeIndex = 0) {
   const groups = event.poolGroups || [];
   if (!groups.length) {
@@ -4568,6 +4578,7 @@ function renderPoolGroups(event, activeIndex = 0) {
   const group = groups[index];
   const athletes = [...(group.athletes || [])].sort((a, b) => (Number(a.drawNo) || 0) - (Number(b.drawNo) || 0));
   const resultRows = poolResultRows(group);
+  const summaryRows = poolQuickSummaryRows(group, resultRows);
 
   poolGroups.innerHTML = `
     <div class="process-switch" aria-label="选择小组">
@@ -4583,6 +4594,18 @@ function renderPoolGroups(event, activeIndex = 0) {
         <strong>${escapeHtml(group.title || `第 ${index + 1} 组`)}</strong>
         <span>${escapeHtml(athletes.length)} 人 · ${escapeHtml(group.bouts?.length || 0)} 场</span>
       </div>
+      ${summaryRows.length ? `
+        <div class="pool-quick-summary">
+          ${summaryRows.map((row) => `
+            <div>
+              <em>${escapeHtml(row.label)}</em>
+              <strong>${escapeHtml(row.name)}</strong>
+              <span>${escapeHtml(row.detail)}</span>
+            </div>
+          `).join('')}
+        </div>
+      ` : ''}
+      <div class="process-scroll-hint">横向滑动查看完整对阵，点击姓名进入选手画像。</div>
       <div class="pool-matrix-wrap">
         <table class="pool-matrix" style="--pool-size: ${escapeHtml(athletes.length)}">
           <thead>
@@ -4679,6 +4702,17 @@ function tableauPhaseStats(matches) {
   };
 }
 
+function tableauWinnerRows(matches, limit = 4) {
+  return (matches || [])
+    .map((match) => ({
+      winner: matchWinnerName(match),
+      score: matchScoreText(match),
+      code: match.matchCode || '',
+    }))
+    .filter((row) => row.winner && row.winner !== '-')
+    .slice(0, limit);
+}
+
 function renderMatches(event, activeIndex = 0) {
   const groups = event.eliminationPhaseGroups?.length
     ? event.eliminationPhaseGroups
@@ -4691,6 +4725,7 @@ function renderMatches(event, activeIndex = 0) {
   const group = groups[index];
   const matches = sortedTableauMatches(group.matches || []);
   const stats = tableauPhaseStats(matches);
+  const winnerRows = tableauWinnerRows(matches);
   matchList.innerHTML = `
     <div class="process-switch phase-switch" aria-label="选择轮次">
       ${groups.map((item, itemIndex) => `
@@ -4706,6 +4741,17 @@ function renderMatches(event, activeIndex = 0) {
       </div>
       <em>${escapeHtml(index + 1)} / ${escapeHtml(groups.length)}</em>
     </section>
+    ${winnerRows.length ? `
+      <section class="tableau-winner-strip" aria-label="本轮晋级摘要">
+        ${winnerRows.map((row) => `
+          <div>
+            <span>${escapeHtml(row.code ? `对阵 ${row.code}` : group.phase)}</span>
+            <strong>${escapeHtml(row.winner)}</strong>
+            <em>${escapeHtml(row.score)}</em>
+          </div>
+        `).join('')}
+      </section>
+    ` : ''}
     <section class="bracket-board tableau-board">
       ${matches.map((match) => {
         const homeWon = match.home?.result === 'W';

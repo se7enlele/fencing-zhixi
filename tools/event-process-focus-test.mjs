@@ -16,6 +16,9 @@ assert.match(js, /function renderFollowedEventFocus\(event\)/, 'event overview m
 assert.match(js, /eventRenderedTabs:\s*new Set\(\)/, 'event detail must track rendered tabs for lazy rendering');
 assert.match(js, /function renderEventTab\(tabName\)/, 'event detail must render non-current tabs on demand');
 assert.match(js, /state\.eventRenderedTabs\.has\(tabName\)/, 'event tab rendering must avoid duplicate work');
+assert.match(js, /function poolQuickSummaryRows\(group, resultRows\)/, 'pool process must summarize leading athletes before the score matrix');
+assert.match(js, /class="pool-quick-summary"/, 'pool tab must render a mobile-readable leader summary');
+assert.match(js, /class="process-scroll-hint"/, 'wide pool matrices must provide a horizontal scroll hint');
 assert.match(js, /focusClassForAthlete\(match\.home\)/, 'bracket rows must highlight followed athletes');
 assert.match(js, /focusClassForAthlete\(rowAthlete\)/, 'pool matrix rows must highlight followed athletes');
 assert.match(js, /focusLabelForAthlete\(row\)/, 'final ranking rows must label followed athletes');
@@ -27,6 +30,8 @@ assert.doesNotMatch(js, /openEvent\(eventCode\)[\s\S]*renderPoolGroups\(state\.c
 assert.match(css, /body\s*\{[\s\S]*overflow-x:\s*hidden/, 'mobile body must not scroll horizontally');
 assert.match(css, /\.app\s*\{[\s\S]*overflow-x:\s*hidden/, 'mobile app shell must not be widened by tables');
 assert.match(css, /\.pool-matrix-wrap\s*\{[\s\S]*overflow-x:\s*auto/, 'pool matrix must scroll inside its card');
+assert.match(css, /\.pool-quick-summary/, 'pool quick summary styles must exist');
+assert.match(css, /\.process-scroll-hint/, 'pool scroll hint styles must exist');
 assert.match(css, /\.pool-result-table\s*\{[\s\S]*overflow-x:\s*auto/, 'pool result table must scroll inside its card');
 assert.match(css, /\.pool-matrix\s*\{[\s\S]*--pool-size/, 'pool matrix width must be based on active group size');
 assert.match(css, /\.pool-process-card\s*\{[\s\S]*contain:\s*inline-size/, 'pool process card must contain wide tables inside the mobile viewport');
