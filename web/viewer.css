@@ -3732,7 +3732,7 @@ th {
   min-width: 0;
   max-width: 100%;
   overflow: hidden;
-  overflow: clip;
+  contain: inline-size;
   border: 1px solid var(--border);
   border-radius: 10px;
   background: rgba(255, 255, 255, 0.9);
@@ -3746,9 +3746,10 @@ th {
   overflow-x: auto;
   overflow-y: hidden;
   -webkit-overflow-scrolling: touch;
-  margin: 8px -10px 14px;
-  padding: 0 10px;
+  margin: 8px 0 14px;
+  padding: 0;
   overscroll-behavior-x: contain;
+  touch-action: pan-x;
 }
 
 .pool-matrix,
@@ -3759,8 +3760,8 @@ th {
 }
 
 .pool-matrix {
-  width: max(100%, calc(82px + (var(--pool-size, 7) * 30px)));
-  min-width: max(100%, calc(82px + (var(--pool-size, 7) * 30px)));
+  width: max(100%, calc(92px + (var(--pool-size, 7) * 34px)));
+  min-width: max(100%, calc(92px + (var(--pool-size, 7) * 34px)));
   table-layout: fixed;
 }
 
@@ -3785,18 +3786,18 @@ th {
   position: sticky;
   left: 0;
   z-index: 2;
-  width: 82px;
-  min-width: 82px;
-  max-width: 82px;
+  width: 92px;
+  min-width: 92px;
+  max-width: 92px;
   background: #fff;
   box-shadow: 1px 0 0 rgba(16, 24, 40, 0.06);
 }
 
 .pool-matrix th:not(:first-child),
 .pool-matrix td:not(:first-child) {
-  width: 30px;
-  min-width: 30px;
-  max-width: 30px;
+  width: 34px;
+  min-width: 34px;
+  max-width: 34px;
 }
 
 .pool-matrix thead th:first-child {
@@ -3867,11 +3868,12 @@ th {
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
   overscroll-behavior-x: contain;
+  touch-action: pan-x;
 }
 
 .pool-results-table {
   width: 100%;
-  min-width: min(100%, 336px);
+  min-width: 420px;
   table-layout: fixed;
 }
 

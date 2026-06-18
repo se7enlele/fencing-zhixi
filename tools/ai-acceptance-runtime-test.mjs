@@ -73,6 +73,7 @@ const functionNames = [
   'directOpponentRows',
   'topEvidenceEvents',
   'aiEvidenceKind',
+  'aiFollowAthleteAction',
 ];
 
 const sampleCompetitions = [

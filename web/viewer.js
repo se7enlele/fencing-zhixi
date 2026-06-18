@@ -2442,6 +2442,7 @@ function buildAiAthleteComparison(query, left, right) {
     actions: [
       left.id ? { label: `查看${left.name}`, athleteId: left.id } : null,
       right.id ? { label: `查看${right.name}`, athleteId: right.id } : null,
+      aiFollowAthleteAction(leader),
     ].filter(Boolean),
     sourceNote: '回答由本地比赛成绩、选手画像和对阵记录生成；没有直接交手时，不会推断真实胜负。',
   };
@@ -2473,7 +2474,10 @@ function buildAiAthleteGrowth(query, athlete) {
       } : null,
     ].filter(Boolean),
     evidence: topEvidenceEvents(events, athlete.name, 7),
-    actions: athlete.id ? [{ label: '查看完整选手画像', athleteId: athlete.id }] : [],
+    actions: [
+      athlete.id ? { label: '查看完整选手画像', athleteId: athlete.id } : null,
+      aiFollowAthleteAction(athlete),
+    ].filter(Boolean),
   };
 }
 
@@ -2612,6 +2616,15 @@ function aiEvidenceKind(row) {
   return row.kind || (row.sportCode ? '赛事记录' : row.eventCode ? '项目记录' : '数据来源');
 }
 
+function aiFollowAthleteAction(athlete) {
+  if (!athlete?.id) return null;
+  const followed = (state.followedAthletes || []).some((item) => item.id === athlete.id);
+  return {
+    label: followed ? '已关注这个孩子' : '关注这个孩子',
+    followAthleteId: athlete.id,
+  };
+}
+
 function aiNextStepRows(report) {
   const rowsByType = {
     'competition-stats': [
@@ -2685,7 +2698,7 @@ function renderAiAnswer(report) {
       ${report.actions?.length ? `
         <div class="ai-action-row">
           ${report.actions.map((action) => `
-            <button type="button" ${action.athleteId ? `data-athlete-id="${escapeHtml(action.athleteId)}"` : ''} ${action.clubId ? `data-club-id="${escapeHtml(action.clubId)}"` : ''} ${action.mainTab ? `data-main-target="${escapeHtml(action.mainTab)}"` : ''} ${action.filters ? `data-ai-filters="${escapeHtml(encodeURIComponent(JSON.stringify(action.filters)))}"` : ''}>
+            <button type="button" ${action.athleteId ? `data-athlete-id="${escapeHtml(action.athleteId)}"` : ''} ${action.followAthleteId ? `data-follow-athlete-id="${escapeHtml(action.followAthleteId)}"` : ''} ${action.clubId ? `data-club-id="${escapeHtml(action.clubId)}"` : ''} ${action.mainTab ? `data-main-target="${escapeHtml(action.mainTab)}"` : ''} ${action.filters ? `data-ai-filters="${escapeHtml(encodeURIComponent(JSON.stringify(action.filters)))}"` : ''}>
               ${escapeHtml(action.label)}
             </button>
           `).join('')}
@@ -2708,6 +2721,15 @@ function bindAiAnswerActions(container) {
   });
   container.querySelectorAll('[data-athlete-id]').forEach((button) => {
     button.addEventListener('click', () => openAthlete(button.dataset.athleteId));
+  });
+  container.querySelectorAll('[data-follow-athlete-id]').forEach((button) => {
+    button.addEventListener('click', async () => {
+      const athlete = findAthleteByReference({ id: button.dataset.followAthleteId });
+      if (!athlete?.id) return;
+      await upsertFollowedAthlete(athlete);
+      button.textContent = '已关注这个孩子';
+      button.setAttribute('aria-pressed', 'true');
+    });
   });
   container.querySelectorAll('[data-club-id]').forEach((button) => {
     button.addEventListener('click', () => openClub(button.dataset.clubId));
