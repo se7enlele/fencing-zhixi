@@ -13,11 +13,16 @@ assert.match(html, /data-tab="participants">最终排名/, 'event detail must ex
 
 assert.match(js, /function trackedAthleteReferences\(\)/, 'event views must resolve selected child and followed athletes');
 assert.match(js, /function renderFollowedEventFocus\(event\)/, 'event overview must render followed athletes in the project');
+assert.match(js, /eventRenderedTabs:\s*new Set\(\)/, 'event detail must track rendered tabs for lazy rendering');
+assert.match(js, /function renderEventTab\(tabName\)/, 'event detail must render non-current tabs on demand');
+assert.match(js, /state\.eventRenderedTabs\.has\(tabName\)/, 'event tab rendering must avoid duplicate work');
 assert.match(js, /focusClassForAthlete\(match\.home\)/, 'bracket rows must highlight followed athletes');
 assert.match(js, /focusClassForAthlete\(rowAthlete\)/, 'pool matrix rows must highlight followed athletes');
 assert.match(js, /focusLabelForAthlete\(row\)/, 'final ranking rows must label followed athletes');
 assert.match(js, /class="pool-matrix" style="--pool-size:/, 'pool matrix must size itself from the active group');
 assert.match(js, /class="process-table pool-results-table"/, 'pool result table must have a mobile-specific width contract');
+assert.match(js, /renderEventTab\('overview'\)/, 'opening an event should render only the visible overview tab immediately');
+assert.doesNotMatch(js, /openEvent\(eventCode\)[\s\S]*renderPoolGroups\(state\.currentEvent\)[\s\S]*renderPoolStanding\(state\.currentEvent\)[\s\S]*renderMatches\(state\.currentEvent\)/, 'opening an event must not eagerly render all hidden process tabs');
 
 assert.match(css, /body\s*\{[\s\S]*overflow-x:\s*hidden/, 'mobile body must not scroll horizontally');
 assert.match(css, /\.app\s*\{[\s\S]*overflow-x:\s*hidden/, 'mobile app shell must not be widened by tables');

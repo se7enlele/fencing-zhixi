@@ -108,6 +108,7 @@ const state = {
   searchRequestId: 0,
   lastSearchKeyword: '',
   aiHydratedTerms: new Set(),
+  eventRenderedTabs: new Set(),
   detailCache: {
     athletes: new Map(),
     clubs: new Map(),
@@ -5930,6 +5931,33 @@ async function openCompetition(sportCode) {
   navigateTo('competition');
 }
 
+function renderEventOverview(event) {
+  renderInsights(event);
+  renderFollowedEventFocus(event);
+  renderAnalysisCharts(event);
+  renderChampionPath(event);
+  renderLeaders(event);
+  renderOpponents(event);
+  renderClubProfiles(event);
+  renderAthleteProfiles(event);
+}
+
+function renderEventTab(tabName) {
+  if (!state.currentEvent || state.eventRenderedTabs.has(tabName)) return;
+  if (tabName === 'overview') {
+    renderEventOverview(state.currentEvent);
+  } else if (tabName === 'pool') {
+    renderPoolGroups(state.currentEvent);
+  } else if (tabName === 'standing') {
+    renderPoolStanding(state.currentEvent);
+  } else if (tabName === 'tableau') {
+    renderMatches(state.currentEvent);
+  } else if (tabName === 'participants') {
+    renderParticipants(state.currentEvent);
+  }
+  state.eventRenderedTabs.add(tabName);
+}
+
 async function openEvent(eventCode) {
   try {
     state.currentEvent = await fetchCachedDetail(
@@ -5938,23 +5966,14 @@ async function openEvent(eventCode) {
       `/api/events/${encodeURIComponent(eventCode)}`,
       (result) => result.event,
     );
+    state.eventRenderedTabs = new Set();
     activateEventTab('overview');
     renderEventHero(state.currentEvent);
-    renderInsights(state.currentEvent);
-    renderFollowedEventFocus(state.currentEvent);
-    renderAnalysisCharts(state.currentEvent);
     renderMetrics(state.currentEvent);
-    renderChampionPath(state.currentEvent);
-    renderLeaders(state.currentEvent);
-    renderOpponents(state.currentEvent);
-    renderParticipants(state.currentEvent);
-    renderPoolGroups(state.currentEvent);
-    renderPoolStanding(state.currentEvent);
-    renderMatches(state.currentEvent);
-    renderClubProfiles(state.currentEvent);
-    renderAthleteProfiles(state.currentEvent);
+    renderEventTab('overview');
     navigateTo('event');
   } catch (error) {
+    state.eventRenderedTabs = new Set();
     setInlineError(eventHero, friendlyErrorMessage('项目详情'));
     metricGrid.innerHTML = '';
     insightCards.innerHTML = '';
@@ -5985,6 +6004,7 @@ function activateEventTab(tabName) {
   document.querySelectorAll('.tab-panel').forEach((panel) => {
     panel.classList.toggle('active', panel.id === `tab-${button.dataset.tab}`);
   });
+  renderEventTab(button.dataset.tab);
 }
 
 tabs.addEventListener('click', (event) => {
