@@ -57,6 +57,6 @@ assert.match(css, /\.ai-evidence button em/, 'AI evidence type badge styles must
 assert.match(css, /\.ai-evidence button small/, 'AI evidence reason styles must exist');
 assert.match(css, /contain: inline-size/, 'Pool process cards must contain wide tables inside the mobile viewport');
 assert.match(css, /touch-action: pan-x/, 'Pool tables must support horizontal pan without expanding the page');
-assert.match(css, /\.pool-results-table[\s\S]*min-width: 420px/, 'Pool result tables must scroll inside their card instead of shrinking unreadably');
+assert.match(css, /\.pool-results-table[\s\S]*min-width: 360px/, 'Pool result tables must fit mobile first and scroll inside their card when needed');
 
 console.log('AI native answers are covered');

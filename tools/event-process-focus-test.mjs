@@ -35,11 +35,11 @@ assert.match(css, /\.process-scroll-hint/, 'pool scroll hint styles must exist')
 assert.match(css, /\.pool-result-table\s*\{[\s\S]*overflow-x:\s*auto/, 'pool result table must scroll inside its card');
 assert.match(css, /\.pool-matrix\s*\{[\s\S]*--pool-size/, 'pool matrix width must be based on active group size');
 assert.match(css, /\.pool-process-card\s*\{[\s\S]*contain:\s*inline-size/, 'pool process card must contain wide tables inside the mobile viewport');
-assert.match(css, /\.pool-matrix\s*\{[\s\S]*92px \+ \(var\(--pool-size, 7\) \* 34px\)/, 'pool matrix must use readable mobile-first fixed column widths');
-assert.match(css, /\.pool-matrix th:not\(:first-child\),[\s\S]*\.pool-matrix td:not\(:first-child\)\s*\{[\s\S]*width:\s*34px/, 'pool matrix header and score columns must share fixed widths');
+assert.match(css, /\.pool-matrix\s*\{[\s\S]*74px \+ \(var\(--pool-size, 7\) \* 31px\)/, 'pool matrix must use compact mobile-first fixed column widths');
+assert.match(css, /\.pool-matrix th:not\(:first-child\),[\s\S]*\.pool-matrix td:not\(:first-child\)\s*\{[\s\S]*width:\s*31px/, 'pool matrix header and score columns must share compact fixed widths');
 assert.match(css, /\.pool-matrix th:first-child,[\s\S]*position:\s*sticky/, 'pool matrix first column must stay visible while scrolling');
 assert.match(css, /\.pool-result-table\s*\{[\s\S]*display:\s*block/, 'pool result scroll container must not expand as a grid min-content box');
-assert.match(css, /\.pool-results-table\s*\{[\s\S]*min-width:\s*420px/, 'pool results table must scroll inside its card instead of shrinking unreadably');
+assert.match(css, /\.pool-results-table\s*\{[\s\S]*min-width:\s*360px/, 'pool results table must fit mobile first while still scrolling inside its card');
 assert.match(css, /\.pool-results-table\s*\{[\s\S]*table-layout:\s*fixed/, 'pool results table must not expand from long cell content');
 assert.match(css, /\.bracket-match\.has-focus-athlete/, 'bracket must visually mark followed athlete matches');
 assert.match(css, /\.participant-card\.is-primary-focus/, 'final ranking must visually mark selected child');
