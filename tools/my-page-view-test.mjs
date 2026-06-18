@@ -42,6 +42,12 @@ assert.match(js, /homePage\.innerHTML = `\s*\$\{renderAiWorkspace\('home'\)\}/, 
 assert.match(js, /<h2>闂?FencingAI<\/h2>|<h2>问 FencingAI<\/h2>/, 'AI workspace must be framed as the primary question entry');
 assert.match(js, /直接用问题查看击剑数据|鐩存帴鐢ㄩ棶棰樻煡鐪嬪嚮鍓戞暟鎹?/, 'AI home lead must explain question-first usage');
 assert.match(js, /data-home-competitions>赛事数据<\/button>|data-home-competitions>璧涗簨鏁版嵁<\/button>/, 'AI home must keep a secondary competition list entry');
+assert.match(js, /function roleAiPromptPresets\(primary, secondary\)/, 'AI home presets must adapt to the selected role');
+assert.match(js, /state\.userRole === 'parent'[\s\S]*最近几场有没有进步/, 'parent AI presets must prioritize growth questions');
+assert.match(js, /state\.userRole === 'coach'[\s\S]*有哪些优势项目/, 'coach AI presets must prioritize club management questions');
+assert.match(js, /state\.userRole === 'club'[\s\S]*U8 男花怎么样/, 'club AI presets must prioritize project strength questions');
+assert.match(js, /state\.userRole === 'data'[\s\S]*2026年天津有几场比赛/, 'data AI presets must prioritize competition statistics');
+assert.match(js, /\[\.\.\.new Set\(\[\.\.\.rolePresets, \.\.\.fallbackPresets\]\)\]\.slice\(0, 5\)/, 'role AI presets must deduplicate and stay compact');
 assert.match(js, /function buildAiAnswer\(query\)/, 'AI workspace must build structured answers from local data');
 assert.match(js, /function buildAiCompetitionStats\(query, filters\)/, 'AI workspace must answer year and region competition statistics');
 assert.match(js, /data-sport-code/, 'AI evidence cards must link back to competition details');

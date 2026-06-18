@@ -1820,15 +1820,62 @@ function renderHomePage() {
   bindPersonalList(homePage);
 }
 
+function aiDefaultClub() {
+  return [...(state.clubSearchIndex || [])]
+    .filter((club) => club?.club)
+    .sort((a, b) => (Number(b.entrants) || 0) - (Number(a.entrants) || 0) || String(a.club).localeCompare(String(b.club), 'zh-CN'))[0] || null;
+}
+
+function roleAiPromptPresets(primary, secondary) {
+  const club = aiDefaultClub();
+  if (state.userRole === 'parent') {
+    return [
+      primary ? `${primary.name}最近几场有没有进步` : '蔡廷彧最近几场有没有进步',
+      primary && secondary ? `分析${primary.name}和${secondary.name}的对比情况` : '分析马潇和陶嘉月的对战情况',
+      '天津近期报名情况',
+      '2026年天津有几场比赛',
+    ];
+  }
+  if (state.userRole === 'coach') {
+    const clubName = club?.club || '山东小众体育';
+    return [
+      `${clubName} U8 男花怎么样`,
+      `${clubName}有哪些优势项目`,
+      '天津近期报名情况',
+      primary ? `${primary.name}最近几场有没有进步` : '蔡廷彧最近几场有没有进步',
+    ];
+  }
+  if (state.userRole === 'club') {
+    const clubName = club?.club || '山东小众体育';
+    return [
+      `${clubName}有哪些优势项目`,
+      `${clubName} U8 男花怎么样`,
+      '2026年天津有几场比赛',
+      '天津近期报名情况',
+    ];
+  }
+  if (state.userRole === 'data') {
+    return [
+      '2026年天津有几场比赛',
+      '天津近期报名情况',
+      '山东小众体育 U8 男花怎么样',
+      primary && secondary ? `分析${primary.name}和${secondary.name}的对比情况` : '分析马潇和陶嘉月的对战情况',
+    ];
+  }
+  return [];
+}
+
 function aiPromptPresets() {
   const athletes = focusAthleteCards();
   const primary = athletes[0] || state.athleteSearchIndex.find((athlete) => athlete.events?.length);
   const secondary = athletes[1] || state.athleteSearchIndex.find((athlete) => athlete.name !== primary?.name && athlete.events?.length);
-  return [
+  const rolePresets = roleAiPromptPresets(primary, secondary);
+  const fallbackPresets = [
     primary && secondary ? `分析${primary.name}和${secondary.name}的对比情况` : '分析马潇和陶嘉月的对比情况',
     primary ? `${primary.name}最近几场有没有进步` : '蔡廷彧最近几场有没有进步',
     ...aiAcceptanceQueryCases().slice(1, 4).map((item) => item.query),
   ];
+  return [...new Set([...rolePresets, ...fallbackPresets])].slice(0, 5);
 }
 
 function aiAcceptanceQueryCases() {
