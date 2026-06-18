@@ -20,4 +20,11 @@ assert.match(css, /\.prematch-action-card/, 'prematch action card styles must ex
 assert.match(css, /\.prematch-roster-summary/, 'prematch roster summary styles must exist');
 assert.match(css, /\.prematch-roster-focus/, 'prematch roster focus styles must exist');
 
+assert.match(js, /function athleteMatchesProjectLabel\(athlete, label\)/, 'prematch intelligence must match external opponents to club projects');
+assert.match(js, /function coachOpponentProjectRows\(opponentPool, projectRows\)/, 'prematch intelligence must summarize strong opponents by project');
+assert.match(js, /class="opponent-project-list"/, 'prematch intelligence must render project-level opponent summaries');
+assert.match(js, /可关注强手/, 'prematch opponent summary must be coach-facing and action-oriented');
+assert.match(css, /\.opponent-project-list/, 'project-level opponent summary layout must exist');
+assert.match(css, /\.opponent-project-card/, 'project-level opponent summary cards must be styled');
+
 console.log('prematch intelligence view is covered');

@@ -5704,6 +5704,29 @@ function coachStrongOpponentPool(club, projectRows) {
     .slice(0, 6);
 }
 
+function athleteMatchesProjectLabel(athlete, label) {
+  const target = compactText(label);
+  if (!target) return false;
+  const eventText = compactText([...(athlete.eventLabels || []), ...(athlete.events || []).map((event) => displayEventName(event))].join(' '));
+  return eventText.includes(target) || target.includes(eventText);
+}
+
+function coachOpponentProjectRows(opponentPool, projectRows) {
+  return projectRows.slice(0, 4)
+    .map((project) => {
+      const opponents = opponentPool
+        .filter((athlete) => athleteMatchesProjectLabel(athlete, project.label))
+        .sort((a, b) => (a.bestRank ?? 999) - (b.bestRank ?? 999) || (b.appearances || 0) - (a.appearances || 0))
+        .slice(0, 3);
+      return {
+        label: project.label,
+        opponents,
+        bestRank: opponents[0]?.bestRank ?? null,
+      };
+    })
+    .filter((row) => row.opponents.length);
+}
+
 function rosterAthleteLabel(row) {
   return row.athleteName || row.memberName || row.name || row.userName || '未命名选手';
 }
@@ -5792,6 +5815,7 @@ function renderPreMatchIntelligence(club, projectRows, athletes, providedRosterR
   const rosterRows = providedRosterRows || clubRosterRows(club);
   const relevantCompetitions = relevantPreMatchCompetitions(projectRows);
   const opponentPool = coachStrongOpponentPool(club, projectRows);
+  const opponentProjectRows = coachOpponentProjectRows(opponentPool, projectRows);
   const topProjects = projectRows.slice(0, 3);
   const rosterSummary = rosterItemSummary(rosterRows);
   const preparationRows = rosterPreparationRows(rosterRows, athletes);
@@ -5896,6 +5920,17 @@ function renderPreMatchIntelligence(club, projectRows, athletes, providedRosterR
           <strong>历史强手池</strong>
           <span>先用于备赛关注</span>
         </div>
+        ${opponentProjectRows.length ? `
+          <div class="opponent-project-list">
+            ${opponentProjectRows.map((row) => `
+              <div class="opponent-project-card">
+                <strong>${escapeHtml(row.label)}</strong>
+                <span>${escapeHtml(row.opponents.length)} 名可关注强手 · 最好第 ${escapeHtml(row.bestRank ?? '-')} 名</span>
+                <em>${escapeHtml(row.opponents.map((athlete) => `${athlete.name}（${athlete.club || '俱乐部待确认'}）`).join(' / '))}</em>
+              </div>
+            `).join('')}
+          </div>
+        ` : ''}
         <div class="coach-athlete-list">
           ${opponentPool.length ? opponentPool.map((athlete) => `
             <button type="button" data-athlete-id="${escapeHtml(athlete.id || '')}">

@@ -3150,9 +3150,51 @@ select:focus {
 
 .coach-athlete-list,
 .project-advice-list,
-.growth-highlight-list {
+.growth-highlight-list,
+.opponent-project-list {
   display: grid;
   gap: 8px;
+}
+
+.opponent-project-list {
+  margin-bottom: 9px;
+}
+
+.opponent-project-card {
+  min-width: 0;
+  border: 1px solid rgba(21, 95, 194, 0.12);
+  border-radius: 10px;
+  background: rgba(21, 95, 194, 0.055);
+  padding: 10px;
+}
+
+.opponent-project-card strong,
+.opponent-project-card span,
+.opponent-project-card em {
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.opponent-project-card strong {
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.opponent-project-card span {
+  margin-top: 4px;
+  color: var(--primary);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.opponent-project-card em {
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 12px;
+  font-style: normal;
 }
 
 .coach-athlete-list {
