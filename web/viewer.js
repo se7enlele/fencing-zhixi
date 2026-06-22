@@ -5502,6 +5502,75 @@ function renderCoachAthleteBucket(title, note, rows) {
   `;
 }
 
+function coachAthleteTrainingFocus(athlete) {
+  const model = buildParentGrowthModel(athlete);
+  const events = athlete.events || [];
+  const latest = model.latest || events[0] || null;
+  const poolText = model.poolRate === null ? '小组赛样本不足' : `小组胜率 ${model.poolRate}%`;
+  const trendText = model.trend === null
+    ? '近期变化待观察'
+    : model.trend > 0
+      ? `最近前进 ${model.trend} 名`
+      : model.trend < 0
+        ? `最近后退 ${Math.abs(model.trend)} 名`
+        : '最近名次持平';
+  let training = '先保证参赛连续性，重点看小组赛稳定性和临场专注度。';
+  if ((model.poolRate ?? 0) >= 60 && (athlete.bestRank ?? 999) <= 8) {
+    training = '具备冲击前列基础，训练重点放在淘汰赛关键分和强手对局。';
+  } else if ((model.poolRate ?? 0) >= 45) {
+    training = '基础稳定性正在形成，训练重点放在减少小组赛波动和提升晋级后表现。';
+  } else if ((events.length || athlete.appearances || 0) >= 2) {
+    training = '已有比赛样本，训练重点放在小组赛拿分能力和首场进入状态。';
+  }
+  return {
+    athlete,
+    latest,
+    poolText,
+    trendText,
+    training,
+    parentMessage: `${model.investment}。${model.advice}`,
+    watchPoint: latest
+      ? `最近 ${displayEventName(latest)} 第 ${latest.finalRank ?? '-'} 名，下一场重点看名次是否前移。`
+      : '下一场先看项目匹配、对手强度和小组赛胜负。'
+  };
+}
+
+function coachAthleteFollowupRows(athletes) {
+  return [...(athletes || [])]
+    .filter((athlete) => athlete?.name)
+    .sort((a, b) => {
+      const aScore = (a.bestRank ?? 999) - (Number(a.appearances) || 0) * 2 - (Number(a.medals) || 0) * 8;
+      const bScore = (b.bestRank ?? 999) - (Number(b.appearances) || 0) * 2 - (Number(b.medals) || 0) * 8;
+      return aScore - bScore || String(a.name).localeCompare(String(b.name), 'zh-CN');
+    })
+    .slice(0, 6)
+    .map(coachAthleteTrainingFocus);
+}
+
+function renderCoachAthleteFollowups(athletes) {
+  const rows = coachAthleteFollowupRows(athletes);
+  if (!rows.length) return '';
+  return `
+    <div class="coach-followup-list">
+      ${rows.map((row) => `
+        <button class="coach-followup-card" type="button" data-athlete-id="${escapeHtml(row.athlete.id || '')}">
+          <div class="coach-followup-head">
+            <strong>${escapeHtml(row.athlete.name)}</strong>
+            <span>${escapeHtml(row.athlete.club || '俱乐部待确认')}</span>
+          </div>
+          <div class="coach-followup-tags">
+            <span>${escapeHtml(row.poolText)}</span>
+            <span>${escapeHtml(row.trendText)}</span>
+          </div>
+          <p>${escapeHtml(row.training)}</p>
+          <em>${escapeHtml(row.parentMessage)}</em>
+          <small>${escapeHtml(row.watchPoint)}</small>
+        </button>
+      `).join('')}
+    </div>
+  `;
+}
+
 function buildClubGrowthHighlights(club, projectRows, athletes) {
   const bestProject = [...projectRows].sort((a, b) => (a.bestRank ?? 999) - (b.bestRank ?? 999))[0];
   const topInvestment = projectRows[0];
@@ -6229,6 +6298,7 @@ function renderClubDetail(club) {
           <h2>带好现有学员</h2>
           <span>提升成绩与留存</span>
         </div>
+        ${renderCoachAthleteFollowups(athletes)}
         ${renderCoachAthleteBucket('重点培养', '已有名次或奖牌表现', athleteBuckets.focus)}
         ${renderCoachAthleteBucket('稳定基础', '有参赛连续性，适合复盘训练', athleteBuckets.steady)}
         ${renderCoachAthleteBucket('继续观察', '样本较少，先积累比赛记录', athleteBuckets.observe)}

@@ -3335,6 +3335,88 @@ select:focus {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
+.coach-followup-list {
+  display: grid;
+  gap: 8px;
+}
+
+.coach-followup-card {
+  display: grid;
+  gap: 7px;
+  min-width: 0;
+  border: 1px solid rgba(13, 125, 103, 0.13);
+  border-radius: 10px;
+  background: linear-gradient(180deg, rgba(13, 125, 103, 0.055), rgba(255, 255, 255, 0.88));
+  color: var(--text);
+  font: inherit;
+  text-align: left;
+  padding: 10px 11px;
+}
+
+.coach-followup-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  min-width: 0;
+}
+
+.coach-followup-head strong,
+.coach-followup-head span,
+.coach-followup-card p,
+.coach-followup-card em,
+.coach-followup-card small {
+  min-width: 0;
+}
+
+.coach-followup-head strong {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 15px;
+}
+
+.coach-followup-head span,
+.coach-followup-card em,
+.coach-followup-card small {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.coach-followup-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.coach-followup-tags span {
+  border-radius: 999px;
+  background: rgba(21, 95, 194, 0.08);
+  color: var(--primary);
+  font-size: 11px;
+  font-weight: 900;
+  padding: 4px 7px;
+}
+
+.coach-followup-card p {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 1.45;
+}
+
+.coach-followup-card em,
+.coach-followup-card small {
+  display: block;
+  font-style: normal;
+  line-height: 1.45;
+}
+
+.coach-followup-card small {
+  padding-top: 7px;
+  border-top: 1px solid rgba(16, 24, 40, 0.06);
+}
+
 .coach-athlete-list button,
 .project-advice-card {
   border: 1px solid var(--border);
