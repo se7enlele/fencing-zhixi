@@ -18,6 +18,7 @@ assert.match(js, /expectedType: 'club'/, 'AI acceptance queries must cover scope
 assert.match(js, /expectedType: 'growth'/, 'AI acceptance queries must cover athlete growth analysis');
 assert.match(js, /expectedType: 'comparison'/, 'AI acceptance queries must cover athlete comparison');
 assert.match(js, /expectedType: 'business-insight'/, 'AI acceptance queries must cover business value analysis');
+assert.match(js, /expectedType: 'product-template'/, 'AI acceptance queries must cover productized report templates');
 assert.match(js, /aiAcceptanceQueryCases\(\)\.slice\(1, 4\)/, 'AI home presets must reuse acceptance questions');
 assert.match(js, /function detectExactAthletesInQuery\(normalizedQuery\)/, 'AI routing must separate exact athlete matches from fuzzy matches');
 assert.match(js, /function aiEntityCandidateTerms\(query\)/, 'AI must extract entity candidates before answering from the home prompt');
@@ -37,6 +38,13 @@ assert.match(js, /function clearAiCompetitionFilter\(\)/, 'AI competition filter
 assert.match(js, /function buildAiPreMatchReport\(query, filters\)/, 'AI must build prematch reports from registration and project data');
 assert.match(js, /function detectBusinessInsightQuery\(query\)/, 'AI must detect data value and commercialization questions');
 assert.match(js, /function buildAiBusinessInsightReport\(query\)/, 'AI must turn existing data into business opportunity analysis');
+assert.match(js, /function detectProductTemplateQuery\(query\)/, 'AI must detect report-template questions');
+assert.match(js, /function buildAiProductTemplateReport\(query, kind\)/, 'AI must generate productized report templates');
+assert.match(js, /return 'prematch-pack'/, 'AI templates must support prematch intelligence packages');
+assert.match(js, /return 'parent-growth-report'/, 'AI templates must support parent growth reports');
+assert.match(js, /return 'coach-segmentation'/, 'AI templates must support coach segmentation reports');
+assert.match(js, /function productTemplateSections\(kind\)/, 'AI templates must expose reusable report sections');
+assert.match(js, /function productTemplateEvidence\(kind\)/, 'AI templates must attach source evidence');
 assert.match(js, /title: '优先产品化方向'/, 'AI business analysis must prioritize productized opportunities');
 assert.match(js, /家长端：用/, 'AI business analysis must include parent-facing value');
 assert.match(js, /教练端：用/, 'AI business analysis must include coach-facing value');
@@ -49,6 +57,7 @@ assert.match(js, /JSON\.parse\(decodeURIComponent\(button\.dataset\.aiFilters\)\
 assert.match(js, /state\.selectedAiMonth/, 'AI competition filters must preserve month constraints that are not visible in the standard filter chips');
 assert.match(js, /report\.type === 'prematch' \? '赛前情报'/, 'AI answer header must label prematch reports');
 assert.match(js, /report\.type === 'business-insight' \? '商业洞察'/, 'AI answer header must label business insight reports');
+assert.match(js, /report\.type === 'product-template' \? '产品模板'/, 'AI answer header must label product template reports');
 assert.match(js, /kind: '赛前赛事'/, 'AI prematch evidence must label prematch competitions');
 assert.match(js, /名单未完整时，只做项目级和赛事级判断/, 'AI prematch report must disclose incomplete roster boundaries');
 assert.match(js, /暂未发现两人的直接交手记录/, 'AI comparison must not imply direct bouts when none are found');
@@ -76,6 +85,7 @@ assert.match(js, /function aiNextStepRows\(report\)/, 'AI answers must include c
 assert.match(js, /function aiFollowUpPrompts\(report\)/, 'AI answers must generate related follow-up questions');
 assert.match(js, /prematch:\s*\[[\s\S]*同组对手、强手和主要俱乐部分布/, 'AI prematch answers must guide users toward opponent and club checks');
 assert.match(js, /'business-insight':\s*\[[\s\S]*赛前情报包和选手成长报告/, 'AI business insight answers must guide users toward productized reports');
+assert.match(js, /'product-template':\s*\[/, 'AI product templates must include next-step guidance');
 assert.match(js, /comparison:\s*\[[\s\S]*共同项目和直接交手证据/, 'AI comparison answers must tell users to verify evidence before judging');
 assert.match(js, /<div class="ai-next-steps">/, 'AI answer renderer must show next-step guidance');
 assert.match(js, /class="ai-follow-up-row"/, 'AI answer renderer must show follow-up question chips');

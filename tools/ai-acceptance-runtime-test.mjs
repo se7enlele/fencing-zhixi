@@ -51,6 +51,7 @@ const functionNames = [
   'uniqueBy',
   'buildAiAnswer',
   'detectCompetitionStatsQuery',
+  'detectProductTemplateQuery',
   'detectBusinessInsightQuery',
   'detectPreMatchQuery',
   'detectYearInQuery',
@@ -69,6 +70,11 @@ const functionNames = [
   'businessClubOpportunityRows',
   'businessProductOpportunityRows',
   'buildAiBusinessInsightReport',
+  'productTemplateTitle',
+  'productTemplateMetricRows',
+  'productTemplateSections',
+  'productTemplateEvidence',
+  'buildAiProductTemplateReport',
   'buildAiPreMatchReport',
   'buildAiAthleteComparison',
   'buildAiAthleteGrowth',
@@ -239,5 +245,21 @@ assert.ok(businessReport.sections.some((section) => section.title === '\u4f18\u5
 assert.ok(businessReport.sections.some((section) => section.title === '\u533a\u57df\u673a\u4f1a'), 'business insight should include regional opportunity analysis');
 assert.ok(businessReport.evidence.some((row) => row.kind === '\u8d5b\u524d\u673a\u4f1a'), 'business insight should cite prematch opportunity evidence');
 assert.ok(businessReport.evidence.some((row) => row.kind === '\u4ff1\u4e50\u90e8\u8d44\u4ea7'), 'business insight should cite club asset evidence');
+
+const prematchTemplate = context.buildAiAnswer('\u751f\u6210\u8d5b\u524d\u60c5\u62a5\u5305\u6a21\u677f');
+assert.equal(prematchTemplate.type, 'product-template', 'prematch package request should route to product templates');
+assert.equal(prematchTemplate.templateKind, 'prematch-pack', 'prematch package template should preserve template kind');
+assert.ok(prematchTemplate.sections.some((section) => section.title === '\u62a5\u544a\u7ed3\u6784'), 'prematch template should include report structure');
+assert.ok(prematchTemplate.evidence.some((row) => row.kind === '\u8d5b\u524d\u8d5b\u4e8b'), 'prematch template should cite prematch competitions');
+
+const parentTemplate = context.buildAiAnswer('\u751f\u6210\u5bb6\u957f\u6210\u957f\u62a5\u544a\u6a21\u677f');
+assert.equal(parentTemplate.type, 'product-template', 'parent growth report request should route to product templates');
+assert.equal(parentTemplate.templateKind, 'parent-growth-report', 'parent template should preserve template kind');
+assert.ok(parentTemplate.sections.some((section) => section.title === '\u5173\u952e\u6307\u6807'), 'parent template should include metric requirements');
+
+const coachTemplate = context.buildAiAnswer('\u751f\u6210\u6559\u7ec3\u5b66\u5458\u5206\u5c42\u6a21\u677f');
+assert.equal(coachTemplate.type, 'product-template', 'coach segmentation request should route to product templates');
+assert.equal(coachTemplate.templateKind, 'coach-segmentation', 'coach template should preserve template kind');
+assert.ok(coachTemplate.evidence.some((row) => row.kind === '\u4ff1\u4e50\u90e8\u8d44\u4ea7'), 'coach template should cite club assets');
 
 console.log('AI acceptance runtime queries are covered');
