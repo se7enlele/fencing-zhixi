@@ -47,6 +47,9 @@ assert.match(js, /prematchTemplateKind: 'prematch-pack'/, 'prematch product temp
 assert.match(js, /data-prematch-template/, 'AI action buttons must support opening product reports');
 assert.match(js, /prematchSportCode: rows\[0\]\.sportCode/, 'AI prematch answers must expose a single-competition report action when a match exists');
 assert.match(js, /data-prematch-sport-code/, 'AI prematch action buttons must carry the matched competition code');
+assert.match(js, /parentGrowthAthleteId: aiFocusedAthletes\(\)\[0\]\.id/, 'parent growth templates must expose a real growth report action');
+assert.match(js, /data-parent-growth-athlete-id/, 'AI action buttons must support opening parent growth reports');
+assert.match(js, /openParentGrowthReport\(button\.dataset\.parentGrowthAthleteId\)/, 'AI parent growth actions must bind to report navigation');
 assert.match(js, /function productTemplateSections\(kind\)/, 'AI templates must expose reusable report sections');
 assert.match(js, /function productTemplateEvidence\(kind\)/, 'AI templates must attach source evidence');
 assert.match(js, /title: '优先产品化方向'/, 'AI business analysis must prioritize productized opportunities');

@@ -36,6 +36,8 @@ const clubHero = document.querySelector('#clubHero');
 const clubEvents = document.querySelector('#clubEvents');
 const prematchReportHero = document.querySelector('#prematchReportHero');
 const prematchReportBody = document.querySelector('#prematchReportBody');
+const parentGrowthReportHero = document.querySelector('#parentGrowthReportHero');
+const parentGrowthReportBody = document.querySelector('#parentGrowthReportBody');
 const insightCards = document.querySelector('#insightCards');
 const insightBullets = document.querySelector('#insightBullets');
 const followedEventFocus = document.querySelector('#followedEventFocus');
@@ -74,6 +76,7 @@ const views = {
   athlete: document.querySelector('#view-athlete-detail'),
   club: document.querySelector('#view-club-detail'),
   prematchReport: document.querySelector('#view-prematch-report'),
+  parentGrowthReport: document.querySelector('#view-parent-growth-report'),
   my: document.querySelector('#view-my'),
   follow: document.querySelector('#view-follow'),
 };
@@ -1587,9 +1590,154 @@ function renderParentWorkspace() {
         `).join('')}
       </div>
       ${model.yearRows.length ? barChart('年度参赛频率', model.yearRows, { tone: 'teal' }) : ''}
+      <button class="secondary-action compact-action" type="button" data-parent-growth-athlete-id="${escapeHtml(child.id)}">生成成长报告</button>
       <button class="primary-action compact-action" type="button" data-athlete-id="${escapeHtml(child.id)}">查看完整选手画像</button>
     </section>
   `;
+}
+
+function parentGrowthReportTimelineRows(athlete) {
+  return buildAthleteTimelineRows(athlete).slice(0, 8);
+}
+
+function parentGrowthReportEvidenceRows(model) {
+  return (model.events || []).slice(0, 5).map((event) => ({
+    eventCode: event.eventCode,
+    title: displayEventName(event),
+    detail: [event.sportName, event.venue, event.openDate || event.dateLabel].filter(Boolean).join(' · '),
+    result: `最终第 ${event.finalRank ?? '-'} 名 · 小组第 ${event.poolRank ?? '-'} 名`,
+  }));
+}
+
+function renderParentGrowthReport(athleteId = '') {
+  const candidates = childCandidates();
+  const athlete = athleteId
+    ? findAthleteByReference({ id: athleteId }) || candidates.find((item) => item.id === athleteId)
+    : getSelectedChild(candidates);
+
+  if (!athlete?.id) {
+    parentGrowthReportHero.innerHTML = `
+      <div class="hero-title">成长报告</div>
+      <div class="hero-sub">先关注孩子后生成</div>
+    `;
+    parentGrowthReportBody.innerHTML = `
+      <article class="panel parent-growth-report-card">
+        <div class="empty compact-empty">还没有可生成报告的孩子。先搜索并关注选手，报告会自动基于参赛记录生成。</div>
+      </article>
+    `;
+    return;
+  }
+
+  const model = buildParentGrowthModel(athlete);
+  const focusRows = parentNextFocusRows(model);
+  const timelineRows = parentGrowthReportTimelineRows(athlete);
+  const evidenceRows = parentGrowthReportEvidenceRows(model);
+  const latestText = model.latest ? `${displayEventName(model.latest)} · 第${model.latest.finalRank ?? '-'}名` : '暂无记录';
+  const trendLabel = model.trend === null ? '趋势待确认' : model.trend > 0 ? `进步 ${model.trend} 名` : model.trend < 0 ? `后退 ${Math.abs(model.trend)} 名` : '名次持平';
+
+  parentGrowthReportHero.innerHTML = `
+    <div class="hero-title">${escapeHtml(athlete.name)} 的成长报告</div>
+    <div class="hero-sub">${escapeHtml(athlete.club || '俱乐部待确认')}</div>
+    <div class="badge-row">
+      <span class="badge">参赛 ${escapeHtml(model.events.length)} 场</span>
+      <span class="badge">最好 ${escapeHtml(model.best?.finalRank ? `第${model.best.finalRank}名` : '-')}</span>
+      <span class="badge">前八 ${escapeHtml(model.top8Count)} 次</span>
+      <span class="badge">淘汰赛 ${escapeHtml(model.totalElimWins)}胜${escapeHtml(model.totalElimLosses)}负</span>
+    </div>
+  `;
+
+  parentGrowthReportBody.innerHTML = `
+    <article class="panel parent-growth-report-card parent-growth-decision">
+      <div class="section-title">
+        <h2>成长判断</h2>
+        <span>家长视角</span>
+      </div>
+      <strong>${escapeHtml(model.investment)}</strong>
+      <p>${escapeHtml(model.advice)}</p>
+      <div class="parent-growth-signal-grid">
+        <div><span>最近一次</span><strong>${escapeHtml(latestText)}</strong></div>
+        <div><span>近期变化</span><strong>${escapeHtml(trendLabel)}</strong></div>
+        <div><span>突破信号</span><strong>${escapeHtml(model.top8Count ? `${model.top8Count} 次前八` : '继续积累')}</strong></div>
+      </div>
+    </article>
+
+    <article class="panel parent-growth-report-card">
+      <div class="section-title">
+        <h2>关键指标</h2>
+        <span>可持续跟踪</span>
+      </div>
+      <div class="parent-growth-metrics">
+        <div><strong>${escapeHtml(model.events.length)}</strong><span>参赛记录</span></div>
+        <div><strong>${escapeHtml(model.poolRate === null ? '-' : `${model.poolRate}%`)}</strong><span>小组胜率</span></div>
+        <div><strong>${escapeHtml(model.best?.finalRank ? `第${model.best.finalRank}名` : '-')}</strong><span>最好名次</span></div>
+        <div><strong>${escapeHtml(`${model.totalElimWins}胜${model.totalElimLosses}负`)}</strong><span>淘汰赛</span></div>
+      </div>
+      ${model.yearRows.length ? barChart('年度参赛频率', model.yearRows, { tone: 'teal' }) : ''}
+    </article>
+
+    <article class="panel parent-growth-report-card">
+      <div class="section-title">
+        <h2>下一步关注点</h2>
+        <span>训练沟通</span>
+      </div>
+      <div class="parent-growth-focus-list">
+        ${focusRows.map((row) => `
+          <div>
+            <strong>${escapeHtml(row.title)}</strong>
+            <span>${escapeHtml(row.detail)}</span>
+          </div>
+        `).join('')}
+      </div>
+    </article>
+
+    <article class="panel parent-growth-report-card">
+      <div class="section-title">
+        <h2>参赛轨迹</h2>
+        <span>最近记录</span>
+      </div>
+      <div class="parent-growth-timeline">
+        ${timelineRows.length ? timelineRows.map((row) => `
+          <button type="button" data-event-code="${escapeHtml(row.eventCode || '')}">
+            <div>
+              <strong>${escapeHtml(row.title)}</strong>
+              <span>${escapeHtml(row.competition)}</span>
+              <em>${escapeHtml([row.date, row.venue].filter(Boolean).join(' · '))}</em>
+            </div>
+            <b>${escapeHtml(row.rank)}</b>
+          </button>
+        `).join('') : '<div class="empty compact-empty">暂无参赛轨迹。</div>'}
+      </div>
+    </article>
+
+    <article class="panel parent-growth-report-card">
+      <div class="section-title">
+        <h2>数据依据</h2>
+        <span>可追溯</span>
+      </div>
+      <div class="parent-growth-evidence">
+        ${evidenceRows.length ? evidenceRows.map((row) => `
+          <button type="button" data-event-code="${escapeHtml(row.eventCode || '')}">
+            <strong>${escapeHtml(row.title)}</strong>
+            <span>${escapeHtml(row.detail)}</span>
+            <em>${escapeHtml(row.result)}</em>
+          </button>
+        `).join('') : '<div class="empty compact-empty">暂无可追溯参赛记录。</div>'}
+      </div>
+      <button class="primary-action compact-action" type="button" data-athlete-id="${escapeHtml(athlete.id)}">查看完整选手画像</button>
+    </article>
+  `;
+
+  parentGrowthReportBody.querySelectorAll('[data-event-code]').forEach((button) => {
+    button.addEventListener('click', () => {
+      if (button.dataset.eventCode) openEvent(button.dataset.eventCode);
+    });
+  });
+  parentGrowthReportBody.querySelector('[data-athlete-id]')?.addEventListener('click', () => openAthlete(athlete.id));
+}
+
+function openParentGrowthReport(athleteId = '') {
+  renderParentGrowthReport(athleteId);
+  navigateTo('parentGrowthReport');
 }
 
 function renderRoleWorkspaceLegacy() {
@@ -1656,6 +1804,9 @@ function renderRoleWorkspaceLegacy() {
   roleWorkspace.querySelectorAll('[data-athlete-id]').forEach((button) => {
     button.addEventListener('click', () => openAthlete(button.dataset.athleteId));
   });
+  roleWorkspace.querySelectorAll('[data-parent-growth-athlete-id]').forEach((button) => {
+    button.addEventListener('click', () => openParentGrowthReport(button.dataset.parentGrowthAthleteId));
+  });
 }
 
 function renderParentDashboard() {
@@ -1679,6 +1830,9 @@ function renderParentDashboard() {
   });
   parentDashboard.querySelectorAll('[data-athlete-id]').forEach((button) => {
     button.addEventListener('click', () => openAthlete(button.dataset.athleteId));
+  });
+  parentDashboard.querySelectorAll('[data-parent-growth-athlete-id]').forEach((button) => {
+    button.addEventListener('click', () => openParentGrowthReport(button.dataset.parentGrowthAthleteId));
   });
 }
 
@@ -2765,7 +2919,8 @@ function buildAiProductTemplateReport(query, kind) {
     actions: [
       kind === 'prematch-pack' ? { label: '生成赛前情报包', prematchTemplateKind: 'prematch-pack' } : null,
       kind === 'prematch-pack' ? { label: '查看赛前赛事', mainTab: 'competitions', filters: { status: 'registration' } } : null,
-      kind === 'parent-growth-report' && aiFocusedAthletes()[0]?.id ? { label: '查看孩子画像', athleteId: aiFocusedAthletes()[0].id } : null,
+      kind === 'parent-growth-report' && aiFocusedAthletes()[0]?.id ? { label: '生成成长报告', parentGrowthAthleteId: aiFocusedAthletes()[0].id } : null,
+      kind === 'parent-growth-report' && aiFocusedAthletes()[0]?.id ? { label: '查看选手画像', athleteId: aiFocusedAthletes()[0].id } : null,
       kind === 'coach-segmentation' && (state.clubSearchIndex || [])[0]?.id ? { label: '查看俱乐部画像', clubId: state.clubSearchIndex[0].id } : null,
     ].filter(Boolean),
     sourceNote: '模板基于当前可用数据生成；实际收费版本应按用户角色、关注对象和赛事节点保存为独立报告。',
@@ -3307,7 +3462,7 @@ function renderAiAnswer(report) {
           <strong>可继续操作</strong>
           <div class="ai-action-row">
             ${report.actions.map((action) => `
-              <button type="button" ${action.athleteId ? `data-athlete-id="${escapeHtml(action.athleteId)}"` : ''} ${action.followAthleteId ? `data-follow-athlete-id="${escapeHtml(action.followAthleteId)}"` : ''} ${action.followCompetitionCode ? `data-follow-competition-code="${escapeHtml(action.followCompetitionCode)}"` : ''} ${action.clubId ? `data-club-id="${escapeHtml(action.clubId)}"` : ''} ${action.prematchTemplateKind ? `data-prematch-template="${escapeHtml(action.prematchTemplateKind)}"` : ''} ${action.prematchSportCode ? `data-prematch-sport-code="${escapeHtml(action.prematchSportCode)}"` : ''} ${action.mainTab ? `data-main-target="${escapeHtml(action.mainTab)}"` : ''} ${action.filters ? `data-ai-filters="${escapeHtml(encodeURIComponent(JSON.stringify(action.filters)))}"` : ''}>
+              <button type="button" ${action.athleteId ? `data-athlete-id="${escapeHtml(action.athleteId)}"` : ''} ${action.parentGrowthAthleteId ? `data-parent-growth-athlete-id="${escapeHtml(action.parentGrowthAthleteId)}"` : ''} ${action.followAthleteId ? `data-follow-athlete-id="${escapeHtml(action.followAthleteId)}"` : ''} ${action.followCompetitionCode ? `data-follow-competition-code="${escapeHtml(action.followCompetitionCode)}"` : ''} ${action.clubId ? `data-club-id="${escapeHtml(action.clubId)}"` : ''} ${action.prematchTemplateKind ? `data-prematch-template="${escapeHtml(action.prematchTemplateKind)}"` : ''} ${action.prematchSportCode ? `data-prematch-sport-code="${escapeHtml(action.prematchSportCode)}"` : ''} ${action.mainTab ? `data-main-target="${escapeHtml(action.mainTab)}"` : ''} ${action.filters ? `data-ai-filters="${escapeHtml(encodeURIComponent(JSON.stringify(action.filters)))}"` : ''}>
                 ${escapeHtml(action.label)}
               </button>
             `).join('')}
@@ -3357,6 +3512,9 @@ function bindAiAnswerActions(container) {
   });
   container.querySelectorAll('[data-athlete-id]').forEach((button) => {
     button.addEventListener('click', () => openAthlete(button.dataset.athleteId));
+  });
+  container.querySelectorAll('[data-parent-growth-athlete-id]').forEach((button) => {
+    button.addEventListener('click', () => openParentGrowthReport(button.dataset.parentGrowthAthleteId));
   });
   container.querySelectorAll('[data-follow-athlete-id]').forEach((button) => {
     button.addEventListener('click', async () => {

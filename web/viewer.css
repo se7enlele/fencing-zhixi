@@ -3384,6 +3384,143 @@ select:focus {
   font-style: normal;
 }
 
+.parent-growth-report-shell {
+  display: grid;
+  gap: 10px;
+  min-width: 0;
+}
+
+.parent-growth-report-card {
+  display: grid;
+  gap: 10px;
+}
+
+.parent-growth-decision > strong {
+  color: var(--teal);
+  font-size: 24px;
+  line-height: 1.1;
+}
+
+.parent-growth-decision > p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.parent-growth-signal-grid,
+.parent-growth-metrics {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.parent-growth-signal-grid div,
+.parent-growth-metrics div {
+  min-width: 0;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  background: #fff;
+  padding: 9px;
+}
+
+.parent-growth-signal-grid span,
+.parent-growth-signal-grid strong,
+.parent-growth-metrics span,
+.parent-growth-metrics strong {
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.parent-growth-signal-grid span,
+.parent-growth-metrics span {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.parent-growth-signal-grid strong,
+.parent-growth-metrics strong {
+  margin-top: 4px;
+  color: var(--primary);
+  font-size: 16px;
+  font-weight: 900;
+}
+
+.parent-growth-metrics strong {
+  font-size: 20px;
+  line-height: 1.1;
+}
+
+.parent-growth-focus-list,
+.parent-growth-timeline,
+.parent-growth-evidence {
+  display: grid;
+  gap: 8px;
+}
+
+.parent-growth-focus-list div,
+.parent-growth-timeline button,
+.parent-growth-evidence button {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  background: #fff;
+  color: var(--text);
+  font: inherit;
+  text-align: left;
+  padding: 10px;
+}
+
+.parent-growth-timeline button {
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+}
+
+.parent-growth-focus-list strong,
+.parent-growth-focus-list span,
+.parent-growth-timeline strong,
+.parent-growth-timeline span,
+.parent-growth-timeline em,
+.parent-growth-timeline b,
+.parent-growth-evidence strong,
+.parent-growth-evidence span,
+.parent-growth-evidence em {
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.parent-growth-focus-list strong,
+.parent-growth-timeline strong,
+.parent-growth-evidence strong {
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.parent-growth-focus-list span,
+.parent-growth-timeline span,
+.parent-growth-timeline em,
+.parent-growth-evidence span,
+.parent-growth-evidence em {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.45;
+  font-style: normal;
+}
+
+.parent-growth-timeline b {
+  color: var(--primary);
+  font-size: 16px;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
 .coach-bucket {
   display: grid;
   gap: 8px;
