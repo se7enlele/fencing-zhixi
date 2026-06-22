@@ -1877,6 +1877,64 @@ select:focus {
   line-height: 1.35;
 }
 
+.report-center-grid {
+  display: grid;
+  gap: 8px;
+}
+
+.report-center-grid button {
+  display: grid;
+  grid-template-columns: minmax(0, 74px) minmax(0, 1fr);
+  gap: 3px 10px;
+  align-items: center;
+  min-width: 0;
+  border: 1px solid rgba(21, 95, 194, 0.13);
+  border-radius: 10px;
+  background: rgba(21, 95, 194, 0.045);
+  color: var(--text);
+  font: inherit;
+  text-align: left;
+  padding: 10px;
+}
+
+.report-center-grid button:disabled {
+  opacity: 0.58;
+}
+
+.report-center-grid span,
+.report-center-grid strong,
+.report-center-grid em {
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.report-center-grid span {
+  grid-row: span 2;
+  width: fit-content;
+  max-width: 100%;
+  border-radius: 999px;
+  background: rgba(13, 125, 103, 0.1);
+  color: var(--teal);
+  font-size: 11px;
+  font-weight: 800;
+  padding: 4px 8px;
+}
+
+.report-center-grid strong {
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.report-center-grid em {
+  color: var(--muted);
+  font-size: 12px;
+  font-style: normal;
+}
+
 .focus-dashboard {
   display: grid;
   gap: 10px;

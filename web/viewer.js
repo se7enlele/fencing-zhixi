@@ -1991,6 +1991,40 @@ function bindPersonalList(container) {
   });
 }
 
+function homeReportCenterRows(children, followedCompetitions) {
+  const prematch = (followedCompetitions || []).find(isPrematchCompetition)
+    || prematchReportCompetitions()[0]
+    || null;
+  const child = getSelectedChild() || children?.[0] || null;
+  const club = state.currentClub || aiDefaultClub();
+  return [
+    {
+      key: 'prematch',
+      title: '赛前情报包',
+      detail: prematch ? `${prematch.sportName || '近期赛事'} · ${displayDateLabel(prematch.dateLabel)}` : '近期报名和未开赛赛事',
+      meta: prematch ? statusLabel(prematch.status) : '赛前准备',
+      disabled: false,
+      sportCode: prematch?.sportCode || '',
+    },
+    {
+      key: 'growth',
+      title: '成长报告',
+      detail: child ? `${child.name} · ${child.club || '个人'}` : '关注孩子后自动生成',
+      meta: child ? '家长视角' : '待关注',
+      disabled: !child,
+      athleteId: child?.id || '',
+    },
+    {
+      key: 'coach',
+      title: '学员分层报告',
+      detail: club ? `${club.club} · 教练视角` : '进入俱乐部后生成',
+      meta: club ? '训练与留存' : '待选择',
+      disabled: !club,
+      clubId: club?.id || '',
+    },
+  ];
+}
+
 function renderHomePage() {
   if (!homePage) return;
   if (state.isDataLoading) {
@@ -1999,6 +2033,7 @@ function renderHomePage() {
   }
   const children = focusAthleteCards();
   const followedCompetitions = followedCompetitionCards();
+  const reportRows = homeReportCenterRows(children, followedCompetitions);
   const recentRows = (state.recentItems || []).slice(0, 3);
   const stats = [
     { value: state.competitions.length, label: '赛事收录' },
@@ -2037,6 +2072,21 @@ function renderHomePage() {
     </section>
     <section class="panel my-section">
       <div class="section-title">
+        <h2>报告中心</h2>
+        <span>已产品化</span>
+      </div>
+      <div class="report-center-grid">
+        ${reportRows.map((row) => `
+          <button type="button" data-home-report="${escapeHtml(row.key)}" ${row.disabled ? 'disabled' : ''} ${row.sportCode ? `data-sport-code="${escapeHtml(row.sportCode)}"` : ''} ${row.athleteId ? `data-athlete-id="${escapeHtml(row.athleteId)}"` : ''} ${row.clubId ? `data-club-id="${escapeHtml(row.clubId)}"` : ''}>
+            <span>${escapeHtml(row.meta)}</span>
+            <strong>${escapeHtml(row.title)}</strong>
+            <em>${escapeHtml(row.detail)}</em>
+          </button>
+        `).join('')}
+      </div>
+    </section>
+    <section class="panel my-section">
+      <div class="section-title">
         <h2>关注概览</h2>
         <span>${children.length + followedCompetitions.length ? '已同步' : '待关注'}</span>
       </div>
@@ -2050,6 +2100,13 @@ function renderHomePage() {
   homePage.querySelector('[data-home-competitions]')?.addEventListener('click', () => navigateMain('competitions'));
   homePage.querySelector('[data-home-follow]')?.addEventListener('click', () => navigateMain('follow'));
   homePage.querySelector('[data-home-my]')?.addEventListener('click', () => navigateMain('my'));
+  homePage.querySelectorAll('[data-home-report]').forEach((button) => {
+    button.addEventListener('click', () => {
+      if (button.dataset.homeReport === 'prematch') openPrematchReport('prematch-pack', button.dataset.sportCode || '');
+      if (button.dataset.homeReport === 'growth') openParentGrowthReport(button.dataset.athleteId || '');
+      if (button.dataset.homeReport === 'coach') openCoachSegmentationReport(button.dataset.clubId || '');
+    });
+  });
   homePage.querySelectorAll('[data-coverage-competition]').forEach((button) => {
     button.addEventListener('click', () => openCompetition(button.dataset.coverageCompetition));
   });
