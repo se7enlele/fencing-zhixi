@@ -16,6 +16,10 @@ assert.match(js, /function renderFeedback\(rows = \[\]\)/, 'admin import must re
 assert.match(js, /function loadFeedback\(\)/, 'admin import must load feedback from the admin API');
 assert.match(js, /\/api\/admin\/feedback\?token=/, 'admin import feedback must use the admin feedback API');
 assert.match(js, /function feedbackTypeLabel\(type\)/, 'admin import must label correction and hide requests');
+assert.match(js, /function feedbackStatusLabel\(status\)/, 'admin import must label feedback workflow status');
+assert.match(js, /function updateFeedbackStatus\(id, status\)/, 'admin import must update feedback status');
+assert.match(js, /\/api\/admin\/feedback\/status\?token=/, 'admin import feedback actions must use the admin status API');
+assert.match(js, /data-feedback-status/, 'admin import feedback cards must expose workflow action buttons');
 assert.match(js, /function escapeHtml\(value\)/, 'admin import must escape feedback text before rendering');
 assert.match(js, /<pre>\$\{escapeHtml\(row\.message \|\| ''\)\}<\/pre>/, 'admin import must not render raw feedback messages');
 
@@ -23,6 +27,7 @@ assert.match(css, /\.roster-progress/, 'roster progress panel styles must exist'
 assert.match(css, /\.roster-progress-grid/, 'roster progress metrics must have a layout');
 assert.match(css, /\.feedback-list/, 'admin feedback list styles must exist');
 assert.match(css, /\.feedback-card/, 'admin feedback card styles must exist');
+assert.match(css, /\.feedback-actions/, 'admin feedback workflow action styles must exist');
 
 assert.match(html, /id="feedbackList"/, 'admin import page must expose a feedback list');
 assert.match(html, /id="feedbackStatus"/, 'admin import page must expose feedback load status');

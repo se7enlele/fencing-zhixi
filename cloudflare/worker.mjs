@@ -243,6 +243,11 @@ function normalizeFeedbackText(value) {
   return String(value || '').trim().slice(0, 4000);
 }
 
+function normalizeFeedbackStatus(value) {
+  const status = String(value || '').trim();
+  return ['new', 'reviewing', 'resolved', 'ignored'].includes(status) ? status : '';
+}
+
 async function handleFeedback(request, env) {
   if (request.method !== 'POST') return json({ ok: false, message: 'Method not allowed' }, 405);
   if (!env.FOLLOWS) return json({ ok: false, message: 'Feedback unavailable' }, 503);
@@ -286,6 +291,32 @@ async function handleAdminFeedback(env, url) {
   const feedback = (await Promise.all(ids.map((id) => readJsonKv(env.FOLLOWS, `feedback:${id}`, null))))
     .filter(Boolean);
   return json({ ok: true, version: APP_VERSION, feedback, updatedAt: index.updatedAt || null });
+}
+
+async function handleAdminFeedbackStatus(request, env, url) {
+  if (!requireAdmin(url)) return json({ ok: false, message: 'Forbidden' }, 403);
+  if (!env.FOLLOWS) return json({ ok: false, message: 'Feedback unavailable' }, 503);
+  const body = await request.json();
+  const id = String(body.id || '').trim();
+  const status = normalizeFeedbackStatus(body.status);
+  if (!id) return json({ ok: false, message: 'Missing feedback id' }, 400);
+  if (!status) return json({ ok: false, message: 'Invalid feedback status' }, 400);
+  const existing = await readJsonKv(env.FOLLOWS, `feedback:${id}`, null);
+  if (!existing) return json({ ok: false, message: 'Feedback not found' }, 404);
+  const now = new Date().toISOString();
+  const record = {
+    ...existing,
+    status,
+    reviewedAt: status === 'new' ? existing.reviewedAt || null : now,
+    updatedAt: now,
+  };
+  await env.FOLLOWS.put(`feedback:${id}`, JSON.stringify(record));
+  const index = await readJsonKv(env.FOLLOWS, FEEDBACK_INDEX_KEY, { ids: [] });
+  await env.FOLLOWS.put(FEEDBACK_INDEX_KEY, JSON.stringify({
+    ...index,
+    updatedAt: now,
+  }));
+  return json({ ok: true, version: APP_VERSION, feedback: record });
 }
 
 async function readDynamicScoreReports(env) {
@@ -701,6 +732,14 @@ async function routeApi(request, env, url) {
 
   if (url.pathname === '/api/admin/feedback' && request.method === 'GET') {
     return handleAdminFeedback(env, url);
+  }
+
+  if (url.pathname === '/api/admin/feedback/status' && request.method === 'POST') {
+    try {
+      return await handleAdminFeedbackStatus(request, env, url);
+    } catch (error) {
+      return json({ ok: false, message: error.message }, 400);
+    }
   }
 
   if (url.pathname === '/api/admin/import/preview' || url.pathname === '/api/admin/import/commit') {

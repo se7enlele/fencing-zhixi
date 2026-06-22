@@ -385,6 +385,28 @@ button:disabled {
   white-space: pre-wrap;
 }
 
+.feedback-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.feedback-actions button {
+  min-height: 30px;
+  border-radius: 999px;
+  border: 1px solid rgba(21, 95, 194, 0.18);
+  background: #fff;
+  color: var(--primary);
+  font-size: 12px;
+  font-weight: 900;
+  padding: 0 10px;
+}
+
+.feedback-actions button:disabled {
+  color: var(--muted);
+  background: var(--surface);
+}
+
 @media (max-width: 640px) {
   .admin-shell {
     padding-top: 20px;

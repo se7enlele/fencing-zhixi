@@ -66,8 +66,20 @@ assert.match(
 
 assert.match(
   source,
+  /url\.pathname === '\/api\/admin\/feedback\/status' && request\.method === 'POST'[\s\S]{0,180}handleAdminFeedbackStatus/,
+  'Admin feedback status endpoint should be token-gated and no-store',
+);
+
+assert.match(
+  source,
   /async function handleAdminFeedback\(env, url\)/,
   'Worker should expose an admin feedback reader',
+);
+
+assert.match(
+  source,
+  /async function handleAdminFeedbackStatus\(request, env, url\)/,
+  'Worker should expose an admin feedback workflow updater',
 );
 
 console.log('worker public cache policy is covered');

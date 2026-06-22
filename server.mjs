@@ -453,6 +453,11 @@ function normalizeFeedbackText(value) {
   return String(value || '').trim().slice(0, 4000);
 }
 
+function normalizeFeedbackStatus(value) {
+  const status = String(value || '').trim();
+  return ['new', 'reviewing', 'resolved', 'ignored'].includes(status) ? status : '';
+}
+
 async function handleFeedback(request, response) {
   try {
     const body = JSON.parse(await readRequestBody(request));
@@ -498,6 +503,40 @@ async function handleAdminFeedback(response, url) {
     version: APP_VERSION,
     feedback: (Array.isArray(store.feedback) ? store.feedback : []).slice(0, 50),
   });
+}
+
+async function handleAdminFeedbackStatus(request, response, url) {
+  if (!hasAdminAccess(url)) {
+    sendJson(response, 403, { ok: false, message: 'Forbidden' });
+    return;
+  }
+  try {
+    const body = JSON.parse(await readRequestBody(request));
+    const id = String(body.id || '').trim();
+    const status = normalizeFeedbackStatus(body.status);
+    if (!id) throw new Error('Missing feedback id');
+    if (!status) throw new Error('Invalid feedback status');
+    const store = await readFollowStore();
+    const rows = Array.isArray(store.feedback) ? store.feedback : [];
+    const index = rows.findIndex((item) => item.id === id);
+    if (index === -1) {
+      sendJson(response, 404, { ok: false, message: 'Feedback not found' });
+      return;
+    }
+    const now = new Date().toISOString();
+    const record = {
+      ...rows[index],
+      status,
+      reviewedAt: status === 'new' ? rows[index].reviewedAt || null : now,
+      updatedAt: now,
+    };
+    rows[index] = record;
+    store.feedback = rows;
+    await writeFollowStore(store);
+    sendJson(response, 200, { ok: true, version: APP_VERSION, feedback: record });
+  } catch (error) {
+    sendJson(response, 400, { ok: false, message: error.message });
+  }
 }
 
 function clearDataCaches() {
@@ -1792,6 +1831,11 @@ const server = createServer(async (request, response) => {
 
   if (request.method === 'GET' && url.pathname === '/api/admin/feedback') {
     await handleAdminFeedback(response, url);
+    return;
+  }
+
+  if (request.method === 'POST' && url.pathname === '/api/admin/feedback/status') {
+    await handleAdminFeedbackStatus(request, response, url);
     return;
   }
 

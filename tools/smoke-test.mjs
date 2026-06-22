@@ -135,6 +135,19 @@ try {
     throw new Error('submitted feedback missing from admin feedback list');
   }
 
+  const feedbackStatusSave = await fetch(`${baseUrl}/api/admin/feedback/status?token=fencingai-admin-2026`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ id: feedbackSaveResult.id, status: 'resolved' }),
+  });
+  const feedbackStatusSaveResult = await feedbackStatusSave.json();
+  if (!feedbackStatusSave.ok || !feedbackStatusSaveResult.ok) {
+    throw new Error(feedbackStatusSaveResult.message || `admin feedback status save ${feedbackStatusSave.status}`);
+  }
+  if (feedbackStatusSaveResult.feedback.status !== 'resolved') {
+    throw new Error('feedback status was not updated');
+  }
+
   const club = await fetch(`${baseUrl}/api/clubs/${clubId}`);
   const clubResult = await club.json();
   if (!club.ok || !clubResult.ok) throw new Error(clubResult.message || `club status ${club.status}`);
@@ -264,6 +277,7 @@ try {
     athleteEvents: athleteResult.athlete.events.length,
     followCountAfterDelete: followDeleteResult.follows.length,
     adminFeedbackCount: adminFeedbackResult.feedback.length,
+    adminFeedbackStatus: feedbackStatusSaveResult.feedback.status,
     clubEvents: clubResult.club.events.length,
     apiStatus: api.status,
     recordCount: result.records.length,

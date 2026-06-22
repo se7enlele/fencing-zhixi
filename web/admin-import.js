@@ -10,6 +10,7 @@ const feedbackList = document.querySelector('#feedbackList');
 
 const token = new URLSearchParams(window.location.search).get('token') || '';
 let lastPayload = null;
+let feedbackRows = [];
 
 function setStatus(message, isError = false) {
   statusBox.textContent = message;
@@ -123,23 +124,50 @@ function feedbackTypeLabel(type) {
   return type === 'hide' ? '隐藏申请' : '纠错申请';
 }
 
+function feedbackStatusLabel(status) {
+  return ({
+    new: '待处理',
+    reviewing: '处理中',
+    resolved: '已处理',
+    ignored: '已忽略',
+  })[status] || '待处理';
+}
+
+function feedbackStatusActions(row) {
+  const current = row.status || 'new';
+  return [
+    ['reviewing', '处理中'],
+    ['resolved', '已处理'],
+    ['ignored', '忽略'],
+  ].filter(([status]) => status !== current);
+}
+
 function renderFeedback(rows = []) {
   if (!feedbackList || !feedbackStatus) return;
+  feedbackRows = rows;
   feedbackStatus.textContent = rows.length ? `${rows.length} 条` : '暂无反馈';
   feedbackList.innerHTML = rows.length ? rows.map((row) => `
     <article class="feedback-card">
       <div class="feedback-card-head">
         <span>${feedbackTypeLabel(row.type)}</span>
         <strong>${escapeHtml(row.athlete?.name || '-')}</strong>
-        <em>${escapeHtml(row.status || 'new')}</em>
+        <em>${escapeHtml(feedbackStatusLabel(row.status))}</em>
       </div>
       <div class="feedback-meta">
         <span>${escapeHtml(row.athlete?.club || '俱乐部待确认')}</span>
         <span>${escapeHtml(row.createdAt ? new Date(row.createdAt).toLocaleString('zh-CN') : '-')}</span>
       </div>
       <pre>${escapeHtml(row.message || '')}</pre>
+      <div class="feedback-actions">
+        ${feedbackStatusActions(row).map(([status, label]) => `
+          <button type="button" data-feedback-id="${escapeHtml(row.id)}" data-feedback-status="${escapeHtml(status)}">${escapeHtml(label)}</button>
+        `).join('')}
+      </div>
     </article>
   `).join('') : '<div class="status muted">暂无纠错或隐藏申请。</div>';
+  feedbackList.querySelectorAll('[data-feedback-id]').forEach((button) => {
+    button.addEventListener('click', () => updateFeedbackStatus(button.dataset.feedbackId, button.dataset.feedbackStatus));
+  });
 }
 
 async function loadFeedback() {
@@ -158,6 +186,33 @@ async function loadFeedback() {
   } catch (error) {
     feedbackStatus.textContent = '加载失败';
     feedbackList.innerHTML = `<div class="status error">${error.message}</div>`;
+  }
+}
+
+async function updateFeedbackStatus(id, status) {
+  if (!id || !status) return;
+  const button = feedbackList?.querySelector(`[data-feedback-id="${CSS.escape(id)}"][data-feedback-status="${CSS.escape(status)}"]`);
+  const originalLabel = button?.textContent || '';
+  try {
+    if (button) {
+      button.disabled = true;
+      button.textContent = '保存中';
+    }
+    const response = await fetch(`/api/admin/feedback/status?token=${encodeURIComponent(token)}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id, status }),
+    });
+    const result = await response.json();
+    if (!response.ok || !result.ok) throw new Error(result.message || `请求失败：${response.status}`);
+    feedbackRows = feedbackRows.map((row) => (row.id === id ? result.feedback : row));
+    renderFeedback(feedbackRows);
+  } catch (error) {
+    if (button) {
+      button.disabled = false;
+      button.textContent = originalLabel;
+    }
+    feedbackStatus.textContent = `保存失败：${error.message}`;
   }
 }
 
