@@ -28,6 +28,7 @@ assert.match(js, /renderEventTab\('overview'\)/, 'opening an event should render
 assert.doesNotMatch(js, /openEvent\(eventCode\)[\s\S]*renderPoolGroups\(state\.currentEvent\)[\s\S]*renderPoolStanding\(state\.currentEvent\)[\s\S]*renderMatches\(state\.currentEvent\)/, 'opening an event must not eagerly render all hidden process tabs');
 
 assert.match(css, /body\s*\{[\s\S]*overflow-x:\s*hidden/, 'mobile body must not scroll horizontally');
+assert.match(css, /html\s*\{[\s\S]*overflow-x:\s*hidden/, 'mobile document root must not scroll horizontally');
 assert.match(css, /\.app\s*\{[\s\S]*overflow-x:\s*hidden/, 'mobile app shell must not be widened by tables');
 assert.match(css, /\.pool-matrix-wrap\s*\{[\s\S]*overflow-x:\s*auto/, 'pool matrix must scroll inside its card');
 assert.match(css, /\.pool-quick-summary/, 'pool quick summary styles must exist');
@@ -35,8 +36,9 @@ assert.match(css, /\.process-scroll-hint/, 'pool scroll hint styles must exist')
 assert.match(css, /\.pool-result-table\s*\{[\s\S]*overflow-x:\s*auto/, 'pool result table must scroll inside its card');
 assert.match(css, /\.pool-matrix\s*\{[\s\S]*--pool-size/, 'pool matrix width must be based on active group size');
 assert.match(css, /\.pool-process-card\s*\{[\s\S]*contain:\s*inline-size/, 'pool process card must contain wide tables inside the mobile viewport');
-assert.match(css, /\.pool-matrix\s*\{[\s\S]*width:\s*calc\(92px \+ \(var\(--pool-size, 7\) \* 34px\)\)/, 'pool matrix must use content-sized mobile-first fixed column widths');
-assert.match(css, /\.pool-matrix th:not\(:first-child\),[\s\S]*\.pool-matrix td:not\(:first-child\)\s*\{[\s\S]*width:\s*34px/, 'pool matrix header and score columns must share compact fixed widths');
+assert.match(css, /\.pool-matrix\s*\{[\s\S]*width:\s*calc\(86px \+ \(var\(--pool-size, 7\) \* 32px\)\)/, 'pool matrix must use content-sized mobile-first fixed column widths');
+assert.match(css, /\.pool-matrix th:not\(:first-child\),[\s\S]*\.pool-matrix td:not\(:first-child\)\s*\{[\s\S]*width:\s*32px/, 'pool matrix header and score columns must share compact fixed widths');
+assert.match(css, /@media \(max-width:\s*430px\)[\s\S]*\.pool-matrix\s*\{[\s\S]*width:\s*calc\(76px \+ \(var\(--pool-size, 7\) \* 28px\)\)/, 'small phones must get a denser pool matrix without forcing page zoom');
 assert.match(css, /\.pool-matrix th:first-child,[\s\S]*position:\s*sticky/, 'pool matrix first column must stay visible while scrolling');
 assert.match(css, /\.pool-result-table\s*\{[\s\S]*display:\s*block/, 'pool result scroll container must not expand as a grid min-content box');
 assert.match(css, /\.pool-results-table\s*\{[\s\S]*min-width:\s*324px/, 'pool results table must fit mobile first while still scrolling inside its card');

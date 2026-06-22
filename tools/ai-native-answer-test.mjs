@@ -89,7 +89,7 @@ assert.match(css, /contain: inline-size/, 'Pool process cards must contain wide 
 assert.match(css, /touch-action: pan-x/, 'Pool tables must support horizontal pan without expanding the page');
 assert.match(css, /\.tab-panel,[\s\S]*#matchList[\s\S]*min-width: 0;/, 'Competition process panels must not expand wider than the mobile viewport');
 assert.match(css, /\.pool-matrix-wrap[\s\S]*box-sizing: border-box;/, 'Pool matrix scrolling must stay inside the card');
-assert.match(css, /@media \(max-width: 430px\)[\s\S]*\.pool-matrix[\s\S]*82px[\s\S]*30px/, 'Pool matrix must use compact columns on phone screens');
+assert.match(css, /@media \(max-width: 430px\)[\s\S]*\.pool-matrix[\s\S]*76px[\s\S]*28px/, 'Pool matrix must use compact columns on phone screens');
 assert.match(css, /@media \(max-width: 430px\)[\s\S]*\.pool-results-table[\s\S]*min-width: 300px/, 'Pool result tables must fit mobile first and scroll inside their card when needed');
 
 console.log('AI native answers are covered');

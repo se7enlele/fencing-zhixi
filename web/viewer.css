@@ -17,9 +17,16 @@
   box-sizing: border-box;
 }
 
+html {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
 body {
   margin: 0;
   min-height: 100vh;
+  width: 100%;
   max-width: 100%;
   overflow-x: hidden;
   background:
@@ -30,7 +37,7 @@ body {
 }
 
 .app {
-  width: min(100%, 430px);
+  width: min(100vw, 430px);
   max-width: 100%;
   min-width: 0;
   overflow-x: hidden;
@@ -1035,17 +1042,21 @@ select:focus {
 .stack {
   display: grid;
   gap: 9px;
+  min-width: 0;
 }
 
 .portrait-section {
   display: grid;
   gap: 14px;
+  min-width: 0;
 }
 
 .competition-card,
 .event-card,
 .leader-card,
 .club-card {
+  min-width: 0;
+  max-width: 100%;
   border: 1px solid var(--border);
   border-radius: 8px;
   padding: 12px;
@@ -2949,6 +2960,8 @@ select:focus {
   position: sticky;
   top: 49px;
   z-index: 8;
+  max-width: calc(100% + 24px);
+  overflow-x: auto;
   margin: 0 -12px 10px;
   padding: 8px 12px;
   background: rgba(246, 250, 249, 0.96);
@@ -2983,6 +2996,9 @@ select:focus {
 
 .tab-panel {
   display: none;
+  min-width: 0;
+  max-width: 100%;
+  overflow-x: clip;
 }
 
 .tab-panel.active {
@@ -4232,6 +4248,7 @@ th {
   display: flex;
   align-items: center;
   gap: 9px;
+  max-width: 100%;
   overflow-x: auto;
   scrollbar-width: none;
   padding: 2px 0 10px;
@@ -4310,7 +4327,7 @@ th {
 
 .pool-matrix-wrap {
   display: block;
-  width: 100%;
+  width: min(100%, calc(100vw - 42px));
   min-width: 0;
   max-width: 100%;
   overflow-x: auto;
@@ -4331,8 +4348,8 @@ th {
 }
 
 .pool-matrix {
-  width: calc(92px + (var(--pool-size, 7) * 34px));
-  min-width: calc(92px + (var(--pool-size, 7) * 34px));
+  width: calc(86px + (var(--pool-size, 7) * 32px));
+  min-width: calc(86px + (var(--pool-size, 7) * 32px));
   max-width: none;
   table-layout: fixed;
 }
@@ -4358,18 +4375,18 @@ th {
   position: sticky;
   left: 0;
   z-index: 2;
-  width: 92px;
-  min-width: 92px;
-  max-width: 92px;
+  width: 86px;
+  min-width: 86px;
+  max-width: 86px;
   background: #fff;
   box-shadow: 1px 0 0 rgba(16, 24, 40, 0.06);
 }
 
 .pool-matrix th:not(:first-child),
 .pool-matrix td:not(:first-child) {
-  width: 34px;
-  min-width: 34px;
-  max-width: 34px;
+  width: 32px;
+  min-width: 32px;
+  max-width: 32px;
 }
 
 .pool-matrix thead th:first-child {
@@ -4434,7 +4451,7 @@ th {
 .pool-result-table {
   display: block;
   gap: 6px;
-  width: 100%;
+  width: min(100%, calc(100vw - 42px));
   min-width: 0;
   max-width: 100%;
   overflow-x: auto;
@@ -4490,23 +4507,28 @@ th {
     padding: 8px;
   }
 
+  .pool-matrix-wrap,
+  .pool-result-table {
+    width: min(100%, calc(100vw - 38px));
+  }
+
   .pool-matrix {
-    width: calc(82px + (var(--pool-size, 7) * 30px));
-    min-width: calc(82px + (var(--pool-size, 7) * 30px));
+    width: calc(76px + (var(--pool-size, 7) * 28px));
+    min-width: calc(76px + (var(--pool-size, 7) * 28px));
   }
 
   .pool-matrix th:first-child,
   .pool-matrix td:first-child {
-    width: 82px;
-    min-width: 82px;
-    max-width: 82px;
+    width: 76px;
+    min-width: 76px;
+    max-width: 76px;
   }
 
   .pool-matrix th:not(:first-child),
   .pool-matrix td:not(:first-child) {
-    width: 30px;
-    min-width: 30px;
-    max-width: 30px;
+    width: 28px;
+    min-width: 28px;
+    max-width: 28px;
   }
 
   .pool-matrix td {
