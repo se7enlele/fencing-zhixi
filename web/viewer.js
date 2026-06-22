@@ -2074,10 +2074,11 @@ function bindPersonalList(container) {
       if (button.dataset.type === 'club') openClub(button.dataset.id);
     });
   });
-  container.querySelectorAll('.focus-alert-card').forEach((button) => {
-    button.addEventListener('click', () => {
-      if (button.dataset.type === 'competition') openCompetition(button.dataset.id);
-    });
+  container.querySelectorAll('[data-focus-competition]').forEach((button) => {
+    button.addEventListener('click', () => openCompetition(button.dataset.focusCompetition));
+  });
+  container.querySelectorAll('[data-focus-prematch]').forEach((button) => {
+    button.addEventListener('click', () => openPrematchReport('prematch-pack', button.dataset.focusPrematch || ''));
   });
 }
 
@@ -3867,11 +3868,15 @@ function renderFocusPage() {
       ${priorityCompetitions.length ? `
         <div class="focus-alert-list">
           ${priorityCompetitions.map((competition) => `
-            <button type="button" class="focus-alert-card" data-type="competition" data-id="${escapeHtml(competition.sportCode)}">
+            <article class="focus-alert-card">
               <strong>${escapeHtml(competition.sportName)}</strong>
               <span>${escapeHtml(competition.timing)} · ${escapeHtml(displayDateLabel(competition.dateLabel))}</span>
               <em>${escapeHtml(competition.action)}</em>
-            </button>
+              <div class="focus-alert-actions">
+                <button type="button" data-focus-competition="${escapeHtml(competition.sportCode)}">赛事详情</button>
+                ${isPrematchCompetition(competition) ? `<button type="button" data-focus-prematch="${escapeHtml(competition.sportCode)}">赛前情报</button>` : ''}
+              </div>
+            </article>
           `).join('')}
         </div>
       ` : ''}

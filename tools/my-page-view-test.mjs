@@ -82,6 +82,9 @@ assert.match(js, /class="panel focus-dashboard"/, 'follow page must render a das
 assert.match(js, /<h2>关注工作台<\/h2>/, 'follow page must frame follows as a workspace');
 assert.match(js, /<h2>赛前提醒<\/h2>/, 'follow page must expose pre-match reminders');
 assert.match(js, /class="focus-alert-card"/, 'follow page must render reminder cards for followed competitions');
+assert.match(js, /data-focus-competition/, 'follow reminders must keep a direct competition detail action');
+assert.match(js, /data-focus-prematch/, 'follow reminders must expose a direct prematch report action');
+assert.match(js, /openPrematchReport\('prematch-pack', button\.dataset\.focusPrematch \|\| ''\)/, 'follow prematch action must open the scoped prematch report');
 assert.match(js, /function renderMyPage\(\)/, 'my page renderer must exist');
 assert.match(js, /<h2>我的报告<\/h2>/, 'my page must expose generated reports for reuse');
 assert.match(js, /const reportHistory = reportHistoryRows\(\);/, 'my page must reuse persisted report history');
@@ -107,6 +110,7 @@ assert.match(css, /\.parent-next-focus/, 'parent next focus styles must exist');
 assert.match(css, /\.parent-focus-row/, 'parent focus row styles must exist');
 assert.match(css, /\.focus-dashboard/, 'follow dashboard styles must exist');
 assert.match(css, /\.focus-alert-card/, 'follow alert card styles must exist');
+assert.match(css, /\.focus-alert-actions/, 'follow alert action styles must exist');
 assert.match(css, /\.my-page-shell/, 'personal page styles must exist');
 assert.match(css, /\.competition-follow-tag/, 'competition follow tag styles must exist');
 
