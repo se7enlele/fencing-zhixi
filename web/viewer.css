@@ -2869,6 +2869,19 @@ select:focus {
   box-shadow: none;
 }
 
+.report-share-action {
+  width: fit-content;
+  max-width: 100%;
+  border: 1px solid rgba(13, 125, 103, 0.18);
+  border-radius: 999px;
+  background: rgba(13, 125, 103, 0.08);
+  color: var(--teal);
+  font-size: 12px;
+  font-weight: 900;
+  padding: 7px 11px;
+  box-shadow: none;
+}
+
 .hero {
   position: relative;
   display: grid;

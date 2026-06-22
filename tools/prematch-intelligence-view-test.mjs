@@ -55,6 +55,7 @@ assert.match(js, /function prematchReportCompetitions\(sportCode = ''\)/, 'prema
 assert.match(js, /state\.currentCompetition\?\.sportCode === sportCode/, 'single-competition reports should reuse the loaded competition detail when available');
 assert.match(js, /function prematchReportFocusRows\(competitions\)/, 'prematch report must match focused athletes to competitions');
 assert.match(js, /function prematchReportOpponentRows\(projectLabels\)/, 'prematch report must include strong-opponent signals');
+assert.match(js, /function buildPrematchShareText\(competitions, focusRows, opponentRows, isSingleCompetition\)/, 'prematch report must build shareable summary text');
 assert.match(js, /function renderPrematchReport\(kind = 'prematch-pack', sportCode = ''\)/, 'prematch report must render a real report view scoped by competition when needed');
 assert.match(js, /function openPrematchReport\(kind = 'prematch-pack', sportCode = ''\)/, 'prematch report must be navigable with an optional competition scope');
 assert.match(js, /data-prematch-template/, 'AI product template actions must open the prematch report');
@@ -67,11 +68,14 @@ assert.match(js, /data-event-code="\$\{escapeHtml\(item\.eventCode/, 'single-com
 assert.match(js, /prematchReportBody\.querySelectorAll\('\[data-event-code\]'\)/, 'prematch report project rows must bind to event detail navigation');
 assert.match(js, /prematchReportBody\.querySelectorAll\('\[data-sport-code\]'\)/, 'prematch report competitions must be clickable');
 assert.match(js, /prematchReportBody\.querySelectorAll\('\[data-athlete-id\]'\)/, 'prematch report athletes must be clickable');
+assert.match(js, /data-report-share="prematch"/, 'prematch report must expose a copy summary action');
+assert.match(js, /bindCopyTextButton\(prematchReportHero\.querySelector\('\[data-report-share="prematch"\]'\)/, 'prematch report copy action must be wired');
 assert.match(js, /执行清单/, 'prematch report must include an action checklist');
 assert.match(css, /\.competition-prematch-cta/, 'competition prematch CTA must be styled');
 assert.match(css, /\.prematch-report-shell/, 'prematch report shell styles must exist');
 assert.match(css, /\.prematch-report-metrics/, 'prematch report metrics must be styled');
 assert.match(css, /\.prematch-report-list/, 'prematch report lists must be styled');
 assert.match(css, /\.prematch-checklist/, 'prematch report checklist must be styled');
+assert.match(css, /\.report-share-action/, 'report share button styles must exist');
 
 console.log('prematch intelligence view is covered');

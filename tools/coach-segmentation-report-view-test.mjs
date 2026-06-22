@@ -23,6 +23,7 @@ assert.match(js, /title: '稳定成长学员'/, 'segmentation must include stead
 assert.match(js, /title: '需要关注学员'/, 'segmentation must include risk/follow-up athletes');
 assert.match(js, /title: '样本积累学员'/, 'segmentation must include sample-building athletes');
 assert.match(js, /function coachSegmentationEvidenceRows\(club, projectRows\)/, 'segmentation report must expose traceable project evidence');
+assert.match(js, /function buildCoachSegmentationShareText\(club, buckets, followups, projectRows\)/, 'segmentation report must build shareable summary text');
 assert.match(js, /function renderCoachSegmentationReport\(clubId = ''\)/, 'segmentation report must render from a club id');
 assert.match(js, /function openCoachSegmentationReport\(clubId = ''\)/, 'segmentation report must be navigable');
 assert.match(js, /navigateTo\('coachSegmentationReport'\)/, 'segmentation report must use normal navigation');
@@ -38,6 +39,8 @@ assert.match(js, /class="coach-segmentation-metrics"/, 'segmentation report must
 assert.match(js, /class="coach-segmentation-buckets"/, 'segmentation report must show athlete buckets');
 assert.match(js, /class="coach-segmentation-followups"/, 'segmentation report must show follow-up actions');
 assert.match(js, /class="coach-segmentation-evidence"/, 'segmentation report must show traceable evidence');
+assert.match(js, /data-report-share="coach-segmentation"/, 'segmentation report must expose a copy summary action');
+assert.match(js, /bindCopyTextButton\(coachSegmentationReportHero\.querySelector\('\[data-report-share="coach-segmentation"\]'\)/, 'segmentation report copy action must be wired');
 assert.match(js, /coachSegmentationReportBody\.querySelectorAll\('\[data-athlete-id\]'\)/, 'segmentation report athletes must be clickable');
 assert.match(js, /coachSegmentationReportBody\.querySelectorAll\('\[data-event-code\]'\)/, 'segmentation report evidence must be clickable');
 assert.match(js, /查看完整俱乐部画像/, 'segmentation report must allow drilling into the full club profile');
@@ -48,5 +51,6 @@ assert.match(css, /\.coach-segmentation-metrics/, 'coach segmentation metric sty
 assert.match(css, /\.coach-segmentation-bucket/, 'coach segmentation bucket styles must exist');
 assert.match(css, /\.coach-segmentation-followups/, 'coach segmentation follow-up styles must exist');
 assert.match(css, /\.coach-segmentation-evidence/, 'coach segmentation evidence styles must exist');
+assert.match(css, /\.report-share-action/, 'report share button styles must exist');
 
 console.log('coach segmentation report view is covered');

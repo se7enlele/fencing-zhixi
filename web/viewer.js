@@ -1613,6 +1613,36 @@ function parentGrowthReportEvidenceRows(model) {
   }));
 }
 
+function bindCopyTextButton(button, textBuilder) {
+  if (!button) return;
+  button.addEventListener('click', async () => {
+    const originalLabel = button.textContent;
+    try {
+      const text = typeof textBuilder === 'function' ? textBuilder() : textBuilder;
+      await copyTextToClipboard(text);
+      button.textContent = '已复制';
+    } catch (error) {
+      button.textContent = '复制失败';
+    }
+    setTimeout(() => {
+      button.textContent = originalLabel;
+    }, 1400);
+  });
+}
+
+function buildParentGrowthShareText(athlete, model, focusRows) {
+  return [
+    `${athlete.name} 成长报告`,
+    `俱乐部：${athlete.club || '待确认'}`,
+    `成长判断：${model.investment}`,
+    `参赛记录：${model.events.length} 场，最好名次：${model.best?.finalRank ? `第${model.best.finalRank}名` : '-'}`,
+    `小组胜率：${model.poolRate === null ? '-' : `${model.poolRate}%`}，淘汰赛：${model.totalElimWins}胜${model.totalElimLosses}负`,
+    `建议：${model.advice}`,
+    ...focusRows.slice(0, 3).map((row, index) => `关注点${index + 1}：${row.title}，${row.detail}`),
+    '数据来源：FencingAI 已收录赛事成绩',
+  ].join('\n');
+}
+
 function renderParentGrowthReport(athleteId = '') {
   const candidates = childCandidates();
   const athlete = athleteId
@@ -1648,6 +1678,7 @@ function renderParentGrowthReport(athleteId = '') {
       <span class="badge">前八 ${escapeHtml(model.top8Count)} 次</span>
       <span class="badge">淘汰赛 ${escapeHtml(model.totalElimWins)}胜${escapeHtml(model.totalElimLosses)}负</span>
     </div>
+    <button class="report-share-action" type="button" data-report-share="parent-growth">复制报告摘要</button>
   `;
 
   parentGrowthReportBody.innerHTML = `
@@ -1737,6 +1768,7 @@ function renderParentGrowthReport(athleteId = '') {
     });
   });
   parentGrowthReportBody.querySelector('[data-athlete-id]')?.addEventListener('click', () => openAthlete(athlete.id));
+  bindCopyTextButton(parentGrowthReportHero.querySelector('[data-report-share="parent-growth"]'), () => buildParentGrowthShareText(athlete, model, focusRows));
 }
 
 function openParentGrowthReport(athleteId = '') {
@@ -6286,6 +6318,18 @@ function coachSegmentationEvidenceRows(club, projectRows) {
   }))).slice(0, 8);
 }
 
+function buildCoachSegmentationShareText(club, buckets, followups, projectRows) {
+  const topProject = projectRows[0];
+  return [
+    `${club.club} 学员分层报告`,
+    `识别学员：${buckets.reduce((sum, bucket) => sum + bucket.rows.length, 0)} 人`,
+    topProject ? `重点项目：${topProject.label}，参赛 ${topProject.entrants || 0} 人次，最好第 ${topProject.bestRank ?? '-'} 名` : '重点项目：待形成',
+    ...buckets.map((bucket) => `${bucket.title}：${bucket.rows.map((athlete) => athlete.name).filter(Boolean).slice(0, 4).join(' / ') || '暂无'}。${bucket.action}`),
+    ...followups.slice(0, 3).map((row, index) => `跟进${index + 1}：${row.athlete.name}，${row.training}`),
+    '数据来源：FencingAI 已收录赛事成绩',
+  ].join('\n');
+}
+
 function renderCoachSegmentationReport(clubId = '') {
   const club = findClubById(clubId) || state.clubSearchIndex?.[0] || null;
   if (!club?.id) {
@@ -6319,6 +6363,7 @@ function renderCoachSegmentationReport(clubId = '') {
       <span class="badge">前八 ${escapeHtml(club.top8 || 0)}</span>
       <span class="badge">最好第 ${escapeHtml(club.bestRank ?? '-')} 名</span>
     </div>
+    <button class="report-share-action" type="button" data-report-share="coach-segmentation">复制报告摘要</button>
   `;
 
   coachSegmentationReportBody.innerHTML = `
@@ -6410,6 +6455,7 @@ function renderCoachSegmentationReport(clubId = '') {
     button.addEventListener('click', () => openEvent(button.dataset.eventCode));
   });
   coachSegmentationReportBody.querySelector('[data-club-id]')?.addEventListener('click', () => openClub(club.id));
+  bindCopyTextButton(coachSegmentationReportHero.querySelector('[data-report-share="coach-segmentation"]'), () => buildCoachSegmentationShareText(club, buckets, followups, projectRows));
 }
 
 function openCoachSegmentationReport(clubId = '') {
@@ -7400,6 +7446,20 @@ function prematchReportOpponentRows(projectLabels) {
     .slice(0, 6);
 }
 
+function buildPrematchShareText(competitions, focusRows, opponentRows, isSingleCompetition) {
+  const nearest = competitions[0] || null;
+  return [
+    isSingleCompetition && nearest ? `${nearest.sportName} 赛前情报包` : '赛前情报包',
+    nearest ? `赛事：${nearest.sportName}` : '赛事：近期赛前赛事',
+    nearest ? `时间地点：${displayDateLabel(nearest.dateLabel)} · ${nearest.venue || nearest.region || '地点待确认'}` : '',
+    `相关赛事：${competitions.length} 场`,
+    `关注对象：${focusRows.length} 人，强手线索：${opponentRows.length} 个`,
+    ...focusRows.slice(0, 3).map((row, index) => `关注对象${index + 1}：${row.athlete.name}，${row.advice}`),
+    ...opponentRows.slice(0, 3).map((athlete, index) => `强手线索${index + 1}：${athlete.name}，最好第 ${athlete.bestRank ?? '-'} 名`),
+    '数据来源：FencingAI 已收录赛事、报名和历史成绩',
+  ].filter(Boolean).join('\n');
+}
+
 function renderPrematchReport(kind = 'prematch-pack', sportCode = '') {
   const competitions = prematchReportCompetitions(sportCode);
   const isSingleCompetition = Boolean(sportCode && competitions.length);
@@ -7420,6 +7480,7 @@ function renderPrematchReport(kind = 'prematch-pack', sportCode = '') {
       <span class="badge">关注对象 ${escapeHtml(focusRows.length)} 人</span>
       <span class="badge">强手线索 ${escapeHtml(opponentRows.length)} 个</span>
     </div>
+    <button class="report-share-action" type="button" data-report-share="prematch">复制报告摘要</button>
   `;
 
   prematchReportBody.innerHTML = `
@@ -7537,6 +7598,7 @@ function renderPrematchReport(kind = 'prematch-pack', sportCode = '') {
       if (button.dataset.sportCode) openCompetition(button.dataset.sportCode);
     });
   });
+  bindCopyTextButton(prematchReportHero.querySelector('[data-report-share="prematch"]'), () => buildPrematchShareText(competitions, focusRows, opponentRows, isSingleCompetition));
 }
 
 function openPrematchReport(kind = 'prematch-pack', sportCode = '') {
