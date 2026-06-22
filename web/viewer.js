@@ -1,4 +1,4 @@
-﻿const topBack = document.querySelector('#topBack');
+const topBack = document.querySelector('#topBack');
 const searchInput = document.querySelector('#searchInput');
 const yearFilterButton = document.querySelector('#yearFilterButton');
 const regionFilterButton = document.querySelector('#regionFilterButton');
@@ -3900,11 +3900,13 @@ function renderMyPage() {
   const children = focusAthleteCards();
   const followedCompetitions = followedCompetitionCards();
   const recentRows = (state.recentItems || []).slice(0, 6);
+  const reportHistory = reportHistoryRows();
   const followedAthletes = children.slice(0, 6);
   const generatedLabel = formatDataGeneratedAt(state.dataGeneratedAt);
   const stats = [
     { value: children.length, label: '关注选手' },
     { value: followedCompetitions.length, label: '关注赛事' },
+    { value: reportHistory.length, label: '生成报告' },
     { value: recentRows.length, label: '最近查看' },
   ];
 
@@ -3969,6 +3971,22 @@ function renderMyPage() {
 
     <section class="panel my-section">
       <div class="section-title">
+        <h2>我的报告</h2>
+        <span>${reportHistory.length ? '快速继续' : '生成后可复看'}</span>
+      </div>
+      <div class="report-history-list">
+        ${reportHistory.length ? reportHistory.map((row) => `
+          <button type="button" data-report-history-type="${escapeHtml(row.type || '')}" data-report-history-id="${escapeHtml(row.id || '')}">
+            <span>${escapeHtml(row.typeLabel)}</span>
+            <strong>${escapeHtml(row.title)}</strong>
+            <em>${escapeHtml(row.detail)}</em>
+          </button>
+        `).join('') : '<div class="empty compact-empty">生成成长报告、赛前情报或教练报告后，会显示在这里。</div>'}
+      </div>
+    </section>
+
+    <section class="panel my-section">
+      <div class="section-title">
         <h2>最近查看</h2>
         <span>快速返回</span>
       </div>
@@ -4002,6 +4020,15 @@ function renderMyPage() {
   });
   myPage.querySelectorAll('[data-athlete-id]').forEach((button) => {
     button.addEventListener('click', () => openAthlete(button.dataset.athleteId));
+  });
+  myPage.querySelectorAll('[data-report-history-type]').forEach((button) => {
+    button.addEventListener('click', () => {
+      const type = button.dataset.reportHistoryType;
+      const id = button.dataset.reportHistoryId || '';
+      if (type === 'prematch') openPrematchReport('prematch-pack', id === 'prematch-pack' ? '' : id);
+      if (type === 'parent-growth') openParentGrowthReport(id);
+      if (type === 'coach-segmentation') openCoachSegmentationReport(id);
+    });
   });
   myPage.querySelectorAll('.my-list-row').forEach((button) => {
     button.addEventListener('click', () => {
@@ -8058,4 +8085,3 @@ init().catch((error) => {
   state.viewStack = ['home'];
   showView('home');
 });
-

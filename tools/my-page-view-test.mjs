@@ -83,6 +83,11 @@ assert.match(js, /<h2>关注工作台<\/h2>/, 'follow page must frame follows as
 assert.match(js, /<h2>赛前提醒<\/h2>/, 'follow page must expose pre-match reminders');
 assert.match(js, /class="focus-alert-card"/, 'follow page must render reminder cards for followed competitions');
 assert.match(js, /function renderMyPage\(\)/, 'my page renderer must exist');
+assert.match(js, /<h2>我的报告<\/h2>/, 'my page must expose generated reports for reuse');
+assert.match(js, /const reportHistory = reportHistoryRows\(\);/, 'my page must reuse persisted report history');
+assert.match(js, /\{ value: reportHistory\.length, label: '生成报告' \}/, 'my page stats must include generated reports');
+assert.match(js, /myPage\.querySelectorAll\('\[data-report-history-type\]'\)/, 'my page report rows must bind reopen actions');
+assert.match(js, /if \(type === 'coach-segmentation'\) openCoachSegmentationReport\(id\);/, 'my page must reopen coach segmentation reports');
 assert.match(js, /function upsertFollowedCompetition\(competition\)/, 'competition follow handler must exist');
 assert.match(js, /trackRecentItem\(\{[\s\S]*type: 'competition'/, 'competition detail views must be tracked as recent items');
 
