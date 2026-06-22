@@ -3521,6 +3521,131 @@ select:focus {
   white-space: nowrap;
 }
 
+.coach-segmentation-report-shell {
+  display: grid;
+  gap: 10px;
+  min-width: 0;
+}
+
+.coach-segmentation-report-card {
+  display: grid;
+  gap: 10px;
+}
+
+.coach-segmentation-summary > strong {
+  color: var(--text);
+  font-size: 16px;
+  line-height: 1.45;
+}
+
+.coach-segmentation-summary > p,
+.coach-segmentation-bucket > p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.coach-segmentation-metrics {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.coach-segmentation-metrics div {
+  min-width: 0;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  background: #fff;
+  padding: 9px;
+}
+
+.coach-segmentation-metrics strong,
+.coach-segmentation-metrics span {
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.coach-segmentation-metrics strong {
+  color: var(--primary);
+  font-size: 20px;
+  line-height: 1.1;
+}
+
+.coach-segmentation-metrics span {
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.coach-segmentation-buckets,
+.coach-segmentation-bucket,
+.coach-segmentation-athletes,
+.coach-segmentation-followups,
+.coach-segmentation-evidence {
+  display: grid;
+  gap: 8px;
+}
+
+.coach-segmentation-bucket {
+  border: 1px solid rgba(21, 95, 194, 0.12);
+  border-radius: 10px;
+  background: rgba(21, 95, 194, 0.045);
+  padding: 10px;
+}
+
+.coach-segmentation-athletes button,
+.coach-segmentation-followups button,
+.coach-segmentation-evidence button {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  background: #fff;
+  color: var(--text);
+  font: inherit;
+  text-align: left;
+  padding: 10px;
+}
+
+.coach-segmentation-athletes strong,
+.coach-segmentation-athletes span,
+.coach-segmentation-athletes em,
+.coach-segmentation-followups strong,
+.coach-segmentation-followups span,
+.coach-segmentation-followups em,
+.coach-segmentation-evidence strong,
+.coach-segmentation-evidence span,
+.coach-segmentation-evidence em {
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.coach-segmentation-athletes strong,
+.coach-segmentation-followups strong,
+.coach-segmentation-evidence strong {
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.coach-segmentation-athletes span,
+.coach-segmentation-athletes em,
+.coach-segmentation-followups span,
+.coach-segmentation-followups em,
+.coach-segmentation-evidence span,
+.coach-segmentation-evidence em {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.45;
+  font-style: normal;
+}
+
 .coach-bucket {
   display: grid;
   gap: 8px;

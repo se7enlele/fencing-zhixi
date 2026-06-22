@@ -38,6 +38,8 @@ const prematchReportHero = document.querySelector('#prematchReportHero');
 const prematchReportBody = document.querySelector('#prematchReportBody');
 const parentGrowthReportHero = document.querySelector('#parentGrowthReportHero');
 const parentGrowthReportBody = document.querySelector('#parentGrowthReportBody');
+const coachSegmentationReportHero = document.querySelector('#coachSegmentationReportHero');
+const coachSegmentationReportBody = document.querySelector('#coachSegmentationReportBody');
 const insightCards = document.querySelector('#insightCards');
 const insightBullets = document.querySelector('#insightBullets');
 const followedEventFocus = document.querySelector('#followedEventFocus');
@@ -77,6 +79,7 @@ const views = {
   club: document.querySelector('#view-club-detail'),
   prematchReport: document.querySelector('#view-prematch-report'),
   parentGrowthReport: document.querySelector('#view-parent-growth-report'),
+  coachSegmentationReport: document.querySelector('#view-coach-segmentation-report'),
   my: document.querySelector('#view-my'),
   follow: document.querySelector('#view-follow'),
 };
@@ -88,6 +91,7 @@ const state = {
   clubSearchResults: [],
   currentCompetition: null,
   currentEvent: null,
+  currentClub: null,
   dataCoverage: null,
   athletesById: {},
   athleteSearchIndex: [],
@@ -2921,6 +2925,7 @@ function buildAiProductTemplateReport(query, kind) {
       kind === 'prematch-pack' ? { label: '查看赛前赛事', mainTab: 'competitions', filters: { status: 'registration' } } : null,
       kind === 'parent-growth-report' && aiFocusedAthletes()[0]?.id ? { label: '生成成长报告', parentGrowthAthleteId: aiFocusedAthletes()[0].id } : null,
       kind === 'parent-growth-report' && aiFocusedAthletes()[0]?.id ? { label: '查看选手画像', athleteId: aiFocusedAthletes()[0].id } : null,
+      kind === 'coach-segmentation' && (state.clubSearchIndex || [])[0]?.id ? { label: '生成学员分层报告', coachSegmentationClubId: state.clubSearchIndex[0].id } : null,
       kind === 'coach-segmentation' && (state.clubSearchIndex || [])[0]?.id ? { label: '查看俱乐部画像', clubId: state.clubSearchIndex[0].id } : null,
     ].filter(Boolean),
     sourceNote: '模板基于当前可用数据生成；实际收费版本应按用户角色、关注对象和赛事节点保存为独立报告。',
@@ -3462,7 +3467,7 @@ function renderAiAnswer(report) {
           <strong>可继续操作</strong>
           <div class="ai-action-row">
             ${report.actions.map((action) => `
-              <button type="button" ${action.athleteId ? `data-athlete-id="${escapeHtml(action.athleteId)}"` : ''} ${action.parentGrowthAthleteId ? `data-parent-growth-athlete-id="${escapeHtml(action.parentGrowthAthleteId)}"` : ''} ${action.followAthleteId ? `data-follow-athlete-id="${escapeHtml(action.followAthleteId)}"` : ''} ${action.followCompetitionCode ? `data-follow-competition-code="${escapeHtml(action.followCompetitionCode)}"` : ''} ${action.clubId ? `data-club-id="${escapeHtml(action.clubId)}"` : ''} ${action.prematchTemplateKind ? `data-prematch-template="${escapeHtml(action.prematchTemplateKind)}"` : ''} ${action.prematchSportCode ? `data-prematch-sport-code="${escapeHtml(action.prematchSportCode)}"` : ''} ${action.mainTab ? `data-main-target="${escapeHtml(action.mainTab)}"` : ''} ${action.filters ? `data-ai-filters="${escapeHtml(encodeURIComponent(JSON.stringify(action.filters)))}"` : ''}>
+              <button type="button" ${action.athleteId ? `data-athlete-id="${escapeHtml(action.athleteId)}"` : ''} ${action.parentGrowthAthleteId ? `data-parent-growth-athlete-id="${escapeHtml(action.parentGrowthAthleteId)}"` : ''} ${action.coachSegmentationClubId ? `data-coach-segmentation-club-id="${escapeHtml(action.coachSegmentationClubId)}"` : ''} ${action.followAthleteId ? `data-follow-athlete-id="${escapeHtml(action.followAthleteId)}"` : ''} ${action.followCompetitionCode ? `data-follow-competition-code="${escapeHtml(action.followCompetitionCode)}"` : ''} ${action.clubId ? `data-club-id="${escapeHtml(action.clubId)}"` : ''} ${action.prematchTemplateKind ? `data-prematch-template="${escapeHtml(action.prematchTemplateKind)}"` : ''} ${action.prematchSportCode ? `data-prematch-sport-code="${escapeHtml(action.prematchSportCode)}"` : ''} ${action.mainTab ? `data-main-target="${escapeHtml(action.mainTab)}"` : ''} ${action.filters ? `data-ai-filters="${escapeHtml(encodeURIComponent(JSON.stringify(action.filters)))}"` : ''}>
                 ${escapeHtml(action.label)}
               </button>
             `).join('')}
@@ -3515,6 +3520,9 @@ function bindAiAnswerActions(container) {
   });
   container.querySelectorAll('[data-parent-growth-athlete-id]').forEach((button) => {
     button.addEventListener('click', () => openParentGrowthReport(button.dataset.parentGrowthAthleteId));
+  });
+  container.querySelectorAll('[data-coach-segmentation-club-id]').forEach((button) => {
+    button.addEventListener('click', () => openCoachSegmentationReport(button.dataset.coachSegmentationClubId));
   });
   container.querySelectorAll('[data-follow-athlete-id]').forEach((button) => {
     button.addEventListener('click', async () => {
@@ -6067,6 +6075,50 @@ function clubAthleteBuckets(athletes) {
   };
 }
 
+function coachSegmentationBuckets(athletes) {
+  const rows = [...(athletes || [])].filter((athlete) => athlete?.name);
+  const used = new Set();
+  const take = (predicate) => rows.filter((athlete) => {
+    const key = athlete.id || `${athlete.name}-${athlete.club || ''}`;
+    if (used.has(key) || !predicate(athlete)) return false;
+    used.add(key);
+    return true;
+  });
+  return [
+    {
+      key: 'score',
+      title: '冲成绩学员',
+      note: '已有前八/奖牌或最好名次靠前',
+      action: '重点安排强手对局、淘汰赛关键分和赛前情报。',
+      rows: take((athlete) => (athlete.bestRank ?? 999) <= 8 || (athlete.medals || 0) > 0),
+    },
+    {
+      key: 'steady',
+      title: '稳定成长学员',
+      note: '有连续参赛样本，适合做阶段反馈',
+      action: '用最近 3 场变化和小组赛稳定性做家长沟通。',
+      rows: take((athlete) => (athlete.appearances || athlete.events?.length || 0) >= 2),
+    },
+    {
+      key: 'risk',
+      title: '需要关注学员',
+      note: '成绩波动或小组赛稳定性不足',
+      action: '优先复盘小组赛开局、连续失分和临场状态。',
+      rows: take((athlete) => {
+        const model = buildParentGrowthModel(athlete);
+        return model.events.length >= 2 && ((model.poolRate ?? 0) < 45 || (model.trend ?? 0) < 0);
+      }),
+    },
+    {
+      key: 'new',
+      title: '样本积累学员',
+      note: '比赛样本较少，先建立参赛记录',
+      action: '先选择匹配项目和低压力赛事，形成可追踪成长样本。',
+      rows: take(() => true),
+    },
+  ].map((bucket) => ({ ...bucket, rows: bucket.rows.slice(0, 6) }));
+}
+
 function renderCoachAthleteBucket(title, note, rows) {
   if (!rows.length) return '';
   return `
@@ -6155,6 +6207,157 @@ function renderCoachAthleteFollowups(athletes) {
       `).join('')}
     </div>
   `;
+}
+
+function findClubById(clubId) {
+  if (!clubId) return null;
+  if (state.currentClub?.id === clubId) return state.currentClub;
+  return state.clubsById?.[clubId] || (state.clubSearchIndex || []).find((club) => club.id === clubId) || null;
+}
+
+function coachSegmentationEvidenceRows(club, projectRows) {
+  return (club.events || []).slice(0, 6).map((event) => ({
+    eventCode: event.eventCode,
+    title: displayEventName(event),
+    detail: [event.sportName, event.venue || club.club].filter(Boolean).join(' · '),
+    result: `参赛 ${event.entrants || 0} · 前八 ${event.top8 || 0} · 最好第 ${event.bestRank ?? '-'}`,
+  })).concat(projectRows.slice(0, 3).map((row) => ({
+    eventCode: row.events?.[0]?.eventCode || '',
+    title: row.label,
+    detail: '项目汇总',
+    result: `参赛 ${row.entrants || 0} · 前八 ${row.top8 || 0} · 奖牌 ${row.medals || 0}`,
+  }))).slice(0, 8);
+}
+
+function renderCoachSegmentationReport(clubId = '') {
+  const club = findClubById(clubId) || state.clubSearchIndex?.[0] || null;
+  if (!club?.id) {
+    coachSegmentationReportHero.innerHTML = `
+      <div class="hero-title">学员分层报告</div>
+      <div class="hero-sub">先进入一个俱乐部后生成</div>
+    `;
+    coachSegmentationReportBody.innerHTML = `
+      <article class="panel coach-segmentation-report-card">
+        <div class="empty compact-empty">还没有可生成报告的俱乐部。先搜索并进入俱乐部画像，再生成学员分层报告。</div>
+      </article>
+    `;
+    return;
+  }
+
+  const athletes = clubWorkspaceAthletes(club);
+  const projectRows = clubProjectRows(club);
+  const buckets = coachSegmentationBuckets(athletes);
+  const followups = coachAthleteFollowupRows(athletes);
+  const evidenceRows = coachSegmentationEvidenceRows(club, projectRows);
+  const topProject = projectRows[0] || null;
+  const scoreBucket = buckets.find((bucket) => bucket.key === 'score');
+  const riskBucket = buckets.find((bucket) => bucket.key === 'risk');
+
+  coachSegmentationReportHero.innerHTML = `
+    <div class="hero-title">${escapeHtml(club.club)} 学员分层报告</div>
+    <div class="hero-sub">教练视角 · 训练反馈与留存沟通</div>
+    <div class="badge-row">
+      <span class="badge">识别学员 ${escapeHtml(athletes.length)}</span>
+      <span class="badge">项目 ${escapeHtml(projectRows.length)}</span>
+      <span class="badge">前八 ${escapeHtml(club.top8 || 0)}</span>
+      <span class="badge">最好第 ${escapeHtml(club.bestRank ?? '-')} 名</span>
+    </div>
+  `;
+
+  coachSegmentationReportBody.innerHTML = `
+    <article class="panel coach-segmentation-report-card coach-segmentation-summary">
+      <div class="section-title">
+        <h2>教练摘要</h2>
+        <span>先看动作</span>
+      </div>
+      <strong>${escapeHtml(buildClubOwnerSummary(club, projectRows))}</strong>
+      <p>${escapeHtml(topProject ? `${topProject.label} 是当前最主要项目；建议先把重点学员、稳定学员和需关注学员拆开沟通。` : '先积累项目参赛记录，再形成稳定分层。')}</p>
+      <div class="coach-segmentation-metrics">
+        <div><strong>${escapeHtml(scoreBucket?.rows.length || 0)}</strong><span>冲成绩</span></div>
+        <div><strong>${escapeHtml(buckets.find((bucket) => bucket.key === 'steady')?.rows.length || 0)}</strong><span>稳定成长</span></div>
+        <div><strong>${escapeHtml(riskBucket?.rows.length || 0)}</strong><span>需要关注</span></div>
+        <div><strong>${escapeHtml(buckets.find((bucket) => bucket.key === 'new')?.rows.length || 0)}</strong><span>样本积累</span></div>
+      </div>
+    </article>
+
+    <article class="panel coach-segmentation-report-card">
+      <div class="section-title">
+        <h2>学员分层</h2>
+        <span>训练安排</span>
+      </div>
+      <div class="coach-segmentation-buckets">
+        ${buckets.map((bucket) => `
+          <section class="coach-segmentation-bucket">
+            <div class="coach-bucket-head">
+              <strong>${escapeHtml(bucket.title)}</strong>
+              <span>${escapeHtml(bucket.rows.length)} 人</span>
+            </div>
+            <p>${escapeHtml(bucket.note)}。${escapeHtml(bucket.action)}</p>
+            <div class="coach-segmentation-athletes">
+              ${bucket.rows.length ? bucket.rows.map((athlete) => {
+                const row = coachAthleteTrainingFocus(athlete);
+                return `
+                  <button type="button" data-athlete-id="${escapeHtml(athlete.id || '')}">
+                    <strong>${escapeHtml(athlete.name)}</strong>
+                    <span>${escapeHtml(`${row.poolText} · ${row.trendText}`)}</span>
+                    <em>${escapeHtml(row.training)}</em>
+                  </button>
+                `;
+              }).join('') : '<div class="empty compact-empty">暂无匹配学员。</div>'}
+            </div>
+          </section>
+        `).join('')}
+      </div>
+    </article>
+
+    <article class="panel coach-segmentation-report-card">
+      <div class="section-title">
+        <h2>本周跟进</h2>
+        <span>家长沟通</span>
+      </div>
+      <div class="coach-segmentation-followups">
+        ${followups.length ? followups.slice(0, 5).map((row) => `
+          <button type="button" data-athlete-id="${escapeHtml(row.athlete.id || '')}">
+            <strong>${escapeHtml(row.athlete.name)}</strong>
+            <span>${escapeHtml(row.parentMessage)}</span>
+            <em>${escapeHtml(row.watchPoint)}</em>
+          </button>
+        `).join('') : '<div class="empty compact-empty">暂无可跟进学员。</div>'}
+      </div>
+    </article>
+
+    <article class="panel coach-segmentation-report-card">
+      <div class="section-title">
+        <h2>项目依据</h2>
+        <span>可追溯</span>
+      </div>
+      <div class="coach-segmentation-evidence">
+        ${evidenceRows.length ? evidenceRows.map((row) => `
+          <button type="button" data-event-code="${escapeHtml(row.eventCode || '')}">
+            <strong>${escapeHtml(row.title)}</strong>
+            <span>${escapeHtml(row.detail)}</span>
+            <em>${escapeHtml(row.result)}</em>
+          </button>
+        `).join('') : '<div class="empty compact-empty">暂无可追溯项目记录。</div>'}
+      </div>
+      <button class="primary-action compact-action" type="button" data-club-id="${escapeHtml(club.id)}">查看完整俱乐部画像</button>
+    </article>
+  `;
+
+  coachSegmentationReportBody.querySelectorAll('[data-athlete-id]').forEach((button) => {
+    if (!button.dataset.athleteId) return;
+    button.addEventListener('click', () => openAthlete(button.dataset.athleteId));
+  });
+  coachSegmentationReportBody.querySelectorAll('[data-event-code]').forEach((button) => {
+    if (!button.dataset.eventCode) return;
+    button.addEventListener('click', () => openEvent(button.dataset.eventCode));
+  });
+  coachSegmentationReportBody.querySelector('[data-club-id]')?.addEventListener('click', () => openClub(club.id));
+}
+
+function openCoachSegmentationReport(clubId = '') {
+  renderCoachSegmentationReport(clubId);
+  navigateTo('coachSegmentationReport');
 }
 
 function buildClubGrowthHighlights(club, projectRows, athletes) {
@@ -6883,6 +7086,7 @@ function renderClubDetail(club) {
           <strong>${escapeHtml(buildClubOwnerSummary(club, projectRows))}</strong>
           <span>建议先把强项项目、代表学员和近期比赛复盘讲清楚，用于续费沟通和招生转化。</span>
         </div>
+        <button class="secondary-action compact-action" type="button" data-coach-segmentation-club-id="${escapeHtml(club.id || '')}">生成学员分层报告</button>
       </section>
 
       ${renderCoachActionPlan(actionPlan)}
@@ -6997,6 +7201,10 @@ function renderClubDetail(club) {
     if (!button.dataset.clubId) return;
     button.addEventListener('click', () => openClub(button.dataset.clubId));
   });
+  clubEvents.querySelectorAll('[data-coach-segmentation-club-id]').forEach((button) => {
+    if (!button.dataset.coachSegmentationClubId) return;
+    button.addEventListener('click', () => openCoachSegmentationReport(button.dataset.coachSegmentationClubId));
+  });
   clubEvents.querySelectorAll('[data-ai-query]').forEach((button) => {
     if (!button.dataset.aiQuery) return;
     button.addEventListener('click', () => submitAiQuery(button.dataset.aiQuery));
@@ -7067,6 +7275,7 @@ async function openClub(clubId) {
       `/api/clubs/${encodeURIComponent(clubId)}`,
       (result) => result.club,
     );
+    state.currentClub = renderedClub;
     renderClubDetail(renderedClub);
   } catch (error) {
     setInlineError(clubHero, friendlyErrorMessage('俱乐部详情'));
