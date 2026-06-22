@@ -251,6 +251,7 @@ assert.equal(prematchTemplate.type, 'product-template', 'prematch package reques
 assert.equal(prematchTemplate.templateKind, 'prematch-pack', 'prematch package template should preserve template kind');
 assert.ok(prematchTemplate.sections.some((section) => section.title === '\u62a5\u544a\u7ed3\u6784'), 'prematch template should include report structure');
 assert.ok(prematchTemplate.evidence.some((row) => row.kind === '\u8d5b\u524d\u8d5b\u4e8b'), 'prematch template should cite prematch competitions');
+assert.ok(prematchTemplate.actions.some((action) => action.prematchTemplateKind === 'prematch-pack'), 'prematch template should open the real prematch report');
 
 const parentTemplate = context.buildAiAnswer('\u751f\u6210\u5bb6\u957f\u6210\u957f\u62a5\u544a\u6a21\u677f');
 assert.equal(parentTemplate.type, 'product-template', 'parent growth report request should route to product templates');

@@ -43,6 +43,8 @@ assert.match(js, /function buildAiProductTemplateReport\(query, kind\)/, 'AI mus
 assert.match(js, /return 'prematch-pack'/, 'AI templates must support prematch intelligence packages');
 assert.match(js, /return 'parent-growth-report'/, 'AI templates must support parent growth reports');
 assert.match(js, /return 'coach-segmentation'/, 'AI templates must support coach segmentation reports');
+assert.match(js, /prematchTemplateKind: 'prematch-pack'/, 'prematch product templates must expose a report action');
+assert.match(js, /data-prematch-template/, 'AI action buttons must support opening product reports');
 assert.match(js, /function productTemplateSections\(kind\)/, 'AI templates must expose reusable report sections');
 assert.match(js, /function productTemplateEvidence\(kind\)/, 'AI templates must attach source evidence');
 assert.match(js, /title: '优先产品化方向'/, 'AI business analysis must prioritize productized opportunities');

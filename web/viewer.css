@@ -3275,6 +3275,102 @@ select:focus {
   padding-top: 4px;
 }
 
+.prematch-report-shell {
+  display: grid;
+  gap: 10px;
+  min-width: 0;
+}
+
+.prematch-report-card {
+  display: grid;
+  gap: 10px;
+}
+
+.prematch-report-metrics {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.prematch-report-metrics div {
+  min-width: 0;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  background: #fff;
+  padding: 9px;
+}
+
+.prematch-report-metrics strong,
+.prematch-report-metrics span {
+  display: block;
+}
+
+.prematch-report-metrics strong {
+  color: var(--primary);
+  font-size: 20px;
+  line-height: 1.1;
+}
+
+.prematch-report-metrics span {
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.prematch-report-note {
+  border-radius: 10px;
+  background: rgba(13, 125, 103, 0.07);
+  color: var(--text);
+  font-size: 13px;
+  line-height: 1.5;
+  padding: 10px;
+}
+
+.prematch-report-list,
+.prematch-checklist {
+  display: grid;
+  gap: 8px;
+}
+
+.prematch-report-list button,
+.prematch-checklist div {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  background: #fff;
+  color: var(--text);
+  font: inherit;
+  text-align: left;
+  padding: 10px;
+}
+
+.prematch-report-list strong,
+.prematch-report-list span,
+.prematch-report-list em,
+.prematch-checklist strong,
+.prematch-checklist span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.prematch-report-list strong,
+.prematch-checklist strong {
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.prematch-report-list span,
+.prematch-report-list em,
+.prematch-checklist span {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.45;
+  font-style: normal;
+}
+
 .coach-bucket {
   display: grid;
   gap: 8px;

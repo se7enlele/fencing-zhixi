@@ -3,6 +3,11 @@ import { readFile } from 'node:fs/promises';
 
 const js = await readFile(new URL('../web/viewer.js', import.meta.url), 'utf8');
 const css = await readFile(new URL('../web/viewer.css', import.meta.url), 'utf8');
+const html = await readFile(new URL('../web/viewer.html', import.meta.url), 'utf8');
+
+assert.match(html, /id="view-prematch-report"/, 'prematch report must have a real standalone view');
+assert.match(html, /id="prematchReportHero"/, 'prematch report view must expose a hero');
+assert.match(html, /id="prematchReportBody"/, 'prematch report view must expose report body');
 
 assert.match(js, /function rosterAthleteLabel\(row\)/, 'prematch intelligence must normalize roster athlete names');
 assert.match(js, /function rosterItemSummary\(rosterRows\)/, 'prematch intelligence must summarize roster by project');
@@ -44,5 +49,20 @@ assert.match(js, /data-ai-query/, 'athlete-opponent plans must carry a runnable 
 assert.match(js, /clubEvents\.querySelectorAll\('\[data-ai-query\]'\)/, 'club detail must bind athlete-opponent AI query actions');
 assert.match(js, /submitAiQuery\(button\.dataset\.aiQuery\)/, 'club detail AI query actions must open the AI workspace');
 assert.match(css, /\.ai-plan-action/, 'athlete-opponent AI action chip must be styled');
+
+assert.match(js, /function prematchReportCompetitions\(\)/, 'prematch report must choose actionable upcoming competitions');
+assert.match(js, /function prematchReportFocusRows\(competitions\)/, 'prematch report must match focused athletes to competitions');
+assert.match(js, /function prematchReportOpponentRows\(projectLabels\)/, 'prematch report must include strong-opponent signals');
+assert.match(js, /function renderPrematchReport\(kind = 'prematch-pack'\)/, 'prematch report must render a real report view');
+assert.match(js, /function openPrematchReport\(kind = 'prematch-pack'\)/, 'prematch report must be navigable');
+assert.match(js, /data-prematch-template/, 'AI product template actions must open the prematch report');
+assert.match(js, /openPrematchReport\(button\.dataset\.prematchTemplate/, 'prematch template action must bind to report navigation');
+assert.match(js, /prematchReportBody\.querySelectorAll\('\[data-sport-code\]'\)/, 'prematch report competitions must be clickable');
+assert.match(js, /prematchReportBody\.querySelectorAll\('\[data-athlete-id\]'\)/, 'prematch report athletes must be clickable');
+assert.match(js, /执行清单/, 'prematch report must include an action checklist');
+assert.match(css, /\.prematch-report-shell/, 'prematch report shell styles must exist');
+assert.match(css, /\.prematch-report-metrics/, 'prematch report metrics must be styled');
+assert.match(css, /\.prematch-report-list/, 'prematch report lists must be styled');
+assert.match(css, /\.prematch-checklist/, 'prematch report checklist must be styled');
 
 console.log('prematch intelligence view is covered');

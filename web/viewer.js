@@ -34,6 +34,8 @@ const athleteActionPanel = document.querySelector('#athleteActionPanel');
 const athleteEvents = document.querySelector('#athleteEvents');
 const clubHero = document.querySelector('#clubHero');
 const clubEvents = document.querySelector('#clubEvents');
+const prematchReportHero = document.querySelector('#prematchReportHero');
+const prematchReportBody = document.querySelector('#prematchReportBody');
 const insightCards = document.querySelector('#insightCards');
 const insightBullets = document.querySelector('#insightBullets');
 const followedEventFocus = document.querySelector('#followedEventFocus');
@@ -71,6 +73,7 @@ const views = {
   event: document.querySelector('#view-event-detail'),
   athlete: document.querySelector('#view-athlete-detail'),
   club: document.querySelector('#view-club-detail'),
+  prematchReport: document.querySelector('#view-prematch-report'),
   my: document.querySelector('#view-my'),
   follow: document.querySelector('#view-follow'),
 };
@@ -2760,6 +2763,7 @@ function buildAiProductTemplateReport(query, kind) {
     sections: productTemplateSections(kind),
     evidence: productTemplateEvidence(kind),
     actions: [
+      kind === 'prematch-pack' ? { label: '生成赛前情报包', prematchTemplateKind: 'prematch-pack' } : null,
       kind === 'prematch-pack' ? { label: '查看赛前赛事', mainTab: 'competitions', filters: { status: 'registration' } } : null,
       kind === 'parent-growth-report' && aiFocusedAthletes()[0]?.id ? { label: '查看孩子画像', athleteId: aiFocusedAthletes()[0].id } : null,
       kind === 'coach-segmentation' && (state.clubSearchIndex || [])[0]?.id ? { label: '查看俱乐部画像', clubId: state.clubSearchIndex[0].id } : null,
@@ -3302,7 +3306,7 @@ function renderAiAnswer(report) {
           <strong>可继续操作</strong>
           <div class="ai-action-row">
             ${report.actions.map((action) => `
-              <button type="button" ${action.athleteId ? `data-athlete-id="${escapeHtml(action.athleteId)}"` : ''} ${action.followAthleteId ? `data-follow-athlete-id="${escapeHtml(action.followAthleteId)}"` : ''} ${action.followCompetitionCode ? `data-follow-competition-code="${escapeHtml(action.followCompetitionCode)}"` : ''} ${action.clubId ? `data-club-id="${escapeHtml(action.clubId)}"` : ''} ${action.mainTab ? `data-main-target="${escapeHtml(action.mainTab)}"` : ''} ${action.filters ? `data-ai-filters="${escapeHtml(encodeURIComponent(JSON.stringify(action.filters)))}"` : ''}>
+              <button type="button" ${action.athleteId ? `data-athlete-id="${escapeHtml(action.athleteId)}"` : ''} ${action.followAthleteId ? `data-follow-athlete-id="${escapeHtml(action.followAthleteId)}"` : ''} ${action.followCompetitionCode ? `data-follow-competition-code="${escapeHtml(action.followCompetitionCode)}"` : ''} ${action.clubId ? `data-club-id="${escapeHtml(action.clubId)}"` : ''} ${action.prematchTemplateKind ? `data-prematch-template="${escapeHtml(action.prematchTemplateKind)}"` : ''} ${action.mainTab ? `data-main-target="${escapeHtml(action.mainTab)}"` : ''} ${action.filters ? `data-ai-filters="${escapeHtml(encodeURIComponent(JSON.stringify(action.filters)))}"` : ''}>
                 ${escapeHtml(action.label)}
               </button>
             `).join('')}
@@ -3374,6 +3378,9 @@ function bindAiAnswerActions(container) {
   });
   container.querySelectorAll('[data-club-id]').forEach((button) => {
     button.addEventListener('click', () => openClub(button.dataset.clubId));
+  });
+  container.querySelectorAll('[data-prematch-template]').forEach((button) => {
+    button.addEventListener('click', () => openPrematchReport(button.dataset.prematchTemplate || 'prematch-pack'));
   });
   container.querySelectorAll('[data-main-target]').forEach((button) => {
     button.addEventListener('click', () => {
@@ -6906,6 +6913,163 @@ async function openClub(clubId) {
     });
   }
   navigateTo('club');
+}
+
+function prematchReportCompetitions() {
+  return [...(state.competitions || [])]
+    .filter((competition) => ['registration', 'upcoming', 'live'].includes(competition.status) || competition.isPreEvent)
+    .sort((a, b) => Math.abs(daysFromToday(competitionDateValue(a))) - Math.abs(daysFromToday(competitionDateValue(b)))
+      || String(a.dateLabel || '').localeCompare(String(b.dateLabel || ''), 'zh-CN'))
+    .slice(0, 8);
+}
+
+function prematchReportProjectLabels() {
+  return uniqueBy(aiFocusedAthletes().flatMap((athlete) => aiAthleteProjectLabels(athlete)), (label) => compactText(label)).slice(0, 6);
+}
+
+function prematchReportFocusRows(competitions) {
+  const focused = aiFocusedAthletes();
+  if (!focused.length) return [];
+  return focused.map((athlete) => {
+    const labels = aiAthleteProjectLabels(athlete);
+    const matched = competitions.filter((competition) => labels.some((label) => competitionMatchesProjectLabel(competition, label))).slice(0, 3);
+    const latest = (athlete.events || [])[0] || null;
+    return {
+      athlete,
+      labels,
+      matched,
+      latest,
+      advice: matched.length
+        ? `优先核对 ${matched[0].sportName}，再看同项目报名名单和强手。`
+        : '先用历史项目建立备赛方向，等待报名名单进一步匹配。',
+    };
+  });
+}
+
+function prematchReportOpponentRows(projectLabels) {
+  const labels = projectLabels.map((label) => compactText(label)).filter(Boolean);
+  return (state.athleteSearchIndex || [])
+    .filter((athlete) => {
+      if (!athlete?.name || (athlete.bestRank ?? 999) > 16) return false;
+      const eventText = compactText([...(athlete.eventLabels || []), ...(athlete.events || []).map((event) => displayEventName(event))].join(' '));
+      return labels.length ? labels.some((label) => eventText.includes(label) || label.includes(eventText)) : true;
+    })
+    .sort((a, b) => (a.bestRank ?? 999) - (b.bestRank ?? 999) || (b.appearances || 0) - (a.appearances || 0))
+    .slice(0, 6);
+}
+
+function renderPrematchReport(kind = 'prematch-pack') {
+  const competitions = prematchReportCompetitions();
+  const projectLabels = prematchReportProjectLabels();
+  const focusRows = prematchReportFocusRows(competitions);
+  const opponentRows = prematchReportOpponentRows(projectLabels);
+  const rosterReady = competitions.filter((competition) => competition.rosterStatus === 'partial' || competition.rosterStatus === 'complete').length;
+  const nearest = competitions[0] || null;
+
+  prematchReportHero.innerHTML = `
+    <div class="hero-title">赛前情报包</div>
+    <div class="hero-sub">${escapeHtml(nearest ? `${nearest.sportName} · ${displayDateLabel(nearest.dateLabel)}` : '从近期赛事和关注对象生成')}</div>
+    <div class="badge-row">
+      <span class="badge">近期赛事 ${escapeHtml(competitions.length)} 场</span>
+      <span class="badge">报名信息 ${escapeHtml(rosterReady)} 场</span>
+      <span class="badge">关注对象 ${escapeHtml(focusRows.length)} 人</span>
+      <span class="badge">强手线索 ${escapeHtml(opponentRows.length)} 个</span>
+    </div>
+  `;
+
+  prematchReportBody.innerHTML = `
+    <article class="panel prematch-report-card">
+      <div class="section-title">
+        <h2>赛前窗口</h2>
+        <span>优先处理</span>
+      </div>
+      <div class="prematch-report-metrics">
+        <div><strong>${escapeHtml(competitions.length)}</strong><span>近期赛事</span></div>
+        <div><strong>${escapeHtml(rosterReady)}</strong><span>已有报名信息</span></div>
+        <div><strong>${escapeHtml(projectLabels.length || '-')}</strong><span>关注项目</span></div>
+        <div><strong>${escapeHtml(opponentRows.length)}</strong><span>强手线索</span></div>
+      </div>
+      <div class="prematch-report-note">
+        ${escapeHtml(nearest ? `先看最近的 ${nearest.sportName}，确认项目、报名名单和关注对象是否匹配。` : '当前没有识别到近期赛前赛事，可先围绕关注选手的历史项目准备。')}
+      </div>
+    </article>
+
+    <article class="panel prematch-report-card">
+      <div class="section-title">
+        <h2>关注对象匹配</h2>
+        <span>孩子/学员</span>
+      </div>
+      <div class="prematch-report-list">
+        ${focusRows.length ? focusRows.map((row) => `
+          <button type="button" data-athlete-id="${escapeHtml(row.athlete.id || '')}">
+            <strong>${escapeHtml(row.athlete.name || '关注选手')}</strong>
+            <span>${escapeHtml(row.labels.slice(0, 2).join(' / ') || '历史项目待确认')}</span>
+            <em>${escapeHtml(row.advice)}</em>
+          </button>
+        `).join('') : '<div class="empty compact-empty">还没有关注孩子或学员。先关注选手后，这里会生成个人化备赛线索。</div>'}
+      </div>
+    </article>
+
+    <article class="panel prematch-report-card">
+      <div class="section-title">
+        <h2>近期赛事</h2>
+        <span>可加入提醒</span>
+      </div>
+      <div class="prematch-report-list">
+        ${competitions.length ? competitions.slice(0, 5).map((competition) => `
+          <button type="button" data-sport-code="${escapeHtml(competition.sportCode || '')}">
+            <strong>${escapeHtml(competition.sportName)}</strong>
+            <span>${escapeHtml([displayDateLabel(competition.dateLabel), competition.venue || competition.region, statusLabel(competition.status)].filter(Boolean).join(' · '))}</span>
+            <em>${escapeHtml(coverageLabel(competition))}</em>
+          </button>
+        `).join('') : '<div class="empty compact-empty">暂无近期赛前赛事。</div>'}
+      </div>
+    </article>
+
+    <article class="panel prematch-report-card">
+      <div class="section-title">
+        <h2>强手线索</h2>
+        <span>同项目参考</span>
+      </div>
+      <div class="prematch-report-list">
+        ${opponentRows.length ? opponentRows.map((athlete) => `
+          <button type="button" data-athlete-id="${escapeHtml(athlete.id || '')}">
+            <strong>${escapeHtml(athlete.name)}</strong>
+            <span>${escapeHtml(athlete.club || '俱乐部待确认')} · 最好第 ${escapeHtml(athlete.bestRank ?? '-')} 名</span>
+            <em>${escapeHtml((athlete.eventLabels || []).slice(0, 2).join(' / ') || '同项目历史成绩')}</em>
+          </button>
+        `).join('') : '<div class="empty compact-empty">关注项目还没有足够强手样本，先用赛事和报名信息判断难度。</div>'}
+      </div>
+    </article>
+
+    <article class="panel prematch-report-card">
+      <div class="section-title">
+        <h2>执行清单</h2>
+        <span>赛前 3 步</span>
+      </div>
+      <div class="prematch-checklist">
+        <div><strong>1. 确认项目</strong><span>先确认孩子或学员是否匹配本场赛事项目。</span></div>
+        <div><strong>2. 锁定强手</strong><span>优先看同项目最好名次靠前、近期参赛连续的选手。</span></div>
+        <div><strong>3. 安排沟通</strong><span>家长看准备重点，教练看训练安排和对手结构。</span></div>
+      </div>
+    </article>
+  `;
+
+  prematchReportBody.querySelectorAll('[data-athlete-id]').forEach((button) => {
+    button.addEventListener('click', () => {
+      if (button.dataset.athleteId) openAthlete(button.dataset.athleteId);
+    });
+  });
+  prematchReportBody.querySelectorAll('[data-sport-code]').forEach((button) => {
+    button.addEventListener('click', () => {
+      if (button.dataset.sportCode) openCompetition(button.dataset.sportCode);
+    });
+  });
+}
+
+function openPrematchReport(kind = 'prematch-pack') {
+  renderPrematchReport(kind);
+  navigateTo('prematchReport');
 }
 
 async function openCompetition(sportCode) {
