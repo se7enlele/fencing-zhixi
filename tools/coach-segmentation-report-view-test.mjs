@@ -26,6 +26,7 @@ assert.match(js, /function coachSegmentationEvidenceRows\(club, projectRows\)/, 
 assert.match(js, /function buildCoachSegmentationShareText\(club, buckets, followups, projectRows\)/, 'segmentation report must build shareable summary text');
 assert.match(js, /function renderCoachSegmentationReport\(clubId = ''\)/, 'segmentation report must render from a club id');
 assert.match(js, /function openCoachSegmentationReport\(clubId = ''\)/, 'segmentation report must be navigable');
+assert.match(js, /trackReportHistory\(\{[\s\S]*type: 'coach-segmentation'/, 'opening a coach segmentation report must save it to recent reports');
 assert.match(js, /navigateTo\('coachSegmentationReport'\)/, 'segmentation report must use normal navigation');
 
 assert.match(js, /coachSegmentationClubId: state\.clubSearchIndex\[0\]\.id/, 'AI coach template must open the real segmentation report');

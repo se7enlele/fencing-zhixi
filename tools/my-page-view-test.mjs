@@ -24,6 +24,7 @@ assert.equal(indexHtml, html, 'static index.html must stay in sync with viewer.h
 
 assert.match(js, /COMPETITION_FOLLOW_KEY = 'fencingai\.followedCompetitions\.v1'/, 'competition follow state must be persisted');
 assert.match(js, /RECENT_KEY = 'fencingai\.recentItems\.v1'/, 'recent view state must be persisted');
+assert.match(js, /REPORT_HISTORY_KEY = 'fencingai\.reportHistory\.v1'/, 'generated report history must be persisted');
 assert.match(js, /viewStack: \['home'\]/, 'default navigation stack must start at home dashboard');
 assert.match(js, /activeMainTab: 'home'/, 'home tab must be active by default');
 assert.match(js, /button\.classList\.remove\('active'\)/, 'bottom tab rendering must clear stale active classes first');
@@ -44,12 +45,17 @@ assert.match(js, /class="home-action-grid"/, 'home page must render compact task
 assert.match(js, /data-home-follow/, 'home page must link directly to the follow tab');
 assert.match(js, /data-home-my/, 'home page must link directly to the my tab');
 assert.match(js, /function homeReportCenterRows\(children, followedCompetitions\)/, 'home page must build productized report center entries');
+assert.match(js, /function reportHistoryRows\(\)/, 'home page must build recently generated report entries');
 assert.match(js, /<h2>报告中心<\/h2>/, 'home page must expose a report center');
 assert.match(js, /class="report-center-grid"/, 'home page must render report center cards');
+assert.match(js, /class="report-history-list"/, 'home page must render recent report shortcuts when available');
 assert.match(js, /data-home-report="\$\{escapeHtml\(row\.key\)\}"/, 'home report cards must carry runnable report actions');
+assert.match(js, /data-report-history-type="\$\{escapeHtml\(row\.type \|\| ''\)\}"/, 'recent report rows must carry runnable report actions');
 assert.match(js, /openPrematchReport\('prematch-pack', button\.dataset\.sportCode \|\| ''\)/, 'home report center must open prematch reports');
 assert.match(js, /openParentGrowthReport\(button\.dataset\.athleteId \|\| ''\)/, 'home report center must open parent growth reports');
 assert.match(js, /openCoachSegmentationReport\(button\.dataset\.clubId \|\| ''\)/, 'home report center must open coach segmentation reports');
+assert.match(js, /function trackReportHistory\(report\)/, 'generated reports must be tracked for reuse');
+assert.match(js, /openPrematchReport\('prematch-pack', id === 'prematch-pack' \? '' : id\)/, 'recent generic prematch reports must reopen without a fake sportCode');
 assert.doesNotMatch(js, /function renderHomePage\(\)[\s\S]*<h2>近期值得看<\/h2>[\s\S]*function aiDefaultClub/, 'home page must not duplicate the competition list experience');
 assert.match(js, /<h2>闂?FencingAI<\/h2>|<h2>问 FencingAI<\/h2>/, 'AI workspace must be framed as the primary question entry');
 assert.match(js, /直接用问题查看击剑数据|鐩存帴鐢ㄩ棶棰樻煡鐪嬪嚮鍓戞暟鎹?/, 'AI home lead must explain question-first usage');
@@ -83,6 +89,7 @@ assert.match(css, /\.ai-home-primary/, 'AI home entry must have primary visual t
 assert.match(css, /\.ai-home-actions/, 'AI home entry must expose secondary navigation actions');
 assert.match(css, /\.home-action-grid/, 'home action entry styles must exist');
 assert.match(css, /\.report-center-grid/, 'home report center styles must exist');
+assert.match(css, /\.report-history-list/, 'recent report shortcut styles must exist');
 assert.match(css, /\.ai-evidence/, 'AI workspace must style source evidence cards');
 assert.match(css, /\.parent-next-focus/, 'parent next focus styles must exist');
 assert.match(css, /\.parent-focus-row/, 'parent focus row styles must exist');

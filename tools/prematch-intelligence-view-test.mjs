@@ -58,6 +58,7 @@ assert.match(js, /function prematchReportOpponentRows\(projectLabels\)/, 'premat
 assert.match(js, /function buildPrematchShareText\(competitions, focusRows, opponentRows, isSingleCompetition\)/, 'prematch report must build shareable summary text');
 assert.match(js, /function renderPrematchReport\(kind = 'prematch-pack', sportCode = ''\)/, 'prematch report must render a real report view scoped by competition when needed');
 assert.match(js, /function openPrematchReport\(kind = 'prematch-pack', sportCode = ''\)/, 'prematch report must be navigable with an optional competition scope');
+assert.match(js, /trackReportHistory\(\{[\s\S]*type: 'prematch'/, 'opening a prematch report must save it to recent reports');
 assert.match(js, /data-prematch-template/, 'AI product template actions must open the prematch report');
 assert.match(js, /data-prematch-sport-code/, 'prematch report actions must be able to carry a sportCode');
 assert.match(js, /openPrematchReport\(button\.dataset\.prematchTemplate \|\| 'prematch-pack', button\.dataset\.prematchSportCode \|\| ''\)/, 'prematch template action must bind template and sportCode to report navigation');

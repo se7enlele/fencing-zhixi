@@ -19,6 +19,7 @@ assert.match(js, /function parentGrowthReportEvidenceRows\(model\)/, 'parent gro
 assert.match(js, /function buildParentGrowthShareText\(athlete, model, focusRows\)/, 'parent growth report must build shareable summary text');
 assert.match(js, /function renderParentGrowthReport\(athleteId = ''\)/, 'parent growth report must render from a selected or explicit athlete');
 assert.match(js, /function openParentGrowthReport\(athleteId = ''\)/, 'parent growth report must be navigable');
+assert.match(js, /trackReportHistory\(\{[\s\S]*type: 'parent-growth'/, 'opening a parent growth report must save it to recent reports');
 assert.match(js, /navigateTo\('parentGrowthReport'\)/, 'parent growth report must use normal navigation');
 
 assert.match(js, /data-parent-growth-athlete-id/, 'parent growth report actions must carry an athlete id');

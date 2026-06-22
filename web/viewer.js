@@ -61,6 +61,7 @@ const tabs = document.querySelector('#tabs');
 const FOLLOW_KEY = 'fencingai.followedAthletes.v1';
 const COMPETITION_FOLLOW_KEY = 'fencingai.followedCompetitions.v1';
 const RECENT_KEY = 'fencingai.recentItems.v1';
+const REPORT_HISTORY_KEY = 'fencingai.reportHistory.v1';
 const DEVICE_KEY = 'fencingai.deviceId.v1';
 const ROLE_KEY = 'fencingai.role.v1';
 const CHILD_KEY = 'fencingai.parentChildId.v1';
@@ -114,6 +115,7 @@ const state = {
   followedAthletes: [],
   followedCompetitions: [],
   recentItems: [],
+  reportHistory: [],
   isDataLoading: true,
   dataLoadError: '',
   searchRequestId: 0,
@@ -161,6 +163,7 @@ async function fetchCachedDetail(type, key, path, pick) {
 state.followedAthletes = loadFollowedAthletes();
 state.followedCompetitions = loadStoredList(COMPETITION_FOLLOW_KEY);
 state.recentItems = loadStoredList(RECENT_KEY);
+state.reportHistory = loadStoredList(REPORT_HISTORY_KEY);
 
 function loadFollowedAthletes() {
   try {
@@ -230,6 +233,16 @@ function trackRecentItem(item) {
   ].slice(0, 20);
   saveStoredList(RECENT_KEY, state.recentItems, 20);
   renderPersonalPages();
+}
+
+function trackReportHistory(report) {
+  if (!report?.type || !report?.id) return;
+  const key = `${report.type}:${report.id}`;
+  state.reportHistory = [
+    { ...report, key, viewedAt: Date.now() },
+    ...(state.reportHistory || []).filter((row) => row.key !== key),
+  ].slice(0, 12);
+  saveStoredList(REPORT_HISTORY_KEY, state.reportHistory, 12);
 }
 
 function setUserRole(role) {
@@ -1773,6 +1786,16 @@ function renderParentGrowthReport(athleteId = '') {
 
 function openParentGrowthReport(athleteId = '') {
   renderParentGrowthReport(athleteId);
+  const athlete = athleteId ? findAthleteByReference({ id: athleteId }) : getSelectedChild(childCandidates());
+  if (athlete?.id) {
+    trackReportHistory({
+      type: 'parent-growth',
+      id: athlete.id,
+      title: `${athlete.name} 成长报告`,
+      detail: athlete.club || '家长视角',
+      typeLabel: '成长报告',
+    });
+  }
   navigateTo('parentGrowthReport');
 }
 
@@ -2057,6 +2080,47 @@ function homeReportCenterRows(children, followedCompetitions) {
   ];
 }
 
+function reportHistoryRows() {
+  return (state.reportHistory || []).slice(0, 4).map((row) => {
+    const fallback = {
+      title: row.title || '报告',
+      detail: row.detail || '点击继续查看',
+      typeLabel: row.typeLabel || '报告',
+    };
+    if (row.type === 'parent-growth') {
+      const athlete = findAthleteByReference({ id: row.id });
+      return {
+        ...fallback,
+        ...row,
+        title: athlete?.name ? `${athlete.name} 成长报告` : fallback.title,
+        detail: athlete?.club || row.detail || '家长视角',
+        typeLabel: '成长报告',
+      };
+    }
+    if (row.type === 'coach-segmentation') {
+      const club = findClubById(row.id);
+      return {
+        ...fallback,
+        ...row,
+        title: club?.club ? `${club.club} 学员分层` : fallback.title,
+        detail: row.detail || '教练视角',
+        typeLabel: '教练报告',
+      };
+    }
+    if (row.type === 'prematch') {
+      const competition = findCompetitionBySportCode(row.id);
+      return {
+        ...fallback,
+        ...row,
+        title: competition?.sportName || fallback.title,
+        detail: [competition?.venue, displayDateLabel(competition?.dateLabel)].filter(Boolean).join(' · ') || row.detail || '赛前情报',
+        typeLabel: '赛前情报',
+      };
+    }
+    return fallback;
+  });
+}
+
 function renderHomePage() {
   if (!homePage) return;
   if (state.isDataLoading) {
@@ -2066,6 +2130,7 @@ function renderHomePage() {
   const children = focusAthleteCards();
   const followedCompetitions = followedCompetitionCards();
   const reportRows = homeReportCenterRows(children, followedCompetitions);
+  const reportHistory = reportHistoryRows();
   const recentRows = (state.recentItems || []).slice(0, 3);
   const stats = [
     { value: state.competitions.length, label: '赛事收录' },
@@ -2117,6 +2182,23 @@ function renderHomePage() {
         `).join('')}
       </div>
     </section>
+    ${reportHistory.length ? `
+      <section class="panel my-section">
+        <div class="section-title">
+          <h2>最近报告</h2>
+          <span>快速继续</span>
+        </div>
+        <div class="report-history-list">
+          ${reportHistory.map((row) => `
+            <button type="button" data-report-history-type="${escapeHtml(row.type || '')}" data-report-history-id="${escapeHtml(row.id || '')}">
+              <span>${escapeHtml(row.typeLabel)}</span>
+              <strong>${escapeHtml(row.title)}</strong>
+              <em>${escapeHtml(row.detail)}</em>
+            </button>
+          `).join('')}
+        </div>
+      </section>
+    ` : ''}
     <section class="panel my-section">
       <div class="section-title">
         <h2>关注概览</h2>
@@ -2137,6 +2219,15 @@ function renderHomePage() {
       if (button.dataset.homeReport === 'prematch') openPrematchReport('prematch-pack', button.dataset.sportCode || '');
       if (button.dataset.homeReport === 'growth') openParentGrowthReport(button.dataset.athleteId || '');
       if (button.dataset.homeReport === 'coach') openCoachSegmentationReport(button.dataset.clubId || '');
+    });
+  });
+  homePage.querySelectorAll('[data-report-history-type]').forEach((button) => {
+    button.addEventListener('click', () => {
+      const type = button.dataset.reportHistoryType;
+      const id = button.dataset.reportHistoryId || '';
+      if (type === 'prematch') openPrematchReport('prematch-pack', id === 'prematch-pack' ? '' : id);
+      if (type === 'parent-growth') openParentGrowthReport(id);
+      if (type === 'coach-segmentation') openCoachSegmentationReport(id);
     });
   });
   homePage.querySelectorAll('[data-coverage-competition]').forEach((button) => {
@@ -6460,6 +6551,16 @@ function renderCoachSegmentationReport(clubId = '') {
 
 function openCoachSegmentationReport(clubId = '') {
   renderCoachSegmentationReport(clubId);
+  const club = findClubById(clubId) || state.clubSearchIndex?.[0] || null;
+  if (club?.id) {
+    trackReportHistory({
+      type: 'coach-segmentation',
+      id: club.id,
+      title: `${club.club} 学员分层`,
+      detail: '教练视角',
+      typeLabel: '教练报告',
+    });
+  }
   navigateTo('coachSegmentationReport');
 }
 
@@ -7603,6 +7704,14 @@ function renderPrematchReport(kind = 'prematch-pack', sportCode = '') {
 
 function openPrematchReport(kind = 'prematch-pack', sportCode = '') {
   renderPrematchReport(kind, sportCode);
+  const competition = sportCode ? findCompetitionBySportCode(sportCode) : null;
+  trackReportHistory({
+    type: 'prematch',
+    id: sportCode || kind,
+    title: competition?.sportName || '赛前情报包',
+    detail: competition ? [competition.venue, displayDateLabel(competition.dateLabel)].filter(Boolean).join(' · ') : '近期报名和未开赛赛事',
+    typeLabel: '赛前情报',
+  });
   navigateTo('prematchReport');
 }
 
