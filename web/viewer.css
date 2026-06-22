@@ -1720,6 +1720,22 @@ select:focus {
   line-height: 1.45;
 }
 
+.ai-share-row {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.ai-share-row button {
+  border: 1px solid rgba(13, 125, 103, 0.18);
+  border-radius: 999px;
+  background: rgba(13, 125, 103, 0.08);
+  color: var(--teal);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 900;
+  padding: 7px 11px;
+  box-shadow: none;
+}
 .ai-follow-up-row {
   display: grid;
   gap: 7px;

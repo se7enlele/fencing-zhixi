@@ -96,13 +96,20 @@ assert.ok(
 );
 assert.match(js, /function aiNextStepRows\(report\)/, 'AI answers must include contextual next-step guidance');
 assert.match(js, /function aiFollowUpPrompts\(report\)/, 'AI answers must generate related follow-up questions');
+assert.match(js, /function buildAiAnswerShareText\(report\)/, 'AI answers must build shareable summaries');
 assert.match(js, /prematch:\s*\[[\s\S]*同组对手、强手和主要俱乐部分布/, 'AI prematch answers must guide users toward opponent and club checks');
 assert.match(js, /'business-insight':\s*\[[\s\S]*赛前情报包和选手成长报告/, 'AI business insight answers must guide users toward productized reports');
 assert.match(js, /'product-template':\s*\[/, 'AI product templates must include next-step guidance');
 assert.match(js, /comparison:\s*\[[\s\S]*共同项目和直接交手证据/, 'AI comparison answers must tell users to verify evidence before judging');
 assert.match(js, /<div class="ai-next-steps">/, 'AI answer renderer must show next-step guidance');
+assert.match(js, /class="ai-share-row"/, 'AI answer renderer must expose a copy summary action');
+assert.match(js, /data-ai-share/, 'AI answer copy action must be addressable');
 assert.match(js, /class="ai-follow-up-row"/, 'AI answer renderer must show follow-up question chips');
 assert.match(js, /data-ai-follow-up/, 'AI follow-up chips must carry runnable query text');
+assert.match(js, /const bindAnswer = \(report\) =>/, 'AI workspace must pass the current report into answer bindings');
+assert.match(js, /bindAnswer\(report\);/, 'AI workspace must bind copy actions with the generated report');
+assert.match(js, /if \(card\) card\.__aiReport = report;/, 'AI answer cards must retain the report for copy actions');
+assert.match(js, /bindCopyTextButton\(button, \(\) => buildAiAnswerShareText\(report \|\| \{\}\)\)/, 'AI copy action must reuse the existing clipboard helper');
 assert.match(js, /answer\.querySelectorAll\('\[data-ai-follow-up\]'\)/, 'AI workspace must bind follow-up chips after each answer');
 assert.match(js, /class="ai-source-note"/, 'AI answer must render data boundary notes');
 assert.match(js, /class="ai-trust-panel"/, 'AI answer must render a judgment-basis panel');
@@ -116,6 +123,7 @@ assert.match(css, /\.ai-trust-panel/, 'AI judgment-basis panel styles must exist
 assert.match(css, /\.ai-trust-row/, 'AI judgment-basis rows must have mobile layout styles');
 assert.match(css, /\.ai-filter-notice/, 'AI-filtered competition lists must show a visible filter notice');
 assert.match(css, /\.ai-next-steps/, 'AI next-step styles must exist');
+assert.match(css, /\.ai-share-row/, 'AI share action styles must exist');
 assert.match(css, /\.ai-follow-up-row/, 'AI follow-up question styles must exist');
 assert.match(css, /\.ai-evidence button em/, 'AI evidence type badge styles must exist');
 assert.match(css, /\.ai-evidence button small/, 'AI evidence reason styles must exist');

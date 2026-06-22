@@ -2415,7 +2415,9 @@ function bindAiWorkspace(container) {
   const answer = container.querySelector('#aiAnswer');
   if (!form || !input || !answer) return;
 
-  const bindAnswer = () => {
+  const bindAnswer = (report) => {
+    const card = answer.querySelector('.ai-answer-card');
+    if (card) card.__aiReport = report;
     bindAiAnswerActions(answer);
     answer.querySelectorAll('[data-ai-follow-up]').forEach((button) => {
       button.addEventListener('click', () => {
@@ -2428,8 +2430,9 @@ function bindAiWorkspace(container) {
   const run = async (query) => {
     const normalizedQuery = String(query || '').trim();
     if (!normalizedQuery) {
-      answer.innerHTML = renderAiAnswer(buildAiAnswer(normalizedQuery));
-      bindAnswer();
+      const report = buildAiAnswer(normalizedQuery);
+      answer.innerHTML = renderAiAnswer(report);
+      bindAnswer(report);
       return;
     }
 
@@ -3672,6 +3675,38 @@ function aiFollowUpPrompts(report) {
   return aiPromptPresets().slice(0, 2);
 }
 
+function buildAiAnswerShareText(report) {
+  const lines = [
+    `FencingAI 分析：${report.title || '数据分析'}`,
+    report.summary || '',
+  ];
+
+  if (report.cards?.length) {
+    lines.push('', '关键指标');
+    report.cards.slice(0, 6).forEach(([label, value]) => lines.push(`- ${label}：${value}`));
+  }
+
+  const trustRows = aiTrustRows(report);
+  if (trustRows.length) {
+    lines.push('', '判断依据');
+    trustRows.forEach((row) => lines.push(`- ${row.label}：${row.value}${row.detail ? `，${row.detail}` : ''}`));
+  }
+
+  (report.sections || []).slice(0, 4).forEach((section) => {
+    lines.push('', section.title);
+    (section.rows || []).slice(0, 5).forEach((row) => lines.push(`- ${row}`));
+  });
+
+  const nextSteps = aiNextStepRows(report).slice(0, 2);
+  if (nextSteps.length) {
+    lines.push('', '下一步');
+    nextSteps.forEach((row) => lines.push(`- ${row}`));
+  }
+
+  if (report.sourceNote) lines.push('', `数据边界：${report.sourceNote}`);
+  lines.push('', '由 FencingAI 基于已收录赛事数据生成');
+  return lines.filter((line, index) => line !== '' || lines[index - 1] !== '').join('\n').trim();
+}
 function renderAiAnswer(report) {
   const followUps = aiFollowUpPrompts(report).slice(0, 2);
   const trustRows = aiTrustRows(report);
@@ -3740,6 +3775,9 @@ function renderAiAnswer(report) {
         <strong>下一步</strong>
         ${aiNextStepRows(report).map((row) => `<span>${escapeHtml(row)}</span>`).join('')}
       </div>
+      <div class="ai-share-row">
+        <button type="button" data-ai-share>复制分析摘要</button>
+      </div>
       ${followUps.length ? `
         <div class="ai-follow-up-row">
           <strong>继续问</strong>
@@ -3753,6 +3791,11 @@ function renderAiAnswer(report) {
 }
 
 function bindAiAnswerActions(container) {
+  container.querySelectorAll('[data-ai-share]').forEach((button) => {
+    const card = button.closest('.ai-answer-card');
+    const report = card?.__aiReport;
+    bindCopyTextButton(button, () => buildAiAnswerShareText(report || {}));
+  });
   container.querySelectorAll('[data-event-code]').forEach((button) => {
     button.addEventListener('click', () => {
       if (button.dataset.eventCode) openEvent(button.dataset.eventCode);
