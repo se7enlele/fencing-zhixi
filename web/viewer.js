@@ -2786,6 +2786,62 @@ function aiEvidenceKind(row) {
   return row.kind || (row.sportCode ? '赛事记录' : row.eventCode ? '项目记录' : '数据来源');
 }
 
+function aiTrustRows(report) {
+  const evidence = report.evidence || [];
+  const evidenceKinds = [...new Set(evidence.map((row) => aiEvidenceKind(row)).filter(Boolean))].slice(0, 3);
+  const rows = [];
+  if (evidence.length) {
+    rows.push({
+      label: '可核对来源',
+      value: `${evidence.length} 条`,
+      detail: evidenceKinds.length ? evidenceKinds.join(' / ') : '比赛、项目和选手记录',
+    });
+  }
+
+  if (report.type === 'comparison') {
+    const confidence = report.cards?.find(([label]) => label === '证据强度')?.[1] || '历史画像对比';
+    rows.push({
+      label: '判断口径',
+      value: confidence,
+      detail: '优先看直接交手，其次看共同赛事、近期状态和历史成绩画像。',
+    });
+  } else if (report.type === 'growth') {
+    rows.push({
+      label: '判断口径',
+      value: '成长趋势',
+      detail: '按最近参赛、最好名次、奖牌和淘汰赛记录综合判断。',
+    });
+  } else if (report.type === 'club') {
+    rows.push({
+      label: '判断口径',
+      value: '俱乐部画像',
+      detail: '按参赛人次、前八、奖牌、代表选手和优势项目综合判断。',
+    });
+  } else if (report.type === 'prematch') {
+    rows.push({
+      label: '判断口径',
+      value: '赛前信息',
+      detail: '按赛事状态、项目明细、报名名单和关注选手匹配生成。',
+    });
+  } else if (report.type === 'competition-stats') {
+    rows.push({
+      label: '判断口径',
+      value: '赛事筛选',
+      detail: '按年份、月份、地区和状态筛选赛事列表。',
+    });
+  }
+
+  if (report.sourceNote) {
+    rows.push({
+      label: '边界',
+      value: '需核对',
+      detail: report.sourceNote,
+    });
+  }
+
+  return rows.slice(0, 3);
+}
+
 function aiFollowAthleteAction(athlete) {
   if (!athlete?.id) return null;
   const followed = (state.followedAthletes || []).some((item) => item.id === athlete.id);
@@ -2863,6 +2919,7 @@ function aiFollowUpPrompts(report) {
 
 function renderAiAnswer(report) {
   const followUps = aiFollowUpPrompts(report).slice(0, 2);
+  const trustRows = aiTrustRows(report);
   return `
     <div class="ai-answer-card">
       <div class="ai-answer-head">
@@ -2876,6 +2933,18 @@ function renderAiAnswer(report) {
             <div class="ai-metric">
               <strong>${escapeHtml(value)}</strong>
               <span>${escapeHtml(label)}</span>
+            </div>
+          `).join('')}
+        </div>
+      ` : ''}
+      ${trustRows.length ? `
+        <div class="ai-trust-panel">
+          <strong>判断依据</strong>
+          ${trustRows.map((row) => `
+            <div class="ai-trust-row">
+              <span>${escapeHtml(row.label)}</span>
+              <b>${escapeHtml(row.value)}</b>
+              <em>${escapeHtml(row.detail)}</em>
             </div>
           `).join('')}
         </div>

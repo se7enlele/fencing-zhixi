@@ -50,6 +50,8 @@ assert.match(js, /followCompetitionCode: watchRows\[0\]\.sportCode/, 'AI competi
 assert.match(js, /kind: '共同项目'/, 'AI evidence must label shared project evidence');
 assert.match(js, /reason: '用于比较同一项目里的名次差距'/, 'AI evidence must explain why a source supports the answer');
 assert.match(js, /function aiEvidenceKind\(row\)/, 'AI evidence renderer must normalize evidence type labels');
+assert.match(js, /function aiTrustRows\(report\)/, 'AI answers must summarize judgment basis before detailed evidence');
+assert.match(js, /const trustRows = aiTrustRows\(report\)/, 'AI answer renderer must compute trust rows for every report');
 assert.match(js, /function aiFollowAthleteAction\(athlete\)/, 'AI answers must expose follow actions for athletes');
 assert.match(js, /followAthleteId: athlete\.id/, 'AI growth answers must include follow athlete action payload');
 assert.match(js, /data-follow-athlete-id/, 'AI action buttons must support follow-athlete actions');
@@ -69,11 +71,15 @@ assert.match(js, /class="ai-follow-up-row"/, 'AI answer renderer must show follo
 assert.match(js, /data-ai-follow-up/, 'AI follow-up chips must carry runnable query text');
 assert.match(js, /answer\.querySelectorAll\('\[data-ai-follow-up\]'\)/, 'AI workspace must bind follow-up chips after each answer');
 assert.match(js, /class="ai-source-note"/, 'AI answer must render data boundary notes');
+assert.match(js, /class="ai-trust-panel"/, 'AI answer must render a judgment-basis panel');
+assert.match(js, /<strong>判断依据<\/strong>/, 'AI judgment-basis panel must use user-facing copy');
 assert.match(js, /<em>\$\{escapeHtml\(aiEvidenceKind\(row\)\)\}<\/em>/, 'AI evidence cards must show evidence type');
 assert.match(js, /<small>\$\{escapeHtml\(row\.reason\)\}<\/small>/, 'AI evidence cards must show relevance reason');
 
 assert.match(css, /\.ai-source-note/, 'AI source note styles must exist');
 assert.match(css, /\.ai-action-block/, 'AI action block styles must exist');
+assert.match(css, /\.ai-trust-panel/, 'AI judgment-basis panel styles must exist');
+assert.match(css, /\.ai-trust-row/, 'AI judgment-basis rows must have mobile layout styles');
 assert.match(css, /\.ai-filter-notice/, 'AI-filtered competition lists must show a visible filter notice');
 assert.match(css, /\.ai-next-steps/, 'AI next-step styles must exist');
 assert.match(css, /\.ai-follow-up-row/, 'AI follow-up question styles must exist');
