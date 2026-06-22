@@ -5,6 +5,8 @@ const previewBtn = document.querySelector('#previewBtn');
 const commitBtn = document.querySelector('#commitBtn');
 const statusBox = document.querySelector('#statusBox');
 const previewBox = document.querySelector('#previewBox');
+const feedbackStatus = document.querySelector('#feedbackStatus');
+const feedbackList = document.querySelector('#feedbackList');
 
 const token = new URLSearchParams(window.location.search).get('token') || '';
 let lastPayload = null;
@@ -12,6 +14,16 @@ let lastPayload = null;
 function setStatus(message, isError = false) {
   statusBox.textContent = message;
   statusBox.classList.toggle('error', isError);
+}
+
+function escapeHtml(value) {
+  return String(value ?? '').replace(/[&<>"']/g, (char) => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;',
+  }[char]));
 }
 
 function pageCount(summary) {
@@ -107,6 +119,48 @@ function renderPreview(data) {
   `;
 }
 
+function feedbackTypeLabel(type) {
+  return type === 'hide' ? '隐藏申请' : '纠错申请';
+}
+
+function renderFeedback(rows = []) {
+  if (!feedbackList || !feedbackStatus) return;
+  feedbackStatus.textContent = rows.length ? `${rows.length} 条` : '暂无反馈';
+  feedbackList.innerHTML = rows.length ? rows.map((row) => `
+    <article class="feedback-card">
+      <div class="feedback-card-head">
+        <span>${feedbackTypeLabel(row.type)}</span>
+        <strong>${escapeHtml(row.athlete?.name || '-')}</strong>
+        <em>${escapeHtml(row.status || 'new')}</em>
+      </div>
+      <div class="feedback-meta">
+        <span>${escapeHtml(row.athlete?.club || '俱乐部待确认')}</span>
+        <span>${escapeHtml(row.createdAt ? new Date(row.createdAt).toLocaleString('zh-CN') : '-')}</span>
+      </div>
+      <pre>${escapeHtml(row.message || '')}</pre>
+    </article>
+  `).join('') : '<div class="status muted">暂无纠错或隐藏申请。</div>';
+}
+
+async function loadFeedback() {
+  if (!feedbackList || !feedbackStatus) return;
+  if (!token) {
+    feedbackStatus.textContent = '缺少 token';
+    renderFeedback([]);
+    return;
+  }
+  try {
+    feedbackStatus.textContent = '加载中';
+    const response = await fetch(`/api/admin/feedback?token=${encodeURIComponent(token)}`);
+    const result = await response.json();
+    if (!response.ok || !result.ok) throw new Error(result.message || `请求失败：${response.status}`);
+    renderFeedback(result.feedback || []);
+  } catch (error) {
+    feedbackStatus.textContent = '加载失败';
+    feedbackList.innerHTML = `<div class="status error">${error.message}</div>`;
+  }
+}
+
 async function readSelectedFile() {
   const file = fileInput.files?.[0];
   if (!file) return;
@@ -173,3 +227,5 @@ commitBtn.addEventListener('click', async () => {
     commitBtn.disabled = false;
   }
 });
+
+loadFeedback();

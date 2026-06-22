@@ -279,6 +279,15 @@ async function handleFeedback(request, env) {
   return json({ ok: true, version: APP_VERSION, id, status: 'new' });
 }
 
+async function handleAdminFeedback(env, url) {
+  if (!requireAdmin(url)) return json({ ok: false, message: 'Forbidden' }, 403);
+  const index = await readJsonKv(env.FOLLOWS, FEEDBACK_INDEX_KEY, { ids: [] });
+  const ids = Array.isArray(index?.ids) ? index.ids.slice(0, 50) : [];
+  const feedback = (await Promise.all(ids.map((id) => readJsonKv(env.FOLLOWS, `feedback:${id}`, null))))
+    .filter(Boolean);
+  return json({ ok: true, version: APP_VERSION, feedback, updatedAt: index.updatedAt || null });
+}
+
 async function readDynamicScoreReports(env) {
   if (!env.FOLLOWS) return [];
   const index = await readJsonKv(env.FOLLOWS, SCORE_INDEX_KEY, { eventCodes: [] });
@@ -688,6 +697,10 @@ async function routeApi(request, env, url) {
     } catch (error) {
       return json({ ok: false, message: error.message }, 400);
     }
+  }
+
+  if (url.pathname === '/api/admin/feedback' && request.method === 'GET') {
+    return handleAdminFeedback(env, url);
   }
 
   if (url.pathname === '/api/admin/import/preview' || url.pathname === '/api/admin/import/commit') {

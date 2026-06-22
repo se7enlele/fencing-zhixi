@@ -487,6 +487,19 @@ async function handleFeedback(request, response) {
   }
 }
 
+async function handleAdminFeedback(response, url) {
+  if (!hasAdminAccess(url)) {
+    sendJson(response, 403, { ok: false, message: 'Forbidden' });
+    return;
+  }
+  const store = await readFollowStore();
+  sendJson(response, 200, {
+    ok: true,
+    version: APP_VERSION,
+    feedback: (Array.isArray(store.feedback) ? store.feedback : []).slice(0, 50),
+  });
+}
+
 function clearDataCaches() {
   scoreReportsCache = null;
   publicEventsCache = null;
@@ -1774,6 +1787,11 @@ const server = createServer(async (request, response) => {
 
   if (request.method === 'POST' && url.pathname === '/api/feedback') {
     await handleFeedback(request, response);
+    return;
+  }
+
+  if (request.method === 'GET' && url.pathname === '/api/admin/feedback') {
+    await handleAdminFeedback(response, url);
     return;
   }
 

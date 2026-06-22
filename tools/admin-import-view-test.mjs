@@ -12,11 +12,21 @@ assert.match(js, /重复跳过/, 'roster preview must show duplicate records for
 assert.match(js, /累计报名/, 'roster preview must show cumulative roster records');
 assert.match(js, /请继续按页导入/, 'roster preview must guide page-by-page imports');
 assert.match(js, /报名名单分页已入库：\$\{rosterProgressText/, 'commit status must reuse page progress summary');
+assert.match(js, /function renderFeedback\(rows = \[\]\)/, 'admin import must render user feedback requests');
+assert.match(js, /function loadFeedback\(\)/, 'admin import must load feedback from the admin API');
+assert.match(js, /\/api\/admin\/feedback\?token=/, 'admin import feedback must use the admin feedback API');
+assert.match(js, /function feedbackTypeLabel\(type\)/, 'admin import must label correction and hide requests');
+assert.match(js, /function escapeHtml\(value\)/, 'admin import must escape feedback text before rendering');
+assert.match(js, /<pre>\$\{escapeHtml\(row\.message \|\| ''\)\}<\/pre>/, 'admin import must not render raw feedback messages');
 
 assert.match(css, /\.roster-progress/, 'roster progress panel styles must exist');
 assert.match(css, /\.roster-progress-grid/, 'roster progress metrics must have a layout');
+assert.match(css, /\.feedback-list/, 'admin feedback list styles must exist');
+assert.match(css, /\.feedback-card/, 'admin feedback card styles must exist');
 
-assert.match(html, /admin-import\.js\?v=fencingai-product-20260617-admin-2/, 'admin import JS cache key must be bumped');
-assert.match(html, /admin-import\.css\?v=fencingai-product-20260617-admin-2/, 'admin import CSS cache key must be bumped');
+assert.match(html, /id="feedbackList"/, 'admin import page must expose a feedback list');
+assert.match(html, /id="feedbackStatus"/, 'admin import page must expose feedback load status');
+assert.match(html, /admin-import\.js\?v=fencingai-product-20260617-admin-3/, 'admin import JS cache key must be bumped');
+assert.match(html, /admin-import\.css\?v=fencingai-product-20260617-admin-3/, 'admin import CSS cache key must be bumped');
 
 console.log('admin import page feedback is covered');

@@ -58,4 +58,16 @@ assert.match(
   'Worker should index user feedback requests in KV',
 );
 
+assert.match(
+  source,
+  /url\.pathname === '\/api\/admin\/feedback' && request\.method === 'GET'[\s\S]{0,160}handleAdminFeedback/,
+  'Admin feedback endpoint should be token-gated and no-store',
+);
+
+assert.match(
+  source,
+  /async function handleAdminFeedback\(env, url\)/,
+  'Worker should expose an admin feedback reader',
+);
+
 console.log('worker public cache policy is covered');

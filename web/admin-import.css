@@ -316,6 +316,75 @@ button:disabled {
   margin-top: 5px;
 }
 
+.feedback-list {
+  display: grid;
+  gap: 10px;
+}
+
+.feedback-card {
+  display: grid;
+  gap: 9px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface-soft);
+  padding: 12px;
+}
+
+.feedback-card-head {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 8px;
+  align-items: center;
+}
+
+.feedback-card-head span,
+.feedback-card-head em {
+  border-radius: 999px;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 900;
+  padding: 4px 8px;
+}
+
+.feedback-card-head span {
+  background: rgba(21, 95, 194, 0.08);
+  color: var(--primary);
+}
+
+.feedback-card-head em {
+  background: rgba(8, 119, 96, 0.1);
+  color: var(--teal);
+}
+
+.feedback-card-head strong {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.feedback-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.feedback-card pre {
+  overflow: auto;
+  max-height: 180px;
+  border-radius: 8px;
+  background: #fff;
+  color: var(--text);
+  font-family: Consolas, "SFMono-Regular", "Courier New", monospace;
+  font-size: 12px;
+  line-height: 1.55;
+  margin: 0;
+  padding: 10px;
+  white-space: pre-wrap;
+}
+
 @media (max-width: 640px) {
   .admin-shell {
     padding-top: 20px;
@@ -340,5 +409,18 @@ button:disabled {
 
   .actions button {
     flex: 1 1 140px;
+  }
+
+  .feedback-card-head {
+    grid-template-columns: 1fr auto;
+  }
+
+  .feedback-card-head span {
+    width: fit-content;
+  }
+
+  .feedback-card-head strong {
+    grid-column: 1 / -1;
+    grid-row: 1;
   }
 }
