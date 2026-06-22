@@ -1984,6 +1984,55 @@ select:focus {
   font-style: normal;
 }
 
+.ai-history-list {
+  display: grid;
+  gap: 8px;
+}
+
+.ai-history-list button {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 3px 8px;
+  align-items: center;
+  border: 1px solid rgba(13, 125, 103, 0.12);
+  border-radius: 10px;
+  background: linear-gradient(135deg, rgba(13, 125, 103, 0.08), rgba(21, 95, 194, 0.05));
+  color: var(--text);
+  font: inherit;
+  text-align: left;
+  padding: 10px;
+}
+
+.ai-history-list span {
+  grid-row: span 2;
+  border-radius: 999px;
+  background: rgba(13, 125, 103, 0.12);
+  color: var(--teal);
+  font-size: 11px;
+  font-weight: 900;
+  padding: 4px 7px;
+}
+
+.ai-history-list strong,
+.ai-history-list em {
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ai-history-list strong {
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.ai-history-list em {
+  color: var(--muted);
+  font-size: 12px;
+  font-style: normal;
+}
+
 .focus-dashboard {
   display: grid;
   gap: 10px;

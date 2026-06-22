@@ -24,6 +24,9 @@ assert.match(js, /function detectExactAthletesInQuery\(normalizedQuery\)/, 'AI r
 assert.match(js, /function aiEntityCandidateTerms\(query\)/, 'AI must extract entity candidates before answering from the home prompt');
 assert.match(js, /async function ensureAiEntityContext\(query\)/, 'AI must hydrate athlete and club context on demand');
 assert.match(js, /await ensureAiEntityContext\(normalizedQuery\)/, 'AI home prompt must load relevant entity context before building an answer');
+assert.match(js, /function trackAiAnalysisHistory\(query, report\)/, 'AI home prompt must persist successful answers as reusable analysis history');
+assert.match(js, /trackAiAnalysisHistory\(normalizedQuery, report\)/, 'AI home prompt must write each successful answer to analysis history');
+assert.match(js, /report\.type === 'empty' \|\| report\.type === 'fallback'/, 'AI history must not store empty or fallback answers');
 assert.match(js, /const club = detectClubInQuery\(text\);[\s\S]*if \(club\) return buildAiClubReport\(text, club\);[\s\S]*const athletes = detectAthletesInQuery\(text\);/, 'AI routing must prefer exact club matches before fuzzy athlete guesses');
 assert.match(js, /function aiProjectHints\(query\)/, 'AI club reports must detect project hints like U8 male foil');
 assert.match(js, /function projectMatchesAiHints\(label, hints\)/, 'AI club reports must filter projects by question hints');

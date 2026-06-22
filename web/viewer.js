@@ -62,6 +62,7 @@ const FOLLOW_KEY = 'fencingai.followedAthletes.v1';
 const COMPETITION_FOLLOW_KEY = 'fencingai.followedCompetitions.v1';
 const RECENT_KEY = 'fencingai.recentItems.v1';
 const REPORT_HISTORY_KEY = 'fencingai.reportHistory.v1';
+const AI_HISTORY_KEY = 'fencingai.aiHistory.v1';
 const DEVICE_KEY = 'fencingai.deviceId.v1';
 const ROLE_KEY = 'fencingai.role.v1';
 const CHILD_KEY = 'fencingai.parentChildId.v1';
@@ -116,6 +117,7 @@ const state = {
   followedCompetitions: [],
   recentItems: [],
   reportHistory: [],
+  aiHistory: [],
   isDataLoading: true,
   dataLoadError: '',
   searchRequestId: 0,
@@ -164,6 +166,7 @@ state.followedAthletes = loadFollowedAthletes();
 state.followedCompetitions = loadStoredList(COMPETITION_FOLLOW_KEY);
 state.recentItems = loadStoredList(RECENT_KEY);
 state.reportHistory = loadStoredList(REPORT_HISTORY_KEY);
+state.aiHistory = loadStoredList(AI_HISTORY_KEY);
 
 function loadFollowedAthletes() {
   try {
@@ -243,6 +246,38 @@ function trackReportHistory(report) {
     ...(state.reportHistory || []).filter((row) => row.key !== key),
   ].slice(0, 12);
   saveStoredList(REPORT_HISTORY_KEY, state.reportHistory, 12);
+}
+
+function aiHistoryTypeLabel(type) {
+  const labels = {
+    'competition-stats': '赛事统计',
+    prematch: '赛前分析',
+    growth: '成长分析',
+    comparison: '选手对比',
+    club: '俱乐部分析',
+    'business-insight': '商业洞察',
+    'product-template': '报告模板',
+  };
+  return labels[type] || '数据分析';
+}
+
+function trackAiAnalysisHistory(query, report) {
+  const text = String(query || '').trim();
+  if (!text || !report?.type || report.type === 'empty' || report.type === 'fallback') return;
+  const key = compactText(text).slice(0, 80);
+  state.aiHistory = [
+    {
+      key,
+      query: text,
+      title: report.title || text,
+      summary: report.summary || '',
+      type: report.type,
+      typeLabel: aiHistoryTypeLabel(report.type),
+      viewedAt: Date.now(),
+    },
+    ...(state.aiHistory || []).filter((row) => row.key !== key),
+  ].slice(0, 10);
+  saveStoredList(AI_HISTORY_KEY, state.aiHistory, 10);
 }
 
 function setUserRole(role) {
@@ -2121,6 +2156,15 @@ function reportHistoryRows() {
   });
 }
 
+function aiHistoryRows() {
+  return (state.aiHistory || []).slice(0, 4).filter((row) => row?.query).map((row) => ({
+    query: row.query,
+    title: row.title || row.query,
+    summary: row.summary || '点击继续查看这次分析',
+    typeLabel: row.typeLabel || aiHistoryTypeLabel(row.type),
+  }));
+}
+
 function renderHomePage() {
   if (!homePage) return;
   if (state.isDataLoading) {
@@ -2131,6 +2175,7 @@ function renderHomePage() {
   const followedCompetitions = followedCompetitionCards();
   const reportRows = homeReportCenterRows(children, followedCompetitions);
   const reportHistory = reportHistoryRows();
+  const aiHistory = aiHistoryRows();
   const recentRows = (state.recentItems || []).slice(0, 3);
   const stats = [
     { value: state.competitions.length, label: '赛事收录' },
@@ -2199,6 +2244,23 @@ function renderHomePage() {
         </div>
       </section>
     ` : ''}
+    ${aiHistory.length ? `
+      <section class="panel my-section">
+        <div class="section-title">
+          <h2>最近分析</h2>
+          <span>继续提问</span>
+        </div>
+        <div class="ai-history-list">
+          ${aiHistory.map((row) => `
+            <button type="button" data-ai-history-query="${escapeHtml(row.query)}">
+              <span>${escapeHtml(row.typeLabel)}</span>
+              <strong>${escapeHtml(row.title)}</strong>
+              <em>${escapeHtml(row.summary)}</em>
+            </button>
+          `).join('')}
+        </div>
+      </section>
+    ` : ''}
     <section class="panel my-section">
       <div class="section-title">
         <h2>关注概览</h2>
@@ -2229,6 +2291,9 @@ function renderHomePage() {
       if (type === 'parent-growth') openParentGrowthReport(id);
       if (type === 'coach-segmentation') openCoachSegmentationReport(id);
     });
+  });
+  homePage.querySelectorAll('[data-ai-history-query]').forEach((button) => {
+    button.addEventListener('click', () => submitAiQuery(button.dataset.aiHistoryQuery || ''));
   });
   homePage.querySelectorAll('[data-coverage-competition]').forEach((button) => {
     button.addEventListener('click', () => openCompetition(button.dataset.coverageCompetition));
@@ -2371,10 +2436,12 @@ function bindAiWorkspace(container) {
     try {
       await ensureAiEntityContext(normalizedQuery);
       const report = buildAiAnswer(normalizedQuery);
+      trackAiAnalysisHistory(normalizedQuery, report);
       answer.innerHTML = renderAiAnswer(report);
       bindAnswer();
     } catch {
       const report = buildAiAnswer(normalizedQuery);
+      trackAiAnalysisHistory(normalizedQuery, report);
       answer.innerHTML = renderAiAnswer(report);
       bindAnswer();
     }
