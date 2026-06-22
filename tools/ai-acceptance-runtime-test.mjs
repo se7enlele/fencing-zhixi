@@ -206,6 +206,11 @@ assert.equal(juneStats.actions[0].followCompetitionCode, 'TJ2026JUNE', 'AI compe
 const juneFilterAction = juneStats.actions.find((action) => action.filters);
 assert.equal(JSON.stringify(juneFilterAction.filters), JSON.stringify({ year: '2026', month: '6', region: '\u5929\u6d25', status: '' }), 'AI competition stats action should preserve the matched filters');
 
+const prematchReport = context.buildAiAnswer('\u0032\u0030\u0032\u0036\u5e74\u0036\u6708\u5929\u6d25\u8d5b\u524d\u60c5\u62a5');
+assert.equal(prematchReport.type, 'prematch', 'prematch query should route to prematch intelligence');
+const prematchReportAction = prematchReport.actions.find((action) => action.prematchTemplateKind === 'prematch-pack');
+assert.equal(prematchReportAction.prematchSportCode, 'TJ2026JUNE', 'AI prematch reports should open a report scoped to the nearest matched competition');
+
 const currentYear = String(new Date().getFullYear());
 assert.equal(context.detectYearInQuery('\u4eca\u5e74\u5929\u6d25\u6709\u51e0\u573a\u6bd4\u8d5b'), currentYear, 'AI year detection should support current-year wording');
 

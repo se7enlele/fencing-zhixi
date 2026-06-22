@@ -2839,6 +2839,7 @@ function buildAiPreMatchReport(query, filters) {
       sportCode: competition.sportCode,
     })),
     actions: [
+      rows[0]?.sportCode ? { label: '生成本场情报包', prematchTemplateKind: 'prematch-pack', prematchSportCode: rows[0].sportCode } : null,
       rows[0]?.sportCode ? { label: '加入赛前提醒', followCompetitionCode: rows[0].sportCode } : null,
       { label: rows.length ? '查看赛前赛事' : '进入赛事列表', mainTab: 'competitions', filters },
     ].filter(Boolean),
@@ -3306,7 +3307,7 @@ function renderAiAnswer(report) {
           <strong>可继续操作</strong>
           <div class="ai-action-row">
             ${report.actions.map((action) => `
-              <button type="button" ${action.athleteId ? `data-athlete-id="${escapeHtml(action.athleteId)}"` : ''} ${action.followAthleteId ? `data-follow-athlete-id="${escapeHtml(action.followAthleteId)}"` : ''} ${action.followCompetitionCode ? `data-follow-competition-code="${escapeHtml(action.followCompetitionCode)}"` : ''} ${action.clubId ? `data-club-id="${escapeHtml(action.clubId)}"` : ''} ${action.prematchTemplateKind ? `data-prematch-template="${escapeHtml(action.prematchTemplateKind)}"` : ''} ${action.mainTab ? `data-main-target="${escapeHtml(action.mainTab)}"` : ''} ${action.filters ? `data-ai-filters="${escapeHtml(encodeURIComponent(JSON.stringify(action.filters)))}"` : ''}>
+              <button type="button" ${action.athleteId ? `data-athlete-id="${escapeHtml(action.athleteId)}"` : ''} ${action.followAthleteId ? `data-follow-athlete-id="${escapeHtml(action.followAthleteId)}"` : ''} ${action.followCompetitionCode ? `data-follow-competition-code="${escapeHtml(action.followCompetitionCode)}"` : ''} ${action.clubId ? `data-club-id="${escapeHtml(action.clubId)}"` : ''} ${action.prematchTemplateKind ? `data-prematch-template="${escapeHtml(action.prematchTemplateKind)}"` : ''} ${action.prematchSportCode ? `data-prematch-sport-code="${escapeHtml(action.prematchSportCode)}"` : ''} ${action.mainTab ? `data-main-target="${escapeHtml(action.mainTab)}"` : ''} ${action.filters ? `data-ai-filters="${escapeHtml(encodeURIComponent(JSON.stringify(action.filters)))}"` : ''}>
                 ${escapeHtml(action.label)}
               </button>
             `).join('')}
@@ -3380,7 +3381,7 @@ function bindAiAnswerActions(container) {
     button.addEventListener('click', () => openClub(button.dataset.clubId));
   });
   container.querySelectorAll('[data-prematch-template]').forEach((button) => {
-    button.addEventListener('click', () => openPrematchReport(button.dataset.prematchTemplate || 'prematch-pack'));
+    button.addEventListener('click', () => openPrematchReport(button.dataset.prematchTemplate || 'prematch-pack', button.dataset.prematchSportCode || ''));
   });
   container.querySelectorAll('[data-main-target]').forEach((button) => {
     button.addEventListener('click', () => {
@@ -4122,6 +4123,7 @@ function renderCompetitionHero(competition) {
   const chips = competitionProjectSummaryChips(competition);
   const scope = competitionProjectScope(competition);
   const followed = isFollowedCompetition(competition.sportCode);
+  const isPreEventCompetition = competition.isPreEvent || ['registration', 'upcoming', 'live'].includes(competition.status);
   competitionHero.classList.add('compact');
   competitionHero.innerHTML = `
     <div class="status-row">
@@ -4143,10 +4145,18 @@ function renderCompetitionHero(competition) {
     <div class="event-chip-row project-summary-row">
       ${chips.map((label) => `<span>${escapeHtml(label)}</span>`).join('')}
     </div>
+    ${isPreEventCompetition ? `
+      <button class="competition-prematch-cta" type="button" data-prematch-sport-code="${escapeHtml(competition.sportCode || '')}">
+        生成本场赛前情报包
+      </button>
+    ` : ''}
   `;
   competitionHero.querySelector('#followCompetitionBtn')?.addEventListener('click', () => {
     if (isFollowedCompetition(competition.sportCode)) removeFollowedCompetition(competition.sportCode);
     else upsertFollowedCompetition(competition);
+  });
+  competitionHero.querySelector('[data-prematch-sport-code]')?.addEventListener('click', (event) => {
+    openPrematchReport('prematch-pack', event.currentTarget.dataset.prematchSportCode || competition.sportCode || '');
   });
 }
 
@@ -6915,16 +6925,24 @@ async function openClub(clubId) {
   navigateTo('club');
 }
 
-function prematchReportCompetitions() {
+function isPrematchCompetition(competition) {
+  return ['registration', 'upcoming', 'live'].includes(competition?.status) || Boolean(competition?.isPreEvent);
+}
+
+function prematchReportCompetitions(sportCode = '') {
+  const selected = sportCode ? (state.currentCompetition?.sportCode === sportCode ? state.currentCompetition : findCompetitionBySportCode(sportCode)) : null;
+  if (selected) return [selected];
   return [...(state.competitions || [])]
-    .filter((competition) => ['registration', 'upcoming', 'live'].includes(competition.status) || competition.isPreEvent)
+    .filter(isPrematchCompetition)
     .sort((a, b) => Math.abs(daysFromToday(competitionDateValue(a))) - Math.abs(daysFromToday(competitionDateValue(b)))
       || String(a.dateLabel || '').localeCompare(String(b.dateLabel || ''), 'zh-CN'))
     .slice(0, 8);
 }
 
-function prematchReportProjectLabels() {
-  return uniqueBy(aiFocusedAthletes().flatMap((athlete) => aiAthleteProjectLabels(athlete)), (label) => compactText(label)).slice(0, 6);
+function prematchReportProjectLabels(competitions = []) {
+  const competitionLabels = competitions.flatMap((competition) => competitionItemFilterLabels(competition));
+  const focusedLabels = aiFocusedAthletes().flatMap((athlete) => aiAthleteProjectLabels(athlete));
+  return uniqueBy([...competitionLabels, ...focusedLabels], (label) => compactText(label)).slice(0, 6);
 }
 
 function prematchReportFocusRows(competitions) {
@@ -6958,19 +6976,22 @@ function prematchReportOpponentRows(projectLabels) {
     .slice(0, 6);
 }
 
-function renderPrematchReport(kind = 'prematch-pack') {
-  const competitions = prematchReportCompetitions();
-  const projectLabels = prematchReportProjectLabels();
+function renderPrematchReport(kind = 'prematch-pack', sportCode = '') {
+  const competitions = prematchReportCompetitions(sportCode);
+  const isSingleCompetition = Boolean(sportCode && competitions.length);
+  const selectedCompetition = isSingleCompetition ? competitions[0] : null;
+  const projectLabels = prematchReportProjectLabels(competitions);
   const focusRows = prematchReportFocusRows(competitions);
   const opponentRows = prematchReportOpponentRows(projectLabels);
   const rosterReady = competitions.filter((competition) => competition.rosterStatus === 'partial' || competition.rosterStatus === 'complete').length;
   const nearest = competitions[0] || null;
+  const selectedItems = selectedCompetition ? compactCompetitionEventRows(competitionItemSummaries(selectedCompetition), 6) : [];
 
   prematchReportHero.innerHTML = `
-    <div class="hero-title">赛前情报包</div>
+    <div class="hero-title">${escapeHtml(isSingleCompetition ? '本场赛前情报包' : '赛前情报包')}</div>
     <div class="hero-sub">${escapeHtml(nearest ? `${nearest.sportName} · ${displayDateLabel(nearest.dateLabel)}` : '从近期赛事和关注对象生成')}</div>
     <div class="badge-row">
-      <span class="badge">近期赛事 ${escapeHtml(competitions.length)} 场</span>
+      <span class="badge">${escapeHtml(isSingleCompetition ? '目标赛事' : '近期赛事')} ${escapeHtml(competitions.length)} 场</span>
       <span class="badge">报名信息 ${escapeHtml(rosterReady)} 场</span>
       <span class="badge">关注对象 ${escapeHtml(focusRows.length)} 人</span>
       <span class="badge">强手线索 ${escapeHtml(opponentRows.length)} 个</span>
@@ -6981,18 +7002,40 @@ function renderPrematchReport(kind = 'prematch-pack') {
     <article class="panel prematch-report-card">
       <div class="section-title">
         <h2>赛前窗口</h2>
-        <span>优先处理</span>
+        <span>${escapeHtml(isSingleCompetition ? '本场优先' : '优先处理')}</span>
       </div>
       <div class="prematch-report-metrics">
-        <div><strong>${escapeHtml(competitions.length)}</strong><span>近期赛事</span></div>
+        <div><strong>${escapeHtml(competitions.length)}</strong><span>${escapeHtml(isSingleCompetition ? '目标赛事' : '近期赛事')}</span></div>
         <div><strong>${escapeHtml(rosterReady)}</strong><span>已有报名信息</span></div>
         <div><strong>${escapeHtml(projectLabels.length || '-')}</strong><span>关注项目</span></div>
         <div><strong>${escapeHtml(opponentRows.length)}</strong><span>强手线索</span></div>
       </div>
       <div class="prematch-report-note">
-        ${escapeHtml(nearest ? `先看最近的 ${nearest.sportName}，确认项目、报名名单和关注对象是否匹配。` : '当前没有识别到近期赛前赛事，可先围绕关注选手的历史项目准备。')}
+        ${escapeHtml(nearest ? `${isSingleCompetition ? '围绕本场赛事' : `先看最近的 ${nearest.sportName}`}，确认项目、报名名单和关注对象是否匹配。` : '当前没有识别到近期赛前赛事，可先围绕关注选手的历史项目准备。')}
       </div>
     </article>
+
+    ${isSingleCompetition ? `
+      <article class="panel prematch-report-card">
+        <div class="section-title">
+          <h2>本场项目</h2>
+          <span>${escapeHtml(coverageLabel(selectedCompetition))}</span>
+        </div>
+        <div class="prematch-report-list">
+          ${selectedItems.length ? selectedItems.map((item) => `
+            <button type="button" data-event-code="${escapeHtml(item.eventCode || '')}">
+              <strong>${escapeHtml(displayEventName(item))}</strong>
+              <span>${escapeHtml([
+                Number(item.registrationCount) ? `报名 ${Number(item.registrationCount)} 人` : '',
+                Number(item.competitionNo) ? `历史/成绩 ${Number(item.competitionNo)} 人` : '',
+                Number(item.poolQualifyNo) ? `晋级 ${Number(item.poolQualifyNo)} 人` : '',
+              ].filter(Boolean).join(' · ') || '项目规模待确认')}</span>
+              <em>${escapeHtml(selectedCompetition.venue || selectedCompetition.region || '地点待确认')}</em>
+            </button>
+          `).join('') : '<div class="empty compact-empty">本场项目明细还在补充，先按赛事时间和报名状态安排关注。</div>'}
+        </div>
+      </article>
+    ` : ''}
 
     <article class="panel prematch-report-card">
       <div class="section-title">
@@ -7012,8 +7055,8 @@ function renderPrematchReport(kind = 'prematch-pack') {
 
     <article class="panel prematch-report-card">
       <div class="section-title">
-        <h2>近期赛事</h2>
-        <span>可加入提醒</span>
+        <h2>${escapeHtml(isSingleCompetition ? '赛事入口' : '近期赛事')}</h2>
+        <span>${escapeHtml(isSingleCompetition ? '返回详情' : '可加入提醒')}</span>
       </div>
       <div class="prematch-report-list">
         ${competitions.length ? competitions.slice(0, 5).map((competition) => `
@@ -7060,6 +7103,11 @@ function renderPrematchReport(kind = 'prematch-pack') {
       if (button.dataset.athleteId) openAthlete(button.dataset.athleteId);
     });
   });
+  prematchReportBody.querySelectorAll('[data-event-code]').forEach((button) => {
+    button.addEventListener('click', () => {
+      if (button.dataset.eventCode) openEvent(button.dataset.eventCode);
+    });
+  });
   prematchReportBody.querySelectorAll('[data-sport-code]').forEach((button) => {
     button.addEventListener('click', () => {
       if (button.dataset.sportCode) openCompetition(button.dataset.sportCode);
@@ -7067,8 +7115,8 @@ function renderPrematchReport(kind = 'prematch-pack') {
   });
 }
 
-function openPrematchReport(kind = 'prematch-pack') {
-  renderPrematchReport(kind);
+function openPrematchReport(kind = 'prematch-pack', sportCode = '') {
+  renderPrematchReport(kind, sportCode);
   navigateTo('prematchReport');
 }
 

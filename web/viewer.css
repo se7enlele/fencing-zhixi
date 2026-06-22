@@ -2798,6 +2798,19 @@ select:focus {
   min-width: 0;
 }
 
+.competition-prematch-cta {
+  width: 100%;
+  border: 1px solid rgba(37, 99, 235, 0.18);
+  background: rgba(37, 99, 235, 0.08);
+  color: var(--blue-700);
+  border-radius: 12px;
+  padding: 10px 12px;
+  font-size: 14px;
+  font-weight: 800;
+  margin-top: 10px;
+  box-shadow: none;
+}
+
 .hero {
   position: relative;
   display: grid;
