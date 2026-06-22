@@ -1947,6 +1947,7 @@ function aiPromptPresets() {
   const secondary = athletes[1] || state.athleteSearchIndex.find((athlete) => athlete.name !== primary?.name && athlete.events?.length);
   const rolePresets = roleAiPromptPresets(primary, secondary);
   const fallbackPresets = [
+    '这些击剑数据能产生什么商业价值',
     primary && secondary ? `分析${primary.name}和${secondary.name}的对比情况` : '分析马潇和陶嘉月的对比情况',
     primary ? `${primary.name}最近几场有没有进步` : '蔡廷彧最近几场有没有进步',
     ...aiAcceptanceQueryCases().slice(1, 4).map((item) => item.query),
@@ -1961,6 +1962,7 @@ function aiAcceptanceQueryCases() {
     { query: '山东小众体育 U8 男花怎么样', expectedType: 'club' },
     { query: '蔡廷彧最近几场有没有进步', expectedType: 'growth' },
     { query: '分析马潇和陶嘉月的对战情况', expectedType: 'comparison' },
+    { query: '这些击剑数据能产生什么商业价值', expectedType: 'business-insight' },
   ];
 }
 
@@ -2221,6 +2223,8 @@ function buildAiAnswer(query) {
   const competitionQuery = detectCompetitionStatsQuery(text);
   if (competitionQuery) return buildAiCompetitionStats(text, competitionQuery);
 
+  if (detectBusinessInsightQuery(text)) return buildAiBusinessInsightReport(text);
+
   const exactAthletes = detectExactAthletesInQuery(normalizeAiName(text));
   if (exactAthletes.length >= 2) return buildAiAthleteComparison(text, exactAthletes[0], exactAthletes[1]);
   if (exactAthletes.length === 1) return buildAiAthleteGrowth(text, exactAthletes[0]);
@@ -2246,6 +2250,13 @@ function buildAiAnswer(query) {
     ],
     evidence: [],
   };
+}
+
+function detectBusinessInsightQuery(query) {
+  const normalized = compactText(query);
+  const hasDataAssetIntent = /(商业价值|数据价值|怎么变现|变现|商业化|产品机会|经营价值|行业洞察|用户价值|可以做哪些分析|值得做哪些分析|做哪些分析|数据.*利用|利用.*数据)/.test(normalized);
+  const hasRoleIntent = /(家长|教练|俱乐部|赛事方|协会|品牌|招生|留存|续费|赛前情报|成长报告|经营)/.test(normalized);
+  return hasDataAssetIntent || (normalized.includes('数据') && hasRoleIntent);
 }
 
 function detectCompetitionStatsQuery(query) {
@@ -2455,6 +2466,116 @@ function buildAiCompetitionStats(query, filters) {
       watchRows[0]?.sportCode ? { label: '加入赛前提醒', followCompetitionCode: watchRows[0].sportCode } : null,
       { label: rows.length ? '查看匹配赛事' : '进入赛事列表', mainTab: 'competitions', filters },
     ].filter(Boolean),
+  };
+}
+
+function businessMetricRows() {
+  const competitions = state.competitions || [];
+  const athletes = state.athleteSearchIndex || [];
+  const clubs = state.clubSearchIndex || [];
+  const activeCompetitions = competitions.filter((competition) => ['registration', 'upcoming', 'live'].includes(competition.status) || competition.isPreEvent);
+  const regionCount = new Set(competitions.map((competition) => competition.region || competition.venue).filter(Boolean)).size;
+  const scoredCompetitions = competitions.filter((competition) => competition.status === 'completed' || competitionHasItems(competition));
+  return [
+    ['赛事资产', `${competitions.length} 场`],
+    ['选手画像', `${athletes.length} 人`],
+    ['俱乐部画像', `${clubs.length} 个`],
+    ['赛前机会', `${activeCompetitions.length} 场`],
+    ['地域覆盖', `${regionCount} 个`],
+    ['可复盘样本', `${scoredCompetitions.length} 场`],
+  ];
+}
+
+function businessRegionRows() {
+  const rows = new Map();
+  for (const competition of state.competitions || []) {
+    const key = competition.region || competition.venue || '地区待确认';
+    const current = rows.get(key) || { total: 0, active: 0 };
+    current.total += 1;
+    if (['registration', 'upcoming', 'live'].includes(competition.status) || competition.isPreEvent) current.active += 1;
+    rows.set(key, current);
+  }
+  return [...rows.entries()]
+    .sort((a, b) => b[1].total - a[1].total || b[1].active - a[1].active || String(a[0]).localeCompare(String(b[0]), 'zh-CN'))
+    .slice(0, 5)
+    .map(([region, row]) => `${region}：${row.total} 场赛事，${row.active} 场赛前/进行中`);
+}
+
+function businessClubOpportunityRows() {
+  return (state.clubSearchIndex || [])
+    .slice()
+    .sort((a, b) => (Number(b.entrants) || 0) - (Number(a.entrants) || 0) || (Number(b.top8) || 0) - (Number(a.top8) || 0))
+    .slice(0, 5)
+    .map((club) => `${club.club}：${club.entrants || 0} 人次，前八 ${club.top8 || 0}，奖牌 ${club.medals || 0}`);
+}
+
+function businessProductOpportunityRows() {
+  const activeCount = (state.competitions || []).filter((competition) => ['registration', 'upcoming', 'live'].includes(competition.status) || competition.isPreEvent).length;
+  const athleteCount = (state.athleteSearchIndex || []).length;
+  const clubCount = (state.clubSearchIndex || []).length;
+  return [
+    `家长端：用 ${athleteCount} 个选手画像生成成长报告、同龄段位置和下一场比赛建议。`,
+    `教练端：用 ${clubCount} 个俱乐部画像做学员分层、重点备赛和招生展示。`,
+    `赛前场景：当前 ${activeCount} 场赛前/报名赛事可转化为对手情报包和赛事提醒。`,
+    '行业端：按地区、月份、项目和俱乐部活跃度输出区域增长与赛事供给判断。',
+  ];
+}
+
+function buildAiBusinessInsightReport(query) {
+  const competitions = state.competitions || [];
+  const activeRows = competitions
+    .filter((competition) => ['registration', 'upcoming', 'live'].includes(competition.status) || competition.isPreEvent)
+    .sort((a, b) => Math.abs(daysFromToday(competitionDateValue(a))) - Math.abs(daysFromToday(competitionDateValue(b))))
+    .slice(0, 5);
+  const topClubs = (state.clubSearchIndex || [])
+    .slice()
+    .sort((a, b) => (Number(b.entrants) || 0) - (Number(a.entrants) || 0))
+    .slice(0, 4);
+
+  return {
+    type: 'business-insight',
+    title: '击剑数据商业价值分析',
+    summary: `当前数据已经可以支撑家长决策、教练经营、俱乐部增长和赛事/区域洞察；下一步重点不是继续平铺数据，而是把数据封装成报告、提醒和可追问分析。`,
+    cards: businessMetricRows().slice(0, 4),
+    sections: [
+      {
+        title: '优先产品化方向',
+        rows: businessProductOpportunityRows(),
+      },
+      {
+        title: '区域机会',
+        rows: businessRegionRows(),
+      },
+      {
+        title: '俱乐部经营入口',
+        rows: businessClubOpportunityRows(),
+      },
+      activeRows.length ? {
+        title: '近期可转化场景',
+        rows: activeRows.map((competition) => `${competition.sportName} · ${displayDateLabel(competition.dateLabel)} · ${statusLabel(competition.status)}`),
+      } : null,
+    ].filter(Boolean),
+    evidence: [
+      ...activeRows.map((competition) => ({
+        kind: '赛前机会',
+        label: competition.sportName,
+        detail: `${displayDateLabel(competition.dateLabel)} · ${competition.venue || competition.region || '地点待确认'} · ${statusLabel(competition.status)}`,
+        reason: '用于判断赛前情报、提醒和报名分析场景',
+        sportCode: competition.sportCode,
+      })),
+      ...topClubs.map((club) => ({
+        kind: '俱乐部资产',
+        label: club.club,
+        detail: `${club.entrants || 0} 人次 · 前八 ${club.top8 || 0} · 奖牌 ${club.medals || 0}`,
+        reason: '用于判断教练工作台、招生展示和俱乐部画像价值',
+        clubId: club.id,
+      })),
+    ].slice(0, 8),
+    actions: [
+      { label: '查看赛事机会', mainTab: 'competitions', filters: { status: 'registration' } },
+      activeRows[0]?.sportCode ? { label: '加入最近赛事提醒', followCompetitionCode: activeRows[0].sportCode } : null,
+    ].filter(Boolean),
+    sourceNote: '商业洞察基于当前已收录赛事、选手、俱乐部和赛前状态生成；正式商业报告仍应结合付费用户角色和真实运营数据校准。',
   };
 }
 
@@ -2829,6 +2950,12 @@ function aiTrustRows(report) {
       value: '赛事筛选',
       detail: '按年份、月份、地区和状态筛选赛事列表。',
     });
+  } else if (report.type === 'business-insight') {
+    rows.push({
+      label: '判断口径',
+      value: '商业机会',
+      detail: '按赛事资产、选手画像、俱乐部画像和赛前机会判断产品化方向。',
+    });
   }
 
   if (report.sourceNote) {
@@ -2873,6 +3000,10 @@ function aiNextStepRows(report) {
       '先看优势项目和代表学员，再进入俱乐部画像查看队伍结构。',
       '赛前可结合本馆项目和报名名单做备赛沟通。',
     ],
+    'business-insight': [
+      '先把赛前情报包和选手成长报告做成可复用模板。',
+      '再把教练工作台围绕学员分层、续费沟通和招生展示做闭环。',
+    ],
   };
   return rowsByType[report.type] || [
     '先打开证据来源核对数据，再进入对应页面继续查看。',
@@ -2914,6 +3045,12 @@ function aiFollowUpPrompts(report) {
       '天津近期报名情况',
     ];
   }
+  if (report.type === 'business-insight') {
+    return [
+      '教练端最值得做哪些分析',
+      '天津近期报名情况',
+    ];
+  }
   return aiPromptPresets().slice(0, 2);
 }
 
@@ -2923,7 +3060,7 @@ function renderAiAnswer(report) {
   return `
     <div class="ai-answer-card">
       <div class="ai-answer-head">
-        <span>${escapeHtml(report.type === 'comparison' ? '选手对比' : report.type === 'growth' ? '成长分析' : report.type === 'club' ? '俱乐部画像' : report.type === 'prematch' ? '赛前情报' : '数据助手')}</span>
+        <span>${escapeHtml(report.type === 'comparison' ? '选手对比' : report.type === 'growth' ? '成长分析' : report.type === 'club' ? '俱乐部画像' : report.type === 'prematch' ? '赛前情报' : report.type === 'business-insight' ? '商业洞察' : '数据助手')}</span>
         <strong>${escapeHtml(report.title)}</strong>
         <p>${escapeHtml(report.summary)}</p>
       </div>
@@ -2971,7 +3108,7 @@ function renderAiAnswer(report) {
         <div class="ai-evidence">
           <div class="chart-title">证据来源</div>
           ${report.evidence.map((row) => `
-            <button type="button" ${row.eventCode ? `data-event-code="${escapeHtml(row.eventCode)}"` : ''} ${row.sportCode ? `data-sport-code="${escapeHtml(row.sportCode)}"` : ''}>
+            <button type="button" ${row.eventCode ? `data-event-code="${escapeHtml(row.eventCode)}"` : ''} ${row.sportCode ? `data-sport-code="${escapeHtml(row.sportCode)}"` : ''} ${row.clubId ? `data-club-id="${escapeHtml(row.clubId)}"` : ''}>
               <em>${escapeHtml(aiEvidenceKind(row))}</em>
               <strong>${escapeHtml(row.label)}</strong>
               <span>${escapeHtml(row.detail)}</span>

@@ -17,6 +17,7 @@ assert.match(js, /expectedType: 'prematch'/, 'AI acceptance queries must cover p
 assert.match(js, /expectedType: 'club'/, 'AI acceptance queries must cover scoped club analysis');
 assert.match(js, /expectedType: 'growth'/, 'AI acceptance queries must cover athlete growth analysis');
 assert.match(js, /expectedType: 'comparison'/, 'AI acceptance queries must cover athlete comparison');
+assert.match(js, /expectedType: 'business-insight'/, 'AI acceptance queries must cover business value analysis');
 assert.match(js, /aiAcceptanceQueryCases\(\)\.slice\(1, 4\)/, 'AI home presets must reuse acceptance questions');
 assert.match(js, /function detectExactAthletesInQuery\(normalizedQuery\)/, 'AI routing must separate exact athlete matches from fuzzy matches');
 assert.match(js, /function aiEntityCandidateTerms\(query\)/, 'AI must extract entity candidates before answering from the home prompt');
@@ -34,12 +35,20 @@ assert.match(js, /function applyAiCompetitionFilters\(filters = \{\}\)/, 'AI ans
 assert.match(js, /function aiCompetitionFilterSummary\(filters = \{\}\)/, 'AI competition filters must expose a visible summary for the competition list');
 assert.match(js, /function clearAiCompetitionFilter\(\)/, 'AI competition filters must be removable from the competition list');
 assert.match(js, /function buildAiPreMatchReport\(query, filters\)/, 'AI must build prematch reports from registration and project data');
+assert.match(js, /function detectBusinessInsightQuery\(query\)/, 'AI must detect data value and commercialization questions');
+assert.match(js, /function buildAiBusinessInsightReport\(query\)/, 'AI must turn existing data into business opportunity analysis');
+assert.match(js, /title: '优先产品化方向'/, 'AI business analysis must prioritize productized opportunities');
+assert.match(js, /家长端：用/, 'AI business analysis must include parent-facing value');
+assert.match(js, /教练端：用/, 'AI business analysis must include coach-facing value');
+assert.match(js, /kind: '赛前机会'/, 'AI business evidence must include prematch opportunity sources');
+assert.match(js, /kind: '俱乐部资产'/, 'AI business evidence must include club business assets');
 assert.match(js, /data-ai-filters/, 'AI answer action buttons must carry structured competition filters');
 assert.match(js, /state\.aiCompetitionFilterSummary = aiCompetitionFilterSummary\(filters\)/, 'AI filter actions must store a list-facing filter summary');
 assert.match(js, /data-clear-ai-filter/, 'AI filtered competition lists must expose a clear action');
 assert.match(js, /JSON\.parse\(decodeURIComponent\(button\.dataset\.aiFilters\)\)/, 'AI answer action handlers must decode filter payloads before navigation');
 assert.match(js, /state\.selectedAiMonth/, 'AI competition filters must preserve month constraints that are not visible in the standard filter chips');
 assert.match(js, /report\.type === 'prematch' \? '赛前情报'/, 'AI answer header must label prematch reports');
+assert.match(js, /report\.type === 'business-insight' \? '商业洞察'/, 'AI answer header must label business insight reports');
 assert.match(js, /kind: '赛前赛事'/, 'AI prematch evidence must label prematch competitions');
 assert.match(js, /名单未完整时，只做项目级和赛事级判断/, 'AI prematch report must disclose incomplete roster boundaries');
 assert.match(js, /暂未发现两人的直接交手记录/, 'AI comparison must not imply direct bouts when none are found');
@@ -55,6 +64,7 @@ assert.match(js, /const trustRows = aiTrustRows\(report\)/, 'AI answer renderer 
 assert.match(js, /function aiFollowAthleteAction\(athlete\)/, 'AI answers must expose follow actions for athletes');
 assert.match(js, /followAthleteId: athlete\.id/, 'AI growth answers must include follow athlete action payload');
 assert.match(js, /data-follow-athlete-id/, 'AI action buttons must support follow-athlete actions');
+assert.match(js, /row\.clubId \? `data-club-id=/, 'AI evidence buttons must support club evidence actions');
 assert.match(js, /upsertFollowedAthlete\(athlete\)/, 'AI follow action must reuse the existing follow handler');
 assert.match(js, /class="ai-action-block"/, 'AI answers must promote executable actions as a dedicated block');
 assert.match(js, /<strong>可继续操作<\/strong>/, 'AI action block must use product-facing action copy');
@@ -65,6 +75,7 @@ assert.ok(
 assert.match(js, /function aiNextStepRows\(report\)/, 'AI answers must include contextual next-step guidance');
 assert.match(js, /function aiFollowUpPrompts\(report\)/, 'AI answers must generate related follow-up questions');
 assert.match(js, /prematch:\s*\[[\s\S]*同组对手、强手和主要俱乐部分布/, 'AI prematch answers must guide users toward opponent and club checks');
+assert.match(js, /'business-insight':\s*\[[\s\S]*赛前情报包和选手成长报告/, 'AI business insight answers must guide users toward productized reports');
 assert.match(js, /comparison:\s*\[[\s\S]*共同项目和直接交手证据/, 'AI comparison answers must tell users to verify evidence before judging');
 assert.match(js, /<div class="ai-next-steps">/, 'AI answer renderer must show next-step guidance');
 assert.match(js, /class="ai-follow-up-row"/, 'AI answer renderer must show follow-up question chips');
