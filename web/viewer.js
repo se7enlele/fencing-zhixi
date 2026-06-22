@@ -6081,6 +6081,43 @@ function buildPoolPerformanceRows(events) {
   });
 }
 
+function buildAthleteDataRequestText(athlete, requestType) {
+  const typeLabel = requestType === 'hide' ? '申请隐藏公开选手画像' : '申请纠错或合并同名选手';
+  const latest = athlete.events?.[0] || {};
+  return [
+    `FencingAI ${typeLabel}`,
+    `选手姓名：${athlete.name || '待确认'}`,
+    `当前俱乐部：${athlete.club || '待确认'}`,
+    `选手ID：${athlete.id || '待确认'}`,
+    latest.sportName ? `最近赛事：${latest.sportName}` : '',
+    latest.shortEventName || latest.eventName ? `最近项目：${latest.shortEventName || latest.eventName}` : '',
+    requestType === 'hide'
+      ? '申请说明：希望隐藏该选手公开画像，请进行身份和监护关系核验。'
+      : '申请说明：需要更正姓名、俱乐部、赛事记录，或合并同名选手画像。',
+    '补充信息：请在这里填写需要更正的内容和可核对依据。',
+  ].filter(Boolean).join('\n');
+}
+
+function renderAthleteDataRequestPanel(athlete) {
+  if (!athleteActionPanel) return;
+  athleteActionPanel.hidden = false;
+  athleteActionPanel.innerHTML = `
+    <div class="athlete-data-request">
+      <div>
+        <strong>数据反馈</strong>
+        <span>公开成绩如有误，可提交纠错、同名合并或隐藏申请。</span>
+      </div>
+      <div class="athlete-data-request-actions">
+        <button type="button" data-athlete-request="correct">复制纠错说明</button>
+        <button type="button" data-athlete-request="hide">复制隐藏申请</button>
+      </div>
+    </div>
+  `;
+  athleteActionPanel.querySelectorAll('[data-athlete-request]').forEach((button) => {
+    bindCopyTextButton(button, () => buildAthleteDataRequestText(athlete, button.dataset.athleteRequest));
+  });
+}
+
 function renderAthleteDetail(athlete) {
   const followed = isFollowedAthlete(athlete.id);
   athleteHero.innerHTML = `
@@ -6100,8 +6137,7 @@ function renderAthleteDetail(athlete) {
     </div>
   `;
 
-  athleteActionPanel.hidden = true;
-  athleteActionPanel.innerHTML = '';
+  renderAthleteDataRequestPanel(athlete);
   athleteHero.querySelector('#followAthleteBtn').addEventListener('click', async () => {
     if (isFollowedAthlete(athlete.id)) {
       await removeFollowedAthlete(athlete.id);

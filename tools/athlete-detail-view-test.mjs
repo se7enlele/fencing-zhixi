@@ -3,6 +3,7 @@ import { readFile } from 'node:fs/promises';
 import vm from 'node:vm';
 
 const source = await readFile(new URL('../web/viewer.js', import.meta.url), 'utf8');
+const css = await readFile(new URL('../web/viewer.css', import.meta.url), 'utf8');
 const start = source.indexOf('function shortEventName');
 const end = source.indexOf('function renderAthleteDetail');
 if (start === -1 || end === -1 || end <= start) {
@@ -90,5 +91,14 @@ assert.deepEqual(context.buildPoolPerformanceRows(athlete.events).map((row) => (
     label: '重点复盘',
   },
 ]);
+
+assert.match(source, /function buildAthleteDataRequestText\(athlete, requestType\)/, 'athlete detail must build correction and hide request copy');
+assert.match(source, /function renderAthleteDataRequestPanel\(athlete\)/, 'athlete detail must render a data feedback entry');
+assert.match(source, /data-athlete-request="correct"/, 'athlete detail must expose a correction request action');
+assert.match(source, /data-athlete-request="hide"/, 'athlete detail must expose a hide request action');
+assert.match(source, /bindCopyTextButton\(button, \(\) => buildAthleteDataRequestText\(athlete, button\.dataset\.athleteRequest\)\)/, 'athlete data request actions must copy a prepared request');
+assert.match(source, /renderAthleteDataRequestPanel\(athlete\)/, 'athlete detail rendering must show the data feedback panel');
+assert.match(css, /\.athlete-data-request/, 'athlete data feedback panel styles must exist');
+assert.match(css, /\.athlete-data-request-actions/, 'athlete data feedback action styles must exist');
 
 console.log('athlete detail view model is clear');
