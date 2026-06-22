@@ -3675,6 +3675,39 @@ function aiFollowUpPrompts(report) {
   return aiPromptPresets().slice(0, 2);
 }
 
+function buildAiAnswerFeedbackText(report, feedbackType) {
+  const label = feedbackType === 'ai-helpful' ? '有帮助' : '需要调整';
+  return [
+    `FencingAI 回答反馈：${label}`,
+    `类型：${aiHistoryTypeLabel(report.type)}`,
+    `标题：${report.title || '数据分析'}`,
+    report.summary ? `摘要：${report.summary}` : '',
+    report.sourceNote ? `数据边界：${report.sourceNote}` : '',
+    '补充说明：用户从 AI 回答页提交。',
+  ].filter(Boolean).join('\n');
+}
+
+async function submitAiAnswerFeedback(report, feedbackType) {
+  const response = await fetch('/api/feedback', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      deviceId: state.deviceId,
+      type: feedbackType,
+      subject: {
+        id: `ai:${report.type || 'answer'}:${String(report.title || 'untitled').slice(0, 80)}`,
+        name: report.title || 'FencingAI 回答',
+        type: report.type || 'answer',
+        club: aiHistoryTypeLabel(report.type),
+        query: report.summary || '',
+      },
+      message: buildAiAnswerFeedbackText(report, feedbackType),
+    }),
+  });
+  const result = await response.json();
+  if (!response.ok || !result.ok) throw new Error(result.message || 'submit failed');
+  return result;
+}
 function buildAiAnswerShareText(report) {
   const lines = [
     `FencingAI 分析：${report.title || '数据分析'}`,
@@ -3777,6 +3810,8 @@ function renderAiAnswer(report) {
       </div>
       <div class="ai-share-row">
         <button type="button" data-ai-share>复制分析摘要</button>
+        <button type="button" data-ai-feedback="ai-helpful">有帮助</button>
+        <button type="button" data-ai-feedback="ai-needs-work">需要调整</button>
       </div>
       ${followUps.length ? `
         <div class="ai-follow-up-row">
@@ -3795,6 +3830,25 @@ function bindAiAnswerActions(container) {
     const card = button.closest('.ai-answer-card');
     const report = card?.__aiReport;
     bindCopyTextButton(button, () => buildAiAnswerShareText(report || {}));
+  });
+  container.querySelectorAll('[data-ai-feedback]').forEach((button) => {
+    button.addEventListener('click', async () => {
+      const card = button.closest('.ai-answer-card');
+      const report = card?.__aiReport;
+      const originalLabel = button.textContent;
+      button.disabled = true;
+      button.textContent = '提交中';
+      try {
+        await submitAiAnswerFeedback(report || {}, button.dataset.aiFeedback);
+        button.textContent = '已收到';
+      } catch {
+        button.textContent = '稍后再试';
+      }
+      setTimeout(() => {
+        button.textContent = originalLabel;
+        button.disabled = false;
+      }, 1600);
+    });
   });
   container.querySelectorAll('[data-event-code]').forEach((button) => {
     button.addEventListener('click', () => {

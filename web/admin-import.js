@@ -121,7 +121,12 @@ function renderPreview(data) {
 }
 
 function feedbackTypeLabel(type) {
-  return type === 'hide' ? '隐藏申请' : '纠错申请';
+  return ({
+    hide: '隐藏申请',
+    correct: '纠错申请',
+    'ai-helpful': 'AI 有帮助',
+    'ai-needs-work': 'AI 需调整',
+  })[type] || '用户反馈';
 }
 
 function feedbackStatusLabel(status) {

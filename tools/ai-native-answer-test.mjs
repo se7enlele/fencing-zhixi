@@ -97,6 +97,8 @@ assert.ok(
 assert.match(js, /function aiNextStepRows\(report\)/, 'AI answers must include contextual next-step guidance');
 assert.match(js, /function aiFollowUpPrompts\(report\)/, 'AI answers must generate related follow-up questions');
 assert.match(js, /function buildAiAnswerShareText\(report\)/, 'AI answers must build shareable summaries');
+assert.match(js, /function submitAiAnswerFeedback\(report, feedbackType\)/, 'AI answers must submit quality feedback');
+assert.match(js, /function buildAiAnswerFeedbackText\(report, feedbackType\)/, 'AI answer feedback must have admin-readable text');
 assert.match(js, /prematch:\s*\[[\s\S]*同组对手、强手和主要俱乐部分布/, 'AI prematch answers must guide users toward opponent and club checks');
 assert.match(js, /'business-insight':\s*\[[\s\S]*赛前情报包和选手成长报告/, 'AI business insight answers must guide users toward productized reports');
 assert.match(js, /'product-template':\s*\[/, 'AI product templates must include next-step guidance');
@@ -104,12 +106,15 @@ assert.match(js, /comparison:\s*\[[\s\S]*共同项目和直接交手证据/, 'AI
 assert.match(js, /<div class="ai-next-steps">/, 'AI answer renderer must show next-step guidance');
 assert.match(js, /class="ai-share-row"/, 'AI answer renderer must expose a copy summary action');
 assert.match(js, /data-ai-share/, 'AI answer copy action must be addressable');
+assert.match(js, /data-ai-feedback=\"ai-helpful\"/, 'AI answer must expose helpful feedback');
+assert.match(js, /data-ai-feedback=\"ai-needs-work\"/, 'AI answer must expose needs-work feedback');
 assert.match(js, /class="ai-follow-up-row"/, 'AI answer renderer must show follow-up question chips');
 assert.match(js, /data-ai-follow-up/, 'AI follow-up chips must carry runnable query text');
 assert.match(js, /const bindAnswer = \(report\) =>/, 'AI workspace must pass the current report into answer bindings');
 assert.match(js, /bindAnswer\(report\);/, 'AI workspace must bind copy actions with the generated report');
 assert.match(js, /if \(card\) card\.__aiReport = report;/, 'AI answer cards must retain the report for copy actions');
 assert.match(js, /bindCopyTextButton\(button, \(\) => buildAiAnswerShareText\(report \|\| \{\}\)\)/, 'AI copy action must reuse the existing clipboard helper');
+assert.match(js, /submitAiAnswerFeedback\(report \|\| \{\}, button\.dataset\.aiFeedback\)/, 'AI feedback buttons must submit the current report');
 assert.match(js, /answer\.querySelectorAll\('\[data-ai-follow-up\]'\)/, 'AI workspace must bind follow-up chips after each answer');
 assert.match(js, /class="ai-source-note"/, 'AI answer must render data boundary notes');
 assert.match(js, /class="ai-trust-panel"/, 'AI answer must render a judgment-basis panel');
