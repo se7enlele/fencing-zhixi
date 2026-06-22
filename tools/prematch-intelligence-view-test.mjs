@@ -22,6 +22,9 @@ assert.match(css, /\.prematch-roster-focus/, 'prematch roster focus styles must 
 
 assert.match(js, /function athleteMatchesProjectLabel\(athlete, label\)/, 'prematch intelligence must match external opponents to club projects');
 assert.match(js, /function coachOpponentProjectRows\(opponentPool, projectRows\)/, 'prematch intelligence must summarize strong opponents by project');
+assert.match(js, /function opponentStrengthLabel\(opponents\)/, 'prematch intelligence must classify opponent strength');
+assert.match(js, /function coachOpponentMatchReason\(candidate, opponents\)/, 'prematch intelligence must explain why an opponent is matched');
+assert.match(js, /function coachOpponentTrainingFocus\(candidate, opponents\)/, 'prematch intelligence must translate opponent matches into training focus');
 assert.match(js, /class="opponent-project-list"/, 'prematch intelligence must render project-level opponent summaries');
 assert.match(js, /可关注强手/, 'prematch opponent summary must be coach-facing and action-oriented');
 assert.match(css, /\.opponent-project-list/, 'project-level opponent summary layout must exist');
@@ -30,8 +33,11 @@ assert.match(css, /\.opponent-project-card/, 'project-level opponent summary car
 assert.match(js, /function athleteProjectLabelsForPrematch\(athlete\)/, 'prematch intelligence must derive project labels for club athletes');
 assert.match(js, /function coachAthleteOpponentRows\(\{ rosterRows, athletes, opponentPool, projectRows \}\)/, 'prematch intelligence must pair club athletes with likely strong opponents');
 assert.match(js, /class="athlete-opponent-plan-list"/, 'prematch intelligence must render athlete-level opponent plans');
+assert.match(js, /class="opponent-match-meta"/, 'prematch opponent plans must show match rationale');
+assert.match(js, /row\.trainingFocus/, 'prematch opponent plans must show a training focus');
 assert.match(js, /学员对手预案/, 'prematch intelligence must expose athlete-opponent preparation as a coach-facing section');
 assert.match(css, /\.athlete-opponent-plan-list/, 'athlete-opponent preparation layout must exist');
+assert.match(css, /\.opponent-match-meta/, 'opponent match rationale styles must exist');
 
 assert.match(js, /function submitAiQuery\(query\)/, 'prematch opponent plans must be able to submit an AI query');
 assert.match(js, /data-ai-query/, 'athlete-opponent plans must carry a runnable comparison query');

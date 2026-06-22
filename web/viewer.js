@@ -6002,6 +6002,35 @@ function coachOpponentProjectRows(opponentPool, projectRows) {
     .filter((row) => row.opponents.length);
 }
 
+function opponentStrengthLabel(opponents) {
+  const bestRank = Math.min(...(opponents || []).map((athlete) => Number(athlete.bestRank) || 999));
+  if (bestRank <= 3) return '前三强度';
+  if (bestRank <= 8) return '前八强度';
+  if (bestRank <= 16) return '淘汰赛强度';
+  return '观察样本';
+}
+
+function coachOpponentMatchReason(candidate, opponents) {
+  const bestOpponent = opponents[0] || {};
+  const parts = [];
+  if (candidate.projectLabel) parts.push(`同项目 ${candidate.projectLabel}`);
+  if (bestOpponent.bestRank) parts.push(`对手最好第 ${bestOpponent.bestRank} 名`);
+  if (bestOpponent.appearances) parts.push(`${bestOpponent.appearances} 次记录`);
+  return parts.length ? parts.join(' · ') : '按同项目历史成绩匹配';
+}
+
+function coachOpponentTrainingFocus(candidate, opponents) {
+  const strength = opponentStrengthLabel(opponents);
+  const ownRank = Number(candidate.bestRank) || 0;
+  if (strength === '前三强度' || strength === '前八强度') {
+    return ownRank && ownRank <= 8
+      ? '重点准备淘汰赛关键分、领先后处理和落后追分。'
+      : '先把小组赛目标、首场进入状态和强手对局预案讲清楚。';
+  }
+  if ((candidate.appearances || 0) >= 2) return '重点看同项目稳定性，减少小组赛波动。';
+  return '先用对手画像建立比赛预期，避免只按报名人数判断难度。';
+}
+
 function athleteProjectLabelsForPrematch(athlete) {
   return uniqueBy((athlete.events || [])
     .map((event) => displayEventName(event))
@@ -6047,6 +6076,9 @@ function coachAthleteOpponentRows({ rosterRows, athletes, opponentPool, projectR
       ...candidate,
       projectLabel,
       opponents,
+      opponentStrength: opponentStrengthLabel(opponents),
+      matchReason: coachOpponentMatchReason({ ...candidate, projectLabel }, opponents),
+      trainingFocus: coachOpponentTrainingFocus({ ...candidate, projectLabel }, opponents),
     });
     if (rows.length >= 4) break;
   }
@@ -6229,6 +6261,11 @@ function renderPreMatchIntelligence(club, projectRows, athletes, providedRosterR
                   <span>${escapeHtml(row.projectLabel || '项目待确认')} · ${escapeHtml(row.source)}</span>
                 </div>
                 <em>${escapeHtml(row.opponents.map((athlete) => `${athlete.name} 第${athlete.bestRank ?? '-'}名`).join(' / '))}</em>
+                <div class="opponent-match-meta">
+                  <span>${escapeHtml(row.opponentStrength)}</span>
+                  <span>${escapeHtml(row.matchReason)}</span>
+                </div>
+                <small>${escapeHtml(row.trainingFocus)}</small>
                 <span class="ai-plan-action">生成对比分析</span>
               </button>
             `).join('')}
