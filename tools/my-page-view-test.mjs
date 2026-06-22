@@ -88,9 +88,13 @@ assert.match(js, /openPrematchReport\('prematch-pack', button\.dataset\.focusPre
 assert.match(js, /function renderMyPage\(\)/, 'my page renderer must exist');
 assert.match(js, /<h2>我的报告<\/h2>/, 'my page must expose generated reports for reuse');
 assert.match(js, /const reportHistory = reportHistoryRows\(\);/, 'my page must reuse persisted report history');
+assert.match(js, /const aiHistory = aiHistoryRows\(\);/, 'my page must reuse persisted AI analysis history');
 assert.match(js, /\{ value: reportHistory\.length, label: '生成报告' \}/, 'my page stats must include generated reports');
+assert.match(js, /\{ value: aiHistory\.length, label: 'AI分析' \}/, 'my page stats must include recent AI analyses');
 assert.match(js, /myPage\.querySelectorAll\('\[data-report-history-type\]'\)/, 'my page report rows must bind reopen actions');
+assert.match(js, /myPage\.querySelectorAll\('\[data-ai-history-query\]'\)/, 'my page AI history rows must bind rerun actions');
 assert.match(js, /if \(type === 'coach-segmentation'\) openCoachSegmentationReport\(id\);/, 'my page must reopen coach segmentation reports');
+assert.match(js, /submitAiQuery\(button\.dataset\.aiHistoryQuery \|\| ''\)/, 'my page must rerun AI history questions');
 assert.match(js, /function upsertFollowedCompetition\(competition\)/, 'competition follow handler must exist');
 assert.match(js, /trackRecentItem\(\{[\s\S]*type: 'competition'/, 'competition detail views must be tracked as recent items');
 

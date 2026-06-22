@@ -3906,12 +3906,14 @@ function renderMyPage() {
   const followedCompetitions = followedCompetitionCards();
   const recentRows = (state.recentItems || []).slice(0, 6);
   const reportHistory = reportHistoryRows();
+  const aiHistory = aiHistoryRows();
   const followedAthletes = children.slice(0, 6);
   const generatedLabel = formatDataGeneratedAt(state.dataGeneratedAt);
   const stats = [
     { value: children.length, label: '关注选手' },
     { value: followedCompetitions.length, label: '关注赛事' },
     { value: reportHistory.length, label: '生成报告' },
+    { value: aiHistory.length, label: 'AI分析' },
     { value: recentRows.length, label: '最近查看' },
   ];
 
@@ -3989,6 +3991,21 @@ function renderMyPage() {
         `).join('') : '<div class="empty compact-empty">生成成长报告、赛前情报或教练报告后，会显示在这里。</div>'}
       </div>
     </section>
+    <section class="panel my-section">
+      <div class="section-title">
+        <h2>最近分析</h2>
+        <span>${aiHistory.length ? '继续提问' : '提问后可复看'}</span>
+      </div>
+      <div class="ai-history-list">
+        ${aiHistory.length ? aiHistory.map((row) => `
+          <button type="button" data-ai-history-query="${escapeHtml(row.query)}">
+            <span>${escapeHtml(row.typeLabel)}</span>
+            <strong>${escapeHtml(row.title)}</strong>
+            <em>${escapeHtml(row.summary)}</em>
+          </button>
+        `).join('') : '<div class="empty compact-empty">向 FencingAI 提问后，会显示在这里。</div>'}
+      </div>
+    </section>
 
     <section class="panel my-section">
       <div class="section-title">
@@ -4034,6 +4051,9 @@ function renderMyPage() {
       if (type === 'parent-growth') openParentGrowthReport(id);
       if (type === 'coach-segmentation') openCoachSegmentationReport(id);
     });
+  });
+  myPage.querySelectorAll('[data-ai-history-query]').forEach((button) => {
+    button.addEventListener('click', () => submitAiQuery(button.dataset.aiHistoryQuery || ''));
   });
   myPage.querySelectorAll('.my-list-row').forEach((button) => {
     button.addEventListener('click', () => {
