@@ -46,4 +46,16 @@ assert.match(
   'Follow endpoint should stay isolated from public cached data',
 );
 
+assert.match(
+  source,
+  /url\.pathname === '\/api\/feedback'[\s\S]{0,160}handleFeedback/,
+  'Feedback endpoint should stay isolated from public cached data',
+);
+
+assert.match(
+  source,
+  /const FEEDBACK_INDEX_KEY = 'feedback:index';/,
+  'Worker should index user feedback requests in KV',
+);
+
 console.log('worker public cache policy is covered');

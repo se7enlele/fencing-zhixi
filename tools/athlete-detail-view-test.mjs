@@ -93,10 +93,13 @@ assert.deepEqual(context.buildPoolPerformanceRows(athlete.events).map((row) => (
 ]);
 
 assert.match(source, /function buildAthleteDataRequestText\(athlete, requestType\)/, 'athlete detail must build correction and hide request copy');
+assert.match(source, /async function submitAthleteDataRequest\(athlete, requestType\)/, 'athlete detail must submit correction and hide requests');
+assert.match(source, /fetch\('\/api\/feedback'/, 'athlete data feedback must use the feedback API');
 assert.match(source, /function renderAthleteDataRequestPanel\(athlete\)/, 'athlete detail must render a data feedback entry');
 assert.match(source, /data-athlete-request="correct"/, 'athlete detail must expose a correction request action');
 assert.match(source, /data-athlete-request="hide"/, 'athlete detail must expose a hide request action');
-assert.match(source, /bindCopyTextButton\(button, \(\) => buildAthleteDataRequestText\(athlete, button\.dataset\.athleteRequest\)\)/, 'athlete data request actions must copy a prepared request');
+assert.match(source, /button\.textContent = '已提交'/, 'athlete data feedback must confirm successful submission');
+assert.match(source, /button\.textContent = '已复制说明'/, 'athlete data feedback must fall back to copied request text');
 assert.match(source, /renderAthleteDataRequestPanel\(athlete\)/, 'athlete detail rendering must show the data feedback panel');
 assert.match(css, /\.athlete-data-request/, 'athlete data feedback panel styles must exist');
 assert.match(css, /\.athlete-data-request-actions/, 'athlete data feedback action styles must exist');

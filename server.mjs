@@ -16,7 +16,7 @@ const PORT = Number(process.env.PORT ?? 5177);
 const MAX_BODY_BYTES = 20 * 1024 * 1024;
 const APP_VERSION = 'fencingai-product-20260528-1';
 const ADMIN_TOKEN = process.env.FENCINGAI_ADMIN_TOKEN || 'fencingai-admin-2026';
-let memoryFollowStore = { devices: {} };
+let memoryFollowStore = { devices: {}, feedback: [] };
 
 const MIME_TYPES = {
   '.html': 'text/html; charset=utf-8',
@@ -352,7 +352,7 @@ async function readFollowStore() {
   try {
     return JSON.parse(await readFile(getFollowStorePath(), 'utf8'));
   } catch {
-    return { devices: {} };
+    return { devices: {}, feedback: [] };
   }
 }
 
@@ -439,6 +439,49 @@ async function handleDeleteFollow(request, response) {
       deviceId,
       follows: store.devices[deviceId].follows,
     });
+  } catch (error) {
+    sendJson(response, 400, { ok: false, message: error.message });
+  }
+}
+
+function normalizeFeedbackType(value) {
+  const type = String(value || '').trim();
+  return ['correct', 'hide'].includes(type) ? type : '';
+}
+
+function normalizeFeedbackText(value) {
+  return String(value || '').trim().slice(0, 4000);
+}
+
+async function handleFeedback(request, response) {
+  try {
+    const body = JSON.parse(await readRequestBody(request));
+    const deviceId = normalizeDeviceId(body.deviceId);
+    const type = normalizeFeedbackType(body.type);
+    const athlete = body.athlete || {};
+    const message = normalizeFeedbackText(body.message);
+    if (!type) throw new Error('Invalid feedback type');
+    if (!athlete?.id || !athlete?.name) throw new Error('Missing athlete');
+    if (!message) throw new Error('Missing message');
+
+    const store = await readFollowStore();
+    const now = new Date().toISOString();
+    const record = {
+      id: `${Date.now()}-${Math.random().toString(36).slice(2, 10)}`,
+      type,
+      deviceId,
+      athlete: {
+        id: String(athlete.id),
+        name: String(athlete.name),
+        club: athlete.club ? String(athlete.club) : '',
+      },
+      message,
+      status: 'new',
+      createdAt: now,
+    };
+    store.feedback = [record, ...(Array.isArray(store.feedback) ? store.feedback : [])].slice(0, 200);
+    await writeFollowStore(store);
+    sendJson(response, 200, { ok: true, version: APP_VERSION, id: record.id, status: record.status });
   } catch (error) {
     sendJson(response, 400, { ok: false, message: error.message });
   }
@@ -1726,6 +1769,11 @@ const server = createServer(async (request, response) => {
 
   if (request.method === 'DELETE' && url.pathname === '/api/me/follows') {
     await handleDeleteFollow(request, response);
+    return;
+  }
+
+  if (request.method === 'POST' && url.pathname === '/api/feedback') {
+    await handleFeedback(request, response);
     return;
   }
 

@@ -17,6 +17,7 @@ const ADMIN_TOKEN = 'fencingai-admin-2026';
 const SCORE_INDEX_KEY = 'score:index';
 const PROJECTLIST_INDEX_KEY = 'projectlist:index';
 const ROSTER_INDEX_KEY = 'registration-roster:index';
+const FEEDBACK_INDEX_KEY = 'feedback:index';
 const MAX_IMPORT_BYTES = 20 * 1024 * 1024;
 const NO_STORE_CACHE = 'no-store';
 const PUBLIC_INDEX_CACHE = 'public, max-age=60, s-maxage=3600, stale-while-revalidate=86400';
@@ -231,6 +232,51 @@ async function handleFollows(request, env, url) {
   }
 
   return json({ ok: false, message: 'Method not allowed' }, 405);
+}
+
+function normalizeFeedbackType(value) {
+  const type = String(value || '').trim();
+  return ['correct', 'hide'].includes(type) ? type : '';
+}
+
+function normalizeFeedbackText(value) {
+  return String(value || '').trim().slice(0, 4000);
+}
+
+async function handleFeedback(request, env) {
+  if (request.method !== 'POST') return json({ ok: false, message: 'Method not allowed' }, 405);
+  if (!env.FOLLOWS) return json({ ok: false, message: 'Feedback unavailable' }, 503);
+
+  const body = await request.json();
+  const deviceId = normalizeDeviceId(body.deviceId);
+  const type = normalizeFeedbackType(body.type);
+  const athlete = body.athlete || {};
+  const message = normalizeFeedbackText(body.message);
+  if (!type) return json({ ok: false, message: 'Invalid feedback type' }, 400);
+  if (!athlete?.id || !athlete?.name) return json({ ok: false, message: 'Missing athlete' }, 400);
+  if (!message) return json({ ok: false, message: 'Missing message' }, 400);
+
+  const now = new Date().toISOString();
+  const id = `${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
+  const record = {
+    id,
+    type,
+    deviceId,
+    athlete: {
+      id: String(athlete.id),
+      name: String(athlete.name),
+      club: athlete.club ? String(athlete.club) : '',
+    },
+    message,
+    status: 'new',
+    createdAt: now,
+  };
+  await env.FOLLOWS.put(`feedback:${id}`, JSON.stringify(record));
+
+  const index = await readJsonKv(env.FOLLOWS, FEEDBACK_INDEX_KEY, { ids: [] });
+  const ids = [id, ...(Array.isArray(index?.ids) ? index.ids : [])].slice(0, 200);
+  await env.FOLLOWS.put(FEEDBACK_INDEX_KEY, JSON.stringify({ ids, updatedAt: now }));
+  return json({ ok: true, version: APP_VERSION, id, status: 'new' });
 }
 
 async function readDynamicScoreReports(env) {
@@ -631,6 +677,14 @@ async function routeApi(request, env, url) {
   if (url.pathname === '/api/me/follows') {
     try {
       return await handleFollows(request, env, url);
+    } catch (error) {
+      return json({ ok: false, message: error.message }, 400);
+    }
+  }
+
+  if (url.pathname === '/api/feedback') {
+    try {
+      return await handleFeedback(request, env);
     } catch (error) {
       return json({ ok: false, message: error.message }, 400);
     }

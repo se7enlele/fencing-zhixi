@@ -107,6 +107,25 @@ try {
     throw new Error(followDeleteResult.message || `follow delete status ${followDelete.status}`);
   }
 
+  const feedbackSave = await fetch(`${baseUrl}/api/feedback`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      deviceId,
+      type: 'correct',
+      athlete: {
+        id: athleteResult.athlete.id,
+        name: athleteResult.athlete.name,
+        club: athleteResult.athlete.club || '',
+      },
+      message: '测试纠错申请',
+    }),
+  });
+  const feedbackSaveResult = await feedbackSave.json();
+  if (!feedbackSave.ok || !feedbackSaveResult.ok || !feedbackSaveResult.id) {
+    throw new Error(feedbackSaveResult.message || `feedback save status ${feedbackSave.status}`);
+  }
+
   const club = await fetch(`${baseUrl}/api/clubs/${clubId}`);
   const clubResult = await club.json();
   if (!club.ok || !clubResult.ok) throw new Error(clubResult.message || `club status ${club.status}`);

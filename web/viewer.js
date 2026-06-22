@@ -6098,6 +6098,27 @@ function buildAthleteDataRequestText(athlete, requestType) {
   ].filter(Boolean).join('\n');
 }
 
+async function submitAthleteDataRequest(athlete, requestType) {
+  const message = buildAthleteDataRequestText(athlete, requestType);
+  const response = await fetch('/api/feedback', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      deviceId: state.deviceId,
+      type: requestType,
+      athlete: {
+        id: athlete.id,
+        name: athlete.name,
+        club: athlete.club || '',
+      },
+      message,
+    }),
+  });
+  const result = await response.json();
+  if (!response.ok || !result.ok) throw new Error(result.message || 'submit failed');
+  return result;
+}
+
 function renderAthleteDataRequestPanel(athlete) {
   if (!athleteActionPanel) return;
   athleteActionPanel.hidden = false;
@@ -6108,13 +6129,28 @@ function renderAthleteDataRequestPanel(athlete) {
         <span>公开成绩如有误，可提交纠错、同名合并或隐藏申请。</span>
       </div>
       <div class="athlete-data-request-actions">
-        <button type="button" data-athlete-request="correct">复制纠错说明</button>
-        <button type="button" data-athlete-request="hide">复制隐藏申请</button>
+        <button type="button" data-athlete-request="correct">提交纠错</button>
+        <button type="button" data-athlete-request="hide">申请隐藏</button>
       </div>
     </div>
   `;
   athleteActionPanel.querySelectorAll('[data-athlete-request]').forEach((button) => {
-    bindCopyTextButton(button, () => buildAthleteDataRequestText(athlete, button.dataset.athleteRequest));
+    button.addEventListener('click', async () => {
+      const originalLabel = button.textContent;
+      button.textContent = '提交中';
+      button.disabled = true;
+      try {
+        await submitAthleteDataRequest(athlete, button.dataset.athleteRequest);
+        button.textContent = '已提交';
+      } catch {
+        await copyTextToClipboard(buildAthleteDataRequestText(athlete, button.dataset.athleteRequest));
+        button.textContent = '已复制说明';
+      }
+      setTimeout(() => {
+        button.textContent = originalLabel;
+        button.disabled = false;
+      }, 1600);
+    });
   });
 }
 
