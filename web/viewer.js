@@ -2026,6 +2026,13 @@ function followedCompetitionCards() {
   }).filter((competition) => competition.sportCode);
 }
 
+function focusSuggestionCompetitions() {
+  const followed = new Set((state.followedCompetitions || []).map((item) => item.sportCode));
+  return prematchReportCompetitions()
+    .filter((competition) => competition?.sportCode && !followed.has(competition.sportCode))
+    .slice(0, 6);
+}
+
 function focusCompetitionPriorityRows(competitions) {
   return [...(competitions || [])]
     .map((competition) => {
@@ -2079,6 +2086,14 @@ function bindPersonalList(container) {
   });
   container.querySelectorAll('[data-focus-prematch]').forEach((button) => {
     button.addEventListener('click', () => openPrematchReport('prematch-pack', button.dataset.focusPrematch || ''));
+  });
+  container.querySelectorAll('[data-focus-follow]').forEach((button) => {
+    button.addEventListener('click', () => {
+      const competition = findCompetitionBySportCode(button.dataset.focusFollow);
+      if (!competition?.sportCode) return;
+      upsertFollowedCompetition(competition);
+      renderPersonalPages();
+    });
   });
 }
 
@@ -3913,7 +3928,10 @@ function renderFocusPage() {
   if (!focusPage) return;
   const children = focusAthleteCards();
   const followedCompetitions = followedCompetitionCards();
-  const priorityCompetitions = focusCompetitionPriorityRows(followedCompetitions);
+  const suggestedCompetitions = focusSuggestionCompetitions();
+  const reminderSourceCompetitions = followedCompetitions.length ? followedCompetitions : suggestedCompetitions;
+  const priorityCompetitions = focusCompetitionPriorityRows(reminderSourceCompetitions);
+  const showingSuggestions = !followedCompetitions.length && priorityCompetitions.length;
   focusPage.innerHTML = `
     <section class="panel focus-dashboard">
       <div class="section-title">
@@ -3935,7 +3953,7 @@ function renderFocusPage() {
         </div>
       </div>
       <div class="focus-next-step">
-        <strong>${escapeHtml(priorityCompetitions.length ? '先看近期赛事' : children.length ? '先看成长变化' : '先添加关注')}</strong>
+        <strong>${escapeHtml(showingSuggestions ? '先加入近期提醒' : priorityCompetitions.length ? '先看近期赛事' : children.length ? '先看成长变化' : '先添加关注')}</strong>
         <span>${escapeHtml(priorityCompetitions[0]?.sportName || children[0]?.summary || '从选手或赛事详情页添加关注后，这里会形成赛前提醒和成长入口。')}</span>
       </div>
     </section>
@@ -3960,7 +3978,7 @@ function renderFocusPage() {
     <section class="panel my-section">
       <div class="section-title">
         <h2>赛前提醒</h2>
-        <span>${priorityCompetitions.length ? `${priorityCompetitions.length} 个重点` : '待关注'}</span>
+        <span>${showingSuggestions ? '推荐关注' : priorityCompetitions.length ? `${priorityCompetitions.length} 个重点` : '待关注'}</span>
       </div>
       ${priorityCompetitions.length ? `
         <div class="focus-alert-list">
@@ -3971,6 +3989,7 @@ function renderFocusPage() {
               <em>${escapeHtml(competition.action)}</em>
               <div class="focus-alert-actions">
                 <button type="button" data-focus-competition="${escapeHtml(competition.sportCode)}">赛事详情</button>
+                ${showingSuggestions ? `<button type="button" data-focus-follow="${escapeHtml(competition.sportCode)}">加入提醒</button>` : ''}
                 ${isPrematchCompetition(competition) ? `<button type="button" data-focus-prematch="${escapeHtml(competition.sportCode)}">赛前情报</button>` : ''}
               </div>
             </article>
@@ -3984,7 +4003,7 @@ function renderFocusPage() {
           title: competition.sportName,
           dateLabel: competition.dateLabel,
           venue: competition.venue,
-        })).join('') : '<div class="empty compact-empty">进入赛事详情后，可关注重要比赛。</div>'}
+        })).join('') : showingSuggestions ? '<div class="empty compact-empty">上方是近期可关注赛事，加入提醒后会固定在这里。</div>' : '<div class="empty compact-empty">进入赛事详情后，可关注重要比赛。</div>'}
       </div>
     </section>
   `;

@@ -78,13 +78,16 @@ assert.match(js, /data-sport-code/, 'AI evidence cards must link back to competi
 assert.match(js, /replaceAll\('马消', '马潇'\)/, 'AI workspace must tolerate common athlete name typos');
 assert.match(js, /function renderFocusPage\(\)/, 'follow page renderer must exist');
 assert.match(js, /function focusCompetitionPriorityRows\(competitions\)/, 'follow page must prioritize followed competitions for reminders');
+assert.match(js, /function focusSuggestionCompetitions\(\)/, 'follow page must suggest prematch competitions before the user follows one');
 assert.match(js, /class="panel focus-dashboard"/, 'follow page must render a dashboard summary');
 assert.match(js, /<h2>关注工作台<\/h2>/, 'follow page must frame follows as a workspace');
 assert.match(js, /<h2>赛前提醒<\/h2>/, 'follow page must expose pre-match reminders');
 assert.match(js, /class="focus-alert-card"/, 'follow page must render reminder cards for followed competitions');
 assert.match(js, /data-focus-competition/, 'follow reminders must keep a direct competition detail action');
 assert.match(js, /data-focus-prematch/, 'follow reminders must expose a direct prematch report action');
+assert.match(js, /data-focus-follow/, 'follow recommendations must expose a direct add-reminder action');
 assert.match(js, /openPrematchReport\('prematch-pack', button\.dataset\.focusPrematch \|\| ''\)/, 'follow prematch action must open the scoped prematch report');
+assert.match(js, /upsertFollowedCompetition\(competition\)/, 'follow recommendation action must persist the recommended competition');
 assert.match(js, /function renderMyPage\(\)/, 'my page renderer must exist');
 assert.match(js, /<h2>我的报告<\/h2>/, 'my page must expose generated reports for reuse');
 assert.match(js, /const reportHistory = reportHistoryRows\(\);/, 'my page must reuse persisted report history');
