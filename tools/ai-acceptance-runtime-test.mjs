@@ -53,6 +53,7 @@ const functionNames = [
   'detectCompetitionStatsQuery',
   'detectProductTemplateQuery',
   'detectBusinessInsightQuery',
+  'detectClubRecruitingQuery',
   'detectPreMatchQuery',
   'detectYearInQuery',
   'detectMonthInQuery',
@@ -81,8 +82,13 @@ const functionNames = [
   'buildAiAthleteComparison',
   'buildAiAthleteGrowth',
   'buildAiClubReport',
+  'buildAiClubRecruitingReport',
   'clubWorkspaceAthletes',
   'clubProjectRows',
+  'clubPeerRows',
+  'buildClubBusinessCards',
+  'clubShareHighlights',
+  'buildClubCommunicationScripts',
   'athleteStrengthScore',
   'athleteMetricLine',
   'athleteComparisonRiskRows',
@@ -179,6 +185,7 @@ const context = {
     athletesById: Object.fromEntries(athletes.map((athlete) => [athlete.id, athlete])),
     athleteSearchIndex: athletes,
     clubSearchIndex: [sampleClub],
+    clubsById: { [sampleClub.id]: sampleClub },
     followedAthletes: [{ id: 'cai', name: '\u8521\u5ef7\u5f67', club: '\u4e2a\u4eba' }],
     selectedChildId: 'cai',
   },
@@ -232,6 +239,14 @@ const clubReport = context.buildAiAnswer('山东小众体育 U8 男花怎么样'
 assert.equal(clubReport.type, 'club');
 assert.match(clubReport.title, /U8 男 花|U8 男花|U8.*男.*花/, 'club scoped query should preserve project hints in title');
 assert.ok(clubReport.sections.some((section) => section.title === '匹配项目'), 'club scoped query should show matched projects');
+
+
+const recruitingReport = context.buildAiAnswer('山东小众体育招生怎么讲');
+assert.equal(recruitingReport.type, 'club-recruiting', 'club recruiting questions should route to recruiting display');
+assert.ok(recruitingReport.sections.some((section) => section.title === '对外可讲'), 'club recruiting report should include parent-facing talking points');
+assert.ok(recruitingReport.evidence.some((row) => row.kind === '招生素材来源'), 'club recruiting report should cite concrete event evidence');
+assert.ok(recruitingReport.actions.some((action) => action.clubId === 'club-sdzx'), 'club recruiting report should open the club recruiting card');
+assert.ok(recruitingReport.actions.some((action) => action.coachSegmentationClubId === 'club-sdzx'), 'club recruiting report should connect to coach segmentation');
 
 const comparisonReport = context.buildAiAnswer('\u5206\u6790\u9a6c\u6d88\u548c\u9676\u5609\u6708\u7684\u5bf9\u6218\u60c5\u51b5');
 assert.equal(comparisonReport.type, 'comparison', 'athlete comparison query should route to comparison report');

@@ -257,6 +257,7 @@ function aiHistoryTypeLabel(type) {
     club: '俱乐部分析',
     'business-insight': '商业洞察',
     'product-template': '报告方案',
+    'club-recruiting': '招生展示',
   };
   return labels[type] || '数据分析';
 }
@@ -2443,6 +2444,7 @@ function aiAcceptanceQueryCases() {
     { query: '生成赛前情报包', expectedType: 'product-template' },
     { query: '生成家长成长报告方案', expectedType: 'product-template' },
     { query: '生成教练学员分层报告', expectedType: 'product-template' },
+    { query: '山东小众体育招生怎么讲', expectedType: 'club-recruiting' },
   ];
 }
 
@@ -2718,6 +2720,7 @@ function buildAiAnswer(query) {
   if (exactAthletes.length === 1) return buildAiAthleteGrowth(text, exactAthletes[0]);
 
   const club = detectClubInQuery(text);
+  if (club && detectClubRecruitingQuery(text)) return buildAiClubRecruitingReport(text, club);
   if (club) return buildAiClubReport(text, club);
 
   const preMatchQuery = detectPreMatchQuery(text);
@@ -2748,6 +2751,11 @@ function detectProductTemplateQuery(query) {
   if (/(家长|成长报告|孩子报告|选手成长)/.test(normalized)) return 'parent-growth-report';
   if (/(教练|学员分层|队员分层|续费|招生|训练反馈)/.test(normalized)) return 'coach-segmentation';
   return '';
+}
+
+function detectClubRecruitingQuery(query) {
+  const normalized = compactText(query);
+  return /(招生|招新|获客|引流|对外|展示|名片|分享|家长沟通|续费沟通|怎么讲|话术|朋友圈|宣传)/.test(normalized);
 }
 
 function detectBusinessInsightQuery(query) {
@@ -3506,6 +3514,54 @@ function buildAiClubReport(query, club) {
   };
 }
 
+function buildAiClubRecruitingReport(query, club) {
+  const athletes = clubWorkspaceAthletes(club);
+  const projectRows = clubProjectRows(club);
+  const peerRows = clubPeerRows(club, projectRows);
+  const cards = buildClubBusinessCards(club, projectRows, athletes, peerRows).slice(0, 4);
+  const scripts = buildClubCommunicationScripts(club, projectRows, athletes).slice(0, 4);
+  const shareHighlights = clubShareHighlights(club, projectRows, athletes).slice(0, 4);
+  const topProject = projectRows[0] || null;
+  const strongestAthlete = athletes[0] || null;
+  const evidenceEvents = (club.events || []).slice(0, 5);
+  return {
+    type: 'club-recruiting',
+    title: `${club.club}招生展示建议`,
+    summary: `${club.club} 可以先用可核对成绩资产做对外展示：${shareHighlights.join('，') || '参赛记录持续积累中'}。表达重点应放在项目积累、代表学员和比赛经历，而不是泛泛介绍课程。`,
+    cards: cards.map((card) => [card.title, card.value]),
+    sections: [
+      {
+        title: '对外可讲',
+        rows: scripts.length ? scripts.map((row) => `${row.title}：${row.detail}`) : ['先沉淀参赛记录、代表项目和代表学员，再形成稳定招生素材。'],
+      },
+      {
+        title: '展示顺序',
+        rows: [
+          topProject ? `先讲优势项目：${topProject.label}，参赛 ${topProject.entrants || 0} 人次，最好第 ${topProject.bestRank ?? '-'} 名。` : '先讲当前已有参赛基础和训练方向。',
+          strongestAthlete ? `再讲成长案例：${strongestAthlete.name}，最好第 ${strongestAthlete.bestRank ?? '-'} 名，${strongestAthlete.appearances || 0} 次记录。` : '再讲学员参赛经历和持续记录。',
+          '最后给家长明确下一步：适合参加哪些项目、如何准备近期比赛、如何看成长变化。',
+        ],
+      },
+      peerRows.length ? {
+        title: '同项目参照',
+        rows: peerRows.slice(0, 3).map((peer) => `${peer.club}：重合项目 ${peer.overlapCount} 个，前八 ${peer.overlapTop8}，最好第 ${peer.bestRank ?? '-'} 名。`),
+      } : null,
+    ].filter(Boolean),
+    evidence: evidenceEvents.map((event) => ({
+      kind: '招生素材来源',
+      label: displayEventName(event),
+      detail: `${event.sportName || ''} · ${event.openDate || '日期待确认'} · 最好第 ${event.bestRank ?? '-'} 名`,
+      reason: '用于支撑对外展示中的成绩、项目和参赛经历',
+      eventCode: event.eventCode,
+    })),
+    actions: [
+      club.id ? { label: '查看招生名片', clubId: club.id } : null,
+      club.id ? { label: '生成学员分层报告', coachSegmentationClubId: club.id } : null,
+    ].filter(Boolean),
+    sourceNote: '招生展示建议只使用已收录公开赛事成绩，不替代真实教学承诺；对外表达应避免夸大名次和升学效果。',
+  };
+}
+
 function athleteStrengthScore(athlete) {
   const bestRankScore = athlete.bestRank ? Math.max(0, 120 - Number(athlete.bestRank) * 6) : 0;
   return bestRankScore + (athlete.medals || 0) * 12 + (athlete.appearances || 0) * 1.5 + (athlete.eliminationWins || 0) * 2 - (athlete.eliminationLosses || 0);
@@ -3631,6 +3687,12 @@ function aiTrustRows(report) {
       value: '俱乐部画像',
       detail: '按参赛人次、前八、奖牌、代表选手和优势项目综合判断。',
     });
+  } else if (report.type === 'club-recruiting') {
+    rows.push({
+      label: '判断口径',
+      value: '招生展示',
+      detail: '按成绩资产、优势项目、代表学员和对外沟通素材综合判断。',
+    });
   } else if (report.type === 'prematch') {
     rows.push({
       label: '判断口径',
@@ -3699,6 +3761,10 @@ function aiNextStepRows(report) {
       '先看优势项目和代表学员，再进入俱乐部画像查看队伍结构。',
       '赛前可结合本馆项目和报名名单做备赛沟通。',
     ],
+    'club-recruiting': [
+      '先把可核对的成绩和代表项目整理成对外素材。',
+      '再用学员分层报告支撑续费沟通和招生转化。',
+    ],
     'business-insight': [
       '先把赛前情报包和选手成长报告做成稳定报告。',
       '再把教练工作台围绕学员分层、续费沟通和招生展示做闭环。',
@@ -3746,6 +3812,13 @@ function aiFollowUpPrompts(report) {
     return [
       `${clubName}有哪些优势项目`,
       '天津近期报名情况',
+    ];
+  }
+  if (report.type === 'club-recruiting') {
+    const clubName = String(report.title || '').replace(/招生展示建议$/, '') || '山东小众体育';
+    return [
+      `${clubName}有哪些优势项目`,
+      `生成${clubName}学员分层报告`,
     ];
   }
   if (report.type === 'business-insight') {
@@ -3834,7 +3907,7 @@ function renderAiAnswer(report) {
   return `
     <div class="ai-answer-card">
       <div class="ai-answer-head">
-        <span>${escapeHtml(report.type === 'comparison' ? '选手对比' : report.type === 'growth' ? '成长分析' : report.type === 'club' ? '俱乐部画像' : report.type === 'prematch' ? '赛前情报' : report.type === 'business-insight' ? '商业洞察' : report.type === 'product-template' ? '报告方案' : '数据助手')}</span>
+        <span>${escapeHtml(report.type === 'comparison' ? '选手对比' : report.type === 'growth' ? '成长分析' : report.type === 'club' ? '俱乐部画像' : report.type === 'prematch' ? '赛前情报' : report.type === 'business-insight' ? '商业洞察' : report.type === 'product-template' ? '报告方案' : report.type === 'club-recruiting' ? '招生展示' : '数据助手')}</span>
         <strong>${escapeHtml(report.title)}</strong>
         <p>${escapeHtml(report.summary)}</p>
       </div>
