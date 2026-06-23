@@ -2512,12 +2512,12 @@ function bindAiWorkspace(container) {
       const report = buildAiAnswer(normalizedQuery);
       trackAiAnalysisHistory(normalizedQuery, report);
       answer.innerHTML = renderAiAnswer(report);
-      bindAnswer();
+      bindAnswer(report);
     } catch {
       const report = buildAiAnswer(normalizedQuery);
       trackAiAnalysisHistory(normalizedQuery, report);
       answer.innerHTML = renderAiAnswer(report);
-      bindAnswer();
+      bindAnswer(report);
     }
   };
 

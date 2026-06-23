@@ -114,6 +114,7 @@ assert.match(js, /class="ai-follow-up-row"/, 'AI answer renderer must show follo
 assert.match(js, /data-ai-follow-up/, 'AI follow-up chips must carry runnable query text');
 assert.match(js, /const bindAnswer = \(report\) =>/, 'AI workspace must pass the current report into answer bindings');
 assert.match(js, /bindAnswer\(report\);/, 'AI workspace must bind copy actions with the generated report');
+assert.doesNotMatch(js, /bindAnswer\(\);/, 'AI workspace must never bind answer actions without the current report');
 assert.match(js, /if \(card\) card\.__aiReport = report;/, 'AI answer cards must retain the report for copy actions');
 assert.match(js, /bindCopyTextButton\(button, \(\) => buildAiAnswerShareText\(report \|\| \{\}\)\)/, 'AI copy action must reuse the existing clipboard helper');
 assert.match(js, /submitAiAnswerFeedback\(report \|\| \{\}, button\.dataset\.aiFeedback\)/, 'AI feedback buttons must submit the current report');
