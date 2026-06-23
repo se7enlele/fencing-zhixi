@@ -74,6 +74,8 @@ const functionNames = [
   'productTemplateMetricRows',
   'productTemplateSections',
   'productTemplateEvidence',
+  'aiProductTemplateAthlete',
+  'aiProductTemplateClub',
   'buildAiProductTemplateReport',
   'buildAiPreMatchReport',
   'buildAiAthleteComparison',
@@ -262,10 +264,12 @@ const parentTemplate = context.buildAiAnswer('\u751f\u6210\u5bb6\u957f\u6210\u95
 assert.equal(parentTemplate.type, 'product-template', 'parent growth report request should route to product templates');
 assert.equal(parentTemplate.templateKind, 'parent-growth-report', 'parent template should preserve template kind');
 assert.ok(parentTemplate.sections.some((section) => section.title === '\u5173\u952e\u6307\u6807'), 'parent template should include metric requirements');
+assert.ok(parentTemplate.actions.some((action) => action.parentGrowthAthleteId), 'parent template should open a real growth report when athlete data exists');
 
 const coachTemplate = context.buildAiAnswer('\u751f\u6210\u6559\u7ec3\u5b66\u5458\u5206\u5c42\u6a21\u677f');
 assert.equal(coachTemplate.type, 'product-template', 'coach segmentation request should route to product templates');
 assert.equal(coachTemplate.templateKind, 'coach-segmentation', 'coach template should preserve template kind');
 assert.ok(coachTemplate.evidence.some((row) => row.kind === '\u4ff1\u4e50\u90e8\u8d44\u4ea7'), 'coach template should cite club assets');
+assert.ok(coachTemplate.actions.some((action) => action.coachSegmentationClubId), 'coach template should open a real segmentation report when club data exists');
 
 console.log('AI acceptance runtime queries are covered');

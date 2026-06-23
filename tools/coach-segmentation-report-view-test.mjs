@@ -29,7 +29,8 @@ assert.match(js, /function openCoachSegmentationReport\(clubId = ''\)/, 'segment
 assert.match(js, /trackReportHistory\(\{[\s\S]*type: 'coach-segmentation'/, 'opening a coach segmentation report must save it to recent reports');
 assert.match(js, /navigateTo\('coachSegmentationReport'\)/, 'segmentation report must use normal navigation');
 
-assert.match(js, /coachSegmentationClubId: state\.clubSearchIndex\[0\]\.id/, 'AI coach template must open the real segmentation report');
+assert.match(js, /function aiProductTemplateClub\(\)/, 'AI coach template must resolve a club from current or strongest context');
+assert.match(js, /coachSegmentationClubId: templateClub\.id/, 'AI coach template must open the real segmentation report');
 assert.match(js, /data-coach-segmentation-club-id/, 'AI and club actions must carry a club id');
 assert.match(js, /openCoachSegmentationReport\(button\.dataset\.coachSegmentationClubId\)/, 'AI coach segmentation action must bind to report navigation');
 assert.match(js, /clubEvents\.querySelectorAll\('\[data-coach-segmentation-club-id\]'\)/, 'club detail must bind segmentation report actions');

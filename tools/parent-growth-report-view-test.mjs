@@ -23,7 +23,8 @@ assert.match(js, /trackReportHistory\(\{[\s\S]*type: 'parent-growth'/, 'opening 
 assert.match(js, /navigateTo\('parentGrowthReport'\)/, 'parent growth report must use normal navigation');
 
 assert.match(js, /data-parent-growth-athlete-id/, 'parent growth report actions must carry an athlete id');
-assert.match(js, /parentGrowthAthleteId: aiFocusedAthletes\(\)\[0\]\.id/, 'AI parent-growth template must open the real report');
+assert.match(js, /function aiProductTemplateAthlete\(\)/, 'AI parent-growth template must resolve an athlete from current or focused context');
+assert.match(js, /parentGrowthAthleteId: templateAthlete\.id/, 'AI parent-growth template must open the real report');
 assert.match(js, /openParentGrowthReport\(button\.dataset\.parentGrowthAthleteId\)/, 'AI parent-growth action must bind to report navigation');
 assert.match(js, /parentDashboard\.querySelectorAll\('\[data-parent-growth-athlete-id\]'\)/, 'parent dashboard must bind growth report actions');
 assert.match(js, /roleWorkspace\.querySelectorAll\('\[data-parent-growth-athlete-id\]'\)/, 'role workspace must bind growth report actions');

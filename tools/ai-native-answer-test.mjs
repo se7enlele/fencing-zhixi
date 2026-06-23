@@ -50,10 +50,12 @@ assert.match(js, /prematchTemplateKind: 'prematch-pack'/, 'prematch product temp
 assert.match(js, /data-prematch-template/, 'AI action buttons must support opening product reports');
 assert.match(js, /prematchSportCode: rows\[0\]\.sportCode/, 'AI prematch answers must expose a single-competition report action when a match exists');
 assert.match(js, /data-prematch-sport-code/, 'AI prematch action buttons must carry the matched competition code');
-assert.match(js, /parentGrowthAthleteId: aiFocusedAthletes\(\)\[0\]\.id/, 'parent growth templates must expose a real growth report action');
+assert.match(js, /function aiProductTemplateAthlete\(\)/, 'product templates must resolve an actionable athlete from current or focused context');
+assert.match(js, /parentGrowthAthleteId: templateAthlete\.id/, 'parent growth templates must expose a real growth report action');
 assert.match(js, /data-parent-growth-athlete-id/, 'AI action buttons must support opening parent growth reports');
 assert.match(js, /openParentGrowthReport\(button\.dataset\.parentGrowthAthleteId\)/, 'AI parent growth actions must bind to report navigation');
-assert.match(js, /coachSegmentationClubId: state\.clubSearchIndex\[0\]\.id/, 'coach templates must expose a real segmentation report action');
+assert.match(js, /function aiProductTemplateClub\(\)/, 'product templates must resolve an actionable club from current or strongest context');
+assert.match(js, /coachSegmentationClubId: templateClub\.id/, 'coach templates must expose a real segmentation report action');
 assert.match(js, /data-coach-segmentation-club-id/, 'AI action buttons must support opening coach segmentation reports');
 assert.match(js, /openCoachSegmentationReport\(button\.dataset\.coachSegmentationClubId\)/, 'AI coach segmentation actions must bind to report navigation');
 assert.match(js, /function productTemplateSections\(kind\)/, 'AI templates must expose reusable report sections');

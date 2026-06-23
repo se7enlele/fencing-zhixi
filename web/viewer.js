@@ -3226,8 +3226,26 @@ function productTemplateEvidence(kind) {
     }));
 }
 
+function aiProductTemplateAthlete() {
+  if (state.currentAthlete?.id) return state.currentAthlete;
+  const focused = aiFocusedAthletes()[0];
+  if (focused?.id) return focused;
+  const selected = getSelectedChild(childCandidates());
+  if (selected?.id) return selected;
+  return (state.athleteSearchIndex || []).find((athlete) => athlete?.id && (athlete.events || []).length) || null;
+}
+
+function aiProductTemplateClub() {
+  if (state.currentClub?.id) return state.currentClub;
+  return (state.clubSearchIndex || [])
+    .filter((club) => club?.id)
+    .sort((a, b) => (Number(b.entrants) || 0) - (Number(a.entrants) || 0) || String(a.club || '').localeCompare(String(b.club || ''), 'zh-CN'))[0] || null;
+}
+
 function buildAiProductTemplateReport(query, kind) {
   const title = productTemplateTitle(kind);
+  const templateAthlete = aiProductTemplateAthlete();
+  const templateClub = aiProductTemplateClub();
   const summaryByKind = {
     'prematch-pack': '把赛前赛事、报名名单、关注选手和历史成绩合并成一份可行动的备赛报告。',
     'parent-growth-report': '把孩子的参赛轨迹、名次变化和同龄位置整理成家长能理解的成长判断。',
@@ -3244,10 +3262,10 @@ function buildAiProductTemplateReport(query, kind) {
     actions: [
       kind === 'prematch-pack' ? { label: '生成赛前情报包', prematchTemplateKind: 'prematch-pack' } : null,
       kind === 'prematch-pack' ? { label: '查看赛前赛事', mainTab: 'competitions', filters: { status: 'registration' } } : null,
-      kind === 'parent-growth-report' && aiFocusedAthletes()[0]?.id ? { label: '生成成长报告', parentGrowthAthleteId: aiFocusedAthletes()[0].id } : null,
-      kind === 'parent-growth-report' && aiFocusedAthletes()[0]?.id ? { label: '查看选手画像', athleteId: aiFocusedAthletes()[0].id } : null,
-      kind === 'coach-segmentation' && (state.clubSearchIndex || [])[0]?.id ? { label: '生成学员分层报告', coachSegmentationClubId: state.clubSearchIndex[0].id } : null,
-      kind === 'coach-segmentation' && (state.clubSearchIndex || [])[0]?.id ? { label: '查看俱乐部画像', clubId: state.clubSearchIndex[0].id } : null,
+      kind === 'parent-growth-report' && templateAthlete?.id ? { label: '生成成长报告', parentGrowthAthleteId: templateAthlete.id } : null,
+      kind === 'parent-growth-report' && templateAthlete?.id ? { label: '查看选手画像', athleteId: templateAthlete.id } : null,
+      kind === 'coach-segmentation' && templateClub?.id ? { label: '生成学员分层报告', coachSegmentationClubId: templateClub.id } : null,
+      kind === 'coach-segmentation' && templateClub?.id ? { label: '查看俱乐部画像', clubId: templateClub.id } : null,
     ].filter(Boolean),
     sourceNote: '模板基于当前可用数据生成；实际收费版本应按用户角色、关注对象和赛事节点保存为独立报告。',
   };
