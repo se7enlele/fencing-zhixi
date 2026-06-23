@@ -54,6 +54,10 @@ assert.match(js, /function isPrematchCompetition\(competition\)/, 'prematch repo
 assert.match(js, /function prematchReportCompetitions\(sportCode = ''\)/, 'prematch report must support single-competition reports');
 assert.match(js, /state\.currentCompetition\?\.sportCode === sportCode/, 'single-competition reports should reuse the loaded competition detail when available');
 assert.match(js, /function prematchReportFocusRows\(competitions\)/, 'prematch report must match focused athletes to competitions');
+assert.match(js, /function prematchPrimaryFocusRow\(focusRows = \[\]\)/, 'prematch report must choose a primary focused athlete');
+assert.match(js, /state\.selectedChildId[\s\S]*focusRows\.find/, 'prematch report must prioritize the selected child before other follows');
+assert.match(js, /本次重点对象/, 'prematch report must expose the selected child or focused athlete as the report anchor');
+assert.match(js, /prematchPrimaryFocusDetail\(primaryFocus\)/, 'prematch report must explain why the focused athlete matters for this report');
 assert.match(js, /function prematchReportOpponentRows\(projectLabels\)/, 'prematch report must include strong-opponent signals');
 assert.match(js, /function buildPrematchShareText\(competitions, focusRows, opponentRows, isSingleCompetition\)/, 'prematch report must build shareable summary text');
 assert.match(js, /function renderPrematchReport\(kind = 'prematch-pack', sportCode = ''\)/, 'prematch report must render a real report view scoped by competition when needed');
@@ -76,6 +80,7 @@ assert.match(css, /\.competition-prematch-cta/, 'competition prematch CTA must b
 assert.match(css, /\.prematch-report-shell/, 'prematch report shell styles must exist');
 assert.match(css, /\.prematch-report-metrics/, 'prematch report metrics must be styled');
 assert.match(css, /\.prematch-report-list/, 'prematch report lists must be styled');
+assert.match(css, /\.prematch-primary-card/, 'prematch primary focus card styles must exist');
 assert.match(css, /\.prematch-checklist/, 'prematch report checklist must be styled');
 assert.match(css, /\.report-share-action/, 'report share button styles must exist');
 

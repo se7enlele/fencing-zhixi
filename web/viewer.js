@@ -3700,7 +3700,7 @@ function aiNextStepRows(report) {
       '赛前可结合本馆项目和报名名单做备赛沟通。',
     ],
     'business-insight': [
-      '先把赛前情报包和选手成长报告做成可复用模板。',
+      '先把赛前情报包和选手成长报告做成稳定报告。',
       '再把教练工作台围绕学员分层、续费沟通和招生展示做闭环。',
     ],
     'product-template': [
@@ -7915,6 +7915,23 @@ function prematchReportFocusRows(competitions) {
   });
 }
 
+function prematchPrimaryFocusRow(focusRows = []) {
+  if (!focusRows.length) return null;
+  if (state.selectedChildId) {
+    const selected = focusRows.find((row) => row.athlete?.id === state.selectedChildId);
+    if (selected) return { ...selected, focusKind: 'primary' };
+  }
+  const primary = focusRows.find((row) => row.athlete?.focusKind === 'primary' || row.focusKind === 'primary');
+  return primary || focusRows[0] || null;
+}
+
+function prematchPrimaryFocusDetail(row) {
+  if (!row) return '';
+  const matched = row.matched?.[0];
+  const projectText = row.labels?.length ? row.labels.slice(0, 2).join(' / ') : '历史项目待确认';
+  const matchText = matched ? `匹配赛事：${matched.sportName}` : '暂未匹配到具体赛事，先按历史项目准备';
+  return `${projectText} · ${matchText}`;
+}
 function prematchReportOpponentRows(projectLabels) {
   const labels = projectLabels.map((label) => compactText(label)).filter(Boolean);
   return (state.athleteSearchIndex || [])
@@ -7947,6 +7964,7 @@ function renderPrematchReport(kind = 'prematch-pack', sportCode = '') {
   const selectedCompetition = isSingleCompetition ? competitions[0] : null;
   const projectLabels = prematchReportProjectLabels(competitions);
   const focusRows = prematchReportFocusRows(competitions);
+  const primaryFocus = prematchPrimaryFocusRow(focusRows);
   const opponentRows = prematchReportOpponentRows(projectLabels);
   const rosterReady = competitions.filter((competition) => competition.rosterStatus === 'partial' || competition.rosterStatus === 'complete').length;
   const nearest = competitions[0] || null;
@@ -7959,12 +7977,26 @@ function renderPrematchReport(kind = 'prematch-pack', sportCode = '') {
       <span class="badge">${escapeHtml(isSingleCompetition ? '目标赛事' : '近期赛事')} ${escapeHtml(competitions.length)} 场</span>
       <span class="badge">报名信息 ${escapeHtml(rosterReady)} 场</span>
       <span class="badge">关注对象 ${escapeHtml(focusRows.length)} 人</span>
+      ${primaryFocus ? `<span class="badge">重点对象 ${escapeHtml(primaryFocus.athlete?.name || '')}</span>` : ''}
       <span class="badge">强手线索 ${escapeHtml(opponentRows.length)} 个</span>
     </div>
     <button class="report-share-action" type="button" data-report-share="prematch">复制报告摘要</button>
   `;
 
   prematchReportBody.innerHTML = `
+    ${primaryFocus ? `
+      <article class="panel prematch-report-card prematch-primary-focus">
+        <div class="section-title">
+          <h2>本次重点对象</h2>
+          <span>${escapeHtml(primaryFocus.focusKind === 'primary' || primaryFocus.athlete?.focusKind === 'primary' ? '重点关注' : '已关注')}</span>
+        </div>
+        <button class="prematch-primary-card" type="button" data-athlete-id="${escapeHtml(primaryFocus.athlete?.id || '')}">
+          <strong>${escapeHtml(primaryFocus.athlete?.name || '关注选手')}</strong>
+          <span>${escapeHtml(primaryFocus.athlete?.club || '俱乐部待确认')}</span>
+          <em>${escapeHtml(prematchPrimaryFocusDetail(primaryFocus))}</em>
+        </button>
+      </article>
+    ` : ''}
     <article class="panel prematch-report-card">
       <div class="section-title">
         <h2>赛前窗口</h2>

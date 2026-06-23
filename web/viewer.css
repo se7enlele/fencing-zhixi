@@ -3642,6 +3642,40 @@ select:focus {
   padding: 10px;
 }
 
+
+.prematch-primary-card {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+  border: 1px solid rgba(15, 111, 201, 0.22);
+  border-radius: 10px;
+  background: linear-gradient(135deg, rgba(15, 111, 201, 0.10), rgba(13, 125, 103, 0.08));
+  color: var(--text);
+  font: inherit;
+  text-align: left;
+  padding: 12px;
+}
+
+.prematch-primary-card strong,
+.prematch-primary-card span,
+.prematch-primary-card em {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.prematch-primary-card strong {
+  font-size: 16px;
+  font-weight: 900;
+}
+
+.prematch-primary-card span,
+.prematch-primary-card em {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.45;
+  font-style: normal;
+}
 .prematch-report-list,
 .prematch-checklist {
   display: grid;
