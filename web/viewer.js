@@ -2181,6 +2181,42 @@ function aiHistoryRows() {
   }));
 }
 
+function homeDataValueRows() {
+  const prematch = prematchReportCompetitions()[0];
+  const child = focusAthleteCards()[0];
+  const club = state.currentClub || aiDefaultClub();
+  return [
+    {
+      key: 'prematch-pack',
+      label: '赛前情报',
+      title: '赛前情报包',
+      detail: prematch ? `${prematch.sportName} · ${displayDateLabel(prematch.dateLabel)}` : '按报名和近期赛事生成备赛重点',
+      query: prematch ? `${prematch.sportName}赛前情报包` : '生成赛前情报包模板',
+    },
+    {
+      key: 'parent-growth',
+      label: '家长决策',
+      title: '成长报告',
+      detail: child ? `${child.name} · ${child.summary}` : '关注孩子后生成成长趋势和投入判断',
+      query: child ? `${child.name}最近几场有没有进步` : '生成家长成长报告模板',
+    },
+    {
+      key: 'coach-growth',
+      label: '教练经营',
+      title: '学员与项目分析',
+      detail: club?.club ? `${club.club} · 项目优势和学员分层` : '按俱乐部表现生成经营重点',
+      query: club?.club ? `${club.club}有哪些优势项目` : '生成教练学员分层模板',
+    },
+    {
+      key: 'business-insight',
+      label: '产品机会',
+      title: '数据商业价值',
+      detail: '把赛事、选手和俱乐部数据转成可售卖报告和提醒',
+      query: '这些击剑数据能产生什么商业价值',
+    },
+  ];
+}
+
 function renderHomePage() {
   if (!homePage) return;
   if (state.isDataLoading) {
@@ -2192,6 +2228,7 @@ function renderHomePage() {
   const reportRows = homeReportCenterRows(children, followedCompetitions);
   const reportHistory = reportHistoryRows();
   const aiHistory = aiHistoryRows();
+  const dataValueRows = homeDataValueRows();
   const recentRows = (state.recentItems || []).slice(0, 3);
   const stats = [
     { value: state.competitions.length, label: '赛事收录' },
@@ -2207,6 +2244,21 @@ function renderHomePage() {
           <span>${escapeHtml(item.label)}</span>
         </div>
       `).join('')}
+    </section>
+    <section class="panel my-section">
+      <div class="section-title">
+        <h2>数据价值</h2>
+        <span>直接生成</span>
+      </div>
+      <div class="data-value-grid">
+        ${dataValueRows.map((row) => `
+          <button type="button" data-home-ai-product="${escapeHtml(row.query)}">
+            <span>${escapeHtml(row.label)}</span>
+            <strong>${escapeHtml(row.title)}</strong>
+            <em>${escapeHtml(row.detail)}</em>
+          </button>
+        `).join('')}
+      </div>
     </section>
     <section class="panel my-section">
       <div class="section-title">
@@ -2292,6 +2344,9 @@ function renderHomePage() {
   homePage.querySelector('[data-home-competitions]')?.addEventListener('click', () => navigateMain('competitions'));
   homePage.querySelector('[data-home-follow]')?.addEventListener('click', () => navigateMain('follow'));
   homePage.querySelector('[data-home-my]')?.addEventListener('click', () => navigateMain('my'));
+  homePage.querySelectorAll('[data-home-ai-product]').forEach((button) => {
+    button.addEventListener('click', () => submitAiQuery(button.dataset.homeAiProduct || ''));
+  });
   homePage.querySelectorAll('[data-home-report]').forEach((button) => {
     button.addEventListener('click', () => {
       if (button.dataset.homeReport === 'prematch') openPrematchReport('prematch-pack', button.dataset.sportCode || '');
