@@ -18,5 +18,8 @@ assert.match(js, /成长复盘和队伍分析/, 'data status should connect full
 
 assert.doesNotMatch(js, /后续信息更新|名单继续更新|等待名单完善|名单完善后/, 'competition detail copy must avoid back-office data-progress wording');
 assert.doesNotMatch(js, /当前收录|后续数据|当前只有/, 'athlete-facing copy must avoid database-progress wording');
+assert.doesNotMatch(js, /已产品化|产品模板|报告模板|生成赛前情报包模板|生成家长成长报告模板|生成教练学员分层模板/, 'frontend copy must avoid internal productization/template wording');
+assert.match(js, /常用报告/, 'home report center should use user-facing report copy');
+assert.match(js, /报告方案/, 'AI report planning answers should use user-facing report wording');
 
 console.log('product-facing copy is covered');

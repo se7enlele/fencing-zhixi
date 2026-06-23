@@ -248,7 +248,7 @@ assert.ok(
 const businessReport = context.buildAiAnswer('\u8fd9\u4e9b\u51fb\u5251\u6570\u636e\u80fd\u4ea7\u751f\u4ec0\u4e48\u5546\u4e1a\u4ef7\u503c');
 assert.equal(businessReport.type, 'business-insight', 'data value questions should route to business insight');
 assert.ok(businessReport.cards.length >= 4, 'business insight should expose asset metrics');
-assert.ok(businessReport.sections.some((section) => section.title === '\u4f18\u5148\u4ea7\u54c1\u5316\u65b9\u5411'), 'business insight should prioritize productized opportunities');
+assert.ok(businessReport.sections.some((section) => section.title === '\u4f18\u5148\u843d\u5730\u573a\u666f'), 'business insight should prioritize productized opportunities');
 assert.ok(businessReport.sections.some((section) => section.title === '\u533a\u57df\u673a\u4f1a'), 'business insight should include regional opportunity analysis');
 assert.ok(businessReport.evidence.some((row) => row.kind === '\u8d5b\u524d\u673a\u4f1a'), 'business insight should cite prematch opportunity evidence');
 assert.ok(businessReport.evidence.some((row) => row.kind === '\u4ff1\u4e50\u90e8\u8d44\u4ea7'), 'business insight should cite club asset evidence');

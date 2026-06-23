@@ -60,7 +60,7 @@ assert.match(js, /data-coach-segmentation-club-id/, 'AI action buttons must supp
 assert.match(js, /openCoachSegmentationReport\(button\.dataset\.coachSegmentationClubId\)/, 'AI coach segmentation actions must bind to report navigation');
 assert.match(js, /function productTemplateSections\(kind\)/, 'AI templates must expose reusable report sections');
 assert.match(js, /function productTemplateEvidence\(kind\)/, 'AI templates must attach source evidence');
-assert.match(js, /title: '优先产品化方向'/, 'AI business analysis must prioritize productized opportunities');
+assert.match(js, /title: '优先落地场景'/, 'AI business analysis must prioritize productized opportunities');
 assert.match(js, /家长端：用/, 'AI business analysis must include parent-facing value');
 assert.match(js, /教练端：用/, 'AI business analysis must include coach-facing value');
 assert.match(js, /kind: '赛前机会'/, 'AI business evidence must include prematch opportunity sources');
@@ -72,7 +72,7 @@ assert.match(js, /JSON\.parse\(decodeURIComponent\(button\.dataset\.aiFilters\)\
 assert.match(js, /state\.selectedAiMonth/, 'AI competition filters must preserve month constraints that are not visible in the standard filter chips');
 assert.match(js, /report\.type === 'prematch' \? '赛前情报'/, 'AI answer header must label prematch reports');
 assert.match(js, /report\.type === 'business-insight' \? '商业洞察'/, 'AI answer header must label business insight reports');
-assert.match(js, /report\.type === 'product-template' \? '产品模板'/, 'AI answer header must label product template reports');
+assert.match(js, /report\.type === 'product-template' \? '报告方案'/, 'AI answer header must label product template reports');
 assert.match(js, /kind: '赛前赛事'/, 'AI prematch evidence must label prematch competitions');
 assert.match(js, /名单未完整时，只做项目级和赛事级判断/, 'AI prematch report must disclose incomplete roster boundaries');
 assert.match(js, /暂未发现两人的直接交手记录/, 'AI comparison must not imply direct bouts when none are found');

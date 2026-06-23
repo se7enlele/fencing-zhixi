@@ -256,7 +256,7 @@ function aiHistoryTypeLabel(type) {
     comparison: '选手对比',
     club: '俱乐部分析',
     'business-insight': '商业洞察',
-    'product-template': '报告模板',
+    'product-template': '报告方案',
   };
   return labels[type] || '数据分析';
 }
@@ -2191,21 +2191,21 @@ function homeDataValueRows() {
       label: '赛前情报',
       title: '赛前情报包',
       detail: prematch ? `${prematch.sportName} · ${displayDateLabel(prematch.dateLabel)}` : '按报名和近期赛事生成备赛重点',
-      query: prematch ? `${prematch.sportName}赛前情报包` : '生成赛前情报包模板',
+      query: prematch ? `${prematch.sportName}赛前情报包` : '生成赛前情报包',
     },
     {
       key: 'parent-growth',
       label: '家长决策',
       title: '成长报告',
       detail: child ? `${child.name} · ${child.summary}` : '关注孩子后生成成长趋势和投入判断',
-      query: child ? `${child.name}最近几场有没有进步` : '生成家长成长报告模板',
+      query: child ? `${child.name}最近几场有没有进步` : '生成家长成长报告方案',
     },
     {
       key: 'coach-growth',
       label: '教练经营',
       title: '学员与项目分析',
       detail: club?.club ? `${club.club} · 项目优势和学员分层` : '按俱乐部表现生成经营重点',
-      query: club?.club ? `${club.club}有哪些优势项目` : '生成教练学员分层模板',
+      query: club?.club ? `${club.club}有哪些优势项目` : '生成教练学员分层报告',
     },
     {
       key: 'business-insight',
@@ -2283,7 +2283,7 @@ function renderHomePage() {
     <section class="panel my-section">
       <div class="section-title">
         <h2>报告中心</h2>
-        <span>已产品化</span>
+        <span>常用报告</span>
       </div>
       <div class="report-center-grid">
         ${reportRows.map((row) => `
@@ -2440,9 +2440,9 @@ function aiAcceptanceQueryCases() {
     { query: '蔡廷彧最近几场有没有进步', expectedType: 'growth' },
     { query: '分析马潇和陶嘉月的对战情况', expectedType: 'comparison' },
     { query: '这些击剑数据能产生什么商业价值', expectedType: 'business-insight' },
-    { query: '生成赛前情报包模板', expectedType: 'product-template' },
-    { query: '生成家长成长报告模板', expectedType: 'product-template' },
-    { query: '生成教练学员分层模板', expectedType: 'product-template' },
+    { query: '生成赛前情报包', expectedType: 'product-template' },
+    { query: '生成家长成长报告方案', expectedType: 'product-template' },
+    { query: '生成教练学员分层报告', expectedType: 'product-template' },
   ];
 }
 
@@ -2742,7 +2742,7 @@ function buildAiAnswer(query) {
 
 function detectProductTemplateQuery(query) {
   const normalized = compactText(query);
-  const hasTemplateIntent = /(模板|框架|报告怎么做|怎么做成报告|产品化|生成.*报告|生成.*情报包|做一份|输出一份)/.test(normalized);
+  const hasTemplateIntent = /(模板|框架|报告怎么做|怎么做成报告|方案|生成.*报告|生成.*情报包|做一份|输出一份)/.test(normalized);
   if (!hasTemplateIntent) return '';
   if (/(赛前情报包|对手情报包|赛前包|报名情报)/.test(normalized)) return 'prematch-pack';
   if (/(家长|成长报告|孩子报告|选手成长)/.test(normalized)) return 'parent-growth-report';
@@ -3037,7 +3037,7 @@ function buildAiBusinessInsightReport(query) {
     cards: businessMetricRows().slice(0, 4),
     sections: [
       {
-        title: '优先产品化方向',
+        title: '优先落地场景',
         rows: businessProductOpportunityRows(),
       },
       {
@@ -3078,10 +3078,10 @@ function buildAiBusinessInsightReport(query) {
 }
 
 function productTemplateTitle(kind) {
-  if (kind === 'prematch-pack') return '赛前情报包模板';
-  if (kind === 'parent-growth-report') return '家长成长报告模板';
-  if (kind === 'coach-segmentation') return '教练学员分层模板';
-  return '数据产品模板';
+  if (kind === 'prematch-pack') return '赛前情报包方案';
+  if (kind === 'parent-growth-report') return '家长成长报告方案';
+  if (kind === 'coach-segmentation') return '教练学员分层方案';
+  return '数据报告方案';
 }
 
 function productTemplateMetricRows(kind) {
@@ -3255,7 +3255,7 @@ function buildAiProductTemplateReport(query, kind) {
     type: 'product-template',
     templateKind: kind,
     title,
-    summary: summaryByKind[kind] || '把底层数据封装成面向具体用户任务的报告模板。',
+    summary: summaryByKind[kind] || '把底层数据整理成面向具体用户任务的报告方案。',
     cards: productTemplateMetricRows(kind),
     sections: productTemplateSections(kind),
     evidence: productTemplateEvidence(kind),
@@ -3267,7 +3267,7 @@ function buildAiProductTemplateReport(query, kind) {
       kind === 'coach-segmentation' && templateClub?.id ? { label: '生成学员分层报告', coachSegmentationClubId: templateClub.id } : null,
       kind === 'coach-segmentation' && templateClub?.id ? { label: '查看俱乐部画像', clubId: templateClub.id } : null,
     ].filter(Boolean),
-    sourceNote: '模板基于当前可用数据生成；实际收费版本应按用户角色、关注对象和赛事节点保存为独立报告。',
+    sourceNote: '报告方案基于当前可用数据生成；正式使用时应按用户角色、关注对象和赛事节点保存为独立报告。',
   };
 }
 
@@ -3647,12 +3647,12 @@ function aiTrustRows(report) {
     rows.push({
       label: '判断口径',
       value: '商业机会',
-      detail: '按赛事资产、选手画像、俱乐部画像和赛前机会判断产品化方向。',
+      detail: '按赛事资产、选手画像、俱乐部画像和赛前机会判断服务方向。',
     });
   } else if (report.type === 'product-template') {
     rows.push({
       label: '判断口径',
-      value: '报告模板',
+      value: '报告方案',
       detail: '按用户角色、使用场景、关键指标和可核对证据组织成可交付报告。',
     });
   }
@@ -3757,7 +3757,7 @@ function aiFollowUpPrompts(report) {
   if (report.type === 'product-template') {
     return [
       '这些击剑数据能产生什么商业价值',
-      report.templateKind === 'prematch-pack' ? '天津近期报名情况' : '生成赛前情报包模板',
+      report.templateKind === 'prematch-pack' ? '天津近期报名情况' : '生成赛前情报包',
     ];
   }
   return aiPromptPresets().slice(0, 2);
@@ -3834,7 +3834,7 @@ function renderAiAnswer(report) {
   return `
     <div class="ai-answer-card">
       <div class="ai-answer-head">
-        <span>${escapeHtml(report.type === 'comparison' ? '选手对比' : report.type === 'growth' ? '成长分析' : report.type === 'club' ? '俱乐部画像' : report.type === 'prematch' ? '赛前情报' : report.type === 'business-insight' ? '商业洞察' : report.type === 'product-template' ? '产品模板' : '数据助手')}</span>
+        <span>${escapeHtml(report.type === 'comparison' ? '选手对比' : report.type === 'growth' ? '成长分析' : report.type === 'club' ? '俱乐部画像' : report.type === 'prematch' ? '赛前情报' : report.type === 'business-insight' ? '商业洞察' : report.type === 'product-template' ? '报告方案' : '数据助手')}</span>
         <strong>${escapeHtml(report.title)}</strong>
         <p>${escapeHtml(report.summary)}</p>
       </div>
