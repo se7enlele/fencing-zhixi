@@ -4,7 +4,7 @@
   "source": {
     "input": "https://fencing-proxy.aixindiandian.workers.dev/fencingapi/competition/frontsporteventlist?",
     "sourceUrl": "https://fencing-proxy.aixindiandian.workers.dev/fencingapi/competition/frontsporteventlist?",
-    "analyzedAt": "2026-06-23T23:33:31.830Z"
+    "analyzedAt": "2026-06-24T07:55:48.055Z"
   },
   "summary": {
     "eventCount": 745,
@@ -1614,8 +1614,8 @@
       "2": 673
     },
     "sigupactive": {
-      "0": 58,
-      "1": 13,
+      "0": 56,
+      "1": 15,
       "2": 674
     },
     "groups": {
@@ -1638,18 +1638,18 @@
       "少年U16": 7,
       "儿童U10": 7,
       "儿童U12": 7,
-      "老将组": 136,
+      "老将组": 137,
       "儿童组": 1,
       "少年组": 6,
       "A组U19": 9,
       "U19团体": 12,
       "B组U19": 3,
-      "公开组": 296,
-      "U10": 495,
-      "U12": 494,
+      "公开组": 297,
+      "U10": 496,
+      "U12": 495,
       "U14": 493,
-      "U16": 486,
-      "17+": 342,
+      "U16": 487,
+      "17+": 343,
       "U8": 417,
       "U6": 329,
       "年龄开放组": 72,
@@ -23386,8 +23386,8 @@
       "gameLevel": "C",
       "startDate": "2026-07-31 10:00:00",
       "endDate": "2026-08-02 18:00:00",
-      "signStartDate": "2026-07-01 10:00:00",
-      "signAthEndDate": "2026-07-25 23:59:59",
+      "signStartDate": "2026-06-26 10:00:00",
+      "signAthEndDate": "2026-07-26 17:00:00",
       "provinceName": "上海",
       "cityName": "上海市",
       "areaDesc": "华东",
@@ -23397,9 +23397,48 @@
       "sigupactive": "0",
       "raceResType": "json",
       "weaponCodes": null,
-      "groups": [],
-      "groupLabels": [],
-      "files": []
+      "groups": [
+        {
+          "groupCode": "U10",
+          "groupName": "U10"
+        },
+        {
+          "groupCode": "U12",
+          "groupName": "U12"
+        },
+        {
+          "groupCode": "U16",
+          "groupName": "U16"
+        },
+        {
+          "groupCode": "U17s",
+          "groupName": "17+"
+        },
+        {
+          "groupCode": "COPEN",
+          "groupName": "公开组"
+        },
+        {
+          "groupCode": "U40s",
+          "groupName": "老将组"
+        }
+      ],
+      "groupLabels": [
+        "U10",
+        "U12",
+        "U16",
+        "17+",
+        "公开组",
+        "老将组"
+      ],
+      "files": [
+        {
+          "fileName": "副本副本2026上海静安论剑击剑公开赛_竞赛规程(更新版)(2)(3).pdf",
+          "fileType": "competitionRules",
+          "fileTypeDesc": "竞赛规程",
+          "fileUrl": "/fencingapi/file/xiaomei-2f7832e473544930aff3db9bf931d0c5.pdf"
+        }
+      ]
     },
     {
       "sportId": 152,
@@ -24028,7 +24067,7 @@
       "organizer": "GASJQSWTJ0001",
       "mainOrganizer": "酒泉市文体广电和旅游局",
       "sportactive": "0",
-      "sigupactive": "0",
+      "sigupactive": "1",
       "raceResType": "json",
       "weaponCodes": "F#E#S",
       "groups": [
@@ -40171,7 +40210,7 @@
       "gameLevel": "C",
       "startDate": "2026-07-25 08:00:00",
       "endDate": "2026-07-26 18:00:00",
-      "signStartDate": "2026-06-26 00:00:00",
+      "signStartDate": "2026-06-26 14:00:00",
       "signAthEndDate": "2026-07-21 23:59:59",
       "provinceName": "上海",
       "cityName": "上海市",
@@ -40228,106 +40267,10 @@
       ],
       "files": [
         {
-          "fileName": "三、赛事历史介绍.pdf",
-          "fileType": "matchHistory",
-          "fileTypeDesc": "附件三：赛事历史介绍",
-          "fileUrl": "/fencingapi/file/xiaomei-b30e52530e12413ab8b6aeb64d0dfdaa.pdf"
-        },
-        {
-          "fileName": "四、2026“荣耀黄浦”击剑公开赛比赛竞赛规程.pdf",
-          "fileType": "rulesAndnotices",
-          "fileTypeDesc": "附件四：竞赛规程",
-          "fileUrl": "/fencingapi/file/xiaomei-4af687abc07a4f1ea842b087677e8a6e.pdf"
-        },
-        {
-          "fileName": "五、申请函.pdf",
-          "fileType": "recommendation",
-          "fileTypeDesc": "附件五：申请函",
-          "fileUrl": "/fencingapi/file/xiaomei-5737c0db6ecf43ea884782dda7333f8d.pdf"
-        },
-        {
-          "fileName": "七、赛场示意图.pdf",
-          "fileType": "schematicVenue",
-          "fileTypeDesc": "附件七：赛场示意图",
-          "fileUrl": "/fencingapi/file/xiaomei-62ed90e5f60041b78644b15ce554f359.pdf"
-        },
-        {
-          "fileName": "场馆照片.pdf",
-          "fileType": "matchEmergency",
-          "fileTypeDesc": "附件八：场馆照片示意图 ",
-          "fileUrl": "/fencingapi/file/xiaomei-936f4c6a1a7c4c71acedeaa4ae439d0a.pdf"
-        },
-        {
-          "fileName": "1、大众击剑认证赛事赛前安全风险调查清单.pdf",
-          "fileType": "photosVenue",
-          "fileTypeDesc": "附件九：安全风险调查清单要求文件",
-          "fileUrl": "/fencingapi/file/xiaomei-c2a20fd75a68449c9e55c28718012d3e.pdf"
-        },
-        {
-          "fileName": "2、2026中国击剑协会认证赛事赛前风险评估报告.pdf",
-          "fileType": "photosVenue",
-          "fileTypeDesc": "附件九：安全风险调查清单要求文件",
-          "fileUrl": "/fencingapi/file/xiaomei-e27921bd78c545c490f5a4443cdd77a1.pdf"
-        },
-        {
-          "fileName": "2026“荣耀黄浦“击剑公开赛安全应急预案及熔断机制.pdf",
-          "fileType": "photosVenue",
-          "fileTypeDesc": "附件九：安全风险调查清单要求文件",
-          "fileUrl": "/fencingapi/file/xiaomei-1f73ab018372416b97808902f457611e.pdf"
-        },
-        {
-          "fileName": "2026“荣耀黄浦”击剑公开赛比赛安保方案.pdf",
-          "fileType": "photosVenue",
-          "fileTypeDesc": "附件九：安全风险调查清单要求文件",
-          "fileUrl": "/fencingapi/file/xiaomei-05872cbf7a5e437cb923118d5b8accb6.pdf"
-        },
-        {
-          "fileName": "2026”荣耀黄浦“击剑公开赛医疗保障与救援方案.pdf",
-          "fileType": "photosVenue",
-          "fileTypeDesc": "附件九：安全风险调查清单要求文件",
-          "fileUrl": "/fencingapi/file/xiaomei-3141b36f8afd413da00f046d53fd5842.pdf"
-        },
-        {
-          "fileName": "安保公司杰亨资质（洽谈业务盖章版）.pdf",
-          "fileType": "photosVenue",
-          "fileTypeDesc": "附件九：安全风险调查清单要求文件",
-          "fileUrl": "/fencingapi/file/xiaomei-74339fa79a064aaa8fa95da3be4bb5a3.pdf"
-        },
-        {
-          "fileName": "承办单位上海市静安王磊体育俱乐部征信.pdf",
-          "fileType": "photosVenue",
-          "fileTypeDesc": "附件九：安全风险调查清单要求文件",
-          "fileUrl": "/fencingapi/file/xiaomei-5ca84e0a0a7a4222a043f7ea2aee3570.pdf"
-        },
-        {
-          "fileName": "运动员风险告知书及保险（自愿参赛责任书）.pdf",
-          "fileType": "photosVenue",
-          "fileTypeDesc": "附件九：安全风险调查清单要求文件",
-          "fileUrl": "/fencingapi/file/xiaomei-a62c1da44d2e4a8aa9d50b5a5724faad.pdf"
-        },
-        {
-          "fileName": "剑道布局示意图.pdf",
-          "fileType": "matchEmergency",
-          "fileTypeDesc": "附件八：场馆照片示意图 ",
-          "fileUrl": "/fencingapi/file/xiaomei-4227ad8644374effa4ea9bf16595be8a.pdf"
-        },
-        {
-          "fileName": "六、参赛指引.pdf",
-          "fileType": "eventPlan",
-          "fileTypeDesc": "附件六：赛事组织方案",
-          "fileUrl": "/fencingapi/file/xiaomei-2fb2e1cf9ae342afab052606431d329b.pdf"
-        },
-        {
-          "fileName": "一、上海市黄浦区击剑协会登记证书.pdf",
-          "fileType": "organizerVenue",
-          "fileTypeDesc": "附件一：主办单位营业执照照片",
-          "fileUrl": "/fencingapi/file/xiaomei-603318793564496abf8abce33695bbd4.pdf"
-        },
-        {
-          "fileName": "二、上海市静安王磊体育俱乐部登记证书.jpg",
-          "fileType": "businessLicense",
-          "fileTypeDesc": "附件二：承办单位营业执照照片",
-          "fileUrl": "/fencingapi/file/xiaomei-828b915f4f5c4c1ebef503951a21e9c6.jpg"
+          "fileName": "2026年“荣耀黄浦”击剑公开赛比赛竞赛规程(3)(1).pdf",
+          "fileType": "competitionRules",
+          "fileTypeDesc": "竞赛规程",
+          "fileUrl": "/fencingapi/file/xiaomei-b60a063c7d2e48e5bcabd224a8d75554.pdf"
         }
       ]
     },
@@ -52384,7 +52327,7 @@
       "organizer": "XIJYHH0001",
       "mainOrganizer": "第四师可克达拉市文化体育广电和旅游局",
       "sportactive": "0",
-      "sigupactive": "0",
+      "sigupactive": "1",
       "raceResType": "json",
       "weaponCodes": "F#E#S",
       "groups": [
