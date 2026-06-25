@@ -1542,8 +1542,12 @@ select:focus {
 .ai-answer {
   position: relative;
   z-index: 1;
-  display: grid;
+  display: none;
   gap: 10px;
+}
+
+.ai-answer.has-answer {
+  display: grid;
 }
 
 .ai-empty {
@@ -6215,10 +6219,6 @@ button.primary-action {
 .panel.ai-home-primary .ai-home-actions span,
 .panel.ai-home-primary .ai-empty span {
   opacity: 0.78;
-}
-
-.panel.ai-home-primary .ai-empty {
-  display: none;
 }
 
 @media (min-width: 860px) {

@@ -2453,33 +2453,35 @@ function aiAcceptanceQueryCases() {
 function renderAiWorkspace() {
   const presets = aiPromptPresets();
   return `
-    <section class="panel ai-workspace ai-home-primary" id="aiWorkspace">
-      <div class="section-title">
-        <h2>问 FencingAI</h2>
-        <span>数据可溯源</span>
-      </div>
-      <div class="ai-home-lead">
-        <strong>直接用问题查看击剑数据</strong>
-        <span>可以问赛事数量、报名情况、选手对比、成长变化和俱乐部表现。</span>
-      </div>
-      <form class="ai-query-form" id="aiQueryForm">
-        <textarea id="aiQueryInput" rows="3" placeholder="例如：2026年天津有几场比赛 / 分析马潇和陶嘉月的对战情况"></textarea>
-        <button type="submit">生成分析</button>
-      </form>
-      <div class="ai-preset-row">
-        ${presets.map((preset) => `<button type="button" data-ai-preset="${escapeHtml(preset)}">${escapeHtml(preset)}</button>`).join('')}
-      </div>
-      <div class="ai-home-actions">
-        <button type="button" data-home-competitions>赛事数据</button>
-        <span>保留传统检索入口，需要时可切回列表查看。</span>
-      </div>
+    <div class="ai-workspace" id="aiWorkspace">
+      <section class="panel ai-home-primary">
+        <div class="section-title">
+          <h2>问 FencingAI</h2>
+          <span>数据可溯源</span>
+        </div>
+        <div class="ai-home-lead">
+          <strong>直接用问题查看击剑数据</strong>
+          <span>可以问赛事数量、报名情况、选手对比、成长变化和俱乐部表现。</span>
+        </div>
+        <form class="ai-query-form" id="aiQueryForm">
+          <textarea id="aiQueryInput" rows="3" placeholder="例如：2026年天津有几场比赛 / 分析马潇和陶嘉月的对战情况"></textarea>
+          <button type="submit">生成分析</button>
+        </form>
+        <div class="ai-preset-row">
+          ${presets.map((preset) => `<button type="button" data-ai-preset="${escapeHtml(preset)}">${escapeHtml(preset)}</button>`).join('')}
+        </div>
+        <div class="ai-home-actions">
+          <button type="button" data-home-competitions>赛事数据</button>
+          <span>保留传统检索入口，需要时可切回列表查看。</span>
+        </div>
+      </section>
       <div class="ai-answer" id="aiAnswer">
         <div class="ai-empty">
           <strong>从问题开始</strong>
           <span>回答会给出结论、关键指标和证据来源，点击证据可回到对应赛事、选手或俱乐部。</span>
         </div>
       </div>
-    </section>
+    </div>
   `;
 }
 
@@ -2505,11 +2507,13 @@ function bindAiWorkspace(container) {
     const normalizedQuery = String(query || '').trim();
     if (!normalizedQuery) {
       const report = buildAiAnswer(normalizedQuery);
+      answer.classList.add('has-answer');
       answer.innerHTML = renderAiAnswer(report);
       bindAnswer(report);
       return;
     }
 
+    answer.classList.add('has-answer');
     answer.innerHTML = '<div class="loading-row">正在匹配相关画像</div>';
     try {
       await ensureAiEntityContext(normalizedQuery);

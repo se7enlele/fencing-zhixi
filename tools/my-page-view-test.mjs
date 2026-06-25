@@ -41,6 +41,7 @@ assert.match(js, /下一步关注点/, 'parent dashboard must show actionable ne
 assert.match(js, /class="parent-next-focus"/, 'parent dashboard must render next focus rows');
 assert.match(js, /function renderAiWorkspace\(\)/, 'home page must include an AI workspace renderer');
 assert.match(js, /homePage\.innerHTML = `\s*<div class="home-dashboard">\s*\$\{renderAiWorkspace\('home'\)\}/, 'home page must start the dashboard with the AI question workspace');
+assert.match(js, /<section class="panel ai-home-primary">[\s\S]*<\/section>\s*<div class="ai-answer" id="aiAnswer">/, 'AI answers must render outside the dark home entry panel');
 assert.match(js, /<h2>工作入口<\/h2>/, 'home page must use task-oriented entry cards instead of another competition list');
 assert.match(js, /class="home-action-grid"/, 'home page must render compact task entry cards');
 assert.match(js, /function homeDataValueRows\(\)/, 'home page must build productized data value entry cards');
