@@ -2237,50 +2237,52 @@ function renderHomePage() {
     { value: state.clubSearchIndex.length, label: '俱乐部' },
   ];
   homePage.innerHTML = `
-    ${renderAiWorkspace('home')}
-    <section class="my-stat-grid">
-      ${stats.map((item) => `
-        <div class="my-stat">
-          <strong>${escapeHtml(item.value)}</strong>
-          <span>${escapeHtml(item.label)}</span>
-        </div>
-      `).join('')}
-    </section>
-    <section class="panel my-section">
-      <div class="section-title">
-        <h2>数据价值</h2>
-        <span>直接生成</span>
-      </div>
-      <div class="data-value-grid">
-        ${dataValueRows.map((row) => `
-          <button type="button" data-home-ai-product="${escapeHtml(row.query)}">
-            <span>${escapeHtml(row.label)}</span>
-            <strong>${escapeHtml(row.title)}</strong>
-            <em>${escapeHtml(row.detail)}</em>
-          </button>
+    <div class="home-dashboard">
+      ${renderAiWorkspace('home')}
+      <section class="home-stats-strip" aria-label="数据规模">
+        ${stats.map((item) => `
+          <div class="my-stat">
+            <strong>${escapeHtml(item.value)}</strong>
+            <span>${escapeHtml(item.label)}</span>
+          </div>
         `).join('')}
-      </div>
-    </section>
-    <section class="panel my-section">
-      <div class="section-title">
-        <h2>工作入口</h2>
-        <span>按任务进入</span>
-      </div>
-      <div class="home-action-grid">
-        <button type="button" data-home-competitions>
-          <strong>赛事数据</strong>
-          <span>搜索、筛选和进入赛事详情</span>
-        </button>
-        <button type="button" data-home-follow>
-          <strong>关注</strong>
-          <span>${escapeHtml(children.length + followedCompetitions.length ? `${children.length} 个选手 / ${followedCompetitions.length} 场赛事` : '添加重点选手和赛事')}</span>
-        </button>
-        <button type="button" data-home-my>
-          <strong>我的</strong>
-          <span>${escapeHtml(recentRows.length ? `最近查看 ${recentRows.length} 条` : '查看关注与访问记录')}</span>
-        </button>
-      </div>
-    </section>
+      </section>
+      <section class="panel my-section home-value-section">
+        <div class="section-title">
+          <h2>数据价值</h2>
+          <span>一键生成</span>
+        </div>
+        <div class="data-value-grid">
+          ${dataValueRows.map((row) => `
+            <button type="button" data-home-ai-product="${escapeHtml(row.query)}">
+              <span>${escapeHtml(row.label)}</span>
+              <strong>${escapeHtml(row.title)}</strong>
+              <em>${escapeHtml(row.detail)}</em>
+            </button>
+          `).join('')}
+        </div>
+      </section>
+      <section class="panel my-section home-action-section">
+        <div class="section-title">
+          <h2>工作入口</h2>
+          <span>按任务进入</span>
+        </div>
+        <div class="home-action-grid">
+          <button type="button" data-home-competitions>
+            <strong>赛事数据</strong>
+            <span>搜索、筛选和进入赛事详情</span>
+          </button>
+          <button type="button" data-home-follow>
+            <strong>关注</strong>
+            <span>${escapeHtml(children.length + followedCompetitions.length ? `${children.length} 个选手 / ${followedCompetitions.length} 场赛事` : '添加重点选手和赛事')}</span>
+          </button>
+          <button type="button" data-home-my>
+            <strong>我的</strong>
+            <span>${escapeHtml(recentRows.length ? `最近查看 ${recentRows.length} 条` : '查看关注与访问记录')}</span>
+          </button>
+        </div>
+      </section>
+    </div>
     <section class="panel my-section">
       <div class="section-title">
         <h2>报告中心</h2>
