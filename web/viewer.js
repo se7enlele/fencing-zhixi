@@ -3668,7 +3668,7 @@ function aiTrustRows(report) {
   const rows = [];
   if (evidence.length) {
     rows.push({
-      label: '可核对来源',
+      label: '参考记录',
       value: `${evidence.length} 条`,
       detail: evidenceKinds.length ? evidenceKinds.join(' / ') : '比赛、项目和选手记录',
     });
@@ -3725,22 +3725,15 @@ function aiTrustRows(report) {
     });
   }
 
-  if (report.sourceNote) {
-    rows.push({
-      label: '边界',
-      value: '需核对',
-      detail: report.sourceNote,
-    });
-  }
-
   return rows.slice(0, 3);
 }
 
 function aiFollowAthleteAction(athlete) {
   if (!athlete?.id) return null;
   const followed = (state.followedAthletes || []).some((item) => item.id === athlete.id);
+  if (followed) return null;
   return {
-    label: followed ? '已关注这个孩子' : '关注这个孩子',
+    label: athlete.name ? `关注${athlete.name}` : '加入关注',
     followAthleteId: athlete.id,
   };
 }
@@ -3756,7 +3749,7 @@ function aiNextStepRows(report) {
       '报名动态完整后，再重点看同组对手、强手和主要俱乐部分布。',
     ],
     comparison: [
-      '先核对共同项目和直接交手证据，再判断两名选手差距。',
+      '先查看共同项目和直接交手记录，再判断两名选手差距。',
       '没有直接交手时，只把历史名次和共同赛事作为参考。',
     ],
     growth: [
@@ -3781,7 +3774,7 @@ function aiNextStepRows(report) {
     ],
   };
   return rowsByType[report.type] || [
-    '先打开证据来源核对数据，再进入对应页面继续查看。',
+    '先打开相关记录，再进入对应页面继续查看。',
   ];
 }
 
@@ -3849,7 +3842,6 @@ function buildAiAnswerFeedbackText(report, feedbackType) {
     `类型：${aiHistoryTypeLabel(report.type)}`,
     `标题：${report.title || '数据分析'}`,
     report.summary ? `摘要：${report.summary}` : '',
-    report.sourceNote ? `数据边界：${report.sourceNote}` : '',
     '补充说明：用户从 AI 回答页提交。',
   ].filter(Boolean).join('\n');
 }
@@ -3903,7 +3895,6 @@ function buildAiAnswerShareText(report) {
     nextSteps.forEach((row) => lines.push(`- ${row}`));
   }
 
-  if (report.sourceNote) lines.push('', `数据边界：${report.sourceNote}`);
   lines.push('', '由 FencingAI 基于已收录赛事数据生成');
   return lines.filter((line, index) => line !== '' || lines[index - 1] !== '').join('\n').trim();
 }
@@ -3969,7 +3960,6 @@ function renderAiAnswer(report) {
           `).join('')}
         </div>
       ` : ''}
-      ${report.sourceNote ? `<p class="ai-source-note">${escapeHtml(report.sourceNote)}</p>` : ''}
       <div class="ai-next-steps">
         <strong>下一步</strong>
         ${aiNextStepRows(report).map((row) => `<span>${escapeHtml(row)}</span>`).join('')}
@@ -4040,7 +4030,8 @@ function bindAiAnswerActions(container) {
       const athlete = findAthleteByReference({ id: button.dataset.followAthleteId });
       if (!athlete?.id) return;
       await upsertFollowedAthlete(athlete);
-      button.textContent = '已关注这个孩子';
+      button.textContent = '已加入关注';
+      button.disabled = true;
       button.setAttribute('aria-pressed', 'true');
     });
   });

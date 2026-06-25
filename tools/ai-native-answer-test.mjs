@@ -111,7 +111,7 @@ assert.match(js, /prematch:\s*\[[\s\S]*同组对手、强手和主要俱乐部�
 assert.match(js, /'business-insight':\s*\[[\s\S]*赛前情报包和选手成长报告/, 'AI business insight answers must guide users toward productized reports');
 assert.match(js, /'product-template':\s*\[/, 'AI product templates must include next-step guidance');
 assert.match(js, /'club-recruiting':\s*\[[\s\S]*对外素材/, 'AI recruiting answers must include next-step guidance');
-assert.match(js, /comparison:\s*\[[\s\S]*共同项目和直接交手证据/, 'AI comparison answers must tell users to verify evidence before judging');
+assert.match(js, /comparison:\s*\[[\s\S]*共同项目和直接交手记录/, 'AI comparison answers must guide users to review shared projects and direct bouts');
 assert.match(js, /<div class="ai-next-steps">/, 'AI answer renderer must show next-step guidance');
 assert.match(js, /class="ai-share-row"/, 'AI answer renderer must expose a copy summary action');
 assert.match(js, /data-ai-share/, 'AI answer copy action must be addressable');
@@ -126,13 +126,17 @@ assert.match(js, /if \(card\) card\.__aiReport = report;/, 'AI answer cards must
 assert.match(js, /bindCopyTextButton\(button, \(\) => buildAiAnswerShareText\(report \|\| \{\}\)\)/, 'AI copy action must reuse the existing clipboard helper');
 assert.match(js, /submitAiAnswerFeedback\(report \|\| \{\}, button\.dataset\.aiFeedback\)/, 'AI feedback buttons must submit the current report');
 assert.match(js, /answer\.querySelectorAll\('\[data-ai-follow-up\]'\)/, 'AI workspace must bind follow-up chips after each answer');
-assert.match(js, /class="ai-source-note"/, 'AI answer must render data boundary notes');
+assert.doesNotMatch(js, /class="ai-source-note"/, 'AI answer must not render internal data boundary notes');
 assert.match(js, /class="ai-trust-panel"/, 'AI answer must render a judgment-basis panel');
 assert.match(js, /<strong>判断依据<\/strong>/, 'AI judgment-basis panel must use user-facing copy');
 assert.match(js, /<em>\$\{escapeHtml\(aiEvidenceKind\(row\)\)\}<\/em>/, 'AI evidence cards must show evidence type');
 assert.doesNotMatch(js, /<small>\$\{escapeHtml\(row\.reason\)\}<\/small>/, 'AI evidence cards must not show internal relevance reasons');
+assert.doesNotMatch(js, /已关注这个孩子/, 'AI action buttons must not show ambiguous already-following child copy');
+assert.doesNotMatch(js, /数据边界：/, 'AI answer copy and feedback must not expose internal data boundary notes');
+assert.doesNotMatch(js, /label: '边界'/, 'AI trust rows must not expose internal boundary labels');
+assert.doesNotMatch(js, /value: '需核对'/, 'AI trust rows must not expose internal verification states');
 
-assert.match(css, /\.ai-source-note/, 'AI source note styles must exist');
+assert.doesNotMatch(css, /\.ai-source-note/, 'AI source note styles should be removed when source notes are hidden');
 assert.match(css, /\.ai-action-block/, 'AI action block styles must exist');
 assert.match(css, /\.ai-trust-panel/, 'AI judgment-basis panel styles must exist');
 assert.match(css, /\.ai-trust-row/, 'AI judgment-basis rows must have mobile layout styles');
