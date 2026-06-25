@@ -4,10 +4,10 @@
   "source": {
     "input": "https://fencing-proxy.aixindiandian.workers.dev/fencingapi/competition/frontsporteventlist?",
     "sourceUrl": "https://fencing-proxy.aixindiandian.workers.dev/fencingapi/competition/frontsporteventlist?",
-    "analyzedAt": "2026-06-24T23:37:22.741Z"
+    "analyzedAt": "2026-06-25T07:57:07.312Z"
   },
   "summary": {
-    "eventCount": 745,
+    "eventCount": 744,
     "sportIds": [
       1,
       2,
@@ -525,7 +525,6 @@
       100277,
       100994,
       101212,
-      101315,
       191,
       250,
       271,
@@ -1272,7 +1271,6 @@
       "RZSS2025042",
       "RZSSLN1420250726",
       "RZSS2036022",
-      "RZSSBJ0120260731",
       "F01QSGJS201807",
       "D07DQYSSC0120190405",
       "F02QSZJSKUWAIT0120190913",
@@ -1532,7 +1530,7 @@
       "2023": 97,
       "2024": 114,
       "2025": 158,
-      "2026": 136
+      "2026": 135
     },
     "gameDesc": {
       "全国冠军赛": 61,
@@ -1547,7 +1545,7 @@
       "青运会": 3,
       "俱乐部总决赛": 13,
       "国际青少年分站赛": 39,
-      "认证赛事": 475,
+      "认证赛事": 474,
       "俱乐部区域赛": 8,
       "少年区域赛": 4,
       "洲际青少年分站赛": 11,
@@ -1565,7 +1563,7 @@
       "福建": 20,
       "江苏": 125,
       "上海": 50,
-      "北京": 45,
+      "北京": 44,
       "辽宁": 36,
       "天津": 22,
       "山东": 49,
@@ -1603,18 +1601,18 @@
     "areaDesc": {
       "西南": 54,
       "华东": 329,
-      "华北": 114,
+      "华北": 113,
       "东北": 46,
       "中南": 123,
       "西北": 27,
       "(empty)": 52
     },
     "sportactive": {
-      "0": 72,
+      "0": 71,
       "2": 673
     },
     "sigupactive": {
-      "0": 56,
+      "0": 55,
       "1": 15,
       "2": 674
     },
@@ -1647,7 +1645,7 @@
       "公开组": 297,
       "U10": 496,
       "U12": 495,
-      "U14": 493,
+      "U14": 494,
       "U16": 487,
       "17+": 343,
       "U8": 417,
@@ -23407,6 +23405,10 @@
           "groupName": "U12"
         },
         {
+          "groupCode": "U14",
+          "groupName": "U14"
+        },
+        {
           "groupCode": "U16",
           "groupName": "U16"
         },
@@ -23426,6 +23428,7 @@
       "groupLabels": [
         "U10",
         "U12",
+        "U14",
         "U16",
         "17+",
         "公开组",
@@ -37842,31 +37845,6 @@
           "fileUrl": "/fencingapi/file/xiaomei-852b7caeb2874e91aa1e3b45166fc3be.pdf"
         }
       ]
-    },
-    {
-      "sportId": 101315,
-      "sportCode": "RZSSBJ0120260731",
-      "sportName": "2026年“石景山杯”击剑公开赛 北京站",
-      "season": "2026",
-      "gameType": "RZSS",
-      "gameDesc": "认证赛事",
-      "gameLevel": "C",
-      "startDate": "2026-07-31 08:00:00",
-      "endDate": "2026-08-02 18:00:00",
-      "signStartDate": "2026-07-20 10:00:00",
-      "signAthEndDate": "2026-07-23 23:59:59",
-      "provinceName": "北京",
-      "cityName": "石景山区",
-      "areaDesc": "华北",
-      "organizer": "BEJBJJJXH0001",
-      "mainOrganizer": "北京市石景山区体育局",
-      "sportactive": "0",
-      "sigupactive": "0",
-      "raceResType": "json",
-      "weaponCodes": null,
-      "groups": [],
-      "groupLabels": [],
-      "files": []
     },
     {
       "sportId": 191,
