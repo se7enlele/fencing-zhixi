@@ -130,7 +130,7 @@ assert.match(js, /class="ai-source-note"/, 'AI answer must render data boundary 
 assert.match(js, /class="ai-trust-panel"/, 'AI answer must render a judgment-basis panel');
 assert.match(js, /<strong>判断依据<\/strong>/, 'AI judgment-basis panel must use user-facing copy');
 assert.match(js, /<em>\$\{escapeHtml\(aiEvidenceKind\(row\)\)\}<\/em>/, 'AI evidence cards must show evidence type');
-assert.match(js, /<small>\$\{escapeHtml\(row\.reason\)\}<\/small>/, 'AI evidence cards must show relevance reason');
+assert.doesNotMatch(js, /<small>\$\{escapeHtml\(row\.reason\)\}<\/small>/, 'AI evidence cards must not show internal relevance reasons');
 
 assert.match(css, /\.ai-source-note/, 'AI source note styles must exist');
 assert.match(css, /\.ai-action-block/, 'AI action block styles must exist');
@@ -141,7 +141,7 @@ assert.match(css, /\.ai-next-steps/, 'AI next-step styles must exist');
 assert.match(css, /\.ai-share-row/, 'AI share action styles must exist');
 assert.match(css, /\.ai-follow-up-row/, 'AI follow-up question styles must exist');
 assert.match(css, /\.ai-evidence button em/, 'AI evidence type badge styles must exist');
-assert.match(css, /\.ai-evidence button small/, 'AI evidence reason styles must exist');
+assert.doesNotMatch(css, /\.ai-evidence button small/, 'AI evidence reason styles must not exist');
 assert.match(css, /contain: inline-size/, 'Pool process cards must contain wide tables inside the mobile viewport');
 assert.match(css, /touch-action: pan-x/, 'Pool tables must support horizontal pan without expanding the page');
 assert.match(css, /\.tab-panel,[\s\S]*#matchList[\s\S]*min-width: 0;/, 'Competition process panels must not expand wider than the mobile viewport');

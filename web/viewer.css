@@ -1724,8 +1724,7 @@ select:focus {
 
 .ai-evidence button em,
 .ai-evidence button strong,
-.ai-evidence button span,
-.ai-evidence button small {
+.ai-evidence button span {
   display: block;
   min-width: 0;
   overflow: hidden;
@@ -1743,12 +1742,6 @@ select:focus {
   font-style: normal;
   font-weight: 800;
   padding: 2px 7px;
-}
-
-.ai-evidence button small {
-  color: var(--teal);
-  font-size: 11px;
-  font-weight: 700;
 }
 
 .ai-source-note {

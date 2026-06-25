@@ -3965,7 +3965,6 @@ function renderAiAnswer(report) {
               <em>${escapeHtml(aiEvidenceKind(row))}</em>
               <strong>${escapeHtml(row.label)}</strong>
               <span>${escapeHtml(row.detail)}</span>
-              ${row.reason ? `<small>${escapeHtml(row.reason)}</small>` : ''}
             </button>
           `).join('')}
         </div>
