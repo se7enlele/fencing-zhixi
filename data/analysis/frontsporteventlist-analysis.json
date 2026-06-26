@@ -4,7 +4,7 @@
   "source": {
     "input": "https://fencing-proxy.aixindiandian.workers.dev/fencingapi/competition/frontsporteventlist?",
     "sourceUrl": "https://fencing-proxy.aixindiandian.workers.dev/fencingapi/competition/frontsporteventlist?",
-    "analyzedAt": "2026-06-26T08:05:27.124Z"
+    "analyzedAt": "2026-06-26T12:29:07.307Z"
   },
   "summary": {
     "eventCount": 744,
@@ -1636,18 +1636,18 @@
       "少年U16": 7,
       "儿童U10": 7,
       "儿童U12": 7,
-      "老将组": 137,
+      "老将组": 138,
       "儿童组": 1,
       "少年组": 6,
       "A组U19": 9,
       "U19团体": 12,
       "B组U19": 3,
-      "公开组": 297,
-      "U10": 496,
-      "U12": 495,
-      "U14": 494,
-      "U16": 487,
-      "17+": 343,
+      "公开组": 298,
+      "U10": 497,
+      "U12": 496,
+      "U14": 495,
+      "U16": 488,
+      "17+": 344,
       "U8": 417,
       "U6": 329,
       "年龄开放组": 72,
@@ -18768,8 +18768,8 @@
       "gameLevel": "A2",
       "startDate": "2026-07-18 00:00:00",
       "endDate": "2026-07-21 00:00:00",
-      "signStartDate": "2026-07-18 00:00:00",
-      "signAthEndDate": "2026-07-18 00:00:00",
+      "signStartDate": "2026-06-29 10:00:00",
+      "signAthEndDate": "2026-07-13 12:00:00",
       "provinceName": "北京",
       "cityName": "北京市",
       "areaDesc": "华北",
@@ -18779,8 +18779,45 @@
       "sigupactive": "0",
       "raceResType": "json",
       "weaponCodes": "F#E#S",
-      "groups": [],
-      "groupLabels": [],
+      "groups": [
+        {
+          "groupCode": "U10",
+          "groupName": "U10"
+        },
+        {
+          "groupCode": "U12",
+          "groupName": "U12"
+        },
+        {
+          "groupCode": "U14",
+          "groupName": "U14"
+        },
+        {
+          "groupCode": "U16",
+          "groupName": "U16"
+        },
+        {
+          "groupCode": "U17s",
+          "groupName": "17+"
+        },
+        {
+          "groupCode": "COPEN",
+          "groupName": "公开组"
+        },
+        {
+          "groupCode": "U40s",
+          "groupName": "老将组"
+        }
+      ],
+      "groupLabels": [
+        "U10",
+        "U12",
+        "U14",
+        "U16",
+        "17+",
+        "公开组",
+        "老将组"
+      ],
       "files": []
     },
     {
