@@ -69,6 +69,8 @@ function analyticsActionLabel(action) {
     home_ai_product: '首页数据价值',
     home_report: '首页报告入口',
     open_report: '打开报告',
+    share_report: '复制报告',
+    share_club: '复制招生名片',
     follow_athlete: '关注选手',
     follow_competition: '关注赛事',
   })[action] || action || '未知动作';
@@ -87,6 +89,10 @@ function analyticsActionDetailLabel(key) {
     'prematch-pack': '赛前情报包',
     'business-insight': '商业洞察',
     'product-template': '报告方案',
+    'ai-growth': 'AI 成长分析',
+    'ai-prematch': 'AI 赛前分析',
+    'ai-club-recruiting': 'AI 招生展示',
+    'recruiting-card': '招生名片',
     query: 'AI 入口',
     athlete: '选手',
   })[label] || label || '未分类';

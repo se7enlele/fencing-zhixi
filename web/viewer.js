@@ -1746,13 +1746,14 @@ function parentGrowthReportEvidenceRows(model) {
   }));
 }
 
-function bindCopyTextButton(button, textBuilder) {
+function bindCopyTextButton(button, textBuilder, analyticsLabel = '') {
   if (!button) return;
   button.addEventListener('click', async () => {
     const originalLabel = button.textContent;
     try {
       const text = typeof textBuilder === 'function' ? textBuilder() : textBuilder;
       await copyTextToClipboard(text);
+      if (analyticsLabel) trackAnalyticsAction('share_report', analyticsLabel);
       button.textContent = '已复制';
     } catch (error) {
       button.textContent = '复制失败';
@@ -1901,7 +1902,7 @@ function renderParentGrowthReport(athleteId = '') {
     });
   });
   parentGrowthReportBody.querySelector('[data-athlete-id]')?.addEventListener('click', () => openAthlete(athlete.id));
-  bindCopyTextButton(parentGrowthReportHero.querySelector('[data-report-share="parent-growth"]'), () => buildParentGrowthShareText(athlete, model, focusRows));
+  bindCopyTextButton(parentGrowthReportHero.querySelector('[data-report-share="parent-growth"]'), () => buildParentGrowthShareText(athlete, model, focusRows), 'parent-growth');
 }
 
 function openParentGrowthReport(athleteId = '') {
@@ -4085,7 +4086,7 @@ function bindAiAnswerActions(container) {
   container.querySelectorAll('[data-ai-share]').forEach((button) => {
     const card = button.closest('.ai-answer-card');
     const report = card?.__aiReport;
-    bindCopyTextButton(button, () => buildAiAnswerShareText(report || {}));
+    bindCopyTextButton(button, () => buildAiAnswerShareText(report || {}), `ai-${report?.type || 'unknown'}`);
   });
   container.querySelectorAll('[data-ai-feedback]').forEach((button) => {
     button.addEventListener('click', async () => {
@@ -7095,7 +7096,7 @@ function renderCoachSegmentationReport(clubId = '') {
     button.addEventListener('click', () => openEvent(button.dataset.eventCode));
   });
   coachSegmentationReportBody.querySelector('[data-club-id]')?.addEventListener('click', () => openClub(club.id));
-  bindCopyTextButton(coachSegmentationReportHero.querySelector('[data-report-share="coach-segmentation"]'), () => buildCoachSegmentationShareText(club, buckets, followups, projectRows));
+  bindCopyTextButton(coachSegmentationReportHero.querySelector('[data-report-share="coach-segmentation"]'), () => buildCoachSegmentationShareText(club, buckets, followups, projectRows), 'coach-segmentation');
 }
 
 function openCoachSegmentationReport(clubId = '') {
@@ -7968,6 +7969,7 @@ function renderClubDetail(club) {
       const originalLabel = button.textContent;
       try {
         await copyTextToClipboard(shareText);
+        trackAnalyticsAction('share_club', 'recruiting-card');
         button.textContent = '已复制';
       } catch (error) {
         button.textContent = '复制失败';
@@ -8281,7 +8283,7 @@ function renderPrematchReport(kind = 'prematch-pack', sportCode = '') {
       if (button.dataset.sportCode) openCompetition(button.dataset.sportCode);
     });
   });
-  bindCopyTextButton(prematchReportHero.querySelector('[data-report-share="prematch"]'), () => buildPrematchShareText(competitions, focusRows, opponentRows, isSingleCompetition));
+  bindCopyTextButton(prematchReportHero.querySelector('[data-report-share="prematch"]'), () => buildPrematchShareText(competitions, focusRows, opponentRows, isSingleCompetition), isSingleCompetition ? 'prematch-single' : 'prematch-pack');
 }
 
 function openPrematchReport(kind = 'prematch-pack', sportCode = '') {

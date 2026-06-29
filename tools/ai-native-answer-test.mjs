@@ -123,7 +123,7 @@ assert.match(js, /const bindAnswer = \(report\) =>/, 'AI workspace must pass the
 assert.match(js, /bindAnswer\(report\);/, 'AI workspace must bind copy actions with the generated report');
 assert.doesNotMatch(js, /bindAnswer\(\);/, 'AI workspace must never bind answer actions without the current report');
 assert.match(js, /if \(card\) card\.__aiReport = report;/, 'AI answer cards must retain the report for copy actions');
-assert.match(js, /bindCopyTextButton\(button, \(\) => buildAiAnswerShareText\(report \|\| \{\}\)\)/, 'AI copy action must reuse the existing clipboard helper');
+assert.match(js, /bindCopyTextButton\(button, \(\) => buildAiAnswerShareText\(report \|\| \{\}\), `ai-\$\{report\?\.type \|\| 'unknown'\}`\)/, 'AI copy action must reuse the existing clipboard helper with share analytics');
 assert.match(js, /submitAiAnswerFeedback\(report \|\| \{\}, button\.dataset\.aiFeedback\)/, 'AI feedback buttons must submit the current report');
 assert.match(js, /answer\.querySelectorAll\('\[data-ai-follow-up\]'\)/, 'AI workspace must bind follow-up chips after each answer');
 assert.doesNotMatch(js, /class="ai-source-note"/, 'AI answer must not render internal data boundary notes');

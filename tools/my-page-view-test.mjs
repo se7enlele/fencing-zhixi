@@ -36,6 +36,9 @@ assert.match(js, /trackAnalyticsAction\('ai_answer', report\.type \|\| 'unknown'
 assert.match(js, /trackAnalyticsAction\('home_report', button\.dataset\.homeReport \|\| 'unknown'\)/, 'home report clicks must be tracked');
 assert.match(js, /trackAnalyticsAction\('open_report', 'parent-growth'\)/, 'parent growth reports must be tracked as product actions');
 assert.match(js, /trackAnalyticsAction\('follow_athlete'/, 'athlete follow actions must be tracked');
+assert.match(js, /function bindCopyTextButton\(button, textBuilder, analyticsLabel = ''\)/, 'share copy helper must support analytics labels');
+assert.match(js, /trackAnalyticsAction\('share_report', analyticsLabel\)/, 'successful report copies must be tracked as share actions');
+assert.match(js, /trackAnalyticsAction\('share_club', 'recruiting-card'\)/, 'club recruiting card copies must be tracked as growth actions');
 assert.match(js, /function trackAnalyticsPage\(page\)/, 'viewer must track page views on view changes');
 assert.match(js, /function trackAnalyticsDuration\(useBeacon = false\)/, 'viewer must track stay duration');
 assert.match(js, /document\.addEventListener\('visibilitychange'/, 'viewer must flush duration when the tab is hidden');
