@@ -115,6 +115,26 @@ assert.match(
   /async function handleAnalytics\(request, env\)/,
   'Worker should expose an analytics ingestion endpoint',
 );
+assert.match(
+  source,
+  /'pageview', 'duration', 'action'/,
+  'Worker should accept product action analytics events',
+);
+assert.match(
+  source,
+  /actions: topMetricRows\(day\.actions\)/,
+  'Admin analytics should expose top product actions',
+);
+assert.match(
+  source,
+  /actionLabels: topMetricRows\(day\.actionLabels\)/,
+  'Admin analytics should expose action detail labels',
+);
+assert.match(
+  source,
+  /if \(type === 'action' && action\)/,
+  'Worker should aggregate action events separately from page views',
+);
 
 assert.match(
   source,

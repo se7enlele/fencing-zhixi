@@ -21,6 +21,11 @@ assert.match(js, /\/api\/admin\/analytics\?token=/, 'admin import analytics must
 assert.match(js, /PV/, 'admin analytics must expose page views');
 assert.match(js, /UV/, 'admin analytics must expose unique visitors');
 assert.match(js, /平均停留/, 'admin analytics must expose average duration');
+assert.match(js, /function analyticsActionLabel\(action\)/, 'admin analytics must label product actions');
+assert.match(js, /关键动作/, 'admin analytics must expose product action rankings');
+assert.match(js, /动作明细/, 'admin analytics must expose product action detail rankings');
+assert.match(js, /mergeMetricRows\(days, 'actions'\)/, 'admin analytics must merge action rows across days');
+assert.match(js, /mergeMetricRows\(days, 'actionLabels'\)/, 'admin analytics must merge action detail rows across days');
 assert.match(js, /function feedbackTypeLabel\(type\)/, 'admin import must label correction and hide requests');
 assert.match(js, /'ai-helpful': 'AI 有帮助'/, 'admin import must label helpful AI feedback');
 assert.match(js, /'ai-needs-work': 'AI 需调整'/, 'admin import must label AI feedback that needs adjustment');

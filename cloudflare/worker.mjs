@@ -257,7 +257,7 @@ function chinaDayKey(date = new Date()) {
 
 function normalizeAnalyticsEventType(value) {
   const type = String(value || '').trim();
-  return ['pageview', 'duration'].includes(type) ? type : '';
+  return ['pageview', 'duration', 'action'].includes(type) ? type : '';
 }
 
 function normalizeAnalyticsPage(value) {
@@ -268,6 +268,11 @@ function normalizeAnalyticsPage(value) {
 function normalizeAnalyticsPath(value) {
   const path = String(value || '').trim();
   return path.startsWith('/') ? path.slice(0, 160) : '/viewer';
+}
+
+function normalizeAnalyticsDimension(value, fallback = 'unknown') {
+  const text = String(value || '').trim().replace(/[^a-zA-Z0-9:_/-]/g, '').slice(0, 80);
+  return text || fallback;
 }
 
 function normalizeDurationMs(value) {
@@ -302,6 +307,8 @@ function sanitizeAnalyticsDay(day = {}) {
     avgDurationMs: day.durationEvents ? Math.round((Number(day.totalDurationMs) || 0) / (Number(day.durationEvents) || 1)) : 0,
     pages: topMetricRows(day.pages),
     durationsByPage: topMetricRows(day.durationsByPage),
+    actions: topMetricRows(day.actions),
+    actionLabels: topMetricRows(day.actionLabels),
     updatedAt: day.updatedAt || null,
   };
 }
@@ -323,6 +330,8 @@ async function handleAnalytics(request, env) {
   const sessionId = String(body.sessionId || '').trim().replace(/[^a-zA-Z0-9._-]/g, '').slice(0, 80);
   const page = normalizeAnalyticsPage(body.page);
   const path = normalizeAnalyticsPath(body.path);
+  const action = normalizeAnalyticsDimension(body.action, '');
+  const label = normalizeAnalyticsDimension(body.label, '');
   const durationMs = normalizeDurationMs(body.durationMs);
   if (!type) return json({ ok: false, message: 'Invalid analytics event type' }, 400);
 
@@ -338,6 +347,8 @@ async function handleAnalytics(request, env) {
     durationEvents: 0,
     pages: {},
     durationsByPage: {},
+    actions: {},
+    actionLabels: {},
     paths: {},
     updatedAt: now,
   });
@@ -355,6 +366,10 @@ async function handleAnalytics(request, env) {
     day.totalDurationMs = (Number(day.totalDurationMs) || 0) + durationMs;
     day.durationEvents = (Number(day.durationEvents) || 0) + 1;
     incrementMetric(day.durationsByPage || (day.durationsByPage = {}), page, durationMs);
+  }
+  if (type === 'action' && action) {
+    incrementMetric(day.actions || (day.actions = {}), action);
+    if (label) incrementMetric(day.actionLabels || (day.actionLabels = {}), `${action}:${label}`);
   }
 
   day.devices = [...devices].slice(-5000);

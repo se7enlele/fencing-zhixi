@@ -225,6 +225,15 @@ function trackAnalyticsPage(page) {
   });
 }
 
+function trackAnalyticsAction(action, label = '') {
+  sendAnalyticsEvent({
+    type: 'action',
+    page: analyticsCurrentPage || state.viewStack?.at(-1) || 'home',
+    action,
+    label,
+  });
+}
+
 async function fetchCachedDetail(type, key, path, pick) {
   const cache = state.detailCache?.[type];
   const cacheKey = String(key || '');
@@ -285,6 +294,7 @@ function isFollowedCompetition(sportCode) {
 
 function upsertFollowedCompetition(competition) {
   if (!competition?.sportCode) return;
+  trackAnalyticsAction('follow_competition', statusLabel(competition.status));
   state.followedCompetitions = [
     competitionSnapshot(competition),
     ...state.followedCompetitions.filter((item) => item.sportCode !== competition.sportCode),
@@ -485,6 +495,7 @@ function eventTrackedAthletes(event) {
 }
 
 async function upsertFollowedAthlete(athlete) {
+  if (athlete?.id) trackAnalyticsAction('follow_athlete', athlete.focusKind || 'athlete');
   state.followedAthletes = [
     {
       id: athlete.id,
@@ -1894,6 +1905,7 @@ function renderParentGrowthReport(athleteId = '') {
 }
 
 function openParentGrowthReport(athleteId = '') {
+  trackAnalyticsAction('open_report', 'parent-growth');
   renderParentGrowthReport(athleteId);
   const athlete = athleteId ? findAthleteByReference({ id: athleteId }) : getSelectedChild(childCandidates());
   if (athlete?.id) {
@@ -2429,10 +2441,14 @@ function renderHomePage() {
   homePage.querySelector('[data-home-follow]')?.addEventListener('click', () => navigateMain('follow'));
   homePage.querySelector('[data-home-my]')?.addEventListener('click', () => navigateMain('my'));
   homePage.querySelectorAll('[data-home-ai-product]').forEach((button) => {
-    button.addEventListener('click', () => submitAiQuery(button.dataset.homeAiProduct || ''));
+    button.addEventListener('click', () => {
+      trackAnalyticsAction('home_ai_product', button.dataset.homeAiProduct ? 'query' : 'empty');
+      submitAiQuery(button.dataset.homeAiProduct || '');
+    });
   });
   homePage.querySelectorAll('[data-home-report]').forEach((button) => {
     button.addEventListener('click', () => {
+      trackAnalyticsAction('home_report', button.dataset.homeReport || 'unknown');
       if (button.dataset.homeReport === 'prematch') openPrematchReport('prematch-pack', button.dataset.sportCode || '');
       if (button.dataset.homeReport === 'growth') openParentGrowthReport(button.dataset.athleteId || '');
       if (button.dataset.homeReport === 'coach') openCoachSegmentationReport(button.dataset.clubId || '');
@@ -2600,11 +2616,13 @@ function bindAiWorkspace(container) {
     try {
       await ensureAiEntityContext(normalizedQuery);
       const report = buildAiAnswer(normalizedQuery);
+      trackAnalyticsAction('ai_answer', report.type || 'unknown');
       trackAiAnalysisHistory(normalizedQuery, report);
       answer.innerHTML = renderAiAnswer(report);
       bindAnswer(report);
     } catch {
       const report = buildAiAnswer(normalizedQuery);
+      trackAnalyticsAction('ai_answer', report.type || 'unknown');
       trackAiAnalysisHistory(normalizedQuery, report);
       answer.innerHTML = renderAiAnswer(report);
       bindAnswer(report);
@@ -7081,6 +7099,7 @@ function renderCoachSegmentationReport(clubId = '') {
 }
 
 function openCoachSegmentationReport(clubId = '') {
+  trackAnalyticsAction('open_report', 'coach-segmentation');
   renderCoachSegmentationReport(clubId);
   const club = findClubById(clubId) || state.clubSearchIndex?.[0] || null;
   if (club?.id) {
@@ -8266,6 +8285,7 @@ function renderPrematchReport(kind = 'prematch-pack', sportCode = '') {
 }
 
 function openPrematchReport(kind = 'prematch-pack', sportCode = '') {
+  trackAnalyticsAction('open_report', sportCode ? 'prematch-single' : 'prematch-pack');
   renderPrematchReport(kind, sportCode);
   const competition = sportCode ? findCompetitionBySportCode(sportCode) : null;
   trackReportHistory({

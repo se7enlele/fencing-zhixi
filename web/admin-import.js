@@ -63,6 +63,36 @@ function pageLabel(page) {
   })[page] || page || '未知页面';
 }
 
+function analyticsActionLabel(action) {
+  return ({
+    ai_answer: 'AI 回答',
+    home_ai_product: '首页数据价值',
+    home_report: '首页报告入口',
+    open_report: '打开报告',
+    follow_athlete: '关注选手',
+    follow_competition: '关注赛事',
+  })[action] || action || '未知动作';
+}
+
+function analyticsActionDetailLabel(key) {
+  const [action, label] = String(key || '').split(':');
+  const detail = ({
+    prematch: '赛前情报',
+    growth: '成长报告',
+    coach: '学员分层',
+    'club-recruiting': '招生展示',
+    'parent-growth': '成长报告',
+    'coach-segmentation': '学员分层',
+    'prematch-single': '单场赛前',
+    'prematch-pack': '赛前情报包',
+    'business-insight': '商业洞察',
+    'product-template': '报告方案',
+    query: 'AI 入口',
+    athlete: '选手',
+  })[label] || label || '未分类';
+  return `${analyticsActionLabel(action)} · ${detail}`;
+}
+
 function mergeMetricRows(days, field) {
   const merged = new Map();
   days.forEach((day) => {
@@ -109,6 +139,8 @@ function renderAnalytics(result) {
 
   const pageRows = mergeMetricRows(days, 'pages');
   const durationRows = mergeMetricRows(days, 'durationsByPage');
+  const actionRows = mergeMetricRows(days, 'actions');
+  const actionLabelRows = mergeMetricRows(days, 'actionLabels');
   analyticsPages.innerHTML = `
     <div>
       <div class="analytics-block-title">页面 PV</div>
@@ -127,6 +159,24 @@ function renderAnalytics(result) {
           <span>${escapeHtml(formatDuration(row.value))}</span>
         </div>
       `).join('') : '<div class="status muted">暂无停留数据。</div>'}
+    </div>
+    <div>
+      <div class="analytics-block-title">关键动作</div>
+      ${actionRows.length ? actionRows.map((row) => `
+        <div class="analytics-rank-row">
+          <strong>${escapeHtml(analyticsActionLabel(row.key))}</strong>
+          <span>${escapeHtml(formatInteger(row.value))}</span>
+        </div>
+      `).join('') : '<div class="status muted">暂无动作数据。</div>'}
+    </div>
+    <div>
+      <div class="analytics-block-title">动作明细</div>
+      ${actionLabelRows.length ? actionLabelRows.map((row) => `
+        <div class="analytics-rank-row">
+          <strong>${escapeHtml(analyticsActionDetailLabel(row.key))}</strong>
+          <span>${escapeHtml(formatInteger(row.value))}</span>
+        </div>
+      `).join('') : '<div class="status muted">暂无动作明细。</div>'}
     </div>
   `;
 }

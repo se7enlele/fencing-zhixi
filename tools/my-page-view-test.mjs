@@ -30,6 +30,12 @@ assert.match(js, /ANALYTICS_SESSION_KEY = 'fencingai\.analyticsSession\.v1'/, 'a
 assert.match(js, /function sendAnalyticsEvent\(payload, useBeacon = false\)/, 'viewer must provide a resilient analytics sender');
 assert.match(js, /fetch\('\/api\/analytics'/, 'viewer analytics must post to the analytics API');
 assert.match(js, /navigator\.sendBeacon/, 'viewer analytics must use sendBeacon for page close events');
+assert.match(js, /function trackAnalyticsAction\(action, label = ''\)/, 'viewer must track product conversion actions');
+assert.match(js, /type: 'action'/, 'viewer action analytics must use action events');
+assert.match(js, /trackAnalyticsAction\('ai_answer', report\.type \|\| 'unknown'\)/, 'AI answers must record answer-type conversion events');
+assert.match(js, /trackAnalyticsAction\('home_report', button\.dataset\.homeReport \|\| 'unknown'\)/, 'home report clicks must be tracked');
+assert.match(js, /trackAnalyticsAction\('open_report', 'parent-growth'\)/, 'parent growth reports must be tracked as product actions');
+assert.match(js, /trackAnalyticsAction\('follow_athlete'/, 'athlete follow actions must be tracked');
 assert.match(js, /function trackAnalyticsPage\(page\)/, 'viewer must track page views on view changes');
 assert.match(js, /function trackAnalyticsDuration\(useBeacon = false\)/, 'viewer must track stay duration');
 assert.match(js, /document\.addEventListener\('visibilitychange'/, 'viewer must flush duration when the tab is hidden');
