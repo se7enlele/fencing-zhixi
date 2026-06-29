@@ -1308,7 +1308,7 @@ function renderHomeDataCoverage() {
     <section class="panel my-section data-status-panel">
       <div class="section-title">
         <h2>数据状态</h2>
-        <span>${escapeHtml(actionablePercent)}% 已进入分析层</span>
+        <span>${escapeHtml(actionablePercent)}% 可继续分析</span>
       </div>
       <div class="coverage-stage-strip">
         <div>
@@ -1327,7 +1327,7 @@ function renderHomeDataCoverage() {
       <div class="coverage-progress">
         <span style="width: ${escapeHtml(scorePercent)}%"></span>
       </div>
-      <p>成绩对阵覆盖率 ${escapeHtml(scorePercent)}%。${generatedLabel ? `数据更新于 ${escapeHtml(generatedLabel)}，` : ''}近期报名赛事可用于赛前准备，完整成绩可用于成长复盘和队伍分析。</p>
+      <p>${escapeHtml(coverage.score)} 场赛事已有成绩或对阵，可用于成长复盘和队伍分析；${generatedLabel ? `数据更新于 ${escapeHtml(generatedLabel)}，` : ''}近期报名赛事可用于赛前准备。</p>
       ${syncLabel ? `<div class="sync-status-note">${escapeHtml(syncLabel)}</div>` : ''}
       ${priorityRows.length ? `
         <div class="coverage-priority-list">
@@ -1353,19 +1353,18 @@ function renderDataCoverageSummary(source) {
   const coverage = summarizeDataCoverage(source);
   const total = source.length || 1;
   const scorePercent = Math.round((coverage.score / total) * 100);
-  const actionablePercent = Math.round((coverage.actionable / total) * 100);
   const syncLabel = scheduledSyncStatusLabel(state.dataCoverage?.scheduledSync);
   const sourceNote = state.dataCoverage?.platformEvents
-    ? `平台赛事 ${state.dataCoverage.platformEvents} 条已收录`
-    : `${source.length} 条赛事已收录`;
+    ? `平台赛事 ${state.dataCoverage.platformEvents} 场已收录`
+    : `${source.length} 场赛事已收录`;
 
   dataCoverageSummary.innerHTML = `
     <div class="coverage-summary-head">
       <div>
-        <strong>数据可分析度</strong>
-        <span>${escapeHtml(sourceNote)}，当前范围 ${escapeHtml(source.length)} 条</span>
+        <strong>数据能做什么</strong>
+        <span>${escapeHtml(sourceNote)}，当前范围 ${escapeHtml(source.length)} 场</span>
       </div>
-      <em>${escapeHtml(actionablePercent)}% 已进入分析层</em>
+      <em>${escapeHtml(coverage.score)} 场可深度分析</em>
     </div>
     <div class="coverage-level-grid">
       <div>
@@ -1384,7 +1383,7 @@ function renderDataCoverageSummary(source) {
         <small>可用于成长和队伍分析</small>
       </div>
     </div>
-    <p>近期报名赛事可用于赛前准备，完整成绩可用于成长复盘和队伍分析；成绩对阵覆盖率当前为 ${escapeHtml(scorePercent)}%。</p>
+    <p>${escapeHtml(scorePercent)}% 的赛事已有成绩或对阵，可用于成长复盘、对手判断和队伍分析；只有报名或项目清单的赛事，更适合做赛前准备。</p>
     ${syncLabel ? `<div class="sync-status-note">${escapeHtml(syncLabel)}</div>` : ''}
   `;
 }
@@ -1412,17 +1411,17 @@ function renderHomeStats() {
   }
   const source = state.filteredCompetitions.length || isFilteringActive() ? state.filteredCompetitions : state.competitions;
   const eventCount = source.reduce((sum, competition) => sum + competitionItemCount(competition), 0);
-  const athleteStarts = source.reduce((sum, competition) => sum + competitionMetricTotal(competition, 'competitionNo'), 0);
-  const eliminationMatches = source.reduce((sum, competition) => sum + competitionMetricTotal(competition, 'playedEliminationMatchCount'), 0);
   const regions = new Set(source.map((competition) => competition.region).filter(Boolean)).size;
+  const coverage = summarizeDataCoverage(source);
+  const prematchCount = Math.max(coverage.actionable - coverage.score, 0);
   const active = isFilteringActive();
   if (homeStatsScope) homeStatsScope.textContent = active ? '当前筛选' : '全部数据';
 
   homeStats.innerHTML = [
     ['比赛', source.length, `${regions} 地区`],
-    ['项目', eventCount, `${eventCount} 成绩包`],
-    ['人次', athleteStarts, '参赛'],
-    ['淘汰', eliminationMatches, '对阵'],
+    ['项目', eventCount, '可筛选组别'],
+    ['深度赛事', coverage.score, '可做成长分析'],
+    ['赛前赛事', prematchCount, '可看报名项目'],
   ].map(([label, value, detail]) => `
     <div class="stat-item">
       <strong>${escapeHtml(value)}</strong>
@@ -4452,7 +4451,7 @@ function renderFeedPanel() {
   feedPanel.innerHTML = `
     <div class="section-title">
       <h2>近期值得看</h2>
-      <span>精选</span>
+      <span>点击进入</span>
     </div>
     <div class="feed-list">
       ${cards.map((card) => `
