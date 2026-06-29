@@ -65,13 +65,13 @@ assert.match(
 
 assert.match(
   source,
-  /'ai-helpful', 'ai-needs-work'/,
-  'Worker should accept AI answer quality feedback types',
+  /'ai-helpful', 'ai-needs-work', 'pilot-interest'/,
+  'Worker should accept AI answer quality feedback and pilot interest types',
 );
 assert.match(
   source,
-  /const isAiFeedback = type\.startsWith\('ai-'\);/,
-  'Worker should route AI feedback through subject validation',
+  /const isSubjectFeedback = isAiFeedback \|\| type === 'pilot-interest';/,
+  'Worker should route AI feedback and pilot interest through subject validation',
 );
 
 assert.match(

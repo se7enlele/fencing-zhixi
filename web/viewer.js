@@ -2312,6 +2312,45 @@ function homeDataValueRows() {
   ];
 }
 
+async function submitPilotInterest(button) {
+  if (!button) return;
+  const originalLabel = button.textContent;
+  button.disabled = true;
+  button.textContent = '提交中';
+  try {
+    const response = await fetch('/api/feedback', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        deviceId: state.deviceId,
+        type: 'pilot-interest',
+        subject: {
+          id: `pilot-${state.userRole || 'visitor'}`,
+          name: '产品试用意向',
+          type: state.userRole || 'visitor',
+        },
+        message: [
+          `当前角色：${state.userRole || '未选择'}`,
+          `关注选手：${state.followedAthletes.length}`,
+          `关注赛事：${state.followedCompetitions.length}`,
+          `最近报告：${state.reportHistory.length}`,
+          `最近 AI 分析：${state.aiHistory.length}`,
+        ].join('；'),
+      }),
+    });
+    const result = await response.json();
+    if (!response.ok || !result.ok) throw new Error(result.message || '提交失败');
+    trackAnalyticsAction('pilot_interest', state.userRole || 'visitor');
+    button.textContent = '已收到';
+  } catch {
+    button.textContent = '稍后再试';
+  }
+  setTimeout(() => {
+    button.textContent = originalLabel;
+    button.disabled = false;
+  }, 1800);
+}
+
 function renderHomePage() {
   if (!homePage) return;
   if (state.isDataLoading) {
@@ -2374,6 +2413,19 @@ function renderHomePage() {
             <strong>我的</strong>
             <span>${escapeHtml(recentRows.length ? `最近查看 ${recentRows.length} 条` : '查看关注与访问记录')}</span>
           </button>
+        </div>
+      </section>
+      <section class="panel my-section home-pilot-section">
+        <div class="section-title">
+          <h2>试用合作</h2>
+          <span>产品验证</span>
+        </div>
+        <div class="pilot-interest-card">
+          <div>
+            <strong>适合家庭、教练和小型剑馆试用</strong>
+            <span>用于验证成长报告、赛前情报和招生展示是否能真实支撑决策。</span>
+          </div>
+          <button type="button" data-pilot-interest>申请试用</button>
         </div>
       </section>
     </div>
@@ -2441,6 +2493,7 @@ function renderHomePage() {
   homePage.querySelector('[data-home-competitions]')?.addEventListener('click', () => navigateMain('competitions'));
   homePage.querySelector('[data-home-follow]')?.addEventListener('click', () => navigateMain('follow'));
   homePage.querySelector('[data-home-my]')?.addEventListener('click', () => navigateMain('my'));
+  homePage.querySelector('[data-pilot-interest]')?.addEventListener('click', (event) => submitPilotInterest(event.currentTarget));
   homePage.querySelectorAll('[data-home-ai-product]').forEach((button) => {
     button.addEventListener('click', () => {
       trackAnalyticsAction('home_ai_product', button.dataset.homeAiProduct ? 'query' : 'empty');

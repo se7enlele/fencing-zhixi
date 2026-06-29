@@ -239,7 +239,7 @@ async function handleFollows(request, env, url) {
 
 function normalizeFeedbackType(value) {
   const type = String(value || '').trim();
-  return ['correct', 'hide', 'ai-helpful', 'ai-needs-work'].includes(type) ? type : '';
+  return ['correct', 'hide', 'ai-helpful', 'ai-needs-work', 'pilot-interest'].includes(type) ? type : '';
 }
 
 function normalizeFeedbackText(value) {
@@ -417,9 +417,10 @@ async function handleFeedback(request, env) {
   const subject = body.subject || {};
   const message = normalizeFeedbackText(body.message);
   const isAiFeedback = type.startsWith('ai-');
-  const target = isAiFeedback ? subject : athlete;
+  const isSubjectFeedback = isAiFeedback || type === 'pilot-interest';
+  const target = isSubjectFeedback ? subject : athlete;
   if (!type) return json({ ok: false, message: 'Invalid feedback type' }, 400);
-  if (!target?.id || !target?.name) return json({ ok: false, message: isAiFeedback ? 'Missing subject' : 'Missing athlete' }, 400);
+  if (!target?.id || !target?.name) return json({ ok: false, message: isSubjectFeedback ? 'Missing subject' : 'Missing athlete' }, 400);
   if (!message) return json({ ok: false, message: 'Missing message' }, 400);
 
   const now = new Date().toISOString();
@@ -433,7 +434,7 @@ async function handleFeedback(request, env) {
       name: String(target.name),
       club: target.club ? String(target.club) : '',
     },
-    subject: isAiFeedback ? {
+    subject: isSubjectFeedback ? {
       id: String(subject.id),
       name: String(subject.name),
       type: subject.type ? String(subject.type) : '',

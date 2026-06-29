@@ -307,6 +307,7 @@ function feedbackTypeLabel(type) {
     correct: '纠错申请',
     'ai-helpful': 'AI 有帮助',
     'ai-needs-work': 'AI 需调整',
+    'pilot-interest': '试用意向',
   })[type] || '用户反馈';
 }
 

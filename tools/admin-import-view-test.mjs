@@ -31,6 +31,7 @@ assert.match(js, /mergeMetricRows\(days, 'actionLabels'\)/, 'admin analytics mus
 assert.match(js, /function feedbackTypeLabel\(type\)/, 'admin import must label correction and hide requests');
 assert.match(js, /'ai-helpful': 'AI 有帮助'/, 'admin import must label helpful AI feedback');
 assert.match(js, /'ai-needs-work': 'AI 需调整'/, 'admin import must label AI feedback that needs adjustment');
+assert.match(js, /'pilot-interest': '试用意向'/, 'admin import must label pilot interest leads');
 assert.match(js, /function feedbackStatusLabel\(status\)/, 'admin import must label feedback workflow status');
 assert.match(js, /function updateFeedbackStatus\(id, status\)/, 'admin import must update feedback status');
 assert.match(js, /\/api\/admin\/feedback\/status\?token=/, 'admin import feedback actions must use the admin status API');

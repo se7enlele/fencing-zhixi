@@ -61,6 +61,11 @@ assert.match(js, /homePage\.innerHTML = `\s*<div class="home-dashboard">\s*\$\{r
 assert.match(js, /<section class="panel ai-home-primary">[\s\S]*<\/section>\s*<div class="ai-answer" id="aiAnswer">/, 'AI answers must render outside the dark home entry panel');
 assert.match(js, /<h2>工作入口<\/h2>/, 'home page must use task-oriented entry cards instead of another competition list');
 assert.match(js, /class="home-action-grid"/, 'home page must render compact task entry cards');
+assert.match(js, /<h2>试用合作<\/h2>/, 'home page must expose a pilot trial intent section');
+assert.match(js, /data-pilot-interest/, 'home page pilot section must have a runnable intent action');
+assert.match(js, /async function submitPilotInterest\(button\)/, 'home page must submit pilot trial interest');
+assert.match(js, /type: 'pilot-interest'/, 'pilot trial interest must use the feedback workflow');
+assert.match(js, /trackAnalyticsAction\('pilot_interest', state\.userRole \|\| 'visitor'\)/, 'pilot trial interest must be tracked as a conversion action');
 assert.match(js, /function homeDataValueRows\(\)/, 'home page must build productized data value entry cards');
 assert.match(js, /class="data-value-grid"/, 'home page must render productized data value cards');
 assert.match(js, /data-home-ai-product="\$\{escapeHtml\(row\.query\)\}"/, 'data value cards must carry runnable AI product questions');
@@ -138,6 +143,7 @@ assert.match(css, /\.ai-home-actions/, 'AI home entry must expose secondary navi
 assert.match(css, /\.home-action-grid/, 'home action entry styles must exist');
 assert.match(css, /\.data-value-grid/, 'home data value entry styles must exist');
 assert.match(css, /\.report-center-grid/, 'home report center styles must exist');
+assert.match(css, /\.pilot-interest-card/, 'pilot trial intent card styles must exist');
 assert.match(css, /\.report-history-list/, 'recent report shortcut styles must exist');
 assert.match(css, /\.ai-history-list/, 'recent AI analysis shortcut styles must exist');
 assert.match(css, /\.ai-evidence/, 'AI workspace must style source evidence cards');

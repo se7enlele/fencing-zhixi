@@ -2044,6 +2044,51 @@ select:focus {
   line-height: 1.35;
 }
 
+.pilot-interest-card {
+  display: grid;
+  gap: 12px;
+  padding: 13px;
+  border: 1px solid rgba(21, 95, 194, 0.12);
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(239, 247, 255, 0.96), rgba(245, 252, 248, 0.96));
+}
+
+.pilot-interest-card div,
+.pilot-interest-card strong,
+.pilot-interest-card span {
+  display: block;
+  min-width: 0;
+}
+
+.pilot-interest-card strong {
+  color: var(--text);
+  font-size: 15px;
+  font-weight: 900;
+}
+
+.pilot-interest-card span {
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.pilot-interest-card button {
+  width: 100%;
+  min-height: 42px;
+  border: 0;
+  border-radius: 12px;
+  background: var(--primary);
+  color: #fff;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.pilot-interest-card button:disabled {
+  opacity: 0.72;
+}
+
 .report-center-grid {
   display: grid;
   gap: 8px;
