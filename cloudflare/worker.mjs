@@ -18,7 +18,10 @@ const SCORE_INDEX_KEY = 'score:index';
 const PROJECTLIST_INDEX_KEY = 'projectlist:index';
 const ROSTER_INDEX_KEY = 'registration-roster:index';
 const FEEDBACK_INDEX_KEY = 'feedback:index';
+const ANALYTICS_INDEX_KEY = 'analytics:index';
 const MAX_IMPORT_BYTES = 20 * 1024 * 1024;
+const MAX_ANALYTICS_DAYS = 60;
+const MAX_ANALYTICS_DIMENSION_ROWS = 30;
 const NO_STORE_CACHE = 'no-store';
 const PUBLIC_INDEX_CACHE = 'public, max-age=60, s-maxage=3600, stale-while-revalidate=86400';
 const PUBLIC_DETAIL_CACHE = 'public, max-age=300, s-maxage=86400, stale-while-revalidate=604800';
@@ -246,6 +249,146 @@ function normalizeFeedbackText(value) {
 function normalizeFeedbackStatus(value) {
   const status = String(value || '').trim();
   return ['new', 'reviewing', 'resolved', 'ignored'].includes(status) ? status : '';
+}
+
+function chinaDayKey(date = new Date()) {
+  return new Date(date.getTime() + 8 * 60 * 60 * 1000).toISOString().slice(0, 10);
+}
+
+function normalizeAnalyticsEventType(value) {
+  const type = String(value || '').trim();
+  return ['pageview', 'duration'].includes(type) ? type : '';
+}
+
+function normalizeAnalyticsPage(value) {
+  const page = String(value || 'unknown').trim().replace(/[^a-zA-Z0-9:_/-]/g, '').slice(0, 80);
+  return page || 'unknown';
+}
+
+function normalizeAnalyticsPath(value) {
+  const path = String(value || '').trim();
+  return path.startsWith('/') ? path.slice(0, 160) : '/viewer';
+}
+
+function normalizeDurationMs(value) {
+  const duration = Math.round(Number(value) || 0);
+  if (!Number.isFinite(duration) || duration < 0) return 0;
+  return Math.min(duration, 30 * 60 * 1000);
+}
+
+function incrementMetric(target, key, amount = 1) {
+  const safeKey = String(key || 'unknown').slice(0, 120) || 'unknown';
+  target[safeKey] = (Number(target[safeKey]) || 0) + amount;
+}
+
+function topMetricRows(object = {}, limit = MAX_ANALYTICS_DIMENSION_ROWS) {
+  return Object.entries(object || {})
+    .map(([key, value]) => ({ key, value: Number(value) || 0 }))
+    .filter((row) => row.value > 0)
+    .sort((a, b) => b.value - a.value || a.key.localeCompare(b.key))
+    .slice(0, limit);
+}
+
+function sanitizeAnalyticsDay(day = {}) {
+  const devices = Array.isArray(day.devices) ? day.devices : [];
+  const sessions = Array.isArray(day.sessions) ? day.sessions : [];
+  return {
+    day: day.day || '',
+    pv: Number(day.pv) || 0,
+    uv: devices.length,
+    sessions: sessions.length,
+    totalDurationMs: Number(day.totalDurationMs) || 0,
+    durationEvents: Number(day.durationEvents) || 0,
+    avgDurationMs: day.durationEvents ? Math.round((Number(day.totalDurationMs) || 0) / (Number(day.durationEvents) || 1)) : 0,
+    pages: topMetricRows(day.pages),
+    durationsByPage: topMetricRows(day.durationsByPage),
+    updatedAt: day.updatedAt || null,
+  };
+}
+
+async function updateAnalyticsIndex(kv, dayKey, now) {
+  const index = await readJsonKv(kv, ANALYTICS_INDEX_KEY, { days: [] });
+  const currentDays = Array.isArray(index?.days) ? index.days : [];
+  const days = [dayKey, ...currentDays.filter((day) => day !== dayKey)].slice(0, MAX_ANALYTICS_DAYS);
+  await kv.put(ANALYTICS_INDEX_KEY, JSON.stringify({ days, updatedAt: now }));
+}
+
+async function handleAnalytics(request, env) {
+  if (request.method !== 'POST') return json({ ok: false, message: 'Method not allowed' }, 405);
+  if (!env.FOLLOWS) return json({ ok: false, message: 'Analytics unavailable' }, 503);
+
+  const body = await request.json();
+  const type = normalizeAnalyticsEventType(body.type);
+  const deviceId = normalizeDeviceId(body.deviceId);
+  const sessionId = String(body.sessionId || '').trim().replace(/[^a-zA-Z0-9._-]/g, '').slice(0, 80);
+  const page = normalizeAnalyticsPage(body.page);
+  const path = normalizeAnalyticsPath(body.path);
+  const durationMs = normalizeDurationMs(body.durationMs);
+  if (!type) return json({ ok: false, message: 'Invalid analytics event type' }, 400);
+
+  const now = new Date().toISOString();
+  const dayKey = chinaDayKey();
+  const key = `analytics:day:${dayKey}`;
+  const day = await readJsonKv(env.FOLLOWS, key, {
+    day: dayKey,
+    pv: 0,
+    devices: [],
+    sessions: [],
+    totalDurationMs: 0,
+    durationEvents: 0,
+    pages: {},
+    durationsByPage: {},
+    paths: {},
+    updatedAt: now,
+  });
+  const devices = new Set(Array.isArray(day.devices) ? day.devices : []);
+  const sessions = new Set(Array.isArray(day.sessions) ? day.sessions : []);
+  devices.add(deviceId);
+  if (sessionId) sessions.add(sessionId);
+
+  if (type === 'pageview') {
+    day.pv = (Number(day.pv) || 0) + 1;
+    incrementMetric(day.pages || (day.pages = {}), page);
+    incrementMetric(day.paths || (day.paths = {}), path);
+  }
+  if (type === 'duration' && durationMs > 0) {
+    day.totalDurationMs = (Number(day.totalDurationMs) || 0) + durationMs;
+    day.durationEvents = (Number(day.durationEvents) || 0) + 1;
+    incrementMetric(day.durationsByPage || (day.durationsByPage = {}), page, durationMs);
+  }
+
+  day.devices = [...devices].slice(-5000);
+  day.sessions = [...sessions].slice(-10000);
+  day.updatedAt = now;
+  await env.FOLLOWS.put(key, JSON.stringify(day));
+  await updateAnalyticsIndex(env.FOLLOWS, dayKey, now);
+  return json({ ok: true, version: APP_VERSION });
+}
+
+async function handleAdminAnalytics(env, url) {
+  if (!requireAdmin(url)) return json({ ok: false, message: 'Forbidden' }, 403);
+  if (!env.FOLLOWS) return json({ ok: false, message: 'Analytics unavailable' }, 503);
+  const limit = Math.min(Math.max(Number(url.searchParams.get('days')) || 14, 1), MAX_ANALYTICS_DAYS);
+  const index = await readJsonKv(env.FOLLOWS, ANALYTICS_INDEX_KEY, { days: [] });
+  const days = Array.isArray(index?.days) ? index.days.slice(0, limit) : [];
+  const rawRows = (await Promise.all(days.map((day) => readJsonKv(env.FOLLOWS, `analytics:day:${day}`, null))))
+    .filter(Boolean);
+  const rows = rawRows.map(sanitizeAnalyticsDay);
+  const devices = new Set();
+  const sessions = new Set();
+  rawRows.forEach((row) => {
+    (Array.isArray(row.devices) ? row.devices : []).forEach((id) => devices.add(id));
+    (Array.isArray(row.sessions) ? row.sessions : []).forEach((id) => sessions.add(id));
+  });
+  const totals = rows.reduce((sum, row) => ({
+    pv: sum.pv + row.pv,
+    uv: devices.size,
+    sessions: sessions.size,
+    totalDurationMs: sum.totalDurationMs + row.totalDurationMs,
+    durationEvents: sum.durationEvents + row.durationEvents,
+  }), { pv: 0, uv: 0, sessions: 0, totalDurationMs: 0, durationEvents: 0 });
+  totals.avgDurationMs = totals.durationEvents ? Math.round(totals.totalDurationMs / totals.durationEvents) : 0;
+  return json({ ok: true, version: APP_VERSION, days: rows, totals, updatedAt: index.updatedAt || null });
 }
 
 async function handleFeedback(request, env) {
@@ -737,6 +880,18 @@ async function routeApi(request, env, url) {
     } catch (error) {
       return json({ ok: false, message: error.message }, 400);
     }
+  }
+
+  if (url.pathname === '/api/analytics') {
+    try {
+      return await handleAnalytics(request, env);
+    } catch (error) {
+      return json({ ok: false, message: error.message }, 400);
+    }
+  }
+
+  if (url.pathname === '/api/admin/analytics' && request.method === 'GET') {
+    return handleAdminAnalytics(env, url);
   }
 
   if (url.pathname === '/api/admin/feedback' && request.method === 'GET') {

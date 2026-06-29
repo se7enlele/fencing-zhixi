@@ -5,6 +5,10 @@ const previewBtn = document.querySelector('#previewBtn');
 const commitBtn = document.querySelector('#commitBtn');
 const statusBox = document.querySelector('#statusBox');
 const previewBox = document.querySelector('#previewBox');
+const analyticsStatus = document.querySelector('#analyticsStatus');
+const analyticsSummary = document.querySelector('#analyticsSummary');
+const analyticsTrend = document.querySelector('#analyticsTrend');
+const analyticsPages = document.querySelector('#analyticsPages');
 const feedbackStatus = document.querySelector('#feedbackStatus');
 const feedbackList = document.querySelector('#feedbackList');
 
@@ -25,6 +29,127 @@ function escapeHtml(value) {
     '"': '&quot;',
     "'": '&#39;',
   }[char]));
+}
+
+function formatInteger(value) {
+  return String(Number(value) || 0).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+}
+
+function formatDuration(ms) {
+  const seconds = Math.round((Number(ms) || 0) / 1000);
+  if (seconds < 60) return `${seconds}s`;
+  const minutes = Math.floor(seconds / 60);
+  const rest = seconds % 60;
+  return rest ? `${minutes}m ${rest}s` : `${minutes}m`;
+}
+
+function pageLabel(page) {
+  return ({
+    roleHome: '角色选择',
+    home: '首页',
+    parentHome: '家长工作台',
+    coachHome: '教练工作台',
+    clubHome: '俱乐部工作台',
+    competitions: '赛事列表',
+    competition: '赛事详情',
+    event: '项目详情',
+    athlete: '选手详情',
+    club: '俱乐部详情',
+    prematchReport: '赛前报告',
+    parentGrowthReport: '成长报告',
+    coachSegmentationReport: '教练分层报告',
+    follow: '关注',
+    my: '我的',
+  })[page] || page || '未知页面';
+}
+
+function mergeMetricRows(days, field) {
+  const merged = new Map();
+  days.forEach((day) => {
+    (day[field] || []).forEach((row) => {
+      merged.set(row.key, (merged.get(row.key) || 0) + (Number(row.value) || 0));
+    });
+  });
+  return [...merged.entries()]
+    .map(([key, value]) => ({ key, value }))
+    .sort((a, b) => b.value - a.value || a.key.localeCompare(b.key))
+    .slice(0, 10);
+}
+
+function renderAnalytics(result) {
+  if (!analyticsStatus || !analyticsSummary || !analyticsTrend || !analyticsPages) return;
+  const days = result.days || [];
+  const totals = result.totals || {};
+  analyticsStatus.textContent = result.updatedAt
+    ? `更新于 ${new Date(result.updatedAt).toLocaleString('zh-CN')}`
+    : '暂无数据';
+  analyticsSummary.innerHTML = [
+    ['PV', totals.pv],
+    ['UV', totals.uv],
+    ['会话', totals.sessions],
+    ['平均停留', formatDuration(totals.avgDurationMs)],
+  ].map(([label, value]) => `
+    <div class="analytics-card">
+      <strong>${escapeHtml(label === '平均停留' ? value : formatInteger(value))}</strong>
+      <span>${escapeHtml(label)}</span>
+    </div>
+  `).join('');
+
+  analyticsTrend.innerHTML = days.length ? `
+    <div class="analytics-block-title">最近 ${days.length} 天</div>
+    ${days.map((day) => `
+      <div class="analytics-day-row">
+        <strong>${escapeHtml(day.day)}</strong>
+        <span>PV ${escapeHtml(formatInteger(day.pv))}</span>
+        <span>UV ${escapeHtml(formatInteger(day.uv))}</span>
+        <span>停留 ${escapeHtml(formatDuration(day.avgDurationMs))}</span>
+      </div>
+    `).join('')}
+  ` : '<div class="status muted">暂无访问统计。部署后从新访问开始累计。</div>';
+
+  const pageRows = mergeMetricRows(days, 'pages');
+  const durationRows = mergeMetricRows(days, 'durationsByPage');
+  analyticsPages.innerHTML = `
+    <div>
+      <div class="analytics-block-title">页面 PV</div>
+      ${pageRows.length ? pageRows.map((row) => `
+        <div class="analytics-rank-row">
+          <strong>${escapeHtml(pageLabel(row.key))}</strong>
+          <span>${escapeHtml(formatInteger(row.value))}</span>
+        </div>
+      `).join('') : '<div class="status muted">暂无页面访问。</div>'}
+    </div>
+    <div>
+      <div class="analytics-block-title">停留分布</div>
+      ${durationRows.length ? durationRows.map((row) => `
+        <div class="analytics-rank-row">
+          <strong>${escapeHtml(pageLabel(row.key))}</strong>
+          <span>${escapeHtml(formatDuration(row.value))}</span>
+        </div>
+      `).join('') : '<div class="status muted">暂无停留数据。</div>'}
+    </div>
+  `;
+}
+
+async function loadAnalytics() {
+  if (!analyticsStatus || !analyticsSummary) return;
+  if (!token) {
+    analyticsStatus.textContent = '缺少 token';
+    renderAnalytics({ days: [], totals: {} });
+    return;
+  }
+  try {
+    analyticsStatus.textContent = '加载中';
+    const response = await fetch(`/api/admin/analytics?token=${encodeURIComponent(token)}&days=14`);
+    const result = await response.json();
+    if (!response.ok || !result.ok) throw new Error(result.message || `请求失败：${response.status}`);
+    renderAnalytics(result);
+  } catch (error) {
+    analyticsStatus.textContent = '加载失败';
+    analyticsSummary.innerHTML = `<div class="status error">${escapeHtml(error.message)}</div>`;
+    analyticsTrend.innerHTML = '';
+    analyticsPages.innerHTML = '';
+  }
 }
 
 function pageCount(summary) {
@@ -288,4 +413,5 @@ commitBtn.addEventListener('click', async () => {
   }
 });
 
+loadAnalytics();
 loadFeedback();

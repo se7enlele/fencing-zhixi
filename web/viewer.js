@@ -66,6 +66,7 @@ const AI_HISTORY_KEY = 'fencingai.aiHistory.v1';
 const DEVICE_KEY = 'fencingai.deviceId.v1';
 const ROLE_KEY = 'fencingai.role.v1';
 const CHILD_KEY = 'fencingai.parentChildId.v1';
+const ANALYTICS_SESSION_KEY = 'fencingai.analyticsSession.v1';
 const COMPETITION_LIST_PAGE_SIZE = 30;
 
 const views = {
@@ -134,6 +135,10 @@ const state = {
 };
 
 let searchDebounceTimer = null;
+let analyticsCurrentPage = '';
+let analyticsPageStartedAt = Date.now();
+let analyticsLastDurationSentAt = analyticsPageStartedAt;
+const analyticsSessionId = getAnalyticsSessionId();
 
 async function fetchJson(path) {
   const response = await fetch(path);
@@ -150,6 +155,74 @@ async function fetchJson(path) {
 
 function friendlyErrorMessage(scope) {
   return `${scope}暂时无法打开。请稍后重试，或返回上一页重新进入。`;
+}
+
+function getAnalyticsSessionId() {
+  const now = Date.now();
+  try {
+    const existing = JSON.parse(sessionStorage.getItem(ANALYTICS_SESSION_KEY) || 'null');
+    if (existing?.id && now - Number(existing.createdAt || 0) < 12 * 60 * 60 * 1000) {
+      return existing.id;
+    }
+  } catch {
+    // Ignore invalid session storage.
+  }
+  const id = `s_${now.toString(36)}_${Math.random().toString(36).slice(2, 10)}`;
+  try {
+    sessionStorage.setItem(ANALYTICS_SESSION_KEY, JSON.stringify({ id, createdAt: now }));
+  } catch {
+    // Analytics must never block the product.
+  }
+  return id;
+}
+
+function sendAnalyticsEvent(payload, useBeacon = false) {
+  const body = JSON.stringify({
+    deviceId: state.deviceId,
+    sessionId: analyticsSessionId,
+    path: window.location.pathname || '/viewer',
+    ...payload,
+  });
+  if (useBeacon && navigator.sendBeacon) {
+    try {
+      navigator.sendBeacon('/api/analytics', new Blob([body], { type: 'application/json' }));
+      return;
+    } catch {
+      // Fall back to fetch below.
+    }
+  }
+  fetch('/api/analytics', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body,
+    keepalive: true,
+  }).catch(() => {});
+}
+
+function trackAnalyticsDuration(useBeacon = false) {
+  if (!analyticsCurrentPage) return;
+  const now = Date.now();
+  const durationMs = now - analyticsLastDurationSentAt;
+  analyticsLastDurationSentAt = now;
+  if (durationMs < 1000) return;
+  sendAnalyticsEvent({
+    type: 'duration',
+    page: analyticsCurrentPage,
+    durationMs,
+  }, useBeacon);
+}
+
+function trackAnalyticsPage(page) {
+  const nextPage = String(page || 'unknown');
+  if (analyticsCurrentPage === nextPage) return;
+  trackAnalyticsDuration(true);
+  analyticsCurrentPage = nextPage;
+  analyticsPageStartedAt = Date.now();
+  analyticsLastDurationSentAt = analyticsPageStartedAt;
+  sendAnalyticsEvent({
+    type: 'pageview',
+    page: nextPage,
+  });
 }
 
 async function fetchCachedDetail(type, key, path, pick) {
@@ -859,6 +932,7 @@ function showView(name) {
   Object.entries(views).forEach(([key, view]) => {
     view.classList.toggle('active', key === name);
   });
+  trackAnalyticsPage(name);
   searchShell.classList.toggle('collapsed', name !== 'competitions');
   const mainViews = ['roleHome', 'home', 'competitions', 'follow', 'my'];
   topBack.classList.toggle('visible', !mainViews.includes(name));
@@ -8350,6 +8424,15 @@ bottomNav?.querySelectorAll('[data-main-tab]').forEach((button) => {
       updateBottomNavState(state.activeMainTab);
     });
   });
+});
+
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'hidden') trackAnalyticsDuration(true);
+  if (document.visibilityState === 'visible') analyticsLastDurationSentAt = Date.now();
+});
+
+window.addEventListener('pagehide', () => {
+  trackAnalyticsDuration(true);
 });
 
 async function init() {

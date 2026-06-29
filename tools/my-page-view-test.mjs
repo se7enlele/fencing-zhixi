@@ -26,6 +26,14 @@ assert.match(js, /COMPETITION_FOLLOW_KEY = 'fencingai\.followedCompetitions\.v1'
 assert.match(js, /RECENT_KEY = 'fencingai\.recentItems\.v1'/, 'recent view state must be persisted');
 assert.match(js, /REPORT_HISTORY_KEY = 'fencingai\.reportHistory\.v1'/, 'generated report history must be persisted');
 assert.match(js, /AI_HISTORY_KEY = 'fencingai\.aiHistory\.v1'/, 'AI analysis history must be persisted');
+assert.match(js, /ANALYTICS_SESSION_KEY = 'fencingai\.analyticsSession\.v1'/, 'analytics session state must be scoped to the browser session');
+assert.match(js, /function sendAnalyticsEvent\(payload, useBeacon = false\)/, 'viewer must provide a resilient analytics sender');
+assert.match(js, /fetch\('\/api\/analytics'/, 'viewer analytics must post to the analytics API');
+assert.match(js, /navigator\.sendBeacon/, 'viewer analytics must use sendBeacon for page close events');
+assert.match(js, /function trackAnalyticsPage\(page\)/, 'viewer must track page views on view changes');
+assert.match(js, /function trackAnalyticsDuration\(useBeacon = false\)/, 'viewer must track stay duration');
+assert.match(js, /document\.addEventListener\('visibilitychange'/, 'viewer must flush duration when the tab is hidden');
+assert.match(js, /window\.addEventListener\('pagehide'/, 'viewer must flush duration when the page unloads');
 assert.match(js, /viewStack: \['home'\]/, 'default navigation stack must start at home dashboard');
 assert.match(js, /activeMainTab: 'home'/, 'home tab must be active by default');
 assert.match(js, /button\.classList\.remove\('active'\)/, 'bottom tab rendering must clear stale active classes first');

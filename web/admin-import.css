@@ -316,6 +316,89 @@ button:disabled {
   margin-top: 5px;
 }
 
+.analytics-summary {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.analytics-card {
+  min-width: 0;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  background: var(--surface-soft);
+  padding: 11px 12px;
+}
+
+.analytics-card strong,
+.analytics-card span {
+  display: block;
+}
+
+.analytics-card strong {
+  font-size: 22px;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+}
+
+.analytics-card span {
+  margin-top: 5px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.analytics-trend,
+.analytics-pages {
+  display: grid;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.analytics-pages {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.analytics-block-title {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.analytics-day-row,
+.analytics-rank-row {
+  display: grid;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  background: #fff;
+  padding: 9px 10px;
+}
+
+.analytics-day-row {
+  grid-template-columns: minmax(88px, 1fr) repeat(3, auto);
+}
+
+.analytics-rank-row {
+  grid-template-columns: minmax(0, 1fr) auto;
+  margin-top: 8px;
+}
+
+.analytics-day-row strong,
+.analytics-rank-row strong {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.analytics-day-row span,
+.analytics-rank-row span {
+  color: var(--muted);
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+
 .feedback-list {
   display: grid;
   gap: 10px;
@@ -423,6 +506,15 @@ button:disabled {
 
   .preview-grid {
     grid-template-columns: 1fr;
+  }
+
+  .analytics-summary,
+  .analytics-pages {
+    grid-template-columns: 1fr;
+  }
+
+  .analytics-day-row {
+    grid-template-columns: 1fr 1fr;
   }
 
   .roster-progress-grid {

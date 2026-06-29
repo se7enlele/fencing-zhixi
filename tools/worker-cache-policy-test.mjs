@@ -57,6 +57,11 @@ assert.match(
   /const FEEDBACK_INDEX_KEY = 'feedback:index';/,
   'Worker should index user feedback requests in KV',
 );
+assert.match(
+  source,
+  /const ANALYTICS_INDEX_KEY = 'analytics:index';/,
+  'Worker should index analytics day buckets in KV',
+);
 
 assert.match(
   source,
@@ -77,6 +82,18 @@ assert.match(
 
 assert.match(
   source,
+  /url\.pathname === '\/api\/analytics'[\s\S]{0,160}handleAnalytics/,
+  'Analytics ingest endpoint should stay isolated from public cached data',
+);
+
+assert.match(
+  source,
+  /url\.pathname === '\/api\/admin\/analytics' && request\.method === 'GET'[\s\S]{0,160}handleAdminAnalytics/,
+  'Admin analytics endpoint should be token-gated and no-store',
+);
+
+assert.match(
+  source,
   /url\.pathname === '\/api\/admin\/feedback\/status' && request\.method === 'POST'[\s\S]{0,180}handleAdminFeedbackStatus/,
   'Admin feedback status endpoint should be token-gated and no-store',
 );
@@ -91,6 +108,18 @@ assert.match(
   source,
   /async function handleAdminFeedbackStatus\(request, env, url\)/,
   'Worker should expose an admin feedback workflow updater',
+);
+
+assert.match(
+  source,
+  /async function handleAnalytics\(request, env\)/,
+  'Worker should expose an analytics ingestion endpoint',
+);
+
+assert.match(
+  source,
+  /async function handleAdminAnalytics\(env, url\)/,
+  'Worker should expose an admin analytics reader',
 );
 
 console.log('worker public cache policy is covered');
