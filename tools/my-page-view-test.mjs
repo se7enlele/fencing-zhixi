@@ -67,11 +67,15 @@ assert.match(js, /class="report-center-grid"/, 'home page must render report cen
 assert.match(js, /class="report-history-list"/, 'home page must render recent report shortcuts when available');
 assert.match(js, /class="ai-history-list"/, 'home page must render recent AI analysis shortcuts when available');
 assert.match(js, /data-home-report="\$\{escapeHtml\(row\.key\)\}"/, 'home report cards must carry runnable report actions');
+assert.match(js, /title: '招生展示'/, 'home report center must expose club recruiting display');
+assert.match(js, /\$\{club\.club\}招生怎么讲/, 'club recruiting report card must carry a concrete AI recruiting query');
+assert.match(js, /data-ai-query="\$\{escapeHtml\(row\.query\)\}"/, 'home report AI cards must carry runnable AI queries');
 assert.match(js, /data-report-history-type="\$\{escapeHtml\(row\.type \|\| ''\)\}"/, 'recent report rows must carry runnable report actions');
 assert.match(js, /data-ai-history-query="\$\{escapeHtml\(row\.query\)\}"/, 'recent AI analysis rows must carry runnable queries');
 assert.match(js, /openPrematchReport\('prematch-pack', button\.dataset\.sportCode \|\| ''\)/, 'home report center must open prematch reports');
 assert.match(js, /openParentGrowthReport\(button\.dataset\.athleteId \|\| ''\)/, 'home report center must open parent growth reports');
 assert.match(js, /openCoachSegmentationReport\(button\.dataset\.clubId \|\| ''\)/, 'home report center must open coach segmentation reports');
+assert.match(js, /button\.dataset\.homeReport === 'club-recruiting'[^\n]+submitAiQuery\(button\.dataset\.aiQuery \|\| ''\)/, 'home report center must launch club recruiting AI reports');
 assert.match(js, /function trackReportHistory\(report\)/, 'generated reports must be tracked for reuse');
 assert.match(js, /function trackAiAnalysisHistory\(query, report\)/, 'AI analysis answers must be tracked for reuse');
 assert.match(js, /openPrematchReport\('prematch-pack', id === 'prematch-pack' \? '' : id\)/, 'recent generic prematch reports must reopen without a fake sportCode');

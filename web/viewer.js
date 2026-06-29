@@ -2202,6 +2202,14 @@ function homeReportCenterRows(children, followedCompetitions) {
       disabled: !club,
       clubId: club?.id || '',
     },
+    {
+      key: 'club-recruiting',
+      title: '招生展示',
+      detail: club ? `${club.club} · 对外成绩名片和沟通话术` : '进入俱乐部后生成',
+      meta: club ? '增长转化' : '待选择',
+      disabled: !club,
+      query: club?.club ? `${club.club}招生怎么讲` : '',
+    },
   ];
 }
 
@@ -2363,7 +2371,7 @@ function renderHomePage() {
       </div>
       <div class="report-center-grid">
         ${reportRows.map((row) => `
-          <button type="button" data-home-report="${escapeHtml(row.key)}" ${row.disabled ? 'disabled' : ''} ${row.sportCode ? `data-sport-code="${escapeHtml(row.sportCode)}"` : ''} ${row.athleteId ? `data-athlete-id="${escapeHtml(row.athleteId)}"` : ''} ${row.clubId ? `data-club-id="${escapeHtml(row.clubId)}"` : ''}>
+          <button type="button" data-home-report="${escapeHtml(row.key)}" ${row.disabled ? 'disabled' : ''} ${row.sportCode ? `data-sport-code="${escapeHtml(row.sportCode)}"` : ''} ${row.athleteId ? `data-athlete-id="${escapeHtml(row.athleteId)}"` : ''} ${row.clubId ? `data-club-id="${escapeHtml(row.clubId)}"` : ''} ${row.query ? `data-ai-query="${escapeHtml(row.query)}"` : ''}>
             <span>${escapeHtml(row.meta)}</span>
             <strong>${escapeHtml(row.title)}</strong>
             <em>${escapeHtml(row.detail)}</em>
@@ -2428,6 +2436,7 @@ function renderHomePage() {
       if (button.dataset.homeReport === 'prematch') openPrematchReport('prematch-pack', button.dataset.sportCode || '');
       if (button.dataset.homeReport === 'growth') openParentGrowthReport(button.dataset.athleteId || '');
       if (button.dataset.homeReport === 'coach') openCoachSegmentationReport(button.dataset.clubId || '');
+      if (button.dataset.homeReport === 'club-recruiting') submitAiQuery(button.dataset.aiQuery || '');
     });
   });
   homePage.querySelectorAll('[data-report-history-type]').forEach((button) => {
