@@ -97,6 +97,18 @@ function analyticsActionDetailLabel(key) {
     coach: '教练',
     club: '俱乐部',
     data: '赛事数据',
+    'home-pilot': '首页试用合作',
+    'my-membership': '我的页会员权益',
+    'member-panel': '会员横幅',
+    'parent-growth-report': '成长报告',
+    'prematch-single-report': '单场赛前情报',
+    'prematch-pack-report': '赛前情报包',
+    'coach-segmentation-report': '教练分层报告',
+    'ai-prematch': 'AI 赛前分析',
+    'ai-growth': 'AI 成长分析',
+    'ai-coach': 'AI 教练分析',
+    'ai-comparison': 'AI 选手对比',
+    'ai-business': 'AI 商业洞察',
   })[label] : '';
   if (intentDetail) return `${analyticsActionLabel(action)} · ${intentDetail}`;
   const detail = ({

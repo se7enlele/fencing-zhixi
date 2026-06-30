@@ -33,6 +33,11 @@ assert.match(js, /share_club: '复制招生名片'/, 'admin analytics must label
 assert.match(js, /pilot_interest: '试用意向'/, 'admin analytics must label pilot interest actions');
 assert.match(js, /membership_interest: '会员意向'/, 'admin analytics must label membership interest actions');
 assert.match(js, /visitor: '访客'/, 'admin analytics must label visitor pilot detail');
+assert.match(js, /'home-pilot': '首页试用合作'/, 'admin analytics must label home trial intent source');
+assert.match(js, /'my-membership': '我的页会员权益'/, 'admin analytics must label my page membership source');
+assert.match(js, /'parent-growth-report': '成长报告'/, 'admin analytics must label growth report commercial source');
+assert.match(js, /'prematch-pack-report': '赛前情报包'/, 'admin analytics must label prematch report commercial source');
+assert.match(js, /'coach-segmentation-report': '教练分层报告'/, 'admin analytics must label coach report commercial source');
 assert.match(js, /关键动作/, 'admin analytics must expose product action rankings');
 assert.match(js, /动作明细/, 'admin analytics must expose product action detail rankings');
 assert.match(js, /mergeMetricRows\(days, 'actions'\)/, 'admin analytics must merge action rows across days');
@@ -109,7 +114,7 @@ assert.match(html, /id="analyticsTrend"/, 'admin import page must expose analyti
 assert.match(html, /id="analyticsPages"/, 'admin import page must expose analytics page rankings');
 assert.match(html, /id="dataHealthSummary"/, 'admin import page must expose data health summary');
 assert.match(html, /id="dataHealthGaps"/, 'admin import page must expose data health gaps');
-assert.match(html, /admin-import\.js\?v=fencingai-product-20260630-report-types-1/, 'admin import JS cache key must be bumped');
-assert.match(html, /admin-import\.css\?v=fencingai-product-20260630-report-types-1/, 'admin import CSS cache key must be bumped');
+assert.match(html, /admin-import\.js\?v=fencingai-product-20260630-report-sources-1/, 'admin import JS cache key must be bumped');
+assert.match(html, /admin-import\.css\?v=fencingai-product-20260630-report-sources-1/, 'admin import CSS cache key must be bumped');
 
 console.log('admin import page feedback is covered');
