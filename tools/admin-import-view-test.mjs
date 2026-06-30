@@ -24,6 +24,8 @@ assert.match(js, /平均停留/, 'admin analytics must expose average duration')
 assert.match(js, /function analyticsActionLabel\(action\)/, 'admin analytics must label product actions');
 assert.match(js, /share_report: '复制报告'/, 'admin analytics must label report share actions');
 assert.match(js, /share_club: '复制招生名片'/, 'admin analytics must label club recruiting share actions');
+assert.match(js, /pilot_interest: '试用意向'/, 'admin analytics must label pilot interest actions');
+assert.match(js, /visitor: '访客'/, 'admin analytics must label visitor pilot detail');
 assert.match(js, /关键动作/, 'admin analytics must expose product action rankings');
 assert.match(js, /动作明细/, 'admin analytics must expose product action detail rankings');
 assert.match(js, /mergeMetricRows\(days, 'actions'\)/, 'admin analytics must merge action rows across days');

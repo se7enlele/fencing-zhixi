@@ -71,6 +71,7 @@ function analyticsActionLabel(action) {
     open_report: '打开报告',
     share_report: '复制报告',
     share_club: '复制招生名片',
+    pilot_interest: '试用意向',
     follow_athlete: '关注选手',
     follow_competition: '关注赛事',
   })[action] || action || '未知动作';
@@ -78,6 +79,14 @@ function analyticsActionLabel(action) {
 
 function analyticsActionDetailLabel(key) {
   const [action, label] = String(key || '').split(':');
+  const pilotDetail = action === 'pilot_interest' ? ({
+    visitor: '访客',
+    parent: '家长',
+    coach: '教练',
+    club: '俱乐部',
+    data: '赛事数据',
+  })[label] : '';
+  if (pilotDetail) return `${analyticsActionLabel(action)} · ${pilotDetail}`;
   const detail = ({
     prematch: '赛前情报',
     growth: '成长报告',
