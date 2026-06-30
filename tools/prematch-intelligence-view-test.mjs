@@ -76,6 +76,9 @@ assert.match(js, /prematchReportBody\.querySelectorAll\('\[data-sport-code\]'\)/
 assert.match(js, /prematchReportBody\.querySelectorAll\('\[data-athlete-id\]'\)/, 'prematch report athletes must be clickable');
 assert.match(js, /data-report-share="prematch"/, 'prematch report must expose a copy summary action');
 assert.match(js, /bindCopyTextButton\(prematchReportHero\.querySelector\('\[data-report-share="prematch"\]'\)/, 'prematch report copy action must be wired');
+assert.match(js, /source: isSingleCompetition \? 'prematch-single-report' : 'prematch-pack-report'/, 'prematch report must expose a report-scoped commercial source');
+assert.match(js, /申请赛前试用/, 'prematch report must include a prematch trial conversion action');
+assert.match(js, /bindReportConversionActions\(prematchReportBody\)/, 'prematch conversion actions must be wired');
 assert.match(js, /执行清单/, 'prematch report must include an action checklist');
 assert.match(js, /const checklistRows = prematchChecklistRows\(\{ competitions, focusRows, opponentRows, rosterReady, isSingleCompetition \}\)/, 'prematch report must render checklist from the current report state');
 assert.match(js, /报名名单补齐后再复核对手/, 'prematch checklist must explain what to do when roster data is incomplete');
@@ -88,5 +91,6 @@ assert.match(css, /\.prematch-report-list/, 'prematch report lists must be style
 assert.match(css, /\.prematch-primary-card/, 'prematch primary focus card styles must exist');
 assert.match(css, /\.prematch-checklist/, 'prematch report checklist must be styled');
 assert.match(css, /\.report-share-action/, 'report share button styles must exist');
+assert.match(css, /\.report-conversion-card/, 'report conversion card styles must exist');
 
 console.log('prematch intelligence view is covered');

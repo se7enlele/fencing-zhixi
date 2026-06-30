@@ -3261,6 +3261,60 @@ select:focus {
   box-shadow: none;
 }
 
+.report-conversion-card {
+  display: grid;
+  gap: 12px;
+  border-color: rgba(13, 125, 103, 0.15);
+  background: linear-gradient(135deg, rgba(239, 247, 255, 0.96), rgba(241, 252, 248, 0.96));
+}
+
+.report-conversion-card strong,
+.report-conversion-card span {
+  display: block;
+  min-width: 0;
+}
+
+.report-conversion-card strong {
+  color: var(--text);
+  font-size: 15px;
+  font-weight: 900;
+}
+
+.report-conversion-card span {
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.report-conversion-actions {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 8px;
+}
+
+.report-conversion-actions button {
+  min-height: 40px;
+  border: 1px solid rgba(13, 125, 103, 0.16);
+  border-radius: 12px;
+  background: #fff;
+  color: var(--teal);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 900;
+  box-shadow: none;
+}
+
+.report-conversion-actions button:first-child {
+  border-color: transparent;
+  background: var(--primary);
+  color: #fff;
+}
+
+.report-conversion-actions button:disabled {
+  opacity: 0.72;
+}
+
 .hero {
   position: relative;
   display: grid;

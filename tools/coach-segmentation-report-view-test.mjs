@@ -43,6 +43,9 @@ assert.match(js, /class="coach-segmentation-followups"/, 'segmentation report mu
 assert.match(js, /class="coach-segmentation-evidence"/, 'segmentation report must show traceable evidence');
 assert.match(js, /data-report-share="coach-segmentation"/, 'segmentation report must expose a copy summary action');
 assert.match(js, /bindCopyTextButton\(coachSegmentationReportHero\.querySelector\('\[data-report-share="coach-segmentation"\]'\)/, 'segmentation report copy action must be wired');
+assert.match(js, /source: 'coach-segmentation-report'/, 'coach segmentation report must expose a report-scoped commercial source');
+assert.match(js, /申请教练试用/, 'coach segmentation report must include a coach trial conversion action');
+assert.match(js, /bindReportConversionActions\(coachSegmentationReportBody\)/, 'coach segmentation conversion actions must be wired');
 assert.match(js, /coachSegmentationReportBody\.querySelectorAll\('\[data-athlete-id\]'\)/, 'segmentation report athletes must be clickable');
 assert.match(js, /coachSegmentationReportBody\.querySelectorAll\('\[data-event-code\]'\)/, 'segmentation report evidence must be clickable');
 assert.match(js, /查看完整俱乐部画像/, 'segmentation report must allow drilling into the full club profile');
@@ -54,5 +57,6 @@ assert.match(css, /\.coach-segmentation-bucket/, 'coach segmentation bucket styl
 assert.match(css, /\.coach-segmentation-followups/, 'coach segmentation follow-up styles must exist');
 assert.match(css, /\.coach-segmentation-evidence/, 'coach segmentation evidence styles must exist');
 assert.match(css, /\.report-share-action/, 'report share button styles must exist');
+assert.match(css, /\.report-conversion-card/, 'report conversion card styles must exist');
 
 console.log('coach segmentation report view is covered');

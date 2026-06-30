@@ -42,6 +42,9 @@ assert.match(js, /class="parent-growth-timeline"/, 'growth report must render a 
 assert.match(js, /class="parent-growth-evidence"/, 'growth report must render traceable evidence');
 assert.match(js, /data-report-share="parent-growth"/, 'growth report must expose a copy summary action');
 assert.match(js, /bindCopyTextButton\(parentGrowthReportHero\.querySelector\('\[data-report-share="parent-growth"\]'\)/, 'growth report copy action must be wired');
+assert.match(js, /source: 'parent-growth-report'/, 'growth report must expose a report-scoped commercial source');
+assert.match(js, /申请家庭试用/, 'growth report must include a family trial conversion action');
+assert.match(js, /bindReportConversionActions\(parentGrowthReportBody\)/, 'growth report conversion actions must be wired');
 assert.match(js, /data-event-code="\$\{escapeHtml\(row\.eventCode/, 'growth report evidence and timeline must link to event detail');
 assert.match(js, /查看完整选手画像/, 'growth report must allow drilling into the full athlete profile');
 
@@ -53,5 +56,6 @@ assert.match(css, /\.parent-growth-action-list/, 'parent growth action plan styl
 assert.match(css, /\.parent-growth-timeline/, 'parent growth timeline styles must exist');
 assert.match(css, /\.parent-growth-evidence/, 'parent growth evidence styles must exist');
 assert.match(css, /\.report-share-action/, 'report share button styles must exist');
+assert.match(css, /\.report-conversion-card/, 'report conversion card styles must exist');
 
 console.log('parent growth report view is covered');

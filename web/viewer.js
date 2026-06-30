@@ -1939,6 +1939,14 @@ function renderParentGrowthReport(athleteId = '') {
       </div>
       <button class="primary-action compact-action" type="button" data-athlete-id="${escapeHtml(athlete.id)}">查看完整选手画像</button>
     </article>
+
+    ${reportConversionCard({
+      source: 'parent-growth-report',
+      title: '持续跟踪成长变化',
+      detail: '适合把参赛记录、阶段变化和下一场建议沉淀成家庭长期报告。',
+      primaryLabel: '申请家庭试用',
+      secondaryLabel: '关注会员权益',
+    })}
   `;
 
   parentGrowthReportBody.querySelectorAll('[data-event-code]').forEach((button) => {
@@ -1947,6 +1955,7 @@ function renderParentGrowthReport(athleteId = '') {
     });
   });
   parentGrowthReportBody.querySelector('[data-athlete-id]')?.addEventListener('click', () => openAthlete(athlete.id));
+  bindReportConversionActions(parentGrowthReportBody);
   bindCopyTextButton(parentGrowthReportHero.querySelector('[data-report-share="parent-growth"]'), () => buildParentGrowthShareText(athlete, model, focusRows, actionRows), 'parent-growth');
 }
 
@@ -2357,7 +2366,51 @@ function homeDataValueRows() {
   ];
 }
 
-async function submitPilotInterest(button) {
+function commercialInterestMessage(context = {}) {
+  return [
+    `当前角色：${state.userRole || '未选择'}`,
+    context.source ? `来源页面：${context.source}` : '',
+    context.report ? `触发报告：${context.report}` : '',
+    `关注选手：${state.followedAthletes.length}`,
+    `关注赛事：${state.followedCompetitions.length}`,
+    `最近报告：${state.reportHistory.length}`,
+    `最近 AI 分析：${state.aiHistory.length}`,
+  ].filter(Boolean);
+}
+
+function reportConversionCard({ source, title, detail, primaryLabel = '申请试用', secondaryLabel = '了解会员权益' }) {
+  return `
+    <article class="panel report-conversion-card">
+      <div>
+        <strong>${escapeHtml(title)}</strong>
+        <span>${escapeHtml(detail)}</span>
+      </div>
+      <div class="report-conversion-actions">
+        <button type="button" data-commercial-intent="pilot" data-commercial-source="${escapeHtml(source)}" data-report-title="${escapeHtml(title)}">${escapeHtml(primaryLabel)}</button>
+        <button type="button" data-commercial-intent="membership" data-commercial-source="${escapeHtml(source)}" data-report-title="${escapeHtml(title)}">${escapeHtml(secondaryLabel)}</button>
+      </div>
+    </article>
+  `;
+}
+
+function bindReportConversionActions(container) {
+  if (!container) return;
+  container.querySelectorAll('[data-commercial-intent]').forEach((button) => {
+    button.addEventListener('click', () => {
+      const context = {
+        source: button.dataset.commercialSource || '',
+        report: button.dataset.reportTitle || '',
+      };
+      if (button.dataset.commercialIntent === 'membership') {
+        submitMembershipInterest(button, context);
+      } else {
+        submitPilotInterest(button, context);
+      }
+    });
+  });
+}
+
+async function submitPilotInterest(button, context = {}) {
   if (!button) return;
   const originalLabel = button.textContent;
   button.disabled = true;
@@ -2370,22 +2423,16 @@ async function submitPilotInterest(button) {
         deviceId: state.deviceId,
         type: 'pilot-interest',
         subject: {
-          id: `pilot-${state.userRole || 'visitor'}`,
-          name: '产品试用意向',
+          id: `pilot-${context.source || state.userRole || 'visitor'}`,
+          name: context.report || '产品试用意向',
           type: state.userRole || 'visitor',
         },
-        message: [
-          `当前角色：${state.userRole || '未选择'}`,
-          `关注选手：${state.followedAthletes.length}`,
-          `关注赛事：${state.followedCompetitions.length}`,
-          `最近报告：${state.reportHistory.length}`,
-          `最近 AI 分析：${state.aiHistory.length}`,
-        ].join('；'),
+        message: commercialInterestMessage(context).join('；'),
       }),
     });
     const result = await response.json();
     if (!response.ok || !result.ok) throw new Error(result.message || '提交失败');
-    trackAnalyticsAction('pilot_interest', state.userRole || 'visitor');
+    trackAnalyticsAction('pilot_interest', context.source || state.userRole || 'visitor');
     button.textContent = '已收到';
   } catch {
     button.textContent = '稍后再试';
@@ -2396,7 +2443,7 @@ async function submitPilotInterest(button) {
   }, 1800);
 }
 
-async function submitMembershipInterest(button) {
+async function submitMembershipInterest(button, context = {}) {
   if (!button) return;
   const originalLabel = button.textContent;
   button.disabled = true;
@@ -2409,23 +2456,19 @@ async function submitMembershipInterest(button) {
         deviceId: state.deviceId,
         type: 'membership-interest',
         subject: {
-          id: `membership-${state.userRole || 'visitor'}`,
-          name: '会员意向',
+          id: `membership-${context.source || state.userRole || 'visitor'}`,
+          name: context.report || '会员意向',
           type: state.userRole || 'visitor',
         },
         message: [
-          `当前角色：${state.userRole || '未选择'}`,
-          `关注选手：${state.followedAthletes.length}`,
-          `关注赛事：${state.followedCompetitions.length}`,
-          `最近报告：${state.reportHistory.length}`,
-          `最近 AI 分析：${state.aiHistory.length}`,
+          ...commercialInterestMessage(context),
           '意向权益：成长报告、重点对手、俱乐部分析和无广告体验',
         ].join('；'),
       }),
     });
     const result = await response.json();
     if (!response.ok || !result.ok) throw new Error(result.message || '提交失败');
-    trackAnalyticsAction('membership_interest', state.userRole || 'visitor');
+    trackAnalyticsAction('membership_interest', context.source || state.userRole || 'visitor');
     button.textContent = '已收到';
   } catch {
     button.textContent = '稍后再试';
@@ -7273,6 +7316,14 @@ function renderCoachSegmentationReport(clubId = '') {
       </div>
       <button class="primary-action compact-action" type="button" data-club-id="${escapeHtml(club.id)}">查看完整俱乐部画像</button>
     </article>
+
+    ${reportConversionCard({
+      source: 'coach-segmentation-report',
+      title: '把学员分层用于日常经营',
+      detail: '适合小型剑馆验证训练反馈、家长沟通和招生展示是否能形成稳定流程。',
+      primaryLabel: '申请教练试用',
+      secondaryLabel: '关注团队权益',
+    })}
   `;
 
   coachSegmentationReportBody.querySelectorAll('[data-athlete-id]').forEach((button) => {
@@ -7284,6 +7335,7 @@ function renderCoachSegmentationReport(clubId = '') {
     button.addEventListener('click', () => openEvent(button.dataset.eventCode));
   });
   coachSegmentationReportBody.querySelector('[data-club-id]')?.addEventListener('click', () => openClub(club.id));
+  bindReportConversionActions(coachSegmentationReportBody);
   bindCopyTextButton(coachSegmentationReportHero.querySelector('[data-report-share="coach-segmentation"]'), () => buildCoachSegmentationShareText(club, buckets, followups, projectRows), 'coach-segmentation');
 }
 
@@ -8490,6 +8542,14 @@ function renderPrematchReport(kind = 'prematch-pack', sportCode = '') {
         `).join('')}
       </div>
     </article>
+
+    ${reportConversionCard({
+      source: isSingleCompetition ? 'prematch-single-report' : 'prematch-pack-report',
+      title: isSingleCompetition ? '生成本场赛前服务' : '建立赛前提醒服务',
+      detail: isSingleCompetition ? '适合围绕本场报名、重点对象和强手线索持续更新。' : '适合把近期赛事、报名名单和关注对象做成赛前提醒。',
+      primaryLabel: '申请赛前试用',
+      secondaryLabel: '关注会员权益',
+    })}
   `;
 
   prematchReportBody.querySelectorAll('[data-athlete-id]').forEach((button) => {
@@ -8507,6 +8567,7 @@ function renderPrematchReport(kind = 'prematch-pack', sportCode = '') {
       if (button.dataset.sportCode) openCompetition(button.dataset.sportCode);
     });
   });
+  bindReportConversionActions(prematchReportBody);
   bindCopyTextButton(prematchReportHero.querySelector('[data-report-share="prematch"]'), () => buildPrematchShareText(competitions, focusRows, opponentRows, isSingleCompetition), isSingleCompetition ? 'prematch-single' : 'prematch-pack');
 }
 
