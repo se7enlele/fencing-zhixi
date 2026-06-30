@@ -85,7 +85,8 @@ assert.match(js, /data-copy-commercial-leads/, 'admin import must expose a comme
 assert.match(js, /data-copy-commercial-leads>复制待跟进<\/button>/, 'admin import must label commercial lead copy action as open follow-up export');
 assert.match(js, /copyCommercialLeads\(event\.currentTarget, openLeads\)/, 'commercial lead copy action must export only open leads by default');
 assert.match(js, /function commercialLeadCsv\(rows = \[\]\)/, 'admin import must export commercial leads as CSV text');
-assert.match(js, /'优先级', '角色', '来源页面', '触发报告'/, 'commercial lead CSV must include priority, source and report fields');
+assert.match(js, /'优先级', '产品形态', '角色', '来源页面', '触发报告'/, 'commercial lead CSV must include priority, product segment, source and report fields');
+assert.match(js, /commercialLeadReportLabel\(row\),/, 'commercial lead CSV must export the report type segment');
 assert.match(js, /'建议下一步'/, 'commercial lead CSV must include recommended next steps');
 assert.match(js, /function copyCommercialLeads\(button, leads = \[\]\)/, 'admin import must copy commercial leads for follow-up');
 assert.match(js, /navigator\.clipboard\.writeText\(commercialLeadCsv\(leads\)\)/, 'commercial lead copy action must use the clipboard API');
@@ -138,7 +139,7 @@ assert.match(html, /id="analyticsTrend"/, 'admin import page must expose analyti
 assert.match(html, /id="analyticsPages"/, 'admin import page must expose analytics page rankings');
 assert.match(html, /id="dataHealthSummary"/, 'admin import page must expose data health summary');
 assert.match(html, /id="dataHealthGaps"/, 'admin import page must expose data health gaps');
-assert.match(html, /admin-import\.js\?v=fencingai-product-20260630-lead-segments-1/, 'admin import JS cache key must be bumped');
-assert.match(html, /admin-import\.css\?v=fencingai-product-20260630-lead-segments-1/, 'admin import CSS cache key must be bumped');
+assert.match(html, /admin-import\.js\?v=fencingai-product-20260630-lead-csv-segments-1/, 'admin import JS cache key must be bumped');
+assert.match(html, /admin-import\.css\?v=fencingai-product-20260630-lead-csv-segments-1/, 'admin import CSS cache key must be bumped');
 
 console.log('admin import page feedback is covered');

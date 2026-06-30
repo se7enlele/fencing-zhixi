@@ -671,7 +671,7 @@ function renderPilotLeadSummary(rows = []) {
 }
 
 function commercialLeadCsv(rows = []) {
-  const headers = ['类型', '优先级', '角色', '来源页面', '触发报告', '关注选手', '关注赛事', '最近报告', '最近AI分析', '建议下一步', '状态', '时间'];
+  const headers = ['类型', '优先级', '产品形态', '角色', '来源页面', '触发报告', '关注选手', '关注赛事', '最近报告', '最近AI分析', '建议下一步', '状态', '时间'];
   const escapeCsv = (value) => `"${String(value ?? '').replace(/"/g, '""')}"`;
   const lines = rows.map((row) => {
     const detail = commercialLeadDetail(row);
@@ -679,6 +679,7 @@ function commercialLeadCsv(rows = []) {
     return [
       feedbackTypeLabel(row.type),
       priority.label,
+      commercialLeadReportLabel(row),
       detail.role,
       detail.source,
       detail.report,
