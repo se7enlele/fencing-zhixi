@@ -4254,6 +4254,92 @@ function buildAiAnswerShareText(report) {
   lines.push('', '由 FencingAI 基于已收录赛事数据生成');
   return lines.filter((line, index) => line !== '' || lines[index - 1] !== '').join('\n').trim();
 }
+
+function aiReportConversionAction(report = {}) {
+  const type = report.type || 'answer';
+  const templateKind = report.templateKind || '';
+  const title = report.title || 'FencingAI 分析';
+  if (type === 'empty' || type === 'fallback') return null;
+  if (type === 'prematch') {
+    return {
+      source: 'ai-prematch-answer',
+      title: '把这份赛前分析做成提醒',
+      detail: '适合持续跟进报名名单、关注选手和重点对手。',
+      primaryLabel: '申请赛前试用',
+      secondaryLabel: '了解会员权益',
+    };
+  }
+  if (type === 'growth') {
+    return {
+      source: 'ai-growth-answer',
+      title: '生成持续成长报告',
+      detail: '适合按月/按赛事复盘孩子进步、稳定性和下一步投入。',
+      primaryLabel: '申请家庭试用',
+      secondaryLabel: '了解会员权益',
+    };
+  }
+  if (type === 'club' || type === 'club-recruiting') {
+    return {
+      source: type === 'club-recruiting' ? 'ai-club-recruiting-answer' : 'ai-club-answer',
+      title: '建立剑馆经营看板',
+      detail: '适合把学员分层、强项项目和招生素材做成固定工作台。',
+      primaryLabel: '申请教练试用',
+      secondaryLabel: '了解剑馆权益',
+    };
+  }
+  if (type === 'competition-stats') {
+    return {
+      source: 'ai-competition-stats-answer',
+      title: '订阅赛事和报名提醒',
+      detail: '适合持续跟踪目标地区、项目和状态变化。',
+      primaryLabel: '申请赛事提醒',
+      secondaryLabel: '了解会员权益',
+    };
+  }
+  if (type === 'comparison') {
+    return {
+      source: 'ai-comparison-answer',
+      title: '持续跟踪这组选手',
+      detail: '适合赛前复盘交手记录、共同项目和近期状态变化。',
+      primaryLabel: '申请对手分析',
+      secondaryLabel: '了解会员权益',
+    };
+  }
+  if (type === 'business-insight' || type === 'product-template') {
+    return {
+      source: templateKind ? `ai-template-${templateKind}` : 'ai-business-insight-answer',
+      title: type === 'product-template' ? '落地这类报告服务' : '申请产品试用',
+      detail: type === 'product-template' ? `围绕“${title}”验证真实用户是否愿意持续使用。` : '适合验证赛前情报、成长报告和教练工作台的商业转化。',
+      primaryLabel: '申请试用',
+      secondaryLabel: '了解会员权益',
+    };
+  }
+  return {
+    source: `ai-${type}-answer`,
+    title: '持续使用这类分析',
+    detail: '适合把本次分析沉淀为后续提醒、报告或工作台。',
+    primaryLabel: '申请试用',
+    secondaryLabel: '了解会员权益',
+  };
+}
+
+function renderAiConversionBlock(report = {}) {
+  const action = aiReportConversionAction(report);
+  if (!action) return '';
+  return `
+    <div class="ai-conversion-card">
+      <div>
+        <strong>${escapeHtml(action.title)}</strong>
+        <span>${escapeHtml(action.detail)}</span>
+      </div>
+      <div class="ai-conversion-actions">
+        <button type="button" data-commercial-intent="pilot" data-commercial-source="${escapeHtml(action.source)}" data-report-title="${escapeHtml(action.title)}">${escapeHtml(action.primaryLabel)}</button>
+        <button type="button" data-commercial-intent="membership" data-commercial-source="${escapeHtml(action.source)}" data-report-title="${escapeHtml(action.title)}">${escapeHtml(action.secondaryLabel)}</button>
+      </div>
+    </div>
+  `;
+}
+
 function renderAiAnswer(report) {
   const followUps = aiFollowUpPrompts(report).slice(0, 2);
   const trustRows = aiTrustRows(report);
@@ -4320,6 +4406,7 @@ function renderAiAnswer(report) {
         <strong>下一步</strong>
         ${aiNextStepRows(report).map((row) => `<span>${escapeHtml(row)}</span>`).join('')}
       </div>
+      ${renderAiConversionBlock(report)}
       <div class="ai-share-row">
         <button type="button" data-ai-share>复制分析摘要</button>
         <button type="button" data-ai-feedback="ai-helpful">有帮助</button>
@@ -4420,6 +4507,7 @@ function bindAiAnswerActions(container) {
       navigateMain(button.dataset.mainTarget);
     });
   });
+  bindReportConversionActions(container);
 }
 
 function renderFocusPage() {
