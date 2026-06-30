@@ -594,6 +594,8 @@ function renderPilotLeadSummary(rows = []) {
   }
   const openLeads = leads.filter((row) => !['resolved', 'ignored'].includes(row.status || 'new'));
   const hotLeads = openLeads.filter((row) => commercialLeadPriority(row).level === 'high');
+  const newLeads = leads.filter((row) => (row.status || 'new') === 'new');
+  const reviewingLeads = leads.filter((row) => row.status === 'reviewing');
   const roleCounts = leads.reduce((map, row) => {
     const detail = commercialLeadDetail(row);
     const role = detail.role;
@@ -608,7 +610,7 @@ function renderPilotLeadSummary(rows = []) {
         <div>
           <span>商业线索</span>
           <strong>${openLeads.length} 条待跟进</strong>
-          <em>${hotLeads.length} 条高优先级</em>
+          <em>${hotLeads.length} 条高优先级 · ${newLeads.length} 条新线索 · ${reviewingLeads.length} 条处理中</em>
         </div>
         <div class="pilot-lead-head-actions">
           <em>${escapeHtml(roleText || '角色待确认')}</em>
