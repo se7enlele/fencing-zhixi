@@ -2330,6 +2330,47 @@ function aiHistoryRows() {
   }));
 }
 
+function membershipBenefitRows() {
+  return [
+    {
+      title: '家庭成长跟踪',
+      detail: '持续保存成长报告、阶段建议和近期比赛提醒，方便复盘投入效果。',
+    },
+    {
+      title: '赛前情报',
+      detail: '围绕关注选手和报名赛事，整理潜在对手、强手和备赛重点。',
+    },
+    {
+      title: '教练与剑馆',
+      detail: '沉淀学员分层、续费沟通和招生展示素材，支撑日常经营。',
+    },
+  ];
+}
+
+function renderMembershipBenefits() {
+  return `
+    <section class="panel my-section membership-benefit-panel">
+      <div class="section-title">
+        <h2>会员权益</h2>
+        <span>持续使用</span>
+      </div>
+      <p>把成长报告、赛前情报和教练工作台集中保存，关键比赛前可以直接继续分析。</p>
+      <div class="membership-benefit-grid">
+        ${membershipBenefitRows().map((row) => `
+          <article class="membership-benefit-card">
+            <strong>${escapeHtml(row.title)}</strong>
+            <span>${escapeHtml(row.detail)}</span>
+          </article>
+        `).join('')}
+      </div>
+      <div class="membership-benefit-actions">
+        <button type="button" data-commercial-intent="membership" data-commercial-source="my-membership" data-report-title="会员权益">了解会员权益</button>
+        <button type="button" data-commercial-intent="pilot" data-commercial-source="my-membership" data-report-title="会员权益">申请试用</button>
+      </div>
+    </section>
+  `;
+}
+
 function homeDataValueRows() {
   const prematch = prematchReportCompetitions()[0];
   const child = focusAthleteCards()[0];
@@ -4638,6 +4679,8 @@ function renderMyPage() {
       `).join('')}
     </section>
 
+    ${renderMembershipBenefits()}
+
     <section class="panel my-section">
       <div class="section-title">
         <h2>我的孩子</h2>
@@ -4764,6 +4807,7 @@ function renderMyPage() {
       if (button.dataset.type === 'club') openClub(button.dataset.id);
     });
   });
+  bindReportConversionActions(myPage);
 }
 
 function parseDateCandidates(value) {
@@ -8820,7 +8864,10 @@ filterSheetOptions.addEventListener('click', (event) => {
   setFilterValue(button.dataset.filterType, button.dataset.filterValue);
   closeFilterSheet();
 });
-memberCta?.addEventListener('click', (event) => submitMembershipInterest(event.currentTarget));
+memberCta?.addEventListener('click', (event) => submitMembershipInterest(event.currentTarget, {
+  source: 'member-panel',
+  report: '家长会员',
+}));
 document.querySelectorAll('[data-nav-role-home]').forEach((button) => {
   button.addEventListener('click', () => {
     state.userRole = '';

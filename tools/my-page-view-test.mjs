@@ -69,10 +69,14 @@ assert.match(js, /trackAnalyticsAction\('pilot_interest', context\.source \|\| s
 assert.match(js, /async function submitMembershipInterest\(button, context = \{\}\)/, 'member CTA must submit membership interest with optional source context');
 assert.match(js, /type: 'membership-interest'/, 'member CTA must use the feedback workflow');
 assert.match(js, /trackAnalyticsAction\('membership_interest', context\.source \|\| state\.userRole \|\| 'visitor'\)/, 'membership interest must be tracked as a conversion action with source context');
-assert.match(js, /memberCta\?\.addEventListener\('click', \(event\) => submitMembershipInterest\(event\.currentTarget\)\)/, 'member CTA must be wired to membership interest submission');
+assert.match(js, /memberCta\?\.addEventListener\('click', \(event\) => submitMembershipInterest\(event\.currentTarget, \{[\s\S]*source: 'member-panel'[\s\S]*report: '家长会员'[\s\S]*\}\)/, 'member CTA must be wired to membership interest submission with source context');
 assert.match(js, /function commercialInterestMessage\(context = \{\}\)/, 'commercial interest messages must include optional source context');
 assert.match(js, /function reportConversionCard\(\{ source, title, detail/, 'reports must expose reusable conversion cards');
 assert.match(js, /function bindReportConversionActions\(container\)/, 'report conversion cards must bind their feedback actions');
+assert.match(js, /function membershipBenefitRows\(\)/, 'my page must define membership benefit rows');
+assert.match(js, /function renderMembershipBenefits\(\)/, 'my page must render a membership benefit panel');
+assert.match(js, /data-commercial-source="my-membership"/, 'my page membership panel must submit a traceable commercial source');
+assert.match(js, /bindReportConversionActions\(myPage\)/, 'my page membership buttons must reuse commercial conversion actions');
 assert.match(js, /function homeDataValueRows\(\)/, 'home page must build productized data value entry cards');
 assert.match(js, /class="data-value-grid"/, 'home page must render productized data value cards');
 assert.match(js, /data-home-ai-product="\$\{escapeHtml\(row\.query\)\}"/, 'data value cards must carry runnable AI product questions');
@@ -153,6 +157,8 @@ assert.match(css, /\.report-center-grid/, 'home report center styles must exist'
 assert.match(css, /\.pilot-interest-card/, 'pilot trial intent card styles must exist');
 assert.match(css, /\.report-history-list/, 'recent report shortcut styles must exist');
 assert.match(css, /\.ai-history-list/, 'recent AI analysis shortcut styles must exist');
+assert.match(css, /\.membership-benefit-grid/, 'my page membership benefit styles must exist');
+assert.match(css, /\.membership-benefit-actions/, 'my page membership benefit actions must be compact and tappable');
 assert.match(css, /\.ai-evidence/, 'AI workspace must style source evidence cards');
 assert.match(css, /\.parent-next-focus/, 'parent next focus styles must exist');
 assert.match(css, /\.parent-focus-row/, 'parent focus row styles must exist');

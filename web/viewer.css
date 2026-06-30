@@ -2297,6 +2297,67 @@ select:focus {
   font-style: normal;
 }
 
+.membership-benefit-panel {
+  display: grid;
+  gap: 10px;
+}
+
+.membership-benefit-panel p {
+  margin: -2px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.membership-benefit-grid {
+  display: grid;
+  gap: 8px;
+}
+
+.membership-benefit-card {
+  display: grid;
+  gap: 4px;
+  border: 1px solid rgba(13, 125, 103, 0.12);
+  border-radius: 10px;
+  background: linear-gradient(135deg, rgba(13, 125, 103, 0.08), rgba(21, 95, 194, 0.04));
+  padding: 10px;
+}
+
+.membership-benefit-card strong {
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.membership-benefit-card span {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.membership-benefit-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.membership-benefit-actions button {
+  border: 1px solid rgba(21, 95, 194, 0.16);
+  border-radius: 10px;
+  background: rgba(21, 95, 194, 0.08);
+  color: var(--primary);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 900;
+  min-height: 38px;
+}
+
+.membership-benefit-actions button:first-child {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
+}
+
 .focus-dashboard {
   display: grid;
   gap: 10px;
