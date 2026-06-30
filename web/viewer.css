@@ -3939,6 +3939,7 @@ select:focus {
 }
 
 .parent-growth-focus-list,
+.parent-growth-action-list,
 .parent-growth-timeline,
 .parent-growth-evidence {
   display: grid;
@@ -3946,6 +3947,7 @@ select:focus {
 }
 
 .parent-growth-focus-list div,
+.parent-growth-action-list div,
 .parent-growth-timeline button,
 .parent-growth-evidence button {
   display: grid;
@@ -3967,6 +3969,8 @@ select:focus {
 
 .parent-growth-focus-list strong,
 .parent-growth-focus-list span,
+.parent-growth-action-list strong,
+.parent-growth-action-list span,
 .parent-growth-timeline strong,
 .parent-growth-timeline span,
 .parent-growth-timeline em,
@@ -3981,6 +3985,7 @@ select:focus {
 }
 
 .parent-growth-focus-list strong,
+.parent-growth-action-list strong,
 .parent-growth-timeline strong,
 .parent-growth-evidence strong {
   font-size: 14px;
@@ -3988,6 +3993,7 @@ select:focus {
 }
 
 .parent-growth-focus-list span,
+.parent-growth-action-list span,
 .parent-growth-timeline span,
 .parent-growth-timeline em,
 .parent-growth-evidence span,
