@@ -59,6 +59,7 @@ assert.match(js, /state\.selectedChildId[\s\S]*focusRows\.find/, 'prematch repor
 assert.match(js, /本次重点对象/, 'prematch report must expose the selected child or focused athlete as the report anchor');
 assert.match(js, /prematchPrimaryFocusDetail\(primaryFocus\)/, 'prematch report must explain why the focused athlete matters for this report');
 assert.match(js, /function prematchReportOpponentRows\(projectLabels\)/, 'prematch report must include strong-opponent signals');
+assert.match(js, /function prematchChecklistRows\(\{ competitions = \[\], focusRows = \[\], opponentRows = \[\], rosterReady = 0, isSingleCompetition = false \} = \{\}\)/, 'prematch report must generate a dynamic action checklist');
 assert.match(js, /function buildPrematchShareText\(competitions, focusRows, opponentRows, isSingleCompetition\)/, 'prematch report must build shareable summary text');
 assert.match(js, /function renderPrematchReport\(kind = 'prematch-pack', sportCode = ''\)/, 'prematch report must render a real report view scoped by competition when needed');
 assert.match(js, /function openPrematchReport\(kind = 'prematch-pack', sportCode = ''\)/, 'prematch report must be navigable with an optional competition scope');
@@ -76,6 +77,10 @@ assert.match(js, /prematchReportBody\.querySelectorAll\('\[data-athlete-id\]'\)/
 assert.match(js, /data-report-share="prematch"/, 'prematch report must expose a copy summary action');
 assert.match(js, /bindCopyTextButton\(prematchReportHero\.querySelector\('\[data-report-share="prematch"\]'\)/, 'prematch report copy action must be wired');
 assert.match(js, /执行清单/, 'prematch report must include an action checklist');
+assert.match(js, /const checklistRows = prematchChecklistRows\(\{ competitions, focusRows, opponentRows, rosterReady, isSingleCompetition \}\)/, 'prematch report must render checklist from the current report state');
+assert.match(js, /报名名单补齐后再复核对手/, 'prematch checklist must explain what to do when roster data is incomplete');
+assert.match(js, /关注孩子或学员后，赛前报告会自动生成个人化项目匹配和准备重点/, 'prematch checklist must guide users to follow a child or athlete');
+assert.match(js, /\.\.\.checklistRows\.slice\(0, 4\)\.map/, 'prematch share text must include action checklist rows');
 assert.match(css, /\.competition-prematch-cta/, 'competition prematch CTA must be styled');
 assert.match(css, /\.prematch-report-shell/, 'prematch report shell styles must exist');
 assert.match(css, /\.prematch-report-metrics/, 'prematch report metrics must be styled');

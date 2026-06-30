@@ -8259,8 +8259,42 @@ function prematchReportOpponentRows(projectLabels) {
     .slice(0, 6);
 }
 
+function prematchChecklistRows({ competitions = [], focusRows = [], opponentRows = [], rosterReady = 0, isSingleCompetition = false } = {}) {
+  const nearest = competitions[0] || null;
+  const hasFocus = Boolean(focusRows.length);
+  const hasOpponents = Boolean(opponentRows.length);
+  return [
+    {
+      title: '1. 确认报名和项目',
+      detail: rosterReady
+        ? `${rosterReady} 场已有报名信息，先核对孩子或学员是否在目标项目里。`
+        : `${isSingleCompetition ? '本场' : '近期'}项目先作为备赛范围，报名名单补齐后再复核对手。`,
+    },
+    {
+      title: hasFocus ? '2. 锁定重点对象' : '2. 先关注孩子或学员',
+      detail: hasFocus
+        ? `优先看 ${focusRows.slice(0, 2).map((row) => row.athlete?.name).filter(Boolean).join('、')} 的历史项目和近期表现。`
+        : '关注孩子或学员后，赛前报告会自动生成个人化项目匹配和准备重点。',
+    },
+    {
+      title: hasOpponents ? '3. 对照强手准备' : '3. 等待强手线索',
+      detail: hasOpponents
+        ? `先看 ${opponentRows.slice(0, 2).map((athlete) => athlete.name).filter(Boolean).join('、')} 等同项目强手，再安排训练重点。`
+        : '当前同项目强手样本不足，先用赛事规模、项目结构和过往成绩判断比赛难度。',
+    },
+    {
+      title: '4. 赛前沟通',
+      detail: nearest
+        ? `围绕 ${nearest.sportName}，把项目确认、重点对象和对手线索整理成家长/学员沟通材料。`
+        : '没有明确目标赛事时，先把关注对象的历史项目和下一场可能参赛方向整理出来。',
+    },
+  ];
+}
+
 function buildPrematchShareText(competitions, focusRows, opponentRows, isSingleCompetition) {
   const nearest = competitions[0] || null;
+  const rosterReady = competitions.filter((competition) => competition.rosterStatus === 'partial' || competition.rosterStatus === 'complete').length;
+  const checklistRows = prematchChecklistRows({ competitions, focusRows, opponentRows, rosterReady, isSingleCompetition });
   return [
     isSingleCompetition && nearest ? `${nearest.sportName} 赛前情报包` : '赛前情报包',
     nearest ? `赛事：${nearest.sportName}` : '赛事：近期赛前赛事',
@@ -8269,6 +8303,7 @@ function buildPrematchShareText(competitions, focusRows, opponentRows, isSingleC
     `关注对象：${focusRows.length} 人，强手线索：${opponentRows.length} 个`,
     ...focusRows.slice(0, 3).map((row, index) => `关注对象${index + 1}：${row.athlete.name}，${row.advice}`),
     ...opponentRows.slice(0, 3).map((athlete, index) => `强手线索${index + 1}：${athlete.name}，最好第 ${athlete.bestRank ?? '-'} 名`),
+    ...checklistRows.slice(0, 4).map((row) => `${row.title}：${row.detail}`),
     '数据来源：FencingAI 已收录赛事、报名和历史成绩',
   ].filter(Boolean).join('\n');
 }
@@ -8284,6 +8319,7 @@ function renderPrematchReport(kind = 'prematch-pack', sportCode = '') {
   const rosterReady = competitions.filter((competition) => competition.rosterStatus === 'partial' || competition.rosterStatus === 'complete').length;
   const nearest = competitions[0] || null;
   const selectedItems = selectedCompetition ? compactCompetitionEventRows(competitionItemSummaries(selectedCompetition), 6) : [];
+  const checklistRows = prematchChecklistRows({ competitions, focusRows, opponentRows, rosterReady, isSingleCompetition });
 
   prematchReportHero.innerHTML = `
     <div class="hero-title">${escapeHtml(isSingleCompetition ? '本场赛前情报包' : '赛前情报包')}</div>
@@ -8404,9 +8440,9 @@ function renderPrematchReport(kind = 'prematch-pack', sportCode = '') {
         <span>赛前 3 步</span>
       </div>
       <div class="prematch-checklist">
-        <div><strong>1. 确认项目</strong><span>先确认孩子或学员是否匹配本场赛事项目。</span></div>
-        <div><strong>2. 锁定强手</strong><span>优先看同项目最好名次靠前、近期参赛连续的选手。</span></div>
-        <div><strong>3. 安排沟通</strong><span>家长看准备重点，教练看训练安排和对手结构。</span></div>
+        ${checklistRows.map((row) => `
+          <div><strong>${escapeHtml(row.title)}</strong><span>${escapeHtml(row.detail)}</span></div>
+        `).join('')}
       </div>
     </article>
   `;
