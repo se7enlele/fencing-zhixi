@@ -47,6 +47,10 @@ assert.match(js, /analyticsMetricValue\(actionRows, 'pilot_interest'\) \+ analyt
 assert.match(js, /function analyticsReportTypeRows\(actionLabelRows = \[\]\)/, 'admin analytics must aggregate report type conversion rows');
 assert.match(js, /\['open_report', 'share_report'\]\.includes\(action\)/, 'report type analytics must use report open and share actions');
 assert.match(js, /'ai-report': 'AI报告'/, 'report type analytics must label reopened AI reports');
+assert.match(js, /'ai-business-insight': 'AI 商业洞察'/, 'report type analytics must label shared AI business reports');
+assert.match(js, /'ai-product-template': 'AI 报告方案'/, 'report type analytics must label shared AI template reports');
+assert.match(js, /'ai-club': 'AI 俱乐部分析'/, 'report type analytics must label shared AI club reports');
+assert.match(js, /'ai-competition-stats': 'AI 赛事统计'/, 'report type analytics must label shared AI competition stat reports');
 assert.match(js, /商业转化漏斗/, 'admin analytics must render a commercial conversion funnel');
 assert.match(js, /报告热度/, 'admin analytics must render report type popularity');
 assert.match(js, /复制率/, 'admin analytics report type rows must expose share rate');
