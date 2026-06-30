@@ -70,6 +70,9 @@ assert.match(js, /detail\.rawSource \|\| detail\.source/, 'commercial lead prior
 assert.match(js, /function aiFeedbackDetail\(row = \{\}\)/, 'admin import must parse AI feedback context');
 assert.match(js, /function commercialLeadPriority\(row = \{\}\)/, 'admin import must prioritize commercial leads for follow-up');
 assert.match(js, /function commercialLeadNextStep\(row = \{\}\)/, 'admin import must recommend a concrete commercial lead follow-up');
+assert.match(js, /function commercialLeadReportLabel\(row = \{\}\)/, 'admin import must classify commercial leads by report type');
+assert.match(js, /const reportCounts = openLeads\.reduce/, 'admin import must aggregate open lead report types');
+assert.match(js, /class="pilot-lead-report-mix"/, 'admin import must render lead report type mix');
 assert.match(js, /确认近期赛事和关注选手，推荐赛前情报试用。/, 'prematch commercial leads must recommend prematch trial follow-up');
 assert.match(js, /function renderPilotLeadSummary\(rows = \[\]\)/, 'admin import must render pilot lead summary');
 assert.match(js, /\['pilot-interest', 'membership-interest'\]\.includes\(row\.type\)/, 'admin import lead summary must be scoped to commercial leads');
@@ -105,6 +108,8 @@ assert.match(css, /\.roster-progress-grid/, 'roster progress metrics must have a
 assert.match(css, /\.feedback-list/, 'admin feedback list styles must exist');
 assert.match(css, /\.feedback-filter-bar/, 'admin feedback filter styles must exist');
 assert.match(css, /\.pilot-lead-card/, 'admin pilot lead card styles must exist');
+assert.match(css, /\.pilot-lead-report-mix/, 'admin pilot lead report mix styles must exist');
+assert.match(css, /grid-template-columns: repeat\(2, minmax\(0, 1fr\)\);/, 'admin lead report mix must collapse on mobile');
 assert.match(css, /\.pilot-lead-list/, 'admin pilot lead list styles must exist');
 assert.match(css, /\.pilot-lead-head-actions/, 'admin pilot lead actions must be styled');
 assert.match(css, /\.lead-priority/, 'admin commercial lead priority badge styles must exist');
@@ -133,7 +138,7 @@ assert.match(html, /id="analyticsTrend"/, 'admin import page must expose analyti
 assert.match(html, /id="analyticsPages"/, 'admin import page must expose analytics page rankings');
 assert.match(html, /id="dataHealthSummary"/, 'admin import page must expose data health summary');
 assert.match(html, /id="dataHealthGaps"/, 'admin import page must expose data health gaps');
-assert.match(html, /admin-import\.js\?v=fencingai-product-20260630-lead-export-1/, 'admin import JS cache key must be bumped');
-assert.match(html, /admin-import\.css\?v=fencingai-product-20260630-lead-export-1/, 'admin import CSS cache key must be bumped');
+assert.match(html, /admin-import\.js\?v=fencingai-product-20260630-lead-segments-1/, 'admin import JS cache key must be bumped');
+assert.match(html, /admin-import\.css\?v=fencingai-product-20260630-lead-segments-1/, 'admin import CSS cache key must be bumped');
 
 console.log('admin import page feedback is covered');

@@ -562,6 +562,17 @@ function aiFeedbackDetail(row = {}) {
   };
 }
 
+function commercialLeadReportLabel(row = {}) {
+  const detail = commercialLeadDetail(row);
+  const source = `${detail.rawSource || ''} ${detail.report || ''}`.toLowerCase();
+  if (/prematch/.test(source)) return '赛前情报';
+  if (/growth|parent/.test(source)) return '成长报告';
+  if (/coach|club|recruiting/.test(source)) return '教练/剑馆';
+  if (/membership/.test(source) || row.type === 'membership-interest') return '会员权益';
+  if (/business|template|product/.test(source)) return '商业方案';
+  return '试用合作';
+}
+
 function commercialLeadPriority(row = {}) {
   if (!isCommercialLead(row)) return { label: '普通', level: 'normal', score: 0 };
   const detail = commercialLeadDetail(row);
@@ -603,6 +614,14 @@ function renderPilotLeadSummary(rows = []) {
     return map;
   }, new Map());
   const roleText = [...roleCounts.entries()].map(([role, count]) => `${role} ${count}`).join(' / ');
+  const reportCounts = openLeads.reduce((map, row) => {
+    const label = commercialLeadReportLabel(row);
+    map.set(label, (map.get(label) || 0) + 1);
+    return map;
+  }, new Map());
+  const reportRows = [...reportCounts.entries()]
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 4);
   const latest = [...leads].sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0)).slice(0, 5);
   pilotLeadSummary.innerHTML = `
     <section class="pilot-lead-card">
@@ -617,6 +636,16 @@ function renderPilotLeadSummary(rows = []) {
           <button type="button" data-copy-commercial-leads>复制待跟进</button>
         </div>
       </div>
+      ${reportRows.length ? `
+        <div class="pilot-lead-report-mix">
+          ${reportRows.map(([label, count]) => `
+            <div>
+              <strong>${escapeHtml(count)}</strong>
+              <span>${escapeHtml(label)}</span>
+            </div>
+          `).join('')}
+        </div>
+      ` : ''}
       <div class="pilot-lead-list">
         ${latest.map((row) => {
           const detail = commercialLeadDetail(row);
