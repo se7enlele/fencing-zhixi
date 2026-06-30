@@ -4,10 +4,10 @@
   "source": {
     "input": "https://fencing-proxy.aixindiandian.workers.dev/fencingapi/competition/frontsporteventlist?",
     "sourceUrl": "https://fencing-proxy.aixindiandian.workers.dev/fencingapi/competition/frontsporteventlist?",
-    "analyzedAt": "2026-06-29T23:29:50.347Z"
+    "analyzedAt": "2026-06-30T12:26:31.997Z"
   },
   "summary": {
-    "eventCount": 744,
+    "eventCount": 746,
     "sportIds": [
       1,
       2,
@@ -396,6 +396,7 @@
       101287,
       101327,
       101194,
+      101328,
       100885,
       101010,
       101291,
@@ -624,6 +625,7 @@
       100823,
       100994,
       101212,
+      101315,
       101189,
       101268,
       101278,
@@ -1142,6 +1144,7 @@
       "RZSSAH0120260516",
       "RZSSSC1020260822",
       "RZSS2035103",
+      "RZSSSAN0120261106",
       "RZSS2032060",
       "RZSSSH0120250920",
       "RZSSAH0120260530",
@@ -1370,6 +1373,7 @@
       "RZSS2031043",
       "RZSSLN1420250726",
       "RZSS2036022",
+      "RZSSBJ0120260731",
       "RZSS2035092",
       "C01GZJSNMG0120260808",
       "RZSSJS0520260410",
@@ -1530,7 +1534,7 @@
       "2023": 97,
       "2024": 114,
       "2025": 158,
-      "2026": 135
+      "2026": 137
     },
     "gameDesc": {
       "全国冠军赛": 61,
@@ -1553,7 +1557,7 @@
       "国际青少年分站赛": 39,
       "俱乐部区域赛": 8,
       "击剑训练营": 2,
-      "认证赛事": 474,
+      "认证赛事": 476,
       "少年儿童锦标赛": 4,
       "世界杯": 1,
       "花剑大奖赛": 1
@@ -1563,7 +1567,7 @@
       "福建": 20,
       "江苏": 125,
       "上海": 50,
-      "北京": 44,
+      "北京": 45,
       "辽宁": 36,
       "天津": 22,
       "山东": 49,
@@ -1580,7 +1584,7 @@
       "吉林": 6,
       "浙江": 29,
       "湖南": 14,
-      "陕西": 13,
+      "陕西": 14,
       "泰国": 2,
       "香港": 2,
       "广西": 10,
@@ -1601,20 +1605,20 @@
     "areaDesc": {
       "西南": 54,
       "华东": 329,
-      "华北": 113,
+      "华北": 114,
       "东北": 46,
       "中南": 123,
-      "西北": 27,
+      "西北": 28,
       "(empty)": 52
     },
     "sportactive": {
-      "0": 69,
+      "0": 71,
       "2": 675
     },
     "sigupactive": {
-      "0": 51,
-      "1": 15,
-      "2": 678
+      "0": 53,
+      "1": 16,
+      "2": 677
     },
     "groups": {
       "成年组": 86,
@@ -29034,6 +29038,31 @@
       ]
     },
     {
+      "sportId": 101328,
+      "sportCode": "RZSSSAN0120261106",
+      "sportName": "2026年“西咸杯”西安击剑公开赛",
+      "season": "2026",
+      "gameType": "RZSS",
+      "gameDesc": "认证赛事",
+      "gameLevel": "C",
+      "startDate": "2026-11-06 00:00:00",
+      "endDate": "2026-11-08 00:00:00",
+      "signStartDate": "2026-11-06 00:00:00",
+      "signAthEndDate": "2026-11-08 00:00:00",
+      "provinceName": "陕西",
+      "cityName": "西安市",
+      "areaDesc": "西北",
+      "organizer": "BEJBJYSD0001",
+      "mainOrganizer": "陕西省西咸新区教育体育局",
+      "sportactive": "0",
+      "sigupactive": "0",
+      "raceResType": "json",
+      "weaponCodes": null,
+      "groups": [],
+      "groupLabels": [],
+      "files": []
+    },
+    {
       "sportId": 100885,
       "sportCode": "RZSS2032060",
       "sportName": "2025年“爆燃杯”廊坊击剑公开赛",
@@ -29650,7 +29679,7 @@
       "gameLevel": "C",
       "startDate": "2026-08-08 10:00:00",
       "endDate": "2026-08-09 18:00:00",
-      "signStartDate": "2026-07-10 10:00:00",
+      "signStartDate": "2026-07-04 10:00:00",
       "signAthEndDate": "2026-08-02 23:59:59",
       "provinceName": "贵州",
       "cityName": "贵阳市",
@@ -42916,15 +42945,15 @@
       "gameLevel": "C",
       "startDate": "2026-08-12 00:00:00",
       "endDate": "2026-09-14 00:00:00",
-      "signStartDate": "2026-06-28 00:00:00",
-      "signAthEndDate": "2026-06-29 00:00:00",
+      "signStartDate": "2026-06-07 00:00:00",
+      "signAthEndDate": "2027-07-31 00:00:00",
       "provinceName": "辽宁",
       "cityName": "鞍山市",
       "areaDesc": "东北",
       "organizer": "BEJXMKJ0001",
       "mainOrganizer": "京奥",
       "sportactive": "0",
-      "sigupactive": "2",
+      "sigupactive": "1",
       "raceResType": "json",
       "weaponCodes": "F#E#S",
       "groups": [
@@ -44758,6 +44787,31 @@
           "fileUrl": "/fencingapi/file/xiaomei-852b7caeb2874e91aa1e3b45166fc3be.pdf"
         }
       ]
+    },
+    {
+      "sportId": 101315,
+      "sportCode": "RZSSBJ0120260731",
+      "sportName": "2026年“石景山杯”击剑公开赛 北京站",
+      "season": "2026",
+      "gameType": "RZSS",
+      "gameDesc": "认证赛事",
+      "gameLevel": "C",
+      "startDate": "2026-07-31 08:00:00",
+      "endDate": "2026-08-02 18:00:00",
+      "signStartDate": "2026-07-20 10:00:00",
+      "signAthEndDate": "2026-07-23 23:59:59",
+      "provinceName": "北京",
+      "cityName": "石景山区",
+      "areaDesc": "华北",
+      "organizer": "BEJBJJJXH0001",
+      "mainOrganizer": "北京市石景山区体育局",
+      "sportactive": "0",
+      "sigupactive": "0",
+      "raceResType": "json",
+      "weaponCodes": null,
+      "groups": [],
+      "groupLabels": [],
+      "files": []
     },
     {
       "sportId": 101189,
