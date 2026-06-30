@@ -575,6 +575,16 @@ function commercialLeadPriority(row = {}) {
   return { label: '常规跟进', level: 'normal', score };
 }
 
+function commercialLeadNextStep(row = {}) {
+  const detail = commercialLeadDetail(row);
+  const source = `${detail.rawSource || ''} ${detail.report || ''}`.toLowerCase();
+  if (/prematch/.test(source)) return '确认近期赛事和关注选手，推荐赛前情报试用。';
+  if (/growth|parent/.test(source)) return '确认孩子姓名和目标周期，推荐成长报告试用。';
+  if (/coach|club|recruiting/.test(source)) return '确认俱乐部和学员规模，推荐教练工作台试用。';
+  if (row.type === 'membership-interest') return '确认关注选手、赛事提醒和报告保存需求。';
+  return '确认用户角色、关注对象和下一场比赛。';
+}
+
 function renderPilotLeadSummary(rows = []) {
   if (!pilotLeadSummary) return;
   const leads = rows.filter((row) => ['pilot-interest', 'membership-interest'].includes(row.type));
@@ -609,6 +619,7 @@ function renderPilotLeadSummary(rows = []) {
         ${latest.map((row) => {
           const detail = commercialLeadDetail(row);
           const priority = commercialLeadPriority(row);
+          const nextStep = commercialLeadNextStep(row);
           return `
             <article>
               <strong>${escapeHtml(feedbackTypeLabel(row.type))} · ${escapeHtml(detail.role)}</strong>
@@ -616,6 +627,7 @@ function renderPilotLeadSummary(rows = []) {
               <span>${escapeHtml(row.createdAt ? new Date(row.createdAt).toLocaleString('zh-CN') : '-')}</span>
               <p>${escapeHtml(detail.report || '未标记报告')} · ${escapeHtml(detail.source || '来源待确认')}</p>
               <p>选手 ${escapeHtml(detail.athletes)} · 赛事 ${escapeHtml(detail.competitions)} · 报告 ${escapeHtml(detail.reports)} · AI ${escapeHtml(detail.ai)}</p>
+              <p class="lead-next-step">下一步：${escapeHtml(nextStep)}</p>
             </article>
           `;
         }).join('')}
@@ -628,7 +640,7 @@ function renderPilotLeadSummary(rows = []) {
 }
 
 function commercialLeadCsv(rows = []) {
-  const headers = ['类型', '优先级', '角色', '来源页面', '触发报告', '关注选手', '关注赛事', '最近报告', '最近AI分析', '状态', '时间'];
+  const headers = ['类型', '优先级', '角色', '来源页面', '触发报告', '关注选手', '关注赛事', '最近报告', '最近AI分析', '建议下一步', '状态', '时间'];
   const escapeCsv = (value) => `"${String(value ?? '').replace(/"/g, '""')}"`;
   const lines = rows.map((row) => {
     const detail = commercialLeadDetail(row);
@@ -643,6 +655,7 @@ function commercialLeadCsv(rows = []) {
       detail.competitions,
       detail.reports,
       detail.ai,
+      commercialLeadNextStep(row),
       feedbackStatusLabel(row.status),
       row.createdAt ? new Date(row.createdAt).toLocaleString('zh-CN') : '',
     ].map(escapeCsv).join(',');
@@ -733,6 +746,7 @@ function renderFeedback(rows = []) {
           <span class="lead-priority ${escapeHtml(leadPriority.level)}">${escapeHtml(leadPriority.label)}</span>
           <strong>${escapeHtml(leadDetail.report || '未标记报告')}</strong>
           <em>${escapeHtml(leadDetail.source || '来源待确认')}</em>
+          <p>下一步：${escapeHtml(commercialLeadNextStep(row))}</p>
         </div>
       ` : ''}
       ${aiDetail ? `
