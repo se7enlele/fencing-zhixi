@@ -349,6 +349,7 @@ function trackAiAnalysisHistory(query, report) {
   const text = String(query || '').trim();
   if (!text || !report?.type || report.type === 'empty' || report.type === 'fallback') return;
   const key = compactText(text).slice(0, 80);
+  const typeLabel = aiHistoryTypeLabel(report.type);
   state.aiHistory = [
     {
       key,
@@ -356,12 +357,22 @@ function trackAiAnalysisHistory(query, report) {
       title: report.title || text,
       summary: report.summary || '',
       type: report.type,
-      typeLabel: aiHistoryTypeLabel(report.type),
+      typeLabel,
       viewedAt: Date.now(),
     },
     ...(state.aiHistory || []).filter((row) => row.key !== key),
   ].slice(0, 10);
   saveStoredList(AI_HISTORY_KEY, state.aiHistory, 10);
+  if (['prematch', 'growth', 'club', 'business-insight', 'product-template', 'club-recruiting'].includes(report.type)) {
+    trackReportHistory({
+      type: 'ai-report',
+      id: text,
+      title: report.title || text,
+      detail: report.summary || '点击继续查看这份分析',
+      typeLabel,
+      query: text,
+    });
+  }
 }
 
 function setUserRole(role) {
@@ -2327,6 +2338,15 @@ function reportHistoryRows() {
         typeLabel: '赛前情报',
       };
     }
+    if (row.type === 'ai-report') {
+      return {
+        ...fallback,
+        ...row,
+        title: row.title || fallback.title,
+        detail: row.detail || row.query || '点击继续查看这份分析',
+        typeLabel: row.typeLabel || 'AI报告',
+      };
+    }
     return fallback;
   });
 }
@@ -2698,6 +2718,7 @@ function renderHomePage() {
       if (type === 'prematch') openPrematchReport('prematch-pack', id === 'prematch-pack' ? '' : id);
       if (type === 'parent-growth') openParentGrowthReport(id);
       if (type === 'coach-segmentation') openCoachSegmentationReport(id);
+      if (type === 'ai-report') submitAiQuery(id);
     });
   });
   homePage.querySelectorAll('[data-ai-history-query]').forEach((button) => {
@@ -4814,6 +4835,7 @@ function renderMyPage() {
       if (type === 'prematch') openPrematchReport('prematch-pack', id === 'prematch-pack' ? '' : id);
       if (type === 'parent-growth') openParentGrowthReport(id);
       if (type === 'coach-segmentation') openCoachSegmentationReport(id);
+      if (type === 'ai-report') submitAiQuery(id);
     });
   });
   myPage.querySelectorAll('[data-ai-history-query]').forEach((button) => {
