@@ -444,6 +444,32 @@ function parsePilotLeadMessage(message = '') {
   }).filter(([label]) => label));
 }
 
+function commercialLeadDetail(row = {}) {
+  const detail = parsePilotLeadMessage(row.message);
+  return {
+    role: detail['当前角色'] || row.athlete?.type || '未选择',
+    source: detail['来源页面'] || row.athlete?.id || '',
+    report: detail['触发报告'] || row.athlete?.name || '',
+    athletes: detail['关注选手'] || '0',
+    competitions: detail['关注赛事'] || '0',
+    reports: detail['最近报告'] || '0',
+    ai: detail['最近 AI 分析'] || '0',
+  };
+}
+
+function commercialLeadPriority(row = {}) {
+  if (!isCommercialLead(row)) return { label: '普通', level: 'normal', score: 0 };
+  const detail = commercialLeadDetail(row);
+  const source = `${detail.source} ${detail.report}`.toLowerCase();
+  let score = row.type === 'pilot-interest' ? 2 : 1;
+  if (/prematch|growth|coach|club|template|report/.test(source)) score += 2;
+  if (Number(detail.athletes) || Number(detail.competitions)) score += 1;
+  if (Number(detail.reports) || Number(detail.ai)) score += 1;
+  if (score >= 5) return { label: '高优先级', level: 'high', score };
+  if (score >= 3) return { label: '中优先级', level: 'medium', score };
+  return { label: '常规跟进', level: 'normal', score };
+}
+
 function renderPilotLeadSummary(rows = []) {
   if (!pilotLeadSummary) return;
   const leads = rows.filter((row) => ['pilot-interest', 'membership-interest'].includes(row.type));
@@ -452,9 +478,10 @@ function renderPilotLeadSummary(rows = []) {
     return;
   }
   const openLeads = leads.filter((row) => !['resolved', 'ignored'].includes(row.status || 'new'));
+  const hotLeads = openLeads.filter((row) => commercialLeadPriority(row).level === 'high');
   const roleCounts = leads.reduce((map, row) => {
-    const detail = parsePilotLeadMessage(row.message);
-    const role = detail['当前角色'] || row.athlete?.type || '未选择';
+    const detail = commercialLeadDetail(row);
+    const role = detail.role;
     map.set(role, (map.get(role) || 0) + 1);
     return map;
   }, new Map());
@@ -466,6 +493,7 @@ function renderPilotLeadSummary(rows = []) {
         <div>
           <span>商业线索</span>
           <strong>${openLeads.length} 条待跟进</strong>
+          <em>${hotLeads.length} 条高优先级</em>
         </div>
         <div class="pilot-lead-head-actions">
           <em>${escapeHtml(roleText || '角色待确认')}</em>
@@ -474,12 +502,15 @@ function renderPilotLeadSummary(rows = []) {
       </div>
       <div class="pilot-lead-list">
         ${latest.map((row) => {
-          const detail = parsePilotLeadMessage(row.message);
+          const detail = commercialLeadDetail(row);
+          const priority = commercialLeadPriority(row);
           return `
             <article>
-              <strong>${escapeHtml(feedbackTypeLabel(row.type))} · ${escapeHtml(detail['当前角色'] || row.athlete?.type || '未选择')}</strong>
+              <strong>${escapeHtml(feedbackTypeLabel(row.type))} · ${escapeHtml(detail.role)}</strong>
+              <em class="lead-priority ${escapeHtml(priority.level)}">${escapeHtml(priority.label)}</em>
               <span>${escapeHtml(row.createdAt ? new Date(row.createdAt).toLocaleString('zh-CN') : '-')}</span>
-              <p>选手 ${escapeHtml(detail['关注选手'] || '0')} · 赛事 ${escapeHtml(detail['关注赛事'] || '0')} · 报告 ${escapeHtml(detail['最近报告'] || '0')} · AI ${escapeHtml(detail['最近 AI 分析'] || '0')}</p>
+              <p>${escapeHtml(detail.report || '未标记报告')} · ${escapeHtml(detail.source || '来源待确认')}</p>
+              <p>选手 ${escapeHtml(detail.athletes)} · 赛事 ${escapeHtml(detail.competitions)} · 报告 ${escapeHtml(detail.reports)} · AI ${escapeHtml(detail.ai)}</p>
             </article>
           `;
         }).join('')}
@@ -492,17 +523,21 @@ function renderPilotLeadSummary(rows = []) {
 }
 
 function commercialLeadCsv(rows = []) {
-  const headers = ['类型', '角色', '关注选手', '关注赛事', '最近报告', '最近AI分析', '状态', '时间'];
+  const headers = ['类型', '优先级', '角色', '来源页面', '触发报告', '关注选手', '关注赛事', '最近报告', '最近AI分析', '状态', '时间'];
   const escapeCsv = (value) => `"${String(value ?? '').replace(/"/g, '""')}"`;
   const lines = rows.map((row) => {
-    const detail = parsePilotLeadMessage(row.message);
+    const detail = commercialLeadDetail(row);
+    const priority = commercialLeadPriority(row);
     return [
       feedbackTypeLabel(row.type),
-      detail['当前角色'] || row.athlete?.type || '未选择',
-      detail['关注选手'] || '0',
-      detail['关注赛事'] || '0',
-      detail['最近报告'] || '0',
-      detail['最近 AI 分析'] || '0',
+      priority.label,
+      detail.role,
+      detail.source,
+      detail.report,
+      detail.athletes,
+      detail.competitions,
+      detail.reports,
+      detail.ai,
       feedbackStatusLabel(row.status),
       row.createdAt ? new Date(row.createdAt).toLocaleString('zh-CN') : '',
     ].map(escapeCsv).join(',');
@@ -571,13 +606,23 @@ function renderFeedback(rows = []) {
   renderFeedbackFilterBar(rows);
   const visibleRows = rows.filter((row) => feedbackFilterMatches(row));
   feedbackStatus.textContent = rows.length ? `${visibleRows.length} / ${rows.length} 条` : '暂无反馈';
-  feedbackList.innerHTML = visibleRows.length ? visibleRows.map((row) => `
+  feedbackList.innerHTML = visibleRows.length ? visibleRows.map((row) => {
+    const leadDetail = isCommercialLead(row) ? commercialLeadDetail(row) : null;
+    const leadPriority = isCommercialLead(row) ? commercialLeadPriority(row) : null;
+    return `
     <article class="feedback-card">
       <div class="feedback-card-head">
         <span>${feedbackTypeLabel(row.type)}</span>
         <strong>${escapeHtml(row.athlete?.name || '-')}</strong>
         <em>${escapeHtml(feedbackStatusLabel(row.status))}</em>
       </div>
+      ${leadDetail ? `
+        <div class="feedback-commercial-meta">
+          <span class="lead-priority ${escapeHtml(leadPriority.level)}">${escapeHtml(leadPriority.label)}</span>
+          <strong>${escapeHtml(leadDetail.report || '未标记报告')}</strong>
+          <em>${escapeHtml(leadDetail.source || '来源待确认')}</em>
+        </div>
+      ` : ''}
       <div class="feedback-meta">
         <span>${escapeHtml(row.athlete?.club || '俱乐部待确认')}</span>
         <span>${escapeHtml(row.createdAt ? new Date(row.createdAt).toLocaleString('zh-CN') : '-')}</span>
@@ -589,7 +634,8 @@ function renderFeedback(rows = []) {
         `).join('')}
       </div>
     </article>
-  `).join('') : '<div class="status muted">当前筛选下暂无反馈。</div>';
+  `;
+  }).join('') : '<div class="status muted">当前筛选下暂无反馈。</div>';
   feedbackList.querySelectorAll('[data-feedback-id]').forEach((button) => {
     button.addEventListener('click', () => updateFeedbackStatus(button.dataset.feedbackId, button.dataset.feedbackStatus));
   });
