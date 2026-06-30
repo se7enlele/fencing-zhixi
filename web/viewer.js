@@ -3179,6 +3179,22 @@ function projectMatchesAiHints(label, hints) {
   return hints.every((hint) => text.includes(compactText(hint)));
 }
 
+function aiCompetitionStatsDecisionRows(rows, actionRows, rosterRows, scoreRows) {
+  if (!rows.length) return ['当前没有匹配赛事，可以放宽年份、地区或状态后再查。'];
+  const decisionRows = [];
+  if (actionRows.length) {
+    decisionRows.push(`${actionRows.length} 场处在报名、未开赛或赛前阶段，适合加入赛前提醒。`);
+    decisionRows.push(`${rosterRows.length} 场已有报名信息，可进一步生成赛前情报包；名单不完整时先做项目和规模判断。`);
+  }
+  if (scoreRows.length) {
+    decisionRows.push(`${scoreRows.length} 场已有成绩或项目数据，适合做成长报告、教练复盘和俱乐部表现分析。`);
+  }
+  if (!decisionRows.length) {
+    decisionRows.push('当前主要用于赛事检索和赛程确认，等报名名单或成绩数据补齐后再做深度分析。');
+  }
+  return decisionRows;
+}
+
 function buildAiCompetitionStats(query, filters) {
   const rows = state.competitions.filter((competition) => {
     const yearOk = filters.year ? competitionYear(competition) === filters.year : true;
@@ -3208,6 +3224,9 @@ function buildAiCompetitionStats(query, filters) {
   const watchRows = rows
     .filter((competition) => ['registration', 'upcoming', 'live'].includes(competition.status) || competition.isPreEvent)
     .slice(0, 3);
+  const actionRows = rows.filter((competition) => ['registration', 'upcoming', 'live'].includes(competition.status) || competition.isPreEvent);
+  const rosterRows = rows.filter((competition) => competition.rosterStatus === 'partial' || competition.rosterStatus === 'complete');
+  const scoreRows = rows.filter((competition) => competition.status === 'completed' || competitionHasItems(competition));
   const regionLabel = filters.region || '全部地区';
   const yearLabel = filters.year || '全部年份';
   const monthLabel = filters.month ? `${filters.month}月` : '全部月份';
@@ -3229,6 +3248,10 @@ function buildAiCompetitionStats(query, filters) {
       ['状态', statusLabelText],
     ],
     sections: rows.length ? [
+      {
+        title: '行动判断',
+        rows: aiCompetitionStatsDecisionRows(rows, actionRows, rosterRows, scoreRows),
+      },
       {
         title: '状态分布',
         rows: [...statusCounts.entries()].map(([label, count]) => `${label}：${count} 场`),
@@ -3257,6 +3280,7 @@ function buildAiCompetitionStats(query, filters) {
       sportCode: competition.sportCode,
     })),
     actions: [
+      actionRows[0]?.sportCode ? { label: '生成赛前情报包', prematchTemplateKind: 'prematch-pack', prematchSportCode: actionRows[0].sportCode } : null,
       watchRows[0]?.sportCode ? { label: '加入赛前提醒', followCompetitionCode: watchRows[0].sportCode } : null,
       { label: rows.length ? '查看匹配赛事' : '进入赛事列表', mainTab: 'competitions', filters },
     ].filter(Boolean),

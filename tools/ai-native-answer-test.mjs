@@ -31,6 +31,7 @@ assert.match(js, /report\.type === 'empty' \|\| report\.type === 'fallback'/, 'A
 assert.match(js, /const club = detectClubInQuery\(text\);[\s\S]*if \(club\) return buildAiClubReport\(text, club\);[\s\S]*const athletes = detectAthletesInQuery\(text\);/, 'AI routing must prefer exact club matches before fuzzy athlete guesses');
 assert.match(js, /function aiProjectHints\(query\)/, 'AI club reports must detect project hints like U8 male foil');
 assert.match(js, /function projectMatchesAiHints\(label, hints\)/, 'AI club reports must filter projects by question hints');
+assert.match(js, /function aiCompetitionStatsDecisionRows\(rows, actionRows, rosterRows, scoreRows\)/, 'AI competition stats must translate counts into product-facing next-step judgment');
 assert.match(js, /title: hints\.length \? '匹配项目' : '优势项目'/, 'AI club reports must label scoped project answers');
 assert.match(js, /function detectPreMatchQuery\(query\)/, 'AI must detect prematch and registration questions');
 assert.match(js, /function detectYearInQuery\(normalizedQuery\)/, 'AI competition questions must support relative year wording');
@@ -91,6 +92,7 @@ assert.match(js, /暂未发现两人的直接交手记录/, 'AI comparison must 
 assert.match(js, /没有直接交手时，不会推断真实胜负/, 'AI comparison must disclose data boundary');
 assert.match(js, /title: '时间分布'/, 'AI competition stats must include month distribution when available');
 assert.match(js, /title: '近期可看'/, 'AI competition stats must surface actionable upcoming competitions');
+assert.match(js, /prematchTemplateKind: 'prematch-pack', prematchSportCode: actionRows\[0\]\.sportCode/, 'AI competition stats must expose a prematch report action when a matched competition is actionable');
 assert.match(js, /followCompetitionCode: watchRows\[0\]\.sportCode/, 'AI competition stats must allow users to add the nearest actionable competition to reminders');
 assert.match(js, /kind: '共同项目'/, 'AI evidence must label shared project evidence');
 assert.match(js, /reason: '用于比较同一项目里的名次差距'/, 'AI evidence must explain why a source supports the answer');

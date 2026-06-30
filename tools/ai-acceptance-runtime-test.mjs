@@ -65,6 +65,7 @@ const functionNames = [
   'competitionMatchesProjectLabel',
   'aiPreMatchFocusRows',
   'projectMatchesAiHints',
+  'aiCompetitionStatsDecisionRows',
   'aiDefaultClub',
   'buildAiCompetitionStats',
   'businessMetricRows',
@@ -214,8 +215,12 @@ const juneStats = context.buildAiAnswer('\u0032\u0030\u0032\u0036\u5e74\u0036\u6
 assert.equal(juneStats.type, 'competition-stats', 'month-based regional query should route to competition stats');
 assert.equal(juneStats.cards[0][1], '2 \u573a', 'AI competition stats should filter by month');
 assert.equal(juneStats.cards.find(([label]) => label === '\u6708\u4efd')[1], '6\u6708', 'AI competition stats should expose the matched month');
+assert.ok(juneStats.sections.some((section) => section.title === '\u884c\u52a8\u5224\u65ad'), 'AI competition stats should turn counts into next-step judgment');
 assert.ok(juneStats.sections.some((section) => section.title === '\u8fd1\u671f\u53ef\u770b'), 'AI competition stats should expose actionable upcoming matches');
-assert.equal(juneStats.actions[0].followCompetitionCode, 'TJ2026JUNE', 'AI competition stats should offer the nearest actionable competition as a reminder');
+const statsPrematchAction = juneStats.actions.find((action) => action.prematchTemplateKind === 'prematch-pack');
+assert.equal(statsPrematchAction.prematchSportCode, 'TJ2026JUNE', 'AI competition stats should open a prematch report for the nearest actionable competition');
+const statsFollowAction = juneStats.actions.find((action) => action.followCompetitionCode);
+assert.equal(statsFollowAction.followCompetitionCode, 'TJ2026JUNE', 'AI competition stats should offer the nearest actionable competition as a reminder');
 const juneFilterAction = juneStats.actions.find((action) => action.filters);
 assert.equal(JSON.stringify(juneFilterAction.filters), JSON.stringify({ year: '2026', month: '6', region: '\u5929\u6d25', status: '' }), 'AI competition stats action should preserve the matched filters');
 
