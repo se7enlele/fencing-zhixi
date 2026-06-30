@@ -133,6 +133,29 @@ function mergeMetricRows(days, field) {
     .slice(0, 10);
 }
 
+function analyticsMetricValue(rows = [], key) {
+  const row = rows.find((item) => item.key === key);
+  return Number(row?.value) || 0;
+}
+
+function analyticsConversionRate(current, previous) {
+  if (!previous) return '-';
+  return `${Math.round((Number(current) || 0) / previous * 100)}%`;
+}
+
+function analyticsFunnelRows(actionRows = []) {
+  const aiAnswers = analyticsMetricValue(actionRows, 'ai_answer');
+  const openedReports = analyticsMetricValue(actionRows, 'open_report');
+  const sharedReports = analyticsMetricValue(actionRows, 'share_report') + analyticsMetricValue(actionRows, 'share_club');
+  const commercialLeads = analyticsMetricValue(actionRows, 'pilot_interest') + analyticsMetricValue(actionRows, 'membership_interest');
+  return [
+    { label: 'AI 回答', value: aiAnswers, rate: '-' },
+    { label: '打开报告', value: openedReports, rate: analyticsConversionRate(openedReports, aiAnswers) },
+    { label: '复制/分享', value: sharedReports, rate: analyticsConversionRate(sharedReports, openedReports || aiAnswers) },
+    { label: '试用/会员意向', value: commercialLeads, rate: analyticsConversionRate(commercialLeads, openedReports || aiAnswers) },
+  ];
+}
+
 function renderAnalytics(result) {
   if (!analyticsStatus || !analyticsSummary || !analyticsTrend || !analyticsPages) return;
   const days = result.days || [];
@@ -168,7 +191,20 @@ function renderAnalytics(result) {
   const durationRows = mergeMetricRows(days, 'durationsByPage');
   const actionRows = mergeMetricRows(days, 'actions');
   const actionLabelRows = mergeMetricRows(days, 'actionLabels');
+  const funnelRows = analyticsFunnelRows(actionRows);
   analyticsPages.innerHTML = `
+    <div class="analytics-funnel">
+      <div class="analytics-block-title">商业转化漏斗</div>
+      <div class="analytics-funnel-grid">
+        ${funnelRows.map((row) => `
+          <div class="analytics-funnel-step">
+            <strong>${escapeHtml(formatInteger(row.value))}</strong>
+            <span>${escapeHtml(row.label)}</span>
+            <em>${escapeHtml(row.rate === '-' ? '起点' : `转化 ${row.rate}`)}</em>
+          </div>
+        `).join('')}
+      </div>
+    </div>
     <div>
       <div class="analytics-block-title">页面 PV</div>
       ${pageRows.length ? pageRows.map((row) => `

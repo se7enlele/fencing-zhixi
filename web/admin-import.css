@@ -360,6 +360,52 @@ button:disabled {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
+.analytics-funnel {
+  grid-column: 1 / -1;
+  display: grid;
+  gap: 8px;
+}
+
+.analytics-funnel-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.analytics-funnel-step {
+  min-width: 0;
+  border: 1px solid rgba(21, 95, 194, 0.14);
+  border-radius: 9px;
+  background: linear-gradient(180deg, rgba(21, 95, 194, 0.07), #fff);
+  padding: 10px;
+}
+
+.analytics-funnel-step strong,
+.analytics-funnel-step span,
+.analytics-funnel-step em {
+  display: block;
+}
+
+.analytics-funnel-step strong {
+  font-size: 22px;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+}
+
+.analytics-funnel-step span {
+  color: var(--text);
+  font-size: 12px;
+  font-weight: 900;
+  margin-top: 5px;
+}
+
+.analytics-funnel-step em {
+  color: var(--muted);
+  font-size: 12px;
+  font-style: normal;
+  margin-top: 4px;
+}
+
 .data-health-note {
   display: grid;
   gap: 4px;
@@ -712,6 +758,10 @@ button:disabled {
   .analytics-pages,
   .data-health-gaps {
     grid-template-columns: 1fr;
+  }
+
+  .analytics-funnel-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .analytics-day-row {
