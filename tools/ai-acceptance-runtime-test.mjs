@@ -65,10 +65,14 @@ const functionNames = [
   'competitionMatchesProjectLabel',
   'aiPreMatchFocusRows',
   'projectMatchesAiHints',
+  'aiDefaultClub',
   'buildAiCompetitionStats',
   'businessMetricRows',
   'businessRegionRows',
   'businessClubOpportunityRows',
+  'businessCoverageOpportunityRows',
+  'businessRoleConversionRows',
+  'businessPriorityRows',
   'businessProductOpportunityRows',
   'buildAiBusinessInsightReport',
   'productTemplateTitle',
@@ -264,6 +268,12 @@ const businessReport = context.buildAiAnswer('\u8fd9\u4e9b\u51fb\u5251\u6570\u63
 assert.equal(businessReport.type, 'business-insight', 'data value questions should route to business insight');
 assert.ok(businessReport.cards.length >= 4, 'business insight should expose asset metrics');
 assert.ok(businessReport.sections.some((section) => section.title === '\u4f18\u5148\u843d\u5730\u573a\u666f'), 'business insight should prioritize productized opportunities');
+assert.ok(businessReport.sections.some((section) => section.title === '\u89d2\u8272\u8f6c\u5316\u8def\u5f84'), 'business insight should include role conversion paths');
+assert.ok(businessReport.sections.some((section) => section.title === '\u6570\u636e\u6210\u719f\u5ea6'), 'business insight should show which data is ready for which business scenario');
+assert.ok(
+  businessReport.sections.find((section) => section.title === '\u4f18\u5148\u843d\u5730\u573a\u666f')?.rows.some((row) => row.includes('P0\uff1a\u8d5b\u524d\u60c5\u62a5\u5305')),
+  'business insight should name prematch intelligence as the P0 opportunity',
+);
 assert.ok(businessReport.sections.some((section) => section.title === '\u533a\u57df\u673a\u4f1a'), 'business insight should include regional opportunity analysis');
 assert.ok(businessReport.evidence.some((row) => row.kind === '\u8d5b\u524d\u673a\u4f1a'), 'business insight should cite prematch opportunity evidence');
 assert.ok(businessReport.evidence.some((row) => row.kind === '\u4ff1\u4e50\u90e8\u8d44\u4ea7'), 'business insight should cite club asset evidence');

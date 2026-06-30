@@ -44,6 +44,9 @@ assert.match(js, /function detectBusinessInsightQuery\(query\)/, 'AI must detect
 assert.match(js, /function detectClubRecruitingQuery\(query\)/, 'AI must detect club recruiting and external display questions');
 assert.match(js, /function buildAiClubRecruitingReport\(query, club\)/, 'AI must turn club data into recruiting display suggestions');
 assert.match(js, /function buildAiBusinessInsightReport\(query\)/, 'AI must turn existing data into business opportunity analysis');
+assert.match(js, /function businessPriorityRows\(\)/, 'AI business insight must expose prioritized P0/P1 opportunities');
+assert.match(js, /function businessRoleConversionRows\(\)/, 'AI business insight must map opportunities to user role conversion paths');
+assert.match(js, /function businessCoverageOpportunityRows\(\)/, 'AI business insight must explain data maturity before monetization');
 assert.match(js, /function detectProductTemplateQuery\(query\)/, 'AI must detect report-template questions');
 assert.match(js, /function buildAiProductTemplateReport\(query, kind\)/, 'AI must generate productized report templates');
 assert.match(js, /return 'prematch-pack'/, 'AI templates must support prematch intelligence packages');
@@ -64,6 +67,9 @@ assert.match(js, /openCoachSegmentationReport\(button\.dataset\.coachSegmentatio
 assert.match(js, /function productTemplateSections\(kind\)/, 'AI templates must expose reusable report sections');
 assert.match(js, /function productTemplateEvidence\(kind\)/, 'AI templates must attach source evidence');
 assert.match(js, /title: '优先落地场景'/, 'AI business analysis must prioritize productized opportunities');
+assert.match(js, /title: '角色转化路径'/, 'AI business analysis must include parent, coach and event conversion paths');
+assert.match(js, /title: '数据成熟度'/, 'AI business analysis must show which data can support which business scenario');
+assert.match(js, /P0：赛前情报包/, 'AI business analysis must name the first paid scenario explicitly');
 assert.match(js, /家长端：用/, 'AI business analysis must include parent-facing value');
 assert.match(js, /教练端：用/, 'AI business analysis must include coach-facing value');
 assert.match(js, /kind: '赛前机会'/, 'AI business evidence must include prematch opportunity sources');

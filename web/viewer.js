@@ -3215,6 +3215,44 @@ function businessClubOpportunityRows() {
     .map((club) => `${club.club}：${club.entrants || 0} 人次，前八 ${club.top8 || 0}，奖牌 ${club.medals || 0}`);
 }
 
+function businessCoverageOpportunityRows() {
+  const competitions = state.competitions || [];
+  const scoreCount = competitions.filter((competition) => competition.coverageLevel === 'score' || competitionHasItems(competition)).length;
+  const rosterCount = competitions.filter((competition) => competition.coverageLevel === 'roster' || competition.rosterStatus === 'partial' || competition.rosterStatus === 'complete').length;
+  const projectCount = competitions.filter((competition) => competition.coverageLevel === 'project' || competition.itemCount || competition.itemSummaries?.length).length;
+  const activeCount = competitions.filter((competition) => ['registration', 'upcoming', 'live'].includes(competition.status) || competition.isPreEvent).length;
+  const scoreRate = competitions.length ? Math.round((scoreCount / competitions.length) * 100) : 0;
+  const rosterRate = activeCount ? Math.round((rosterCount / activeCount) * 100) : 0;
+  return [
+    `赛后复盘：${scoreCount} 场已有成绩/对阵，占全部赛事 ${scoreRate}%，适合先做家长成长报告和教练复盘。`,
+    `赛前服务：${rosterCount} 场已有报名名单，覆盖近期/进行中赛事 ${rosterRate}%，适合做赛前情报包。`,
+    `赛事目录：${projectCount} 场至少有项目结构，可先支持筛选、提醒和项目级赛前判断。`,
+  ];
+}
+
+function businessRoleConversionRows() {
+  const focused = aiFocusedAthletes();
+  const club = state.currentClub || aiDefaultClub();
+  const activeCount = (state.competitions || []).filter((competition) => ['registration', 'upcoming', 'live'].includes(competition.status) || competition.isPreEvent).length;
+  return [
+    `家长转化：${focused.length ? `从已关注的 ${focused.length} 名孩子生成成长报告` : '先引导关注孩子'}，再承接赛后复盘、同龄段位置和下一场建议。`,
+    `教练转化：${club?.club ? `从 ${club.club} 的俱乐部画像进入学员分层` : '从俱乐部搜索进入队伍画像'}，再承接续费沟通和训练反馈。`,
+    `赛事转化：围绕 ${activeCount} 场赛前/报名赛事做提醒、报名名单解读和对手情报，时间节点最明确。`,
+  ];
+}
+
+function businessPriorityRows() {
+  const competitions = state.competitions || [];
+  const activeCount = competitions.filter((competition) => ['registration', 'upcoming', 'live'].includes(competition.status) || competition.isPreEvent).length;
+  const scoreCount = competitions.filter((competition) => competition.coverageLevel === 'score' || competitionHasItems(competition)).length;
+  const clubCount = (state.clubSearchIndex || []).length;
+  return [
+    `P0：赛前情报包，当前 ${activeCount} 场赛事可触发，适合用报名截止和开赛前作为高频使用节点。`,
+    `P1：成长报告，当前 ${scoreCount} 场成绩样本可支撑长期复盘，适合家长会员和续费沟通。`,
+    `P1：教练/俱乐部工作台，当前 ${clubCount} 个俱乐部画像可支撑学员分层、招生展示和区域竞争判断。`,
+  ];
+}
+
 function businessProductOpportunityRows() {
   const activeCount = (state.competitions || []).filter((competition) => ['registration', 'upcoming', 'live'].includes(competition.status) || competition.isPreEvent).length;
   const athleteCount = (state.athleteSearchIndex || []).length;
@@ -3246,6 +3284,18 @@ function buildAiBusinessInsightReport(query) {
     sections: [
       {
         title: '优先落地场景',
+        rows: businessPriorityRows(),
+      },
+      {
+        title: '角色转化路径',
+        rows: businessRoleConversionRows(),
+      },
+      {
+        title: '数据成熟度',
+        rows: businessCoverageOpportunityRows(),
+      },
+      {
+        title: '产品化方向',
         rows: businessProductOpportunityRows(),
       },
       {
