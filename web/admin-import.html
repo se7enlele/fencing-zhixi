@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FencingAI 数据导入</title>
-    <link rel="stylesheet" href="/admin-import.css?v=fencingai-product-20260630-feedback-filter-1">
+    <link rel="stylesheet" href="/admin-import.css?v=fencingai-product-20260630-data-health-1">
   </head>
   <body>
     <main class="admin-shell">
@@ -55,6 +55,15 @@
         <div id="analyticsPages" class="analytics-pages"></div>
       </section>
 
+      <section class="panel data-health-panel">
+        <div class="panel-heading">
+          <h2>数据健康</h2>
+          <span id="dataHealthStatus">等待加载</span>
+        </div>
+        <div id="dataHealthSummary" class="data-health-summary"></div>
+        <div id="dataHealthGaps" class="data-health-gaps"></div>
+      </section>
+
       <section class="panel feedback-panel">
         <div class="panel-heading">
           <h2>用户反馈</h2>
@@ -66,6 +75,6 @@
       </section>
     </main>
 
-    <script src="/admin-import.js?v=fencingai-product-20260630-feedback-filter-1"></script>
+    <script src="/admin-import.js?v=fencingai-product-20260630-data-health-1"></script>
   </body>
 </html>

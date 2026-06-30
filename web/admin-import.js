@@ -9,6 +9,9 @@ const analyticsStatus = document.querySelector('#analyticsStatus');
 const analyticsSummary = document.querySelector('#analyticsSummary');
 const analyticsTrend = document.querySelector('#analyticsTrend');
 const analyticsPages = document.querySelector('#analyticsPages');
+const dataHealthStatus = document.querySelector('#dataHealthStatus');
+const dataHealthSummary = document.querySelector('#dataHealthSummary');
+const dataHealthGaps = document.querySelector('#dataHealthGaps');
 const feedbackStatus = document.querySelector('#feedbackStatus');
 const feedbackList = document.querySelector('#feedbackList');
 const pilotLeadSummary = document.querySelector('#pilotLeadSummary');
@@ -44,6 +47,11 @@ function formatDuration(ms) {
   const minutes = Math.floor(seconds / 60);
   const rest = seconds % 60;
   return rest ? `${minutes}m ${rest}s` : `${minutes}m`;
+}
+
+function formatDateTime(value) {
+  const date = new Date(value);
+  return Number.isNaN(date.getTime()) ? '-' : date.toLocaleString('zh-CN');
 }
 
 function pageLabel(page) {
@@ -218,6 +226,92 @@ async function loadAnalytics() {
     analyticsSummary.innerHTML = `<div class="status error">${escapeHtml(error.message)}</div>`;
     analyticsTrend.innerHTML = '';
     analyticsPages.innerHTML = '';
+  }
+}
+
+function dataHealthCounts(competitions = []) {
+  return competitions.reduce((counts, competition) => {
+    const level = competition.coverageLevel || (competition.itemCount || competition.itemSummaries?.length ? 'project' : 'directory');
+    counts.total += 1;
+    if (level === 'score') counts.score += 1;
+    else if (level === 'roster') counts.roster += 1;
+    else if (level === 'project') counts.project += 1;
+    else counts.directory += 1;
+    if (['registration', 'upcoming', 'live'].includes(competition.status)) counts.active += 1;
+    return counts;
+  }, { total: 0, score: 0, roster: 0, project: 0, directory: 0, active: 0 });
+}
+
+function dataHealthGapRows(competitions = []) {
+  return competitions
+    .filter((competition) => (competition.coverageLevel || 'directory') !== 'score')
+    .sort((a, b) => {
+      const activeScore = (row) => ['registration', 'upcoming', 'live'].includes(row.status) ? 0 : 1;
+      return activeScore(a) - activeScore(b)
+        || new Date(b.startDate || b.dateLabel || 0) - new Date(a.startDate || a.dateLabel || 0);
+    })
+    .slice(0, 6);
+}
+
+function dataHealthLevelLabel(level) {
+  return ({
+    score: '成绩已覆盖',
+    roster: '报名名单',
+    project: '项目列表',
+    directory: '赛事目录',
+  })[level] || level || '赛事目录';
+}
+
+function renderDataHealth(result = {}) {
+  if (!dataHealthStatus || !dataHealthSummary || !dataHealthGaps) return;
+  const competitions = result.competitions || [];
+  const counts = dataHealthCounts(competitions);
+  const coveragePercent = counts.total ? Math.round((counts.score / counts.total) * 100) : 0;
+  dataHealthStatus.textContent = result.generatedAt ? `更新于 ${formatDateTime(result.generatedAt)}` : '暂无数据';
+  dataHealthSummary.innerHTML = [
+    ['赛事总量', counts.total],
+    ['可深度分析', counts.score],
+    ['赛前可用', counts.project + counts.roster],
+    ['近期赛事', counts.active],
+  ].map(([label, value]) => `
+    <div class="analytics-card">
+      <strong>${escapeHtml(formatInteger(value))}</strong>
+      <span>${escapeHtml(label)}</span>
+    </div>
+  `).join('');
+
+  const sync = result.dataCoverage?.scheduledSync;
+  const syncText = sync?.generatedAt
+    ? `最近同步：${formatDateTime(sync.generatedAt)}，成功 ${formatInteger(sync.summary?.successCount || 0)} / ${formatInteger(sync.summary?.taskCount || 0)}`
+    : '尚未读取到同步状态。';
+  const gaps = dataHealthGapRows(competitions);
+  dataHealthGaps.innerHTML = `
+    <div class="data-health-note">
+      <strong>成绩覆盖率 ${escapeHtml(coveragePercent)}%</strong>
+      <span>${escapeHtml(syncText)}</span>
+    </div>
+    <div class="analytics-block-title">优先补齐</div>
+    ${gaps.length ? gaps.map((competition) => `
+      <div class="analytics-rank-row">
+        <strong>${escapeHtml(competition.sportName || competition.name || '-')}</strong>
+        <span>${escapeHtml(dataHealthLevelLabel(competition.coverageLevel || 'directory'))}</span>
+      </div>
+    `).join('') : '<div class="status muted">暂无明显数据缺口。</div>'}
+  `;
+}
+
+async function loadDataHealth() {
+  if (!dataHealthStatus || !dataHealthSummary || !dataHealthGaps) return;
+  try {
+    dataHealthStatus.textContent = '加载中';
+    const response = await fetch('/api/events');
+    const result = await response.json();
+    if (!response.ok || !result.ok) throw new Error(result.message || `请求失败：${response.status}`);
+    renderDataHealth(result);
+  } catch (error) {
+    dataHealthStatus.textContent = '加载失败';
+    dataHealthSummary.innerHTML = '';
+    dataHealthGaps.innerHTML = `<div class="status error">${escapeHtml(error.message)}</div>`;
   }
 }
 
@@ -615,4 +709,5 @@ commitBtn.addEventListener('click', async () => {
 });
 
 loadAnalytics();
+loadDataHealth();
 loadFeedback();

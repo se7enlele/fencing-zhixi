@@ -18,6 +18,12 @@ assert.match(js, /\/api\/admin\/feedback\?token=/, 'admin import feedback must u
 assert.match(js, /function renderAnalytics\(result\)/, 'admin import must render traffic analytics');
 assert.match(js, /function loadAnalytics\(\)/, 'admin import must load analytics from the admin API');
 assert.match(js, /\/api\/admin\/analytics\?token=/, 'admin import analytics must use the admin analytics API');
+assert.match(js, /function dataHealthCounts\(competitions = \[\]\)/, 'admin import must summarize data health');
+assert.match(js, /function renderDataHealth\(result = \{\}\)/, 'admin import must render data health');
+assert.match(js, /function loadDataHealth\(\)/, 'admin import must load data health from public events');
+assert.match(js, /function dataHealthLevelLabel\(level\)/, 'admin data health must label coverage levels');
+assert.match(js, /fetch\('\/api\/events'\)/, 'admin data health must use the public events payload');
+assert.match(js, /loadDataHealth\(\)/, 'admin import must load data health on startup');
 assert.match(js, /PV/, 'admin analytics must expose page views');
 assert.match(js, /UV/, 'admin analytics must expose unique visitors');
 assert.match(js, /平均停留/, 'admin analytics must expose average duration');
@@ -66,6 +72,8 @@ assert.match(css, /\.pilot-lead-head-actions/, 'admin pilot lead actions must be
 assert.match(css, /\.feedback-card/, 'admin feedback card styles must exist');
 assert.match(css, /\.feedback-actions/, 'admin feedback workflow action styles must exist');
 assert.match(css, /\.analytics-summary/, 'admin analytics summary styles must exist');
+assert.match(css, /\.data-health-summary/, 'admin data health summary styles must exist');
+assert.match(css, /\.data-health-note/, 'admin data health note styles must exist');
 assert.match(css, /\.analytics-card/, 'admin analytics metric cards must exist');
 assert.match(css, /\.analytics-day-row/, 'admin analytics daily trend styles must exist');
 assert.match(css, /\.analytics-rank-row/, 'admin analytics ranking styles must exist');
@@ -77,7 +85,9 @@ assert.match(html, /id="pilotLeadSummary"/, 'admin import page must expose pilot
 assert.match(html, /id="analyticsSummary"/, 'admin import page must expose analytics summary');
 assert.match(html, /id="analyticsTrend"/, 'admin import page must expose analytics trend');
 assert.match(html, /id="analyticsPages"/, 'admin import page must expose analytics page rankings');
-assert.match(html, /admin-import\.js\?v=fencingai-product-20260630-feedback-filter-1/, 'admin import JS cache key must be bumped');
-assert.match(html, /admin-import\.css\?v=fencingai-product-20260630-feedback-filter-1/, 'admin import CSS cache key must be bumped');
+assert.match(html, /id="dataHealthSummary"/, 'admin import page must expose data health summary');
+assert.match(html, /id="dataHealthGaps"/, 'admin import page must expose data health gaps');
+assert.match(html, /admin-import\.js\?v=fencingai-product-20260630-data-health-1/, 'admin import JS cache key must be bumped');
+assert.match(html, /admin-import\.css\?v=fencingai-product-20260630-data-health-1/, 'admin import CSS cache key must be bumped');
 
 console.log('admin import page feedback is covered');
