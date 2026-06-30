@@ -156,6 +156,27 @@ function analyticsFunnelRows(actionRows = []) {
   ];
 }
 
+function analyticsReportTypeRows(actionLabelRows = []) {
+  const rowsByLabel = new Map();
+  actionLabelRows.forEach((row) => {
+    const [action, label = 'unknown'] = String(row.key || '').split(':');
+    if (!['open_report', 'share_report'].includes(action)) return;
+    const readable = analyticsActionDetailLabel(`${action}:${label}`).replace(/^打开报告 · |^复制报告 · /, '');
+    const current = rowsByLabel.get(readable) || { label: readable, opens: 0, shares: 0 };
+    if (action === 'open_report') current.opens += Number(row.value) || 0;
+    if (action === 'share_report') current.shares += Number(row.value) || 0;
+    rowsByLabel.set(readable, current);
+  });
+  return [...rowsByLabel.values()]
+    .map((row) => ({
+      ...row,
+      total: row.opens + row.shares,
+      shareRate: analyticsConversionRate(row.shares, row.opens),
+    }))
+    .sort((a, b) => b.total - a.total || a.label.localeCompare(b.label, 'zh-CN'))
+    .slice(0, 6);
+}
+
 function renderAnalytics(result) {
   if (!analyticsStatus || !analyticsSummary || !analyticsTrend || !analyticsPages) return;
   const days = result.days || [];
@@ -192,6 +213,7 @@ function renderAnalytics(result) {
   const actionRows = mergeMetricRows(days, 'actions');
   const actionLabelRows = mergeMetricRows(days, 'actionLabels');
   const funnelRows = analyticsFunnelRows(actionRows);
+  const reportRows = analyticsReportTypeRows(actionLabelRows);
   analyticsPages.innerHTML = `
     <div class="analytics-funnel">
       <div class="analytics-block-title">商业转化漏斗</div>
@@ -204,6 +226,17 @@ function renderAnalytics(result) {
           </div>
         `).join('')}
       </div>
+    </div>
+    <div class="analytics-report-types">
+      <div class="analytics-block-title">报告热度</div>
+      ${reportRows.length ? reportRows.map((row) => `
+        <div class="analytics-report-row">
+          <strong>${escapeHtml(row.label)}</strong>
+          <span>打开 ${escapeHtml(formatInteger(row.opens))}</span>
+          <span>复制 ${escapeHtml(formatInteger(row.shares))}</span>
+          <em>${escapeHtml(row.shareRate === '-' ? '待观察' : `复制率 ${row.shareRate}`)}</em>
+        </div>
+      `).join('') : '<div class="status muted">暂无报告打开或复制数据。</div>'}
     </div>
     <div>
       <div class="analytics-block-title">页面 PV</div>

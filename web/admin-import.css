@@ -366,6 +366,12 @@ button:disabled {
   gap: 8px;
 }
 
+.analytics-report-types {
+  grid-column: 1 / -1;
+  display: grid;
+  gap: 8px;
+}
+
 .analytics-funnel-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -432,6 +438,7 @@ button:disabled {
 }
 
 .analytics-day-row,
+.analytics-report-row,
 .analytics-rank-row {
   display: grid;
   align-items: center;
@@ -451,7 +458,12 @@ button:disabled {
   margin-top: 8px;
 }
 
+.analytics-report-row {
+  grid-template-columns: minmax(0, 1fr) auto auto auto;
+}
+
 .analytics-day-row strong,
+.analytics-report-row strong,
 .analytics-rank-row strong {
   min-width: 0;
   overflow: hidden;
@@ -460,10 +472,16 @@ button:disabled {
 }
 
 .analytics-day-row span,
+.analytics-report-row span,
+.analytics-report-row em,
 .analytics-rank-row span {
   color: var(--muted);
   font-size: 12px;
   font-variant-numeric: tabular-nums;
+}
+
+.analytics-report-row em {
+  font-style: normal;
 }
 
 .feedback-list {
@@ -795,6 +813,10 @@ button:disabled {
   }
 
   .analytics-day-row {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .analytics-report-row {
     grid-template-columns: 1fr 1fr;
   }
 

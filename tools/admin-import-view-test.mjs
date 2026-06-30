@@ -39,7 +39,11 @@ assert.match(js, /mergeMetricRows\(days, 'actions'\)/, 'admin analytics must mer
 assert.match(js, /mergeMetricRows\(days, 'actionLabels'\)/, 'admin analytics must merge action detail rows across days');
 assert.match(js, /function analyticsFunnelRows\(actionRows = \[\]\)/, 'admin analytics must build a commercial conversion funnel from action rows');
 assert.match(js, /analyticsMetricValue\(actionRows, 'pilot_interest'\) \+ analyticsMetricValue\(actionRows, 'membership_interest'\)/, 'admin analytics funnel must combine trial and membership intent');
+assert.match(js, /function analyticsReportTypeRows\(actionLabelRows = \[\]\)/, 'admin analytics must aggregate report type conversion rows');
+assert.match(js, /\['open_report', 'share_report'\]\.includes\(action\)/, 'report type analytics must use report open and share actions');
 assert.match(js, /商业转化漏斗/, 'admin analytics must render a commercial conversion funnel');
+assert.match(js, /报告热度/, 'admin analytics must render report type popularity');
+assert.match(js, /复制率/, 'admin analytics report type rows must expose share rate');
 assert.match(js, /试用\/会员意向/, 'admin analytics funnel must expose final commercial intent step');
 assert.match(js, /function feedbackTypeLabel\(type\)/, 'admin import must label correction and hide requests');
 assert.match(js, /'ai-helpful': 'AI 有帮助'/, 'admin import must label helpful AI feedback');
@@ -88,6 +92,8 @@ assert.match(css, /\.feedback-actions/, 'admin feedback workflow action styles m
 assert.match(css, /\.analytics-summary/, 'admin analytics summary styles must exist');
 assert.match(css, /\.analytics-funnel/, 'admin analytics funnel styles must exist');
 assert.match(css, /\.analytics-funnel-step/, 'admin analytics funnel step styles must exist');
+assert.match(css, /\.analytics-report-types/, 'admin analytics report type section styles must exist');
+assert.match(css, /\.analytics-report-row/, 'admin analytics report type row styles must exist');
 assert.match(css, /\.data-health-summary/, 'admin data health summary styles must exist');
 assert.match(css, /\.data-health-note/, 'admin data health note styles must exist');
 assert.match(css, /\.analytics-card/, 'admin analytics metric cards must exist');
@@ -103,7 +109,7 @@ assert.match(html, /id="analyticsTrend"/, 'admin import page must expose analyti
 assert.match(html, /id="analyticsPages"/, 'admin import page must expose analytics page rankings');
 assert.match(html, /id="dataHealthSummary"/, 'admin import page must expose data health summary');
 assert.match(html, /id="dataHealthGaps"/, 'admin import page must expose data health gaps');
-assert.match(html, /admin-import\.js\?v=fencingai-product-20260630-ai-feedback-1/, 'admin import JS cache key must be bumped');
-assert.match(html, /admin-import\.css\?v=fencingai-product-20260630-ai-feedback-1/, 'admin import CSS cache key must be bumped');
+assert.match(html, /admin-import\.js\?v=fencingai-product-20260630-report-types-1/, 'admin import JS cache key must be bumped');
+assert.match(html, /admin-import\.css\?v=fencingai-product-20260630-report-types-1/, 'admin import CSS cache key must be bumped');
 
 console.log('admin import page feedback is covered');
