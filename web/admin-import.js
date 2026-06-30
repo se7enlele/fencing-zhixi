@@ -12,10 +12,12 @@ const analyticsPages = document.querySelector('#analyticsPages');
 const feedbackStatus = document.querySelector('#feedbackStatus');
 const feedbackList = document.querySelector('#feedbackList');
 const pilotLeadSummary = document.querySelector('#pilotLeadSummary');
+const feedbackFilterBar = document.querySelector('#feedbackFilterBar');
 
 const token = new URLSearchParams(window.location.search).get('token') || '';
 let lastPayload = null;
 let feedbackRows = [];
+let activeFeedbackFilter = 'all';
 
 function setStatus(message, isError = false) {
   statusBox.textContent = message;
@@ -428,12 +430,54 @@ async function copyCommercialLeads(button, leads = []) {
   }, 1600);
 }
 
+function isCommercialLead(row) {
+  return ['pilot-interest', 'membership-interest'].includes(row.type);
+}
+
+function isOpenFeedback(row) {
+  return !['resolved', 'ignored'].includes(row.status || 'new');
+}
+
+function feedbackFilterOptions(rows = []) {
+  const count = (filter) => rows.filter((row) => feedbackFilterMatches(row, filter)).length;
+  return [
+    ['all', '全部', rows.length],
+    ['open', '待处理', count('open')],
+    ['commercial', '商业线索', count('commercial')],
+    ['ai', 'AI反馈', count('ai')],
+  ];
+}
+
+function feedbackFilterMatches(row, filter = activeFeedbackFilter) {
+  if (filter === 'open') return isOpenFeedback(row);
+  if (filter === 'commercial') return isCommercialLead(row);
+  if (filter === 'ai') return String(row.type || '').startsWith('ai-');
+  return true;
+}
+
+function renderFeedbackFilterBar(rows = []) {
+  if (!feedbackFilterBar) return;
+  feedbackFilterBar.innerHTML = feedbackFilterOptions(rows).map(([filter, label, count]) => `
+    <button type="button" class="${filter === activeFeedbackFilter ? 'active' : ''}" data-feedback-filter="${escapeHtml(filter)}">
+      ${escapeHtml(label)} <span>${escapeHtml(count)}</span>
+    </button>
+  `).join('');
+  feedbackFilterBar.querySelectorAll('[data-feedback-filter]').forEach((button) => {
+    button.addEventListener('click', () => {
+      activeFeedbackFilter = button.dataset.feedbackFilter || 'all';
+      renderFeedback(feedbackRows);
+    });
+  });
+}
+
 function renderFeedback(rows = []) {
   if (!feedbackList || !feedbackStatus) return;
   feedbackRows = rows;
   renderPilotLeadSummary(rows);
-  feedbackStatus.textContent = rows.length ? `${rows.length} 条` : '暂无反馈';
-  feedbackList.innerHTML = rows.length ? rows.map((row) => `
+  renderFeedbackFilterBar(rows);
+  const visibleRows = rows.filter((row) => feedbackFilterMatches(row));
+  feedbackStatus.textContent = rows.length ? `${visibleRows.length} / ${rows.length} 条` : '暂无反馈';
+  feedbackList.innerHTML = visibleRows.length ? visibleRows.map((row) => `
     <article class="feedback-card">
       <div class="feedback-card-head">
         <span>${feedbackTypeLabel(row.type)}</span>
@@ -451,7 +495,7 @@ function renderFeedback(rows = []) {
         `).join('')}
       </div>
     </article>
-  `).join('') : '<div class="status muted">暂无纠错或隐藏申请。</div>';
+  `).join('') : '<div class="status muted">当前筛选下暂无反馈。</div>';
   feedbackList.querySelectorAll('[data-feedback-id]').forEach((button) => {
     button.addEventListener('click', () => updateFeedbackStatus(button.dataset.feedbackId, button.dataset.feedbackStatus));
   });

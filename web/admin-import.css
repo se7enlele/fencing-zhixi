@@ -404,6 +404,35 @@ button:disabled {
   gap: 10px;
 }
 
+.feedback-filter-bar {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 2px;
+}
+
+.feedback-filter-bar button {
+  min-height: 34px;
+  flex: 0 0 auto;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--muted);
+  font-size: 12px;
+  padding: 0 11px;
+}
+
+.feedback-filter-bar button.active {
+  border-color: rgba(21, 95, 194, 0.25);
+  background: rgba(21, 95, 194, 0.08);
+  color: var(--primary);
+}
+
+.feedback-filter-bar span {
+  margin-left: 4px;
+  font-variant-numeric: tabular-nums;
+}
+
 .pilot-lead-summary {
   display: grid;
 }

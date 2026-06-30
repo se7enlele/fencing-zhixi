@@ -47,6 +47,10 @@ assert.match(js, /data-copy-commercial-leads/, 'admin import must expose a comme
 assert.match(js, /function commercialLeadCsv\(rows = \[\]\)/, 'admin import must export commercial leads as CSV text');
 assert.match(js, /function copyCommercialLeads\(button, leads = \[\]\)/, 'admin import must copy commercial leads for follow-up');
 assert.match(js, /navigator\.clipboard\.writeText\(commercialLeadCsv\(leads\)\)/, 'commercial lead copy action must use the clipboard API');
+assert.match(js, /let activeFeedbackFilter = 'all'/, 'admin import feedback filters must keep active state');
+assert.match(js, /function renderFeedbackFilterBar\(rows = \[\]\)/, 'admin import must render feedback filter chips');
+assert.match(js, /function feedbackFilterMatches\(row, filter = activeFeedbackFilter\)/, 'admin import must filter feedback rows');
+assert.match(js, /\['commercial', '商业线索', count\('commercial'\)\]/, 'admin import must expose a commercial lead filter');
 assert.match(js, /\/api\/admin\/feedback\/status\?token=/, 'admin import feedback actions must use the admin status API');
 assert.match(js, /data-feedback-status/, 'admin import feedback cards must expose workflow action buttons');
 assert.match(js, /function escapeHtml\(value\)/, 'admin import must escape feedback text before rendering');
@@ -55,6 +59,7 @@ assert.match(js, /<pre>\$\{escapeHtml\(row\.message \|\| ''\)\}<\/pre>/, 'admin 
 assert.match(css, /\.roster-progress/, 'roster progress panel styles must exist');
 assert.match(css, /\.roster-progress-grid/, 'roster progress metrics must have a layout');
 assert.match(css, /\.feedback-list/, 'admin feedback list styles must exist');
+assert.match(css, /\.feedback-filter-bar/, 'admin feedback filter styles must exist');
 assert.match(css, /\.pilot-lead-card/, 'admin pilot lead card styles must exist');
 assert.match(css, /\.pilot-lead-list/, 'admin pilot lead list styles must exist');
 assert.match(css, /\.pilot-lead-head-actions/, 'admin pilot lead actions must be styled');
@@ -67,11 +72,12 @@ assert.match(css, /\.analytics-rank-row/, 'admin analytics ranking styles must e
 
 assert.match(html, /id="feedbackList"/, 'admin import page must expose a feedback list');
 assert.match(html, /id="feedbackStatus"/, 'admin import page must expose feedback load status');
+assert.match(html, /id="feedbackFilterBar"/, 'admin import page must expose feedback filters');
 assert.match(html, /id="pilotLeadSummary"/, 'admin import page must expose pilot lead summary');
 assert.match(html, /id="analyticsSummary"/, 'admin import page must expose analytics summary');
 assert.match(html, /id="analyticsTrend"/, 'admin import page must expose analytics trend');
 assert.match(html, /id="analyticsPages"/, 'admin import page must expose analytics page rankings');
-assert.match(html, /admin-import\.js\?v=fencingai-product-20260630-lead-copy-1/, 'admin import JS cache key must be bumped');
-assert.match(html, /admin-import\.css\?v=fencingai-product-20260630-lead-copy-1/, 'admin import CSS cache key must be bumped');
+assert.match(html, /admin-import\.js\?v=fencingai-product-20260630-feedback-filter-1/, 'admin import JS cache key must be bumped');
+assert.match(html, /admin-import\.css\?v=fencingai-product-20260630-feedback-filter-1/, 'admin import CSS cache key must be bumped');
 
 console.log('admin import page feedback is covered');
