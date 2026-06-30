@@ -699,6 +699,36 @@ button:disabled {
   font-style: normal;
 }
 
+.feedback-ai-meta {
+  display: grid;
+  gap: 5px;
+  border: 1px solid rgba(21, 95, 194, 0.14);
+  border-radius: 9px;
+  background: rgba(21, 95, 194, 0.06);
+  padding: 9px;
+}
+
+.feedback-ai-meta strong,
+.feedback-ai-meta span,
+.feedback-ai-meta em {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.feedback-ai-meta strong {
+  color: var(--text);
+  font-size: 13px;
+}
+
+.feedback-ai-meta span,
+.feedback-ai-meta em {
+  color: var(--muted);
+  font-size: 12px;
+  font-style: normal;
+}
+
 .feedback-card pre {
   overflow: auto;
   max-height: 180px;

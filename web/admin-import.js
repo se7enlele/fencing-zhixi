@@ -493,6 +493,17 @@ function commercialLeadDetail(row = {}) {
   };
 }
 
+function aiFeedbackDetail(row = {}) {
+  const detail = parsePilotLeadMessage(row.message);
+  return {
+    type: detail['类型'] || row.athlete?.club || 'AI 回答',
+    title: detail['标题'] || row.athlete?.name || 'FencingAI 回答',
+    query: detail['原始问题'] || row.athlete?.query || '',
+    service: detail['关联服务'] || '',
+    source: detail['转化来源'] || '',
+  };
+}
+
 function commercialLeadPriority(row = {}) {
   if (!isCommercialLead(row)) return { label: '普通', level: 'normal', score: 0 };
   const detail = commercialLeadDetail(row);
@@ -599,6 +610,10 @@ function isCommercialLead(row) {
   return ['pilot-interest', 'membership-interest'].includes(row.type);
 }
 
+function isAiFeedback(row) {
+  return String(row.type || '').startsWith('ai-');
+}
+
 function isOpenFeedback(row) {
   return !['resolved', 'ignored'].includes(row.status || 'new');
 }
@@ -616,7 +631,7 @@ function feedbackFilterOptions(rows = []) {
 function feedbackFilterMatches(row, filter = activeFeedbackFilter) {
   if (filter === 'open') return isOpenFeedback(row);
   if (filter === 'commercial') return isCommercialLead(row);
-  if (filter === 'ai') return String(row.type || '').startsWith('ai-');
+  if (filter === 'ai') return isAiFeedback(row);
   return true;
 }
 
@@ -645,6 +660,7 @@ function renderFeedback(rows = []) {
   feedbackList.innerHTML = visibleRows.length ? visibleRows.map((row) => {
     const leadDetail = isCommercialLead(row) ? commercialLeadDetail(row) : null;
     const leadPriority = isCommercialLead(row) ? commercialLeadPriority(row) : null;
+    const aiDetail = isAiFeedback(row) ? aiFeedbackDetail(row) : null;
     return `
     <article class="feedback-card">
       <div class="feedback-card-head">
@@ -657,6 +673,13 @@ function renderFeedback(rows = []) {
           <span class="lead-priority ${escapeHtml(leadPriority.level)}">${escapeHtml(leadPriority.label)}</span>
           <strong>${escapeHtml(leadDetail.report || '未标记报告')}</strong>
           <em>${escapeHtml(leadDetail.source || '来源待确认')}</em>
+        </div>
+      ` : ''}
+      ${aiDetail ? `
+        <div class="feedback-ai-meta">
+          <strong>${escapeHtml(aiDetail.title)}</strong>
+          <span>${escapeHtml(aiDetail.query || '问题未记录')}</span>
+          <em>${escapeHtml([aiDetail.type, aiDetail.service, aiDetail.source].filter(Boolean).join(' · ') || 'AI 回答')}</em>
         </div>
       ` : ''}
       <div class="feedback-meta">

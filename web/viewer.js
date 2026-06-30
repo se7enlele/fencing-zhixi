@@ -2842,12 +2842,14 @@ function bindAiWorkspace(container) {
     try {
       await ensureAiEntityContext(normalizedQuery);
       const report = buildAiAnswer(normalizedQuery);
+      report.query = normalizedQuery;
       trackAnalyticsAction('ai_answer', report.type || 'unknown');
       trackAiAnalysisHistory(normalizedQuery, report);
       answer.innerHTML = renderAiAnswer(report);
       bindAnswer(report);
     } catch {
       const report = buildAiAnswer(normalizedQuery);
+      report.query = normalizedQuery;
       trackAnalyticsAction('ai_answer', report.type || 'unknown');
       trackAiAnalysisHistory(normalizedQuery, report);
       answer.innerHTML = renderAiAnswer(report);
@@ -4237,10 +4239,14 @@ function aiFollowUpPrompts(report) {
 
 function buildAiAnswerFeedbackText(report, feedbackType) {
   const label = feedbackType === 'ai-helpful' ? '有帮助' : '需要调整';
+  const conversionAction = aiReportConversionAction(report);
   return [
     `FencingAI 回答反馈：${label}`,
     `类型：${aiHistoryTypeLabel(report.type)}`,
     `标题：${report.title || '数据分析'}`,
+    report.query ? `原始问题：${report.query}` : '',
+    conversionAction?.source ? `转化来源：${conversionAction.source}` : '',
+    conversionAction?.title ? `关联服务：${conversionAction.title}` : '',
     report.summary ? `摘要：${report.summary}` : '',
     '补充说明：用户从 AI 回答页提交。',
   ].filter(Boolean).join('\n');
@@ -4258,7 +4264,7 @@ async function submitAiAnswerFeedback(report, feedbackType) {
         name: report.title || 'FencingAI 回答',
         type: report.type || 'answer',
         club: aiHistoryTypeLabel(report.type),
-        query: report.summary || '',
+        query: report.query || report.summary || '',
       },
       message: buildAiAnswerFeedbackText(report, feedbackType),
     }),

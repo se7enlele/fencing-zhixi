@@ -50,6 +50,7 @@ assert.match(js, /function feedbackStatusLabel\(status\)/, 'admin import must la
 assert.match(js, /function updateFeedbackStatus\(id, status\)/, 'admin import must update feedback status');
 assert.match(js, /function parsePilotLeadMessage\(message = ''\)/, 'admin import must parse pilot lead messages');
 assert.match(js, /function commercialLeadDetail\(row = \{\}\)/, 'admin import must normalize commercial lead source and report fields');
+assert.match(js, /function aiFeedbackDetail\(row = \{\}\)/, 'admin import must parse AI feedback context');
 assert.match(js, /function commercialLeadPriority\(row = \{\}\)/, 'admin import must prioritize commercial leads for follow-up');
 assert.match(js, /function renderPilotLeadSummary\(rows = \[\]\)/, 'admin import must render pilot lead summary');
 assert.match(js, /\['pilot-interest', 'membership-interest'\]\.includes\(row\.type\)/, 'admin import lead summary must be scoped to commercial leads');
@@ -61,11 +62,14 @@ assert.match(js, /'优先级', '角色', '来源页面', '触发报告'/, 'comme
 assert.match(js, /function copyCommercialLeads\(button, leads = \[\]\)/, 'admin import must copy commercial leads for follow-up');
 assert.match(js, /navigator\.clipboard\.writeText\(commercialLeadCsv\(leads\)\)/, 'commercial lead copy action must use the clipboard API');
 assert.match(js, /let activeFeedbackFilter = 'all'/, 'admin import feedback filters must keep active state');
+assert.match(js, /function isAiFeedback\(row\)/, 'admin import must identify AI feedback rows');
 assert.match(js, /function renderFeedbackFilterBar\(rows = \[\]\)/, 'admin import must render feedback filter chips');
 assert.match(js, /function feedbackFilterMatches\(row, filter = activeFeedbackFilter\)/, 'admin import must filter feedback rows');
 assert.match(js, /\['commercial', '商业线索', count\('commercial'\)\]/, 'admin import must expose a commercial lead filter');
 assert.match(js, /\/api\/admin\/feedback\/status\?token=/, 'admin import feedback actions must use the admin status API');
 assert.match(js, /data-feedback-status/, 'admin import feedback cards must expose workflow action buttons');
+assert.match(js, /const aiDetail = isAiFeedback\(row\) \? aiFeedbackDetail\(row\) : null;/, 'admin import must derive AI feedback metadata per row');
+assert.match(js, /class="feedback-ai-meta"/, 'admin import must render AI feedback metadata cards');
 assert.match(js, /function escapeHtml\(value\)/, 'admin import must escape feedback text before rendering');
 assert.match(js, /<pre>\$\{escapeHtml\(row\.message \|\| ''\)\}<\/pre>/, 'admin import must not render raw feedback messages');
 
@@ -78,6 +82,7 @@ assert.match(css, /\.pilot-lead-list/, 'admin pilot lead list styles must exist'
 assert.match(css, /\.pilot-lead-head-actions/, 'admin pilot lead actions must be styled');
 assert.match(css, /\.lead-priority/, 'admin commercial lead priority badge styles must exist');
 assert.match(css, /\.feedback-commercial-meta/, 'admin feedback cards must show commercial lead context');
+assert.match(css, /\.feedback-ai-meta/, 'admin feedback cards must show AI answer context');
 assert.match(css, /\.feedback-card/, 'admin feedback card styles must exist');
 assert.match(css, /\.feedback-actions/, 'admin feedback workflow action styles must exist');
 assert.match(css, /\.analytics-summary/, 'admin analytics summary styles must exist');
@@ -98,7 +103,7 @@ assert.match(html, /id="analyticsTrend"/, 'admin import page must expose analyti
 assert.match(html, /id="analyticsPages"/, 'admin import page must expose analytics page rankings');
 assert.match(html, /id="dataHealthSummary"/, 'admin import page must expose data health summary');
 assert.match(html, /id="dataHealthGaps"/, 'admin import page must expose data health gaps');
-assert.match(html, /admin-import\.js\?v=fencingai-product-20260630-funnel-1/, 'admin import JS cache key must be bumped');
-assert.match(html, /admin-import\.css\?v=fencingai-product-20260630-funnel-1/, 'admin import CSS cache key must be bumped');
+assert.match(html, /admin-import\.js\?v=fencingai-product-20260630-ai-feedback-1/, 'admin import JS cache key must be bumped');
+assert.match(html, /admin-import\.css\?v=fencingai-product-20260630-ai-feedback-1/, 'admin import CSS cache key must be bumped');
 
 console.log('admin import page feedback is covered');

@@ -115,6 +115,10 @@ assert.match(js, /function aiFollowUpPrompts\(report\)/, 'AI answers must genera
 assert.match(js, /function buildAiAnswerShareText\(report\)/, 'AI answers must build shareable summaries');
 assert.match(js, /function submitAiAnswerFeedback\(report, feedbackType\)/, 'AI answers must submit quality feedback');
 assert.match(js, /function buildAiAnswerFeedbackText\(report, feedbackType\)/, 'AI answer feedback must have admin-readable text');
+assert.match(js, /report\.query = normalizedQuery/, 'AI answer reports must keep the original user question for feedback and history');
+assert.match(js, /原始问题：\$\{report\.query\}/, 'AI feedback must include the original user question');
+assert.match(js, /转化来源：\$\{conversionAction\.source\}/, 'AI feedback must include the related conversion source');
+assert.match(js, /关联服务：\$\{conversionAction\.title\}/, 'AI feedback must include the related service');
 assert.match(js, /function aiReportConversionAction\(report = \{\}\)/, 'AI answers must map report types to commercial conversion actions');
 assert.match(js, /function renderAiConversionBlock\(report = \{\}\)/, 'AI answers must render a lightweight conversion block');
 assert.match(js, /prematch:\s*\[[\s\S]*同组对手、强手和主要俱乐部分布/, 'AI prematch answers must guide users toward opponent and club checks');
