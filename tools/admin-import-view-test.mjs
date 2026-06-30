@@ -59,6 +59,9 @@ assert.match(js, /function feedbackStatusLabel\(status\)/, 'admin import must la
 assert.match(js, /function updateFeedbackStatus\(id, status\)/, 'admin import must update feedback status');
 assert.match(js, /function parsePilotLeadMessage\(message = ''\)/, 'admin import must parse pilot lead messages');
 assert.match(js, /function commercialLeadDetail\(row = \{\}\)/, 'admin import must normalize commercial lead source and report fields');
+assert.match(js, /function commercialSourceLabel\(source\)/, 'admin import must translate commercial source keys');
+assert.match(js, /rawSource,\s*source: commercialSourceLabel\(rawSource\)/, 'commercial leads must keep raw source while displaying readable source labels');
+assert.match(js, /detail\.rawSource \|\| detail\.source/, 'commercial lead priority must still use raw source keys for scoring');
 assert.match(js, /function aiFeedbackDetail\(row = \{\}\)/, 'admin import must parse AI feedback context');
 assert.match(js, /function commercialLeadPriority\(row = \{\}\)/, 'admin import must prioritize commercial leads for follow-up');
 assert.match(js, /function renderPilotLeadSummary\(rows = \[\]\)/, 'admin import must render pilot lead summary');

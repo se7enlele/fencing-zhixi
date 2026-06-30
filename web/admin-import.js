@@ -89,9 +89,9 @@ function analyticsActionLabel(action) {
   })[action] || action || '未知动作';
 }
 
-function analyticsActionDetailLabel(key) {
-  const [action, label] = String(key || '').split(':');
-  const intentDetail = ['pilot_interest', 'membership_interest'].includes(action) ? ({
+function commercialSourceLabel(source) {
+  const key = String(source || '').trim();
+  return ({
     visitor: '访客',
     parent: '家长',
     coach: '教练',
@@ -109,7 +109,12 @@ function analyticsActionDetailLabel(key) {
     'ai-coach': 'AI 教练分析',
     'ai-comparison': 'AI 选手对比',
     'ai-business': 'AI 商业洞察',
-  })[label] : '';
+  })[key] || key;
+}
+
+function analyticsActionDetailLabel(key) {
+  const [action, label] = String(key || '').split(':');
+  const intentDetail = ['pilot_interest', 'membership_interest'].includes(action) ? commercialSourceLabel(label) : '';
   if (intentDetail) return `${analyticsActionLabel(action)} · ${intentDetail}`;
   const detail = ({
     prematch: '赛前情报',
@@ -527,9 +532,11 @@ function parsePilotLeadMessage(message = '') {
 
 function commercialLeadDetail(row = {}) {
   const detail = parsePilotLeadMessage(row.message);
+  const rawSource = detail['来源页面'] || row.athlete?.id || '';
   return {
     role: detail['当前角色'] || row.athlete?.type || '未选择',
-    source: detail['来源页面'] || row.athlete?.id || '',
+    rawSource,
+    source: commercialSourceLabel(rawSource),
     report: detail['触发报告'] || row.athlete?.name || '',
     athletes: detail['关注选手'] || '0',
     competitions: detail['关注赛事'] || '0',
@@ -552,7 +559,7 @@ function aiFeedbackDetail(row = {}) {
 function commercialLeadPriority(row = {}) {
   if (!isCommercialLead(row)) return { label: '普通', level: 'normal', score: 0 };
   const detail = commercialLeadDetail(row);
-  const source = `${detail.source} ${detail.report}`.toLowerCase();
+  const source = `${detail.rawSource || detail.source} ${detail.report}`.toLowerCase();
   let score = row.type === 'pilot-interest' ? 2 : 1;
   if (/prematch|growth|coach|club|template|report/.test(source)) score += 2;
   if (Number(detail.athletes) || Number(detail.competitions)) score += 1;
