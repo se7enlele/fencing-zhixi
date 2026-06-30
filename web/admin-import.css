@@ -441,14 +441,30 @@ button:disabled {
   line-height: 1.1;
 }
 
-.pilot-lead-head em {
+.pilot-lead-head-actions {
+  display: grid;
+  justify-items: end;
+  gap: 8px;
   max-width: 52%;
+}
+
+.pilot-lead-head em {
   color: var(--muted);
   font-size: 12px;
   font-style: normal;
   font-weight: 800;
   line-height: 1.45;
   text-align: right;
+}
+
+.pilot-lead-head-actions button {
+  min-height: 30px;
+  border: 1px solid rgba(8, 119, 96, 0.18);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--teal);
+  font-size: 12px;
+  padding: 0 10px;
 }
 
 .pilot-lead-list {
@@ -601,6 +617,19 @@ button:disabled {
 
   .feedback-card-head {
     grid-template-columns: 1fr auto;
+  }
+
+  .pilot-lead-head {
+    display: grid;
+  }
+
+  .pilot-lead-head-actions {
+    max-width: none;
+    justify-items: start;
+  }
+
+  .pilot-lead-head em {
+    text-align: left;
   }
 
   .feedback-card-head span {

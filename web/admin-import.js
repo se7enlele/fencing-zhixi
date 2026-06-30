@@ -371,7 +371,10 @@ function renderPilotLeadSummary(rows = []) {
           <span>商业线索</span>
           <strong>${openLeads.length} 条待跟进</strong>
         </div>
-        <em>${escapeHtml(roleText || '角色待确认')}</em>
+        <div class="pilot-lead-head-actions">
+          <em>${escapeHtml(roleText || '角色待确认')}</em>
+          <button type="button" data-copy-commercial-leads>复制线索</button>
+        </div>
       </div>
       <div class="pilot-lead-list">
         ${latest.map((row) => {
@@ -387,6 +390,42 @@ function renderPilotLeadSummary(rows = []) {
       </div>
     </section>
   `;
+  pilotLeadSummary.querySelector('[data-copy-commercial-leads]')?.addEventListener('click', (event) => {
+    copyCommercialLeads(event.currentTarget, leads);
+  });
+}
+
+function commercialLeadCsv(rows = []) {
+  const headers = ['类型', '角色', '关注选手', '关注赛事', '最近报告', '最近AI分析', '状态', '时间'];
+  const escapeCsv = (value) => `"${String(value ?? '').replace(/"/g, '""')}"`;
+  const lines = rows.map((row) => {
+    const detail = parsePilotLeadMessage(row.message);
+    return [
+      feedbackTypeLabel(row.type),
+      detail['当前角色'] || row.athlete?.type || '未选择',
+      detail['关注选手'] || '0',
+      detail['关注赛事'] || '0',
+      detail['最近报告'] || '0',
+      detail['最近 AI 分析'] || '0',
+      feedbackStatusLabel(row.status),
+      row.createdAt ? new Date(row.createdAt).toLocaleString('zh-CN') : '',
+    ].map(escapeCsv).join(',');
+  });
+  return [headers.map(escapeCsv).join(','), ...lines].join('\n');
+}
+
+async function copyCommercialLeads(button, leads = []) {
+  if (!button || !leads.length) return;
+  const originalLabel = button.textContent;
+  try {
+    await navigator.clipboard.writeText(commercialLeadCsv(leads));
+    button.textContent = '已复制';
+  } catch {
+    button.textContent = '复制失败';
+  }
+  setTimeout(() => {
+    button.textContent = originalLabel;
+  }, 1600);
 }
 
 function renderFeedback(rows = []) {
