@@ -66,6 +66,10 @@ assert.match(js, /data-pilot-interest/, 'home page pilot section must have a run
 assert.match(js, /async function submitPilotInterest\(button\)/, 'home page must submit pilot trial interest');
 assert.match(js, /type: 'pilot-interest'/, 'pilot trial interest must use the feedback workflow');
 assert.match(js, /trackAnalyticsAction\('pilot_interest', state\.userRole \|\| 'visitor'\)/, 'pilot trial interest must be tracked as a conversion action');
+assert.match(js, /async function submitMembershipInterest\(button\)/, 'member CTA must submit membership interest');
+assert.match(js, /type: 'membership-interest'/, 'member CTA must use the feedback workflow');
+assert.match(js, /trackAnalyticsAction\('membership_interest', state\.userRole \|\| 'visitor'\)/, 'membership interest must be tracked as a conversion action');
+assert.match(js, /memberCta\?\.addEventListener\('click', \(event\) => submitMembershipInterest\(event\.currentTarget\)\)/, 'member CTA must be wired to membership interest submission');
 assert.match(js, /function homeDataValueRows\(\)/, 'home page must build productized data value entry cards');
 assert.match(js, /class="data-value-grid"/, 'home page must render productized data value cards');
 assert.match(js, /data-home-ai-product="\$\{escapeHtml\(row\.query\)\}"/, 'data value cards must carry runnable AI product questions');

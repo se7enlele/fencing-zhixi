@@ -25,6 +25,7 @@ assert.match(js, /function analyticsActionLabel\(action\)/, 'admin analytics mus
 assert.match(js, /share_report: '复制报告'/, 'admin analytics must label report share actions');
 assert.match(js, /share_club: '复制招生名片'/, 'admin analytics must label club recruiting share actions');
 assert.match(js, /pilot_interest: '试用意向'/, 'admin analytics must label pilot interest actions');
+assert.match(js, /membership_interest: '会员意向'/, 'admin analytics must label membership interest actions');
 assert.match(js, /visitor: '访客'/, 'admin analytics must label visitor pilot detail');
 assert.match(js, /关键动作/, 'admin analytics must expose product action rankings');
 assert.match(js, /动作明细/, 'admin analytics must expose product action detail rankings');
@@ -34,12 +35,13 @@ assert.match(js, /function feedbackTypeLabel\(type\)/, 'admin import must label 
 assert.match(js, /'ai-helpful': 'AI 有帮助'/, 'admin import must label helpful AI feedback');
 assert.match(js, /'ai-needs-work': 'AI 需调整'/, 'admin import must label AI feedback that needs adjustment');
 assert.match(js, /'pilot-interest': '试用意向'/, 'admin import must label pilot interest leads');
+assert.match(js, /'membership-interest': '会员意向'/, 'admin import must label membership interest leads');
 assert.match(js, /function feedbackStatusLabel\(status\)/, 'admin import must label feedback workflow status');
 assert.match(js, /function updateFeedbackStatus\(id, status\)/, 'admin import must update feedback status');
 assert.match(js, /function parsePilotLeadMessage\(message = ''\)/, 'admin import must parse pilot lead messages');
 assert.match(js, /function renderPilotLeadSummary\(rows = \[\]\)/, 'admin import must render pilot lead summary');
-assert.match(js, /row\.type === 'pilot-interest'/, 'admin import pilot summary must be scoped to trial leads');
-assert.match(js, /试用线索/, 'admin import must expose a trial lead board');
+assert.match(js, /\['pilot-interest', 'membership-interest'\]\.includes\(row\.type\)/, 'admin import lead summary must be scoped to commercial leads');
+assert.match(js, /商业线索/, 'admin import must expose a commercial lead board');
 assert.match(js, /条待跟进/, 'admin import must count open trial leads');
 assert.match(js, /\/api\/admin\/feedback\/status\?token=/, 'admin import feedback actions must use the admin status API');
 assert.match(js, /data-feedback-status/, 'admin import feedback cards must expose workflow action buttons');
@@ -64,7 +66,7 @@ assert.match(html, /id="pilotLeadSummary"/, 'admin import page must expose pilot
 assert.match(html, /id="analyticsSummary"/, 'admin import page must expose analytics summary');
 assert.match(html, /id="analyticsTrend"/, 'admin import page must expose analytics trend');
 assert.match(html, /id="analyticsPages"/, 'admin import page must expose analytics page rankings');
-assert.match(html, /admin-import\.js\?v=fencingai-product-20260630-leads-1/, 'admin import JS cache key must be bumped');
-assert.match(html, /admin-import\.css\?v=fencingai-product-20260630-leads-1/, 'admin import CSS cache key must be bumped');
+assert.match(html, /admin-import\.js\?v=fencingai-product-20260630-membership-1/, 'admin import JS cache key must be bumped');
+assert.match(html, /admin-import\.css\?v=fencingai-product-20260630-membership-1/, 'admin import CSS cache key must be bumped');
 
 console.log('admin import page feedback is covered');

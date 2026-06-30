@@ -73,6 +73,7 @@ function analyticsActionLabel(action) {
     share_report: '复制报告',
     share_club: '复制招生名片',
     pilot_interest: '试用意向',
+    membership_interest: '会员意向',
     follow_athlete: '关注选手',
     follow_competition: '关注赛事',
   })[action] || action || '未知动作';
@@ -80,14 +81,14 @@ function analyticsActionLabel(action) {
 
 function analyticsActionDetailLabel(key) {
   const [action, label] = String(key || '').split(':');
-  const pilotDetail = action === 'pilot_interest' ? ({
+  const intentDetail = ['pilot_interest', 'membership_interest'].includes(action) ? ({
     visitor: '访客',
     parent: '家长',
     coach: '教练',
     club: '俱乐部',
     data: '赛事数据',
   })[label] : '';
-  if (pilotDetail) return `${analyticsActionLabel(action)} · ${pilotDetail}`;
+  if (intentDetail) return `${analyticsActionLabel(action)} · ${intentDetail}`;
   const detail = ({
     prematch: '赛前情报',
     growth: '成长报告',
@@ -318,6 +319,7 @@ function feedbackTypeLabel(type) {
     'ai-helpful': 'AI 有帮助',
     'ai-needs-work': 'AI 需调整',
     'pilot-interest': '试用意向',
+    'membership-interest': '会员意向',
   })[type] || '用户反馈';
 }
 
@@ -348,9 +350,9 @@ function parsePilotLeadMessage(message = '') {
 
 function renderPilotLeadSummary(rows = []) {
   if (!pilotLeadSummary) return;
-  const leads = rows.filter((row) => row.type === 'pilot-interest');
+  const leads = rows.filter((row) => ['pilot-interest', 'membership-interest'].includes(row.type));
   if (!leads.length) {
-    pilotLeadSummary.innerHTML = '<div class="status muted">暂无试用意向。</div>';
+    pilotLeadSummary.innerHTML = '<div class="status muted">暂无商业线索。</div>';
     return;
   }
   const openLeads = leads.filter((row) => !['resolved', 'ignored'].includes(row.status || 'new'));
@@ -366,7 +368,7 @@ function renderPilotLeadSummary(rows = []) {
     <section class="pilot-lead-card">
       <div class="pilot-lead-head">
         <div>
-          <span>试用线索</span>
+          <span>商业线索</span>
           <strong>${openLeads.length} 条待跟进</strong>
         </div>
         <em>${escapeHtml(roleText || '角色待确认')}</em>
@@ -376,7 +378,7 @@ function renderPilotLeadSummary(rows = []) {
           const detail = parsePilotLeadMessage(row.message);
           return `
             <article>
-              <strong>${escapeHtml(detail['当前角色'] || row.athlete?.type || '未选择')}</strong>
+              <strong>${escapeHtml(feedbackTypeLabel(row.type))} · ${escapeHtml(detail['当前角色'] || row.athlete?.type || '未选择')}</strong>
               <span>${escapeHtml(row.createdAt ? new Date(row.createdAt).toLocaleString('zh-CN') : '-')}</span>
               <p>选手 ${escapeHtml(detail['关注选手'] || '0')} · 赛事 ${escapeHtml(detail['关注赛事'] || '0')} · 报告 ${escapeHtml(detail['最近报告'] || '0')} · AI ${escapeHtml(detail['最近 AI 分析'] || '0')}</p>
             </article>

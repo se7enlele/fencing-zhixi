@@ -2351,6 +2351,46 @@ async function submitPilotInterest(button) {
   }, 1800);
 }
 
+async function submitMembershipInterest(button) {
+  if (!button) return;
+  const originalLabel = button.textContent;
+  button.disabled = true;
+  button.textContent = '提交中';
+  try {
+    const response = await fetch('/api/feedback', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        deviceId: state.deviceId,
+        type: 'membership-interest',
+        subject: {
+          id: `membership-${state.userRole || 'visitor'}`,
+          name: '会员意向',
+          type: state.userRole || 'visitor',
+        },
+        message: [
+          `当前角色：${state.userRole || '未选择'}`,
+          `关注选手：${state.followedAthletes.length}`,
+          `关注赛事：${state.followedCompetitions.length}`,
+          `最近报告：${state.reportHistory.length}`,
+          `最近 AI 分析：${state.aiHistory.length}`,
+          '意向权益：成长报告、重点对手、俱乐部分析和无广告体验',
+        ].join('；'),
+      }),
+    });
+    const result = await response.json();
+    if (!response.ok || !result.ok) throw new Error(result.message || '提交失败');
+    trackAnalyticsAction('membership_interest', state.userRole || 'visitor');
+    button.textContent = '已收到';
+  } catch {
+    button.textContent = '稍后再试';
+  }
+  setTimeout(() => {
+    button.textContent = originalLabel;
+    button.disabled = false;
+  }, 1800);
+}
+
 function renderHomePage() {
   if (!homePage) return;
   if (state.isDataLoading) {
@@ -8476,9 +8516,7 @@ filterSheetOptions.addEventListener('click', (event) => {
   setFilterValue(button.dataset.filterType, button.dataset.filterValue);
   closeFilterSheet();
 });
-memberCta?.addEventListener('click', () => {
-  alert('会员能力后续会围绕成长报告、重点对手、俱乐部分析和无广告体验设计。当前版本先开放免费查看。');
-});
+memberCta?.addEventListener('click', (event) => submitMembershipInterest(event.currentTarget));
 document.querySelectorAll('[data-nav-role-home]').forEach((button) => {
   button.addEventListener('click', () => {
     state.userRole = '';

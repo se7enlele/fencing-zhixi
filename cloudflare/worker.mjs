@@ -239,7 +239,7 @@ async function handleFollows(request, env, url) {
 
 function normalizeFeedbackType(value) {
   const type = String(value || '').trim();
-  return ['correct', 'hide', 'ai-helpful', 'ai-needs-work', 'pilot-interest'].includes(type) ? type : '';
+  return ['correct', 'hide', 'ai-helpful', 'ai-needs-work', 'pilot-interest', 'membership-interest'].includes(type) ? type : '';
 }
 
 function normalizeFeedbackText(value) {
@@ -417,7 +417,7 @@ async function handleFeedback(request, env) {
   const subject = body.subject || {};
   const message = normalizeFeedbackText(body.message);
   const isAiFeedback = type.startsWith('ai-');
-  const isSubjectFeedback = isAiFeedback || type === 'pilot-interest';
+  const isSubjectFeedback = isAiFeedback || type === 'pilot-interest' || type === 'membership-interest';
   const target = isSubjectFeedback ? subject : athlete;
   if (!type) return json({ ok: false, message: 'Invalid feedback type' }, 400);
   if (!target?.id || !target?.name) return json({ ok: false, message: isSubjectFeedback ? 'Missing subject' : 'Missing athlete' }, 400);
