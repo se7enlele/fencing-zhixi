@@ -8,6 +8,7 @@ import { buildProjectListReport } from './tools/parse-projectlist.mjs';
 import { buildRegistrationRosterReport, looksLikeRegistrationRoster } from './tools/parse-registration-roster.mjs';
 import { buildFrontSportEventListReport, looksLikeFrontSportEventList } from './tools/parse-frontsporteventlist.mjs';
 import { buildPreEventCompetitions } from './tools/pre-event-data.mjs';
+import { sanitizePublicData } from './tools/public-sanitize.mjs';
 import { buildSearchIndexes, searchIndexes } from './tools/search-index.mjs';
 import { compactCompetitionIndex } from './tools/competition-index.mjs';
 
@@ -1841,7 +1842,7 @@ const server = createServer(async (request, response) => {
 
   if (request.method === 'GET' && url.pathname === '/api/events') {
     try {
-      sendJson(response, 200, await getEventIndexPayload());
+      sendJson(response, 200, sanitizePublicData(await getEventIndexPayload()));
     } catch (error) {
       sendJson(response, 500, { ok: false, message: error.message });
     }
@@ -1850,7 +1851,7 @@ const server = createServer(async (request, response) => {
 
   if (request.method === 'GET' && url.pathname === '/api/competitions') {
     try {
-      sendJson(response, 200, await getCompetitionIndexPayload());
+      sendJson(response, 200, sanitizePublicData(await getCompetitionIndexPayload()));
     } catch (error) {
       sendJson(response, 500, { ok: false, message: error.message });
     }
@@ -1864,13 +1865,13 @@ const server = createServer(async (request, response) => {
       const athleteLimit = Number(url.searchParams.get('athleteLimit')) || undefined;
       const clubLimit = Number(url.searchParams.get('clubLimit')) || undefined;
       const indexes = await getSearchIndexes();
-      sendJson(response, 200, {
+      sendJson(response, 200, sanitizePublicData({
         ok: true,
         version: APP_VERSION,
         query,
         type,
         ...searchIndexes(indexes, query, { type, athleteLimit, clubLimit }),
-      });
+      }));
     } catch (error) {
       sendJson(response, 500, { ok: false, message: error.message });
     }
@@ -1886,11 +1887,11 @@ const server = createServer(async (request, response) => {
         sendJson(response, 404, { ok: false, message: '未找到比赛数据。' });
         return;
       }
-      sendJson(response, 200, {
+      sendJson(response, 200, sanitizePublicData({
         ok: true,
         version: APP_VERSION,
         competition: found,
-      });
+      }));
     } catch (error) {
       sendJson(response, 500, { ok: false, message: error.message });
     }
@@ -1909,7 +1910,7 @@ const server = createServer(async (request, response) => {
         ));
         const preEventItem = preEventCompetition?.items?.find((item) => item.eventCode === eventCode);
         if (preEventItem) {
-          sendJson(response, 200, {
+          sendJson(response, 200, sanitizePublicData({
             ok: true,
             version: APP_VERSION,
             event: {
@@ -1925,17 +1926,17 @@ const server = createServer(async (request, response) => {
               status: preEventItem.status,
               rosterStatus: preEventCompetition.rosterStatus,
             },
-          });
+          }));
           return;
         }
         sendJson(response, 404, { ok: false, message: '未找到项目数据。' });
         return;
       }
-      sendJson(response, 200, {
+      sendJson(response, 200, sanitizePublicData({
         ok: true,
         version: APP_VERSION,
         event: buildEventDetail(found.report, found.fileName),
-      });
+      }));
     } catch (error) {
       sendJson(response, 500, { ok: false, message: error.message });
     }
@@ -1951,7 +1952,7 @@ const server = createServer(async (request, response) => {
         sendJson(response, 404, { ok: false, message: '未找到选手画像。' });
         return;
       }
-      sendJson(response, 200, { ok: true, version: APP_VERSION, athlete: found });
+      sendJson(response, 200, sanitizePublicData({ ok: true, version: APP_VERSION, athlete: found }));
     } catch (error) {
       sendJson(response, 500, { ok: false, message: error.message });
     }
@@ -1968,7 +1969,7 @@ const server = createServer(async (request, response) => {
         sendJson(response, 404, { ok: false, message: '未找到俱乐部画像。' });
         return;
       }
-      sendJson(response, 200, { ok: true, version: APP_VERSION, club: found });
+      sendJson(response, 200, sanitizePublicData({ ok: true, version: APP_VERSION, club: found }));
     } catch (error) {
       sendJson(response, 500, { ok: false, message: error.message });
     }

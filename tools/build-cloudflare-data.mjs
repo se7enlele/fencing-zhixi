@@ -1,4 +1,4 @@
-import { mkdir, rename, writeFile } from 'node:fs/promises';
+import { mkdir, readdir, rename, rm, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import {
   getAthleteDirectory,
@@ -6,6 +6,7 @@ import {
   getEventDetailByCode,
   getPublicEventsPayload,
 } from '../server.mjs';
+import { sanitizePublicData } from './public-sanitize.mjs';
 import { buildSearchIndexes } from './search-index.mjs';
 
 const assetOutDir = path.join('web', 'data');
@@ -25,6 +26,16 @@ async function writeJsonFile(filePath, value) {
   const tempPath = `${filePath}.${process.pid}.tmp`;
   await writeFile(tempPath, `${JSON.stringify(value)}\n`, 'utf8');
   await rename(tempPath, filePath);
+}
+
+async function removeStalePublicDataFiles() {
+  await mkdir(assetOutDir, { recursive: true });
+  const files = await readdir(assetOutDir);
+  await Promise.all(
+    files
+      .filter((file) => /^public-data-(events|athletes|clubs|search)-\d+\.json$/.test(file))
+      .map((file) => rm(path.join(assetOutDir, file), { force: true })),
+  );
 }
 
 async function writeObjectChunks(name, objectValue) {
@@ -132,17 +143,17 @@ const clubs = await getClubDirectory();
 
 const payload = {
   version: publicEvents.version,
-  publicEvents: stripListOnlyFields(workerPublicEvents),
-  eventsByCode: {
+  publicEvents: sanitizePublicData(stripListOnlyFields(workerPublicEvents)),
+  eventsByCode: sanitizePublicData({
     ...Object.fromEntries(eventEntries.filter(([, detail]) => detail)),
     ...buildPreEventDetailsFromCompetitions(workerPublicEvents.competitions),
-  },
-  athletesById: Object.fromEntries(athletes.map((athlete) => [athlete.id, athlete])),
-  clubsById: Object.fromEntries(clubs.map((club) => [club.id, club])),
+  }),
+  athletesById: sanitizePublicData(Object.fromEntries(athletes.map((athlete) => [athlete.id, athlete]))),
+  clubsById: sanitizePublicData(Object.fromEntries(clubs.map((club) => [club.id, club]))),
 };
-const searchIndexes = buildSearchIndexes(athletes, clubs);
+const searchIndexes = sanitizePublicData(buildSearchIndexes(athletes, clubs));
 
-await mkdir(assetOutDir, { recursive: true });
+await removeStalePublicDataFiles();
 await mkdir(moduleOutDir, { recursive: true });
 const eventChunks = await writeObjectChunks('events', payload.eventsByCode);
 const athleteChunks = await writeObjectChunks('athletes', payload.athletesById);

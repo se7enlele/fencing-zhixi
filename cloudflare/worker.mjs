@@ -1,6 +1,7 @@
 import adminImportHtml from '../web/admin-import.html';
 import viewerHtml from '../web/viewer.html';
 import { buildPreEventCompetitions } from '../tools/pre-event-data.mjs';
+import { sanitizePublicData } from '../tools/public-sanitize.mjs';
 import { searchIndexes } from '../tools/search-index.mjs';
 import { compactCompetitionIndex } from '../tools/competition-index.mjs';
 import {
@@ -801,24 +802,24 @@ async function handleAdminImport(request, env, url) {
 async function routeApi(request, env, url) {
   if (url.pathname === '/api/competitions' && request.method === 'GET') {
     const { index, competitions, hasDynamicPreEvent } = await getCompetitionIndex(env);
-    return json({
+    return json(sanitizePublicData({
       ok: true,
       version: index.version,
       generatedAt: index.generatedAt || null,
       competitions: compactCompetitionIndex(competitions),
       dataCoverage: index.publicEvents.dataCoverage || null,
-    }, 200, hasDynamicPreEvent ? NO_STORE_CACHE : PUBLIC_INDEX_CACHE);
+    }), 200, hasDynamicPreEvent ? NO_STORE_CACHE : PUBLIC_INDEX_CACHE);
   }
 
   if (url.pathname === '/api/events' && request.method === 'GET') {
     const index = await loadBundledIndex(env);
-    return json({
+    return json(sanitizePublicData({
       ok: true,
       version: index.version,
       generatedAt: index.generatedAt || null,
       events: index.publicEvents.events || [],
       dataCoverage: index.publicEvents.dataCoverage || null,
-    }, 200, PUBLIC_INDEX_CACHE);
+    }), 200, PUBLIC_INDEX_CACHE);
   }
 
   if (url.pathname === '/api/search' && request.method === 'GET') {
@@ -827,13 +828,13 @@ async function routeApi(request, env, url) {
     const athleteLimit = Number(url.searchParams.get('athleteLimit')) || undefined;
     const clubLimit = Number(url.searchParams.get('clubLimit')) || undefined;
     const indexes = await loadSearchIndexes(env);
-    return json({
+    return json(sanitizePublicData({
       ok: true,
       version: (await loadBundledIndex(env)).version,
       query,
       type,
       ...searchIndexes(indexes, query, { type, athleteLimit, clubLimit }),
-    }, 200, PUBLIC_INDEX_CACHE);
+    }), 200, PUBLIC_INDEX_CACHE);
   }
 
   if (url.pathname.startsWith('/api/competitions/') && request.method === 'GET') {
@@ -841,7 +842,7 @@ async function routeApi(request, env, url) {
     const sportCode = decodeURIComponent(url.pathname.replace('/api/competitions/', ''));
     const competition = competitions.find((item) => item.sportCode === sportCode);
     return competition
-      ? json({ ok: true, version: index.version, competition }, 200, hasDynamicPreEvent ? NO_STORE_CACHE : PUBLIC_DETAIL_CACHE)
+      ? json(sanitizePublicData({ ok: true, version: index.version, competition }), 200, hasDynamicPreEvent ? NO_STORE_CACHE : PUBLIC_DETAIL_CACHE)
       : json({ ok: false, message: '未找到比赛数据。' }, 404);
   }
 
@@ -860,6 +861,7 @@ async function routeApi(request, env, url) {
       const { competitions } = await getCompetitionIndex(env);
       event = findProjectOnlyEvent({ competitions }, eventCode);
     }
+    event = sanitizePublicData(event);
     return event ? json({ ok: true, version: index.version, event }, 200, PUBLIC_DETAIL_CACHE) : json({ ok: false, message: '项目不存在。' }, 404);
   }
 
@@ -867,7 +869,7 @@ async function routeApi(request, env, url) {
     const index = await loadBundledIndex(env);
     const lookup = await loadBundledLookup(env);
     const athleteId = decodeURIComponent(url.pathname.replace('/api/athletes/', ''));
-    const athlete = await findInChunks(env, index.chunks?.athletesById, athleteId, lookup.chunkLookup?.athletesById);
+    const athlete = sanitizePublicData(await findInChunks(env, index.chunks?.athletesById, athleteId, lookup.chunkLookup?.athletesById));
     return athlete ? json({ ok: true, version: index.version, athlete }, 200, PUBLIC_DETAIL_CACHE) : json({ ok: false, message: '选手不存在。' }, 404);
   }
 
@@ -876,9 +878,10 @@ async function routeApi(request, env, url) {
     const lookup = await loadBundledLookup(env);
     const rawClubId = url.pathname.replace('/api/clubs/', '');
     const decodedClubId = decodeURIComponent(rawClubId);
-    const club = await findInChunks(env, index.chunks?.clubsById, rawClubId, lookup.chunkLookup?.clubsById)
+    let club = await findInChunks(env, index.chunks?.clubsById, rawClubId, lookup.chunkLookup?.clubsById)
       || await findInChunks(env, index.chunks?.clubsById, decodedClubId, lookup.chunkLookup?.clubsById)
       || await findInChunks(env, index.chunks?.clubsById, encodeURIComponent(decodedClubId), lookup.chunkLookup?.clubsById);
+    club = sanitizePublicData(club);
     return club ? json({ ok: true, version: index.version, club }, 200, PUBLIC_DETAIL_CACHE) : json({ ok: false, message: '俱乐部不存在。' }, 404);
   }
 
