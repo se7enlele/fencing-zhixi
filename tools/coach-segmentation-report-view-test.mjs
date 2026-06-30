@@ -43,6 +43,7 @@ assert.match(js, /class="coach-segmentation-followups"/, 'segmentation report mu
 assert.match(js, /class="coach-segmentation-evidence"/, 'segmentation report must show traceable evidence');
 assert.match(js, /data-report-share="coach-segmentation"/, 'segmentation report must expose a copy summary action');
 assert.match(js, /bindCopyTextButton\(coachSegmentationReportHero\.querySelector\('\[data-report-share="coach-segmentation"\]'\)/, 'segmentation report copy action must be wired');
+assert.match(js, /已复制，可继续申请教练试用。/, 'segmentation report copy action must guide users toward coach trial');
 assert.match(js, /source: 'coach-segmentation-report'/, 'coach segmentation report must expose a report-scoped commercial source');
 assert.match(js, /申请教练试用/, 'coach segmentation report must include a coach trial conversion action');
 assert.match(js, /bindReportConversionActions\(coachSegmentationReportBody\)/, 'coach segmentation conversion actions must be wired');

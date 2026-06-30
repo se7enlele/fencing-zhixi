@@ -1774,21 +1774,31 @@ function parentGrowthActionRows(athlete, model, focusRows = []) {
   ];
 }
 
-function bindCopyTextButton(button, textBuilder, analyticsLabel = '') {
+function bindCopyTextButton(button, textBuilder, analyticsLabel = '', followupText = '') {
   if (!button) return;
   button.addEventListener('click', async () => {
     const originalLabel = button.textContent;
+    let followup = null;
+    if (followupText) {
+      followup = button.parentElement?.querySelector('.report-share-followup') || document.createElement('span');
+      followup.className = 'report-share-followup';
+      followup.textContent = '';
+      if (!followup.parentElement) button.insertAdjacentElement('afterend', followup);
+    }
     try {
       const text = typeof textBuilder === 'function' ? textBuilder() : textBuilder;
       await copyTextToClipboard(text);
       if (analyticsLabel) trackAnalyticsAction('share_report', analyticsLabel);
       button.textContent = '已复制';
+      if (followup) followup.textContent = followupText;
     } catch (error) {
       button.textContent = '复制失败';
+      if (followup) followup.textContent = '';
     }
     setTimeout(() => {
       button.textContent = originalLabel;
-    }, 1400);
+      if (followup) followup.textContent = '';
+    }, followupText ? 2600 : 1400);
   });
 }
 
@@ -1956,7 +1966,7 @@ function renderParentGrowthReport(athleteId = '') {
   });
   parentGrowthReportBody.querySelector('[data-athlete-id]')?.addEventListener('click', () => openAthlete(athlete.id));
   bindReportConversionActions(parentGrowthReportBody);
-  bindCopyTextButton(parentGrowthReportHero.querySelector('[data-report-share="parent-growth"]'), () => buildParentGrowthShareText(athlete, model, focusRows, actionRows), 'parent-growth');
+  bindCopyTextButton(parentGrowthReportHero.querySelector('[data-report-share="parent-growth"]'), () => buildParentGrowthShareText(athlete, model, focusRows, actionRows), 'parent-growth', '已复制，可继续申请家庭试用。');
 }
 
 function openParentGrowthReport(athleteId = '') {
@@ -7501,7 +7511,7 @@ function renderCoachSegmentationReport(clubId = '') {
   });
   coachSegmentationReportBody.querySelector('[data-club-id]')?.addEventListener('click', () => openClub(club.id));
   bindReportConversionActions(coachSegmentationReportBody);
-  bindCopyTextButton(coachSegmentationReportHero.querySelector('[data-report-share="coach-segmentation"]'), () => buildCoachSegmentationShareText(club, buckets, followups, projectRows), 'coach-segmentation');
+  bindCopyTextButton(coachSegmentationReportHero.querySelector('[data-report-share="coach-segmentation"]'), () => buildCoachSegmentationShareText(club, buckets, followups, projectRows), 'coach-segmentation', '已复制，可继续申请教练试用。');
 }
 
 function openCoachSegmentationReport(clubId = '') {
@@ -8733,7 +8743,7 @@ function renderPrematchReport(kind = 'prematch-pack', sportCode = '') {
     });
   });
   bindReportConversionActions(prematchReportBody);
-  bindCopyTextButton(prematchReportHero.querySelector('[data-report-share="prematch"]'), () => buildPrematchShareText(competitions, focusRows, opponentRows, isSingleCompetition), isSingleCompetition ? 'prematch-single' : 'prematch-pack');
+  bindCopyTextButton(prematchReportHero.querySelector('[data-report-share="prematch"]'), () => buildPrematchShareText(competitions, focusRows, opponentRows, isSingleCompetition), isSingleCompetition ? 'prematch-single' : 'prematch-pack', '已复制，可继续申请赛前试用。');
 }
 
 function openPrematchReport(kind = 'prematch-pack', sportCode = '') {

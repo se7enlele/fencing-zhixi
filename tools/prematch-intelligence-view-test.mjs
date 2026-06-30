@@ -76,6 +76,7 @@ assert.match(js, /prematchReportBody\.querySelectorAll\('\[data-sport-code\]'\)/
 assert.match(js, /prematchReportBody\.querySelectorAll\('\[data-athlete-id\]'\)/, 'prematch report athletes must be clickable');
 assert.match(js, /data-report-share="prematch"/, 'prematch report must expose a copy summary action');
 assert.match(js, /bindCopyTextButton\(prematchReportHero\.querySelector\('\[data-report-share="prematch"\]'\)/, 'prematch report copy action must be wired');
+assert.match(js, /已复制，可继续申请赛前试用。/, 'prematch report copy action must guide users toward prematch trial');
 assert.match(js, /source: isSingleCompetition \? 'prematch-single-report' : 'prematch-pack-report'/, 'prematch report must expose a report-scoped commercial source');
 assert.match(js, /申请赛前试用/, 'prematch report must include a prematch trial conversion action');
 assert.match(js, /bindReportConversionActions\(prematchReportBody\)/, 'prematch conversion actions must be wired');
