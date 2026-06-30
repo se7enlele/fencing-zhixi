@@ -36,6 +36,11 @@ assert.match(js, /'ai-needs-work': 'AI 需调整'/, 'admin import must label AI 
 assert.match(js, /'pilot-interest': '试用意向'/, 'admin import must label pilot interest leads');
 assert.match(js, /function feedbackStatusLabel\(status\)/, 'admin import must label feedback workflow status');
 assert.match(js, /function updateFeedbackStatus\(id, status\)/, 'admin import must update feedback status');
+assert.match(js, /function parsePilotLeadMessage\(message = ''\)/, 'admin import must parse pilot lead messages');
+assert.match(js, /function renderPilotLeadSummary\(rows = \[\]\)/, 'admin import must render pilot lead summary');
+assert.match(js, /row\.type === 'pilot-interest'/, 'admin import pilot summary must be scoped to trial leads');
+assert.match(js, /试用线索/, 'admin import must expose a trial lead board');
+assert.match(js, /条待跟进/, 'admin import must count open trial leads');
 assert.match(js, /\/api\/admin\/feedback\/status\?token=/, 'admin import feedback actions must use the admin status API');
 assert.match(js, /data-feedback-status/, 'admin import feedback cards must expose workflow action buttons');
 assert.match(js, /function escapeHtml\(value\)/, 'admin import must escape feedback text before rendering');
@@ -44,6 +49,8 @@ assert.match(js, /<pre>\$\{escapeHtml\(row\.message \|\| ''\)\}<\/pre>/, 'admin 
 assert.match(css, /\.roster-progress/, 'roster progress panel styles must exist');
 assert.match(css, /\.roster-progress-grid/, 'roster progress metrics must have a layout');
 assert.match(css, /\.feedback-list/, 'admin feedback list styles must exist');
+assert.match(css, /\.pilot-lead-card/, 'admin pilot lead card styles must exist');
+assert.match(css, /\.pilot-lead-list/, 'admin pilot lead list styles must exist');
 assert.match(css, /\.feedback-card/, 'admin feedback card styles must exist');
 assert.match(css, /\.feedback-actions/, 'admin feedback workflow action styles must exist');
 assert.match(css, /\.analytics-summary/, 'admin analytics summary styles must exist');
@@ -53,10 +60,11 @@ assert.match(css, /\.analytics-rank-row/, 'admin analytics ranking styles must e
 
 assert.match(html, /id="feedbackList"/, 'admin import page must expose a feedback list');
 assert.match(html, /id="feedbackStatus"/, 'admin import page must expose feedback load status');
+assert.match(html, /id="pilotLeadSummary"/, 'admin import page must expose pilot lead summary');
 assert.match(html, /id="analyticsSummary"/, 'admin import page must expose analytics summary');
 assert.match(html, /id="analyticsTrend"/, 'admin import page must expose analytics trend');
 assert.match(html, /id="analyticsPages"/, 'admin import page must expose analytics page rankings');
-assert.match(html, /admin-import\.js\?v=fencingai-product-20260629-analytics-1/, 'admin import JS cache key must be bumped');
-assert.match(html, /admin-import\.css\?v=fencingai-product-20260629-analytics-1/, 'admin import CSS cache key must be bumped');
+assert.match(html, /admin-import\.js\?v=fencingai-product-20260630-leads-1/, 'admin import JS cache key must be bumped');
+assert.match(html, /admin-import\.css\?v=fencingai-product-20260630-leads-1/, 'admin import CSS cache key must be bumped');
 
 console.log('admin import page feedback is covered');

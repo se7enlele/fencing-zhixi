@@ -11,6 +11,7 @@ const analyticsTrend = document.querySelector('#analyticsTrend');
 const analyticsPages = document.querySelector('#analyticsPages');
 const feedbackStatus = document.querySelector('#feedbackStatus');
 const feedbackList = document.querySelector('#feedbackList');
+const pilotLeadSummary = document.querySelector('#pilotLeadSummary');
 
 const token = new URLSearchParams(window.location.search).get('token') || '';
 let lastPayload = null;
@@ -338,9 +339,58 @@ function feedbackStatusActions(row) {
   ].filter(([status]) => status !== current);
 }
 
+function parsePilotLeadMessage(message = '') {
+  return Object.fromEntries(String(message).split('；').map((part) => {
+    const [label, ...rest] = part.split('：');
+    return [label?.trim(), rest.join('：').trim()];
+  }).filter(([label]) => label));
+}
+
+function renderPilotLeadSummary(rows = []) {
+  if (!pilotLeadSummary) return;
+  const leads = rows.filter((row) => row.type === 'pilot-interest');
+  if (!leads.length) {
+    pilotLeadSummary.innerHTML = '<div class="status muted">暂无试用意向。</div>';
+    return;
+  }
+  const openLeads = leads.filter((row) => !['resolved', 'ignored'].includes(row.status || 'new'));
+  const roleCounts = leads.reduce((map, row) => {
+    const detail = parsePilotLeadMessage(row.message);
+    const role = detail['当前角色'] || row.athlete?.type || '未选择';
+    map.set(role, (map.get(role) || 0) + 1);
+    return map;
+  }, new Map());
+  const roleText = [...roleCounts.entries()].map(([role, count]) => `${role} ${count}`).join(' / ');
+  const latest = [...leads].sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0)).slice(0, 5);
+  pilotLeadSummary.innerHTML = `
+    <section class="pilot-lead-card">
+      <div class="pilot-lead-head">
+        <div>
+          <span>试用线索</span>
+          <strong>${openLeads.length} 条待跟进</strong>
+        </div>
+        <em>${escapeHtml(roleText || '角色待确认')}</em>
+      </div>
+      <div class="pilot-lead-list">
+        ${latest.map((row) => {
+          const detail = parsePilotLeadMessage(row.message);
+          return `
+            <article>
+              <strong>${escapeHtml(detail['当前角色'] || row.athlete?.type || '未选择')}</strong>
+              <span>${escapeHtml(row.createdAt ? new Date(row.createdAt).toLocaleString('zh-CN') : '-')}</span>
+              <p>选手 ${escapeHtml(detail['关注选手'] || '0')} · 赛事 ${escapeHtml(detail['关注赛事'] || '0')} · 报告 ${escapeHtml(detail['最近报告'] || '0')} · AI ${escapeHtml(detail['最近 AI 分析'] || '0')}</p>
+            </article>
+          `;
+        }).join('')}
+      </div>
+    </section>
+  `;
+}
+
 function renderFeedback(rows = []) {
   if (!feedbackList || !feedbackStatus) return;
   feedbackRows = rows;
+  renderPilotLeadSummary(rows);
   feedbackStatus.textContent = rows.length ? `${rows.length} 条` : '暂无反馈';
   feedbackList.innerHTML = rows.length ? rows.map((row) => `
     <article class="feedback-card">
