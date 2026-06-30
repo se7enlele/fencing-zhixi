@@ -2662,7 +2662,10 @@ function renderHomePage() {
   homePage.querySelector('[data-home-competitions]')?.addEventListener('click', () => navigateMain('competitions'));
   homePage.querySelector('[data-home-follow]')?.addEventListener('click', () => navigateMain('follow'));
   homePage.querySelector('[data-home-my]')?.addEventListener('click', () => navigateMain('my'));
-  homePage.querySelector('[data-pilot-interest]')?.addEventListener('click', (event) => submitPilotInterest(event.currentTarget));
+  homePage.querySelector('[data-pilot-interest]')?.addEventListener('click', (event) => submitPilotInterest(event.currentTarget, {
+    source: 'home-pilot',
+    report: '试用合作',
+  }));
   homePage.querySelectorAll('[data-home-ai-product]').forEach((button) => {
     button.addEventListener('click', () => {
       trackAnalyticsAction('home_ai_product', button.dataset.homeAiProduct ? 'query' : 'empty');

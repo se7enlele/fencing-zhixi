@@ -66,6 +66,7 @@ assert.match(js, /data-pilot-interest/, 'home page pilot section must have a run
 assert.match(js, /async function submitPilotInterest\(button, context = \{\}\)/, 'home page must submit pilot trial interest with optional source context');
 assert.match(js, /type: 'pilot-interest'/, 'pilot trial interest must use the feedback workflow');
 assert.match(js, /trackAnalyticsAction\('pilot_interest', context\.source \|\| state\.userRole \|\| 'visitor'\)/, 'pilot trial interest must be tracked as a conversion action with source context');
+assert.match(js, /submitPilotInterest\(event\.currentTarget, \{[\s\S]*source: 'home-pilot'[\s\S]*report: '试用合作'[\s\S]*\}\)/, 'home page pilot CTA must submit a traceable source context');
 assert.match(js, /async function submitMembershipInterest\(button, context = \{\}\)/, 'member CTA must submit membership interest with optional source context');
 assert.match(js, /type: 'membership-interest'/, 'member CTA must use the feedback workflow');
 assert.match(js, /trackAnalyticsAction\('membership_interest', context\.source \|\| state\.userRole \|\| 'visitor'\)/, 'membership interest must be tracked as a conversion action with source context');
