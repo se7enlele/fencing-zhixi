@@ -110,7 +110,7 @@ assert.match(js, /\['prematch', 'growth', 'club', 'business-insight', 'product-t
 assert.match(js, /type: 'ai-report'[\s\S]*id: text[\s\S]*query: text/, 'AI report history must keep the original question as the runnable id');
 assert.match(js, /row\.type === 'ai-report'[\s\S]*typeLabel: row\.typeLabel \|\| 'AI报告'/, 'recent report rows must render AI report history');
 assert.match(js, /openPrematchReport\('prematch-pack', id === 'prematch-pack' \? '' : id\)/, 'recent generic prematch reports must reopen without a fake sportCode');
-assert.match(js, /if \(type === 'ai-report'\) submitAiQuery\(id\);/, 'recent AI reports must reopen by rerunning the saved question');
+assert.match(js, /if \(type === 'ai-report'\) \{[\s\S]*trackAnalyticsAction\('open_report', 'ai-report'\);[\s\S]*submitAiQuery\(id\);[\s\S]*\}/, 'recent AI reports must track report opens and rerun the saved question');
 assert.match(js, /submitAiQuery\(button\.dataset\.aiHistoryQuery \|\| ''\)/, 'recent AI analysis rows must restore the question');
 assert.doesNotMatch(js, /function renderHomePage\(\)[\s\S]*<h2>近期值得看<\/h2>[\s\S]*function aiDefaultClub/, 'home page must not duplicate the competition list experience');
 assert.match(js, /<h2>闂?FencingAI<\/h2>|<h2>问 FencingAI<\/h2>/, 'AI workspace must be framed as the primary question entry');

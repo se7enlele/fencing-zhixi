@@ -130,6 +130,7 @@ function analyticsActionDetailLabel(key) {
     'ai-growth': 'AI 成长分析',
     'ai-prematch': 'AI 赛前分析',
     'ai-club-recruiting': 'AI 招生展示',
+    'ai-report': 'AI报告',
     'recruiting-card': '招生名片',
     query: 'AI 入口',
     athlete: '选手',

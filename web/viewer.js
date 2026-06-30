@@ -2718,7 +2718,10 @@ function renderHomePage() {
       if (type === 'prematch') openPrematchReport('prematch-pack', id === 'prematch-pack' ? '' : id);
       if (type === 'parent-growth') openParentGrowthReport(id);
       if (type === 'coach-segmentation') openCoachSegmentationReport(id);
-      if (type === 'ai-report') submitAiQuery(id);
+      if (type === 'ai-report') {
+        trackAnalyticsAction('open_report', 'ai-report');
+        submitAiQuery(id);
+      }
     });
   });
   homePage.querySelectorAll('[data-ai-history-query]').forEach((button) => {
@@ -4835,7 +4838,10 @@ function renderMyPage() {
       if (type === 'prematch') openPrematchReport('prematch-pack', id === 'prematch-pack' ? '' : id);
       if (type === 'parent-growth') openParentGrowthReport(id);
       if (type === 'coach-segmentation') openCoachSegmentationReport(id);
-      if (type === 'ai-report') submitAiQuery(id);
+      if (type === 'ai-report') {
+        trackAnalyticsAction('open_report', 'ai-report');
+        submitAiQuery(id);
+      }
     });
   });
   myPage.querySelectorAll('[data-ai-history-query]').forEach((button) => {
