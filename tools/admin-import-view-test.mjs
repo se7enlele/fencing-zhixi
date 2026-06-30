@@ -77,6 +77,8 @@ assert.match(js, /let activeFeedbackFilter = 'all'/, 'admin import feedback filt
 assert.match(js, /function isAiFeedback\(row\)/, 'admin import must identify AI feedback rows');
 assert.match(js, /function renderFeedbackFilterBar\(rows = \[\]\)/, 'admin import must render feedback filter chips');
 assert.match(js, /function feedbackFilterMatches\(row, filter = activeFeedbackFilter\)/, 'admin import must filter feedback rows');
+assert.match(js, /\['hot-commercial', '高优先级', count\('hot-commercial'\)\]/, 'admin import must expose high-priority commercial lead filters');
+assert.match(js, /filter === 'hot-commercial'[\s\S]*commercialLeadPriority\(row\)\.level === 'high'/, 'high-priority commercial lead filter must use lead priority scoring');
 assert.match(js, /\['commercial', '商业线索', count\('commercial'\)\]/, 'admin import must expose a commercial lead filter');
 assert.match(js, /\/api\/admin\/feedback\/status\?token=/, 'admin import feedback actions must use the admin status API');
 assert.match(js, /data-feedback-status/, 'admin import feedback cards must expose workflow action buttons');
@@ -117,7 +119,7 @@ assert.match(html, /id="analyticsTrend"/, 'admin import page must expose analyti
 assert.match(html, /id="analyticsPages"/, 'admin import page must expose analytics page rankings');
 assert.match(html, /id="dataHealthSummary"/, 'admin import page must expose data health summary');
 assert.match(html, /id="dataHealthGaps"/, 'admin import page must expose data health gaps');
-assert.match(html, /admin-import\.js\?v=fencingai-product-20260630-report-sources-1/, 'admin import JS cache key must be bumped');
-assert.match(html, /admin-import\.css\?v=fencingai-product-20260630-report-sources-1/, 'admin import CSS cache key must be bumped');
+assert.match(html, /admin-import\.js\?v=fencingai-product-20260630-lead-priority-1/, 'admin import JS cache key must be bumped');
+assert.match(html, /admin-import\.css\?v=fencingai-product-20260630-lead-priority-1/, 'admin import CSS cache key must be bumped');
 
 console.log('admin import page feedback is covered');
