@@ -614,7 +614,7 @@ function renderPilotLeadSummary(rows = []) {
         </div>
         <div class="pilot-lead-head-actions">
           <em>${escapeHtml(roleText || '角色待确认')}</em>
-          <button type="button" data-copy-commercial-leads>复制线索</button>
+          <button type="button" data-copy-commercial-leads>复制待跟进</button>
         </div>
       </div>
       <div class="pilot-lead-list">
@@ -637,7 +637,7 @@ function renderPilotLeadSummary(rows = []) {
     </section>
   `;
   pilotLeadSummary.querySelector('[data-copy-commercial-leads]')?.addEventListener('click', (event) => {
-    copyCommercialLeads(event.currentTarget, leads);
+    copyCommercialLeads(event.currentTarget, openLeads);
   });
 }
 
