@@ -713,6 +713,17 @@ function commercialLeadNextStep(row = {}) {
   return '确认用户角色、关注对象和下一场比赛。';
 }
 
+function commercialLeadFollowupScript(row = {}) {
+  const detail = commercialLeadDetail(row);
+  const source = `${detail.rawSource || ''} ${detail.report || ''}`.toLowerCase();
+  const role = detail.role || '您';
+  if (/prematch/.test(source)) return `${role}您好，可以先确认本次重点赛事和关注选手，我这边给您开通赛前情报试用，重点看报名名单、强手线索和提醒。`;
+  if (/growth|parent/.test(source)) return `${role}您好，可以先确认孩子姓名和最近参赛目标，我这边给您开通成长报告试用，重点看阶段进步、短板和下一步训练建议。`;
+  if (/coach|club|recruiting/.test(source)) return `${role}您好，可以先确认俱乐部和主要学员组别，我这边给您开通教练工作台试用，重点看学员分层、续费沟通和招生展示。`;
+  if (row.type === 'membership-interest') return `${role}您好，可以先确认您最需要保存的是成长报告、赛前提醒还是俱乐部分析，我这边按使用场景说明会员权益。`;
+  return `${role}您好，可以先确认关注对象和下一场比赛，我这边按家庭、教练或赛前场景帮您匹配试用服务。`;
+}
+
 function renderPilotLeadSummary(rows = []) {
   if (!pilotLeadSummary) return;
   const leads = rows.filter((row) => ['pilot-interest', 'membership-interest'].includes(row.type));
@@ -789,6 +800,7 @@ function renderPilotLeadSummary(rows = []) {
               <p>${escapeHtml(detail.report || '未标记报告')} · ${escapeHtml(detail.source || '来源待确认')}</p>
               <p>选手 ${escapeHtml(detail.athletes)} · 赛事 ${escapeHtml(detail.competitions)} · 报告 ${escapeHtml(detail.reports)} · AI ${escapeHtml(detail.ai)}</p>
               <p class="lead-next-step">下一步：${escapeHtml(nextStep)}</p>
+              <p class="lead-followup-script">跟进话术：${escapeHtml(commercialLeadFollowupScript(row))}</p>
             </article>
           `;
         }).join('')}
@@ -801,7 +813,7 @@ function renderPilotLeadSummary(rows = []) {
 }
 
 function commercialLeadCsv(rows = []) {
-  const headers = ['类型', '优先级', '产品形态', '角色', '来源页面', '触发报告', '关注选手', '关注赛事', '最近报告', '最近AI分析', '建议下一步', '状态', '时间'];
+  const headers = ['类型', '优先级', '产品形态', '角色', '来源页面', '触发报告', '关注选手', '关注赛事', '最近报告', '最近AI分析', '建议下一步', '跟进话术', '状态', '时间'];
   const escapeCsv = (value) => `"${String(value ?? '').replace(/"/g, '""')}"`;
   const lines = rows.map((row) => {
     const detail = commercialLeadDetail(row);
@@ -818,6 +830,7 @@ function commercialLeadCsv(rows = []) {
       detail.reports,
       detail.ai,
       commercialLeadNextStep(row),
+      commercialLeadFollowupScript(row),
       feedbackStatusLabel(row.status),
       row.createdAt ? new Date(row.createdAt).toLocaleString('zh-CN') : '',
     ].map(escapeCsv).join(',');
