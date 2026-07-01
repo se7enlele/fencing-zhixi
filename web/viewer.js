@@ -4043,6 +4043,21 @@ function businessProductOpportunityRows() {
   ];
 }
 
+function businessMonetizationRows() {
+  const competitions = state.competitions || [];
+  const activeCount = competitions.filter((competition) => ['registration', 'upcoming', 'live'].includes(competition.status) || competition.isPreEvent).length;
+  const rosterCount = competitions.filter((competition) => competition.rosterStatus === 'partial' || competition.rosterStatus === 'complete').length;
+  const scoreCount = competitions.filter((competition) => competition.coverageLevel === 'score' || competitionHasItems(competition)).length;
+  const followedCount = aiFocusedAthletes().length;
+  const clubCount = (state.clubSearchIndex || []).length;
+  return [
+    `P0 赛前情报包：用 ${activeCount} 场近期/报名赛事做高频入口，其中 ${rosterCount} 场已有报名名单，适合先做单场试用和赛前提醒。`,
+    `P1 家长成长报告：用 ${scoreCount} 场成绩样本沉淀月度/赛后复盘，当前 ${followedCount} 名关注选手可直接承接个人化报告。`,
+    `P1 教练工作台：用 ${clubCount} 个俱乐部画像承接学员分层、续费沟通和招生展示，优先服务熟悉的小型剑馆样板。`,
+    '商业闭环：免费问答负责发现需求，报告负责证明价值，关注/试用负责留存，后续再扩展会员或教练端 SaaS。沿这条路径推进，避免只做泛数据浏览。',
+  ];
+}
+
 function buildAiBusinessInsightReport(query) {
   const competitions = state.competitions || [];
   const activeRows = competitions
@@ -4077,6 +4092,10 @@ function buildAiBusinessInsightReport(query) {
         rows: businessProductOpportunityRows(),
       },
       {
+        title: '商业化落地顺序',
+        rows: businessMonetizationRows(),
+      },
+      {
         title: '区域机会',
         rows: businessRegionRows(),
       },
@@ -4108,6 +4127,9 @@ function buildAiBusinessInsightReport(query) {
     actions: [
       { label: '查看赛事机会', mainTab: 'competitions', filters: { status: 'registration' } },
       activeRows[0]?.sportCode ? { label: '加入最近赛事提醒', followCompetitionCode: activeRows[0].sportCode } : null,
+      { label: '生成赛前情报包方案', prematchTemplateKind: 'prematch-pack' },
+      aiProductTemplateAthlete()?.id ? { label: '生成家长成长报告方案', parentGrowthAthleteId: aiProductTemplateAthlete().id } : null,
+      aiProductTemplateClub()?.id ? { label: '生成教练工作台方案', coachSegmentationClubId: aiProductTemplateClub().id } : null,
     ].filter(Boolean),
     sourceNote: '商业洞察基于当前已收录赛事、选手、俱乐部和赛前状态生成；正式商业报告仍应结合付费用户角色和真实运营数据校准。',
   };

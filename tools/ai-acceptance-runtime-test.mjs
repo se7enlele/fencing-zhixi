@@ -75,6 +75,7 @@ const functionNames = [
   'businessRoleConversionRows',
   'businessPriorityRows',
   'businessProductOpportunityRows',
+  'businessMonetizationRows',
   'buildAiBusinessInsightReport',
   'productTemplateTitle',
   'productTemplateMetricRows',
@@ -275,13 +276,25 @@ assert.ok(businessReport.cards.length >= 4, 'business insight should expose asse
 assert.ok(businessReport.sections.some((section) => section.title === '\u4f18\u5148\u843d\u5730\u573a\u666f'), 'business insight should prioritize productized opportunities');
 assert.ok(businessReport.sections.some((section) => section.title === '\u89d2\u8272\u8f6c\u5316\u8def\u5f84'), 'business insight should include role conversion paths');
 assert.ok(businessReport.sections.some((section) => section.title === '\u6570\u636e\u6210\u719f\u5ea6'), 'business insight should show which data is ready for which business scenario');
+assert.ok(businessReport.sections.some((section) => section.title === '\u5546\u4e1a\u5316\u843d\u5730\u987a\u5e8f'), 'business insight should include a monetization rollout sequence');
 assert.ok(
   businessReport.sections.find((section) => section.title === '\u4f18\u5148\u843d\u5730\u573a\u666f')?.rows.some((row) => row.includes('P0\uff1a\u8d5b\u524d\u60c5\u62a5\u5305')),
   'business insight should name prematch intelligence as the P0 opportunity',
 );
+assert.ok(
+  businessReport.sections.find((section) => section.title === '\u5546\u4e1a\u5316\u843d\u5730\u987a\u5e8f')?.rows.some((row) => row.includes('P1 \u5bb6\u957f\u6210\u957f\u62a5\u544a')),
+  'business insight should map parent growth into the P1 rollout',
+);
+assert.ok(
+  businessReport.sections.find((section) => section.title === '\u5546\u4e1a\u5316\u843d\u5730\u987a\u5e8f')?.rows.some((row) => row.includes('P1 \u6559\u7ec3\u5de5\u4f5c\u53f0')),
+  'business insight should map coach workspace into the P1 rollout',
+);
 assert.ok(businessReport.sections.some((section) => section.title === '\u533a\u57df\u673a\u4f1a'), 'business insight should include regional opportunity analysis');
 assert.ok(businessReport.evidence.some((row) => row.kind === '\u8d5b\u524d\u673a\u4f1a'), 'business insight should cite prematch opportunity evidence');
 assert.ok(businessReport.evidence.some((row) => row.kind === '\u4ff1\u4e50\u90e8\u8d44\u4ea7'), 'business insight should cite club asset evidence');
+assert.ok(businessReport.actions.some((action) => action.prematchTemplateKind === 'prematch-pack'), 'business insight should open the prematch package path');
+assert.ok(businessReport.actions.some((action) => action.parentGrowthAthleteId), 'business insight should open the parent growth path when athlete data exists');
+assert.ok(businessReport.actions.some((action) => action.coachSegmentationClubId), 'business insight should open the coach workspace path when club data exists');
 
 const prematchTemplate = context.buildAiAnswer('\u751f\u6210\u8d5b\u524d\u60c5\u62a5\u5305\u6a21\u677f');
 assert.equal(prematchTemplate.type, 'product-template', 'prematch package request should route to product templates');
