@@ -4672,14 +4672,56 @@ function aiReportConversionAction(report = {}) {
   };
 }
 
+function aiConversionServiceRows(report = {}) {
+  const type = report.type || '';
+  if (type === 'prematch' || report.templateKind === 'prematch-pack') {
+    return [
+      '重点赛事提醒和报名名单更新',
+      '关注选手的潜在对手与强手提示',
+      '赛前可分享的备赛摘要',
+    ];
+  }
+  if (type === 'growth' || report.templateKind === 'parent-growth-report') {
+    return [
+      '孩子的月度/赛事成长报告',
+      '近期进步、稳定性和突破点提示',
+      '下一场比赛前的关注清单',
+    ];
+  }
+  if (type === 'club' || type === 'club-recruiting' || report.templateKind === 'coach-segmentation') {
+    return [
+      '学员分层和训练跟进建议',
+      '优势项目、代表学员和招生素材',
+      '同项目俱乐部对标与经营动作',
+    ];
+  }
+  if (type === 'competition-stats') {
+    return [
+      '目标地区和年份的赛事更新提醒',
+      '报名中、未开赛和已结束赛事分层',
+      '可继续生成赛前情报的赛事入口',
+    ];
+  }
+  return [
+    '把本次分析保存为后续报告入口',
+    '围绕关注选手、赛事和俱乐部持续更新',
+    '需要时补充人工跟进和试用说明',
+  ];
+}
+
 function renderAiConversionBlock(report = {}) {
   const action = aiReportConversionAction(report);
   if (!action) return '';
+  const services = aiConversionServiceRows(report);
   return `
     <div class="ai-conversion-card">
       <div>
         <strong>${escapeHtml(action.title)}</strong>
         <span>${escapeHtml(action.detail)}</span>
+      </div>
+      <div class="ai-conversion-service">
+        <b>试用包含</b>
+        ${services.map((item) => `<span>${escapeHtml(item)}</span>`).join('')}
       </div>
       <div class="ai-conversion-actions">
         <button type="button" data-commercial-intent="pilot" data-commercial-source="${escapeHtml(action.source)}" data-report-title="${escapeHtml(action.title)}">${escapeHtml(action.primaryLabel)}</button>

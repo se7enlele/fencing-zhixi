@@ -1813,6 +1813,41 @@ select:focus {
   margin-top: 3px;
 }
 
+.ai-conversion-service {
+  display: grid;
+  gap: 6px;
+  border-radius: 9px;
+  background: rgba(255, 255, 255, 0.72);
+  padding: 8px;
+}
+
+.ai-conversion-service b {
+  display: block;
+  color: var(--teal);
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.ai-conversion-service span {
+  position: relative;
+  color: var(--text);
+  font-size: 12px;
+  line-height: 1.35;
+  margin-top: 0;
+  padding-left: 13px;
+}
+
+.ai-conversion-service span::before {
+  content: "";
+  position: absolute;
+  left: 1px;
+  top: 0.58em;
+  width: 5px;
+  height: 5px;
+  border-radius: 999px;
+  background: var(--teal);
+}
+
 .ai-conversion-actions {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);

@@ -120,7 +120,12 @@ assert.match(js, /原始问题：\$\{report\.query\}/, 'AI feedback must include
 assert.match(js, /转化来源：\$\{conversionAction\.source\}/, 'AI feedback must include the related conversion source');
 assert.match(js, /关联服务：\$\{conversionAction\.title\}/, 'AI feedback must include the related service');
 assert.match(js, /function aiReportConversionAction\(report = \{\}\)/, 'AI answers must map report types to commercial conversion actions');
+assert.match(js, /function aiConversionServiceRows\(report = \{\}\)/, 'AI conversion blocks must explain what each trial includes');
 assert.match(js, /function renderAiConversionBlock\(report = \{\}\)/, 'AI answers must render a lightweight conversion block');
+assert.match(js, /<b>试用包含<\/b>/, 'AI conversion blocks must show a concrete trial contents label');
+assert.match(js, /aiConversionServiceRows\(report\)/, 'AI conversion blocks must derive trial contents from the report type');
+assert.match(js, /重点赛事提醒和报名名单更新/, 'prematch conversion must include event and roster update value');
+assert.match(js, /学员分层和训练跟进建议/, 'coach conversion must include segmentation and training follow-up value');
 assert.match(js, /prematch:\s*\[[\s\S]*同组对手、强手和主要俱乐部分布/, 'AI prematch answers must guide users toward opponent and club checks');
 assert.match(js, /'business-insight':\s*\[[\s\S]*赛前情报包和选手成长报告/, 'AI business insight answers must guide users toward productized reports');
 assert.match(js, /'product-template':\s*\[/, 'AI product templates must include next-step guidance');
@@ -160,6 +165,7 @@ assert.match(css, /\.ai-trust-row/, 'AI judgment-basis rows must have mobile lay
 assert.match(css, /\.ai-filter-notice/, 'AI-filtered competition lists must show a visible filter notice');
 assert.match(css, /\.ai-next-steps/, 'AI next-step styles must exist');
 assert.match(css, /\.ai-conversion-card/, 'AI conversion block styles must exist');
+assert.match(css, /\.ai-conversion-service/, 'AI conversion block must style concrete trial contents');
 assert.match(css, /\.ai-conversion-actions/, 'AI conversion action styles must exist');
 assert.match(css, /\.ai-share-row/, 'AI share action styles must exist');
 assert.match(css, /\.ai-follow-up-row/, 'AI follow-up question styles must exist');
