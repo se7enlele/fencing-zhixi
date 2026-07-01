@@ -776,6 +776,7 @@ function renderFeedback(rows = []) {
       ${leadDetail ? `
         <div class="feedback-commercial-meta">
           <span class="lead-priority ${escapeHtml(leadPriority.level)}">${escapeHtml(leadPriority.label)}</span>
+          <span class="lead-segment">${escapeHtml(commercialLeadReportLabel(row))}</span>
           <strong>${escapeHtml(leadDetail.report || '未标记报告')}</strong>
           <em>${escapeHtml(leadDetail.source || '来源待确认')}</em>
           <p>下一步：${escapeHtml(commercialLeadNextStep(row))}</p>
