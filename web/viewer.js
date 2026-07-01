@@ -2596,6 +2596,7 @@ function commercialIntentRows() {
     timeLabel: formatDataGeneratedAt(row.submittedAt),
     contactLabel: row.contact ? '联系方式已留存' : '可补充联系方式',
     nextStep: commercialIntentNextStep(row),
+    progressSteps: commercialIntentProgressSteps(row),
   }));
 }
 
@@ -2607,6 +2608,14 @@ function commercialIntentNextStep(row = {}) {
   if (/coach|club|recruiting|segmentation/.test(source) || /教练|剑馆|俱乐部|招生|学员/.test(report)) return '下一步会围绕学员分层、优势项目和招生素材整理试用说明。';
   if (row.type === 'membership-interest') return '下一步会确认关注选手、赛事提醒和报告保存需求。';
   return '下一步会结合你关注的选手、赛事和报告记录确认试用场景。';
+}
+
+function commercialIntentProgressSteps(row = {}) {
+  return [
+    { label: '已收到', state: 'done' },
+    { label: row.contact ? '信息已确认' : '待补充信息', state: row.contact ? 'done' : 'active' },
+    { label: row.type === 'membership-interest' ? '确认权益' : '生成样例', state: 'pending' },
+  ];
 }
 
 function trackCommercialIntent(type, context = {}, result = {}) {
@@ -2646,12 +2655,34 @@ function renderCommercialIntentStatus(rows = commercialIntentRows()) {
             <em>${escapeHtml(row.timeLabel || '刚刚提交')}</em>
             <small>${escapeHtml(row.contactLabel)}</small>
             <p>${escapeHtml(row.nextStep)}</p>
+            <ol class="service-progress-steps">
+              ${(row.progressSteps || []).map((step) => `
+                <li class="service-step-${escapeHtml(step.state)}">${escapeHtml(step.label)}</li>
+              `).join('')}
+            </ol>
+            <button type="button" data-service-progress-action="${escapeHtml(row.type || '')}" data-service-progress-source="${escapeHtml(row.source || '')}" data-report-title="${escapeHtml(row.report || row.typeLabel)}">${escapeHtml(row.contact ? '更新需求' : '补充联系方式')}</button>
           </article>
         `).join('')}
       </div>
       <p>已收到的服务申请会结合你的关注选手、赛事和报告记录跟进；需要更新联系方式时，可以再次点击申请入口。</p>
     </section>
   `;
+}
+
+function bindServiceProgressActions(container) {
+  container.querySelectorAll('[data-service-progress-action]').forEach((button) => {
+    button.addEventListener('click', (event) => {
+      const context = {
+        source: button.dataset.serviceProgressSource || 'service-progress',
+        report: button.dataset.reportTitle || '服务进度',
+      };
+      if (button.dataset.serviceProgressAction === 'membership-interest') {
+        submitMembershipInterest(event.currentTarget, context);
+        return;
+      }
+      submitPilotInterest(event.currentTarget, context);
+    });
+  });
 }
 
 function serviceReadinessRows({ children = [], followedCompetitions = [], reportHistory = [], aiHistory = [] } = {}) {
@@ -3181,6 +3212,7 @@ function renderHomePage() {
     button.addEventListener('click', () => openCompetition(button.dataset.coverageCompetition));
   });
   bindAiWorkspace(homePage);
+  bindServiceProgressActions(homePage);
   bindPersonalList(homePage);
 }
 
@@ -5485,6 +5517,7 @@ function renderMyPage() {
       });
     });
   });
+  bindServiceProgressActions(myPage);
   myPage.querySelectorAll('[data-trial-plan-source]').forEach((button) => {
     button.addEventListener('click', (event) => submitPilotInterest(event.currentTarget, {
       source: button.dataset.trialPlanSource || 'my-trial-plan',

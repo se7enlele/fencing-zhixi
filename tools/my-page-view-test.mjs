@@ -91,9 +91,16 @@ assert.match(js, /trackCommercialIntent\('membership-interest', enrichedContext,
 assert.match(js, /function commercialIntentRows\(\)/, 'commercial intent rows must be normalized for display');
 assert.match(js, /function commercialIntentNextStep\(row = \{\}\)/, 'commercial intent progress must explain the next user-facing step');
 assert.match(js, /nextStep: commercialIntentNextStep\(row\)/, 'commercial intent rows must include next-step copy');
+assert.match(js, /function commercialIntentProgressSteps\(row = \{\}\)/, 'commercial intent progress must expose concrete fulfillment stages');
+assert.match(js, /progressSteps: commercialIntentProgressSteps\(row\)/, 'commercial intent rows must include fulfillment stages');
 assert.match(js, /function renderCommercialIntentStatus\(rows = commercialIntentRows\(\)\)/, 'commercial intent status panel must be reusable');
 assert.match(js, /class="panel my-section service-progress-panel"/, 'service progress panel must render as a user-facing section');
 assert.match(js, /<p>\$\{escapeHtml\(row\.nextStep\)\}<\/p>/, 'service progress cards must render the next-step copy');
+assert.match(js, /class="service-progress-steps"/, 'service progress cards must render fulfillment stages');
+assert.match(js, /data-service-progress-action="\$\{escapeHtml\(row\.type \|\| ''\)\}"/, 'service progress cards must expose follow-up actions');
+assert.match(js, /function bindServiceProgressActions\(container\)/, 'service progress follow-up actions must be reusable');
+assert.match(js, /bindServiceProgressActions\(homePage\)/, 'home page must bind service progress follow-up actions');
+assert.match(js, /bindServiceProgressActions\(myPage\)/, 'my page must bind service progress follow-up actions');
 assert.match(js, /function homePrematchActionRow\(followedCompetitions = \[\]\)/, 'home page must derive the next prematch action from followed or recommended competitions');
 assert.match(js, /function renderHomePrematchAction\(row = homePrematchActionRow\(\)\)/, 'home page must render a dedicated next-prematch action card');
 assert.match(js, /function homeCoachActionRow\(\)/, 'home page must derive a coach business action from the active or strongest club');
@@ -238,6 +245,8 @@ assert.match(css, /\.pilot-interest-card/, 'pilot trial intent card styles must 
 assert.match(css, /\.service-progress-panel/, 'service progress panel styles must exist');
 assert.match(css, /\.service-progress-card/, 'service progress card styles must exist');
 assert.match(css, /\.service-progress-card p/, 'service progress next-step copy must be styled');
+assert.match(css, /\.service-progress-steps/, 'service progress steps must be styled');
+assert.match(css, /\.service-progress-card button/, 'service progress follow-up action must be styled');
 assert.match(css, /\.trial-plan-list/, 'trial plan list styles must exist');
 assert.match(css, /\.trial-plan-card/, 'trial plan cards must be styled');
 assert.match(css, /\.service-readiness-list/, 'service readiness list styles must exist');
