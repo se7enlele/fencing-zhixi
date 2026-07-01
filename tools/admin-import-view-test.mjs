@@ -99,6 +99,10 @@ assert.match(js, /let activeFeedbackFilter = 'all'/, 'admin import feedback filt
 assert.match(js, /function isAiFeedback\(row\)/, 'admin import must identify AI feedback rows');
 assert.match(js, /function renderFeedbackFilterBar\(rows = \[\]\)/, 'admin import must render feedback filter chips');
 assert.match(js, /function feedbackFilterMatches\(row, filter = activeFeedbackFilter\)/, 'admin import must filter feedback rows');
+assert.match(js, /\['new', '新提交', count\('new'\)\]/, 'admin import must expose newly submitted feedback filters');
+assert.match(js, /\['reviewing', '处理中', count\('reviewing'\)\]/, 'admin import must expose in-progress feedback filters');
+assert.match(js, /filter === 'new'[\s\S]*row\.status \|\| 'new'[\s\S]*=== 'new'/, 'new feedback filter must use default new status');
+assert.match(js, /filter === 'reviewing'[\s\S]*row\.status === 'reviewing'/, 'reviewing feedback filter must use workflow status');
 assert.match(js, /\['hot-commercial', '高优先级', count\('hot-commercial'\)\]/, 'admin import must expose high-priority commercial lead filters');
 assert.match(js, /filter === 'hot-commercial'[\s\S]*commercialLeadPriority\(row\)\.level === 'high'/, 'high-priority commercial lead filter must use lead priority scoring');
 assert.match(js, /\['commercial', '商业线索', count\('commercial'\)\]/, 'admin import must expose a commercial lead filter');
@@ -149,7 +153,7 @@ assert.match(html, /id="analyticsTrend"/, 'admin import page must expose analyti
 assert.match(html, /id="analyticsPages"/, 'admin import page must expose analytics page rankings');
 assert.match(html, /id="dataHealthSummary"/, 'admin import page must expose data health summary');
 assert.match(html, /id="dataHealthGaps"/, 'admin import page must expose data health gaps');
-assert.match(html, /admin-import\.js\?v=fencingai-product-20260701-sync-failures-1/, 'admin import JS cache key must be bumped');
-assert.match(html, /admin-import\.css\?v=fencingai-product-20260701-sync-failures-1/, 'admin import CSS cache key must be bumped');
+assert.match(html, /admin-import\.js\?v=fencingai-product-20260701-feedback-status-filters-1/, 'admin import JS cache key must be bumped');
+assert.match(html, /admin-import\.css\?v=fencingai-product-20260701-feedback-status-filters-1/, 'admin import CSS cache key must be bumped');
 
 console.log('admin import page feedback is covered');

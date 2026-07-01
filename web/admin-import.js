@@ -776,7 +776,9 @@ function feedbackFilterOptions(rows = []) {
   const count = (filter) => rows.filter((row) => feedbackFilterMatches(row, filter)).length;
   return [
     ['all', '全部', rows.length],
-    ['open', '待处理', count('open')],
+    ['open', '待跟进', count('open')],
+    ['new', '新提交', count('new')],
+    ['reviewing', '处理中', count('reviewing')],
     ['hot-commercial', '高优先级', count('hot-commercial')],
     ['commercial', '商业线索', count('commercial')],
     ['ai', 'AI反馈', count('ai')],
@@ -785,6 +787,8 @@ function feedbackFilterOptions(rows = []) {
 
 function feedbackFilterMatches(row, filter = activeFeedbackFilter) {
   if (filter === 'open') return isOpenFeedback(row);
+  if (filter === 'new') return (row.status || 'new') === 'new';
+  if (filter === 'reviewing') return row.status === 'reviewing';
   if (filter === 'hot-commercial') return isCommercialLead(row) && isOpenFeedback(row) && commercialLeadPriority(row).level === 'high';
   if (filter === 'commercial') return isCommercialLead(row);
   if (filter === 'ai') return isAiFeedback(row);
