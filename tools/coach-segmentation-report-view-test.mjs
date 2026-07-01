@@ -27,6 +27,8 @@ assert.match(js, /function coachBusinessGrowthRows\(club, projectRows, buckets\)
 assert.match(js, /function coachParentCommunicationRows\(club, followups = \[\], buckets = \[\]\)/, 'coach report must derive parent communication summaries');
 assert.match(js, /function coachParentCommunicationText\(row = \{\}\)/, 'coach report must build copyable parent communication text');
 assert.match(js, /function buildCoachSegmentationShareText\(club, buckets, followups, projectRows, businessRows = \[\]\)/, 'segmentation report must build shareable summary text');
+assert.match(js, /function coachSegmentationShareUrl\(clubId = ''\)/, 'segmentation report must build a shareable report URL');
+assert.match(js, /function buildCoachSegmentationPageShareText\(club, buckets = \[\], projectRows = \[\]\)/, 'segmentation report must build shareable page text');
 assert.match(js, /function renderCoachSegmentationReport\(clubId = ''\)/, 'segmentation report must render from a club id');
 assert.match(js, /function openCoachSegmentationReport\(clubId = ''\)/, 'segmentation report must be navigable');
 assert.match(js, /trackReportHistory\(\{[\s\S]*type: 'coach-segmentation'/, 'opening a coach segmentation report must save it to recent reports');
@@ -52,6 +54,12 @@ assert.match(js, /const businessRows = coachBusinessGrowthRows\(club, projectRow
 assert.match(js, /buildCoachSegmentationShareText\(club, buckets, followups, projectRows, businessRows\)/, 'coach report share text must include business rows');
 assert.match(js, /家长沟通\$\{index \+ 1\}/, 'coach report share text must include parent communication rows');
 assert.match(js, /class="coach-segmentation-evidence"/, 'segmentation report must show traceable evidence');
+assert.match(js, /data-report-share="coach-segmentation-page"/, 'segmentation report must expose a copy page action');
+assert.match(js, /bindCopyTextButton\(coachSegmentationReportHero\.querySelector\('\[data-report-share="coach-segmentation-page"\]'\)/, 'segmentation report page copy action must be wired');
+assert.match(js, /initialParams\.get\('coach'\)/, 'initial route must support shared coach report links');
+assert.match(js, /openCoachSegmentationReport\(initialCoachClubId === 'coach-segmentation' \? '' : initialCoachClubId\)/, 'shared coach links must open the report directly');
+assert.match(js, /复制工作台页/, 'segmentation report must use user-facing workspace page copy');
+assert.match(js, /已复制工作台页，可直接发给教练或馆长。/, 'segmentation page copy must confirm user-facing sharing');
 assert.match(js, /data-report-share="coach-segmentation"/, 'segmentation report must expose a copy summary action');
 assert.match(js, /bindCopyTextButton\(coachSegmentationReportHero\.querySelector\('\[data-report-share="coach-segmentation"\]'\)/, 'segmentation report copy action must be wired');
 assert.match(js, /已复制，可继续申请教练试用。/, 'segmentation report copy action must guide users toward coach trial');

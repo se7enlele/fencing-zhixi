@@ -123,6 +123,7 @@ function analyticsActionDetailLabel(key) {
   if (intentDetail) return `${analyticsActionLabel(action)} · ${intentDetail}`;
   const detail = ({
     'prematch-page': '赛前情报页',
+    'coach-segmentation-page': '教练工作台页',
     prematch: '赛前情报',
     growth: '成长报告',
     coach: '学员分层',

@@ -8628,6 +8628,25 @@ function buildCoachSegmentationShareText(club, buckets, followups, projectRows, 
   ].join('\n');
 }
 
+function coachSegmentationShareUrl(clubId = '') {
+  const url = new URL(window.location.href);
+  url.hash = '';
+  url.search = '';
+  url.searchParams.set('coach', clubId || 'coach-segmentation');
+  return url.toString();
+}
+
+function buildCoachSegmentationPageShareText(club, buckets = [], projectRows = []) {
+  const topProject = projectRows[0] || null;
+  const athleteCount = buckets.reduce((sum, bucket) => sum + (bucket.rows?.length || 0), 0);
+  return [
+    `${club.club} 教练工作台`,
+    `识别学员 ${athleteCount} 人${topProject ? ` · 重点项目 ${topProject.label}` : ''}`,
+    '打开后可查看学员分层、家长沟通摘要、招生素材和可追溯成绩依据。',
+    coachSegmentationShareUrl(club.id),
+  ].filter(Boolean).join('\n');
+}
+
 function renderCoachSegmentationReport(clubId = '') {
   const club = findClubById(clubId) || state.clubSearchIndex?.[0] || null;
   if (!club?.id) {
@@ -8663,7 +8682,10 @@ function renderCoachSegmentationReport(clubId = '') {
       <span class="badge">前八 ${escapeHtml(club.top8 || 0)}</span>
       <span class="badge">最好第 ${escapeHtml(club.bestRank ?? '-')} 名</span>
     </div>
-    <button class="report-share-action" type="button" data-report-share="coach-segmentation">复制报告摘要</button>
+    <div class="report-share-row">
+      <button class="report-share-action" type="button" data-report-share="coach-segmentation">复制报告摘要</button>
+      <button class="report-share-action secondary" type="button" data-report-share="coach-segmentation-page">复制工作台页</button>
+    </div>
   `;
 
   coachSegmentationReportBody.innerHTML = `
@@ -8807,6 +8829,7 @@ function renderCoachSegmentationReport(clubId = '') {
   coachSegmentationReportBody.querySelector('[data-club-id]')?.addEventListener('click', () => openClub(club.id));
   bindReportConversionActions(coachSegmentationReportBody);
   bindCopyTextButton(coachSegmentationReportHero.querySelector('[data-report-share="coach-segmentation"]'), () => buildCoachSegmentationShareText(club, buckets, followups, projectRows, businessRows), 'coach-segmentation', '已复制，可继续申请教练试用。');
+  bindCopyTextButton(coachSegmentationReportHero.querySelector('[data-report-share="coach-segmentation-page"]'), () => buildCoachSegmentationPageShareText(club, buckets, projectRows), 'coach-segmentation-page', '已复制工作台页，可直接发给教练或馆长。');
 }
 
 function openCoachSegmentationReport(clubId = '') {
@@ -10339,6 +10362,11 @@ async function init() {
   const initialPrematchCode = initialParams.get('prematch');
   if (initialPrematchCode) {
     openPrematchReport('prematch-pack', initialPrematchCode === 'prematch-pack' ? '' : initialPrematchCode);
+    return;
+  }
+  const initialCoachClubId = initialParams.get('coach');
+  if (initialCoachClubId) {
+    openCoachSegmentationReport(initialCoachClubId === 'coach-segmentation' ? '' : initialCoachClubId);
     return;
   }
   const initialAthleteId = initialParams.get('athlete');
