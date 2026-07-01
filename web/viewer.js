@@ -2792,6 +2792,29 @@ function recommendedTrialRows({ children = [], followedCompetitions = [], report
   return rows.slice(0, 3);
 }
 
+function trialDeliverableRows() {
+  return [
+    {
+      key: 'prematch',
+      label: 'P0',
+      title: '赛前情报包',
+      detail: '目标赛事、报名名单、潜在强手和关注选手备赛清单。',
+    },
+    {
+      key: 'growth',
+      label: 'P1',
+      title: '家庭成长报告',
+      detail: '月度/赛事复盘、名次变化、稳定性和下一场建议。',
+    },
+    {
+      key: 'coach',
+      label: 'P1',
+      title: '教练经营包',
+      detail: '学员分层、优势项目、续费沟通和招生展示素材。',
+    },
+  ];
+}
+
 function homePrematchActionRow(followedCompetitions = []) {
   const followed = (followedCompetitions || []).find(isPrematchCompetition);
   const recommended = followed || prematchReportCompetitions()[0] || null;
@@ -5280,6 +5303,7 @@ function renderMyPage() {
   const nextActions = myWorkspaceNextActions({ children, followedCompetitions, reportHistory, aiHistory });
   const readinessRows = serviceReadinessRows({ children, followedCompetitions, reportHistory, aiHistory });
   const trialRows = recommendedTrialRows({ children, followedCompetitions, reportHistory, aiHistory });
+  const deliverableRows = trialDeliverableRows();
   const generatedLabel = formatDataGeneratedAt(state.dataGeneratedAt);
   const stats = [
     { value: children.length, label: '关注选手' },
@@ -5328,6 +5352,22 @@ function renderMyPage() {
     ${renderCommercialIntentStatus(commercialIntents)}
 
     ${renderMembershipBenefits()}
+
+    <section class="panel my-section trial-deliverable-section">
+      <div class="section-title">
+        <h2>试用交付内容</h2>
+        <span>P0 / P1</span>
+      </div>
+      <div class="trial-deliverable-grid">
+        ${deliverableRows.map((row) => `
+          <div class="trial-deliverable-card trial-deliverable-${escapeHtml(row.key)}">
+            <span>${escapeHtml(row.label)}</span>
+            <strong>${escapeHtml(row.title)}</strong>
+            <em>${escapeHtml(row.detail)}</em>
+          </div>
+        `).join('')}
+      </div>
+    </section>
 
     <section class="panel my-section trial-plan-section">
       <div class="section-title">

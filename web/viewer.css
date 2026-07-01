@@ -2718,6 +2718,55 @@ select:focus {
   font-style: normal;
 }
 
+.trial-deliverable-section {
+  gap: 10px;
+}
+
+.trial-deliverable-grid {
+  display: grid;
+  gap: 8px;
+}
+
+.trial-deliverable-card {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 4px 8px;
+  align-items: start;
+  border: 1px solid rgba(21, 95, 194, 0.1);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.88);
+  padding: 10px;
+}
+
+.trial-deliverable-card span {
+  grid-row: span 2;
+  border-radius: 999px;
+  background: rgba(21, 95, 194, 0.08);
+  color: var(--primary);
+  font-size: 11px;
+  font-weight: 900;
+  line-height: 1;
+  padding: 6px 8px;
+}
+
+.trial-deliverable-card strong {
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.trial-deliverable-card em {
+  color: var(--muted);
+  font-size: 12px;
+  font-style: normal;
+  line-height: 1.4;
+}
+
+.trial-deliverable-prematch {
+  border-color: rgba(13, 125, 103, 0.16);
+  background: linear-gradient(135deg, rgba(13, 125, 103, 0.08), rgba(255, 255, 255, 0.92));
+}
+
 .trial-plan-section {
   gap: 10px;
 }
