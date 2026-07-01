@@ -179,6 +179,15 @@ function analyticsFunnelRows(actionRows = []) {
   ];
 }
 
+function analyticsConversionInsight(funnelRows = []) {
+  const byLabel = Object.fromEntries(funnelRows.map((row) => [row.label, Number(row.value) || 0]));
+  if (!byLabel['AI 回答']) return '先观察 AI 问答入口是否产生使用量，再判断报告和试用转化。';
+  if (!byLabel['打开报告']) return 'AI 问答已有使用，下一步优化回答里的报告入口，让用户进入成长、赛前或教练报告。';
+  if (!byLabel['复制/分享']) return '报告已有打开，下一步优化报告结论和分享文案，促成家长或教练愿意转发。';
+  if (!byLabel['试用/会员意向']) return '报告已有分享，下一步强化试用按钮和权益说明，把高意向访问转成可跟进线索。';
+  return '漏斗已有完整转化，下一步按报告类型复盘线索质量，优先投入高转化的报告场景。';
+}
+
 function analyticsReportTypeRows(actionLabelRows = []) {
   const rowsByLabel = new Map();
   actionLabelRows.forEach((row) => {
@@ -236,6 +245,7 @@ function renderAnalytics(result) {
   const actionRows = mergeMetricRows(days, 'actions');
   const actionLabelRows = mergeMetricRows(days, 'actionLabels');
   const funnelRows = analyticsFunnelRows(actionRows);
+  const funnelInsight = analyticsConversionInsight(funnelRows);
   const reportRows = analyticsReportTypeRows(actionLabelRows);
   analyticsPages.innerHTML = `
     <div class="analytics-funnel">
@@ -249,6 +259,7 @@ function renderAnalytics(result) {
           </div>
         `).join('')}
       </div>
+      <div class="analytics-insight">${escapeHtml(funnelInsight)}</div>
     </div>
     <div class="analytics-report-types">
       <div class="analytics-block-title">报告热度</div>

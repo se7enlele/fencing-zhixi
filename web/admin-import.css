@@ -412,6 +412,17 @@ button:disabled {
   margin-top: 4px;
 }
 
+.analytics-insight {
+  border: 1px solid rgba(8, 119, 96, 0.14);
+  border-radius: 9px;
+  background: rgba(8, 119, 96, 0.07);
+  color: var(--teal);
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1.5;
+  padding: 9px 10px;
+}
+
 .data-health-note {
   display: grid;
   gap: 4px;
