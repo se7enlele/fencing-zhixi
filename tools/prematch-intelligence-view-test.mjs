@@ -66,6 +66,8 @@ assert.match(js, /data-sport-code="\$\{escapeHtml\(row\.sportCode\)\}"/, 'premat
 assert.match(js, /function prematchReportOpponentRows\(projectLabels\)/, 'prematch report must include strong-opponent signals');
 assert.match(js, /function prematchChecklistRows\(\{ competitions = \[\], focusRows = \[\], opponentRows = \[\], rosterReady = 0, isSingleCompetition = false \} = \{\}\)/, 'prematch report must generate a dynamic action checklist');
 assert.match(js, /function buildPrematchShareText\(competitions, focusRows, opponentRows, isSingleCompetition, relevanceRows = \[\]\)/, 'prematch report must build shareable summary text');
+assert.match(js, /function prematchShareUrl\(sportCode = ''\)/, 'prematch report must build a shareable report URL');
+assert.match(js, /function buildPrematchPageShareText\(competitions = \[\], isSingleCompetition = false, sportCode = ''\)/, 'prematch report must build shareable page text');
 assert.match(js, /buildPrematchShareText\(competitions, focusRows, opponentRows, isSingleCompetition, relevanceRows\)/, 'prematch share text must include personalized relevance rows');
 assert.match(js, /function renderPrematchReport\(kind = 'prematch-pack', sportCode = ''\)/, 'prematch report must render a real report view scoped by competition when needed');
 assert.match(js, /function openPrematchReport\(kind = 'prematch-pack', sportCode = ''\)/, 'prematch report must be navigable with an optional competition scope');
@@ -80,6 +82,12 @@ assert.match(js, /data-event-code="\$\{escapeHtml\(item\.eventCode/, 'single-com
 assert.match(js, /prematchReportBody\.querySelectorAll\('\[data-event-code\]'\)/, 'prematch report project rows must bind to event detail navigation');
 assert.match(js, /prematchReportBody\.querySelectorAll\('\[data-sport-code\]'\)/, 'prematch report competitions must be clickable');
 assert.match(js, /prematchReportBody\.querySelectorAll\('\[data-athlete-id\]'\)/, 'prematch report athletes must be clickable');
+assert.match(js, /data-report-share="prematch-page"/, 'prematch report must expose a copy page action');
+assert.match(js, /bindCopyTextButton\(prematchReportHero\.querySelector\('\[data-report-share="prematch-page"\]'\)/, 'prematch page copy action must be wired');
+assert.match(js, /initialParams\.get\('prematch'\)/, 'initial route must support shared prematch links');
+assert.match(js, /openPrematchReport\('prematch-pack', initialPrematchCode === 'prematch-pack' \? '' : initialPrematchCode\)/, 'shared prematch links must open the report directly');
+assert.match(js, /复制情报页/, 'prematch report must use user-facing page share copy');
+assert.match(js, /已复制情报页，可直接发给家长或教练。/, 'prematch page copy must confirm user-facing sharing');
 assert.match(js, /data-report-share="prematch"/, 'prematch report must expose a copy summary action');
 assert.match(js, /bindCopyTextButton\(prematchReportHero\.querySelector\('\[data-report-share="prematch"\]'\)/, 'prematch report copy action must be wired');
 assert.match(js, /已复制，可继续申请赛前试用。/, 'prematch report copy action must guide users toward prematch trial');

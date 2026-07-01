@@ -122,6 +122,7 @@ function analyticsActionDetailLabel(key) {
   const intentDetail = ['pilot_interest', 'membership_interest'].includes(action) ? commercialSourceLabel(label) : '';
   if (intentDetail) return `${analyticsActionLabel(action)} · ${intentDetail}`;
   const detail = ({
+    'prematch-page': '赛前情报页',
     prematch: '赛前情报',
     growth: '成长报告',
     coach: '学员分层',

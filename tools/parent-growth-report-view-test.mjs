@@ -58,7 +58,7 @@ assert.match(js, /data-report-share="parent-growth"/, 'growth report must expose
 assert.match(js, /data-report-share="parent-growth-page"/, 'growth report must expose a growth page share action');
 assert.match(js, /bindCopyTextButton\(parentGrowthReportHero\.querySelector\('\[data-report-share="parent-growth"\]'\)/, 'growth report copy action must be wired');
 assert.match(js, /bindCopyTextButton\(parentGrowthReportHero\.querySelector\('\[data-report-share="parent-growth-page"\]'\)/, 'growth page copy action must be wired');
-assert.match(js, /new URLSearchParams\(window\.location\.search\)\.get\('athlete'\)/, 'initial route must support shared athlete links');
+assert.match(js, /initialParams\.get\('athlete'\)/, 'initial route must support shared athlete links');
 assert.match(js, /await openAthlete\(initialAthleteId\)/, 'shared athlete links must open the athlete profile directly');
 assert.match(js, /复制成长页/, 'growth report must use user-facing growth page share copy');
 assert.match(js, /已复制成长页，可直接发给家长。/, 'growth page copy must confirm parent-facing sharing');

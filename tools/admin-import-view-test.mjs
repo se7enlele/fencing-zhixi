@@ -57,6 +57,7 @@ assert.match(js, /analyticsMetricValue\(actionRows, 'pilot_interest'\) \+ analyt
 assert.match(js, /function analyticsConversionInsight\(funnelRows = \[\]\)/, 'admin analytics must diagnose the conversion funnel');
 assert.match(js, /const funnelInsight = analyticsConversionInsight\(funnelRows\)/, 'admin analytics must render funnel diagnosis from current data');
 assert.match(js, /class="analytics-insight"/, 'admin analytics must show a next action under the funnel');
+assert.match(js, /'prematch-page': '赛前情报页'/, 'report type analytics must label prematch page shares separately');
 assert.match(js, /function analyticsReportTypeRows\(actionLabelRows = \[\]\)/, 'admin analytics must aggregate report type conversion rows');
 assert.match(js, /'parent-growth-page': '成长页分享'/, 'report type analytics must label parent growth page shares separately');
 assert.match(js, /\['open_report', 'share_report'\]\.includes\(action\)/, 'report type analytics must use report open and share actions');
@@ -192,7 +193,7 @@ assert.match(html, /id="analyticsTrend"/, 'admin import page must expose analyti
 assert.match(html, /id="analyticsPages"/, 'admin import page must expose analytics page rankings');
 assert.match(html, /id="dataHealthSummary"/, 'admin import page must expose data health summary');
 assert.match(html, /id="dataHealthGaps"/, 'admin import page must expose data health gaps');
-assert.match(html, /admin-import\.js\?v=fencingai-product-20260701-growth-page-share-analytics-1/, 'admin import JS cache key must be bumped');
-assert.match(html, /admin-import\.css\?v=fencingai-product-20260701-growth-page-share-analytics-1/, 'admin import CSS cache key must be bumped');
+assert.match(html, /admin-import\.js\?v=fencingai-product-20260701-prematch-page-share-1/, 'admin import JS cache key must be bumped');
+assert.match(html, /admin-import\.css\?v=fencingai-product-20260701-prematch-page-share-1/, 'admin import CSS cache key must be bumped');
 
 console.log('admin import page feedback is covered');

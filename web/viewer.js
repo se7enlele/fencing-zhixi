@@ -9892,6 +9892,25 @@ function prematchChecklistRows({ competitions = [], focusRows = [], opponentRows
   ];
 }
 
+function prematchShareUrl(sportCode = '') {
+  const url = new URL(window.location.href);
+  url.hash = '';
+  url.search = '';
+  url.searchParams.set('prematch', sportCode || 'prematch-pack');
+  return url.toString();
+}
+
+function buildPrematchPageShareText(competitions = [], isSingleCompetition = false, sportCode = '') {
+  const nearest = competitions[0] || null;
+  const title = isSingleCompetition && nearest ? `${nearest.sportName} 赛前情报页` : '近期赛前情报页';
+  return [
+    title,
+    nearest ? `${displayDateLabel(nearest.dateLabel)} · ${nearest.venue || nearest.region || '地点待确认'}` : '',
+    '打开后可查看报名状态、关注对象、强手线索和赛前执行清单。',
+    prematchShareUrl(sportCode),
+  ].filter(Boolean).join('\n');
+}
+
 function buildPrematchShareText(competitions, focusRows, opponentRows, isSingleCompetition, relevanceRows = []) {
   const nearest = competitions[0] || null;
   const rosterReady = competitions.filter((competition) => competition.rosterStatus === 'partial' || competition.rosterStatus === 'complete').length;
@@ -9964,6 +9983,11 @@ function renderPrematchReport(kind = 'prematch-pack', sportCode = '') {
     </div>
     <button class="report-share-action" type="button" data-report-share="prematch">复制报告摘要</button>
   `;
+
+  const prematchShareButton = prematchReportHero.querySelector('[data-report-share="prematch"]');
+  if (prematchShareButton) {
+    prematchShareButton.insertAdjacentHTML('afterend', '<button class="report-share-action secondary" type="button" data-report-share="prematch-page">复制情报页</button>');
+  }
 
   prematchReportBody.innerHTML = `
     ${renderPrematchRelevanceSection(relevanceRows)}
@@ -10104,6 +10128,7 @@ function renderPrematchReport(kind = 'prematch-pack', sportCode = '') {
   });
   bindReportConversionActions(prematchReportBody);
   bindCopyTextButton(prematchReportHero.querySelector('[data-report-share="prematch"]'), () => buildPrematchShareText(competitions, focusRows, opponentRows, isSingleCompetition, relevanceRows), isSingleCompetition ? 'prematch-single' : 'prematch-pack', '已复制，可继续申请赛前试用。');
+  bindCopyTextButton(prematchReportHero.querySelector('[data-report-share="prematch-page"]'), () => buildPrematchPageShareText(competitions, isSingleCompetition, sportCode), 'prematch-page', '已复制情报页，可直接发给家长或教练。');
 }
 
 function openPrematchReport(kind = 'prematch-pack', sportCode = '') {
@@ -10310,7 +10335,13 @@ async function init() {
   renderRegionSelect();
   renderItemSelect();
   applyCompetitionFilter();
-  const initialAthleteId = new URLSearchParams(window.location.search).get('athlete');
+  const initialParams = new URLSearchParams(window.location.search);
+  const initialPrematchCode = initialParams.get('prematch');
+  if (initialPrematchCode) {
+    openPrematchReport('prematch-pack', initialPrematchCode === 'prematch-pack' ? '' : initialPrematchCode);
+    return;
+  }
+  const initialAthleteId = initialParams.get('athlete');
   if (initialAthleteId) {
     await openAthlete(initialAthleteId);
     return;
