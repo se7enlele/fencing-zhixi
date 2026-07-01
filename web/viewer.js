@@ -8326,6 +8326,38 @@ function coachAthleteFollowupRows(athletes) {
     .map(coachAthleteTrainingFocus);
 }
 
+function coachParentCommunicationRows(club, followups = [], buckets = []) {
+  const bucketByAthlete = new Map();
+  (buckets || []).forEach((bucket) => {
+    (bucket.rows || []).forEach((athlete) => {
+      const key = athlete.id || `${athlete.name}-${athlete.club || ''}`;
+      if (!bucketByAthlete.has(key)) bucketByAthlete.set(key, bucket);
+    });
+  });
+  return (followups || []).slice(0, 4).map((row) => {
+    const athlete = row.athlete || {};
+    const key = athlete.id || `${athlete.name}-${athlete.club || ''}`;
+    const bucket = bucketByAthlete.get(key) || {};
+    const status = bucket.title || '阶段复盘';
+    return {
+      athlete,
+      status,
+      title: `${athlete.name || '学员'}｜${status}`,
+      message: `${athlete.name || '孩子'}近期参赛记录已经可以做阶段复盘：${row.parentMessage} 训练重点：${row.training}`,
+      nextStep: row.watchPoint,
+    };
+  });
+}
+
+function coachParentCommunicationText(row = {}) {
+  return [
+    row.title || '学员阶段反馈',
+    row.message || '',
+    row.nextStep ? `下一步观察：${row.nextStep}` : '',
+    '数据来源：FencingAI 已收录公开赛事成绩',
+  ].filter(Boolean).join('\n');
+}
+
 function renderCoachAthleteFollowups(athletes) {
   const rows = coachAthleteFollowupRows(athletes);
   if (!rows.length) return '';
@@ -8413,12 +8445,14 @@ function coachBusinessGrowthRows(club, projectRows, buckets) {
 
 function buildCoachSegmentationShareText(club, buckets, followups, projectRows, businessRows = []) {
   const topProject = projectRows[0];
+  const communicationRows = coachParentCommunicationRows(club, followups, buckets);
   return [
     `${club.club} 学员分层报告`,
     `识别学员：${buckets.reduce((sum, bucket) => sum + bucket.rows.length, 0)} 人`,
     topProject ? `重点项目：${topProject.label}，参赛 ${topProject.entrants || 0} 人次，最好第 ${topProject.bestRank ?? '-'} 名` : '重点项目：待形成',
     ...buckets.map((bucket) => `${bucket.title}：${bucket.rows.map((athlete) => athlete.name).filter(Boolean).slice(0, 4).join(' / ') || '暂无'}。${bucket.action}`),
     ...followups.slice(0, 3).map((row, index) => `跟进${index + 1}：${row.athlete.name}，${row.training}`),
+    ...communicationRows.slice(0, 3).map((row, index) => `家长沟通${index + 1}：${row.title}。${row.message}`),
     ...businessRows.slice(0, 4).map((row) => `${row.title}：${row.label}。${row.detail}`),
     '数据来源：FencingAI 已收录赛事成绩',
   ].join('\n');
@@ -8445,6 +8479,7 @@ function renderCoachSegmentationReport(clubId = '') {
   const followups = coachAthleteFollowupRows(athletes);
   const evidenceRows = coachSegmentationEvidenceRows(club, projectRows);
   const businessRows = coachBusinessGrowthRows(club, projectRows, buckets);
+  const communicationRows = coachParentCommunicationRows(club, followups, buckets);
   const topProject = projectRows[0] || null;
   const scoreBucket = buckets.find((bucket) => bucket.key === 'score');
   const riskBucket = buckets.find((bucket) => bucket.key === 'risk');
@@ -8523,6 +8558,28 @@ function renderCoachSegmentationReport(clubId = '') {
       </div>
     </article>
 
+    <article class="panel coach-segmentation-report-card coach-parent-communication">
+      <div class="section-title">
+        <h2>家长沟通摘要</h2>
+        <span>可复制</span>
+      </div>
+      <div class="coach-parent-message-list">
+        ${communicationRows.length ? communicationRows.map((row, index) => `
+          <article class="coach-parent-message-card">
+            <div>
+              <strong>${escapeHtml(row.title)}</strong>
+              <span>${escapeHtml(row.message)}</span>
+              <em>${escapeHtml(row.nextStep)}</em>
+            </div>
+            <div class="coach-parent-message-actions">
+              <button type="button" data-coach-parent-message="${escapeHtml(index)}">复制给家长</button>
+              <button type="button" data-athlete-id="${escapeHtml(row.athlete.id || '')}">看选手</button>
+            </div>
+          </article>
+        `).join('') : '<div class="empty compact-empty">暂无可生成沟通摘要的学员。</div>'}
+      </div>
+    </article>
+
     <article class="panel coach-segmentation-report-card coach-business-growth">
       <div class="section-title">
         <h2>招生与口碑素材</h2>
@@ -8572,6 +8629,10 @@ function renderCoachSegmentationReport(clubId = '') {
   coachSegmentationReportBody.querySelectorAll('[data-event-code]').forEach((button) => {
     if (!button.dataset.eventCode) return;
     button.addEventListener('click', () => openEvent(button.dataset.eventCode));
+  });
+  coachSegmentationReportBody.querySelectorAll('[data-coach-parent-message]').forEach((button) => {
+    const row = communicationRows[Number(button.dataset.coachParentMessage)];
+    bindCopyTextButton(button, () => coachParentCommunicationText(row), 'coach-parent-message', '已复制，可直接发给家长。');
   });
   coachSegmentationReportBody.querySelector('[data-club-id]')?.addEventListener('click', () => openClub(club.id));
   bindReportConversionActions(coachSegmentationReportBody);

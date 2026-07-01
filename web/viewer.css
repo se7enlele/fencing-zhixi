@@ -5342,6 +5342,66 @@ select:focus {
   line-height: 1.45;
 }
 
+.coach-parent-message-list {
+  display: grid;
+  gap: 8px;
+}
+
+.coach-parent-message-card {
+  display: grid;
+  gap: 10px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.74);
+  padding: 10px;
+}
+
+.coach-parent-message-card strong,
+.coach-parent-message-card span,
+.coach-parent-message-card em {
+  display: block;
+  min-width: 0;
+}
+
+.coach-parent-message-card strong {
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.coach-parent-message-card span,
+.coach-parent-message-card em {
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.coach-parent-message-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.coach-parent-message-actions button {
+  flex: 1 1 112px;
+  min-height: 34px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--primary);
+  color: #fff;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 900;
+  padding: 8px 12px;
+}
+
+.coach-parent-message-actions button + button {
+  border: 1px solid rgba(21, 95, 194, 0.16);
+  background: rgba(21, 95, 194, 0.08);
+  color: var(--primary);
+}
+
 @media (max-width: 360px) {
   .coach-business-grid {
     grid-template-columns: 1fr;
