@@ -91,8 +91,13 @@ assert.match(js, /function saveCommercialContact\(contact\)/, 'commercial contac
 assert.match(js, /function requestCommercialContact\(context = \{\}\)/, 'commercial contact helper must request contact details before submission');
 assert.match(js, /function trackCommercialIntent\(type, context = \{\}, result = \{\}\)/, 'commercial intent submissions must be tracked locally');
 assert.match(js, /saveStoredList\(COMMERCIAL_INTENT_KEY, state\.commercialIntents, 10\)/, 'commercial intent submissions must be saved locally');
+assert.match(js, /if \(type === 'reminder-interest'\) return '提醒订阅'/, 'reminder subscriptions must have their own service-progress type');
 assert.match(js, /trackCommercialIntent\('pilot-interest', enrichedContext, result\)/, 'pilot trial submissions must update service progress');
 assert.match(js, /trackCommercialIntent\('membership-interest', enrichedContext, result\)/, 'membership submissions must update service progress');
+assert.match(js, /async function submitReminderInterest\(button, context = \{\}\)/, 'reminder subscriptions must submit a dedicated feedback type');
+assert.match(js, /type: 'reminder-interest'/, 'reminder subscriptions must be distinguishable in feedback records');
+assert.match(js, /trackCommercialIntent\('reminder-interest', enrichedContext, result\)/, 'reminder subscriptions must show up in service progress');
+assert.match(js, /trackAnalyticsAction\('reminder_interest'/, 'reminder subscriptions must be analytics-traceable');
 assert.match(js, /function commercialIntentRows\(\)/, 'commercial intent rows must be normalized for display');
 assert.match(js, /function commercialIntentNextStep\(row = \{\}\)/, 'commercial intent progress must explain the next user-facing step');
 assert.match(js, /nextStep: commercialIntentNextStep\(row\)/, 'commercial intent rows must include next-step copy');
@@ -196,6 +201,7 @@ assert.match(js, /<h2>赛前提醒<\/h2>/, 'follow page must expose pre-match re
 assert.match(js, /class="focus-alert-card"/, 'follow page must render reminder cards for followed competitions');
 assert.match(js, /class="panel my-section focus-trial-card"/, 'follow page must expose a trial card for reminder services');
 assert.match(js, /data-commercial-source="focus-workspace"/, 'follow trial card must submit a traceable commercial source');
+assert.match(js, /data-reminder-interest data-commercial-source="focus-reminder"/, 'follow page must expose a dedicated reminder subscription action');
 assert.match(js, /bindReportConversionActions\(focusPage\)/, 'follow page trial card must reuse commercial conversion actions');
 assert.match(js, /data-focus-competition/, 'follow reminders must keep a direct competition detail action');
 assert.match(js, /data-focus-prematch/, 'follow reminders must expose a direct prematch report action');
@@ -224,6 +230,7 @@ assert.match(js, /class="panel my-section trial-plan-section"/, 'my page must ex
 assert.match(js, /class="panel my-section service-readiness-section"/, 'my page must expose service readiness section');
 assert.match(js, /data-trial-plan-source="\$\{escapeHtml\(row\.source\)\}"/, 'trial plan cards must carry conversion source');
 assert.match(js, /data-my-prematch-report="\$\{escapeHtml\(row\.sportCode\)\}"/, 'prematch reminder cards must open scoped reports');
+assert.match(js, /data-reminder-interest data-commercial-source="my-prematch-reminder"/, 'my page prematch cards must expose reminder subscription actions');
 assert.match(js, /data-my-prematch-follow="\$\{escapeHtml\(row\.sportCode\)\}"/, 'prematch reminder cards must support joining reminders');
 assert.match(js, /data-my-readiness-action="\$\{escapeHtml\(row\.action\)\}"/, 'service readiness cards must carry runnable actions');
 assert.match(js, /\$\{renderCommercialIntentStatus\(commercialIntents\)\}/, 'my page must show submitted service progress');
@@ -304,6 +311,7 @@ assert.match(css, /\.parent-next-focus/, 'parent next focus styles must exist');
 assert.match(css, /\.parent-focus-row/, 'parent focus row styles must exist');
 assert.match(css, /\.focus-dashboard/, 'follow dashboard styles must exist');
 assert.match(css, /\.focus-trial-card/, 'follow trial card styles must exist');
+assert.match(css, /\.focus-trial-actions/, 'follow reminder subscription actions must be styled');
 assert.match(css, /\.focus-alert-card/, 'follow alert card styles must exist');
 assert.match(css, /\.focus-alert-actions/, 'follow alert action styles must exist');
 assert.match(css, /\.my-page-shell/, 'personal page styles must exist');

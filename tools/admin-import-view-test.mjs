@@ -37,11 +37,14 @@ assert.match(js, /share_report: '复制报告'/, 'admin analytics must label rep
 assert.match(js, /share_club: '复制招生名片'/, 'admin analytics must label club recruiting share actions');
 assert.match(js, /pilot_interest: '试用意向'/, 'admin analytics must label pilot interest actions');
 assert.match(js, /membership_interest: '会员意向'/, 'admin analytics must label membership interest actions');
+assert.match(js, /reminder_interest: '提醒订阅'/, 'admin analytics must label reminder subscription actions');
 assert.match(js, /visitor: '访客'/, 'admin analytics must label visitor pilot detail');
 assert.match(js, /'home-pilot': '首页试用合作'/, 'admin analytics must label home trial intent source');
 assert.match(js, /'focus-workspace': '关注提醒服务'/, 'admin analytics must label follow workspace trial source');
+assert.match(js, /'focus-reminder': '关注页提醒订阅'/, 'admin analytics must label follow reminder source');
 assert.match(js, /'my-membership': '我的页会员权益'/, 'admin analytics must label my page membership source');
 assert.match(js, /'my-next-action': '我的页下一步'/, 'admin analytics must label my page next-action source');
+assert.match(js, /'my-prematch-reminder': '我的页赛前提醒'/, 'admin analytics must label my page prematch reminder source');
 assert.match(js, /'parent-growth-report': '成长报告'/, 'admin analytics must label growth report commercial source');
 assert.match(js, /'prematch-pack-report': '赛前情报包'/, 'admin analytics must label prematch report commercial source');
 assert.match(js, /'coach-segmentation-report': '教练分层报告'/, 'admin analytics must label coach report commercial source');
@@ -70,6 +73,7 @@ assert.match(js, /'ai-helpful': 'AI 有帮助'/, 'admin import must label helpfu
 assert.match(js, /'ai-needs-work': 'AI 需调整'/, 'admin import must label AI feedback that needs adjustment');
 assert.match(js, /'pilot-interest': '试用意向'/, 'admin import must label pilot interest leads');
 assert.match(js, /'membership-interest': '会员意向'/, 'admin import must label membership interest leads');
+assert.match(js, /'reminder-interest': '提醒订阅'/, 'admin import must label reminder subscription leads');
 assert.match(js, /function feedbackStatusLabel\(status\)/, 'admin import must label feedback workflow status');
 assert.match(js, /function updateFeedbackStatus\(id, status\)/, 'admin import must update feedback status');
 assert.match(js, /function parsePilotLeadMessage\(message = ''\)/, 'admin import must parse pilot lead messages');
@@ -100,8 +104,10 @@ assert.match(js, /优先验证赛前情报包/, 'product focus recommendations m
 assert.match(js, /const reportCounts = openLeads\.reduce/, 'admin import must aggregate open lead report types');
 assert.match(js, /class="pilot-lead-report-mix"/, 'admin import must render lead report type mix');
 assert.match(js, /确认近期赛事和关注选手，推荐赛前情报试用。/, 'prematch commercial leads must recommend prematch trial follow-up');
+assert.match(js, /确认提醒对象、赛事范围和更新频率。/, 'reminder leads must recommend reminder-scope follow-up');
+assert.match(js, /要提醒的赛事、选手和更新频率/, 'reminder leads must include a specific follow-up script');
 assert.match(js, /function renderPilotLeadSummary\(rows = \[\]\)/, 'admin import must render pilot lead summary');
-assert.match(js, /\['pilot-interest', 'membership-interest'\]\.includes\(row\.type\)/, 'admin import lead summary must be scoped to commercial leads');
+assert.match(js, /\['pilot-interest', 'membership-interest', 'reminder-interest'\]\.includes\(row\.type\)/, 'admin import lead summary must include reminder leads');
 assert.match(js, /商业线索/, 'admin import must expose a commercial lead board');
 assert.match(js, /条待跟进/, 'admin import must count open trial leads');
 assert.match(js, /const newLeads = leads\.filter\(\(row\) => \(row\.status \|\| 'new'\) === 'new'\)/, 'admin import must count newly submitted commercial leads separately');

@@ -3184,6 +3184,12 @@ select:focus {
   line-height: 1.45;
 }
 
+.focus-trial-actions {
+  display: grid;
+  gap: 8px;
+  min-width: 92px;
+}
+
 .focus-trial-card button {
   min-height: 34px;
   border: 0;
@@ -3194,6 +3200,12 @@ select:focus {
   font-weight: 900;
   padding: 0 12px;
   white-space: nowrap;
+}
+
+.focus-trial-card button + button {
+  border: 1px solid rgba(21, 95, 194, 0.16);
+  background: rgba(21, 95, 194, 0.08);
+  color: var(--primary);
 }
 
 .focus-alert-list {

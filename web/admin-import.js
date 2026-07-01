@@ -84,6 +84,7 @@ function analyticsActionLabel(action) {
     share_club: '复制招生名片',
     pilot_interest: '试用意向',
     membership_interest: '会员意向',
+    reminder_interest: '提醒订阅',
     follow_athlete: '关注选手',
     follow_competition: '关注赛事',
   })[action] || action || '未知动作';
@@ -99,8 +100,10 @@ function commercialSourceLabel(source) {
     data: '赛事数据',
     'home-pilot': '首页试用合作',
     'focus-workspace': '关注提醒服务',
+    'focus-reminder': '关注页提醒订阅',
     'my-membership': '我的页会员权益',
     'my-next-action': '我的页下一步',
+    'my-prematch-reminder': '我的页赛前提醒',
     'member-panel': '会员横幅',
     'parent-growth-report': '成长报告',
     'prematch-single-report': '单场赛前情报',
@@ -172,7 +175,7 @@ function analyticsFunnelRows(actionRows = []) {
   const aiAnswers = analyticsMetricValue(actionRows, 'ai_answer');
   const openedReports = analyticsMetricValue(actionRows, 'open_report');
   const sharedReports = analyticsMetricValue(actionRows, 'share_report') + analyticsMetricValue(actionRows, 'share_club');
-  const commercialLeads = analyticsMetricValue(actionRows, 'pilot_interest') + analyticsMetricValue(actionRows, 'membership_interest');
+  const commercialLeads = analyticsMetricValue(actionRows, 'pilot_interest') + analyticsMetricValue(actionRows, 'membership_interest') + analyticsMetricValue(actionRows, 'reminder_interest');
   return [
     { label: 'AI 回答', value: aiAnswers, rate: '-' },
     { label: '打开报告', value: openedReports, rate: analyticsConversionRate(openedReports, aiAnswers) },
@@ -572,6 +575,7 @@ function feedbackTypeLabel(type) {
     'ai-needs-work': 'AI 需调整',
     'pilot-interest': '试用意向',
     'membership-interest': '会员意向',
+    'reminder-interest': '提醒订阅',
   })[type] || '用户反馈';
 }
 
@@ -694,6 +698,7 @@ function aiFeedbackQualityRows(rows = []) {
 function commercialLeadReportLabel(row = {}) {
   const detail = commercialLeadDetail(row);
   const source = `${detail.rawSource || ''} ${detail.report || ''}`.toLowerCase();
+  if (row.type === 'reminder-interest' || /reminder|提醒/.test(source)) return '提醒订阅';
   if (/prematch/.test(source)) return '赛前情报';
   if (/growth|parent/.test(source)) return '成长报告';
   if (/coach|club|recruiting/.test(source)) return '教练/剑馆';
@@ -746,6 +751,7 @@ function commercialLeadPriority(row = {}) {
 function commercialLeadNextStep(row = {}) {
   const detail = commercialLeadDetail(row);
   const source = `${detail.rawSource || ''} ${detail.report || ''}`.toLowerCase();
+  if (row.type === 'reminder-interest' || /reminder|提醒/.test(source)) return '确认提醒对象、赛事范围和更新频率。';
   if (/prematch/.test(source)) return '确认近期赛事和关注选手，推荐赛前情报试用。';
   if (/growth|parent/.test(source)) return '确认孩子姓名和目标周期，推荐成长报告试用。';
   if (/coach|club|recruiting/.test(source)) return '确认俱乐部和学员规模，推荐教练工作台试用。';
@@ -757,6 +763,7 @@ function commercialLeadFollowupScript(row = {}) {
   const detail = commercialLeadDetail(row);
   const source = `${detail.rawSource || ''} ${detail.report || ''}`.toLowerCase();
   const role = detail.role || '您';
+  if (row.type === 'reminder-interest' || /reminder|提醒/.test(source)) return `${role}您好，可以先确认要提醒的赛事、选手和更新频率，我这边按赛前、报名名单和成绩更新帮您配置提醒。`;
   if (/prematch/.test(source)) return `${role}您好，可以先确认本次重点赛事和关注选手，我这边给您开通赛前情报试用，重点看报名名单、强手线索和提醒。`;
   if (/growth|parent/.test(source)) return `${role}您好，可以先确认孩子姓名和最近参赛目标，我这边给您开通成长报告试用，重点看阶段进步、短板和下一步训练建议。`;
   if (/coach|club|recruiting/.test(source)) return `${role}您好，可以先确认俱乐部和主要学员组别，我这边给您开通教练工作台试用，重点看学员分层、续费沟通和招生展示。`;
@@ -766,7 +773,7 @@ function commercialLeadFollowupScript(row = {}) {
 
 function renderPilotLeadSummary(rows = []) {
   if (!pilotLeadSummary) return;
-  const leads = rows.filter((row) => ['pilot-interest', 'membership-interest'].includes(row.type));
+  const leads = rows.filter((row) => ['pilot-interest', 'membership-interest', 'reminder-interest'].includes(row.type));
   if (!leads.length) {
     pilotLeadSummary.innerHTML = '<div class="status muted">暂无商业线索。</div>';
     return;
@@ -899,7 +906,7 @@ async function copyCommercialLeads(button, leads = []) {
 }
 
 function isCommercialLead(row) {
-  return ['pilot-interest', 'membership-interest'].includes(row.type);
+  return ['pilot-interest', 'membership-interest', 'reminder-interest'].includes(row.type);
 }
 
 function isAiFeedback(row) {

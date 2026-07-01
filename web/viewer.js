@@ -2640,6 +2640,7 @@ function requestCommercialContact(context = {}) {
 
 function commercialIntentTypeLabel(type) {
   if (type === 'membership-interest') return '会员权益';
+  if (type === 'reminder-interest') return '提醒订阅';
   return '试用合作';
 }
 
@@ -2650,6 +2651,8 @@ function commercialIntentSourceLabel(source) {
     'my-membership': '我的页',
     'my-next-action': '下一步',
     'focus-workspace': '关注提醒',
+    'focus-reminder': '关注页提醒',
+    'my-prematch-reminder': '我的页赛前提醒',
     'parent-growth-report': '成长报告',
     'prematch-pack-report': '赛前情报',
     'prematch-single-report': '单场赛前',
@@ -2673,6 +2676,7 @@ function commercialIntentRows() {
 function commercialIntentNextStep(row = {}) {
   const source = row.source || '';
   const report = row.report || '';
+  if (row.type === 'reminder-interest' || /reminder|提醒/.test(source) || /提醒|订阅/.test(report)) return '下一步会按你关注的赛事和选手确认提醒范围。';
   if (/prematch/.test(source) || /赛前|对手/.test(report)) return '下一步会围绕目标赛事、报名名单和关注选手整理赛前提醒。';
   if (/growth|parent/.test(source) || /成长|家庭|家长/.test(report)) return '下一步会围绕关注孩子整理成长报告和近期比赛复盘。';
   if (/coach|club|recruiting|segmentation/.test(source) || /教练|剑馆|俱乐部|招生|学员/.test(report)) return '下一步会围绕学员分层、优势项目和招生素材整理试用说明。';
@@ -2684,7 +2688,7 @@ function commercialIntentProgressSteps(row = {}) {
   return [
     { label: '已收到', state: 'done' },
     { label: row.contact ? '信息已确认' : '待补充信息', state: row.contact ? 'done' : 'active' },
-    { label: row.type === 'membership-interest' ? '确认权益' : '生成样例', state: 'pending' },
+    { label: row.type === 'membership-interest' ? '确认权益' : row.type === 'reminder-interest' ? '确认提醒' : '生成样例', state: 'pending' },
   ];
 }
 
@@ -2748,6 +2752,10 @@ function bindServiceProgressActions(container) {
       };
       if (button.dataset.serviceProgressAction === 'membership-interest') {
         submitMembershipInterest(event.currentTarget, context);
+        return;
+      }
+      if (button.dataset.serviceProgressAction === 'reminder-interest') {
+        submitReminderInterest(event.currentTarget, context);
         return;
       }
       submitPilotInterest(event.currentTarget, context);
@@ -3038,6 +3046,12 @@ function bindReportConversionActions(container) {
   container.querySelectorAll('[data-report-export]').forEach((button) => {
     button.addEventListener('click', () => printCurrentReport(button.dataset.reportExport || 'report'));
   });
+  container.querySelectorAll('[data-reminder-interest]').forEach((button) => {
+    button.addEventListener('click', () => submitReminderInterest(button, {
+      source: button.dataset.commercialSource || 'reminder',
+      report: button.dataset.reportTitle || '提醒订阅',
+    }));
+  });
 }
 
 async function submitPilotInterest(button, context = {}) {
@@ -3106,6 +3120,46 @@ async function submitMembershipInterest(button, context = {}) {
     if (!response.ok || !result.ok) throw new Error(result.message || '提交失败');
     trackCommercialIntent('membership-interest', enrichedContext, result);
     trackAnalyticsAction('membership_interest', enrichedContext.source || state.userRole || 'visitor');
+    button.textContent = '已收到';
+    renderPersonalPages();
+  } catch {
+    button.textContent = '稍后再试';
+  }
+  setTimeout(() => {
+    button.textContent = originalLabel;
+    button.disabled = false;
+  }, 1800);
+}
+
+async function submitReminderInterest(button, context = {}) {
+  if (!button) return;
+  const originalLabel = button.textContent;
+  button.disabled = true;
+  button.textContent = '提交中';
+  const contact = requestCommercialContact({ ...context, report: context.report || '提醒订阅' });
+  const enrichedContext = { ...context, contact };
+  try {
+    const response = await fetch('/api/feedback', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        deviceId: state.deviceId,
+        type: 'reminder-interest',
+        subject: {
+          id: `reminder-${enrichedContext.source || state.userRole || 'visitor'}`,
+          name: enrichedContext.report || '提醒订阅',
+          type: state.userRole || 'visitor',
+        },
+        message: [
+          ...commercialInterestMessage(enrichedContext),
+          '提醒内容：赛事状态、报名名单、成绩更新和重点对象复核',
+        ].join('；'),
+      }),
+    });
+    const result = await response.json();
+    if (!response.ok || !result.ok) throw new Error(result.message || '提交失败');
+    trackCommercialIntent('reminder-interest', enrichedContext, result);
+    trackAnalyticsAction('reminder_interest', enrichedContext.source || state.userRole || 'visitor');
     button.textContent = '已收到';
     renderPersonalPages();
   } catch {
@@ -5311,7 +5365,10 @@ function renderFocusPage() {
         <strong>提醒服务</strong>
         <span>${escapeHtml(priorityCompetitions.length ? '把关注赛事、重点选手和赛前情报固定下来，关键比赛前直接查看。' : '关注选手或赛事后，可持续形成赛前提醒、成长报告和复盘入口。')}</span>
       </div>
-      <button type="button" data-commercial-intent="pilot" data-commercial-source="focus-workspace" data-report-title="关注提醒服务">申请试用</button>
+      <div class="focus-trial-actions">
+        <button type="button" data-reminder-interest data-commercial-source="focus-reminder" data-report-title="关注提醒订阅">订阅提醒</button>
+        <button type="button" data-commercial-intent="pilot" data-commercial-source="focus-workspace" data-report-title="关注提醒服务">申请试用</button>
+      </div>
     </section>
     <section class="panel my-section">
       <div class="section-title">
@@ -5499,6 +5556,7 @@ function renderMyPage() {
               <small>${escapeHtml(row.tag)}</small>
               <div class="my-prematch-actions">
                 <button type="button" data-my-prematch-report="${escapeHtml(row.sportCode)}">赛前情报</button>
+                <button type="button" data-reminder-interest data-commercial-source="my-prematch-reminder" data-report-title="${escapeHtml(row.title)}提醒">订阅提醒</button>
                 ${row.isFollowed ? '' : `<button type="button" data-my-prematch-follow="${escapeHtml(row.sportCode)}">加入提醒</button>`}
               </div>
             </article>
