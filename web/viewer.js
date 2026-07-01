@@ -2529,7 +2529,18 @@ function commercialIntentRows() {
     sourceLabel: commercialIntentSourceLabel(row.source),
     timeLabel: formatDataGeneratedAt(row.submittedAt),
     contactLabel: row.contact ? '联系方式已留存' : '可补充联系方式',
+    nextStep: commercialIntentNextStep(row),
   }));
+}
+
+function commercialIntentNextStep(row = {}) {
+  const source = row.source || '';
+  const report = row.report || '';
+  if (/prematch/.test(source) || /赛前|对手/.test(report)) return '下一步会围绕目标赛事、报名名单和关注选手整理赛前提醒。';
+  if (/growth|parent/.test(source) || /成长|家庭|家长/.test(report)) return '下一步会围绕关注孩子整理成长报告和近期比赛复盘。';
+  if (/coach|club|recruiting|segmentation/.test(source) || /教练|剑馆|俱乐部|招生|学员/.test(report)) return '下一步会围绕学员分层、优势项目和招生素材整理试用说明。';
+  if (row.type === 'membership-interest') return '下一步会确认关注选手、赛事提醒和报告保存需求。';
+  return '下一步会结合你关注的选手、赛事和报告记录确认试用场景。';
 }
 
 function trackCommercialIntent(type, context = {}, result = {}) {
@@ -2568,6 +2579,7 @@ function renderCommercialIntentStatus(rows = commercialIntentRows()) {
             </div>
             <em>${escapeHtml(row.timeLabel || '刚刚提交')}</em>
             <small>${escapeHtml(row.contactLabel)}</small>
+            <p>${escapeHtml(row.nextStep)}</p>
           </article>
         `).join('')}
       </div>

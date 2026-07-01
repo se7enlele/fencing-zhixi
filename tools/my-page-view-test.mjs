@@ -89,8 +89,11 @@ assert.match(js, /saveStoredList\(COMMERCIAL_INTENT_KEY, state\.commercialIntent
 assert.match(js, /trackCommercialIntent\('pilot-interest', enrichedContext, result\)/, 'pilot trial submissions must update service progress');
 assert.match(js, /trackCommercialIntent\('membership-interest', enrichedContext, result\)/, 'membership submissions must update service progress');
 assert.match(js, /function commercialIntentRows\(\)/, 'commercial intent rows must be normalized for display');
+assert.match(js, /function commercialIntentNextStep\(row = \{\}\)/, 'commercial intent progress must explain the next user-facing step');
+assert.match(js, /nextStep: commercialIntentNextStep\(row\)/, 'commercial intent rows must include next-step copy');
 assert.match(js, /function renderCommercialIntentStatus\(rows = commercialIntentRows\(\)\)/, 'commercial intent status panel must be reusable');
 assert.match(js, /class="panel my-section service-progress-panel"/, 'service progress panel must render as a user-facing section');
+assert.match(js, /<p>\$\{escapeHtml\(row\.nextStep\)\}<\/p>/, 'service progress cards must render the next-step copy');
 assert.match(js, /function homePrematchActionRow\(followedCompetitions = \[\]\)/, 'home page must derive the next prematch action from followed or recommended competitions');
 assert.match(js, /function renderHomePrematchAction\(row = homePrematchActionRow\(\)\)/, 'home page must render a dedicated next-prematch action card');
 assert.match(js, /function homeCoachActionRow\(\)/, 'home page must derive a coach business action from the active or strongest club');
@@ -214,6 +217,7 @@ assert.match(css, /\.report-center-grid/, 'home report center styles must exist'
 assert.match(css, /\.pilot-interest-card/, 'pilot trial intent card styles must exist');
 assert.match(css, /\.service-progress-panel/, 'service progress panel styles must exist');
 assert.match(css, /\.service-progress-card/, 'service progress card styles must exist');
+assert.match(css, /\.service-progress-card p/, 'service progress next-step copy must be styled');
 assert.match(css, /\.home-prematch-action/, 'home prematch action section styles must exist');
 assert.match(css, /\.home-prematch-card/, 'home prematch action card styles must exist');
 assert.match(css, /\.home-prematch-actions/, 'home prematch action buttons must be laid out for mobile');

@@ -2351,6 +2351,14 @@ select:focus {
   line-height: 1.35;
 }
 
+.service-progress-card p {
+  grid-column: 1 / -1;
+  margin: 2px 0 0;
+  color: var(--text);
+  font-size: 12px;
+  line-height: 1.42;
+}
+
 .service-progress-card small {
   grid-column: 1 / -1;
   width: fit-content;
