@@ -68,6 +68,7 @@ const ROLE_KEY = 'fencingai.role.v1';
 const CHILD_KEY = 'fencingai.parentChildId.v1';
 const ANALYTICS_SESSION_KEY = 'fencingai.analyticsSession.v1';
 const COMMERCIAL_CONTACT_KEY = 'fencingai.commercialContact.v1';
+const COMMERCIAL_INTENT_KEY = 'fencingai.commercialIntents.v1';
 const COMPETITION_LIST_PAGE_SIZE = 30;
 
 const views = {
@@ -120,6 +121,7 @@ const state = {
   recentItems: [],
   reportHistory: [],
   aiHistory: [],
+  commercialIntents: [],
   isDataLoading: true,
   dataLoadError: '',
   searchRequestId: 0,
@@ -250,6 +252,7 @@ state.followedCompetitions = loadStoredList(COMPETITION_FOLLOW_KEY);
 state.recentItems = loadStoredList(RECENT_KEY);
 state.reportHistory = loadStoredList(REPORT_HISTORY_KEY);
 state.aiHistory = loadStoredList(AI_HISTORY_KEY);
+state.commercialIntents = loadStoredList(COMMERCIAL_INTENT_KEY);
 
 function loadFollowedAthletes() {
   try {
@@ -2469,6 +2472,80 @@ function requestCommercialContact(context = {}) {
   return saveCommercialContact(input);
 }
 
+function commercialIntentTypeLabel(type) {
+  if (type === 'membership-interest') return '会员权益';
+  return '试用合作';
+}
+
+function commercialIntentSourceLabel(source) {
+  const labels = {
+    'home-pilot': '首页试用',
+    'member-panel': '会员入口',
+    'my-membership': '我的页',
+    'my-next-action': '下一步',
+    'focus-workspace': '关注提醒',
+    'parent-growth-report': '成长报告',
+    'prematch-pack-report': '赛前情报',
+    'prematch-single-report': '单场赛前',
+    'coach-segmentation-report': '教练报告',
+  };
+  return labels[source] || source || '服务入口';
+}
+
+function commercialIntentRows() {
+  return (state.commercialIntents || []).slice(0, 4).map((row) => ({
+    ...row,
+    typeLabel: commercialIntentTypeLabel(row.type),
+    sourceLabel: commercialIntentSourceLabel(row.source),
+    timeLabel: formatDataGeneratedAt(row.submittedAt),
+    contactLabel: row.contact ? '联系方式已留存' : '可补充联系方式',
+  }));
+}
+
+function trackCommercialIntent(type, context = {}, result = {}) {
+  const source = context.source || state.userRole || 'visitor';
+  const report = context.report || commercialIntentTypeLabel(type);
+  const key = `${type}:${source}:${report}`;
+  state.commercialIntents = [
+    {
+      key,
+      type,
+      source,
+      report,
+      contact: context.contact || '',
+      feedbackId: result.id || '',
+      submittedAt: Date.now(),
+    },
+    ...(state.commercialIntents || []).filter((row) => row.key !== key),
+  ].slice(0, 10);
+  saveStoredList(COMMERCIAL_INTENT_KEY, state.commercialIntents, 10);
+}
+
+function renderCommercialIntentStatus(rows = commercialIntentRows()) {
+  if (!rows.length) return '';
+  return `
+    <section class="panel my-section service-progress-panel">
+      <div class="section-title">
+        <h2>服务进度</h2>
+        <span>已提交</span>
+      </div>
+      <div class="service-progress-list">
+        ${rows.map((row) => `
+          <article class="service-progress-card">
+            <div>
+              <strong>${escapeHtml(row.report || row.typeLabel)}</strong>
+              <span>${escapeHtml(row.typeLabel)} · ${escapeHtml(row.sourceLabel)}</span>
+            </div>
+            <em>${escapeHtml(row.timeLabel || '刚刚提交')}</em>
+            <small>${escapeHtml(row.contactLabel)}</small>
+          </article>
+        `).join('')}
+      </div>
+      <p>已收到的服务申请会结合你的关注选手、赛事和报告记录跟进；需要更新联系方式时，可以再次点击申请入口。</p>
+    </section>
+  `;
+}
+
 function reportConversionCard({ source, title, detail, primaryLabel = '申请试用', secondaryLabel = '了解会员权益' }) {
   return `
     <article class="panel report-conversion-card">
@@ -2525,8 +2602,10 @@ async function submitPilotInterest(button, context = {}) {
     });
     const result = await response.json();
     if (!response.ok || !result.ok) throw new Error(result.message || '提交失败');
+    trackCommercialIntent('pilot-interest', enrichedContext, result);
     trackAnalyticsAction('pilot_interest', enrichedContext.source || state.userRole || 'visitor');
     button.textContent = '已收到';
+    renderPersonalPages();
   } catch {
     button.textContent = '稍后再试';
   }
@@ -2563,8 +2642,10 @@ async function submitMembershipInterest(button, context = {}) {
     });
     const result = await response.json();
     if (!response.ok || !result.ok) throw new Error(result.message || '提交失败');
+    trackCommercialIntent('membership-interest', enrichedContext, result);
     trackAnalyticsAction('membership_interest', enrichedContext.source || state.userRole || 'visitor');
     button.textContent = '已收到';
+    renderPersonalPages();
   } catch {
     button.textContent = '稍后再试';
   }
@@ -2585,6 +2666,7 @@ function renderHomePage() {
   const reportRows = homeReportCenterRows(children, followedCompetitions);
   const reportHistory = reportHistoryRows();
   const aiHistory = aiHistoryRows();
+  const commercialIntents = commercialIntentRows();
   const dataValueRows = homeDataValueRows();
   const recentRows = (state.recentItems || []).slice(0, 3);
   const stats = [
@@ -2651,6 +2733,7 @@ function renderHomePage() {
           <button type="button" data-pilot-interest>申请试用</button>
         </div>
       </section>
+      ${renderCommercialIntentStatus(commercialIntents.slice(0, 2))}
     </div>
     <section class="panel my-section">
       <div class="section-title">
@@ -4774,6 +4857,7 @@ function renderMyPage() {
   const recentRows = (state.recentItems || []).slice(0, 6);
   const reportHistory = reportHistoryRows();
   const aiHistory = aiHistoryRows();
+  const commercialIntents = commercialIntentRows();
   const followedAthletes = children.slice(0, 6);
   const nextActions = myWorkspaceNextActions({ children, followedCompetitions, reportHistory, aiHistory });
   const generatedLabel = formatDataGeneratedAt(state.dataGeneratedAt);
@@ -4782,6 +4866,7 @@ function renderMyPage() {
     { value: followedCompetitions.length, label: '关注赛事' },
     { value: reportHistory.length, label: '生成报告' },
     { value: aiHistory.length, label: 'AI分析' },
+    { value: commercialIntents.length, label: '服务进度' },
     { value: recentRows.length, label: '最近查看' },
   ];
 
@@ -4819,6 +4904,8 @@ function renderMyPage() {
         `).join('')}
       </div>
     </section>
+
+    ${renderCommercialIntentStatus(commercialIntents)}
 
     ${renderMembershipBenefits()}
 

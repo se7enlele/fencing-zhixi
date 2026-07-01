@@ -2201,6 +2201,71 @@ select:focus {
   opacity: 0.72;
 }
 
+.service-progress-panel {
+  display: grid;
+  gap: 10px;
+}
+
+.service-progress-panel p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.service-progress-list {
+  display: grid;
+  gap: 8px;
+}
+
+.service-progress-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 5px 10px;
+  align-items: center;
+  border: 1px solid rgba(13, 125, 103, 0.13);
+  border-radius: 11px;
+  background: linear-gradient(135deg, rgba(13, 125, 103, 0.08), rgba(21, 95, 194, 0.05));
+  padding: 10px;
+}
+
+.service-progress-card div,
+.service-progress-card strong,
+.service-progress-card span,
+.service-progress-card em,
+.service-progress-card small {
+  display: block;
+  min-width: 0;
+}
+
+.service-progress-card strong {
+  overflow: hidden;
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 900;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.service-progress-card span,
+.service-progress-card em {
+  color: var(--muted);
+  font-size: 12px;
+  font-style: normal;
+  line-height: 1.35;
+}
+
+.service-progress-card small {
+  grid-column: 1 / -1;
+  width: fit-content;
+  border-radius: 999px;
+  background: rgba(13, 125, 103, 0.11);
+  color: var(--teal);
+  font-size: 11px;
+  font-weight: 900;
+  padding: 4px 7px;
+}
+
 .report-center-grid {
   display: grid;
   gap: 8px;
