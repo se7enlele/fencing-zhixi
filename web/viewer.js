@@ -2654,6 +2654,68 @@ function renderCommercialIntentStatus(rows = commercialIntentRows()) {
   `;
 }
 
+function serviceReadinessRows({ children = [], followedCompetitions = [], reportHistory = [], aiHistory = [] } = {}) {
+  const prematch = (followedCompetitions || []).find(isPrematchCompetition) || prematchReportCompetitions()[0] || null;
+  const activeCount = (state.competitions || []).filter((competition) => ['registration', 'upcoming', 'live'].includes(competition.status) || competition.isPreEvent).length;
+  const rosterCount = (state.competitions || []).filter((competition) => competition.rosterStatus === 'partial' || competition.rosterStatus === 'complete').length;
+  const child = children[0] || null;
+  const club = state.currentClub || aiDefaultClub();
+  const savedCount = reportHistory.length + aiHistory.length;
+  return [
+    {
+      key: 'prematch',
+      title: '赛前情报包',
+      status: prematch ? '可启动' : '待赛事',
+      tone: prematch ? 'ready' : 'pending',
+      detail: prematch
+        ? `${prematch.sportName} 可先看项目、报名和强手线索。`
+        : `${activeCount} 场近期/报名赛事会优先进入赛前服务。`,
+      meta: `${rosterCount} 场已有报名名单`,
+      action: prematch ? 'prematch' : 'ask',
+      sportCode: prematch?.sportCode || '',
+      query: '近期哪些比赛适合做赛前情报包',
+    },
+    {
+      key: 'growth',
+      title: '成长报告',
+      status: child ? '可生成' : '先关注孩子',
+      tone: child ? 'ready' : 'pending',
+      detail: child
+        ? `${child.name} 已可生成长期成长和阶段复盘。`
+        : '关注孩子后，成长、对手和近期比赛会自动围绕他组织。',
+      meta: `${children.length} 名关注选手`,
+      action: child ? 'growth' : 'ask',
+      athleteId: child?.id || '',
+      query: '如何为孩子建立击剑成长报告',
+    },
+    {
+      key: 'coach',
+      title: '教练/俱乐部分析',
+      status: club?.id ? '可分析' : '先搜索俱乐部',
+      tone: club?.id ? 'ready' : 'pending',
+      detail: club?.club
+        ? `${club.club} 可继续看学员分层、优势项目和招生展示。`
+        : '搜索俱乐部后，可生成学员分层和经营观察。',
+      meta: `${state.clubSearchIndex.length || 0} 个俱乐部画像`,
+      action: club?.id ? 'coach' : 'ask',
+      clubId: club?.id || '',
+      query: '山东小众体育有哪些优势项目',
+    },
+    {
+      key: 'archive',
+      title: '报告复用',
+      status: savedCount ? '已沉淀' : '待生成',
+      tone: savedCount ? 'ready' : 'pending',
+      detail: savedCount
+        ? '已有报告和问答记录，可继续追问、复看和申请试用。'
+        : '生成报告或提问后，会沉淀为可复看的分析资产。',
+      meta: `${savedCount} 条可复用记录`,
+      action: 'ask',
+      query: '这些击剑数据能产生什么商业价值',
+    },
+  ];
+}
+
 function homePrematchActionRow(followedCompetitions = []) {
   const followed = (followedCompetitions || []).find(isPrematchCompetition);
   const recommended = followed || prematchReportCompetitions()[0] || null;
@@ -5139,6 +5201,7 @@ function renderMyPage() {
   const commercialIntents = commercialIntentRows();
   const followedAthletes = children.slice(0, 6);
   const nextActions = myWorkspaceNextActions({ children, followedCompetitions, reportHistory, aiHistory });
+  const readinessRows = serviceReadinessRows({ children, followedCompetitions, reportHistory, aiHistory });
   const generatedLabel = formatDataGeneratedAt(state.dataGeneratedAt);
   const stats = [
     { value: children.length, label: '关注选手' },
@@ -5187,6 +5250,25 @@ function renderMyPage() {
     ${renderCommercialIntentStatus(commercialIntents)}
 
     ${renderMembershipBenefits()}
+
+    <section class="panel my-section service-readiness-section">
+      <div class="section-title">
+        <h2>服务可用性</h2>
+        <span>当前状态</span>
+      </div>
+      <div class="service-readiness-list">
+        ${readinessRows.map((row) => `
+          <button type="button" class="service-readiness-card service-readiness-${escapeHtml(row.tone)}" data-my-readiness-action="${escapeHtml(row.action)}" ${row.sportCode ? `data-sport-code="${escapeHtml(row.sportCode)}"` : ''} ${row.athleteId ? `data-athlete-id="${escapeHtml(row.athleteId)}"` : ''} ${row.clubId ? `data-club-id="${escapeHtml(row.clubId)}"` : ''} ${row.query ? `data-ai-query="${escapeHtml(row.query)}"` : ''}>
+            <div>
+              <strong>${escapeHtml(row.title)}</strong>
+              <span>${escapeHtml(row.detail)}</span>
+              <em>${escapeHtml(row.meta)}</em>
+            </div>
+            <b>${escapeHtml(row.status)}</b>
+          </button>
+        `).join('')}
+      </div>
+    </section>
 
     <section class="panel my-section report-asset-section">
       <div class="section-title">
@@ -5337,6 +5419,15 @@ function renderMyPage() {
         source: 'my-next-action',
         report: '长期分析试用',
       });
+    });
+  });
+  myPage.querySelectorAll('[data-my-readiness-action]').forEach((button) => {
+    button.addEventListener('click', () => {
+      const action = button.dataset.myReadinessAction || '';
+      if (action === 'prematch') openPrematchReport('prematch-pack', button.dataset.sportCode || '');
+      if (action === 'growth') openParentGrowthReport(button.dataset.athleteId || '');
+      if (action === 'coach') openCoachSegmentationReport(button.dataset.clubId || '');
+      if (action === 'ask') submitAiQuery(button.dataset.aiQuery || '');
     });
   });
   myPage.querySelectorAll('.my-list-row').forEach((button) => {

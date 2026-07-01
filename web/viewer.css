@@ -2670,6 +2670,78 @@ select:focus {
   font-style: normal;
 }
 
+.service-readiness-section {
+  gap: 10px;
+}
+
+.service-readiness-list {
+  display: grid;
+  gap: 8px;
+}
+
+.service-readiness-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: center;
+  width: 100%;
+  border: 1px solid rgba(21, 95, 194, 0.11);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--text);
+  font: inherit;
+  text-align: left;
+  padding: 10px;
+}
+
+.service-readiness-card div,
+.service-readiness-card strong,
+.service-readiness-card span,
+.service-readiness-card em {
+  display: block;
+  min-width: 0;
+}
+
+.service-readiness-card strong {
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.service-readiness-card span {
+  margin-top: 3px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.service-readiness-card em {
+  margin-top: 4px;
+  color: var(--primary);
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 800;
+}
+
+.service-readiness-card b {
+  border-radius: 999px;
+  background: rgba(21, 95, 194, 0.08);
+  color: var(--primary);
+  font-size: 11px;
+  line-height: 1;
+  padding: 6px 8px;
+  white-space: nowrap;
+}
+
+.service-readiness-ready {
+  border-color: rgba(13, 125, 103, 0.16);
+  background: linear-gradient(135deg, rgba(13, 125, 103, 0.08), rgba(255, 255, 255, 0.95));
+}
+
+.service-readiness-ready b {
+  background: rgba(13, 125, 103, 0.12);
+  color: var(--teal);
+}
+
 .report-asset-section {
   gap: 10px;
 }

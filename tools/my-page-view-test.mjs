@@ -185,9 +185,14 @@ assert.match(js, /openPrematchReport\('prematch-pack', button\.dataset\.focusPre
 assert.match(js, /upsertFollowedCompetition\(competition\)/, 'follow recommendation action must persist the recommended competition');
 assert.match(js, /function renderMyPage\(\)/, 'my page renderer must exist');
 assert.match(js, /function myWorkspaceNextActions\(\{ children = \[\], followedCompetitions = \[\], reportHistory = \[\], aiHistory = \[\] \} = \{\}\)/, 'my page must derive commercial next actions from saved user state');
+assert.match(js, /function serviceReadinessRows\(\{ children = \[\], followedCompetitions = \[\], reportHistory = \[\], aiHistory = \[\] \} = \{\}\)/, 'my page must summarize service readiness from saved user state');
+assert.match(js, /title: '赛前情报包'[\s\S]*title: '成长报告'[\s\S]*title: '教练\/俱乐部分析'[\s\S]*title: '报告复用'/, 'service readiness must cover P0 and P1 service lines');
 assert.match(js, /const nextActions = myWorkspaceNextActions\(\{ children, followedCompetitions, reportHistory, aiHistory \}\);/, 'my page must render next actions from current state');
+assert.match(js, /const readinessRows = serviceReadinessRows\(\{ children, followedCompetitions, reportHistory, aiHistory \}\);/, 'my page must render readiness from current state');
 assert.match(js, /const commercialIntents = commercialIntentRows\(\);/, 'my page must derive service progress from saved commercial intent state');
 assert.match(js, /class="panel my-section my-next-section"/, 'my page must expose a next-action workspace section');
+assert.match(js, /class="panel my-section service-readiness-section"/, 'my page must expose service readiness section');
+assert.match(js, /data-my-readiness-action="\$\{escapeHtml\(row\.action\)\}"/, 'service readiness cards must carry runnable actions');
 assert.match(js, /\$\{renderCommercialIntentStatus\(commercialIntents\)\}/, 'my page must show submitted service progress');
 assert.match(js, /\{ value: commercialIntents\.length, label: '服务进度' \}/, 'my page stats must include service progress count');
 assert.match(js, /data-my-next-action="\$\{escapeHtml\(row\.action\)\}"/, 'my page next actions must carry runnable action types');
@@ -207,6 +212,8 @@ assert.match(js, /myPage\.querySelectorAll\('\[data-report-history-type\]'\)/, '
 assert.match(js, /myPage\.querySelectorAll\('\[data-ai-history-query\]'\)/, 'my page AI history rows must bind rerun actions');
 assert.match(js, /if \(type === 'coach-segmentation'\) openCoachSegmentationReport\(id\);/, 'my page must reopen coach segmentation reports');
 assert.match(js, /submitAiQuery\(button\.dataset\.aiHistoryQuery \|\| ''\)/, 'my page must rerun AI history questions');
+assert.match(js, /myPage\.querySelectorAll\('\[data-my-readiness-action\]'\)/, 'my page service readiness rows must bind actions');
+assert.match(js, /if \(action === 'coach'\) openCoachSegmentationReport\(button\.dataset\.clubId \|\| ''\);/, 'service readiness must open coach analysis');
 assert.match(js, /function upsertFollowedCompetition\(competition\)/, 'competition follow handler must exist');
 assert.match(js, /trackRecentItem\(\{[\s\S]*type: 'competition'/, 'competition detail views must be tracked as recent items');
 
@@ -224,6 +231,9 @@ assert.match(css, /\.pilot-interest-card/, 'pilot trial intent card styles must 
 assert.match(css, /\.service-progress-panel/, 'service progress panel styles must exist');
 assert.match(css, /\.service-progress-card/, 'service progress card styles must exist');
 assert.match(css, /\.service-progress-card p/, 'service progress next-step copy must be styled');
+assert.match(css, /\.service-readiness-list/, 'service readiness list styles must exist');
+assert.match(css, /\.service-readiness-card/, 'service readiness cards must be styled');
+assert.match(css, /\.service-readiness-ready/, 'ready service rows must have distinct treatment');
 assert.match(css, /\.home-prematch-action/, 'home prematch action section styles must exist');
 assert.match(css, /\.home-prematch-card/, 'home prematch action card styles must exist');
 assert.match(css, /\.home-prematch-actions/, 'home prematch action buttons must be laid out for mobile');
