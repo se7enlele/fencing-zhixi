@@ -626,6 +626,31 @@ function aiFeedbackDetail(row = {}) {
   };
 }
 
+function aiFeedbackQualityRows(rows = []) {
+  const aiRows = rows.filter(isAiFeedback);
+  const grouped = aiRows.reduce((map, row) => {
+    const detail = aiFeedbackDetail(row);
+    const key = detail.type || 'AI 回答';
+    const current = map.get(key) || { label: key, helpful: 0, needsWork: 0, total: 0, latest: '' };
+    current.total += 1;
+    if (row.type === 'ai-helpful') current.helpful += 1;
+    if (row.type === 'ai-needs-work') current.needsWork += 1;
+    if (!current.latest || new Date(row.createdAt || 0) > new Date(current.latest || 0)) current.latest = row.createdAt || '';
+    map.set(key, current);
+    return map;
+  }, new Map());
+  return [...grouped.values()]
+    .map((row) => ({
+      ...row,
+      needsWorkRate: row.total ? Math.round((row.needsWork / row.total) * 100) : 0,
+      nextStep: row.needsWork
+        ? '优先复盘需要调整的问题，补充证据、入口动作和用户可执行建议。'
+        : '继续观察正向反馈，保留当前回答结构并扩大样本。',
+    }))
+    .sort((a, b) => (b.needsWorkRate - a.needsWorkRate) || (b.needsWork - a.needsWork) || (b.total - a.total))
+    .slice(0, 4);
+}
+
 function commercialLeadReportLabel(row = {}) {
   const detail = commercialLeadDetail(row);
   const source = `${detail.rawSource || ''} ${detail.report || ''}`.toLowerCase();
@@ -870,8 +895,21 @@ function renderFeedback(rows = []) {
   renderPilotLeadSummary(rows);
   renderFeedbackFilterBar(rows);
   const visibleRows = rows.filter((row) => feedbackFilterMatches(row));
+  const aiQualityRows = aiFeedbackQualityRows(rows);
+  const aiQualityHtml = aiQualityRows.length ? `
+    <section class="ai-quality-summary">
+      <div class="analytics-block-title">AI 回答质量</div>
+      ${aiQualityRows.map((row) => `
+        <article>
+          <strong>${escapeHtml(row.label)}</strong>
+          <span>${escapeHtml(row.helpful)} 有帮助 · ${escapeHtml(row.needsWork)} 需调整 · ${escapeHtml(row.needsWorkRate)}%</span>
+          <em>${escapeHtml(row.nextStep)}</em>
+        </article>
+      `).join('')}
+    </section>
+  ` : '';
   feedbackStatus.textContent = rows.length ? `${visibleRows.length} / ${rows.length} 条` : '暂无反馈';
-  feedbackList.innerHTML = visibleRows.length ? visibleRows.map((row) => {
+  const feedbackRowsHtml = visibleRows.length ? visibleRows.map((row) => {
     const leadDetail = isCommercialLead(row) ? commercialLeadDetail(row) : null;
     const leadPriority = isCommercialLead(row) ? commercialLeadPriority(row) : null;
     const aiDetail = isAiFeedback(row) ? aiFeedbackDetail(row) : null;
@@ -911,6 +949,7 @@ function renderFeedback(rows = []) {
     </article>
   `;
   }).join('') : '<div class="status muted">当前筛选下暂无反馈。</div>';
+  feedbackList.innerHTML = `${aiQualityHtml}${feedbackRowsHtml}`;
   feedbackList.querySelectorAll('[data-feedback-id]').forEach((button) => {
     button.addEventListener('click', () => updateFeedbackStatus(button.dataset.feedbackId, button.dataset.feedbackStatus));
   });

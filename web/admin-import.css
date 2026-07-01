@@ -909,6 +909,52 @@ button:disabled {
   line-height: 1.45;
 }
 
+.ai-quality-summary {
+  display: grid;
+  gap: 8px;
+  border: 1px solid rgba(21, 95, 194, 0.14);
+  border-radius: 10px;
+  background: linear-gradient(180deg, rgba(239, 246, 255, 0.96), rgba(255, 255, 255, 0.94));
+  padding: 10px;
+}
+
+.ai-quality-summary article {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 4px 10px;
+  border: 1px solid rgba(21, 95, 194, 0.1);
+  border-radius: 9px;
+  background: rgba(255, 255, 255, 0.84);
+  padding: 9px 10px;
+}
+
+.ai-quality-summary strong,
+.ai-quality-summary span,
+.ai-quality-summary em {
+  min-width: 0;
+}
+
+.ai-quality-summary strong {
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.ai-quality-summary span {
+  color: var(--primary);
+  font-size: 12px;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.ai-quality-summary em {
+  grid-column: 1 / -1;
+  color: var(--muted);
+  font-size: 12px;
+  font-style: normal;
+  line-height: 1.45;
+}
+
 .feedback-ai-meta {
   display: grid;
   gap: 5px;

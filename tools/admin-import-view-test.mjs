@@ -78,6 +78,10 @@ assert.match(js, /function commercialSourceLabel\(source\)/, 'admin import must 
 assert.match(js, /rawSource,\s*source: commercialSourceLabel\(rawSource\)/, 'commercial leads must keep raw source while displaying readable source labels');
 assert.match(js, /detail\.rawSource \|\| detail\.source/, 'commercial lead priority must still use raw source keys for scoring');
 assert.match(js, /function aiFeedbackDetail\(row = \{\}\)/, 'admin import must parse AI feedback context');
+assert.match(js, /function aiFeedbackQualityRows\(rows = \[\]\)/, 'admin import must aggregate AI answer quality by answer type');
+assert.match(js, /const aiQualityRows = aiFeedbackQualityRows\(rows\);/, 'admin import must build AI quality rows from all feedback');
+assert.match(js, /class="ai-quality-summary"/, 'admin import must render AI quality summary');
+assert.match(js, /needsWorkRate/, 'AI quality summary must expose needs-work rate');
 assert.match(js, /function commercialLeadPriority\(row = \{\}\)/, 'admin import must prioritize commercial leads for follow-up');
 assert.match(js, /function commercialLeadNextStep\(row = \{\}\)/, 'admin import must recommend a concrete commercial lead follow-up');
 assert.match(js, /function commercialLeadReportLabel\(row = \{\}\)/, 'admin import must classify commercial leads by report type');
@@ -137,6 +141,7 @@ assert.match(css, /\.lead-priority/, 'admin commercial lead priority badge style
 assert.match(css, /\.lead-segment/, 'admin commercial lead report segment badge styles must exist');
 assert.match(css, /\.lead-next-step/, 'admin commercial lead next-step styles must exist');
 assert.match(css, /\.feedback-commercial-meta/, 'admin feedback cards must show commercial lead context');
+assert.match(css, /\.ai-quality-summary/, 'admin AI quality summary styles must exist');
 assert.match(css, /\.feedback-ai-meta/, 'admin feedback cards must show AI answer context');
 assert.match(css, /\.feedback-card/, 'admin feedback card styles must exist');
 assert.match(css, /\.feedback-actions/, 'admin feedback workflow action styles must exist');
@@ -164,7 +169,7 @@ assert.match(html, /id="analyticsTrend"/, 'admin import page must expose analyti
 assert.match(html, /id="analyticsPages"/, 'admin import page must expose analytics page rankings');
 assert.match(html, /id="dataHealthSummary"/, 'admin import page must expose data health summary');
 assert.match(html, /id="dataHealthGaps"/, 'admin import page must expose data health gaps');
-assert.match(html, /admin-import\.js\?v=fencingai-product-20260701-focus-trial-1/, 'admin import JS cache key must be bumped');
-assert.match(html, /admin-import\.css\?v=fencingai-product-20260701-focus-trial-1/, 'admin import CSS cache key must be bumped');
+assert.match(html, /admin-import\.js\?v=fencingai-product-20260701-ai-quality-1/, 'admin import JS cache key must be bumped');
+assert.match(html, /admin-import\.css\?v=fencingai-product-20260701-ai-quality-1/, 'admin import CSS cache key must be bumped');
 
 console.log('admin import page feedback is covered');
