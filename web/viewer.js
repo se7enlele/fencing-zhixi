@@ -2716,6 +2716,51 @@ function serviceReadinessRows({ children = [], followedCompetitions = [], report
   ];
 }
 
+function recommendedTrialRows({ children = [], followedCompetitions = [], reportHistory = [], aiHistory = [] } = {}) {
+  const prematch = (followedCompetitions || []).find(isPrematchCompetition) || prematchReportCompetitions()[0] || null;
+  const child = children[0] || null;
+  const club = state.currentClub || aiDefaultClub();
+  const savedCount = reportHistory.length + aiHistory.length;
+  const rows = [];
+  if (prematch?.sportCode) {
+    rows.push({
+      key: 'prematch-trial',
+      title: '赛前情报试用',
+      detail: `${prematch.sportName}：围绕项目、报名名单和潜在强手生成赛前提醒。`,
+      scope: displayDateLabel(prematch.dateLabel) || statusLabel(prematch.status),
+      source: 'my-trial-prematch',
+    });
+  }
+  if (child?.id) {
+    rows.push({
+      key: 'growth-trial',
+      title: '家庭成长试用',
+      detail: `${child.name}：按月复盘参赛、名次变化、同龄段位置和下一场建议。`,
+      scope: child.summary || child.detail || '关注孩子',
+      source: 'my-trial-growth',
+    });
+  }
+  if (club?.id) {
+    rows.push({
+      key: 'coach-trial',
+      title: '教练经营试用',
+      detail: `${club.club}：整理学员分层、优势项目、续费沟通和招生展示素材。`,
+      scope: `${club.entrants || 0} 人次 · 前八 ${club.top8 || 0}`,
+      source: 'my-trial-coach',
+    });
+  }
+  rows.push({
+    key: 'archive-trial',
+    title: '长期报告试用',
+    detail: savedCount
+      ? '把已经生成的报告和 AI 问答沉淀为可持续复看的分析资产。'
+      : '先从一次赛前情报、成长报告或教练报告开始沉淀。',
+    scope: `${savedCount} 条已保存记录`,
+    source: 'my-trial-archive',
+  });
+  return rows.slice(0, 3);
+}
+
 function homePrematchActionRow(followedCompetitions = []) {
   const followed = (followedCompetitions || []).find(isPrematchCompetition);
   const recommended = followed || prematchReportCompetitions()[0] || null;
@@ -5202,6 +5247,7 @@ function renderMyPage() {
   const followedAthletes = children.slice(0, 6);
   const nextActions = myWorkspaceNextActions({ children, followedCompetitions, reportHistory, aiHistory });
   const readinessRows = serviceReadinessRows({ children, followedCompetitions, reportHistory, aiHistory });
+  const trialRows = recommendedTrialRows({ children, followedCompetitions, reportHistory, aiHistory });
   const generatedLabel = formatDataGeneratedAt(state.dataGeneratedAt);
   const stats = [
     { value: children.length, label: '关注选手' },
@@ -5250,6 +5296,24 @@ function renderMyPage() {
     ${renderCommercialIntentStatus(commercialIntents)}
 
     ${renderMembershipBenefits()}
+
+    <section class="panel my-section trial-plan-section">
+      <div class="section-title">
+        <h2>推荐试用方案</h2>
+        <span>按当前数据</span>
+      </div>
+      <div class="trial-plan-list">
+        ${trialRows.map((row) => `
+          <button type="button" class="trial-plan-card" data-trial-plan-source="${escapeHtml(row.source)}" data-report-title="${escapeHtml(row.title)}">
+            <div>
+              <strong>${escapeHtml(row.title)}</strong>
+              <span>${escapeHtml(row.detail)}</span>
+            </div>
+            <em>${escapeHtml(row.scope)}</em>
+          </button>
+        `).join('')}
+      </div>
+    </section>
 
     <section class="panel my-section service-readiness-section">
       <div class="section-title">
@@ -5420,6 +5484,12 @@ function renderMyPage() {
         report: '长期分析试用',
       });
     });
+  });
+  myPage.querySelectorAll('[data-trial-plan-source]').forEach((button) => {
+    button.addEventListener('click', (event) => submitPilotInterest(event.currentTarget, {
+      source: button.dataset.trialPlanSource || 'my-trial-plan',
+      report: button.dataset.reportTitle || '推荐试用方案',
+    }));
   });
   myPage.querySelectorAll('[data-my-readiness-action]').forEach((button) => {
     button.addEventListener('click', () => {

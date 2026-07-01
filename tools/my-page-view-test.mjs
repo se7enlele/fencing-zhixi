@@ -186,12 +186,17 @@ assert.match(js, /upsertFollowedCompetition\(competition\)/, 'follow recommendat
 assert.match(js, /function renderMyPage\(\)/, 'my page renderer must exist');
 assert.match(js, /function myWorkspaceNextActions\(\{ children = \[\], followedCompetitions = \[\], reportHistory = \[\], aiHistory = \[\] \} = \{\}\)/, 'my page must derive commercial next actions from saved user state');
 assert.match(js, /function serviceReadinessRows\(\{ children = \[\], followedCompetitions = \[\], reportHistory = \[\], aiHistory = \[\] \} = \{\}\)/, 'my page must summarize service readiness from saved user state');
+assert.match(js, /function recommendedTrialRows\(\{ children = \[\], followedCompetitions = \[\], reportHistory = \[\], aiHistory = \[\] \} = \{\}\)/, 'my page must recommend trial plans from current user state');
 assert.match(js, /title: '赛前情报包'[\s\S]*title: '成长报告'[\s\S]*title: '教练\/俱乐部分析'[\s\S]*title: '报告复用'/, 'service readiness must cover P0 and P1 service lines');
+assert.match(js, /title: '赛前情报试用'[\s\S]*title: '家庭成长试用'[\s\S]*title: '教练经营试用'[\s\S]*title: '长期报告试用'/, 'trial plans must map P0 and P1 services into user-facing offers');
 assert.match(js, /const nextActions = myWorkspaceNextActions\(\{ children, followedCompetitions, reportHistory, aiHistory \}\);/, 'my page must render next actions from current state');
 assert.match(js, /const readinessRows = serviceReadinessRows\(\{ children, followedCompetitions, reportHistory, aiHistory \}\);/, 'my page must render readiness from current state');
+assert.match(js, /const trialRows = recommendedTrialRows\(\{ children, followedCompetitions, reportHistory, aiHistory \}\);/, 'my page must render recommended trial plans from current state');
 assert.match(js, /const commercialIntents = commercialIntentRows\(\);/, 'my page must derive service progress from saved commercial intent state');
 assert.match(js, /class="panel my-section my-next-section"/, 'my page must expose a next-action workspace section');
+assert.match(js, /class="panel my-section trial-plan-section"/, 'my page must expose recommended trial plans');
 assert.match(js, /class="panel my-section service-readiness-section"/, 'my page must expose service readiness section');
+assert.match(js, /data-trial-plan-source="\$\{escapeHtml\(row\.source\)\}"/, 'trial plan cards must carry conversion source');
 assert.match(js, /data-my-readiness-action="\$\{escapeHtml\(row\.action\)\}"/, 'service readiness cards must carry runnable actions');
 assert.match(js, /\$\{renderCommercialIntentStatus\(commercialIntents\)\}/, 'my page must show submitted service progress');
 assert.match(js, /\{ value: commercialIntents\.length, label: '服务进度' \}/, 'my page stats must include service progress count');
@@ -214,6 +219,8 @@ assert.match(js, /if \(type === 'coach-segmentation'\) openCoachSegmentationRepo
 assert.match(js, /submitAiQuery\(button\.dataset\.aiHistoryQuery \|\| ''\)/, 'my page must rerun AI history questions');
 assert.match(js, /myPage\.querySelectorAll\('\[data-my-readiness-action\]'\)/, 'my page service readiness rows must bind actions');
 assert.match(js, /if \(action === 'coach'\) openCoachSegmentationReport\(button\.dataset\.clubId \|\| ''\);/, 'service readiness must open coach analysis');
+assert.match(js, /myPage\.querySelectorAll\('\[data-trial-plan-source\]'\)/, 'my page trial plan rows must bind conversion actions');
+assert.match(js, /submitPilotInterest\(event\.currentTarget,[\s\S]*source: button\.dataset\.trialPlanSource \|\| 'my-trial-plan'/, 'trial plan cards must submit traceable pilot intent');
 assert.match(js, /function upsertFollowedCompetition\(competition\)/, 'competition follow handler must exist');
 assert.match(js, /trackRecentItem\(\{[\s\S]*type: 'competition'/, 'competition detail views must be tracked as recent items');
 
@@ -231,6 +238,8 @@ assert.match(css, /\.pilot-interest-card/, 'pilot trial intent card styles must 
 assert.match(css, /\.service-progress-panel/, 'service progress panel styles must exist');
 assert.match(css, /\.service-progress-card/, 'service progress card styles must exist');
 assert.match(css, /\.service-progress-card p/, 'service progress next-step copy must be styled');
+assert.match(css, /\.trial-plan-list/, 'trial plan list styles must exist');
+assert.match(css, /\.trial-plan-card/, 'trial plan cards must be styled');
 assert.match(css, /\.service-readiness-list/, 'service readiness list styles must exist');
 assert.match(css, /\.service-readiness-card/, 'service readiness cards must be styled');
 assert.match(css, /\.service-readiness-ready/, 'ready service rows must have distinct treatment');

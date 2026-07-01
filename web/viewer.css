@@ -2670,6 +2670,63 @@ select:focus {
   font-style: normal;
 }
 
+.trial-plan-section {
+  gap: 10px;
+}
+
+.trial-plan-list {
+  display: grid;
+  gap: 8px;
+}
+
+.trial-plan-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: center;
+  width: 100%;
+  border: 1px solid rgba(13, 125, 103, 0.16);
+  border-radius: 10px;
+  background: linear-gradient(135deg, rgba(13, 125, 103, 0.1), rgba(21, 95, 194, 0.05));
+  color: var(--text);
+  font: inherit;
+  text-align: left;
+  padding: 10px;
+}
+
+.trial-plan-card div,
+.trial-plan-card strong,
+.trial-plan-card span {
+  display: block;
+  min-width: 0;
+}
+
+.trial-plan-card strong {
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.trial-plan-card span {
+  margin-top: 3px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.42;
+}
+
+.trial-plan-card em {
+  max-width: 92px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.72);
+  color: var(--teal);
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 900;
+  overflow: hidden;
+  padding: 6px 8px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .service-readiness-section {
   gap: 10px;
 }
