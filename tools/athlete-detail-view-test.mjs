@@ -92,12 +92,18 @@ assert.deepEqual(context.buildPoolPerformanceRows(athlete.events).map((row) => (
   },
 ]);
 
-assert.match(source, /function buildAthleteDataRequestText\(athlete, requestType\)/, 'athlete detail must build correction and hide request copy');
-assert.match(source, /async function submitAthleteDataRequest\(athlete, requestType\)/, 'athlete detail must submit correction and hide requests');
+assert.match(source, /function buildAthleteDataRequestText\(athlete, requestType, details = \{\}\)/, 'athlete detail must build correction and hide request copy');
+assert.match(source, /function requestAthleteDataRequestDetails\(athlete, requestType\)/, 'athlete detail must collect contact and request details before submission');
+assert.match(source, /window\.prompt\(`留下微信或手机号，方便核验/, 'athlete data requests must ask for a contact before submission');
+assert.match(source, /联系方式：\$\{details\.contact\}/, 'athlete data request message must include contact details when provided');
+assert.match(source, /补充说明：\$\{details\.note\}/, 'athlete data request message must include the user-provided explanation');
+assert.match(source, /async function submitAthleteDataRequest\(athlete, requestType, details = \{\}\)/, 'athlete detail must submit correction and hide requests');
 assert.match(source, /fetch\('\/api\/feedback'/, 'athlete data feedback must use the feedback API');
 assert.match(source, /function renderAthleteDataRequestPanel\(athlete\)/, 'athlete detail must render a data feedback entry');
 assert.match(source, /data-athlete-request="correct"/, 'athlete detail must expose a correction request action');
 assert.match(source, /data-athlete-request="hide"/, 'athlete detail must expose a hide request action');
+assert.match(source, /const details = requestAthleteDataRequestDetails\(athlete, button\.dataset\.athleteRequest\);/, 'athlete data feedback must collect details before submitting');
+assert.match(source, /if \(!details\)/, 'athlete data feedback must allow users to cancel before submitting');
 assert.match(source, /button\.textContent = '已提交'/, 'athlete data feedback must confirm successful submission');
 assert.match(source, /button\.textContent = '已复制说明'/, 'athlete data feedback must fall back to copied request text');
 assert.match(source, /renderAthleteDataRequestPanel\(athlete\)/, 'athlete detail rendering must show the data feedback panel');

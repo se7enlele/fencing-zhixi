@@ -7811,7 +7811,7 @@ function buildPoolPerformanceRows(events) {
   });
 }
 
-function buildAthleteDataRequestText(athlete, requestType) {
+function buildAthleteDataRequestText(athlete, requestType, details = {}) {
   const typeLabel = requestType === 'hide' ? '申请隐藏公开选手画像' : '申请纠错或合并同名选手';
   const latest = athlete.events?.[0] || {};
   return [
@@ -7819,17 +7819,35 @@ function buildAthleteDataRequestText(athlete, requestType) {
     `选手姓名：${athlete.name || '待确认'}`,
     `当前俱乐部：${athlete.club || '待确认'}`,
     `选手ID：${athlete.id || '待确认'}`,
+    details.contact ? `联系方式：${details.contact}` : '',
     latest.sportName ? `最近赛事：${latest.sportName}` : '',
     latest.shortEventName || latest.eventName ? `最近项目：${latest.shortEventName || latest.eventName}` : '',
     requestType === 'hide'
       ? '申请说明：希望隐藏该选手公开画像，请进行身份和监护关系核验。'
       : '申请说明：需要更正姓名、俱乐部、赛事记录，或合并同名选手画像。',
-    '补充信息：请在这里填写需要更正的内容和可核对依据。',
+    details.note ? `补充说明：${details.note}` : '补充说明：用户未填写。',
   ].filter(Boolean).join('\n');
 }
 
-async function submitAthleteDataRequest(athlete, requestType) {
-  const message = buildAthleteDataRequestText(athlete, requestType);
+function requestAthleteDataRequestDetails(athlete, requestType) {
+  const typeLabel = requestType === 'hide' ? '隐藏申请' : '纠错/合并申请';
+  const existing = storedCommercialContact();
+  const contactInput = window.prompt(`留下微信或手机号，方便核验${typeLabel}（可跳过）`, existing);
+  if (contactInput === null) return null;
+  const contact = saveCommercialContact(contactInput);
+  const notePrompt = requestType === 'hide'
+    ? `请说明和 ${athlete.name || '该选手'} 的关系，以及希望隐藏的原因`
+    : `请说明 ${athlete.name || '该选手'} 需要更正或合并的具体内容`;
+  const noteInput = window.prompt(notePrompt, '');
+  if (noteInput === null) return null;
+  return {
+    contact,
+    note: String(noteInput || '').trim(),
+  };
+}
+
+async function submitAthleteDataRequest(athlete, requestType, details = {}) {
+  const message = buildAthleteDataRequestText(athlete, requestType, details);
   const response = await fetch('/api/feedback', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -7856,7 +7874,7 @@ function renderAthleteDataRequestPanel(athlete) {
     <div class="athlete-data-request">
       <div>
         <strong>数据反馈</strong>
-        <span>公开成绩如有误，可提交纠错、同名合并或隐藏申请。</span>
+        <span>公开成绩如有误，可提交纠错、同名合并或隐藏申请；联系方式只用于核验和反馈处理。</span>
       </div>
       <div class="athlete-data-request-actions">
         <button type="button" data-athlete-request="correct">提交纠错</button>
@@ -7870,10 +7888,16 @@ function renderAthleteDataRequestPanel(athlete) {
       button.textContent = '提交中';
       button.disabled = true;
       try {
-        await submitAthleteDataRequest(athlete, button.dataset.athleteRequest);
+        const details = requestAthleteDataRequestDetails(athlete, button.dataset.athleteRequest);
+        if (!details) {
+          button.textContent = originalLabel;
+          button.disabled = false;
+          return;
+        }
+        await submitAthleteDataRequest(athlete, button.dataset.athleteRequest, details);
         button.textContent = '已提交';
       } catch {
-        await copyTextToClipboard(buildAthleteDataRequestText(athlete, button.dataset.athleteRequest));
+        await copyTextToClipboard(buildAthleteDataRequestText(athlete, button.dataset.athleteRequest, { contact: storedCommercialContact() }));
         button.textContent = '已复制说明';
       }
       setTimeout(() => {
