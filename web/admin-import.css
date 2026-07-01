@@ -710,6 +710,52 @@ button:disabled {
   white-space: nowrap;
 }
 
+.pilot-lead-product-focus {
+  display: grid;
+  gap: 8px;
+  border: 1px solid rgba(21, 95, 194, 0.12);
+  border-radius: 10px;
+  background: rgba(21, 95, 194, 0.05);
+  padding: 10px;
+}
+
+.pilot-lead-product-focus article {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 4px 10px;
+  border: 1px solid rgba(21, 95, 194, 0.1);
+  border-radius: 9px;
+  background: rgba(255, 255, 255, 0.86);
+  padding: 9px 10px;
+}
+
+.pilot-lead-product-focus strong,
+.pilot-lead-product-focus span,
+.pilot-lead-product-focus em {
+  min-width: 0;
+}
+
+.pilot-lead-product-focus strong {
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.pilot-lead-product-focus span {
+  color: var(--primary);
+  font-size: 12px;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.pilot-lead-product-focus em {
+  grid-column: 1 / -1;
+  color: var(--muted);
+  font-size: 12px;
+  font-style: normal;
+  line-height: 1.45;
+}
+
 .pilot-lead-list {
   display: grid;
   gap: 8px;

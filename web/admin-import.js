@@ -99,6 +99,7 @@ function commercialSourceLabel(source) {
     data: '赛事数据',
     'home-pilot': '首页试用合作',
     'my-membership': '我的页会员权益',
+    'my-next-action': '我的页下一步',
     'member-panel': '会员横幅',
     'parent-growth-report': '成长报告',
     'prematch-single-report': '单场赛前情报',
@@ -635,6 +636,34 @@ function commercialLeadReportLabel(row = {}) {
   return '试用合作';
 }
 
+function commercialLeadProductFocusRows(openLeads = []) {
+  const rowsByLabel = openLeads.reduce((map, row) => {
+    const label = commercialLeadReportLabel(row);
+    const current = map.get(label) || { label, leads: 0, hot: 0, score: 0 };
+    const priority = commercialLeadPriority(row);
+    current.leads += 1;
+    current.score += priority.score || 0;
+    if (priority.level === 'high') current.hot += 1;
+    map.set(label, current);
+    return map;
+  }, new Map());
+  const nextStepByLabel = {
+    赛前情报: '优先验证赛前情报包，围绕近期赛事和关注选手做连续提醒。',
+    成长报告: '优先验证家庭成长报告，围绕阶段进步和训练投入做长期复盘。',
+    '教练/剑馆': '优先验证教练工作台，围绕学员分层、续费沟通和招生展示推进。',
+    会员权益: '优先确认会员权益，重点验证报告保存、提醒和复访需求。',
+    商业方案: '优先复盘产品方案问题，判断哪个报告场景最容易形成付费。',
+    试用合作: '先确认用户角色和关注对象，再匹配家庭、教练或赛前试用路径。',
+  };
+  return [...rowsByLabel.values()]
+    .sort((a, b) => (b.hot - a.hot) || (b.leads - a.leads) || (b.score - a.score))
+    .slice(0, 3)
+    .map((row) => ({
+      ...row,
+      nextStep: nextStepByLabel[row.label] || '确认使用场景，再匹配对应的报告试用。',
+    }));
+}
+
 function commercialLeadPriority(row = {}) {
   if (!isCommercialLead(row)) return { label: '普通', level: 'normal', score: 0 };
   const detail = commercialLeadDetail(row);
@@ -684,6 +713,7 @@ function renderPilotLeadSummary(rows = []) {
   const reportRows = [...reportCounts.entries()]
     .sort((a, b) => b[1] - a[1])
     .slice(0, 4);
+  const productFocusRows = commercialLeadProductFocusRows(openLeads);
   const latest = [...leads].sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0)).slice(0, 5);
   pilotLeadSummary.innerHTML = `
     <section class="pilot-lead-card">
@@ -705,6 +735,18 @@ function renderPilotLeadSummary(rows = []) {
               <strong>${escapeHtml(count)}</strong>
               <span>${escapeHtml(label)}</span>
             </div>
+          `).join('')}
+        </div>
+      ` : ''}
+      ${productFocusRows.length ? `
+        <div class="pilot-lead-product-focus">
+          <div class="analytics-block-title">优先验证方向</div>
+          ${productFocusRows.map((row) => `
+            <article>
+              <strong>${escapeHtml(row.label)}</strong>
+              <span>${escapeHtml(row.leads)} 条线索 · ${escapeHtml(row.hot)} 条高优先级</span>
+              <em>${escapeHtml(row.nextStep)}</em>
+            </article>
           `).join('')}
         </div>
       ` : ''}
