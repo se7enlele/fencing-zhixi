@@ -102,9 +102,12 @@ assert.match(js, /function renderMembershipBenefits\(\)/, 'my page must render a
 assert.match(js, /data-commercial-source="my-membership"/, 'my page membership panel must submit a traceable commercial source');
 assert.match(js, /bindReportConversionActions\(myPage\)/, 'my page membership buttons must reuse commercial conversion actions');
 assert.match(js, /function homeDataValueRows\(\)/, 'home page must build productized data value entry cards');
+assert.match(js, /function homeAiQuestionRows\(\)/, 'home page must build runnable AI-native question examples');
 assert.match(js, /class="data-value-grid"/, 'home page must render productized data value cards');
+assert.match(js, /class="home-question-list"/, 'home page must render AI-native question shortcuts');
 assert.match(js, /\$\{renderHomePrematchAction\(prematchAction\)\}/, 'home page must surface the next prematch action before generic report cards');
 assert.match(js, /\$\{renderHomeCoachAction\(coachAction\)\}/, 'home page must surface the coach business action before generic report cards');
+assert.match(js, /const aiQuestionRows = homeAiQuestionRows\(\);/, 'home page must derive AI-native question shortcuts during render');
 assert.match(js, /data-home-prematch="\$\{escapeHtml\(row\.sportCode\)\}"/, 'home prematch card must open the scoped prematch report');
 assert.match(js, /data-home-prematch-follow="\$\{escapeHtml\(row\.sportCode\)\}"/, 'home prematch card must allow adding recommended competitions to reminders');
 assert.match(js, /openPrematchReport\('prematch-pack', event\.currentTarget\.dataset\.homePrematch \|\| ''\)/, 'home prematch action must open a scoped prematch report');
@@ -113,6 +116,9 @@ assert.match(js, /data-home-coach-report="\$\{escapeHtml\(row\.id\)\}"/, 'home c
 assert.match(js, /data-home-coach-query="\$\{escapeHtml\(row\.query\)\}"/, 'home coach card must launch a recruiting AI analysis');
 assert.match(js, /openCoachSegmentationReport\(event\.currentTarget\.dataset\.homeCoachReport \|\| ''\)/, 'home coach action must open a scoped segmentation report');
 assert.match(js, /submitAiQuery\(event\.currentTarget\.dataset\.homeCoachQuery \|\| ''\)/, 'home coach recruiting action must launch the AI workspace');
+assert.match(js, /data-home-ai-question="\$\{escapeHtml\(row\.query\)\}"/, 'home AI question shortcuts must carry runnable questions');
+assert.match(js, /homePage\.querySelectorAll\('\[data-home-ai-question\]'\)/, 'home page must bind AI-native question shortcuts');
+assert.match(js, /submitAiQuery\(button\.dataset\.homeAiQuestion \|\| ''\)/, 'home AI question shortcuts must launch the AI answer flow');
 assert.match(js, /data-home-ai-product="\$\{escapeHtml\(row\.query\)\}"/, 'data value cards must carry runnable AI product questions');
 assert.match(js, /homePage\.querySelectorAll\('\[data-home-ai-product\]'\)/, 'home page must bind data value cards');
 assert.match(js, /submitAiQuery\(button\.dataset\.homeAiProduct \|\| ''\)/, 'data value cards must launch the AI answer flow');
@@ -214,6 +220,8 @@ assert.match(css, /\.home-prematch-actions/, 'home prematch action buttons must 
 assert.match(css, /\.home-coach-action/, 'home coach action section styles must exist');
 assert.match(css, /\.home-coach-card/, 'home coach action card styles must exist');
 assert.match(css, /\.home-coach-actions/, 'home coach action buttons must be laid out for mobile');
+assert.match(css, /\.home-question-list/, 'home AI question shortcuts must have mobile list styles');
+assert.match(css, /\.home-question-list button/, 'home AI question shortcuts must be tappable cards');
 assert.match(css, /\.report-history-list/, 'recent report shortcut styles must exist');
 assert.match(css, /\.ai-history-list/, 'recent AI analysis shortcut styles must exist');
 assert.match(css, /\.membership-benefit-grid/, 'my page membership benefit styles must exist');

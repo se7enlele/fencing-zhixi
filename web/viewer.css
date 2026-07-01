@@ -1483,6 +1483,7 @@ select:focus {
 
 .ai-query-form button:active,
 .ai-action-row button:active,
+.home-question-list button:active,
 .data-value-grid button:active,
 .home-action-grid button:active {
   transform: translateY(1px) scale(0.99);
@@ -2038,6 +2039,66 @@ select:focus {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 9px;
+}
+
+.home-question-list {
+  display: grid;
+  gap: 8px;
+}
+
+.home-question-list button {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 5px 10px;
+  align-items: center;
+  min-width: 0;
+  border: 1px solid rgba(21, 95, 194, 0.12);
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(241, 248, 255, 0.94));
+  color: var(--text);
+  font: inherit;
+  text-align: left;
+  padding: 11px 12px;
+  box-shadow: 0 8px 20px rgba(15, 37, 64, 0.045);
+  transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.home-question-list button:hover {
+  border-color: rgba(21, 95, 194, 0.22);
+  box-shadow: 0 12px 26px rgba(15, 37, 64, 0.07);
+}
+
+.home-question-list span,
+.home-question-list strong,
+.home-question-list em {
+  display: block;
+  min-width: 0;
+}
+
+.home-question-list span {
+  align-self: start;
+  border-radius: 999px;
+  background: rgba(21, 95, 194, 0.1);
+  color: var(--primary);
+  font-size: 11px;
+  font-weight: 900;
+  padding: 5px 7px;
+  white-space: nowrap;
+}
+
+.home-question-list strong {
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 900;
+  line-height: 1.28;
+}
+
+.home-question-list em {
+  grid-column: 2;
+  color: var(--muted);
+  font-size: 12px;
+  font-style: normal;
+  line-height: 1.38;
 }
 
 .data-value-grid button {

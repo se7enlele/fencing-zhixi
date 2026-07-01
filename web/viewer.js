@@ -2441,6 +2441,36 @@ function homeDataValueRows() {
   ];
 }
 
+function homeAiQuestionRows() {
+  const prematch = prematchReportCompetitions()[0];
+  const child = focusAthleteCards()[0];
+  const club = state.currentClub || aiDefaultClub();
+  const region = detectRegionInQuery(prematch?.venue || prematch?.region || '') || prematch?.region || '天津';
+  const year = prematch?.season || detectYearInQuery(prematch?.sportName || '') || new Date().getFullYear();
+  return [
+    {
+      label: '赛事统计',
+      query: `${year}年${region}有几场比赛`,
+      detail: '按年份、城市、状态直接统计赛事机会。',
+    },
+    {
+      label: '赛前准备',
+      query: prematch ? `${prematch.sportName}赛前情报包` : '天津近期报名情况',
+      detail: '报名和未开赛阶段，先看项目、名单和强手线索。',
+    },
+    {
+      label: '成长判断',
+      query: child ? `${child.name}最近几场有没有进步` : '蔡廷彧最近几场有没有进步',
+      detail: '把参赛连续性、名次变化和小组表现放在一起看。',
+    },
+    {
+      label: '教练经营',
+      query: club?.club ? `${club.club}招生怎么讲` : '山东小众体育招生怎么讲',
+      detail: '把俱乐部成绩资产转成家长能理解的展示素材。',
+    },
+  ];
+}
+
 function commercialInterestMessage(context = {}) {
   return [
     `当前角色：${state.userRole || '未选择'}`,
@@ -2754,6 +2784,7 @@ function renderHomePage() {
   const prematchAction = homePrematchActionRow(followedCompetitions);
   const coachAction = homeCoachActionRow();
   const dataValueRows = homeDataValueRows();
+  const aiQuestionRows = homeAiQuestionRows();
   const recentRows = (state.recentItems || []).slice(0, 3);
   const stats = [
     { value: state.competitions.length, label: '赛事收录' },
@@ -2773,6 +2804,21 @@ function renderHomePage() {
       </section>
       ${renderHomePrematchAction(prematchAction)}
       ${renderHomeCoachAction(coachAction)}
+      <section class="panel my-section home-question-section">
+        <div class="section-title">
+          <h2>可以直接问</h2>
+          <span>AI 分析入口</span>
+        </div>
+        <div class="home-question-list">
+          ${aiQuestionRows.map((row) => `
+            <button type="button" data-home-ai-question="${escapeHtml(row.query)}">
+              <span>${escapeHtml(row.label)}</span>
+              <strong>${escapeHtml(row.query)}</strong>
+              <em>${escapeHtml(row.detail)}</em>
+            </button>
+          `).join('')}
+        </div>
+      </section>
       <section class="panel my-section home-value-section">
         <div class="section-title">
           <h2>数据价值</h2>
@@ -2904,6 +2950,12 @@ function renderHomePage() {
   homePage.querySelector('[data-home-coach-query]')?.addEventListener('click', (event) => {
     trackAnalyticsAction('home_coach', 'recruiting');
     submitAiQuery(event.currentTarget.dataset.homeCoachQuery || '');
+  });
+  homePage.querySelectorAll('[data-home-ai-question]').forEach((button) => {
+    button.addEventListener('click', () => {
+      trackAnalyticsAction('home_ai_question', button.dataset.homeAiQuestion ? 'query' : 'empty');
+      submitAiQuery(button.dataset.homeAiQuestion || '');
+    });
   });
   homePage.querySelector('[data-pilot-interest]')?.addEventListener('click', (event) => submitPilotInterest(event.currentTarget, {
     source: 'home-pilot',
