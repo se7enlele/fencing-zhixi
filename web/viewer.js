@@ -2546,6 +2546,50 @@ function renderCommercialIntentStatus(rows = commercialIntentRows()) {
   `;
 }
 
+function homePrematchActionRow(followedCompetitions = []) {
+  const followed = (followedCompetitions || []).find(isPrematchCompetition);
+  const recommended = followed || prematchReportCompetitions()[0] || null;
+  if (!recommended?.sportCode) return null;
+  const days = daysFromToday(competitionDateValue(recommended));
+  const timing = days === 0
+    ? '今天'
+    : days > 0 && days <= 30
+      ? `${days} 天后`
+      : statusLabel(recommended.status);
+  return {
+    ...recommended,
+    timing,
+    isFollowed: Boolean(followed),
+    meta: [timing, displayDateLabel(recommended.dateLabel), recommended.venue || recommended.region].filter(Boolean).join(' · '),
+    detail: competitionCoverageLevel(recommended) === 'roster'
+      ? '已有报名名单，可直接查看潜在对手和重点俱乐部。'
+      : '先看赛程、项目和历史强手，名单补齐后继续细化。',
+  };
+}
+
+function renderHomePrematchAction(row = homePrematchActionRow()) {
+  if (!row) return '';
+  return `
+    <section class="panel my-section home-prematch-action">
+      <div class="section-title">
+        <h2>下一场重点赛事</h2>
+        <span>${escapeHtml(row.isFollowed ? '已关注' : '推荐关注')}</span>
+      </div>
+      <article class="home-prematch-card">
+        <div>
+          <strong>${escapeHtml(row.sportName || '近期赛事')}</strong>
+          <span>${escapeHtml(row.meta)}</span>
+          <em>${escapeHtml(row.detail)}</em>
+        </div>
+        <div class="home-prematch-actions">
+          <button type="button" data-home-prematch="${escapeHtml(row.sportCode)}">赛前情报</button>
+          ${row.isFollowed ? '' : `<button type="button" data-home-prematch-follow="${escapeHtml(row.sportCode)}">加入提醒</button>`}
+        </div>
+      </article>
+    </section>
+  `;
+}
+
 function reportConversionCard({ source, title, detail, primaryLabel = '申请试用', secondaryLabel = '了解会员权益' }) {
   return `
     <article class="panel report-conversion-card">
@@ -2667,6 +2711,7 @@ function renderHomePage() {
   const reportHistory = reportHistoryRows();
   const aiHistory = aiHistoryRows();
   const commercialIntents = commercialIntentRows();
+  const prematchAction = homePrematchActionRow(followedCompetitions);
   const dataValueRows = homeDataValueRows();
   const recentRows = (state.recentItems || []).slice(0, 3);
   const stats = [
@@ -2685,6 +2730,7 @@ function renderHomePage() {
           </div>
         `).join('')}
       </section>
+      ${renderHomePrematchAction(prematchAction)}
       <section class="panel my-section home-value-section">
         <div class="section-title">
           <h2>数据价值</h2>
@@ -2799,6 +2845,16 @@ function renderHomePage() {
   homePage.querySelector('[data-home-competitions]')?.addEventListener('click', () => navigateMain('competitions'));
   homePage.querySelector('[data-home-follow]')?.addEventListener('click', () => navigateMain('follow'));
   homePage.querySelector('[data-home-my]')?.addEventListener('click', () => navigateMain('my'));
+  homePage.querySelector('[data-home-prematch]')?.addEventListener('click', (event) => {
+    trackAnalyticsAction('home_prematch', 'open');
+    openPrematchReport('prematch-pack', event.currentTarget.dataset.homePrematch || '');
+  });
+  homePage.querySelector('[data-home-prematch-follow]')?.addEventListener('click', (event) => {
+    const competition = findCompetitionBySportCode(event.currentTarget.dataset.homePrematchFollow);
+    if (!competition?.sportCode) return;
+    trackAnalyticsAction('home_prematch', 'follow');
+    upsertFollowedCompetition(competition);
+  });
   homePage.querySelector('[data-pilot-interest]')?.addEventListener('click', (event) => submitPilotInterest(event.currentTarget, {
     source: 'home-pilot',
     report: '试用合作',

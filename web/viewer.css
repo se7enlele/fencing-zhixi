@@ -2266,6 +2266,80 @@ select:focus {
   padding: 4px 7px;
 }
 
+.home-prematch-action {
+  display: grid;
+  gap: 10px;
+}
+
+.home-prematch-card {
+  display: grid;
+  gap: 10px;
+  border: 1px solid rgba(13, 125, 103, 0.15);
+  border-radius: 13px;
+  background:
+    radial-gradient(circle at top right, rgba(13, 125, 103, 0.13), transparent 38%),
+    linear-gradient(135deg, rgba(245, 252, 248, 0.98), rgba(239, 247, 255, 0.94));
+  padding: 12px;
+}
+
+.home-prematch-card div,
+.home-prematch-card strong,
+.home-prematch-card span,
+.home-prematch-card em {
+  display: block;
+  min-width: 0;
+}
+
+.home-prematch-card strong {
+  color: var(--text);
+  font-size: 15px;
+  font-weight: 900;
+  line-height: 1.35;
+}
+
+.home-prematch-card span {
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+.home-prematch-card em {
+  margin-top: 6px;
+  color: var(--teal);
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: 1.4;
+}
+
+.home-prematch-actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.home-prematch-actions button {
+  min-height: 38px;
+  border: 1px solid rgba(21, 95, 194, 0.16);
+  border-radius: 11px;
+  background: rgba(21, 95, 194, 0.08);
+  color: var(--primary);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.home-prematch-actions button:first-child {
+  border-color: var(--primary);
+  background: var(--primary);
+  color: #fff;
+}
+
+.home-prematch-actions button:only-child {
+  grid-column: 1 / -1;
+}
+
 .report-center-grid {
   display: grid;
   gap: 8px;
