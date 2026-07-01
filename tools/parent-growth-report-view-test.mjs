@@ -17,7 +17,8 @@ assert.match(js, /parentGrowthReport: document\.querySelector\('#view-parent-gro
 assert.match(js, /function parentGrowthReportTimelineRows\(athlete\)/, 'parent growth report must build a compact timeline');
 assert.match(js, /function parentGrowthReportEvidenceRows\(model\)/, 'parent growth report must expose traceable evidence rows');
 assert.match(js, /function parentGrowthActionRows\(athlete, model, focusRows = \[\]\)/, 'parent growth report must generate a family action plan');
-assert.match(js, /function buildParentGrowthShareText\(athlete, model, focusRows, actionRows = parentGrowthActionRows\(athlete, model, focusRows\)\)/, 'parent growth report must build shareable summary text');
+assert.match(js, /function parentInvestmentSignalRows\(model\)/, 'parent growth report must derive investment observation signals');
+assert.match(js, /function buildParentGrowthShareText\(athlete, model, focusRows, actionRows = parentGrowthActionRows\(athlete, model, focusRows\), signalRows = parentInvestmentSignalRows\(model\)\)/, 'parent growth report must build shareable summary text');
 assert.match(js, /function renderParentGrowthReport\(athleteId = ''\)/, 'parent growth report must render from a selected or explicit athlete');
 assert.match(js, /function openParentGrowthReport\(athleteId = ''\)/, 'parent growth report must be navigable');
 assert.match(js, /trackReportHistory\(\{[\s\S]*type: 'parent-growth'/, 'opening a parent growth report must save it to recent reports');
@@ -32,6 +33,10 @@ assert.match(js, /roleWorkspace\.querySelectorAll\('\[data-parent-growth-athlete
 
 assert.match(js, /parent-growth-decision/, 'growth report must render a parent-facing decision block');
 assert.match(js, /class="parent-growth-metrics"/, 'growth report must render key metrics');
+assert.match(js, /class="panel parent-growth-report-card parent-investment-signals"/, 'growth report must render investment observation signals');
+assert.match(js, /投入观察指标/, 'growth report must label investment observation signals clearly');
+assert.match(js, /const signalRows = parentInvestmentSignalRows\(model\)/, 'growth report must render signal rows from the current athlete model');
+assert.match(js, /buildParentGrowthShareText\(athlete, model, focusRows, actionRows, signalRows\)/, 'growth report share text must include investment signals');
 assert.match(js, /class="parent-growth-focus-list"/, 'growth report must render next focus points');
 assert.match(js, /class="parent-growth-action-list"/, 'growth report must render a family action plan');
 assert.match(js, /家庭执行计划/, 'growth report must label the family action plan clearly');
@@ -53,6 +58,8 @@ assert.match(css, /\.parent-growth-report-shell/, 'parent growth report shell st
 assert.match(css, /\.parent-growth-report-card/, 'parent growth report card styles must exist');
 assert.match(css, /\.parent-growth-decision/, 'parent growth decision styles must exist');
 assert.match(css, /\.parent-growth-metrics/, 'parent growth metric styles must exist');
+assert.match(css, /\.parent-investment-signal-list/, 'parent investment signal list styles must exist');
+assert.match(css, /\.parent-investment-signal/, 'parent investment signal cards must be styled');
 assert.match(css, /\.parent-growth-action-list/, 'parent growth action plan styles must exist');
 assert.match(css, /\.parent-growth-timeline/, 'parent growth timeline styles must exist');
 assert.match(css, /\.parent-growth-evidence/, 'parent growth evidence styles must exist');

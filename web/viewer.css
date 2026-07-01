@@ -5022,6 +5022,59 @@ select:focus {
   line-height: 1.1;
 }
 
+.parent-investment-signals {
+  border-color: rgba(13, 125, 103, 0.14);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(245, 252, 250, 0.94));
+}
+
+.parent-investment-signal-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.parent-investment-signal {
+  display: grid;
+  gap: 5px;
+  min-width: 0;
+  border: 1px solid rgba(13, 125, 103, 0.14);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.92);
+  padding: 10px;
+}
+
+.parent-investment-signal span,
+.parent-investment-signal strong,
+.parent-investment-signal em {
+  display: block;
+  min-width: 0;
+}
+
+.parent-investment-signal span {
+  color: var(--teal);
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.parent-investment-signal strong {
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.parent-investment-signal em {
+  color: var(--muted);
+  font-size: 12px;
+  font-style: normal;
+  line-height: 1.45;
+}
+
+@media (max-width: 360px) {
+  .parent-investment-signal-list {
+    grid-template-columns: 1fr;
+  }
+}
+
 .parent-growth-focus-list,
 .parent-growth-action-list,
 .parent-growth-timeline,

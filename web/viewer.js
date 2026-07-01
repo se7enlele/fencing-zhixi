@@ -1825,6 +1825,40 @@ function parentGrowthActionRows(athlete, model, focusRows = []) {
   ];
 }
 
+function parentInvestmentSignalRows(model) {
+  const eventSignal = model.events.length >= 4
+    ? { level: '稳定', detail: `已有 ${model.events.length} 场参赛记录，可以开始按季度复盘。` }
+    : model.events.length >= 2
+      ? { level: '积累中', detail: `已有 ${model.events.length} 场记录，建议再观察 1-2 场形成趋势。` }
+      : { level: '样本少', detail: '先积累至少 2-3 场比赛，再判断长期投入节奏。' };
+  const poolSignal = model.poolRate === null
+    ? { level: '待补齐', detail: '小组胜负数据不足，先补齐基础稳定性证据。' }
+    : model.poolRate >= 60
+      ? { level: '基础稳定', detail: `小组胜率 ${model.poolRate}%，下一步看淘汰赛关键分。` }
+      : model.poolRate >= 45
+        ? { level: '可提升', detail: `小组胜率 ${model.poolRate}%，重点减少开局波动和连续失分。` }
+        : { level: '需巩固', detail: `小组胜率 ${model.poolRate}%，先把基础得分能力和节奏稳定下来。` };
+  const eliminationTotal = model.totalElimWins + model.totalElimLosses;
+  const elimSignal = eliminationTotal
+    ? model.totalElimWins > model.totalElimLosses
+      ? { level: '有突破', detail: `淘汰赛 ${model.totalElimWins}胜${model.totalElimLosses}负，适合增加强手对局复盘。` }
+      : { level: '继续观察', detail: `淘汰赛 ${model.totalElimWins}胜${model.totalElimLosses}负，先看关键分处理。` }
+    : { level: '待突破', detail: '还缺少淘汰赛胜负样本，先以稳定晋级为阶段目标。' };
+  const trendSignal = model.trend === null
+    ? { level: '待确认', detail: '最近两场名次还不能直接比较，继续看同项目连续表现。' }
+    : model.trend > 0
+      ? { level: '向前', detail: `最近名次前进 ${model.trend} 名，可以保持参赛节奏。` }
+      : model.trend < 0
+        ? { level: '复盘', detail: `最近名次后退 ${Math.abs(model.trend)} 名，建议先做赛后复盘。` }
+        : { level: '持平', detail: '最近名次基本持平，下一场重点看小组赛稳定性。' };
+  return [
+    { title: '参赛连续性', ...eventSignal },
+    { title: '小组稳定性', ...poolSignal },
+    { title: '淘汰赛突破', ...elimSignal },
+    { title: '名次趋势', ...trendSignal },
+  ];
+}
+
 function bindCopyTextButton(button, textBuilder, analyticsLabel = '', followupText = '') {
   if (!button) return;
   button.addEventListener('click', async () => {
@@ -1853,7 +1887,7 @@ function bindCopyTextButton(button, textBuilder, analyticsLabel = '', followupTe
   });
 }
 
-function buildParentGrowthShareText(athlete, model, focusRows, actionRows = parentGrowthActionRows(athlete, model, focusRows)) {
+function buildParentGrowthShareText(athlete, model, focusRows, actionRows = parentGrowthActionRows(athlete, model, focusRows), signalRows = parentInvestmentSignalRows(model)) {
   return [
     `${athlete.name} 成长报告`,
     `俱乐部：${athlete.club || '待确认'}`,
@@ -1861,6 +1895,7 @@ function buildParentGrowthShareText(athlete, model, focusRows, actionRows = pare
     `参赛记录：${model.events.length} 场，最好名次：${model.best?.finalRank ? `第${model.best.finalRank}名` : '-'}`,
     `小组胜率：${model.poolRate === null ? '-' : `${model.poolRate}%`}，淘汰赛：${model.totalElimWins}胜${model.totalElimLosses}负`,
     `建议：${model.advice}`,
+    ...signalRows.slice(0, 4).map((row) => `${row.title}：${row.level}，${row.detail}`),
     ...focusRows.slice(0, 3).map((row, index) => `关注点${index + 1}：${row.title}，${row.detail}`),
     ...actionRows.slice(0, 4).map((row) => `${row.title}：${row.detail}`),
     '数据来源：FencingAI 已收录赛事成绩',
@@ -1889,6 +1924,7 @@ function renderParentGrowthReport(athleteId = '') {
   const model = buildParentGrowthModel(athlete);
   const focusRows = parentNextFocusRows(model);
   const actionRows = parentGrowthActionRows(athlete, model, focusRows);
+  const signalRows = parentInvestmentSignalRows(model);
   const timelineRows = parentGrowthReportTimelineRows(athlete);
   const evidenceRows = parentGrowthReportEvidenceRows(model);
   const latestText = model.latest ? `${displayEventName(model.latest)} · 第${model.latest.finalRank ?? '-'}名` : '暂无记录';
@@ -1935,6 +1971,21 @@ function renderParentGrowthReport(athleteId = '') {
       ${model.yearRows.length ? barChart('年度参赛频率', model.yearRows, { tone: 'teal' }) : ''}
     </article>
 
+    <article class="panel parent-growth-report-card parent-investment-signals">
+      <div class="section-title">
+        <h2>投入观察指标</h2>
+        <span>继续投入前先看这些信号</span>
+      </div>
+      <div class="parent-investment-signal-list">
+        ${signalRows.map((row) => `
+          <div class="parent-investment-signal">
+            <span>${escapeHtml(row.title)}</span>
+            <strong>${escapeHtml(row.level)}</strong>
+            <em>${escapeHtml(row.detail)}</em>
+          </div>
+        `).join('')}
+      </div>
+    </article>
     <article class="panel parent-growth-report-card">
       <div class="section-title">
         <h2>下一步关注点</h2>
@@ -2017,7 +2068,7 @@ function renderParentGrowthReport(athleteId = '') {
   });
   parentGrowthReportBody.querySelector('[data-athlete-id]')?.addEventListener('click', () => openAthlete(athlete.id));
   bindReportConversionActions(parentGrowthReportBody);
-  bindCopyTextButton(parentGrowthReportHero.querySelector('[data-report-share="parent-growth"]'), () => buildParentGrowthShareText(athlete, model, focusRows, actionRows), 'parent-growth', '已复制，可继续申请家庭试用。');
+  bindCopyTextButton(parentGrowthReportHero.querySelector('[data-report-share="parent-growth"]'), () => buildParentGrowthShareText(athlete, model, focusRows, actionRows, signalRows), 'parent-growth', '已复制，可继续申请家庭试用。');
 }
 
 function openParentGrowthReport(athleteId = '') {
