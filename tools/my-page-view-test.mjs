@@ -81,6 +81,11 @@ assert.match(js, /trackAnalyticsAction\('membership_interest', enrichedContext\.
 assert.match(js, /memberCta\?\.addEventListener\('click', \(event\) => submitMembershipInterest\(event\.currentTarget, \{[\s\S]*source: 'member-panel'[\s\S]*report: '家长会员'[\s\S]*\}\)/, 'member CTA must be wired to membership interest submission with source context');
 assert.match(js, /function commercialInterestMessage\(context = \{\}\)/, 'commercial interest messages must include optional source context');
 assert.match(js, /context\.contact \? `联系方式：\$\{context\.contact\}` : ''/, 'commercial interest messages must include optional contact details');
+assert.match(js, /function commercialInterestContextRows\(context = \{\}\)/, 'commercial interest messages must include a follow-up context summary');
+assert.match(js, /关注选手明细：/, 'commercial context must include followed athlete details for trial follow-up');
+assert.match(js, /关注赛事明细：/, 'commercial context must include followed competition details for prematch follow-up');
+assert.match(js, /当前俱乐部：/, 'commercial context must include the current club when available');
+assert.match(js, /\.\.\.commercialInterestContextRows\(context\)/, 'commercial interest messages must append the context summary');
 assert.match(js, /function storedCommercialContact\(\)/, 'commercial contact helper must read stored contact details');
 assert.match(js, /function saveCommercialContact\(contact\)/, 'commercial contact helper must save contact details');
 assert.match(js, /function requestCommercialContact\(context = \{\}\)/, 'commercial contact helper must request contact details before submission');
