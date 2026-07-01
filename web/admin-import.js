@@ -98,6 +98,7 @@ function commercialSourceLabel(source) {
     club: '俱乐部',
     data: '赛事数据',
     'home-pilot': '首页试用合作',
+    'focus-workspace': '关注提醒服务',
     'my-membership': '我的页会员权益',
     'my-next-action': '我的页下一步',
     'member-panel': '会员横幅',

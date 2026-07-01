@@ -2480,6 +2480,46 @@ select:focus {
   line-height: 1.45;
 }
 
+.focus-trial-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: center;
+  border-color: rgba(21, 95, 194, 0.14);
+  background: linear-gradient(135deg, rgba(21, 95, 194, 0.08), rgba(255, 255, 255, 0.96));
+}
+
+.focus-trial-card strong,
+.focus-trial-card span {
+  display: block;
+  min-width: 0;
+}
+
+.focus-trial-card strong {
+  color: var(--text);
+  font-size: 15px;
+  font-weight: 900;
+}
+
+.focus-trial-card span {
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.focus-trial-card button {
+  min-height: 34px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--primary);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 900;
+  padding: 0 12px;
+  white-space: nowrap;
+}
+
 .focus-alert-list {
   display: grid;
   gap: 8px;

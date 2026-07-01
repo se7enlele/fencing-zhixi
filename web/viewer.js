@@ -4627,6 +4627,13 @@ function renderFocusPage() {
         <span>${escapeHtml(priorityCompetitions[0]?.sportName || children[0]?.summary || '从选手或赛事详情页添加关注后，这里会形成赛前提醒和成长入口。')}</span>
       </div>
     </section>
+    <section class="panel my-section focus-trial-card">
+      <div>
+        <strong>提醒服务</strong>
+        <span>${escapeHtml(priorityCompetitions.length ? '把关注赛事、重点选手和赛前情报固定下来，关键比赛前直接查看。' : '关注选手或赛事后，可持续形成赛前提醒、成长报告和复盘入口。')}</span>
+      </div>
+      <button type="button" data-commercial-intent="pilot" data-commercial-source="focus-workspace" data-report-title="关注提醒服务">申请试用</button>
+    </section>
     <section class="panel my-section">
       <div class="section-title">
         <h2>关注选手</h2>
@@ -4678,6 +4685,7 @@ function renderFocusPage() {
     </section>
   `;
   bindPersonalList(focusPage);
+  bindReportConversionActions(focusPage);
 }
 
 function renderPersonalPages() {

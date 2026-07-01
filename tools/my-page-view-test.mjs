@@ -133,6 +133,9 @@ assert.match(js, /class="panel focus-dashboard"/, 'follow page must render a das
 assert.match(js, /<h2>关注工作台<\/h2>/, 'follow page must frame follows as a workspace');
 assert.match(js, /<h2>赛前提醒<\/h2>/, 'follow page must expose pre-match reminders');
 assert.match(js, /class="focus-alert-card"/, 'follow page must render reminder cards for followed competitions');
+assert.match(js, /class="panel my-section focus-trial-card"/, 'follow page must expose a trial card for reminder services');
+assert.match(js, /data-commercial-source="focus-workspace"/, 'follow trial card must submit a traceable commercial source');
+assert.match(js, /bindReportConversionActions\(focusPage\)/, 'follow page trial card must reuse commercial conversion actions');
 assert.match(js, /data-focus-competition/, 'follow reminders must keep a direct competition detail action');
 assert.match(js, /data-focus-prematch/, 'follow reminders must expose a direct prematch report action');
 assert.match(js, /data-focus-follow/, 'follow recommendations must expose a direct add-reminder action');
@@ -180,6 +183,7 @@ assert.match(css, /\.ai-evidence/, 'AI workspace must style source evidence card
 assert.match(css, /\.parent-next-focus/, 'parent next focus styles must exist');
 assert.match(css, /\.parent-focus-row/, 'parent focus row styles must exist');
 assert.match(css, /\.focus-dashboard/, 'follow dashboard styles must exist');
+assert.match(css, /\.focus-trial-card/, 'follow trial card styles must exist');
 assert.match(css, /\.focus-alert-card/, 'follow alert card styles must exist');
 assert.match(css, /\.focus-alert-actions/, 'follow alert action styles must exist');
 assert.match(css, /\.my-page-shell/, 'personal page styles must exist');

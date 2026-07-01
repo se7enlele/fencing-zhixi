@@ -39,6 +39,7 @@ assert.match(js, /pilot_interest: '试用意向'/, 'admin analytics must label p
 assert.match(js, /membership_interest: '会员意向'/, 'admin analytics must label membership interest actions');
 assert.match(js, /visitor: '访客'/, 'admin analytics must label visitor pilot detail');
 assert.match(js, /'home-pilot': '首页试用合作'/, 'admin analytics must label home trial intent source');
+assert.match(js, /'focus-workspace': '关注提醒服务'/, 'admin analytics must label follow workspace trial source');
 assert.match(js, /'my-membership': '我的页会员权益'/, 'admin analytics must label my page membership source');
 assert.match(js, /'my-next-action': '我的页下一步'/, 'admin analytics must label my page next-action source');
 assert.match(js, /'parent-growth-report': '成长报告'/, 'admin analytics must label growth report commercial source');
@@ -163,7 +164,7 @@ assert.match(html, /id="analyticsTrend"/, 'admin import page must expose analyti
 assert.match(html, /id="analyticsPages"/, 'admin import page must expose analytics page rankings');
 assert.match(html, /id="dataHealthSummary"/, 'admin import page must expose data health summary');
 assert.match(html, /id="dataHealthGaps"/, 'admin import page must expose data health gaps');
-assert.match(html, /admin-import\.js\?v=fencingai-product-20260701-lead-product-focus-1/, 'admin import JS cache key must be bumped');
-assert.match(html, /admin-import\.css\?v=fencingai-product-20260701-lead-product-focus-1/, 'admin import CSS cache key must be bumped');
+assert.match(html, /admin-import\.js\?v=fencingai-product-20260701-focus-trial-1/, 'admin import JS cache key must be bumped');
+assert.match(html, /admin-import\.css\?v=fencingai-product-20260701-focus-trial-1/, 'admin import CSS cache key must be bumped');
 
 console.log('admin import page feedback is covered');
