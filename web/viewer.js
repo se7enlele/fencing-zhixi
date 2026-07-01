@@ -1926,6 +1926,23 @@ function buildParentGrowthShareText(athlete, model, focusRows, actionRows = pare
   ].join('\n');
 }
 
+function parentGrowthShareUrl(athlete) {
+  const url = new URL(window.location.href);
+  url.search = '';
+  url.hash = '';
+  url.searchParams.set('athlete', athlete.id || '');
+  return url.toString();
+}
+
+function buildParentGrowthPageShareText(athlete, model) {
+  return [
+    `${athlete.name} 的击剑成长页`,
+    `${athlete.club || '俱乐部待确认'} · 参赛 ${model.events.length} 场 · 最好${model.best?.finalRank ? `第${model.best.finalRank}名` : '待确认'}`,
+    '打开后可查看参赛轨迹、成长判断、重点对手和数据依据。',
+    parentGrowthShareUrl(athlete),
+  ].join('\n');
+}
+
 function renderParentGrowthReport(athleteId = '') {
   const candidates = childCandidates();
   const athlete = athleteId
@@ -1964,7 +1981,10 @@ function renderParentGrowthReport(athleteId = '') {
       <span class="badge">前八 ${escapeHtml(model.top8Count)} 次</span>
       <span class="badge">淘汰赛 ${escapeHtml(model.totalElimWins)}胜${escapeHtml(model.totalElimLosses)}负</span>
     </div>
-    <button class="report-share-action" type="button" data-report-share="parent-growth">复制报告摘要</button>
+    <div class="report-share-row">
+      <button class="report-share-action" type="button" data-report-share="parent-growth">复制报告摘要</button>
+      <button class="report-share-action secondary" type="button" data-report-share="parent-growth-page">复制成长页</button>
+    </div>
   `;
 
   parentGrowthReportBody.innerHTML = `
@@ -2116,6 +2136,7 @@ function renderParentGrowthReport(athleteId = '') {
   parentGrowthReportBody.querySelector('[data-athlete-id]')?.addEventListener('click', () => openAthlete(athlete.id));
   bindReportConversionActions(parentGrowthReportBody);
   bindCopyTextButton(parentGrowthReportHero.querySelector('[data-report-share="parent-growth"]'), () => buildParentGrowthShareText(athlete, model, focusRows, actionRows, signalRows, opponentRows), 'parent-growth', '已复制，可继续申请家庭试用。');
+  bindCopyTextButton(parentGrowthReportHero.querySelector('[data-report-share="parent-growth-page"]'), () => buildParentGrowthPageShareText(athlete, model), 'parent-growth-page', '已复制成长页，可直接发给家长。');
 }
 
 function openParentGrowthReport(athleteId = '') {
@@ -10289,6 +10310,11 @@ async function init() {
   renderRegionSelect();
   renderItemSelect();
   applyCompetitionFilter();
+  const initialAthleteId = new URLSearchParams(window.location.search).get('athlete');
+  if (initialAthleteId) {
+    await openAthlete(initialAthleteId);
+    return;
+  }
   state.activeMainTab = 'home';
   state.viewStack = ['home'];
   showView('home');

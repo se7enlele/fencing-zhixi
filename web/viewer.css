@@ -4194,6 +4194,13 @@ select:focus {
   box-shadow: none;
 }
 
+.report-share-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
 .report-share-action {
   width: fit-content;
   max-width: 100%;
@@ -4205,6 +4212,12 @@ select:focus {
   font-weight: 900;
   padding: 7px 11px;
   box-shadow: none;
+}
+
+.report-share-action.secondary {
+  border-color: rgba(21, 95, 194, 0.18);
+  background: rgba(21, 95, 194, 0.08);
+  color: var(--primary);
 }
 
 .report-share-followup {

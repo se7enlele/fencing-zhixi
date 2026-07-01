@@ -20,6 +20,8 @@ assert.match(js, /function parentGrowthOpponentRows\(athlete\)/, 'parent growth 
 assert.match(js, /function parentGrowthActionRows\(athlete, model, focusRows = \[\]\)/, 'parent growth report must generate a family action plan');
 assert.match(js, /function parentInvestmentSignalRows\(model\)/, 'parent growth report must derive investment observation signals');
 assert.match(js, /function buildParentGrowthShareText\(athlete, model, focusRows, actionRows = parentGrowthActionRows\(athlete, model, focusRows\), signalRows = parentInvestmentSignalRows\(model\), opponentRows = parentGrowthOpponentRows\(athlete\)\)/, 'parent growth report must build shareable summary text');
+assert.match(js, /function parentGrowthShareUrl\(athlete\)/, 'parent growth report must build a shareable athlete deep link');
+assert.match(js, /function buildParentGrowthPageShareText\(athlete, model\)/, 'parent growth report must build shareable growth page text');
 assert.match(js, /function renderParentGrowthReport\(athleteId = ''\)/, 'parent growth report must render from a selected or explicit athlete');
 assert.match(js, /function openParentGrowthReport\(athleteId = ''\)/, 'parent growth report must be navigable');
 assert.match(js, /trackReportHistory\(\{[\s\S]*type: 'parent-growth'/, 'opening a parent growth report must save it to recent reports');
@@ -53,7 +55,13 @@ assert.match(js, /\.\.\.actionRows\.slice\(0, 4\)\.map/, 'growth report share te
 assert.match(js, /class="parent-growth-timeline"/, 'growth report must render a participation timeline');
 assert.match(js, /class="parent-growth-evidence"/, 'growth report must render traceable evidence');
 assert.match(js, /data-report-share="parent-growth"/, 'growth report must expose a copy summary action');
+assert.match(js, /data-report-share="parent-growth-page"/, 'growth report must expose a growth page share action');
 assert.match(js, /bindCopyTextButton\(parentGrowthReportHero\.querySelector\('\[data-report-share="parent-growth"\]'\)/, 'growth report copy action must be wired');
+assert.match(js, /bindCopyTextButton\(parentGrowthReportHero\.querySelector\('\[data-report-share="parent-growth-page"\]'\)/, 'growth page copy action must be wired');
+assert.match(js, /new URLSearchParams\(window\.location\.search\)\.get\('athlete'\)/, 'initial route must support shared athlete links');
+assert.match(js, /await openAthlete\(initialAthleteId\)/, 'shared athlete links must open the athlete profile directly');
+assert.match(js, /复制成长页/, 'growth report must use user-facing growth page share copy');
+assert.match(js, /已复制成长页，可直接发给家长。/, 'growth page copy must confirm parent-facing sharing');
 assert.match(js, /已复制，可继续申请家庭试用。/, 'growth report copy action must guide users toward family trial');
 assert.match(js, /source: 'parent-growth-report'/, 'growth report must expose a report-scoped commercial source');
 assert.match(js, /申请家庭试用/, 'growth report must include a family trial conversion action');
@@ -73,7 +81,9 @@ assert.match(css, /\.parent-opponent-list/, 'parent opponent tracking list must 
 assert.match(css, /\.parent-growth-action-list/, 'parent growth action plan styles must exist');
 assert.match(css, /\.parent-growth-timeline/, 'parent growth timeline styles must exist');
 assert.match(css, /\.parent-growth-evidence/, 'parent growth evidence styles must exist');
+assert.match(css, /\.report-share-row/, 'growth report share actions must be laid out responsively');
 assert.match(css, /\.report-share-action/, 'report share button styles must exist');
+assert.match(css, /\.report-share-action\.secondary/, 'secondary growth page share button must be styled');
 assert.match(css, /\.report-conversion-card/, 'report conversion card styles must exist');
 
 console.log('parent growth report view is covered');
