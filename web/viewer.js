@@ -8186,7 +8186,48 @@ function coachSegmentationEvidenceRows(club, projectRows) {
   }))).slice(0, 8);
 }
 
-function buildCoachSegmentationShareText(club, buckets, followups, projectRows) {
+function coachBusinessGrowthRows(club, projectRows, buckets) {
+  const topProject = projectRows[0] || null;
+  const bestProject = [...(projectRows || [])].sort((a, b) => (a.bestRank ?? 999) - (b.bestRank ?? 999))[0] || null;
+  const scoreBucket = (buckets || []).find((bucket) => bucket.key === 'score');
+  const steadyBucket = (buckets || []).find((bucket) => bucket.key === 'steady');
+  return [
+    {
+      key: 'recruiting',
+      title: '招生主推项目',
+      label: topProject?.label || '项目待沉淀',
+      detail: topProject
+        ? `${topProject.label} 参赛 ${topProject.entrants || 0} 人次，适合对外展示训练连续性和参赛氛围。`
+        : '先选择投入人数最多的项目，形成稳定班型后再对外主推。',
+    },
+    {
+      key: 'retention',
+      title: '续费沟通素材',
+      label: `${(steadyBucket?.rows || []).length} 名稳定成长`,
+      detail: (steadyBucket?.rows || []).length
+        ? `可围绕 ${(steadyBucket.rows || []).slice(0, 3).map((athlete) => athlete.name).join('、')} 做阶段复盘，说明训练带来的稳定变化。`
+        : '先积累连续参赛样本，再用阶段复盘和下一场目标做家长沟通。',
+    },
+    {
+      key: 'reputation',
+      title: '口碑展示证明',
+      label: bestProject ? `最好第 ${bestProject.bestRank ?? '-'} 名` : `${club.top8 || 0} 次前八`,
+      detail: bestProject
+        ? `${bestProject.label} 已有最好第 ${bestProject.bestRank ?? '-'} 名，可作为对外口碑和圈内位置的证明点。`
+        : `当前已有 ${club.top8 || 0} 次前八、${club.medals || 0} 枚奖牌，可先整理成俱乐部成绩名片。`,
+    },
+    {
+      key: 'benchmark',
+      title: '重点学员背书',
+      label: `${(scoreBucket?.rows || []).length} 名冲成绩`,
+      detail: (scoreBucket?.rows || []).length
+        ? `代表学员 ${(scoreBucket.rows || []).slice(0, 3).map((athlete) => athlete.name).join('、')} 可作为训练成果案例。`
+        : '先把最稳定的学员成长过程沉淀下来，作为后续招生案例。',
+    },
+  ];
+}
+
+function buildCoachSegmentationShareText(club, buckets, followups, projectRows, businessRows = []) {
   const topProject = projectRows[0];
   return [
     `${club.club} 学员分层报告`,
@@ -8194,6 +8235,7 @@ function buildCoachSegmentationShareText(club, buckets, followups, projectRows) 
     topProject ? `重点项目：${topProject.label}，参赛 ${topProject.entrants || 0} 人次，最好第 ${topProject.bestRank ?? '-'} 名` : '重点项目：待形成',
     ...buckets.map((bucket) => `${bucket.title}：${bucket.rows.map((athlete) => athlete.name).filter(Boolean).slice(0, 4).join(' / ') || '暂无'}。${bucket.action}`),
     ...followups.slice(0, 3).map((row, index) => `跟进${index + 1}：${row.athlete.name}，${row.training}`),
+    ...businessRows.slice(0, 4).map((row) => `${row.title}：${row.label}。${row.detail}`),
     '数据来源：FencingAI 已收录赛事成绩',
   ].join('\n');
 }
@@ -8218,6 +8260,7 @@ function renderCoachSegmentationReport(clubId = '') {
   const buckets = coachSegmentationBuckets(athletes);
   const followups = coachAthleteFollowupRows(athletes);
   const evidenceRows = coachSegmentationEvidenceRows(club, projectRows);
+  const businessRows = coachBusinessGrowthRows(club, projectRows, buckets);
   const topProject = projectRows[0] || null;
   const scoreBucket = buckets.find((bucket) => bucket.key === 'score');
   const riskBucket = buckets.find((bucket) => bucket.key === 'risk');
@@ -8296,6 +8339,22 @@ function renderCoachSegmentationReport(clubId = '') {
       </div>
     </article>
 
+    <article class="panel coach-segmentation-report-card coach-business-growth">
+      <div class="section-title">
+        <h2>招生与口碑素材</h2>
+        <span>增长使用</span>
+      </div>
+      <div class="coach-business-grid">
+        ${businessRows.map((row) => `
+          <div class="coach-business-card coach-business-${escapeHtml(row.key)}">
+            <span>${escapeHtml(row.title)}</span>
+            <strong>${escapeHtml(row.label)}</strong>
+            <em>${escapeHtml(row.detail)}</em>
+          </div>
+        `).join('')}
+      </div>
+    </article>
+
     <article class="panel coach-segmentation-report-card">
       <div class="section-title">
         <h2>项目依据</h2>
@@ -8332,7 +8391,7 @@ function renderCoachSegmentationReport(clubId = '') {
   });
   coachSegmentationReportBody.querySelector('[data-club-id]')?.addEventListener('click', () => openClub(club.id));
   bindReportConversionActions(coachSegmentationReportBody);
-  bindCopyTextButton(coachSegmentationReportHero.querySelector('[data-report-share="coach-segmentation"]'), () => buildCoachSegmentationShareText(club, buckets, followups, projectRows), 'coach-segmentation', '已复制，可继续申请教练试用。');
+  bindCopyTextButton(coachSegmentationReportHero.querySelector('[data-report-share="coach-segmentation"]'), () => buildCoachSegmentationShareText(club, buckets, followups, projectRows, businessRows), 'coach-segmentation', '已复制，可继续申请教练试用。');
 }
 
 function openCoachSegmentationReport(clubId = '') {

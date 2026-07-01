@@ -23,7 +23,8 @@ assert.match(js, /title: '稳定成长学员'/, 'segmentation must include stead
 assert.match(js, /title: '需要关注学员'/, 'segmentation must include risk/follow-up athletes');
 assert.match(js, /title: '样本积累学员'/, 'segmentation must include sample-building athletes');
 assert.match(js, /function coachSegmentationEvidenceRows\(club, projectRows\)/, 'segmentation report must expose traceable project evidence');
-assert.match(js, /function buildCoachSegmentationShareText\(club, buckets, followups, projectRows\)/, 'segmentation report must build shareable summary text');
+assert.match(js, /function coachBusinessGrowthRows\(club, projectRows, buckets\)/, 'coach report must derive recruiting and reputation assets');
+assert.match(js, /function buildCoachSegmentationShareText\(club, buckets, followups, projectRows, businessRows = \[\]\)/, 'segmentation report must build shareable summary text');
 assert.match(js, /function renderCoachSegmentationReport\(clubId = ''\)/, 'segmentation report must render from a club id');
 assert.match(js, /function openCoachSegmentationReport\(clubId = ''\)/, 'segmentation report must be navigable');
 assert.match(js, /trackReportHistory\(\{[\s\S]*type: 'coach-segmentation'/, 'opening a coach segmentation report must save it to recent reports');
@@ -40,6 +41,10 @@ assert.match(js, /coach-segmentation-summary/, 'segmentation report must show a 
 assert.match(js, /class="coach-segmentation-metrics"/, 'segmentation report must show bucket metrics');
 assert.match(js, /class="coach-segmentation-buckets"/, 'segmentation report must show athlete buckets');
 assert.match(js, /class="coach-segmentation-followups"/, 'segmentation report must show follow-up actions');
+assert.match(js, /class="panel coach-segmentation-report-card coach-business-growth"/, 'segmentation report must expose recruiting and reputation assets');
+assert.match(js, /招生与口碑素材/, 'coach report must include business-growth copy');
+assert.match(js, /const businessRows = coachBusinessGrowthRows\(club, projectRows, buckets\)/, 'coach report must render business rows from current club data');
+assert.match(js, /buildCoachSegmentationShareText\(club, buckets, followups, projectRows, businessRows\)/, 'coach report share text must include business rows');
 assert.match(js, /class="coach-segmentation-evidence"/, 'segmentation report must show traceable evidence');
 assert.match(js, /data-report-share="coach-segmentation"/, 'segmentation report must expose a copy summary action');
 assert.match(js, /bindCopyTextButton\(coachSegmentationReportHero\.querySelector\('\[data-report-share="coach-segmentation"\]'\)/, 'segmentation report copy action must be wired');
@@ -56,6 +61,8 @@ assert.match(css, /\.coach-segmentation-report-card/, 'coach segmentation card s
 assert.match(css, /\.coach-segmentation-metrics/, 'coach segmentation metric styles must exist');
 assert.match(css, /\.coach-segmentation-bucket/, 'coach segmentation bucket styles must exist');
 assert.match(css, /\.coach-segmentation-followups/, 'coach segmentation follow-up styles must exist');
+assert.match(css, /\.coach-business-grid/, 'coach business-growth grid styles must exist');
+assert.match(css, /\.coach-business-card/, 'coach business-growth cards must be styled');
 assert.match(css, /\.coach-segmentation-evidence/, 'coach segmentation evidence styles must exist');
 assert.match(css, /\.report-share-action/, 'report share button styles must exist');
 assert.match(css, /\.report-conversion-card/, 'report conversion card styles must exist');
