@@ -2590,6 +2590,46 @@ function renderHomePrematchAction(row = homePrematchActionRow()) {
   `;
 }
 
+function homeCoachActionRow() {
+  const club = state.currentClub || aiDefaultClub();
+  if (!club?.id) return null;
+  const topProject = (club.projectRows || club.projects || [])
+    .slice()
+    .sort((a, b) => (Number(b.entrants) || 0) - (Number(a.entrants) || 0) || (Number(a.bestRank) || 999) - (Number(b.bestRank) || 999))[0];
+  return {
+    ...club,
+    title: club.club || '俱乐部工作台',
+    meta: `${club.entrants || 0} 人次 · 前八 ${club.top8 || 0} · 奖牌 ${club.medals || 0}`,
+    detail: topProject?.label
+      ? `重点项目 ${topProject.label}，可继续看学员分层和招生展示。`
+      : '可继续看学员分层、续费沟通和招生展示。',
+    query: `${club.club}招生怎么讲`,
+  };
+}
+
+function renderHomeCoachAction(row = homeCoachActionRow()) {
+  if (!row) return '';
+  return `
+    <section class="panel my-section home-coach-action">
+      <div class="section-title">
+        <h2>教练经营重点</h2>
+        <span>P1</span>
+      </div>
+      <article class="home-coach-card">
+        <div>
+          <strong>${escapeHtml(row.title)}</strong>
+          <span>${escapeHtml(row.meta)}</span>
+          <em>${escapeHtml(row.detail)}</em>
+        </div>
+        <div class="home-coach-actions">
+          <button type="button" data-home-coach-report="${escapeHtml(row.id)}">学员分层</button>
+          <button type="button" data-home-coach-query="${escapeHtml(row.query)}">招生展示</button>
+        </div>
+      </article>
+    </section>
+  `;
+}
+
 function reportConversionCard({ source, title, detail, primaryLabel = '申请试用', secondaryLabel = '了解会员权益' }) {
   return `
     <article class="panel report-conversion-card">
@@ -2712,6 +2752,7 @@ function renderHomePage() {
   const aiHistory = aiHistoryRows();
   const commercialIntents = commercialIntentRows();
   const prematchAction = homePrematchActionRow(followedCompetitions);
+  const coachAction = homeCoachActionRow();
   const dataValueRows = homeDataValueRows();
   const recentRows = (state.recentItems || []).slice(0, 3);
   const stats = [
@@ -2731,6 +2772,7 @@ function renderHomePage() {
         `).join('')}
       </section>
       ${renderHomePrematchAction(prematchAction)}
+      ${renderHomeCoachAction(coachAction)}
       <section class="panel my-section home-value-section">
         <div class="section-title">
           <h2>数据价值</h2>
@@ -2854,6 +2896,14 @@ function renderHomePage() {
     if (!competition?.sportCode) return;
     trackAnalyticsAction('home_prematch', 'follow');
     upsertFollowedCompetition(competition);
+  });
+  homePage.querySelector('[data-home-coach-report]')?.addEventListener('click', (event) => {
+    trackAnalyticsAction('home_coach', 'segmentation');
+    openCoachSegmentationReport(event.currentTarget.dataset.homeCoachReport || '');
+  });
+  homePage.querySelector('[data-home-coach-query]')?.addEventListener('click', (event) => {
+    trackAnalyticsAction('home_coach', 'recruiting');
+    submitAiQuery(event.currentTarget.dataset.homeCoachQuery || '');
   });
   homePage.querySelector('[data-pilot-interest]')?.addEventListener('click', (event) => submitPilotInterest(event.currentTarget, {
     source: 'home-pilot',

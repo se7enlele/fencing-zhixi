@@ -93,6 +93,8 @@ assert.match(js, /function renderCommercialIntentStatus\(rows = commercialIntent
 assert.match(js, /class="panel my-section service-progress-panel"/, 'service progress panel must render as a user-facing section');
 assert.match(js, /function homePrematchActionRow\(followedCompetitions = \[\]\)/, 'home page must derive the next prematch action from followed or recommended competitions');
 assert.match(js, /function renderHomePrematchAction\(row = homePrematchActionRow\(\)\)/, 'home page must render a dedicated next-prematch action card');
+assert.match(js, /function homeCoachActionRow\(\)/, 'home page must derive a coach business action from the active or strongest club');
+assert.match(js, /function renderHomeCoachAction\(row = homeCoachActionRow\(\)\)/, 'home page must render a dedicated coach business action card');
 assert.match(js, /function reportConversionCard\(\{ source, title, detail/, 'reports must expose reusable conversion cards');
 assert.match(js, /function bindReportConversionActions\(container\)/, 'report conversion cards must bind their feedback actions');
 assert.match(js, /function membershipBenefitRows\(\)/, 'my page must define membership benefit rows');
@@ -102,10 +104,15 @@ assert.match(js, /bindReportConversionActions\(myPage\)/, 'my page membership bu
 assert.match(js, /function homeDataValueRows\(\)/, 'home page must build productized data value entry cards');
 assert.match(js, /class="data-value-grid"/, 'home page must render productized data value cards');
 assert.match(js, /\$\{renderHomePrematchAction\(prematchAction\)\}/, 'home page must surface the next prematch action before generic report cards');
+assert.match(js, /\$\{renderHomeCoachAction\(coachAction\)\}/, 'home page must surface the coach business action before generic report cards');
 assert.match(js, /data-home-prematch="\$\{escapeHtml\(row\.sportCode\)\}"/, 'home prematch card must open the scoped prematch report');
 assert.match(js, /data-home-prematch-follow="\$\{escapeHtml\(row\.sportCode\)\}"/, 'home prematch card must allow adding recommended competitions to reminders');
 assert.match(js, /openPrematchReport\('prematch-pack', event\.currentTarget\.dataset\.homePrematch \|\| ''\)/, 'home prematch action must open a scoped prematch report');
 assert.match(js, /upsertFollowedCompetition\(competition\)/, 'home prematch follow action must persist the recommended competition');
+assert.match(js, /data-home-coach-report="\$\{escapeHtml\(row\.id\)\}"/, 'home coach card must open the scoped coach segmentation report');
+assert.match(js, /data-home-coach-query="\$\{escapeHtml\(row\.query\)\}"/, 'home coach card must launch a recruiting AI analysis');
+assert.match(js, /openCoachSegmentationReport\(event\.currentTarget\.dataset\.homeCoachReport \|\| ''\)/, 'home coach action must open a scoped segmentation report');
+assert.match(js, /submitAiQuery\(event\.currentTarget\.dataset\.homeCoachQuery \|\| ''\)/, 'home coach recruiting action must launch the AI workspace');
 assert.match(js, /data-home-ai-product="\$\{escapeHtml\(row\.query\)\}"/, 'data value cards must carry runnable AI product questions');
 assert.match(js, /homePage\.querySelectorAll\('\[data-home-ai-product\]'\)/, 'home page must bind data value cards');
 assert.match(js, /submitAiQuery\(button\.dataset\.homeAiProduct \|\| ''\)/, 'data value cards must launch the AI answer flow');
@@ -204,6 +211,9 @@ assert.match(css, /\.service-progress-card/, 'service progress card styles must 
 assert.match(css, /\.home-prematch-action/, 'home prematch action section styles must exist');
 assert.match(css, /\.home-prematch-card/, 'home prematch action card styles must exist');
 assert.match(css, /\.home-prematch-actions/, 'home prematch action buttons must be laid out for mobile');
+assert.match(css, /\.home-coach-action/, 'home coach action section styles must exist');
+assert.match(css, /\.home-coach-card/, 'home coach action card styles must exist');
+assert.match(css, /\.home-coach-actions/, 'home coach action buttons must be laid out for mobile');
 assert.match(css, /\.report-history-list/, 'recent report shortcut styles must exist');
 assert.match(css, /\.ai-history-list/, 'recent AI analysis shortcut styles must exist');
 assert.match(css, /\.membership-benefit-grid/, 'my page membership benefit styles must exist');
