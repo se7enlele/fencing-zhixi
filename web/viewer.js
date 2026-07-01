@@ -7200,6 +7200,107 @@ function renderEventPreMatchIntelligence(event) {
   `;
 }
 
+function eventCoachReviewRows(event) {
+  const competitionNo = Number(event.competitionNo) || 0;
+  const qualifyNo = Number(event.poolQualifyNo) || 0;
+  const elimination = Number(event.playedEliminationMatchCount) || 0;
+  const topLeader = (event.eliminationLeaders || [])[0] || null;
+  const breakout = (event.insights?.breakout || [])[0] || null;
+  const fade = (event.insights?.fade || [])[0] || null;
+  const focused = eventTrackedAthletes(event);
+  const rows = [];
+
+  rows.push({
+    title: '比赛结构',
+    detail: competitionNo
+      ? `${competitionNo} 人参赛，${qualifyNo || '-'} 人晋级，${elimination || 0} 场淘汰赛。`
+      : '当前项目规模还在补齐，先以已收录排名和对阵做复盘。',
+  });
+
+  if (topLeader) {
+    rows.push({
+      title: '强手样本',
+      detail: `${topLeader.name} 淘汰赛 ${topLeader.wins || 0}胜${topLeader.losses || 0}负，适合作为关键分和推进节奏的参考。`,
+    });
+  } else if (breakout) {
+    rows.push({
+      title: '上升样本',
+      detail: `${breakout.name} 从小组第 ${breakout.poolRank ?? '-'} 到最终第 ${breakout.finalRank ?? '-'}，适合复盘逆转原因。`,
+    });
+  }
+
+  if (focused.length) {
+    rows.push({
+      title: '关注学员',
+      detail: focused.slice(0, 3).map((athlete) => `${athlete.name} 第${athlete.finalRank ?? '-'}名`).join('；'),
+    });
+  } else if (fade) {
+    rows.push({
+      title: '训练提醒',
+      detail: `${fade.name} 名次波动较大，可重点复盘小组后到淘汰赛的衔接。`,
+    });
+  }
+
+  rows.push({
+    title: '训练安排',
+    detail: elimination
+      ? '下次训练优先复盘淘汰赛关键分、落后局处理和领先局收尾。'
+      : '下次训练优先复盘小组赛开局、连续失分和稳定拿分能力。',
+  });
+
+  return rows.slice(0, 4);
+}
+
+function buildEventCoachReviewText(event) {
+  const rows = eventCoachReviewRows(event);
+  return [
+    `${displayEventName(event)} 教练复盘`,
+    `赛事：${event.sportName || '待确认'}`,
+    `时间地点：${[event.openDate, event.venue].filter(Boolean).join(' · ') || '待确认'}`,
+    ...rows.map((row) => `${row.title}：${row.detail}`),
+    '数据来源：FencingAI 已收录赛事成绩',
+  ].join('\n');
+}
+
+function coachReviewCard(event) {
+  const rows = eventCoachReviewRows(event);
+  if (!rows.length) return '';
+  return `
+    <div class="chart-card coach-review-card">
+      <div class="chart-title">
+        <span>教练复盘</span>
+        <button class="coach-review-copy" type="button" data-event-coach-review>复制复盘</button>
+      </div>
+      <div class="coach-review-list">
+        ${rows.map((row) => `
+          <div>
+            <strong>${escapeHtml(row.title)}</strong>
+            <span>${escapeHtml(row.detail)}</span>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `;
+}
+
+function bindEventCoachReviewActions(event) {
+  analysisCharts.querySelectorAll('[data-event-coach-review]').forEach((button) => {
+    button.addEventListener('click', async () => {
+      const originalLabel = button.textContent;
+      try {
+        await copyTextToClipboard(buildEventCoachReviewText(event));
+        trackAnalyticsAction('share_report', 'event-coach-review');
+        button.textContent = '已复制';
+      } catch {
+        button.textContent = '复制失败';
+      }
+      setTimeout(() => {
+        button.textContent = originalLabel;
+      }, 1400);
+    });
+  });
+}
+
 function pathChart(title, rows) {
   return `
     <div class="chart-card">
@@ -7399,6 +7500,7 @@ function renderAnalysisCharts(event) {
 
   analysisCharts.innerHTML = [
     renderEventPreMatchIntelligence(event),
+    coachReviewCard(event),
     progressChart('比赛压力', structureRows, structureInterpretation(event)),
     (event.championPath || []).length ? pathChart('冠军路径', event.championPath) : '',
     birthRows.length ? barChart('年龄段分布', birthRows, { tone: 'orange' }) : '',
@@ -10029,6 +10131,7 @@ function renderEventOverview(event) {
   renderInsights(event);
   renderFollowedEventFocus(event);
   renderAnalysisCharts(event);
+  bindEventCoachReviewActions(event);
   renderChampionPath(event);
   renderLeaders(event);
   renderOpponents(event);
