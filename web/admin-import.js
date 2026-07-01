@@ -608,6 +608,7 @@ function commercialLeadDetail(row = {}) {
     rawSource,
     source: commercialSourceLabel(rawSource),
     report: detail['触发报告'] || row.athlete?.name || '',
+    contact: detail['联系方式'] || '',
     athletes: detail['关注选手'] || '0',
     competitions: detail['关注赛事'] || '0',
     reports: detail['最近报告'] || '0',
@@ -798,6 +799,7 @@ function renderPilotLeadSummary(rows = []) {
               <em class="lead-priority ${escapeHtml(priority.level)}">${escapeHtml(priority.label)}</em>
               <span>${escapeHtml(row.createdAt ? new Date(row.createdAt).toLocaleString('zh-CN') : '-')}</span>
               <p>${escapeHtml(detail.report || '未标记报告')} · ${escapeHtml(detail.source || '来源待确认')}</p>
+              ${detail.contact ? `<p class="lead-contact">联系方式：${escapeHtml(detail.contact)}</p>` : ''}
               <p>选手 ${escapeHtml(detail.athletes)} · 赛事 ${escapeHtml(detail.competitions)} · 报告 ${escapeHtml(detail.reports)} · AI ${escapeHtml(detail.ai)}</p>
               <p class="lead-next-step">下一步：${escapeHtml(nextStep)}</p>
               <p class="lead-followup-script">跟进话术：${escapeHtml(commercialLeadFollowupScript(row))}</p>
@@ -813,7 +815,7 @@ function renderPilotLeadSummary(rows = []) {
 }
 
 function commercialLeadCsv(rows = []) {
-  const headers = ['类型', '优先级', '产品形态', '角色', '来源页面', '触发报告', '关注选手', '关注赛事', '最近报告', '最近AI分析', '建议下一步', '跟进话术', '状态', '时间'];
+  const headers = ['类型', '优先级', '产品形态', '角色', '联系方式', '来源页面', '触发报告', '关注选手', '关注赛事', '最近报告', '最近AI分析', '建议下一步', '跟进话术', '状态', '时间'];
   const escapeCsv = (value) => `"${String(value ?? '').replace(/"/g, '""')}"`;
   const lines = rows.map((row) => {
     const detail = commercialLeadDetail(row);
@@ -823,6 +825,7 @@ function commercialLeadCsv(rows = []) {
       priority.label,
       commercialLeadReportLabel(row),
       detail.role,
+      detail.contact,
       detail.source,
       detail.report,
       detail.athletes,

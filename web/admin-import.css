@@ -823,6 +823,15 @@ button:disabled {
   padding: 6px 8px;
 }
 
+.pilot-lead-list .lead-contact {
+  width: fit-content;
+  border-radius: 999px;
+  background: rgba(21, 95, 194, 0.08);
+  color: var(--primary);
+  font-weight: 900;
+  padding: 4px 8px;
+}
+
 .pilot-lead-list .lead-followup-script {
   border-radius: 8px;
   background: rgba(21, 95, 194, 0.06);

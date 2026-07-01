@@ -67,6 +67,7 @@ const DEVICE_KEY = 'fencingai.deviceId.v1';
 const ROLE_KEY = 'fencingai.role.v1';
 const CHILD_KEY = 'fencingai.parentChildId.v1';
 const ANALYTICS_SESSION_KEY = 'fencingai.analyticsSession.v1';
+const COMMERCIAL_CONTACT_KEY = 'fencingai.commercialContact.v1';
 const COMPETITION_LIST_PAGE_SIZE = 30;
 
 const views = {
@@ -2442,11 +2443,30 @@ function commercialInterestMessage(context = {}) {
     `当前角色：${state.userRole || '未选择'}`,
     context.source ? `来源页面：${context.source}` : '',
     context.report ? `触发报告：${context.report}` : '',
+    context.contact ? `联系方式：${context.contact}` : '',
     `关注选手：${state.followedAthletes.length}`,
     `关注赛事：${state.followedCompetitions.length}`,
     `最近报告：${state.reportHistory.length}`,
     `最近 AI 分析：${state.aiHistory.length}`,
   ].filter(Boolean);
+}
+
+function storedCommercialContact() {
+  return localStorage.getItem(COMMERCIAL_CONTACT_KEY) || '';
+}
+
+function saveCommercialContact(contact) {
+  const cleaned = String(contact || '').trim();
+  if (cleaned) localStorage.setItem(COMMERCIAL_CONTACT_KEY, cleaned);
+  return cleaned;
+}
+
+function requestCommercialContact(context = {}) {
+  const existing = storedCommercialContact();
+  const label = context.report || '试用';
+  const input = window.prompt(`留下微信或手机号，方便发送${label}说明（可跳过）`, existing);
+  if (input === null) return existing;
+  return saveCommercialContact(input);
 }
 
 function reportConversionCard({ source, title, detail, primaryLabel = '申请试用', secondaryLabel = '了解会员权益' }) {
@@ -2486,6 +2506,8 @@ async function submitPilotInterest(button, context = {}) {
   const originalLabel = button.textContent;
   button.disabled = true;
   button.textContent = '提交中';
+  const contact = requestCommercialContact(context);
+  const enrichedContext = { ...context, contact };
   try {
     const response = await fetch('/api/feedback', {
       method: 'POST',
@@ -2494,16 +2516,16 @@ async function submitPilotInterest(button, context = {}) {
         deviceId: state.deviceId,
         type: 'pilot-interest',
         subject: {
-          id: `pilot-${context.source || state.userRole || 'visitor'}`,
-          name: context.report || '产品试用意向',
+          id: `pilot-${enrichedContext.source || state.userRole || 'visitor'}`,
+          name: enrichedContext.report || '产品试用意向',
           type: state.userRole || 'visitor',
         },
-        message: commercialInterestMessage(context).join('；'),
+        message: commercialInterestMessage(enrichedContext).join('；'),
       }),
     });
     const result = await response.json();
     if (!response.ok || !result.ok) throw new Error(result.message || '提交失败');
-    trackAnalyticsAction('pilot_interest', context.source || state.userRole || 'visitor');
+    trackAnalyticsAction('pilot_interest', enrichedContext.source || state.userRole || 'visitor');
     button.textContent = '已收到';
   } catch {
     button.textContent = '稍后再试';
@@ -2519,6 +2541,8 @@ async function submitMembershipInterest(button, context = {}) {
   const originalLabel = button.textContent;
   button.disabled = true;
   button.textContent = '提交中';
+  const contact = requestCommercialContact(context);
+  const enrichedContext = { ...context, contact };
   try {
     const response = await fetch('/api/feedback', {
       method: 'POST',
@@ -2527,19 +2551,19 @@ async function submitMembershipInterest(button, context = {}) {
         deviceId: state.deviceId,
         type: 'membership-interest',
         subject: {
-          id: `membership-${context.source || state.userRole || 'visitor'}`,
-          name: context.report || '会员意向',
+          id: `membership-${enrichedContext.source || state.userRole || 'visitor'}`,
+          name: enrichedContext.report || '会员意向',
           type: state.userRole || 'visitor',
         },
         message: [
-          ...commercialInterestMessage(context),
+          ...commercialInterestMessage(enrichedContext),
           '意向权益：成长报告、重点对手、俱乐部分析和无广告体验',
         ].join('；'),
       }),
     });
     const result = await response.json();
     if (!response.ok || !result.ok) throw new Error(result.message || '提交失败');
-    trackAnalyticsAction('membership_interest', context.source || state.userRole || 'visitor');
+    trackAnalyticsAction('membership_interest', enrichedContext.source || state.userRole || 'visitor');
     button.textContent = '已收到';
   } catch {
     button.textContent = '稍后再试';
