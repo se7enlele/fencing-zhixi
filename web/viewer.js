@@ -4686,6 +4686,55 @@ function renderPersonalPages() {
   renderMyPage();
 }
 
+function myWorkspaceNextActions({ children = [], followedCompetitions = [], reportHistory = [], aiHistory = [] } = {}) {
+  const firstChild = children[0] || null;
+  const firstCompetition = followedCompetitions[0] || null;
+  const rows = [];
+  if (firstChild) {
+    rows.push({
+      action: 'growth',
+      title: `${firstChild.name} 成长报告`,
+      detail: '把近期成绩、阶段变化和下一步训练重点整理成可复看的报告。',
+      cta: '生成报告',
+      athleteId: firstChild.id,
+    });
+  } else {
+    rows.push({
+      action: 'ask',
+      title: '先关注一个孩子',
+      detail: '搜索选手并关注后，成长报告、赛前提醒和长期复盘会自动围绕他展开。',
+      cta: '去搜索',
+      query: '如何为孩子建立击剑成长报告',
+    });
+  }
+  if (firstCompetition) {
+    rows.push({
+      action: 'prematch',
+      title: '赛前提醒',
+      detail: `${firstCompetition.sportName || '关注赛事'} 可继续生成赛前情报和重点对手提示。`,
+      cta: '查看赛前',
+      sportCode: firstCompetition.sportCode,
+    });
+  }
+  if (reportHistory.length || aiHistory.length) {
+    rows.push({
+      action: 'pilot',
+      title: '保存长期分析',
+      detail: '报告和问答已经开始沉淀，适合申请试用，把成长、赛前和教练分析持续保存。',
+      cta: '申请试用',
+    });
+  } else {
+    rows.push({
+      action: 'ask',
+      title: '问一个真实问题',
+      detail: '可以直接问孩子进步、对手对比、天津赛事数量或俱乐部优势项目。',
+      cta: '开始提问',
+      query: '这些击剑数据能产生什么商业价值',
+    });
+  }
+  return rows.slice(0, 3);
+}
+
 function renderMyPage() {
   if (!myPage) return;
   const children = focusAthleteCards();
@@ -4694,6 +4743,7 @@ function renderMyPage() {
   const reportHistory = reportHistoryRows();
   const aiHistory = aiHistoryRows();
   const followedAthletes = children.slice(0, 6);
+  const nextActions = myWorkspaceNextActions({ children, followedCompetitions, reportHistory, aiHistory });
   const generatedLabel = formatDataGeneratedAt(state.dataGeneratedAt);
   const stats = [
     { value: children.length, label: '关注选手' },
@@ -4720,6 +4770,22 @@ function renderMyPage() {
           <span>${escapeHtml(item.label)}</span>
         </div>
       `).join('')}
+    </section>
+
+    <section class="panel my-section my-next-section">
+      <div class="section-title">
+        <h2>下一步</h2>
+        <span>继续推进</span>
+      </div>
+      <div class="my-next-grid">
+        ${nextActions.map((row) => `
+          <button type="button" class="my-next-card" data-my-next-action="${escapeHtml(row.action)}" ${row.athleteId ? `data-athlete-id="${escapeHtml(row.athleteId)}"` : ''} ${row.sportCode ? `data-sport-code="${escapeHtml(row.sportCode)}"` : ''} ${row.query ? `data-ai-query="${escapeHtml(row.query)}"` : ''}>
+            <strong>${escapeHtml(row.title)}</strong>
+            <span>${escapeHtml(row.detail)}</span>
+            <em>${escapeHtml(row.cta)}</em>
+          </button>
+        `).join('')}
+      </div>
     </section>
 
     ${renderMembershipBenefits()}
@@ -4846,6 +4912,18 @@ function renderMyPage() {
   });
   myPage.querySelectorAll('[data-ai-history-query]').forEach((button) => {
     button.addEventListener('click', () => submitAiQuery(button.dataset.aiHistoryQuery || ''));
+  });
+  myPage.querySelectorAll('[data-my-next-action]').forEach((button) => {
+    button.addEventListener('click', (event) => {
+      const action = button.dataset.myNextAction || '';
+      if (action === 'growth') openParentGrowthReport(button.dataset.athleteId || '');
+      if (action === 'prematch') openPrematchReport('prematch-pack', button.dataset.sportCode || '');
+      if (action === 'ask') submitAiQuery(button.dataset.aiQuery || '');
+      if (action === 'pilot') submitPilotInterest(event.currentTarget, {
+        source: 'my-next-action',
+        report: '长期分析试用',
+      });
+    });
   });
   myPage.querySelectorAll('.my-list-row').forEach((button) => {
     button.addEventListener('click', () => {

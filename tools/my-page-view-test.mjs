@@ -139,6 +139,13 @@ assert.match(js, /data-focus-follow/, 'follow recommendations must expose a dire
 assert.match(js, /openPrematchReport\('prematch-pack', button\.dataset\.focusPrematch \|\| ''\)/, 'follow prematch action must open the scoped prematch report');
 assert.match(js, /upsertFollowedCompetition\(competition\)/, 'follow recommendation action must persist the recommended competition');
 assert.match(js, /function renderMyPage\(\)/, 'my page renderer must exist');
+assert.match(js, /function myWorkspaceNextActions\(\{ children = \[\], followedCompetitions = \[\], reportHistory = \[\], aiHistory = \[\] \} = \{\}\)/, 'my page must derive commercial next actions from saved user state');
+assert.match(js, /const nextActions = myWorkspaceNextActions\(\{ children, followedCompetitions, reportHistory, aiHistory \}\);/, 'my page must render next actions from current state');
+assert.match(js, /class="panel my-section my-next-section"/, 'my page must expose a next-action workspace section');
+assert.match(js, /data-my-next-action="\$\{escapeHtml\(row\.action\)\}"/, 'my page next actions must carry runnable action types');
+assert.match(js, /if \(action === 'growth'\) openParentGrowthReport\(button\.dataset\.athleteId \|\| ''\);/, 'my page next actions must open growth reports');
+assert.match(js, /if \(action === 'prematch'\) openPrematchReport\('prematch-pack', button\.dataset\.sportCode \|\| ''\);/, 'my page next actions must open scoped prematch reports');
+assert.match(js, /source: 'my-next-action'/, 'my page next actions must submit traceable trial intent');
 assert.match(js, /<h2>我的报告<\/h2>/, 'my page must expose generated reports for reuse');
 assert.match(js, /const reportHistory = reportHistoryRows\(\);/, 'my page must reuse persisted report history');
 assert.match(js, /const aiHistory = aiHistoryRows\(\);/, 'my page must reuse persisted AI analysis history');
@@ -166,6 +173,8 @@ assert.match(css, /\.report-history-list/, 'recent report shortcut styles must e
 assert.match(css, /\.ai-history-list/, 'recent AI analysis shortcut styles must exist');
 assert.match(css, /\.membership-benefit-grid/, 'my page membership benefit styles must exist');
 assert.match(css, /\.membership-benefit-actions/, 'my page membership benefit actions must be compact and tappable');
+assert.match(css, /\.my-next-section/, 'my page next action section styles must exist');
+assert.match(css, /\.my-next-card/, 'my page next action cards must be styled');
 assert.match(css, /\.report-share-followup/, 'report share follow-up hint styles must exist');
 assert.match(css, /\.ai-evidence/, 'AI workspace must style source evidence cards');
 assert.match(css, /\.parent-next-focus/, 'parent next focus styles must exist');

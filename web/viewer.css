@@ -1974,6 +1974,66 @@ select:focus {
   margin-bottom: 0;
 }
 
+.my-next-section {
+  border-color: rgba(8, 119, 96, 0.14);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(247, 252, 251, 0.94));
+}
+
+.my-next-grid {
+  display: grid;
+  gap: 8px;
+}
+
+.my-next-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 4px 12px;
+  align-items: center;
+  min-width: 0;
+  border: 1px solid rgba(8, 119, 96, 0.12);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.82);
+  color: var(--text);
+  font: inherit;
+  text-align: left;
+  padding: 11px 12px;
+  box-shadow: 0 8px 20px rgba(15, 37, 64, 0.045);
+}
+
+.my-next-card strong,
+.my-next-card span,
+.my-next-card em {
+  min-width: 0;
+}
+
+.my-next-card strong {
+  grid-column: 1;
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.my-next-card span {
+  grid-column: 1;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.42;
+}
+
+.my-next-card em {
+  grid-row: 1 / span 2;
+  grid-column: 2;
+  align-self: center;
+  border-radius: 999px;
+  background: rgba(21, 95, 194, 0.1);
+  color: var(--primary);
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 900;
+  padding: 6px 9px;
+  white-space: nowrap;
+}
+
 .data-value-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
