@@ -471,6 +471,40 @@ button:disabled {
   background: rgba(180, 35, 24, 0.08);
 }
 
+.data-health-failures {
+  display: grid;
+  gap: 8px;
+}
+
+.data-health-failures div {
+  display: grid;
+  gap: 3px;
+  border: 1px solid rgba(180, 35, 24, 0.14);
+  border-radius: 9px;
+  background: rgba(255, 255, 255, 0.88);
+  padding: 9px 10px;
+}
+
+.data-health-failures strong,
+.data-health-failures span,
+.data-health-failures em {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.data-health-failures strong {
+  font-size: 13px;
+}
+
+.data-health-failures span,
+.data-health-failures em {
+  color: var(--muted);
+  font-size: 12px;
+  font-style: normal;
+}
+
 .analytics-block-title {
   color: var(--muted);
   font-size: 12px;

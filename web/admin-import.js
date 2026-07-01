@@ -374,6 +374,19 @@ function dataHealthSyncAction(sync) {
   };
 }
 
+function dataHealthFailureRows(sync) {
+  const failures = Array.isArray(sync?.failures) ? sync.failures : [];
+  return failures.slice(0, 5).map((failure) => {
+    const name = failure.sportName || failure.eventCode || failure.sportCode || failure.sportId || '同步任务';
+    const meta = [failure.type, failure.eventCode || failure.sportCode || failure.sportId].filter(Boolean).join(' · ');
+    return {
+      name,
+      meta: meta || '任务信息待确认',
+      message: failure.message || '未返回失败原因',
+    };
+  });
+}
+
 function renderDataHealth(result = {}) {
   if (!dataHealthStatus || !dataHealthSummary || !dataHealthGaps) return;
   const competitions = result.competitions || [];
@@ -397,6 +410,7 @@ function renderDataHealth(result = {}) {
     ? `最近同步：${formatDateTime(sync.generatedAt)}，成功 ${formatInteger(sync.summary?.successCount || 0)} / ${formatInteger(sync.summary?.taskCount || 0)}`
     : '尚未读取到同步状态。';
   const syncAction = dataHealthSyncAction(sync);
+  const failureRows = dataHealthFailureRows(sync);
   const gaps = dataHealthGapRows(competitions);
   dataHealthGaps.innerHTML = `
     <div class="data-health-note">
@@ -407,6 +421,18 @@ function renderDataHealth(result = {}) {
       <strong>${escapeHtml(syncAction.title)}</strong>
       <span>${escapeHtml(syncAction.detail)}</span>
     </div>
+    ${failureRows.length ? `
+      <div class="analytics-block-title">同步失败任务</div>
+      <div class="data-health-failures">
+        ${failureRows.map((failure) => `
+          <div>
+            <strong>${escapeHtml(failure.name)}</strong>
+            <span>${escapeHtml(failure.meta)}</span>
+            <em>${escapeHtml(failure.message)}</em>
+          </div>
+        `).join('')}
+      </div>
+    ` : ''}
     <div class="analytics-block-title">优先补齐</div>
     ${gaps.length ? gaps.map((competition) => `
       <div class="analytics-rank-row">
