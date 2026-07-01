@@ -127,6 +127,7 @@ function analyticsActionDetailLabel(key) {
     coach: '学员分层',
     'club-recruiting': '招生展示',
     'parent-growth': '成长报告',
+    'parent-growth-page': '成长页分享',
     'coach-segmentation': '学员分层',
     'prematch-single': '单场赛前',
     'prematch-pack': '赛前情报包',
