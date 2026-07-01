@@ -1873,6 +1873,11 @@ select:focus {
   color: #fff;
 }
 
+.ai-conversion-actions button[data-report-export] {
+  grid-column: 1 / -1;
+  background: rgba(13, 125, 103, 0.08);
+}
+
 .ai-share-row {
   display: flex;
   justify-content: flex-end;
@@ -4257,6 +4262,11 @@ select:focus {
   border-color: transparent;
   background: var(--primary);
   color: #fff;
+}
+
+.report-conversion-actions button[data-report-export] {
+  grid-column: 1 / -1;
+  background: rgba(21, 95, 194, 0.08);
 }
 
 .report-conversion-actions button:disabled {
@@ -7521,5 +7531,45 @@ button.primary-action {
     transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
+  }
+}
+
+@media print {
+  html,
+  body {
+    overflow: visible !important;
+    background: #fff !important;
+  }
+
+  .app {
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+  }
+
+  .topbar,
+  .bottom-nav,
+  .nav-back,
+  .report-share-action,
+  .report-conversion-card,
+  .ai-share-row,
+  .ai-conversion-actions,
+  .filter-sheet {
+    display: none !important;
+  }
+
+  .view:not(.active) {
+    display: none !important;
+  }
+
+  .panel,
+  .ai-answer-card,
+  .parent-growth-report-card,
+  .coach-segmentation-card,
+  .prematch-report-card {
+    break-inside: avoid;
+    box-shadow: none !important;
   }
 }

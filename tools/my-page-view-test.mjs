@@ -112,6 +112,10 @@ assert.match(js, /function homeCoachActionRow\(\)/, 'home page must derive a coa
 assert.match(js, /function renderHomeCoachAction\(row = homeCoachActionRow\(\)\)/, 'home page must render a dedicated coach business action card');
 assert.match(js, /function reportConversionCard\(\{ source, title, detail/, 'reports must expose reusable conversion cards');
 assert.match(js, /function bindReportConversionActions\(container\)/, 'report conversion cards must bind their feedback actions');
+assert.match(js, /function printCurrentReport\(source = 'report'\)/, 'reports must expose a browser PDF export action');
+assert.match(js, /trackAnalyticsAction\('export_report', source\)/, 'report export actions must be analytics-traceable');
+assert.match(js, /data-report-export="\$\{escapeHtml\(source\)\}"/, 'report conversion cards must expose a report export action');
+assert.match(js, /button\.dataset\.reportExport \|\| 'report'/, 'report export buttons must pass a stable source label');
 assert.match(js, /function membershipBenefitRows\(\)/, 'my page must define membership benefit rows');
 assert.match(js, /function renderMembershipBenefits\(\)/, 'my page must render a membership benefit panel');
 assert.match(js, /data-commercial-source="my-membership"/, 'my page membership panel must submit a traceable commercial source');
@@ -128,6 +132,9 @@ assert.match(js, /data-home-prematch-follow="\$\{escapeHtml\(row\.sportCode\)\}"
 assert.match(js, /openPrematchReport\('prematch-pack', event\.currentTarget\.dataset\.homePrematch \|\| ''\)/, 'home prematch action must open a scoped prematch report');
 assert.match(js, /upsertFollowedCompetition\(competition\)/, 'home prematch follow action must persist the recommended competition');
 assert.match(js, /data-home-coach-report="\$\{escapeHtml\(row\.id\)\}"/, 'home coach card must open the scoped coach segmentation report');
+assert.match(js, /data-report-export="\$\{escapeHtml\(action\.source\)\}">保存 PDF/, 'AI conversion blocks must support report export');
+assert.match(css, /@media print/, 'report export must include print-friendly styles');
+assert.match(css, /\.report-conversion-actions button\[data-report-export\]/, 'report export buttons must have explicit mobile styling');
 assert.match(js, /data-home-coach-query="\$\{escapeHtml\(row\.query\)\}"/, 'home coach card must launch a recruiting AI analysis');
 assert.match(js, /openCoachSegmentationReport\(event\.currentTarget\.dataset\.homeCoachReport \|\| ''\)/, 'home coach action must open a scoped segmentation report');
 assert.match(js, /submitAiQuery\(event\.currentTarget\.dataset\.homeCoachQuery \|\| ''\)/, 'home coach recruiting action must launch the AI workspace');

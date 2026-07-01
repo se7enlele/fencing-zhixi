@@ -51,6 +51,7 @@ assert.match(js, /bindCopyTextButton\(coachSegmentationReportHero\.querySelector
 assert.match(js, /已复制，可继续申请教练试用。/, 'segmentation report copy action must guide users toward coach trial');
 assert.match(js, /source: 'coach-segmentation-report'/, 'coach segmentation report must expose a report-scoped commercial source');
 assert.match(js, /申请教练试用/, 'coach segmentation report must include a coach trial conversion action');
+assert.match(js, /exportLabel = '保存 PDF'/, 'coach segmentation report must inherit the reusable PDF export action');
 assert.match(js, /bindReportConversionActions\(coachSegmentationReportBody\)/, 'coach segmentation conversion actions must be wired');
 assert.match(js, /coachSegmentationReportBody\.querySelectorAll\('\[data-athlete-id\]'\)/, 'segmentation report athletes must be clickable');
 assert.match(js, /coachSegmentationReportBody\.querySelectorAll\('\[data-event-code\]'\)/, 'segmentation report evidence must be clickable');

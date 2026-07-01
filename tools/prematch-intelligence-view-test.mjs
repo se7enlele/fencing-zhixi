@@ -85,6 +85,7 @@ assert.match(js, /bindCopyTextButton\(prematchReportHero\.querySelector\('\[data
 assert.match(js, /已复制，可继续申请赛前试用。/, 'prematch report copy action must guide users toward prematch trial');
 assert.match(js, /source: isSingleCompetition \? 'prematch-single-report' : 'prematch-pack-report'/, 'prematch report must expose a report-scoped commercial source');
 assert.match(js, /申请赛前试用/, 'prematch report must include a prematch trial conversion action');
+assert.match(js, /exportLabel = '保存 PDF'/, 'prematch report must inherit the reusable PDF export action');
 assert.match(js, /bindReportConversionActions\(prematchReportBody\)/, 'prematch conversion actions must be wired');
 assert.match(js, /执行清单/, 'prematch report must include an action checklist');
 assert.match(js, /const checklistRows = prematchChecklistRows\(\{ competitions, focusRows, opponentRows, rosterReady, isSingleCompetition \}\)/, 'prematch report must render checklist from the current report state');

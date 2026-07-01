@@ -50,6 +50,7 @@ assert.match(js, /bindCopyTextButton\(parentGrowthReportHero\.querySelector\('\[
 assert.match(js, /已复制，可继续申请家庭试用。/, 'growth report copy action must guide users toward family trial');
 assert.match(js, /source: 'parent-growth-report'/, 'growth report must expose a report-scoped commercial source');
 assert.match(js, /申请家庭试用/, 'growth report must include a family trial conversion action');
+assert.match(js, /exportLabel = '保存 PDF'/, 'growth report must inherit the reusable PDF export action');
 assert.match(js, /bindReportConversionActions\(parentGrowthReportBody\)/, 'growth report conversion actions must be wired');
 assert.match(js, /data-event-code="\$\{escapeHtml\(row\.eventCode/, 'growth report evidence and timeline must link to event detail');
 assert.match(js, /查看完整选手画像/, 'growth report must allow drilling into the full athlete profile');

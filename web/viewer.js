@@ -2999,7 +2999,7 @@ function renderHomeCoachAction(row = homeCoachActionRow()) {
   `;
 }
 
-function reportConversionCard({ source, title, detail, primaryLabel = '申请试用', secondaryLabel = '了解会员权益' }) {
+function reportConversionCard({ source, title, detail, primaryLabel = '申请试用', secondaryLabel = '了解会员权益', exportLabel = '保存 PDF' }) {
   return `
     <article class="panel report-conversion-card">
       <div>
@@ -3009,9 +3009,15 @@ function reportConversionCard({ source, title, detail, primaryLabel = '申请试
       <div class="report-conversion-actions">
         <button type="button" data-commercial-intent="pilot" data-commercial-source="${escapeHtml(source)}" data-report-title="${escapeHtml(title)}">${escapeHtml(primaryLabel)}</button>
         <button type="button" data-commercial-intent="membership" data-commercial-source="${escapeHtml(source)}" data-report-title="${escapeHtml(title)}">${escapeHtml(secondaryLabel)}</button>
+        <button type="button" data-report-export="${escapeHtml(source)}">${escapeHtml(exportLabel)}</button>
       </div>
     </article>
   `;
+}
+
+function printCurrentReport(source = 'report') {
+  trackAnalyticsAction('export_report', source);
+  window.print();
 }
 
 function bindReportConversionActions(container) {
@@ -3028,6 +3034,9 @@ function bindReportConversionActions(container) {
         submitPilotInterest(button, context);
       }
     });
+  });
+  container.querySelectorAll('[data-report-export]').forEach((button) => {
+    button.addEventListener('click', () => printCurrentReport(button.dataset.reportExport || 'report'));
   });
 }
 
@@ -5088,6 +5097,7 @@ function renderAiConversionBlock(report = {}) {
       <div class="ai-conversion-actions">
         <button type="button" data-commercial-intent="pilot" data-commercial-source="${escapeHtml(action.source)}" data-report-title="${escapeHtml(action.title)}">${escapeHtml(action.primaryLabel)}</button>
         <button type="button" data-commercial-intent="membership" data-commercial-source="${escapeHtml(action.source)}" data-report-title="${escapeHtml(action.title)}">${escapeHtml(action.secondaryLabel)}</button>
+        <button type="button" data-report-export="${escapeHtml(action.source)}">保存 PDF</button>
       </div>
     </div>
   `;
