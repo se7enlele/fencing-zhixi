@@ -22,6 +22,9 @@ assert.match(js, /function dataHealthCounts\(competitions = \[\]\)/, 'admin impo
 assert.match(js, /function renderDataHealth\(result = \{\}\)/, 'admin import must render data health');
 assert.match(js, /function loadDataHealth\(\)/, 'admin import must load data health from public events');
 assert.match(js, /function dataHealthLevelLabel\(level\)/, 'admin data health must label coverage levels');
+assert.match(js, /function dataHealthSyncAction\(sync\)/, 'admin data health must recommend sync follow-up actions');
+assert.match(js, /同步失败 \$\{formatInteger\(failures\.length \|\| summary\.failedCount\)\} 项/, 'admin data health must surface failed sync tasks');
+assert.match(js, /class="data-health-action \$\{escapeHtml\(syncAction\.level\)\}"/, 'admin data health must render sync action status');
 assert.match(js, /fetch\('\/api\/events'\)/, 'admin data health must use the public events payload');
 assert.match(js, /loadDataHealth\(\)/, 'admin import must load data health on startup');
 assert.match(js, /PV/, 'admin analytics must expose page views');
@@ -128,6 +131,8 @@ assert.match(css, /\.analytics-report-types/, 'admin analytics report type secti
 assert.match(css, /\.analytics-report-row/, 'admin analytics report type row styles must exist');
 assert.match(css, /\.data-health-summary/, 'admin data health summary styles must exist');
 assert.match(css, /\.data-health-note/, 'admin data health note styles must exist');
+assert.match(css, /\.data-health-action/, 'admin data health action styles must exist');
+assert.match(css, /\.data-health-action\.danger/, 'admin data health failed sync styles must exist');
 assert.match(css, /\.analytics-card/, 'admin analytics metric cards must exist');
 assert.match(css, /\.analytics-day-row/, 'admin analytics daily trend styles must exist');
 assert.match(css, /\.analytics-rank-row/, 'admin analytics ranking styles must exist');
@@ -141,7 +146,7 @@ assert.match(html, /id="analyticsTrend"/, 'admin import page must expose analyti
 assert.match(html, /id="analyticsPages"/, 'admin import page must expose analytics page rankings');
 assert.match(html, /id="dataHealthSummary"/, 'admin import page must expose data health summary');
 assert.match(html, /id="dataHealthGaps"/, 'admin import page must expose data health gaps');
-assert.match(html, /admin-import\.js\?v=fencingai-product-20260701-lead-card-segment-1/, 'admin import JS cache key must be bumped');
-assert.match(html, /admin-import\.css\?v=fencingai-product-20260701-lead-card-segment-1/, 'admin import CSS cache key must be bumped');
+assert.match(html, /admin-import\.js\?v=fencingai-product-20260701-sync-action-1/, 'admin import JS cache key must be bumped');
+assert.match(html, /admin-import\.css\?v=fencingai-product-20260701-sync-action-1/, 'admin import CSS cache key must be bumped');
 
 console.log('admin import page feedback is covered');

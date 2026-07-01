@@ -354,6 +354,26 @@ function dataHealthLevelLabel(level) {
   })[level] || level || '赛事目录';
 }
 
+function dataHealthSyncAction(sync) {
+  const failures = sync?.failures || [];
+  const summary = sync?.summary || {};
+  if (!sync?.generatedAt) return {
+    title: '同步状态待确认',
+    detail: '尚未读取到最近同步结果，先确认 GitHub Actions 或定时任务是否已运行。',
+    level: 'warning',
+  };
+  if (failures.length || Number(summary.failedCount || 0) > 0) return {
+    title: `同步失败 ${formatInteger(failures.length || summary.failedCount)} 项`,
+    detail: '优先查看失败任务，确认接口、分页或数据格式是否变化，再重新触发同步。',
+    level: 'danger',
+  };
+  return {
+    title: `同步正常，成功 ${formatInteger(summary.successCount || 0)} / ${formatInteger(summary.taskCount || 0)}`,
+    detail: '继续关注近期赛事报名名单和历史成绩回补，保持赛前情报与成长报告可用。',
+    level: 'ok',
+  };
+}
+
 function renderDataHealth(result = {}) {
   if (!dataHealthStatus || !dataHealthSummary || !dataHealthGaps) return;
   const competitions = result.competitions || [];
@@ -376,11 +396,16 @@ function renderDataHealth(result = {}) {
   const syncText = sync?.generatedAt
     ? `最近同步：${formatDateTime(sync.generatedAt)}，成功 ${formatInteger(sync.summary?.successCount || 0)} / ${formatInteger(sync.summary?.taskCount || 0)}`
     : '尚未读取到同步状态。';
+  const syncAction = dataHealthSyncAction(sync);
   const gaps = dataHealthGapRows(competitions);
   dataHealthGaps.innerHTML = `
     <div class="data-health-note">
       <strong>成绩覆盖率 ${escapeHtml(coveragePercent)}%</strong>
       <span>${escapeHtml(syncText)}</span>
+    </div>
+    <div class="data-health-action ${escapeHtml(syncAction.level)}">
+      <strong>${escapeHtml(syncAction.title)}</strong>
+      <span>${escapeHtml(syncAction.detail)}</span>
     </div>
     <div class="analytics-block-title">优先补齐</div>
     ${gaps.length ? gaps.map((competition) => `

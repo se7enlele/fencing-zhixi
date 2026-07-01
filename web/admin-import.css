@@ -431,6 +431,46 @@ button:disabled {
   line-height: 1.45;
 }
 
+.data-health-action {
+  display: grid;
+  gap: 4px;
+  border: 1px solid rgba(21, 95, 194, 0.14);
+  border-radius: 9px;
+  background: rgba(21, 95, 194, 0.06);
+  padding: 10px;
+}
+
+.data-health-action strong,
+.data-health-action span {
+  display: block;
+}
+
+.data-health-action strong {
+  color: var(--text);
+  font-size: 14px;
+}
+
+.data-health-action span {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.data-health-action.ok {
+  border-color: rgba(8, 119, 96, 0.16);
+  background: rgba(8, 119, 96, 0.07);
+}
+
+.data-health-action.warning {
+  border-color: rgba(152, 97, 8, 0.18);
+  background: rgba(152, 97, 8, 0.08);
+}
+
+.data-health-action.danger {
+  border-color: rgba(180, 35, 24, 0.18);
+  background: rgba(180, 35, 24, 0.08);
+}
+
 .analytics-block-title {
   color: var(--muted);
   font-size: 12px;
