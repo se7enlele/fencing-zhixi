@@ -2598,7 +2598,7 @@ function commercialInterestContextRows(context = {}) {
     children.length ? `关注选手明细：${children.map((athlete) => [athlete.name, athlete.club].filter(Boolean).join('/')).join('、')}` : '',
     competitions.length ? `关注赛事明细：${competitions.map((competition) => competition.sportName || competition.title).filter(Boolean).join('、')}` : '',
     club?.club ? `当前俱乐部：${club.club}` : '',
-    reports.length ? `最近报告：${reports.map((row) => row.title || row.typeLabel).filter(Boolean).join('、')}` : '',
+    reports.length ? `最近报告明细：${reports.map((row) => row.title || row.typeLabel).filter(Boolean).join('、')}` : '',
     aiRows.length ? `最近AI问题：${aiRows.map((row) => row.query || row.title).filter(Boolean).join('、')}` : '',
     context.sportCode ? `关联赛事ID：${context.sportCode}` : '',
     context.athleteId ? `关联选手ID：${context.athleteId}` : '',

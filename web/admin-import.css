@@ -832,6 +832,40 @@ button:disabled {
   padding: 4px 8px;
 }
 
+.lead-context-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.lead-context-grid div {
+  min-width: 0;
+  border: 1px solid rgba(21, 95, 194, 0.1);
+  border-radius: 8px;
+  background: rgba(21, 95, 194, 0.04);
+  padding: 7px 8px;
+}
+
+.lead-context-grid span,
+.lead-context-grid strong {
+  display: block;
+  min-width: 0;
+}
+
+.lead-context-grid span {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.lead-context-grid strong {
+  margin-top: 3px;
+  color: var(--text);
+  font-size: 12px;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
 .pilot-lead-list .lead-followup-script {
   border-radius: 8px;
   background: rgba(21, 95, 194, 0.06);

@@ -594,10 +594,17 @@ function feedbackStatusActions(row) {
 }
 
 function parsePilotLeadMessage(message = '') {
-  return Object.fromEntries(String(message).split('；').map((part) => {
+  return parsePilotLeadEntries(message).reduce((map, [label, value]) => {
+    if (!(label in map)) map[label] = value;
+    return map;
+  }, {});
+}
+
+function parsePilotLeadEntries(message = '') {
+  return String(message).split(/[；;\n]/).map((part) => {
     const [label, ...rest] = part.split('：');
     return [label?.trim(), rest.join('：').trim()];
-  }).filter(([label]) => label));
+  }).filter(([label, value]) => label && value);
 }
 
 function commercialLeadDetail(row = {}) {
@@ -614,6 +621,38 @@ function commercialLeadDetail(row = {}) {
     reports: detail['最近报告'] || '0',
     ai: detail['最近 AI 分析'] || '0',
   };
+}
+
+function commercialLeadContextRows(row = {}) {
+  const entries = parsePilotLeadEntries(row.message);
+  const firstValue = (label) => entries.find(([entryLabel]) => entryLabel === label)?.[1] || '';
+  const lastValue = (label) => [...entries].reverse().find(([entryLabel]) => entryLabel === label)?.[1] || '';
+  const rows = [
+    ['关注选手', firstValue('关注选手明细')],
+    ['关注赛事', firstValue('关注赛事明细')],
+    ['当前俱乐部', firstValue('当前俱乐部')],
+    ['最近报告', firstValue('最近报告明细') || (entries.filter(([label]) => label === '最近报告').length > 1 ? lastValue('最近报告') : '')],
+    ['最近AI问题', firstValue('最近AI问题')],
+    ['关联赛事ID', firstValue('关联赛事ID')],
+    ['关联选手ID', firstValue('关联选手ID')],
+    ['关联俱乐部ID', firstValue('关联俱乐部ID')],
+  ];
+  return rows.filter(([, value]) => value).map(([label, value]) => ({ label, value }));
+}
+
+function renderCommercialLeadContext(row = {}) {
+  const contextRows = commercialLeadContextRows(row);
+  if (!contextRows.length) return '';
+  return `
+    <div class="lead-context-grid">
+      ${contextRows.map((item) => `
+        <div>
+          <span>${escapeHtml(item.label)}</span>
+          <strong>${escapeHtml(item.value)}</strong>
+        </div>
+      `).join('')}
+    </div>
+  `;
 }
 
 function aiFeedbackDetail(row = {}) {
@@ -793,6 +832,7 @@ function renderPilotLeadSummary(rows = []) {
           const detail = commercialLeadDetail(row);
           const priority = commercialLeadPriority(row);
           const nextStep = commercialLeadNextStep(row);
+          const contextHtml = renderCommercialLeadContext(row);
           return `
             <article>
               <strong>${escapeHtml(feedbackTypeLabel(row.type))} · ${escapeHtml(detail.role)}</strong>
@@ -801,6 +841,7 @@ function renderPilotLeadSummary(rows = []) {
               <p>${escapeHtml(detail.report || '未标记报告')} · ${escapeHtml(detail.source || '来源待确认')}</p>
               ${detail.contact ? `<p class="lead-contact">联系方式：${escapeHtml(detail.contact)}</p>` : ''}
               <p>选手 ${escapeHtml(detail.athletes)} · 赛事 ${escapeHtml(detail.competitions)} · 报告 ${escapeHtml(detail.reports)} · AI ${escapeHtml(detail.ai)}</p>
+              ${contextHtml}
               <p class="lead-next-step">下一步：${escapeHtml(nextStep)}</p>
               <p class="lead-followup-script">跟进话术：${escapeHtml(commercialLeadFollowupScript(row))}</p>
             </article>
@@ -815,11 +856,12 @@ function renderPilotLeadSummary(rows = []) {
 }
 
 function commercialLeadCsv(rows = []) {
-  const headers = ['类型', '优先级', '产品形态', '角色', '联系方式', '来源页面', '触发报告', '关注选手', '关注赛事', '最近报告', '最近AI分析', '建议下一步', '跟进话术', '状态', '时间'];
+  const headers = ['类型', '优先级', '产品形态', '角色', '联系方式', '来源页面', '触发报告', '关注选手', '关注赛事', '最近报告', '最近AI分析', '跟进上下文', '建议下一步', '跟进话术', '状态', '时间'];
   const escapeCsv = (value) => `"${String(value ?? '').replace(/"/g, '""')}"`;
   const lines = rows.map((row) => {
     const detail = commercialLeadDetail(row);
     const priority = commercialLeadPriority(row);
+    const contextText = commercialLeadContextRows(row).map((item) => `${item.label}:${item.value}`).join('；');
     return [
       feedbackTypeLabel(row.type),
       priority.label,
@@ -832,6 +874,7 @@ function commercialLeadCsv(rows = []) {
       detail.competitions,
       detail.reports,
       detail.ai,
+      contextText,
       commercialLeadNextStep(row),
       commercialLeadFollowupScript(row),
       feedbackStatusLabel(row.status),
@@ -929,6 +972,7 @@ function renderFeedback(rows = []) {
     const leadDetail = isCommercialLead(row) ? commercialLeadDetail(row) : null;
     const leadPriority = isCommercialLead(row) ? commercialLeadPriority(row) : null;
     const aiDetail = isAiFeedback(row) ? aiFeedbackDetail(row) : null;
+    const leadContextHtml = isCommercialLead(row) ? renderCommercialLeadContext(row) : '';
     return `
     <article class="feedback-card">
       <div class="feedback-card-head">
@@ -942,6 +986,7 @@ function renderFeedback(rows = []) {
           <span class="lead-segment">${escapeHtml(commercialLeadReportLabel(row))}</span>
           <strong>${escapeHtml(leadDetail.report || '未标记报告')}</strong>
           <em>${escapeHtml(leadDetail.source || '来源待确认')}</em>
+          ${leadContextHtml}
           <p>下一步：${escapeHtml(commercialLeadNextStep(row))}</p>
         </div>
       ` : ''}
