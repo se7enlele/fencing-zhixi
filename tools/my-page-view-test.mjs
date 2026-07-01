@@ -195,6 +195,7 @@ assert.match(js, /function myWorkspaceNextActions\(\{ children = \[\], followedC
 assert.match(js, /function serviceReadinessRows\(\{ children = \[\], followedCompetitions = \[\], reportHistory = \[\], aiHistory = \[\] \} = \{\}\)/, 'my page must summarize service readiness from saved user state');
 assert.match(js, /function recommendedTrialRows\(\{ children = \[\], followedCompetitions = \[\], reportHistory = \[\], aiHistory = \[\] \} = \{\}\)/, 'my page must recommend trial plans from current user state');
 assert.match(js, /function trialDeliverableRows\(\)/, 'my page must define concrete trial deliverables');
+assert.match(js, /function myPrematchReminderRows\(followedCompetitions = \[\]\)/, 'my page must derive prematch reminders from follows and recommendations');
 assert.match(js, /title: '赛前情报包'[\s\S]*title: '成长报告'[\s\S]*title: '教练\/俱乐部分析'[\s\S]*title: '报告复用'/, 'service readiness must cover P0 and P1 service lines');
 assert.match(js, /title: '赛前情报试用'[\s\S]*title: '家庭成长试用'[\s\S]*title: '教练经营试用'[\s\S]*title: '长期报告试用'/, 'trial plans must map P0 and P1 services into user-facing offers');
 assert.match(js, /title: '赛前情报包'[\s\S]*title: '家庭成长报告'[\s\S]*title: '教练经营包'/, 'trial deliverables must describe P0 and P1 package outputs');
@@ -202,12 +203,16 @@ assert.match(js, /const nextActions = myWorkspaceNextActions\(\{ children, follo
 assert.match(js, /const readinessRows = serviceReadinessRows\(\{ children, followedCompetitions, reportHistory, aiHistory \}\);/, 'my page must render readiness from current state');
 assert.match(js, /const trialRows = recommendedTrialRows\(\{ children, followedCompetitions, reportHistory, aiHistory \}\);/, 'my page must render recommended trial plans from current state');
 assert.match(js, /const deliverableRows = trialDeliverableRows\(\);/, 'my page must render concrete trial deliverables');
+assert.match(js, /const prematchReminderRows = myPrematchReminderRows\(followedCompetitions\);/, 'my page must render prematch reminders from current follows');
 assert.match(js, /const commercialIntents = commercialIntentRows\(\);/, 'my page must derive service progress from saved commercial intent state');
 assert.match(js, /class="panel my-section my-next-section"/, 'my page must expose a next-action workspace section');
+assert.match(js, /class="panel my-section my-prematch-section"/, 'my page must expose a prematch reminder section');
 assert.match(js, /class="panel my-section trial-deliverable-section"/, 'my page must expose concrete trial deliverables');
 assert.match(js, /class="panel my-section trial-plan-section"/, 'my page must expose recommended trial plans');
 assert.match(js, /class="panel my-section service-readiness-section"/, 'my page must expose service readiness section');
 assert.match(js, /data-trial-plan-source="\$\{escapeHtml\(row\.source\)\}"/, 'trial plan cards must carry conversion source');
+assert.match(js, /data-my-prematch-report="\$\{escapeHtml\(row\.sportCode\)\}"/, 'prematch reminder cards must open scoped reports');
+assert.match(js, /data-my-prematch-follow="\$\{escapeHtml\(row\.sportCode\)\}"/, 'prematch reminder cards must support joining reminders');
 assert.match(js, /data-my-readiness-action="\$\{escapeHtml\(row\.action\)\}"/, 'service readiness cards must carry runnable actions');
 assert.match(js, /\$\{renderCommercialIntentStatus\(commercialIntents\)\}/, 'my page must show submitted service progress');
 assert.match(js, /\{ value: commercialIntents\.length, label: '服务进度' \}/, 'my page stats must include service progress count');
@@ -215,6 +220,10 @@ assert.match(js, /data-my-next-action="\$\{escapeHtml\(row\.action\)\}"/, 'my pa
 assert.match(js, /if \(action === 'growth'\) openParentGrowthReport\(button\.dataset\.athleteId \|\| ''\);/, 'my page next actions must open growth reports');
 assert.match(js, /if \(action === 'prematch'\) openPrematchReport\('prematch-pack', button\.dataset\.sportCode \|\| ''\);/, 'my page next actions must open scoped prematch reports');
 assert.match(js, /source: 'my-next-action'/, 'my page next actions must submit traceable trial intent');
+assert.match(js, /myPage\.querySelectorAll\('\[data-my-prematch-report\]'\)/, 'my page must bind prematch report reminder actions');
+assert.match(js, /openPrematchReport\('prematch-pack', button\.dataset\.myPrematchReport \|\| ''\)/, 'my page prematch reminder must open scoped prematch reports');
+assert.match(js, /myPage\.querySelectorAll\('\[data-my-prematch-follow\]'\)/, 'my page must bind add-reminder actions');
+assert.match(js, /findCompetitionBySportCode\(button\.dataset\.myPrematchFollow \|\| ''\)/, 'my page add-reminder action must resolve the competition');
 assert.match(js, /<h2>我的报告<\/h2>/, 'my page must expose generated reports for reuse');
 assert.match(js, /const reportHistory = reportHistoryRows\(\);/, 'my page must reuse persisted report history');
 assert.match(js, /const aiHistory = aiHistoryRows\(\);/, 'my page must reuse persisted AI analysis history');
@@ -251,6 +260,9 @@ assert.match(css, /\.service-progress-card/, 'service progress card styles must 
 assert.match(css, /\.service-progress-card p/, 'service progress next-step copy must be styled');
 assert.match(css, /\.service-progress-steps/, 'service progress steps must be styled');
 assert.match(css, /\.service-progress-card button/, 'service progress follow-up action must be styled');
+assert.match(css, /\.my-prematch-list/, 'my prematch reminder list styles must exist');
+assert.match(css, /\.my-prematch-card/, 'my prematch reminder cards must be styled');
+assert.match(css, /\.my-prematch-actions/, 'my prematch reminder actions must be styled');
 assert.match(css, /\.trial-deliverable-grid/, 'trial deliverable grid styles must exist');
 assert.match(css, /\.trial-deliverable-card/, 'trial deliverable cards must be styled');
 assert.match(css, /\.trial-plan-list/, 'trial plan list styles must exist');

@@ -2815,6 +2815,36 @@ function trialDeliverableRows() {
   ];
 }
 
+function myPrematchReminderRows(followedCompetitions = []) {
+  const followedCodes = new Set((followedCompetitions || []).map((competition) => competition.sportCode).filter(Boolean));
+  const followedRows = (followedCompetitions || [])
+    .filter((competition) => competition?.sportCode && isPrematchCompetition(competition))
+    .map((competition) => ({ ...competition, isFollowed: true }));
+  const suggestedRows = prematchReportCompetitions()
+    .filter((competition) => competition?.sportCode && !followedCodes.has(competition.sportCode))
+    .slice(0, 4)
+    .map((competition) => ({ ...competition, isFollowed: false }));
+
+  return [...followedRows, ...suggestedRows]
+    .sort((a, b) => {
+      const aDays = Math.abs(daysFromToday(competitionDateValue(a)));
+      const bDays = Math.abs(daysFromToday(competitionDateValue(b)));
+      return aDays - bDays;
+    })
+    .slice(0, 3)
+    .map((competition) => {
+      const hasRoster = competitionCoverageLevel(competition) === 'roster';
+      return {
+        sportCode: competition.sportCode,
+        title: competition.sportName || '近期赛事',
+        tag: competition.isFollowed ? '已关注' : '建议关注',
+        detail: [displayDateLabel(competition.dateLabel), competition.venue || competition.region, statusLabel(competition.status)].filter(Boolean).join(' · '),
+        meta: hasRoster ? '可看报名名单和潜在对手' : '先看项目、时间和历史强手',
+        isFollowed: Boolean(competition.isFollowed),
+      };
+    });
+}
+
 function homePrematchActionRow(followedCompetitions = []) {
   const followed = (followedCompetitions || []).find(isPrematchCompetition);
   const recommended = followed || prematchReportCompetitions()[0] || null;
@@ -5304,6 +5334,7 @@ function renderMyPage() {
   const readinessRows = serviceReadinessRows({ children, followedCompetitions, reportHistory, aiHistory });
   const trialRows = recommendedTrialRows({ children, followedCompetitions, reportHistory, aiHistory });
   const deliverableRows = trialDeliverableRows();
+  const prematchReminderRows = myPrematchReminderRows(followedCompetitions);
   const generatedLabel = formatDataGeneratedAt(state.dataGeneratedAt);
   const stats = [
     { value: children.length, label: '关注选手' },
@@ -5347,6 +5378,31 @@ function renderMyPage() {
           </button>
         `).join('')}
       </div>
+    </section>
+
+    <section class="panel my-section my-prematch-section">
+      <div class="section-title">
+        <h2>近期赛前提醒</h2>
+        <span>${prematchReminderRows.length ? '赛前情报' : '待关注'}</span>
+      </div>
+      ${prematchReminderRows.length ? `
+        <div class="my-prematch-list">
+          ${prematchReminderRows.map((row) => `
+            <article class="my-prematch-card">
+              <div>
+                <strong>${escapeHtml(row.title)}</strong>
+                <span>${escapeHtml(row.detail)}</span>
+                <em>${escapeHtml(row.meta)}</em>
+              </div>
+              <small>${escapeHtml(row.tag)}</small>
+              <div class="my-prematch-actions">
+                <button type="button" data-my-prematch-report="${escapeHtml(row.sportCode)}">赛前情报</button>
+                ${row.isFollowed ? '' : `<button type="button" data-my-prematch-follow="${escapeHtml(row.sportCode)}">加入提醒</button>`}
+              </div>
+            </article>
+          `).join('')}
+        </div>
+      ` : '<div class="empty compact-empty">关注近期赛事后，这里会形成赛前情报和提醒入口。</div>'}
     </section>
 
     ${renderCommercialIntentStatus(commercialIntents)}
@@ -5555,6 +5611,17 @@ function renderMyPage() {
         source: 'my-next-action',
         report: '长期分析试用',
       });
+    });
+  });
+  myPage.querySelectorAll('[data-my-prematch-report]').forEach((button) => {
+    button.addEventListener('click', () => openPrematchReport('prematch-pack', button.dataset.myPrematchReport || ''));
+  });
+  myPage.querySelectorAll('[data-my-prematch-follow]').forEach((button) => {
+    button.addEventListener('click', () => {
+      const competition = findCompetitionBySportCode(button.dataset.myPrematchFollow || '');
+      if (!competition) return;
+      upsertFollowedCompetition(competition);
+      renderPersonalPages();
     });
   });
   bindServiceProgressActions(myPage);
