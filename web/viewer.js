@@ -2400,6 +2400,36 @@ function aiHistoryRows() {
   }));
 }
 
+function reportAssetSummaryRows(reportHistory = state.reportHistory || [], aiHistory = state.aiHistory || []) {
+  const countByType = (type) => reportHistory.filter((row) => row?.type === type).length;
+  return [
+    {
+      key: 'prematch',
+      label: '赛前情报',
+      value: countByType('prematch'),
+      detail: '报名与项目数据完善后，沉淀赛前对手分析。',
+    },
+    {
+      key: 'growth',
+      label: '成长报告',
+      value: countByType('parent-growth'),
+      detail: '持续记录孩子的参赛、名次和阶段变化。',
+    },
+    {
+      key: 'coach',
+      label: '教练报告',
+      value: countByType('coach-segmentation'),
+      detail: '保留学员分层、重点项目和经营观察。',
+    },
+    {
+      key: 'ai',
+      label: 'AI分析',
+      value: aiHistory.filter((row) => row?.query).length + countByType('ai-report'),
+      detail: '把常问问题和数据解读沉淀为可复用记录。',
+    },
+  ];
+}
+
 function membershipBenefitRows() {
   return [
     {
@@ -5105,6 +5135,7 @@ function renderMyPage() {
   const recentRows = (state.recentItems || []).slice(0, 6);
   const reportHistory = reportHistoryRows();
   const aiHistory = aiHistoryRows();
+  const reportAssets = reportAssetSummaryRows(state.reportHistory || [], state.aiHistory || []);
   const commercialIntents = commercialIntentRows();
   const followedAthletes = children.slice(0, 6);
   const nextActions = myWorkspaceNextActions({ children, followedCompetitions, reportHistory, aiHistory });
@@ -5156,6 +5187,22 @@ function renderMyPage() {
     ${renderCommercialIntentStatus(commercialIntents)}
 
     ${renderMembershipBenefits()}
+
+    <section class="panel my-section report-asset-section">
+      <div class="section-title">
+        <h2>报告资产</h2>
+        <span>持续沉淀</span>
+      </div>
+      <div class="report-asset-grid">
+        ${reportAssets.map((row) => `
+          <div class="report-asset-card report-asset-${escapeHtml(row.key)}">
+            <strong>${escapeHtml(row.value)}</strong>
+            <span>${escapeHtml(row.label)}</span>
+            <em>${escapeHtml(row.detail)}</em>
+          </div>
+        `).join('')}
+      </div>
+    </section>
 
     <section class="panel my-section">
       <div class="section-title">

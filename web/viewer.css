@@ -2670,6 +2670,51 @@ select:focus {
   font-style: normal;
 }
 
+.report-asset-section {
+  gap: 10px;
+}
+
+.report-asset-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.report-asset-card {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+  border: 1px solid rgba(21, 95, 194, 0.1);
+  border-radius: 10px;
+  background: linear-gradient(135deg, rgba(21, 95, 194, 0.07), rgba(13, 125, 103, 0.05));
+  padding: 10px;
+}
+
+.report-asset-card strong {
+  color: var(--text);
+  font-size: 18px;
+  font-weight: 900;
+  line-height: 1.05;
+}
+
+.report-asset-card span {
+  color: var(--text);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.report-asset-card em {
+  color: var(--muted);
+  font-size: 11px;
+  font-style: normal;
+  line-height: 1.35;
+}
+
+.report-asset-ai {
+  border-color: rgba(13, 125, 103, 0.16);
+  background: linear-gradient(135deg, rgba(13, 125, 103, 0.1), rgba(21, 95, 194, 0.04));
+}
+
 .membership-benefit-panel {
   display: grid;
   gap: 10px;
