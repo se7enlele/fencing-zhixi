@@ -1797,6 +1797,29 @@ function parentGrowthReportEvidenceRows(model) {
   }));
 }
 
+function parentGrowthOpponentRows(athlete) {
+  return (athlete?.opponents || [])
+    .filter((opponent) => opponent?.name)
+    .slice(0, 4)
+    .map((opponent) => {
+      const wins = Number(opponent.wins) || 0;
+      const losses = Number(opponent.losses) || 0;
+      const matches = Number(opponent.matches) || wins + losses;
+      const latest = [
+        opponent.latestPhase || '淘汰赛',
+        opponent.latestScore ? `最近 ${opponent.latestScore}` : '',
+      ].filter(Boolean).join(' · ');
+      return {
+        name: opponent.name,
+        club: opponent.club || '俱乐部待确认',
+        record: `${wins}胜${losses}负`,
+        matches,
+        latest,
+        query: `分析${athlete.name}和${opponent.name}的对战情况`,
+      };
+    });
+}
+
 function parentGrowthActionRows(athlete, model, focusRows = []) {
   const latest = model.latest;
   const bestProject = model.best ? displayEventName(model.best) : (latest ? displayEventName(latest) : '常参项目');
@@ -1887,7 +1910,7 @@ function bindCopyTextButton(button, textBuilder, analyticsLabel = '', followupTe
   });
 }
 
-function buildParentGrowthShareText(athlete, model, focusRows, actionRows = parentGrowthActionRows(athlete, model, focusRows), signalRows = parentInvestmentSignalRows(model)) {
+function buildParentGrowthShareText(athlete, model, focusRows, actionRows = parentGrowthActionRows(athlete, model, focusRows), signalRows = parentInvestmentSignalRows(model), opponentRows = parentGrowthOpponentRows(athlete)) {
   return [
     `${athlete.name} 成长报告`,
     `俱乐部：${athlete.club || '待确认'}`,
@@ -1896,6 +1919,7 @@ function buildParentGrowthShareText(athlete, model, focusRows, actionRows = pare
     `小组胜率：${model.poolRate === null ? '-' : `${model.poolRate}%`}，淘汰赛：${model.totalElimWins}胜${model.totalElimLosses}负`,
     `建议：${model.advice}`,
     ...signalRows.slice(0, 4).map((row) => `${row.title}：${row.level}，${row.detail}`),
+    ...opponentRows.slice(0, 3).map((row) => `重点对手：${row.name}，${row.record}，${row.latest || `${row.matches} 次交手`}`),
     ...focusRows.slice(0, 3).map((row, index) => `关注点${index + 1}：${row.title}，${row.detail}`),
     ...actionRows.slice(0, 4).map((row) => `${row.title}：${row.detail}`),
     '数据来源：FencingAI 已收录赛事成绩',
@@ -1927,6 +1951,7 @@ function renderParentGrowthReport(athleteId = '') {
   const signalRows = parentInvestmentSignalRows(model);
   const timelineRows = parentGrowthReportTimelineRows(athlete);
   const evidenceRows = parentGrowthReportEvidenceRows(model);
+  const opponentRows = parentGrowthOpponentRows(athlete);
   const latestText = model.latest ? `${displayEventName(model.latest)} · 第${model.latest.finalRank ?? '-'}名` : '暂无记录';
   const trendLabel = model.trend === null ? '趋势待确认' : model.trend > 0 ? `进步 ${model.trend} 名` : model.trend < 0 ? `后退 ${Math.abs(model.trend)} 名` : '名次持平';
 
@@ -2001,6 +2026,25 @@ function renderParentGrowthReport(athleteId = '') {
       </div>
     </article>
 
+    <article class="panel parent-growth-report-card parent-opponent-tracking">
+      <div class="section-title">
+        <h2>重点对手追踪</h2>
+        <span>${escapeHtml(opponentRows.length ? '基于历史交手' : '待积累')}</span>
+      </div>
+      <div class="parent-opponent-list">
+        ${opponentRows.length ? opponentRows.map((row) => `
+          <button type="button" data-ai-query="${escapeHtml(row.query)}">
+            <div>
+              <strong>${escapeHtml(row.name)}</strong>
+              <span>${escapeHtml(row.club)}</span>
+              <em>${escapeHtml(row.latest || `${row.matches} 次交手`)}</em>
+            </div>
+            <b>${escapeHtml(row.record)}</b>
+          </button>
+        `).join('') : '<div class="empty compact-empty">当前还没有可追踪的直接对手记录。后续有淘汰赛对阵后，会在这里沉淀重点对手和交手变化。</div>'}
+      </div>
+    </article>
+
     <article class="panel parent-growth-report-card">
       <div class="section-title">
         <h2>家庭执行计划</h2>
@@ -2066,9 +2110,12 @@ function renderParentGrowthReport(athleteId = '') {
       if (button.dataset.eventCode) openEvent(button.dataset.eventCode);
     });
   });
+  parentGrowthReportBody.querySelectorAll('[data-ai-query]').forEach((button) => {
+    button.addEventListener('click', () => submitAiQuery(button.dataset.aiQuery || ''));
+  });
   parentGrowthReportBody.querySelector('[data-athlete-id]')?.addEventListener('click', () => openAthlete(athlete.id));
   bindReportConversionActions(parentGrowthReportBody);
-  bindCopyTextButton(parentGrowthReportHero.querySelector('[data-report-share="parent-growth"]'), () => buildParentGrowthShareText(athlete, model, focusRows, actionRows, signalRows), 'parent-growth', '已复制，可继续申请家庭试用。');
+  bindCopyTextButton(parentGrowthReportHero.querySelector('[data-report-share="parent-growth"]'), () => buildParentGrowthShareText(athlete, model, focusRows, actionRows, signalRows, opponentRows), 'parent-growth', '已复制，可继续申请家庭试用。');
 }
 
 function openParentGrowthReport(athleteId = '') {
