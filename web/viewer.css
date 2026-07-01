@@ -4825,6 +4825,88 @@ select:focus {
   line-height: 1.45;
   font-style: normal;
 }
+
+.prematch-relevance-section {
+  border-color: rgba(13, 125, 103, 0.16);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(244, 252, 250, 0.94));
+}
+
+.prematch-relevance-list {
+  display: grid;
+  gap: 8px;
+}
+
+.prematch-relevance-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px 10px;
+  align-items: start;
+  min-width: 0;
+  border: 1px solid rgba(13, 125, 103, 0.16);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 10px;
+}
+
+.prematch-relevance-card div,
+.prematch-relevance-card strong,
+.prematch-relevance-card span,
+.prematch-relevance-card em {
+  display: block;
+  min-width: 0;
+}
+
+.prematch-relevance-card strong {
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.prematch-relevance-card span {
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.prematch-relevance-card em {
+  margin-top: 5px;
+  color: var(--text);
+  font-size: 12px;
+  font-style: normal;
+  line-height: 1.45;
+}
+
+.prematch-relevance-card small {
+  border-radius: 999px;
+  background: rgba(13, 125, 103, 0.1);
+  color: var(--teal);
+  font-size: 11px;
+  font-weight: 900;
+  padding: 5px 8px;
+  white-space: nowrap;
+}
+
+.prematch-relevance-actions {
+  grid-column: 1 / -1;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.prematch-relevance-actions button {
+  flex: 1 1 112px;
+  min-height: 32px;
+  border: 1px solid rgba(21, 95, 194, 0.14);
+  border-radius: 999px;
+  background: rgba(21, 95, 194, 0.08);
+  color: var(--primary);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 900;
+  padding: 7px 10px;
+}
+
 .prematch-report-list,
 .prematch-checklist {
   display: grid;
