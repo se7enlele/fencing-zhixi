@@ -1393,6 +1393,32 @@ function dataCoveragePriorityRows(competitions, limit = 3) {
     .slice(0, limit);
 }
 
+function homeServiceReadinessRows(coverage, competitions = state.competitions || []) {
+  const prematchCount = Math.max((coverage?.project || 0) + (coverage?.roster || 0), 0);
+  const growthCount = coverage?.score || 0;
+  const coachCount = Object.keys(state.clubsById || {}).length || state.clubSearchIndex.length || 0;
+  return [
+    {
+      title: '赛前情报',
+      value: prematchCount,
+      detail: '报名、项目和未开赛赛事可用于赛前提醒。',
+    },
+    {
+      title: '成长报告',
+      value: growthCount,
+      detail: '已有成绩或对阵的赛事可用于长期复盘。',
+    },
+    {
+      title: '教练工作台',
+      value: coachCount,
+      detail: '俱乐部画像可用于学员分层和招生展示。',
+    },
+  ].map((row) => ({
+    ...row,
+    disabled: !row.value || !competitions.length,
+  }));
+}
+
 function renderHomeDataCoverage() {
   const source = state.competitions || [];
   if (!source.length) return '';
@@ -1401,6 +1427,7 @@ function renderHomeDataCoverage() {
   const scorePercent = Math.round((coverage.score / total) * 100);
   const actionablePercent = Math.round((coverage.actionable / total) * 100);
   const priorityRows = dataCoveragePriorityRows(source, 3);
+  const serviceRows = homeServiceReadinessRows(coverage, source);
   const generatedLabel = formatDataGeneratedAt(state.dataGeneratedAt);
   const syncLabel = scheduledSyncStatusLabel(state.dataCoverage?.scheduledSync);
 
@@ -1423,6 +1450,15 @@ function renderHomeDataCoverage() {
           <strong>${escapeHtml(coverage.score)}</strong>
           <span>成绩对阵</span>
         </div>
+      </div>
+      <div class="service-readiness-grid">
+        ${serviceRows.map((row) => `
+          <div class="${row.disabled ? 'muted' : ''}">
+            <strong>${escapeHtml(row.value)}</strong>
+            <span>${escapeHtml(row.title)}</span>
+            <small>${escapeHtml(row.detail)}</small>
+          </div>
+        `).join('')}
       </div>
       <div class="coverage-progress">
         <span style="width: ${escapeHtml(scorePercent)}%"></span>
