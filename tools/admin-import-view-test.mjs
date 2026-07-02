@@ -56,6 +56,7 @@ assert.match(js, /mergeMetricRows\(days, 'actions'\)/, 'admin analytics must mer
 assert.match(js, /mergeMetricRows\(days, 'actionLabels'\)/, 'admin analytics must merge action detail rows across days');
 assert.match(js, /function analyticsFunnelRows\(actionRows = \[\]\)/, 'admin analytics must build a commercial conversion funnel from action rows');
 assert.match(js, /analyticsMetricValue\(actionRows, 'pilot_interest'\) \+ analyticsMetricValue\(actionRows, 'membership_interest'\)/, 'admin analytics funnel must combine trial and membership intent');
+assert.match(js, /\['pilot_interest', 'membership_interest', 'reminder_interest'\]\.includes\(action\) \? commercialSourceLabel\(label\)/, 'admin action details must translate reminder subscription sources');
 assert.match(js, /function analyticsConversionInsight\(funnelRows = \[\]\)/, 'admin analytics must diagnose the conversion funnel');
 assert.match(js, /const funnelInsight = analyticsConversionInsight\(funnelRows\)/, 'admin analytics must render funnel diagnosis from current data');
 assert.match(js, /class="analytics-insight"/, 'admin analytics must show a next action under the funnel');

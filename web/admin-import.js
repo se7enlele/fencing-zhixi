@@ -121,7 +121,7 @@ function commercialSourceLabel(source) {
 
 function analyticsActionDetailLabel(key) {
   const [action, label] = String(key || '').split(':');
-  const intentDetail = ['pilot_interest', 'membership_interest'].includes(action) ? commercialSourceLabel(label) : '';
+  const intentDetail = ['pilot_interest', 'membership_interest', 'reminder_interest'].includes(action) ? commercialSourceLabel(label) : '';
   if (intentDetail) return `${analyticsActionLabel(action)} · ${intentDetail}`;
   const detail = ({
     'prematch-page': '赛前情报页',
