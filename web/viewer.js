@@ -10946,6 +10946,81 @@ function prematchChecklistRows({ competitions = [], focusRows = [], opponentRows
   ];
 }
 
+function prematchActionPlanRows({
+  competitions = [],
+  focusRows = [],
+  opponentRows = [],
+  rosterRows = [],
+  rosterProjectRows = [],
+  rosterClubRows = [],
+  isSingleCompetition = false,
+} = {}) {
+  const nearest = competitions[0] || null;
+  const focusNames = focusRows.slice(0, 2).map((row) => row.athlete?.name).filter(Boolean);
+  const opponentNames = opponentRows.slice(0, 2).map((athlete) => athlete.name).filter(Boolean);
+  const projectLabels = rosterProjectRows.slice(0, 2).map((row) => row.label).filter(Boolean);
+  const clubNames = rosterClubRows.slice(0, 2).map((row) => row.club).filter(Boolean);
+  return [
+    {
+      key: 'roster',
+      title: '报名核对',
+      label: rosterRows.length ? `${rosterRows.length} 人次` : '名单待补齐',
+      detail: rosterRows.length
+        ? `先核对 ${projectLabels.join('、') || '目标项目'} 的报名名单，确认关注对象是否进入对应项目。`
+        : `${isSingleCompetition ? '本场' : '近期'}先按项目和时间准备，报名名单补齐后再复核对手。`,
+      copy: rosterRows.length
+        ? `报名名单已收录 ${rosterRows.length} 人次，优先核对 ${projectLabels.join('、') || '目标项目'}。`
+        : '报名名单还未完整收录，先按赛事时间和项目范围准备，名单补齐后再更新对手判断。',
+    },
+    {
+      key: 'focus',
+      title: '重点对象',
+      label: focusNames.length ? focusNames.join('、') : '先关注选手',
+      detail: focusNames.length
+        ? `围绕 ${focusNames.join('、')} 的历史项目、近期成绩和本场项目匹配做准备。`
+        : '先关注孩子或学员，系统会把赛前报告切换到个人化项目匹配。',
+      copy: focusNames.length
+        ? `本次重点看 ${focusNames.join('、')}，先核对历史项目与本场项目是否匹配。`
+        : '建议先关注孩子或学员，后续赛前报告会自动生成个人化准备重点。',
+    },
+    {
+      key: 'opponents',
+      title: '对手研究',
+      label: opponentNames.length ? opponentNames.join('、') : '等待线索',
+      detail: opponentNames.length
+        ? `先看 ${opponentNames.join('、')} 的最好名次、最近表现和同项目稳定性。`
+        : '当前强手样本不足，先用报名规模、主要俱乐部和项目结构判断难度。',
+      copy: opponentNames.length
+        ? `重点对手先看 ${opponentNames.join('、')}，训练上优先准备小组稳定性和淘汰赛关键分。`
+        : '当前强手线索不足，先观察报名规模、主要俱乐部和项目结构。',
+    },
+    {
+      key: 'communication',
+      title: '赛前沟通',
+      label: nearest ? displayDateLabel(nearest.dateLabel) : '待定',
+      detail: nearest
+        ? `把 ${nearest.sportName} 的时间、项目、关注对象和对手线索整理给家长/学员。`
+        : '没有明确目标赛事时，先整理关注对象的历史项目和下一场可能参赛方向。',
+      copy: [
+        nearest ? `赛事：${nearest.sportName}` : '赛事：近期赛前赛事',
+        nearest ? `时间地点：${displayDateLabel(nearest.dateLabel)} · ${nearest.venue || nearest.region || '地点待确认'}` : '',
+        clubNames.length ? `主要报名俱乐部：${clubNames.join('、')}` : '',
+        focusNames.length ? `重点对象：${focusNames.join('、')}` : '',
+        opponentNames.length ? `重点对手：${opponentNames.join('、')}` : '',
+      ].filter(Boolean).join('\n'),
+    },
+  ];
+}
+
+function prematchActionPlanText(row = {}) {
+  return [
+    row.title || '赛前动作',
+    row.label ? `状态：${row.label}` : '',
+    row.detail ? `建议：${row.detail}` : '',
+    row.copy ? `沟通内容：${row.copy}` : '',
+  ].filter(Boolean).join('\n');
+}
+
 function prematchShareUrl(sportCode = '') {
   const url = new URL(window.location.href);
   url.hash = '';
@@ -10971,6 +11046,7 @@ function buildPrematchShareText(competitions, focusRows, opponentRows, isSingleC
   const checklistRows = prematchChecklistRows({ competitions, focusRows, opponentRows, rosterReady, isSingleCompetition });
   const rosterProjects = rosterItemSummary(rosterRows).slice(0, 3);
   const rosterClubs = rosterClubSummary(rosterRows, 3);
+  const actionPlanRows = prematchActionPlanRows({ competitions, focusRows, opponentRows, rosterRows, rosterProjectRows: rosterProjects, rosterClubRows: rosterClubs, isSingleCompetition });
   return [
     isSingleCompetition && nearest ? `${nearest.sportName} 赛前情报包` : '赛前情报包',
     nearest ? `赛事：${nearest.sportName}` : '赛事：近期赛前赛事',
@@ -10982,6 +11058,7 @@ function buildPrematchShareText(competitions, focusRows, opponentRows, isSingleC
     `关注对象：${focusRows.length} 人，强手线索：${opponentRows.length} 个`,
     ...focusRows.slice(0, 3).map((row, index) => `关注对象${index + 1}：${row.athlete.name}，${row.advice}`),
     ...opponentRows.slice(0, 3).map((athlete, index) => `强手线索${index + 1}：${athlete.name}，最好第 ${athlete.bestRank ?? '-'} 名`),
+    ...actionPlanRows.slice(0, 4).map((row, index) => `赛前动作${index + 1}：${row.title}，${row.detail}`),
     ...checklistRows.slice(0, 4).map((row) => `${row.title}：${row.detail}`),
     '数据来源：FencingAI 已收录赛事、报名和历史成绩',
   ].filter(Boolean).join('\n');
@@ -11033,6 +11110,7 @@ function renderPrematchReport(kind = 'prematch-pack', sportCode = '') {
   const rosterProjectRows = rosterItemSummary(rosterRows);
   const rosterClubRows = rosterClubSummary(rosterRows);
   const checklistRows = prematchChecklistRows({ competitions, focusRows, opponentRows, rosterReady, isSingleCompetition });
+  const actionPlanRows = prematchActionPlanRows({ competitions, focusRows, opponentRows, rosterRows, rosterProjectRows, rosterClubRows, isSingleCompetition });
 
   prematchReportHero.innerHTML = `
     <div class="hero-title">${escapeHtml(isSingleCompetition ? '本场赛前情报包' : '赛前情报包')}</div>
@@ -11081,6 +11159,25 @@ function renderPrematchReport(kind = 'prematch-pack', sportCode = '') {
       </div>
       <div class="prematch-report-note">
         ${escapeHtml(nearest ? `${isSingleCompetition ? '围绕本场赛事' : `先看最近的 ${nearest.sportName}`}，确认项目、报名名单和关注对象是否匹配。` : '当前没有识别到近期赛前赛事，可先围绕关注选手的历史项目准备。')}
+      </div>
+    </article>
+
+    <article class="panel prematch-report-card prematch-action-plan">
+      <div class="section-title">
+        <h2>赛前执行计划</h2>
+        <span>可复制</span>
+      </div>
+      <div class="prematch-action-plan-list">
+        ${actionPlanRows.map((row, index) => `
+          <article class="prematch-action-plan-card prematch-action-plan-${escapeHtml(row.key)}">
+            <div>
+              <strong>${escapeHtml(row.title)}</strong>
+              <span>${escapeHtml(row.label)}</span>
+              <em>${escapeHtml(row.detail)}</em>
+            </div>
+            <button type="button" data-prematch-action-plan="${escapeHtml(index)}">复制动作</button>
+          </article>
+        `).join('')}
       </div>
     </article>
 
@@ -11250,6 +11347,10 @@ function renderPrematchReport(kind = 'prematch-pack', sportCode = '') {
     button.addEventListener('click', () => {
       if (button.dataset.sportCode) openCompetition(button.dataset.sportCode);
     });
+  });
+  prematchReportBody.querySelectorAll('[data-prematch-action-plan]').forEach((button) => {
+    const row = actionPlanRows[Number(button.dataset.prematchActionPlan)];
+    bindCopyTextButton(button, () => prematchActionPlanText(row), 'prematch-action-plan', '已复制赛前动作。');
   });
   bindReportConversionActions(prematchReportBody);
   bindCopyTextButton(prematchReportHero.querySelector('[data-report-share="prematch"]'), () => buildPrematchShareText(competitions, focusRows, opponentRows, isSingleCompetition, relevanceRows, rosterRows), isSingleCompetition ? 'prematch-single' : 'prematch-pack', '已复制，可继续申请赛前试用。');

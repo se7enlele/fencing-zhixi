@@ -74,6 +74,8 @@ assert.match(js, /class="panel prematch-report-card prematch-opponent-watchlist"
 assert.match(js, /class="prematch-opponent-watch-grid"/, 'prematch opponent watchlist must use a compact mobile-safe grid');
 assert.match(js, /row\.action/, 'prematch opponent watchlist must show suggested next action');
 assert.match(js, /function prematchChecklistRows\(\{ competitions = \[\], focusRows = \[\], opponentRows = \[\], rosterReady = 0, isSingleCompetition = false \} = \{\}\)/, 'prematch report must generate a dynamic action checklist');
+assert.match(js, /function prematchActionPlanRows\(\{[\s\S]*rosterProjectRows = \[\][\s\S]*rosterClubRows = \[\][\s\S]*isSingleCompetition = false[\s\S]*\} = \{\}\)/, 'prematch report must generate a copyable execution plan from current state');
+assert.match(js, /function prematchActionPlanText\(row = \{\}\)/, 'prematch action plan rows must have copyable text');
 assert.match(js, /function buildPrematchShareText\(competitions, focusRows, opponentRows, isSingleCompetition, relevanceRows = \[\], rosterRows = prematchRosterRows\(competitions\)\)/, 'prematch report must build shareable summary text with roster context');
 assert.match(js, /function prematchShareUrl\(sportCode = ''\)/, 'prematch report must build a shareable report URL');
 assert.match(js, /function buildPrematchPageShareText\(competitions = \[\], isSingleCompetition = false, sportCode = ''\)/, 'prematch report must build shareable page text');
@@ -88,6 +90,10 @@ assert.match(js, /class="competition-prematch-cta"/, 'competition detail must ex
 assert.match(js, /openPrematchReport\('prematch-pack', event\.currentTarget\.dataset\.prematchSportCode/, 'competition prematch CTA must open a single-competition report');
 assert.match(js, /const isSingleCompetition = Boolean\(sportCode && competitions\.length\)/, 'prematch report must distinguish global and single-event reports');
 assert.match(js, /const rosterRows = prematchRosterRows\(competitions\);/, 'prematch report must derive roster rows for the current report scope');
+assert.match(js, /const actionPlanRows = prematchActionPlanRows\(\{ competitions, focusRows, opponentRows, rosterRows, rosterProjectRows, rosterClubRows, isSingleCompetition \}\)/, 'prematch report must render execution plan rows from current report state');
+assert.match(js, /class="panel prematch-report-card prematch-action-plan"/, 'prematch report must expose a dedicated execution plan panel');
+assert.match(js, /赛前执行计划/, 'prematch report must label execution plan in user-facing copy');
+assert.match(js, /data-prematch-action-plan="\$\{escapeHtml\(index\)\}"/, 'prematch execution plan rows must expose copy actions');
 assert.match(js, /class="panel prematch-report-card prematch-roster-snapshot"/, 'prematch report must render a roster snapshot section when roster data exists');
 assert.match(js, /class="prematch-club-summary"/, 'prematch report must render top club distribution from roster data');
 assert.match(js, /rosterClubRows\.slice\(0, 5\)\.map/, 'prematch report must keep roster club summary compact on mobile');
@@ -95,6 +101,8 @@ assert.match(js, /data-event-code="\$\{escapeHtml\(item\.eventCode/, 'single-com
 assert.match(js, /prematchReportBody\.querySelectorAll\('\[data-event-code\]'\)/, 'prematch report project rows must bind to event detail navigation');
 assert.match(js, /prematchReportBody\.querySelectorAll\('\[data-sport-code\]'\)/, 'prematch report competitions must be clickable');
 assert.match(js, /prematchReportBody\.querySelectorAll\('\[data-athlete-id\]'\)/, 'prematch report athletes must be clickable');
+assert.match(js, /prematchReportBody\.querySelectorAll\('\[data-prematch-action-plan\]'\)/, 'prematch execution plan copy actions must be bound');
+assert.match(js, /bindCopyTextButton\(button, \(\) => prematchActionPlanText\(row\), 'prematch-action-plan'/, 'prematch execution plan copy must reuse report copy tracking');
 assert.match(js, /data-report-share="prematch-page"/, 'prematch report must expose a copy page action');
 assert.match(js, /bindCopyTextButton\(prematchReportHero\.querySelector\('\[data-report-share="prematch-page"\]'\)/, 'prematch page copy action must be wired');
 assert.match(js, /initialParams\.get\('prematch'\)/, 'initial route must support shared prematch links');
@@ -114,11 +122,15 @@ assert.match(js, /执行清单/, 'prematch report must include an action checkli
 assert.match(js, /const checklistRows = prematchChecklistRows\(\{ competitions, focusRows, opponentRows, rosterReady, isSingleCompetition \}\)/, 'prematch report must render checklist from the current report state');
 assert.match(js, /报名名单补齐后再复核对手/, 'prematch checklist must explain what to do when roster data is incomplete');
 assert.match(js, /关注孩子或学员后，赛前报告会自动生成个人化项目匹配和准备重点/, 'prematch checklist must guide users to follow a child or athlete');
+assert.match(js, /\.\.\.actionPlanRows\.slice\(0, 4\)\.map/, 'prematch share text must include execution plan rows');
 assert.match(js, /\.\.\.checklistRows\.slice\(0, 4\)\.map/, 'prematch share text must include action checklist rows');
 assert.match(css, /\.competition-prematch-cta/, 'competition prematch CTA must be styled');
 assert.match(css, /\.prematch-report-shell/, 'prematch report shell styles must exist');
 assert.match(css, /\.prematch-report-metrics/, 'prematch report metrics must be styled');
 assert.match(css, /\.prematch-report-list/, 'prematch report lists must be styled');
+assert.match(css, /\.prematch-action-plan/, 'prematch execution plan card styles must exist');
+assert.match(css, /\.prematch-action-plan-list/, 'prematch execution plan list styles must exist');
+assert.match(css, /\.prematch-action-plan-card/, 'prematch execution plan rows must be styled');
 assert.match(css, /\.prematch-primary-card/, 'prematch primary focus card styles must exist');
 assert.match(css, /\.prematch-relevance-list/, 'prematch relevance list styles must exist');
 assert.match(css, /\.prematch-relevance-card/, 'prematch relevance cards must be styled');
