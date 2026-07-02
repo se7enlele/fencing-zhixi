@@ -2525,6 +2525,13 @@ function homeReportCenterRows(children, followedCompetitions) {
   ];
 }
 
+function roleVisibleHomeReportRows(rows) {
+  if (state.userRole === 'parent') return rows.filter((row) => ['prematch', 'growth'].includes(row.key));
+  if (state.userRole === 'coach') return rows.filter((row) => ['prematch', 'growth', 'coach', 'club-recruiting'].includes(row.key));
+  if (state.userRole === 'club') return rows.filter((row) => ['prematch', 'coach', 'club-recruiting'].includes(row.key));
+  return rows;
+}
+
 function reportHistoryRows() {
   return (state.reportHistory || []).slice(0, 4).map((row) => {
     const fallback = {
@@ -3317,6 +3324,7 @@ function renderHomePrematchAction(row = homePrematchActionRow()) {
 }
 
 function homeCoachActionRow() {
+  if (!['coach', 'club', 'data'].includes(state.userRole)) return null;
   const club = state.currentClub || aiDefaultClub();
   if (!club?.id) return null;
   const topProject = (club.projectRows || club.projects || [])
@@ -3574,7 +3582,7 @@ function renderHomePage() {
   }
   const children = focusAthleteCards();
   const followedCompetitions = followedCompetitionCards();
-  const reportRows = homeReportCenterRows(children, followedCompetitions);
+  const reportRows = roleVisibleHomeReportRows(homeReportCenterRows(children, followedCompetitions));
   const reportHistory = reportHistoryRows();
   const aiHistory = aiHistoryRows();
   const commercialIntents = commercialIntentRows();
