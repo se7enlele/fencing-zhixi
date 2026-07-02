@@ -2972,9 +2972,14 @@ function renderCommercialIntentStatus(rows = commercialIntentRows()) {
           </article>
         `).join('')}
       </div>
-      <p>已收到的服务申请会结合你的关注选手、赛事和报告记录跟进；需要更新联系方式时，可以再次点击申请入口。</p>
+      <p>${escapeHtml(serviceProgressContextNote())}</p>
     </section>
   `;
+}
+
+function serviceProgressContextNote() {
+  const followCopy = myFollowSectionCopy();
+  return `已收到的服务申请会结合你的${followCopy.countLabel}、赛事和报告记录跟进；需要更新联系方式时，可以再次点击申请入口。`;
 }
 
 function bindServiceProgressActions(container) {

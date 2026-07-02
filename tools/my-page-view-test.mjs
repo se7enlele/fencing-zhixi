@@ -137,7 +137,10 @@ assert.match(js, /deliverables: commercialIntentDeliverableRows\(row\)/, 'commer
 assert.match(js, /function commercialIntentProgressSteps\(row = \{\}\)/, 'commercial intent progress must expose concrete fulfillment stages');
 assert.match(js, /progressSteps: commercialIntentProgressSteps\(row\)/, 'commercial intent rows must include fulfillment stages');
 assert.match(js, /function renderCommercialIntentStatus\(rows = commercialIntentRows\(\)\)/, 'commercial intent status panel must be reusable');
+assert.match(js, /function serviceProgressContextNote\(\)/, 'service progress copy must be role-aware');
+assert.match(js, /const followCopy = myFollowSectionCopy\(\);[\s\S]*return `已收到的服务申请会结合你的\$\{followCopy\.countLabel\}、赛事和报告记录跟进/, 'service progress copy must use role-aware followed object labels');
 assert.match(js, /class="panel my-section service-progress-panel"/, 'service progress panel must render as a user-facing section');
+assert.match(js, /<p>\$\{escapeHtml\(serviceProgressContextNote\(\)\)\}<\/p>/, 'service progress panel must render role-aware context copy');
 assert.match(js, /<p>\$\{escapeHtml\(row\.nextStep\)\}<\/p>/, 'service progress cards must render the next-step copy');
 assert.match(js, /class="service-progress-deliverables"/, 'service progress cards must render concrete deliverables');
 assert.match(js, /class="service-progress-reference"/, 'service progress cards must show the service record reference');
