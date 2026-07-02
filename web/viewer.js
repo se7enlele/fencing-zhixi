@@ -1423,7 +1423,7 @@ function dataCoveragePriorityRows(competitions, limit = 3) {
 function homeServiceReadinessRows(coverage, competitions = state.competitions || []) {
   const prematchCount = Math.max((coverage?.project || 0) + (coverage?.roster || 0), 0);
   const growthCount = coverage?.score || 0;
-  const coachCount = Object.keys(state.clubsById || {}).length || state.clubSearchIndex.length || 0;
+  const coachCount = entityCoverageCounts().clubs;
   return [
     {
       title: '赛前情报',
@@ -3022,7 +3022,7 @@ function serviceReadinessRows({ children = [], followedCompetitions = [], report
       detail: club?.club
         ? `${club.club} 可继续看学员分层、优势项目和招生展示。`
         : '搜索俱乐部后，可生成学员分层和经营观察。',
-      meta: `${state.clubSearchIndex.length || 0} 个俱乐部画像`,
+      meta: `${entityCoverageCounts().clubs} 个俱乐部画像`,
       action: club?.id ? 'coach' : 'ask',
       clubId: club?.id || '',
       query: '山东小众体育有哪些优势项目',
@@ -3816,6 +3816,7 @@ function bindAiWorkspace(container) {
 
   const run = async (query) => {
     const normalizedQuery = String(query || '').trim();
+    input.blur();
     if (!normalizedQuery) {
       const report = buildAiAnswer(normalizedQuery);
       answer.classList.add('has-answer');
@@ -3826,7 +3827,7 @@ function bindAiWorkspace(container) {
 
     answer.classList.add('has-answer');
     answer.innerHTML = '<div class="loading-row">正在匹配相关画像</div>';
-    scrollToResultPanel(answer);
+    scrollToResultPanel(answer, 'auto');
     try {
       await ensureAiEntityContext(normalizedQuery);
       const report = buildAiAnswer(normalizedQuery);
