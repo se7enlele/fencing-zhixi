@@ -8598,7 +8598,11 @@ function buildPoolPerformanceRows(events) {
 }
 
 function buildAthleteDataRequestText(athlete, requestType, details = {}) {
-  const typeLabel = requestType === 'hide' ? '申请隐藏公开选手画像' : '申请纠错或合并同名选手';
+  const typeLabel = requestType === 'hide'
+    ? '申请隐藏公开选手画像'
+    : requestType === 'claim-athlete'
+      ? '认领选手档案'
+      : '申请纠错或合并同名选手';
   const latest = athlete.events?.[0] || {};
   return [
     `FencingAI ${typeLabel}`,
@@ -8610,19 +8614,23 @@ function buildAthleteDataRequestText(athlete, requestType, details = {}) {
     latest.shortEventName || latest.eventName ? `最近项目：${latest.shortEventName || latest.eventName}` : '',
     requestType === 'hide'
       ? '申请说明：希望隐藏该选手公开画像，请进行身份和监护关系核验。'
-      : '申请说明：需要更正姓名、俱乐部、赛事记录，或合并同名选手画像。',
+      : requestType === 'claim-athlete'
+        ? '申请说明：希望认领该选手档案，用于后续成长报告、赛前提醒和数据核验。'
+        : '申请说明：需要更正姓名、俱乐部、赛事记录，或合并同名选手画像。',
     details.note ? `补充说明：${details.note}` : '补充说明：用户未填写。',
   ].filter(Boolean).join('\n');
 }
 
 function requestAthleteDataRequestDetails(athlete, requestType) {
-  const typeLabel = requestType === 'hide' ? '隐藏申请' : '纠错/合并申请';
+  const typeLabel = requestType === 'hide' ? '隐藏申请' : requestType === 'claim-athlete' ? '档案认领' : '纠错/合并申请';
   const existing = storedCommercialContact();
   const contactInput = window.prompt(`留下微信或手机号，方便核验${typeLabel}（可跳过）`, existing);
   if (contactInput === null) return null;
   const contact = saveCommercialContact(contactInput);
   const notePrompt = requestType === 'hide'
     ? `请说明和 ${athlete.name || '该选手'} 的关系，以及希望隐藏的原因`
+    : requestType === 'claim-athlete'
+      ? `请说明和 ${athlete.name || '该选手'} 的关系，例如家长、本人、教练或俱乐部负责人`
     : `请说明 ${athlete.name || '该选手'} 需要更正或合并的具体内容`;
   const noteInput = window.prompt(notePrompt, '');
   if (noteInput === null) return null;
@@ -8660,9 +8668,10 @@ function renderAthleteDataRequestPanel(athlete) {
     <div class="athlete-data-request">
       <div>
         <strong>数据反馈</strong>
-        <span>公开成绩如有误，可提交纠错、同名合并或隐藏申请；联系方式只用于核验和反馈处理。</span>
+        <span>可认领档案用于后续成长报告和提醒；公开成绩如有误，也可以提交纠错、合并或隐藏申请。</span>
       </div>
       <div class="athlete-data-request-actions">
+        <button type="button" data-athlete-request="claim-athlete">认领档案</button>
         <button type="button" data-athlete-request="correct">提交纠错</button>
         <button type="button" data-athlete-request="hide">申请隐藏</button>
       </div>

@@ -93,6 +93,8 @@ assert.deepEqual(context.buildPoolPerformanceRows(athlete.events).map((row) => (
 ]);
 
 assert.match(source, /function buildAthleteDataRequestText\(athlete, requestType, details = \{\}\)/, 'athlete detail must build correction and hide request copy');
+assert.match(source, /认领选手档案/, 'athlete detail must build a clear athlete claim request label');
+assert.match(source, /成长报告、赛前提醒和数据核验/, 'athlete claim requests must explain the product reason for claiming');
 assert.match(source, /function requestAthleteDataRequestDetails\(athlete, requestType\)/, 'athlete detail must collect contact and request details before submission');
 assert.match(source, /window\.prompt\(`留下微信或手机号，方便核验/, 'athlete data requests must ask for a contact before submission');
 assert.match(source, /联系方式：\$\{details\.contact\}/, 'athlete data request message must include contact details when provided');
@@ -102,6 +104,7 @@ assert.match(source, /fetch\('\/api\/feedback'/, 'athlete data feedback must use
 assert.match(source, /function renderAthleteDataRequestPanel\(athlete\)/, 'athlete detail must render a data feedback entry');
 assert.match(source, /data-athlete-request="correct"/, 'athlete detail must expose a correction request action');
 assert.match(source, /data-athlete-request="hide"/, 'athlete detail must expose a hide request action');
+assert.match(source, /data-athlete-request="claim-athlete"/, 'athlete detail must expose an athlete claim action');
 assert.match(source, /const details = requestAthleteDataRequestDetails\(athlete, button\.dataset\.athleteRequest\);/, 'athlete data feedback must collect details before submitting');
 assert.match(source, /if \(!details\)/, 'athlete data feedback must allow users to cancel before submitting');
 assert.match(source, /button\.textContent = '已提交'/, 'athlete data feedback must confirm successful submission');

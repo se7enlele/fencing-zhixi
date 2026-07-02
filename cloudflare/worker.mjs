@@ -253,7 +253,7 @@ async function handleFollows(request, env, url) {
 
 function normalizeFeedbackType(value) {
   const type = String(value || '').trim();
-  return ['correct', 'hide', 'ai-helpful', 'ai-needs-work', 'pilot-interest', 'membership-interest'].includes(type) ? type : '';
+  return ['correct', 'hide', 'claim-athlete', 'ai-helpful', 'ai-needs-work', 'pilot-interest', 'membership-interest'].includes(type) ? type : '';
 }
 
 function normalizeFeedbackText(value) {

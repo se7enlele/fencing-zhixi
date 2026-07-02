@@ -65,6 +65,11 @@ assert.match(
 
 assert.match(
   source,
+  /'correct', 'hide', 'claim-athlete'/,
+  'Worker should accept athlete correction, hide, and claim request types',
+);
+assert.match(
+  source,
   /'ai-helpful', 'ai-needs-work', 'pilot-interest', 'membership-interest'/,
   'Worker should accept AI answer quality feedback and commercial interest types',
 );

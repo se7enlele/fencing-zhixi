@@ -79,6 +79,7 @@ assert.match(js, /报告热度/, 'admin analytics must render report type popula
 assert.match(js, /复制率/, 'admin analytics report type rows must expose share rate');
 assert.match(js, /试用\/会员意向/, 'admin analytics funnel must expose final commercial intent step');
 assert.match(js, /function feedbackTypeLabel\(type\)/, 'admin import must label correction and hide requests');
+assert.match(js, /'claim-athlete': '档案认领'/, 'admin import must label athlete claim requests');
 assert.match(js, /'ai-helpful': 'AI 有帮助'/, 'admin import must label helpful AI feedback');
 assert.match(js, /'ai-needs-work': 'AI 需调整'/, 'admin import must label AI feedback that needs adjustment');
 assert.match(js, /'pilot-interest': '试用意向'/, 'admin import must label pilot interest leads');

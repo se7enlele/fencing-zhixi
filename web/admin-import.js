@@ -578,6 +578,7 @@ function feedbackTypeLabel(type) {
   return ({
     hide: '隐藏申请',
     correct: '纠错申请',
+    'claim-athlete': '档案认领',
     'ai-helpful': 'AI 有帮助',
     'ai-needs-work': 'AI 需调整',
     'pilot-interest': '试用意向',
