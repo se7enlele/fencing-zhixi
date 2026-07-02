@@ -8763,9 +8763,56 @@ function coachBusinessGrowthRows(club, projectRows, buckets) {
   ];
 }
 
+function coachOperatingChecklistRows(club, buckets = [], followups = [], projectRows = [], businessRows = []) {
+  const byKey = Object.fromEntries((buckets || []).map((bucket) => [bucket.key, bucket]));
+  const byBusinessKey = Object.fromEntries((businessRows || []).map((row) => [row.key, row]));
+  const topProject = projectRows[0] || null;
+  const bestProject = [...(projectRows || [])].sort((a, b) => (a.bestRank ?? 999) - (b.bestRank ?? 999))[0] || null;
+  const focusNames = (byKey.score?.rows || []).slice(0, 3).map((athlete) => athlete.name).filter(Boolean).join(' / ');
+  const steadyNames = (byKey.steady?.rows || []).slice(0, 3).map((athlete) => athlete.name).filter(Boolean).join(' / ');
+  const followupNames = (followups || []).slice(0, 3).map((row) => row.athlete?.name).filter(Boolean).join(' / ');
+  return [
+    {
+      key: 'training',
+      title: '训练跟进',
+      label: focusNames || topProject?.label || '重点学员',
+      detail: focusNames
+        ? `优先复盘 ${focusNames} 的小组赛稳定性和淘汰赛关键分。`
+        : topProject
+          ? `先围绕 ${topProject.label} 建立训练反馈样本。`
+          : '先从最近参赛记录里确定重点学员。',
+    },
+    {
+      key: 'retention',
+      title: '家长沟通',
+      label: followupNames || steadyNames || '阶段复盘',
+      detail: followupNames
+        ? `优先给 ${followupNames} 的家长输出阶段复盘和下一场观察点。`
+        : steadyNames
+          ? `围绕 ${steadyNames} 讲清连续参赛后的稳定变化。`
+          : '把参赛连续性、名次变化和下一场目标整理成家长能看懂的话。',
+    },
+    {
+      key: 'recruiting',
+      title: '招生素材',
+      label: byBusinessKey.recruiting?.label || topProject?.label || '项目名片',
+      detail: byBusinessKey.recruiting?.detail
+        || (topProject ? `${topProject.label} 可作为对外展示的主项目。` : '先选择人数基础最稳定的项目做对外展示。'),
+    },
+    {
+      key: 'reputation',
+      title: '口碑证明',
+      label: byBusinessKey.reputation?.label || (bestProject ? `最好第 ${bestProject.bestRank ?? '-'} 名` : `${club.top8 || 0} 次前八`),
+      detail: byBusinessKey.reputation?.detail
+        || (bestProject ? `${bestProject.label} 可以作为俱乐部口碑和训练成果的证明点。` : '把前八、奖牌和代表学员沉淀成俱乐部成绩名片。'),
+    },
+  ];
+}
+
 function buildCoachSegmentationShareText(club, buckets, followups, projectRows, businessRows = []) {
   const topProject = projectRows[0];
   const communicationRows = coachParentCommunicationRows(club, followups, buckets);
+  const checklistRows = coachOperatingChecklistRows(club, buckets, followups, projectRows, businessRows);
   return [
     `${club.club} 学员分层报告`,
     `识别学员：${buckets.reduce((sum, bucket) => sum + bucket.rows.length, 0)} 人`,
@@ -8819,6 +8866,7 @@ function renderCoachSegmentationReport(clubId = '') {
   const evidenceRows = coachSegmentationEvidenceRows(club, projectRows);
   const businessRows = coachBusinessGrowthRows(club, projectRows, buckets);
   const communicationRows = coachParentCommunicationRows(club, followups, buckets);
+  const checklistRows = coachOperatingChecklistRows(club, buckets, followups, projectRows, businessRows);
   const topProject = projectRows[0] || null;
   const scoreBucket = buckets.find((bucket) => bucket.key === 'score');
   const riskBucket = buckets.find((bucket) => bucket.key === 'risk');
@@ -8851,6 +8899,22 @@ function renderCoachSegmentationReport(clubId = '') {
         <div><strong>${escapeHtml(buckets.find((bucket) => bucket.key === 'steady')?.rows.length || 0)}</strong><span>稳定成长</span></div>
         <div><strong>${escapeHtml(riskBucket?.rows.length || 0)}</strong><span>需要关注</span></div>
         <div><strong>${escapeHtml(buckets.find((bucket) => bucket.key === 'new')?.rows.length || 0)}</strong><span>样本积累</span></div>
+      </div>
+    </article>
+
+    <article class="panel coach-segmentation-report-card coach-operating-checklist">
+      <div class="section-title">
+        <h2>教练跟进清单</h2>
+        <span>本周优先</span>
+      </div>
+      <div class="coach-operating-grid">
+        ${checklistRows.map((row) => `
+          <div class="coach-operating-card coach-operating-${escapeHtml(row.key)}">
+            <span>${escapeHtml(row.title)}</span>
+            <strong>${escapeHtml(row.label)}</strong>
+            <em>${escapeHtml(row.detail)}</em>
+          </div>
+        `).join('')}
       </div>
     </article>
 
