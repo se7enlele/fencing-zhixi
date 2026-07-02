@@ -5862,6 +5862,7 @@ function renderMyPage() {
   const aiHistory = aiHistoryRows();
   const reportAssets = reportAssetSummaryRows(state.reportHistory || [], state.aiHistory || []);
   const commercialIntents = commercialIntentRows();
+  const commercialIntentCount = (state.commercialIntents || []).length;
   const followedAthletes = children.slice(0, 6);
   const nextActions = myWorkspaceNextActions({ children, followedCompetitions, reportHistory, aiHistory });
   const reportNextActions = reportNextActionRows(reportHistory);
@@ -5875,7 +5876,7 @@ function renderMyPage() {
     { value: followedCompetitions.length, label: '关注赛事' },
     { value: reportHistory.length, label: '生成报告' },
     { value: aiHistory.length, label: 'AI分析' },
-    { value: commercialIntents.length, label: '服务进度' },
+    { value: commercialIntentCount, label: '服务进度' },
     { value: recentRows.length, label: '最近查看' },
   ];
 

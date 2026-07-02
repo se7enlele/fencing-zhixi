@@ -260,6 +260,7 @@ assert.match(js, /status: club\?\.id \? '可交付' : '待选择俱乐部'/, 'co
 assert.match(js, /tone: club\?\.id \? 'ready' : 'pending'/, 'coach deliverable must expose ready or pending tone');
 assert.match(js, /const prematchReminderRows = myPrematchReminderRows\(followedCompetitions\);/, 'my page must render prematch reminders from current follows');
 assert.match(js, /const commercialIntents = commercialIntentRows\(\);/, 'my page must derive service progress from saved commercial intent state');
+assert.match(js, /const commercialIntentCount = \(state\.commercialIntents \|\| \[\]\)\.length;/, 'my page must count all saved service progress entries');
 assert.match(js, /class="panel my-section my-next-section"/, 'my page must expose a next-action workspace section');
 assert.match(js, /class="panel my-section report-next-action-section"/, 'my page must expose report follow-up next actions');
 assert.match(js, /class="report-next-action-list"/, 'report next actions must render as a dedicated list');
@@ -278,7 +279,7 @@ assert.match(js, /data-reminder-interest data-commercial-source="my-prematch-rem
 assert.match(js, /data-my-prematch-follow="\$\{escapeHtml\(row\.sportCode\)\}"/, 'prematch reminder cards must support joining reminders');
 assert.match(js, /data-my-readiness-action="\$\{escapeHtml\(row\.action\)\}"/, 'service readiness cards must carry runnable actions');
 assert.match(js, /\$\{renderCommercialIntentStatus\(commercialIntents\)\}/, 'my page must show submitted service progress');
-assert.match(js, /\{ value: commercialIntents\.length, label: '服务进度' \}/, 'my page stats must include service progress count');
+assert.match(js, /\{ value: commercialIntentCount, label: '服务进度' \}/, 'my page stats must include full service progress count');
 assert.match(js, /data-my-next-action="\$\{escapeHtml\(row\.action\)\}"/, 'my page next actions must carry runnable action types');
 assert.match(js, /if \(action === 'growth'\) openParentGrowthReport\(button\.dataset\.athleteId \|\| ''\);/, 'my page next actions must open growth reports');
 assert.match(js, /if \(action === 'prematch'\) openPrematchReport\('prematch-pack', button\.dataset\.sportCode \|\| ''\);/, 'my page next actions must open scoped prematch reports');
