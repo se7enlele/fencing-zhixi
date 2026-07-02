@@ -29,6 +29,7 @@ const functionNames = [
   'competitionItemCount',
   'competitionItemFilterLabels',
   'competitionMetricTotal',
+  'competitionEntrantCount',
   'competitionHasItems',
   'competitionYear',
   'competitionMonth',
@@ -51,6 +52,7 @@ const functionNames = [
   'uniqueBy',
   'buildAiAnswer',
   'detectCompetitionStatsQuery',
+  'detectCompetitionRankingQuery',
   'detectProductTemplateQuery',
   'detectBusinessInsightQuery',
   'detectClubRecruitingQuery',
@@ -68,6 +70,7 @@ const functionNames = [
   'aiCompetitionStatsDecisionRows',
   'aiDefaultClub',
   'buildAiCompetitionStats',
+  'buildAiCompetitionRanking',
   'businessMetricRows',
   'businessRegionRows',
   'businessClubOpportunityRows',
@@ -129,6 +132,18 @@ const sampleCompetitions = [
     region: '天津',
     status: 'completed',
     items: [{ eventCode: 'TJ2026DONE-U8MF', eventName: 'U8 男子花剑', shortEventName: 'U8 男花' }],
+  },
+  {
+    sportCode: 'BIG2026DONE',
+    sportName: '\u0032\u0030\u0032\u0036\u5e74\u5927\u578b\u51fb\u5251\u516c\u5f00\u8d5b',
+    dateLabel: '2026-05-01 / 2026-05-02',
+    venue: '\u5317\u4eac',
+    region: '\u5317\u4eac',
+    status: 'completed',
+    items: [
+      { eventCode: 'BIG2026DONE-U8MF', eventName: 'U8 \u7537\u5b50\u82b1\u5251', shortEventName: 'U8 \u7537\u82b1', competitionNo: 75 },
+      { eventCode: 'BIG2026DONE-U10MF', eventName: 'U10 \u7537\u5b50\u82b1\u5251', shortEventName: 'U10 \u7537\u82b1', competitionNo: 65 },
+    ],
   },
   {
     sportCode: 'TJ2026JUNE',
@@ -224,6 +239,12 @@ const statsFollowAction = juneStats.actions.find((action) => action.followCompet
 assert.equal(statsFollowAction.followCompetitionCode, 'TJ2026JUNE', 'AI competition stats should offer the nearest actionable competition as a reminder');
 const juneFilterAction = juneStats.actions.find((action) => action.filters);
 assert.equal(JSON.stringify(juneFilterAction.filters), JSON.stringify({ year: '2026', month: '6', region: '\u5929\u6d25', status: '' }), 'AI competition stats action should preserve the matched filters');
+
+const scaleStats = context.buildAiAnswer('\u54ea\u573a\u6bd4\u8d5b\u4eba\u6570\u6700\u591a\uff1f');
+assert.equal(scaleStats.type, 'competition-stats', 'competition scale query should route to competition stats');
+assert.equal(scaleStats.cards[0][1], '140 \u4eba\u6b21', 'AI competition scale answer should rank by actual entrant totals');
+assert.equal(scaleStats.evidence[0].sportCode, 'BIG2026DONE', 'AI competition scale answer should cite the largest competition first');
+assert.equal(scaleStats.actions.find((action) => action.sportCode)?.sportCode, 'BIG2026DONE', 'AI competition scale answer should open the largest competition directly');
 
 const prematchReport = context.buildAiAnswer('\u0032\u0030\u0032\u0036\u5e74\u0036\u6708\u5929\u6d25\u8d5b\u524d\u60c5\u62a5');
 assert.equal(prematchReport.type, 'prematch', 'prematch query should route to prematch intelligence');

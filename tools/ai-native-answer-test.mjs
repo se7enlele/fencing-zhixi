@@ -32,6 +32,9 @@ assert.match(js, /const club = detectClubInQuery\(text\);[\s\S]*if \(club\) retu
 assert.match(js, /function aiProjectHints\(query\)/, 'AI club reports must detect project hints like U8 male foil');
 assert.match(js, /function projectMatchesAiHints\(label, hints\)/, 'AI club reports must filter projects by question hints');
 assert.match(js, /function aiCompetitionStatsDecisionRows\(rows, actionRows, rosterRows, scoreRows\)/, 'AI competition stats must translate counts into product-facing next-step judgment');
+assert.match(js, /function detectCompetitionRankingQuery\(query\)/, 'AI must detect competition ranking questions');
+assert.match(js, /function competitionEntrantCount\(competition\)/, 'AI competition ranking must compute actual entrant totals');
+assert.match(js, /function buildAiCompetitionRanking\(query, filters\)/, 'AI must answer competition scale ranking questions');
 assert.match(js, /title: hints\.length \? '匹配项目' : '优势项目'/, 'AI club reports must label scoped project answers');
 assert.match(js, /function detectPreMatchQuery\(query\)/, 'AI must detect prematch and registration questions');
 assert.match(js, /function detectYearInQuery\(normalizedQuery\)/, 'AI competition questions must support relative year wording');
@@ -85,6 +88,7 @@ assert.match(js, /label: '生成教练工作台方案'/, 'AI business actions mu
 assert.match(js, /kind: '招生素材来源'/, 'AI recruiting evidence must cite concrete club event sources');
 assert.match(js, /查看招生名片/, 'AI recruiting answers must navigate back to the club recruiting card');
 assert.match(js, /data-ai-filters/, 'AI answer action buttons must carry structured competition filters');
+assert.match(js, /data-sport-code="\$\{escapeHtml\(action\.sportCode\)\}"/, 'AI action buttons must support direct competition navigation');
 assert.match(js, /state\.aiCompetitionFilterSummary = aiCompetitionFilterSummary\(filters\)/, 'AI filter actions must store a list-facing filter summary');
 assert.match(js, /data-clear-ai-filter/, 'AI filtered competition lists must expose a clear action');
 assert.match(js, /JSON\.parse\(decodeURIComponent\(button\.dataset\.aiFilters\)\)/, 'AI answer action handlers must decode filter payloads before navigation');

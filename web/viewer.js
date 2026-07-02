@@ -651,6 +651,16 @@ function competitionMetricTotal(competition, key) {
   return competitionItemSummaries(competition).reduce((sum, item) => sum + (Number(item[key]) || 0), 0);
 }
 
+function competitionEntrantCount(competition) {
+  const direct = Number(competition?.competitionNo || competition?.entrantCount || competition?.entrants || competition?.participants || 0) || 0;
+  const itemTotal = competitionItemSummaries(competition).reduce((sum, item) => {
+    const value = Number(item.registrationCount || item.competitionNo || item.roster?.length || 0) || 0;
+    return sum + value;
+  }, 0);
+  const rosterTotal = Number(competition?.registrationSummary?.rosterCount || 0) || 0;
+  return Math.max(direct, itemTotal, rosterTotal, 0);
+}
+
 function competitionHasItems(competition) {
   return competitionItemCount(competition) > 0;
 }
@@ -3569,6 +3579,7 @@ function aiPromptPresets() {
 
 function aiAcceptanceQueryCases() {
   return [
+    { query: '哪场比赛人数最多？', expectedType: 'competition-stats' },
     { query: '2026年天津有几场比赛', expectedType: 'competition-stats' },
     { query: '天津近期报名情况', expectedType: 'prematch' },
     { query: '山东小众体育 U8 男花怎么样', expectedType: 'club' },
@@ -3852,6 +3863,9 @@ function buildAiAnswer(query) {
     };
   }
 
+  const competitionRankingQuery = detectCompetitionRankingQuery(text);
+  if (competitionRankingQuery) return buildAiCompetitionRanking(text, competitionRankingQuery);
+
   const competitionQuery = detectCompetitionStatsQuery(text);
   if (competitionQuery) return buildAiCompetitionStats(text, competitionQuery);
 
@@ -3922,6 +3936,22 @@ function detectCompetitionStatsQuery(query) {
   const status = detectStatusInQuery(normalized);
   if (!year && !month && !region && !status) return null;
   return { year, month, region, status };
+}
+
+function detectCompetitionRankingQuery(query) {
+  const normalized = compactText(query);
+  const hasCompetitionIntent = /(比赛|赛事|公开赛|冠军赛|锦标赛|姣旇禌|璧涗簨|鍏紑璧泑鍐犲啗璧泑閿︽爣璧?)/.test(normalized);
+  if (!hasCompetitionIntent) return null;
+  if (/(人数最多|参赛人数最多|参赛最多|报名最多|报名人数最多|规模最大|最多人)/.test(normalized)) {
+    return {
+      metric: 'entrants',
+      year: detectYearInQuery(normalized),
+      month: detectMonthInQuery(normalized),
+      region: detectRegionInQuery(normalized),
+      status: detectStatusInQuery(normalized),
+    };
+  }
+  return null;
 }
 
 function detectPreMatchQuery(query) {
@@ -4141,6 +4171,72 @@ function buildAiCompetitionStats(query, filters) {
       actionRows[0]?.sportCode ? { label: '生成赛前情报包', prematchTemplateKind: 'prematch-pack', prematchSportCode: actionRows[0].sportCode } : null,
       watchRows[0]?.sportCode ? { label: '加入赛前提醒', followCompetitionCode: watchRows[0].sportCode } : null,
       { label: rows.length ? '查看匹配赛事' : '进入赛事列表', mainTab: 'competitions', filters },
+    ].filter(Boolean),
+  };
+}
+
+function buildAiCompetitionRanking(query, filters) {
+  const matchedRows = (state.competitions || []).filter((competition) => {
+    const yearOk = filters.year ? competitionYear(competition) === filters.year : true;
+    const monthOk = filters.month ? competitionMonth(competition) === filters.month : true;
+    const regionText = compactText([competition.venue, competition.region, competition.sportName].filter(Boolean).join(' '));
+    const regionOk = filters.region ? regionText.includes(filters.region) : true;
+    const statusOk = filters.status ? competition.status === filters.status : true;
+    return yearOk && monthOk && regionOk && statusOk;
+  });
+  const rows = matchedRows
+    .map((competition) => ({
+      competition,
+      entrants: competitionEntrantCount(competition),
+      itemCount: competitionItemCount(competition),
+    }))
+    .filter((row) => row.entrants > 0)
+    .sort((a, b) => b.entrants - a.entrants || b.itemCount - a.itemCount || String(a.competition.sportName || '').localeCompare(String(b.competition.sportName || ''), 'zh-CN'));
+  const top = rows[0];
+  const filterLabel = [filters.year, filters.month ? `${filters.month}月` : '', filters.region, filters.status ? statusLabel(filters.status) : ''].filter(Boolean).join(' ');
+  const scopeText = filterLabel || '当前数据';
+  const listFilters = {
+    year: filters.year || '',
+    month: filters.month || '',
+    region: filters.region || '',
+    status: filters.status || '',
+  };
+
+  return {
+    type: 'competition-stats',
+    title: '参赛人数最多的赛事',
+    summary: top
+      ? `${scopeText}中，${top.competition.sportName} 的参赛规模最高，约 ${top.entrants} 人次。`
+      : `${scopeText}中暂时没有可用于计算参赛人数的赛事记录。`,
+    cards: [
+      ['最高人数', top ? `${top.entrants} 人次` : '-'],
+      ['候选赛事', `${matchedRows.length} 场`],
+      ['项目/组别', top ? `${top.itemCount || '-'} 个` : '-'],
+      ['范围', scopeText],
+    ],
+    sections: rows.length ? [
+      {
+        title: '规模排行',
+        rows: rows.slice(0, 6).map((row, index) => `${index + 1}. ${row.competition.sportName} · ${row.entrants} 人次 · ${displayDateLabel(row.competition.dateLabel)}`),
+      },
+      {
+        title: '查看建议',
+        rows: [
+          '先打开排名靠前的赛事详情，查看项目分布和各组别人数。',
+          '如果是赛前赛事，可以继续关注报名名单，等名单完整后再做对手和俱乐部分布分析。',
+        ],
+      },
+    ] : [],
+    evidence: rows.slice(0, 8).map((row) => ({
+      kind: '赛事规模',
+      label: row.competition.sportName,
+      detail: `${row.entrants} 人次 · ${row.competition.dateLabel || '日期待确认'} · ${row.competition.venue || row.competition.region || ''}`,
+      reason: '用于核对赛事参赛规模排行',
+      sportCode: row.competition.sportCode,
+    })),
+    actions: [
+      top?.competition?.sportCode ? { label: '查看人数最多的赛事', sportCode: top.competition.sportCode } : null,
+      { label: rows.length ? '查看赛事列表' : '进入赛事列表', mainTab: 'competitions', filters: listFilters },
     ].filter(Boolean),
   };
 }
@@ -5310,7 +5406,7 @@ function renderAiAnswer(report) {
           <strong>可继续操作</strong>
           <div class="ai-action-row">
             ${report.actions.map((action) => `
-              <button type="button" ${action.athleteId ? `data-athlete-id="${escapeHtml(action.athleteId)}"` : ''} ${action.parentGrowthAthleteId ? `data-parent-growth-athlete-id="${escapeHtml(action.parentGrowthAthleteId)}"` : ''} ${action.coachSegmentationClubId ? `data-coach-segmentation-club-id="${escapeHtml(action.coachSegmentationClubId)}"` : ''} ${action.followAthleteId ? `data-follow-athlete-id="${escapeHtml(action.followAthleteId)}"` : ''} ${action.followCompetitionCode ? `data-follow-competition-code="${escapeHtml(action.followCompetitionCode)}"` : ''} ${action.clubId ? `data-club-id="${escapeHtml(action.clubId)}"` : ''} ${action.prematchTemplateKind ? `data-prematch-template="${escapeHtml(action.prematchTemplateKind)}"` : ''} ${action.prematchSportCode ? `data-prematch-sport-code="${escapeHtml(action.prematchSportCode)}"` : ''} ${action.mainTab ? `data-main-target="${escapeHtml(action.mainTab)}"` : ''} ${action.filters ? `data-ai-filters="${escapeHtml(encodeURIComponent(JSON.stringify(action.filters)))}"` : ''}>
+              <button type="button" ${action.athleteId ? `data-athlete-id="${escapeHtml(action.athleteId)}"` : ''} ${action.parentGrowthAthleteId ? `data-parent-growth-athlete-id="${escapeHtml(action.parentGrowthAthleteId)}"` : ''} ${action.coachSegmentationClubId ? `data-coach-segmentation-club-id="${escapeHtml(action.coachSegmentationClubId)}"` : ''} ${action.followAthleteId ? `data-follow-athlete-id="${escapeHtml(action.followAthleteId)}"` : ''} ${action.followCompetitionCode ? `data-follow-competition-code="${escapeHtml(action.followCompetitionCode)}"` : ''} ${action.sportCode ? `data-sport-code="${escapeHtml(action.sportCode)}"` : ''} ${action.clubId ? `data-club-id="${escapeHtml(action.clubId)}"` : ''} ${action.prematchTemplateKind ? `data-prematch-template="${escapeHtml(action.prematchTemplateKind)}"` : ''} ${action.prematchSportCode ? `data-prematch-sport-code="${escapeHtml(action.prematchSportCode)}"` : ''} ${action.mainTab ? `data-main-target="${escapeHtml(action.mainTab)}"` : ''} ${action.filters ? `data-ai-filters="${escapeHtml(encodeURIComponent(JSON.stringify(action.filters)))}"` : ''}>
                 ${escapeHtml(action.label)}
               </button>
             `).join('')}
