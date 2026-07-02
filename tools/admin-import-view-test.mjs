@@ -144,6 +144,8 @@ assert.match(js, /function copyCommercialLeads\(button, leads = \[\]\)/, 'admin 
 assert.match(js, /navigator\.clipboard\.writeText\(commercialLeadCsv\(leads\)\)/, 'commercial lead copy action must use the clipboard API');
 assert.match(js, /let activeFeedbackFilter = 'all'/, 'admin import feedback filters must keep active state');
 assert.match(js, /function isAiFeedback\(row\)/, 'admin import must identify AI feedback rows');
+assert.match(js, /function isAthleteDataRequest\(row\)/, 'admin import must identify athlete data governance requests');
+assert.match(js, /\['correct', 'hide', 'claim-athlete'\]\.includes\(row\.type\)/, 'athlete data governance requests must include correction, hide, and claim types');
 assert.match(js, /function renderFeedbackFilterBar\(rows = \[\]\)/, 'admin import must render feedback filter chips');
 assert.match(js, /function feedbackFilterMatches\(row, filter = activeFeedbackFilter\)/, 'admin import must filter feedback rows');
 assert.match(js, /\['new', '新提交', count\('new'\)\]/, 'admin import must expose newly submitted feedback filters');
@@ -153,6 +155,8 @@ assert.match(js, /filter === 'reviewing'[\s\S]*row\.status === 'reviewing'/, 're
 assert.match(js, /\['hot-commercial', '高优先级', count\('hot-commercial'\)\]/, 'admin import must expose high-priority commercial lead filters');
 assert.match(js, /filter === 'hot-commercial'[\s\S]*commercialLeadPriority\(row\)\.level === 'high'/, 'high-priority commercial lead filter must use lead priority scoring');
 assert.match(js, /\['commercial', '商业线索', count\('commercial'\)\]/, 'admin import must expose a commercial lead filter');
+assert.match(js, /\['athlete-data', '数据治理', count\('athlete-data'\)\]/, 'admin import must expose an athlete data governance filter');
+assert.match(js, /filter === 'athlete-data'[\s\S]*isAthleteDataRequest\(row\)/, 'athlete data governance filter must use athlete request classification');
 assert.match(js, /\/api\/admin\/feedback\/status\?token=/, 'admin import feedback actions must use the admin status API');
 assert.match(js, /data-feedback-status/, 'admin import feedback cards must expose workflow action buttons');
 assert.match(js, /const aiDetail = isAiFeedback\(row\) \? aiFeedbackDetail\(row\) : null;/, 'admin import must derive AI feedback metadata per row');

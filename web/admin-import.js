@@ -952,6 +952,10 @@ function isOpenFeedback(row) {
   return !['resolved', 'ignored'].includes(row.status || 'new');
 }
 
+function isAthleteDataRequest(row) {
+  return ['correct', 'hide', 'claim-athlete'].includes(row.type);
+}
+
 function feedbackFilterOptions(rows = []) {
   const count = (filter) => rows.filter((row) => feedbackFilterMatches(row, filter)).length;
   return [
@@ -961,6 +965,7 @@ function feedbackFilterOptions(rows = []) {
     ['reviewing', '处理中', count('reviewing')],
     ['hot-commercial', '高优先级', count('hot-commercial')],
     ['commercial', '商业线索', count('commercial')],
+    ['athlete-data', '数据治理', count('athlete-data')],
     ['ai', 'AI反馈', count('ai')],
   ];
 }
@@ -971,6 +976,7 @@ function feedbackFilterMatches(row, filter = activeFeedbackFilter) {
   if (filter === 'reviewing') return row.status === 'reviewing';
   if (filter === 'hot-commercial') return isCommercialLead(row) && isOpenFeedback(row) && commercialLeadPriority(row).level === 'high';
   if (filter === 'commercial') return isCommercialLead(row);
+  if (filter === 'athlete-data') return isAthleteDataRequest(row);
   if (filter === 'ai') return isAiFeedback(row);
   return true;
 }
