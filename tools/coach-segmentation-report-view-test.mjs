@@ -25,6 +25,8 @@ assert.match(js, /title: '样本积累学员'/, 'segmentation must include sampl
 assert.match(js, /function coachSegmentationEvidenceRows\(club, projectRows\)/, 'segmentation report must expose traceable project evidence');
 assert.match(js, /function coachBusinessGrowthRows\(club, projectRows, buckets\)/, 'coach report must derive recruiting and reputation assets');
 assert.match(js, /function coachOperatingChecklistRows\(club, buckets = \[\], followups = \[\], projectRows = \[\], businessRows = \[\]\)/, 'coach report must derive an operating checklist from segmentation data');
+assert.match(js, /function coachTrainingPlanRows\(followups = \[\], buckets = \[\], projectRows = \[\]\)/, 'coach report must derive actionable training plan rows');
+assert.match(js, /function coachTrainingPlanText\(row = \{\}\)/, 'coach report must build copyable training plan text');
 assert.match(js, /function coachParentCommunicationRows\(club, followups = \[\], buckets = \[\]\)/, 'coach report must derive parent communication summaries');
 assert.match(js, /function coachParentCommunicationText\(row = \{\}\)/, 'coach report must build copyable parent communication text');
 assert.match(js, /function buildCoachSegmentationShareText\(club, buckets, followups, projectRows, businessRows = \[\]\)/, 'segmentation report must build shareable summary text');
@@ -49,6 +51,10 @@ assert.match(js, /class="coach-segmentation-followups"/, 'segmentation report mu
 assert.match(js, /class="panel coach-segmentation-report-card coach-operating-checklist"/, 'segmentation report must expose a coach operating checklist');
 assert.match(js, /class="coach-operating-grid"/, 'coach operating checklist must render as a compact grid');
 assert.match(js, /coachOperatingChecklistRows\(club, buckets, followups, projectRows, businessRows\)/, 'coach operating checklist must use the current club report data');
+assert.match(js, /const trainingRows = coachTrainingPlanRows\(followups, buckets, projectRows\)/, 'coach report must render training rows from current club data');
+assert.match(js, /class="panel coach-segmentation-report-card coach-training-plan"/, 'segmentation report must expose training plan cards');
+assert.match(js, /训练安排卡/, 'coach report must label training plan cards clearly');
+assert.match(js, /data-coach-training-plan="\$\{escapeHtml\(index\)\}"/, 'training plan cards must expose copy actions');
 assert.match(js, /class="panel coach-segmentation-report-card coach-parent-communication"/, 'segmentation report must expose parent communication summaries');
 assert.match(js, /家长沟通摘要/, 'coach report must label parent communication summaries');
 assert.match(js, /data-coach-parent-message="\$\{escapeHtml\(index\)\}"/, 'parent communication cards must expose copy actions');
@@ -56,6 +62,7 @@ assert.match(js, /class="panel coach-segmentation-report-card coach-business-gro
 assert.match(js, /招生与口碑素材/, 'coach report must include business-growth copy');
 assert.match(js, /const businessRows = coachBusinessGrowthRows\(club, projectRows, buckets\)/, 'coach report must render business rows from current club data');
 assert.match(js, /buildCoachSegmentationShareText\(club, buckets, followups, projectRows, businessRows\)/, 'coach report share text must include business rows');
+assert.match(js, /训练安排\$\{index \+ 1\}/, 'coach report share text must include training plan rows');
 assert.match(js, /家长沟通\$\{index \+ 1\}/, 'coach report share text must include parent communication rows');
 assert.match(js, /class="coach-segmentation-evidence"/, 'segmentation report must show traceable evidence');
 assert.match(js, /data-report-share="coach-segmentation-page"/, 'segmentation report must expose a copy page action');
@@ -77,6 +84,8 @@ assert.match(js, /coachSegmentationReportBody\.querySelectorAll\('\[data-athlete
 assert.match(js, /coachSegmentationReportBody\.querySelectorAll\('\[data-event-code\]'\)/, 'segmentation report evidence must be clickable');
 assert.match(js, /coachSegmentationReportBody\.querySelectorAll\('\[data-coach-parent-message\]'\)/, 'parent communication copy actions must be bound');
 assert.match(js, /bindCopyTextButton\(button, \(\) => coachParentCommunicationText\(row\), 'coach-parent-message'/, 'parent communication copy must reuse report copy tracking');
+assert.match(js, /coachSegmentationReportBody\.querySelectorAll\('\[data-coach-training-plan\]'\)/, 'training plan copy actions must be bound');
+assert.match(js, /bindCopyTextButton\(button, \(\) => coachTrainingPlanText\(row\), 'coach-training-plan'/, 'training plan copy must reuse report copy tracking');
 assert.match(js, /查看完整俱乐部画像/, 'segmentation report must allow drilling into the full club profile');
 
 assert.match(css, /\.coach-segmentation-report-shell/, 'coach segmentation shell styles must exist');
@@ -92,6 +101,9 @@ assert.match(css, /\.coach-parent-message-card/, 'parent communication card styl
 assert.match(css, /\.coach-parent-message-actions/, 'parent communication action styles must exist');
 assert.match(css, /\.coach-business-grid/, 'coach business-growth grid styles must exist');
 assert.match(css, /\.coach-business-card/, 'coach business-growth cards must be styled');
+assert.match(css, /\.coach-training-plan/, 'coach training plan card must be styled');
+assert.match(css, /\.coach-training-plan-list/, 'coach training plan list must be styled');
+assert.match(css, /\.coach-training-plan-actions/, 'coach training plan actions must be styled');
 assert.match(css, /\.coach-segmentation-evidence/, 'coach segmentation evidence styles must exist');
 assert.match(css, /\.report-share-action/, 'report share button styles must exist');
 assert.match(css, /\.report-conversion-card/, 'report conversion card styles must exist');

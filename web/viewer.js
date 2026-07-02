@@ -9277,6 +9277,69 @@ function coachAthleteFollowupRows(athletes) {
     .map(coachAthleteTrainingFocus);
 }
 
+function coachTrainingPlanRows(followups = [], buckets = [], projectRows = []) {
+  const bucketByAthlete = new Map();
+  (buckets || []).forEach((bucket) => {
+    (bucket.rows || []).forEach((athlete) => {
+      const key = athlete.id || `${athlete.name}-${athlete.club || ''}`;
+      if (!bucketByAthlete.has(key)) bucketByAthlete.set(key, bucket);
+    });
+  });
+  const topProject = projectRows[0]?.label || '重点项目';
+  return (followups || []).slice(0, 4).map((row) => {
+    const athlete = row.athlete || {};
+    const key = athlete.id || `${athlete.name}-${athlete.club || ''}`;
+    const bucket = bucketByAthlete.get(key) || {};
+    const model = buildParentGrowthModel(athlete);
+    const closeBout = parentGrowthCloseBoutRows(athlete);
+    const title = bucket.key === 'score'
+      ? '强手对局与收尾'
+      : bucket.key === 'risk'
+        ? '小组赛稳定性'
+        : bucket.key === 'steady'
+          ? '阶段提升巩固'
+          : '参赛基础建立';
+    const drill = bucket.key === 'score'
+      ? '安排同水平或更强对手模拟，重点练领先后收尾和落后两剑追分。'
+      : bucket.key === 'risk'
+        ? '先做开局三剑、连续失分暂停和小组赛节奏训练。'
+        : bucket.key === 'steady'
+          ? '保持参赛节奏，增加淘汰赛关键分和不同类型对手适应。'
+          : `围绕 ${topProject} 做基础动作、比赛规则和首场进入状态训练。`;
+    const evidence = [
+      row.poolText,
+      row.trendText,
+      closeBout.total ? `胶着局 ${closeBout.wins}胜${closeBout.losses}负` : '',
+      model.latest ? `最近第 ${model.latest.finalRank ?? '-'} 名` : '',
+    ].filter(Boolean).join(' · ');
+    const target = bucket.key === 'risk'
+      ? '下一场先看小组胜率和首场状态是否改善。'
+      : bucket.key === 'score'
+        ? '下一场重点看淘汰赛推进和胶着局处理。'
+        : '下一场重点看名次是否前移、表现是否稳定。';
+    return {
+      athlete,
+      title,
+      drill,
+      evidence,
+      target,
+      parentLine: `${athlete.name || '学员'} 这一阶段建议重点放在“${title}”。${target}`,
+    };
+  });
+}
+
+function coachTrainingPlanText(row = {}) {
+  const athleteName = row.athlete?.name || '学员';
+  return [
+    `${athleteName} 训练安排`,
+    `训练主题：${row.title || '阶段提升'}`,
+    row.evidence ? `依据：${row.evidence}` : '',
+    row.drill ? `训练安排：${row.drill}` : '',
+    row.target ? `下场观察：${row.target}` : '',
+    row.parentLine ? `给家长：${row.parentLine}` : '',
+  ].filter(Boolean).join('\n');
+}
+
 function coachParentCommunicationRows(club, followups = [], buckets = []) {
   const bucketByAthlete = new Map();
   (buckets || []).forEach((bucket) => {
@@ -9444,12 +9507,14 @@ function buildCoachSegmentationShareText(club, buckets, followups, projectRows, 
   const topProject = projectRows[0];
   const communicationRows = coachParentCommunicationRows(club, followups, buckets);
   const checklistRows = coachOperatingChecklistRows(club, buckets, followups, projectRows, businessRows);
+  const trainingRows = coachTrainingPlanRows(followups, buckets, projectRows);
   return [
     `${club.club} 学员分层报告`,
     `识别学员：${buckets.reduce((sum, bucket) => sum + bucket.rows.length, 0)} 人`,
     topProject ? `重点项目：${topProject.label}，参赛 ${topProject.entrants || 0} 人次，最好第 ${topProject.bestRank ?? '-'} 名` : '重点项目：待形成',
     ...buckets.map((bucket) => `${bucket.title}：${bucket.rows.map((athlete) => athlete.name).filter(Boolean).slice(0, 4).join(' / ') || '暂无'}。${bucket.action}`),
     ...followups.slice(0, 3).map((row, index) => `跟进${index + 1}：${row.athlete.name}，${row.training}`),
+    ...trainingRows.slice(0, 3).map((row, index) => `训练安排${index + 1}：${row.athlete.name}，${row.title}。${row.target}`),
     ...communicationRows.slice(0, 3).map((row, index) => `家长沟通${index + 1}：${row.title}。${row.message}`),
     ...businessRows.slice(0, 4).map((row) => `${row.title}：${row.label}。${row.detail}`),
     '数据来源：FencingAI 已收录赛事成绩',
@@ -9498,6 +9563,7 @@ function renderCoachSegmentationReport(clubId = '') {
   const businessRows = coachBusinessGrowthRows(club, projectRows, buckets);
   const communicationRows = coachParentCommunicationRows(club, followups, buckets);
   const checklistRows = coachOperatingChecklistRows(club, buckets, followups, projectRows, businessRows);
+  const trainingRows = coachTrainingPlanRows(followups, buckets, projectRows);
   const topProject = projectRows[0] || null;
   const scoreBucket = buckets.find((bucket) => bucket.key === 'score');
   const riskBucket = buckets.find((bucket) => bucket.key === 'risk');
@@ -9576,6 +9642,30 @@ function renderCoachSegmentationReport(clubId = '') {
             </div>
           </section>
         `).join('')}
+      </div>
+    </article>
+
+    <article class="panel coach-segmentation-report-card coach-training-plan">
+      <div class="section-title">
+        <h2>训练安排卡</h2>
+        <span>可直接使用</span>
+      </div>
+      <div class="coach-training-plan-list">
+        ${trainingRows.length ? trainingRows.map((row, index) => `
+          <article class="coach-training-plan-card">
+            <div>
+              <strong>${escapeHtml(row.athlete.name || '学员')}</strong>
+              <span>${escapeHtml(row.title)}</span>
+            </div>
+            <p>${escapeHtml(row.drill)}</p>
+            <em>${escapeHtml(row.evidence || '依据继续积累')}</em>
+            <small>${escapeHtml(row.parentLine)}</small>
+            <div class="coach-training-plan-actions">
+              <button type="button" data-coach-training-plan="${escapeHtml(index)}">复制训练安排</button>
+              <button type="button" data-athlete-id="${escapeHtml(row.athlete.id || '')}">看选手</button>
+            </div>
+          </article>
+        `).join('') : '<div class="empty compact-empty">暂无可生成训练安排的学员。</div>'}
       </div>
     </article>
 
@@ -9676,6 +9766,10 @@ function renderCoachSegmentationReport(clubId = '') {
   coachSegmentationReportBody.querySelectorAll('[data-coach-parent-message]').forEach((button) => {
     const row = communicationRows[Number(button.dataset.coachParentMessage)];
     bindCopyTextButton(button, () => coachParentCommunicationText(row), 'coach-parent-message', '已复制，可直接发给家长。');
+  });
+  coachSegmentationReportBody.querySelectorAll('[data-coach-training-plan]').forEach((button) => {
+    const row = trainingRows[Number(button.dataset.coachTrainingPlan)];
+    bindCopyTextButton(button, () => coachTrainingPlanText(row), 'coach-training-plan', '已复制，可直接用于训练沟通。');
   });
   coachSegmentationReportBody.querySelector('[data-club-id]')?.addEventListener('click', () => openClub(club.id));
   bindReportConversionActions(coachSegmentationReportBody);

@@ -5938,6 +5938,87 @@ select:focus {
   line-height: 1.45;
 }
 
+.coach-training-plan {
+  border-color: rgba(180, 99, 13, 0.16);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(255, 250, 244, 0.94));
+}
+
+.coach-training-plan-list {
+  display: grid;
+  gap: 8px;
+}
+
+.coach-training-plan-card {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+  border: 1px solid rgba(180, 99, 13, 0.14);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.92);
+  padding: 10px;
+}
+
+.coach-training-plan-card strong,
+.coach-training-plan-card span,
+.coach-training-plan-card p,
+.coach-training-plan-card em,
+.coach-training-plan-card small {
+  display: block;
+  min-width: 0;
+}
+
+.coach-training-plan-card strong {
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.coach-training-plan-card span {
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.coach-training-plan-card p {
+  margin: 0;
+  color: var(--text);
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.coach-training-plan-card em,
+.coach-training-plan-card small {
+  color: var(--muted);
+  font-size: 12px;
+  font-style: normal;
+  line-height: 1.45;
+}
+
+.coach-training-plan-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.coach-training-plan-actions button {
+  flex: 1 1 112px;
+  min-height: 34px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--primary);
+  color: #fff;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 900;
+  padding: 8px 12px;
+}
+
+.coach-training-plan-actions button + button {
+  border: 1px solid rgba(21, 95, 194, 0.16);
+  background: rgba(21, 95, 194, 0.08);
+  color: var(--primary);
+}
+
 .coach-parent-message-list {
   display: grid;
   gap: 8px;
