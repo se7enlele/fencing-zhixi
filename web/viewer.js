@@ -3023,7 +3023,7 @@ function trialDeliverableRows() {
   return [
     {
       key: 'prematch',
-      label: 'P0',
+      label: '赛前',
       title: '赛前情报包',
       status: prematch ? '可交付' : '待选择赛事',
       tone: prematch ? 'ready' : 'pending',
@@ -3039,7 +3039,7 @@ function trialDeliverableRows() {
     },
     {
       key: 'growth',
-      label: 'P1',
+      label: '成长',
       title: '家庭成长报告',
       status: child ? '可交付' : '待关注孩子',
       tone: child ? 'ready' : 'pending',
@@ -3055,7 +3055,7 @@ function trialDeliverableRows() {
     },
     {
       key: 'coach',
-      label: 'P1',
+      label: '教练',
       title: '教练经营包',
       status: club?.id ? '可交付' : '待选择俱乐部',
       tone: club?.id ? 'ready' : 'pending',
@@ -3071,7 +3071,7 @@ function trialDeliverableRows() {
     },
     {
       key: 'asset',
-      label: 'P1',
+      label: '留存',
       title: '报告资产沉淀',
       status: reportCount ? '已沉淀' : '待生成',
       tone: reportCount ? 'ready' : 'pending',
@@ -3080,7 +3080,7 @@ function trialDeliverableRows() {
         : '生成赛前情报、成长报告或教练报告后，会沉淀为可复用资产。',
       next: reportCount
         ? '优先把高频报告订阅成提醒，减少重复搜索。'
-        : '先完成一份 P0 或 P1 报告，形成第一条可复用记录。',
+        : '先完成一份赛前、成长或教练报告，形成第一条可复用记录。',
       action: 'ask',
       query: '这些击剑数据能产生什么商业价值',
     },
@@ -3184,7 +3184,7 @@ function renderHomeCoachAction(row = homeCoachActionRow()) {
     <section class="panel my-section home-coach-action">
       <div class="section-title">
         <h2>教练经营重点</h2>
-        <span>P1</span>
+        <span>教练视角</span>
       </div>
       <article class="home-coach-card">
         <div>
@@ -4405,9 +4405,9 @@ function businessPriorityRows() {
   const scoreCount = competitions.filter((competition) => competition.coverageLevel === 'score' || competitionHasItems(competition)).length;
   const clubCount = (state.clubSearchIndex || []).length;
   return [
-    `P0：赛前情报包，当前 ${activeCount} 场赛事可触发，适合用报名截止和开赛前作为高频使用节点。`,
-    `P1：成长报告，当前 ${scoreCount} 场成绩样本可支撑长期复盘，适合家长会员和续费沟通。`,
-    `P1：教练/俱乐部工作台，当前 ${clubCount} 个俱乐部画像可支撑学员分层、招生展示和区域竞争判断。`,
+    `先做赛前情报包：当前 ${activeCount} 场赛事可触发，适合用报名截止和开赛前作为高频使用节点。`,
+    `再做成长报告：当前 ${scoreCount} 场成绩样本可支撑长期复盘，适合家长会员和续费沟通。`,
+    `同步做教练/俱乐部工作台：当前 ${clubCount} 个俱乐部画像可支撑学员分层、招生展示和区域竞争判断。`,
   ];
 }
 
@@ -4431,9 +4431,9 @@ function businessMonetizationRows() {
   const followedCount = aiFocusedAthletes().length;
   const clubCount = (state.clubSearchIndex || []).length;
   return [
-    `P0 赛前情报包：用 ${activeCount} 场近期/报名赛事做高频入口，其中 ${rosterCount} 场已有报名名单，适合先做单场试用和赛前提醒。`,
-    `P1 家长成长报告：用 ${scoreCount} 场成绩样本沉淀月度/赛后复盘，当前 ${followedCount} 名关注选手可直接承接个人化报告。`,
-    `P1 教练工作台：用 ${clubCount} 个俱乐部画像承接学员分层、续费沟通和招生展示，优先服务熟悉的小型剑馆样板。`,
+    `赛前情报包：用 ${activeCount} 场近期/报名赛事做高频入口，其中 ${rosterCount} 场已有报名名单，适合先做单场试用和赛前提醒。`,
+    `家长成长报告：用 ${scoreCount} 场成绩样本沉淀月度/赛后复盘，当前 ${followedCount} 名关注选手可直接承接个人化报告。`,
+    `教练工作台：用 ${clubCount} 个俱乐部画像承接学员分层、续费沟通和招生展示，优先服务熟悉的小型剑馆样板。`,
     '商业闭环：免费问答负责发现需求，报告负责证明价值，关注/试用负责留存，后续再扩展会员或教练端 SaaS。沿这条路径推进，避免只做泛数据浏览。',
   ];
 }
@@ -5870,7 +5870,7 @@ function renderMyPage() {
     <section class="panel my-section trial-deliverable-section">
       <div class="section-title">
         <h2>试用交付内容</h2>
-        <span>P0 / P1</span>
+        <span>按当前数据</span>
       </div>
       <div class="trial-deliverable-grid">
         ${deliverableRows.map((row) => `

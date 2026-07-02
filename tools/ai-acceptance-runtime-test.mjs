@@ -299,16 +299,16 @@ assert.ok(businessReport.sections.some((section) => section.title === '\u89d2\u8
 assert.ok(businessReport.sections.some((section) => section.title === '\u6570\u636e\u6210\u719f\u5ea6'), 'business insight should show which data is ready for which business scenario');
 assert.ok(businessReport.sections.some((section) => section.title === '\u5546\u4e1a\u5316\u843d\u5730\u987a\u5e8f'), 'business insight should include a monetization rollout sequence');
 assert.ok(
-  businessReport.sections.find((section) => section.title === '\u4f18\u5148\u843d\u5730\u573a\u666f')?.rows.some((row) => row.includes('P0\uff1a\u8d5b\u524d\u60c5\u62a5\u5305')),
-  'business insight should name prematch intelligence as the P0 opportunity',
+  businessReport.sections.find((section) => section.title === '\u4f18\u5148\u843d\u5730\u573a\u666f')?.rows.some((row) => row.includes('\u5148\u505a\u8d5b\u524d\u60c5\u62a5\u5305')),
+  'business insight should name prematch intelligence as the first opportunity',
 );
 assert.ok(
-  businessReport.sections.find((section) => section.title === '\u5546\u4e1a\u5316\u843d\u5730\u987a\u5e8f')?.rows.some((row) => row.includes('P1 \u5bb6\u957f\u6210\u957f\u62a5\u544a')),
-  'business insight should map parent growth into the P1 rollout',
+  businessReport.sections.find((section) => section.title === '\u5546\u4e1a\u5316\u843d\u5730\u987a\u5e8f')?.rows.some((row) => row.includes('\u5bb6\u957f\u6210\u957f\u62a5\u544a')),
+  'business insight should map parent growth into the rollout',
 );
 assert.ok(
-  businessReport.sections.find((section) => section.title === '\u5546\u4e1a\u5316\u843d\u5730\u987a\u5e8f')?.rows.some((row) => row.includes('P1 \u6559\u7ec3\u5de5\u4f5c\u53f0')),
-  'business insight should map coach workspace into the P1 rollout',
+  businessReport.sections.find((section) => section.title === '\u5546\u4e1a\u5316\u843d\u5730\u987a\u5e8f')?.rows.some((row) => row.includes('\u6559\u7ec3\u5de5\u4f5c\u53f0')),
+  'business insight should map coach workspace into the rollout',
 );
 assert.ok(businessReport.sections.some((section) => section.title === '\u533a\u57df\u673a\u4f1a'), 'business insight should include regional opportunity analysis');
 assert.ok(businessReport.evidence.some((row) => row.kind === '\u8d5b\u524d\u673a\u4f1a'), 'business insight should cite prematch opportunity evidence');

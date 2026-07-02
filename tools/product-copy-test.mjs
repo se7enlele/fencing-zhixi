@@ -22,4 +22,6 @@ assert.doesNotMatch(js, /已产品化|产品模板|报告模板|生成赛前情�
 assert.match(js, /常用报告/, 'home report center should use user-facing report copy');
 assert.match(js, /报告方案/, 'AI report planning answers should use user-facing report wording');
 
+assert.doesNotMatch(js, /\bP0\b|\bP1\b/, 'frontend copy must avoid internal priority labels');
+
 console.log('product-facing copy is covered');
