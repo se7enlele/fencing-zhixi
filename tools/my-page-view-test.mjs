@@ -246,6 +246,12 @@ assert.match(js, /function myWorkspaceNextActions\(\{ children = \[\], followedC
 assert.match(js, /function serviceReadinessRows\(\{ children = \[\], followedCompetitions = \[\], reportHistory = \[\], aiHistory = \[\] \} = \{\}\)/, 'my page must summarize service readiness from saved user state');
 assert.match(js, /function recommendedTrialRows\(\{ children = \[\], followedCompetitions = \[\], reportHistory = \[\], aiHistory = \[\] \} = \{\}\)/, 'my page must recommend trial plans from current user state');
 assert.match(js, /function trialDeliverableRows\(\)/, 'my page must define concrete trial deliverables');
+assert.match(js, /function myFollowSectionCopy\(\)/, 'my page must derive role-aware follow copy');
+assert.match(js, /state\.userRole === 'coach'[\s\S]*title: '关注学员'/, 'coach my page must frame followed athletes as students');
+assert.match(js, /state\.userRole === 'club'[\s\S]*title: '代表选手'/, 'club my page must frame followed athletes as representative athletes');
+assert.match(js, /const followCopy = myFollowSectionCopy\(\);/, 'my page render must use role-aware follow copy');
+assert.match(js, /<h2>\$\{escapeHtml\(followCopy\.title\)\}<\/h2>/, 'my page follow section title must be role-aware');
+assert.match(js, /<strong>\$\{escapeHtml\(followCopy\.emptyTitle\)\}<\/strong>/, 'my page follow empty state must be role-aware');
 assert.match(js, /function myPrematchReminderRows\(followedCompetitions = \[\]\)/, 'my page must derive prematch reminders from follows and recommendations');
 assert.match(js, /title: '赛前情报包'[\s\S]*title: '成长报告'[\s\S]*title: '教练\/俱乐部分析'[\s\S]*title: '报告复用'/, 'service readiness must cover P0 and P1 service lines');
 assert.match(js, /title: '赛前情报试用'[\s\S]*title: '家庭成长试用'[\s\S]*title: '教练经营试用'[\s\S]*title: '长期报告试用'/, 'trial plans must map P0 and P1 services into user-facing offers');

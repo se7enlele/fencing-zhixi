@@ -3179,6 +3179,51 @@ function trialDeliverableRows() {
   ];
 }
 
+function myFollowSectionCopy() {
+  if (state.userRole === 'coach') {
+    return {
+      title: '关注学员',
+      activeLabel: '学员入口',
+      emptyLabel: '待关注学员',
+      heroReady: '已选择重点关注学员',
+      heroEmpty: '可从选手详情页关注学员',
+      emptyTitle: '还没有关注学员',
+      emptyDetail: '进入选手详情页后，可把重点学员加入这里，后续用于成长报告、赛前提醒和训练反馈。',
+    };
+  }
+  if (state.userRole === 'club') {
+    return {
+      title: '代表选手',
+      activeLabel: '队伍入口',
+      emptyLabel: '待关注选手',
+      heroReady: '已选择重点代表选手',
+      heroEmpty: '可从选手详情页关注代表选手',
+      emptyTitle: '还没有代表选手',
+      emptyDetail: '关注俱乐部代表选手后，这里会沉淀成绩案例、成长报告和对外展示素材。',
+    };
+  }
+  if (state.userRole === 'data') {
+    return {
+      title: '关注选手',
+      activeLabel: '快速入口',
+      emptyLabel: '待关注',
+      heroReady: '已选择重点关注选手',
+      heroEmpty: '可从选手详情页设置关注',
+      emptyTitle: '还没有关注选手',
+      emptyDetail: '进入选手详情页后，可把常看的选手加入这里。',
+    };
+  }
+  return {
+    title: '我的孩子',
+    activeLabel: '成长入口',
+    emptyLabel: '待关注',
+    heroReady: '已选择重点关注孩子',
+    heroEmpty: '可从选手详情页设置关注',
+    emptyTitle: '还没有关注选手',
+    emptyDetail: '进入选手详情页后，可把孩子加入这里，后续用于成长报告和赛前提醒。',
+  };
+}
+
 function myPrematchReminderRows(followedCompetitions = []) {
   const followedCodes = new Set((followedCompetitions || []).map((competition) => competition.sportCode).filter(Boolean));
   const followedRows = (followedCompetitions || [])
@@ -5935,6 +5980,7 @@ function renderMyPage() {
   const trialRows = recommendedTrialRows({ children, followedCompetitions, reportHistory, aiHistory });
   const deliverableRows = trialDeliverableRows();
   const prematchReminderRows = myPrematchReminderRows(followedCompetitions);
+  const followCopy = myFollowSectionCopy();
   const generatedLabel = formatDataGeneratedAt(state.dataGeneratedAt);
   const stats = [
     { value: children.length, label: '关注选手' },
@@ -5950,7 +5996,7 @@ function renderMyPage() {
       <div>
         <span>当前工作台</span>
         <strong>${escapeHtml(roleLabel(state.userRole))}</strong>
-        <em>${escapeHtml(state.selectedChildId ? '已选择重点关注孩子' : '可从选手详情页设置关注')}</em>
+        <em>${escapeHtml(state.selectedChildId ? followCopy.heroReady : followCopy.heroEmpty)}</em>
       </div>
       <button type="button" data-role-switch>切换</button>
     </section>
@@ -6110,8 +6156,8 @@ function renderMyPage() {
 
     <section class="panel my-section">
       <div class="section-title">
-        <h2>我的孩子</h2>
-        <span>${children.length ? '成长入口' : '待关注'}</span>
+        <h2>${escapeHtml(followCopy.title)}</h2>
+        <span>${escapeHtml(children.length ? followCopy.activeLabel : followCopy.emptyLabel)}</span>
       </div>
       ${children.length ? `
         <div class="follow-strip">
@@ -6126,8 +6172,8 @@ function renderMyPage() {
         </div>
       ` : `
         <div class="empty-follow">
-          <strong>还没有关注选手</strong>
-          <span>进入选手详情页后，可把孩子加入这里。</span>
+          <strong>${escapeHtml(followCopy.emptyTitle)}</strong>
+          <span>${escapeHtml(followCopy.emptyDetail)}</span>
         </div>
       `}
     </section>
