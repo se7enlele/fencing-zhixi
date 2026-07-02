@@ -33,6 +33,7 @@ assert.match(js, /PV/, 'admin analytics must expose page views');
 assert.match(js, /UV/, 'admin analytics must expose unique visitors');
 assert.match(js, /平均停留/, 'admin analytics must expose average duration');
 assert.match(js, /function analyticsActionLabel\(action\)/, 'admin analytics must label product actions');
+assert.match(js, /export_report:/, 'admin analytics must label report export actions');
 assert.match(js, /share_report: '复制报告'/, 'admin analytics must label report share actions');
 assert.match(js, /share_club: '复制招生名片'/, 'admin analytics must label club recruiting share actions');
 assert.match(js, /pilot_interest: '试用意向'/, 'admin analytics must label pilot interest actions');
@@ -55,6 +56,7 @@ assert.match(js, /动作明细/, 'admin analytics must expose product action det
 assert.match(js, /mergeMetricRows\(days, 'actions'\)/, 'admin analytics must merge action rows across days');
 assert.match(js, /mergeMetricRows\(days, 'actionLabels'\)/, 'admin analytics must merge action detail rows across days');
 assert.match(js, /function analyticsFunnelRows\(actionRows = \[\]\)/, 'admin analytics must build a commercial conversion funnel from action rows');
+assert.match(js, /analyticsMetricValue\(actionRows, 'share_report'\) \+ analyticsMetricValue\(actionRows, 'export_report'\) \+ analyticsMetricValue\(actionRows, 'share_club'\)/, 'admin analytics funnel must include report export actions');
 assert.match(js, /analyticsMetricValue\(actionRows, 'pilot_interest'\) \+ analyticsMetricValue\(actionRows, 'membership_interest'\)/, 'admin analytics funnel must combine trial and membership intent');
 assert.match(js, /\['pilot_interest', 'membership_interest', 'reminder_interest'\]\.includes\(action\) \? commercialSourceLabel\(label\)/, 'admin action details must translate reminder subscription sources');
 assert.match(js, /function analyticsConversionInsight\(funnelRows = \[\]\)/, 'admin analytics must diagnose the conversion funnel');
@@ -63,8 +65,10 @@ assert.match(js, /class="analytics-insight"/, 'admin analytics must show a next 
 assert.match(js, /'prematch-page': '赛前情报页'/, 'report type analytics must label prematch page shares separately');
 assert.match(js, /'coach-segmentation-page': '教练工作台页'/, 'report type analytics must label coach page shares separately');
 assert.match(js, /function analyticsReportTypeRows\(actionLabelRows = \[\]\)/, 'admin analytics must aggregate report type conversion rows');
+assert.match(js, /\['open_report', 'share_report', 'export_report'\]\.includes\(action\)/, 'report type analytics must use report open, share and export actions');
+assert.match(js, /if \(action === 'export_report'\) current\.exports \+= Number\(row\.value\) \|\| 0;/, 'report type analytics must count report exports');
 assert.match(js, /'parent-growth-page': '成长页分享'/, 'report type analytics must label parent growth page shares separately');
-assert.match(js, /\['open_report', 'share_report'\]\.includes\(action\)/, 'report type analytics must use report open and share actions');
+assert.match(js, /\['open_report', 'share_report', 'export_report'\]\.includes\(action\)/, 'report type analytics must use report open, share and export actions');
 assert.match(js, /'ai-report': 'AI报告'/, 'report type analytics must label reopened AI reports');
 assert.match(js, /'ai-business-insight': 'AI 商业洞察'/, 'report type analytics must label shared AI business reports');
 assert.match(js, /'ai-product-template': 'AI 报告方案'/, 'report type analytics must label shared AI template reports');

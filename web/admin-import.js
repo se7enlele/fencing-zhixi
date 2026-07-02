@@ -81,6 +81,7 @@ function analyticsActionLabel(action) {
     home_report: '首页报告入口',
     open_report: '打开报告',
     share_report: '复制报告',
+    export_report: '保存报告',
     share_club: '复制招生名片',
     pilot_interest: '试用意向',
     membership_interest: '会员意向',
@@ -179,12 +180,12 @@ function analyticsConversionRate(current, previous) {
 function analyticsFunnelRows(actionRows = []) {
   const aiAnswers = analyticsMetricValue(actionRows, 'ai_answer');
   const openedReports = analyticsMetricValue(actionRows, 'open_report');
-  const sharedReports = analyticsMetricValue(actionRows, 'share_report') + analyticsMetricValue(actionRows, 'share_club');
+  const sharedReports = analyticsMetricValue(actionRows, 'share_report') + analyticsMetricValue(actionRows, 'export_report') + analyticsMetricValue(actionRows, 'share_club');
   const commercialLeads = analyticsMetricValue(actionRows, 'pilot_interest') + analyticsMetricValue(actionRows, 'membership_interest') + analyticsMetricValue(actionRows, 'reminder_interest');
   return [
     { label: 'AI 回答', value: aiAnswers, rate: '-' },
     { label: '打开报告', value: openedReports, rate: analyticsConversionRate(openedReports, aiAnswers) },
-    { label: '复制/分享', value: sharedReports, rate: analyticsConversionRate(sharedReports, openedReports || aiAnswers) },
+    { label: '复制/分享/保存', value: sharedReports, rate: analyticsConversionRate(sharedReports, openedReports || aiAnswers) },
     { label: '试用/会员意向', value: commercialLeads, rate: analyticsConversionRate(commercialLeads, openedReports || aiAnswers) },
   ];
 }
@@ -193,7 +194,7 @@ function analyticsConversionInsight(funnelRows = []) {
   const byLabel = Object.fromEntries(funnelRows.map((row) => [row.label, Number(row.value) || 0]));
   if (!byLabel['AI 回答']) return '先观察 AI 问答入口是否产生使用量，再判断报告和试用转化。';
   if (!byLabel['打开报告']) return 'AI 问答已有使用，下一步优化回答里的报告入口，让用户进入成长、赛前或教练报告。';
-  if (!byLabel['复制/分享']) return '报告已有打开，下一步优化报告结论和分享文案，促成家长或教练愿意转发。';
+  if (!byLabel['复制/分享/保存']) return '报告已有打开，下一步优化报告结论、保存和分享文案，促成家长或教练愿意转发或留存。';
   if (!byLabel['试用/会员意向']) return '报告已有分享，下一步强化试用按钮和权益说明，把高意向访问转成可跟进线索。';
   return '漏斗已有完整转化，下一步按报告类型复盘线索质量，优先投入高转化的报告场景。';
 }
@@ -202,18 +203,19 @@ function analyticsReportTypeRows(actionLabelRows = []) {
   const rowsByLabel = new Map();
   actionLabelRows.forEach((row) => {
     const [action, label = 'unknown'] = String(row.key || '').split(':');
-    if (!['open_report', 'share_report'].includes(action)) return;
-    const readable = analyticsActionDetailLabel(`${action}:${label}`).replace(/^打开报告 · |^复制报告 · /, '');
-    const current = rowsByLabel.get(readable) || { label: readable, opens: 0, shares: 0 };
+    if (!['open_report', 'share_report', 'export_report'].includes(action)) return;
+    const readable = analyticsActionDetailLabel(`${action}:${label}`).replace(/^打开报告 · |^复制报告 · |^保存报告 · /, '');
+    const current = rowsByLabel.get(readable) || { label: readable, opens: 0, shares: 0, exports: 0 };
     if (action === 'open_report') current.opens += Number(row.value) || 0;
     if (action === 'share_report') current.shares += Number(row.value) || 0;
+    if (action === 'export_report') current.exports += Number(row.value) || 0;
     rowsByLabel.set(readable, current);
   });
   return [...rowsByLabel.values()]
     .map((row) => ({
       ...row,
-      total: row.opens + row.shares,
-      shareRate: analyticsConversionRate(row.shares, row.opens),
+      total: row.opens + row.shares + row.exports,
+      shareRate: analyticsConversionRate(row.shares + row.exports, row.opens),
     }))
     .sort((a, b) => b.total - a.total || a.label.localeCompare(b.label, 'zh-CN'))
     .slice(0, 6);
