@@ -2824,10 +2824,18 @@ select:focus {
   grid-template-columns: auto minmax(0, 1fr);
   gap: 4px 8px;
   align-items: start;
+  width: 100%;
+  text-align: left;
   border: 1px solid rgba(21, 95, 194, 0.1);
   border-radius: 10px;
   background: rgba(255, 255, 255, 0.88);
   padding: 10px;
+}
+
+.trial-deliverable-card div {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
 }
 
 .trial-deliverable-card span {
@@ -2847,11 +2855,43 @@ select:focus {
   font-weight: 900;
 }
 
+.trial-deliverable-card small {
+  justify-self: start;
+  border-radius: 999px;
+  background: rgba(21, 95, 194, 0.08);
+  color: var(--primary);
+  font-size: 11px;
+  font-weight: 900;
+  line-height: 1;
+  padding: 5px 8px;
+}
+
 .trial-deliverable-card em {
   color: var(--muted);
   font-size: 12px;
   font-style: normal;
   line-height: 1.4;
+}
+
+.trial-deliverable-card b {
+  color: #164477;
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1.4;
+}
+
+.trial-deliverable-ready small {
+  background: rgba(13, 125, 103, 0.1);
+  color: #0d7d67;
+}
+
+.trial-deliverable-pending {
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.trial-deliverable-pending small {
+  background: rgba(100, 116, 139, 0.1);
+  color: #64748b;
 }
 
 .trial-deliverable-prematch {

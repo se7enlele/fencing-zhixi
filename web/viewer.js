@@ -3012,24 +3012,77 @@ function recommendedTrialRows({ children = [], followedCompetitions = [], report
 }
 
 function trialDeliverableRows() {
+  const children = focusAthleteCards();
+  const followedCompetitions = followedCompetitionCards();
+  const prematch = (followedCompetitions || []).find(isPrematchCompetition) || prematchReportCompetitions()[0] || null;
+  const child = children[0] || null;
+  const club = state.currentClub || aiDefaultClub();
+  const activeCount = (state.competitions || []).filter((competition) => ['registration', 'upcoming', 'live'].includes(competition.status) || competition.isPreEvent).length;
+  const rosterCount = (state.competitions || []).filter((competition) => competition.rosterStatus === 'partial' || competition.rosterStatus === 'complete').length;
+  const reportCount = (state.reportHistory || []).length + (state.aiHistory || []).length;
   return [
     {
       key: 'prematch',
       label: 'P0',
       title: '赛前情报包',
-      detail: '目标赛事、报名名单、潜在强手和关注选手备赛清单。',
+      status: prematch ? '可交付' : '待选择赛事',
+      tone: prematch ? 'ready' : 'pending',
+      detail: prematch
+        ? `${prematch.sportName} 已可生成赛前项目、报名名单和强手线索。`
+        : `${activeCount} 场赛前/报名赛事可作为备选，先选择目标赛事。`,
+      next: prematch
+        ? `先生成本场情报包，后续订阅报名和重点对手更新。`
+        : `已有 ${rosterCount} 场赛事带报名数据，可先从近期赛事开始。`,
+      action: prematch ? 'prematch' : 'ask',
+      sportCode: prematch?.sportCode || '',
+      query: '近期哪些比赛适合做赛前情报包',
     },
     {
       key: 'growth',
       label: 'P1',
       title: '家庭成长报告',
-      detail: '月度/赛事复盘、名次变化、稳定性和下一场建议。',
+      status: child ? '可交付' : '待关注孩子',
+      tone: child ? 'ready' : 'pending',
+      detail: child
+        ? `${child.name} 已可生成成长复盘、名次变化和下一场建议。`
+        : '关注孩子后，成长报告会围绕他的比赛记录和后续赛事生成。',
+      next: child
+        ? `先生成 ${child.name} 的完整成长报告，再订阅赛后复盘提醒。`
+        : '先在搜索中关注孩子，避免报告出现无关选手。',
+      action: child ? 'growth' : 'ask',
+      athleteId: child?.id || '',
+      query: '如何为孩子建立击剑成长报告',
     },
     {
       key: 'coach',
       label: 'P1',
       title: '教练经营包',
-      detail: '学员分层、优势项目、续费沟通和招生展示素材。',
+      status: club?.id ? '可交付' : '待选择俱乐部',
+      tone: club?.id ? 'ready' : 'pending',
+      detail: club?.club
+        ? `${club.club} 已可生成学员分层、优势项目和招生展示素材。`
+        : '选择俱乐部后，可生成教练视角的队伍经营和学员跟进材料。',
+      next: club?.id
+        ? `先生成 ${club.club} 的教练工作台，再订阅学员跟进提醒。`
+        : '先搜索俱乐部，系统会围绕该馆生成经营视角。',
+      action: club?.id ? 'coach' : 'ask',
+      clubId: club?.id || '',
+      query: '山东小众体育有哪些优势项目',
+    },
+    {
+      key: 'asset',
+      label: 'P1',
+      title: '报告资产沉淀',
+      status: reportCount ? '已沉淀' : '待生成',
+      tone: reportCount ? 'ready' : 'pending',
+      detail: reportCount
+        ? `已有 ${reportCount} 条报告/问答记录，可继续复看和追问。`
+        : '生成赛前情报、成长报告或教练报告后，会沉淀为可复用资产。',
+      next: reportCount
+        ? '优先把高频报告订阅成提醒，减少重复搜索。'
+        : '先完成一份 P0 或 P1 报告，形成第一条可复用记录。',
+      action: 'ask',
+      query: '这些击剑数据能产生什么商业价值',
     },
   ];
 }
@@ -5821,11 +5874,15 @@ function renderMyPage() {
       </div>
       <div class="trial-deliverable-grid">
         ${deliverableRows.map((row) => `
-          <div class="trial-deliverable-card trial-deliverable-${escapeHtml(row.key)}">
+          <button type="button" class="trial-deliverable-card trial-deliverable-${escapeHtml(row.key)} trial-deliverable-${escapeHtml(row.tone)}" data-trial-deliverable-action="${escapeHtml(row.action)}" ${row.sportCode ? `data-sport-code="${escapeHtml(row.sportCode)}"` : ''} ${row.athleteId ? `data-athlete-id="${escapeHtml(row.athleteId)}"` : ''} ${row.clubId ? `data-club-id="${escapeHtml(row.clubId)}"` : ''} ${row.query ? `data-ai-query="${escapeHtml(row.query)}"` : ''}>
             <span>${escapeHtml(row.label)}</span>
-            <strong>${escapeHtml(row.title)}</strong>
-            <em>${escapeHtml(row.detail)}</em>
-          </div>
+            <div>
+              <strong>${escapeHtml(row.title)}</strong>
+              <small>${escapeHtml(row.status)}</small>
+              <em>${escapeHtml(row.detail)}</em>
+              <b>${escapeHtml(row.next)}</b>
+            </div>
+          </button>
         `).join('')}
       </div>
     </section>
@@ -6035,6 +6092,15 @@ function renderMyPage() {
       source: button.dataset.trialPlanSource || 'my-trial-plan',
       report: button.dataset.reportTitle || '推荐试用方案',
     }));
+  });
+  myPage.querySelectorAll('[data-trial-deliverable-action]').forEach((button) => {
+    button.addEventListener('click', () => {
+      const action = button.dataset.trialDeliverableAction || '';
+      if (action === 'prematch') openPrematchReport('prematch-pack', button.dataset.sportCode || '');
+      if (action === 'growth') openParentGrowthReport(button.dataset.athleteId || '');
+      if (action === 'coach') openCoachSegmentationReport(button.dataset.clubId || '');
+      if (action === 'ask') submitAiQuery(button.dataset.aiQuery || '');
+    });
   });
   myPage.querySelectorAll('[data-my-readiness-action]').forEach((button) => {
     button.addEventListener('click', () => {
