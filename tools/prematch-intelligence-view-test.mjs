@@ -11,6 +11,8 @@ assert.match(html, /id="prematchReportBody"/, 'prematch report view must expose 
 
 assert.match(js, /function rosterAthleteLabel\(row\)/, 'prematch intelligence must normalize roster athlete names');
 assert.match(js, /function rosterItemSummary\(rosterRows\)/, 'prematch intelligence must summarize roster by project');
+assert.match(js, /function prematchRosterRows\(competitions = \[\]\)/, 'prematch reports must collect roster rows from scoped competitions');
+assert.match(js, /function rosterClubSummary\(rosterRows, limit = 5\)/, 'prematch reports must summarize roster entries by club');
 assert.match(js, /function rosterPreparationRows\(rosterRows, knownAthletes = \[\]\)/, 'prematch intelligence must connect roster entries to athlete history');
 assert.match(js, /function preMatchActionCards\(rosterRows, opponentPool, relevantCompetitions\)/, 'prematch intelligence must expose action cards');
 assert.match(js, /class="prematch-action-grid"/, 'prematch intelligence must render action cards');
@@ -24,6 +26,8 @@ assert.match(css, /\.prematch-action-grid/, 'prematch action card layout must ex
 assert.match(css, /\.prematch-action-card/, 'prematch action card styles must exist');
 assert.match(css, /\.prematch-roster-summary/, 'prematch roster summary styles must exist');
 assert.match(css, /\.prematch-roster-focus/, 'prematch roster focus styles must exist');
+assert.match(css, /\.prematch-roster-snapshot/, 'prematch report roster snapshot styles must exist');
+assert.match(css, /\.prematch-club-summary/, 'prematch report club roster summary styles must exist');
 
 assert.match(js, /function athleteMatchesProjectLabel\(athlete, label\)/, 'prematch intelligence must match external opponents to club projects');
 assert.match(js, /function coachOpponentProjectRows\(opponentPool, projectRows\)/, 'prematch intelligence must summarize strong opponents by project');
@@ -65,10 +69,10 @@ assert.match(js, /与你相关/, 'prematch report must label personalized releva
 assert.match(js, /data-sport-code="\$\{escapeHtml\(row\.sportCode\)\}"/, 'prematch relevance rows must link matched competitions');
 assert.match(js, /function prematchReportOpponentRows\(projectLabels\)/, 'prematch report must include strong-opponent signals');
 assert.match(js, /function prematchChecklistRows\(\{ competitions = \[\], focusRows = \[\], opponentRows = \[\], rosterReady = 0, isSingleCompetition = false \} = \{\}\)/, 'prematch report must generate a dynamic action checklist');
-assert.match(js, /function buildPrematchShareText\(competitions, focusRows, opponentRows, isSingleCompetition, relevanceRows = \[\]\)/, 'prematch report must build shareable summary text');
+assert.match(js, /function buildPrematchShareText\(competitions, focusRows, opponentRows, isSingleCompetition, relevanceRows = \[\], rosterRows = prematchRosterRows\(competitions\)\)/, 'prematch report must build shareable summary text with roster context');
 assert.match(js, /function prematchShareUrl\(sportCode = ''\)/, 'prematch report must build a shareable report URL');
 assert.match(js, /function buildPrematchPageShareText\(competitions = \[\], isSingleCompetition = false, sportCode = ''\)/, 'prematch report must build shareable page text');
-assert.match(js, /buildPrematchShareText\(competitions, focusRows, opponentRows, isSingleCompetition, relevanceRows\)/, 'prematch share text must include personalized relevance rows');
+assert.match(js, /buildPrematchShareText\(competitions, focusRows, opponentRows, isSingleCompetition, relevanceRows, rosterRows\)/, 'prematch share text must include personalized relevance and roster rows');
 assert.match(js, /function renderPrematchReport\(kind = 'prematch-pack', sportCode = ''\)/, 'prematch report must render a real report view scoped by competition when needed');
 assert.match(js, /function openPrematchReport\(kind = 'prematch-pack', sportCode = ''\)/, 'prematch report must be navigable with an optional competition scope');
 assert.match(js, /trackReportHistory\(\{[\s\S]*type: 'prematch'/, 'opening a prematch report must save it to recent reports');
@@ -78,6 +82,10 @@ assert.match(js, /openPrematchReport\(button\.dataset\.prematchTemplate \|\| 'pr
 assert.match(js, /class="competition-prematch-cta"/, 'competition detail must expose a compact prematch report CTA');
 assert.match(js, /openPrematchReport\('prematch-pack', event\.currentTarget\.dataset\.prematchSportCode/, 'competition prematch CTA must open a single-competition report');
 assert.match(js, /const isSingleCompetition = Boolean\(sportCode && competitions\.length\)/, 'prematch report must distinguish global and single-event reports');
+assert.match(js, /const rosterRows = prematchRosterRows\(competitions\);/, 'prematch report must derive roster rows for the current report scope');
+assert.match(js, /class="panel prematch-report-card prematch-roster-snapshot"/, 'prematch report must render a roster snapshot section when roster data exists');
+assert.match(js, /class="prematch-club-summary"/, 'prematch report must render top club distribution from roster data');
+assert.match(js, /rosterClubRows\.slice\(0, 5\)\.map/, 'prematch report must keep roster club summary compact on mobile');
 assert.match(js, /data-event-code="\$\{escapeHtml\(item\.eventCode/, 'single-competition prematch report must make project rows clickable');
 assert.match(js, /prematchReportBody\.querySelectorAll\('\[data-event-code\]'\)/, 'prematch report project rows must bind to event detail navigation');
 assert.match(js, /prematchReportBody\.querySelectorAll\('\[data-sport-code\]'\)/, 'prematch report competitions must be clickable');

@@ -9459,6 +9459,51 @@ function rosterItemSummary(rosterRows) {
     .slice(0, 4);
 }
 
+function prematchRosterRows(competitions = []) {
+  const rows = [];
+  for (const competition of competitions || []) {
+    for (const item of competitionItemSummaries(competition)) {
+      for (const rosterRow of item.roster || []) {
+        rows.push({
+          ...rosterRow,
+          eventCode: rosterRow.eventCode || item.eventCode,
+          eventName: rosterRow.eventName || item.eventName,
+          shortEventName: rosterRow.shortEventName || item.shortEventName,
+          sportCode: rosterRow.sportCode || competition.sportCode,
+          sportName: rosterRow.sportName || competition.sportName,
+          competition,
+          item,
+        });
+      }
+    }
+  }
+  return rows;
+}
+
+function rosterClubSummary(rosterRows, limit = 5) {
+  const map = new Map();
+  for (const row of rosterRows || []) {
+    const club = row.organName || row.organShortName || row.club || row.clubName || '俱乐部待确认';
+    const current = map.get(club) || { club, count: 0, projects: new Set(), athletes: new Set() };
+    current.count += 1;
+    const project = rosterEventLabel(row);
+    if (project) current.projects.add(project);
+    const athlete = rosterAthleteLabel(row);
+    if (athlete) current.athletes.add(athlete);
+    map.set(club, current);
+  }
+  return [...map.values()]
+    .map((row) => ({
+      club: row.club,
+      count: row.count,
+      projectCount: row.projects.size,
+      athleteCount: row.athletes.size,
+      projects: [...row.projects].slice(0, 2),
+    }))
+    .sort((a, b) => b.count - a.count || b.projectCount - a.projectCount || a.club.localeCompare(b.club, 'zh-CN'))
+    .slice(0, limit);
+}
+
 function rosterPreparationRows(rosterRows, knownAthletes = []) {
   const knownByName = new Map();
   for (const athlete of knownAthletes || []) {
@@ -10072,15 +10117,20 @@ function buildPrematchPageShareText(competitions = [], isSingleCompetition = fal
   ].filter(Boolean).join('\n');
 }
 
-function buildPrematchShareText(competitions, focusRows, opponentRows, isSingleCompetition, relevanceRows = []) {
+function buildPrematchShareText(competitions, focusRows, opponentRows, isSingleCompetition, relevanceRows = [], rosterRows = prematchRosterRows(competitions)) {
   const nearest = competitions[0] || null;
   const rosterReady = competitions.filter((competition) => competition.rosterStatus === 'partial' || competition.rosterStatus === 'complete').length;
   const checklistRows = prematchChecklistRows({ competitions, focusRows, opponentRows, rosterReady, isSingleCompetition });
+  const rosterProjects = rosterItemSummary(rosterRows).slice(0, 3);
+  const rosterClubs = rosterClubSummary(rosterRows, 3);
   return [
     isSingleCompetition && nearest ? `${nearest.sportName} 赛前情报包` : '赛前情报包',
     nearest ? `赛事：${nearest.sportName}` : '赛事：近期赛前赛事',
     nearest ? `时间地点：${displayDateLabel(nearest.dateLabel)} · ${nearest.venue || nearest.region || '地点待确认'}` : '',
     `相关赛事：${competitions.length} 场`,
+    rosterRows.length ? `报名名单：${rosterRows.length} 人次` : '',
+    ...rosterProjects.map((row, index) => `报名项目${index + 1}：${row.label}，${row.count} 人`),
+    ...rosterClubs.map((row, index) => `主要俱乐部${index + 1}：${row.club}，${row.count} 人次，覆盖 ${row.projectCount} 个项目`),
     `关注对象：${focusRows.length} 人，强手线索：${opponentRows.length} 个`,
     ...focusRows.slice(0, 3).map((row, index) => `关注对象${index + 1}：${row.athlete.name}，${row.advice}`),
     ...opponentRows.slice(0, 3).map((athlete, index) => `强手线索${index + 1}：${athlete.name}，最好第 ${athlete.bestRank ?? '-'} 名`),
@@ -10130,6 +10180,9 @@ function renderPrematchReport(kind = 'prematch-pack', sportCode = '') {
   const rosterReady = competitions.filter((competition) => competition.rosterStatus === 'partial' || competition.rosterStatus === 'complete').length;
   const nearest = competitions[0] || null;
   const selectedItems = selectedCompetition ? compactCompetitionEventRows(competitionItemSummaries(selectedCompetition), 6) : [];
+  const rosterRows = prematchRosterRows(competitions);
+  const rosterProjectRows = rosterItemSummary(rosterRows);
+  const rosterClubRows = rosterClubSummary(rosterRows);
   const checklistRows = prematchChecklistRows({ competitions, focusRows, opponentRows, rosterReady, isSingleCompetition });
 
   prematchReportHero.innerHTML = `
@@ -10138,6 +10191,7 @@ function renderPrematchReport(kind = 'prematch-pack', sportCode = '') {
     <div class="badge-row">
       <span class="badge">${escapeHtml(isSingleCompetition ? '目标赛事' : '近期赛事')} ${escapeHtml(competitions.length)} 场</span>
       <span class="badge">报名信息 ${escapeHtml(rosterReady)} 场</span>
+      ${rosterRows.length ? `<span class="badge">报名名单 ${escapeHtml(rosterRows.length)} 人次</span>` : ''}
       <span class="badge">关注对象 ${escapeHtml(focusRows.length)} 人</span>
       ${primaryFocus ? `<span class="badge">重点对象 ${escapeHtml(primaryFocus.athlete?.name || '')}</span>` : ''}
       <span class="badge">强手线索 ${escapeHtml(opponentRows.length)} 个</span>
@@ -10180,6 +10234,41 @@ function renderPrematchReport(kind = 'prematch-pack', sportCode = '') {
         ${escapeHtml(nearest ? `${isSingleCompetition ? '围绕本场赛事' : `先看最近的 ${nearest.sportName}`}，确认项目、报名名单和关注对象是否匹配。` : '当前没有识别到近期赛前赛事，可先围绕关注选手的历史项目准备。')}
       </div>
     </article>
+
+    ${rosterRows.length ? `
+      <article class="panel prematch-report-card prematch-roster-snapshot">
+        <div class="section-title">
+          <h2>报名名单画像</h2>
+          <span>${escapeHtml(rosterRows.length)} 人次</span>
+        </div>
+        <div class="prematch-report-metrics">
+          <div><strong>${escapeHtml(rosterRows.length)}</strong><span>报名人次</span></div>
+          <div><strong>${escapeHtml(rosterProjectRows.length || '-')}</strong><span>项目覆盖</span></div>
+          <div><strong>${escapeHtml(rosterClubRows.length || '-')}</strong><span>主要俱乐部</span></div>
+          <div><strong>${escapeHtml(rosterReady)}</strong><span>名单来源赛事</span></div>
+        </div>
+        ${rosterProjectRows.length ? `
+          <div class="prematch-roster-summary">
+            ${rosterProjectRows.slice(0, 4).map((row) => `
+              <div>
+                <strong>${escapeHtml(row.label)}</strong>
+                <span>${escapeHtml(row.count)} 人 · ${escapeHtml(row.athletes.slice(0, 3).join(' / ') || '名单待展开')}</span>
+              </div>
+            `).join('')}
+          </div>
+        ` : ''}
+        ${rosterClubRows.length ? `
+          <div class="prematch-club-summary">
+            ${rosterClubRows.slice(0, 5).map((row) => `
+              <div>
+                <strong>${escapeHtml(row.club)}</strong>
+                <span>${escapeHtml(row.count)} 人次 · ${escapeHtml(row.projectCount)} 个项目${row.projects.length ? ` · ${escapeHtml(row.projects.join(' / '))}` : ''}</span>
+              </div>
+            `).join('')}
+          </div>
+        ` : ''}
+      </article>
+    ` : ''}
 
     ${isSingleCompetition ? `
       <article class="panel prematch-report-card">
@@ -10288,7 +10377,7 @@ function renderPrematchReport(kind = 'prematch-pack', sportCode = '') {
     });
   });
   bindReportConversionActions(prematchReportBody);
-  bindCopyTextButton(prematchReportHero.querySelector('[data-report-share="prematch"]'), () => buildPrematchShareText(competitions, focusRows, opponentRows, isSingleCompetition, relevanceRows), isSingleCompetition ? 'prematch-single' : 'prematch-pack', '已复制，可继续申请赛前试用。');
+  bindCopyTextButton(prematchReportHero.querySelector('[data-report-share="prematch"]'), () => buildPrematchShareText(competitions, focusRows, opponentRows, isSingleCompetition, relevanceRows, rosterRows), isSingleCompetition ? 'prematch-single' : 'prematch-pack', '已复制，可继续申请赛前试用。');
   bindCopyTextButton(prematchReportHero.querySelector('[data-report-share="prematch-page"]'), () => buildPrematchPageShareText(competitions, isSingleCompetition, sportCode), 'prematch-page', '已复制情报页，可直接发给家长或教练。');
 }
 
