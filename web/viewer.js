@@ -2855,6 +2855,7 @@ function commercialIntentRows() {
     typeLabel: commercialIntentTypeLabel(row.type),
     sourceLabel: commercialIntentSourceLabel(row.source),
     timeLabel: formatDataGeneratedAt(row.submittedAt),
+    referenceLabel: row.feedbackId ? `服务编号 ${String(row.feedbackId).slice(-8)}` : '本机已记录',
     contactLabel: row.contact ? '联系方式已留存' : '可补充联系方式',
     nextStep: commercialIntentNextStep(row),
     deliverables: commercialIntentDeliverableRows(row),
@@ -2940,6 +2941,7 @@ function renderCommercialIntentStatus(rows = commercialIntentRows()) {
             </div>
             <em>${escapeHtml(row.timeLabel || '刚刚提交')}</em>
             <small>${escapeHtml(row.contactLabel)}</small>
+            <small class="service-progress-reference">${escapeHtml(row.referenceLabel)}</small>
             <p>${escapeHtml(row.nextStep)}</p>
             <ul class="service-progress-deliverables">
               ${(row.deliverables || []).map((item) => `<li>${escapeHtml(item)}</li>`).join('')}

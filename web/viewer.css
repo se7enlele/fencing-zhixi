@@ -2531,6 +2531,11 @@ select:focus {
   padding: 4px 7px;
 }
 
+.service-progress-card .service-progress-reference {
+  background: rgba(21, 95, 194, 0.08);
+  color: var(--primary);
+}
+
 .home-prematch-action {
   display: grid;
   gap: 10px;
