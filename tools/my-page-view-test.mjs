@@ -246,7 +246,13 @@ assert.match(js, /<h2>关注工作台<\/h2>/, 'follow page must frame follows as
 assert.match(js, /<h2>赛前提醒<\/h2>/, 'follow page must expose pre-match reminders');
 assert.match(js, /class="focus-alert-card"/, 'follow page must render reminder cards for followed competitions');
 assert.match(js, /class="panel my-section focus-trial-card"/, 'follow page must expose a trial card for reminder services');
-assert.match(js, /data-commercial-source="focus-workspace"/, 'follow trial card must submit a traceable commercial source');
+assert.match(js, /const followCopy = myFollowSectionCopy\(\);[\s\S]*focusPage\.innerHTML/, 'follow page must use role-aware follow copy');
+assert.match(js, /<span>\$\{escapeHtml\(followCopy\.statLabel\)\}<\/span>/, 'follow page stats must use role-aware followed object labels');
+assert.match(js, /<h2>\$\{escapeHtml\(followCopy\.title\)\}<\/h2>/, 'follow page followed-athlete section title must be role-aware');
+assert.match(js, /focus-workspace-coach/, 'follow trial card must distinguish coach trial sources');
+assert.match(js, /focus-workspace-club/, 'follow trial card must distinguish club trial sources');
+assert.match(js, /data-commercial-source="\$\{escapeHtml\(focusTrialSource\)\}"/, 'follow trial card must submit a role-specific source');
+assert.match(js, /data-report-title="\$\{escapeHtml\(focusTrialReport\)\}"/, 'follow trial card must submit a role-specific report label');
 assert.match(js, /data-reminder-interest data-commercial-source="focus-reminder"/, 'follow page must expose a dedicated reminder subscription action');
 assert.match(js, /bindReportConversionActions\(focusPage\)/, 'follow page trial card must reuse commercial conversion actions');
 assert.match(js, /data-focus-competition/, 'follow reminders must keep a direct competition detail action');

@@ -5871,6 +5871,21 @@ function renderFocusPage() {
   const reminderSourceCompetitions = followedCompetitions.length ? followedCompetitions : suggestedCompetitions;
   const priorityCompetitions = focusCompetitionPriorityRows(reminderSourceCompetitions);
   const showingSuggestions = !followedCompetitions.length && priorityCompetitions.length;
+  const followCopy = myFollowSectionCopy();
+  const focusTrialReport = state.userRole === 'coach'
+    ? '学员提醒服务'
+    : state.userRole === 'club'
+      ? '代表选手提醒服务'
+      : state.userRole === 'data'
+        ? '关注提醒服务'
+        : '孩子提醒服务';
+  const focusTrialSource = state.userRole === 'coach'
+    ? 'focus-workspace-coach'
+    : state.userRole === 'club'
+      ? 'focus-workspace-club'
+      : state.userRole === 'data'
+        ? 'focus-workspace-data'
+        : 'focus-workspace-parent';
   focusPage.innerHTML = `
     <section class="panel focus-dashboard">
       <div class="section-title">
@@ -5880,7 +5895,7 @@ function renderFocusPage() {
       <div class="focus-dashboard-grid">
         <div>
           <strong>${escapeHtml(children.length)}</strong>
-          <span>关注选手</span>
+          <span>${escapeHtml(followCopy.statLabel)}</span>
         </div>
         <div>
           <strong>${escapeHtml(followedCompetitions.length)}</strong>
@@ -5899,17 +5914,17 @@ function renderFocusPage() {
     <section class="panel my-section focus-trial-card">
       <div>
         <strong>提醒服务</strong>
-        <span>${escapeHtml(priorityCompetitions.length ? '把关注赛事、重点选手和赛前情报固定下来，关键比赛前直接查看。' : '关注选手或赛事后，可持续形成赛前提醒、成长报告和复盘入口。')}</span>
+        <span>${escapeHtml(priorityCompetitions.length ? `把关注赛事、${followCopy.countLabel}和赛前情报固定下来，关键比赛前直接查看。` : `添加${followCopy.countLabel}或赛事后，可持续形成赛前提醒、成长报告和复盘入口。`)}</span>
       </div>
       <div class="focus-trial-actions">
         <button type="button" data-reminder-interest data-commercial-source="focus-reminder" data-report-title="关注提醒订阅">订阅提醒</button>
-        <button type="button" data-commercial-intent="pilot" data-commercial-source="focus-workspace" data-report-title="关注提醒服务">申请试用</button>
+        <button type="button" data-commercial-intent="pilot" data-commercial-source="${escapeHtml(focusTrialSource)}" data-report-title="${escapeHtml(focusTrialReport)}">申请试用</button>
       </div>
     </section>
     <section class="panel my-section">
       <div class="section-title">
-        <h2>关注选手</h2>
-        <span>${children.length ? '成长入口' : '待关注'}</span>
+        <h2>${escapeHtml(followCopy.title)}</h2>
+        <span>${escapeHtml(children.length ? followCopy.activeLabel : followCopy.emptyLabel)}</span>
       </div>
       ${children.length ? `
         <div class="follow-strip">
