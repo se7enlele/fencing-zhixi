@@ -2011,6 +2011,58 @@ function parentGrowthActionRows(athlete, model, focusRows = []) {
   ];
 }
 
+function parentGrowthCommunicationRows(athlete, model, focusRows = [], actionRows = parentGrowthActionRows(athlete, model, focusRows), signalRows = parentInvestmentSignalRows(model)) {
+  const latest = model.latest;
+  const trendText = model.trend === null
+    ? '继续观察趋势'
+    : model.trend > 0
+      ? `最近名次前进 ${model.trend} 名`
+      : model.trend < 0
+        ? `最近名次后退 ${Math.abs(model.trend)} 名`
+        : '最近名次基本稳定';
+  const focus = focusRows[0] || null;
+  const continuity = signalRows.find((row) => row.title === '参赛连续性') || signalRows[0] || null;
+  const training = actionRows.find((row) => row.title === '训练沟通') || actionRows[1] || null;
+  const nextCompetition = actionRows.find((row) => row.title === '下场比赛') || actionRows[2] || null;
+  return [
+    {
+      key: 'coach',
+      title: '发给教练',
+      label: focus?.title || '训练沟通',
+      message: [
+        `${athlete.name} 最近一次：${latest ? `${displayEventName(latest)} 第 ${latest.finalRank ?? '-'} 名` : '暂无最近比赛记录'}`,
+        `阶段观察：${model.investment}，${trendText}`,
+        training?.detail || '希望结合近期参赛记录确认训练重点。',
+        focus?.detail ? `本阶段重点：${focus.detail}` : '',
+      ].filter(Boolean).join('；'),
+    },
+    {
+      key: 'family',
+      title: '家庭复盘',
+      label: continuity?.level || '持续观察',
+      message: [
+        `${athlete.name} 当前参赛记录 ${model.events.length} 场，最好名次 ${model.best?.finalRank ? `第${model.best.finalRank}名` : '待确认'}`,
+        `小组胜率 ${model.poolRate === null ? '待补齐' : `${model.poolRate}%`}，淘汰赛 ${model.totalElimWins}胜${model.totalElimLosses}负`,
+        continuity?.detail || '先看参赛连续性，再判断训练投入节奏。',
+      ].filter(Boolean).join('；'),
+    },
+    {
+      key: 'next',
+      title: '下场安排',
+      label: nextCompetition?.title || '下场比赛',
+      message: nextCompetition?.detail || '优先选择常参项目或相近项目，用下一场比赛验证训练调整是否有效。',
+    },
+  ];
+}
+
+function parentGrowthCommunicationText(row = {}) {
+  return [
+    row.title || '成长沟通',
+    row.label ? `重点：${row.label}` : '',
+    row.message ? `内容：${row.message}` : '',
+  ].filter(Boolean).join('\n');
+}
+
 function parentInvestmentSignalRows(model) {
   const eventSignal = model.events.length >= 4
     ? { level: '稳定', detail: `已有 ${model.events.length} 场参赛记录，可以开始按季度复盘。` }
@@ -2073,7 +2125,7 @@ function bindCopyTextButton(button, textBuilder, analyticsLabel = '', followupTe
   });
 }
 
-function buildParentGrowthShareText(athlete, model, focusRows, actionRows = parentGrowthActionRows(athlete, model, focusRows), signalRows = parentInvestmentSignalRows(model), opponentRows = parentGrowthOpponentRows(athlete), peerRows = parentGrowthPeerPositionRows(athlete, model), closeBout = parentGrowthCloseBoutRows(athlete)) {
+function buildParentGrowthShareText(athlete, model, focusRows, actionRows = parentGrowthActionRows(athlete, model, focusRows), signalRows = parentInvestmentSignalRows(model), opponentRows = parentGrowthOpponentRows(athlete), peerRows = parentGrowthPeerPositionRows(athlete, model), closeBout = parentGrowthCloseBoutRows(athlete), communicationRows = parentGrowthCommunicationRows(athlete, model, focusRows, actionRows, signalRows)) {
   return [
     `${athlete.name} 成长报告`,
     `俱乐部：${athlete.club || '待确认'}`,
@@ -2087,6 +2139,7 @@ function buildParentGrowthShareText(athlete, model, focusRows, actionRows = pare
     ...opponentRows.slice(0, 3).map((row) => `重点对手：${row.name}，${row.record}，${row.latest || `${row.matches} 次交手`}`),
     ...focusRows.slice(0, 3).map((row, index) => `关注点${index + 1}：${row.title}，${row.detail}`),
     ...actionRows.slice(0, 4).map((row) => `${row.title}：${row.detail}`),
+    ...communicationRows.slice(0, 3).map((row, index) => `沟通卡${index + 1}：${row.title}，${row.message}`),
     '数据来源：FencingAI 已收录赛事成绩',
   ].join('\n');
 }
@@ -2131,6 +2184,7 @@ function renderParentGrowthReport(athleteId = '') {
   const focusRows = parentNextFocusRows(model);
   const actionRows = parentGrowthActionRows(athlete, model, focusRows);
   const signalRows = parentInvestmentSignalRows(model);
+  const communicationRows = parentGrowthCommunicationRows(athlete, model, focusRows, actionRows, signalRows);
   const timelineRows = parentGrowthReportTimelineRows(athlete);
   const evidenceRows = parentGrowthReportEvidenceRows(model);
   const opponentRows = parentGrowthOpponentRows(athlete);
@@ -2286,6 +2340,25 @@ function renderParentGrowthReport(athleteId = '') {
       </div>
     </article>
 
+    <article class="panel parent-growth-report-card parent-growth-communication">
+      <div class="section-title">
+        <h2>家庭沟通卡</h2>
+        <span>可复制</span>
+      </div>
+      <div class="parent-growth-communication-list">
+        ${communicationRows.map((row, index) => `
+          <article class="parent-growth-communication-card parent-growth-communication-${escapeHtml(row.key)}">
+            <div>
+              <strong>${escapeHtml(row.title)}</strong>
+              <span>${escapeHtml(row.label)}</span>
+              <em>${escapeHtml(row.message)}</em>
+            </div>
+            <button type="button" data-parent-growth-communication="${escapeHtml(index)}">复制沟通内容</button>
+          </article>
+        `).join('')}
+      </div>
+    </article>
+
     <article class="panel parent-growth-report-card">
       <div class="section-title">
         <h2>参赛轨迹</h2>
@@ -2345,9 +2418,13 @@ function renderParentGrowthReport(athleteId = '') {
   parentGrowthReportBody.querySelectorAll('[data-ai-query]').forEach((button) => {
     button.addEventListener('click', () => submitAiQuery(button.dataset.aiQuery || ''));
   });
+  parentGrowthReportBody.querySelectorAll('[data-parent-growth-communication]').forEach((button) => {
+    const row = communicationRows[Number(button.dataset.parentGrowthCommunication)];
+    bindCopyTextButton(button, () => parentGrowthCommunicationText(row), 'parent-growth-communication', '已复制家庭沟通内容。');
+  });
   parentGrowthReportBody.querySelector('[data-athlete-id]')?.addEventListener('click', () => openAthlete(athlete.id));
   bindReportConversionActions(parentGrowthReportBody);
-  bindCopyTextButton(parentGrowthReportHero.querySelector('[data-report-share="parent-growth"]'), () => buildParentGrowthShareText(athlete, model, focusRows, actionRows, signalRows, opponentRows, peerRows, closeBout), 'parent-growth', '已复制，可继续申请家庭试用。');
+  bindCopyTextButton(parentGrowthReportHero.querySelector('[data-report-share="parent-growth"]'), () => buildParentGrowthShareText(athlete, model, focusRows, actionRows, signalRows, opponentRows, peerRows, closeBout, communicationRows), 'parent-growth', '已复制，可继续申请家庭试用。');
   bindCopyTextButton(parentGrowthReportHero.querySelector('[data-report-share="parent-growth-page"]'), () => buildParentGrowthPageShareText(athlete, model), 'parent-growth-page', '已复制成长页，可直接发给家长。');
 }
 
@@ -4098,7 +4175,7 @@ function aiPromptPresets() {
 
 function aiPromptPlaceholder(presets) {
   const examples = (presets || []).filter(Boolean).slice(0, 2);
-  return `试试问：${examples.join(' / ') || '2026年天津有几场比赛'}`;
+  return `例如：${examples.join('\n例如：') || '2026年天津有几场比赛'}`;
 }
 
 function aiAcceptanceQueryCases() {
@@ -4124,14 +4201,13 @@ function renderAiWorkspace() {
     <div class="ai-workspace" id="aiWorkspace">
       <section class="panel ai-home-primary">
         <div class="ai-home-lead">
-          <strong>一句话生成击剑判断</strong>
-          <span>查赛事、看对手、判断成长，回答都能回到原始比赛记录。</span>
+          <strong>问一句，生成可追溯分析</strong>
         </div>
         <form class="ai-query-form" id="aiQueryForm">
           <textarea id="aiQueryInput" rows="3" placeholder="${escapeHtml(placeholder)}"></textarea>
-          <button type="submit">生成分析</button>
+          <button type="submit">生成判断</button>
         </form>
-        <div class="ai-preset-row" aria-label="常用问题">
+        <div class="ai-preset-row" aria-label="推荐问题">
           ${presets.map((preset) => `<button type="button" data-ai-preset="${escapeHtml(preset)}">${escapeHtml(preset)}</button>`).join('')}
         </div>
       </section>

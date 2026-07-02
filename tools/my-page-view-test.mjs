@@ -66,7 +66,9 @@ assert.match(js, /<section class="panel ai-home-primary">[\s\S]*<\/section>\s*<d
 assert.doesNotMatch(js, /问 FencingAI/, 'home hero must not repeat the topbar product name');
 assert.doesNotMatch(js, /直接用问题查看击剑数据/, 'home hero must not use generic query copy');
 assert.doesNotMatch(js, /保留传统检索入口/, 'home page must not expose internal navigation rationale');
-assert.match(js, /一句话生成击剑判断/, 'home hero must explain the product value directly');
+assert.match(js, /问一句，生成可追溯分析/, 'home hero must explain the product value directly');
+assert.match(js, /例如：\$\{examples\.join\('\\n例如：'\)/, 'AI home placeholder must carry dynamic examples instead of a separate explanatory line');
+assert.match(js, /<button type="submit">生成判断<\/button>/, 'AI home primary CTA must use judgment-oriented product copy');
 assert.match(js, /function scrollToResultPanel\(element, behavior = 'smooth'\)/, 'AI question results must have a dedicated viewport-positioning helper');
 assert.match(js, /const appHeader = document\.querySelector\('\.app-header'\)/, 'AI result scrolling must keep the app-header compatibility path');
 assert.match(js, /appHeader \|\| document\.querySelector\('\.topbar'\)/, 'AI result scrolling must account for the actual sticky topbar');
@@ -245,7 +247,7 @@ assert.match(js, /if \(type === 'ai-report'\) \{[\s\S]*trackAnalyticsAction\('op
 assert.match(js, /submitAiQuery\(button\.dataset\.aiHistoryQuery \|\| ''\)/, 'recent AI analysis rows must restore the question');
 assert.doesNotMatch(js, /function renderHomePage\(\)[\s\S]*<h2>近期值得看<\/h2>[\s\S]*function aiDefaultClub/, 'home page must not duplicate the competition list experience');
 assert.doesNotMatch(js, /<h2>问 FencingAI<\/h2>|<h2>闂?FencingAI<\/h2>/, 'AI workspace must not repeat the product name below the top bar');
-assert.match(js, /一句话生成击剑判断/, 'AI home lead must state the product value directly');
+assert.match(js, /问一句，生成可追溯分析/, 'AI home lead must state the product value directly');
 assert.match(js, /function aiPromptPlaceholder\(presets\)/, 'AI home examples must come from role-aware prompt presets');
 assert.match(js, /placeholder="\$\{escapeHtml\(placeholder\)\}"/, 'AI home textarea must use dynamic example prompts');
 assert.doesNotMatch(js, /<div class="ai-home-actions">[\s\S]*data-home-competitions/, 'AI home must not mix competition navigation with prompt presets');
