@@ -1885,6 +1885,52 @@ function parentGrowthOpponentRows(athlete) {
     });
 }
 
+function parentGrowthCloseBoutRows(athlete) {
+  const closeOpponents = (athlete?.opponents || [])
+    .filter((opponent) => opponent?.name)
+    .map((opponent) => {
+      const diff = Number.isFinite(Number(opponent.diff))
+        ? Number(opponent.diff)
+        : (Number(opponent.scored) || 0) - (Number(opponent.received) || 0);
+      return {
+        opponent,
+        diff,
+        margin: Math.abs(diff),
+      };
+    })
+    .filter((row) => row.margin > 0 && row.margin <= 2)
+    .sort((a, b) => a.margin - b.margin || String(a.opponent.name).localeCompare(String(b.opponent.name), 'zh-CN'));
+  const wins = closeOpponents.filter((row) => row.diff > 0).length;
+  const losses = closeOpponents.filter((row) => row.diff < 0).length;
+  const total = wins + losses;
+  const rate = total ? Math.round((wins / total) * 100) : null;
+  const summary = total
+    ? `近似胶着对局 ${total} 场，${wins}胜${losses}负。`
+    : '暂未识别到一两剑分差的淘汰赛对局。';
+  const advice = total
+    ? rate >= 60
+      ? '胶着局处理有正向信号，下一步保持领先收尾和关键分主动性。'
+      : wins
+        ? '已经有胶着局取胜样本，建议继续复盘落后追分和最后两剑处理。'
+        : '胶着局暂时偏吃亏，下一步重点复盘最后两剑、领先后收尾和落后追分。'
+    : '后续出现接近比分后，再重点观察最后两剑处理和关键分稳定性。';
+  return {
+    total,
+    wins,
+    losses,
+    rate,
+    summary,
+    advice,
+    rows: closeOpponents.slice(0, 4).map(({ opponent, diff, margin }) => ({
+      name: opponent.name,
+      club: opponent.club || '俱乐部待确认',
+      result: diff > 0 ? `小胜 ${margin}` : `惜败 ${margin}`,
+      score: opponent.latestScore || `${opponent.scored ?? '-'}:${opponent.received ?? '-'}`,
+      phase: opponent.latestPhase || '淘汰赛',
+    })),
+  };
+}
+
 function parentGrowthPeerPositionRows(athlete, model) {
   const labels = aiAthleteProjectLabels(athlete);
   const currentKey = athlete?.id || `${athlete?.name || ''}-${athlete?.club || ''}`;
@@ -2014,7 +2060,7 @@ function bindCopyTextButton(button, textBuilder, analyticsLabel = '', followupTe
   });
 }
 
-function buildParentGrowthShareText(athlete, model, focusRows, actionRows = parentGrowthActionRows(athlete, model, focusRows), signalRows = parentInvestmentSignalRows(model), opponentRows = parentGrowthOpponentRows(athlete), peerRows = parentGrowthPeerPositionRows(athlete, model)) {
+function buildParentGrowthShareText(athlete, model, focusRows, actionRows = parentGrowthActionRows(athlete, model, focusRows), signalRows = parentInvestmentSignalRows(model), opponentRows = parentGrowthOpponentRows(athlete), peerRows = parentGrowthPeerPositionRows(athlete, model), closeBout = parentGrowthCloseBoutRows(athlete)) {
   return [
     `${athlete.name} 成长报告`,
     `俱乐部：${athlete.club || '待确认'}`,
@@ -2023,6 +2069,7 @@ function buildParentGrowthShareText(athlete, model, focusRows, actionRows = pare
     `小组胜率：${model.poolRate === null ? '-' : `${model.poolRate}%`}，淘汰赛：${model.totalElimWins}胜${model.totalElimLosses}负`,
     `建议：${model.advice}`,
     ...signalRows.slice(0, 4).map((row) => `${row.title}：${row.level}，${row.detail}`),
+    `胶着局：${closeBout.summary}${closeBout.advice}`,
     ...peerRows.slice(0, 3).map((row) => `同组位置：${row.label}，${row.positionText}，最好第 ${row.selfRank} 名。${row.detail}`),
     ...opponentRows.slice(0, 3).map((row) => `重点对手：${row.name}，${row.record}，${row.latest || `${row.matches} 次交手`}`),
     ...focusRows.slice(0, 3).map((row, index) => `关注点${index + 1}：${row.title}，${row.detail}`),
@@ -2075,6 +2122,7 @@ function renderParentGrowthReport(athleteId = '') {
   const evidenceRows = parentGrowthReportEvidenceRows(model);
   const opponentRows = parentGrowthOpponentRows(athlete);
   const peerRows = parentGrowthPeerPositionRows(athlete, model);
+  const closeBout = parentGrowthCloseBoutRows(athlete);
   const latestText = model.latest ? `${displayEventName(model.latest)} · 第${model.latest.finalRank ?? '-'}名` : '暂无记录';
   const trendLabel = model.trend === null ? '趋势待确认' : model.trend > 0 ? `进步 ${model.trend} 名` : model.trend < 0 ? `后退 ${Math.abs(model.trend)} 名` : '名次持平';
 
@@ -2136,6 +2184,28 @@ function renderParentGrowthReport(athleteId = '') {
           </div>
         `).join('')}
       </div>
+    </article>
+    <article class="panel parent-growth-report-card parent-close-bout">
+      <div class="section-title">
+        <h2>胶着局表现</h2>
+        <span>${escapeHtml(closeBout.total ? '一两剑分差' : '待观察')}</span>
+      </div>
+      <div class="parent-close-bout-summary">
+        <strong>${escapeHtml(closeBout.total ? `${closeBout.wins}胜${closeBout.losses}负` : '暂无胶着局样本')}</strong>
+        <span>${escapeHtml(closeBout.summary)}</span>
+        <em>${escapeHtml(closeBout.advice)}</em>
+      </div>
+      ${closeBout.rows.length ? `
+        <div class="parent-close-bout-list">
+          ${closeBout.rows.map((row) => `
+            <div>
+              <strong>${escapeHtml(row.name)}</strong>
+              <span>${escapeHtml([row.club, row.phase, row.score].filter(Boolean).join(' · '))}</span>
+              <em>${escapeHtml(row.result)}</em>
+            </div>
+          `).join('')}
+        </div>
+      ` : ''}
     </article>
     <article class="panel parent-growth-report-card parent-peer-position">
       <div class="section-title">
@@ -2264,7 +2334,7 @@ function renderParentGrowthReport(athleteId = '') {
   });
   parentGrowthReportBody.querySelector('[data-athlete-id]')?.addEventListener('click', () => openAthlete(athlete.id));
   bindReportConversionActions(parentGrowthReportBody);
-  bindCopyTextButton(parentGrowthReportHero.querySelector('[data-report-share="parent-growth"]'), () => buildParentGrowthShareText(athlete, model, focusRows, actionRows, signalRows, opponentRows, peerRows), 'parent-growth', '已复制，可继续申请家庭试用。');
+  bindCopyTextButton(parentGrowthReportHero.querySelector('[data-report-share="parent-growth"]'), () => buildParentGrowthShareText(athlete, model, focusRows, actionRows, signalRows, opponentRows, peerRows, closeBout), 'parent-growth', '已复制，可继续申请家庭试用。');
   bindCopyTextButton(parentGrowthReportHero.querySelector('[data-report-share="parent-growth-page"]'), () => buildParentGrowthPageShareText(athlete, model), 'parent-growth-page', '已复制成长页，可直接发给家长。');
 }
 

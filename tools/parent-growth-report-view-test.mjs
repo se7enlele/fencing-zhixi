@@ -17,10 +17,11 @@ assert.match(js, /parentGrowthReport: document\.querySelector\('#view-parent-gro
 assert.match(js, /function parentGrowthReportTimelineRows\(athlete\)/, 'parent growth report must build a compact timeline');
 assert.match(js, /function parentGrowthReportEvidenceRows\(model\)/, 'parent growth report must expose traceable evidence rows');
 assert.match(js, /function parentGrowthOpponentRows\(athlete\)/, 'parent growth report must derive trackable opponent rows');
+assert.match(js, /function parentGrowthCloseBoutRows\(athlete\)/, 'parent growth report must derive close-bout rows from opponent score evidence');
 assert.match(js, /function parentGrowthPeerPositionRows\(athlete, model\)/, 'parent growth report must derive same-project peer position rows');
 assert.match(js, /function parentGrowthActionRows\(athlete, model, focusRows = \[\]\)/, 'parent growth report must generate a family action plan');
 assert.match(js, /function parentInvestmentSignalRows\(model\)/, 'parent growth report must derive investment observation signals');
-assert.match(js, /function buildParentGrowthShareText\(athlete, model, focusRows, actionRows = parentGrowthActionRows\(athlete, model, focusRows\), signalRows = parentInvestmentSignalRows\(model\), opponentRows = parentGrowthOpponentRows\(athlete\), peerRows = parentGrowthPeerPositionRows\(athlete, model\)\)/, 'parent growth report must build shareable summary text');
+assert.match(js, /function buildParentGrowthShareText\(athlete, model, focusRows, actionRows = parentGrowthActionRows\(athlete, model, focusRows\), signalRows = parentInvestmentSignalRows\(model\), opponentRows = parentGrowthOpponentRows\(athlete\), peerRows = parentGrowthPeerPositionRows\(athlete, model\), closeBout = parentGrowthCloseBoutRows\(athlete\)\)/, 'parent growth report must build shareable summary text');
 assert.match(js, /function parentGrowthShareUrl\(athlete\)/, 'parent growth report must build a shareable athlete deep link');
 assert.match(js, /function buildParentGrowthPageShareText\(athlete, model\)/, 'parent growth report must build shareable growth page text');
 assert.match(js, /function renderParentGrowthReport\(athleteId = ''\)/, 'parent growth report must render from a selected or explicit athlete');
@@ -41,10 +42,14 @@ assert.match(js, /class="panel parent-growth-report-card parent-investment-signa
 assert.match(js, /投入观察指标/, 'growth report must label investment observation signals clearly');
 assert.match(js, /const signalRows = parentInvestmentSignalRows\(model\)/, 'growth report must render signal rows from the current athlete model');
 assert.match(js, /const peerRows = parentGrowthPeerPositionRows\(athlete, model\)/, 'growth report must render peer position rows from the current athlete model');
+assert.match(js, /const closeBout = parentGrowthCloseBoutRows\(athlete\)/, 'growth report must render close-bout rows from the current athlete');
+assert.match(js, /class="panel parent-growth-report-card parent-close-bout"/, 'growth report must render close-bout ability');
+assert.match(js, /胶着局表现/, 'growth report must label close-bout ability clearly');
 assert.match(js, /class="panel parent-growth-report-card parent-peer-position"/, 'growth report must render same-project peer positioning');
 assert.match(js, /同组位置/, 'growth report must label peer positioning clearly');
 assert.match(js, /signalRows = parentInvestmentSignalRows\(model\), opponentRows = parentGrowthOpponentRows\(athlete\)/, 'growth report share text must include investment signals before opponent rows');
-assert.match(js, /buildParentGrowthShareText\(athlete, model, focusRows, actionRows, signalRows, opponentRows, peerRows\)/, 'growth report share text must include opponent tracking and peer positioning rows');
+assert.match(js, /buildParentGrowthShareText\(athlete, model, focusRows, actionRows, signalRows, opponentRows, peerRows, closeBout\)/, 'growth report share text must include opponent tracking, peer positioning, and close-bout rows');
+assert.match(js, /胶着局：/, 'growth report share text must include close-bout lines');
 assert.match(js, /同组位置：/, 'growth report share text must include peer positioning lines');
 assert.match(js, /class="panel parent-growth-report-card parent-opponent-tracking"/, 'growth report must render opponent tracking as a report module');
 assert.match(js, /重点对手追踪/, 'growth report must label opponent tracking clearly');
@@ -84,6 +89,8 @@ assert.match(css, /\.parent-growth-decision/, 'parent growth decision styles mus
 assert.match(css, /\.parent-growth-metrics/, 'parent growth metric styles must exist');
 assert.match(css, /\.parent-investment-signal-list/, 'parent investment signal list styles must exist');
 assert.match(css, /\.parent-investment-signal/, 'parent investment signal cards must be styled');
+assert.match(css, /\.parent-close-bout/, 'parent close-bout card must be styled');
+assert.match(css, /\.parent-close-bout-list/, 'parent close-bout list must be styled');
 assert.match(css, /\.parent-peer-position/, 'parent peer position card must be styled');
 assert.match(css, /\.parent-peer-position-list/, 'parent peer position list must be styled');
 assert.match(css, /\.parent-opponent-tracking/, 'parent opponent tracking card must be styled');

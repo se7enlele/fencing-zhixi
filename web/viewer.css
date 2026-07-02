@@ -5461,6 +5461,91 @@ select:focus {
   line-height: 1.45;
 }
 
+.parent-close-bout {
+  border-color: rgba(180, 99, 13, 0.18);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(255, 250, 244, 0.94));
+}
+
+.parent-close-bout-summary {
+  display: grid;
+  gap: 4px;
+  border: 1px solid rgba(180, 99, 13, 0.16);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.94);
+  padding: 10px;
+}
+
+.parent-close-bout-summary strong,
+.parent-close-bout-summary span,
+.parent-close-bout-summary em {
+  display: block;
+  min-width: 0;
+}
+
+.parent-close-bout-summary strong {
+  color: var(--accent);
+  font-size: 18px;
+  font-weight: 900;
+}
+
+.parent-close-bout-summary span,
+.parent-close-bout-summary em {
+  color: var(--muted);
+  font-size: 12px;
+  font-style: normal;
+  line-height: 1.45;
+}
+
+.parent-close-bout-list {
+  display: grid;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.parent-close-bout-list div {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  border: 1px solid rgba(180, 99, 13, 0.14);
+  border-radius: 9px;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 9px 10px;
+}
+
+.parent-close-bout-list strong,
+.parent-close-bout-list span,
+.parent-close-bout-list em {
+  display: block;
+  min-width: 0;
+}
+
+.parent-close-bout-list strong {
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.parent-close-bout-list span {
+  color: var(--muted);
+  font-size: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.parent-close-bout-list em {
+  border-radius: 999px;
+  background: rgba(180, 99, 13, 0.1);
+  color: var(--accent);
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 900;
+  white-space: nowrap;
+  padding: 5px 8px;
+}
+
 .parent-peer-position {
   border-color: rgba(33, 105, 209, 0.14);
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(245, 249, 255, 0.94));
@@ -5524,7 +5609,13 @@ select:focus {
     align-items: start;
   }
 
-  .parent-peer-position-card em {
+  .parent-close-bout-list div {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
+  .parent-peer-position-card em,
+  .parent-close-bout-list em {
     width: fit-content;
   }
 }
