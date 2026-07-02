@@ -1014,11 +1014,17 @@ function scrollToPageTop() {
 
 function scrollToResultPanel(element, behavior = 'smooth') {
   if (!element) return;
-  requestAnimationFrame(() => {
-    const header = document.querySelector('.app-header');
-    const headerOffset = (header?.getBoundingClientRect().height || 0) + 10;
-    const top = Math.max(0, window.scrollY + element.getBoundingClientRect().top - headerOffset);
+  const scroll = () => {
+    const appHeader = document.querySelector('.app-header');
+    const header = appHeader || document.querySelector('.topbar');
+    const target = element.querySelector?.('.ai-answer-card, .loading-row') || element;
+    const headerOffset = (header?.getBoundingClientRect().height || 0) + 14;
+    const top = Math.max(0, window.scrollY + target.getBoundingClientRect().top - headerOffset);
     window.scrollTo({ top, left: 0, behavior });
+  };
+  requestAnimationFrame(() => {
+    scroll();
+    setTimeout(scroll, 120);
   });
 }
 

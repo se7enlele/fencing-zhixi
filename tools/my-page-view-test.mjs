@@ -64,8 +64,11 @@ assert.match(js, /function renderAiWorkspace\(\)/, 'home page must include an AI
 assert.match(js, /homePage\.innerHTML = `\s*<div class="home-dashboard">\s*\$\{renderAiWorkspace\('home'\)\}/, 'home page must start the dashboard with the AI question workspace');
 assert.match(js, /<section class="panel ai-home-primary">[\s\S]*<\/section>\s*<div class="ai-answer" id="aiAnswer">/, 'AI answers must render outside the dark home entry panel');
 assert.match(js, /function scrollToResultPanel\(element, behavior = 'smooth'\)/, 'AI question results must have a dedicated viewport-positioning helper');
-assert.match(js, /document\.querySelector\('\.app-header'\)/, 'AI result scrolling must account for the sticky app header');
-assert.match(js, /window\.scrollY \+ element\.getBoundingClientRect\(\)\.top - headerOffset/, 'AI result scrolling must position the answer area below the header');
+assert.match(js, /const appHeader = document\.querySelector\('\.app-header'\)/, 'AI result scrolling must keep the app-header compatibility path');
+assert.match(js, /appHeader \|\| document\.querySelector\('\.topbar'\)/, 'AI result scrolling must account for the actual sticky topbar');
+assert.match(js, /const target = element\.querySelector\?\.\('\.ai-answer-card, \.loading-row'\) \|\| element/, 'AI result scrolling must target the rendered answer content');
+assert.match(js, /window\.scrollY \+ target\.getBoundingClientRect\(\)\.top - headerOffset/, 'AI result scrolling must position the answer area below the header');
+assert.match(js, /setTimeout\(scroll, 120\)/, 'AI result scrolling must correct after mobile layout changes');
 assert.match(js, /answer\.innerHTML = '<div class="loading-row">正在匹配相关画像<\/div>';[\s\S]*scrollToResultPanel\(answer\);/, 'AI question submission must move the viewport to the result area while loading');
 assert.match(js, /answer\.innerHTML = renderAiAnswer\(report\);[\s\S]{0,80}bindAnswer\(report\);[\s\S]{0,80}scrollToResultPanel\(answer\);/, 'AI question results must keep the viewport on the answer card after rendering');
 assert.match(js, /function entityCoverageCounts\(\)/, 'home scale numbers must use data coverage summaries without hydrating full directories');

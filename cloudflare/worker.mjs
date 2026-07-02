@@ -164,6 +164,19 @@ async function loadSearchIndexes(env) {
   return bundledSearchPromise;
 }
 
+async function dataCoverageWithEntityCounts(env, index) {
+  const coverage = { ...(index.publicEvents.dataCoverage || {}) };
+  if ((Number(coverage.athletes) || 0) > 0 && (Number(coverage.clubs) || 0) > 0) {
+    return coverage;
+  }
+  const indexes = await loadSearchIndexes(env);
+  return {
+    ...coverage,
+    athletes: Math.max(Number(coverage.athletes) || 0, indexes.athletes.length),
+    clubs: Math.max(Number(coverage.clubs) || 0, indexes.clubs.length),
+  };
+}
+
 async function loadBundledData(env) {
   if (!bundledDataPromise) {
     bundledDataPromise = (async () => {
@@ -802,23 +815,25 @@ async function handleAdminImport(request, env, url) {
 async function routeApi(request, env, url) {
   if (url.pathname === '/api/competitions' && request.method === 'GET') {
     const { index, competitions, hasDynamicPreEvent } = await getCompetitionIndex(env);
+    const dataCoverage = await dataCoverageWithEntityCounts(env, index);
     return json(sanitizePublicData({
       ok: true,
       version: index.version,
       generatedAt: index.generatedAt || null,
       competitions: compactCompetitionIndex(competitions),
-      dataCoverage: index.publicEvents.dataCoverage || null,
+      dataCoverage,
     }), 200, hasDynamicPreEvent ? NO_STORE_CACHE : PUBLIC_INDEX_CACHE);
   }
 
   if (url.pathname === '/api/events' && request.method === 'GET') {
     const index = await loadBundledIndex(env);
+    const dataCoverage = await dataCoverageWithEntityCounts(env, index);
     return json(sanitizePublicData({
       ok: true,
       version: index.version,
       generatedAt: index.generatedAt || null,
       events: index.publicEvents.events || [],
-      dataCoverage: index.publicEvents.dataCoverage || null,
+      dataCoverage,
     }), 200, PUBLIC_INDEX_CACHE);
   }
 

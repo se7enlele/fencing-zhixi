@@ -48,6 +48,10 @@ assert.doesNotMatch(
   'local competition index payload must not include entity directories',
 );
 assert.match(worker, /competitions:\s*compactCompetitionIndex\(competitions\)/, 'worker competition index should be compacted for initial load');
+assert.match(worker, /async function dataCoverageWithEntityCounts\(env, index\)/, 'worker competition index should repair missing aggregate entity counts without full detail hydration');
+assert.match(worker, /const dataCoverage = await dataCoverageWithEntityCounts\(env, index\);[\s\S]{0,220}dataCoverage,/, 'worker competition route should return repaired aggregate entity counts');
+assert.match(worker, /athletes:\s*Math\.max\(Number\(coverage\.athletes\) \|\| 0, indexes\.athletes\.length\)/, 'worker aggregate count repair should fall back to the lightweight athlete search index');
+assert.match(worker, /clubs:\s*Math\.max\(Number\(coverage\.clubs\) \|\| 0, indexes\.clubs\.length\)/, 'worker aggregate count repair should fall back to the lightweight club search index');
 assert.match(
   await readFile(new URL('./build-cloudflare-data.mjs', import.meta.url), 'utf8'),
   /payload\.publicEvents\.dataCoverage = \{[\s\S]*athletes:\s*athletes\.length,[\s\S]*clubs:\s*clubs\.length,/,
