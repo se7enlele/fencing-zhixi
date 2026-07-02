@@ -762,6 +762,27 @@ function commercialLeadNextStep(row = {}) {
   return '确认用户角色、关注对象和下一场比赛。';
 }
 
+function commercialLeadDeliverableRows(row = {}) {
+  const detail = commercialLeadDetail(row);
+  const source = `${detail.rawSource || ''} ${detail.report || ''}`.toLowerCase();
+  if (row.type === 'reminder-interest' || /reminder|提醒/.test(source)) {
+    return ['提醒对象', '赛事范围', '更新频率'];
+  }
+  if (/prematch/.test(source)) {
+    return ['近期赛事', '关注选手', '报名名单/强手'];
+  }
+  if (/growth|parent/.test(source)) {
+    return ['孩子姓名', '复盘周期', '进步与训练建议'];
+  }
+  if (/coach|club|recruiting/.test(source)) {
+    return ['俱乐部范围', '学员分层', '家长沟通素材'];
+  }
+  if (row.type === 'membership-interest' || /membership/.test(source)) {
+    return ['关注对象', '报告保存', '提醒权益'];
+  }
+  return ['用户角色', '关注对象', '试用场景'];
+}
+
 function commercialLeadFollowupScript(row = {}) {
   const detail = commercialLeadDetail(row);
   const source = `${detail.rawSource || ''} ${detail.report || ''}`.toLowerCase();
@@ -842,6 +863,7 @@ function renderPilotLeadSummary(rows = []) {
           const detail = commercialLeadDetail(row);
           const priority = commercialLeadPriority(row);
           const nextStep = commercialLeadNextStep(row);
+          const deliverables = commercialLeadDeliverableRows(row);
           const contextHtml = renderCommercialLeadContext(row);
           return `
             <article>
@@ -852,6 +874,9 @@ function renderPilotLeadSummary(rows = []) {
               ${detail.contact ? `<p class="lead-contact">联系方式：${escapeHtml(detail.contact)}</p>` : ''}
               <p>选手 ${escapeHtml(detail.athletes)} · 赛事 ${escapeHtml(detail.competitions)} · 报告 ${escapeHtml(detail.reports)} · AI ${escapeHtml(detail.ai)}</p>
               ${contextHtml}
+              <div class="lead-deliverables">
+                ${deliverables.map((item) => `<span>${escapeHtml(item)}</span>`).join('')}
+              </div>
               <p class="lead-next-step">下一步：${escapeHtml(nextStep)}</p>
               <p class="lead-followup-script">跟进话术：${escapeHtml(commercialLeadFollowupScript(row))}</p>
             </article>
@@ -867,6 +892,7 @@ function renderPilotLeadSummary(rows = []) {
 
 function commercialLeadCsv(rows = []) {
   const headers = ['类型', '优先级', '产品形态', '角色', '联系方式', '来源页面', '触发报告', '关注选手', '关注赛事', '最近报告', '最近AI分析', '跟进上下文', '建议下一步', '跟进话术', '状态', '时间'];
+  headers.splice(12, 0, '交付范围');
   const escapeCsv = (value) => `"${String(value ?? '').replace(/"/g, '""')}"`;
   const lines = rows.map((row) => {
     const detail = commercialLeadDetail(row);
@@ -885,6 +911,7 @@ function commercialLeadCsv(rows = []) {
       detail.reports,
       detail.ai,
       contextText,
+      commercialLeadDeliverableRows(row).join(' / '),
       commercialLeadNextStep(row),
       commercialLeadFollowupScript(row),
       feedbackStatusLabel(row.status),

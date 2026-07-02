@@ -866,6 +866,23 @@ button:disabled {
   overflow-wrap: anywhere;
 }
 
+.lead-deliverables {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.lead-deliverables span {
+  border: 1px solid rgba(21, 95, 194, 0.14);
+  border-radius: 999px;
+  background: rgba(21, 95, 194, 0.07);
+  color: var(--primary);
+  font-size: 11px;
+  font-weight: 900;
+  line-height: 1;
+  padding: 6px 8px;
+}
+
 .pilot-lead-list .lead-followup-script {
   border-radius: 8px;
   background: rgba(21, 95, 194, 0.06);

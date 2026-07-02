@@ -95,8 +95,10 @@ assert.match(js, /class="ai-quality-summary"/, 'admin import must render AI qual
 assert.match(js, /needsWorkRate/, 'AI quality summary must expose needs-work rate');
 assert.match(js, /function commercialLeadPriority\(row = \{\}\)/, 'admin import must prioritize commercial leads for follow-up');
 assert.match(js, /function commercialLeadNextStep\(row = \{\}\)/, 'admin import must recommend a concrete commercial lead follow-up');
+assert.match(js, /function commercialLeadDeliverableRows\(row = \{\}\)/, 'admin import must map commercial leads to concrete deliverable scope');
 assert.match(js, /function commercialLeadFollowupScript\(row = \{\}\)/, 'admin import must generate commercial lead follow-up scripts');
 assert.match(js, /class="lead-followup-script"/, 'admin import must show a usable follow-up script on lead cards');
+assert.match(js, /class="lead-deliverables"/, 'admin import must show deliverable scope on commercial lead cards');
 assert.match(js, /class="lead-contact"/, 'admin import must show contact details on commercial lead cards when provided');
 assert.match(js, /class="lead-context-grid"/, 'admin import must show structured follow-up context on commercial lead cards');
 assert.match(js, /function commercialLeadReportLabel\(row = \{\}\)/, 'admin import must classify commercial leads by report type');
@@ -120,6 +122,8 @@ assert.match(js, /data-copy-commercial-leads/, 'admin import must expose a comme
 assert.match(js, /data-copy-commercial-leads>复制待跟进<\/button>/, 'admin import must label commercial lead copy action as open follow-up export');
 assert.match(js, /copyCommercialLeads\(event\.currentTarget, openLeads\)/, 'commercial lead copy action must export only open leads by default');
 assert.match(js, /function commercialLeadCsv\(rows = \[\]\)/, 'admin import must export commercial leads as CSV text');
+assert.match(js, /headers\.splice\(12, 0, '交付范围'\)/, 'commercial lead CSV must include deliverable scope');
+assert.match(js, /commercialLeadDeliverableRows\(row\)\.join\(' \/ '\)/, 'commercial lead CSV must export deliverable scope');
 assert.match(js, /'优先级', '产品形态', '角色', '联系方式', '来源页面', '触发报告'/, 'commercial lead CSV must include priority, product segment, contact, source and report fields');
 assert.match(js, /'联系方式'/, 'commercial lead CSV must include contact details');
 assert.match(js, /commercialLeadReportLabel\(row\),/, 'commercial lead CSV must export the report type segment');
@@ -164,6 +168,8 @@ assert.match(css, /\.lead-segment/, 'admin commercial lead report segment badge 
 assert.match(css, /\.lead-next-step/, 'admin commercial lead next-step styles must exist');
 assert.match(css, /\.lead-contact/, 'admin commercial lead contact styles must exist');
 assert.match(css, /\.lead-context-grid/, 'admin commercial lead context styles must exist');
+assert.match(css, /\.lead-deliverables/, 'admin commercial lead deliverable scope styles must exist');
+assert.match(css, /\.lead-deliverables span/, 'admin commercial lead deliverable chips must be styled');
 assert.match(css, /\.lead-followup-script/, 'admin commercial lead follow-up script styles must exist');
 assert.match(css, /\.feedback-commercial-meta/, 'admin feedback cards must show commercial lead context');
 assert.match(css, /\.ai-quality-summary/, 'admin AI quality summary styles must exist');
@@ -194,7 +200,7 @@ assert.match(html, /id="analyticsTrend"/, 'admin import page must expose analyti
 assert.match(html, /id="analyticsPages"/, 'admin import page must expose analytics page rankings');
 assert.match(html, /id="dataHealthSummary"/, 'admin import page must expose data health summary');
 assert.match(html, /id="dataHealthGaps"/, 'admin import page must expose data health gaps');
-assert.match(html, /admin-import\.js\?v=fencingai-product-20260701-coach-page-share-1/, 'admin import JS cache key must be bumped');
-assert.match(html, /admin-import\.css\?v=fencingai-product-20260701-coach-page-share-1/, 'admin import CSS cache key must be bumped');
+assert.match(html, /admin-import\.js\?v=fencingai-product-20260702-admin-lead-deliverables-1/, 'admin import JS cache key must be bumped');
+assert.match(html, /admin-import\.css\?v=fencingai-product-20260702-admin-lead-deliverables-1/, 'admin import CSS cache key must be bumped');
 
 console.log('admin import page feedback is covered');
