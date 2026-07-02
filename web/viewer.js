@@ -122,6 +122,7 @@ const state = {
   reportHistory: [],
   aiHistory: [],
   commercialIntents: [],
+  sharedEntry: null,
   isDataLoading: true,
   dataLoadError: '',
   searchRequestId: 0,
@@ -1001,6 +1002,13 @@ function scrollToPageTop() {
   });
 }
 
+function scrollToResultPanel(element, behavior = 'smooth') {
+  if (!element) return;
+  requestAnimationFrame(() => {
+    element.scrollIntoView({ behavior, block: 'start', inline: 'nearest' });
+  });
+}
+
 function navigateTo(name) {
   const current = state.viewStack[state.viewStack.length - 1];
   if (current !== name) state.viewStack.push(name);
@@ -1530,6 +1538,13 @@ function isFilteringActive() {
     || state.selectedRegion !== '全部地区'
     || state.selectedItem !== '全部项目'
     || state.selectedStatus !== '全部状态';
+}
+
+function entityCoverageCounts() {
+  return {
+    athletes: Number(state.dataCoverage?.athletes) || state.athleteSearchIndex.length || Object.keys(state.athletesById || {}).length || 0,
+    clubs: Number(state.dataCoverage?.clubs) || state.clubSearchIndex.length || Object.keys(state.clubsById || {}).length || 0,
+  };
 }
 
 function renderHomeStats() {
@@ -2668,10 +2683,29 @@ function commercialInterestContextRows(context = {}) {
     club?.club ? `当前俱乐部：${club.club}` : '',
     reports.length ? `最近报告明细：${reports.map((row) => row.title || row.typeLabel).filter(Boolean).join('、')}` : '',
     aiRows.length ? `最近AI问题：${aiRows.map((row) => row.query || row.title).filter(Boolean).join('、')}` : '',
+    context.sharedSource ? `分享来源：${context.sharedSource}` : '',
+    context.sharedId ? `分享对象ID：${context.sharedId}` : '',
     context.sportCode ? `关联赛事ID：${context.sportCode}` : '',
     context.athleteId ? `关联选手ID：${context.athleteId}` : '',
     context.clubId ? `关联俱乐部ID：${context.clubId}` : '',
   ].filter(Boolean);
+}
+
+function sourceMatchesSharedEntry(source = '', entry = state.sharedEntry) {
+  if (!entry?.kind) return false;
+  if (entry.kind === 'parent-growth') return /parent|growth/.test(source);
+  if (entry.kind === 'prematch') return /prematch/.test(source);
+  if (entry.kind === 'coach-segmentation') return /coach|club|segmentation/.test(source);
+  return false;
+}
+
+function enrichSharedCommercialContext(context = {}) {
+  if (!sourceMatchesSharedEntry(context.source || '')) return context;
+  return {
+    ...context,
+    sharedSource: state.sharedEntry.kind,
+    sharedId: state.sharedEntry.id || '',
+  };
 }
 
 function commercialInterestMessage(context = {}) {
@@ -2771,6 +2805,8 @@ function trackCommercialIntent(type, context = {}, result = {}) {
       source,
       report,
       contact: context.contact || '',
+      sharedSource: context.sharedSource || '',
+      sharedId: context.sharedId || '',
       feedbackId: result.id || '',
       submittedAt: Date.now(),
     },
@@ -3104,10 +3140,11 @@ function bindReportConversionActions(container) {
         source: button.dataset.commercialSource || '',
         report: button.dataset.reportTitle || '',
       };
+      const enrichedContext = enrichSharedCommercialContext(context);
       if (button.dataset.commercialIntent === 'membership') {
-        submitMembershipInterest(button, context);
+        submitMembershipInterest(button, enrichedContext);
       } else {
-        submitPilotInterest(button, context);
+        submitPilotInterest(button, enrichedContext);
       }
     });
   });
@@ -3115,10 +3152,10 @@ function bindReportConversionActions(container) {
     button.addEventListener('click', () => printCurrentReport(button.dataset.reportExport || 'report'));
   });
   container.querySelectorAll('[data-reminder-interest]').forEach((button) => {
-    button.addEventListener('click', () => submitReminderInterest(button, {
+    button.addEventListener('click', () => submitReminderInterest(button, enrichSharedCommercialContext({
       source: button.dataset.commercialSource || 'reminder',
       report: button.dataset.reportTitle || '提醒订阅',
-    }));
+    })));
   });
 }
 
@@ -3256,10 +3293,11 @@ function renderHomePage() {
   const dataValueRows = homeDataValueRows();
   const aiQuestionRows = homeAiQuestionRows();
   const recentRows = (state.recentItems || []).slice(0, 3);
+  const entityCounts = entityCoverageCounts();
   const stats = [
     { value: state.competitions.length, label: '赛事收录' },
-    { value: state.athleteSearchIndex.length, label: '选手画像' },
-    { value: state.clubSearchIndex.length, label: '俱乐部' },
+    { value: entityCounts.athletes, label: '选手画像' },
+    { value: entityCounts.clubs, label: '俱乐部' },
   ];
   homePage.innerHTML = `
     <div class="home-dashboard">
@@ -3609,6 +3647,7 @@ function bindAiWorkspace(container) {
 
     answer.classList.add('has-answer');
     answer.innerHTML = '<div class="loading-row">正在匹配相关画像</div>';
+    scrollToResultPanel(answer);
     try {
       await ensureAiEntityContext(normalizedQuery);
       const report = buildAiAnswer(normalizedQuery);
@@ -3617,6 +3656,7 @@ function bindAiWorkspace(container) {
       trackAiAnalysisHistory(normalizedQuery, report);
       answer.innerHTML = renderAiAnswer(report);
       bindAnswer(report);
+      scrollToResultPanel(answer);
     } catch {
       const report = buildAiAnswer(normalizedQuery);
       report.query = normalizedQuery;
@@ -3624,6 +3664,7 @@ function bindAiWorkspace(container) {
       trackAiAnalysisHistory(normalizedQuery, report);
       answer.innerHTML = renderAiAnswer(report);
       bindAnswer(report);
+      scrollToResultPanel(answer);
     }
   };
 
@@ -3834,13 +3875,14 @@ function buildAiAnswer(query) {
   if (athletes.length >= 2) return buildAiAthleteComparison(text, athletes[0], athletes[1]);
   if (athletes.length === 1) return buildAiAthleteGrowth(text, athletes[0]);
 
+  const entityCounts = entityCoverageCounts();
   return {
     type: 'fallback',
     title: '暂未识别到明确对象',
     summary: '请在问题里写出选手姓名或俱乐部名称，例如“分析马潇和陶嘉月的对比情况”。',
     cards: [
-      ['可问选手', `${state.athleteSearchIndex.length} 个画像`],
-      ['可问俱乐部', `${state.clubSearchIndex.length} 个俱乐部`],
+      ['可问选手', `${entityCounts.athletes} 个画像`],
+      ['可问俱乐部', `${entityCounts.clubs} 个俱乐部`],
       ['可问赛事', `${state.competitions.length} 场赛事`],
     ],
     evidence: [],
@@ -10361,16 +10403,19 @@ async function init() {
   const initialParams = new URLSearchParams(window.location.search);
   const initialPrematchCode = initialParams.get('prematch');
   if (initialPrematchCode) {
+    state.sharedEntry = { kind: 'prematch', id: initialPrematchCode, openedAt: Date.now() };
     openPrematchReport('prematch-pack', initialPrematchCode === 'prematch-pack' ? '' : initialPrematchCode);
     return;
   }
   const initialCoachClubId = initialParams.get('coach');
   if (initialCoachClubId) {
+    state.sharedEntry = { kind: 'coach-segmentation', id: initialCoachClubId, openedAt: Date.now() };
     openCoachSegmentationReport(initialCoachClubId === 'coach-segmentation' ? '' : initialCoachClubId);
     return;
   }
   const initialAthleteId = initialParams.get('athlete');
   if (initialAthleteId) {
+    state.sharedEntry = { kind: 'parent-growth', id: initialAthleteId, openedAt: Date.now() };
     await openAthlete(initialAthleteId);
     return;
   }

@@ -252,6 +252,8 @@ async function getPublicEventsPayload() {
       clubs,
       dataCoverage: {
         scorePackages: reports.length,
+        athletes: athletes.length,
+        clubs: clubs.length,
         analysisFiles: analysisFiles.filter((file) => file.endsWith('.json')).length,
         previewFiles: analysisFiles.filter((file) => file.startsWith('web-analysis-')).length,
         platformEvents: preEventReports.platformEventLists?.reduce((sum, item) => sum + (item.report.summary?.eventCount || 0), 0) || 0,

@@ -152,6 +152,11 @@ const payload = {
   clubsById: sanitizePublicData(Object.fromEntries(clubs.map((club) => [club.id, club]))),
 };
 const searchIndexes = sanitizePublicData(buildSearchIndexes(athletes, clubs));
+payload.publicEvents.dataCoverage = {
+  ...(payload.publicEvents.dataCoverage || {}),
+  athletes: athletes.length,
+  clubs: clubs.length,
+};
 
 await removeStalePublicDataFiles();
 await mkdir(moduleOutDir, { recursive: true });

@@ -29,6 +29,7 @@ assert.doesNotMatch(
   /state\.athleteSearchIndex\s*=\s*buildAthleteSearchIndex\(\);[\s\S]{0,80}state\.clubSearchIndex\s*=\s*buildClubSearchIndex\(\);/,
   'initial load must not build local entity search indexes from full directories',
 );
+assert.match(js, /function entityCoverageCounts\(\)/, 'initial home render should use aggregate entity counts instead of full entity hydration');
 
 const competitionRoute = worker.slice(
   worker.indexOf("if (url.pathname === '/api/competitions'"),
@@ -38,6 +39,7 @@ assert.match(competitionRoute, /getCompetitionIndex\(env\)/, 'worker competition
 assert.doesNotMatch(competitionRoute, /getMergedData\(env\)|loadBundledData\(env\)/, 'worker competition route must not load full detail chunks');
 
 assert.match(server, /async function getCompetitionIndexPayload\(\)/, 'local server must expose a dedicated competition index payload');
+assert.match(server, /athletes:\s*athletes\.length,[\s\S]{0,80}clubs:\s*clubs\.length,/, 'local competition index coverage should include aggregate entity counts');
 assert.match(server, /compactCompetitionIndex\(payload\.competitions\)/, 'local competition index should be compacted for initial load');
 assert.doesNotMatch(
   server.slice(server.indexOf('async function getCompetitionIndexPayload()'), server.indexOf('async function getEventIndexPayload()')),
@@ -45,6 +47,11 @@ assert.doesNotMatch(
   'local competition index payload must not include entity directories',
 );
 assert.match(worker, /competitions:\s*compactCompetitionIndex\(competitions\)/, 'worker competition index should be compacted for initial load');
+assert.match(
+  await readFile(new URL('./build-cloudflare-data.mjs', import.meta.url), 'utf8'),
+  /payload\.publicEvents\.dataCoverage = \{[\s\S]*athletes:\s*athletes\.length,[\s\S]*clubs:\s*clubs\.length,/,
+  'Cloudflare static data index should expose aggregate athlete and club counts',
+);
 assert.match(
   await readFile(new URL('./competition-index.mjs', import.meta.url), 'utf8'),
   /itemSummaries[\s\S]*itemFilters[\s\S]*metricTotals[\s\S]*projectScope/,
