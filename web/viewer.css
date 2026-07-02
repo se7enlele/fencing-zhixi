@@ -1413,8 +1413,8 @@ select:focus {
 }
 
 .ai-home-lead strong {
-  max-width: 10em;
-  font-size: 26px;
+  max-width: 12em;
+  font-size: 25px;
   line-height: 1.12;
   text-wrap: balance;
 }
@@ -1431,7 +1431,7 @@ select:focus {
   z-index: 1;
   display: grid;
   gap: 10px;
-  margin-top: 2px;
+  margin-top: 10px;
 }
 
 .ai-query-form textarea {
@@ -1496,7 +1496,7 @@ select:focus {
   display: flex;
   gap: 7px;
   overflow-x: auto;
-  margin: 0 -2px;
+  margin: 2px -2px 0;
   padding: 0 2px 2px;
 }
 
@@ -2162,6 +2162,60 @@ select:focus {
   color: var(--primary);
 }
 
+.home-saved-section {
+  border-color: rgba(8, 119, 96, 0.12);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(247, 252, 251, 0.94));
+}
+
+.home-saved-list {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  margin: 0 -2px;
+  padding: 0 2px 2px;
+  scrollbar-width: none;
+}
+
+.home-saved-list::-webkit-scrollbar {
+  display: none;
+}
+
+.home-saved-list button {
+  flex: 0 0 188px;
+  display: grid;
+  gap: 5px;
+  min-width: 0;
+  border: 1px solid rgba(8, 119, 96, 0.14);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.88);
+  color: var(--text);
+  font: inherit;
+  text-align: left;
+  padding: 10px;
+  box-shadow: 0 8px 20px rgba(15, 37, 64, 0.045);
+}
+
+.home-saved-list span,
+.home-saved-list strong {
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.home-saved-list span {
+  color: var(--teal);
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.home-saved-list strong {
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 900;
+}
+
 .data-value-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -2389,24 +2443,28 @@ select:focus {
   opacity: 0.72;
 }
 
-.service-progress-panel {
+.service-progress-panel,
+.athlete-data-progress-panel {
   display: grid;
   gap: 10px;
 }
 
-.service-progress-panel p {
+.service-progress-panel p,
+.athlete-data-progress-card p {
   margin: 0;
   color: var(--muted);
   font-size: 12px;
   line-height: 1.5;
 }
 
-.service-progress-list {
+.service-progress-list,
+.athlete-data-progress-list {
   display: grid;
   gap: 8px;
 }
 
-.service-progress-card {
+.service-progress-card,
+.athlete-data-progress-card {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   gap: 5px 10px;
@@ -2421,12 +2479,18 @@ select:focus {
 .service-progress-card strong,
 .service-progress-card span,
 .service-progress-card em,
-.service-progress-card small {
+.service-progress-card small,
+.athlete-data-progress-card div,
+.athlete-data-progress-card strong,
+.athlete-data-progress-card span,
+.athlete-data-progress-card em,
+.athlete-data-progress-card small {
   display: block;
   min-width: 0;
 }
 
-.service-progress-card strong {
+.service-progress-card strong,
+.athlete-data-progress-card strong {
   overflow: hidden;
   color: var(--text);
   font-size: 13px;
@@ -2436,14 +2500,17 @@ select:focus {
 }
 
 .service-progress-card span,
-.service-progress-card em {
+.service-progress-card em,
+.athlete-data-progress-card span,
+.athlete-data-progress-card em {
   color: var(--muted);
   font-size: 12px;
   font-style: normal;
   line-height: 1.35;
 }
 
-.service-progress-card p {
+.service-progress-card p,
+.athlete-data-progress-card p {
   grid-column: 1 / -1;
   margin: 2px 0 0;
   color: var(--text);
@@ -2507,7 +2574,8 @@ select:focus {
   color: var(--orange);
 }
 
-.service-progress-card button {
+.service-progress-card button,
+.athlete-data-progress-card button {
   grid-column: 1 / -1;
   justify-self: start;
   border: 1px solid rgba(21, 95, 194, 0.14);
@@ -2520,7 +2588,8 @@ select:focus {
   padding: 7px 10px;
 }
 
-.service-progress-card small {
+.service-progress-card small,
+.athlete-data-progress-card small {
   grid-column: 1 / -1;
   width: fit-content;
   border-radius: 999px;

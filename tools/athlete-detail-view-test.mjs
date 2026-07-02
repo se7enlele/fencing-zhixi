@@ -107,6 +107,11 @@ assert.match(source, /data-athlete-request="hide"/, 'athlete detail must expose 
 assert.match(source, /data-athlete-request="claim-athlete"/, 'athlete detail must expose an athlete claim action');
 assert.match(source, /const details = requestAthleteDataRequestDetails\(athlete, button\.dataset\.athleteRequest\);/, 'athlete data feedback must collect details before submitting');
 assert.match(source, /if \(!details\)/, 'athlete data feedback must allow users to cancel before submitting');
+assert.match(source, /ATHLETE_DATA_REQUEST_KEY = 'fencingai\.athleteDataRequests\.v1'/, 'athlete data requests must use local progress persistence');
+assert.match(source, /function trackAthleteDataRequest\(athlete, requestType, details = \{\}, result = \{\}\)/, 'athlete data feedback must track submitted requests locally');
+assert.match(source, /saveStoredList\(ATHLETE_DATA_REQUEST_KEY, state\.athleteDataRequests, 10\)/, 'athlete data feedback must persist submitted requests');
+assert.match(source, /const result = await submitAthleteDataRequest\(athlete, button\.dataset\.athleteRequest, details\);/, 'athlete data feedback must keep the API response');
+assert.match(source, /trackAthleteDataRequest\(athlete, button\.dataset\.athleteRequest, details, result\);/, 'athlete data feedback must update the local progress panel after submit');
 assert.match(source, /button\.textContent = '已提交'/, 'athlete data feedback must confirm successful submission');
 assert.match(source, /button\.textContent = '已复制说明'/, 'athlete data feedback must fall back to copied request text');
 assert.match(source, /renderAthleteDataRequestPanel\(athlete\)/, 'athlete detail rendering must show the data feedback panel');

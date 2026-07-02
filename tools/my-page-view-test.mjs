@@ -63,6 +63,10 @@ assert.match(js, /class="parent-next-focus"/, 'parent dashboard must render next
 assert.match(js, /function renderAiWorkspace\(\)/, 'home page must include an AI workspace renderer');
 assert.match(js, /homePage\.innerHTML = `\s*<div class="home-dashboard">\s*\$\{renderAiWorkspace\('home'\)\}/, 'home page must start the dashboard with the AI question workspace');
 assert.match(js, /<section class="panel ai-home-primary">[\s\S]*<\/section>\s*<div class="ai-answer" id="aiAnswer">/, 'AI answers must render outside the dark home entry panel');
+assert.doesNotMatch(js, /问 FencingAI/, 'home hero must not repeat the topbar product name');
+assert.doesNotMatch(js, /直接用问题查看击剑数据/, 'home hero must not use generic query copy');
+assert.doesNotMatch(js, /保留传统检索入口/, 'home page must not expose internal navigation rationale');
+assert.match(js, /把击剑数据变成可执行判断/, 'home hero must explain the product value directly');
 assert.match(js, /function scrollToResultPanel\(element, behavior = 'smooth'\)/, 'AI question results must have a dedicated viewport-positioning helper');
 assert.match(js, /const appHeader = document\.querySelector\('\.app-header'\)/, 'AI result scrolling must keep the app-header compatibility path');
 assert.match(js, /appHeader \|\| document\.querySelector\('\.topbar'\)/, 'AI result scrolling must account for the actual sticky topbar');
@@ -74,6 +78,7 @@ assert.match(js, /answer\.innerHTML = '<div class="loading-row">正在匹配相�
 assert.match(js, /answer\.innerHTML = renderAiAnswer\(report\);[\s\S]{0,80}bindAnswer\(report\);[\s\S]{0,80}scrollToResultPanel\(answer\);/, 'AI question results must keep the viewport on the answer card after rendering');
 assert.match(js, /function entityCoverageCounts\(\)/, 'home scale numbers must use data coverage summaries without hydrating full directories');
 assert.match(js, /const positiveMax = \(\.\.\.values\) => Math\.max\(0, \.\.\.values\.map\(\(value\) => Number\(value\) \|\| 0\)\)/, 'home scale must not let zero coverage fields override real loaded counts');
+assert.match(js, /const nestedCoverage = state\.publicEvents\?\.dataCoverage \|\| \{\};/, 'home scale must read nested static coverage when present');
 assert.match(js, /athletes: positiveMax\([\s\S]*state\.dataCoverage\?\.athletes[\s\S]*state\.athleteSearchIndex\.length[\s\S]*Object\.keys\(state\.athletesById \|\| \{\}\)\.length[\s\S]*\)/, 'home scale must combine athlete coverage with loaded search and detail indexes');
 assert.match(js, /clubs: positiveMax\([\s\S]*state\.dataCoverage\?\.clubs[\s\S]*state\.clubSearchIndex\.length[\s\S]*Object\.keys\(state\.clubsById \|\| \{\}\)\.length[\s\S]*\)/, 'home scale must combine club coverage with loaded search and detail indexes');
 assert.match(js, /\{ value: entityCounts\.athletes, label: '选手画像' \}/, 'home stats must display athlete coverage counts instead of empty local search indexes');
@@ -144,6 +149,13 @@ assert.match(js, /deliverables: commercialIntentDeliverableRows\(row\)/, 'commer
 assert.match(js, /function commercialIntentProgressSteps\(row = \{\}\)/, 'commercial intent progress must expose concrete fulfillment stages');
 assert.match(js, /progressSteps: commercialIntentProgressSteps\(row\)/, 'commercial intent rows must include fulfillment stages');
 assert.match(js, /function renderCommercialIntentStatus\(rows = commercialIntentRows\(\)\)/, 'commercial intent status panel must be reusable');
+assert.match(js, /ATHLETE_DATA_REQUEST_KEY = 'fencingai\.athleteDataRequests\.v1'/, 'athlete data governance requests must persist local progress');
+assert.match(js, /function athleteDataRequestRows\(\)/, 'athlete data governance requests must normalize progress rows');
+assert.match(js, /function renderAthleteDataRequestStatus\(rows = athleteDataRequestRows\(\)\)/, 'athlete data governance progress panel must be reusable');
+assert.match(js, /\{ value: athleteDataRequestCount, label: '数据处理' \}/, 'my page must count submitted athlete data requests');
+assert.match(js, /\$\{renderAthleteDataRequestStatus\(athleteDataRequests\)\}/, 'my page must render athlete data progress');
+assert.match(js, /myPage\.querySelectorAll\('\[data-athlete-data-progress-athlete-id\]'\)/, 'my page must bind athlete data progress actions');
+assert.match(js, /openAthlete\(button\.dataset\.athleteDataProgressAthleteId \|\| ''\)/, 'athlete data progress cards must reopen athlete profiles');
 assert.match(js, /function serviceProgressContextNote\(\)/, 'service progress copy must be role-aware');
 assert.match(js, /const followCopy = myFollowSectionCopy\(\);[\s\S]*return `已收到的服务申请会结合你的\$\{followCopy\.countLabel\}、赛事和报告记录跟进/, 'service progress copy must use role-aware followed object labels');
 assert.match(js, /class="panel my-section service-progress-panel"/, 'service progress panel must render as a user-facing section');
@@ -173,6 +185,7 @@ assert.match(js, /data-commercial-source="my-membership"/, 'my page membership p
 assert.match(js, /bindReportConversionActions\(myPage\)/, 'my page membership buttons must reuse commercial conversion actions');
 assert.match(js, /function homeDataValueRows\(\)/, 'home page must build productized data value entry cards');
 assert.match(js, /function homeAiQuestionRows\(\)/, 'home page must build runnable AI-native question examples');
+assert.match(js, /const savedAnalysisRows = \[\.\.\.aiHistory, \.\.\.reportHistory\]\.slice\(0, 3\);/, 'home page must combine saved analysis into one consistent recent section');
 assert.match(js, /function roleVisibleHomeReportRows\(rows\)/, 'home report center must filter report entry points by selected role');
 assert.match(js, /state\.userRole === 'parent'[\s\S]*\['prematch', 'growth'\]/, 'parent home report center must stay focused on prematch and child growth');
 assert.match(js, /roleVisibleHomeReportRows\(homeReportCenterRows\(children, followedCompetitions\)\)/, 'home page must apply role-aware report filtering');
@@ -180,6 +193,7 @@ assert.match(js, /class="data-value-grid"/, 'home page must render productized d
 assert.match(js, /class="home-question-list"/, 'home page must render AI-native question shortcuts');
 assert.match(js, /\$\{renderHomePrematchAction\(prematchAction\)\}/, 'home page must surface the next prematch action before generic report cards');
 assert.match(js, /\$\{renderHomeCoachAction\(coachAction\)\}/, 'home page must surface the coach business action before generic report cards');
+assert.match(js, /class="home-saved-list"/, 'home page must render recent analysis as one consistent list when present');
 assert.match(js, /const aiQuestionRows = homeAiQuestionRows\(\);/, 'home page must derive AI-native question shortcuts during render');
 assert.match(js, /data-home-prematch="\$\{escapeHtml\(row\.sportCode\)\}"/, 'home prematch card must open the scoped prematch report');
 assert.match(js, /data-home-prematch-follow="\$\{escapeHtml\(row\.sportCode\)\}"/, 'home prematch card must allow adding recommended competitions to reminders');
@@ -230,10 +244,11 @@ assert.match(js, /if \(type === 'ai-report'\) \{[\s\S]*trackAnalyticsAction\('op
 assert.match(js, /submitAiQuery\(button\.dataset\.aiHistoryQuery \|\| ''\)/, 'recent AI analysis rows must restore the question');
 assert.doesNotMatch(js, /function renderHomePage\(\)[\s\S]*<h2>近期值得看<\/h2>[\s\S]*function aiDefaultClub/, 'home page must not duplicate the competition list experience');
 assert.doesNotMatch(js, /<h2>问 FencingAI<\/h2>|<h2>闂?FencingAI<\/h2>/, 'AI workspace must not repeat the product name below the top bar');
-assert.match(js, /问一句，直接得到击剑判断/, 'AI home lead must state the product value directly');
+assert.match(js, /把击剑数据变成可执行判断/, 'AI home lead must state the product value directly');
 assert.match(js, /function aiPromptPlaceholder\(presets\)/, 'AI home examples must come from role-aware prompt presets');
 assert.match(js, /placeholder="\$\{escapeHtml\(placeholder\)\}"/, 'AI home textarea must use dynamic example prompts');
-assert.match(js, /data-home-competitions>查看赛事数据<\/button>/, 'AI home must keep competition list entry separate from prompt presets');
+assert.doesNotMatch(js, /<div class="ai-home-actions">[\s\S]*data-home-competitions/, 'AI home must not mix competition navigation with prompt presets');
+assert.match(js, /<strong>赛事数据<\/strong>[\s\S]*搜索、筛选和进入赛事详情/, 'home action grid must keep the competition list entry available');
 assert.doesNotMatch(js, /保留传统检索入口/, 'AI home must not expose implementation-oriented navigation copy');
 assert.match(js, /function roleAiPromptPresets\(primary, secondary\)/, 'AI home presets must adapt to the selected role');
 assert.match(js, /state\.userRole === 'parent'[\s\S]*最近几场有没有进步/, 'parent AI presets must prioritize growth questions');
@@ -359,7 +374,7 @@ assert.match(css, /\.bottom-nav button:not\(\[aria-current="page"\]\)/, 'bottom 
 assert.match(css, /background: transparent !important/, 'non-current bottom tabs must not keep touch or focus selected backgrounds');
 assert.match(css, /\.ai-workspace/, 'AI workspace styles must exist');
 assert.match(css, /\.ai-home-primary/, 'AI home entry must have primary visual treatment');
-assert.match(css, /\.ai-home-actions/, 'AI home entry must expose secondary navigation actions');
+assert.match(css, /\.home-saved-list/, 'home recent analysis section styles must exist');
 assert.match(css, /\.home-action-grid/, 'home action entry styles must exist');
 assert.match(css, /\.data-value-grid/, 'home data value entry styles must exist');
 assert.match(css, /\.report-center-grid/, 'home report center styles must exist');
@@ -372,6 +387,9 @@ assert.match(css, /\.service-progress-deliverables li/, 'service progress delive
 assert.match(css, /\.service-progress-steps/, 'service progress steps must be styled');
 assert.match(css, /\.service-progress-card \.service-progress-reference/, 'service progress reference badge must be styled');
 assert.match(css, /\.service-progress-card button/, 'service progress follow-up action must be styled');
+assert.match(css, /\.athlete-data-progress-panel/, 'athlete data progress panel styles must exist');
+assert.match(css, /\.athlete-data-progress-card/, 'athlete data progress card styles must exist');
+assert.match(css, /\.athlete-data-progress-card button/, 'athlete data progress action must be styled');
 assert.match(css, /\.my-prematch-list/, 'my prematch reminder list styles must exist');
 assert.match(css, /\.my-prematch-card/, 'my prematch reminder cards must be styled');
 assert.match(css, /\.my-prematch-actions/, 'my prematch reminder actions must be styled');

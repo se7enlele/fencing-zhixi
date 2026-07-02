@@ -69,6 +69,7 @@ const CHILD_KEY = 'fencingai.parentChildId.v1';
 const ANALYTICS_SESSION_KEY = 'fencingai.analyticsSession.v1';
 const COMMERCIAL_CONTACT_KEY = 'fencingai.commercialContact.v1';
 const COMMERCIAL_INTENT_KEY = 'fencingai.commercialIntents.v1';
+const ATHLETE_DATA_REQUEST_KEY = 'fencingai.athleteDataRequests.v1';
 const COMPETITION_LIST_PAGE_SIZE = 30;
 
 const views = {
@@ -122,6 +123,7 @@ const state = {
   reportHistory: [],
   aiHistory: [],
   commercialIntents: [],
+  athleteDataRequests: [],
   sharedEntry: null,
   isDataLoading: true,
   dataLoadError: '',
@@ -254,6 +256,7 @@ state.recentItems = loadStoredList(RECENT_KEY);
 state.reportHistory = loadStoredList(REPORT_HISTORY_KEY);
 state.aiHistory = loadStoredList(AI_HISTORY_KEY);
 state.commercialIntents = loadStoredList(COMMERCIAL_INTENT_KEY);
+state.athleteDataRequests = loadStoredList(ATHLETE_DATA_REQUEST_KEY);
 
 function loadFollowedAthletes() {
   try {
@@ -1577,14 +1580,17 @@ function isFilteringActive() {
 
 function entityCoverageCounts() {
   const positiveMax = (...values) => Math.max(0, ...values.map((value) => Number(value) || 0));
+  const nestedCoverage = state.publicEvents?.dataCoverage || {};
   return {
     athletes: positiveMax(
       state.dataCoverage?.athletes,
+      nestedCoverage.athletes,
       state.athleteSearchIndex.length,
       Object.keys(state.athletesById || {}).length,
     ),
     clubs: positiveMax(
       state.dataCoverage?.clubs,
+      nestedCoverage.clubs,
       state.clubSearchIndex.length,
       Object.keys(state.clubsById || {}).length,
     ),
@@ -2948,6 +2954,72 @@ function trackCommercialIntent(type, context = {}, result = {}) {
   saveStoredList(COMMERCIAL_INTENT_KEY, state.commercialIntents, 10);
 }
 
+function athleteDataRequestTypeLabel(type) {
+  if (type === 'claim-athlete') return '档案认领';
+  if (type === 'hide') return '隐藏申请';
+  return '纠错合并';
+}
+
+function athleteDataRequestNextStep(row = {}) {
+  if (row.type === 'claim-athlete') return '下一步会核验关系，确认后可围绕该选手继续沉淀成长报告和提醒。';
+  if (row.type === 'hide') return '下一步会核验身份和监护关系，再判断是否隐藏公开展示。';
+  return '下一步会核对赛事、俱乐部和同名记录，确认后再修正或合并。';
+}
+
+function athleteDataRequestRows() {
+  return (state.athleteDataRequests || []).slice(0, 4).map((row) => ({
+    ...row,
+    typeLabel: athleteDataRequestTypeLabel(row.type),
+    timeLabel: formatDataGeneratedAt(row.submittedAt),
+    referenceLabel: row.feedbackId ? `处理编号 ${String(row.feedbackId).slice(-8)}` : '本机已记录',
+    nextStep: athleteDataRequestNextStep(row),
+  }));
+}
+
+function trackAthleteDataRequest(athlete, requestType, details = {}, result = {}) {
+  const key = `${requestType}:${athlete.id || athlete.name || 'athlete'}`;
+  state.athleteDataRequests = [
+    {
+      key,
+      type: requestType,
+      athleteId: athlete.id || '',
+      athleteName: athlete.name || '选手',
+      club: athlete.club || '',
+      note: details.note || '',
+      feedbackId: result.id || '',
+      submittedAt: Date.now(),
+    },
+    ...(state.athleteDataRequests || []).filter((row) => row.key !== key),
+  ].slice(0, 10);
+  saveStoredList(ATHLETE_DATA_REQUEST_KEY, state.athleteDataRequests, 10);
+}
+
+function renderAthleteDataRequestStatus(rows = athleteDataRequestRows()) {
+  if (!rows.length) return '';
+  return `
+    <section class="panel my-section athlete-data-progress-panel">
+      <div class="section-title">
+        <h2>数据处理进度</h2>
+        <span>认领与纠错</span>
+      </div>
+      <div class="athlete-data-progress-list">
+        ${rows.map((row) => `
+          <article class="athlete-data-progress-card">
+            <div>
+              <strong>${escapeHtml(row.athleteName)}</strong>
+              <span>${escapeHtml(row.typeLabel)} · ${escapeHtml(row.club || '俱乐部待确认')}</span>
+            </div>
+            <em>${escapeHtml(row.timeLabel || '刚刚提交')}</em>
+            <small>${escapeHtml(row.referenceLabel)}</small>
+            <p>${escapeHtml(row.nextStep)}</p>
+            <button type="button" data-athlete-data-progress-athlete-id="${escapeHtml(row.athleteId || '')}">查看选手档案</button>
+          </article>
+        `).join('')}
+      </div>
+    </section>
+  `;
+}
+
 function renderCommercialIntentStatus(rows = commercialIntentRows()) {
   if (!rows.length) return '';
   return `
@@ -3586,6 +3658,7 @@ function renderHomePage() {
   const reportHistory = reportHistoryRows();
   const aiHistory = aiHistoryRows();
   const commercialIntents = commercialIntentRows();
+  const savedAnalysisRows = [...aiHistory, ...reportHistory].slice(0, 3);
   const prematchAction = homePrematchActionRow(followedCompetitions);
   const coachAction = homeCoachActionRow();
   const dataValueRows = homeDataValueRows();
@@ -3611,6 +3684,22 @@ function renderHomePage() {
       </section>
       ${renderHomePrematchAction(prematchAction)}
       ${renderHomeCoachAction(coachAction)}
+      ${savedAnalysisRows.length ? `
+        <section class="panel my-section home-saved-section">
+          <div class="section-title">
+            <h2>最近分析</h2>
+            <span>继续查看</span>
+          </div>
+          <div class="home-saved-list">
+            ${savedAnalysisRows.map((row) => `
+              <button type="button" ${row.query ? `data-ai-history-query="${escapeHtml(row.query)}"` : `data-report-history-type="${escapeHtml(row.type || '')}" data-report-history-id="${escapeHtml(row.id || '')}"`}>
+                <span>${escapeHtml(row.typeLabel)}</span>
+                <strong>${escapeHtml(row.title)}</strong>
+              </button>
+            `).join('')}
+          </div>
+        </section>
+      ` : ''}
       <section class="panel my-section home-question-section">
         <div class="section-title">
           <h2>可以直接问</h2>
@@ -3894,7 +3983,7 @@ function renderAiWorkspace() {
     <div class="ai-workspace" id="aiWorkspace">
       <section class="panel ai-home-primary">
         <div class="ai-home-lead">
-          <strong>问一句，直接得到击剑判断</strong>
+          <strong>把击剑数据变成可执行判断</strong>
         </div>
         <form class="ai-query-form" id="aiQueryForm">
           <textarea id="aiQueryInput" rows="3" placeholder="${escapeHtml(placeholder)}"></textarea>
@@ -3902,9 +3991,6 @@ function renderAiWorkspace() {
         </form>
         <div class="ai-preset-row">
           ${presets.map((preset) => `<button type="button" data-ai-preset="${escapeHtml(preset)}">${escapeHtml(preset)}</button>`).join('')}
-        </div>
-        <div class="ai-home-actions">
-          <button type="button" data-home-competitions>查看赛事数据</button>
         </div>
       </section>
       <div class="ai-answer" id="aiAnswer">
@@ -6048,6 +6134,8 @@ function renderMyPage() {
   const reportAssets = reportAssetSummaryRows(state.reportHistory || [], state.aiHistory || []);
   const commercialIntents = commercialIntentRows();
   const commercialIntentCount = (state.commercialIntents || []).length;
+  const athleteDataRequests = athleteDataRequestRows();
+  const athleteDataRequestCount = (state.athleteDataRequests || []).length;
   const followedAthletes = children.slice(0, 6);
   const nextActions = myWorkspaceNextActions({ children, followedCompetitions, reportHistory, aiHistory });
   const reportNextActions = reportNextActionRows(reportHistory);
@@ -6063,6 +6151,7 @@ function renderMyPage() {
     { value: reportHistory.length, label: '生成报告' },
     { value: aiHistory.length, label: 'AI分析' },
     { value: commercialIntentCount, label: '服务进度' },
+    { value: athleteDataRequestCount, label: '数据处理' },
     { value: recentRows.length, label: '最近查看' },
   ];
 
@@ -6153,6 +6242,8 @@ function renderMyPage() {
     </section>
 
     ${renderCommercialIntentStatus(commercialIntents)}
+
+    ${renderAthleteDataRequestStatus(athleteDataRequests)}
 
     ${renderMembershipBenefits()}
 
@@ -6390,6 +6481,9 @@ function renderMyPage() {
       upsertFollowedCompetition(competition);
       renderPersonalPages();
     });
+  });
+  myPage.querySelectorAll('[data-athlete-data-progress-athlete-id]').forEach((button) => {
+    button.addEventListener('click', () => openAthlete(button.dataset.athleteDataProgressAthleteId || ''));
   });
   bindServiceProgressActions(myPage);
   myPage.querySelectorAll('[data-trial-plan-source]').forEach((button) => {
@@ -8689,7 +8783,9 @@ function renderAthleteDataRequestPanel(athlete) {
           button.disabled = false;
           return;
         }
-        await submitAthleteDataRequest(athlete, button.dataset.athleteRequest, details);
+        const result = await submitAthleteDataRequest(athlete, button.dataset.athleteRequest, details);
+        trackAthleteDataRequest(athlete, button.dataset.athleteRequest, details, result);
+        renderMyPage();
         button.textContent = '已提交';
       } catch {
         await copyTextToClipboard(buildAthleteDataRequestText(athlete, button.dataset.athleteRequest, { contact: storedCommercialContact() }));
@@ -11116,6 +11212,7 @@ async function init() {
   state.apiVersion = result.version || '';
   state.dataGeneratedAt = result.generatedAt || '';
   state.dataCoverage = result.dataCoverage || null;
+  state.publicEvents = result.publicEvents || null;
   state.competitions = result.competitions?.length ? result.competitions : buildCompetitionsFromEvents(result.events);
   state.competitionSearchCache.clear();
   renderHomeStats();
