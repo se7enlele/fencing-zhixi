@@ -956,6 +956,83 @@ function isAthleteDataRequest(row) {
   return ['correct', 'hide', 'claim-athlete'].includes(row.type);
 }
 
+function athleteDataRequestSummaryRows(rows = []) {
+  const requests = rows.filter(isAthleteDataRequest);
+  const openRequests = requests.filter(isOpenFeedback);
+  const countType = (type) => requests.filter((row) => row.type === type).length;
+  return [
+    { label: '待处理', value: openRequests.length },
+    { label: '档案认领', value: countType('claim-athlete') },
+    { label: '纠错合并', value: countType('correct') },
+    { label: '隐藏申请', value: countType('hide') },
+  ];
+}
+
+function athleteDataRequestCsv(rows = []) {
+  const headers = ['类型', '选手', '俱乐部', '联系方式/说明', '状态', '时间'];
+  const escapeCsv = (value) => `"${String(value ?? '').replace(/"/g, '""')}"`;
+  const lines = rows.filter(isAthleteDataRequest).map((row) => [
+    feedbackTypeLabel(row.type),
+    row.athlete?.name || '',
+    row.athlete?.club || '',
+    row.message || '',
+    feedbackStatusLabel(row.status),
+    row.createdAt ? new Date(row.createdAt).toLocaleString('zh-CN') : '',
+  ].map(escapeCsv).join(','));
+  return [headers.map(escapeCsv).join(','), ...lines].join('\n');
+}
+
+function renderAthleteDataRequestSummary(rows = []) {
+  const requests = rows.filter(isAthleteDataRequest);
+  if (!requests.length) return '';
+  const summaryRows = athleteDataRequestSummaryRows(rows);
+  const latest = [...requests]
+    .sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0))
+    .slice(0, 3);
+  return `
+    <section class="athlete-data-summary">
+      <div class="athlete-data-summary-head">
+        <div>
+          <span>数据治理</span>
+          <strong>${escapeHtml(requests.length)} 条档案请求</strong>
+        </div>
+        <button type="button" data-copy-athlete-data-requests>复制处理清单</button>
+      </div>
+      <div class="athlete-data-summary-grid">
+        ${summaryRows.map((row) => `
+          <div>
+            <strong>${escapeHtml(row.value)}</strong>
+            <span>${escapeHtml(row.label)}</span>
+          </div>
+        `).join('')}
+      </div>
+      <div class="athlete-data-latest">
+        ${latest.map((row) => `
+          <article>
+            <strong>${escapeHtml(feedbackTypeLabel(row.type))}</strong>
+            <span>${escapeHtml(row.athlete?.name || '选手待确认')} · ${escapeHtml(row.athlete?.club || '俱乐部待确认')}</span>
+            <em>${escapeHtml(feedbackStatusLabel(row.status))}</em>
+          </article>
+        `).join('')}
+      </div>
+    </section>
+  `;
+}
+
+async function copyAthleteDataRequests(button, rows = []) {
+  if (!button) return;
+  const originalLabel = button.textContent;
+  try {
+    await navigator.clipboard.writeText(athleteDataRequestCsv(rows));
+    button.textContent = '已复制';
+  } catch {
+    button.textContent = '复制失败';
+  }
+  setTimeout(() => {
+    button.textContent = originalLabel;
+  }, 1600);
+}
+
 function feedbackFilterOptions(rows = []) {
   const count = (filter) => rows.filter((row) => feedbackFilterMatches(row, filter)).length;
   return [
@@ -1003,6 +1080,7 @@ function renderFeedback(rows = []) {
   renderFeedbackFilterBar(rows);
   const visibleRows = rows.filter((row) => feedbackFilterMatches(row));
   const aiQualityRows = aiFeedbackQualityRows(rows);
+  const athleteDataSummaryHtml = renderAthleteDataRequestSummary(rows);
   const aiQualityHtml = aiQualityRows.length ? `
     <section class="ai-quality-summary">
       <div class="analytics-block-title">AI 回答质量</div>
@@ -1058,7 +1136,10 @@ function renderFeedback(rows = []) {
     </article>
   `;
   }).join('') : '<div class="status muted">当前筛选下暂无反馈。</div>';
-  feedbackList.innerHTML = `${aiQualityHtml}${feedbackRowsHtml}`;
+  feedbackList.innerHTML = `${athleteDataSummaryHtml}${aiQualityHtml}${feedbackRowsHtml}`;
+  feedbackList.querySelector('[data-copy-athlete-data-requests]')?.addEventListener('click', (event) => {
+    copyAthleteDataRequests(event.currentTarget, rows.filter(isAthleteDataRequest));
+  });
   feedbackList.querySelectorAll('[data-feedback-id]').forEach((button) => {
     button.addEventListener('click', () => updateFeedbackStatus(button.dataset.feedbackId, button.dataset.feedbackStatus));
   });

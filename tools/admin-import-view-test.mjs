@@ -146,6 +146,11 @@ assert.match(js, /let activeFeedbackFilter = 'all'/, 'admin import feedback filt
 assert.match(js, /function isAiFeedback\(row\)/, 'admin import must identify AI feedback rows');
 assert.match(js, /function isAthleteDataRequest\(row\)/, 'admin import must identify athlete data governance requests');
 assert.match(js, /\['correct', 'hide', 'claim-athlete'\]\.includes\(row\.type\)/, 'athlete data governance requests must include correction, hide, and claim types');
+assert.match(js, /function athleteDataRequestSummaryRows\(rows = \[\]\)/, 'admin import must summarize athlete data governance requests');
+assert.match(js, /function athleteDataRequestCsv\(rows = \[\]\)/, 'admin import must export athlete data governance requests');
+assert.match(js, /function renderAthleteDataRequestSummary\(rows = \[\]\)/, 'admin import must render athlete data governance summary');
+assert.match(js, /function copyAthleteDataRequests\(button, rows = \[\]\)/, 'admin import must copy athlete data governance requests');
+assert.match(js, /navigator\.clipboard\.writeText\(athleteDataRequestCsv\(rows\)\)/, 'athlete data request copy action must use clipboard export');
 assert.match(js, /function renderFeedbackFilterBar\(rows = \[\]\)/, 'admin import must render feedback filter chips');
 assert.match(js, /function feedbackFilterMatches\(row, filter = activeFeedbackFilter\)/, 'admin import must filter feedback rows');
 assert.match(js, /\['new', '新提交', count\('new'\)\]/, 'admin import must expose newly submitted feedback filters');
@@ -157,6 +162,9 @@ assert.match(js, /filter === 'hot-commercial'[\s\S]*commercialLeadPriority\(row\
 assert.match(js, /\['commercial', '商业线索', count\('commercial'\)\]/, 'admin import must expose a commercial lead filter');
 assert.match(js, /\['athlete-data', '数据治理', count\('athlete-data'\)\]/, 'admin import must expose an athlete data governance filter');
 assert.match(js, /filter === 'athlete-data'[\s\S]*isAthleteDataRequest\(row\)/, 'athlete data governance filter must use athlete request classification');
+assert.match(js, /const athleteDataSummaryHtml = renderAthleteDataRequestSummary\(rows\);/, 'feedback list must compute athlete data governance summary');
+assert.match(js, /feedbackList\.innerHTML = `\$\{athleteDataSummaryHtml\}\$\{aiQualityHtml\}\$\{feedbackRowsHtml\}`;/, 'feedback list must render athlete data summary before feedback rows');
+assert.match(js, /data-copy-athlete-data-requests/, 'athlete data summary must expose a copy action');
 assert.match(js, /\/api\/admin\/feedback\/status\?token=/, 'admin import feedback actions must use the admin status API');
 assert.match(js, /data-feedback-status/, 'admin import feedback cards must expose workflow action buttons');
 assert.match(js, /const aiDetail = isAiFeedback\(row\) \? aiFeedbackDetail\(row\) : null;/, 'admin import must derive AI feedback metadata per row');
@@ -169,6 +177,9 @@ assert.match(css, /\.roster-progress/, 'roster progress panel styles must exist'
 assert.match(css, /\.roster-progress-grid/, 'roster progress metrics must have a layout');
 assert.match(css, /\.feedback-list/, 'admin feedback list styles must exist');
 assert.match(css, /\.feedback-filter-bar/, 'admin feedback filter styles must exist');
+assert.match(css, /\.athlete-data-summary/, 'admin athlete data governance summary styles must exist');
+assert.match(css, /\.athlete-data-summary-grid/, 'admin athlete data governance metrics must have a layout');
+assert.match(css, /\.athlete-data-latest/, 'admin athlete data governance latest list styles must exist');
 assert.match(css, /\.pilot-lead-card/, 'admin pilot lead card styles must exist');
 assert.match(css, /\.pilot-lead-report-mix/, 'admin pilot lead report mix styles must exist');
 assert.match(css, /\.pilot-lead-product-focus/, 'admin pilot lead product focus styles must exist');
@@ -212,7 +223,7 @@ assert.match(html, /id="analyticsTrend"/, 'admin import page must expose analyti
 assert.match(html, /id="analyticsPages"/, 'admin import page must expose analytics page rankings');
 assert.match(html, /id="dataHealthSummary"/, 'admin import page must expose data health summary');
 assert.match(html, /id="dataHealthGaps"/, 'admin import page must expose data health gaps');
-assert.match(html, /admin-import\.js\?v=fencingai-product-20260702-admin-lead-deliverables-1/, 'admin import JS cache key must be bumped');
-assert.match(html, /admin-import\.css\?v=fencingai-product-20260702-admin-lead-deliverables-1/, 'admin import CSS cache key must be bumped');
+assert.match(html, /admin-import\.js\?v=fencingai-product-20260702-admin-data-governance-1/, 'admin import JS cache key must be bumped');
+assert.match(html, /admin-import\.css\?v=fencingai-product-20260702-admin-data-governance-1/, 'admin import CSS cache key must be bumped');
 
 console.log('admin import page feedback is covered');
