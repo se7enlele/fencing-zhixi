@@ -3858,6 +3858,11 @@ function aiPromptPresets() {
   return [...new Set([...rolePresets, ...fallbackPresets])].slice(0, 5);
 }
 
+function aiPromptPlaceholder(presets) {
+  const examples = (presets || []).filter(Boolean).slice(0, 2);
+  return `例如：${examples.join(' / ') || '2026年天津有几场比赛'}`;
+}
+
 function aiAcceptanceQueryCases() {
   return [
     { query: '哪场比赛人数最多？', expectedType: 'competition-stats' },
@@ -3876,27 +3881,22 @@ function aiAcceptanceQueryCases() {
 
 function renderAiWorkspace() {
   const presets = aiPromptPresets();
+  const placeholder = aiPromptPlaceholder(presets);
   return `
     <div class="ai-workspace" id="aiWorkspace">
       <section class="panel ai-home-primary">
-        <div class="section-title">
-          <h2>问 FencingAI</h2>
-          <span>数据可溯源</span>
-        </div>
         <div class="ai-home-lead">
-          <strong>直接用问题查看击剑数据</strong>
-          <span>可以问赛事数量、报名情况、选手对比、成长变化和俱乐部表现。</span>
+          <strong>问一句，直接得到击剑判断</strong>
         </div>
         <form class="ai-query-form" id="aiQueryForm">
-          <textarea id="aiQueryInput" rows="3" placeholder="例如：2026年天津有几场比赛 / 分析马潇和陶嘉月的对战情况"></textarea>
+          <textarea id="aiQueryInput" rows="3" placeholder="${escapeHtml(placeholder)}"></textarea>
           <button type="submit">生成分析</button>
         </form>
         <div class="ai-preset-row">
           ${presets.map((preset) => `<button type="button" data-ai-preset="${escapeHtml(preset)}">${escapeHtml(preset)}</button>`).join('')}
         </div>
         <div class="ai-home-actions">
-          <button type="button" data-home-competitions>赛事数据</button>
-          <span>保留传统检索入口，需要时可切回列表查看。</span>
+          <button type="button" data-home-competitions>查看赛事数据</button>
         </div>
       </section>
       <div class="ai-answer" id="aiAnswer">

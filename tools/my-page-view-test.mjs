@@ -225,9 +225,12 @@ assert.match(js, /openPrematchReport\('prematch-pack', id === 'prematch-pack' \?
 assert.match(js, /if \(type === 'ai-report'\) \{[\s\S]*trackAnalyticsAction\('open_report', 'ai-report'\);[\s\S]*submitAiQuery\(id\);[\s\S]*\}/, 'recent AI reports must track report opens and rerun the saved question');
 assert.match(js, /submitAiQuery\(button\.dataset\.aiHistoryQuery \|\| ''\)/, 'recent AI analysis rows must restore the question');
 assert.doesNotMatch(js, /function renderHomePage\(\)[\s\S]*<h2>近期值得看<\/h2>[\s\S]*function aiDefaultClub/, 'home page must not duplicate the competition list experience');
-assert.match(js, /<h2>闂?FencingAI<\/h2>|<h2>问 FencingAI<\/h2>/, 'AI workspace must be framed as the primary question entry');
-assert.match(js, /直接用问题查看击剑数据|鐩存帴鐢ㄩ棶棰樻煡鐪嬪嚮鍓戞暟鎹?/, 'AI home lead must explain question-first usage');
-assert.match(js, /data-home-competitions>赛事数据<\/button>|data-home-competitions>璧涗簨鏁版嵁<\/button>/, 'AI home must keep a secondary competition list entry');
+assert.doesNotMatch(js, /<h2>问 FencingAI<\/h2>|<h2>闂?FencingAI<\/h2>/, 'AI workspace must not repeat the product name below the top bar');
+assert.match(js, /问一句，直接得到击剑判断/, 'AI home lead must state the product value directly');
+assert.match(js, /function aiPromptPlaceholder\(presets\)/, 'AI home examples must come from role-aware prompt presets');
+assert.match(js, /placeholder="\$\{escapeHtml\(placeholder\)\}"/, 'AI home textarea must use dynamic example prompts');
+assert.match(js, /data-home-competitions>查看赛事数据<\/button>/, 'AI home must keep competition list entry separate from prompt presets');
+assert.doesNotMatch(js, /保留传统检索入口/, 'AI home must not expose implementation-oriented navigation copy');
 assert.match(js, /function roleAiPromptPresets\(primary, secondary\)/, 'AI home presets must adapt to the selected role');
 assert.match(js, /state\.userRole === 'parent'[\s\S]*最近几场有没有进步/, 'parent AI presets must prioritize growth questions');
 assert.match(js, /state\.userRole === 'coach'[\s\S]*有哪些优势项目/, 'coach AI presets must prioritize club management questions');

@@ -1409,12 +1409,12 @@ select:focus {
   position: relative;
   z-index: 1;
   display: grid;
-  gap: 6px;
+  gap: 4px;
 }
 
 .ai-home-lead strong {
-  max-width: 9em;
-  font-size: 25px;
+  max-width: 10em;
+  font-size: 26px;
   line-height: 1.12;
   text-wrap: balance;
 }
@@ -1431,6 +1431,7 @@ select:focus {
   z-index: 1;
   display: grid;
   gap: 10px;
+  margin-top: 2px;
 }
 
 .ai-query-form textarea {
@@ -1523,21 +1524,20 @@ select:focus {
   position: relative;
   z-index: 1;
   display: flex;
-  align-items: center;
-  gap: 9px;
-  flex-wrap: wrap;
+  justify-content: flex-end;
+  padding-top: 2px;
 }
 
 .ai-home-actions button {
-  min-height: 34px;
-  border: 1px solid rgba(255, 255, 255, 0.22);
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.16);
+  min-height: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1);
   color: #fff;
   font: inherit;
   font-size: 12px;
-  font-weight: 900;
-  padding: 0 12px;
+  font-weight: 800;
+  padding: 0 11px;
 }
 
 .ai-answer {
