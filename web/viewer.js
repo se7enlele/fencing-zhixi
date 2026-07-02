@@ -2160,6 +2160,12 @@ function renderParentGrowthReport(athleteId = '') {
       primaryLabel: '申请家庭试用',
       secondaryLabel: '关注会员权益',
     })}
+    ${reportReminderCard({
+      source: 'parent-growth-reminder',
+      title: '成长复盘提醒',
+      detail: '把下一场比赛、成绩更新和阶段复盘时间固定下来，避免只看单次名次。',
+      label: '订阅成长提醒',
+    })}
   `;
 
   parentGrowthReportBody.querySelectorAll('[data-event-code]').forEach((button) => {
@@ -2778,9 +2784,12 @@ function commercialIntentSourceLabel(source) {
     'focus-reminder': '关注页提醒',
     'my-prematch-reminder': '我的页赛前提醒',
     'parent-growth-report': '成长报告',
+    'parent-growth-reminder': '成长复盘提醒',
     'prematch-pack-report': '赛前情报',
     'prematch-single-report': '单场赛前',
+    'prematch-report-reminder': '赛前更新提醒',
     'coach-segmentation-report': '教练报告',
+    'coach-segmentation-reminder': '学员跟进提醒',
   };
   return labels[source] || source || '服务入口';
 }
@@ -3145,6 +3154,18 @@ function reportConversionCard({ source, title, detail, primaryLabel = '申请试
         <button type="button" data-commercial-intent="membership" data-commercial-source="${escapeHtml(source)}" data-report-title="${escapeHtml(title)}">${escapeHtml(secondaryLabel)}</button>
         <button type="button" data-report-export="${escapeHtml(source)}">${escapeHtml(exportLabel)}</button>
       </div>
+    </article>
+  `;
+}
+
+function reportReminderCard({ source, title, detail, label = '订阅提醒' }) {
+  return `
+    <article class="panel report-reminder-card">
+      <div>
+        <strong>${escapeHtml(title)}</strong>
+        <span>${escapeHtml(detail)}</span>
+      </div>
+      <button type="button" data-reminder-interest data-commercial-source="${escapeHtml(source)}" data-report-title="${escapeHtml(title)}">${escapeHtml(label)}</button>
     </article>
   `;
 }
@@ -9026,6 +9047,12 @@ function renderCoachSegmentationReport(clubId = '') {
       primaryLabel: '申请教练试用',
       secondaryLabel: '关注团队权益',
     })}
+    ${reportReminderCard({
+      source: 'coach-segmentation-reminder',
+      title: '学员跟进提醒',
+      detail: '把重点学员、家长沟通和赛前名单更新固定下来，方便教练持续跟进。',
+      label: '订阅跟进提醒',
+    })}
   `;
 
   coachSegmentationReportBody.querySelectorAll('[data-athlete-id]').forEach((button) => {
@@ -10482,6 +10509,12 @@ function renderPrematchReport(kind = 'prematch-pack', sportCode = '') {
       detail: isSingleCompetition ? '适合围绕本场报名、重点对象和强手线索持续更新。' : '适合把近期赛事、报名名单和关注对象做成赛前提醒。',
       primaryLabel: '申请赛前试用',
       secondaryLabel: '关注会员权益',
+    })}
+    ${reportReminderCard({
+      source: 'prematch-report-reminder',
+      title: isSingleCompetition ? '本场更新提醒' : '赛前更新提醒',
+      detail: isSingleCompetition ? '关注报名名单、项目变化和重点对手更新。' : '关注近期赛事、报名名单和重点对象更新。',
+      label: '订阅赛前提醒',
     })}
   `;
 

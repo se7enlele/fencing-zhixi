@@ -64,6 +64,9 @@ assert.match(js, /复制成长页/, 'growth report must use user-facing growth p
 assert.match(js, /已复制成长页，可直接发给家长。/, 'growth page copy must confirm parent-facing sharing');
 assert.match(js, /已复制，可继续申请家庭试用。/, 'growth report copy action must guide users toward family trial');
 assert.match(js, /source: 'parent-growth-report'/, 'growth report must expose a report-scoped commercial source');
+assert.match(js, /function reportReminderCard\(\{ source, title, detail, label = /, 'reports must expose a reusable reminder subscription card');
+assert.match(js, /source: 'parent-growth-reminder'/, 'growth report must expose a parent growth reminder source');
+assert.match(js, /data-reminder-interest/, 'growth report reminder card must submit reminder interest');
 assert.match(js, /申请家庭试用/, 'growth report must include a family trial conversion action');
 assert.match(js, /exportLabel = '保存 PDF'/, 'growth report must inherit the reusable PDF export action');
 assert.match(js, /bindReportConversionActions\(parentGrowthReportBody\)/, 'growth report conversion actions must be wired');
@@ -85,5 +88,6 @@ assert.match(css, /\.report-share-row/, 'growth report share actions must be lai
 assert.match(css, /\.report-share-action/, 'report share button styles must exist');
 assert.match(css, /\.report-share-action\.secondary/, 'secondary growth page share button must be styled');
 assert.match(css, /\.report-conversion-card/, 'report conversion card styles must exist');
+assert.match(css, /\.report-reminder-card/, 'report reminder card styles must exist');
 
 console.log('parent growth report view is covered');

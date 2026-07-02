@@ -105,6 +105,8 @@ assert.match(js, /data-report-share="prematch"/, 'prematch report must expose a 
 assert.match(js, /bindCopyTextButton\(prematchReportHero\.querySelector\('\[data-report-share="prematch"\]'\)/, 'prematch report copy action must be wired');
 assert.match(js, /已复制，可继续申请赛前试用。/, 'prematch report copy action must guide users toward prematch trial');
 assert.match(js, /source: isSingleCompetition \? 'prematch-single-report' : 'prematch-pack-report'/, 'prematch report must expose a report-scoped commercial source');
+assert.match(js, /source: 'prematch-report-reminder'/, 'prematch report must expose a prematch update reminder source');
+assert.match(js, /data-reminder-interest/, 'prematch report reminder card must submit reminder interest');
 assert.match(js, /申请赛前试用/, 'prematch report must include a prematch trial conversion action');
 assert.match(js, /exportLabel = '保存 PDF'/, 'prematch report must inherit the reusable PDF export action');
 assert.match(js, /bindReportConversionActions\(prematchReportBody\)/, 'prematch conversion actions must be wired');
@@ -126,5 +128,6 @@ assert.match(css, /\.prematch-opponent-watch-grid/, 'prematch opponent watchlist
 assert.match(css, /\.prematch-checklist/, 'prematch report checklist must be styled');
 assert.match(css, /\.report-share-action/, 'report share button styles must exist');
 assert.match(css, /\.report-conversion-card/, 'report conversion card styles must exist');
+assert.match(css, /\.report-reminder-card/, 'prematch report reminder card styles must exist');
 
 console.log('prematch intelligence view is covered');
