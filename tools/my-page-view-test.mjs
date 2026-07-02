@@ -182,6 +182,7 @@ assert.match(js, /function homeReportCenterRows\(children, followedCompetitions\
 assert.match(js, /function reportHistoryRows\(\)/, 'home page must build recently generated report entries');
 assert.match(js, /function aiHistoryRows\(\)/, 'home page must build recent AI analysis entries');
 assert.match(js, /function reportAssetSummaryRows\(reportHistory = state\.reportHistory \|\| \[\], aiHistory = state\.aiHistory \|\| \[\]\)/, 'my page must summarize saved report assets');
+assert.match(js, /function reportNextActionRows\(reportHistory = reportHistoryRows\(\)\)/, 'my page must derive next actions from saved reports');
 assert.match(js, /label: '赛前情报'[\s\S]*label: '成长报告'[\s\S]*label: '教练报告'[\s\S]*label: 'AI分析'/, 'report asset summary must cover core saved asset types');
 assert.match(js, /<h2>报告中心<\/h2>/, 'home page must expose a report center');
 assert.match(js, /class="report-center-grid"/, 'home page must render report center cards');
@@ -245,6 +246,7 @@ assert.match(js, /title: '赛前情报包'[\s\S]*title: '成长报告'[\s\S]*tit
 assert.match(js, /title: '赛前情报试用'[\s\S]*title: '家庭成长试用'[\s\S]*title: '教练经营试用'[\s\S]*title: '长期报告试用'/, 'trial plans must map P0 and P1 services into user-facing offers');
 assert.match(js, /title: '赛前情报包'[\s\S]*title: '家庭成长报告'[\s\S]*title: '教练经营包'/, 'trial deliverables must describe P0 and P1 package outputs');
 assert.match(js, /const nextActions = myWorkspaceNextActions\(\{ children, followedCompetitions, reportHistory, aiHistory \}\);/, 'my page must render next actions from current state');
+assert.match(js, /const reportNextActions = reportNextActionRows\(reportHistory\);/, 'my page must render next actions from recent reports');
 assert.match(js, /const readinessRows = serviceReadinessRows\(\{ children, followedCompetitions, reportHistory, aiHistory \}\);/, 'my page must render readiness from current state');
 assert.match(js, /const trialRows = recommendedTrialRows\(\{ children, followedCompetitions, reportHistory, aiHistory \}\);/, 'my page must render recommended trial plans from current state');
 assert.match(js, /const deliverableRows = trialDeliverableRows\(\);/, 'my page must render concrete trial deliverables');
@@ -257,6 +259,10 @@ assert.match(js, /tone: club\?\.id \? 'ready' : 'pending'/, 'coach deliverable m
 assert.match(js, /const prematchReminderRows = myPrematchReminderRows\(followedCompetitions\);/, 'my page must render prematch reminders from current follows');
 assert.match(js, /const commercialIntents = commercialIntentRows\(\);/, 'my page must derive service progress from saved commercial intent state');
 assert.match(js, /class="panel my-section my-next-section"/, 'my page must expose a next-action workspace section');
+assert.match(js, /class="panel my-section report-next-action-section"/, 'my page must expose report follow-up next actions');
+assert.match(js, /class="report-next-action-list"/, 'report next actions must render as a dedicated list');
+assert.match(js, /data-report-next-open/, 'report next actions must reopen saved reports');
+assert.match(js, /data-report-next-trial/, 'report next actions must submit trial interest');
 assert.match(js, /class="panel my-section my-prematch-section"/, 'my page must expose a prematch reminder section');
 assert.match(js, /class="panel my-section trial-deliverable-section"/, 'my page must expose concrete trial deliverables');
 assert.match(js, /class="panel my-section trial-plan-section"/, 'my page must expose recommended trial plans');
@@ -289,6 +295,9 @@ assert.match(js, /<h2>报告资产<\/h2>/, 'my page must expose a saved report a
 assert.match(js, /class="report-asset-grid"/, 'my page must render report asset summary cards');
 assert.match(js, /reportAssets\.map\(\(row\) =>/, 'my page must render report assets dynamically');
 assert.match(js, /myPage\.querySelectorAll\('\[data-report-history-type\]'\)/, 'my page report rows must bind reopen actions');
+assert.match(js, /myPage\.querySelectorAll\('\[data-report-next-open\]'\)/, 'my page report next actions must bind reopen actions');
+assert.match(js, /myPage\.querySelectorAll\('\[data-report-next-trial\]'\)/, 'my page report next actions must bind trial actions');
+assert.match(js, /source: button\.dataset\.commercialSource \|\| 'my-report-next-action'/, 'report next trial actions must keep a traceable source');
 assert.match(js, /myPage\.querySelectorAll\('\[data-ai-history-query\]'\)/, 'my page AI history rows must bind rerun actions');
 assert.match(js, /if \(type === 'coach-segmentation'\) openCoachSegmentationReport\(id\);/, 'my page must reopen coach segmentation reports');
 assert.match(js, /submitAiQuery\(button\.dataset\.aiHistoryQuery \|\| ''\)/, 'my page must rerun AI history questions');
@@ -342,6 +351,9 @@ assert.match(css, /\.home-coach-actions/, 'home coach action buttons must be lai
 assert.match(css, /\.home-question-list/, 'home AI question shortcuts must have mobile list styles');
 assert.match(css, /\.home-question-list button/, 'home AI question shortcuts must be tappable cards');
 assert.match(css, /\.report-history-list/, 'recent report shortcut styles must exist');
+assert.match(css, /\.report-next-action-section/, 'report next action section styles must exist');
+assert.match(css, /\.report-next-action-card/, 'report next action cards must be styled');
+assert.match(css, /\.report-next-action-buttons/, 'report next action buttons must be styled');
 assert.match(css, /\.ai-history-list/, 'recent AI analysis shortcut styles must exist');
 assert.match(css, /\.report-asset-grid/, 'my page report asset grid styles must exist');
 assert.match(css, /\.report-asset-card/, 'my page report asset cards must be styled');

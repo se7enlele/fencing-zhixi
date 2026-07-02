@@ -2559,6 +2559,53 @@ function reportHistoryRows() {
   });
 }
 
+function reportNextActionRows(reportHistory = reportHistoryRows()) {
+  return (reportHistory || []).slice(0, 3).map((row) => {
+    const base = {
+      ...row,
+      actionLabel: '继续查看',
+      trialLabel: '申请试用',
+      reminderLabel: '',
+      source: 'my-report-next-action',
+      next: '打开报告后，可继续沉淀后续动作。',
+    };
+    if (row.type === 'prematch') {
+      return {
+        ...base,
+        actionLabel: '查看赛前情报',
+        trialLabel: '申请赛前试用',
+        reminderLabel: '订阅提醒',
+        next: '赛前节点明确，适合继续订阅提醒并补齐报名名单。',
+      };
+    }
+    if (row.type === 'parent-growth') {
+      return {
+        ...base,
+        actionLabel: '查看成长报告',
+        trialLabel: '申请家庭试用',
+        next: '成长报告适合持续记录，形成月度或年度复盘。',
+      };
+    }
+    if (row.type === 'coach-segmentation') {
+      return {
+        ...base,
+        actionLabel: '查看教练报告',
+        trialLabel: '申请教练试用',
+        next: '教练报告适合继续拆分学员层级、备赛重点和招生展示。',
+      };
+    }
+    if (row.type === 'ai-report') {
+      return {
+        ...base,
+        actionLabel: '继续追问',
+        trialLabel: '申请分析试用',
+        next: '把高频问题沉淀成固定报告，后续可直接复用。',
+      };
+    }
+    return base;
+  });
+}
+
 function aiHistoryRows() {
   return (state.aiHistory || []).slice(0, 4).filter((row) => row?.query).map((row) => ({
     query: row.query,
@@ -5813,6 +5860,7 @@ function renderMyPage() {
   const commercialIntents = commercialIntentRows();
   const followedAthletes = children.slice(0, 6);
   const nextActions = myWorkspaceNextActions({ children, followedCompetitions, reportHistory, aiHistory });
+  const reportNextActions = reportNextActionRows(reportHistory);
   const readinessRows = serviceReadinessRows({ children, followedCompetitions, reportHistory, aiHistory });
   const trialRows = recommendedTrialRows({ children, followedCompetitions, reportHistory, aiHistory });
   const deliverableRows = trialDeliverableRows();
@@ -5860,6 +5908,31 @@ function renderMyPage() {
           </button>
         `).join('')}
       </div>
+    </section>
+
+    <section class="panel my-section report-next-action-section">
+      <div class="section-title">
+        <h2>最近报告下一步</h2>
+        <span>${reportNextActions.length ? '可继续推进' : '生成后出现'}</span>
+      </div>
+      ${reportNextActions.length ? `
+        <div class="report-next-action-list">
+          ${reportNextActions.map((row) => `
+            <article class="report-next-action-card">
+              <div>
+                <span>${escapeHtml(row.typeLabel)}</span>
+                <strong>${escapeHtml(row.title)}</strong>
+                <em>${escapeHtml(row.next)}</em>
+              </div>
+              <div class="report-next-action-buttons">
+                <button type="button" data-report-next-open data-report-next-type="${escapeHtml(row.type || '')}" data-report-next-id="${escapeHtml(row.id || '')}">${escapeHtml(row.actionLabel)}</button>
+                <button type="button" data-report-next-trial data-commercial-source="${escapeHtml(row.source)}" data-report-title="${escapeHtml(row.title)}">${escapeHtml(row.trialLabel)}</button>
+                ${row.reminderLabel ? `<button type="button" data-reminder-interest data-commercial-source="my-report-next-reminder" data-report-title="${escapeHtml(row.title)}提醒">${escapeHtml(row.reminderLabel)}</button>` : ''}
+              </div>
+            </article>
+          `).join('')}
+        </div>
+      ` : '<div class="empty compact-empty">生成成长报告、赛前情报或教练报告后，这里会给出下一步动作。</div>'}
     </section>
 
     <section class="panel my-section my-prematch-section">
@@ -6084,6 +6157,22 @@ function renderMyPage() {
         submitAiQuery(id);
       }
     });
+  });
+  myPage.querySelectorAll('[data-report-next-open]').forEach((button) => {
+    button.addEventListener('click', () => {
+      const type = button.dataset.reportNextType || '';
+      const id = button.dataset.reportNextId || '';
+      if (type === 'prematch') openPrematchReport('prematch-pack', id === 'prematch-pack' ? '' : id);
+      if (type === 'parent-growth') openParentGrowthReport(id);
+      if (type === 'coach-segmentation') openCoachSegmentationReport(id);
+      if (type === 'ai-report') submitAiQuery(id);
+    });
+  });
+  myPage.querySelectorAll('[data-report-next-trial]').forEach((button) => {
+    button.addEventListener('click', (event) => submitPilotInterest(event.currentTarget, {
+      source: button.dataset.commercialSource || 'my-report-next-action',
+      report: button.dataset.reportTitle || '最近报告下一步',
+    }));
   });
   myPage.querySelectorAll('[data-ai-history-query]').forEach((button) => {
     button.addEventListener('click', () => submitAiQuery(button.dataset.aiHistoryQuery || ''));
