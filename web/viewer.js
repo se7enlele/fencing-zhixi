@@ -661,6 +661,22 @@ function competitionEntrantCount(competition) {
   return Math.max(direct, itemTotal, rosterTotal, 0);
 }
 
+function competitionItemEntrantRows(competitions) {
+  return (competitions || []).flatMap((competition) => competitionItemSummaries(competition)
+    .map((item) => {
+      const entrants = Number(item.registrationCount || item.competitionNo || item.entrantCount || item.entrants || item.roster?.length || 0) || 0;
+      const label = displayEventName(item) || itemFilterLabel(item) || '项目';
+      return {
+        competition,
+        item,
+        label,
+        entrants,
+        eventCode: item.eventCode || item.code || item.id || '',
+      };
+    }))
+    .filter((row) => row.entrants > 0);
+}
+
 function competitionHasItems(competition) {
   return competitionItemCount(competition) > 0;
 }
@@ -4109,11 +4125,13 @@ function detectCompetitionStatsQuery(query) {
 
 function detectCompetitionRankingQuery(query) {
   const normalized = compactText(query);
-  const hasCompetitionIntent = /(比赛|赛事|公开赛|冠军赛|锦标赛|姣旇禌|璧涗簨|鍏紑璧泑鍐犲啗璧泑閿︽爣璧?)/.test(normalized);
+  const hasItemIntent = /(项目|组别|小项|单项|年龄段)/.test(normalized);
+  const hasCompetitionIntent = hasItemIntent || /(比赛|赛事|公开赛|冠军赛|锦标赛|姣旇禌|璧涗簨|鍏紑璧泑鍐犲啗璧泑閿︽爣璧?)/.test(normalized);
   if (!hasCompetitionIntent) return null;
   if (/(人数最多|参赛人数最多|参赛最多|报名最多|报名人数最多|规模最大|最多人)/.test(normalized)) {
     return {
       metric: 'entrants',
+      scope: hasItemIntent ? 'item' : 'competition',
       year: detectYearInQuery(normalized),
       month: detectMonthInQuery(normalized),
       region: detectRegionInQuery(normalized),
@@ -4370,6 +4388,52 @@ function buildAiCompetitionRanking(query, filters) {
     region: filters.region || '',
     status: filters.status || '',
   };
+
+  if (filters.scope === 'item') {
+    const itemRows = competitionItemEntrantRows(matchedRows)
+      .sort((a, b) => b.entrants - a.entrants
+        || String(a.label || '').localeCompare(String(b.label || ''), 'zh-CN')
+        || String(a.competition.sportName || '').localeCompare(String(b.competition.sportName || ''), 'zh-CN'));
+    const topItem = itemRows[0];
+    return {
+      type: 'competition-stats',
+      title: '参赛人数最多的项目',
+      summary: topItem
+        ? `${scopeText}中，${topItem.label} 的参赛规模最高，约 ${topItem.entrants} 人次，来自 ${topItem.competition.sportName}。`
+        : `${scopeText}中暂时没有可用于计算项目人数的记录。`,
+      cards: [
+        ['最高项目', topItem ? topItem.label : '-'],
+        ['最高人数', topItem ? `${topItem.entrants} 人次` : '-'],
+        ['候选项目', `${itemRows.length} 个`],
+        ['覆盖赛事', `${matchedRows.length} 场`],
+      ],
+      sections: itemRows.length ? [
+        {
+          title: '项目规模排行',
+          rows: itemRows.slice(0, 8).map((row, index) => `${index + 1}. ${row.label} · ${row.entrants} 人次 · ${row.competition.sportName}`),
+        },
+        {
+          title: '查看建议',
+          rows: [
+            '优先查看人数最高的项目，确认该组别的报名名单、俱乐部分布和历史强手。',
+            '如果是未开赛项目，可以继续生成赛前情报包，用于家长和教练做备赛判断。',
+          ],
+        },
+      ] : [],
+      evidence: itemRows.slice(0, 8).map((row) => ({
+        kind: '项目规模',
+        label: row.label,
+        detail: `${row.entrants} 人次 · ${row.competition.sportName} · ${displayDateLabel(row.competition.dateLabel)}`,
+        reason: '用于核对项目或组别参赛规模排行',
+        sportCode: row.competition.sportCode,
+        eventCode: row.eventCode,
+      })),
+      actions: [
+        topItem?.competition?.sportCode ? { label: '查看人数最多的项目', sportCode: topItem.competition.sportCode, eventCode: topItem.eventCode } : null,
+        { label: itemRows.length ? '查看赛事列表' : '进入赛事列表', mainTab: 'competitions', filters: listFilters },
+      ].filter(Boolean),
+    };
+  }
 
   return {
     type: 'competition-stats',

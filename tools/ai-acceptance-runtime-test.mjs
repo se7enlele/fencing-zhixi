@@ -30,6 +30,7 @@ const functionNames = [
   'competitionItemFilterLabels',
   'competitionMetricTotal',
   'competitionEntrantCount',
+  'competitionItemEntrantRows',
   'competitionHasItems',
   'competitionYear',
   'competitionMonth',
@@ -245,6 +246,13 @@ assert.equal(scaleStats.type, 'competition-stats', 'competition scale query shou
 assert.equal(scaleStats.cards[0][1], '140 \u4eba\u6b21', 'AI competition scale answer should rank by actual entrant totals');
 assert.equal(scaleStats.evidence[0].sportCode, 'BIG2026DONE', 'AI competition scale answer should cite the largest competition first');
 assert.equal(scaleStats.actions.find((action) => action.sportCode)?.sportCode, 'BIG2026DONE', 'AI competition scale answer should open the largest competition directly');
+
+const itemScaleStats = context.buildAiAnswer('\u54ea\u4e2a\u9879\u76ee\u4eba\u6570\u6700\u591a\uff1f');
+assert.equal(itemScaleStats.type, 'competition-stats', 'project scale query should route to competition stats');
+assert.equal(itemScaleStats.cards[0][1], 'U8 \u7537\u82b1', 'AI project scale answer should name the largest project');
+assert.equal(itemScaleStats.cards[1][1], '75 \u4eba\u6b21', 'AI project scale answer should rank by project entrants');
+assert.equal(itemScaleStats.evidence[0].eventCode, 'BIG2026DONE-U8MF', 'AI project scale answer should cite the largest event item first');
+assert.equal(itemScaleStats.actions.find((action) => action.sportCode)?.sportCode, 'BIG2026DONE', 'AI project scale answer should open the parent competition directly');
 
 const prematchReport = context.buildAiAnswer('\u0032\u0030\u0032\u0036\u5e74\u0036\u6708\u5929\u6d25\u8d5b\u524d\u60c5\u62a5');
 assert.equal(prematchReport.type, 'prematch', 'prematch query should route to prematch intelligence');
