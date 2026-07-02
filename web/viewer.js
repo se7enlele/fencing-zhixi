@@ -2774,8 +2774,9 @@ function commercialInterestContextRows(context = {}) {
   const club = state.currentClub || aiDefaultClub();
   const reports = (state.reportHistory || []).slice(0, 2);
   const aiRows = (state.aiHistory || []).slice(0, 2);
+  const followCopy = myFollowSectionCopy();
   return [
-    children.length ? `关注选手明细：${children.map((athlete) => [athlete.name, athlete.club].filter(Boolean).join('/')).join('、')}` : '',
+    children.length ? `${followCopy.contextLabel}：${children.map((athlete) => [athlete.name, athlete.club].filter(Boolean).join('/')).join('、')}` : '',
     competitions.length ? `关注赛事明细：${competitions.map((competition) => competition.sportName || competition.title).filter(Boolean).join('、')}` : '',
     club?.club ? `当前俱乐部：${club.club}` : '',
     reports.length ? `最近报告明细：${reports.map((row) => row.title || row.typeLabel).filter(Boolean).join('、')}` : '',
@@ -2811,7 +2812,7 @@ function commercialInterestMessage(context = {}) {
     context.source ? `来源页面：${context.source}` : '',
     context.report ? `触发报告：${context.report}` : '',
     context.contact ? `联系方式：${context.contact}` : '',
-    `关注选手：${state.followedAthletes.length}`,
+    `${myFollowSectionCopy().countLabel}：${state.followedAthletes.length}`,
     `关注赛事：${state.followedCompetitions.length}`,
     `最近报告：${state.reportHistory.length}`,
     `最近 AI 分析：${state.aiHistory.length}`,
@@ -3183,6 +3184,9 @@ function myFollowSectionCopy() {
   if (state.userRole === 'coach') {
     return {
       title: '关注学员',
+      statLabel: '关注学员',
+      contextLabel: '关注学员明细',
+      countLabel: '关注学员',
       activeLabel: '学员入口',
       emptyLabel: '待关注学员',
       heroReady: '已选择重点关注学员',
@@ -3194,6 +3198,9 @@ function myFollowSectionCopy() {
   if (state.userRole === 'club') {
     return {
       title: '代表选手',
+      statLabel: '代表选手',
+      contextLabel: '代表选手明细',
+      countLabel: '代表选手',
       activeLabel: '队伍入口',
       emptyLabel: '待关注选手',
       heroReady: '已选择重点代表选手',
@@ -3205,6 +3212,9 @@ function myFollowSectionCopy() {
   if (state.userRole === 'data') {
     return {
       title: '关注选手',
+      statLabel: '关注选手',
+      contextLabel: '关注选手明细',
+      countLabel: '关注选手',
       activeLabel: '快速入口',
       emptyLabel: '待关注',
       heroReady: '已选择重点关注选手',
@@ -3215,6 +3225,9 @@ function myFollowSectionCopy() {
   }
   return {
     title: '我的孩子',
+    statLabel: '我的孩子',
+    contextLabel: '关注孩子明细',
+    countLabel: '关注孩子',
     activeLabel: '成长入口',
     emptyLabel: '待关注',
     heroReady: '已选择重点关注孩子',
@@ -5983,7 +5996,7 @@ function renderMyPage() {
   const followCopy = myFollowSectionCopy();
   const generatedLabel = formatDataGeneratedAt(state.dataGeneratedAt);
   const stats = [
-    { value: children.length, label: '关注选手' },
+    { value: children.length, label: followCopy.statLabel },
     { value: followedCompetitions.length, label: '关注赛事' },
     { value: reportHistory.length, label: '生成报告' },
     { value: aiHistory.length, label: 'AI分析' },

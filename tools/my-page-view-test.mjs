@@ -109,7 +109,10 @@ assert.match(js, /sharedId: context\.sharedId \|\| ''/, 'local commercial intent
 assert.match(js, /state\.sharedEntry = \{ kind: 'prematch'/, 'shared prematch links must set shared-source state');
 assert.match(js, /state\.sharedEntry = \{ kind: 'coach-segmentation'/, 'shared coach links must set shared-source state');
 assert.match(js, /state\.sharedEntry = \{ kind: 'parent-growth'/, 'shared athlete links must set shared-source state');
-assert.match(js, /关注选手明细：/, 'commercial context must include followed athlete details for trial follow-up');
+assert.match(js, /contextLabel: '关注孩子明细'/, 'parent commercial context must describe followed children');
+assert.match(js, /contextLabel: '关注学员明细'/, 'coach commercial context must describe followed students');
+assert.match(js, /contextLabel: '代表选手明细'/, 'club commercial context must describe representative athletes');
+assert.match(js, /\$\{followCopy\.contextLabel\}：/, 'commercial context must use role-aware followed athlete details');
 assert.match(js, /关注赛事明细：/, 'commercial context must include followed competition details for prematch follow-up');
 assert.match(js, /当前俱乐部：/, 'commercial context must include the current club when available');
 assert.match(js, /\.\.\.commercialInterestContextRows\(context\)/, 'commercial interest messages must append the context summary');
@@ -249,6 +252,8 @@ assert.match(js, /function trialDeliverableRows\(\)/, 'my page must define concr
 assert.match(js, /function myFollowSectionCopy\(\)/, 'my page must derive role-aware follow copy');
 assert.match(js, /state\.userRole === 'coach'[\s\S]*title: '关注学员'/, 'coach my page must frame followed athletes as students');
 assert.match(js, /state\.userRole === 'club'[\s\S]*title: '代表选手'/, 'club my page must frame followed athletes as representative athletes');
+assert.match(js, /statLabel: '关注学员'/, 'coach my page stats must frame followed athletes as students');
+assert.match(js, /statLabel: '代表选手'/, 'club my page stats must frame followed athletes as representative athletes');
 assert.match(js, /const followCopy = myFollowSectionCopy\(\);/, 'my page render must use role-aware follow copy');
 assert.match(js, /<h2>\$\{escapeHtml\(followCopy\.title\)\}<\/h2>/, 'my page follow section title must be role-aware');
 assert.match(js, /<strong>\$\{escapeHtml\(followCopy\.emptyTitle\)\}<\/strong>/, 'my page follow empty state must be role-aware');
@@ -288,6 +293,7 @@ assert.match(js, /data-reminder-interest data-commercial-source="my-prematch-rem
 assert.match(js, /data-my-prematch-follow="\$\{escapeHtml\(row\.sportCode\)\}"/, 'prematch reminder cards must support joining reminders');
 assert.match(js, /data-my-readiness-action="\$\{escapeHtml\(row\.action\)\}"/, 'service readiness cards must carry runnable actions');
 assert.match(js, /\$\{renderCommercialIntentStatus\(commercialIntents\)\}/, 'my page must show submitted service progress');
+assert.match(js, /\{ value: children\.length, label: followCopy\.statLabel \}/, 'my page stats must use role-aware followed athlete labels');
 assert.match(js, /\{ value: commercialIntentCount, label: '服务进度' \}/, 'my page stats must include full service progress count');
 assert.match(js, /data-my-next-action="\$\{escapeHtml\(row\.action\)\}"/, 'my page next actions must carry runnable action types');
 assert.match(js, /if \(action === 'growth'\) openParentGrowthReport\(button\.dataset\.athleteId \|\| ''\);/, 'my page next actions must open growth reports');
