@@ -1015,7 +1015,10 @@ function scrollToPageTop() {
 function scrollToResultPanel(element, behavior = 'smooth') {
   if (!element) return;
   requestAnimationFrame(() => {
-    element.scrollIntoView({ behavior, block: 'start', inline: 'nearest' });
+    const header = document.querySelector('.app-header');
+    const headerOffset = (header?.getBoundingClientRect().height || 0) + 10;
+    const top = Math.max(0, window.scrollY + element.getBoundingClientRect().top - headerOffset);
+    window.scrollTo({ top, left: 0, behavior });
   });
 }
 
@@ -1551,9 +1554,18 @@ function isFilteringActive() {
 }
 
 function entityCoverageCounts() {
+  const positiveMax = (...values) => Math.max(0, ...values.map((value) => Number(value) || 0));
   return {
-    athletes: Number(state.dataCoverage?.athletes) || state.athleteSearchIndex.length || Object.keys(state.athletesById || {}).length || 0,
-    clubs: Number(state.dataCoverage?.clubs) || state.clubSearchIndex.length || Object.keys(state.clubsById || {}).length || 0,
+    athletes: positiveMax(
+      state.dataCoverage?.athletes,
+      state.athleteSearchIndex.length,
+      Object.keys(state.athletesById || {}).length,
+    ),
+    clubs: positiveMax(
+      state.dataCoverage?.clubs,
+      state.clubSearchIndex.length,
+      Object.keys(state.clubsById || {}).length,
+    ),
   };
 }
 

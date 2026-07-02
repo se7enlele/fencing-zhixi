@@ -30,6 +30,7 @@ assert.doesNotMatch(
   'initial load must not build local entity search indexes from full directories',
 );
 assert.match(js, /function entityCoverageCounts\(\)/, 'initial home render should use aggregate entity counts instead of full entity hydration');
+assert.match(js, /positiveMax\([\s\S]*state\.dataCoverage\?\.athletes[\s\S]*state\.athleteSearchIndex\.length[\s\S]*Object\.keys\(state\.athletesById \|\| \{\}\)\.length/, 'initial aggregate counts should fall forward when coverage fields are zero or stale');
 
 const competitionRoute = worker.slice(
   worker.indexOf("if (url.pathname === '/api/competitions'"),

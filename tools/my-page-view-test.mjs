@@ -64,10 +64,14 @@ assert.match(js, /function renderAiWorkspace\(\)/, 'home page must include an AI
 assert.match(js, /homePage\.innerHTML = `\s*<div class="home-dashboard">\s*\$\{renderAiWorkspace\('home'\)\}/, 'home page must start the dashboard with the AI question workspace');
 assert.match(js, /<section class="panel ai-home-primary">[\s\S]*<\/section>\s*<div class="ai-answer" id="aiAnswer">/, 'AI answers must render outside the dark home entry panel');
 assert.match(js, /function scrollToResultPanel\(element, behavior = 'smooth'\)/, 'AI question results must have a dedicated viewport-positioning helper');
+assert.match(js, /document\.querySelector\('\.app-header'\)/, 'AI result scrolling must account for the sticky app header');
+assert.match(js, /window\.scrollY \+ element\.getBoundingClientRect\(\)\.top - headerOffset/, 'AI result scrolling must position the answer area below the header');
 assert.match(js, /answer\.innerHTML = '<div class="loading-row">正在匹配相关画像<\/div>';[\s\S]*scrollToResultPanel\(answer\);/, 'AI question submission must move the viewport to the result area while loading');
 assert.match(js, /answer\.innerHTML = renderAiAnswer\(report\);[\s\S]{0,80}bindAnswer\(report\);[\s\S]{0,80}scrollToResultPanel\(answer\);/, 'AI question results must keep the viewport on the answer card after rendering');
 assert.match(js, /function entityCoverageCounts\(\)/, 'home scale numbers must use data coverage summaries without hydrating full directories');
-assert.match(js, /Number\(state\.dataCoverage\?\.athletes\)/, 'home scale must prefer athlete coverage counts from the index payload');
+assert.match(js, /const positiveMax = \(\.\.\.values\) => Math\.max\(0, \.\.\.values\.map\(\(value\) => Number\(value\) \|\| 0\)\)/, 'home scale must not let zero coverage fields override real loaded counts');
+assert.match(js, /athletes: positiveMax\([\s\S]*state\.dataCoverage\?\.athletes[\s\S]*state\.athleteSearchIndex\.length[\s\S]*Object\.keys\(state\.athletesById \|\| \{\}\)\.length[\s\S]*\)/, 'home scale must combine athlete coverage with loaded search and detail indexes');
+assert.match(js, /clubs: positiveMax\([\s\S]*state\.dataCoverage\?\.clubs[\s\S]*state\.clubSearchIndex\.length[\s\S]*Object\.keys\(state\.clubsById \|\| \{\}\)\.length[\s\S]*\)/, 'home scale must combine club coverage with loaded search and detail indexes');
 assert.match(js, /\{ value: entityCounts\.athletes, label: '选手画像' \}/, 'home stats must display athlete coverage counts instead of empty local search indexes');
 assert.match(js, /\['可问选手', `\$\{entityCounts\.athletes\} 个画像`\]/, 'AI fallback must display athlete coverage counts instead of empty local search indexes');
 assert.match(js, /<h2>工作入口<\/h2>/, 'home page must use task-oriented entry cards instead of another competition list');
