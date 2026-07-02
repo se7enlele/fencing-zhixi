@@ -4979,6 +4979,72 @@ select:focus {
   padding: 7px 10px;
 }
 
+.prematch-opponent-watchlist {
+  border-color: rgba(15, 111, 201, 0.16);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(244, 248, 255, 0.96));
+}
+
+.prematch-opponent-watch-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.prematch-opponent-watch-grid button {
+  display: grid;
+  gap: 5px;
+  min-width: 0;
+  min-height: 132px;
+  border: 1px solid rgba(21, 95, 194, 0.14);
+  border-radius: 10px;
+  background: #fff;
+  color: var(--text);
+  font: inherit;
+  text-align: left;
+  padding: 10px;
+}
+
+.prematch-opponent-watch-grid span {
+  justify-self: start;
+  border-radius: 999px;
+  background: rgba(21, 95, 194, 0.08);
+  color: var(--primary);
+  font-size: 11px;
+  font-weight: 900;
+  line-height: 1;
+  padding: 5px 7px;
+}
+
+.prematch-opponent-watch-grid strong,
+.prematch-opponent-watch-grid em,
+.prematch-opponent-watch-grid small,
+.prematch-opponent-watch-grid b {
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.prematch-opponent-watch-grid strong {
+  font-size: 15px;
+  font-weight: 900;
+}
+
+.prematch-opponent-watch-grid em,
+.prematch-opponent-watch-grid small,
+.prematch-opponent-watch-grid b {
+  color: var(--muted);
+  font-size: 12px;
+  font-style: normal;
+  line-height: 1.4;
+}
+
+.prematch-opponent-watch-grid b {
+  color: var(--text);
+  font-weight: 700;
+  white-space: normal;
+}
+
 .prematch-report-list,
 .prematch-checklist {
   display: grid;

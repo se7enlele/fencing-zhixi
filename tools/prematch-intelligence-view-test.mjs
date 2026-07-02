@@ -68,6 +68,11 @@ assert.match(js, /renderPrematchRelevanceSection\(relevanceRows\)/, 'prematch re
 assert.match(js, /与你相关/, 'prematch report must label personalized relevance in user-facing copy');
 assert.match(js, /data-sport-code="\$\{escapeHtml\(row\.sportCode\)\}"/, 'prematch relevance rows must link matched competitions');
 assert.match(js, /function prematchReportOpponentRows\(projectLabels\)/, 'prematch report must include strong-opponent signals');
+assert.match(js, /function prematchOpponentWatchlistRows\(opponentRows = \[\], focusRows = \[\]\)/, 'prematch report must convert opponent signals into an action watchlist');
+assert.match(js, /const opponentWatchlistRows = prematchOpponentWatchlistRows\(opponentRows, focusRows\)/, 'prematch report must derive opponent watchlist from current report state');
+assert.match(js, /class="panel prematch-report-card prematch-opponent-watchlist"/, 'prematch report must render a dedicated opponent watchlist panel');
+assert.match(js, /class="prematch-opponent-watch-grid"/, 'prematch opponent watchlist must use a compact mobile-safe grid');
+assert.match(js, /row\.action/, 'prematch opponent watchlist must show suggested next action');
 assert.match(js, /function prematchChecklistRows\(\{ competitions = \[\], focusRows = \[\], opponentRows = \[\], rosterReady = 0, isSingleCompetition = false \} = \{\}\)/, 'prematch report must generate a dynamic action checklist');
 assert.match(js, /function buildPrematchShareText\(competitions, focusRows, opponentRows, isSingleCompetition, relevanceRows = \[\], rosterRows = prematchRosterRows\(competitions\)\)/, 'prematch report must build shareable summary text with roster context');
 assert.match(js, /function prematchShareUrl\(sportCode = ''\)/, 'prematch report must build a shareable report URL');
@@ -116,6 +121,8 @@ assert.match(css, /\.prematch-primary-card/, 'prematch primary focus card styles
 assert.match(css, /\.prematch-relevance-list/, 'prematch relevance list styles must exist');
 assert.match(css, /\.prematch-relevance-card/, 'prematch relevance cards must be styled');
 assert.match(css, /\.prematch-relevance-actions/, 'prematch relevance actions must be mobile-safe');
+assert.match(css, /\.prematch-opponent-watchlist/, 'prematch opponent watchlist card styles must exist');
+assert.match(css, /\.prematch-opponent-watch-grid/, 'prematch opponent watchlist grid styles must exist');
 assert.match(css, /\.prematch-checklist/, 'prematch report checklist must be styled');
 assert.match(css, /\.report-share-action/, 'report share button styles must exist');
 assert.match(css, /\.report-conversion-card/, 'report conversion card styles must exist');

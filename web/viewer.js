@@ -10142,6 +10142,33 @@ function prematchReportOpponentRows(projectLabels) {
     .slice(0, 6);
 }
 
+function prematchOpponentWatchlistRows(opponentRows = [], focusRows = []) {
+  const focusLabels = new Set((focusRows || []).flatMap((row) => row.labels || []).map((label) => compactText(label)).filter(Boolean));
+  return (opponentRows || []).slice(0, 6).map((athlete) => {
+    const labels = [...new Set((athlete.eventLabels || []).filter(Boolean))];
+    const matchedLabels = labels.filter((label) => focusLabels.has(compactText(label))).slice(0, 2);
+    const bestRank = Number(athlete.bestRank) || 999;
+    const appearances = Number(athlete.appearances) || 0;
+    const level = bestRank <= 4 ? '高优先级' : bestRank <= 8 ? '重点关注' : '观察对象';
+    const note = matchedLabels.length
+      ? `与关注对象项目重合：${matchedLabels.join(' / ')}`
+      : labels.length
+        ? `历史项目：${labels.slice(0, 2).join(' / ')}`
+        : '同项目历史成绩较靠前';
+    const action = bestRank <= 8
+      ? '赛前优先看小组稳定性、淘汰赛关键分和最近一次名次。'
+      : '先作为同项目样本，用于判断本场竞争深度。';
+    return {
+      athlete,
+      level,
+      note,
+      action,
+      score: bestRank <= 4 ? 3 : bestRank <= 8 ? 2 : 1,
+      meta: `最好第 ${bestRank === 999 ? '-' : bestRank} 名 · ${appearances} 次记录`,
+    };
+  });
+}
+
 function prematchChecklistRows({ competitions = [], focusRows = [], opponentRows = [], rosterReady = 0, isSingleCompetition = false } = {}) {
   const nearest = competitions[0] || null;
   const hasFocus = Boolean(focusRows.length);
@@ -10252,6 +10279,7 @@ function renderPrematchReport(kind = 'prematch-pack', sportCode = '') {
   const focusRows = prematchReportFocusRows(competitions);
   const primaryFocus = prematchPrimaryFocusRow(focusRows);
   const opponentRows = prematchReportOpponentRows(projectLabels);
+  const opponentWatchlistRows = prematchOpponentWatchlistRows(opponentRows, focusRows);
   const relevanceRows = prematchPersonalRelevanceRows({ competitions, focusRows, opponentRows });
   const rosterReady = competitions.filter((competition) => competition.rosterStatus === 'partial' || competition.rosterStatus === 'complete').length;
   const nearest = competitions[0] || null;
@@ -10383,6 +10411,26 @@ function renderPrematchReport(kind = 'prematch-pack', sportCode = '') {
         `).join('') : '<div class="empty compact-empty">还没有关注孩子或学员。先关注选手后，这里会生成个人化备赛线索。</div>'}
       </div>
     </article>
+
+    ${opponentWatchlistRows.length ? `
+      <article class="panel prematch-report-card prematch-opponent-watchlist">
+        <div class="section-title">
+          <h2>重点对手看板</h2>
+          <span>赛前优先</span>
+        </div>
+        <div class="prematch-opponent-watch-grid">
+          ${opponentWatchlistRows.map((row) => `
+            <button type="button" data-athlete-id="${escapeHtml(row.athlete.id || '')}">
+              <span>${escapeHtml(row.level)}</span>
+              <strong>${escapeHtml(row.athlete.name)}</strong>
+              <em>${escapeHtml(row.meta)}</em>
+              <small>${escapeHtml(row.note)}</small>
+              <b>${escapeHtml(row.action)}</b>
+            </button>
+          `).join('')}
+        </div>
+      </article>
+    ` : ''}
 
     <article class="panel prematch-report-card">
       <div class="section-title">
