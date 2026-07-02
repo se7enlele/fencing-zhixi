@@ -1885,6 +1885,45 @@ function parentGrowthOpponentRows(athlete) {
     });
 }
 
+function parentGrowthPeerPositionRows(athlete, model) {
+  const labels = aiAthleteProjectLabels(athlete);
+  const currentKey = athlete?.id || `${athlete?.name || ''}-${athlete?.club || ''}`;
+  return labels.slice(0, 3).map((label) => {
+    const peers = uniqueBy([athlete, ...(state.athleteSearchIndex || [])]
+      .filter((row) => row?.name)
+      .filter((row) => athleteMatchesProjectLabel(row, label)), (row) => row.id || `${row.name}-${row.club || ''}`)
+      .sort((a, b) => {
+        const rankDiff = (Number(a.bestRank) || 999) - (Number(b.bestRank) || 999);
+        if (rankDiff) return rankDiff;
+        const appearanceDiff = (Number(b.appearances) || 0) - (Number(a.appearances) || 0);
+        if (appearanceDiff) return appearanceDiff;
+        return String(a.name).localeCompare(String(b.name), 'zh-CN');
+      });
+    const selfIndex = peers.findIndex((row) => (row.id || `${row.name}-${row.club || ''}`) === currentKey);
+    const position = selfIndex >= 0 ? selfIndex + 1 : null;
+    const stronger = peers.filter((row) => {
+      const key = row.id || `${row.name}-${row.club || ''}`;
+      return key !== currentKey && (Number(row.bestRank) || 999) < (Number(athlete.bestRank) || 999);
+    }).slice(0, 2);
+    const nearby = peers.filter((row) => {
+      const key = row.id || `${row.name}-${row.club || ''}`;
+      return key !== currentKey && Math.abs((Number(row.bestRank) || 999) - (Number(athlete.bestRank) || 999)) <= 4;
+    }).slice(0, 2);
+    const referenceNames = (stronger.length ? stronger : nearby).map((row) => `${row.name} 第${row.bestRank ?? '-'}名`).join(' / ');
+    const selfRank = model.best?.finalRank || athlete.bestRank || '-';
+    const positionText = position ? `第 ${position}/${peers.length}` : `样本 ${peers.length}`;
+    return {
+      label,
+      positionText,
+      selfRank,
+      referenceNames,
+      detail: referenceNames
+        ? `当前可对照 ${referenceNames}，下一步看同项目连续参赛后的名次变化。`
+        : `已识别 ${peers.length} 个同项目样本，继续积累后会形成更稳定的横向判断。`,
+    };
+  }).filter((row) => row.label);
+}
+
 function parentGrowthActionRows(athlete, model, focusRows = []) {
   const latest = model.latest;
   const bestProject = model.best ? displayEventName(model.best) : (latest ? displayEventName(latest) : '常参项目');
@@ -1975,7 +2014,7 @@ function bindCopyTextButton(button, textBuilder, analyticsLabel = '', followupTe
   });
 }
 
-function buildParentGrowthShareText(athlete, model, focusRows, actionRows = parentGrowthActionRows(athlete, model, focusRows), signalRows = parentInvestmentSignalRows(model), opponentRows = parentGrowthOpponentRows(athlete)) {
+function buildParentGrowthShareText(athlete, model, focusRows, actionRows = parentGrowthActionRows(athlete, model, focusRows), signalRows = parentInvestmentSignalRows(model), opponentRows = parentGrowthOpponentRows(athlete), peerRows = parentGrowthPeerPositionRows(athlete, model)) {
   return [
     `${athlete.name} 成长报告`,
     `俱乐部：${athlete.club || '待确认'}`,
@@ -1984,6 +2023,7 @@ function buildParentGrowthShareText(athlete, model, focusRows, actionRows = pare
     `小组胜率：${model.poolRate === null ? '-' : `${model.poolRate}%`}，淘汰赛：${model.totalElimWins}胜${model.totalElimLosses}负`,
     `建议：${model.advice}`,
     ...signalRows.slice(0, 4).map((row) => `${row.title}：${row.level}，${row.detail}`),
+    ...peerRows.slice(0, 3).map((row) => `同组位置：${row.label}，${row.positionText}，最好第 ${row.selfRank} 名。${row.detail}`),
     ...opponentRows.slice(0, 3).map((row) => `重点对手：${row.name}，${row.record}，${row.latest || `${row.matches} 次交手`}`),
     ...focusRows.slice(0, 3).map((row, index) => `关注点${index + 1}：${row.title}，${row.detail}`),
     ...actionRows.slice(0, 4).map((row) => `${row.title}：${row.detail}`),
@@ -2034,6 +2074,7 @@ function renderParentGrowthReport(athleteId = '') {
   const timelineRows = parentGrowthReportTimelineRows(athlete);
   const evidenceRows = parentGrowthReportEvidenceRows(model);
   const opponentRows = parentGrowthOpponentRows(athlete);
+  const peerRows = parentGrowthPeerPositionRows(athlete, model);
   const latestText = model.latest ? `${displayEventName(model.latest)} · 第${model.latest.finalRank ?? '-'}名` : '暂无记录';
   const trendLabel = model.trend === null ? '趋势待确认' : model.trend > 0 ? `进步 ${model.trend} 名` : model.trend < 0 ? `后退 ${Math.abs(model.trend)} 名` : '名次持平';
 
@@ -2094,6 +2135,23 @@ function renderParentGrowthReport(athleteId = '') {
             <em>${escapeHtml(row.detail)}</em>
           </div>
         `).join('')}
+      </div>
+    </article>
+    <article class="panel parent-growth-report-card parent-peer-position">
+      <div class="section-title">
+        <h2>同组位置</h2>
+        <span>${escapeHtml(peerRows.length ? '同项目横向对比' : '待积累')}</span>
+      </div>
+      <div class="parent-peer-position-list">
+        ${peerRows.length ? peerRows.map((row) => `
+          <div class="parent-peer-position-card">
+            <div>
+              <strong>${escapeHtml(row.label)}</strong>
+              <span>${escapeHtml(row.detail)}</span>
+            </div>
+            <em>${escapeHtml(row.positionText)}</em>
+          </div>
+        `).join('') : '<div class="empty compact-empty">还没有足够的同项目样本。比赛记录更完整后，会在这里显示横向位置和可参考对象。</div>'}
       </div>
     </article>
     <article class="panel parent-growth-report-card">
@@ -2206,7 +2264,7 @@ function renderParentGrowthReport(athleteId = '') {
   });
   parentGrowthReportBody.querySelector('[data-athlete-id]')?.addEventListener('click', () => openAthlete(athlete.id));
   bindReportConversionActions(parentGrowthReportBody);
-  bindCopyTextButton(parentGrowthReportHero.querySelector('[data-report-share="parent-growth"]'), () => buildParentGrowthShareText(athlete, model, focusRows, actionRows, signalRows, opponentRows), 'parent-growth', '已复制，可继续申请家庭试用。');
+  bindCopyTextButton(parentGrowthReportHero.querySelector('[data-report-share="parent-growth"]'), () => buildParentGrowthShareText(athlete, model, focusRows, actionRows, signalRows, opponentRows, peerRows), 'parent-growth', '已复制，可继续申请家庭试用。');
   bindCopyTextButton(parentGrowthReportHero.querySelector('[data-report-share="parent-growth-page"]'), () => buildParentGrowthPageShareText(athlete, model), 'parent-growth-page', '已复制成长页，可直接发给家长。');
 }
 
