@@ -44,6 +44,8 @@ assert.match(js, /'focus-workspace': '关注提醒服务'/, 'admin analytics mus
 assert.match(js, /'focus-reminder': '关注页提醒订阅'/, 'admin analytics must label follow reminder source');
 assert.match(js, /'my-membership': '我的页会员权益'/, 'admin analytics must label my page membership source');
 assert.match(js, /'my-next-action': '我的页下一步'/, 'admin analytics must label my page next-action source');
+assert.match(js, /'my-report-next-action': '最近报告下一步'/, 'admin analytics must label report next-action source');
+assert.match(js, /'my-report-next-reminder': '最近报告提醒'/, 'admin analytics must label report next reminder source');
 assert.match(js, /'my-prematch-reminder': '我的页赛前提醒'/, 'admin analytics must label my page prematch reminder source');
 assert.match(js, /'parent-growth-report': '成长报告'/, 'admin analytics must label growth report commercial source');
 assert.match(js, /'prematch-pack-report': '赛前情报包'/, 'admin analytics must label prematch report commercial source');

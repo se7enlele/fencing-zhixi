@@ -103,6 +103,8 @@ function commercialSourceLabel(source) {
     'focus-reminder': '关注页提醒订阅',
     'my-membership': '我的页会员权益',
     'my-next-action': '我的页下一步',
+    'my-report-next-action': '最近报告下一步',
+    'my-report-next-reminder': '最近报告提醒',
     'my-prematch-reminder': '我的页赛前提醒',
     'member-panel': '会员横幅',
     'parent-growth-report': '成长报告',

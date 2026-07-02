@@ -298,6 +298,8 @@ assert.match(js, /myPage\.querySelectorAll\('\[data-report-history-type\]'\)/, '
 assert.match(js, /myPage\.querySelectorAll\('\[data-report-next-open\]'\)/, 'my page report next actions must bind reopen actions');
 assert.match(js, /myPage\.querySelectorAll\('\[data-report-next-trial\]'\)/, 'my page report next actions must bind trial actions');
 assert.match(js, /source: button\.dataset\.commercialSource \|\| 'my-report-next-action'/, 'report next trial actions must keep a traceable source');
+assert.match(js, /'my-report-next-action': '最近报告下一步'/, 'my page service progress must label report next-action source');
+assert.match(js, /'my-report-next-reminder': '最近报告提醒'/, 'my page service progress must label report next reminder source');
 assert.match(js, /myPage\.querySelectorAll\('\[data-ai-history-query\]'\)/, 'my page AI history rows must bind rerun actions');
 assert.match(js, /if \(type === 'coach-segmentation'\) openCoachSegmentationReport\(id\);/, 'my page must reopen coach segmentation reports');
 assert.match(js, /submitAiQuery\(button\.dataset\.aiHistoryQuery \|\| ''\)/, 'my page must rerun AI history questions');

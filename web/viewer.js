@@ -2833,6 +2833,8 @@ function commercialIntentSourceLabel(source) {
     'member-panel': '会员入口',
     'my-membership': '我的页',
     'my-next-action': '下一步',
+    'my-report-next-action': '最近报告下一步',
+    'my-report-next-reminder': '最近报告提醒',
     'focus-workspace': '关注提醒',
     'focus-reminder': '关注页提醒',
     'my-prematch-reminder': '我的页赛前提醒',
