@@ -125,11 +125,14 @@ assert.match(js, /trackAnalyticsAction\('reminder_interest'/, 'reminder subscrip
 assert.match(js, /function commercialIntentRows\(\)/, 'commercial intent rows must be normalized for display');
 assert.match(js, /function commercialIntentNextStep\(row = \{\}\)/, 'commercial intent progress must explain the next user-facing step');
 assert.match(js, /nextStep: commercialIntentNextStep\(row\)/, 'commercial intent rows must include next-step copy');
+assert.match(js, /function commercialIntentDeliverableRows\(row = \{\}\)/, 'commercial intent progress must explain concrete deliverables');
+assert.match(js, /deliverables: commercialIntentDeliverableRows\(row\)/, 'commercial intent rows must include deliverable scope');
 assert.match(js, /function commercialIntentProgressSteps\(row = \{\}\)/, 'commercial intent progress must expose concrete fulfillment stages');
 assert.match(js, /progressSteps: commercialIntentProgressSteps\(row\)/, 'commercial intent rows must include fulfillment stages');
 assert.match(js, /function renderCommercialIntentStatus\(rows = commercialIntentRows\(\)\)/, 'commercial intent status panel must be reusable');
 assert.match(js, /class="panel my-section service-progress-panel"/, 'service progress panel must render as a user-facing section');
 assert.match(js, /<p>\$\{escapeHtml\(row\.nextStep\)\}<\/p>/, 'service progress cards must render the next-step copy');
+assert.match(js, /class="service-progress-deliverables"/, 'service progress cards must render concrete deliverables');
 assert.match(js, /class="service-progress-steps"/, 'service progress cards must render fulfillment stages');
 assert.match(js, /data-service-progress-action="\$\{escapeHtml\(row\.type \|\| ''\)\}"/, 'service progress cards must expose follow-up actions');
 assert.match(js, /function bindServiceProgressActions\(container\)/, 'service progress follow-up actions must be reusable');
@@ -312,6 +315,8 @@ assert.match(css, /\.pilot-interest-card/, 'pilot trial intent card styles must 
 assert.match(css, /\.service-progress-panel/, 'service progress panel styles must exist');
 assert.match(css, /\.service-progress-card/, 'service progress card styles must exist');
 assert.match(css, /\.service-progress-card p/, 'service progress next-step copy must be styled');
+assert.match(css, /\.service-progress-deliverables/, 'service progress deliverable scope must be styled');
+assert.match(css, /\.service-progress-deliverables li/, 'service progress deliverable chips must be styled');
 assert.match(css, /\.service-progress-steps/, 'service progress steps must be styled');
 assert.match(css, /\.service-progress-card button/, 'service progress follow-up action must be styled');
 assert.match(css, /\.my-prematch-list/, 'my prematch reminder list styles must exist');

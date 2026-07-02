@@ -2808,6 +2808,7 @@ function commercialIntentRows() {
     timeLabel: formatDataGeneratedAt(row.submittedAt),
     contactLabel: row.contact ? '联系方式已留存' : '可补充联系方式',
     nextStep: commercialIntentNextStep(row),
+    deliverables: commercialIntentDeliverableRows(row),
     progressSteps: commercialIntentProgressSteps(row),
   }));
 }
@@ -2821,6 +2822,27 @@ function commercialIntentNextStep(row = {}) {
   if (/coach|club|recruiting|segmentation/.test(source) || /教练|剑馆|俱乐部|招生|学员/.test(report)) return '下一步会围绕学员分层、优势项目和招生素材整理试用说明。';
   if (row.type === 'membership-interest') return '下一步会确认关注选手、赛事提醒和报告保存需求。';
   return '下一步会结合你关注的选手、赛事和报告记录确认试用场景。';
+}
+
+function commercialIntentDeliverableRows(row = {}) {
+  const source = row.source || '';
+  const report = row.report || '';
+  if (row.type === 'reminder-interest' || /reminder|提醒/.test(source) || /提醒|订阅/.test(report)) {
+    return ['提醒对象与时间节点', '名单或赛程变化提示', '赛前查看入口'];
+  }
+  if (/prematch/.test(source) || /赛前|对手/.test(report)) {
+    return ['目标赛事与项目范围', '报名名单和重点对手', '赛前准备清单'];
+  }
+  if (/growth|parent/.test(source) || /成长|家庭|家长/.test(report)) {
+    return ['阶段成长结论', '参赛和名次变化', '下一场准备建议'];
+  }
+  if (/coach|club|recruiting|segmentation/.test(source) || /教练|剑馆|俱乐部|招生|学员/.test(report)) {
+    return ['学员分层', '优势项目和短板', '家长沟通与招生素材'];
+  }
+  if (row.type === 'membership-interest') {
+    return ['关注对象配置', '报告保存权益', '赛事提醒范围'];
+  }
+  return ['目标对象确认', '样例报告整理', '后续提醒范围'];
 }
 
 function commercialIntentProgressSteps(row = {}) {
@@ -2870,6 +2892,9 @@ function renderCommercialIntentStatus(rows = commercialIntentRows()) {
             <em>${escapeHtml(row.timeLabel || '刚刚提交')}</em>
             <small>${escapeHtml(row.contactLabel)}</small>
             <p>${escapeHtml(row.nextStep)}</p>
+            <ul class="service-progress-deliverables">
+              ${(row.deliverables || []).map((item) => `<li>${escapeHtml(item)}</li>`).join('')}
+            </ul>
             <ol class="service-progress-steps">
               ${(row.progressSteps || []).map((step) => `
                 <li class="service-step-${escapeHtml(step.state)}">${escapeHtml(step.label)}</li>
