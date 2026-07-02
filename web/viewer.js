@@ -3533,6 +3533,39 @@ async function submitReminderInterest(button, context = {}) {
   }, 1800);
 }
 
+function homePilotInterestRow() {
+  if (state.userRole === 'coach') {
+    return {
+      title: '教练工作台试用',
+      detail: '围绕学员分层、赛前提醒、训练反馈和家长沟通，验证是否能提升带队效率。',
+      source: 'home-pilot-coach',
+      report: '教练工作台试用',
+    };
+  }
+  if (state.userRole === 'club') {
+    return {
+      title: '剑馆经营试用',
+      detail: '围绕代表选手、优势项目、招生展示和续费沟通，验证是否能沉淀可复用素材。',
+      source: 'home-pilot-club',
+      report: '剑馆经营试用',
+    };
+  }
+  if (state.userRole === 'data') {
+    return {
+      title: '赛事数据试用',
+      detail: '围绕赛事检索、项目规模、报名热度和数据报告，验证是否能替代重复手工查找。',
+      source: 'home-pilot-data',
+      report: '赛事数据试用',
+    };
+  }
+  return {
+    title: '家庭成长试用',
+    detail: '围绕孩子成长报告、赛前情报和重点对手提醒，验证是否能支撑长期参赛决策。',
+    source: 'home-pilot-parent',
+    report: '家庭成长试用',
+  };
+}
+
 function renderHomePage() {
   if (!homePage) return;
   if (state.isDataLoading) {
@@ -3549,6 +3582,7 @@ function renderHomePage() {
   const coachAction = homeCoachActionRow();
   const dataValueRows = homeDataValueRows();
   const aiQuestionRows = homeAiQuestionRows();
+  const pilotRow = homePilotInterestRow();
   const recentRows = (state.recentItems || []).slice(0, 3);
   const entityCounts = entityCoverageCounts();
   const stats = [
@@ -3626,10 +3660,10 @@ function renderHomePage() {
         </div>
         <div class="pilot-interest-card">
           <div>
-            <strong>适合家庭、教练和小型剑馆试用</strong>
-            <span>用于验证成长报告、赛前情报和招生展示是否能真实支撑决策。</span>
+            <strong>${escapeHtml(pilotRow.title)}</strong>
+            <span>${escapeHtml(pilotRow.detail)}</span>
           </div>
-          <button type="button" data-pilot-interest>申请试用</button>
+          <button type="button" data-pilot-interest data-pilot-source="${escapeHtml(pilotRow.source)}" data-pilot-report="${escapeHtml(pilotRow.report)}">申请试用</button>
         </div>
       </section>
       ${renderCommercialIntentStatus(commercialIntents.slice(0, 2))}
@@ -3723,8 +3757,8 @@ function renderHomePage() {
     });
   });
   homePage.querySelector('[data-pilot-interest]')?.addEventListener('click', (event) => submitPilotInterest(event.currentTarget, {
-    source: 'home-pilot',
-    report: '试用合作',
+    source: event.currentTarget.dataset.pilotSource || 'home-pilot',
+    report: event.currentTarget.dataset.pilotReport || '试用合作',
   }));
   homePage.querySelectorAll('[data-home-ai-product]').forEach((button) => {
     button.addEventListener('click', () => {
