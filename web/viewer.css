@@ -8265,6 +8265,42 @@ button.primary-action {
   opacity: 0.78;
 }
 
+.panel.ai-home-primary {
+  border-radius: 16px;
+  padding: 15px;
+}
+
+.panel.ai-home-primary .ai-home-lead {
+  gap: 6px;
+}
+
+.panel.ai-home-primary .ai-home-lead strong {
+  max-width: 11em;
+  font-size: 27px;
+  line-height: 1.06;
+  letter-spacing: -0.035em;
+}
+
+.panel.ai-home-primary .ai-query-form textarea {
+  min-height: 96px;
+  border-radius: 14px;
+}
+
+.panel.ai-home-primary .ai-query-form button {
+  border-radius: 14px;
+}
+
+.panel.ai-home-primary .ai-preset-row {
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.panel.ai-home-primary .ai-preset-row button {
+  background: rgba(255, 255, 255, 0.14);
+  padding: 8px 12px;
+  box-shadow: none;
+}
+
 @media (min-width: 860px) {
   .app {
     width: min(100%, 1040px);

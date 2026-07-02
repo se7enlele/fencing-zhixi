@@ -1581,16 +1581,29 @@ function isFilteringActive() {
 function entityCoverageCounts() {
   const positiveMax = (...values) => Math.max(0, ...values.map((value) => Number(value) || 0));
   const nestedCoverage = state.publicEvents?.dataCoverage || {};
+  const publicEvents = state.publicEvents || {};
   return {
     athletes: positiveMax(
       state.dataCoverage?.athletes,
+      state.dataCoverage?.athleteCount,
+      state.dataCoverage?.athleteProfiles,
       nestedCoverage.athletes,
+      nestedCoverage.athleteCount,
+      nestedCoverage.athleteProfiles,
+      publicEvents.athletes?.length,
+      publicEvents.athleteCount,
       state.athleteSearchIndex.length,
       Object.keys(state.athletesById || {}).length,
     ),
     clubs: positiveMax(
       state.dataCoverage?.clubs,
+      state.dataCoverage?.clubCount,
+      state.dataCoverage?.clubProfiles,
       nestedCoverage.clubs,
+      nestedCoverage.clubCount,
+      nestedCoverage.clubProfiles,
+      publicEvents.clubs?.length,
+      publicEvents.clubCount,
       state.clubSearchIndex.length,
       Object.keys(state.clubsById || {}).length,
     ),
@@ -4085,7 +4098,7 @@ function aiPromptPresets() {
 
 function aiPromptPlaceholder(presets) {
   const examples = (presets || []).filter(Boolean).slice(0, 2);
-  return `例如：${examples.join(' / ') || '2026年天津有几场比赛'}`;
+  return `试试问：${examples.join(' / ') || '2026年天津有几场比赛'}`;
 }
 
 function aiAcceptanceQueryCases() {
@@ -4111,13 +4124,14 @@ function renderAiWorkspace() {
     <div class="ai-workspace" id="aiWorkspace">
       <section class="panel ai-home-primary">
         <div class="ai-home-lead">
-          <strong>把击剑数据变成可执行判断</strong>
+          <strong>一句话生成击剑判断</strong>
+          <span>查赛事、看对手、判断成长，回答都能回到原始比赛记录。</span>
         </div>
         <form class="ai-query-form" id="aiQueryForm">
           <textarea id="aiQueryInput" rows="3" placeholder="${escapeHtml(placeholder)}"></textarea>
           <button type="submit">生成分析</button>
         </form>
-        <div class="ai-preset-row">
+        <div class="ai-preset-row" aria-label="常用问题">
           ${presets.map((preset) => `<button type="button" data-ai-preset="${escapeHtml(preset)}">${escapeHtml(preset)}</button>`).join('')}
         </div>
       </section>
