@@ -48,6 +48,32 @@ assert.match(
 
 assert.match(
   source,
+  /url\.pathname === '\/api\/auth\/login' && request\.method === 'POST'[\s\S]{0,200}handleAuthLogin/,
+  'Worker should expose a lightweight login endpoint outside public cached data',
+);
+assert.match(
+  source,
+  /url\.pathname === '\/api\/auth\/me' && request\.method === 'GET'[\s\S]{0,200}handleAuthMe/,
+  'Worker should expose an authenticated user profile reader',
+);
+assert.match(
+  source,
+  /url\.pathname === '\/api\/me\/profile' && request\.method === 'POST'[\s\S]{0,200}handleSaveUserProfile/,
+  'Worker should expose an authenticated user profile sync endpoint',
+);
+assert.match(
+  source,
+  /await env\.FOLLOWS\.put\(`session:\$\{token\}`[\s\S]*expirationTtl: 60 \* 60 \* 24 \* 90/,
+  'Worker auth sessions should expire instead of living forever',
+);
+assert.match(
+  source,
+  /codeHash: await hashLoginCode\(identityKey, code, salt\)/,
+  'Worker should store login-code hashes instead of plaintext codes',
+);
+
+assert.match(
+  source,
   /url\.pathname === '\/api\/feedback'[\s\S]{0,160}handleFeedback/,
   'Feedback endpoint should stay isolated from public cached data',
 );

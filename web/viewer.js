@@ -70,6 +70,8 @@ const ANALYTICS_SESSION_KEY = 'fencingai.analyticsSession.v1';
 const COMMERCIAL_CONTACT_KEY = 'fencingai.commercialContact.v1';
 const COMMERCIAL_INTENT_KEY = 'fencingai.commercialIntents.v1';
 const ATHLETE_DATA_REQUEST_KEY = 'fencingai.athleteDataRequests.v1';
+const AUTH_TOKEN_KEY = 'fencingai.authToken.v1';
+const AUTH_USER_KEY = 'fencingai.authUser.v1';
 const COMPETITION_LIST_PAGE_SIZE = 30;
 
 const views = {
@@ -124,6 +126,10 @@ const state = {
   aiHistory: [],
   commercialIntents: [],
   athleteDataRequests: [],
+  authToken: localStorage.getItem(AUTH_TOKEN_KEY) || '',
+  authUser: safeJson(localStorage.getItem(AUTH_USER_KEY), null),
+  isApplyingUserProfile: false,
+  userSyncTimer: null,
   sharedEntry: null,
   isDataLoading: true,
   dataLoadError: '',
@@ -157,6 +163,194 @@ async function fetchJson(path) {
     throw new Error(result.message || `Request failed: ${response.status}`);
   }
   return result;
+}
+
+function safeJson(raw, fallback = null) {
+  try {
+    return raw ? JSON.parse(raw) : fallback;
+  } catch {
+    return fallback;
+  }
+}
+
+function authHeaders(extra = {}) {
+  return state.authToken ? { ...extra, Authorization: `Bearer ${state.authToken}` } : extra;
+}
+
+function currentUserProfilePayload() {
+  return {
+    role: state.userRole,
+    selectedChildId: state.selectedChildId,
+    follows: state.followedAthletes || [],
+    followedCompetitions: state.followedCompetitions || [],
+    recentItems: state.recentItems || [],
+    reportHistory: state.reportHistory || [],
+    aiHistory: state.aiHistory || [],
+    commercialIntents: state.commercialIntents || [],
+  };
+}
+
+function applyUserProfile(profile = {}) {
+  state.isApplyingUserProfile = true;
+  const localHasState = [
+    state.followedAthletes,
+    state.followedCompetitions,
+    state.recentItems,
+    state.reportHistory,
+    state.aiHistory,
+  ].some((rows) => Array.isArray(rows) && rows.length);
+  const remoteHasState = [
+    profile.follows,
+    profile.followedCompetitions,
+    profile.recentItems,
+    profile.reportHistory,
+    profile.aiHistory,
+  ].some((rows) => Array.isArray(rows) && rows.length);
+  if (profile.role && !state.userRole) state.userRole = profile.role;
+  if (profile.selectedChildId && !state.selectedChildId) state.selectedChildId = profile.selectedChildId;
+  if (remoteHasState || !localHasState) {
+    if (Array.isArray(profile.follows)) state.followedAthletes = profile.follows;
+    if (Array.isArray(profile.followedCompetitions)) state.followedCompetitions = profile.followedCompetitions;
+    if (Array.isArray(profile.recentItems)) state.recentItems = profile.recentItems;
+    if (Array.isArray(profile.reportHistory)) state.reportHistory = profile.reportHistory;
+    if (Array.isArray(profile.aiHistory)) state.aiHistory = profile.aiHistory;
+    if (Array.isArray(profile.commercialIntents)) state.commercialIntents = profile.commercialIntents;
+  }
+  localStorage.setItem(ROLE_KEY, state.userRole || '');
+  if (state.selectedChildId) localStorage.setItem(CHILD_KEY, state.selectedChildId);
+  else localStorage.removeItem(CHILD_KEY);
+  saveFollowedAthletes();
+  saveStoredList(COMPETITION_FOLLOW_KEY, state.followedCompetitions, 30);
+  saveStoredList(RECENT_KEY, state.recentItems, 20);
+  saveStoredList(REPORT_HISTORY_KEY, state.reportHistory, 12);
+  saveStoredList(AI_HISTORY_KEY, state.aiHistory, 10);
+  saveStoredList(COMMERCIAL_INTENT_KEY, state.commercialIntents, 10);
+  state.isApplyingUserProfile = false;
+}
+
+function scheduleUserStateSync() {
+  if (!state.authToken || state.isApplyingUserProfile) return;
+  clearTimeout(state.userSyncTimer);
+  state.userSyncTimer = setTimeout(() => {
+    syncUserProfile().catch(() => {});
+  }, 700);
+}
+
+async function syncUserProfile() {
+  if (!state.authToken) return null;
+  const response = await fetch('/api/me/profile', {
+    method: 'POST',
+    headers: authHeaders({ 'Content-Type': 'application/json' }),
+    body: JSON.stringify(currentUserProfilePayload()),
+  });
+  const result = await response.json();
+  if (!response.ok || !result.ok) throw new Error(result.message || '同步失败');
+  if (result.user) {
+    state.authUser = result.user;
+    localStorage.setItem(AUTH_USER_KEY, JSON.stringify(result.user));
+  }
+  return result;
+}
+
+async function restoreAuthSession() {
+  if (!state.authToken) return;
+  try {
+    const result = await fetchJsonWithAuth('/api/auth/me');
+    state.authUser = result.user || state.authUser;
+    localStorage.setItem(AUTH_USER_KEY, JSON.stringify(state.authUser));
+    applyUserProfile(result.profile || {});
+  } catch {
+    state.authToken = '';
+    state.authUser = null;
+    localStorage.removeItem(AUTH_TOKEN_KEY);
+    localStorage.removeItem(AUTH_USER_KEY);
+  }
+}
+
+async function fetchJsonWithAuth(path) {
+  const response = await fetch(path, { headers: authHeaders() });
+  const result = await response.json();
+  if (!response.ok || !result.ok) throw new Error(result.message || `Request failed: ${response.status}`);
+  return result;
+}
+
+async function submitAccountLogin(form) {
+  const identifier = form.querySelector('[name="identifier"]')?.value || '';
+  const code = form.querySelector('[name="code"]')?.value || '';
+  const status = form.querySelector('[data-account-status]');
+  if (status) status.textContent = '正在登录';
+  try {
+    const response = await fetch('/api/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ identifier, code }),
+    });
+    const result = await response.json();
+    if (!response.ok || !result.ok) throw new Error(result.message || '登录失败');
+    state.authToken = result.token;
+    state.authUser = result.user;
+    localStorage.setItem(AUTH_TOKEN_KEY, state.authToken);
+    localStorage.setItem(AUTH_USER_KEY, JSON.stringify(state.authUser));
+    applyUserProfile(result.profile || {});
+    await syncUserProfile();
+    await hydrateFollowedAthleteProfiles();
+    renderPersonalPages();
+    renderHomePage();
+    if (status) status.textContent = result.isNew ? '账号已创建，本机内容已同步。' : '已登录，本机内容已同步。';
+    trackAnalyticsAction('auth_login', result.isNew ? 'new' : 'returning');
+  } catch (error) {
+    if (status) status.textContent = error.message || '登录失败';
+  }
+}
+
+function logoutAccount() {
+  state.authToken = '';
+  state.authUser = null;
+  localStorage.removeItem(AUTH_TOKEN_KEY);
+  localStorage.removeItem(AUTH_USER_KEY);
+  renderPersonalPages();
+  renderHomePage();
+  trackAnalyticsAction('auth_logout', 'manual');
+}
+
+function renderAccountPanel() {
+  if (state.authUser) {
+    return `
+      <section class="panel my-section account-panel account-panel-signed">
+        <div class="section-title">
+          <h2>账号同步</h2>
+          <span>已登录</span>
+        </div>
+        <div class="account-summary">
+          <div>
+            <strong>${escapeHtml(state.authUser.displayName || state.authUser.identifier || '已登录用户')}</strong>
+            <span>关注、历史、报告和角色会保存到当前账号。</span>
+          </div>
+          <button type="button" data-account-logout>退出</button>
+        </div>
+      </section>
+    `;
+  }
+  return `
+    <section class="panel my-section account-panel">
+      <div class="section-title">
+        <h2>账号同步</h2>
+        <span>第一阶段</span>
+      </div>
+      <form class="account-login-form" data-account-login>
+        <label>
+          <span>手机号或邮箱</span>
+          <input name="identifier" type="text" autocomplete="username" placeholder="用于找回关注和历史">
+        </label>
+        <label>
+          <span>登录码</span>
+          <input name="code" type="password" autocomplete="current-password" placeholder="至少 6 位，首次输入即创建">
+        </label>
+        <button type="submit">登录 / 创建账号</button>
+        <em data-account-status>登录后，本机关注、历史和报告会同步到账号。</em>
+      </form>
+    </section>
+  `;
 }
 
 function friendlyErrorMessage(scope) {
@@ -277,10 +471,12 @@ function loadStoredList(key) {
 
 function saveStoredList(key, rows, limit = 30) {
   localStorage.setItem(key, JSON.stringify((rows || []).slice(0, limit)));
+  scheduleUserStateSync();
 }
 
 function saveFollowedAthletes() {
   localStorage.setItem(FOLLOW_KEY, JSON.stringify(state.followedAthletes.slice(0, 20)));
+  scheduleUserStateSync();
 }
 
 function competitionSnapshot(competition) {
@@ -386,6 +582,7 @@ function trackAiAnalysisHistory(query, report) {
 function setUserRole(role) {
   state.userRole = role;
   localStorage.setItem(ROLE_KEY, role);
+  scheduleUserStateSync();
   renderRoleWorkspacePremium();
   if (role === 'parent') {
     renderParentDashboard();
@@ -401,6 +598,7 @@ function setSelectedChild(athleteId) {
   state.selectedChildId = athleteId || '';
   if (state.selectedChildId) localStorage.setItem(CHILD_KEY, state.selectedChildId);
   else localStorage.removeItem(CHILD_KEY);
+  scheduleUserStateSync();
   renderParentDashboard();
   renderPersonalPages();
 }
@@ -417,6 +615,14 @@ function getDeviceId() {
 }
 
 async function syncFollowedAthletes() {
+  if (state.authToken) {
+    await hydrateFollowedAthleteProfiles();
+    renderFollowPanel();
+    renderRoleWorkspacePremium();
+    renderParentDashboard();
+    renderPersonalPages();
+    return;
+  }
   try {
     const response = await fetch(`/api/me/follows?deviceId=${encodeURIComponent(state.deviceId)}`);
     const result = await response.json();
@@ -6392,6 +6598,8 @@ function renderMyPage() {
       `).join('')}
     </section>
 
+    ${renderAccountPanel()}
+
     <section class="panel my-section my-next-section">
       <div class="section-title">
         <h2>下一步</h2>
@@ -6642,6 +6850,11 @@ function renderMyPage() {
     showView('roleHome');
     scrollToPageTop();
   });
+  myPage.querySelector('[data-account-login]')?.addEventListener('submit', (event) => {
+    event.preventDefault();
+    submitAccountLogin(event.currentTarget);
+  });
+  myPage.querySelector('[data-account-logout]')?.addEventListener('click', () => logoutAccount());
   myPage.querySelectorAll('[data-athlete-id]').forEach((button) => {
     button.addEventListener('click', () => openAthlete(button.dataset.athleteId));
   });
@@ -11628,6 +11841,7 @@ async function init() {
   state.publicEvents = result.publicEvents || null;
   state.competitions = result.competitions?.length ? result.competitions : buildCompetitionsFromEvents(result.events);
   state.competitionSearchCache.clear();
+  await restoreAuthSession();
   renderHomeStats();
   renderRoleWorkspacePremium();
   renderParentDashboard();

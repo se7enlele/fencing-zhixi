@@ -2,6 +2,7 @@ import { createServer } from 'node:http';
 import { readFile, writeFile, mkdir, readdir, stat } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { createHash, randomBytes } from 'node:crypto';
 import { analyzeRecords, parseOfficialResultUrl, stableStringify } from './tools/analyzer-core.mjs';
 import { buildScoreReport } from './tools/parse-score.mjs';
 import { buildProjectListReport } from './tools/parse-projectlist.mjs';
@@ -17,7 +18,7 @@ const PORT = Number(process.env.PORT ?? 5177);
 const MAX_BODY_BYTES = 20 * 1024 * 1024;
 const APP_VERSION = 'fencingai-product-20260528-1';
 const ADMIN_TOKEN = process.env.FENCINGAI_ADMIN_TOKEN || 'fencingai-admin-2026';
-let memoryFollowStore = { devices: {}, feedback: [] };
+let memoryFollowStore = { devices: {}, feedback: [], users: {}, identityIndex: {}, sessions: {} };
 
 const MIME_TYPES = {
   '.html': 'text/html; charset=utf-8',
@@ -348,24 +349,212 @@ function normalizeDeviceId(deviceId) {
   return value;
 }
 
+function normalizeAuthIdentifier(value) {
+  const raw = String(value || '').trim().toLowerCase();
+  if (!raw) throw new Error('请输入手机号或邮箱。');
+  if (raw.includes('@')) {
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(raw)) throw new Error('邮箱格式不正确。');
+    return `email:${raw}`.slice(0, 120);
+  }
+  const digits = raw.replace(/\D/g, '');
+  if (digits.length < 6 || digits.length > 20) throw new Error('手机号格式不正确。');
+  return `phone:${digits}`;
+}
+
+function publicAuthIdentifier(identityKey) {
+  const [kind, value] = String(identityKey || '').split(':');
+  if (kind === 'email') {
+    const [name, domain] = String(value || '').split('@');
+    return `${name ? `${name.slice(0, 2)}***` : '***'}@${domain || ''}`;
+  }
+  if (kind === 'phone') {
+    return `${String(value || '').slice(0, 3)}****${String(value || '').slice(-4)}`;
+  }
+  return '已登录用户';
+}
+
+function normalizeLoginCode(value) {
+  const code = String(value || '').trim();
+  if (code.length < 6 || code.length > 64) throw new Error('登录码至少 6 位。');
+  return code;
+}
+
+function hashText(value) {
+  return createHash('sha256').update(String(value)).digest('hex');
+}
+
+function hashLoginCode(identityKey, code, salt) {
+  return hashText(`${identityKey}:${salt}:${code}`);
+}
+
+function authUserId(identityKey) {
+  return `u_${hashText(identityKey).slice(0, 24)}`;
+}
+
+function authToken() {
+  return `fa_${randomBytes(32).toString('base64url')}`;
+}
+
+function ensureUserStoreShape(store) {
+  store.devices ||= {};
+  store.feedback ||= [];
+  store.users ||= {};
+  store.identityIndex ||= {};
+  store.sessions ||= {};
+  return store;
+}
+
+function userFromRecord(record) {
+  if (!record) return null;
+  return {
+    id: record.id,
+    displayName: record.displayName || publicAuthIdentifier(record.identityKey),
+    identifier: publicAuthIdentifier(record.identityKey),
+    provider: record.provider || 'passwordless',
+    createdAt: record.createdAt || null,
+    lastLoginAt: record.lastLoginAt || null,
+  };
+}
+
+function getBearerToken(request) {
+  const header = request.headers.authorization || request.headers.Authorization || '';
+  const match = String(header).match(/^Bearer\s+(.+)$/i);
+  return match ? match[1].trim() : '';
+}
+
+function sanitizeUserState(body = {}) {
+  return {
+    role: String(body.role || '').slice(0, 30),
+    selectedChildId: String(body.selectedChildId || '').slice(0, 120),
+    follows: Array.isArray(body.follows) ? body.follows.slice(0, 30) : [],
+    followedCompetitions: Array.isArray(body.followedCompetitions) ? body.followedCompetitions.slice(0, 30) : [],
+    recentItems: Array.isArray(body.recentItems) ? body.recentItems.slice(0, 20) : [],
+    reportHistory: Array.isArray(body.reportHistory) ? body.reportHistory.slice(0, 12) : [],
+    aiHistory: Array.isArray(body.aiHistory) ? body.aiHistory.slice(0, 10) : [],
+    commercialIntents: Array.isArray(body.commercialIntents) ? body.commercialIntents.slice(0, 10) : [],
+  };
+}
+
+function profileFromUser(user) {
+  return sanitizeUserState(user?.profile || {});
+}
+
 async function readFollowStore() {
   if (useMemoryFollowStore()) {
-    return memoryFollowStore;
+    return ensureUserStoreShape(memoryFollowStore);
   }
   try {
-    return JSON.parse(await readFile(getFollowStorePath(), 'utf8'));
+    return ensureUserStoreShape(JSON.parse(await readFile(getFollowStorePath(), 'utf8')));
   } catch {
-    return { devices: {}, feedback: [] };
+    return ensureUserStoreShape({ devices: {}, feedback: [], users: {}, identityIndex: {}, sessions: {} });
   }
 }
 
 async function writeFollowStore(store) {
+  ensureUserStoreShape(store);
   if (useMemoryFollowStore()) {
     memoryFollowStore = store;
     return;
   }
   await mkdir(path.dirname(getFollowStorePath()), { recursive: true });
   await writeFile(getFollowStorePath(), stableStringify(store), 'utf8');
+}
+
+async function readAuthUserFromRequest(request) {
+  const token = getBearerToken(request);
+  if (!token) return null;
+  const store = await readFollowStore();
+  const session = store.sessions[token];
+  if (!session?.userId) return null;
+  const user = store.users[session.userId];
+  if (!user) return null;
+  return { store, token, session, user };
+}
+
+async function handleAuthLogin(request, response) {
+  try {
+    const body = JSON.parse(await readRequestBody(request));
+    const identityKey = normalizeAuthIdentifier(body.identifier);
+    const code = normalizeLoginCode(body.code);
+    const now = new Date().toISOString();
+    const store = await readFollowStore();
+    let userId = store.identityIndex[identityKey];
+    let isNew = false;
+    if (!userId) {
+      userId = authUserId(identityKey);
+      isNew = true;
+      const salt = randomBytes(16).toString('hex');
+      store.identityIndex[identityKey] = userId;
+      store.users[userId] = {
+        id: userId,
+        identityKey,
+        provider: 'passwordless',
+        displayName: publicAuthIdentifier(identityKey),
+        codeSalt: salt,
+        codeHash: hashLoginCode(identityKey, code, salt),
+        profile: {},
+        createdAt: now,
+        lastLoginAt: now,
+      };
+    }
+    const user = store.users[userId];
+    if (!isNew && user.codeHash !== hashLoginCode(identityKey, code, user.codeSalt)) {
+      throw new Error('登录码不正确。');
+    }
+    user.lastLoginAt = now;
+    const token = authToken();
+    store.sessions[token] = { userId, createdAt: now, lastSeenAt: now };
+    await writeFollowStore(store);
+    sendJson(response, 200, {
+      ok: true,
+      version: APP_VERSION,
+      isNew,
+      token,
+      user: userFromRecord(user),
+      profile: profileFromUser(user),
+    });
+  } catch (error) {
+    sendJson(response, 400, { ok: false, message: error.message });
+  }
+}
+
+async function handleAuthMe(request, response) {
+  const auth = await readAuthUserFromRequest(request);
+  if (!auth) {
+    sendJson(response, 401, { ok: false, message: '未登录。' });
+    return;
+  }
+  auth.session.lastSeenAt = new Date().toISOString();
+  await writeFollowStore(auth.store);
+  sendJson(response, 200, {
+    ok: true,
+    version: APP_VERSION,
+    user: userFromRecord(auth.user),
+    profile: profileFromUser(auth.user),
+  });
+}
+
+async function handleSaveUserProfile(request, response) {
+  const auth = await readAuthUserFromRequest(request);
+  if (!auth) {
+    sendJson(response, 401, { ok: false, message: '未登录。' });
+    return;
+  }
+  try {
+    const body = JSON.parse(await readRequestBody(request));
+    auth.user.profile = sanitizeUserState(body);
+    auth.user.updatedAt = new Date().toISOString();
+    auth.session.lastSeenAt = auth.user.updatedAt;
+    await writeFollowStore(auth.store);
+    sendJson(response, 200, {
+      ok: true,
+      version: APP_VERSION,
+      user: userFromRecord(auth.user),
+      profile: profileFromUser(auth.user),
+    });
+  } catch (error) {
+    sendJson(response, 400, { ok: false, message: error.message });
+  }
 }
 
 async function handleGetFollows(response, url) {
@@ -1799,6 +1988,21 @@ const server = createServer(async (request, response) => {
 
   if (request.method === 'POST' && url.pathname === '/api/analyze') {
     await handleAnalyze(request, response);
+    return;
+  }
+
+  if (request.method === 'POST' && url.pathname === '/api/auth/login') {
+    await handleAuthLogin(request, response);
+    return;
+  }
+
+  if (request.method === 'GET' && url.pathname === '/api/auth/me') {
+    await handleAuthMe(request, response);
+    return;
+  }
+
+  if (request.method === 'POST' && url.pathname === '/api/me/profile') {
+    await handleSaveUserProfile(request, response);
     return;
   }
 

@@ -107,6 +107,57 @@ try {
     throw new Error(followDeleteResult.message || `follow delete status ${followDelete.status}`);
   }
 
+  const authLogin = await fetch(`${baseUrl}/api/auth/login`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ identifier: 'parent@example.com', code: '123456' }),
+  });
+  const authLoginResult = await authLogin.json();
+  if (!authLogin.ok || !authLoginResult.ok || !authLoginResult.token || !authLoginResult.user?.id) {
+    throw new Error(authLoginResult.message || `auth login status ${authLogin.status}`);
+  }
+  if (authLoginResult.profile?.follows?.length) {
+    throw new Error('new auth profile should start empty');
+  }
+
+  const authProfile = await fetch(`${baseUrl}/api/me/profile`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${authLoginResult.token}`,
+    },
+    body: JSON.stringify({
+      role: 'parent',
+      selectedChildId: athleteId,
+      follows: [{ id: athleteId, name: athleteResult.athlete.name }],
+      followedCompetitions: [{ sportCode: competitionCode, sportName: smokeCompetition.sportName }],
+      recentItems: [{ type: 'athlete', id: athleteId, title: athleteResult.athlete.name }],
+      reportHistory: [{ type: 'parent-growth', id: athleteId, title: '成长报告' }],
+      aiHistory: [{ key: 'q1', query: '蔡廷彧最近几场有没有进步', title: '成长分析' }],
+    }),
+  });
+  const authProfileResult = await authProfile.json();
+  if (!authProfile.ok || !authProfileResult.ok || authProfileResult.profile?.selectedChildId !== athleteId) {
+    throw new Error(authProfileResult.message || `auth profile status ${authProfile.status}`);
+  }
+
+  const authMe = await fetch(`${baseUrl}/api/auth/me`, {
+    headers: { Authorization: `Bearer ${authLoginResult.token}` },
+  });
+  const authMeResult = await authMe.json();
+  if (!authMe.ok || !authMeResult.ok || authMeResult.profile?.follows?.[0]?.id !== athleteId) {
+    throw new Error(authMeResult.message || `auth me status ${authMe.status}`);
+  }
+
+  const deniedProfile = await fetch(`${baseUrl}/api/me/profile`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ role: 'parent' }),
+  });
+  if (deniedProfile.status !== 401) {
+    throw new Error(`profile without auth should be 401, got ${deniedProfile.status}`);
+  }
+
   const feedbackSave = await fetch(`${baseUrl}/api/feedback`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },

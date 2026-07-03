@@ -286,6 +286,23 @@ assert.match(js, /data-focus-follow/, 'follow recommendations must expose a dire
 assert.match(js, /openPrematchReport\('prematch-pack', button\.dataset\.focusPrematch \|\| ''\)/, 'follow prematch action must open the scoped prematch report');
 assert.match(js, /upsertFollowedCompetition\(competition\)/, 'follow recommendation action must persist the recommended competition');
 assert.match(js, /function renderMyPage\(\)/, 'my page renderer must exist');
+assert.match(js, /AUTH_TOKEN_KEY = 'fencingai\.authToken\.v1'/, 'account auth token must be persisted separately from public device state');
+assert.match(js, /AUTH_USER_KEY = 'fencingai\.authUser\.v1'/, 'account user summary must be persisted locally for fast page restore');
+assert.match(js, /function renderAccountPanel\(\)/, 'my page must render a lightweight account panel');
+assert.match(js, /data-account-login/, 'my page account panel must expose a login or create form');
+assert.match(js, /data-account-logout/, 'my page account panel must expose a logout action');
+assert.match(js, /async function submitAccountLogin\(form\)/, 'account login handler must exist');
+assert.match(js, /async function restoreAuthSession\(\)/, 'viewer must restore account sessions on boot');
+assert.match(js, /function currentUserProfilePayload\(\)/, 'viewer must collect local user state for account sync');
+assert.match(js, /async function syncUserProfile\(\)/, 'viewer must sync local user state into the account profile');
+assert.match(js, /await restoreAuthSession\(\);/, 'viewer boot must restore an account before rendering personal pages');
+assert.match(js, /fetch\('\/api\/auth\/login'/, 'account login must call the auth endpoint');
+assert.match(js, /fetch\('\/api\/me\/profile'/, 'account profile sync must call the authenticated profile endpoint');
+assert.match(js, /follows: state\.followedAthletes \|\| \[\]/, 'account sync must include followed athletes');
+assert.match(js, /followedCompetitions: state\.followedCompetitions \|\| \[\]/, 'account sync must include followed competitions');
+assert.match(js, /reportHistory: state\.reportHistory \|\| \[\]/, 'account sync must include generated reports');
+assert.match(js, /aiHistory: state\.aiHistory \|\| \[\]/, 'account sync must include AI analysis history');
+assert.match(js, /if \(!state\.authToken \|\| state\.isApplyingUserProfile\) return;/, 'account sync must not loop while applying remote state');
 assert.match(js, /function myWorkspaceNextActions\(\{ children = \[\], followedCompetitions = \[\], reportHistory = \[\], aiHistory = \[\] \} = \{\}\)/, 'my page must derive commercial next actions from saved user state');
 assert.match(js, /function serviceReadinessRows\(\{ children = \[\], followedCompetitions = \[\], reportHistory = \[\], aiHistory = \[\] \} = \{\}\)/, 'my page must summarize service readiness from saved user state');
 assert.match(js, /function recommendedTrialRows\(\{ children = \[\], followedCompetitions = \[\], reportHistory = \[\], aiHistory = \[\] \} = \{\}\)/, 'my page must recommend trial plans from current user state');
@@ -436,6 +453,9 @@ assert.match(css, /\.focus-trial-actions/, 'follow reminder subscription actions
 assert.match(css, /\.focus-alert-card/, 'follow alert card styles must exist');
 assert.match(css, /\.focus-alert-actions/, 'follow alert action styles must exist');
 assert.match(css, /\.my-page-shell/, 'personal page styles must exist');
+assert.match(css, /\.account-panel/, 'account panel styles must exist');
+assert.match(css, /\.account-login-form/, 'account login form styles must exist');
+assert.match(css, /\.account-summary/, 'signed-in account summary styles must exist');
 assert.match(css, /\.competition-follow-tag/, 'competition follow tag styles must exist');
 
 console.log('home, follow, my page and bottom navigation are covered');

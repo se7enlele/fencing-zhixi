@@ -80,6 +80,95 @@ function normalizeDeviceId(deviceId) {
   return value;
 }
 
+function normalizeAuthIdentifier(value) {
+  const raw = String(value || '').trim().toLowerCase();
+  if (!raw) throw new Error('请输入手机号或邮箱。');
+  if (raw.includes('@')) {
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(raw)) throw new Error('邮箱格式不正确。');
+    return `email:${raw}`.slice(0, 120);
+  }
+  const digits = raw.replace(/\D/g, '');
+  if (digits.length < 6 || digits.length > 20) throw new Error('手机号格式不正确。');
+  return `phone:${digits}`;
+}
+
+function publicAuthIdentifier(identityKey) {
+  const [kind, value] = String(identityKey || '').split(':');
+  if (kind === 'email') {
+    const [name, domain] = String(value || '').split('@');
+    return `${name ? `${name.slice(0, 2)}***` : '***'}@${domain || ''}`;
+  }
+  if (kind === 'phone') {
+    return `${String(value || '').slice(0, 3)}****${String(value || '').slice(-4)}`;
+  }
+  return '已登录用户';
+}
+
+function normalizeLoginCode(value) {
+  const code = String(value || '').trim();
+  if (code.length < 6 || code.length > 64) throw new Error('登录码至少 6 位。');
+  return code;
+}
+
+async function sha256Hex(value) {
+  const data = new TextEncoder().encode(String(value));
+  const digest = await crypto.subtle.digest('SHA-256', data);
+  return [...new Uint8Array(digest)].map((byte) => byte.toString(16).padStart(2, '0')).join('');
+}
+
+async function authUserId(identityKey) {
+  return `u_${(await sha256Hex(identityKey)).slice(0, 24)}`;
+}
+
+async function hashLoginCode(identityKey, code, salt) {
+  return sha256Hex(`${identityKey}:${salt}:${code}`);
+}
+
+function randomHex(bytes = 16) {
+  const values = new Uint8Array(bytes);
+  crypto.getRandomValues(values);
+  return [...values].map((byte) => byte.toString(16).padStart(2, '0')).join('');
+}
+
+function authToken() {
+  return `fa_${randomHex(32)}`;
+}
+
+function userFromRecord(record) {
+  if (!record) return null;
+  return {
+    id: record.id,
+    displayName: record.displayName || publicAuthIdentifier(record.identityKey),
+    identifier: publicAuthIdentifier(record.identityKey),
+    provider: record.provider || 'passwordless',
+    createdAt: record.createdAt || null,
+    lastLoginAt: record.lastLoginAt || null,
+  };
+}
+
+function getBearerToken(request) {
+  const header = request.headers.get('Authorization') || '';
+  const match = String(header).match(/^Bearer\s+(.+)$/i);
+  return match ? match[1].trim() : '';
+}
+
+function sanitizeUserState(body = {}) {
+  return {
+    role: String(body.role || '').slice(0, 30),
+    selectedChildId: String(body.selectedChildId || '').slice(0, 120),
+    follows: Array.isArray(body.follows) ? body.follows.slice(0, 30) : [],
+    followedCompetitions: Array.isArray(body.followedCompetitions) ? body.followedCompetitions.slice(0, 30) : [],
+    recentItems: Array.isArray(body.recentItems) ? body.recentItems.slice(0, 20) : [],
+    reportHistory: Array.isArray(body.reportHistory) ? body.reportHistory.slice(0, 12) : [],
+    aiHistory: Array.isArray(body.aiHistory) ? body.aiHistory.slice(0, 10) : [],
+    commercialIntents: Array.isArray(body.commercialIntents) ? body.commercialIntents.slice(0, 10) : [],
+  };
+}
+
+function profileFromUser(user) {
+  return sanitizeUserState(user?.profile || {});
+}
+
 async function readJsonKv(kv, key, fallback = null) {
   if (!kv) return fallback;
   const raw = await kv.get(key);
@@ -208,6 +297,89 @@ async function writeFollows(env, deviceId, follows) {
     updatedAt: new Date().toISOString(),
     follows,
   }));
+}
+
+async function readAuthUserFromRequest(request, env) {
+  const token = getBearerToken(request);
+  if (!token || !env.FOLLOWS) return null;
+  const session = await readJsonKv(env.FOLLOWS, `session:${token}`, null);
+  if (!session?.userId) return null;
+  const user = await readJsonKv(env.FOLLOWS, `user:${session.userId}`, null);
+  if (!user) return null;
+  return { token, session, user };
+}
+
+async function handleAuthLogin(request, env) {
+  if (!env.FOLLOWS) return json({ ok: false, message: 'Auth unavailable' }, 503);
+  const body = await request.json();
+  const identityKey = normalizeAuthIdentifier(body.identifier);
+  const code = normalizeLoginCode(body.code);
+  const now = new Date().toISOString();
+  let userId = await env.FOLLOWS.get(`identity:${identityKey}`);
+  let isNew = false;
+  if (!userId) {
+    userId = await authUserId(identityKey);
+    isNew = true;
+    const salt = randomHex(16);
+    await env.FOLLOWS.put(`identity:${identityKey}`, userId);
+    await env.FOLLOWS.put(`user:${userId}`, JSON.stringify({
+      id: userId,
+      identityKey,
+      provider: 'passwordless',
+      displayName: publicAuthIdentifier(identityKey),
+      codeSalt: salt,
+      codeHash: await hashLoginCode(identityKey, code, salt),
+      profile: {},
+      createdAt: now,
+      lastLoginAt: now,
+    }));
+  }
+  const user = await readJsonKv(env.FOLLOWS, `user:${userId}`, null);
+  if (!user) return json({ ok: false, message: 'User unavailable' }, 500);
+  if (!isNew && user.codeHash !== await hashLoginCode(identityKey, code, user.codeSalt)) {
+    return json({ ok: false, message: '登录码不正确。' }, 400);
+  }
+  user.lastLoginAt = now;
+  const token = authToken();
+  await env.FOLLOWS.put(`user:${userId}`, JSON.stringify(user));
+  await env.FOLLOWS.put(`session:${token}`, JSON.stringify({ userId, createdAt: now, lastSeenAt: now }), { expirationTtl: 60 * 60 * 24 * 90 });
+  return json({
+    ok: true,
+    version: APP_VERSION,
+    isNew,
+    token,
+    user: userFromRecord(user),
+    profile: profileFromUser(user),
+  });
+}
+
+async function handleAuthMe(request, env) {
+  const auth = await readAuthUserFromRequest(request, env);
+  if (!auth) return json({ ok: false, message: '未登录。' }, 401);
+  auth.session.lastSeenAt = new Date().toISOString();
+  await env.FOLLOWS.put(`session:${auth.token}`, JSON.stringify(auth.session), { expirationTtl: 60 * 60 * 24 * 90 });
+  return json({
+    ok: true,
+    version: APP_VERSION,
+    user: userFromRecord(auth.user),
+    profile: profileFromUser(auth.user),
+  });
+}
+
+async function handleSaveUserProfile(request, env) {
+  const auth = await readAuthUserFromRequest(request, env);
+  if (!auth) return json({ ok: false, message: '未登录。' }, 401);
+  const body = await request.json();
+  auth.user.profile = sanitizeUserState(body);
+  auth.user.updatedAt = new Date().toISOString();
+  await env.FOLLOWS.put(`user:${auth.user.id}`, JSON.stringify(auth.user));
+  await env.FOLLOWS.put(`session:${auth.token}`, JSON.stringify({ ...auth.session, lastSeenAt: auth.user.updatedAt }), { expirationTtl: 60 * 60 * 24 * 90 });
+  return json({
+    ok: true,
+    version: APP_VERSION,
+    user: userFromRecord(auth.user),
+    profile: profileFromUser(auth.user),
+  });
 }
 
 async function handleFollows(request, env, url) {
@@ -903,6 +1075,30 @@ async function routeApi(request, env, url) {
   if (url.pathname === '/api/me/follows') {
     try {
       return await handleFollows(request, env, url);
+    } catch (error) {
+      return json({ ok: false, message: error.message }, 400);
+    }
+  }
+
+  if (url.pathname === '/api/auth/login' && request.method === 'POST') {
+    try {
+      return await handleAuthLogin(request, env);
+    } catch (error) {
+      return json({ ok: false, message: error.message }, 400);
+    }
+  }
+
+  if (url.pathname === '/api/auth/me' && request.method === 'GET') {
+    try {
+      return await handleAuthMe(request, env);
+    } catch (error) {
+      return json({ ok: false, message: error.message }, 400);
+    }
+  }
+
+  if (url.pathname === '/api/me/profile' && request.method === 'POST') {
+    try {
+      return await handleSaveUserProfile(request, env);
     } catch (error) {
       return json({ ok: false, message: error.message }, 400);
     }
