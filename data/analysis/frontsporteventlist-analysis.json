@@ -4,7 +4,7 @@
   "source": {
     "input": "https://fencing-proxy.aixindiandian.workers.dev/fencingapi/competition/frontsporteventlist?",
     "sourceUrl": "https://fencing-proxy.aixindiandian.workers.dev/fencingapi/competition/frontsporteventlist?",
-    "analyzedAt": "2026-07-05T11:50:34.351Z"
+    "analyzedAt": "2026-07-05T17:34:02.511Z"
   },
   "summary": {
     "eventCount": 746,
@@ -1618,8 +1618,8 @@
     },
     "sigupactive": {
       "0": 51,
-      "1": 16,
-      "2": 679
+      "1": 14,
+      "2": 681
     },
     "groups": {
       "成年组": 85,
@@ -1641,21 +1641,21 @@
       "少年U16": 7,
       "儿童U10": 7,
       "儿童U12": 7,
-      "老将组": 136,
+      "老将组": 135,
       "儿童组": 1,
       "少年组": 6,
       "A组U19": 9,
       "U19团体": 12,
       "B组U19": 3,
-      "公开组": 300,
+      "公开组": 301,
       "U10": 498,
       "U12": 497,
       "U14": 496,
       "U16": 489,
-      "17+": 345,
+      "17+": 344,
       "U8": 417,
-      "U6": 329,
-      "年龄开放组": 71,
+      "U6": 330,
+      "年龄开放组": 70,
       "精英U16": 1,
       "A组U14": 10,
       "男子40+": 7,
@@ -18251,7 +18251,7 @@
       "organizer": "HEBCZJX0001",
       "mainOrganizer": "沧州市击剑协会",
       "sportactive": "0",
-      "sigupactive": "1",
+      "sigupactive": "2",
       "raceResType": "json",
       "weaponCodes": "F#E#S",
       "groups": [
@@ -31133,7 +31133,7 @@
       "organizer": "盐城市击剑运动协会",
       "mainOrganizer": "江苏省击剑运动协会",
       "sportactive": "0",
-      "sigupactive": "1",
+      "sigupactive": "2",
       "raceResType": "json",
       "weaponCodes": null,
       "groups": [
@@ -43982,6 +43982,10 @@
       "weaponCodes": "F#E#S",
       "groups": [
         {
+          "groupCode": "U6",
+          "groupName": "U6"
+        },
+        {
           "groupCode": "U8",
           "groupName": "U8"
         },
@@ -44002,27 +44006,18 @@
           "groupName": "U16"
         },
         {
-          "groupCode": "U17s",
-          "groupName": "17+"
-        },
-        {
           "groupCode": "COPEN",
-          "groupName": "年龄开放组"
-        },
-        {
-          "groupCode": "U40s",
-          "groupName": "老将组"
+          "groupName": "公开组"
         }
       ],
       "groupLabels": [
+        "U6",
         "U8",
         "U10",
         "U12",
         "U14",
         "U16",
-        "17+",
-        "年龄开放组",
-        "老将组"
+        "公开组"
       ],
       "files": [
         {
