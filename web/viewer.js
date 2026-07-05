@@ -4577,11 +4577,42 @@ function renderAiWorkspace() {
   `;
 }
 
+function renderAiLoadingState(query = '') {
+  const label = String(query || '').trim();
+  return `
+    <div class="ai-loading-card" role="status" aria-live="polite">
+      <div class="ai-loading-head">
+        <strong>正在分析</strong>
+        <span>${escapeHtml(label || '正在匹配问题')}</span>
+      </div>
+      <div class="ai-loading-steps">
+        <span>识别问题意图</span>
+        <span>匹配赛事和画像</span>
+        <span>整理可追溯结论</span>
+      </div>
+      <div class="ai-skeleton-block">
+        <i></i>
+        <i></i>
+        <i></i>
+      </div>
+      <div class="ai-skeleton-grid">
+        <i></i>
+        <i></i>
+      </div>
+    </div>
+  `;
+}
+
 function bindAiWorkspace(container) {
   const form = container.querySelector('#aiQueryForm');
   const input = container.querySelector('#aiQueryInput');
   const answer = container.querySelector('#aiAnswer');
+  const submitButton = form?.querySelector('button[type="submit"]');
   if (!form || !input || !answer) return;
+  if (submitButton) {
+    submitButton.textContent = '开始分析';
+    submitButton.dataset.aiSubmit = 'true';
+  }
 
   const bindAnswer = (report) => {
     const card = answer.querySelector('.ai-answer-card');
@@ -4607,7 +4638,13 @@ function bindAiWorkspace(container) {
     }
 
     answer.classList.add('has-answer');
+    form.classList.add('is-submitting');
+    if (submitButton) {
+      submitButton.disabled = true;
+      submitButton.textContent = '分析中';
+    }
     answer.innerHTML = '<div class="loading-row">正在匹配相关画像</div>';
+    answer.innerHTML = renderAiLoadingState(normalizedQuery);
     scrollToResultPanel(answer, 'auto');
     try {
       await ensureAiEntityContext(normalizedQuery);
@@ -4626,6 +4663,12 @@ function bindAiWorkspace(container) {
       answer.innerHTML = renderAiAnswer(report);
       bindAnswer(report);
       scrollToResultPanel(answer);
+    } finally {
+      form.classList.remove('is-submitting');
+      if (submitButton) {
+        submitButton.disabled = false;
+        submitButton.textContent = '开始分析';
+      }
     }
   };
 

@@ -61,6 +61,11 @@ assert.match(js, /function parentNextFocusRows\(model\)/, 'parent dashboard must
 assert.match(js, /下一步关注点/, 'parent dashboard must show actionable next-step focus copy');
 assert.match(js, /class="parent-next-focus"/, 'parent dashboard must render next focus rows');
 assert.match(js, /function renderAiWorkspace\(\)/, 'home page must include an AI workspace renderer');
+assert.match(js, /function renderAiLoadingState\(query = ''\)/, 'AI question submission must render a structured loading state');
+assert.match(js, /submitButton\.textContent = '开始分析'/, 'AI home CTA must be relabeled to an action-oriented analysis CTA');
+assert.match(js, /answer\.innerHTML = renderAiLoadingState\(normalizedQuery\);[\s\S]*scrollToResultPanel\(answer, 'auto'\);/, 'AI question submission must immediately show a skeleton state and move the viewport to it');
+assert.match(js, /submitButton\.disabled = true;[\s\S]*submitButton\.textContent = '分析中'/, 'AI question submission must disable the CTA while loading');
+assert.match(js, /finally \{[\s\S]*submitButton\.disabled = false;[\s\S]*submitButton\.textContent = '开始分析'/, 'AI question submission must restore the CTA after loading');
 assert.match(js, /homePage\.innerHTML = `\s*<div class="home-dashboard">\s*\$\{renderAiWorkspace\('home'\)\}/, 'home page must start the dashboard with the AI question workspace');
 assert.match(js, /<section class="panel ai-home-primary">[\s\S]*<\/section>\s*<div class="ai-answer" id="aiAnswer">/, 'AI answers must render outside the dark home entry panel');
 assert.doesNotMatch(js, /问 FencingAI/, 'home hero must not repeat the topbar product name');
@@ -405,6 +410,10 @@ assert.match(css, /\.bottom-nav button:not\(\[aria-current="page"\]\)/, 'bottom 
 assert.match(css, /background: transparent !important/, 'non-current bottom tabs must not keep touch or focus selected backgrounds');
 assert.match(css, /\.ai-workspace/, 'AI workspace styles must exist');
 assert.match(css, /\.ai-home-primary/, 'AI home entry must have primary visual treatment');
+assert.match(css, /\.ai-loading-card/, 'AI loading card styles must exist');
+assert.match(css, /\.ai-loading-steps/, 'AI loading progress steps must exist');
+assert.match(css, /\.ai-skeleton-block/, 'AI loading skeleton block styles must exist');
+assert.match(css, /@keyframes aiSkeletonSweep/, 'AI loading skeleton must have a shimmer animation');
 assert.match(css, /\.home-saved-list/, 'home recent analysis section styles must exist');
 assert.match(css, /\.home-action-grid/, 'home action entry styles must exist');
 assert.match(css, /\.data-value-grid/, 'home data value entry styles must exist');

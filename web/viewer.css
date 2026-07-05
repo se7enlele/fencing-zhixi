@@ -1595,6 +1595,130 @@ select:focus {
   padding: 11px;
 }
 
+.ai-query-form.is-submitting button,
+.ai-query-form button:disabled {
+  cursor: progress;
+  opacity: 0.82;
+}
+
+.ai-loading-card {
+  display: grid;
+  gap: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(8, 119, 96, 0.12);
+  border-radius: 12px;
+  background: linear-gradient(180deg, rgba(248, 252, 251, 0.98), #fff);
+  padding: 12px;
+  box-shadow: 0 12px 28px rgba(15, 37, 64, 0.06);
+}
+
+.ai-loading-head {
+  display: grid;
+  gap: 4px;
+}
+
+.ai-loading-head strong {
+  color: var(--teal);
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.ai-loading-head span {
+  overflow: hidden;
+  color: var(--text);
+  font-size: 17px;
+  font-weight: 900;
+  line-height: 1.35;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ai-loading-steps {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.ai-loading-steps span {
+  position: relative;
+  min-width: 0;
+  border-radius: 999px;
+  background: rgba(13, 125, 103, 0.08);
+  color: var(--teal);
+  font-size: 11px;
+  font-weight: 900;
+  line-height: 1.25;
+  padding: 7px 8px 7px 20px;
+}
+
+.ai-loading-steps span::before {
+  content: "";
+  position: absolute;
+  left: 8px;
+  top: 50%;
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: currentColor;
+  transform: translateY(-50%);
+}
+
+.ai-skeleton-block,
+.ai-skeleton-grid {
+  display: grid;
+  gap: 8px;
+}
+
+.ai-skeleton-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.ai-skeleton-block i,
+.ai-skeleton-grid i {
+  display: block;
+  overflow: hidden;
+  border-radius: 10px;
+  background: linear-gradient(90deg, rgba(226, 237, 244, 0.9), rgba(248, 252, 251, 0.96), rgba(226, 237, 244, 0.9));
+  background-size: 220% 100%;
+  animation: aiSkeletonSweep 1.15s ease-in-out infinite;
+}
+
+.ai-skeleton-block i {
+  height: 13px;
+}
+
+.ai-skeleton-block i:nth-child(1) {
+  width: 78%;
+}
+
+.ai-skeleton-block i:nth-child(2) {
+  width: 92%;
+}
+
+.ai-skeleton-block i:nth-child(3) {
+  width: 58%;
+}
+
+.ai-skeleton-grid i {
+  height: 58px;
+}
+
+@keyframes aiSkeletonSweep {
+  0% {
+    background-position: 120% 0;
+  }
+  100% {
+    background-position: -120% 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ai-skeleton-block i,
+  .ai-skeleton-grid i {
+    animation: none;
+  }
+}
+
 .ai-answer-head {
   display: grid;
   gap: 4px;
