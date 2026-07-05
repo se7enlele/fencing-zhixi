@@ -16,9 +16,13 @@ import { compactCompetitionIndex } from './tools/competition-index.mjs';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PORT = Number(process.env.PORT ?? 5177);
 const MAX_BODY_BYTES = 20 * 1024 * 1024;
+const MAX_PROFILE_BODY_BYTES = 160 * 1024;
+const LOGIN_RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000;
+const LOGIN_RATE_LIMIT_MAX = 12;
+const AUTH_SESSION_TTL_MS = 90 * 24 * 60 * 60 * 1000;
 const APP_VERSION = 'fencingai-product-20260528-1';
 const ADMIN_TOKEN = process.env.FENCINGAI_ADMIN_TOKEN || 'fencingai-admin-2026';
-let memoryFollowStore = { devices: {}, feedback: [], users: {}, identityIndex: {}, sessions: {} };
+let memoryFollowStore = { devices: {}, feedback: [], users: {}, identityIndex: {}, sessions: {}, authAttempts: {} };
 
 const MIME_TYPES = {
   '.html': 'text/html; charset=utf-8',
@@ -401,7 +405,30 @@ function ensureUserStoreShape(store) {
   store.users ||= {};
   store.identityIndex ||= {};
   store.sessions ||= {};
+  store.authAttempts ||= {};
   return store;
+}
+
+function authCapabilities() {
+  return {
+    provider: 'passwordless',
+    sessionDays: Math.round(AUTH_SESSION_TTL_MS / (24 * 60 * 60 * 1000)),
+    loginWindowMinutes: Math.round(LOGIN_RATE_LIMIT_WINDOW_MS / (60 * 1000)),
+    loginWindowMax: LOGIN_RATE_LIMIT_MAX,
+    profileMaxBytes: MAX_PROFILE_BODY_BYTES,
+    limits: {
+      follows: 30,
+      followedCompetitions: 30,
+      recentItems: 20,
+      reportHistory: 12,
+      aiHistory: 10,
+      commercialIntents: 10,
+    },
+    wechat: {
+      status: 'reserved',
+      message: '微信登录已预留接口，正式接入后可绑定当前账号。',
+    },
+  };
 }
 
 function userFromRecord(record) {
@@ -422,21 +449,82 @@ function getBearerToken(request) {
   return match ? match[1].trim() : '';
 }
 
+function requestClientKey(request, identityKey = '') {
+  const forwarded = String(request.headers['x-forwarded-for'] || request.headers['X-Forwarded-For'] || '').split(',')[0].trim();
+  const remote = request.socket?.remoteAddress || '';
+  return hashText(`${identityKey}:${forwarded || remote || 'local'}`).slice(0, 24);
+}
+
+function pruneAuthAttempts(store, now = Date.now()) {
+  for (const [key, record] of Object.entries(store.authAttempts || {})) {
+    if (!record?.firstAt || now - Number(record.firstAt) > LOGIN_RATE_LIMIT_WINDOW_MS) {
+      delete store.authAttempts[key];
+    }
+  }
+}
+
+function assertLoginAllowed(store, request, identityKey) {
+  const now = Date.now();
+  pruneAuthAttempts(store, now);
+  const key = requestClientKey(request, identityKey);
+  const current = store.authAttempts[key] || { count: 0, firstAt: now };
+  current.count += 1;
+  store.authAttempts[key] = current;
+  if (current.count > LOGIN_RATE_LIMIT_MAX) {
+    const retryAfterMs = Math.max(0, LOGIN_RATE_LIMIT_WINDOW_MS - (now - Number(current.firstAt || now)));
+    const retryAfterMinutes = Math.max(1, Math.ceil(retryAfterMs / 60000));
+    return { ok: false, statusCode: 429, message: `登录尝试过于频繁，请约 ${retryAfterMinutes} 分钟后再试。` };
+  }
+  return { ok: true };
+}
+
+function profilePayloadTooLarge(body) {
+  return Buffer.byteLength(JSON.stringify(body || {}), 'utf8') > MAX_PROFILE_BODY_BYTES;
+}
+
+function sanitizeProfileRows(rows, limit) {
+  if (!Array.isArray(rows)) return [];
+  return rows.slice(0, limit).map((row) => {
+    const result = {};
+    for (const [key, value] of Object.entries(row || {}).slice(0, 24)) {
+      if (typeof value === 'string') result[key] = value.slice(0, 500);
+      else if (typeof value === 'number' || typeof value === 'boolean' || value == null) result[key] = value;
+      else if (Array.isArray(value)) result[key] = value.slice(0, 12).map((item) => (typeof item === 'string' ? item.slice(0, 200) : item));
+    }
+    return result;
+  });
+}
+
 function sanitizeUserState(body = {}) {
+  if (profilePayloadTooLarge(body)) {
+    throw new Error('账号数据过大，请减少历史记录后再同步。');
+  }
+  const limits = authCapabilities().limits;
   return {
     role: String(body.role || '').slice(0, 30),
     selectedChildId: String(body.selectedChildId || '').slice(0, 120),
-    follows: Array.isArray(body.follows) ? body.follows.slice(0, 30) : [],
-    followedCompetitions: Array.isArray(body.followedCompetitions) ? body.followedCompetitions.slice(0, 30) : [],
-    recentItems: Array.isArray(body.recentItems) ? body.recentItems.slice(0, 20) : [],
-    reportHistory: Array.isArray(body.reportHistory) ? body.reportHistory.slice(0, 12) : [],
-    aiHistory: Array.isArray(body.aiHistory) ? body.aiHistory.slice(0, 10) : [],
-    commercialIntents: Array.isArray(body.commercialIntents) ? body.commercialIntents.slice(0, 10) : [],
+    follows: sanitizeProfileRows(body.follows, limits.follows),
+    followedCompetitions: sanitizeProfileRows(body.followedCompetitions, limits.followedCompetitions),
+    recentItems: sanitizeProfileRows(body.recentItems, limits.recentItems),
+    reportHistory: sanitizeProfileRows(body.reportHistory, limits.reportHistory),
+    aiHistory: sanitizeProfileRows(body.aiHistory, limits.aiHistory),
+    commercialIntents: sanitizeProfileRows(body.commercialIntents, limits.commercialIntents),
   };
 }
 
 function profileFromUser(user) {
   return sanitizeUserState(user?.profile || {});
+}
+
+function profileSummary(profile = {}) {
+  return {
+    follows: Array.isArray(profile.follows) ? profile.follows.length : 0,
+    followedCompetitions: Array.isArray(profile.followedCompetitions) ? profile.followedCompetitions.length : 0,
+    recentItems: Array.isArray(profile.recentItems) ? profile.recentItems.length : 0,
+    reportHistory: Array.isArray(profile.reportHistory) ? profile.reportHistory.length : 0,
+    aiHistory: Array.isArray(profile.aiHistory) ? profile.aiHistory.length : 0,
+    commercialIntents: Array.isArray(profile.commercialIntents) ? profile.commercialIntents.length : 0,
+  };
 }
 
 async function readFollowStore() {
@@ -466,6 +554,11 @@ async function readAuthUserFromRequest(request) {
   const store = await readFollowStore();
   const session = store.sessions[token];
   if (!session?.userId) return null;
+  if (session.expiresAt && Date.parse(session.expiresAt) < Date.now()) {
+    delete store.sessions[token];
+    await writeFollowStore(store);
+    return null;
+  }
   const user = store.users[session.userId];
   if (!user) return null;
   return { store, token, session, user };
@@ -478,6 +571,12 @@ async function handleAuthLogin(request, response) {
     const code = normalizeLoginCode(body.code);
     const now = new Date().toISOString();
     const store = await readFollowStore();
+    const loginGate = assertLoginAllowed(store, request, identityKey);
+    await writeFollowStore(store);
+    if (!loginGate.ok) {
+      sendJson(response, loginGate.statusCode, { ok: false, message: loginGate.message });
+      return;
+    }
     let userId = store.identityIndex[identityKey];
     let isNew = false;
     if (!userId) {
@@ -503,7 +602,7 @@ async function handleAuthLogin(request, response) {
     }
     user.lastLoginAt = now;
     const token = authToken();
-    store.sessions[token] = { userId, createdAt: now, lastSeenAt: now };
+    store.sessions[token] = { userId, createdAt: now, lastSeenAt: now, expiresAt: new Date(Date.now() + AUTH_SESSION_TTL_MS).toISOString() };
     await writeFollowStore(store);
     sendJson(response, 200, {
       ok: true,
@@ -512,9 +611,11 @@ async function handleAuthLogin(request, response) {
       token,
       user: userFromRecord(user),
       profile: profileFromUser(user),
+      capabilities: authCapabilities(),
+      profileSummary: profileSummary(profileFromUser(user)),
     });
   } catch (error) {
-    sendJson(response, 400, { ok: false, message: error.message });
+    sendJson(response, error.statusCode || 400, { ok: false, message: error.message });
   }
 }
 
@@ -525,12 +626,16 @@ async function handleAuthMe(request, response) {
     return;
   }
   auth.session.lastSeenAt = new Date().toISOString();
+  auth.session.expiresAt = new Date(Date.now() + AUTH_SESSION_TTL_MS).toISOString();
   await writeFollowStore(auth.store);
+  const profile = profileFromUser(auth.user);
   sendJson(response, 200, {
     ok: true,
     version: APP_VERSION,
     user: userFromRecord(auth.user),
-    profile: profileFromUser(auth.user),
+    profile,
+    capabilities: authCapabilities(),
+    profileSummary: profileSummary(profile),
   });
 }
 
@@ -545,16 +650,67 @@ async function handleSaveUserProfile(request, response) {
     auth.user.profile = sanitizeUserState(body);
     auth.user.updatedAt = new Date().toISOString();
     auth.session.lastSeenAt = auth.user.updatedAt;
+    auth.session.expiresAt = new Date(Date.now() + AUTH_SESSION_TTL_MS).toISOString();
     await writeFollowStore(auth.store);
+    const profile = profileFromUser(auth.user);
     sendJson(response, 200, {
       ok: true,
       version: APP_VERSION,
       user: userFromRecord(auth.user),
-      profile: profileFromUser(auth.user),
+      profile,
+      capabilities: authCapabilities(),
+      profileSummary: profileSummary(profile),
     });
   } catch (error) {
     sendJson(response, 400, { ok: false, message: error.message });
   }
+}
+
+async function handleExportUserProfile(request, response) {
+  const auth = await readAuthUserFromRequest(request);
+  if (!auth) {
+    sendJson(response, 401, { ok: false, message: '未登录。' });
+    return;
+  }
+  const profile = profileFromUser(auth.user);
+  sendJson(response, 200, {
+    ok: true,
+    version: APP_VERSION,
+    exportedAt: new Date().toISOString(),
+    user: userFromRecord(auth.user),
+    profile,
+    profileSummary: profileSummary(profile),
+    capabilities: authCapabilities(),
+  });
+}
+
+async function handleClearUserProfile(request, response) {
+  const auth = await readAuthUserFromRequest(request);
+  if (!auth) {
+    sendJson(response, 401, { ok: false, message: '未登录。' });
+    return;
+  }
+  auth.user.profile = sanitizeUserState({});
+  auth.user.updatedAt = new Date().toISOString();
+  auth.session.lastSeenAt = auth.user.updatedAt;
+  auth.session.expiresAt = new Date(Date.now() + AUTH_SESSION_TTL_MS).toISOString();
+  await writeFollowStore(auth.store);
+  sendJson(response, 200, {
+    ok: true,
+    version: APP_VERSION,
+    user: userFromRecord(auth.user),
+    profile: profileFromUser(auth.user),
+    profileSummary: profileSummary(auth.user.profile),
+    capabilities: authCapabilities(),
+  });
+}
+
+async function handleWechatAuthStatus(response) {
+  sendJson(response, 200, {
+    ok: true,
+    version: APP_VERSION,
+    wechat: authCapabilities().wechat,
+  });
 }
 
 async function handleGetFollows(response, url) {
@@ -2001,8 +2157,23 @@ const server = createServer(async (request, response) => {
     return;
   }
 
+  if (request.method === 'GET' && url.pathname === '/api/auth/wechat/status') {
+    await handleWechatAuthStatus(response);
+    return;
+  }
+
   if (request.method === 'POST' && url.pathname === '/api/me/profile') {
     await handleSaveUserProfile(request, response);
+    return;
+  }
+
+  if (request.method === 'GET' && url.pathname === '/api/me/export') {
+    await handleExportUserProfile(request, response);
+    return;
+  }
+
+  if (request.method === 'DELETE' && url.pathname === '/api/me/profile') {
+    await handleClearUserProfile(request, response);
     return;
   }
 

@@ -128,6 +128,8 @@ const state = {
   athleteDataRequests: [],
   authToken: localStorage.getItem(AUTH_TOKEN_KEY) || '',
   authUser: safeJson(localStorage.getItem(AUTH_USER_KEY), null),
+  authCapabilities: null,
+  accountStatus: '',
   isApplyingUserProfile: false,
   userSyncTimer: null,
   sharedEntry: null,
@@ -249,6 +251,7 @@ async function syncUserProfile() {
     state.authUser = result.user;
     localStorage.setItem(AUTH_USER_KEY, JSON.stringify(result.user));
   }
+  if (result.capabilities) state.authCapabilities = result.capabilities;
   return result;
 }
 
@@ -257,6 +260,7 @@ async function restoreAuthSession() {
   try {
     const result = await fetchJsonWithAuth('/api/auth/me');
     state.authUser = result.user || state.authUser;
+    state.authCapabilities = result.capabilities || state.authCapabilities;
     localStorage.setItem(AUTH_USER_KEY, JSON.stringify(state.authUser));
     applyUserProfile(result.profile || {});
   } catch {
@@ -289,6 +293,8 @@ async function submitAccountLogin(form) {
     if (!response.ok || !result.ok) throw new Error(result.message || '登录失败');
     state.authToken = result.token;
     state.authUser = result.user;
+    state.authCapabilities = result.capabilities || state.authCapabilities;
+    state.accountStatus = result.isNew ? '账号已创建，本机内容已同步。' : '已登录，本机内容已同步。';
     localStorage.setItem(AUTH_TOKEN_KEY, state.authToken);
     localStorage.setItem(AUTH_USER_KEY, JSON.stringify(state.authUser));
     applyUserProfile(result.profile || {});
@@ -306,6 +312,8 @@ async function submitAccountLogin(form) {
 function logoutAccount() {
   state.authToken = '';
   state.authUser = null;
+  state.authCapabilities = null;
+  state.accountStatus = '';
   localStorage.removeItem(AUTH_TOKEN_KEY);
   localStorage.removeItem(AUTH_USER_KEY);
   renderPersonalPages();
@@ -351,6 +359,148 @@ function renderAccountPanel() {
       </form>
     </section>
   `;
+}
+
+function accountProfileCounts() {
+  return {
+    follows: (state.followedAthletes || []).length,
+    followedCompetitions: (state.followedCompetitions || []).length,
+    reports: (state.reportHistory || []).length,
+    aiHistory: (state.aiHistory || []).length,
+  };
+}
+
+function renderAccountPanelV2() {
+  const caps = state.authCapabilities || {};
+  const limits = caps.limits || {};
+  const counts = accountProfileCounts();
+  if (state.authUser) {
+    return `
+      <section class="panel my-section account-panel account-center-panel">
+        <div class="section-title">
+          <h2>账号中心</h2>
+          <span>已登录</span>
+        </div>
+        <div class="account-center-head">
+          <div>
+            <strong>${escapeHtml(state.authUser.displayName || state.authUser.identifier || '已登录用户')}</strong>
+            <span>${escapeHtml(state.authUser.provider === 'wechat' ? '微信账号' : '手机号 / 邮箱账号')}</span>
+          </div>
+          <button type="button" data-account-logout>退出</button>
+        </div>
+        <div class="account-data-grid">
+          <div><strong>${counts.follows}</strong><span>关注选手</span></div>
+          <div><strong>${counts.followedCompetitions}</strong><span>关注赛事</span></div>
+          <div><strong>${counts.reports}</strong><span>报告</span></div>
+          <div><strong>${counts.aiHistory}</strong><span>AI 历史</span></div>
+        </div>
+        <div class="account-policy-box">
+          <strong>数据保护</strong>
+          <span>账号数据独立保存；未登录状态不能写入账号资料。当前限制：关注选手 ${limits.follows || 30} 个、关注赛事 ${limits.followedCompetitions || 30} 个、报告 ${limits.reportHistory || 12} 份。</span>
+        </div>
+        <div class="account-action-row">
+          <button type="button" data-account-export>导出账号数据</button>
+          <button type="button" data-account-clear>清空账号数据</button>
+          <button type="button" data-wechat-login>绑定微信</button>
+        </div>
+        ${state.accountStatus ? `<p class="account-status-line">${escapeHtml(state.accountStatus)}</p>` : ''}
+      </section>
+    `;
+  }
+  return `
+    <section class="panel my-section account-panel account-center-panel">
+      <div class="section-title">
+        <h2>账号中心</h2>
+        <span>第二阶段</span>
+      </div>
+      <div class="account-value-list">
+        <div><strong>保存关注和报告</strong><span>换设备后可以继续查看关注选手、赛事提醒和历史分析。</span></div>
+        <div><strong>保护个人数据</strong><span>账号资料需要登录后才能写入，公开赛事数据仍可直接浏览。</span></div>
+        <div><strong>预留微信登录</strong><span>后续接入微信后，可把当前账号绑定到微信身份。</span></div>
+      </div>
+      <form class="account-login-form" data-account-login>
+        <label>
+          <span>手机号或邮箱</span>
+          <input name="identifier" type="text" autocomplete="username" placeholder="用于找回关注、报告和历史">
+        </label>
+        <label>
+          <span>登录码</span>
+          <input name="code" type="password" autocomplete="current-password" placeholder="至少 6 位，首次输入即创建">
+        </label>
+        <button type="submit">登录 / 创建账号</button>
+        <em data-account-status>${escapeHtml(state.accountStatus || '登录后，本机关注、历史和报告会同步到账号。')}</em>
+      </form>
+    </section>
+  `;
+}
+
+function downloadJsonFile(fileName, data) {
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = fileName;
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  URL.revokeObjectURL(url);
+}
+
+async function exportAccountData(button) {
+  if (!state.authToken) return;
+  const original = button?.textContent || '';
+  if (button) button.textContent = '正在导出';
+  try {
+    const result = await fetchJsonWithAuth('/api/me/export');
+    downloadJsonFile(`fencingai-account-${new Date().toISOString().slice(0, 10)}.json`, result);
+    state.accountStatus = '账号数据已导出。';
+    trackAnalyticsAction('account_export', 'profile');
+  } catch (error) {
+    state.accountStatus = error.message || '导出失败。';
+  } finally {
+    if (button) button.textContent = original;
+    renderPersonalPages();
+  }
+}
+
+async function clearAccountData(button) {
+  if (!state.authToken) return;
+  if (!window.confirm('确认清空账号内的关注、报告和历史记录？本机当前页面也会同步清空。')) return;
+  const original = button?.textContent || '';
+  if (button) button.textContent = '正在清空';
+  try {
+    const response = await fetch('/api/me/profile', {
+      method: 'DELETE',
+      headers: authHeaders(),
+    });
+    const result = await response.json();
+    if (!response.ok || !result.ok) throw new Error(result.message || '清空失败。');
+    state.accountStatus = '账号数据已清空。';
+    state.followedAthletes = [];
+    state.followedCompetitions = [];
+    state.recentItems = [];
+    state.reportHistory = [];
+    state.aiHistory = [];
+    state.commercialIntents = [];
+    applyUserProfile(result.profile || {});
+    trackAnalyticsAction('account_clear', 'profile');
+  } catch (error) {
+    state.accountStatus = error.message || '清空失败。';
+  } finally {
+    if (button) button.textContent = original;
+    renderPersonalPages();
+    renderHomePage();
+  }
+}
+
+async function showWechatAuthStatus() {
+  try {
+    const result = await fetchJson('/api/auth/wechat/status');
+    state.accountStatus = result.wechat?.message || '微信登录已预留，正式接入后可绑定当前账号。';
+  } catch (error) {
+    state.accountStatus = error.message || '微信登录状态读取失败。';
+  }
+  renderPersonalPages();
 }
 
 function friendlyErrorMessage(scope) {
@@ -6598,7 +6748,7 @@ function renderMyPage() {
       `).join('')}
     </section>
 
-    ${renderAccountPanel()}
+    ${renderAccountPanelV2()}
 
     <section class="panel my-section my-next-section">
       <div class="section-title">
@@ -6855,6 +7005,9 @@ function renderMyPage() {
     submitAccountLogin(event.currentTarget);
   });
   myPage.querySelector('[data-account-logout]')?.addEventListener('click', () => logoutAccount());
+  myPage.querySelector('[data-account-export]')?.addEventListener('click', (event) => exportAccountData(event.currentTarget));
+  myPage.querySelector('[data-account-clear]')?.addEventListener('click', (event) => clearAccountData(event.currentTarget));
+  myPage.querySelector('[data-wechat-login]')?.addEventListener('click', () => showWechatAuthStatus());
   myPage.querySelectorAll('[data-athlete-id]').forEach((button) => {
     button.addEventListener('click', () => openAthlete(button.dataset.athleteId));
   });

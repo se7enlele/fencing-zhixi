@@ -148,6 +148,51 @@ try {
   if (!authMe.ok || !authMeResult.ok || authMeResult.profile?.follows?.[0]?.id !== athleteId) {
     throw new Error(authMeResult.message || `auth me status ${authMe.status}`);
   }
+  if (!authMeResult.capabilities?.limits?.follows || !authMeResult.profileSummary || authMeResult.profileSummary.follows !== 1) {
+    throw new Error('auth capabilities or profile summary missing');
+  }
+
+  const authExport = await fetch(`${baseUrl}/api/me/export`, {
+    headers: { Authorization: `Bearer ${authLoginResult.token}` },
+  });
+  const authExportResult = await authExport.json();
+  if (!authExport.ok || !authExportResult.ok || authExportResult.profile?.follows?.[0]?.id !== athleteId) {
+    throw new Error(authExportResult.message || `auth export status ${authExport.status}`);
+  }
+
+  const wechatStatus = await fetch(`${baseUrl}/api/auth/wechat/status`);
+  const wechatStatusResult = await wechatStatus.json();
+  if (!wechatStatus.ok || !wechatStatusResult.ok || wechatStatusResult.wechat?.status !== 'reserved') {
+    throw new Error(wechatStatusResult.message || `wechat status ${wechatStatus.status}`);
+  }
+
+  const oversizedProfile = await fetch(`${baseUrl}/api/me/profile`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${authLoginResult.token}`,
+    },
+    body: JSON.stringify({ follows: [{ id: 'too-large', name: 'x'.repeat(170 * 1024) }] }),
+  });
+  if (oversizedProfile.status !== 400) {
+    throw new Error(`oversized profile should be 400, got ${oversizedProfile.status}`);
+  }
+
+  for (let attempt = 0; attempt < 13; attempt += 1) {
+    await fetch(`${baseUrl}/api/auth/login`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ identifier: 'rate-limit@example.com', code: '123456' }),
+    });
+  }
+  const rateLimitedLogin = await fetch(`${baseUrl}/api/auth/login`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ identifier: 'rate-limit@example.com', code: '123456' }),
+  });
+  if (rateLimitedLogin.status !== 429) {
+    throw new Error(`auth rate limit should be 429, got ${rateLimitedLogin.status}`);
+  }
 
   const deniedProfile = await fetch(`${baseUrl}/api/me/profile`, {
     method: 'POST',
@@ -156,6 +201,15 @@ try {
   });
   if (deniedProfile.status !== 401) {
     throw new Error(`profile without auth should be 401, got ${deniedProfile.status}`);
+  }
+
+  const authClear = await fetch(`${baseUrl}/api/me/profile`, {
+    method: 'DELETE',
+    headers: { Authorization: `Bearer ${authLoginResult.token}` },
+  });
+  const authClearResult = await authClear.json();
+  if (!authClear.ok || !authClearResult.ok || authClearResult.profileSummary?.follows !== 0) {
+    throw new Error(authClearResult.message || `auth clear status ${authClear.status}`);
   }
 
   const feedbackSave = await fetch(`${baseUrl}/api/feedback`, {

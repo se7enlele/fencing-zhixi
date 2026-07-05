@@ -58,13 +58,48 @@ assert.match(
 );
 assert.match(
   source,
+  /url\.pathname === '\/api\/auth\/wechat\/status' && request\.method === 'GET'[\s\S]{0,160}handleWechatAuthStatus/,
+  'Worker should expose a reserved WeChat auth status endpoint',
+);
+assert.match(
+  source,
   /url\.pathname === '\/api\/me\/profile' && request\.method === 'POST'[\s\S]{0,200}handleSaveUserProfile/,
   'Worker should expose an authenticated user profile sync endpoint',
 );
 assert.match(
   source,
-  /await env\.FOLLOWS\.put\(`session:\$\{token\}`[\s\S]*expirationTtl: 60 \* 60 \* 24 \* 90/,
+  /url\.pathname === '\/api\/me\/export' && request\.method === 'GET'[\s\S]{0,200}handleExportUserProfile/,
+  'Worker should expose an authenticated profile export endpoint',
+);
+assert.match(
+  source,
+  /url\.pathname === '\/api\/me\/profile' && request\.method === 'DELETE'[\s\S]{0,200}handleClearUserProfile/,
+  'Worker should expose an authenticated profile clear endpoint',
+);
+assert.match(
+  source,
+  /const AUTH_SESSION_TTL_SECONDS = 60 \* 60 \* 24 \* 90/,
   'Worker auth sessions should expire instead of living forever',
+);
+assert.match(
+  source,
+  /const LOGIN_RATE_LIMIT_MAX = 12/,
+  'Worker should define a basic login rate limit',
+);
+assert.match(
+  source,
+  /auth-attempt:\$\{await requestClientKey\(request, identityKey\)\}/,
+  'Worker should rate-limit auth attempts by identity and client',
+);
+assert.match(
+  source,
+  /MAX_PROFILE_BODY_BYTES = 160 \* 1024/,
+  'Worker should limit account profile payload size',
+);
+assert.match(
+  source,
+  /function sanitizeProfileRows\(rows, limit\)/,
+  'Worker should sanitize account profile rows before saving',
 );
 assert.match(
   source,

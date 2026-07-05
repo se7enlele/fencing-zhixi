@@ -21,6 +21,10 @@ const ROSTER_INDEX_KEY = 'registration-roster:index';
 const FEEDBACK_INDEX_KEY = 'feedback:index';
 const ANALYTICS_INDEX_KEY = 'analytics:index';
 const MAX_IMPORT_BYTES = 20 * 1024 * 1024;
+const MAX_PROFILE_BODY_BYTES = 160 * 1024;
+const LOGIN_RATE_LIMIT_WINDOW_SECONDS = 10 * 60;
+const LOGIN_RATE_LIMIT_MAX = 12;
+const AUTH_SESSION_TTL_SECONDS = 60 * 60 * 24 * 90;
 const MAX_ANALYTICS_DAYS = 60;
 const MAX_ANALYTICS_DIMENSION_ROWS = 30;
 const NO_STORE_CACHE = 'no-store';
@@ -146,27 +150,99 @@ function userFromRecord(record) {
   };
 }
 
+function authCapabilities() {
+  return {
+    provider: 'passwordless',
+    sessionDays: Math.round(AUTH_SESSION_TTL_SECONDS / (60 * 60 * 24)),
+    loginWindowMinutes: Math.round(LOGIN_RATE_LIMIT_WINDOW_SECONDS / 60),
+    loginWindowMax: LOGIN_RATE_LIMIT_MAX,
+    profileMaxBytes: MAX_PROFILE_BODY_BYTES,
+    limits: {
+      follows: 30,
+      followedCompetitions: 30,
+      recentItems: 20,
+      reportHistory: 12,
+      aiHistory: 10,
+      commercialIntents: 10,
+    },
+    wechat: {
+      status: 'reserved',
+      message: '微信登录已预留接口，正式接入后可绑定当前账号。',
+    },
+  };
+}
+
 function getBearerToken(request) {
   const header = request.headers.get('Authorization') || '';
   const match = String(header).match(/^Bearer\s+(.+)$/i);
   return match ? match[1].trim() : '';
 }
 
+async function requestClientKey(request, identityKey = '') {
+  const forwarded = String(request.headers.get('CF-Connecting-IP') || request.headers.get('X-Forwarded-For') || '').split(',')[0].trim();
+  return (await sha256Hex(`${identityKey}:${forwarded || 'edge'}`)).slice(0, 24);
+}
+
+async function assertLoginAllowed(env, request, identityKey) {
+  if (!env.FOLLOWS) return;
+  const key = `auth-attempt:${await requestClientKey(request, identityKey)}`;
+  const current = await readJsonKv(env.FOLLOWS, key, { count: 0 });
+  const count = Number(current?.count || 0) + 1;
+  await env.FOLLOWS.put(key, JSON.stringify({ count, updatedAt: new Date().toISOString() }), { expirationTtl: LOGIN_RATE_LIMIT_WINDOW_SECONDS });
+  if (count > LOGIN_RATE_LIMIT_MAX) {
+    const error = new Error('登录尝试过于频繁，请稍后再试。');
+    error.statusCode = 429;
+    throw error;
+  }
+}
+
+function profilePayloadTooLarge(body) {
+  return new TextEncoder().encode(JSON.stringify(body || {})).length > MAX_PROFILE_BODY_BYTES;
+}
+
+function sanitizeProfileRows(rows, limit) {
+  if (!Array.isArray(rows)) return [];
+  return rows.slice(0, limit).map((row) => {
+    const result = {};
+    for (const [key, value] of Object.entries(row || {}).slice(0, 24)) {
+      if (typeof value === 'string') result[key] = value.slice(0, 500);
+      else if (typeof value === 'number' || typeof value === 'boolean' || value == null) result[key] = value;
+      else if (Array.isArray(value)) result[key] = value.slice(0, 12).map((item) => (typeof item === 'string' ? item.slice(0, 200) : item));
+    }
+    return result;
+  });
+}
+
 function sanitizeUserState(body = {}) {
+  if (profilePayloadTooLarge(body)) {
+    throw new Error('账号数据过大，请减少历史记录后再同步。');
+  }
+  const limits = authCapabilities().limits;
   return {
     role: String(body.role || '').slice(0, 30),
     selectedChildId: String(body.selectedChildId || '').slice(0, 120),
-    follows: Array.isArray(body.follows) ? body.follows.slice(0, 30) : [],
-    followedCompetitions: Array.isArray(body.followedCompetitions) ? body.followedCompetitions.slice(0, 30) : [],
-    recentItems: Array.isArray(body.recentItems) ? body.recentItems.slice(0, 20) : [],
-    reportHistory: Array.isArray(body.reportHistory) ? body.reportHistory.slice(0, 12) : [],
-    aiHistory: Array.isArray(body.aiHistory) ? body.aiHistory.slice(0, 10) : [],
-    commercialIntents: Array.isArray(body.commercialIntents) ? body.commercialIntents.slice(0, 10) : [],
+    follows: sanitizeProfileRows(body.follows, limits.follows),
+    followedCompetitions: sanitizeProfileRows(body.followedCompetitions, limits.followedCompetitions),
+    recentItems: sanitizeProfileRows(body.recentItems, limits.recentItems),
+    reportHistory: sanitizeProfileRows(body.reportHistory, limits.reportHistory),
+    aiHistory: sanitizeProfileRows(body.aiHistory, limits.aiHistory),
+    commercialIntents: sanitizeProfileRows(body.commercialIntents, limits.commercialIntents),
   };
 }
 
 function profileFromUser(user) {
   return sanitizeUserState(user?.profile || {});
+}
+
+function profileSummary(profile = {}) {
+  return {
+    follows: Array.isArray(profile.follows) ? profile.follows.length : 0,
+    followedCompetitions: Array.isArray(profile.followedCompetitions) ? profile.followedCompetitions.length : 0,
+    recentItems: Array.isArray(profile.recentItems) ? profile.recentItems.length : 0,
+    reportHistory: Array.isArray(profile.reportHistory) ? profile.reportHistory.length : 0,
+    aiHistory: Array.isArray(profile.aiHistory) ? profile.aiHistory.length : 0,
+    commercialIntents: Array.isArray(profile.commercialIntents) ? profile.commercialIntents.length : 0,
+  };
 }
 
 async function readJsonKv(kv, key, fallback = null) {
@@ -315,6 +391,7 @@ async function handleAuthLogin(request, env) {
   const identityKey = normalizeAuthIdentifier(body.identifier);
   const code = normalizeLoginCode(body.code);
   const now = new Date().toISOString();
+  await assertLoginAllowed(env, request, identityKey);
   let userId = await env.FOLLOWS.get(`identity:${identityKey}`);
   let isNew = false;
   if (!userId) {
@@ -342,14 +419,17 @@ async function handleAuthLogin(request, env) {
   user.lastLoginAt = now;
   const token = authToken();
   await env.FOLLOWS.put(`user:${userId}`, JSON.stringify(user));
-  await env.FOLLOWS.put(`session:${token}`, JSON.stringify({ userId, createdAt: now, lastSeenAt: now }), { expirationTtl: 60 * 60 * 24 * 90 });
+  await env.FOLLOWS.put(`session:${token}`, JSON.stringify({ userId, createdAt: now, lastSeenAt: now }), { expirationTtl: AUTH_SESSION_TTL_SECONDS });
+  const profile = profileFromUser(user);
   return json({
     ok: true,
     version: APP_VERSION,
     isNew,
     token,
     user: userFromRecord(user),
-    profile: profileFromUser(user),
+    profile,
+    profileSummary: profileSummary(profile),
+    capabilities: authCapabilities(),
   });
 }
 
@@ -357,12 +437,15 @@ async function handleAuthMe(request, env) {
   const auth = await readAuthUserFromRequest(request, env);
   if (!auth) return json({ ok: false, message: '未登录。' }, 401);
   auth.session.lastSeenAt = new Date().toISOString();
-  await env.FOLLOWS.put(`session:${auth.token}`, JSON.stringify(auth.session), { expirationTtl: 60 * 60 * 24 * 90 });
+  await env.FOLLOWS.put(`session:${auth.token}`, JSON.stringify(auth.session), { expirationTtl: AUTH_SESSION_TTL_SECONDS });
+  const profile = profileFromUser(auth.user);
   return json({
     ok: true,
     version: APP_VERSION,
     user: userFromRecord(auth.user),
-    profile: profileFromUser(auth.user),
+    profile,
+    profileSummary: profileSummary(profile),
+    capabilities: authCapabilities(),
   });
 }
 
@@ -373,12 +456,56 @@ async function handleSaveUserProfile(request, env) {
   auth.user.profile = sanitizeUserState(body);
   auth.user.updatedAt = new Date().toISOString();
   await env.FOLLOWS.put(`user:${auth.user.id}`, JSON.stringify(auth.user));
-  await env.FOLLOWS.put(`session:${auth.token}`, JSON.stringify({ ...auth.session, lastSeenAt: auth.user.updatedAt }), { expirationTtl: 60 * 60 * 24 * 90 });
+  await env.FOLLOWS.put(`session:${auth.token}`, JSON.stringify({ ...auth.session, lastSeenAt: auth.user.updatedAt }), { expirationTtl: AUTH_SESSION_TTL_SECONDS });
+  const profile = profileFromUser(auth.user);
   return json({
     ok: true,
     version: APP_VERSION,
     user: userFromRecord(auth.user),
-    profile: profileFromUser(auth.user),
+    profile,
+    profileSummary: profileSummary(profile),
+    capabilities: authCapabilities(),
+  });
+}
+
+async function handleExportUserProfile(request, env) {
+  const auth = await readAuthUserFromRequest(request, env);
+  if (!auth) return json({ ok: false, message: '未登录。' }, 401);
+  const profile = profileFromUser(auth.user);
+  return json({
+    ok: true,
+    version: APP_VERSION,
+    exportedAt: new Date().toISOString(),
+    user: userFromRecord(auth.user),
+    profile,
+    profileSummary: profileSummary(profile),
+    capabilities: authCapabilities(),
+  });
+}
+
+async function handleClearUserProfile(request, env) {
+  const auth = await readAuthUserFromRequest(request, env);
+  if (!auth) return json({ ok: false, message: '未登录。' }, 401);
+  auth.user.profile = sanitizeUserState({});
+  auth.user.updatedAt = new Date().toISOString();
+  await env.FOLLOWS.put(`user:${auth.user.id}`, JSON.stringify(auth.user));
+  await env.FOLLOWS.put(`session:${auth.token}`, JSON.stringify({ ...auth.session, lastSeenAt: auth.user.updatedAt }), { expirationTtl: AUTH_SESSION_TTL_SECONDS });
+  const profile = profileFromUser(auth.user);
+  return json({
+    ok: true,
+    version: APP_VERSION,
+    user: userFromRecord(auth.user),
+    profile,
+    profileSummary: profileSummary(profile),
+    capabilities: authCapabilities(),
+  });
+}
+
+function handleWechatAuthStatus() {
+  return json({
+    ok: true,
+    version: APP_VERSION,
+    wechat: authCapabilities().wechat,
   });
 }
 
@@ -1084,7 +1211,7 @@ async function routeApi(request, env, url) {
     try {
       return await handleAuthLogin(request, env);
     } catch (error) {
-      return json({ ok: false, message: error.message }, 400);
+      return json({ ok: false, message: error.message }, error.statusCode || 400);
     }
   }
 
@@ -1096,9 +1223,29 @@ async function routeApi(request, env, url) {
     }
   }
 
+  if (url.pathname === '/api/auth/wechat/status' && request.method === 'GET') {
+    return handleWechatAuthStatus();
+  }
+
   if (url.pathname === '/api/me/profile' && request.method === 'POST') {
     try {
       return await handleSaveUserProfile(request, env);
+    } catch (error) {
+      return json({ ok: false, message: error.message }, 400);
+    }
+  }
+
+  if (url.pathname === '/api/me/export' && request.method === 'GET') {
+    try {
+      return await handleExportUserProfile(request, env);
+    } catch (error) {
+      return json({ ok: false, message: error.message }, 400);
+    }
+  }
+
+  if (url.pathname === '/api/me/profile' && request.method === 'DELETE') {
+    try {
+      return await handleClearUserProfile(request, env);
     } catch (error) {
       return json({ ok: false, message: error.message }, 400);
     }

@@ -2093,6 +2093,151 @@ select:focus {
   color: var(--teal);
 }
 
+.account-center-panel {
+  display: grid;
+  gap: 12px;
+}
+
+.account-center-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: center;
+}
+
+.account-center-head strong,
+.account-center-head span {
+  display: block;
+  min-width: 0;
+}
+
+.account-center-head strong {
+  overflow: hidden;
+  color: var(--text);
+  font-size: 16px;
+  font-weight: 900;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.account-center-head span {
+  margin-top: 3px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.account-center-head button {
+  min-height: 34px;
+  border: 1px solid rgba(13, 125, 103, 0.16);
+  border-radius: 999px;
+  background: rgba(13, 125, 103, 0.08);
+  color: var(--teal);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 900;
+  padding: 0 12px;
+}
+
+.account-data-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 7px;
+}
+
+.account-data-grid div {
+  min-width: 0;
+  border: 1px solid rgba(13, 125, 103, 0.12);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.78);
+  padding: 9px 8px;
+}
+
+.account-data-grid strong,
+.account-data-grid span {
+  display: block;
+}
+
+.account-data-grid strong {
+  font-size: 18px;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.account-data-grid span {
+  margin-top: 5px;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.25;
+}
+
+.account-policy-box,
+.account-value-list div {
+  border: 1px solid rgba(13, 125, 103, 0.12);
+  border-radius: 12px;
+  background: rgba(236, 253, 245, 0.58);
+  padding: 11px 12px;
+}
+
+.account-policy-box strong,
+.account-policy-box span,
+.account-value-list strong,
+.account-value-list span {
+  display: block;
+}
+
+.account-policy-box strong,
+.account-value-list strong {
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.account-policy-box span,
+.account-value-list span {
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.account-value-list {
+  display: grid;
+  gap: 8px;
+}
+
+.account-action-row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.account-action-row button {
+  min-height: 36px;
+  border: 1px solid rgba(13, 125, 103, 0.14);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--teal);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 900;
+  padding: 0 8px;
+}
+
+.account-action-row button:first-child {
+  background: var(--teal);
+  color: #fff;
+}
+
+.account-status-line {
+  margin: 0;
+  border-radius: 10px;
+  background: rgba(21, 95, 194, 0.08);
+  color: var(--primary);
+  font-size: 12px;
+  line-height: 1.45;
+  padding: 9px 10px;
+}
+
 .my-next-section {
   border-color: rgba(8, 119, 96, 0.14);
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(247, 252, 251, 0.94));
