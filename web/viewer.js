@@ -4220,7 +4220,148 @@ function homePilotInterestRow() {
   };
 }
 
+function homeFocusItem() {
+  const followedCompetitions = followedCompetitionCards();
+  const prematch = homePrematchActionRow(followedCompetitions);
+  const coach = homeCoachActionRow();
+  const athlete = focusAthleteCards()[0] || null;
+  if (prematch) {
+    return {
+      type: 'prematch',
+      title: prematch.sportName || '近期重点赛事',
+      meta: prematch.meta || '',
+      detail: prematch.detail || '',
+      sportCode: prematch.sportCode || '',
+      isFollowed: Boolean(prematch.isFollowed),
+    };
+  }
+  if (coach) {
+    return {
+      type: 'coach',
+      title: coach.title || '剑馆经营重点',
+      meta: coach.meta || '',
+      detail: coach.detail || '',
+      id: coach.id || '',
+    };
+  }
+  if (athlete) {
+    return {
+      type: 'athlete',
+      title: athlete.name || '关注选手',
+      meta: athlete.summary || '',
+      detail: athlete.detail || '',
+      id: athlete.id || '',
+    };
+  }
+  return {
+    type: 'competitions',
+    title: '先从赛事开始',
+    meta: `${state.competitions.length} 场赛事已收录`,
+    detail: '进入赛事页后，可以按年份、地区、项目和状态继续筛选。',
+  };
+}
+
+function renderHomeFocusCard(row = homeFocusItem()) {
+  const primaryAction = row.type === 'prematch'
+    ? `<button type="button" data-home-focus-prematch="${escapeHtml(row.sportCode)}">赛前情报</button>`
+    : row.type === 'coach'
+      ? `<button type="button" data-home-focus-coach="${escapeHtml(row.id)}">查看剑馆</button>`
+      : row.type === 'athlete'
+        ? `<button type="button" data-home-focus-athlete="${escapeHtml(row.id)}">查看画像</button>`
+        : '<button type="button" data-home-compact-nav="competitions">进入赛事</button>';
+  const secondaryAction = row.type === 'prematch' && !row.isFollowed
+    ? `<button type="button" data-home-focus-follow="${escapeHtml(row.sportCode)}">加入关注</button>`
+    : '<button type="button" data-home-compact-nav="follow">查看关注</button>';
+  return `
+    <section class="panel my-section home-focus-card">
+      <div class="section-title">
+        <h2>下一步重点</h2>
+        <span>推荐关注</span>
+      </div>
+      <article>
+        <strong>${escapeHtml(row.title)}</strong>
+        <span>${escapeHtml(row.meta)}</span>
+        <em>${escapeHtml(row.detail)}</em>
+      </article>
+      <div class="home-focus-actions">
+        ${primaryAction}
+        ${secondaryAction}
+      </div>
+    </section>
+  `;
+}
+
+function renderHomeDataStatusCompact() {
+  const counts = entityCoverageCounts();
+  return `
+    <section class="panel my-section home-status-compact">
+      <div>
+        <strong>数据状态</strong>
+        <span>${escapeHtml(state.apiVersion || 'fencingai-product-20260528-1')}</span>
+      </div>
+      <p>${escapeHtml(state.competitions.length)} 场赛事，${escapeHtml(counts.athletes)} 个选手画像，${escapeHtml(counts.clubs)} 个俱乐部画像。</p>
+    </section>
+  `;
+}
+
+function renderFocusedHomePage() {
+  if (!homePage) return true;
+  if (state.isDataLoading) return false;
+  const focusedCounts = entityCoverageCounts();
+  const focusedStats = [
+    { value: state.competitions.length, label: '赛事收录' },
+    { value: focusedCounts.athletes, label: '选手画像' },
+    { value: focusedCounts.clubs, label: '俱乐部' },
+  ];
+  homePage.innerHTML = `
+    <div class="home-dashboard home-dashboard-focused">
+      ${renderAiWorkspace('home')}
+      <section class="home-stats-strip" aria-label="数据规模">
+        ${focusedStats.map((item) => `
+          <div class="my-stat">
+            <strong>${escapeHtml(item.value)}</strong>
+            <span>${escapeHtml(item.label)}</span>
+          </div>
+        `).join('')}
+      </section>
+      ${renderHomeFocusCard()}
+      ${renderHomeDataStatusCompact()}
+      <section class="home-shortcut-strip" aria-label="快速入口">
+        <button type="button" data-home-compact-nav="competitions">赛事</button>
+        <button type="button" data-home-compact-nav="follow">关注</button>
+        <button type="button" data-home-compact-nav="my">我的</button>
+      </section>
+    </div>
+  `;
+  homePage.querySelectorAll('[data-home-compact-nav]').forEach((button) => {
+    button.addEventListener('click', () => navigateMain(button.dataset.homeCompactNav || 'home'));
+  });
+  homePage.querySelector('[data-home-focus-prematch]')?.addEventListener('click', (event) => {
+    trackAnalyticsAction('home_prematch', 'open');
+    openPrematchReport('prematch-pack', event.currentTarget.dataset.homeFocusPrematch || '');
+  });
+  homePage.querySelector('[data-home-focus-competition]')?.addEventListener('click', (event) => {
+    openCompetition(event.currentTarget.dataset.homeFocusCompetition || '');
+  });
+  homePage.querySelector('[data-home-focus-athlete]')?.addEventListener('click', (event) => {
+    openAthlete(event.currentTarget.dataset.homeFocusAthlete || '');
+  });
+  homePage.querySelector('[data-home-focus-follow]')?.addEventListener('click', (event) => {
+    const competition = findCompetitionBySportCode(event.currentTarget.dataset.homeFocusFollow);
+    if (!competition?.sportCode) return;
+    trackAnalyticsAction('home_prematch', 'follow');
+    upsertFollowedCompetition(competition);
+  });
+  homePage.querySelector('[data-home-focus-coach]')?.addEventListener('click', (event) => {
+    trackAnalyticsAction('home_coach', 'segmentation');
+    openCoachSegmentationReport(event.currentTarget.dataset.homeFocusCoach || '');
+  });
+  bindAiWorkspace(homePage);
+  return true;
+}
+
 function renderHomePage() {
+  if (renderFocusedHomePage()) return;
   if (!homePage) return;
   if (state.isDataLoading) {
     homePage.innerHTML = '<section class="panel"><div class="loading-row">正在加载数据</div></section>';
