@@ -2135,6 +2135,42 @@ select:focus {
   font-size: 12px;
 }
 
+.my-secondary-status {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 7px;
+  margin-top: -2px;
+}
+
+.my-secondary-status div {
+  min-width: 0;
+  border: 1px solid rgba(16, 24, 40, 0.06);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.66);
+  padding: 8px 9px;
+}
+
+.my-secondary-status strong,
+.my-secondary-status span {
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.my-secondary-status strong {
+  color: var(--primary);
+  font-size: 14px;
+  line-height: 1.05;
+}
+
+.my-secondary-status span {
+  margin-top: 3px;
+  color: var(--muted);
+  font-size: 11px;
+}
+
 .my-section {
   margin-bottom: 0;
 }
@@ -5110,6 +5146,31 @@ select:focus {
 .hero-sub {
   color: var(--muted);
   line-height: 1.45;
+}
+
+.detail-ai-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 4px;
+}
+
+.detail-ai-actions button {
+  min-height: 30px;
+  border: 1px solid rgba(21, 95, 194, 0.14);
+  border-radius: 999px;
+  background: rgba(21, 95, 194, 0.08);
+  color: var(--primary);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 900;
+  padding: 0 11px;
+}
+
+.detail-ai-actions button:first-child {
+  border-color: rgba(13, 125, 103, 0.18);
+  background: rgba(13, 125, 103, 0.1);
+  color: var(--teal);
 }
 
 .event-focus-strip {

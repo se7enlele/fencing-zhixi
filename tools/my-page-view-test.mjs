@@ -73,6 +73,10 @@ assert.match(js, /function renderHomeFocusCard\(row = homeFocusItem\(\)\)/, 'foc
 assert.match(js, /function renderHomeRadarCard\(row = homePrematchActionRow\(followedCompetitionCards\(\)\)\)/, 'home page must render a dedicated competition radar card');
 assert.match(js, /function renderHomeRoleBar\(\)/, 'home page must render a role status bar');
 assert.match(js, /function renderAiLoadingState\(query = ''\)/, 'AI question submission must render a structured loading state');
+assert.match(js, /function aiAnalyzeActionRow\(actions = \[\]\)/, 'database detail pages must expose a reusable AI analysis entry');
+assert.match(js, /function bindAiAnalyzeActions\(container\)/, 'database detail AI entries must be bound to the home AI workspace');
+assert.match(js, /data-ai-analyze-query/, 'detail AI analysis actions must carry the prefilled question');
+assert.match(js, /submitAiQuery\(button\.dataset\.aiAnalyzeQuery \|\| ''\)/, 'detail AI analysis actions must route to the AI home answer flow');
 assert.match(js, /submitButton\.textContent = '开始分析'/, 'AI home CTA must be relabeled to an action-oriented analysis CTA');
 assert.match(js, /answer\.innerHTML = renderAiLoadingState\(normalizedQuery\);[\s\S]*scrollToResultPanel\(answer, 'auto'\);/, 'AI question submission must immediately show a skeleton state and move the viewport to it');
 assert.match(js, /submitButton\.disabled = true;[\s\S]*submitButton\.textContent = '分析中'/, 'AI question submission must disable the CTA while loading');
@@ -365,6 +369,9 @@ assert.match(js, /const prematchReminderRows = myPrematchReminderRows\(followedC
 assert.match(js, /const commercialIntents = commercialIntentRows\(\);/, 'my page must derive service progress from saved commercial intent state');
 assert.match(js, /const commercialIntentCount = \(state\.commercialIntents \|\| \[\]\)\.length;/, 'my page must count all saved service progress entries');
 assert.match(js, /class="panel my-section my-next-section"/, 'my page must expose a next-action workspace section');
+assert.match(js, /const primaryStats = stats\.slice\(0, 4\);/, 'my page must keep the first-screen stat area focused');
+assert.match(js, /const secondaryStats = stats\.slice\(4\);/, 'my page must move secondary status below the primary stats');
+assert.match(js, /class="my-secondary-status"/, 'my page must render service and data status as compact secondary items');
 assert.match(js, /class="panel my-section report-next-action-section"/, 'my page must expose report follow-up next actions');
 assert.match(js, /class="report-next-action-list"/, 'report next actions must render as a dedicated list');
 assert.match(js, /data-report-next-open/, 'report next actions must reopen saved reports');
@@ -483,6 +490,8 @@ assert.match(css, /\.membership-benefit-grid/, 'my page membership benefit style
 assert.match(css, /\.membership-benefit-actions/, 'my page membership benefit actions must be compact and tappable');
 assert.match(css, /\.my-next-section/, 'my page next action section styles must exist');
 assert.match(css, /\.my-next-card/, 'my page next action cards must be styled');
+assert.match(css, /\.my-secondary-status/, 'my page compact secondary status styles must exist');
+assert.match(css, /\.detail-ai-actions/, 'detail AI analysis action styles must exist');
 assert.match(css, /\.report-share-followup/, 'report share follow-up hint styles must exist');
 assert.match(css, /\.ai-evidence/, 'AI workspace must style source evidence cards');
 assert.match(css, /\.parent-next-focus/, 'parent next focus styles must exist');

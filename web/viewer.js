@@ -4847,6 +4847,26 @@ function submitAiQuery(query) {
   form.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
 }
 
+function aiAnalyzeActionRow(actions = []) {
+  const rows = actions.filter((action) => action?.query && action?.label);
+  if (!rows.length) return '';
+  return `
+    <div class="detail-ai-actions" aria-label="AI 分析入口">
+      ${rows.map((action) => `
+        <button type="button" data-ai-analyze-query="${escapeHtml(action.query)}">
+          ${escapeHtml(action.label)}
+        </button>
+      `).join('')}
+    </div>
+  `;
+}
+
+function bindAiAnalyzeActions(container) {
+  container?.querySelectorAll('[data-ai-analyze-query]').forEach((button) => {
+    button.addEventListener('click', () => submitAiQuery(button.dataset.aiAnalyzeQuery || ''));
+  });
+}
+
 function normalizeAiName(value) {
   return compactText(value)
     .replaceAll('马消', '马潇')
@@ -6922,6 +6942,8 @@ function renderMyPage() {
     { value: athleteDataRequestCount, label: '数据处理' },
     { value: recentRows.length, label: '最近查看' },
   ];
+  const primaryStats = stats.slice(0, 4);
+  const secondaryStats = stats.slice(4);
 
   myPage.innerHTML = `
     <section class="my-hero panel">
@@ -6934,8 +6956,17 @@ function renderMyPage() {
     </section>
 
     <section class="my-stat-grid">
-      ${stats.map((item) => `
+      ${primaryStats.map((item) => `
         <div class="my-stat">
+          <strong>${escapeHtml(item.value)}</strong>
+          <span>${escapeHtml(item.label)}</span>
+        </div>
+      `).join('')}
+    </section>
+
+    <section class="my-secondary-status" aria-label="工作台状态">
+      ${secondaryStats.map((item) => `
+        <div>
           <strong>${escapeHtml(item.value)}</strong>
           <span>${escapeHtml(item.label)}</span>
         </div>
@@ -7836,6 +7867,10 @@ function renderCompetitionHero(competition) {
     <div class="hero-title">${escapeHtml(competition.sportName)}</div>
     <div class="hero-sub">${escapeHtml(competition.venue || '地点待确认')} · ${escapeHtml(displayDateLabel(competition.dateLabel))}</div>
     <div class="hero-sub coverage-copy">${escapeHtml(competitionHeroSummaryText(competition))}</div>
+    ${aiAnalyzeActionRow([
+      { label: 'AI 分析赛事', query: `${competition.sportName} 有哪些重点信息和参赛判断` },
+      { label: '赛前情报', query: `${competition.sportName} 的报名情况和潜在对手` },
+    ])}
     <div class="competition-scope-grid">
       <div><strong>${escapeHtml(scope.count || '-')}</strong><span>项目/组别</span></div>
       <div><strong>${escapeHtml(scope.ageText)}</strong><span>年龄段</span></div>
@@ -7857,6 +7892,7 @@ function renderCompetitionHero(competition) {
   competitionHero.querySelector('[data-prematch-sport-code]')?.addEventListener('click', (event) => {
     openPrematchReport('prematch-pack', event.currentTarget.dataset.prematchSportCode || competition.sportCode || '');
   });
+  bindAiAnalyzeActions(competitionHero);
 }
 
 function compactCompetitionBarRows(rows, options = {}) {
@@ -8398,6 +8434,10 @@ function renderEventHero(event) {
     <div class="hero-title">${escapeHtml(displayEventName(event))}</div>
     <div class="hero-sub">${escapeHtml(event.sportName)}</div>
     <div class="hero-sub">${escapeHtml(event.venue || '地点待确认')} · ${escapeHtml(event.openDate || '日期待确认')}</div>
+    ${aiAnalyzeActionRow([
+      { label: 'AI 分析项目', query: `${event.sportName} ${displayEventName(event)} 项目表现和关键选手` },
+      { label: '复盘对手', query: `${displayEventName(event)} 的淘汰赛关键对手和排名反差` },
+    ])}
     ${tracked.length ? `
       <div class="event-focus-strip">
         ${tracked.slice(0, 3).map((athlete) => `
@@ -8408,6 +8448,7 @@ function renderEventHero(event) {
       </div>
     ` : ''}
   `;
+  bindAiAnalyzeActions(eventHero);
 }
 
 function renderMetrics(event) {
@@ -9594,6 +9635,10 @@ function renderAthleteDetail(athlete) {
       <span class="badge">${escapeHtml(athlete.medals ?? 0)} 枚奖牌</span>
       <span class="badge">淘汰赛 ${escapeHtml(athlete.eliminationWins ?? 0)}胜${escapeHtml(athlete.eliminationLosses ?? 0)}负</span>
     </div>
+    ${aiAnalyzeActionRow([
+      { label: 'AI 成长分析', query: `分析${athlete.name}最近几场有没有进步` },
+      { label: '对手对比', query: `分析${athlete.name}的主要对手和胜负情况` },
+    ])}
   `;
 
   renderAthleteDataRequestPanel(athlete);
@@ -9605,6 +9650,7 @@ function renderAthleteDetail(athlete) {
     }
     renderAthleteDetail(athlete);
   });
+  bindAiAnalyzeActions(athleteHero);
 
   const events = athlete.events || [];
   const latest = events[0] || {};
@@ -11201,7 +11247,12 @@ function renderClubDetail(club) {
       <span class="badge">${escapeHtml(club.medals ?? 0)} 枚奖牌</span>
       <span class="badge">最好第 ${escapeHtml(club.bestRank ?? '-')} 名</span>
     </div>
+    ${aiAnalyzeActionRow([
+      { label: 'AI 分析剑馆', query: `分析${club.club}的学员表现、优势项目和招生价值` },
+      { label: '学员分层', query: `${club.club} 哪些学员适合重点培养` },
+    ])}
   `;
+  bindAiAnalyzeActions(clubHero);
 
   clubEvents.innerHTML = events.length
     ? `
