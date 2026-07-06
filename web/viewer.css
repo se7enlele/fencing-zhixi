@@ -1635,6 +1635,57 @@ select:focus {
   padding: 11px;
 }
 
+.ai-enhancement-card {
+  display: grid;
+  gap: 8px;
+  border: 1px solid rgba(13, 125, 103, 0.18);
+  border-radius: 10px;
+  background: linear-gradient(135deg, rgba(13, 125, 103, 0.09), rgba(21, 95, 194, 0.055));
+  padding: 10px;
+}
+
+.ai-enhancement-card strong,
+.ai-enhancement-card p,
+.ai-enhancement-card span,
+.ai-enhancement-card em {
+  min-width: 0;
+}
+
+.ai-enhancement-card strong {
+  color: var(--teal);
+  font-size: 14px;
+  font-weight: 900;
+  line-height: 1.35;
+}
+
+.ai-enhancement-card p {
+  margin: 0;
+  color: var(--text);
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.ai-enhancement-card div {
+  display: grid;
+  gap: 5px;
+}
+
+.ai-enhancement-card span {
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.72);
+  color: var(--text);
+  font-size: 12px;
+  line-height: 1.45;
+  padding: 7px 8px;
+}
+
+.ai-enhancement-card em {
+  color: var(--muted);
+  font-size: 11px;
+  font-style: normal;
+  line-height: 1.45;
+}
+
 .ai-answer-meta {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));

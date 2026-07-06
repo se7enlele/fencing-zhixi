@@ -4822,6 +4822,7 @@ function bindAiWorkspace(container) {
       answer.innerHTML = renderAiAnswer(report);
       bindAnswer(report);
       scrollToResultPanel(answer);
+      enhanceAiAnswer(report, answer, bindAnswer);
     } catch {
       const report = buildAiAnswer(normalizedQuery);
       report.query = normalizedQuery;
@@ -4830,6 +4831,7 @@ function bindAiWorkspace(container) {
       answer.innerHTML = renderAiAnswer(report);
       bindAnswer(report);
       scrollToResultPanel(answer);
+      enhanceAiAnswer(report, answer, bindAnswer);
     } finally {
       form.classList.remove('is-submitting');
       if (submitButton) {
@@ -4861,6 +4863,60 @@ function submitAiQuery(query) {
   if (!input || !form) return;
   input.value = text;
   form.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
+}
+
+function aiEnhancementRequestPayload(report = {}) {
+  return {
+    type: report.type || '',
+    title: report.title || '',
+    summary: report.summary || '',
+    query: report.query || '',
+    cards: (report.cards || []).slice(0, 8),
+    sections: (report.sections || []).slice(0, 6).map((section) => ({
+      title: section.title || '',
+      rows: (section.rows || []).slice(0, 6),
+    })),
+    evidence: (report.evidence || []).slice(0, 8).map((row) => ({
+      kind: row.kind || '',
+      label: row.label || '',
+      detail: row.detail || '',
+    })),
+  };
+}
+
+function reportCanUseAiEnhancement(report = {}) {
+  return !['empty', 'fallback'].includes(report.type || '') && Boolean(report.summary || report.sections?.length || report.evidence?.length);
+}
+
+async function requestAiEnhancement(report = {}) {
+  if (!reportCanUseAiEnhancement(report)) return null;
+  const response = await fetch('/api/ai/enhance', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ report: aiEnhancementRequestPayload(report) }),
+  });
+  const result = await response.json();
+  if (!response.ok || !result.ok || !result.enhanced || !result.enhancement) return null;
+  return result.enhancement;
+}
+
+function sameAiReport(left = {}, right = {}) {
+  return (left.query || '') === (right.query || '') && (left.type || '') === (right.type || '') && (left.title || '') === (right.title || '');
+}
+
+async function enhanceAiAnswer(report, answer, bindAnswer) {
+  if (!reportCanUseAiEnhancement(report)) return;
+  try {
+    const enhancement = await requestAiEnhancement(report);
+    if (!enhancement) return;
+    const currentReport = answer.querySelector('.ai-answer-card')?.__aiReport;
+    if (!sameAiReport(currentReport || report, report)) return;
+    const enhancedReport = { ...report, enhancement };
+    answer.innerHTML = renderAiAnswer(enhancedReport);
+    bindAnswer(enhancedReport);
+  } catch {
+    // Enhancement is optional; the deterministic answer remains the source of truth.
+  }
 }
 
 function aiAnalyzeActionRow(actions = []) {
@@ -6849,6 +6905,7 @@ function renderAiAnswer(report) {
   const followUps = aiFollowUpPrompts(report).slice(0, 2);
   const trustRows = aiTrustRows(report);
   const metaRows = aiAnswerMetaRows(report);
+  const enhancement = report.enhancement || null;
   return `
     <div class="ai-answer-card">
       <div class="ai-answer-head">
@@ -6856,6 +6913,20 @@ function renderAiAnswer(report) {
         <strong>${escapeHtml(report.title)}</strong>
         <p>${escapeHtml(report.summary)}</p>
       </div>
+      ${enhancement ? `
+        <div class="ai-enhancement-card">
+          <strong>${escapeHtml(enhancement.headline || 'AI增强解读')}</strong>
+          ${enhancement.explanation ? `<p>${escapeHtml(enhancement.explanation)}</p>` : ''}
+          ${enhancement.takeaways?.length ? `
+            <div>
+              ${enhancement.takeaways.slice(0, 4).map((row) => `<span>${escapeHtml(row)}</span>`).join('')}
+            </div>
+          ` : ''}
+          ${enhancement.caveats?.length ? `
+            <em>${escapeHtml(enhancement.caveats.slice(0, 2).join('；'))}</em>
+          ` : ''}
+        </div>
+      ` : ''}
       <div class="ai-answer-meta">
         ${metaRows.map((row) => `
           <div>

@@ -154,6 +154,27 @@ assert.match(
 
 assert.match(
   source,
+  /url\.pathname === '\/api\/ai\/enhance'[\s\S]{0,180}handleAiEnhance/,
+  'AI enhancement endpoint should stay isolated from public cached data',
+);
+assert.match(
+  source,
+  /async function handleAiEnhance\(request, env\)/,
+  'Worker should expose a first-party optional LLM enhancement endpoint',
+);
+assert.match(
+  source,
+  /env\.OPENAI_API_KEY \|\| env\.AI_API_KEY/,
+  'AI enhancement endpoint should read the LLM API key from Worker secrets',
+);
+assert.match(
+  source,
+  /enhanced: false,[\s\S]{0,120}reason: 'AI enhancement is not configured\.'/,
+  'AI enhancement endpoint should degrade cleanly when no LLM key is configured',
+);
+
+assert.match(
+  source,
   /url\.pathname === '\/api\/admin\/analytics' && request\.method === 'GET'[\s\S]{0,160}handleAdminAnalytics/,
   'Admin analytics endpoint should be token-gated and no-store',
 );

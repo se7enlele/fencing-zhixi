@@ -17,6 +17,9 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PORT = Number(process.env.PORT ?? 5177);
 const MAX_BODY_BYTES = 20 * 1024 * 1024;
 const MAX_PROFILE_BODY_BYTES = 160 * 1024;
+const MAX_AI_ENHANCE_BODY_BYTES = 80 * 1024;
+const MAX_AI_ENHANCE_EVIDENCE = 8;
+const MAX_AI_ENHANCE_SECTIONS = 6;
 const LOGIN_RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000;
 const LOGIN_RATE_LIMIT_MAX = 12;
 const AUTH_SESSION_TTL_MS = 90 * 24 * 60 * 60 * 1000;
@@ -34,6 +37,77 @@ const MIME_TYPES = {
 function sendJson(response, status, payload) {
   response.writeHead(status, { 'Content-Type': 'application/json; charset=utf-8' });
   response.end(stableStringify(payload));
+}
+
+function trimText(value, max = 800) {
+  const text = String(value || '').replace(/\s+/g, ' ').trim();
+  return text.length > max ? `${text.slice(0, max)}...` : text;
+}
+
+function normalizeAiEnhanceReport(report = {}) {
+  return {
+    type: trimText(report.type, 60),
+    title: trimText(report.title, 120),
+    summary: trimText(report.summary, 900),
+    query: trimText(report.query, 300),
+    cards: Array.isArray(report.cards)
+      ? report.cards.slice(0, 8).map((row) => Array.isArray(row) ? row.slice(0, 2).map((item) => trimText(item, 120)) : [trimText(row?.label, 80), trimText(row?.value, 120)])
+      : [],
+    sections: Array.isArray(report.sections)
+      ? report.sections.slice(0, MAX_AI_ENHANCE_SECTIONS).map((section) => ({
+        title: trimText(section?.title, 80),
+        rows: Array.isArray(section?.rows) ? section.rows.slice(0, 6).map((row) => trimText(row, 260)) : [],
+      }))
+      : [],
+    evidence: Array.isArray(report.evidence)
+      ? report.evidence.slice(0, MAX_AI_ENHANCE_EVIDENCE).map((row) => ({
+        kind: trimText(row?.kind, 60),
+        label: trimText(row?.label, 160),
+        detail: trimText(row?.detail, 260),
+      }))
+      : [],
+  };
+}
+
+function aiEnhanceSystemPrompt() {
+  return [
+    '你是 FencingAI 的击剑数据分析助手。',
+    '你的任务是在已有结构化分析结果基础上做表达增强，不允许编造新数字、赛事、选手或俱乐部。',
+    '必须保持结论可追溯：只能使用输入中的 summary、cards、sections、evidence。',
+    '面向家长、教练和剑馆经营者，用中文输出直接、谨慎、可执行的判断。',
+    '不要输出 Markdown 表格，不要暴露内部实现、接口、模型或 token 信息。',
+  ].join('\n');
+}
+
+function aiEnhanceUserPrompt(report) {
+  return [
+    '请把下面的结构化击剑数据分析增强成更自然的产品化回答。',
+    '输出 JSON，字段为：headline, explanation, takeaways, caveats, followups。',
+    'headline：一句短结论。',
+    'explanation：2-4 句解释为什么这么判断。',
+    'takeaways：3 条用户能理解的重点。',
+    'caveats：1-3 条口径提醒，不要使用“数据边界”这种内部说法。',
+    'followups：2 条适合继续追问的问题。',
+    JSON.stringify(report),
+  ].join('\n\n');
+}
+
+function safeAiEnhancementPayload(value) {
+  const fallback = {
+    headline: '',
+    explanation: '',
+    takeaways: [],
+    caveats: [],
+    followups: [],
+  };
+  if (!value || typeof value !== 'object') return fallback;
+  return {
+    headline: trimText(value.headline, 160),
+    explanation: trimText(value.explanation, 900),
+    takeaways: Array.isArray(value.takeaways) ? value.takeaways.slice(0, 4).map((row) => trimText(row, 220)).filter(Boolean) : [],
+    caveats: Array.isArray(value.caveats) ? value.caveats.slice(0, 3).map((row) => trimText(row, 220)).filter(Boolean) : [],
+    followups: Array.isArray(value.followups) ? value.followups.slice(0, 3).map((row) => trimText(row, 160)).filter(Boolean) : [],
+  };
 }
 
 function hasAdminAccess(url) {
@@ -2119,6 +2193,77 @@ async function handleAnalyze(request, response) {
   }
 }
 
+async function handleAiEnhance(request, response) {
+  try {
+    const apiKey = process.env.OPENAI_API_KEY || process.env.AI_API_KEY || '';
+    if (!apiKey) {
+      sendJson(response, 200, {
+        ok: true,
+        enhanced: false,
+        reason: 'AI enhancement is not configured.',
+      });
+      return;
+    }
+    const raw = await readRequestBody(request);
+    if (Buffer.byteLength(raw, 'utf8') > MAX_AI_ENHANCE_BODY_BYTES) {
+      sendJson(response, 413, { ok: false, message: 'AI enhancement request is too large.' });
+      return;
+    }
+    const body = JSON.parse(raw || '{}');
+    const report = normalizeAiEnhanceReport(body.report || {});
+    if (!report.title && !report.summary) {
+      sendJson(response, 400, { ok: false, message: 'Missing report.' });
+      return;
+    }
+
+    const model = process.env.OPENAI_MODEL || 'gpt-4.1-mini';
+    const upstream = await fetch('https://api.openai.com/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        model,
+        temperature: 0.2,
+        response_format: { type: 'json_object' },
+        messages: [
+          { role: 'system', content: aiEnhanceSystemPrompt() },
+          { role: 'user', content: aiEnhanceUserPrompt(report) },
+        ],
+      }),
+    });
+    const result = await upstream.json().catch(() => ({}));
+    if (!upstream.ok) {
+      sendJson(response, 200, {
+        ok: true,
+        enhanced: false,
+        reason: 'AI enhancement temporarily unavailable.',
+      });
+      return;
+    }
+    const content = result.choices?.[0]?.message?.content || '{}';
+    let parsed = {};
+    try {
+      parsed = JSON.parse(content);
+    } catch {
+      parsed = { explanation: content };
+    }
+    sendJson(response, 200, {
+      ok: true,
+      enhanced: true,
+      model,
+      enhancement: safeAiEnhancementPayload(parsed),
+    });
+  } catch {
+    sendJson(response, 200, {
+      ok: true,
+      enhanced: false,
+      reason: 'AI enhancement failed.',
+    });
+  }
+}
+
 const server = createServer(async (request, response) => {
   const url = new URL(request.url, `http://${request.headers.host}`);
 
@@ -2144,6 +2289,11 @@ const server = createServer(async (request, response) => {
 
   if (request.method === 'POST' && url.pathname === '/api/analyze') {
     await handleAnalyze(request, response);
+    return;
+  }
+
+  if (request.method === 'POST' && url.pathname === '/api/ai/enhance') {
+    await handleAiEnhance(request, response);
     return;
   }
 

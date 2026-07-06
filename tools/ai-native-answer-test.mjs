@@ -138,6 +138,13 @@ assert.match(js, /function aiFollowUpPrompts\(report\)/, 'AI answers must genera
 assert.match(js, /function buildAiAnswerShareText\(report\)/, 'AI answers must build shareable summaries');
 assert.match(js, /function submitAiAnswerFeedback\(report, feedbackType\)/, 'AI answers must submit quality feedback');
 assert.match(js, /function buildAiAnswerFeedbackText\(report, feedbackType\)/, 'AI answer feedback must have admin-readable text');
+assert.match(js, /function aiEnhancementRequestPayload\(report = \{\}\)/, 'AI answers must build a bounded payload for optional LLM enhancement');
+assert.match(js, /function requestAiEnhancement\(report = \{\}\)/, 'AI answers must request optional LLM enhancement through the backend');
+assert.match(js, /fetch\('\/api\/ai\/enhance'/, 'AI enhancement requests must go through the first-party backend endpoint');
+assert.match(js, /async function enhanceAiAnswer\(report, answer, bindAnswer\)/, 'AI workspace must enhance already-rendered deterministic answers when available');
+assert.match(js, /report\.enhancement \|\| null/, 'AI answer renderer must support optional enhancement payloads');
+assert.match(js, /class="ai-enhancement-card"/, 'AI answer renderer must show enhanced analysis in a dedicated card');
+assert.match(js, /enhanceAiAnswer\(report, answer, bindAnswer\)/, 'AI workspace must trigger optional enhancement after the deterministic answer is shown');
 assert.match(js, /report\.query = normalizedQuery/, 'AI answer reports must keep the original user question for feedback and history');
 assert.match(js, /原始问题：\$\{report\.query\}/, 'AI feedback must include the original user question');
 assert.match(js, /转化来源：\$\{conversionAction\.source\}/, 'AI feedback must include the related conversion source');
@@ -188,6 +195,7 @@ assert.doesNotMatch(js, /value: '需核对'/, 'AI trust rows must not expose int
 
 assert.doesNotMatch(css, /\.ai-source-note/, 'AI source note styles should be removed when source notes are hidden');
 assert.match(css, /\.ai-answer-meta/, 'AI answer metadata strip styles must exist');
+assert.match(css, /\.ai-enhancement-card/, 'AI enhancement card styles must exist');
 assert.match(css, /\.ai-action-block/, 'AI action block styles must exist');
 assert.match(css, /\.ai-trust-panel/, 'AI judgment-basis panel styles must exist');
 assert.match(css, /\.ai-trust-row/, 'AI judgment-basis rows must have mobile layout styles');

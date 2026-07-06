@@ -22,6 +22,9 @@ const FEEDBACK_INDEX_KEY = 'feedback:index';
 const ANALYTICS_INDEX_KEY = 'analytics:index';
 const MAX_IMPORT_BYTES = 20 * 1024 * 1024;
 const MAX_PROFILE_BODY_BYTES = 160 * 1024;
+const MAX_AI_ENHANCE_BODY_BYTES = 80 * 1024;
+const MAX_AI_ENHANCE_EVIDENCE = 8;
+const MAX_AI_ENHANCE_SECTIONS = 6;
 const LOGIN_RATE_LIMIT_WINDOW_SECONDS = 10 * 60;
 const LOGIN_RATE_LIMIT_MAX = 12;
 const AUTH_SESSION_TTL_SECONDS = 60 * 60 * 24 * 90;
@@ -170,6 +173,135 @@ function authCapabilities() {
       message: '微信登录已预留接口，正式接入后可绑定当前账号。',
     },
   };
+}
+
+function trimText(value, max = 800) {
+  const text = String(value || '').replace(/\s+/g, ' ').trim();
+  return text.length > max ? `${text.slice(0, max)}...` : text;
+}
+
+function normalizeAiEnhanceReport(report = {}) {
+  return {
+    type: trimText(report.type, 60),
+    title: trimText(report.title, 120),
+    summary: trimText(report.summary, 900),
+    query: trimText(report.query, 300),
+    cards: Array.isArray(report.cards)
+      ? report.cards.slice(0, 8).map((row) => Array.isArray(row) ? row.slice(0, 2).map((item) => trimText(item, 120)) : [trimText(row?.label, 80), trimText(row?.value, 120)])
+      : [],
+    sections: Array.isArray(report.sections)
+      ? report.sections.slice(0, MAX_AI_ENHANCE_SECTIONS).map((section) => ({
+        title: trimText(section?.title, 80),
+        rows: Array.isArray(section?.rows) ? section.rows.slice(0, 6).map((row) => trimText(row, 260)) : [],
+      }))
+      : [],
+    evidence: Array.isArray(report.evidence)
+      ? report.evidence.slice(0, MAX_AI_ENHANCE_EVIDENCE).map((row) => ({
+        kind: trimText(row?.kind, 60),
+        label: trimText(row?.label, 160),
+        detail: trimText(row?.detail, 260),
+      }))
+      : [],
+  };
+}
+
+function aiEnhanceSystemPrompt() {
+  return [
+    '你是 FencingAI 的击剑数据分析助手。',
+    '你的任务是在已有结构化分析结果基础上做表达增强，不允许编造新数字、赛事、选手或俱乐部。',
+    '必须保持结论可追溯：只能使用输入中的 summary、cards、sections、evidence。',
+    '面向家长、教练和剑馆经营者，用中文输出直接、谨慎、可执行的判断。',
+    '不要输出 Markdown 表格，不要暴露内部实现、接口、模型或 token 信息。',
+  ].join('\n');
+}
+
+function aiEnhanceUserPrompt(report) {
+  return [
+    '请把下面的结构化击剑数据分析增强成更自然的产品化回答。',
+    '输出 JSON，字段为：headline, explanation, takeaways, caveats, followups。',
+    'headline：一句短结论。',
+    'explanation：2-4 句解释为什么这么判断。',
+    'takeaways：3 条用户能理解的重点。',
+    'caveats：1-3 条口径提醒，不要使用“数据边界”这种内部说法。',
+    'followups：2 条适合继续追问的问题。',
+    JSON.stringify(report),
+  ].join('\n\n');
+}
+
+function safeAiEnhancementPayload(value) {
+  const fallback = {
+    headline: '',
+    explanation: '',
+    takeaways: [],
+    caveats: [],
+    followups: [],
+  };
+  if (!value || typeof value !== 'object') return fallback;
+  return {
+    headline: trimText(value.headline, 160),
+    explanation: trimText(value.explanation, 900),
+    takeaways: Array.isArray(value.takeaways) ? value.takeaways.slice(0, 4).map((row) => trimText(row, 220)).filter(Boolean) : [],
+    caveats: Array.isArray(value.caveats) ? value.caveats.slice(0, 3).map((row) => trimText(row, 220)).filter(Boolean) : [],
+    followups: Array.isArray(value.followups) ? value.followups.slice(0, 3).map((row) => trimText(row, 160)).filter(Boolean) : [],
+  };
+}
+
+async function handleAiEnhance(request, env) {
+  if (request.method !== 'POST') return json({ ok: false, message: 'Method not allowed' }, 405);
+  const apiKey = env.OPENAI_API_KEY || env.AI_API_KEY || '';
+  if (!apiKey) {
+    return json({
+      ok: true,
+      enhanced: false,
+      reason: 'AI enhancement is not configured.',
+    });
+  }
+  const raw = await request.text();
+  if (new TextEncoder().encode(raw).length > MAX_AI_ENHANCE_BODY_BYTES) {
+    return json({ ok: false, message: 'AI enhancement request is too large.' }, 413);
+  }
+  const body = JSON.parse(raw || '{}');
+  const report = normalizeAiEnhanceReport(body.report || {});
+  if (!report.title && !report.summary) return json({ ok: false, message: 'Missing report.' }, 400);
+
+  const model = env.OPENAI_MODEL || 'gpt-4.1-mini';
+  const upstream = await fetch('https://api.openai.com/v1/chat/completions', {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${apiKey}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      model,
+      temperature: 0.2,
+      response_format: { type: 'json_object' },
+      messages: [
+        { role: 'system', content: aiEnhanceSystemPrompt() },
+        { role: 'user', content: aiEnhanceUserPrompt(report) },
+      ],
+    }),
+  });
+  const result = await upstream.json().catch(() => ({}));
+  if (!upstream.ok) {
+    return json({
+      ok: true,
+      enhanced: false,
+      reason: 'AI enhancement temporarily unavailable.',
+    });
+  }
+  const content = result.choices?.[0]?.message?.content || '{}';
+  let parsed = {};
+  try {
+    parsed = JSON.parse(content);
+  } catch {
+    parsed = { explanation: content };
+  }
+  return json({
+    ok: true,
+    enhanced: true,
+    model,
+    enhancement: safeAiEnhancementPayload(parsed),
+  });
 }
 
 function getBearerToken(request) {
@@ -1264,6 +1396,14 @@ async function routeApi(request, env, url) {
       return await handleAnalytics(request, env);
     } catch (error) {
       return json({ ok: false, message: error.message }, 400);
+    }
+  }
+
+  if (url.pathname === '/api/ai/enhance') {
+    try {
+      return await handleAiEnhance(request, env);
+    } catch (error) {
+      return json({ ok: true, enhanced: false, reason: 'AI enhancement failed.' });
     }
   }
 
