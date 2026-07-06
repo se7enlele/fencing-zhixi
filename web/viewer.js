@@ -1604,8 +1604,10 @@ function renderFilters() {
     button.classList.toggle('active', value !== filterOptions(type)[0]);
   }
   if (myFollowFilterButton) {
-    myFollowFilterButton.classList.toggle('active', Boolean(state.onlyFollowedData));
-    myFollowFilterButton.setAttribute('aria-pressed', state.onlyFollowedData ? 'true' : 'false');
+    const isActive = Boolean(state.onlyFollowedData);
+    myFollowFilterButton.classList.toggle('active', isActive);
+    myFollowFilterButton.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+    myFollowFilterButton.innerHTML = `<span>${isActive ? '已看关注' : '只看关注'}</span>`;
   }
 }
 

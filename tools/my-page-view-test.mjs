@@ -24,6 +24,8 @@ assert.match(html, /<nav class="bottom-nav" id="bottomNav" aria-label="主导航
 assert.doesNotMatch(html, /class="active"\s+data-main-tab=/, 'bottom navigation must not ship stale active classes in HTML');
 assert.match(html, /<strong>数据库<\/strong>/, 'second tab must be positioned as the structured database');
 assert.match(html, /id="myFollowFilterButton"/, 'database tab must expose a my-follow quick filter');
+assert.match(html, /class="toggle-filter-trigger follow-filter-trigger"/, 'my-follow quick filter must look like a toggle instead of a dropdown');
+assert.doesNotMatch(html, /id="myFollowFilterButton" class="filter-trigger/, 'my-follow quick filter must not reuse dropdown trigger styling');
 assert.match(html, /<h2>数据库入口<\/h2>/, 'database tab must label the structured search entry clearly');
 assert.equal(indexHtml, html, 'static index.html must stay in sync with viewer.html');
 
@@ -103,6 +105,7 @@ assert.match(js, /function entityCoverageCounts\(\)/, 'home scale numbers must u
 assert.match(js, /onlyFollowedData: false/, 'database tab must track my-follow filter state');
 assert.match(js, /function competitionMatchesFollowedData\(competition\)/, 'database tab must filter competitions by followed athletes and followed competitions');
 assert.match(js, /myFollowFilterButton\?\.addEventListener\('click'/, 'database tab must bind the my-follow quick filter');
+assert.match(js, /myFollowFilterButton\.innerHTML = `<span>\$\{isActive \? '已看关注' : '只看关注'\}<\/span>`/, 'my-follow quick filter must update as a pressed-state toggle');
 assert.match(js, /const positiveMax = \(\.\.\.values\) => Math\.max\(0, \.\.\.values\.map\(\(value\) => Number\(value\) \|\| 0\)\)/, 'home scale must not let zero coverage fields override real loaded counts');
 assert.match(js, /const nestedCoverage = state\.publicEvents\?\.dataCoverage \|\| \{\};/, 'home scale must read nested static coverage when present');
 assert.match(js, /const publicEvents = state\.publicEvents \|\| \{\};/, 'home scale must read top-level static coverage when present');
@@ -428,6 +431,7 @@ assert.match(js, /trackRecentItem\(\{[\s\S]*type: 'competition'/, 'competition d
 
 assert.match(css, /\.bottom-nav/, 'bottom navigation styles must exist');
 assert.match(css, /\.bottom-nav button\[aria-current="page"\]/, 'bottom navigation selected style must be driven by aria-current');
+assert.match(css, /\.toggle-filter-trigger/, 'my-follow quick filter must have distinct toggle styling');
 assert.match(css, /\.bottom-nav button:not\(\[aria-current="page"\]\)/, 'bottom navigation must explicitly reset non-current tabs');
 assert.match(css, /background: transparent !important/, 'non-current bottom tabs must not keep touch or focus selected backgrounds');
 assert.match(css, /\.ai-workspace/, 'AI workspace styles must exist');
