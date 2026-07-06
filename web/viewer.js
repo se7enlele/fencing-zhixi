@@ -4,6 +4,7 @@ const yearFilterButton = document.querySelector('#yearFilterButton');
 const regionFilterButton = document.querySelector('#regionFilterButton');
 const itemFilterButton = document.querySelector('#itemFilterButton');
 const statusFilterButton = document.querySelector('#statusFilterButton');
+const myFollowFilterButton = document.querySelector('#myFollowFilterButton');
 const filterSheet = document.querySelector('#filterSheet');
 const filterSheetMask = document.querySelector('#filterSheetMask');
 const filterSheetClose = document.querySelector('#filterSheetClose');
@@ -73,6 +74,7 @@ const ATHLETE_DATA_REQUEST_KEY = 'fencingai.athleteDataRequests.v1';
 const AUTH_TOKEN_KEY = 'fencingai.authToken.v1';
 const AUTH_USER_KEY = 'fencingai.authUser.v1';
 const COMPETITION_LIST_PAGE_SIZE = 30;
+const MAIN_TABS = ['home', 'competitions', 'my'];
 
 const views = {
   roleHome: document.querySelector('#view-role-home'),
@@ -110,6 +112,7 @@ const state = {
   selectedItem: '全部项目',
   selectedStatus: '全部状态',
   selectedAiMonth: '',
+  onlyFollowedData: false,
   aiCompetitionFilterSummary: '',
   visibleCompetitionLimit: COMPETITION_LIST_PAGE_SIZE,
   apiVersion: '',
@@ -1346,12 +1349,12 @@ function showView(name) {
   });
   trackAnalyticsPage(name);
   searchShell.classList.toggle('collapsed', name !== 'competitions');
-  const mainViews = ['roleHome', 'home', 'competitions', 'follow', 'my'];
+  const mainViews = ['roleHome', ...MAIN_TABS];
   topBack.classList.toggle('visible', !mainViews.includes(name));
   if (bottomNav) {
-    const showBottomNav = ['home', 'competitions', 'follow', 'my'].includes(name);
+    const showBottomNav = MAIN_TABS.includes(name);
     bottomNav.hidden = !showBottomNav;
-    const activeTab = ['home', 'competitions', 'follow', 'my'].includes(name) ? name : state.activeMainTab;
+    const activeTab = MAIN_TABS.includes(name) ? name : state.activeMainTab;
     if (activeTab) state.activeMainTab = activeTab;
     updateBottomNavState(activeTab);
   }
@@ -1359,7 +1362,7 @@ function showView(name) {
 
 function updateBottomNavState(activeTab) {
   if (!bottomNav) return;
-  activeTab = ['home', 'competitions', 'follow', 'my'].includes(activeTab) ? activeTab : 'home';
+  activeTab = MAIN_TABS.includes(activeTab) ? activeTab : 'home';
   [...bottomNav.querySelectorAll('[data-main-tab]')].forEach((button) => {
     const isActive = button.dataset.mainTab === activeTab;
     button.classList.remove('active');
@@ -1406,7 +1409,7 @@ function scrollToResultPanel(element, behavior = 'smooth') {
 function navigateTo(name) {
   const current = state.viewStack[state.viewStack.length - 1];
   if (current !== name) state.viewStack.push(name);
-  if (['home', 'competitions', 'follow', 'my'].includes(name)) state.activeMainTab = name;
+  if (MAIN_TABS.includes(name)) state.activeMainTab = name;
   if (name === 'home') renderHomePage();
   if (name === 'follow') renderFocusPage();
   if (name === 'my') renderPersonalPages();
@@ -1415,10 +1418,9 @@ function navigateTo(name) {
 }
 
 function navigateMain(name) {
-  state.activeMainTab = name;
-  const targetView = name;
+  const targetView = name === 'follow' ? 'my' : name;
+  state.activeMainTab = MAIN_TABS.includes(targetView) ? targetView : 'home';
   if (targetView === 'home') renderHomePage();
-  if (targetView === 'follow') renderFocusPage();
   if (targetView === 'my') renderPersonalPages();
   state.viewStack = [targetView];
   showView(targetView);
@@ -1436,7 +1438,7 @@ function goBack() {
   }
   state.viewStack.pop();
   const target = state.viewStack[state.viewStack.length - 1];
-  if (['home', 'competitions', 'follow', 'my'].includes(target)) state.activeMainTab = target;
+  if (MAIN_TABS.includes(target)) state.activeMainTab = target;
   showView(target);
   scrollToPageTop();
 }
@@ -1601,6 +1603,10 @@ function renderFilters() {
     button.innerHTML = `<span>${escapeHtml(value)}</span>`;
     button.classList.toggle('active', value !== filterOptions(type)[0]);
   }
+  if (myFollowFilterButton) {
+    myFollowFilterButton.classList.toggle('active', Boolean(state.onlyFollowedData));
+    myFollowFilterButton.setAttribute('aria-pressed', state.onlyFollowedData ? 'true' : 'false');
+  }
 }
 
 function openFilterSheet(type) {
@@ -1630,6 +1636,20 @@ function renderItemSelect() {
   renderFilters();
 }
 
+function competitionMatchesFollowedData(competition) {
+  if (!state.onlyFollowedData) return true;
+  const followedCompetitionCodes = new Set((state.followedCompetitions || []).map((item) => item.sportCode).filter(Boolean));
+  if (followedCompetitionCodes.has(competition.sportCode)) return true;
+  const followedAthleteEvents = new Set();
+  for (const athlete of focusAthleteCards()) {
+    for (const event of athlete.events || []) {
+      if (event.sportCode) followedAthleteEvents.add(event.sportCode);
+      if (event.competitionCode) followedAthleteEvents.add(event.competitionCode);
+    }
+  }
+  return followedAthleteEvents.has(competition.sportCode);
+}
+
 function applyCompetitionFilter() {
   state.visibleCompetitionLimit = COMPETITION_LIST_PAGE_SIZE;
   const keyword = normalizeSearchText(searchInput.value);
@@ -1648,7 +1668,7 @@ function applyCompetitionFilter() {
     const matchStatus = statusFilter === '全部状态' || statusLabel(competition.status || 'completed') === statusFilter;
     const haystack = cachedCompetitionSearchHaystack(competition);
     const matchKeyword = !keyword || tokens.every((token) => haystack.includes(token)) || haystack.includes(compactKeyword);
-    return matchRegion && matchYear && matchMonth && matchItem && matchStatus && matchKeyword;
+    return matchRegion && matchYear && matchMonth && matchItem && matchStatus && matchKeyword && competitionMatchesFollowedData(competition);
   });
   if (!keyword) {
     state.athleteSearchResults = [];
@@ -4221,18 +4241,15 @@ function homePilotInterestRow() {
 }
 
 function homeFocusItem() {
-  const followedCompetitions = followedCompetitionCards();
-  const prematch = homePrematchActionRow(followedCompetitions);
   const coach = homeCoachActionRow();
   const athlete = focusAthleteCards()[0] || null;
-  if (prematch) {
+  if (athlete) {
     return {
-      type: 'prematch',
-      title: prematch.sportName || '近期重点赛事',
-      meta: prematch.meta || '',
-      detail: prematch.detail || '',
-      sportCode: prematch.sportCode || '',
-      isFollowed: Boolean(prematch.isFollowed),
+      type: 'athlete',
+      title: athlete.name || '关注选手',
+      meta: athlete.summary || '',
+      detail: athlete.detail || '',
+      id: athlete.id || '',
     };
   }
   if (coach) {
@@ -4244,39 +4261,26 @@ function homeFocusItem() {
       id: coach.id || '',
     };
   }
-  if (athlete) {
-    return {
-      type: 'athlete',
-      title: athlete.name || '关注选手',
-      meta: athlete.summary || '',
-      detail: athlete.detail || '',
-      id: athlete.id || '',
-    };
-  }
   return {
-    type: 'competitions',
-    title: '先从赛事开始',
-    meta: `${state.competitions.length} 场赛事已收录`,
-    detail: '进入赛事页后，可以按年份、地区、项目和状态继续筛选。',
+    type: 'follow',
+    title: state.userRole === 'coach' ? '关注学员，生成梯队洞察' : '关注孩子，生成专属洞察',
+    meta: '尚未选择关注对象',
+    detail: '添加关注后，首页会优先展示成长变化、赛前提醒和可追溯分析。',
   };
 }
 
 function renderHomeFocusCard(row = homeFocusItem()) {
-  const primaryAction = row.type === 'prematch'
-    ? `<button type="button" data-home-focus-prematch="${escapeHtml(row.sportCode)}">赛前情报</button>`
-    : row.type === 'coach'
+  const primaryAction = row.type === 'coach'
       ? `<button type="button" data-home-focus-coach="${escapeHtml(row.id)}">查看剑馆</button>`
       : row.type === 'athlete'
         ? `<button type="button" data-home-focus-athlete="${escapeHtml(row.id)}">查看画像</button>`
-        : '<button type="button" data-home-compact-nav="competitions">进入赛事</button>';
-  const secondaryAction = row.type === 'prematch' && !row.isFollowed
-    ? `<button type="button" data-home-focus-follow="${escapeHtml(row.sportCode)}">加入关注</button>`
-    : '<button type="button" data-home-compact-nav="follow">查看关注</button>';
+        : '<button type="button" data-home-compact-nav="my">添加关注</button>';
+  const secondaryAction = '<button type="button" data-home-compact-nav="my">管理关注</button>';
   return `
     <section class="panel my-section home-focus-card">
       <div class="section-title">
-        <h2>下一步重点</h2>
-        <span>推荐关注</span>
+        <h2>为你而生</h2>
+        <span>主动洞察</span>
       </div>
       <article>
         <strong>${escapeHtml(row.title)}</strong>
@@ -4291,15 +4295,33 @@ function renderHomeFocusCard(row = homeFocusItem()) {
   `;
 }
 
-function renderHomeDataStatusCompact() {
-  const counts = entityCoverageCounts();
+function renderHomeRadarCard(row = homePrematchActionRow(followedCompetitionCards())) {
+  if (!row) return '';
   return `
-    <section class="panel my-section home-status-compact">
-      <div>
-        <strong>数据状态</strong>
-        <span>${escapeHtml(state.apiVersion || 'fencingai-product-20260528-1')}</span>
+    <section class="panel my-section home-radar-card">
+      <div class="section-title">
+        <h2>赛事雷达</h2>
+        <span>${escapeHtml(row.isFollowed ? '已关注' : '推荐关注')}</span>
       </div>
-      <p>${escapeHtml(state.competitions.length)} 场赛事，${escapeHtml(counts.athletes)} 个选手画像，${escapeHtml(counts.clubs)} 个俱乐部画像。</p>
+      <article>
+        <strong>${escapeHtml(row.sportName || '近期赛事')}</strong>
+        <span>${escapeHtml(row.meta || '')}</span>
+        <em>${escapeHtml(row.detail || '')}</em>
+      </article>
+      <div class="home-focus-actions">
+        <button type="button" data-home-focus-competition="${escapeHtml(row.sportCode)}">赛事详情</button>
+        <button type="button" data-home-focus-prematch="${escapeHtml(row.sportCode)}">赛前情报</button>
+        ${row.isFollowed ? '' : `<button type="button" data-home-focus-follow="${escapeHtml(row.sportCode)}">加入提醒</button>`}
+      </div>
+    </section>
+  `;
+}
+
+function renderHomeRoleBar() {
+  return `
+    <section class="home-role-bar">
+      <span>当前身份：${escapeHtml(roleLabel(state.userRole || 'parent'))}</span>
+      <button type="button" data-home-role-switch>切换</button>
     </section>
   `;
 }
@@ -4307,30 +4329,12 @@ function renderHomeDataStatusCompact() {
 function renderFocusedHomePage() {
   if (!homePage) return true;
   if (state.isDataLoading) return false;
-  const focusedCounts = entityCoverageCounts();
-  const focusedStats = [
-    { value: state.competitions.length, label: '赛事收录' },
-    { value: focusedCounts.athletes, label: '选手画像' },
-    { value: focusedCounts.clubs, label: '俱乐部' },
-  ];
   homePage.innerHTML = `
     <div class="home-dashboard home-dashboard-focused">
+      ${renderHomeRoleBar()}
       ${renderAiWorkspace('home')}
-      <section class="home-stats-strip" aria-label="数据规模">
-        ${focusedStats.map((item) => `
-          <div class="my-stat">
-            <strong>${escapeHtml(item.value)}</strong>
-            <span>${escapeHtml(item.label)}</span>
-          </div>
-        `).join('')}
-      </section>
       ${renderHomeFocusCard()}
-      ${renderHomeDataStatusCompact()}
-      <section class="home-shortcut-strip" aria-label="快速入口">
-        <button type="button" data-home-compact-nav="competitions">赛事</button>
-        <button type="button" data-home-compact-nav="follow">关注</button>
-        <button type="button" data-home-compact-nav="my">我的</button>
-      </section>
+      ${renderHomeRadarCard()}
     </div>
   `;
   homePage.querySelectorAll('[data-home-compact-nav]').forEach((button) => {
@@ -4355,6 +4359,12 @@ function renderFocusedHomePage() {
   homePage.querySelector('[data-home-focus-coach]')?.addEventListener('click', (event) => {
     trackAnalyticsAction('home_coach', 'segmentation');
     openCoachSegmentationReport(event.currentTarget.dataset.homeFocusCoach || '');
+  });
+  homePage.querySelector('[data-home-role-switch]')?.addEventListener('click', () => {
+    state.userRole = '';
+    localStorage.removeItem(ROLE_KEY);
+    renderRoleWorkspacePremium();
+    navigateTo('roleHome');
   });
   bindAiWorkspace(homePage);
   return true;
@@ -12113,6 +12123,11 @@ yearFilterButton.addEventListener('click', () => openFilterSheet('year'));
 regionFilterButton.addEventListener('click', () => openFilterSheet('region'));
 itemFilterButton.addEventListener('click', () => openFilterSheet('item'));
 statusFilterButton.addEventListener('click', () => openFilterSheet('status'));
+myFollowFilterButton?.addEventListener('click', () => {
+  state.onlyFollowedData = !state.onlyFollowedData;
+  renderFilters();
+  applyCompetitionFilter();
+});
 filterSheetMask.addEventListener('click', closeFilterSheet);
 filterSheetClose.addEventListener('click', closeFilterSheet);
 filterSheetOptions.addEventListener('click', (event) => {

@@ -65,6 +65,7 @@
             <button id="regionFilterButton" class="filter-trigger" type="button"></button>
             <button id="itemFilterButton" class="filter-trigger" type="button"></button>
             <button id="statusFilterButton" class="filter-trigger" type="button"></button>
+            <button id="myFollowFilterButton" class="filter-trigger follow-filter-trigger" type="button">我的关注</button>
           </div>
         </section>
         <section class="panel search-athletes-panel" id="searchAthletesPanel" hidden></section>
@@ -86,8 +87,8 @@
           <div id="dataCoverageSummary" class="data-coverage-summary"></div>
         </section>
         <div class="section-title list-title">
-          <h2>赛事入口</h2>
-          <span>继续浏览</span>
+          <h2>数据库入口</h2>
+          <span>赛事 / 选手 / 俱乐部</span>
         </div>
         <div id="competitionList" class="stack"></div>
       </section>
@@ -272,11 +273,7 @@
         </button>
         <button type="button" data-main-tab="competitions">
           <span aria-hidden="true">◇</span>
-          <strong>赛事</strong>
-        </button>
-        <button type="button" data-main-tab="follow">
-          <span aria-hidden="true">♡</span>
-          <strong>关注</strong>
+          <strong>数据库</strong>
         </button>
         <button type="button" data-main-tab="my">
           <span aria-hidden="true">◎</span>
