@@ -356,6 +356,11 @@ assert.match(js, /state\.userRole === 'coach'[\s\S]*title: '关注学员'/, 'coa
 assert.match(js, /state\.userRole === 'club'[\s\S]*title: '代表选手'/, 'club my page must frame followed athletes as representative athletes');
 assert.match(js, /statLabel: '关注学员'/, 'coach my page stats must frame followed athletes as students');
 assert.match(js, /statLabel: '代表选手'/, 'club my page stats must frame followed athletes as representative athletes');
+assert.match(js, /<span>当前视角<\/span>/, 'my page hero must describe role as a view instead of account identity');
+assert.match(js, /\$\{escapeHtml\(`\$\{roleLabel\(state\.userRole\)\}视角`\)\}/, 'my page hero must render the selected role as an analysis view');
+assert.match(js, /账号状态见账号中心/, 'my page hero must explicitly separate role view from account state');
+assert.doesNotMatch(js, /当前工作台/, 'my page hero must not imply the user is signed in to a workspace');
+assert.doesNotMatch(js, /已选择重点关注孩子/, 'my page hero must not imply account identity from local role state');
 assert.match(js, /const followCopy = myFollowSectionCopy\(\);/, 'my page render must use role-aware follow copy');
 assert.match(js, /<h2>\$\{escapeHtml\(followCopy\.title\)\}<\/h2>/, 'my page follow section title must be role-aware');
 assert.match(js, /<strong>\$\{escapeHtml\(followCopy\.emptyTitle\)\}<\/strong>/, 'my page follow empty state must be role-aware');

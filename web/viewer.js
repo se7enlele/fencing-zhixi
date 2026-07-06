@@ -3877,8 +3877,9 @@ function myFollowSectionCopy() {
       countLabel: '关注学员',
       activeLabel: '学员入口',
       emptyLabel: '待关注学员',
-      heroReady: '已选择重点关注学员',
-      heroEmpty: '可从选手详情页关注学员',
+      heroReady: '关注学员会用于训练分析',
+      heroEmpty: '关注学员后可获得训练分析',
+      heroDetail: '影响首页推荐和 AI 分析口径；账号状态见账号中心。',
       emptyTitle: '还没有关注学员',
       emptyDetail: '进入选手详情页后，可把重点学员加入这里，后续用于成长报告、赛前提醒和训练反馈。',
     };
@@ -3891,8 +3892,9 @@ function myFollowSectionCopy() {
       countLabel: '代表选手',
       activeLabel: '队伍入口',
       emptyLabel: '待关注选手',
-      heroReady: '已选择重点代表选手',
-      heroEmpty: '可从选手详情页关注代表选手',
+      heroReady: '代表选手会用于经营分析',
+      heroEmpty: '关注代表选手后可获得经营分析',
+      heroDetail: '影响首页推荐和剑馆分析口径；账号状态见账号中心。',
       emptyTitle: '还没有代表选手',
       emptyDetail: '关注俱乐部代表选手后，这里会沉淀成绩案例、成长报告和对外展示素材。',
     };
@@ -3905,8 +3907,9 @@ function myFollowSectionCopy() {
       countLabel: '关注选手',
       activeLabel: '快速入口',
       emptyLabel: '待关注',
-      heroReady: '已选择重点关注选手',
-      heroEmpty: '可从选手详情页设置关注',
+      heroReady: '关注对象会用于数据筛选',
+      heroEmpty: '可从详情页添加关注对象',
+      heroDetail: '影响首页推荐和数据浏览入口；账号状态见账号中心。',
       emptyTitle: '还没有关注选手',
       emptyDetail: '进入选手详情页后，可把常看的选手加入这里。',
     };
@@ -3918,8 +3921,9 @@ function myFollowSectionCopy() {
     countLabel: '关注孩子',
     activeLabel: '成长入口',
     emptyLabel: '待关注',
-    heroReady: '已选择重点关注孩子',
-    heroEmpty: '可从选手详情页设置关注',
+    heroReady: '关注孩子会用于成长分析',
+    heroEmpty: '关注孩子后可获得成长分析',
+    heroDetail: '影响首页推荐和 AI 分析口径；账号状态见账号中心。',
     emptyTitle: '还没有关注选手',
     emptyDetail: '进入选手详情页后，可把孩子加入这里，后续用于成长报告和赛前提醒。',
   };
@@ -6983,9 +6987,9 @@ function renderMyPage() {
   myPage.innerHTML = `
     <section class="my-hero panel">
       <div>
-        <span>当前工作台</span>
-        <strong>${escapeHtml(roleLabel(state.userRole))}</strong>
-        <em>${escapeHtml(state.selectedChildId ? followCopy.heroReady : followCopy.heroEmpty)}</em>
+        <span>当前视角</span>
+        <strong>${escapeHtml(`${roleLabel(state.userRole)}视角`)}</strong>
+        <em>${escapeHtml(followCopy.heroDetail)}</em>
       </div>
       <button type="button" data-role-switch>切换</button>
     </section>
