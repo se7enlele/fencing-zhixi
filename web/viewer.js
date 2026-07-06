@@ -354,11 +354,11 @@ function renderAccountPanel() {
           <input name="identifier" type="text" autocomplete="username" placeholder="用于找回关注和历史">
         </label>
         <label>
-          <span>登录码</span>
-          <input name="code" type="password" autocomplete="current-password" placeholder="至少 6 位，首次输入即创建">
+          <span>密码</span>
+          <input name="code" type="password" autocomplete="current-password" placeholder="至少 6 位，首次输入即创建账号">
         </label>
-        <button type="submit">登录 / 创建账号</button>
-        <em data-account-status>登录后，本机关注、历史和报告会同步到账号。</em>
+        <button type="submit">登录或创建账号</button>
+        <em data-account-status>未登录时可以浏览公开数据；登录后会同步本机关注、历史和报告。</em>
       </form>
     </section>
   `;
@@ -391,6 +391,10 @@ function renderAccountPanelV2() {
           </div>
           <button type="button" data-account-logout>退出</button>
         </div>
+        <div class="account-state-note signed">
+          <strong>已登录</strong>
+          <span>关注、历史、报告和角色设置会保存到当前账号。</span>
+        </div>
         <div class="account-data-grid">
           <div><strong>${counts.follows}</strong><span>关注选手</span></div>
           <div><strong>${counts.followedCompetitions}</strong><span>关注赛事</span></div>
@@ -414,7 +418,11 @@ function renderAccountPanelV2() {
     <section class="panel my-section account-panel account-center-panel">
       <div class="section-title">
         <h2>账号中心</h2>
-        <span>第二阶段</span>
+        <span>未登录</span>
+      </div>
+      <div class="account-state-note">
+        <strong>当前未登录</strong>
+        <span>你仍然可以浏览公开赛事数据。本机关注和历史只保存在当前浏览器，登录后再同步到账号。</span>
       </div>
       <div class="account-value-list">
         <div><strong>保存关注和报告</strong><span>换设备后可以继续查看关注选手、赛事提醒和历史分析。</span></div>
@@ -427,11 +435,11 @@ function renderAccountPanelV2() {
           <input name="identifier" type="text" autocomplete="username" placeholder="用于找回关注、报告和历史">
         </label>
         <label>
-          <span>登录码</span>
-          <input name="code" type="password" autocomplete="current-password" placeholder="至少 6 位，首次输入即创建">
+          <span>密码</span>
+          <input name="code" type="password" autocomplete="current-password" placeholder="至少 6 位，首次输入即创建账号">
         </label>
-        <button type="submit">登录 / 创建账号</button>
-        <em data-account-status>${escapeHtml(state.accountStatus || '登录后，本机关注、历史和报告会同步到账号。')}</em>
+        <button type="submit">登录或创建账号</button>
+        <em data-account-status>${escapeHtml(state.accountStatus || '未登录时可以浏览公开数据；登录后会同步本机关注、历史和报告。')}</em>
       </form>
     </section>
   `;

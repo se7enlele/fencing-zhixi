@@ -2374,6 +2374,42 @@ select:focus {
   padding: 0 12px;
 }
 
+.account-state-note {
+  display: grid;
+  gap: 4px;
+  border: 1px solid rgba(21, 95, 194, 0.1);
+  border-radius: 10px;
+  background: rgba(21, 95, 194, 0.055);
+  padding: 10px;
+}
+
+.account-state-note strong,
+.account-state-note span {
+  display: block;
+  min-width: 0;
+}
+
+.account-state-note strong {
+  color: var(--primary);
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.account-state-note span {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.account-state-note.signed {
+  border-color: rgba(13, 125, 103, 0.14);
+  background: rgba(13, 125, 103, 0.075);
+}
+
+.account-state-note.signed strong {
+  color: var(--teal);
+}
+
 .account-data-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
