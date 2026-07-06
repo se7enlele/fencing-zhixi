@@ -266,7 +266,7 @@ assert.match(js, /openCoachSegmentationReport\(button\.dataset\.clubId \|\| ''\)
 assert.match(js, /button\.dataset\.homeReport === 'club-recruiting'[^\n]+submitAiQuery\(button\.dataset\.aiQuery \|\| ''\)/, 'home report center must launch club recruiting AI reports');
 assert.match(js, /function trackReportHistory\(report\)/, 'generated reports must be tracked for reuse');
 assert.match(js, /function trackAiAnalysisHistory\(query, report\)/, 'AI analysis answers must be tracked for reuse');
-assert.match(js, /\['prematch', 'growth', 'club', 'business-insight', 'product-template', 'club-recruiting'\]\.includes\(report\.type\)/, 'productized AI answers must also be saved as report history');
+assert.match(js, /\['prematch', 'growth', 'club', 'club-comparison', 'business-insight', 'product-template', 'club-recruiting'\]\.includes\(report\.type\)/, 'productized AI answers must also be saved as report history');
 assert.match(js, /type: 'ai-report'[\s\S]*id: text[\s\S]*query: text/, 'AI report history must keep the original question as the runnable id');
 assert.match(js, /row\.type === 'ai-report'[\s\S]*typeLabel: row\.typeLabel \|\| 'AI报告'/, 'recent report rows must render AI report history');
 assert.match(js, /openPrematchReport\('prematch-pack', id === 'prematch-pack' \? '' : id\)/, 'recent generic prematch reports must reopen without a fake sportCode');

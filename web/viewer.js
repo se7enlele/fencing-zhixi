@@ -702,6 +702,7 @@ function aiHistoryTypeLabel(type) {
     prematch: '赛前分析',
     growth: '成长分析',
     comparison: '选手对比',
+    'club-comparison': '剑馆对比',
     club: '俱乐部分析',
     'business-insight': '商业洞察',
     'product-template': '报告方案',
@@ -728,7 +729,7 @@ function trackAiAnalysisHistory(query, report) {
     ...(state.aiHistory || []).filter((row) => row.key !== key),
   ].slice(0, 10);
   saveStoredList(AI_HISTORY_KEY, state.aiHistory, 10);
-  if (['prematch', 'growth', 'club', 'business-insight', 'product-template', 'club-recruiting'].includes(report.type)) {
+  if (['prematch', 'growth', 'club', 'club-comparison', 'business-insight', 'product-template', 'club-recruiting'].includes(report.type)) {
     trackReportHistory({
       type: 'ai-report',
       id: text,
@@ -4707,6 +4708,7 @@ function aiAcceptanceQueryCases() {
     { query: '山东小众体育 U8 男花怎么样', expectedType: 'club' },
     { query: '蔡廷彧最近几场有没有进步', expectedType: 'growth' },
     { query: '分析马潇和陶嘉月的对战情况', expectedType: 'comparison' },
+    { query: '看2025和2026年，U10花剑男子和女子，北京金石是不是比北京艾鲁特更好', expectedType: 'club-comparison' },
     { query: '这些击剑数据能产生什么商业价值', expectedType: 'business-insight' },
     { query: '生成赛前情报包', expectedType: 'product-template' },
     { query: '生成家长成长报告方案', expectedType: 'product-template' },
@@ -5019,6 +5021,25 @@ function detectClubInQuery(query) {
     .sort((a, b) => compactText(b.club).length - compactText(a.club).length || (b.entrants || 0) - (a.entrants || 0))[0] || null;
 }
 
+function detectClubsInQuery(query) {
+  const normalizedQuery = compactText(query);
+  return uniqueBy((state.clubSearchIndex || [])
+    .filter((club) => compactText(club.club) && normalizedQuery.includes(compactText(club.club)))
+    .sort((a, b) => compactText(b.club).length - compactText(a.club).length || (b.entrants || 0) - (a.entrants || 0)),
+  (club) => club.id || compactText(club.club)).slice(0, 3);
+}
+
+function detectClubComparisonQuery(query) {
+  const normalized = compactText(query);
+  if (!/(对比|比较|比|更好|谁强|谁更强|领先|差距|优势)/.test(normalized)) return null;
+  const clubs = detectClubsInQuery(query);
+  if (clubs.length < 2) return null;
+  return {
+    clubs: clubs.slice(0, 2),
+    filters: aiClubComparisonFilters(query),
+  };
+}
+
 function uniqueBy(rows, keyFn) {
   const seen = new Set();
   return rows.filter((row) => {
@@ -5051,6 +5072,9 @@ function buildAiAnswer(query) {
   if (productTemplate) return buildAiProductTemplateReport(text, productTemplate);
 
   if (detectBusinessInsightQuery(text)) return buildAiBusinessInsightReport(text);
+
+  const clubComparison = detectClubComparisonQuery(text);
+  if (clubComparison) return buildAiClubComparisonReport(text, clubComparison.clubs[0], clubComparison.clubs[1], clubComparison.filters);
 
   const exactAthletes = detectExactAthletesInQuery(normalizeAiName(text));
   if (exactAthletes.length >= 2) return buildAiAthleteComparison(text, exactAthletes[0], exactAthletes[1]);
@@ -5245,6 +5269,205 @@ function projectMatchesAiHints(label, hints) {
   if (!hints.length) return true;
   const text = compactText(label);
   return hints.every((hint) => text.includes(compactText(hint)));
+}
+
+function detectYearsInQuery(query) {
+  const normalized = compactText(query);
+  const years = [...new Set(normalized.match(/20\d{2}/g) || [])];
+  if (years.length) return years;
+  const relative = detectYearInQuery(normalized);
+  return relative ? [relative] : [];
+}
+
+function aiClubComparisonFilters(query) {
+  const normalized = compactText(query);
+  const genders = [];
+  if (normalized.includes('男')) genders.push('male');
+  if (normalized.includes('女')) genders.push('female');
+  return {
+    years: detectYearsInQuery(normalized),
+    age: normalized.match(/u\d{1,2}/i)?.[0]?.toUpperCase() || '',
+    weapon: normalized.includes('花') ? 'foil' : normalized.includes('重') ? 'epee' : normalized.includes('佩') ? 'sabre' : '',
+    genders: genders.length ? genders : ['total'],
+    includeTotal: genders.length > 1,
+    metricMode: /(数量|人次|前八|奖牌|冠军|次数)/.test(normalized) ? 'quantity' : 'quantity',
+  };
+}
+
+function aiClubEventYear(event) {
+  return String([event.sportName, event.openDate, event.dateLabel, event.startDate].filter(Boolean).join(' '))
+    .match(/20\d{2}/)?.[0] || '';
+}
+
+function aiClubEventGender(event) {
+  const text = `${event.eventName || ''} ${event.shortEventName || ''}`;
+  if (text.includes('女')) return 'female';
+  if (text.includes('男')) return 'male';
+  return 'unknown';
+}
+
+function aiClubEventWeapon(event) {
+  const text = `${event.eventName || ''} ${event.shortEventName || ''}`;
+  if (text.includes('花')) return 'foil';
+  if (text.includes('重')) return 'epee';
+  if (text.includes('佩')) return 'sabre';
+  return '';
+}
+
+function aiClubEventMatchesFilters(event, filters, gender = 'total') {
+  const label = `${event.eventName || ''} ${event.shortEventName || ''}`;
+  if (filters.years?.length && !filters.years.includes(aiClubEventYear(event))) return false;
+  if (filters.age && !compactText(label).includes(compactText(filters.age))) return false;
+  if (filters.weapon && aiClubEventWeapon(event) !== filters.weapon) return false;
+  if (gender !== 'total' && aiClubEventGender(event) !== gender) return false;
+  return true;
+}
+
+function aiClubComparisonMetric(club, filters, gender = 'total') {
+  const events = (club.events || []).filter((event) => aiClubEventMatchesFilters(event, filters, gender));
+  const metric = events.reduce((acc, event) => {
+    acc.projects += 1;
+    acc.entrants += Number(event.entrants) || 0;
+    acc.top8 += Number(event.top8) || 0;
+    acc.medals += Number(event.medals) || 0;
+    const rank = Number(event.bestRank);
+    if (rank === 1) acc.champions += 1;
+    if (rank > 0) acc.bestRank = Math.min(acc.bestRank, rank);
+    return acc;
+  }, {
+    club,
+    gender,
+    events,
+    projects: 0,
+    entrants: 0,
+    top8: 0,
+    medals: 0,
+    champions: 0,
+    bestRank: Infinity,
+  });
+  metric.bestRank = metric.bestRank === Infinity ? null : metric.bestRank;
+  return metric;
+}
+
+function aiClubComparisonScore(metric) {
+  return (metric.medals * 5) + (metric.top8 * 3) + (metric.champions * 4) + (metric.entrants * 0.1) + metric.projects;
+}
+
+function aiClubComparisonWinner(left, right) {
+  const leftWins = ['entrants', 'top8', 'medals', 'champions'].filter((key) => left[key] > right[key]).length;
+  const rightWins = ['entrants', 'top8', 'medals', 'champions'].filter((key) => right[key] > left[key]).length;
+  if (leftWins !== rightWins) return leftWins > rightWins ? left : right;
+  const leftScore = aiClubComparisonScore(left);
+  const rightScore = aiClubComparisonScore(right);
+  if (leftScore === rightScore) return null;
+  return leftScore > rightScore ? left : right;
+}
+
+function aiClubComparisonScopeLabel(filters) {
+  const weaponLabel = { foil: '花剑', epee: '重剑', sabre: '佩剑' }[filters.weapon] || '全部剑种';
+  return [
+    filters.years?.length ? filters.years.join('、') : '全部年份',
+    filters.age || '全部年龄段',
+    weaponLabel,
+    filters.metricMode === 'quantity' ? '数量优先' : '',
+  ].filter(Boolean).join(' · ');
+}
+
+function aiClubComparisonGenderLabel(gender) {
+  if (gender === 'male') return '男子';
+  if (gender === 'female') return '女子';
+  return '合计';
+}
+
+function aiClubComparisonMetricLine(left, right) {
+  const winner = aiClubComparisonWinner(left, right);
+  const winnerText = winner ? `${winner.club.club}领先` : '两边接近';
+  return `${aiClubComparisonGenderLabel(left.gender)}：${left.club.club} ${left.entrants}人次、前八${left.top8}、奖牌${left.medals}、冠军${left.champions}；${right.club.club} ${right.entrants}人次、前八${right.top8}、奖牌${right.medals}、冠军${right.champions}。初步判断：${winnerText}。`;
+}
+
+function aiClubComparisonConclusionRows(metrics) {
+  return metrics.map(([left, right]) => aiClubComparisonMetricLine(left, right));
+}
+
+function aiClubComparisonEvidenceRows(metrics) {
+  const rows = [];
+  metrics.forEach(([left, right]) => {
+    [left, right].forEach((metric) => {
+      metric.events
+        .slice()
+        .sort((a, b) => (Number(a.bestRank) || 99) - (Number(b.bestRank) || 99) || String(b.openDate || b.dateLabel || '').localeCompare(String(a.openDate || a.dateLabel || ''), 'zh-CN'))
+        .slice(0, 3)
+        .forEach((event) => {
+          rows.push({
+            kind: '俱乐部对比证据',
+            label: event.sportName || displayEventName(event),
+            detail: `${metric.club.club} · ${displayEventName(event)} · ${event.entrants || 0}人次 · 前八${event.top8 || 0} · 奖牌${event.medals || 0} · 最好第${event.bestRank ?? '-'}名`,
+            reason: `${aiClubComparisonGenderLabel(metric.gender)}口径下的关键成绩样本`,
+            sportCode: event.sportCode,
+            eventCode: event.eventCode,
+            clubId: metric.club.id,
+          });
+        });
+    });
+  });
+  return rows.slice(0, 8);
+}
+
+function buildAiClubComparisonReport(query, leftClub, rightClub, filters) {
+  const genderScopes = [...filters.genders];
+  if (filters.includeTotal) genderScopes.push('total');
+  const metricPairs = genderScopes.map((gender) => [
+    aiClubComparisonMetric(leftClub, filters, gender),
+    aiClubComparisonMetric(rightClub, filters, gender),
+  ]);
+  const totalPair = metricPairs.find(([left]) => left.gender === 'total') || metricPairs[0];
+  const overallWinner = totalPair ? aiClubComparisonWinner(totalPair[0], totalPair[1]) : null;
+  const scopeLabel = aiClubComparisonScopeLabel(filters);
+  const summary = overallWinner
+    ? `${scopeLabel}口径下，按参赛人次、前八、奖牌和冠军这些数量指标初步判断，${overallWinner.club.club}更占优。`
+    : `${scopeLabel}口径下，两家俱乐部数量指标接近，需要继续看效率、对手强度和赛事级别。`;
+
+  return {
+    type: 'club-comparison',
+    title: `${leftClub.club} vs ${rightClub.club}`,
+    summary,
+    cards: [
+      ['分析口径', scopeLabel],
+      [leftClub.club, `前八${totalPair?.[0]?.top8 || 0} · 奖牌${totalPair?.[0]?.medals || 0}`],
+      [rightClub.club, `前八${totalPair?.[1]?.top8 || 0} · 奖牌${totalPair?.[1]?.medals || 0}`],
+      ['初级判断', overallWinner ? `${overallWinner.club.club}占优` : '接近'],
+    ],
+    sections: [
+      {
+        title: '数量判断',
+        rows: aiClubComparisonConclusionRows(metricPairs),
+      },
+      {
+        title: '判断口径',
+        rows: [
+          `年份：${filters.years?.length ? filters.years.join('、') : '全部年份'}`,
+          `年龄段：${filters.age || '全部年龄段'}`,
+          `剑种：${{ foil: '花剑', epee: '重剑', sabre: '佩剑' }[filters.weapon] || '全部剑种'}`,
+          `性别：${genderScopes.map(aiClubComparisonGenderLabel).join('、')}`,
+          '当前先用数量做初级判断；后续可以继续看前八率、奖牌率、赛事级别和对手强度。',
+        ],
+      },
+      {
+        title: '下一步追问',
+        rows: [
+          `只看2026年，${leftClub.club}和${rightClub.club}谁更强？`,
+          `只看U10男花，${leftClub.club}和${rightClub.club}的前八率谁更高？`,
+          `把团体赛排除后，${leftClub.club}和${rightClub.club}谁更好？`,
+        ],
+      },
+    ],
+    evidence: aiClubComparisonEvidenceRows(metricPairs),
+    actions: [
+      { label: `查看${leftClub.club}`, clubId: leftClub.id },
+      { label: `查看${rightClub.club}`, clubId: rightClub.id },
+    ],
+    sourceNote: '俱乐部对比基于当前已收录俱乐部赛事记录生成；数量判断适合做第一层结论，正式经营判断还应继续纳入效率和赛事含金量。',
+  };
 }
 
 function aiCompetitionStatsDecisionRows(rows, actionRows, rosterRows, scoreRows) {
@@ -6239,6 +6462,12 @@ function aiTrustRows(report) {
       value: confidence,
       detail: '优先看直接交手，其次看共同赛事、近期状态和历史成绩画像。',
     });
+  } else if (report.type === 'club-comparison') {
+    rows.push({
+      label: '判断口径',
+      value: '数量对比',
+      detail: '按参赛人次、前八、奖牌和冠军数做第一层判断，再继续看效率和赛事含金量。',
+    });
   } else if (report.type === 'growth') {
     rows.push({
       label: '判断口径',
@@ -6310,6 +6539,10 @@ function aiNextStepRows(report) {
       '先查看共同项目和直接交手记录，再判断两名选手差距。',
       '没有直接交手时，只把历史名次和共同赛事作为参考。',
     ],
+    'club-comparison': [
+      '先看同口径下参赛人次、前八、奖牌和冠军数量，再判断谁更占优。',
+      '下一步建议继续看前八率、奖牌率、团体赛是否纳入和赛事级别。',
+    ],
     growth: [
       '先看最近几场名次变化，再结合小组赛和淘汰赛表现复盘。',
       '把孩子设为关注后，可从首页持续查看成长变化。',
@@ -6356,6 +6589,13 @@ function aiFollowUpPrompts(report) {
   if (report.type === 'comparison') {
     const [left, right] = String(report.title || '').split(/\s+vs\s+/i);
     return [left && `${left}最近几场有没有进步`, right && `${right}最近几场有没有进步`].filter(Boolean);
+  }
+  if (report.type === 'club-comparison') {
+    const [left, right] = String(report.title || '').split(/\s+vs\s+/i);
+    return [
+      left && right ? `只看2026年，${left}和${right}谁更强？` : '',
+      left && right ? `只看U10男花，${left}和${right}的前八率谁更高？` : '',
+    ].filter(Boolean);
   }
   if (report.type === 'growth') {
     const athlete = String(report.title || '').replace(/的成长趋势$|成长报告$/g, '').trim();
@@ -6484,11 +6724,11 @@ function aiReportConversionAction(report = {}) {
       secondaryLabel: '了解会员权益',
     };
   }
-  if (type === 'club' || type === 'club-recruiting') {
+  if (type === 'club' || type === 'club-recruiting' || type === 'club-comparison') {
     return {
-      source: type === 'club-recruiting' ? 'ai-club-recruiting-answer' : 'ai-club-answer',
+      source: type === 'club-recruiting' ? 'ai-club-recruiting-answer' : type === 'club-comparison' ? 'ai-club-comparison-answer' : 'ai-club-answer',
       title: '建立剑馆经营看板',
-      detail: '适合把学员分层、强项项目和招生素材做成固定工作台。',
+      detail: type === 'club-comparison' ? '适合持续跟踪同项目竞争对手、优势项目和招生表达。' : '适合把学员分层、强项项目和招生素材做成固定工作台。',
       primaryLabel: '申请教练试用',
       secondaryLabel: '了解剑馆权益',
     };
@@ -6545,7 +6785,7 @@ function aiConversionServiceRows(report = {}) {
       '下一场比赛前的关注清单',
     ];
   }
-  if (type === 'club' || type === 'club-recruiting' || report.templateKind === 'coach-segmentation') {
+  if (type === 'club' || type === 'club-recruiting' || type === 'club-comparison' || report.templateKind === 'coach-segmentation') {
     return [
       '学员分层和训练跟进建议',
       '优势项目、代表学员和招生素材',
@@ -6612,7 +6852,7 @@ function renderAiAnswer(report) {
   return `
     <div class="ai-answer-card">
       <div class="ai-answer-head">
-        <span>${escapeHtml(report.type === 'comparison' ? '选手对比' : report.type === 'growth' ? '成长分析' : report.type === 'club' ? '俱乐部画像' : report.type === 'prematch' ? '赛前情报' : report.type === 'business-insight' ? '商业洞察' : report.type === 'product-template' ? '报告方案' : report.type === 'club-recruiting' ? '招生展示' : '数据助手')}</span>
+        <span>${escapeHtml(report.type === 'comparison' ? '选手对比' : report.type === 'club-comparison' ? '剑馆对比' : report.type === 'growth' ? '成长分析' : report.type === 'club' ? '俱乐部画像' : report.type === 'prematch' ? '赛前情报' : report.type === 'business-insight' ? '商业洞察' : report.type === 'product-template' ? '报告方案' : report.type === 'club-recruiting' ? '招生展示' : '数据助手')}</span>
         <strong>${escapeHtml(report.title)}</strong>
         <p>${escapeHtml(report.summary)}</p>
       </div>

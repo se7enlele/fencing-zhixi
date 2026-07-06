@@ -17,6 +17,7 @@ assert.match(js, /expectedType: 'prematch'/, 'AI acceptance queries must cover p
 assert.match(js, /expectedType: 'club'/, 'AI acceptance queries must cover scoped club analysis');
 assert.match(js, /expectedType: 'growth'/, 'AI acceptance queries must cover athlete growth analysis');
 assert.match(js, /expectedType: 'comparison'/, 'AI acceptance queries must cover athlete comparison');
+assert.match(js, /expectedType: 'club-comparison'/, 'AI acceptance queries must cover club-to-club comparison');
 assert.match(js, /expectedType: 'business-insight'/, 'AI acceptance queries must cover business value analysis');
 assert.match(js, /expectedType: 'product-template'/, 'AI acceptance queries must cover productized report templates');
 assert.match(js, /expectedType: 'club-recruiting'/, 'AI acceptance queries must cover club recruiting display questions');
@@ -29,6 +30,13 @@ assert.match(js, /function trackAiAnalysisHistory\(query, report\)/, 'AI home pr
 assert.match(js, /trackAiAnalysisHistory\(normalizedQuery, report\)/, 'AI home prompt must write each successful answer to analysis history');
 assert.match(js, /report\.type === 'empty' \|\| report\.type === 'fallback'/, 'AI history must not store empty or fallback answers');
 assert.match(js, /const club = detectClubInQuery\(text\);[\s\S]*if \(club\) return buildAiClubReport\(text, club\);[\s\S]*const athletes = detectAthletesInQuery\(text\);/, 'AI routing must prefer exact club matches before fuzzy athlete guesses');
+assert.match(js, /function detectClubComparisonQuery\(query\)/, 'AI must detect two-club comparison questions');
+assert.match(js, /function buildAiClubComparisonReport\(query, leftClub, rightClub, filters\)/, 'AI must build club-to-club comparison reports');
+assert.match(js, /const clubComparison = detectClubComparisonQuery\(text\);[\s\S]*if \(clubComparison\) return buildAiClubComparisonReport/, 'AI routing must prefer club comparison before single-club reports');
+assert.match(js, /function aiClubComparisonFilters\(query\)/, 'AI club comparison must parse year, age, weapon and gender scope');
+assert.match(js, /function aiClubComparisonMetric\(club, filters, gender = 'total'\)/, 'AI club comparison must aggregate club metrics by scope');
+assert.match(js, /type: 'club-comparison'/, 'AI club comparison report must have a stable report type');
+assert.match(js, /title: '数量判断'/, 'AI club comparison must expose quantity-first judgment rows');
 assert.match(js, /function aiProjectHints\(query\)/, 'AI club reports must detect project hints like U8 male foil');
 assert.match(js, /function projectMatchesAiHints\(label, hints\)/, 'AI club reports must filter projects by question hints');
 assert.match(js, /function aiCompetitionStatsDecisionRows\(rows, actionRows, rosterRows, scoreRows\)/, 'AI competition stats must translate counts into product-facing next-step judgment');
@@ -100,6 +108,7 @@ assert.match(js, /report\.type === 'prematch' \? '赛前情报'/, 'AI answer hea
 assert.match(js, /report\.type === 'business-insight' \? '商业洞察'/, 'AI answer header must label business insight reports');
 assert.match(js, /report\.type === 'product-template' \? '报告方案'/, 'AI answer header must label product template reports');
 assert.match(js, /report\.type === 'club-recruiting' \? '招生展示'/, 'AI answer header must label recruiting display reports');
+assert.match(js, /report\.type === 'club-comparison' \? '剑馆对比'/, 'AI answer header must label club comparison reports');
 assert.match(js, /kind: '赛前赛事'/, 'AI prematch evidence must label prematch competitions');
 assert.match(js, /名单未完整时，只做项目级和赛事级判断/, 'AI prematch report must disclose incomplete roster boundaries');
 assert.match(js, /暂未发现两人的直接交手记录/, 'AI comparison must not imply direct bouts when none are found');
@@ -149,6 +158,7 @@ assert.match(js, /'business-insight':\s*\[[\s\S]*赛前情报包和选手成长�
 assert.match(js, /'product-template':\s*\[/, 'AI product templates must include next-step guidance');
 assert.match(js, /'club-recruiting':\s*\[[\s\S]*对外素材/, 'AI recruiting answers must include next-step guidance');
 assert.match(js, /comparison:\s*\[[\s\S]*共同项目和直接交手记录/, 'AI comparison answers must guide users to review shared projects and direct bouts');
+assert.match(js, /'club-comparison':\s*\[[\s\S]*前八率、奖牌率/, 'AI club comparison answers must guide users from quantity to efficiency');
 assert.match(js, /<div class="ai-next-steps">/, 'AI answer renderer must show next-step guidance');
 assert.match(js, /renderAiConversionBlock\(report\)/, 'AI answer renderer must include commercial conversion after next steps');
 assert.match(js, /data-commercial-intent="pilot"/, 'AI conversion block must expose pilot-interest actions');
