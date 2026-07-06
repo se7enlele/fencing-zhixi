@@ -6575,15 +6575,40 @@ function renderAiConversionBlock(report = {}) {
   `;
 }
 
+function aiAnswerMetaRows(report = {}) {
+  const rows = [];
+  if (report.query) rows.push({ label: '问题', value: report.query });
+  const evidenceCount = report.evidence?.length || 0;
+  rows.push({
+    label: '证据',
+    value: evidenceCount ? `${evidenceCount} 条可回查` : '当前为概览判断',
+  });
+  const actionCount = report.actions?.length || 0;
+  rows.push({
+    label: '后续',
+    value: actionCount ? `${actionCount} 个动作` : '可继续追问',
+  });
+  return rows;
+}
+
 function renderAiAnswer(report) {
   const followUps = aiFollowUpPrompts(report).slice(0, 2);
   const trustRows = aiTrustRows(report);
+  const metaRows = aiAnswerMetaRows(report);
   return `
     <div class="ai-answer-card">
       <div class="ai-answer-head">
         <span>${escapeHtml(report.type === 'comparison' ? '选手对比' : report.type === 'growth' ? '成长分析' : report.type === 'club' ? '俱乐部画像' : report.type === 'prematch' ? '赛前情报' : report.type === 'business-insight' ? '商业洞察' : report.type === 'product-template' ? '报告方案' : report.type === 'club-recruiting' ? '招生展示' : '数据助手')}</span>
         <strong>${escapeHtml(report.title)}</strong>
         <p>${escapeHtml(report.summary)}</p>
+      </div>
+      <div class="ai-answer-meta">
+        ${metaRows.map((row) => `
+          <div>
+            <span>${escapeHtml(row.label)}</span>
+            <strong>${escapeHtml(row.value)}</strong>
+          </div>
+        `).join('')}
       </div>
       ${report.cards?.length ? `
         <div class="ai-metric-grid">

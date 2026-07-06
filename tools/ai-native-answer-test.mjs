@@ -138,6 +138,10 @@ assert.match(js, /function aiConversionServiceRows\(report = \{\}\)/, 'AI conver
 assert.match(js, /function renderAiConversionBlock\(report = \{\}\)/, 'AI answers must render a lightweight conversion block');
 assert.match(js, /<b>试用包含<\/b>/, 'AI conversion blocks must show a concrete trial contents label');
 assert.match(js, /aiConversionServiceRows\(report\)/, 'AI conversion blocks must derive trial contents from the report type');
+assert.match(js, /function aiAnswerMetaRows\(report = \{\}\)/, 'AI answers must summarize question, traceability and next actions');
+assert.match(js, /class="ai-answer-meta"/, 'AI answer renderer must show a compact result metadata strip');
+assert.match(js, /value: evidenceCount \? `\$\{evidenceCount\} 条可回查` : '当前为概览判断'/, 'AI result metadata must make traceability visible');
+assert.match(js, /value: actionCount \? `\$\{actionCount\} 个动作` : '可继续追问'/, 'AI result metadata must make next actions visible');
 assert.match(js, /重点赛事提醒和报名名单更新/, 'prematch conversion must include event and roster update value');
 assert.match(js, /学员分层和训练跟进建议/, 'coach conversion must include segmentation and training follow-up value');
 assert.match(js, /prematch:\s*\[[\s\S]*同组对手、强手和主要俱乐部分布/, 'AI prematch answers must guide users toward opponent and club checks');
@@ -173,6 +177,7 @@ assert.doesNotMatch(js, /label: '边界'/, 'AI trust rows must not expose intern
 assert.doesNotMatch(js, /value: '需核对'/, 'AI trust rows must not expose internal verification states');
 
 assert.doesNotMatch(css, /\.ai-source-note/, 'AI source note styles should be removed when source notes are hidden');
+assert.match(css, /\.ai-answer-meta/, 'AI answer metadata strip styles must exist');
 assert.match(css, /\.ai-action-block/, 'AI action block styles must exist');
 assert.match(css, /\.ai-trust-panel/, 'AI judgment-basis panel styles must exist');
 assert.match(css, /\.ai-trust-row/, 'AI judgment-basis rows must have mobile layout styles');

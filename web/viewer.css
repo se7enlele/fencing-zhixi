@@ -1595,6 +1595,42 @@ select:focus {
   padding: 11px;
 }
 
+.ai-answer-meta {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 7px;
+}
+
+.ai-answer-meta div {
+  min-width: 0;
+  border: 1px solid rgba(21, 95, 194, 0.08);
+  border-radius: 10px;
+  background: rgba(21, 95, 194, 0.045);
+  padding: 8px;
+}
+
+.ai-answer-meta span,
+.ai-answer-meta strong {
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ai-answer-meta span {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.ai-answer-meta strong {
+  margin-top: 3px;
+  color: var(--text);
+  font-size: 12px;
+  font-weight: 900;
+}
+
 .ai-query-form.is-submitting button,
 .ai-query-form button:disabled {
   cursor: progress;
