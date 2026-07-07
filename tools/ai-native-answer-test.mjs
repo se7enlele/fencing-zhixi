@@ -121,20 +121,20 @@ assert.match(js, /kind: '共同项目'/, 'AI evidence must label shared project 
 assert.match(js, /reason: '用于比较同一项目里的名次差距'/, 'AI evidence must explain why a source supports the answer');
 assert.match(js, /function aiEvidenceKind\(row\)/, 'AI evidence renderer must normalize evidence type labels');
 assert.match(js, /function aiTrustRows\(report\)/, 'AI answers must summarize judgment basis before detailed evidence');
-assert.match(js, /const trustRows = aiTrustRows\(report\)/, 'AI answer renderer must compute trust rows for every report');
 assert.match(js, /function aiFollowAthleteAction\(athlete\)/, 'AI answers must expose follow actions for athletes');
 assert.match(js, /followAthleteId: athlete\.id/, 'AI growth answers must include follow athlete action payload');
 assert.match(js, /data-follow-athlete-id/, 'AI action buttons must support follow-athlete actions');
 assert.match(js, /row\.clubId \? `data-club-id=/, 'AI evidence buttons must support club evidence actions');
 assert.match(js, /upsertFollowedAthlete\(athlete\)/, 'AI follow action must reuse the existing follow handler');
 assert.match(js, /class="ai-action-block"/, 'AI answers must promote executable actions as a dedicated block');
-assert.match(js, /<strong>可继续操作<\/strong>/, 'AI action block must use product-facing action copy');
+assert.match(js, /<strong>查看<\/strong>/, 'AI action block must use concise product-facing action copy');
 assert.ok(
   js.indexOf('class="ai-action-block"') > -1 && js.indexOf('class="ai-action-block"') < js.indexOf('class="ai-evidence"'),
   'AI action block should appear before evidence so users can act first and verify next',
 );
 assert.match(js, /function aiNextStepRows\(report\)/, 'AI answers must include contextual next-step guidance');
 assert.match(js, /function aiFollowUpPrompts\(report\)/, 'AI answers must generate related follow-up questions');
+assert.match(js, /function isUserFacingAiSection\(section = \{\}\)/, 'AI answer renderer must filter internal analysis sections before display');
 assert.match(js, /function buildAiAnswerShareText\(report\)/, 'AI answers must build shareable summaries');
 assert.match(js, /function submitAiAnswerFeedback\(report, feedbackType\)/, 'AI answers must submit quality feedback');
 assert.match(js, /function buildAiAnswerFeedbackText\(report, feedbackType\)/, 'AI answer feedback must have admin-readable text');
@@ -155,7 +155,7 @@ assert.match(js, /function renderAiConversionBlock\(report = \{\}\)/, 'AI answer
 assert.match(js, /<b>试用包含<\/b>/, 'AI conversion blocks must show a concrete trial contents label');
 assert.match(js, /aiConversionServiceRows\(report\)/, 'AI conversion blocks must derive trial contents from the report type');
 assert.match(js, /function aiAnswerMetaRows\(report = \{\}\)/, 'AI answers must summarize question, traceability and next actions');
-assert.match(js, /class="ai-answer-meta"/, 'AI answer renderer must show a compact result metadata strip');
+assert.doesNotMatch(js, /class="ai-answer-meta"/, 'AI answer renderer must not show internal question/evidence/action metadata cards');
 assert.match(js, /value: evidenceCount \? `\$\{evidenceCount\} 条可回查` : '当前为概览判断'/, 'AI result metadata must make traceability visible');
 assert.match(js, /value: actionCount \? `\$\{actionCount\} 个动作` : '可继续追问'/, 'AI result metadata must make next actions visible');
 assert.match(js, /重点赛事提醒和报名名单更新/, 'prematch conversion must include event and roster update value');
@@ -166,15 +166,15 @@ assert.match(js, /'product-template':\s*\[/, 'AI product templates must include 
 assert.match(js, /'club-recruiting':\s*\[[\s\S]*对外素材/, 'AI recruiting answers must include next-step guidance');
 assert.match(js, /comparison:\s*\[[\s\S]*共同项目和直接交手记录/, 'AI comparison answers must guide users to review shared projects and direct bouts');
 assert.match(js, /'club-comparison':\s*\[[\s\S]*前八率、奖牌率/, 'AI club comparison answers must guide users from quantity to efficiency');
-assert.match(js, /<div class="ai-next-steps">/, 'AI answer renderer must show next-step guidance');
-assert.match(js, /renderAiConversionBlock\(report\)/, 'AI answer renderer must include commercial conversion after next steps');
+assert.doesNotMatch(js, /<div class="ai-next-steps">/, 'AI answer renderer must not expose internal next-step guidance blocks');
+assert.doesNotMatch(js, /renderAiConversionBlock\(report\)/, 'AI answer renderer must not show commercial conversion blocks inside the answer result');
 assert.match(js, /data-commercial-intent="pilot"/, 'AI conversion block must expose pilot-interest actions');
 assert.match(js, /bindReportConversionActions\(container\)/, 'AI answer actions must reuse the existing commercial-interest submission flow');
 assert.match(js, /class="ai-share-row"/, 'AI answer renderer must expose a copy summary action');
 assert.match(js, /data-ai-share/, 'AI answer copy action must be addressable');
 assert.match(js, /data-ai-feedback=\"ai-helpful\"/, 'AI answer must expose helpful feedback');
 assert.match(js, /data-ai-feedback=\"ai-needs-work\"/, 'AI answer must expose needs-work feedback');
-assert.match(js, /class="ai-follow-up-row"/, 'AI answer renderer must show follow-up question chips');
+assert.doesNotMatch(js, /class="ai-follow-up-row"/, 'AI answer renderer must not show follow-up question chips inside the result card');
 assert.match(js, /data-ai-follow-up/, 'AI follow-up chips must carry runnable query text');
 assert.match(js, /const bindAnswer = \(report\) =>/, 'AI workspace must pass the current report into answer bindings');
 assert.match(js, /bindAnswer\(report\);/, 'AI workspace must bind copy actions with the generated report');
@@ -184,8 +184,8 @@ assert.match(js, /bindCopyTextButton\(button, \(\) => buildAiAnswerShareText\(re
 assert.match(js, /submitAiAnswerFeedback\(report \|\| \{\}, button\.dataset\.aiFeedback\)/, 'AI feedback buttons must submit the current report');
 assert.match(js, /answer\.querySelectorAll\('\[data-ai-follow-up\]'\)/, 'AI workspace must bind follow-up chips after each answer');
 assert.doesNotMatch(js, /class="ai-source-note"/, 'AI answer must not render internal data boundary notes');
-assert.match(js, /class="ai-trust-panel"/, 'AI answer must render a judgment-basis panel');
-assert.match(js, /<strong>判断依据<\/strong>/, 'AI judgment-basis panel must use user-facing copy');
+assert.doesNotMatch(js, /class="ai-trust-panel"/, 'AI answer must not render internal judgment-basis panels');
+assert.doesNotMatch(js, /<strong>判断依据<\/strong>/, 'AI answer must not show internal judgment-basis headings');
 assert.match(js, /<em>\$\{escapeHtml\(aiEvidenceKind\(row\)\)\}<\/em>/, 'AI evidence cards must show evidence type');
 assert.doesNotMatch(js, /<small>\$\{escapeHtml\(row\.reason\)\}<\/small>/, 'AI evidence cards must not show internal relevance reasons');
 assert.doesNotMatch(js, /已关注这个孩子/, 'AI action buttons must not show ambiguous already-following child copy');
@@ -194,18 +194,18 @@ assert.doesNotMatch(js, /label: '边界'/, 'AI trust rows must not expose intern
 assert.doesNotMatch(js, /value: '需核对'/, 'AI trust rows must not expose internal verification states');
 
 assert.doesNotMatch(css, /\.ai-source-note/, 'AI source note styles should be removed when source notes are hidden');
-assert.match(css, /\.ai-answer-meta/, 'AI answer metadata strip styles must exist');
+assert.doesNotMatch(css, /\.ai-answer-meta/, 'AI answer metadata strip styles should be removed when hidden from the product UI');
 assert.match(css, /\.ai-enhancement-card/, 'AI enhancement card styles must exist');
 assert.match(css, /\.ai-action-block/, 'AI action block styles must exist');
-assert.match(css, /\.ai-trust-panel/, 'AI judgment-basis panel styles must exist');
-assert.match(css, /\.ai-trust-row/, 'AI judgment-basis rows must have mobile layout styles');
+assert.doesNotMatch(css, /\.ai-trust-panel/, 'AI judgment-basis panel styles should be removed when hidden from the product UI');
+assert.doesNotMatch(css, /\.ai-trust-row/, 'AI judgment-basis row styles should be removed when hidden from the product UI');
 assert.match(css, /\.ai-filter-notice/, 'AI-filtered competition lists must show a visible filter notice');
-assert.match(css, /\.ai-next-steps/, 'AI next-step styles must exist');
+assert.doesNotMatch(css, /\.ai-next-steps/, 'AI next-step styles should be removed when hidden from the product UI');
 assert.match(css, /\.ai-conversion-card/, 'AI conversion block styles must exist');
 assert.match(css, /\.ai-conversion-service/, 'AI conversion block must style concrete trial contents');
 assert.match(css, /\.ai-conversion-actions/, 'AI conversion action styles must exist');
 assert.match(css, /\.ai-share-row/, 'AI share action styles must exist');
-assert.match(css, /\.ai-follow-up-row/, 'AI follow-up question styles must exist');
+assert.doesNotMatch(css, /\.ai-follow-up-row/, 'AI follow-up question styles should be removed when hidden from the product UI');
 assert.match(css, /\.ai-evidence button em/, 'AI evidence type badge styles must exist');
 assert.doesNotMatch(css, /\.ai-evidence button small/, 'AI evidence reason styles must not exist');
 assert.match(css, /contain: inline-size/, 'Pool process cards must contain wide tables inside the mobile viewport');

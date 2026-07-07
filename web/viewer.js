@@ -6689,6 +6689,13 @@ function aiFollowUpPrompts(report) {
   return aiPromptPresets().slice(0, 2);
 }
 
+function isUserFacingAiSection(section = {}) {
+  const title = String(section.title || '').trim();
+  if (!title) return false;
+  if (/分析口径|判断路径|判断依据|下一步|后续|继续问|数据边界|边界|口径/.test(title)) return false;
+  return true;
+}
+
 function buildAiAnswerFeedbackText(report, feedbackType) {
   const label = feedbackType === 'ai-helpful' ? '有帮助' : '需要调整';
   const conversionAction = aiReportConversionAction(report);
@@ -6902,9 +6909,7 @@ function aiAnswerMetaRows(report = {}) {
 }
 
 function renderAiAnswer(report) {
-  const followUps = aiFollowUpPrompts(report).slice(0, 2);
-  const trustRows = aiTrustRows(report);
-  const metaRows = aiAnswerMetaRows(report);
+  const visibleSections = (report.sections || []).filter(isUserFacingAiSection);
   const enhancement = report.enhancement || null;
   return `
     <div class="ai-answer-card">
@@ -6927,14 +6932,6 @@ function renderAiAnswer(report) {
           ` : ''}
         </div>
       ` : ''}
-      <div class="ai-answer-meta">
-        ${metaRows.map((row) => `
-          <div>
-            <span>${escapeHtml(row.label)}</span>
-            <strong>${escapeHtml(row.value)}</strong>
-          </div>
-        `).join('')}
-      </div>
       ${report.cards?.length ? `
         <div class="ai-metric-grid">
           ${report.cards.map(([label, value]) => `
@@ -6945,19 +6942,7 @@ function renderAiAnswer(report) {
           `).join('')}
         </div>
       ` : ''}
-      ${trustRows.length ? `
-        <div class="ai-trust-panel">
-          <strong>判断依据</strong>
-          ${trustRows.map((row) => `
-            <div class="ai-trust-row">
-              <span>${escapeHtml(row.label)}</span>
-              <b>${escapeHtml(row.value)}</b>
-              <em>${escapeHtml(row.detail)}</em>
-            </div>
-          `).join('')}
-        </div>
-      ` : ''}
-      ${(report.sections || []).map((section) => `
+      ${visibleSections.map((section) => `
         <div class="ai-section">
           <strong>${escapeHtml(section.title)}</strong>
           ${section.rows.map((row) => `<span>${escapeHtml(row)}</span>`).join('')}
@@ -6965,7 +6950,7 @@ function renderAiAnswer(report) {
       `).join('')}
       ${report.actions?.length ? `
         <div class="ai-action-block">
-          <strong>可继续操作</strong>
+          <strong>查看</strong>
           <div class="ai-action-row">
             ${report.actions.map((action) => `
               <button type="button" ${action.athleteId ? `data-athlete-id="${escapeHtml(action.athleteId)}"` : ''} ${action.parentGrowthAthleteId ? `data-parent-growth-athlete-id="${escapeHtml(action.parentGrowthAthleteId)}"` : ''} ${action.coachSegmentationClubId ? `data-coach-segmentation-club-id="${escapeHtml(action.coachSegmentationClubId)}"` : ''} ${action.followAthleteId ? `data-follow-athlete-id="${escapeHtml(action.followAthleteId)}"` : ''} ${action.followCompetitionCode ? `data-follow-competition-code="${escapeHtml(action.followCompetitionCode)}"` : ''} ${action.sportCode ? `data-sport-code="${escapeHtml(action.sportCode)}"` : ''} ${action.clubId ? `data-club-id="${escapeHtml(action.clubId)}"` : ''} ${action.prematchTemplateKind ? `data-prematch-template="${escapeHtml(action.prematchTemplateKind)}"` : ''} ${action.prematchSportCode ? `data-prematch-sport-code="${escapeHtml(action.prematchSportCode)}"` : ''} ${action.mainTab ? `data-main-target="${escapeHtml(action.mainTab)}"` : ''} ${action.filters ? `data-ai-filters="${escapeHtml(encodeURIComponent(JSON.stringify(action.filters)))}"` : ''}>
@@ -6977,7 +6962,7 @@ function renderAiAnswer(report) {
       ` : ''}
       ${report.evidence?.length ? `
         <div class="ai-evidence">
-          <div class="chart-title">证据来源</div>
+          <div class="chart-title">来源</div>
           ${report.evidence.map((row) => `
             <button type="button" ${row.eventCode ? `data-event-code="${escapeHtml(row.eventCode)}"` : ''} ${row.sportCode ? `data-sport-code="${escapeHtml(row.sportCode)}"` : ''} ${row.clubId ? `data-club-id="${escapeHtml(row.clubId)}"` : ''}>
               <em>${escapeHtml(aiEvidenceKind(row))}</em>
@@ -6987,24 +6972,11 @@ function renderAiAnswer(report) {
           `).join('')}
         </div>
       ` : ''}
-      <div class="ai-next-steps">
-        <strong>下一步</strong>
-        ${aiNextStepRows(report).map((row) => `<span>${escapeHtml(row)}</span>`).join('')}
-      </div>
-      ${renderAiConversionBlock(report)}
       <div class="ai-share-row">
         <button type="button" data-ai-share>复制分析摘要</button>
         <button type="button" data-ai-feedback="ai-helpful">有帮助</button>
         <button type="button" data-ai-feedback="ai-needs-work">需要调整</button>
       </div>
-      ${followUps.length ? `
-        <div class="ai-follow-up-row">
-          <strong>继续问</strong>
-          <div>
-            ${followUps.map((prompt) => `<button type="button" data-ai-follow-up="${escapeHtml(prompt)}">${escapeHtml(prompt)}</button>`).join('')}
-          </div>
-        </div>
-      ` : ''}
     </div>
   `;
 }
