@@ -17,7 +17,7 @@ assert.match(js, /historical-score-backfill/, 'scheduled sync status must expose
 assert.match(js, /历史补齐/, 'scheduled sync status must translate backfill into product-facing copy');
 assert.match(js, /state\.dataGeneratedAt = result\.generatedAt \|\| ''/, 'initial data load must store generatedAt from the public data index');
 assert.match(js, /state\.dataCoverage = result\.dataCoverage \|\| null/, 'initial data load must store data coverage and sync status');
-assert.match(js, /数据更新于/, 'home data status should show the data refresh time when available');
+assert.match(js, /最近更新.*generatedLabel/s, 'home data status should show the data refresh time when available');
 assert.match(js, /sync-status-note/, 'data status should render the latest sync status when available');
 assert.match(js, /data-coverage-competition/, 'coverage priority rows must link back to competition details');
 assert.match(js, /class="service-readiness-grid"/, 'data status must show service readiness for commercial use cases');

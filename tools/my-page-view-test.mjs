@@ -171,7 +171,7 @@ assert.match(js, /type: 'reminder-interest'/, 'reminder subscriptions must be di
 assert.match(js, /trackCommercialIntent\('reminder-interest', enrichedContext, result\)/, 'reminder subscriptions must show up in service progress');
 assert.match(js, /trackAnalyticsAction\('reminder_interest'/, 'reminder subscriptions must be analytics-traceable');
 assert.match(js, /function commercialIntentRows\(\)/, 'commercial intent rows must be normalized for display');
-assert.match(js, /referenceLabel: row\.feedbackId \? `服务编号 \$\{String\(row\.feedbackId\)\.slice\(-8\)\}` : '本机已记录'/, 'service progress rows must expose a user-facing record reference');
+assert.match(js, /referenceLabel: row\.feedbackId \? `申请编号 \$\{String\(row\.feedbackId\)\.slice\(-8\)\}` : '已保存'/, 'service rows must expose a user-facing application reference');
 assert.match(js, /function commercialIntentNextStep\(row = \{\}\)/, 'commercial intent progress must explain the next user-facing step');
 assert.match(js, /nextStep: commercialIntentNextStep\(row\)/, 'commercial intent rows must include next-step copy');
 assert.match(js, /function commercialIntentDeliverableRows\(row = \{\}\)/, 'commercial intent progress must explain concrete deliverables');
@@ -182,12 +182,12 @@ assert.match(js, /function renderCommercialIntentStatus\(rows = commercialIntent
 assert.match(js, /ATHLETE_DATA_REQUEST_KEY = 'fencingai\.athleteDataRequests\.v1'/, 'athlete data governance requests must persist local progress');
 assert.match(js, /function athleteDataRequestRows\(\)/, 'athlete data governance requests must normalize progress rows');
 assert.match(js, /function renderAthleteDataRequestStatus\(rows = athleteDataRequestRows\(\)\)/, 'athlete data governance progress panel must be reusable');
-assert.match(js, /\{ value: athleteDataRequestCount, label: '数据处理' \}/, 'my page must count submitted athlete data requests');
+assert.match(js, /\{ value: athleteDataRequestCount, label: '档案申请' \}/, 'my page must count submitted athlete profile requests');
 assert.match(js, /\$\{renderAthleteDataRequestStatus\(athleteDataRequests\)\}/, 'my page must render athlete data progress');
 assert.match(js, /myPage\.querySelectorAll\('\[data-athlete-data-progress-athlete-id\]'\)/, 'my page must bind athlete data progress actions');
 assert.match(js, /openAthlete\(button\.dataset\.athleteDataProgressAthleteId \|\| ''\)/, 'athlete data progress cards must reopen athlete profiles');
 assert.match(js, /function serviceProgressContextNote\(\)/, 'service progress copy must be role-aware');
-assert.match(js, /const followCopy = myFollowSectionCopy\(\);[\s\S]*return `已收到的服务申请会结合你的\$\{followCopy\.countLabel\}、赛事和报告记录跟进/, 'service progress copy must use role-aware followed object labels');
+assert.match(js, /const followCopy = myFollowSectionCopy\(\);[\s\S]*return `已提交的申请会结合你的\$\{followCopy\.countLabel\}、赛事和报告记录处理/, 'service request copy must use role-aware followed object labels');
 assert.match(js, /class="panel my-section service-progress-panel"/, 'service progress panel must render as a user-facing section');
 assert.match(js, /<p>\$\{escapeHtml\(serviceProgressContextNote\(\)\)\}<\/p>/, 'service progress panel must render role-aware context copy');
 assert.match(js, /<p>\$\{escapeHtml\(row\.nextStep\)\}<\/p>/, 'service progress cards must render the next-step copy');
@@ -328,7 +328,7 @@ assert.doesNotMatch(js, /登录码/, 'account center must not call the password 
 assert.match(js, /class="account-state-note signed"/, 'signed-in account center must show a dedicated logged-in state note');
 assert.match(js, /data-account-export/, 'my page account center must expose account data export');
 assert.match(js, /data-account-clear/, 'my page account center must expose account data clearing');
-assert.match(js, /data-wechat-login/, 'my page account center must expose the reserved WeChat login path');
+assert.doesNotMatch(js, /<button type="button" data-wechat-login>绑定微信<\/button>/, 'my page account center must not expose unavailable WeChat login as visible UI');
 assert.match(js, /async function submitAccountLogin\(form\)/, 'account login handler must exist');
 assert.match(js, /async function exportAccountData\(button\)/, 'account export handler must exist');
 assert.match(js, /async function clearAccountData\(button\)/, 'account clearing handler must exist');
@@ -356,9 +356,9 @@ assert.match(js, /state\.userRole === 'coach'[\s\S]*title: '关注学员'/, 'coa
 assert.match(js, /state\.userRole === 'club'[\s\S]*title: '代表选手'/, 'club my page must frame followed athletes as representative athletes');
 assert.match(js, /statLabel: '关注学员'/, 'coach my page stats must frame followed athletes as students');
 assert.match(js, /statLabel: '代表选手'/, 'club my page stats must frame followed athletes as representative athletes');
-assert.match(js, /<span>当前视角<\/span>/, 'my page hero must describe role as a view instead of account identity');
+assert.match(js, /<span>使用视角<\/span>/, 'my page hero must describe role as a view instead of account identity');
 assert.match(js, /\$\{escapeHtml\(`\$\{roleLabel\(state\.userRole\)\}视角`\)\}/, 'my page hero must render the selected role as an analysis view');
-assert.match(js, /账号状态见账号中心/, 'my page hero must explicitly separate role view from account state');
+assert.doesNotMatch(js, /账号状态见账号中心/, 'my page hero must not expose account implementation copy');
 assert.doesNotMatch(js, /当前工作台/, 'my page hero must not imply the user is signed in to a workspace');
 assert.doesNotMatch(js, /已选择重点关注孩子/, 'my page hero must not imply account identity from local role state');
 assert.match(js, /const followCopy = myFollowSectionCopy\(\);/, 'my page render must use role-aware follow copy');
@@ -404,7 +404,7 @@ assert.match(js, /data-my-prematch-follow="\$\{escapeHtml\(row\.sportCode\)\}"/,
 assert.match(js, /data-my-readiness-action="\$\{escapeHtml\(row\.action\)\}"/, 'service readiness cards must carry runnable actions');
 assert.match(js, /\$\{renderCommercialIntentStatus\(commercialIntents\)\}/, 'my page must show submitted service progress');
 assert.match(js, /\{ value: children\.length, label: followCopy\.statLabel \}/, 'my page stats must use role-aware followed athlete labels');
-assert.match(js, /\{ value: commercialIntentCount, label: '服务进度' \}/, 'my page stats must include full service progress count');
+assert.match(js, /\{ value: commercialIntentCount, label: '服务申请' \}/, 'my page stats must include submitted service request count');
 assert.match(js, /data-my-next-action="\$\{escapeHtml\(row\.action\)\}"/, 'my page next actions must carry runnable action types');
 assert.match(js, /if \(action === 'growth'\) openParentGrowthReport\(button\.dataset\.athleteId \|\| ''\);/, 'my page next actions must open growth reports');
 assert.match(js, /if \(action === 'prematch'\) openPrematchReport\('prematch-pack', button\.dataset\.sportCode \|\| ''\);/, 'my page next actions must open scoped prematch reports');
@@ -419,7 +419,7 @@ assert.match(js, /const aiHistory = aiHistoryRows\(\);/, 'my page must reuse per
 assert.match(js, /function renderMyPage\(\)[\s\S]*const reportAssets = reportAssetSummaryRows\(state\.reportHistory \|\| \[\], state\.aiHistory \|\| \[\]\);/, 'my page must calculate report asset totals from persisted history');
 assert.match(js, /\{ value: reportHistory\.length, label: '生成报告' \}/, 'my page stats must include generated reports');
 assert.match(js, /\{ value: aiHistory\.length, label: 'AI分析' \}/, 'my page stats must include recent AI analyses');
-assert.match(js, /<h2>报告资产<\/h2>/, 'my page must expose a saved report asset section');
+assert.match(js, /<h2>我的内容<\/h2>/, 'my page must expose a saved report content section');
 assert.match(js, /class="report-asset-grid"/, 'my page must render report asset summary cards');
 assert.match(js, /reportAssets\.map\(\(row\) =>/, 'my page must render report assets dynamically');
 assert.match(js, /myPage\.querySelectorAll\('\[data-report-history-type\]'\)/, 'my page report rows must bind reopen actions');

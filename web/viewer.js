@@ -329,13 +329,13 @@ function renderAccountPanel() {
     return `
       <section class="panel my-section account-panel account-panel-signed">
         <div class="section-title">
-          <h2>账号同步</h2>
+          <h2>账号中心</h2>
           <span>已登录</span>
         </div>
         <div class="account-summary">
           <div>
             <strong>${escapeHtml(state.authUser.displayName || state.authUser.identifier || '已登录用户')}</strong>
-            <span>关注、历史、报告和角色会保存到当前账号。</span>
+            <span>关注、历史和报告会保存到当前账号。</span>
           </div>
           <button type="button" data-account-logout>退出</button>
         </div>
@@ -345,8 +345,8 @@ function renderAccountPanel() {
   return `
     <section class="panel my-section account-panel">
       <div class="section-title">
-        <h2>账号同步</h2>
-        <span>第一阶段</span>
+        <h2>账号中心</h2>
+        <span>可选登录</span>
       </div>
       <form class="account-login-form" data-account-login>
         <label>
@@ -358,7 +358,7 @@ function renderAccountPanel() {
           <input name="code" type="password" autocomplete="current-password" placeholder="至少 6 位，首次输入即创建账号">
         </label>
         <button type="submit">登录或创建账号</button>
-        <em data-account-status>未登录时可以浏览公开数据；登录后会同步本机关注、历史和报告。</em>
+        <em data-account-status>登录后，关注、历史和报告可以在不同设备继续查看。</em>
       </form>
     </section>
   `;
@@ -374,8 +374,6 @@ function accountProfileCounts() {
 }
 
 function renderAccountPanelV2() {
-  const caps = state.authCapabilities || {};
-  const limits = caps.limits || {};
   const counts = accountProfileCounts();
   if (state.authUser) {
     return `
@@ -402,13 +400,12 @@ function renderAccountPanelV2() {
           <div><strong>${counts.aiHistory}</strong><span>AI 历史</span></div>
         </div>
         <div class="account-policy-box">
-          <strong>数据保护</strong>
-          <span>账号数据独立保存；未登录状态不能写入账号资料。当前限制：关注选手 ${limits.follows || 30} 个、关注赛事 ${limits.followedCompetitions || 30} 个、报告 ${limits.reportHistory || 12} 份。</span>
+          <strong>账号资料</strong>
+          <span>关注、赛事提醒和报告会保存在当前账号；公开赛事数据无需登录也可以浏览。</span>
         </div>
         <div class="account-action-row">
-          <button type="button" data-account-export>导出账号数据</button>
-          <button type="button" data-account-clear>清空账号数据</button>
-          <button type="button" data-wechat-login>绑定微信</button>
+          <button type="button" data-account-export>导出资料</button>
+          <button type="button" data-account-clear>清空资料</button>
         </div>
         ${state.accountStatus ? `<p class="account-status-line">${escapeHtml(state.accountStatus)}</p>` : ''}
       </section>
@@ -422,12 +419,11 @@ function renderAccountPanelV2() {
       </div>
       <div class="account-state-note">
         <strong>当前未登录</strong>
-        <span>你仍然可以浏览公开赛事数据。本机关注和历史只保存在当前浏览器，登录后再同步到账号。</span>
+        <span>你仍然可以浏览赛事数据；登录后，关注、报告和历史可以随账号保存。</span>
       </div>
       <div class="account-value-list">
         <div><strong>保存关注和报告</strong><span>换设备后可以继续查看关注选手、赛事提醒和历史分析。</span></div>
-        <div><strong>保护个人数据</strong><span>账号资料需要登录后才能写入，公开赛事数据仍可直接浏览。</span></div>
-        <div><strong>预留微信登录</strong><span>后续接入微信后，可把当前账号绑定到微信身份。</span></div>
+        <div><strong>继续历史分析</strong><span>再次登录后，可以接着查看之前保存的报告和提问记录。</span></div>
       </div>
       <form class="account-login-form" data-account-login>
         <label>
@@ -439,7 +435,7 @@ function renderAccountPanelV2() {
           <input name="code" type="password" autocomplete="current-password" placeholder="至少 6 位，首次输入即创建账号">
         </label>
         <button type="submit">登录或创建账号</button>
-        <em data-account-status>${escapeHtml(state.accountStatus || '未登录时可以浏览公开数据；登录后会同步本机关注、历史和报告。')}</em>
+        <em data-account-status>${escapeHtml(state.accountStatus || '登录后，关注、历史和报告可以在不同设备继续查看。')}</em>
       </form>
     </section>
   `;
@@ -1795,7 +1791,7 @@ function competitionCoverageNeed(competition) {
   if (level === 'directory') return '适合查看赛历和地点';
   if (level === 'project') return '适合关注项目规模';
   if (level === 'roster') return '适合做赛前准备';
-  return '已可深度分析';
+  return '已有完整赛果';
 }
 
 function dataCoveragePriorityRows(competitions, limit = 3) {
@@ -1867,8 +1863,8 @@ function renderHomeDataCoverage() {
   return `
     <section class="panel my-section data-status-panel">
       <div class="section-title">
-        <h2>数据状态</h2>
-        <span>${escapeHtml(actionablePercent)}% 可继续分析</span>
+        <h2>数据概览</h2>
+        <span>${escapeHtml(actionablePercent)}% 可分析</span>
       </div>
       <div class="coverage-stage-strip">
         <div>
@@ -1896,7 +1892,7 @@ function renderHomeDataCoverage() {
       <div class="coverage-progress">
         <span style="width: ${escapeHtml(scorePercent)}%"></span>
       </div>
-      <p>${escapeHtml(coverage.score)} 场赛事已有成绩或对阵，可用于成长复盘和队伍分析；${generatedLabel ? `数据更新于 ${escapeHtml(generatedLabel)}，` : ''}近期报名赛事可用于赛前准备。</p>
+      <p>${escapeHtml(coverage.score)} 场赛事已有成绩或对阵，适合查看成长变化、对手表现和队伍表现；${generatedLabel ? `最近更新 ${escapeHtml(generatedLabel)}，` : ''}报名赛事适合提前做赛前准备。</p>
       ${syncLabel ? `<div class="sync-status-note">${escapeHtml(syncLabel)}</div>` : ''}
       ${priorityRows.length ? `
         <div class="coverage-priority-list">
@@ -1924,35 +1920,35 @@ function renderDataCoverageSummary(source) {
   const scorePercent = Math.round((coverage.score / total) * 100);
   const syncLabel = scheduledSyncStatusLabel(state.dataCoverage?.scheduledSync);
   const sourceNote = state.dataCoverage?.platformEvents
-    ? `平台赛事 ${state.dataCoverage.platformEvents} 场已收录`
-    : `${source.length} 场赛事已收录`;
+    ? `${state.dataCoverage.platformEvents} 场赛事`
+    : `${source.length} 场赛事`;
 
   dataCoverageSummary.innerHTML = `
     <div class="coverage-summary-head">
       <div>
-        <strong>数据能做什么</strong>
-        <span>${escapeHtml(sourceNote)}，当前范围 ${escapeHtml(source.length)} 场</span>
+        <strong>可以查看什么</strong>
+        <span>${escapeHtml(sourceNote)}，当前显示 ${escapeHtml(source.length)} 场</span>
       </div>
-      <em>${escapeHtml(coverage.score)} 场可深度分析</em>
+      <em>${escapeHtml(coverage.score)} 场有完整赛果</em>
     </div>
     <div class="coverage-level-grid">
       <div>
         <strong>${escapeHtml(coverage.directory)}</strong>
         <span>赛事目录</span>
-        <small>可用于筛选和赛历浏览</small>
+        <small>查比赛时间、地点和项目</small>
       </div>
       <div>
         <strong>${escapeHtml(coverage.project + coverage.roster)}</strong>
         <span>项目/报名</span>
-        <small>可用于赛前情报</small>
+        <small>看报名热度和参赛项目</small>
       </div>
       <div>
         <strong>${escapeHtml(coverage.score)}</strong>
         <span>成绩对阵</span>
-        <small>可用于成长和队伍分析</small>
+        <small>看选手成长和队伍表现</small>
       </div>
     </div>
-    <p>${escapeHtml(scorePercent)}% 的赛事已有成绩或对阵，可用于成长复盘、对手判断和队伍分析；只有报名或项目清单的赛事，更适合做赛前准备。</p>
+    <p>${escapeHtml(scorePercent)}% 的赛事已有成绩或对阵，可以查看成长变化、对手表现和队伍表现；报名中的赛事更适合提前做赛前准备。</p>
     ${syncLabel ? `<div class="sync-status-note">${escapeHtml(syncLabel)}</div>` : ''}
   `;
 }
@@ -2016,13 +2012,13 @@ function renderHomeStats() {
   const coverage = summarizeDataCoverage(source);
   const prematchCount = Math.max(coverage.actionable - coverage.score, 0);
   const active = isFilteringActive();
-  if (homeStatsScope) homeStatsScope.textContent = active ? '当前筛选' : '全部数据';
+  if (homeStatsScope) homeStatsScope.textContent = active ? '筛选结果' : '全部赛事';
 
   homeStats.innerHTML = [
     ['比赛', source.length, `${regions} 地区`],
-    ['项目', eventCount, '可筛选组别'],
-    ['深度赛事', coverage.score, '可做成长分析'],
-    ['赛前赛事', prematchCount, '可看报名项目'],
+    ['项目', eventCount, '按组别查看'],
+    ['完整赛果', coverage.score, '可看成长分析'],
+    ['报名赛事', prematchCount, '可看参赛项目'],
   ].map(([label, value, detail]) => `
     <div class="stat-item">
       <strong>${escapeHtml(value)}</strong>
@@ -3490,7 +3486,7 @@ function commercialIntentRows() {
     typeLabel: commercialIntentTypeLabel(row.type),
     sourceLabel: commercialIntentSourceLabel(row.source),
     timeLabel: formatDataGeneratedAt(row.submittedAt),
-    referenceLabel: row.feedbackId ? `服务编号 ${String(row.feedbackId).slice(-8)}` : '本机已记录',
+    referenceLabel: row.feedbackId ? `申请编号 ${String(row.feedbackId).slice(-8)}` : '已保存',
     contactLabel: row.contact ? '联系方式已留存' : '可补充联系方式',
     nextStep: commercialIntentNextStep(row),
     deliverables: commercialIntentDeliverableRows(row),
@@ -3501,12 +3497,12 @@ function commercialIntentRows() {
 function commercialIntentNextStep(row = {}) {
   const source = row.source || '';
   const report = row.report || '';
-  if (row.type === 'reminder-interest' || /reminder|提醒/.test(source) || /提醒|订阅/.test(report)) return '下一步会按你关注的赛事和选手确认提醒范围。';
-  if (/prematch/.test(source) || /赛前|对手/.test(report)) return '下一步会围绕目标赛事、报名名单和关注选手整理赛前提醒。';
-  if (/growth|parent/.test(source) || /成长|家庭|家长/.test(report)) return '下一步会围绕关注孩子整理成长报告和近期比赛复盘。';
-  if (/coach|club|recruiting|segmentation/.test(source) || /教练|剑馆|俱乐部|招生|学员/.test(report)) return '下一步会围绕学员分层、优势项目和招生素材整理试用说明。';
-  if (row.type === 'membership-interest') return '下一步会确认关注选手、赛事提醒和报告保存需求。';
-  return '下一步会结合你关注的选手、赛事和报告记录确认试用场景。';
+  if (row.type === 'reminder-interest' || /reminder|提醒/.test(source) || /提醒|订阅/.test(report)) return '会按你关注的赛事和选手确认提醒范围。';
+  if (/prematch/.test(source) || /赛前|对手/.test(report)) return '会围绕目标赛事、报名名单和关注选手整理赛前提醒。';
+  if (/growth|parent/.test(source) || /成长|家庭|家长/.test(report)) return '会围绕关注孩子整理成长报告和近期比赛复盘。';
+  if (/coach|club|recruiting|segmentation/.test(source) || /教练|剑馆|俱乐部|招生|学员/.test(report)) return '会围绕学员分层、优势项目和招生素材整理试用说明。';
+  if (row.type === 'membership-interest') return '会确认关注选手、赛事提醒和报告保存需求。';
+  return '会结合你关注的选手、赛事和报告记录确认试用场景。';
 }
 
 function commercialIntentDeliverableRows(row = {}) {
@@ -3527,7 +3523,7 @@ function commercialIntentDeliverableRows(row = {}) {
   if (row.type === 'membership-interest') {
     return ['关注对象配置', '报告保存权益', '赛事提醒范围'];
   }
-  return ['目标对象确认', '样例报告整理', '后续提醒范围'];
+  return ['目标对象确认', '样例报告整理', '提醒范围'];
 }
 
 function commercialIntentProgressSteps(row = {}) {
@@ -3576,7 +3572,7 @@ function athleteDataRequestRows() {
     ...row,
     typeLabel: athleteDataRequestTypeLabel(row.type),
     timeLabel: formatDataGeneratedAt(row.submittedAt),
-    referenceLabel: row.feedbackId ? `处理编号 ${String(row.feedbackId).slice(-8)}` : '本机已记录',
+    referenceLabel: row.feedbackId ? `申请编号 ${String(row.feedbackId).slice(-8)}` : '已保存',
     nextStep: athleteDataRequestNextStep(row),
   }));
 }
@@ -3604,7 +3600,7 @@ function renderAthleteDataRequestStatus(rows = athleteDataRequestRows()) {
   return `
     <section class="panel my-section athlete-data-progress-panel">
       <div class="section-title">
-        <h2>数据处理进度</h2>
+        <h2>档案申请</h2>
         <span>认领与纠错</span>
       </div>
       <div class="athlete-data-progress-list">
@@ -3630,7 +3626,7 @@ function renderCommercialIntentStatus(rows = commercialIntentRows()) {
   return `
     <section class="panel my-section service-progress-panel">
       <div class="section-title">
-        <h2>服务进度</h2>
+        <h2>服务申请</h2>
         <span>已提交</span>
       </div>
       <div class="service-progress-list">
@@ -3663,7 +3659,7 @@ function renderCommercialIntentStatus(rows = commercialIntentRows()) {
 
 function serviceProgressContextNote() {
   const followCopy = myFollowSectionCopy();
-  return `已收到的服务申请会结合你的${followCopy.countLabel}、赛事和报告记录跟进；需要更新联系方式时，可以再次点击申请入口。`;
+  return `已提交的申请会结合你的${followCopy.countLabel}、赛事和报告记录处理；需要更新联系方式时，可以再次提交。`;
 }
 
 function bindServiceProgressActions(container) {
@@ -3671,7 +3667,7 @@ function bindServiceProgressActions(container) {
     button.addEventListener('click', (event) => {
       const context = {
         source: button.dataset.serviceProgressSource || 'service-progress',
-        report: button.dataset.reportTitle || '服务进度',
+        report: button.dataset.reportTitle || '服务申请',
       };
       if (button.dataset.serviceProgressAction === 'membership-interest') {
         submitMembershipInterest(event.currentTarget, context);
@@ -3854,12 +3850,12 @@ function trialDeliverableRows() {
     {
       key: 'asset',
       label: '留存',
-      title: '报告资产沉淀',
-      status: reportCount ? '已沉淀' : '待生成',
+      title: '报告记录',
+      status: reportCount ? '可复看' : '待生成',
       tone: reportCount ? 'ready' : 'pending',
       detail: reportCount
         ? `已有 ${reportCount} 条报告/问答记录，可继续复看和追问。`
-        : '生成赛前情报、成长报告或教练报告后，会沉淀为可复用资产。',
+        : '生成赛前情报、成长报告或教练报告后，可以在这里复看。',
       next: reportCount
         ? '优先把高频报告订阅成提醒，减少重复搜索。'
         : '先完成一份赛前、成长或教练报告，形成第一条可复用记录。',
@@ -3880,9 +3876,9 @@ function myFollowSectionCopy() {
       emptyLabel: '待关注学员',
       heroReady: '关注学员会用于训练分析',
       heroEmpty: '关注学员后可获得训练分析',
-      heroDetail: '影响首页推荐和 AI 分析口径；账号状态见账号中心。',
+      heroDetail: '首页会优先展示关注学员的成长变化、赛前提醒和训练反馈。',
       emptyTitle: '还没有关注学员',
-      emptyDetail: '进入选手详情页后，可把重点学员加入这里，后续用于成长报告、赛前提醒和训练反馈。',
+      emptyDetail: '进入选手详情页后，可把重点学员加入这里，用于成长报告、赛前提醒和训练反馈。',
     };
   }
   if (state.userRole === 'club') {
@@ -3895,7 +3891,7 @@ function myFollowSectionCopy() {
       emptyLabel: '待关注选手',
       heroReady: '代表选手会用于经营分析',
       heroEmpty: '关注代表选手后可获得经营分析',
-      heroDetail: '影响首页推荐和剑馆分析口径；账号状态见账号中心。',
+      heroDetail: '首页会优先展示代表选手、优势项目和剑馆经营分析。',
       emptyTitle: '还没有代表选手',
       emptyDetail: '关注俱乐部代表选手后，这里会沉淀成绩案例、成长报告和对外展示素材。',
     };
@@ -3910,7 +3906,7 @@ function myFollowSectionCopy() {
       emptyLabel: '待关注',
       heroReady: '关注对象会用于数据筛选',
       heroEmpty: '可从详情页添加关注对象',
-      heroDetail: '影响首页推荐和数据浏览入口；账号状态见账号中心。',
+      heroDetail: '首页会优先展示常看的选手、赛事和俱乐部入口。',
       emptyTitle: '还没有关注选手',
       emptyDetail: '进入选手详情页后，可把常看的选手加入这里。',
     };
@@ -3924,9 +3920,9 @@ function myFollowSectionCopy() {
     emptyLabel: '待关注',
     heroReady: '关注孩子会用于成长分析',
     heroEmpty: '关注孩子后可获得成长分析',
-    heroDetail: '影响首页推荐和 AI 分析口径；账号状态见账号中心。',
+    heroDetail: '首页会优先展示孩子的成长变化、赛前提醒和近期比赛。',
     emptyTitle: '还没有关注选手',
-    emptyDetail: '进入选手详情页后，可把孩子加入这里，后续用于成长报告和赛前提醒。',
+    emptyDetail: '进入选手详情页后，可把孩子加入这里，用于成长报告和赛前提醒。',
   };
 }
 
@@ -6173,7 +6169,7 @@ function buildAiPreMatchReport(query, filters) {
         rows: rows.slice(0, 5).map((competition) => `${competition.sportName} · ${displayDateLabel(competition.dateLabel)} · ${statusLabel(competition.status)} · ${coverageLabel(competition)}`),
       },
       {
-        title: '数据状态',
+        title: '赛事信息',
         rows: [
           `已有报名信息：${rosterRows.length} 场`,
           `已有项目明细：${projectRows.length} 场`,
@@ -7260,8 +7256,8 @@ function renderMyPage() {
     { value: followedCompetitions.length, label: '关注赛事' },
     { value: reportHistory.length, label: '生成报告' },
     { value: aiHistory.length, label: 'AI分析' },
-    { value: commercialIntentCount, label: '服务进度' },
-    { value: athleteDataRequestCount, label: '数据处理' },
+    { value: commercialIntentCount, label: '服务申请' },
+    { value: athleteDataRequestCount, label: '档案申请' },
     { value: recentRows.length, label: '最近查看' },
   ];
   const primaryStats = stats.slice(0, 4);
@@ -7270,7 +7266,7 @@ function renderMyPage() {
   myPage.innerHTML = `
     <section class="my-hero panel">
       <div>
-        <span>当前视角</span>
+        <span>使用视角</span>
         <strong>${escapeHtml(`${roleLabel(state.userRole)}视角`)}</strong>
         <em>${escapeHtml(followCopy.heroDetail)}</em>
       </div>
@@ -7286,7 +7282,7 @@ function renderMyPage() {
       `).join('')}
     </section>
 
-    <section class="my-secondary-status" aria-label="工作台状态">
+    <section class="my-secondary-status" aria-label="我的记录">
       ${secondaryStats.map((item) => `
         <div>
           <strong>${escapeHtml(item.value)}</strong>
@@ -7299,8 +7295,8 @@ function renderMyPage() {
 
     <section class="panel my-section my-next-section">
       <div class="section-title">
-        <h2>下一步</h2>
-        <span>继续推进</span>
+        <h2>推荐操作</h2>
+        <span>按当前关注</span>
       </div>
       <div class="my-next-grid">
         ${nextActions.map((row) => `
@@ -7315,8 +7311,8 @@ function renderMyPage() {
 
     <section class="panel my-section report-next-action-section">
       <div class="section-title">
-        <h2>最近报告下一步</h2>
-        <span>${reportNextActions.length ? '可继续推进' : '生成后出现'}</span>
+        <h2>最近报告</h2>
+        <span>${reportNextActions.length ? '继续查看' : '暂无报告'}</span>
       </div>
       ${reportNextActions.length ? `
         <div class="report-next-action-list">
@@ -7335,7 +7331,7 @@ function renderMyPage() {
             </article>
           `).join('')}
         </div>
-      ` : '<div class="empty compact-empty">生成成长报告、赛前情报或教练报告后，这里会给出下一步动作。</div>'}
+      ` : '<div class="empty compact-empty">生成成长报告、赛前情报或教练报告后，可以在这里继续查看。</div>'}
     </section>
 
     <section class="panel my-section my-prematch-section">
@@ -7372,8 +7368,8 @@ function renderMyPage() {
 
     <section class="panel my-section trial-deliverable-section">
       <div class="section-title">
-        <h2>试用交付内容</h2>
-        <span>按当前数据</span>
+        <h2>可生成内容</h2>
+        <span>按你的关注</span>
       </div>
       <div class="trial-deliverable-grid">
         ${deliverableRows.map((row) => `
@@ -7392,8 +7388,8 @@ function renderMyPage() {
 
     <section class="panel my-section trial-plan-section">
       <div class="section-title">
-        <h2>推荐试用方案</h2>
-        <span>按当前数据</span>
+        <h2>推荐服务</h2>
+        <span>按你的关注</span>
       </div>
       <div class="trial-plan-list">
         ${trialRows.map((row) => `
@@ -7410,8 +7406,8 @@ function renderMyPage() {
 
     <section class="panel my-section service-readiness-section">
       <div class="section-title">
-        <h2>服务可用性</h2>
-        <span>当前状态</span>
+        <h2>可用能力</h2>
+        <span>当前可用</span>
       </div>
       <div class="service-readiness-list">
         ${readinessRows.map((row) => `
@@ -7429,8 +7425,8 @@ function renderMyPage() {
 
     <section class="panel my-section report-asset-section">
       <div class="section-title">
-        <h2>报告资产</h2>
-        <span>持续沉淀</span>
+        <h2>我的内容</h2>
+        <span>保存记录</span>
       </div>
       <div class="report-asset-grid">
         ${reportAssets.map((row) => `
@@ -7526,12 +7522,12 @@ function renderMyPage() {
 
     <section class="panel my-section">
       <div class="section-title">
-        <h2>数据状态</h2>
+        <h2>赛事数据</h2>
         <span>${escapeHtml(generatedLabel || state.apiVersion || '本地缓存')}</span>
       </div>
       <div class="my-status-note">
         <strong>${escapeHtml(state.dataCoverage?.scorePackages || state.competitions.length || 0)}</strong>
-        <span>赛事与项目数据持续更新；报名名单完整后，会自动形成赛前对手分析。</span>
+        <span>赛事、项目和赛果会持续更新；有报名名单时，可查看赛前对手分析。</span>
       </div>
     </section>
   `;
