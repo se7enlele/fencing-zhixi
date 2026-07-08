@@ -4,10 +4,10 @@
   "source": {
     "input": "https://fencing-proxy.aixindiandian.workers.dev/fencingapi/competition/frontsporteventlist?",
     "sourceUrl": "https://fencing-proxy.aixindiandian.workers.dev/fencingapi/competition/frontsporteventlist?",
-    "analyzedAt": "2026-07-08T06:41:40.445Z"
+    "analyzedAt": "2026-07-08T11:59:41.485Z"
   },
   "summary": {
-    "eventCount": 746,
+    "eventCount": 747,
     "sportIds": [
       1,
       2,
@@ -561,6 +561,7 @@
       101075,
       101124,
       101158,
+      101219,
       189,
       1104,
       100519,
@@ -1309,6 +1310,7 @@
       "RZSS2034030",
       "RZSS2034120",
       "RZSS2034093",
+      "RZSS2036042",
       "F01QSGJS201833",
       "D05GJSSD0620210401",
       "RZSS2028080",
@@ -1534,7 +1536,7 @@
       "2023": 97,
       "2024": 114,
       "2025": 158,
-      "2026": 137
+      "2026": 138
     },
     "gameDesc": {
       "全国冠军赛": 61,
@@ -1549,7 +1551,7 @@
       "青运会": 3,
       "俱乐部总决赛": 13,
       "国际青少年分站赛": 39,
-      "认证赛事": 476,
+      "认证赛事": 477,
       "俱乐部区域赛": 8,
       "少年区域赛": 4,
       "洲际青少年分站赛": 11,
@@ -1563,7 +1565,7 @@
       "青年冠军赛": 1
     },
     "provinceName": {
-      "云南": 16,
+      "云南": 17,
       "福建": 20,
       "江苏": 125,
       "上海": 50,
@@ -1603,7 +1605,7 @@
       "埃及": 1
     },
     "areaDesc": {
-      "西南": 54,
+      "西南": 55,
       "华东": 329,
       "华北": 114,
       "东北": 46,
@@ -1612,11 +1614,11 @@
       "(empty)": 52
     },
     "sportactive": {
-      "0": 68,
+      "0": 69,
       "2": 678
     },
     "sigupactive": {
-      "0": 49,
+      "0": 50,
       "1": 16,
       "2": 681
     },
@@ -1647,14 +1649,14 @@
       "U19团体": 12,
       "B组U19": 3,
       "公开组": 301,
-      "U10": 498,
-      "U12": 497,
-      "U14": 496,
-      "U16": 489,
+      "U10": 499,
+      "U12": 498,
+      "U14": 497,
+      "U16": 490,
       "17+": 344,
-      "U8": 417,
-      "U6": 330,
-      "年龄开放组": 70,
+      "U8": 418,
+      "U6": 331,
+      "年龄开放组": 71,
       "精英U16": 1,
       "A组U14": 10,
       "男子40+": 7,
@@ -40273,6 +40275,195 @@
           "fileType": "competitionRules",
           "fileTypeDesc": "竞赛规程",
           "fileUrl": "/fencingapi/file/xiaomei-b60a063c7d2e48e5bcabd224a8d75554.pdf"
+        }
+      ]
+    },
+    {
+      "sportId": 101219,
+      "sportCode": "RZSS2036042",
+      "sportName": "“风花雪月·文献名邦”2026年大理击剑公开赛",
+      "season": "2026",
+      "gameType": "RZSS",
+      "gameDesc": "认证赛事",
+      "gameLevel": "C",
+      "startDate": "2026-08-15 00:00:00",
+      "endDate": "2026-08-16 00:00:00",
+      "signStartDate": "2026-07-18 00:00:00",
+      "signAthEndDate": "2026-08-08 00:00:00",
+      "provinceName": "云南",
+      "cityName": "大理白族自治州",
+      "areaDesc": "西南",
+      "organizer": "WEZDLZJTJ0001",
+      "mainOrganizer": "大理州人民政府",
+      "sportactive": "0",
+      "sigupactive": "0",
+      "raceResType": "json",
+      "weaponCodes": "F#E#S",
+      "groups": [
+        {
+          "groupCode": "U6",
+          "groupName": "U6"
+        },
+        {
+          "groupCode": "U8",
+          "groupName": "U8"
+        },
+        {
+          "groupCode": "U10",
+          "groupName": "U10"
+        },
+        {
+          "groupCode": "U12",
+          "groupName": "U12"
+        },
+        {
+          "groupCode": "U14",
+          "groupName": "U14"
+        },
+        {
+          "groupCode": "U16",
+          "groupName": "U16"
+        },
+        {
+          "groupCode": "COPEN",
+          "groupName": "年龄开放组"
+        }
+      ],
+      "groupLabels": [
+        "U6",
+        "U8",
+        "U10",
+        "U12",
+        "U14",
+        "U16",
+        "年龄开放组"
+      ],
+      "files": [
+        {
+          "fileName": "大理州教体局代码证书.jpg",
+          "fileType": "organizerVenue",
+          "fileTypeDesc": "附件一：主办单位营业执照照片",
+          "fileUrl": "/fencingapi/file/xiaomei-ec17fcba75ce4fbfae1d255bf29ca266.jpg"
+        },
+        {
+          "fileName": "大理州教体局代码证书.jpg",
+          "fileType": "businessLicense",
+          "fileTypeDesc": "附件二：承办单位营业执照照片",
+          "fileUrl": "/fencingapi/file/xiaomei-ad094b02280d4fd984c7b1cc590785e0.jpg"
+        },
+        {
+          "fileName": "大理州体育局致中国击剑协会函.pdf",
+          "fileType": "recommendation",
+          "fileTypeDesc": "附件五：申请函",
+          "fileUrl": "/fencingapi/file/xiaomei-019553f9cee842e5a5472de65cc1660e.pdf"
+        },
+        {
+          "fileName": "大理州协会社会团体法人登记证书.jpg",
+          "fileType": "businessLicense",
+          "fileTypeDesc": "附件二：承办单位营业执照照片",
+          "fileUrl": "/fencingapi/file/xiaomei-a135568d36d34512aad10504404849d1.jpg"
+        },
+        {
+          "fileName": "大理击剑赛事历史.pdf",
+          "fileType": "matchHistory",
+          "fileTypeDesc": "附件三：赛事历史介绍",
+          "fileUrl": "/fencingapi/file/xiaomei-e3c65ec15d1d4af4b83dbca48a2a6cf2.pdf"
+        },
+        {
+          "fileName": "大理击剑公开赛赛事组织方案.pdf",
+          "fileType": "eventPlan",
+          "fileTypeDesc": "附件六：赛事组织方案",
+          "fileUrl": "/fencingapi/file/xiaomei-6124af19f66543f6a4108321d051658b.pdf"
+        },
+        {
+          "fileName": "大理D级认证赛竞赛规程.pdf",
+          "fileType": "rulesAndnotices",
+          "fileTypeDesc": "附件四：竞赛规程",
+          "fileUrl": "/fencingapi/file/xiaomei-ffec3414b3134245939e6d16fcf69f6f.pdf"
+        },
+        {
+          "fileName": "IMG_1114.JPG",
+          "fileType": "matchEmergency",
+          "fileTypeDesc": "附件八：场馆照片示意图 ",
+          "fileUrl": "/fencingapi/file/xiaomei-bf58a00d69e94c8f8d3f44e5579b944d.JPG"
+        },
+        {
+          "fileName": "IMG_1111.JPG",
+          "fileType": "matchEmergency",
+          "fileTypeDesc": "附件八：场馆照片示意图 ",
+          "fileUrl": "/fencingapi/file/xiaomei-9a080707e857487fa5d6d4f31317021f.JPG"
+        },
+        {
+          "fileName": "IMG_1113.JPG",
+          "fileType": "matchEmergency",
+          "fileTypeDesc": "附件八：场馆照片示意图 ",
+          "fileUrl": "/fencingapi/file/xiaomei-c2da6f010dab4351b8bd685494f673a5.JPG"
+        },
+        {
+          "fileName": "IMG_1112.JPG",
+          "fileType": "matchEmergency",
+          "fileTypeDesc": "附件八：场馆照片示意图 ",
+          "fileUrl": "/fencingapi/file/xiaomei-cd8dbf9a8c0042a0b1ad5896726a71be.JPG"
+        },
+        {
+          "fileName": "大理D剑道铺设方案.jpg",
+          "fileType": "schematicVenue",
+          "fileTypeDesc": "附件七：赛场示意图",
+          "fileUrl": "/fencingapi/file/xiaomei-be6b4be223944b50bc933637abdaed64.jpg"
+        },
+        {
+          "fileName": "大理D场地图.jpg",
+          "fileType": "schematicVenue",
+          "fileTypeDesc": "附件七：赛场示意图",
+          "fileUrl": "/fencingapi/file/xiaomei-736fa67ee5484f19a8b4b78f8478d0a5.jpg"
+        },
+        {
+          "fileName": "2026大理D安全风险调查清单.pdf",
+          "fileType": "photosVenue",
+          "fileTypeDesc": "附件九：安全风险调查清单要求文件",
+          "fileUrl": "/fencingapi/file/xiaomei-9176d74eda1148329a3330c8a2808617.pdf"
+        },
+        {
+          "fileName": "大理州协会社会团体法人登记证书.jpg",
+          "fileType": "photosVenue",
+          "fileTypeDesc": "附件九：安全风险调查清单要求文件",
+          "fileUrl": "/fencingapi/file/xiaomei-a29e72b8a6b24ab5babb1557a9d17868.jpg"
+        },
+        {
+          "fileName": "大理州教体局代码证书.jpg",
+          "fileType": "photosVenue",
+          "fileTypeDesc": "附件九：安全风险调查清单要求文件",
+          "fileUrl": "/fencingapi/file/xiaomei-abcec84eddfb4227b90219e3406be170.jpg"
+        },
+        {
+          "fileName": "2026年大理击剑公开赛应急演练流程及方案.pdf",
+          "fileType": "photosVenue",
+          "fileTypeDesc": "附件九：安全风险调查清单要求文件",
+          "fileUrl": "/fencingapi/file/xiaomei-08c02be06bcf418993a07497ef2d2f7c.pdf"
+        },
+        {
+          "fileName": "赛事极端天气熔断方案.pdf",
+          "fileType": "photosVenue",
+          "fileTypeDesc": "附件九：安全风险调查清单要求文件",
+          "fileUrl": "/fencingapi/file/xiaomei-ab2680bb2b284382912981b1fcfb2ae2.pdf"
+        },
+        {
+          "fileName": "云南2025年D赛承办单位证明函.pdf",
+          "fileType": "matchHistory",
+          "fileTypeDesc": "附件三：赛事历史介绍",
+          "fileUrl": "/fencingapi/file/xiaomei-93063993d4774948aaeed6f59bd7250f.pdf"
+        },
+        {
+          "fileName": "大理州教体局D赛承办单位评估、申请表及资金来源声明 .pdf",
+          "fileType": "matchHistory",
+          "fileTypeDesc": "附件三：赛事历史介绍",
+          "fileUrl": "/fencingapi/file/xiaomei-82a2f8087f354c8eb30ffe74855bc07d.pdf"
+        },
+        {
+          "fileName": "大理州教体局D赛承办单位评估、申请表及资金来源声明 .pdf",
+          "fileType": "photosVenue",
+          "fileTypeDesc": "附件九：安全风险调查清单要求文件",
+          "fileUrl": "/fencingapi/file/xiaomei-e4ec313dfbb14290a7d128d36dbd6edb.pdf"
         }
       ]
     },
