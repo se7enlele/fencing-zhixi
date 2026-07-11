@@ -11,6 +11,9 @@ import {
 } from './sync-platform-data.mjs';
 import { buildScoreReport } from './parse-score.mjs';
 
+const originalDateNow = Date.now;
+Date.now = () => Date.parse('2026-04-01T12:00:00+08:00');
+
 const events = [
   {
     sportId: 1,
@@ -41,16 +44,26 @@ const events = [
     sportactive: '0',
     sigupactive: '0',
   },
+  {
+    sportId: 4,
+    sportCode: 'LIVE',
+    sportName: 'Live',
+    startDate: '2026-04-01 08:00:00',
+    endDate: '2026-04-02 18:00:00',
+    sportactive: '1',
+    sigupactive: '2',
+  },
 ];
 
 assert.equal(inferPlatformStatus(events[0]), 'completed');
 assert.equal(inferPlatformStatus(events[1]), 'registration');
 assert.equal(inferPlatformStatus(events[2]), 'upcoming');
+assert.equal(inferPlatformStatus(events[3]), 'live');
 
 assert.deepEqual(selectEvents(events, { status: 'completed', limit: 5 }).map((event) => event.sportCode), ['DONE']);
 assert.deepEqual(selectEvents(events, { status: 'registration', limit: 5 }).map((event) => event.sportCode), ['REG']);
 assert.equal(selectEvents(events, { status: 'all', limit: 2 }).length, 2);
-assert.deepEqual(selectEvents(events, { status: 'all', limit: 5, startAfterSportId: 2 }).map((event) => event.sportCode), ['DONE']);
+assert.deepEqual(selectEvents(events, { status: 'all', limit: 5, startAfterSportId: 2 }).map((event) => event.sportCode), ['LIVE', 'DONE']);
 assert.deepEqual(selectEventsForSync(events, { sportId: 2 }).map((event) => event.sportCode), ['REG']);
 assert.deepEqual(selectEventsForSync(events, { sportId: 999 }).map((event) => event.sportCode), []);
 assert.equal(isHttpStatusError(new Error('HTTP 404 Not Found: missing')), true);
@@ -109,3 +122,5 @@ assert.equal(emptyScoreReport.summary.classmentCount, 0);
 assert.equal(hasScoreRankingRows(emptyScoreReport), false);
 
 console.log('platform sync planning is covered');
+
+Date.now = originalDateNow;

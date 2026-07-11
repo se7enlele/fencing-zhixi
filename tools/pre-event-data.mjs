@@ -25,6 +25,7 @@ function inferStatusFromDates(items) {
   const ends = items.map((item) => parseDate(item.closeDate || item.endDate)).filter((value) => value !== null);
   if (ends.length && Math.max(...ends) < now) return 'completed';
   if (starts.length && Math.min(...starts) > now) return 'upcoming';
+  if (starts.length && ends.length && Math.min(...starts) <= now && Math.max(...ends) >= now) return 'live';
   return 'registration';
 }
 
@@ -36,6 +37,7 @@ function inferPlatformStatus(event) {
   const signEnd = parseDate(event.signAthEndDate);
 
   if (String(event.sportactive) === '2' || (end && end < now)) return 'completed';
+  if (String(event.sportactive) === '1') return 'live';
   if (String(event.sigupactive) === '1') return 'registration';
   if (signStart && signEnd && signStart <= now && signEnd >= now) return 'registration';
   if (start && end && start <= now && end >= now) return 'live';
@@ -193,7 +195,7 @@ export function buildPreEventCompetitions({
         registrationCount: roster.length,
         expectedRegistrationCount: item.participantCount,
         roster,
-        status: 'upcoming',
+        status: inferStatusFromDates([item]),
         isPreEvent: true,
       };
 

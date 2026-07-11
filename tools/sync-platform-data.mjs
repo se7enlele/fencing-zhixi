@@ -95,6 +95,7 @@ export function inferPlatformStatus(event, now = Date.now()) {
   const signEnd = parseDate(event.signAthEndDate);
 
   if (String(event.sportactive) === '2' || (end && end < now)) return 'completed';
+  if (String(event.sportactive) === '1') return 'live';
   if (String(event.sigupactive) === '1') return 'registration';
   if (signStart && signEnd && signStart <= now && signEnd >= now) return 'registration';
   if (start && end && start <= now && end >= now) return 'live';

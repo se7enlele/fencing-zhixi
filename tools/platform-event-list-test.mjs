@@ -2,6 +2,9 @@ import assert from 'node:assert/strict';
 import { buildFrontSportEventListReport, looksLikeFrontSportEventList } from './parse-frontsporteventlist.mjs';
 import { buildPreEventCompetitions } from './pre-event-data.mjs';
 
+const originalDateNow = Date.now;
+Date.now = () => Date.parse('2026-04-01T12:00:00+08:00');
+
 const payload = {
   code: 0,
   data: [
@@ -37,6 +40,21 @@ const payload = {
       sigupactive: '1',
       groups: [{ groupCode: 'U10', groupName: 'U10' }],
     },
+    {
+      sportId: 3,
+      sportCode: 'LIVE001',
+      season: '2026',
+      sportName: 'Live event',
+      gameDesc: 'Open',
+      startDate: '2026-04-01 08:00:00',
+      endDate: '2026-04-02 18:00:00',
+      provinceName: 'Hebei',
+      cityName: 'Cangzhou',
+      areaDesc: 'North',
+      sportactive: '1',
+      sigupactive: '2',
+      groups: [{ groupCode: 'U12', groupName: 'U12' }],
+    },
   ],
 };
 
@@ -44,7 +62,7 @@ assert.equal(looksLikeFrontSportEventList(payload), true);
 
 const report = buildFrontSportEventListReport(payload, { fileName: 'frontsporteventlist.json' });
 assert.equal(report.importType, 'frontsporteventlist');
-assert.equal(report.summary.eventCount, 2);
+assert.equal(report.summary.eventCount, 3);
 assert.equal(report.normalizedEvents[0].sportCode, 'ENDED001');
 assert.deepEqual(report.normalizedEvents[1].groupLabels, ['U10']);
 
@@ -52,9 +70,10 @@ let competitions = buildPreEventCompetitions({
   platformEventLists: [{ fileName: 'frontsporteventlist-analysis.json', report }],
 });
 
-assert.equal(competitions.length, 2);
+assert.equal(competitions.length, 3);
 assert.equal(competitions.find((row) => row.sportCode === 'ENDED001').status, 'completed');
 assert.equal(competitions.find((row) => row.sportCode === 'REG001').status, 'registration');
+assert.equal(competitions.find((row) => row.sportCode === 'LIVE001').status, 'live');
 assert.equal(competitions.find((row) => row.sportCode === 'REG001').items.length, 0);
 
 const projectListReport = {
@@ -67,6 +86,14 @@ const projectListReport = {
     startDate: '2026-04-01 08:00:00',
     endDate: '2026-04-02 18:00:00',
     participantCount: 24,
+  }, {
+    sourceSportId: 3,
+    sourceSportCode: 'LIVE001',
+    sourceEventCode: 'LIVE001U12MF',
+    itemName: 'U12 Foil',
+    startDate: '2026-04-01 08:00:00',
+    endDate: '2026-04-02 18:00:00',
+    participantCount: 18,
   }],
 };
 
@@ -81,5 +108,10 @@ assert.equal(enriched.items[0].competitionNo, 24);
 assert.equal(enriched.registrationSummary.expectedRegistrationCount, 24);
 assert.equal(enriched.platformMeta.sourceCoverage, 'event-list-plus-projectlist');
 assert.equal(enriched.status, 'registration');
+const liveEnriched = competitions.find((row) => row.sportCode === 'LIVE001');
+assert.equal(liveEnriched.status, 'live');
+assert.equal(liveEnriched.items[0].status, 'live');
 
 console.log('platform event list parsing is covered');
+
+Date.now = originalDateNow;
