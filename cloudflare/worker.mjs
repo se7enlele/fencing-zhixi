@@ -455,7 +455,9 @@ async function loadSearchIndexes(env) {
       return chunks.reduce((merged, chunk) => ({
         athletes: [...merged.athletes, ...(chunk.athletes || [])],
         clubs: [...merged.clubs, ...(chunk.clubs || [])],
-      }), { athletes: [], clubs: [] });
+        coaches: [...merged.coaches, ...(chunk.coaches || [])],
+        referees: [...merged.referees, ...(chunk.referees || [])],
+      }), { athletes: [], clubs: [], coaches: [], referees: [] });
     })();
   }
   return bundledSearchPromise;
@@ -463,14 +465,13 @@ async function loadSearchIndexes(env) {
 
 async function dataCoverageWithEntityCounts(env, index) {
   const coverage = { ...(index.publicEvents.dataCoverage || {}) };
-  if ((Number(coverage.athletes) || 0) > 0 && (Number(coverage.clubs) || 0) > 0) {
-    return coverage;
-  }
   const indexes = await loadSearchIndexes(env);
   return {
     ...coverage,
     athletes: Math.max(Number(coverage.athletes) || 0, indexes.athletes.length),
     clubs: Math.max(Number(coverage.clubs) || 0, indexes.clubs.length),
+    coaches: Math.max(Number(coverage.coaches) || 0, indexes.coaches.length),
+    referees: Math.max(Number(coverage.referees) || 0, indexes.referees.length),
   };
 }
 
@@ -1273,13 +1274,15 @@ async function routeApi(request, env, url) {
     const type = url.searchParams.get('type') || 'all';
     const athleteLimit = Number(url.searchParams.get('athleteLimit')) || undefined;
     const clubLimit = Number(url.searchParams.get('clubLimit')) || undefined;
+    const coachLimit = Number(url.searchParams.get('coachLimit')) || undefined;
+    const refereeLimit = Number(url.searchParams.get('refereeLimit')) || undefined;
     const indexes = await loadSearchIndexes(env);
     return json(sanitizePublicData({
       ok: true,
       version: (await loadBundledIndex(env)).version,
       query,
       type,
-      ...searchIndexes(indexes, query, { type, athleteLimit, clubLimit }),
+      ...searchIndexes(indexes, query, { type, athleteLimit, clubLimit, coachLimit, refereeLimit }),
     }), 200, PUBLIC_INDEX_CACHE);
   }
 

@@ -209,6 +209,8 @@ let scoreReportsCache = null;
 let publicEventsCache = null;
 let athleteDirectoryCache = null;
 let clubDirectoryCache = null;
+let coachDirectoryCache = null;
+let refereeDirectoryCache = null;
 let searchIndexCache = null;
 let preEventReportsCache = null;
 let scheduledSyncStatusCache = null;
@@ -319,6 +321,8 @@ async function getPublicEventsPayload() {
     const analysisFiles = await readdir(analysisDir).catch(() => []);
     const athletes = buildAthleteDirectory(reports);
     const clubs = buildClubDirectory(reports);
+    const coaches = await getCoachDirectory();
+    const referees = await getRefereeDirectory();
     publicEventsCache = {
       ok: true,
       version: APP_VERSION,
@@ -333,6 +337,8 @@ async function getPublicEventsPayload() {
         scorePackages: reports.length,
         athletes: athletes.length,
         clubs: clubs.length,
+        coaches: coaches.length,
+        referees: referees.length,
         analysisFiles: analysisFiles.filter((file) => file.endsWith('.json')).length,
         previewFiles: analysisFiles.filter((file) => file.startsWith('web-analysis-')).length,
         platformEvents: preEventReports.platformEventLists?.reduce((sum, item) => sum + (item.report.summary?.eventCount || 0), 0) || 0,
@@ -357,9 +363,71 @@ async function getClubDirectory() {
   return clubDirectoryCache;
 }
 
+function officialId(row, role) {
+  const seed = [role, row.name, row.club, row.province, row.city, row.level].filter(Boolean).join('|');
+  return `${role}-${hashText(seed).slice(0, 16)}`;
+}
+
+function normalizeOfficialRows(rawValue) {
+  const sourceRows = Array.isArray(rawValue)
+    ? rawValue
+    : [
+      ...(rawValue?.officials || []),
+      ...(rawValue?.coaches || []).map((row) => ({ ...row, role: 'coach' })),
+      ...(rawValue?.referees || []).map((row) => ({ ...row, role: 'referee' })),
+    ];
+  return sourceRows
+    .map((row) => {
+      const role = row.role === 'referee' || row.type === 'referee' || row.identity === 'referee' ? 'referee' : row.role === 'coach' || row.type === 'coach' || row.identity === 'coach' ? 'coach' : '';
+      const name = String(row.name || row.personName || '').trim();
+      if (!role || !name) return null;
+      const normalized = {
+        id: String(row.id || officialId({ ...row, name }, role)),
+        name,
+        role,
+        club: String(row.club || row.clubName || '').trim(),
+        province: String(row.province || row.provinceName || '').trim(),
+        city: String(row.city || row.cityName || '').trim(),
+        level: String(row.level || row.grade || row.certification || '').trim(),
+        competitionCount: Number(row.competitionCount || row.appearances || row.eventCount || 0) || 0,
+      };
+      return normalized;
+    })
+    .filter(Boolean);
+}
+
+async function loadOfficialDirectory() {
+  const filePath = path.join(__dirname, 'data', 'analysis', 'officials.json');
+  try {
+    const parsed = JSON.parse(await readFile(filePath, 'utf8'));
+    return normalizeOfficialRows(parsed);
+  } catch {
+    return [];
+  }
+}
+
+async function getCoachDirectory() {
+  if (!coachDirectoryCache) {
+    coachDirectoryCache = (await loadOfficialDirectory()).filter((row) => row.role === 'coach');
+  }
+  return coachDirectoryCache;
+}
+
+async function getRefereeDirectory() {
+  if (!refereeDirectoryCache) {
+    refereeDirectoryCache = (await loadOfficialDirectory()).filter((row) => row.role === 'referee');
+  }
+  return refereeDirectoryCache;
+}
+
 async function getSearchIndexes() {
   if (!searchIndexCache) {
-    searchIndexCache = buildSearchIndexes(await getAthleteDirectory(), await getClubDirectory());
+    searchIndexCache = buildSearchIndexes(
+      await getAthleteDirectory(),
+      await getClubDirectory(),
+      await getCoachDirectory(),
+      await getRefereeDirectory(),
+    );
   }
   return searchIndexCache;
 }
@@ -2391,13 +2459,15 @@ const server = createServer(async (request, response) => {
       const type = url.searchParams.get('type') || 'all';
       const athleteLimit = Number(url.searchParams.get('athleteLimit')) || undefined;
       const clubLimit = Number(url.searchParams.get('clubLimit')) || undefined;
+      const coachLimit = Number(url.searchParams.get('coachLimit')) || undefined;
+      const refereeLimit = Number(url.searchParams.get('refereeLimit')) || undefined;
       const indexes = await getSearchIndexes();
       sendJson(response, 200, sanitizePublicData({
         ok: true,
         version: APP_VERSION,
         query,
         type,
-        ...searchIndexes(indexes, query, { type, athleteLimit, clubLimit }),
+        ...searchIndexes(indexes, query, { type, athleteLimit, clubLimit, coachLimit, refereeLimit }),
       }));
     } catch (error) {
       sendJson(response, 500, { ok: false, message: error.message });
@@ -2538,4 +2608,6 @@ export {
   getEventDetailByCode,
   getAthleteDirectory,
   getClubDirectory,
+  getCoachDirectory,
+  getRefereeDirectory,
 };

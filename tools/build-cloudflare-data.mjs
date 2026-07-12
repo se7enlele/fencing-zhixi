@@ -5,6 +5,8 @@ import {
   getClubDirectory,
   getEventDetailByCode,
   getPublicEventsPayload,
+  getCoachDirectory,
+  getRefereeDirectory,
 } from '../server.mjs';
 import { sanitizePublicData } from './public-sanitize.mjs';
 import { buildSearchIndexes } from './search-index.mjs';
@@ -140,6 +142,8 @@ const eventEntries = await mapLimit(
 );
 const athletes = await getAthleteDirectory();
 const clubs = await getClubDirectory();
+const coaches = await getCoachDirectory();
+const referees = await getRefereeDirectory();
 
 const payload = {
   version: publicEvents.version,
@@ -151,11 +155,13 @@ const payload = {
   athletesById: sanitizePublicData(Object.fromEntries(athletes.map((athlete) => [athlete.id, athlete]))),
   clubsById: sanitizePublicData(Object.fromEntries(clubs.map((club) => [club.id, club]))),
 };
-const searchIndexes = sanitizePublicData(buildSearchIndexes(athletes, clubs));
+const searchIndexes = sanitizePublicData(buildSearchIndexes(athletes, clubs, coaches, referees));
 payload.publicEvents.dataCoverage = {
   ...(payload.publicEvents.dataCoverage || {}),
   athletes: athletes.length,
   clubs: clubs.length,
+  coaches: coaches.length,
+  referees: referees.length,
 };
 
 await removeStalePublicDataFiles();
@@ -200,5 +206,7 @@ console.log(JSON.stringify({
   competitions: publicEvents.competitions.length,
   athletes: athletes.length,
   clubs: clubs.length,
+  coaches: coaches.length,
+  referees: referees.length,
   detailConcurrency,
 }, null, 2));

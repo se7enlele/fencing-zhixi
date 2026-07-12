@@ -77,10 +77,36 @@ export function compactClubForSearch(club) {
   return row;
 }
 
-export function buildSearchIndexes(athletes = [], clubs = []) {
+function compactOfficialForSearch(person, defaultRole) {
+  const role = person.role || defaultRole;
+  const row = {
+    id: person.id,
+    name: person.name,
+    role,
+    club: person.club || '',
+    province: person.province || '',
+    city: person.city || '',
+    level: person.level || '',
+    competitionCount: person.competitionCount || person.appearances || 0,
+  };
+  row.searchText = normalizeSearchText([
+    row.name,
+    row.role === 'coach' ? '教练 教练员 coach' : '',
+    row.role === 'referee' ? '裁判 裁判员 referee' : '',
+    row.club,
+    row.province,
+    row.city,
+    row.level,
+  ].join(' '));
+  return row;
+}
+
+export function buildSearchIndexes(athletes = [], clubs = [], coaches = [], referees = []) {
   return {
     athletes: athletes.map(compactAthleteForSearch),
     clubs: clubs.map(compactClubForSearch),
+    coaches: coaches.map((person) => compactOfficialForSearch(person, 'coach')),
+    referees: referees.map((person) => compactOfficialForSearch(person, 'referee')),
   };
 }
 
@@ -100,6 +126,23 @@ function publicClubResult(club, keyword) {
   };
 }
 
+function officialMatchReason(person, keyword) {
+  const compactKeyword = compactText(keyword);
+  if (compactText(person.name) === compactKeyword || compactText(person.name).includes(compactKeyword)) return '姓名匹配';
+  if (compactText(person.club).includes(compactKeyword)) return '俱乐部匹配';
+  if (compactText(person.city).includes(compactKeyword) || compactText(person.province).includes(compactKeyword)) return '地区匹配';
+  if (compactText(person.role).includes(compactKeyword)) return '身份匹配';
+  return '公开资料匹配';
+}
+
+function publicOfficialResult(person, keyword) {
+  const { searchText: _searchText, ...publicPerson } = person;
+  return {
+    ...publicPerson,
+    matchReason: officialMatchReason(person, keyword),
+  };
+}
+
 export function searchIndexes(indexes, query, options = {}) {
   const keyword = normalizeSearchText(query);
   const compactKeyword = compactText(keyword);
@@ -107,9 +150,11 @@ export function searchIndexes(indexes, query, options = {}) {
   const type = options.type || 'all';
   const athleteLimit = Number(options.athleteLimit) || 20;
   const clubLimit = Number(options.clubLimit) || 6;
+  const coachLimit = Number(options.coachLimit) || 6;
+  const refereeLimit = Number(options.refereeLimit) || 6;
 
   if (!keyword) {
-    return { athletes: [], clubs: [] };
+    return { athletes: [], clubs: [], coaches: [], referees: [] };
   }
 
   const matchText = (row) => (
@@ -117,7 +162,7 @@ export function searchIndexes(indexes, query, options = {}) {
     || String(row.searchText || '').replace(/\s+/g, '').includes(compactKeyword)
   );
 
-  const athletes = type === 'club' ? [] : (indexes.athletes || [])
+  const athletes = ['club', 'coach', 'referee'].includes(type) ? [] : (indexes.athletes || [])
     .filter(matchText)
     .map((athlete) => ({
       ...athlete,
@@ -127,7 +172,7 @@ export function searchIndexes(indexes, query, options = {}) {
     .slice(0, athleteLimit)
     .map((athlete) => publicAthleteResult(athlete, keyword));
 
-  const clubs = type === 'athlete' ? [] : (indexes.clubs || [])
+  const clubs = ['athlete', 'coach', 'referee'].includes(type) ? [] : (indexes.clubs || [])
     .filter(matchText)
     .map((club) => ({
       ...club,
@@ -137,5 +182,25 @@ export function searchIndexes(indexes, query, options = {}) {
     .slice(0, clubLimit)
     .map((club) => publicClubResult(club, keyword));
 
-  return { athletes, clubs };
+  const coaches = !['all', 'coach'].includes(type) ? [] : (indexes.coaches || [])
+    .filter(matchText)
+    .map((person) => ({
+      ...person,
+      matchScore: entityMatchScore(person, keyword, [person.name, person.club, person.province, person.city, person.level, '教练', '教练员']),
+    }))
+    .sort((a, b) => b.matchScore - a.matchScore || (a.name?.length || 99) - (b.name?.length || 99) || b.competitionCount - a.competitionCount)
+    .slice(0, coachLimit)
+    .map((person) => publicOfficialResult(person, keyword));
+
+  const referees = !['all', 'referee'].includes(type) ? [] : (indexes.referees || [])
+    .filter(matchText)
+    .map((person) => ({
+      ...person,
+      matchScore: entityMatchScore(person, keyword, [person.name, person.club, person.province, person.city, person.level, '裁判', '裁判员']),
+    }))
+    .sort((a, b) => b.matchScore - a.matchScore || (a.name?.length || 99) - (b.name?.length || 99) || b.competitionCount - a.competitionCount)
+    .slice(0, refereeLimit)
+    .map((person) => publicOfficialResult(person, keyword));
+
+  return { athletes, clubs, coaches, referees };
 }

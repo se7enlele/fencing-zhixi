@@ -99,6 +99,8 @@ const state = {
   filteredCompetitions: [],
   athleteSearchResults: [],
   clubSearchResults: [],
+  coachSearchResults: [],
+  refereeSearchResults: [],
   currentCompetition: null,
   currentEvent: null,
   currentClub: null,
@@ -1680,6 +1682,8 @@ function applyCompetitionFilter() {
   if (!keyword) {
     state.athleteSearchResults = [];
     state.clubSearchResults = [];
+    state.coachSearchResults = [];
+    state.refereeSearchResults = [];
     state.lastSearchKeyword = '';
   }
   renderAthleteSearchResults(keyword);
@@ -1698,6 +1702,8 @@ async function refreshEntitySearch(keyword) {
     type: 'all',
     athleteLimit: String(athleteLimit),
     clubLimit: '4',
+    coachLimit: '4',
+    refereeLimit: '4',
   });
   try {
     const result = await fetchJson(`/api/search?${params.toString()}`);
@@ -1705,11 +1711,15 @@ async function refreshEntitySearch(keyword) {
     state.lastSearchKeyword = normalizedKeyword;
     state.athleteSearchResults = result.athletes || [];
     state.clubSearchResults = result.clubs || [];
+    state.coachSearchResults = result.coaches || [];
+    state.refereeSearchResults = result.referees || [];
     renderAthleteSearchResults(normalizedKeyword);
   } catch {
     if (requestId !== state.searchRequestId) return;
     state.athleteSearchResults = [];
     state.clubSearchResults = [];
+    state.coachSearchResults = [];
+    state.refereeSearchResults = [];
     renderAthleteSearchResults(normalizedKeyword);
   }
 }
@@ -1722,6 +1732,8 @@ function handleSearchInput() {
   state.aiCompetitionFilterSummary = '';
   state.athleteSearchResults = [];
   state.clubSearchResults = [];
+  state.coachSearchResults = [];
+  state.refereeSearchResults = [];
   applyCompetitionFilter();
   if (!keyword) return;
   const requestId = state.searchRequestId;
@@ -7920,8 +7932,14 @@ function renderClubSummaryResult(club, athleteRows) {
 function renderAthleteSearchResults(keyword) {
   const athleteRows = state.athleteSearchResults || [];
   const clubRows = state.clubSearchResults || [];
+  const coachRows = state.coachSearchResults || [];
+  const refereeRows = state.refereeSearchResults || [];
+  const officialRows = [
+    ...coachRows.map((row) => ({ ...row, roleLabel: '教练员' })),
+    ...refereeRows.map((row) => ({ ...row, roleLabel: '裁判员' })),
+  ];
   const hasCompetitionResults = Boolean(keyword && state.filteredCompetitions.length);
-  searchAthletesPanel.hidden = !keyword || (!athleteRows.length && !clubRows.length && !hasCompetitionResults);
+  searchAthletesPanel.hidden = !keyword || (!athleteRows.length && !clubRows.length && !officialRows.length && !hasCompetitionResults);
   if (searchAthletesPanel.hidden) {
     searchAthletesPanel.innerHTML = '';
     return;
@@ -7977,7 +7995,25 @@ function renderAthleteSearchResults(keyword) {
         `).join('')}
       </div>
     ` : ''}
-    ${!athleteRows.length && !clubRows.length && hasCompetitionResults ? `
+    ${officialRows.length ? `
+      <div class="result-group-label">教练员 / 裁判员</div>
+      <div class="athlete-result-list">
+        ${officialRows.map((person) => `
+          <article class="athlete-result-card official-result-card">
+            <div class="athlete-result-main">
+              <strong>${escapeHtml(person.name)}</strong>
+              <span>${escapeHtml([person.roleLabel, person.club, person.city || person.province].filter(Boolean).join(' · '))}</span>
+              <em>${escapeHtml(person.matchReason || '公开资料匹配')}</em>
+            </div>
+            <div class="athlete-result-side">
+              <b>${escapeHtml(person.level || '-')}</b>
+              <span>${escapeHtml(person.competitionCount || 0)} 场</span>
+            </div>
+          </article>
+        `).join('')}
+      </div>
+    ` : ''}
+    ${!athleteRows.length && !clubRows.length && !officialRows.length && hasCompetitionResults ? `
       <div class="search-hint-card">
         <strong>已为你匹配到 ${escapeHtml(state.filteredCompetitions.length)} 场相关比赛</strong>
         <span>下面的比赛列表已经按当前搜索词和筛选条件更新。</span>
