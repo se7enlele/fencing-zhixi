@@ -5093,6 +5093,35 @@ function detectClubsInQuery(query) {
   (club) => club.id || compactText(club.club)).slice(0, 3);
 }
 
+function detectCompetitionInQuery(query) {
+  const normalizedQuery = compactText(query);
+  if (normalizedQuery.length < 5) return null;
+  if (/(\u51e0\u573a|\u591a\u5c11\u573a|\u4eba\u6570\u6700\u591a|\u62a5\u540d\u60c5\u51b5|\u8fd1\u671f|\u8d5b\u524d\u60c5\u62a5|\u7edf\u8ba1|\u5bf9\u6bd4|\u600e\u4e48\u6837|\u5982\u4f55)/.test(normalizedQuery)) return null;
+
+  const queryYear = detectYearInQuery(normalizedQuery);
+  const rows = (state.competitions || [])
+    .map((competition) => {
+      const name = compactText(competition.sportName);
+      const haystack = compactText(cachedCompetitionSearchHaystack(competition));
+      if (!name) return null;
+      if (queryYear && competitionYear(competition) && competitionYear(competition) !== queryYear) return null;
+
+      let score = 0;
+      if (name === normalizedQuery) score += 100;
+      if (name.includes(normalizedQuery)) score += 80;
+      if (normalizedQuery.includes(name)) score += 70;
+      if (!score && haystack.includes(normalizedQuery)) score += 45;
+      if (!score) return null;
+      score += Math.min(20, normalizedQuery.length);
+      score += competitionHasItems(competition) ? 5 : 0;
+      return { competition, score };
+    })
+    .filter(Boolean)
+    .sort((a, b) => b.score - a.score || String(b.competition.dateLabel || '').localeCompare(String(a.competition.dateLabel || ''), 'zh-CN'));
+
+  return rows[0]?.competition || null;
+}
+
 function detectClubComparisonQuery(query) {
   const normalized = compactText(query);
   if (!/(对比|比较|比|更好|谁强|谁更强|领先|差距|优势)/.test(normalized)) return null;
@@ -5125,6 +5154,9 @@ function buildAiAnswer(query) {
       evidence: [],
     };
   }
+
+  const competition = detectCompetitionInQuery(text);
+  if (competition) return buildAiCompetitionLookupReport(text, competition);
 
   const competitionRankingQuery = detectCompetitionRankingQuery(text);
   if (competitionRankingQuery) return buildAiCompetitionRanking(text, competitionRankingQuery);
@@ -5531,6 +5563,45 @@ function buildAiClubComparisonReport(query, leftClub, rightClub, filters) {
       { label: `查看${rightClub.club}`, clubId: rightClub.id },
     ],
     sourceNote: '俱乐部对比基于当前已收录俱乐部赛事记录生成；数量判断适合做第一层结论，正式经营判断还应继续纳入效率和赛事含金量。',
+  };
+}
+
+function buildAiCompetitionLookupReport(query, competition) {
+  const itemCount = competitionItemCount(competition);
+  const entrants = competitionEntrantCount(competition);
+  const itemLabels = competitionItemFilterLabels(competition).slice(0, 4);
+  const title = competition.sportName || '\u5339\u914d\u8d5b\u4e8b';
+  const date = displayDateLabel(competition.dateLabel || competition.startDate || competition.endDate || '');
+  const venue = competition.venue || competition.region || '';
+  const currentStatus = statusLabel(competition.status);
+
+  return {
+    type: 'competition-stats',
+    title,
+    summary: [date, venue, currentStatus].filter(Boolean).join(' / ') || '\u5df2\u5339\u914d\u5230\u8d5b\u4e8b\u8bb0\u5f55\u3002',
+    cards: [
+      ['\u8d5b\u4e8b\u72b6\u6001', currentStatus],
+      ['\u6bd4\u8d5b\u65f6\u95f4', date || '\u65e5\u671f\u5f85\u786e\u8ba4'],
+      ['\u9879\u76ee\u8986\u76d6', itemCount ? `${itemCount} \u9879` : '\u5f85\u786e\u8ba4'],
+      ['\u53c2\u8d5b\u89c4\u6a21', entrants ? `${entrants} \u4eba\u6b21` : '\u5f85\u786e\u8ba4'],
+    ],
+    sections: [
+      itemLabels.length ? {
+        title: '\u9879\u76ee',
+        rows: itemLabels,
+      } : null,
+    ].filter(Boolean),
+    evidence: [{
+      kind: '\u8d5b\u4e8b\u8bb0\u5f55',
+      label: title,
+      detail: [date, venue, currentStatus].filter(Boolean).join(' / '),
+      reason: '\u7528\u4e8e\u6838\u5bf9\u8d5b\u4e8b\u540d\u79f0\u3001\u65f6\u95f4\u3001\u5730\u70b9\u548c\u72b6\u6001',
+      sportCode: competition.sportCode,
+    }],
+    actions: [
+      competition.sportCode ? { label: '\u67e5\u770b\u8d5b\u4e8b\u8be6\u60c5', sportCode: competition.sportCode } : null,
+      { label: '\u67e5\u770b\u8d5b\u4e8b\u5217\u8868', mainTab: 'competitions', filters: { year: competitionYear(competition) || '', month: '', region: competition.region || '', status: competition.status || '' } },
+    ].filter(Boolean),
   };
 }
 

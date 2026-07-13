@@ -26,9 +26,12 @@ const functionNames = [
   'shortEventName',
   'displayEventName',
   'competitionItemSummaries',
+  'itemFilterLabel',
   'competitionItemCount',
   'competitionItemFilterLabels',
   'competitionMetricTotal',
+  'competitionSearchHaystack',
+  'cachedCompetitionSearchHaystack',
   'competitionEntrantCount',
   'competitionItemEntrantRows',
   'competitionHasItems',
@@ -49,6 +52,7 @@ const functionNames = [
   'aiAthletePool',
   'detectAthletesInQuery',
   'detectExactAthletesInQuery',
+  'detectCompetitionInQuery',
   'detectClubInQuery',
   'detectClubsInQuery',
   'detectClubComparisonQuery',
@@ -110,6 +114,7 @@ const functionNames = [
   'buildAiAthleteGrowth',
   'buildAiClubReport',
   'buildAiClubRecruitingReport',
+  'buildAiCompetitionLookupReport',
   'clubWorkspaceAthletes',
   'clubProjectRows',
   'clubPeerRows',
@@ -186,6 +191,17 @@ const sampleCompetitions = [
     itemCount: 1,
     itemSummaries: [{ eventCode: 'TJSEASONONLY-U10MF', eventName: 'U10 \u7537\u5b50\u82b1\u5251', shortEventName: 'U10 \u7537\u82b1' }],
   },
+  {
+    sportCode: 'RZSS2021040',
+    sportName: '\u0032\u0030\u0032\u0031\u5317\u4eac\u51fb\u5251\u8054\u8d5b\u7b2c\u4e00\u7ad9',
+    season: '2021',
+    dateLabel: '2021.04.03 / 2021.04.05',
+    venue: '\u5317\u4eac \u5317\u4eac\u5e02',
+    region: '\u5317\u4eac',
+    status: 'completed',
+    itemCount: 0,
+    items: [],
+  },
 ];
 
 const caiEvents = [
@@ -253,6 +269,7 @@ const context = {
     athleteSearchIndex: athletes,
     clubSearchIndex: [sampleClub, jinshiClub, airuiteClub],
     clubsById: { [sampleClub.id]: sampleClub, [jinshiClub.id]: jinshiClub, [airuiteClub.id]: airuiteClub },
+    competitionSearchCache: new Map(),
     followedAthletes: [{ id: 'cai', name: '\u8521\u5ef7\u5f67', club: '\u4e2a\u4eba' }],
     selectedChildId: 'cai',
   },
@@ -272,6 +289,12 @@ assert.ok(clubTerms.includes('\u5c71\u4e1c\u5c0f\u4f17\u4f53\u80b2'), 'AI entity
 const seasonOnlyStats = context.buildAiAnswer('\u0032\u0030\u0032\u0036\u5e74\u5929\u6d25\u6709\u51e0\u573a\u6bd4\u8d5b');
 assert.equal(seasonOnlyStats.type, 'competition-stats', 'season-based regional query should route to competition stats');
 assert.equal(seasonOnlyStats.cards[0][1], '4 \u573a', 'AI competition stats should count events whose year is available only from season');
+
+const namedCompetition = context.buildAiAnswer('\u5317\u4eac\u51fb\u5251\u8054\u8d5b\u7b2c\u4e00\u7ad9');
+assert.equal(namedCompetition.type, 'competition-stats', 'plain competition-name questions should route to competition lookup');
+assert.match(namedCompetition.title, /\u5317\u4eac\u51fb\u5251\u8054\u8d5b\u7b2c\u4e00\u7ad9/, 'competition lookup should show the matched competition name');
+assert.equal(namedCompetition.evidence[0].sportCode, 'RZSS2021040', 'competition lookup should cite the matched competition');
+assert.equal(namedCompetition.actions.find((action) => action.sportCode)?.sportCode, 'RZSS2021040', 'competition lookup should open the matched competition directly');
 
 const juneStats = context.buildAiAnswer('\u0032\u0030\u0032\u0036\u5e74\u0036\u6708\u5929\u6d25\u6709\u51e0\u573a\u6bd4\u8d5b');
 assert.equal(juneStats.type, 'competition-stats', 'month-based regional query should route to competition stats');
