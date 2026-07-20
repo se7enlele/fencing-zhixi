@@ -18,6 +18,7 @@ const bannedCopy = [
   'AI 分析入口',
   'Unexpected token',
   'DOCTYPE',
+  'undefined',
 ];
 
 const cases = [
@@ -25,6 +26,7 @@ const cases = [
     id: 'competition-lookup',
     query: '北京击剑联赛第一站',
     expect: ['赛事', '北京击剑联赛'],
+    requireEvidence: true,
   },
   {
     id: 'competition-count',
@@ -35,41 +37,49 @@ const cases = [
     id: 'competition-largest',
     query: '哪场比赛人数最多',
     expect: ['赛事规模', '人数', '查看赛事'],
+    requireEvidence: true,
   },
   {
     id: 'athlete-growth-recent',
     query: '蔡廷彧最近有没有进步',
     expect: ['成长', '蔡廷彧', '最近比赛'],
+    requireEvidence: true,
   },
   {
     id: 'athlete-growth-yearly',
     query: '蔡廷彧2025和2026年的表现有什么变化',
     expect: ['成长', '蔡廷彧', '2025'],
+    requireEvidence: true,
   },
   {
     id: 'prematch-registration',
     query: '天津近期报名情况',
     expect: ['赛前情报', '报名名单', '优先关注'],
+    requireEvidence: true,
   },
   {
     id: 'club-project',
     query: '山东小众体育U8男花怎么样',
     expect: ['山东小众体育', 'U8 男花'],
+    requireEvidence: true,
   },
   {
     id: 'club-recruiting',
     query: '山东小众体育招生怎么讲',
     expect: ['山东小众体育', '招生'],
+    requireEvidence: true,
   },
   {
     id: 'club-comparison',
     query: '北京金石和北京艾鲁特U10男花谁更强',
     expect: ['剑馆对比', '北京金石', '北京艾鲁特'],
+    requireEvidence: true,
   },
   {
     id: 'athlete-comparison',
     query: '分析马潇和陶嘉月的对战情况',
     expect: ['马潇', '陶嘉月'],
+    requireEvidence: true,
   },
   {
     id: 'growth-report-template',
@@ -84,7 +94,7 @@ const cases = [
   {
     id: 'competition-missing-year',
     query: '2026年北京击剑联赛第一站',
-    expect: ['未找到2026年同名赛事', '相近赛事', '查看相关赛事'],
+    expect: ['未找到2026年同名赛事', '相近赛事', '查看相近赛事'],
   },
   {
     id: 'recovery',
@@ -95,6 +105,7 @@ const cases = [
     id: 'fuzzy-object-recovery',
     query: '小众',
     expect: ['先确认你要看的对象', '山东小众体育', '相近俱乐部'],
+    requireEvidence: true,
   },
 ];
 
@@ -113,34 +124,31 @@ async function runCase(page, testCase) {
   await page.locator('#aiQueryForm[data-ai-bound="true"]').waitFor({ state: 'attached', timeout: 30000 });
   await submitLocator.waitFor({ state: 'visible', timeout: 30000 });
   await inputLocator.evaluate((input, query) => {
-    if (!input) throw new Error('Missing AI query input');
     input.focus();
     input.value = query;
     input.dispatchEvent(new InputEvent('input', { bubbles: true, inputType: 'insertText', data: query }));
     input.dispatchEvent(new Event('change', { bubbles: true }));
   }, testCase.query);
+
   const confirmedQuery = await inputLocator.inputValue();
   assertCase(confirmedQuery === testCase.query, `${testCase.id} query input was not set`, {
     expected: testCase.query,
     actual: confirmedQuery,
   });
+
   const beforeAnswerText = await page.locator('#aiAnswer').innerText().catch(() => '');
-  await submitLocator.evaluate((button) => button.click());
-  try {
-    await page.waitForFunction(
-      (beforeText) => {
-        const node = document.querySelector('#aiAnswer');
-        if (!node) return false;
-        const text = node.textContent || '';
-        return text.trim() !== String(beforeText || '').trim()
-          && Boolean(node.querySelector('.ai-loading-card, .ai-answer-card'));
-      },
-      beforeAnswerText,
-      { timeout: 1500 },
-    );
-  } catch {
-    await submitLocator.evaluate((button) => button.click());
-  }
+  await submitLocator.click();
+  await page.waitForFunction(
+    (beforeText) => {
+      const node = document.querySelector('#aiAnswer');
+      if (!node) return false;
+      const text = node.textContent || '';
+      return text.trim() !== String(beforeText || '').trim()
+        && Boolean(node.querySelector('.ai-loading-card, .ai-answer-card'));
+    },
+    beforeAnswerText,
+    { timeout: 5000 },
+  );
   await page.waitForFunction(
     (expected) => {
       const card = document.querySelector('#aiAnswer .ai-answer-card');
@@ -161,19 +169,21 @@ async function runCase(page, testCase) {
   const sectionCount = await answer.locator('.ai-section').count();
   const evidenceCount = await answer.locator('.ai-evidence button:visible').count();
   const hasEvidenceSummary = await answer.locator('.ai-evidence-summary').count();
-  const evidenceNavigation = evidenceCount ? await verifyFirstEvidenceNavigation(page, answer, testCase) : null;
-
   const missingExpected = testCase.expect.filter((phrase) => !text.includes(phrase));
   const bannedHits = bannedCopy.filter((phrase) => text.includes(phrase));
 
   assertCase(!missingExpected.length, `${testCase.id} missing expected copy`, { missingExpected, text });
-  assertCase(!bannedHits.length, `${testCase.id} exposes internal copy`, { bannedHits, text });
+  assertCase(!bannedHits.length, `${testCase.id} exposes internal or broken copy`, { bannedHits, text });
   assertCase(metricCount <= 4, `${testCase.id} renders too many metric cards`, { metricCount });
   assertCase(sectionCount <= 2, `${testCase.id} renders too many explanation sections`, { sectionCount });
   assertCase(evidenceCount <= 3, `${testCase.id} renders too many source records`, { evidenceCount });
   assertCase(actionLabels.length <= 3, `${testCase.id} renders too many action buttons`, { actionLabels });
   assertCase(viewportTop && viewportTop.y < 740, `${testCase.id} answer did not scroll into reachable viewport`, { viewportTop });
+  if (testCase.requireEvidence) {
+    assertCase(evidenceCount > 0, `${testCase.id} should expose at least one traceable source`, { text });
+  }
 
+  const evidenceNavigation = evidenceCount ? await verifyFirstEvidenceNavigation(page, answer, testCase) : null;
   return {
     id: testCase.id,
     query: testCase.query,
@@ -194,22 +204,26 @@ async function verifyFirstEvidenceNavigation(page, answer, testCase) {
   await evidenceButton.evaluate((button) => button.scrollIntoView({ block: 'center', inline: 'nearest' }));
   await evidenceButton.click();
   await page.waitForFunction(
-    () => {
-      const visibleHero = [...document.querySelectorAll('.hero-title')]
-        .find((node) => node.offsetParent !== null && node.textContent.trim());
-      return Boolean(visibleHero);
-    },
+    () => [...document.querySelectorAll('.hero-title')]
+      .some((node) => node.offsetParent !== null && node.textContent.trim()),
     null,
     { timeout: 30000 },
   );
   await page.waitForTimeout(300);
   const bodyText = await page.locator('body').innerText();
   const heroTitle = await page.locator('.hero-title:visible').first().innerText();
-  const failureCopy = ['读取失败', '不存在', 'Unexpected token', 'DOCTYPE'].filter((phrase) => bodyText.includes(phrase));
+  const failureCopy = ['读取失败', '不存在', 'Unexpected token', 'DOCTYPE', 'undefined'].filter((phrase) => bodyText.includes(phrase));
   assertCase(!failureCopy.length, `${testCase.id} evidence navigation opens an error state`, { sourceText, heroTitle, failureCopy });
   assertCase(Boolean(heroTitle.trim()), `${testCase.id} evidence navigation did not open a detail title`, { sourceText });
 
-  await page.evaluate(() => document.querySelector('[data-main-tab="home"]')?.click());
+  await page.evaluate(() => {
+    const buttons = [...document.querySelectorAll('[data-main-tab="home"]')];
+    const visibleButton = buttons.find((button) => {
+      const rect = button.getBoundingClientRect();
+      return rect.width > 0 && rect.height > 0;
+    }) || buttons[0];
+    visibleButton?.click();
+  });
   await page.locator('#aiQueryInput:visible').first().waitFor({ state: 'visible', timeout: 30000 });
   return { sourceText, heroTitle };
 }
