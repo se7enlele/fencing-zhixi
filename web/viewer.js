@@ -4806,11 +4806,11 @@ function bindAiWorkspace(container) {
     submitButton.dataset.aiSubmit = 'true';
   }
 
-  const bindAnswer = (report) => {
-    const card = answer.querySelector('.ai-answer-card');
+  const bindAnswer = (report, target = answer) => {
+    const card = target.querySelector('.ai-answer-card');
     if (card) card.__aiReport = report;
-    bindAiAnswerActions(answer);
-    answer.querySelectorAll('[data-ai-follow-up]').forEach((button) => {
+    bindAiAnswerActions(target);
+    target.querySelectorAll('[data-ai-follow-up]').forEach((button) => {
       button.addEventListener('click', () => {
         input.value = button.dataset.aiFollowUp || '';
         run(input.value);
@@ -4851,10 +4851,12 @@ function bindAiWorkspace(container) {
       state.isAiAnswerLoading = false;
       trackAnalyticsAction('ai_answer', report.type || 'unknown');
       trackAiAnalysisHistory(normalizedQuery, report);
-      answer.innerHTML = renderAiAnswer(report);
-      bindAnswer(report);
-      scrollToResultPanel(answer);
-      enhanceAiAnswer(report, answer, bindAnswer);
+      const currentAnswer = document.querySelector('#aiAnswer') || answer;
+      currentAnswer.classList.add('has-answer');
+      currentAnswer.innerHTML = renderAiAnswer(report);
+      bindAnswer(report, currentAnswer);
+      scrollToResultPanel(currentAnswer);
+      enhanceAiAnswer(report, currentAnswer, bindAnswer);
     } catch {
       const report = buildAiAnswer(normalizedQuery);
       report.query = normalizedQuery;
@@ -4862,10 +4864,12 @@ function bindAiWorkspace(container) {
       state.isAiAnswerLoading = false;
       trackAnalyticsAction('ai_answer', report.type || 'unknown');
       trackAiAnalysisHistory(normalizedQuery, report);
-      answer.innerHTML = renderAiAnswer(report);
-      bindAnswer(report);
-      scrollToResultPanel(answer);
-      enhanceAiAnswer(report, answer, bindAnswer);
+      const currentAnswer = document.querySelector('#aiAnswer') || answer;
+      currentAnswer.classList.add('has-answer');
+      currentAnswer.innerHTML = renderAiAnswer(report);
+      bindAnswer(report, currentAnswer);
+      scrollToResultPanel(currentAnswer);
+      enhanceAiAnswer(report, currentAnswer, bindAnswer);
     } finally {
       form.classList.remove('is-submitting');
       if (submitButton) {

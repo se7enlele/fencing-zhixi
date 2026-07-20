@@ -100,7 +100,7 @@ assert.match(js, /window\.scrollY \+ target\.getBoundingClientRect\(\)\.top - he
 assert.match(js, /setTimeout\(scroll, 120\)/, 'AI result scrolling must correct after mobile layout changes');
 assert.match(js, /input\.blur\(\);/, 'AI question submission must release mobile keyboard focus before scrolling');
 assert.match(js, /answer\.innerHTML = renderAiLoadingState\(normalizedQuery\);[\s\S]*scrollToResultPanel\(answer, 'auto'\);/, 'AI question submission must immediately move the viewport to the result area while loading');
-assert.match(js, /answer\.innerHTML = renderAiAnswer\(report\);[\s\S]{0,80}bindAnswer\(report\);[\s\S]{0,80}scrollToResultPanel\(answer\);/, 'AI question results must keep the viewport on the answer card after rendering');
+assert.match(js, /currentAnswer\.innerHTML = renderAiAnswer\(report\);[\s\S]{0,120}bindAnswer\(report, currentAnswer\);[\s\S]{0,120}scrollToResultPanel\(currentAnswer\);/, 'AI question results must keep the viewport on the current answer card after rendering');
 assert.match(js, /function entityCoverageCounts\(\)/, 'home scale numbers must use data coverage summaries without hydrating full directories');
 assert.match(js, /onlyFollowedData: false/, 'database tab must track my-follow filter state');
 assert.match(js, /function competitionMatchesFollowedData\(competition\)/, 'database tab must filter competitions by followed athletes and followed competitions');

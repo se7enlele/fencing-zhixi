@@ -36,6 +36,7 @@ assert.match(js, /aiActiveReport: null/, 'AI home prompt must persist the active
 assert.match(js, /isAiAnswerLoading: false/, 'AI home prompt must persist loading state across home rerenders');
 assert.match(js, /const answerHtml = state\.isAiAnswerLoading[\s\S]*renderAiAnswer\(state\.aiActiveReport\)/, 'AI workspace must restore loading or answer content after home rerenders');
 assert.match(js, /state\.aiActiveReport = report;[\s\S]*state\.isAiAnswerLoading = false/, 'AI runner must save the generated report before rendering it');
+assert.match(js, /const currentAnswer = document\.querySelector\('#aiAnswer'\) \|\| answer;[\s\S]*currentAnswer\.innerHTML = renderAiAnswer\(report\)/, 'AI runner must write completed answers into the current DOM after home rerenders');
 assert.match(js, /<button type="button" data-ai-submit="true">/, 'AI submit button must not submit the form before JavaScript handlers are bound');
 assert.match(js, /form\.dataset\.aiBound = 'true'/, 'AI form must expose a bound marker before automation or fast users click it');
 assert.match(js, /form\.__runAiQuery = run/, 'AI form must expose its runner after home rerenders');
@@ -215,13 +216,13 @@ assert.doesNotMatch(js, /data-ai-feedback=\"ai-helpful\"/, 'AI answer should not
 assert.doesNotMatch(js, /data-ai-feedback=\"ai-needs-work\"/, 'AI answer should not expose needs-work feedback inside the main result');
 assert.doesNotMatch(js, /class="ai-follow-up-row"/, 'AI answer renderer must not show follow-up question chips inside the result card');
 assert.match(js, /data-ai-follow-up/, 'AI follow-up chips must carry runnable query text');
-assert.match(js, /const bindAnswer = \(report\) =>/, 'AI workspace must pass the current report into answer bindings');
+assert.match(js, /const bindAnswer = \(report, target = answer\) =>/, 'AI workspace must pass the current report into answer bindings');
 assert.match(js, /bindAnswer\(report\);/, 'AI workspace must bind copy actions with the generated report');
 assert.doesNotMatch(js, /bindAnswer\(\);/, 'AI workspace must never bind answer actions without the current report');
 assert.match(js, /if \(card\) card\.__aiReport = report;/, 'AI answer cards must retain the report for copy actions');
 assert.match(js, /bindCopyTextButton\(button, \(\) => buildAiAnswerShareText\(report \|\| \{\}\), `ai-\$\{report\?\.type \|\| 'unknown'\}`\)/, 'AI copy action must reuse the existing clipboard helper with share analytics');
 assert.match(js, /submitAiAnswerFeedback\(report \|\| \{\}, button\.dataset\.aiFeedback\)/, 'AI feedback buttons must submit the current report');
-assert.match(js, /answer\.querySelectorAll\('\[data-ai-follow-up\]'\)/, 'AI workspace must bind follow-up chips after each answer');
+assert.match(js, /target\.querySelectorAll\('\[data-ai-follow-up\]'\)/, 'AI workspace must bind follow-up chips after each answer');
 assert.doesNotMatch(js, /class="ai-source-note"/, 'AI answer must not render internal data boundary notes');
 assert.doesNotMatch(js, /class="ai-trust-panel"/, 'AI answer must not render internal judgment-basis panels');
 assert.doesNotMatch(js, /<strong>判断依据<\/strong>/, 'AI answer must not show internal judgment-basis headings');
