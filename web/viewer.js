@@ -134,6 +134,9 @@ const state = {
   recentItems: [],
   reportHistory: [],
   aiHistory: [],
+  aiActiveQuery: '',
+  aiActiveReport: null,
+  isAiAnswerLoading: false,
   commercialIntents: [],
   athleteDataRequests: [],
   authToken: localStorage.getItem(AUTH_TOKEN_KEY) || '',
@@ -4734,6 +4737,17 @@ function aiAcceptanceQueryCases() {
 function renderAiWorkspace() {
   const presets = aiPromptPresets();
   const placeholder = aiPromptPlaceholder(presets);
+  const activeQuery = state.aiActiveQuery || '';
+  const answerHtml = state.isAiAnswerLoading
+    ? renderAiLoadingState(activeQuery)
+    : state.aiActiveReport
+      ? renderAiAnswer(state.aiActiveReport)
+      : `
+        <div class="ai-empty">
+          <strong>从问题开始</strong>
+          <span>回答会给出结论、关键指标和证据来源，点击证据可回到对应赛事、选手或俱乐部。</span>
+        </div>
+      `;
   return `
     <div class="ai-workspace" id="aiWorkspace">
       <section class="panel ai-home-primary">
@@ -4741,7 +4755,7 @@ function renderAiWorkspace() {
           <strong>问一句，生成可追溯分析</strong>
         </div>
         <form class="ai-query-form" id="aiQueryForm">
-          <textarea id="aiQueryInput" rows="3" placeholder="${escapeHtml(placeholder)}"></textarea>
+          <textarea id="aiQueryInput" rows="3" placeholder="${escapeHtml(placeholder)}">${escapeHtml(activeQuery)}</textarea>
           <button type="button" data-ai-submit="true">开始分析</button>
         </form>
         <div class="ai-preset-row" aria-label="推荐问题">
@@ -4749,10 +4763,7 @@ function renderAiWorkspace() {
         </div>
       </section>
       <div class="ai-answer" id="aiAnswer">
-        <div class="ai-empty">
-          <strong>从问题开始</strong>
-          <span>回答会给出结论、关键指标和证据来源，点击证据可回到对应赛事、选手或俱乐部。</span>
-        </div>
+        ${answerHtml}
       </div>
     </div>
   `;
@@ -4812,6 +4823,9 @@ function bindAiWorkspace(container) {
     input.blur();
     if (!normalizedQuery) {
       const report = buildAiAnswer(normalizedQuery);
+      state.aiActiveQuery = '';
+      state.aiActiveReport = null;
+      state.isAiAnswerLoading = false;
       answer.classList.add('has-answer');
       answer.innerHTML = renderAiAnswer(report);
       bindAnswer(report);
@@ -4820,6 +4834,9 @@ function bindAiWorkspace(container) {
 
     answer.classList.add('has-answer');
     form.classList.add('is-submitting');
+    state.aiActiveQuery = normalizedQuery;
+    state.aiActiveReport = null;
+    state.isAiAnswerLoading = true;
     if (submitButton) {
       submitButton.disabled = true;
       submitButton.textContent = '分析中';
@@ -4830,6 +4847,8 @@ function bindAiWorkspace(container) {
       await ensureAiEntityContext(normalizedQuery);
       const report = buildAiAnswer(normalizedQuery);
       report.query = normalizedQuery;
+      state.aiActiveReport = report;
+      state.isAiAnswerLoading = false;
       trackAnalyticsAction('ai_answer', report.type || 'unknown');
       trackAiAnalysisHistory(normalizedQuery, report);
       answer.innerHTML = renderAiAnswer(report);
@@ -4839,6 +4858,8 @@ function bindAiWorkspace(container) {
     } catch {
       const report = buildAiAnswer(normalizedQuery);
       report.query = normalizedQuery;
+      state.aiActiveReport = report;
+      state.isAiAnswerLoading = false;
       trackAnalyticsAction('ai_answer', report.type || 'unknown');
       trackAiAnalysisHistory(normalizedQuery, report);
       answer.innerHTML = renderAiAnswer(report);
@@ -4865,6 +4886,7 @@ function bindAiWorkspace(container) {
   });
   form.__runAiQuery = run;
   form.dataset.aiBound = 'true';
+  if (state.aiActiveReport) bindAnswer(state.aiActiveReport);
 
   container.querySelectorAll('[data-ai-preset]').forEach((button) => {
     button.addEventListener('click', () => {

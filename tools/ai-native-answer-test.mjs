@@ -31,6 +31,11 @@ assert.match(js, /trackAiAnalysisHistory\(normalizedQuery, report\)/, 'AI home p
 assert.match(js, /report\.type === 'empty' \|\| report\.type === 'fallback'/, 'AI history must not store empty or fallback answers');
 assert.match(js, /function renderAiLoadingState\(query = ''\)/, 'AI home prompt must render an immediate loading state while matching data');
 assert.match(js, /answer\.innerHTML = renderAiLoadingState\(normalizedQuery\);[\s\S]*scrollToResultPanel\(answer, 'auto'\);[\s\S]*await ensureAiEntityContext\(normalizedQuery\)/, 'AI home prompt must scroll to the loading answer before expensive entity hydration');
+assert.match(js, /aiActiveQuery: ''/, 'AI home prompt must persist the active query across home rerenders');
+assert.match(js, /aiActiveReport: null/, 'AI home prompt must persist the active answer across home rerenders');
+assert.match(js, /isAiAnswerLoading: false/, 'AI home prompt must persist loading state across home rerenders');
+assert.match(js, /const answerHtml = state\.isAiAnswerLoading[\s\S]*renderAiAnswer\(state\.aiActiveReport\)/, 'AI workspace must restore loading or answer content after home rerenders');
+assert.match(js, /state\.aiActiveReport = report;[\s\S]*state\.isAiAnswerLoading = false/, 'AI runner must save the generated report before rendering it');
 assert.match(js, /<button type="button" data-ai-submit="true">/, 'AI submit button must not submit the form before JavaScript handlers are bound');
 assert.match(js, /form\.dataset\.aiBound = 'true'/, 'AI form must expose a bound marker before automation or fast users click it');
 assert.match(js, /form\.__runAiQuery = run/, 'AI form must expose its runner after home rerenders');
