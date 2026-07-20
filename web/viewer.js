@@ -721,7 +721,7 @@ function aiHistoryTypeLabel(type) {
     'club-comparison': '剑馆对比',
     club: '俱乐部分析',
     'business-insight': '商业洞察',
-    'product-template': '报告方案',
+    'product-template': '报告服务',
     'club-recruiting': '招生展示',
   };
   return labels[type] || '数据分析';
@@ -3377,7 +3377,7 @@ function homeDataValueRows() {
       label: '家长决策',
       title: '成长报告',
       detail: child ? `${child.name} · ${child.summary}` : '关注孩子后生成成长趋势和投入判断',
-      query: child ? `${child.name}最近几场有没有进步` : '生成家长成长报告方案',
+      query: child ? `${child.name}最近几场有没有进步` : '查看家长成长报告',
     },
     {
       key: 'coach-growth',
@@ -4751,7 +4751,7 @@ function aiAcceptanceQueryCases() {
     { query: '看2025和2026年，U10花剑男子和女子，北京金石是不是比北京艾鲁特更好', expectedType: 'club-comparison' },
     { query: '这些击剑数据能产生什么商业价值', expectedType: 'business-insight' },
     { query: '生成赛前情报包', expectedType: 'product-template' },
-    { query: '生成家长成长报告方案', expectedType: 'product-template' },
+    { query: '查看家长成长报告', expectedType: 'product-template' },
     { query: '生成教练学员分层报告', expectedType: 'product-template' },
     { query: '山东小众体育招生怎么讲', expectedType: 'club-recruiting' },
   ];
@@ -5620,7 +5620,7 @@ function buildAiFallbackReport(query) {
 
 function detectProductTemplateQuery(query) {
   const normalized = compactText(query);
-  const hasTemplateIntent = /(模板|框架|报告怎么做|怎么做成报告|方案|生成.*报告|生成.*情报包|做一份|输出一份)/.test(normalized);
+  const hasTemplateIntent = /(模板|框架|报告怎么做|怎么做成报告|方案|生成.*报告|查看.*报告|生成.*情报包|查看.*情报包|做一份|输出一份)/.test(normalized);
   if (!hasTemplateIntent) return '';
   if (/(赛前情报包|对手情报包|赛前包|报名情报)/.test(normalized)) return 'prematch-pack';
   if (/(家长|成长报告|孩子报告|选手成长)/.test(normalized)) return 'parent-growth-report';
@@ -6393,9 +6393,9 @@ function businessPriorityRows() {
   const scoreCount = competitions.filter((competition) => competition.coverageLevel === 'score' || competitionHasItems(competition)).length;
   const clubCount = (state.clubSearchIndex || []).length;
   return [
-    `先做赛前情报包：当前 ${activeCount} 场赛事可触发，适合用报名截止和开赛前作为高频使用节点。`,
-    `再做成长报告：当前 ${scoreCount} 场成绩样本可支撑长期复盘，适合家长会员和续费沟通。`,
-    `同步做教练/俱乐部工作台：当前 ${clubCount} 个俱乐部画像可支撑学员分层、招生展示和区域竞争判断。`,
+    `赛前准备：${activeCount} 场近期赛事适合做报名提醒、项目核对和重点对手观察。`,
+    `成长复盘：${scoreCount} 场已有成绩的赛事适合整理孩子阶段变化和赛后复盘。`,
+    `教练经营：${clubCount} 个俱乐部画像可用于学员分层、优势项目和招生展示。`,
   ];
 }
 
@@ -6406,7 +6406,7 @@ function businessProductOpportunityRows() {
   return [
     `家长端：用 ${athleteCount} 个选手画像生成成长报告、同龄段位置和下一场比赛建议。`,
     `教练端：用 ${clubCount} 个俱乐部画像做学员分层、重点备赛和招生展示。`,
-    `赛前场景：当前 ${activeCount} 场赛前/报名赛事可转化为对手情报包和赛事提醒。`,
+    `赛前场景：${activeCount} 场赛前/报名赛事可用于对手观察和赛事提醒。`,
     '行业端：按地区、月份、项目和俱乐部活跃度输出区域增长与赛事供给判断。',
   ];
 }
@@ -6420,9 +6420,9 @@ function businessMonetizationRows() {
   const clubCount = (state.clubSearchIndex || []).length;
   return [
     `赛前情报包：用 ${activeCount} 场近期/报名赛事做高频入口，其中 ${rosterCount} 场已有报名名单，适合先做单场试用和赛前提醒。`,
-    `家长成长报告：用 ${scoreCount} 场成绩样本沉淀月度/赛后复盘，当前 ${followedCount} 名关注选手可直接承接个人化报告。`,
+    `家长成长报告：用 ${scoreCount} 场成绩样本整理月度/赛后复盘，${followedCount} 名关注选手可直接生成个人化报告。`,
     `教练工作台：用 ${clubCount} 个俱乐部画像承接学员分层、续费沟通和招生展示，优先服务熟悉的小型剑馆样板。`,
-    '商业闭环：免费问答负责发现需求，报告负责证明价值，关注/试用负责留存，再逐步扩展会员或教练端 SaaS。沿这条路径推进，避免只做泛数据浏览。',
+    '服务路径：先用免费问答确认需求，再用报告证明价值，最后通过关注、提醒和试用服务形成持续使用。',
   ];
 }
 
@@ -6456,11 +6456,11 @@ function buildAiBusinessInsightReport(query) {
         rows: businessCoverageOpportunityRows(),
       },
       {
-        title: '产品化方向',
+        title: '可提供服务',
         rows: businessProductOpportunityRows(),
       },
       {
-        title: '商业化落地顺序',
+        title: '优先使用场景',
         rows: businessMonetizationRows(),
       },
       {
@@ -6495,19 +6495,19 @@ function buildAiBusinessInsightReport(query) {
     actions: [
       { label: '查看赛事机会', mainTab: 'competitions', filters: { status: 'registration' } },
       activeRows[0]?.sportCode ? { label: '加入最近赛事提醒', followCompetitionCode: activeRows[0].sportCode } : null,
-      { label: '生成赛前情报包方案', prematchTemplateKind: 'prematch-pack' },
-      aiProductTemplateAthlete()?.id ? { label: '生成家长成长报告方案', parentGrowthAthleteId: aiProductTemplateAthlete().id } : null,
-      aiProductTemplateClub()?.id ? { label: '生成教练工作台方案', coachSegmentationClubId: aiProductTemplateClub().id } : null,
+      { label: '查看赛前情报包', prematchTemplateKind: 'prematch-pack' },
+      aiProductTemplateAthlete()?.id ? { label: '查看成长报告', parentGrowthAthleteId: aiProductTemplateAthlete().id } : null,
+      aiProductTemplateClub()?.id ? { label: '查看教练工作台', coachSegmentationClubId: aiProductTemplateClub().id } : null,
     ].filter(Boolean),
     sourceNote: '商业洞察来自赛事、选手、俱乐部和赛前状态记录，可用于判断产品服务方向。',
   };
 }
 
 function productTemplateTitle(kind) {
-  if (kind === 'prematch-pack') return '赛前情报包方案';
-  if (kind === 'parent-growth-report') return '家长成长报告方案';
-  if (kind === 'coach-segmentation') return '教练学员分层方案';
-  return '数据报告方案';
+  if (kind === 'prematch-pack') return '赛前情报包';
+  if (kind === 'parent-growth-report') return '家长成长报告';
+  if (kind === 'coach-segmentation') return '教练学员分层';
+  return '数据报告';
 }
 
 function productTemplateMetricRows(kind) {
@@ -6544,10 +6544,10 @@ function productTemplateSections(kind) {
   if (kind === 'prematch-pack') {
     return [
       {
-        title: '报告结构',
+        title: '内容结构',
         rows: [
           '本场赛事概览：时间、地点、状态、项目和报名规模。',
-          '我的孩子/学员匹配：按历史项目匹配可能参赛项目。',
+          '关注对象匹配：按历史项目匹配可能参赛项目。',
           '强手与熟悉对手：按最好名次、前八、淘汰赛记录和共同赛事排序。',
           '备赛建议：给出重点训练方向和赛前沟通要点。',
         ],
@@ -6571,7 +6571,7 @@ function productTemplateSections(kind) {
   if (kind === 'parent-growth-report') {
     return [
       {
-        title: '报告结构',
+        title: '内容结构',
         rows: [
           '成长结论：近期变化、稳定性和下一步重点。',
           '参赛轨迹：按时间展示最近比赛、名次和项目变化。',
@@ -6597,10 +6597,10 @@ function productTemplateSections(kind) {
   }
   return [
     {
-      title: '报告结构',
+      title: '内容结构',
       rows: [
         '学员分层：冲成绩、稳定成长、需要关注、新手积累。',
-        '训练反馈：每个学员下一步训练重点和家长沟通口径。',
+        '训练反馈：每个学员下一步训练重点和家长沟通重点。',
         '项目矩阵：按年龄段、剑种、性别看强项和短板。',
         '经营动作：续费沟通、招生展示、重点比赛带队建议。',
       ],
@@ -6686,7 +6686,7 @@ function buildAiProductTemplateReport(query, kind) {
     type: 'product-template',
     templateKind: kind,
     title,
-    summary: summaryByKind[kind] || '把底层数据整理成面向具体用户任务的报告方案。',
+    summary: summaryByKind[kind] || '把底层数据整理成面向具体用户任务的报告。',
     cards: productTemplateMetricRows(kind),
     sections: productTemplateSections(kind),
     evidence: productTemplateEvidence(kind),
@@ -6698,7 +6698,7 @@ function buildAiProductTemplateReport(query, kind) {
       kind === 'coach-segmentation' && templateClub?.id ? { label: '生成学员分层报告', coachSegmentationClubId: templateClub.id } : null,
       kind === 'coach-segmentation' && templateClub?.id ? { label: '查看俱乐部画像', clubId: templateClub.id } : null,
     ].filter(Boolean),
-    sourceNote: '报告方案会围绕用户角色、关注对象和赛事节点组织信息。',
+    sourceNote: '报告会围绕用户角色、关注对象和赛事节点组织信息。',
   };
 }
 
@@ -7186,7 +7186,7 @@ function aiTrustRows(report) {
   } else if (report.type === 'product-template') {
     rows.push({
       label: '依据',
-      value: '报告方案',
+      value: '报告服务',
       detail: '按用户角色、使用场景、关键指标和可核对证据组织成可交付报告。',
     });
   }
@@ -7549,7 +7549,7 @@ function renderAiAnswer(report) {
   return `
     <div class="ai-answer-card">
       <div class="ai-answer-head">
-        <span>${escapeHtml(report.type === 'comparison' ? '选手对比' : report.type === 'club-comparison' ? '剑馆对比' : report.type === 'growth' ? '成长分析' : report.type === 'club' ? '俱乐部画像' : report.type === 'prematch' ? '赛前情报' : report.type === 'business-insight' ? '商业洞察' : report.type === 'product-template' ? '报告方案' : report.type === 'club-recruiting' ? '招生展示' : '查询结果')}</span>
+        <span>${escapeHtml(report.type === 'comparison' ? '选手对比' : report.type === 'club-comparison' ? '剑馆对比' : report.type === 'growth' ? '成长分析' : report.type === 'club' ? '俱乐部画像' : report.type === 'prematch' ? '赛前情报' : report.type === 'business-insight' ? '商业洞察' : report.type === 'product-template' ? '报告服务' : report.type === 'club-recruiting' ? '招生展示' : '查询结果')}</span>
         <strong>${escapeHtml(report.title)}</strong>
         <p>${escapeHtml(report.summary)}</p>
       </div>

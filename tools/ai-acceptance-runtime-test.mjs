@@ -499,17 +499,17 @@ assert.ok(businessReport.cards.length >= 4, 'business insight should expose asse
 assert.ok(businessReport.sections.some((section) => section.title === '\u4f18\u5148\u843d\u5730\u573a\u666f'), 'business insight should prioritize productized opportunities');
 assert.ok(businessReport.sections.some((section) => section.title === '\u89d2\u8272\u8f6c\u5316\u8def\u5f84'), 'business insight should include role conversion paths');
 assert.ok(businessReport.sections.some((section) => section.title === '\u6570\u636e\u6210\u719f\u5ea6'), 'business insight should show which data is ready for which business scenario');
-assert.ok(businessReport.sections.some((section) => section.title === '\u5546\u4e1a\u5316\u843d\u5730\u987a\u5e8f'), 'business insight should include a monetization rollout sequence');
+assert.ok(businessReport.sections.some((section) => section.title === '\u4f18\u5148\u4f7f\u7528\u573a\u666f'), 'business insight should include a user-facing service sequence');
 assert.ok(
-  businessReport.sections.find((section) => section.title === '\u4f18\u5148\u843d\u5730\u573a\u666f')?.rows.some((row) => row.includes('\u5148\u505a\u8d5b\u524d\u60c5\u62a5\u5305')),
+  businessReport.sections.find((section) => section.title === '\u4f18\u5148\u4f7f\u7528\u573a\u666f')?.rows.some((row) => row.includes('\u8d5b\u524d\u60c5\u62a5\u5305')),
   'business insight should name prematch intelligence as the first opportunity',
 );
 assert.ok(
-  businessReport.sections.find((section) => section.title === '\u5546\u4e1a\u5316\u843d\u5730\u987a\u5e8f')?.rows.some((row) => row.includes('\u5bb6\u957f\u6210\u957f\u62a5\u544a')),
+  businessReport.sections.find((section) => section.title === '\u4f18\u5148\u4f7f\u7528\u573a\u666f')?.rows.some((row) => row.includes('\u5bb6\u957f\u6210\u957f\u62a5\u544a')),
   'business insight should map parent growth into the rollout',
 );
 assert.ok(
-  businessReport.sections.find((section) => section.title === '\u5546\u4e1a\u5316\u843d\u5730\u987a\u5e8f')?.rows.some((row) => row.includes('\u6559\u7ec3\u5de5\u4f5c\u53f0')),
+  businessReport.sections.find((section) => section.title === '\u4f18\u5148\u4f7f\u7528\u573a\u666f')?.rows.some((row) => row.includes('\u6559\u7ec3\u5de5\u4f5c\u53f0')),
   'business insight should map coach workspace into the rollout',
 );
 assert.ok(businessReport.sections.some((section) => section.title === '\u533a\u57df\u673a\u4f1a'), 'business insight should include regional opportunity analysis');
@@ -522,7 +522,7 @@ assert.ok(businessReport.actions.some((action) => action.coachSegmentationClubId
 const prematchTemplate = context.buildAiAnswer('\u751f\u6210\u8d5b\u524d\u60c5\u62a5\u5305\u6a21\u677f');
 assert.equal(prematchTemplate.type, 'product-template', 'prematch package request should route to product templates');
 assert.equal(prematchTemplate.templateKind, 'prematch-pack', 'prematch package template should preserve template kind');
-assert.ok(prematchTemplate.sections.some((section) => section.title === '\u62a5\u544a\u7ed3\u6784'), 'prematch template should include report structure');
+assert.ok(prematchTemplate.sections.some((section) => section.title === '\u5185\u5bb9\u7ed3\u6784'), 'prematch template should include report structure');
 assert.ok(prematchTemplate.evidence.some((row) => row.kind === '\u8d5b\u524d\u8d5b\u4e8b'), 'prematch template should cite prematch competitions');
 assert.ok(!prematchTemplate.evidence.some((row) => row.sportCode === 'RZSS2021040'), 'prematch template evidence should not cite completed historical competitions');
 assert.equal(prematchTemplate.evidence[0].sportCode, 'TJ2026JUNE', 'prematch template evidence should prioritize the nearest actionable competition');

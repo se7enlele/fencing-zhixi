@@ -25,7 +25,8 @@ assert.doesNotMatch(js, /AI增强解读|增强解读/, 'AI answer copy must avoi
 assert.doesNotMatch(js, /数据处理进度|服务进度|处理编号|服务编号|本机已记录/, 'my-page request records must use user-facing application wording');
 assert.doesNotMatch(js, /当前筛选|全部数据|平台赛事|当前范围|深度赛事|报告资产|持续沉淀|按当前数据|工作台状态/, 'database and my-page copy must avoid internal data/workspace wording');
 assert.match(js, /常用报告/, 'home report center should use user-facing report copy');
-assert.match(js, /报告方案/, 'AI report planning answers should use user-facing report wording');
+assert.match(js, /报告服务/, 'AI report planning answers should use user-facing report wording');
+assert.doesNotMatch(js, /产品化方向|商业化落地顺序|商业闭环|SaaS|生成赛前情报包方案|生成家长成长报告方案|生成教练工作台方案|赛前情报包方案|家长成长报告方案|教练学员分层方案|家长沟通口径/, 'AI business and report copy must avoid internal product-planning wording');
 
 assert.doesNotMatch(js, /\bP0\b|\bP1\b/, 'frontend copy must avoid internal priority labels');
 
@@ -47,7 +48,6 @@ assert.doesNotMatch(js, /'全部剑种'|'全部性别'|filters\.years\?\.length 
   '后续可直接复用',
   '后续订阅报名和重点对手更新',
   '后续赛事生成',
-  '后续再扩展会员或教练端 SaaS',
   '后续提醒、报告或工作台',
   '后续报告入口',
   "label: '后续'",
