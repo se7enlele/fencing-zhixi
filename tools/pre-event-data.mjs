@@ -124,7 +124,7 @@ function buildPlatformEventCompetition(event) {
         },
       ],
       bullets: [
-        '赛事基础信息已收录。项目规模、报名名单和赛果更新后，会形成更完整的赛前/赛后分析。',
+        '可先查看比赛时间、地点和组别，适合提前安排参赛计划。',
       ],
       eventCharts: [],
     },
@@ -223,7 +223,7 @@ export function buildPreEventCompetitions({
       || normalizeDateLabel(competition.dateLabel)
       || '日期待确认';
 
-    const insights = competition.insights || {
+    const projectInsights = {
       summaryCards: [
         {
           title: '项目数量',
@@ -233,16 +233,17 @@ export function buildPreEventCompetitions({
         {
           title: '报名规模',
           value: expectedRegistrationCount || rosterCount || '-',
-          detail: rosterCount ? `已有名单 ${rosterCount}` : '名单待更新',
+          detail: rosterCount ? `报名名单 ${rosterCount}` : '名单待确认',
         },
       ],
       bullets: [
         rosterCount
           ? `已有 ${rosterCount} 条报名记录，可结合关注选手做赛前对标。`
-          : '项目明细已收录；报名名单更新后，可分析同组对手、熟悉对手和潜在强手。',
+          : '可先查看项目安排和比赛时间，适合提前关注重点项目。',
       ],
       eventCharts: competition.items,
     };
+    const insights = competition.items.length ? projectInsights : (competition.insights || projectInsights);
 
     return {
       ...competition,
