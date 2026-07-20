@@ -1914,6 +1914,15 @@ select:focus {
   font-weight: 800;
 }
 
+.ai-evidence-summary {
+  border-radius: 9px;
+  background: rgba(13, 125, 103, 0.08);
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.45;
+  padding: 8px 10px;
+}
+
 .ai-action-block {
   display: grid;
   gap: 8px;

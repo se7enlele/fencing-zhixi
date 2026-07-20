@@ -74,6 +74,11 @@ const ATHLETE_DATA_REQUEST_KEY = 'fencingai.athleteDataRequests.v1';
 const AUTH_TOKEN_KEY = 'fencingai.authToken.v1';
 const AUTH_USER_KEY = 'fencingai.authUser.v1';
 const COMPETITION_LIST_PAGE_SIZE = 30;
+const AI_ANSWER_CARD_LIMIT = 4;
+const AI_ANSWER_SECTION_LIMIT = 2;
+const AI_ANSWER_SECTION_ROW_LIMIT = 3;
+const AI_ANSWER_ACTION_LIMIT = 3;
+const AI_ANSWER_EVIDENCE_LIMIT = 3;
 const MAIN_TABS = ['home', 'competitions', 'my'];
 
 const views = {
@@ -7086,7 +7091,18 @@ function aiAnswerMetaRows(report = {}) {
 }
 
 function renderAiAnswer(report) {
-  const visibleSections = (report.sections || []).filter(isUserFacingAiSection);
+  const visibleSections = (report.sections || [])
+    .filter(isUserFacingAiSection)
+    .slice(0, AI_ANSWER_SECTION_LIMIT)
+    .map((section) => ({
+      ...section,
+      rows: (section.rows || []).slice(0, AI_ANSWER_SECTION_ROW_LIMIT),
+    }))
+    .filter((section) => section.rows.length);
+  const primaryCards = (report.cards || []).slice(0, AI_ANSWER_CARD_LIMIT);
+  const primaryActions = (report.actions || []).slice(0, AI_ANSWER_ACTION_LIMIT);
+  const primaryEvidence = (report.evidence || []).slice(0, AI_ANSWER_EVIDENCE_LIMIT);
+  const hiddenEvidenceCount = Math.max(0, (report.evidence?.length || 0) - primaryEvidence.length);
   const enhancement = sanitizeAiEnhancement(report.enhancement || null);
   return `
     <div class="ai-answer-card">
@@ -7109,9 +7125,9 @@ function renderAiAnswer(report) {
           ` : ''}
         </div>
       ` : ''}
-      ${report.cards?.length ? `
+      ${primaryCards.length ? `
         <div class="ai-metric-grid">
-          ${report.cards.map(([label, value]) => `
+          ${primaryCards.map(([label, value]) => `
             <div class="ai-metric">
               <strong>${escapeHtml(value)}</strong>
               <span>${escapeHtml(label)}</span>
@@ -7125,11 +7141,11 @@ function renderAiAnswer(report) {
           ${section.rows.map((row) => `<span>${escapeHtml(row)}</span>`).join('')}
         </div>
       `).join('')}
-      ${report.actions?.length ? `
+      ${primaryActions.length ? `
         <div class="ai-action-block">
           <strong>查看</strong>
           <div class="ai-action-row">
-            ${report.actions.map((action) => `
+            ${primaryActions.map((action) => `
               <button type="button" ${action.athleteId ? `data-athlete-id="${escapeHtml(action.athleteId)}"` : ''} ${action.parentGrowthAthleteId ? `data-parent-growth-athlete-id="${escapeHtml(action.parentGrowthAthleteId)}"` : ''} ${action.coachSegmentationClubId ? `data-coach-segmentation-club-id="${escapeHtml(action.coachSegmentationClubId)}"` : ''} ${action.followAthleteId ? `data-follow-athlete-id="${escapeHtml(action.followAthleteId)}"` : ''} ${action.followCompetitionCode ? `data-follow-competition-code="${escapeHtml(action.followCompetitionCode)}"` : ''} ${action.sportCode ? `data-sport-code="${escapeHtml(action.sportCode)}"` : ''} ${action.clubId ? `data-club-id="${escapeHtml(action.clubId)}"` : ''} ${action.prematchTemplateKind ? `data-prematch-template="${escapeHtml(action.prematchTemplateKind)}"` : ''} ${action.prematchSportCode ? `data-prematch-sport-code="${escapeHtml(action.prematchSportCode)}"` : ''} ${action.mainTab ? `data-main-target="${escapeHtml(action.mainTab)}"` : ''} ${action.filters ? `data-ai-filters="${escapeHtml(encodeURIComponent(JSON.stringify(action.filters)))}"` : ''}>
                 ${escapeHtml(action.label)}
               </button>
@@ -7137,10 +7153,10 @@ function renderAiAnswer(report) {
           </div>
         </div>
       ` : ''}
-      ${report.evidence?.length ? `
+      ${primaryEvidence.length ? `
         <div class="ai-evidence">
           <div class="chart-title">来源</div>
-          ${report.evidence.map((row) => `
+          ${primaryEvidence.map((row) => `
             <button type="button" ${row.eventCode ? `data-event-code="${escapeHtml(row.eventCode)}"` : ''} ${row.sportCode ? `data-sport-code="${escapeHtml(row.sportCode)}"` : ''} ${row.clubId ? `data-club-id="${escapeHtml(row.clubId)}"` : ''} ${row.athleteId ? `data-athlete-id="${escapeHtml(row.athleteId)}"` : ''}>
               <em>${escapeHtml(aiEvidenceKind(row))}</em>
               <strong>${escapeHtml(row.label)}</strong>
@@ -7148,6 +7164,7 @@ function renderAiAnswer(report) {
               <small>${escapeHtml(aiEvidenceActionLabel(row))}</small>
             </button>
           `).join('')}
+          ${hiddenEvidenceCount ? `<div class="ai-evidence-summary">已展示 ${escapeHtml(primaryEvidence.length)} 条关键来源，另有 ${escapeHtml(hiddenEvidenceCount)} 条可继续查看。</div>` : ''}
         </div>
       ` : ''}
       <div class="ai-share-row">
