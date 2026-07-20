@@ -53,11 +53,14 @@ const functionNames = [
   'detectAthletesInQuery',
   'detectExactAthletesInQuery',
   'detectCompetitionInQuery',
+  'detectCompetitionLikeQuery',
   'detectClubInQuery',
   'detectClubsInQuery',
   'detectClubComparisonQuery',
   'uniqueBy',
+  'entityCoverageCounts',
   'buildAiAnswer',
+  'buildAiFallbackReport',
   'detectCompetitionStatsQuery',
   'detectCompetitionRankingQuery',
   'detectProductTemplateQuery',
@@ -370,13 +373,26 @@ assert.ok(
 const clubComparisonReport = context.buildAiAnswer('\u770b2025\u548c2026\u5e74\uff0cU10\u82b1\u5251\u7537\u5b50\u548c\u5973\u5b50\uff0c\u5317\u4eac\u91d1\u77f3\u662f\u4e0d\u662f\u6bd4\u5317\u4eac\u827e\u9c81\u7279\u66f4\u597d');
 assert.equal(clubComparisonReport.type, 'club-comparison', 'two-club strength questions should route to club comparison');
 assert.match(clubComparisonReport.summary, /\u5317\u4eac\u91d1\u77f3/, 'club comparison should name the leading club in the summary');
-assert.ok(clubComparisonReport.cards.some(([label]) => label === '\u5206\u6790\u53e3\u5f84'), 'club comparison should expose the analysis scope');
+assert.ok(!clubComparisonReport.cards.some(([label]) => label === '\u5206\u6790\u53e3\u5f84'), 'club comparison should not expose internal analysis scope as a card');
+assert.ok(!clubComparisonReport.sections.some((section) => /(\u5206\u6790\u53e3\u5f84|\u5224\u65ad\u53e3\u5f84|\u540e\u7eed|\u4e0b\u4e00\u6b65)/.test(section.title)), 'club comparison should not expose internal workflow labels as sections');
 assert.ok(clubComparisonReport.sections.some((section) => section.title === '\u6570\u91cf\u5224\u65ad'), 'club comparison should include quantity-based judgment rows');
 assert.ok(clubComparisonReport.sections.find((section) => section.title === '\u6570\u91cf\u5224\u65ad')?.rows.some((row) => row.includes('\u7537\u5b50') && row.includes('\u5317\u4eac\u91d1\u77f3\u9886\u5148')), 'club comparison should split male foil judgment');
 assert.ok(clubComparisonReport.sections.find((section) => section.title === '\u6570\u91cf\u5224\u65ad')?.rows.some((row) => row.includes('\u5973\u5b50') && row.includes('\u5317\u4eac\u827e\u9c81\u7279\u9886\u5148')), 'club comparison should split female foil judgment');
 assert.ok(clubComparisonReport.evidence.some((row) => row.kind === '\u4ff1\u4e50\u90e8\u5bf9\u6bd4\u8bc1\u636e'), 'club comparison should cite concrete event evidence');
 assert.ok(clubComparisonReport.actions.some((action) => action.clubId === 'club-jinshi'), 'club comparison should link to the first club profile');
 assert.ok(clubComparisonReport.actions.some((action) => action.clubId === 'club-airuite'), 'club comparison should link to the second club profile');
+
+const childInvestmentFallback = context.buildAiAnswer('\u5b69\u5b50\u51fb\u5251\u503c\u4e0d\u503c\u5f97\u7ee7\u7eed');
+assert.equal(childInvestmentFallback.type, 'fallback', 'general child investment questions should stay in recovery when no child is named');
+assert.match(childInvestmentFallback.title, /\u5148\u786e\u5b9a\u5173\u6ce8\u5bf9\u8c61/, 'child investment fallback should ask for the child or athlete first');
+assert.ok(childInvestmentFallback.actions.some((action) => action.mainTab === 'my'), 'child investment fallback should route users to manage followed children');
+assert.ok(!/(\u6682\u672a\u8bc6\u522b|\u5206\u6790\u53e3\u5f84|\u540e\u7eed)/.test(`${childInvestmentFallback.title}${childInvestmentFallback.summary}`), 'fallback copy should avoid internal or dead-end wording');
+
+const missingCompetitionFallback = context.buildAiAnswer('\u0032\u0030\u0032\u0036\u5e74\u5317\u4eac\u51fb\u5251\u8054\u8d5b\u7b2c\u4e00\u7ad9');
+assert.equal(missingCompetitionFallback.type, 'fallback', 'year-mismatched competition names should not silently open another year');
+assert.match(missingCompetitionFallback.title, /\u5f53\u524d\u672a\u6536\u5f55\u8fd9\u573a\u8d5b\u4e8b/, 'missing competition fallback should explain current collection status');
+assert.ok(missingCompetitionFallback.cards.some(([label, value]) => label === '\u5e74\u4efd' && value === '2026'), 'missing competition fallback should preserve parsed year');
+assert.ok(missingCompetitionFallback.actions.some((action) => action.filters?.year === '2026' && action.filters?.region === '\u5317\u4eac'), 'missing competition fallback should offer a filtered database path');
 
 const businessReport = context.buildAiAnswer('\u8fd9\u4e9b\u51fb\u5251\u6570\u636e\u80fd\u4ea7\u751f\u4ec0\u4e48\u5546\u4e1a\u4ef7\u503c');
 assert.equal(businessReport.type, 'business-insight', 'data value questions should route to business insight');

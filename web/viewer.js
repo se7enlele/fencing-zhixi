@@ -5122,6 +5122,19 @@ function detectCompetitionInQuery(query) {
   return rows[0]?.competition || null;
 }
 
+function detectCompetitionLikeQuery(query) {
+  const normalized = compactText(query);
+  if (!normalized) return null;
+  if (!/(比赛|赛事|公开赛|联赛|冠军赛|锦标赛|杯|站)/.test(normalized)) return null;
+  if (detectCompetitionStatsQuery(query) || detectCompetitionRankingQuery(query) || detectPreMatchQuery(query)) return null;
+  return {
+    year: detectYearInQuery(query) || '',
+    month: detectMonthInQuery(query) || '',
+    region: detectRegionInQuery(query) || '',
+    status: detectStatusInQuery(query) || '',
+  };
+}
+
 function detectClubComparisonQuery(query) {
   const normalized = compactText(query);
   if (!/(对比|比较|比|更好|谁强|谁更强|领先|差距|优势)/.test(normalized)) return null;
@@ -5187,11 +5200,56 @@ function buildAiAnswer(query) {
   if (athletes.length >= 2) return buildAiAthleteComparison(text, athletes[0], athletes[1]);
   if (athletes.length === 1) return buildAiAthleteGrowth(text, athletes[0]);
 
+  return buildAiFallbackReport(text);
+}
+
+function buildAiFallbackReport(query) {
+  const text = String(query || '').trim();
   const entityCounts = entityCoverageCounts();
+  const normalized = compactText(text);
+  const childIntent = /(孩子|小孩|家长|继续|投入|值不值得|成长|训练)/.test(normalized);
+  if (childIntent) {
+    return {
+      type: 'fallback',
+      title: '先确定关注对象',
+      summary: '请先选择孩子或输入选手姓名，系统才能围绕他的参赛记录、近期变化和同组表现生成成长判断。',
+      cards: [
+        ['可看内容', '成长报告'],
+        ['需要补充', '选手姓名'],
+        ['已收录画像', `${entityCounts.athletes} 个`],
+      ],
+      actions: [
+        { label: '管理关注对象', mainTab: 'my' },
+        { label: '查看选手数据', mainTab: 'competitions' },
+      ],
+      evidence: [],
+    };
+  }
+
+  const competitionLike = detectCompetitionLikeQuery(text);
+  if (competitionLike) {
+    const cards = [
+      competitionLike.year ? ['年份', competitionLike.year] : null,
+      competitionLike.region ? ['地区', competitionLike.region] : null,
+      competitionLike.month ? ['月份', `${competitionLike.month}月`] : null,
+      ['可查赛事', `${state.competitions.length} 场`],
+    ].filter(Boolean);
+    return {
+      type: 'fallback',
+      title: '当前未收录这场赛事',
+      summary: '可以先查看同地区或同年份已收录赛事；如果你有赛事列表、项目或报名名单，导入后就能继续生成分析。',
+      cards,
+      actions: [
+        { label: '查看相关赛事', mainTab: 'competitions', filters: competitionLike },
+      ],
+      evidence: [],
+    };
+  }
+
   return {
     type: 'fallback',
-    title: '暂未识别到明确对象',
-    summary: '请在问题里写出选手姓名或俱乐部名称，例如“分析马潇和陶嘉月的对比情况”。',
+    title: '需要补充一个对象',
+    summary: '请写出选手姓名、俱乐部名称或赛事名称，例如“分析马潇和陶嘉月的对比情况”。',
     cards: [
       ['可问选手', `${entityCounts.athletes} 个画像`],
       ['可问俱乐部', `${entityCounts.clubs} 个俱乐部`],
@@ -5528,33 +5586,15 @@ function buildAiClubComparisonReport(query, leftClub, rightClub, filters) {
     title: `${leftClub.club} vs ${rightClub.club}`,
     summary,
     cards: [
-      ['分析口径', scopeLabel],
+      ['对比范围', scopeLabel],
       [leftClub.club, `前八${totalPair?.[0]?.top8 || 0} · 奖牌${totalPair?.[0]?.medals || 0}`],
       [rightClub.club, `前八${totalPair?.[1]?.top8 || 0} · 奖牌${totalPair?.[1]?.medals || 0}`],
-      ['初级判断', overallWinner ? `${overallWinner.club.club}占优` : '接近'],
+      ['当前结论', overallWinner ? `${overallWinner.club.club}占优` : '接近'],
     ],
     sections: [
       {
         title: '数量判断',
         rows: aiClubComparisonConclusionRows(metricPairs),
-      },
-      {
-        title: '判断口径',
-        rows: [
-          `年份：${filters.years?.length ? filters.years.join('、') : '全部年份'}`,
-          `年龄段：${filters.age || '全部年龄段'}`,
-          `剑种：${{ foil: '花剑', epee: '重剑', sabre: '佩剑' }[filters.weapon] || '全部剑种'}`,
-          `性别：${genderScopes.map(aiClubComparisonGenderLabel).join('、')}`,
-          '当前先用数量做初级判断；后续可以继续看前八率、奖牌率、赛事级别和对手强度。',
-        ],
-      },
-      {
-        title: '下一步追问',
-        rows: [
-          `只看2026年，${leftClub.club}和${rightClub.club}谁更强？`,
-          `只看U10男花，${leftClub.club}和${rightClub.club}的前八率谁更高？`,
-          `把团体赛排除后，${leftClub.club}和${rightClub.club}谁更好？`,
-        ],
       },
     ],
     evidence: aiClubComparisonEvidenceRows(metricPairs),
