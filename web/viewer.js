@@ -5619,7 +5619,7 @@ function buildAiFallbackReport(query) {
       cards: [
         ['可看内容', '成长报告'],
         ['需要补充', '选手姓名'],
-        ['已收录画像', `${entityCounts.athletes} 个`],
+        ['可问画像', `${entityCounts.athletes} 个`],
       ],
       actions: [
         { label: '管理关注对象', mainTab: 'my' },
@@ -5635,8 +5635,8 @@ function buildAiFallbackReport(query) {
     const relatedTitle = relatedCompetitions[0]?.sportName || '';
     const title = competitionLike.year ? `未找到${competitionLike.year}年同名赛事` : '未找到这场赛事';
     const summary = competitionLike.year
-      ? `已收录赛事里没有匹配的${competitionLike.year}年同名赛事。可以先查看${competitionLike.region || '相关地区'}赛事，或打开相近赛事确认是否是你要找的比赛。`
-      : '已收录赛事里没有匹配的同名赛事。可以先查看同地区或同类型赛事，确认是否是你要找的比赛。';
+      ? `没有找到${competitionLike.year}年同名赛事。可以先查看${competitionLike.region || '相关地区'}赛事，或打开相近赛事确认是否是你要找的比赛。`
+      : '没有找到同名赛事。可以先查看同地区或同类型赛事，确认是否是你要找的比赛。';
     const cards = [
       competitionLike.year ? ['年份', competitionLike.year] : null,
       competitionLike.region ? ['地区', competitionLike.region] : null,
@@ -6070,7 +6070,7 @@ function aiClubComparisonScopeLabel(filters) {
     weaponLabel,
     genderLabel,
   ].filter(Boolean);
-  return parts.length ? parts.join(' · ') : '已收录赛事';
+  return parts.length ? parts.join(' · ') : '全部赛事';
 }
 
 function aiClubComparisonGenderLabel(gender) {
@@ -6231,7 +6231,7 @@ function aiCompetitionStatsDecisionRows(rows, actionRows, rosterRows, scoreRows)
   return decisionRows;
 }
 
-function aiFilterScopeText(filters = {}, fallback = '已收录赛事') {
+function aiFilterScopeText(filters = {}, fallback = '全部赛事') {
   const parts = [];
   if (filters.year) parts.push(`${filters.year}年`);
   if (filters.month) parts.push(`${filters.month}月`);
@@ -6281,10 +6281,10 @@ function buildAiCompetitionStats(query, filters) {
   const monthLabel = aiFilterCardLabel(filters.month, '月');
   const statusLabelText = filters.status ? statusLabel(filters.status) : '不限';
   const scopeText = aiFilterScopeText(filters);
-  const title = `${scopeText === '已收录赛事' ? '' : scopeText}赛事统计`;
+  const title = `${scopeText === '全部赛事' ? '' : scopeText}赛事统计`;
   const summary = rows.length
-    ? `${scopeText}共收录 ${rows.length} 场赛事${filters.status ? `，状态为${statusLabelText}` : ''}。`
-    : `没有找到${scopeText === '已收录赛事' ? '' : scopeText}赛事记录。`;
+    ? `${scopeText}共有 ${rows.length} 场赛事${filters.status ? `，状态为${statusLabelText}` : ''}。`
+    : `没有找到${scopeText === '全部赛事' ? '' : scopeText}赛事记录。`;
 
   return {
     type: 'competition-stats',
@@ -6356,7 +6356,7 @@ function buildAiCompetitionRanking(query, filters) {
     .sort((a, b) => b.entrants - a.entrants || b.itemCount - a.itemCount || String(a.competition.sportName || '').localeCompare(String(b.competition.sportName || ''), 'zh-CN'));
   const top = rows[0];
   const filterLabel = [filters.year, filters.month ? `${filters.month}月` : '', filters.region, filters.status ? statusLabel(filters.status) : ''].filter(Boolean).join(' ');
-  const scopeText = filterLabel || '已收录赛事';
+  const scopeText = filterLabel || '全部赛事';
   const listFilters = {
     year: filters.year || '',
     month: filters.month || '',
@@ -6857,10 +6857,10 @@ function buildAiPreMatchReport(query, filters) {
   const rosterTotal = rows.reduce((sum, competition) => sum + (Number(competition.registrationSummary?.rosterCount) || 0), 0);
   const regionLabel = filters.region || '不限';
   const scopeText = aiFilterScopeText(filters);
-  const title = `${scopeText === '已收录赛事' ? '近期' : scopeText}赛前情报`;
+  const title = `${scopeText === '全部赛事' ? '近期' : scopeText}赛前情报`;
   const summary = rows.length
     ? `${scopeText}有 ${rows.length} 场值得赛前关注的赛事，${rosterRows.length} 场可查看报名名单，${projectRows.length} 场可查看项目安排。`
-    : `没有找到${scopeText === '已收录赛事' ? '' : scopeText}赛前或报名赛事。`;
+    : `没有找到${scopeText === '全部赛事' ? '' : scopeText}赛前或报名赛事。`;
 
   return {
     type: 'prematch',
@@ -7512,7 +7512,7 @@ function buildAiAnswerShareText(report) {
     nextSteps.forEach((row) => lines.push(`- ${row}`));
   }
 
-  lines.push('', '由 FencingAI 基于已收录赛事数据生成');
+  lines.push('', '由 FencingAI 基于公开赛事数据生成');
   return lines.filter((line, index) => line !== '' || lines[index - 1] !== '').join('\n').trim();
 }
 
@@ -7734,7 +7734,7 @@ function renderAiAnswer(report) {
               <small>${escapeHtml(aiEvidenceActionLabel(row))}</small>
             </button>
           `).join('')}
-          ${hiddenEvidenceCount ? `<div class="ai-evidence-summary">已展示 ${escapeHtml(primaryEvidence.length)} 条关键来源，另有 ${escapeHtml(hiddenEvidenceCount)} 条可继续查看。</div>` : ''}
+          ${hiddenEvidenceCount ? `<div class="ai-evidence-summary">还有 ${escapeHtml(hiddenEvidenceCount)} 条相关来源，可继续查看。</div>` : ''}
         </div>
       ` : ''}
       <div class="ai-share-row">
