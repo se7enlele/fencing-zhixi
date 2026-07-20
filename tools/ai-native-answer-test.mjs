@@ -134,7 +134,7 @@ assert.match(js, /\['对比结论', `\$\{leader\.name\} 略优于 \$\{other\.nam
 assert.match(js, /\['参考强度', confidence\]/, 'AI comparison cards must avoid internal evidence-strength wording');
 assert.doesNotMatch(js, /<button type="button" data-ai-feedback=/, 'AI answers should not render feedback buttons in the main user result');
 assert.match(js, /kind: '赛前赛事'/, 'AI prematch evidence must label prematch competitions');
-assert.match(js, /名单较少时，优先展示项目和赛事级信息/, 'AI prematch report must use user-facing incomplete roster scope');
+assert.match(js, /报名名单较少时，先展示赛程、项目和重点赛事/, 'AI prematch report must use user-facing roster scope');
 assert.match(js, /暂未发现两人的直接交手记录/, 'AI comparison must not imply direct bouts when none are found');
 assert.match(js, /没有直接交手时，只展示可核对的对比信息/, 'AI comparison must disclose evidence scope without internal wording');
 assert.match(js, /title: '时间分布'/, 'AI competition stats must include month distribution when available');

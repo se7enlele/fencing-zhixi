@@ -39,7 +39,7 @@ const cases = [
   {
     id: 'athlete-growth-recent',
     query: '蔡廷彧最近有没有进步',
-    expect: ['成长', '蔡廷彧', '近期参赛'],
+    expect: ['成长', '蔡廷彧', '最近比赛'],
   },
   {
     id: 'athlete-growth-yearly',

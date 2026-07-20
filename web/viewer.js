@@ -3845,7 +3845,7 @@ function trialDeliverableRows() {
         ? `${prematch.sportName} 已可生成赛前项目、报名名单和强手线索。`
         : `${activeCount} 场赛前/报名赛事可作为备选，先选择目标赛事。`,
       next: prematch
-        ? `先生成本场情报包，再订阅报名和重点对手更新。`
+        ? `先查看本场情报，再订阅报名和重点对手更新。`
         : `已有 ${rosterCount} 场赛事带报名数据，可先从近期赛事开始。`,
       action: prematch ? 'prematch' : 'ask',
       sportCode: prematch?.sportCode || '',
@@ -5371,7 +5371,7 @@ function buildAiCapabilityGuideReport(query) {
         title: '常用问题',
         rows: [
           '查赛事：某年某地有几场比赛，哪场比赛人数最多。',
-          '看成长：某个选手最近表现、年度变化和关键比赛。',
+          '看成长：某个选手最近表现、年度对比和关键比赛。',
           '做对比：两个选手或两个俱乐部在指定项目里的差异。',
         ],
       },
@@ -5959,17 +5959,17 @@ function buildAiCompetitionLookupReport(query, competition) {
 }
 
 function aiCompetitionStatsDecisionRows(rows, actionRows, rosterRows, scoreRows) {
-  if (!rows.length) return ['当前没有匹配赛事，可以放宽年份、地区或状态后再查。'];
+  if (!rows.length) return ['没有找到符合条件的赛事。可以调整年份、地区或赛事状态再看。'];
   const decisionRows = [];
   if (actionRows.length) {
     decisionRows.push(`${actionRows.length} 场处在报名、未开赛或赛前阶段，适合加入赛前提醒。`);
-    decisionRows.push(`${rosterRows.length} 场已有报名信息，可进一步生成赛前情报包；名单不完整时先做项目和规模判断。`);
+    decisionRows.push(`${rosterRows.length} 场可查看报名名单，适合提前关注同组对手和参赛规模。`);
   }
   if (scoreRows.length) {
     decisionRows.push(`${scoreRows.length} 场已有成绩或项目数据，适合做成长报告、教练复盘和俱乐部表现分析。`);
   }
   if (!decisionRows.length) {
-    decisionRows.push('当前主要用于赛事检索和赛程确认，等报名名单或成绩数据补齐后再做深度分析。');
+    decisionRows.push('可以先确认赛程、地点和项目安排，再结合报名名单或成绩做备赛复盘。');
   }
   return decisionRows;
 }
@@ -6013,7 +6013,7 @@ function buildAiCompetitionStats(query, filters) {
   const title = `${yearLabel}${filters.month ? monthLabel : ''}${regionLabel === '全部地区' ? '' : regionLabel}赛事统计`;
   const summary = rows.length
     ? `${yearLabel} ${monthLabel} ${regionLabel} 共收录 ${rows.length} 场赛事${filters.status ? `，状态为${statusLabelText}` : ''}。`
-    : `当前没有匹配到 ${yearLabel} ${monthLabel} ${regionLabel} ${statusLabelText} 的赛事记录。`;
+    : `没有找到 ${yearLabel} ${monthLabel} ${regionLabel} ${statusLabelText} 的赛事记录。`;
 
   return {
     type: 'competition-stats',
@@ -6589,8 +6589,8 @@ function buildAiPreMatchReport(query, filters) {
   const monthLabel = filters.month ? `${filters.month}月` : '全部月份';
   const title = `${yearLabel}${filters.month ? monthLabel : ''}${regionLabel === '全部地区' ? '' : regionLabel}赛前情报`;
   const summary = rows.length
-    ? `${yearLabel} ${monthLabel} ${regionLabel} 当前匹配 ${rows.length} 场赛前相关赛事，其中 ${rosterRows.length} 场已有报名信息，${projectRows.length} 场已有项目明细。`
-    : `当前没有匹配到 ${yearLabel} ${monthLabel} ${regionLabel} 的赛前或报名赛事。`;
+    ? `${yearLabel} ${monthLabel} ${regionLabel} 有 ${rows.length} 场值得赛前关注的赛事，${rosterRows.length} 场可查看报名名单，${projectRows.length} 场可查看项目安排。`
+    : `没有找到 ${yearLabel} ${monthLabel} ${regionLabel} 的赛前或报名赛事。`;
 
   return {
     type: 'prematch',
@@ -6623,11 +6623,11 @@ function buildAiPreMatchReport(query, filters) {
       sportCode: competition.sportCode,
     })),
     actions: [
-      rows[0]?.sportCode ? { label: '生成本场情报包', prematchTemplateKind: 'prematch-pack', prematchSportCode: rows[0].sportCode } : null,
+      rows[0]?.sportCode ? { label: '查看本场情报', prematchTemplateKind: 'prematch-pack', prematchSportCode: rows[0].sportCode } : null,
       rows[0]?.sportCode ? { label: '加入赛前提醒', followCompetitionCode: rows[0].sportCode } : null,
       { label: rows.length ? '查看赛前赛事' : '进入赛事列表', mainTab: 'competitions', filters },
     ].filter(Boolean),
-    sourceNote: '赛前情报来自赛事状态、项目明细和报名名单；名单较少时，优先展示项目和赛事级信息。',
+    sourceNote: '赛前情报基于赛事状态、项目安排和报名名单生成；报名名单较少时，先展示赛程、项目和重点赛事。',
   };
 }
 
@@ -6735,11 +6735,11 @@ function buildAiAthleteGrowth(query, athlete) {
     ],
     sections: [
       yearRows.length ? {
-        title: '年度变化',
+        title: '年度对比',
         rows: yearRows,
       } : null,
       {
-        title: '近期参赛',
+        title: '最近比赛',
         rows: events.slice(0, 5).map((event) => `${displayEventName(event)} · 第${event.finalRank ?? '-'}名 · ${event.sportName}`),
       },
       !yearRows.length && (athlete.opponents || []).length ? {
@@ -8627,7 +8627,7 @@ function renderCompetitionList() {
   const aiFilterNotice = state.aiCompetitionFilterSummary
     ? `
       <div class="ai-filter-notice">
-        <span>${escapeHtml(state.aiCompetitionFilterSummary)}，当前匹配 ${escapeHtml(state.filteredCompetitions.length)} 场</span>
+        <span>${escapeHtml(state.aiCompetitionFilterSummary)}，筛选结果 ${escapeHtml(state.filteredCompetitions.length)} 场</span>
         <button type="button" data-clear-ai-filter>清除筛选</button>
       </div>
     `
@@ -10900,7 +10900,7 @@ function coachParentCommunicationRows(club, followups = [], buckets = []) {
       athlete,
       status,
       title: `${athlete.name || '学员'}｜${status}`,
-      message: `${athlete.name || '孩子'}近期参赛记录已经可以做阶段复盘：${row.parentMessage} 训练重点：${row.training}`,
+      message: `${athlete.name || '孩子'}最近比赛记录已经可以做阶段复盘：${row.parentMessage} 训练重点：${row.training}`,
       nextStep: row.watchPoint,
     };
   });
