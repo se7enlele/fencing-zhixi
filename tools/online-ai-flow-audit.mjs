@@ -159,7 +159,7 @@ async function runCase(page, testCase) {
   const actionLabels = await answer.locator('.ai-action-row button').evaluateAll((nodes) => nodes.map((node) => node.textContent.trim()));
   const metricCount = await answer.locator('.ai-metric').count();
   const sectionCount = await answer.locator('.ai-section').count();
-  const evidenceCount = await answer.locator('.ai-evidence button').count();
+  const evidenceCount = await answer.locator('.ai-evidence button:visible').count();
   const hasEvidenceSummary = await answer.locator('.ai-evidence-summary').count();
   const evidenceNavigation = evidenceCount ? await verifyFirstEvidenceNavigation(page, answer, testCase) : null;
 
@@ -189,9 +189,9 @@ async function runCase(page, testCase) {
 }
 
 async function verifyFirstEvidenceNavigation(page, answer, testCase) {
-  const evidenceButton = answer.locator('.ai-evidence button').first();
+  const evidenceButton = answer.locator('.ai-evidence button:visible').first();
   const sourceText = (await evidenceButton.innerText()).split('\n').filter(Boolean).slice(0, 4).join(' / ');
-  await evidenceButton.scrollIntoViewIfNeeded();
+  await evidenceButton.evaluate((button) => button.scrollIntoView({ block: 'center', inline: 'nearest' }));
   await evidenceButton.click();
   await page.waitForFunction(
     () => {

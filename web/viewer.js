@@ -5930,18 +5930,19 @@ function aiClubComparisonWinner(left, right) {
 }
 
 function aiClubComparisonScopeLabel(filters) {
-  const weaponLabel = { foil: '花剑', epee: '重剑', sabre: '佩剑' }[filters.weapon] || '全部剑种';
+  const weaponLabel = { foil: '花剑', epee: '重剑', sabre: '佩剑' }[filters.weapon] || '';
   const genderLabel = filters.includeTotal
     ? '男子 / 女子'
     : filters.genders?.length === 1 && filters.genders[0] !== 'total'
       ? aiClubComparisonGenderLabel(filters.genders[0])
-      : '全部性别';
-  return [
-    filters.years?.length ? filters.years.join('、') : '全部年份',
-    filters.age || '全部年龄段',
+      : '';
+  const parts = [
+    filters.years?.length ? filters.years.join('、') : '',
+    filters.age || '',
     weaponLabel,
     genderLabel,
-  ].filter(Boolean).join(' · ');
+  ].filter(Boolean);
+  return parts.length ? parts.join(' · ') : '已收录赛事';
 }
 
 function aiClubComparisonGenderLabel(gender) {
