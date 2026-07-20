@@ -4857,6 +4857,10 @@ function bindAiWorkspace(container) {
     event.preventDefault();
     run(input.value);
   });
+  submitButton?.addEventListener('click', (event) => {
+    event.preventDefault();
+    run(input.value);
+  });
 
   container.querySelectorAll('[data-ai-preset]').forEach((button) => {
     button.addEventListener('click', () => {
