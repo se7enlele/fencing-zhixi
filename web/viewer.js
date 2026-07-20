@@ -1579,6 +1579,14 @@ function setFilterValue(type, value) {
   applyCompetitionFilter();
 }
 
+function toggleFollowedCompetitionFilter() {
+  state.onlyFollowedData = !state.onlyFollowedData;
+  state.selectedAiMonth = '';
+  state.aiCompetitionFilterSummary = '';
+  renderFilters();
+  applyCompetitionFilter();
+}
+
 function matchingFilterOption(type, value) {
   if (!value) return filterOptions(type)[0];
   const options = filterOptions(type);
@@ -6094,6 +6102,19 @@ function aiCompetitionStatsDecisionRows(rows, actionRows, rosterRows, scoreRows)
   return decisionRows;
 }
 
+function aiFilterScopeText(filters = {}, fallback = '已收录赛事') {
+  const parts = [];
+  if (filters.year) parts.push(`${filters.year}年`);
+  if (filters.month) parts.push(`${filters.month}月`);
+  if (filters.region) parts.push(filters.region);
+  if (filters.status) parts.push(statusLabel(filters.status));
+  return parts.length ? parts.join('') : fallback;
+}
+
+function aiFilterCardLabel(value, suffix = '') {
+  return value ? `${value}${suffix}` : '不限';
+}
+
 function buildAiCompetitionStats(query, filters) {
   const rows = state.competitions.filter((competition) => {
     const yearOk = filters.year ? competitionYear(competition) === filters.year : true;
@@ -6126,14 +6147,15 @@ function buildAiCompetitionStats(query, filters) {
   const actionRows = rows.filter((competition) => ['registration', 'upcoming', 'live'].includes(competition.status) || competition.isPreEvent);
   const rosterRows = rows.filter((competition) => competition.rosterStatus === 'partial' || competition.rosterStatus === 'complete');
   const scoreRows = rows.filter((competition) => competition.status === 'completed' || competitionHasItems(competition));
-  const regionLabel = filters.region || '全部地区';
-  const yearLabel = filters.year || '全部年份';
-  const monthLabel = filters.month ? `${filters.month}月` : '全部月份';
-  const statusLabelText = filters.status ? statusLabel(filters.status) : '全部状态';
-  const title = `${yearLabel}${filters.month ? monthLabel : ''}${regionLabel === '全部地区' ? '' : regionLabel}赛事统计`;
+  const regionLabel = filters.region || '不限';
+  const yearLabel = aiFilterCardLabel(filters.year, '年');
+  const monthLabel = aiFilterCardLabel(filters.month, '月');
+  const statusLabelText = filters.status ? statusLabel(filters.status) : '不限';
+  const scopeText = aiFilterScopeText(filters);
+  const title = `${scopeText === '已收录赛事' ? '' : scopeText}赛事统计`;
   const summary = rows.length
-    ? `${yearLabel} ${monthLabel} ${regionLabel} 共收录 ${rows.length} 场赛事${filters.status ? `，状态为${statusLabelText}` : ''}。`
-    : `没有找到 ${yearLabel} ${monthLabel} ${regionLabel} ${statusLabelText} 的赛事记录。`;
+    ? `${scopeText}共收录 ${rows.length} 场赛事${filters.status ? `，状态为${statusLabelText}` : ''}。`
+    : `没有找到${scopeText === '已收录赛事' ? '' : scopeText}赛事记录。`;
 
   return {
     type: 'competition-stats',
@@ -6704,13 +6726,12 @@ function buildAiPreMatchReport(query, filters) {
   const actionRows = aiPreMatchActionRows(rows, rosterRows, focusRows);
   const expectedTotal = rows.reduce((sum, competition) => sum + (Number(competition.registrationSummary?.expectedRegistrationCount) || 0), 0);
   const rosterTotal = rows.reduce((sum, competition) => sum + (Number(competition.registrationSummary?.rosterCount) || 0), 0);
-  const regionLabel = filters.region || '全部地区';
-  const yearLabel = filters.year || '全部年份';
-  const monthLabel = filters.month ? `${filters.month}月` : '全部月份';
-  const title = `${yearLabel}${filters.month ? monthLabel : ''}${regionLabel === '全部地区' ? '' : regionLabel}赛前情报`;
+  const regionLabel = filters.region || '不限';
+  const scopeText = aiFilterScopeText(filters);
+  const title = `${scopeText === '已收录赛事' ? '近期' : scopeText}赛前情报`;
   const summary = rows.length
-    ? `${yearLabel} ${monthLabel} ${regionLabel} 有 ${rows.length} 场值得赛前关注的赛事，${rosterRows.length} 场可查看报名名单，${projectRows.length} 场可查看项目安排。`
-    : `没有找到 ${yearLabel} ${monthLabel} ${regionLabel} 的赛前或报名赛事。`;
+    ? `${scopeText}有 ${rows.length} 场值得赛前关注的赛事，${rosterRows.length} 场可查看报名名单，${projectRows.length} 场可查看项目安排。`
+    : `没有找到${scopeText === '已收录赛事' ? '' : scopeText}赛前或报名赛事。`;
 
   return {
     type: 'prematch',
@@ -7882,12 +7903,14 @@ function renderMyPage() {
   ];
   const primaryStats = stats.slice(0, 4);
   const secondaryStats = stats.slice(4);
+  const accountTag = state.authUser ? '账号已登录' : '账号未登录';
 
   myPage.innerHTML = `
     <section class="my-hero panel">
       <div>
         <span>使用视角</span>
         <strong>${escapeHtml(`${roleLabel(state.userRole)}视角`)}</strong>
+        <i class="account-view-tag">${escapeHtml(accountTag)}</i>
         <em>${escapeHtml(followCopy.heroDetail)}</em>
       </div>
       <button type="button" data-role-switch>切换</button>
@@ -13141,7 +13164,7 @@ yearFilterButton.addEventListener('click', () => openFilterSheet('year'));
 regionFilterButton.addEventListener('click', () => openFilterSheet('region'));
 itemFilterButton.addEventListener('click', () => openFilterSheet('item'));
 statusFilterButton.addEventListener('click', () => openFilterSheet('status'));
-myFollowFilterButton?.addEventListener('click', () => openFilterSheet('follow'));
+myFollowFilterButton?.addEventListener('click', toggleFollowedCompetitionFilter);
 filterSheetMask.addEventListener('click', closeFilterSheet);
 filterSheetClose.addEventListener('click', closeFilterSheet);
 filterSheetOptions.addEventListener('click', (event) => {

@@ -36,6 +36,7 @@ assert.doesNotMatch(js, /label: '判断口径'|口径下|当前已收录|第一�
 assert.doesNotMatch(js, /\['当前判断'|\['证据强度'|'数据助手'/, 'AI answer labels must stay user-facing and avoid internal/generic helper copy');
 assert.doesNotMatch(js, /<button type="button" data-ai-feedback=/, 'AI answer result should not show product feedback controls as primary user content');
 assert.doesNotMatch(js, /当前匹配|已有项目明细|名单不完整|生成本场情报包|当前数据里|当前数据中|当前资料库/, 'AI answer and database copy must avoid internal matching or data-stage wording');
+assert.doesNotMatch(js, /\$\{yearLabel\} \$\{monthLabel\} \$\{regionLabel\}|\$\{yearLabel\}\$\{filters\.month \? monthLabel : ''\}/, 'AI answer copy must not concatenate all-year or all-month filler labels into titles and summaries');
 
 [
   '先看能否稳定进入后续轮次',

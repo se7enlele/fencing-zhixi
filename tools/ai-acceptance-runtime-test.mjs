@@ -73,6 +73,8 @@ const functionNames = [
   'detectCapabilityGuideQuery',
   'uniqueBy',
   'entityCoverageCounts',
+  'aiFilterScopeText',
+  'aiFilterCardLabel',
   'buildAiAnswer',
   'buildAiCapabilityGuideReport',
   'buildAiFallbackReport',
@@ -372,6 +374,8 @@ assert.equal(prematchReportAction.prematchSportCode, 'TJ2026JUNE', 'AI prematch 
 
 const broadRegistrationReport = context.buildAiAnswer('\u5929\u6d25\u8fd1\u671f\u62a5\u540d\u60c5\u51b5');
 assert.equal(broadRegistrationReport.type, 'prematch', 'broad registration-status questions should route to prematch intelligence');
+assert.equal(broadRegistrationReport.title, '\u5929\u6d25\u8d5b\u524d\u60c5\u62a5', 'broad prematch title should not expose all-year or all-month filler text');
+assert.ok(!/(\u5168\u90e8\u5e74\u4efd|\u5168\u90e8\u6708\u4efd)/.test(`${broadRegistrationReport.title}${broadRegistrationReport.summary}`), 'broad prematch copy should use natural scope wording');
 assert.equal(broadRegistrationReport.cards[0][1], '3 \u573a', 'broad registration-status questions should include upcoming prematch competitions, not only registration status');
 assert.ok(broadRegistrationReport.sections.some((section) => section.title === '\u4f18\u5148\u5173\u6ce8'), 'broad registration-status questions should produce actionable competition rows');
 
@@ -381,6 +385,8 @@ assert.equal(strictRegistrationReport.cards[0][1], '2 \u573a', 'explicit registr
 
 const currentYear = String(new Date().getFullYear());
 assert.equal(context.detectYearInQuery('\u4eca\u5e74\u5929\u6d25\u6709\u51e0\u573a\u6bd4\u8d5b'), currentYear, 'AI year detection should support current-year wording');
+const broadScaleStats = context.buildAiAnswer('\u54ea\u573a\u6bd4\u8d5b\u4eba\u6570\u6700\u591a\uff1f');
+assert.ok(!/(\u5168\u90e8\u5e74\u4efd|\u5168\u90e8\u6708\u4efd)/.test(`${broadScaleStats.title}${broadScaleStats.summary}`), 'broad competition stats copy should not expose all-year or all-month filler text');
 
 for (const item of context.aiAcceptanceQueryCases()) {
   const report = context.buildAiAnswer(item.query);
