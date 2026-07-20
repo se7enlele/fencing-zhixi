@@ -155,7 +155,7 @@ const payload = {
   athletesById: sanitizePublicData(Object.fromEntries(athletes.map((athlete) => [athlete.id, athlete]))),
   clubsById: sanitizePublicData(Object.fromEntries(clubs.map((club) => [club.id, club]))),
 };
-const searchIndexes = sanitizePublicData(buildSearchIndexes(athletes, clubs, coaches, referees));
+const searchIndexes = sanitizePublicData(buildSearchIndexes(athletes, clubs, coaches, referees, workerPublicEvents.competitions));
 payload.publicEvents.dataCoverage = {
   ...(payload.publicEvents.dataCoverage || {}),
   athletes: athletes.length,

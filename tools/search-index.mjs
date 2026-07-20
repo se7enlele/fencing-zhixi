@@ -14,6 +14,12 @@ function searchTokens(value) {
   return normalizeSearchText(value).split(' ').filter(Boolean);
 }
 
+function chineseAdminAlias(value) {
+  const compact = compactText(value);
+  if (!/[\u4e00-\u9fa5]/.test(compact)) return '';
+  return compact.replace(/(省|市|自治区|特别行政区|地区|区|县)/g, '');
+}
+
 function entityMatchScore(entity, keyword, fields) {
   const compactKeyword = compactText(keyword);
   if (!compactKeyword) return 0;
@@ -77,6 +83,46 @@ export function compactClubForSearch(club) {
   return row;
 }
 
+function competitionAliasTerms(competition) {
+  const values = [
+    competition.sportName,
+    competition.venue,
+    competition.region,
+    competition.dateLabel,
+    competition.season,
+    competition.status,
+    competition.sportCode,
+  ];
+
+  const aliases = [];
+  for (const value of values.filter(Boolean)) {
+    aliases.push(value);
+    const noAdmin = chineseAdminAlias(value);
+    if (noAdmin && noAdmin !== compactText(value)) aliases.push(noAdmin);
+    const noYear = String(value).replace(/20\d{2}年?/g, '');
+    if (noYear !== String(value)) aliases.push(noYear);
+    const noAdminNoYear = chineseAdminAlias(noYear);
+    if (noAdminNoYear) aliases.push(noAdminNoYear);
+  }
+  return [...new Set(aliases.filter(Boolean))];
+}
+
+export function compactCompetitionForSearch(competition) {
+  const row = {
+    sportCode: competition.sportCode || competition.sportId || '',
+    sportName: competition.sportName || competition.name || '',
+    venue: competition.venue || '',
+    region: competition.region || '',
+    dateLabel: competition.dateLabel || '',
+    season: competition.season || '',
+    status: competition.status || '',
+    itemCount: competition.items?.length || competition.itemCount || 0,
+    entrantCount: competition.entrantCount || competition.competitionNo || competition.participants || 0,
+  };
+  row.searchText = normalizeSearchText(competitionAliasTerms(competition).join(' '));
+  return row;
+}
+
 function compactOfficialForSearch(person, defaultRole) {
   const role = person.role || defaultRole;
   const row = {
@@ -101,12 +147,13 @@ function compactOfficialForSearch(person, defaultRole) {
   return row;
 }
 
-export function buildSearchIndexes(athletes = [], clubs = [], coaches = [], referees = []) {
+export function buildSearchIndexes(athletes = [], clubs = [], coaches = [], referees = [], competitions = []) {
   return {
     athletes: athletes.map(compactAthleteForSearch),
     clubs: clubs.map(compactClubForSearch),
     coaches: coaches.map((person) => compactOfficialForSearch(person, 'coach')),
     referees: referees.map((person) => compactOfficialForSearch(person, 'referee')),
+    competitions: competitions.map(compactCompetitionForSearch),
   };
 }
 
@@ -135,11 +182,27 @@ function officialMatchReason(person, keyword) {
   return '公开资料匹配';
 }
 
+function competitionMatchReason(competition, keyword) {
+  const compactKeyword = compactText(keyword);
+  if (compactText(competition.sportName) === compactKeyword || compactText(competition.sportName).includes(compactKeyword)) return '赛事名称匹配';
+  if (chineseAdminAlias(competition.sportName).includes(compactKeyword) || chineseAdminAlias(competition.sportName).includes(chineseAdminAlias(keyword))) return '赛事名称匹配';
+  if (compactText(competition.venue).includes(compactKeyword) || compactText(competition.region).includes(compactKeyword)) return '地区匹配';
+  return '相关赛事匹配';
+}
+
 function publicOfficialResult(person, keyword) {
   const { searchText: _searchText, ...publicPerson } = person;
   return {
     ...publicPerson,
     matchReason: officialMatchReason(person, keyword),
+  };
+}
+
+function publicCompetitionResult(competition, keyword) {
+  const { searchText: _searchText, ...publicCompetition } = competition;
+  return {
+    ...publicCompetition,
+    matchReason: competitionMatchReason(competition, keyword),
   };
 }
 
@@ -152,9 +215,10 @@ export function searchIndexes(indexes, query, options = {}) {
   const clubLimit = Number(options.clubLimit) || 6;
   const coachLimit = Number(options.coachLimit) || 6;
   const refereeLimit = Number(options.refereeLimit) || 6;
+  const competitionLimit = Number(options.competitionLimit) || 8;
 
   if (!keyword) {
-    return { athletes: [], clubs: [], coaches: [], referees: [] };
+    return { athletes: [], clubs: [], coaches: [], referees: [], competitions: [] };
   }
 
   const matchText = (row) => (
@@ -162,7 +226,7 @@ export function searchIndexes(indexes, query, options = {}) {
     || String(row.searchText || '').replace(/\s+/g, '').includes(compactKeyword)
   );
 
-  const athletes = ['club', 'coach', 'referee'].includes(type) ? [] : (indexes.athletes || [])
+  const athletes = ['club', 'coach', 'referee', 'competition'].includes(type) ? [] : (indexes.athletes || [])
     .filter(matchText)
     .map((athlete) => ({
       ...athlete,
@@ -172,7 +236,7 @@ export function searchIndexes(indexes, query, options = {}) {
     .slice(0, athleteLimit)
     .map((athlete) => publicAthleteResult(athlete, keyword));
 
-  const clubs = ['athlete', 'coach', 'referee'].includes(type) ? [] : (indexes.clubs || [])
+  const clubs = ['athlete', 'coach', 'referee', 'competition'].includes(type) ? [] : (indexes.clubs || [])
     .filter(matchText)
     .map((club) => ({
       ...club,
@@ -202,5 +266,15 @@ export function searchIndexes(indexes, query, options = {}) {
     .slice(0, refereeLimit)
     .map((person) => publicOfficialResult(person, keyword));
 
-  return { athletes, clubs, coaches, referees };
+  const competitions = !['all', 'competition'].includes(type) ? [] : (indexes.competitions || [])
+    .filter(matchText)
+    .map((competition) => ({
+      ...competition,
+      matchScore: entityMatchScore(competition, keyword, [competition.sportName, competition.venue, competition.region, competition.season, competition.status]),
+    }))
+    .sort((a, b) => b.matchScore - a.matchScore || String(b.dateLabel || '').localeCompare(String(a.dateLabel || ''), 'zh-CN') || (b.entrantCount || 0) - (a.entrantCount || 0))
+    .slice(0, competitionLimit)
+    .map((competition) => publicCompetitionResult(competition, keyword));
+
+  return { athletes, clubs, coaches, referees, competitions };
 }

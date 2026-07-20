@@ -427,6 +427,7 @@ async function getSearchIndexes() {
       await getClubDirectory(),
       await getCoachDirectory(),
       await getRefereeDirectory(),
+      (await getPublicEventsPayload()).competitions,
     );
   }
   return searchIndexCache;
@@ -2461,13 +2462,14 @@ const server = createServer(async (request, response) => {
       const clubLimit = Number(url.searchParams.get('clubLimit')) || undefined;
       const coachLimit = Number(url.searchParams.get('coachLimit')) || undefined;
       const refereeLimit = Number(url.searchParams.get('refereeLimit')) || undefined;
+      const competitionLimit = Number(url.searchParams.get('competitionLimit')) || undefined;
       const indexes = await getSearchIndexes();
       sendJson(response, 200, sanitizePublicData({
         ok: true,
         version: APP_VERSION,
         query,
         type,
-        ...searchIndexes(indexes, query, { type, athleteLimit, clubLimit, coachLimit, refereeLimit }),
+        ...searchIndexes(indexes, query, { type, athleteLimit, clubLimit, coachLimit, refereeLimit, competitionLimit }),
       }));
     } catch (error) {
       sendJson(response, 500, { ok: false, message: error.message });

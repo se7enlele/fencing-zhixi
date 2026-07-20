@@ -32,7 +32,7 @@ const buildScript = await readFile(new URL('./build-cloudflare-data.mjs', import
 assert.match(buildScript, /sanitizePublicData\(stripListOnlyFields\(workerPublicEvents\)\)/, 'public event index must be sanitized before writing static assets');
 assert.match(buildScript, /eventsByCode:\s+sanitizePublicData\(/, 'event detail chunks must be sanitized before writing static assets');
 assert.match(buildScript, /athletesById:\s+sanitizePublicData\(/, 'athlete chunks must be sanitized before writing static assets');
-assert.match(buildScript, /buildSearchIndexes\(athletes,\s*clubs,\s*coaches,\s*referees\)/, 'search indexes should still be built from complete internal directories before sanitizing output');
+assert.match(buildScript, /buildSearchIndexes\(athletes,\s*clubs,\s*coaches,\s*referees,\s*workerPublicEvents\.competitions\)/, 'search indexes should still be built from complete internal directories and competition index before sanitizing output');
 assert.match(buildScript, /removeStalePublicDataFiles\(\)/, 'static build must remove stale public-data chunks before writing sanitized chunks');
 assert.match(buildScript, /public-data-\(events\|athletes\|clubs\|search\)-\\d\+\\\.json/, 'static build cleanup must target generated public-data chunks');
 

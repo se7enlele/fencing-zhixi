@@ -457,7 +457,8 @@ async function loadSearchIndexes(env) {
         clubs: [...merged.clubs, ...(chunk.clubs || [])],
         coaches: [...merged.coaches, ...(chunk.coaches || [])],
         referees: [...merged.referees, ...(chunk.referees || [])],
-      }), { athletes: [], clubs: [], coaches: [], referees: [] });
+        competitions: [...merged.competitions, ...(chunk.competitions || [])],
+      }), { athletes: [], clubs: [], coaches: [], referees: [], competitions: [] });
     })();
   }
   return bundledSearchPromise;
@@ -1276,13 +1277,14 @@ async function routeApi(request, env, url) {
     const clubLimit = Number(url.searchParams.get('clubLimit')) || undefined;
     const coachLimit = Number(url.searchParams.get('coachLimit')) || undefined;
     const refereeLimit = Number(url.searchParams.get('refereeLimit')) || undefined;
+    const competitionLimit = Number(url.searchParams.get('competitionLimit')) || undefined;
     const indexes = await loadSearchIndexes(env);
     return json(sanitizePublicData({
       ok: true,
       version: (await loadBundledIndex(env)).version,
       query,
       type,
-      ...searchIndexes(indexes, query, { type, athleteLimit, clubLimit, coachLimit, refereeLimit }),
+      ...searchIndexes(indexes, query, { type, athleteLimit, clubLimit, coachLimit, refereeLimit, competitionLimit }),
     }), 200, PUBLIC_INDEX_CACHE);
   }
 

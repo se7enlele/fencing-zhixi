@@ -106,6 +106,18 @@ try {
     throw new Error('club search should find 山东小众体育');
   }
 
+  const competitionSearch = await fetch(`${baseUrl}/api/search?q=${encodeURIComponent('\u5929\u6d25')}&type=competition&competitionLimit=5`);
+  const competitionPayload = await competitionSearch.json();
+  if (!competitionSearch.ok || !competitionPayload.ok) {
+    throw new Error(competitionPayload.message || `competition search status ${competitionSearch.status}`);
+  }
+  if (!competitionPayload.competitions?.some((competition) => String(competition.sportName || '').includes('\u5929\u6d25') || String(competition.venue || competition.region || '').includes('\u5929\u6d25'))) {
+    throw new Error('competition search should find Tianjin competitions');
+  }
+  if (competitionPayload.athletes?.length || competitionPayload.clubs?.length || competitionPayload.coaches?.length || competitionPayload.referees?.length) {
+    throw new Error('type=competition should only return competition rows');
+  }
+
   console.log('api layering and search split are covered');
 } finally {
   server.kill();
