@@ -101,10 +101,12 @@ assert.match(source, /function competitionProjectSummaryChips\(competition\)/, '
 assert.match(source, /function competitionProjectScope\(competition\)/, 'competition hero must render a structured project scope summary');
 assert.match(source, /function competitionHeroSummaryText\(competition\)/, 'competition hero must explain available value in user-facing language');
 assert.match(source, /function competitionDigestRows\(competition, insights, primaryEventRows, birthRows\)/, 'post-event competition detail must put interpretation before raw charts');
-assert.match(source, /competitionDigestPanel\(digestRows\)/, 'post-event competition detail must render the interpretation summary first');
+assert.match(source, /competitionDigestPanel\(digestRows, '赛后复盘'\)/, 'post-event competition detail must render the interpretation summary first');
 assert.match(source, /function competitionRegistrationNumbers\(competition\)/, 'pre-event competition detail must summarize registration numbers');
 assert.match(source, /function competitionPreEventCards\(competition\)/, 'pre-event competition detail must use pre-match metric cards');
 assert.match(source, /function renderCompetitionPreEventPanel\(competition\)/, 'pre-event competition detail must render a dedicated preparation panel');
+assert.match(source, /function competitionLiveCards\(competition\)/, 'live competition detail must use in-progress metric cards');
+assert.match(source, /function renderCompetitionLivePanel\(competition\)/, 'live competition detail must render a dedicated in-progress panel');
 assert.match(source, /function competitionRosterRows\(competition\)/, 'pre-event competition detail must aggregate imported roster rows');
 assert.match(source, /function renderCompetitionRosterSnapshot\(competition\)/, 'pre-event competition detail must show a roster snapshot when registration data exists');
 assert.match(source, /function competitionRosterWatchRows\(rosterRows\)/, 'pre-event competition detail must identify watch-list athletes from roster rows');
@@ -117,6 +119,8 @@ assert.match(source, /const chips = competitionProjectSummaryChips\(competition\
 assert.match(source, /class="competition-scope-grid"/, 'competition hero must show compact scope metrics instead of raw full labels');
 assert.match(source, /project-summary-row/, 'competition hero project summary must have a dedicated compact row');
 assert.match(source, /const isPreEventCompetition = competition\.isPreEvent \|\| \['registration', 'upcoming', 'live'\]\.includes\(competition\.status\)/, 'pre-event competitions must not reuse post-event chart assumptions');
+assert.match(source, /const isLiveCompetition = competition\.status === 'live'/, 'live competitions must be separated from pre-event preparation');
+assert.match(source, /isLiveCompetition[\s\S]*renderCompetitionLivePanel\(competition\)[\s\S]*return;/, 'live competition insight area must not fall through to pre-event preparation');
 assert.match(source, /renderCompetitionPreEventPanel\(competition\)/, 'pre-event competition insight area must show preparation guidance');
 assert.match(source, /registered \? `报名 \$\{registered\}` : rosterStatusLabel\(competition\.rosterStatus\)/, 'pre-event project cards must show roster status instead of undefined post-event metrics');
 assert.match(source, /compactCompetitionEventRows\(eventRows, 3\)/, 'competition insight project comparison should stay compact on mobile');
@@ -125,6 +129,7 @@ assert.match(source, /const primaryItems = sortedItems\.slice\(0, 4\)/, 'competi
 assert.match(source, /renderCompetitionProjectGuide\(competition, sortedItems\)/, 'competition event list must put user-facing project guidance before cards');
 assert.match(source, /默认展示最关键的 4 个项目/, 'project guide must explain collapsed project access in user-facing terms');
 assert.match(source, /renderCompetitionRosterSnapshot\(competition\)/, 'pre-event competition insight area must include roster snapshot analysis');
+assert.match(source, /比赛进行中，可优先查看已出结果的项目和需要继续关注的组别/, 'live competition hero must explain the in-progress user value');
 assert.match(source, /summary: `[\s\S]*\$\{sortedItems\.length\}[\s\S]*`/, 'competition event list must expose full project access as one grouped entry');
 assert.doesNotMatch(source, /class="event-list-more"/, 'competition event list must not add a second nested expand layer');
 assert.match(source, /secondaryItems\.length/, 'competition event list must keep full project access without showing everything by default');
@@ -137,6 +142,8 @@ assert.match(css, /\.competition-scope-grid strong,[\s\S]*text-overflow:\s*ellip
 assert.match(css, /\.competition-digest-panel/, 'post-event competition digest panel styles must exist');
 assert.match(css, /\.competition-digest-list/, 'post-event competition digest list styles must exist');
 assert.match(css, /\.competition-prematch-panel/, 'pre-event preparation panel styles must exist');
+assert.match(css, /\.competition-live-panel/, 'live competition progress panel styles must exist');
+assert.match(css, /\.competition-live-items/, 'live competition focus project styles must exist');
 assert.match(css, /\.competition-prematch-items/, 'pre-event priority project styles must exist');
 assert.match(css, /\.competition-prematch-roster/, 'pre-event roster snapshot styles must exist');
 assert.match(css, /\.competition-prematch-roster-grid/, 'pre-event roster snapshot must use a mobile-safe layout');

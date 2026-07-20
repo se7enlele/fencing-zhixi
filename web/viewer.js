@@ -8870,6 +8870,9 @@ function competitionProjectScope(competition) {
 }
 
 function competitionHeroSummaryText(competition) {
+  if (competition.status === 'live') {
+    return '比赛进行中，可优先查看已出结果的项目和需要继续关注的组别。';
+  }
   if (competition.isPlatformEventList && !competitionHasItems(competition)) {
     return '适合先关注赛程、地点和报名窗口，作为近期参赛安排参考。';
   }
@@ -9121,6 +9124,81 @@ function competitionPreEventCards(competition) {
   ];
 }
 
+function competitionLiveProgressRows(competition) {
+  const rows = competitionItemSummaries(competition);
+  const scoredRows = rows.filter((item) => Number(item.playedEliminationMatchCount) || Number(item.poolQualifyNo) || Number(item.competitionNo));
+  const pendingRows = rows.filter((item) => !scoredRows.includes(item));
+  return { rows, scoredRows, pendingRows };
+}
+
+function competitionLiveCards(competition) {
+  const progress = competitionLiveProgressRows(competition);
+  const played = progress.scoredRows.reduce((sum, item) => sum + (Number(item.playedEliminationMatchCount) || 0), 0);
+  return [
+    {
+      title: '赛事状态',
+      value: statusLabel(competition.status || 'live'),
+      detail: progress.scoredRows.length ? `${progress.scoredRows.length} 个项目已有结果` : '等待赛果更新',
+    },
+    {
+      title: '已出结果',
+      value: progress.scoredRows.length,
+      detail: played ? `${played} 场淘汰赛` : '先看项目进展',
+    },
+    {
+      title: '继续关注',
+      value: progress.pendingRows.length || Math.max(competitionItemCount(competition) - progress.scoredRows.length, 0),
+      detail: '按项目查看赛程进展',
+    },
+  ];
+}
+
+function renderCompetitionLivePanel(competition) {
+  const progress = competitionLiveProgressRows(competition);
+  const focusRows = sortedCompetitionEventRows(progress.scoredRows.length ? progress.scoredRows : progress.rows).slice(0, 5);
+  const rows = [
+    {
+      title: progress.scoredRows.length ? '先看已出结果' : '先看项目安排',
+      detail: progress.scoredRows.length
+        ? `${progress.scoredRows.length} 个项目已有结果，可进入项目查看小组、单败表和排名。`
+        : '比赛进行中，项目页会随成绩出现后用于复盘对手和晋级情况。',
+    },
+    {
+      title: progress.pendingRows.length ? '继续关注项目' : '复盘重点项目',
+      detail: progress.pendingRows.length
+        ? `${progress.pendingRows.length} 个项目还适合继续关注赛程变化。`
+        : '已出结果的项目可直接查看晋级、淘汰赛和最终排名。',
+    },
+  ];
+  return `
+    <div class="competition-live-panel">
+      <div class="chart-title">比赛进行中</div>
+      <div class="competition-live-rows">
+        ${rows.map((row) => `
+          <div>
+            <strong>${escapeHtml(row.title)}</strong>
+            <span>${escapeHtml(row.detail)}</span>
+          </div>
+        `).join('')}
+      </div>
+      ${focusRows.length ? `
+        <div class="competition-live-items">
+          ${focusRows.map((item) => `
+            <div>
+              <strong>${escapeHtml(displayEventName(item))}</strong>
+              <span>${escapeHtml([
+                Number(item.competitionNo) ? `${Number(item.competitionNo)} 人` : '',
+                Number(item.playedEliminationMatchCount) ? `${Number(item.playedEliminationMatchCount)} 场淘汰赛` : '',
+                Number(item.poolQualifyNo) ? `${Number(item.poolQualifyNo)} 人晋级` : '',
+              ].filter(Boolean).join(' · ') || statusLabel(item.status || competition.status))}</span>
+            </div>
+          `).join('')}
+        </div>
+      ` : ''}
+    </div>
+  `;
+}
+
 function competitionDigestRows(competition, insights, primaryEventRows, birthRows) {
   const total = competitionMetricTotal(competition, 'competitionNo');
   const elimination = competitionMetricTotal(competition, 'playedEliminationMatchCount');
@@ -9152,11 +9230,11 @@ function competitionDigestRows(competition, insights, primaryEventRows, birthRow
   return rows.slice(0, 3);
 }
 
-function competitionDigestPanel(rows) {
+function competitionDigestPanel(rows, title = '赛后复盘') {
   if (!rows.length) return '';
   return `
     <div class="competition-digest-panel">
-      <div class="chart-title">赛事解读</div>
+      <div class="chart-title">${escapeHtml(title)}</div>
       <div class="competition-digest-list">
         ${rows.map((row) => `
           <div>
@@ -9325,8 +9403,11 @@ function renderCompetitionInsights(competition) {
   const cards = insights.summaryCards || [];
   const bullets = insights.bullets || [];
   const isPreEventCompetition = competition.isPreEvent || ['registration', 'upcoming', 'live'].includes(competition.status);
+  const isLiveCompetition = competition.status === 'live';
 
-  const displayCards = isPreEventCompetition ? competitionPreEventCards(competition) : cards.slice(0, 2);
+  const displayCards = isLiveCompetition
+    ? competitionLiveCards(competition)
+    : isPreEventCompetition ? competitionPreEventCards(competition) : cards.slice(0, 2);
   competitionInsightCards.innerHTML = displayCards.map((item) => `
     <div class="metric">
       <strong>${escapeHtml(displayMetricValue(item.value))}</strong>
@@ -9379,6 +9460,14 @@ function renderCompetitionInsights(competition) {
     display: `${row.entrants}人 / 前八${row.top8}`,
   }));
 
+  if (isLiveCompetition) {
+    competitionInsightBullets.innerHTML = `
+      ${renderCompetitionLivePanel(competition)}
+      ${primaryEventRows.length > 1 ? eventTiles('重点项目', primaryEventRows) : ''}
+    `;
+    return;
+  }
+
   if (isPreEventCompetition) {
     competitionInsightBullets.innerHTML = `
       ${renderCompetitionPreEventPanel(competition)}
@@ -9389,7 +9478,7 @@ function renderCompetitionInsights(competition) {
 
   const digestRows = competitionDigestRows(competition, insights, primaryEventRows, birthRows);
   competitionInsightBullets.innerHTML = `
-    ${competitionDigestPanel(digestRows)}
+    ${competitionDigestPanel(digestRows, '赛后复盘')}
     ${donutChart('赛事结构', densityRows)}
     ${birthRows.length ? barChart('主要年龄段', birthRows, { tone: 'orange' }) : '<div class="empty compact-empty">暂无年龄段数据</div>'}
     ${primaryEventRows.length > 1 ? eventTiles('主要项目对比', primaryEventRows) : ''}
