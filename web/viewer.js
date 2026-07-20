@@ -4302,8 +4302,8 @@ function renderHomeFocusCard(row = homeFocusItem()) {
   return `
     <section class="panel my-section home-focus-card">
       <div class="section-title">
-        <h2>为你而生</h2>
-        <span>主动洞察</span>
+        <h2>重点关注</h2>
+        <span>近期动态</span>
       </div>
       <article>
         <strong>${escapeHtml(row.title)}</strong>
@@ -4451,7 +4451,7 @@ function renderHomePage() {
       <section class="panel my-section home-question-section">
         <div class="section-title">
           <h2>可以直接问</h2>
-          <span>AI 分析入口</span>
+          <span>赛事问答</span>
         </div>
         <div class="home-question-list">
           ${aiQuestionRows.map((row) => `
@@ -4972,7 +4972,7 @@ function aiAnalyzeActionRow(actions = []) {
   const rows = actions.filter((action) => action?.query && action?.label);
   if (!rows.length) return '';
   return `
-    <div class="detail-ai-actions" aria-label="AI 分析入口">
+    <div class="detail-ai-actions" aria-label="相关分析">
       ${rows.map((action) => `
         <button type="button" data-ai-analyze-query="${escapeHtml(action.query)}">
           ${escapeHtml(action.label)}
@@ -5604,7 +5604,7 @@ function aiClubComparisonEvidenceRows(metrics) {
             kind: '俱乐部对比证据',
             label: event.sportName || displayEventName(event),
             detail: `${metric.club.club} · ${displayEventName(event)} · ${event.entrants || 0}人次 · 前八${event.top8 || 0} · 奖牌${event.medals || 0} · 最好第${event.bestRank ?? '-'}名`,
-            reason: `${aiClubComparisonGenderLabel(metric.gender)}口径下的关键成绩样本`,
+            reason: `${aiClubComparisonGenderLabel(metric.gender)}项目中的关键成绩样本`,
             sportCode: event.sportCode,
             eventCode: event.eventCode,
             clubId: metric.club.id,
@@ -5626,8 +5626,8 @@ function buildAiClubComparisonReport(query, leftClub, rightClub, filters) {
   const overallWinner = totalPair ? aiClubComparisonWinner(totalPair[0], totalPair[1]) : null;
   const scopeLabel = aiClubComparisonScopeLabel(filters);
   const summary = overallWinner
-    ? `${scopeLabel}口径下，按参赛人次、前八、奖牌和冠军这些数量指标初步判断，${overallWinner.club.club}更占优。`
-    : `${scopeLabel}口径下，两家俱乐部数量指标接近，需要继续看效率、对手强度和赛事级别。`;
+    ? `${scopeLabel}范围内，按参赛人次、前八、奖牌和冠军数对比，${overallWinner.club.club}更占优。`
+    : `${scopeLabel}范围内，两家俱乐部数量表现接近，建议结合前八率、对手强度和赛事级别一起看。`;
 
   return {
     type: 'club-comparison',
@@ -5650,7 +5650,7 @@ function buildAiClubComparisonReport(query, leftClub, rightClub, filters) {
       { label: `查看${leftClub.club}`, clubId: leftClub.id },
       { label: `查看${rightClub.club}`, clubId: rightClub.id },
     ],
-    sourceNote: '俱乐部对比基于当前已收录俱乐部赛事记录生成；数量判断适合做第一层结论，正式经营判断还应继续纳入效率和赛事含金量。',
+    sourceNote: '俱乐部对比来自公开赛事成绩记录，适合先判断整体规模和成绩表现。',
   };
 }
 
@@ -5855,7 +5855,7 @@ function buildAiCompetitionRanking(query, filters) {
           title: '查看建议',
           rows: [
             '优先查看人数最高的项目，确认该组别的报名名单、俱乐部分布和历史强手。',
-            '如果是未开赛项目，可以继续生成赛前情报包，用于家长和教练做备赛判断。',
+            '如果是赛前项目，可以生成赛前情报包，提前查看报名名单、重点对手和俱乐部分布。',
           ],
         },
       ] : [],
@@ -5895,7 +5895,7 @@ function buildAiCompetitionRanking(query, filters) {
         title: '查看建议',
         rows: [
           '先打开排名靠前的赛事详情，查看项目分布和各组别人数。',
-          '如果是赛前赛事，可以继续关注报名名单，等名单完整后再做对手和俱乐部分布分析。',
+          '如果是赛前赛事，可以先关注报名名单，并查看已出现的重点对手和俱乐部分布。',
         ],
       },
     ] : [],
@@ -6032,7 +6032,7 @@ function buildAiBusinessInsightReport(query) {
   return {
     type: 'business-insight',
     title: '击剑数据商业价值分析',
-    summary: `当前数据已经可以支撑家长决策、教练经营、俱乐部增长和赛事/区域洞察；下一步重点不是继续平铺数据，而是把数据封装成报告、提醒和可追问分析。`,
+    summary: `这些数据可以服务家长成长判断、教练备赛、俱乐部展示和区域赛事观察，核心价值在于生成可核对的分析、提醒和报告。`,
     cards: businessMetricRows().slice(0, 4),
     sections: [
       {
@@ -6091,7 +6091,7 @@ function buildAiBusinessInsightReport(query) {
       aiProductTemplateAthlete()?.id ? { label: '生成家长成长报告方案', parentGrowthAthleteId: aiProductTemplateAthlete().id } : null,
       aiProductTemplateClub()?.id ? { label: '生成教练工作台方案', coachSegmentationClubId: aiProductTemplateClub().id } : null,
     ].filter(Boolean),
-    sourceNote: '商业洞察基于当前已收录赛事、选手、俱乐部和赛前状态生成；正式商业报告仍应结合付费用户角色和真实运营数据校准。',
+    sourceNote: '商业洞察来自赛事、选手、俱乐部和赛前状态记录，可用于判断产品服务方向。',
   };
 }
 
@@ -6285,7 +6285,7 @@ function buildAiProductTemplateReport(query, kind) {
       kind === 'coach-segmentation' && templateClub?.id ? { label: '生成学员分层报告', coachSegmentationClubId: templateClub.id } : null,
       kind === 'coach-segmentation' && templateClub?.id ? { label: '查看俱乐部画像', clubId: templateClub.id } : null,
     ].filter(Boolean),
-    sourceNote: '报告方案基于当前可用数据生成；正式使用时应按用户角色、关注对象和赛事节点保存为独立报告。',
+    sourceNote: '报告方案会围绕用户角色、关注对象和赛事节点组织信息。',
   };
 }
 
@@ -6360,7 +6360,7 @@ function buildAiPreMatchReport(query, filters) {
       rows[0]?.sportCode ? { label: '加入赛前提醒', followCompetitionCode: rows[0].sportCode } : null,
       { label: rows.length ? '查看赛前赛事' : '进入赛事列表', mainTab: 'competitions', filters },
     ].filter(Boolean),
-    sourceNote: '赛前情报基于赛事状态、项目明细和报名名单生成；名单未完整时，只做项目级和赛事级判断。',
+    sourceNote: '赛前情报来自赛事状态、项目明细和报名名单；名单较少时，优先展示项目和赛事级信息。',
   };
 }
 
@@ -6435,7 +6435,7 @@ function buildAiAthleteComparison(query, left, right) {
       right.id ? { label: `查看${right.name}`, athleteId: right.id } : null,
       aiFollowAthleteAction(leader),
     ].filter(Boolean),
-    sourceNote: '回答由本地比赛成绩、选手画像和对阵记录生成；没有直接交手时，不会推断真实胜负。',
+    sourceNote: '回答来自比赛成绩、选手画像和对阵记录；没有直接交手时，只展示可核对的对比信息。',
   };
 }
 
@@ -6568,7 +6568,7 @@ function buildAiClubRecruitingReport(query, club) {
       club.id ? { label: '查看招生名片', clubId: club.id } : null,
       club.id ? { label: '生成学员分层报告', coachSegmentationClubId: club.id } : null,
     ].filter(Boolean),
-    sourceNote: '招生展示建议只使用已收录公开赛事成绩，不替代真实教学承诺；对外表达应避免夸大名次和升学效果。',
+    sourceNote: '招生展示只使用公开赛事成绩，适合呈现真实参赛和成绩表现。',
   };
 }
 
@@ -6690,55 +6690,55 @@ function aiTrustRows(report) {
   if (report.type === 'comparison') {
     const confidence = report.cards?.find(([label]) => label === '证据强度')?.[1] || '历史画像对比';
     rows.push({
-      label: '判断口径',
+      label: '依据',
       value: confidence,
       detail: '优先看直接交手，其次看共同赛事、近期状态和历史成绩画像。',
     });
   } else if (report.type === 'club-comparison') {
     rows.push({
-      label: '判断口径',
-      value: '数量对比',
-      detail: '按参赛人次、前八、奖牌和冠军数做第一层判断，再继续看效率和赛事含金量。',
+      label: '依据',
+      value: '成绩对比',
+      detail: '按参赛人次、前八、奖牌和冠军数对比，再结合前八率和赛事级别判断。',
     });
   } else if (report.type === 'growth') {
     rows.push({
-      label: '判断口径',
+      label: '依据',
       value: '成长趋势',
       detail: '按最近参赛、最好名次、奖牌和淘汰赛记录综合判断。',
     });
   } else if (report.type === 'club') {
     rows.push({
-      label: '判断口径',
+      label: '依据',
       value: '俱乐部画像',
       detail: '按参赛人次、前八、奖牌、代表选手和优势项目综合判断。',
     });
   } else if (report.type === 'club-recruiting') {
     rows.push({
-      label: '判断口径',
+      label: '依据',
       value: '招生展示',
       detail: '按成绩资产、优势项目、代表学员和对外沟通素材综合判断。',
     });
   } else if (report.type === 'prematch') {
     rows.push({
-      label: '判断口径',
+      label: '依据',
       value: '赛前信息',
       detail: '按赛事状态、项目明细、报名名单和关注选手匹配生成。',
     });
   } else if (report.type === 'competition-stats') {
     rows.push({
-      label: '判断口径',
+      label: '依据',
       value: '赛事筛选',
       detail: '按年份、月份、地区和状态筛选赛事列表。',
     });
   } else if (report.type === 'business-insight') {
     rows.push({
-      label: '判断口径',
+      label: '依据',
       value: '商业机会',
       detail: '按赛事资产、选手画像、俱乐部画像和赛前机会判断服务方向。',
     });
   } else if (report.type === 'product-template') {
     rows.push({
-      label: '判断口径',
+      label: '依据',
       value: '报告方案',
       detail: '按用户角色、使用场景、关键指标和可核对证据组织成可交付报告。',
     });
@@ -6772,7 +6772,7 @@ function aiNextStepRows(report) {
       '没有直接交手时，只把历史名次和共同赛事作为参考。',
     ],
     'club-comparison': [
-      '先看同口径下参赛人次、前八、奖牌和冠军数量，再判断谁更占优。',
+      '先看同一范围内的参赛人次、前八、奖牌和冠军数量，再判断谁更占优。',
       '下一步建议继续看前八率、奖牌率、团体赛是否纳入和赛事级别。',
     ],
     growth: [

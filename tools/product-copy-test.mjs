@@ -30,6 +30,8 @@ assert.doesNotMatch(js, /\bP0\b|\bP1\b/, 'frontend copy must avoid internal prio
 
 assert.doesNotMatch(js, /\u751f\u6210\u5224\u65ad/, 'AI submit button should use action-oriented copy instead of judgment-generation wording');
 assert.match(js, /\u5f00\u59cb\u5206\u6790/, 'AI submit button should use concise user-facing analysis copy');
+assert.doesNotMatch(js, /AI 分析入口|为你而生|主动洞察/, 'home and detail copy must avoid internal or vague AI-entry wording');
+assert.doesNotMatch(js, /label: '判断口径'|口径下|当前已收录|第一层结论/, 'AI answer copy must avoid internal methodology labels');
 
 [
   '先看能否稳定进入后续轮次',

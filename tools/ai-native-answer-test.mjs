@@ -112,9 +112,9 @@ assert.match(js, /report\.type === 'product-template' \? '报告方案'/, 'AI an
 assert.match(js, /report\.type === 'club-recruiting' \? '招生展示'/, 'AI answer header must label recruiting display reports');
 assert.match(js, /report\.type === 'club-comparison' \? '剑馆对比'/, 'AI answer header must label club comparison reports');
 assert.match(js, /kind: '赛前赛事'/, 'AI prematch evidence must label prematch competitions');
-assert.match(js, /名单未完整时，只做项目级和赛事级判断/, 'AI prematch report must disclose incomplete roster boundaries');
+assert.match(js, /名单较少时，优先展示项目和赛事级信息/, 'AI prematch report must use user-facing incomplete roster scope');
 assert.match(js, /暂未发现两人的直接交手记录/, 'AI comparison must not imply direct bouts when none are found');
-assert.match(js, /没有直接交手时，不会推断真实胜负/, 'AI comparison must disclose data boundary');
+assert.match(js, /没有直接交手时，只展示可核对的对比信息/, 'AI comparison must disclose evidence scope without internal wording');
 assert.match(js, /title: '时间分布'/, 'AI competition stats must include month distribution when available');
 assert.match(js, /title: '近期可看'/, 'AI competition stats must surface actionable upcoming competitions');
 assert.match(js, /prematchTemplateKind: 'prematch-pack', prematchSportCode: actionRows\[0\]\.sportCode/, 'AI competition stats must expose a prematch report action when a matched competition is actionable');
