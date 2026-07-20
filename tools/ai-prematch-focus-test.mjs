@@ -8,8 +8,12 @@ assert.match(js, /function aiAthleteProjectLabels\(athlete\)/, 'AI prematch answ
 assert.match(js, /function competitionMatchesProjectLabel\(competition, label\)/, 'AI prematch answers must match focused athlete projects to competitions');
 assert.match(js, /function aiPreMatchFocusRows\(competitions\)/, 'AI prematch answers must build focused-athlete rows');
 assert.match(js, /function aiPreMatchRosterInsightRows\(competitions\)/, 'AI prematch answers must summarize roster projects, clubs and strong-athlete signals');
+assert.match(js, /function aiPreMatchPersonalRelevanceRows\(competitions\)/, 'AI prematch answers must explain relevance to selected or followed athletes');
+assert.match(js, /function aiPreMatchActionRows\(competitions, rosterRows, focusRows\)/, 'AI prematch answers must include actionable preparation rows');
 assert.match(js, /const focusRows = aiPreMatchFocusRows\(rows\)/, 'prematch report must compute focused-athlete rows from matched competitions');
+assert.match(js, /const personalRows = aiPreMatchPersonalRelevanceRows\(rows\)/, 'prematch report must compute personal relevance rows');
 assert.match(js, /const rosterInsightRows = aiPreMatchRosterInsightRows\(rows\)/, 'prematch report must compute roster insight rows from matched competitions');
+assert.match(js, /const actionRows = aiPreMatchActionRows\(rows, rosterRows, focusRows\)/, 'prematch report must compute action rows from matched competitions');
 assert.match(js, /\['关注选手', focusRows\.length \? `\$\{focusRows\.length\} 人` : '-'\]/, 'prematch report must expose focused-athlete count');
 assert.match(js, /\['报名名单', rosterRows\.length \? \(rosterTotal \|\| expectedTotal \? `\$\{rosterTotal \|\| 0\}\/\$\{expectedTotal \|\| '-'\}` : `\$\{rosterRows\.length\} 场`\) : '0 场'\]/, 'prematch report must expose roster progress without adding a fifth metric card');
 assert.match(js, /title: '赛前重点'/, 'prematch report must combine focused athletes and roster insight into one focused section');

@@ -701,6 +701,7 @@ function trackReportHistory(report) {
 
 function aiHistoryTypeLabel(type) {
   const labels = {
+    'capability-guide': '使用指南',
     'competition-stats': '赛事统计',
     prematch: '赛前分析',
     growth: '成长分析',
@@ -5216,6 +5217,11 @@ function detectClubComparisonQuery(query) {
   };
 }
 
+function detectCapabilityGuideQuery(query) {
+  const normalized = compactText(query);
+  return /(\u4ea7\u54c1\u80fd\u505a\u4ec0\u4e48|\u80fd\u505a\u4ec0\u4e48|\u53ef\u4ee5\u95ee\u4ec0\u4e48|\u80fd\u95ee\u4ec0\u4e48|\u600e\u4e48\u7528|\u5982\u4f55\u4f7f\u7528|\u529f\u80fd|\u5e2e\u52a9|\u65b0\u7528\u6237)/.test(normalized);
+}
+
 function uniqueBy(rows, keyFn) {
   const seen = new Set();
   return rows.filter((row) => {
@@ -5259,6 +5265,8 @@ function buildAiAnswer(query) {
 
   if (detectBusinessInsightQuery(text)) return buildAiBusinessInsightReport(text);
 
+  if (detectCapabilityGuideQuery(text)) return buildAiCapabilityGuideReport(text);
+
   const clubComparison = detectClubComparisonQuery(text);
   if (clubComparison) return buildAiClubComparisonReport(text, clubComparison.clubs[0], clubComparison.clubs[1], clubComparison.filters);
 
@@ -5271,6 +5279,74 @@ function buildAiAnswer(query) {
   if (athletes.length === 1) return buildAiAthleteGrowth(text, athletes[0]);
 
   return buildAiFallbackReport(text);
+}
+
+function buildAiCapabilityGuideReport(query) {
+  const entityCounts = entityCoverageCounts();
+  const activeCount = (state.competitions || []).filter((competition) => ['registration', 'upcoming', 'live'].includes(competition.status) || competition.isPreEvent).length;
+  const focused = aiFocusedAthletes();
+  const club = state.currentClub || aiDefaultClub();
+  const sampleAthlete = focused[0] || (state.athleteSearchIndex || []).find((athlete) => athlete?.events?.length);
+  const sampleClub = club || (state.clubSearchIndex || []).find((row) => row?.club);
+  const growthQuery = sampleAthlete?.name ? `${sampleAthlete.name}最近有没有进步` : '蔡廷彧最近有没有进步';
+  const clubQuery = sampleClub?.club ? `${sampleClub.club} U8 男花怎么样` : '山东小众体育 U8 男花怎么样';
+
+  return {
+    type: 'capability-guide',
+    title: '可以直接问这些问题',
+    summary: 'FencingAI 会把公开赛事数据整理成结论、关键数字和可打开的来源，适合先做判断，再进入详情核对。',
+    cards: [
+      ['赛事', `${state.competitions.length} 场`],
+      ['选手', `${entityCounts.athletes} 个画像`],
+      ['俱乐部', `${entityCounts.clubs} 个`],
+      ['赛前', `${activeCount} 场可关注`],
+    ],
+    sections: [
+      {
+        title: '常用问题',
+        rows: [
+          '查赛事：某年某地有几场比赛，哪场比赛人数最多。',
+          '看成长：某个选手最近表现、年度变化和关键比赛。',
+          '做对比：两个选手或两个俱乐部在指定项目里的差异。',
+        ],
+      },
+      {
+        title: '适合场景',
+        rows: [
+          '家长可以看孩子成长和下一场比赛准备。',
+          '教练可以看学员分层、优势项目和赛前重点。',
+          '俱乐部可以整理成绩资产和对外展示素材。',
+        ],
+      },
+    ],
+    evidence: [
+      {
+        kind: '赛事数据',
+        label: '赛事库',
+        detail: `${state.competitions.length} 场赛事记录`,
+        reason: '用于回答赛事数量、地区、状态和规模问题',
+      },
+      sampleAthlete?.id ? {
+        kind: '选手画像',
+        label: sampleAthlete.name,
+        detail: `${sampleAthlete.club || '个人'} · ${sampleAthlete.appearances || 0} 次记录`,
+        reason: '用于回答成长、对比和赛前准备问题',
+        athleteId: sampleAthlete.id,
+      } : null,
+      sampleClub?.id ? {
+        kind: '俱乐部画像',
+        label: sampleClub.club,
+        detail: `${sampleClub.entrants || 0} 人次 · 前八 ${sampleClub.top8 || 0}`,
+        reason: '用于回答俱乐部表现、对比和招生展示问题',
+        clubId: sampleClub.id,
+      } : null,
+    ].filter(Boolean),
+    actions: [
+      { label: '问赛事统计', query: '2026年天津有几场比赛' },
+      { label: '看选手成长', query: growthQuery },
+      { label: '看俱乐部表现', query: clubQuery },
+    ],
+  };
 }
 
 function buildAiFallbackReport(query) {
@@ -5522,6 +5598,44 @@ function aiPreMatchRosterInsightRows(competitions) {
     rows.push(`重点选手线索：${preparationRows[0].name}，历史最好第 ${preparationRows[0].bestRank || '-'} 名，适合赛前重点关注。`);
   }
   return rows.slice(0, 4);
+}
+
+function aiPreMatchPersonalRelevanceRows(competitions) {
+  const focused = aiFocusedAthletes();
+  if (!focused.length) {
+    return ['先关注孩子或学员，赛前情报会自动围绕他的项目、报名名单和历史对手生成。'];
+  }
+  const rosterRows = prematchRosterRows(competitions);
+  return focused.slice(0, 3).map((athlete) => {
+    const labels = aiAthleteProjectLabels(athlete);
+    const matchedCompetitions = competitions.filter((competition) => labels.some((label) => competitionMatchesProjectLabel(competition, label)));
+    const rosterHit = rosterRows.find((row) => compactText(rosterAthleteLabel(row)) === compactText(athlete.name));
+    if (rosterHit) {
+      return `${athlete.name}：已在报名名单中，项目为 ${rosterEventLabel(rosterHit)}，先核对同项目名单和历史强手。`;
+    }
+    if (matchedCompetitions.length) {
+      return `${athlete.name}：历史项目匹配 ${matchedCompetitions.length} 场近期赛事，先确认是否报名，再看同项目强手。`;
+    }
+    const projectText = labels.length ? labels.slice(0, 2).join(' / ') : '历史项目待确认';
+    return `${athlete.name}：暂无直接匹配赛事，先按 ${projectText} 准备，名单更新后再复核。`;
+  });
+}
+
+function aiPreMatchActionRows(competitions, rosterRows, focusRows) {
+  const nearest = competitions[0] || null;
+  const rosterCount = prematchRosterRows(competitions).length;
+  const focusedCount = aiFocusedAthletes().length;
+  return [
+    nearest
+      ? `先打开 ${nearest.sportName}，确认时间、地点、状态和项目是否符合目标。`
+      : '先确认目标赛事和项目范围，再进入赛前情报包。',
+    rosterRows.length || rosterCount
+      ? `报名名单已有 ${rosterCount || rosterRows.length} 人次，优先核对关注对象是否在对应项目。`
+      : '报名名单不足时，先看项目明细、赛事规模和历史强手，不直接推断真实对阵。',
+    focusedCount || focusRows.length
+      ? '围绕关注对象整理历史项目、最近名次和同项目强手，形成赛前沟通材料。'
+      : '先关注孩子或学员，赛前报告会自动生成个人化准备重点。',
+  ];
 }
 
 function projectMatchesAiHints(label, hints) {
@@ -6379,7 +6493,9 @@ function buildAiPreMatchReport(query, filters) {
   const rosterRows = rows.filter((competition) => competition.rosterStatus === 'partial' || competition.rosterStatus === 'complete');
   const projectRows = rows.filter(competitionHasItems);
   const focusRows = aiPreMatchFocusRows(rows);
+  const personalRows = aiPreMatchPersonalRelevanceRows(rows);
   const rosterInsightRows = aiPreMatchRosterInsightRows(rows);
+  const actionRows = aiPreMatchActionRows(rows, rosterRows, focusRows);
   const expectedTotal = rows.reduce((sum, competition) => sum + (Number(competition.registrationSummary?.expectedRegistrationCount) || 0), 0);
   const rosterTotal = rows.reduce((sum, competition) => sum + (Number(competition.registrationSummary?.rosterCount) || 0), 0);
   const regionLabel = filters.region || '全部地区';
@@ -6401,13 +6517,16 @@ function buildAiPreMatchReport(query, filters) {
       ['关注选手', focusRows.length ? `${focusRows.length} 人` : '-'],
     ],
     sections: rows.length ? [
-      (focusRows.length || rosterInsightRows.length) ? {
+      (personalRows.length || focusRows.length || rosterInsightRows.length) ? {
         title: '赛前重点',
-        rows: [...focusRows.slice(0, 2), ...rosterInsightRows.slice(0, 3)].slice(0, 4),
+        rows: [...personalRows.slice(0, 1), ...rosterInsightRows.slice(0, 3)].slice(0, 4),
       } : null,
       {
         title: '优先关注',
-        rows: rows.slice(0, 3).map((competition) => `${competition.sportName} · ${displayDateLabel(competition.dateLabel)} · ${statusLabel(competition.status)} · ${coverageLabel(competition)}`),
+        rows: [
+          ...rows.slice(0, 2).map((competition) => `${competition.sportName} · ${displayDateLabel(competition.dateLabel)} · ${statusLabel(competition.status)} · ${coverageLabel(competition)}`),
+          ...actionRows.slice(0, 2),
+        ].slice(0, 4),
       },
     ].filter(Boolean) : [],
     evidence: rows.slice(0, 8).map((competition) => ({

@@ -35,6 +35,9 @@ assert.match(js, /const club = detectClubInQuery\(text\);[\s\S]*if \(club\) retu
 assert.match(js, /function detectClubComparisonQuery\(query\)/, 'AI must detect two-club comparison questions');
 assert.match(js, /function buildAiClubComparisonReport\(query, leftClub, rightClub, filters\)/, 'AI must build club-to-club comparison reports');
 assert.match(js, /const clubComparison = detectClubComparisonQuery\(text\);[\s\S]*if \(clubComparison\) return buildAiClubComparisonReport/, 'AI routing must prefer club comparison before single-club reports');
+assert.match(js, /function detectCapabilityGuideQuery\(query\)/, 'AI must detect exploratory product-capability questions');
+assert.match(js, /function buildAiCapabilityGuideReport\(query\)/, 'AI must answer exploratory product-capability questions with runnable examples');
+assert.match(js, /if \(detectCapabilityGuideQuery\(text\)\) return buildAiCapabilityGuideReport\(text\);/, 'AI routing must not send product-capability questions to the generic fallback');
 assert.match(js, /function aiClubComparisonFilters\(query\)/, 'AI club comparison must parse year, age, weapon and gender scope');
 assert.match(js, /function aiClubComparisonMetric\(club, filters, gender = 'total'\)/, 'AI club comparison must aggregate club metrics by scope');
 assert.match(js, /type: 'club-comparison'/, 'AI club comparison report must have a stable report type');

@@ -67,9 +67,11 @@ const functionNames = [
   'detectClubInQuery',
   'detectClubsInQuery',
   'detectClubComparisonQuery',
+  'detectCapabilityGuideQuery',
   'uniqueBy',
   'entityCoverageCounts',
   'buildAiAnswer',
+  'buildAiCapabilityGuideReport',
   'buildAiFallbackReport',
   'detectCompetitionStatsQuery',
   'detectCompetitionRankingQuery',
@@ -86,7 +88,9 @@ const functionNames = [
   'aiAthleteProjectLabels',
   'competitionMatchesProjectLabel',
   'aiPreMatchFocusRows',
+  'aiPreMatchPersonalRelevanceRows',
   'aiPreMatchRosterInsightRows',
+  'aiPreMatchActionRows',
   'projectMatchesAiHints',
   'detectYearsInQuery',
   'aiClubComparisonFilters',
@@ -355,6 +359,8 @@ assert.ok(prematchReport.cards.some(([label, value]) => label === '\u62a5\u540d\
 assert.ok(prematchReport.sections.some((section) => section.title === '\u8d5b\u524d\u91cd\u70b9'), 'AI prematch reports should combine focused athletes and roster signals');
 assert.ok(prematchReport.sections.find((section) => section.title === '\u8d5b\u524d\u91cd\u70b9')?.rows.some((row) => row.includes('\u4eba\u6570\u6700\u591a\u9879\u76ee')), 'AI prematch reports should highlight the largest registration project');
 assert.ok(prematchReport.sections.find((section) => section.title === '\u8d5b\u524d\u91cd\u70b9')?.rows.some((row) => row.includes('\u62a5\u540d\u6700\u591a\u4ff1\u4e50\u90e8')), 'AI prematch reports should highlight the most active registered club');
+assert.ok(prematchReport.sections.find((section) => section.title === '\u8d5b\u524d\u91cd\u70b9')?.rows.some((row) => row.includes('\u8521\u5ef7\u5f67') && row.includes('\u5df2\u5728\u62a5\u540d\u540d\u5355')), 'AI prematch reports should identify when the selected child is already in the roster');
+assert.ok(prematchReport.sections.find((section) => section.title === '\u4f18\u5148\u5173\u6ce8')?.rows.some((row) => row.includes('\u5173\u6ce8\u5bf9\u8c61') || row.includes('\u62a5\u540d\u540d\u5355')), 'AI prematch reports should include actionable preparation guidance');
 const prematchReportAction = prematchReport.actions.find((action) => action.prematchTemplateKind === 'prematch-pack');
 assert.equal(prematchReportAction.prematchSportCode, 'TJ2026JUNE', 'AI prematch reports should open a report scoped to the nearest matched competition');
 
@@ -448,11 +454,15 @@ assert.ok(missingCompetitionFallback.actions.some((action) => action.query), 'mi
 assert.ok(missingCompetitionFallback.evidence.some((row) => row.kind === '\u76f8\u8fd1\u8d5b\u4e8b' && row.sportCode === 'RZSS2021040'), 'missing competition fallback should cite similar competitions as source evidence');
 assert.ok(!/(\u5bfc\u5165|\u7ee7\u7eed\u751f\u6210|\u540e\u7eed|\u6570\u636e\u8fb9\u754c|\u6682\u672a\u8bc6\u522b)/.test(`${missingCompetitionFallback.title}${missingCompetitionFallback.summary}`), 'missing competition fallback should use user-facing collection copy');
 
-const genericFallback = context.buildAiAnswer('\u6211\u60f3\u770b\u770b\u8fd9\u4e2a\u4ea7\u54c1\u80fd\u505a\u4ec0\u4e48');
-assert.equal(genericFallback.type, 'fallback', 'generic exploratory questions should stay recoverable');
-assert.ok(genericFallback.actions?.some((action) => action.mainTab === 'competitions'), 'generic fallback should offer a database path');
-assert.ok(genericFallback.actions?.some((action) => action.query), 'generic fallback should offer a runnable example question');
-assert.ok(!/(\u6682\u672a\u8bc6\u522b|\u540e\u7eed|\u6570\u636e\u8fb9\u754c)/.test(`${genericFallback.title}${genericFallback.summary}`), 'generic fallback copy should avoid dead-end or internal wording');
+const capabilityGuide = context.buildAiAnswer('\u6211\u60f3\u770b\u770b\u8fd9\u4e2a\u4ea7\u54c1\u80fd\u505a\u4ec0\u4e48');
+assert.equal(capabilityGuide.type, 'capability-guide', 'generic exploratory questions should route to a capability guide, not a dead-end fallback');
+assert.ok(capabilityGuide.cards?.some(([label]) => label === '\u8d5b\u4e8b'), 'capability guide should expose competition coverage');
+assert.ok(capabilityGuide.cards?.some(([label]) => label === '\u9009\u624b'), 'capability guide should expose athlete coverage');
+assert.ok(capabilityGuide.sections?.some((section) => section.title === '\u5e38\u7528\u95ee\u9898'), 'capability guide should explain useful question patterns');
+assert.ok(capabilityGuide.actions?.some((action) => action.query === '\u0032\u0030\u0032\u0036\u5e74\u5929\u6d25\u6709\u51e0\u573a\u6bd4\u8d5b'), 'capability guide should offer a runnable competition-stat example');
+assert.ok(capabilityGuide.actions?.some((action) => action.query?.includes('\u6700\u8fd1\u6709\u6ca1\u6709\u8fdb\u6b65')), 'capability guide should offer a runnable growth example');
+assert.ok(capabilityGuide.evidence?.some((row) => row.kind === '\u8d5b\u4e8b\u6570\u636e'), 'capability guide should keep traceable data sources');
+assert.ok(!/(\u6682\u672a\u8bc6\u522b|\u5206\u6790\u53e3\u5f84|\u540e\u7eed|\u6570\u636e\u8fb9\u754c)/.test(`${capabilityGuide.title}${capabilityGuide.summary}`), 'capability guide copy should avoid dead-end or internal wording');
 
 const businessReport = context.buildAiAnswer('\u8fd9\u4e9b\u51fb\u5251\u6570\u636e\u80fd\u4ea7\u751f\u4ec0\u4e48\u5546\u4e1a\u4ef7\u503c');
 assert.equal(businessReport.type, 'business-insight', 'data value questions should route to business insight');
