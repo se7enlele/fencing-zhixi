@@ -410,7 +410,7 @@ function renderAccountPanelV2() {
           <div><strong>${counts.follows}</strong><span>关注选手</span></div>
           <div><strong>${counts.followedCompetitions}</strong><span>关注赛事</span></div>
           <div><strong>${counts.reports}</strong><span>报告</span></div>
-          <div><strong>${counts.aiHistory}</strong><span>AI 历史</span></div>
+          <div><strong>${counts.aiHistory}</strong><span>分析历史</span></div>
         </div>
         <div class="account-policy-box">
           <strong>账号资料</strong>
@@ -1603,7 +1603,7 @@ function aiCompetitionFilterSummary(filters = {}) {
   if (filters.month) parts.push(`${filters.month}月`);
   if (filters.region) parts.push(filters.region);
   if (filters.status) parts.push(statusLabel(filters.status));
-  return parts.length ? `来自 AI 问答：${parts.join(' · ')}` : '';
+  return parts.length ? `按提问筛选：${parts.join(' · ')}` : '';
 }
 
 function applyAiCompetitionFilters(filters = {}) {
@@ -3566,7 +3566,7 @@ function commercialInterestContextRows(context = {}) {
     competitions.length ? `关注赛事明细：${competitions.map((competition) => competition.sportName || competition.title).filter(Boolean).join('、')}` : '',
     club?.club ? `当前俱乐部：${club.club}` : '',
     reports.length ? `最近报告明细：${reports.map((row) => row.title || row.typeLabel).filter(Boolean).join('、')}` : '',
-    aiRows.length ? `最近AI问题：${aiRows.map((row) => row.query || row.title).filter(Boolean).join('、')}` : '',
+    aiRows.length ? `最近提问：${aiRows.map((row) => row.query || row.title).filter(Boolean).join('、')}` : '',
     context.sharedSource ? `分享来源：${context.sharedSource}` : '',
     context.sharedId ? `分享对象ID：${context.sharedId}` : '',
     context.sportCode ? `关联赛事ID：${context.sportCode}` : '',
@@ -3601,7 +3601,7 @@ function commercialInterestMessage(context = {}) {
     `${myFollowSectionCopy().countLabel}：${state.followedAthletes.length}`,
     `关注赛事：${state.followedCompetitions.length}`,
     `最近报告：${state.reportHistory.length}`,
-    `最近 AI 分析：${state.aiHistory.length}`,
+    `最近分析：${state.aiHistory.length}`,
     ...commercialInterestContextRows(context),
   ].filter(Boolean);
 }
@@ -3734,9 +3734,9 @@ function athleteDataRequestTypeLabel(type) {
 }
 
 function athleteDataRequestNextStep(row = {}) {
-  if (row.type === 'claim-athlete') return '下一步会核验关系，确认后可围绕该选手继续沉淀成长报告和提醒。';
-  if (row.type === 'hide') return '下一步会核验身份和监护关系，再判断是否隐藏公开展示。';
-  return '下一步会核对赛事、俱乐部和同名记录，确认后再修正或合并。';
+  if (row.type === 'claim-athlete') return '提交后会核验关系，确认后可围绕该选手查看成长报告和提醒。';
+  if (row.type === 'hide') return '提交后会核验身份和监护关系，再确认公开展示设置。';
+  return '提交后会核对赛事、俱乐部和同名记录，确认后再修正或合并。';
 }
 
 function athleteDataRequestRows() {
@@ -8295,7 +8295,7 @@ function renderMyPage() {
     <section class="panel my-section">
       <div class="section-title">
         <h2>赛事数据</h2>
-        <span>${escapeHtml(generatedLabel || state.apiVersion || '本地缓存')}</span>
+        <span>${escapeHtml(generatedLabel || '最近更新待确认')}</span>
       </div>
       <div class="my-status-note">
         <strong>${escapeHtml(state.dataCoverage?.scorePackages || state.competitions.length || 0)}</strong>
