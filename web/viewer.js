@@ -5441,10 +5441,10 @@ function buildAiFallbackReport(query) {
   if (competitionLike) {
     const relatedCompetitions = relatedCompetitionsForQuery(text);
     const relatedTitle = relatedCompetitions[0]?.sportName || '';
-    const title = competitionLike.year ? `未找到${competitionLike.year}年同名赛事` : '当前未收录这场赛事';
+    const title = competitionLike.year ? `未找到${competitionLike.year}年同名赛事` : '未找到这场赛事';
     const summary = competitionLike.year
-      ? `当前资料库没有匹配的${competitionLike.year}年同名赛事。可以先查看${competitionLike.region || '相关地区'}赛事，或用赛程截图、报名页信息补充后再生成赛前分析。`
-      : '当前资料库没有匹配的同名赛事。可以先查看同地区或同类型赛事，确认是否是你要找的比赛。';
+      ? `已收录赛事里没有匹配的${competitionLike.year}年同名赛事。可以先查看${competitionLike.region || '相关地区'}赛事，或用赛程截图、报名页信息补充后再生成赛前分析。`
+      : '已收录赛事里没有匹配的同名赛事。可以先查看同地区或同类型赛事，确认是否是你要找的比赛。';
     const cards = [
       competitionLike.year ? ['年份', competitionLike.year] : null,
       competitionLike.region ? ['地区', competitionLike.region] : null,
@@ -6085,7 +6085,7 @@ function buildAiCompetitionRanking(query, filters) {
     .sort((a, b) => b.entrants - a.entrants || b.itemCount - a.itemCount || String(a.competition.sportName || '').localeCompare(String(b.competition.sportName || ''), 'zh-CN'));
   const top = rows[0];
   const filterLabel = [filters.year, filters.month ? `${filters.month}月` : '', filters.region, filters.status ? statusLabel(filters.status) : ''].filter(Boolean).join(' ');
-  const scopeText = filterLabel || '当前数据';
+  const scopeText = filterLabel || '已收录赛事';
   const listFilters = {
     year: filters.year || '',
     month: filters.month || '',
