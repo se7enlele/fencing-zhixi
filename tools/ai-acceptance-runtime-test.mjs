@@ -394,6 +394,12 @@ assert.match(missingCompetitionFallback.title, /\u5f53\u524d\u672a\u6536\u5f55\u
 assert.ok(missingCompetitionFallback.cards.some(([label, value]) => label === '\u5e74\u4efd' && value === '2026'), 'missing competition fallback should preserve parsed year');
 assert.ok(missingCompetitionFallback.actions.some((action) => action.filters?.year === '2026' && action.filters?.region === '\u5317\u4eac'), 'missing competition fallback should offer a filtered database path');
 
+const genericFallback = context.buildAiAnswer('\u6211\u60f3\u770b\u770b\u8fd9\u4e2a\u4ea7\u54c1\u80fd\u505a\u4ec0\u4e48');
+assert.equal(genericFallback.type, 'fallback', 'generic exploratory questions should stay recoverable');
+assert.ok(genericFallback.actions?.some((action) => action.mainTab === 'competitions'), 'generic fallback should offer a database path');
+assert.ok(genericFallback.actions?.some((action) => action.query), 'generic fallback should offer a runnable example question');
+assert.ok(!/(\u6682\u672a\u8bc6\u522b|\u540e\u7eed|\u6570\u636e\u8fb9\u754c)/.test(`${genericFallback.title}${genericFallback.summary}`), 'generic fallback copy should avoid dead-end or internal wording');
+
 const businessReport = context.buildAiAnswer('\u8fd9\u4e9b\u51fb\u5251\u6570\u636e\u80fd\u4ea7\u751f\u4ec0\u4e48\u5546\u4e1a\u4ef7\u503c');
 assert.equal(businessReport.type, 'business-insight', 'data value questions should route to business insight');
 assert.ok(businessReport.cards.length >= 4, 'business insight should expose asset metrics');

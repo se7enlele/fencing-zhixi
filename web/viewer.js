@@ -5296,6 +5296,11 @@ function buildAiFallbackReport(query) {
       ['可问俱乐部', `${entityCounts.clubs} 个俱乐部`],
       ['可问赛事', `${state.competitions.length} 场赛事`],
     ],
+    actions: [
+      { label: '进入数据库', mainTab: 'competitions' },
+      { label: '试试赛事统计', query: '2026年天津有几场比赛' },
+      { label: '试试选手成长', query: '蔡廷彧最近有没有进步' },
+    ],
     evidence: [],
   };
 }
