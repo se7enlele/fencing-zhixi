@@ -50,6 +50,9 @@ assert.match(js, /function buildAiCapabilityGuideReport\(query\)/, 'AI must answ
 assert.match(js, /if \(detectCapabilityGuideQuery\(text\)\) return buildAiCapabilityGuideReport\(text\);/, 'AI routing must not send product-capability questions to the generic fallback');
 assert.match(js, /function aiClubComparisonFilters\(query\)/, 'AI club comparison must parse year, age, weapon and gender scope');
 assert.match(js, /function aiClubComparisonMetric\(club, filters, gender = 'total'\)/, 'AI club comparison must aggregate club metrics by scope');
+assert.match(js, /function aiClubComparisonCardLabel\(metric\)/, 'AI club comparison must label male, female and total result cards');
+assert.match(js, /function aiClubComparisonCardValue\(left, right\)/, 'AI club comparison must summarize each gender split as a compact result card');
+assert.match(js, /function aiClubComparisonRefineLabel\(filters\)/, 'AI club comparison follow-up labels must match the current scope');
 assert.match(js, /type: 'club-comparison'/, 'AI club comparison report must have a stable report type');
 assert.match(js, /title: '数量判断'/, 'AI club comparison must expose quantity-first judgment rows');
 assert.match(js, /function aiProjectHints\(query\)/, 'AI club reports must detect project hints like U8 male foil');

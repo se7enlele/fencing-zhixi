@@ -104,6 +104,9 @@ const functionNames = [
   'aiClubComparisonScopeLabel',
   'aiClubComparisonGenderLabel',
   'aiClubComparisonRefineQuery',
+  'aiClubComparisonRefineLabel',
+  'aiClubComparisonCardLabel',
+  'aiClubComparisonCardValue',
   'aiClubComparisonMetricLine',
   'aiClubComparisonConclusionRows',
   'aiClubComparisonEvidenceRows',
@@ -426,6 +429,10 @@ assert.ok(
 const clubComparisonReport = context.buildAiAnswer('\u770b2025\u548c2026\u5e74\uff0cU10\u82b1\u5251\u7537\u5b50\u548c\u5973\u5b50\uff0c\u5317\u4eac\u91d1\u77f3\u662f\u4e0d\u662f\u6bd4\u5317\u4eac\u827e\u9c81\u7279\u66f4\u597d');
 assert.equal(clubComparisonReport.type, 'club-comparison', 'two-club strength questions should route to club comparison');
 assert.match(clubComparisonReport.summary, /\u5317\u4eac\u91d1\u77f3/, 'club comparison should name the leading club in the summary');
+assert.match(clubComparisonReport.cards[0][1], /2025\u30012026.*U10.*\u82b1\u5251.*\u7537\u5b50 \/ \u5973\u5b50/, 'club comparison should expose the requested years, age, weapon and gender scope');
+assert.ok(clubComparisonReport.cards.some(([label, value]) => label === '\u7537\u5b50\u7ed3\u8bba' && /\u5317\u4eac\u91d1\u77f3/.test(value)), 'club comparison should show a male result card');
+assert.ok(clubComparisonReport.cards.some(([label, value]) => label === '\u5973\u5b50\u7ed3\u8bba' && /\u5317\u4eac\u827e\u9c81\u7279/.test(value)), 'club comparison should show a female result card');
+assert.ok(clubComparisonReport.cards.some(([label, value]) => label === '\u5408\u8ba1\u7ed3\u8bba' && /\u5317\u4eac\u91d1\u77f3/.test(value)), 'club comparison should show a total result card');
 assert.ok(!clubComparisonReport.cards.some(([label]) => label === '\u5206\u6790\u53e3\u5f84'), 'club comparison should not expose internal analysis scope as a card');
 assert.ok(!clubComparisonReport.sections.some((section) => /(\u5206\u6790\u53e3\u5f84|\u5224\u65ad\u53e3\u5f84|\u540e\u7eed|\u4e0b\u4e00\u6b65)/.test(section.title)), 'club comparison should not expose internal workflow labels as sections');
 assert.ok(clubComparisonReport.sections.some((section) => section.title === '\u6570\u91cf\u5224\u65ad'), 'club comparison should include quantity-based judgment rows');
@@ -434,7 +441,7 @@ assert.ok(clubComparisonReport.sections.find((section) => section.title === '\u6
 assert.ok(clubComparisonReport.evidence.some((row) => row.kind === '\u4ff1\u4e50\u90e8\u5bf9\u6bd4\u8bc1\u636e'), 'club comparison should cite concrete event evidence');
 assert.ok(clubComparisonReport.actions.some((action) => action.clubId === 'club-jinshi'), 'club comparison should link to the first club profile');
 assert.ok(clubComparisonReport.actions.some((action) => action.clubId === 'club-airuite'), 'club comparison should link to the second club profile');
-assert.ok(clubComparisonReport.actions.some((action) => action.query && /\u53ea\u770bU10\u7537\u82b1/.test(action.label)), 'club comparison should offer a direct U10 male foil follow-up');
+assert.ok(clubComparisonReport.actions.some((action) => action.query && /\u6309U10\u82b1\u5251\u7537\u5973\u7ec6\u770b/.test(action.label)), 'club comparison should offer a scoped gender-split follow-up');
 assert.ok(clubComparisonReport.actions.some((action) => /\u5317\u4eac\u91d1\u77f3/.test(action.query || '') && /\u5317\u4eac\u827e\u9c81\u7279/.test(action.query || '')), 'club comparison follow-up should preserve both club names');
 
 const childInvestmentFallback = context.buildAiAnswer('\u5b69\u5b50\u51fb\u5251\u503c\u4e0d\u503c\u5f97\u7ee7\u7eed');
