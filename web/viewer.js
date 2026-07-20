@@ -143,6 +143,7 @@ const state = {
   authUser: safeJson(localStorage.getItem(AUTH_USER_KEY), null),
   authCapabilities: null,
   accountStatus: '',
+  showAccountLoginForm: false,
   isApplyingUserProfile: false,
   userSyncTimer: null,
   sharedEntry: null,
@@ -386,6 +387,7 @@ function accountProfileCounts() {
 function renderAccountPanelV2() {
   const counts = accountProfileCounts();
   if (state.authUser) {
+    state.showAccountLoginForm = false;
     return `
       <section class="panel my-section account-panel account-center-panel">
         <div class="section-title">
@@ -435,18 +437,25 @@ function renderAccountPanelV2() {
         <div><strong>保存关注和报告</strong><span>换设备后可以继续查看关注选手、赛事提醒和历史分析。</span></div>
         <div><strong>继续历史分析</strong><span>再次登录后，可以接着查看之前保存的报告和提问记录。</span></div>
       </div>
-      <form class="account-login-form" data-account-login>
-        <label>
-          <span>手机号或邮箱</span>
-          <input name="identifier" type="text" autocomplete="username" placeholder="用于找回关注、报告和历史">
-        </label>
-        <label>
-          <span>密码</span>
-          <input name="code" type="password" autocomplete="current-password" placeholder="至少 6 位，首次输入即创建账号">
-        </label>
-        <button type="submit">登录或创建账号</button>
-        <em data-account-status>${escapeHtml(state.accountStatus || '登录后，关注、历史和报告可以在不同设备继续查看。')}</em>
-      </form>
+      ${state.showAccountLoginForm ? `
+        <form class="account-login-form" data-account-login>
+          <label>
+            <span>手机号或邮箱</span>
+            <input name="identifier" type="text" autocomplete="username" placeholder="用于找回关注、报告和历史">
+          </label>
+          <label>
+            <span>密码</span>
+            <input name="code" type="password" autocomplete="current-password" placeholder="至少 6 位，首次输入即创建账号">
+          </label>
+          <button type="submit">登录或创建账号</button>
+          <em data-account-status>${escapeHtml(state.accountStatus || '登录后，关注、历史和报告可以在不同设备继续查看。')}</em>
+        </form>
+      ` : `
+        <div class="account-action-row account-login-entry">
+          <button type="button" data-account-open-login>登录或创建账号</button>
+        </div>
+        ${state.accountStatus ? `<p class="account-status-line">${escapeHtml(state.accountStatus)}</p>` : ''}
+      `}
     </section>
   `;
 }
@@ -1531,6 +1540,9 @@ function filterOptions(type) {
   if (type === 'status') {
     return ['全部状态', '报名中', '未开赛', '进行中', '已结束'];
   }
+  if (type === 'follow') {
+    return ['全部赛事', '我的关注'];
+  }
 
   const labels = new Set();
   for (const competition of state.competitions) {
@@ -1543,6 +1555,7 @@ function activeFilterValue(type) {
   if (type === 'year') return state.selectedYear;
   if (type === 'region') return state.selectedRegion;
   if (type === 'status') return state.selectedStatus;
+  if (type === 'follow') return state.onlyFollowedData ? '我的关注' : '全部赛事';
   return state.selectedItem;
 }
 
@@ -1550,6 +1563,7 @@ function filterTitle(type) {
   if (type === 'year') return '选择年份';
   if (type === 'region') return '选择地区';
   if (type === 'status') return '选择状态';
+  if (type === 'follow') return '选择关注范围';
   return '选择项目';
 }
 
@@ -1558,6 +1572,7 @@ function setFilterValue(type, value) {
   if (type === 'region') state.selectedRegion = value;
   if (type === 'item') state.selectedItem = value;
   if (type === 'status') state.selectedStatus = value;
+  if (type === 'follow') state.onlyFollowedData = value === '我的关注';
   state.selectedAiMonth = '';
   state.aiCompetitionFilterSummary = '';
   renderFilters();
@@ -1623,7 +1638,7 @@ function renderFilters() {
     const isActive = Boolean(state.onlyFollowedData);
     myFollowFilterButton.classList.toggle('active', isActive);
     myFollowFilterButton.setAttribute('aria-pressed', isActive ? 'true' : 'false');
-    myFollowFilterButton.innerHTML = `<span>${isActive ? '已看关注' : '只看关注'}</span>`;
+    myFollowFilterButton.innerHTML = `<span>${isActive ? '我的关注' : '全部赛事'}</span>`;
   }
 }
 
@@ -4352,7 +4367,7 @@ function renderHomeRadarCard(row = homePrematchActionRow(followedCompetitionCard
 function renderHomeRoleBar() {
   return `
     <section class="home-role-bar">
-      <span>当前身份：${escapeHtml(roleLabel(state.userRole || 'parent'))}</span>
+      <span>使用视角：${escapeHtml(roleLabel(state.userRole || 'parent'))}</span>
       <button type="button" data-home-role-switch>切换</button>
     </section>
   `;
@@ -8032,6 +8047,11 @@ function renderMyPage() {
   myPage.querySelector('[data-account-login]')?.addEventListener('submit', (event) => {
     event.preventDefault();
     submitAccountLogin(event.currentTarget);
+  });
+  myPage.querySelector('[data-account-open-login]')?.addEventListener('click', () => {
+    state.showAccountLoginForm = true;
+    state.accountStatus = '';
+    renderMyPage();
   });
   myPage.querySelector('[data-account-logout]')?.addEventListener('click', () => logoutAccount());
   myPage.querySelector('[data-account-export]')?.addEventListener('click', (event) => exportAccountData(event.currentTarget));
@@ -13002,11 +13022,7 @@ yearFilterButton.addEventListener('click', () => openFilterSheet('year'));
 regionFilterButton.addEventListener('click', () => openFilterSheet('region'));
 itemFilterButton.addEventListener('click', () => openFilterSheet('item'));
 statusFilterButton.addEventListener('click', () => openFilterSheet('status'));
-myFollowFilterButton?.addEventListener('click', () => {
-  state.onlyFollowedData = !state.onlyFollowedData;
-  renderFilters();
-  applyCompetitionFilter();
-});
+myFollowFilterButton?.addEventListener('click', () => openFilterSheet('follow'));
 filterSheetMask.addEventListener('click', closeFilterSheet);
 filterSheetClose.addEventListener('click', closeFilterSheet);
 filterSheetOptions.addEventListener('click', (event) => {

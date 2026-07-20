@@ -105,7 +105,9 @@ assert.match(js, /function entityCoverageCounts\(\)/, 'home scale numbers must u
 assert.match(js, /onlyFollowedData: false/, 'database tab must track my-follow filter state');
 assert.match(js, /function competitionMatchesFollowedData\(competition\)/, 'database tab must filter competitions by followed athletes and followed competitions');
 assert.match(js, /myFollowFilterButton\?\.addEventListener\('click'/, 'database tab must bind the my-follow quick filter');
-assert.match(js, /myFollowFilterButton\.innerHTML = `<span>\$\{isActive \? '已看关注' : '只看关注'\}<\/span>`/, 'my-follow quick filter must update as a pressed-state toggle');
+assert.match(js, /myFollowFilterButton\?\.addEventListener\('click', \(\) => openFilterSheet\('follow'\)\)/, 'my-follow filter must open the same option sheet as other database filters');
+assert.match(js, /if \(type === 'follow'\) \{[\s\S]*return \['全部赛事', '我的关注'\];[\s\S]*\}/, 'my-follow filter must expose visible options instead of a fake dropdown');
+assert.match(js, /myFollowFilterButton\.innerHTML = `<span>\$\{isActive \? '我的关注' : '全部赛事'\}<\/span>`/, 'my-follow filter must show the selected option');
 assert.match(js, /const positiveMax = \(\.\.\.values\) => Math\.max\(0, \.\.\.values\.map\(\(value\) => Number\(value\) \|\| 0\)\)/, 'home scale must not let zero coverage fields override real loaded counts');
 assert.match(js, /const nestedCoverage = state\.publicEvents\?\.dataCoverage \|\| \{\};/, 'home scale must read nested static coverage when present');
 assert.match(js, /const publicEvents = state\.publicEvents \|\| \{\};/, 'home scale must read top-level static coverage when present');
@@ -319,6 +321,9 @@ assert.match(js, /function renderAccountPanel\(\)/, 'my page must render a light
 assert.match(js, /function renderAccountPanelV2\(\)/, 'my page must render the phase-two account center');
 assert.match(js, /renderAccountPanelV2\(\)/, 'my page must use the phase-two account center renderer');
 assert.match(js, /data-account-login/, 'my page account panel must expose a login or create form');
+assert.match(js, /data-account-open-login/, 'logged-out account center must keep the login form behind an explicit entry action');
+assert.match(js, /showAccountLoginForm: false/, 'login form must be collapsed by default');
+assert.match(js, /state\.showAccountLoginForm \? `[\s\S]*<form class="account-login-form" data-account-login>/, 'logged-out account center must render the form only after the user asks to log in');
 assert.match(js, /data-account-logout/, 'my page account panel must expose a logout action');
 assert.match(js, /<span>未登录<\/span>/, 'account center must clearly show unauthenticated state');
 assert.match(js, /<strong>当前未登录<\/strong>/, 'account center must explain local browsing before login');
@@ -358,6 +363,7 @@ assert.match(js, /statLabel: '关注学员'/, 'coach my page stats must frame fo
 assert.match(js, /statLabel: '代表选手'/, 'club my page stats must frame followed athletes as representative athletes');
 assert.match(js, /<span>使用视角<\/span>/, 'my page hero must describe role as a view instead of account identity');
 assert.match(js, /\$\{escapeHtml\(`\$\{roleLabel\(state\.userRole\)\}视角`\)\}/, 'my page hero must render the selected role as an analysis view');
+assert.match(js, /使用视角：\$\{escapeHtml\(roleLabel\(state\.userRole \|\| 'parent'\)\)\}/, 'home role bar must describe role as a view instead of account identity');
 assert.doesNotMatch(js, /账号状态见账号中心/, 'my page hero must not expose account implementation copy');
 assert.doesNotMatch(js, /当前工作台/, 'my page hero must not imply the user is signed in to a workspace');
 assert.doesNotMatch(js, /已选择重点关注孩子/, 'my page hero must not imply account identity from local role state');
