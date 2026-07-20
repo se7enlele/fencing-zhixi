@@ -457,6 +457,79 @@ select:focus {
   padding-bottom: 10px;
 }
 
+.database-directory-panel {
+  margin-bottom: 10px;
+  padding: 11px 10px 10px;
+}
+
+.database-entry-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.database-entry-card {
+  display: grid;
+  gap: 5px;
+  min-width: 0;
+  border: 1px solid rgba(16, 24, 40, 0.08);
+  border-radius: 8px;
+  background: linear-gradient(180deg, #fff, #f8fbfb);
+  color: var(--text);
+  font: inherit;
+  text-align: left;
+  padding: 10px;
+}
+
+.database-entry-card span,
+.database-entry-card em,
+.database-entry-card small {
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.database-entry-card span {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.database-entry-card strong {
+  font-size: 18px;
+  line-height: 1.2;
+  font-weight: 900;
+}
+
+.database-entry-card em {
+  color: var(--muted);
+  font-size: 12px;
+  font-style: normal;
+}
+
+.database-entry-card small {
+  width: fit-content;
+  max-width: 100%;
+  border-radius: 999px;
+  background: rgba(21, 95, 194, 0.08);
+  color: var(--primary);
+  font-size: 11px;
+  font-weight: 900;
+  padding: 3px 7px;
+}
+
+.database-entry-card.active {
+  border-color: rgba(21, 95, 194, 0.35);
+  background: linear-gradient(180deg, #eef6ff, #f8fbff);
+}
+
+.database-entry-card.active small {
+  background: var(--primary);
+  color: #fff;
+}
+
 .role-workspace,
 .role-home-shell {
   display: grid;

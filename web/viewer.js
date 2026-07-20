@@ -19,6 +19,7 @@ const myPage = document.querySelector('#myPage');
 const bottomNav = document.querySelector('#bottomNav');
 const feedPanel = document.querySelector('#feedPanel');
 const searchAthletesPanel = document.querySelector('#searchAthletesPanel');
+const databaseDirectory = document.querySelector('#databaseDirectory');
 const followPanel = document.querySelector('#followPanel');
 const memberCta = document.querySelector('#memberCta');
 const homeStats = document.querySelector('#homeStats');
@@ -1719,6 +1720,7 @@ function applyCompetitionFilter() {
     state.lastSearchKeyword = '';
   }
   renderAthleteSearchResults(keyword);
+  renderDatabaseDirectory();
   renderHomeStats();
   renderFeedPanel();
   renderCompetitionList();
@@ -2035,6 +2037,132 @@ function entityCoverageCounts() {
       Object.keys(state.clubsById || {}).length,
     ),
   };
+}
+
+function officialCoverageCount() {
+  const coverage = state.dataCoverage || {};
+  const nestedCoverage = state.publicEvents?.dataCoverage || {};
+  return Math.max(
+    0,
+    Number(coverage.coaches) || 0,
+    Number(coverage.referees) || 0,
+    Number(nestedCoverage.coaches) || 0,
+    Number(nestedCoverage.referees) || 0,
+    (state.coachSearchResults || []).length + (state.refereeSearchResults || []).length,
+  );
+}
+
+function followedDataCount() {
+  return (state.followedAthletes || []).length + (state.followedCompetitions || []).length;
+}
+
+function renderDatabaseDirectory() {
+  if (!databaseDirectory) return;
+  if (state.isDataLoading) {
+    databaseDirectory.innerHTML = '<div class="loading-row">正在整理数据库入口</div>';
+    return;
+  }
+  if (state.dataLoadError) {
+    databaseDirectory.innerHTML = '';
+    return;
+  }
+
+  const entityCounts = entityCoverageCounts();
+  const officialCount = officialCoverageCount();
+  const rows = [
+    {
+      key: 'competitions',
+      title: '赛事',
+      detail: '查时间、地点、状态和项目',
+      count: `${state.competitions.length} 场`,
+      action: '查看赛事',
+    },
+    {
+      key: 'athletes',
+      title: '选手',
+      detail: '查成长、名次和参赛记录',
+      count: `${entityCounts.athletes} 个`,
+      action: '搜索选手',
+    },
+    {
+      key: 'clubs',
+      title: '俱乐部',
+      detail: '查队伍表现、代表选手和优势项目',
+      count: `${entityCounts.clubs} 个`,
+      action: '搜索俱乐部',
+    },
+    {
+      key: 'officials',
+      title: '教练/裁判',
+      detail: '按姓名检索公开资料',
+      count: officialCount ? `${officialCount} 个` : '可搜索',
+      action: '搜索人员',
+    },
+    {
+      key: 'followed',
+      title: '我的关注',
+      detail: '只看已关注选手和赛事相关内容',
+      count: followedDataCount() ? `${followedDataCount()} 个` : '待添加',
+      action: state.onlyFollowedData ? '已开启' : '开启筛选',
+      active: state.onlyFollowedData,
+    },
+  ];
+
+  databaseDirectory.innerHTML = `
+    <div class="section-title">
+      <h2>数据库入口</h2>
+      <span>按对象查找</span>
+    </div>
+    <div class="database-entry-grid">
+      ${rows.map((row) => `
+        <button class="database-entry-card ${row.active ? 'active' : ''}" type="button" data-database-entry="${escapeHtml(row.key)}">
+          <span>${escapeHtml(row.title)}</span>
+          <strong>${escapeHtml(row.count)}</strong>
+          <em>${escapeHtml(row.detail)}</em>
+          <small>${escapeHtml(row.action)}</small>
+        </button>
+      `).join('')}
+    </div>
+  `;
+
+  databaseDirectory.querySelectorAll('[data-database-entry]').forEach((button) => {
+    button.addEventListener('click', () => handleDatabaseEntry(button.dataset.databaseEntry));
+  });
+}
+
+function focusDatabaseSearch(placeholder = '') {
+  if (placeholder) searchInput.setAttribute('placeholder', placeholder);
+  searchInput.focus({ preventScroll: true });
+  searchShell?.scrollIntoView({ block: 'start', behavior: 'smooth' });
+}
+
+function handleDatabaseEntry(key) {
+  if (key === 'competitions') {
+    searchInput.value = '';
+    state.onlyFollowedData = false;
+    clearAiCompetitionFilter();
+    focusDatabaseSearch('搜索比赛、地区、U8 男花');
+    return;
+  }
+  if (key === 'athletes') {
+    focusDatabaseSearch('输入选手姓名，例如 蔡廷彧');
+    return;
+  }
+  if (key === 'clubs') {
+    focusDatabaseSearch('输入俱乐部名称，例如 山东小众体育');
+    return;
+  }
+  if (key === 'officials') {
+    focusDatabaseSearch('输入教练员或裁判员姓名');
+    return;
+  }
+  if (key === 'followed') {
+    state.onlyFollowedData = !state.onlyFollowedData;
+    state.selectedAiMonth = '';
+    state.aiCompetitionFilterSummary = '';
+    renderFilters();
+    applyCompetitionFilter();
+  }
 }
 
 function renderHomeStats() {
@@ -13235,6 +13363,7 @@ async function init() {
   renderHomeStats();
   renderRoleWorkspacePremium();
   renderParentDashboard();
+  renderDatabaseDirectory();
   renderFeedPanel();
   renderPersonalPages();
   await syncFollowedAthletes();
@@ -13271,6 +13400,7 @@ renderParentDashboard();
 renderFollowPanel();
 renderFilters();
 renderHomeStats();
+renderDatabaseDirectory();
 renderFeedPanel();
 renderCompetitionList();
 renderPersonalPages();
@@ -13279,6 +13409,7 @@ init().catch((error) => {
   state.isDataLoading = false;
   state.dataLoadError = error.message;
   renderHomeStats();
+  renderDatabaseDirectory();
   renderFeedPanel();
   renderCompetitionList();
   renderPersonalPages();
