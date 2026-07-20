@@ -120,6 +120,10 @@ assert.match(js, /report\.type === 'business-insight' \? '商业洞察'/, 'AI an
 assert.match(js, /report\.type === 'product-template' \? '报告方案'/, 'AI answer header must label product template reports');
 assert.match(js, /report\.type === 'club-recruiting' \? '招生展示'/, 'AI answer header must label recruiting display reports');
 assert.match(js, /report\.type === 'club-comparison' \? '剑馆对比'/, 'AI answer header must label club comparison reports');
+assert.match(js, /report\.type === 'club-recruiting' \? '招生展示' : '查询结果'/, 'AI answer fallback header must use user-facing result wording');
+assert.match(js, /\['对比结论', `\$\{leader\.name\} 略优于 \$\{other\.name\}`\]/, 'AI comparison cards must use user-facing conclusion labels');
+assert.match(js, /\['参考强度', confidence\]/, 'AI comparison cards must avoid internal evidence-strength wording');
+assert.doesNotMatch(js, /<button type="button" data-ai-feedback=/, 'AI answers should not render feedback buttons in the main user result');
 assert.match(js, /kind: '赛前赛事'/, 'AI prematch evidence must label prematch competitions');
 assert.match(js, /名单较少时，优先展示项目和赛事级信息/, 'AI prematch report must use user-facing incomplete roster scope');
 assert.match(js, /暂未发现两人的直接交手记录/, 'AI comparison must not imply direct bouts when none are found');
@@ -202,8 +206,8 @@ assert.match(js, /data-commercial-intent="pilot"/, 'AI conversion block must exp
 assert.match(js, /bindReportConversionActions\(container\)/, 'AI answer actions must reuse the existing commercial-interest submission flow');
 assert.match(js, /class="ai-share-row"/, 'AI answer renderer must expose a copy summary action');
 assert.match(js, /data-ai-share/, 'AI answer copy action must be addressable');
-assert.match(js, /data-ai-feedback=\"ai-helpful\"/, 'AI answer must expose helpful feedback');
-assert.match(js, /data-ai-feedback=\"ai-needs-work\"/, 'AI answer must expose needs-work feedback');
+assert.doesNotMatch(js, /data-ai-feedback=\"ai-helpful\"/, 'AI answer should not expose helpful feedback inside the main result');
+assert.doesNotMatch(js, /data-ai-feedback=\"ai-needs-work\"/, 'AI answer should not expose needs-work feedback inside the main result');
 assert.doesNotMatch(js, /class="ai-follow-up-row"/, 'AI answer renderer must not show follow-up question chips inside the result card');
 assert.match(js, /data-ai-follow-up/, 'AI follow-up chips must carry runnable query text');
 assert.match(js, /const bindAnswer = \(report\) =>/, 'AI workspace must pass the current report into answer bindings');

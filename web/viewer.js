@@ -6593,8 +6593,8 @@ function buildAiAthleteComparison(query, left, right) {
     cards: [
       [left.name, athleteMetricLine(left)],
       [right.name, athleteMetricLine(right)],
-      ['当前判断', `${leader.name} 略优于 ${other.name}`],
-      ['证据强度', confidence],
+      ['对比结论', `${leader.name} 略优于 ${other.name}`],
+      ['参考强度', confidence],
     ],
     sections: [
       {
@@ -6931,7 +6931,7 @@ function aiTrustRows(report) {
   }
 
   if (report.type === 'comparison') {
-    const confidence = report.cards?.find(([label]) => label === '证据强度')?.[1] || '历史画像对比';
+    const confidence = report.cards?.find(([label]) => label === '参考强度')?.[1] || '历史画像对比';
     rows.push({
       label: '依据',
       value: confidence,
@@ -7345,7 +7345,7 @@ function renderAiAnswer(report) {
   return `
     <div class="ai-answer-card">
       <div class="ai-answer-head">
-        <span>${escapeHtml(report.type === 'comparison' ? '选手对比' : report.type === 'club-comparison' ? '剑馆对比' : report.type === 'growth' ? '成长分析' : report.type === 'club' ? '俱乐部画像' : report.type === 'prematch' ? '赛前情报' : report.type === 'business-insight' ? '商业洞察' : report.type === 'product-template' ? '报告方案' : report.type === 'club-recruiting' ? '招生展示' : '数据助手')}</span>
+        <span>${escapeHtml(report.type === 'comparison' ? '选手对比' : report.type === 'club-comparison' ? '剑馆对比' : report.type === 'growth' ? '成长分析' : report.type === 'club' ? '俱乐部画像' : report.type === 'prematch' ? '赛前情报' : report.type === 'business-insight' ? '商业洞察' : report.type === 'product-template' ? '报告方案' : report.type === 'club-recruiting' ? '招生展示' : '查询结果')}</span>
         <strong>${escapeHtml(report.title)}</strong>
         <p>${escapeHtml(report.summary)}</p>
       </div>
@@ -7407,8 +7407,6 @@ function renderAiAnswer(report) {
       ` : ''}
       <div class="ai-share-row">
         <button type="button" data-ai-share>复制分析摘要</button>
-        <button type="button" data-ai-feedback="ai-helpful">有帮助</button>
-        <button type="button" data-ai-feedback="ai-needs-work">需要调整</button>
       </div>
     </div>
   `;
