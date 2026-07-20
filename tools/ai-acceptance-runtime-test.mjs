@@ -88,6 +88,7 @@ const functionNames = [
   'aiClubComparisonWinner',
   'aiClubComparisonScopeLabel',
   'aiClubComparisonGenderLabel',
+  'aiClubComparisonRefineQuery',
   'aiClubComparisonMetricLine',
   'aiClubComparisonConclusionRows',
   'aiClubComparisonEvidenceRows',
@@ -381,6 +382,8 @@ assert.ok(clubComparisonReport.sections.find((section) => section.title === '\u6
 assert.ok(clubComparisonReport.evidence.some((row) => row.kind === '\u4ff1\u4e50\u90e8\u5bf9\u6bd4\u8bc1\u636e'), 'club comparison should cite concrete event evidence');
 assert.ok(clubComparisonReport.actions.some((action) => action.clubId === 'club-jinshi'), 'club comparison should link to the first club profile');
 assert.ok(clubComparisonReport.actions.some((action) => action.clubId === 'club-airuite'), 'club comparison should link to the second club profile');
+assert.ok(clubComparisonReport.actions.some((action) => action.query && /\u53ea\u770bU10\u7537\u82b1/.test(action.label)), 'club comparison should offer a direct U10 male foil follow-up');
+assert.ok(clubComparisonReport.actions.some((action) => /\u5317\u4eac\u91d1\u77f3/.test(action.query || '') && /\u5317\u4eac\u827e\u9c81\u7279/.test(action.query || '')), 'club comparison follow-up should preserve both club names');
 
 const childInvestmentFallback = context.buildAiAnswer('\u5b69\u5b50\u51fb\u5251\u503c\u4e0d\u503c\u5f97\u7ee7\u7eed');
 assert.equal(childInvestmentFallback.type, 'fallback', 'general child investment questions should stay in recovery when no child is named');

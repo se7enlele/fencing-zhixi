@@ -127,6 +127,8 @@ assert.match(js, /function aiTrustRows\(report\)/, 'AI answers must summarize ju
 assert.match(js, /function aiFollowAthleteAction\(athlete\)/, 'AI answers must expose follow actions for athletes');
 assert.match(js, /followAthleteId: athlete\.id/, 'AI growth answers must include follow athlete action payload');
 assert.match(js, /data-follow-athlete-id/, 'AI action buttons must support follow-athlete actions');
+assert.match(js, /data-ai-action-query/, 'AI action buttons must support direct follow-up analysis queries');
+assert.match(js, /submitAiQuery\(button\.dataset\.aiActionQuery \|\| ''\)/, 'AI action query buttons must rerun the AI workspace');
 assert.match(js, /row\.clubId \? `data-club-id=/, 'AI evidence buttons must support club evidence actions');
 assert.match(js, /row\.athleteId \? `data-athlete-id=/, 'AI evidence buttons must support athlete evidence actions');
 assert.match(js, /upsertFollowedAthlete\(athlete\)/, 'AI follow action must reuse the existing follow handler');

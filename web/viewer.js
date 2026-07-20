@@ -5586,6 +5586,13 @@ function aiClubComparisonGenderLabel(gender) {
   return '合计';
 }
 
+function aiClubComparisonRefineQuery(leftClub, rightClub, filters) {
+  const year = filters.years?.[filters.years.length - 1] || '2026';
+  const age = filters.age || 'U10';
+  const weapon = { foil: '花剑', epee: '重剑', sabre: '佩剑' }[filters.weapon] || '花剑';
+  return `只看${year}年${age}男${weapon}，${leftClub.club}和${rightClub.club}谁更强？`;
+}
+
 function aiClubComparisonMetricLine(left, right) {
   const winner = aiClubComparisonWinner(left, right);
   const winnerText = winner ? `${winner.club.club}领先` : '两边接近';
@@ -5652,8 +5659,9 @@ function buildAiClubComparisonReport(query, leftClub, rightClub, filters) {
     ],
     evidence: aiClubComparisonEvidenceRows(metricPairs),
     actions: [
-      { label: `查看${leftClub.club}`, clubId: leftClub.id },
-      { label: `查看${rightClub.club}`, clubId: rightClub.id },
+      { label: `看${leftClub.club}画像`, clubId: leftClub.id },
+      { label: `看${rightClub.club}画像`, clubId: rightClub.id },
+      { label: '只看U10男花', query: aiClubComparisonRefineQuery(leftClub, rightClub, filters) },
     ],
     sourceNote: '俱乐部对比来自公开赛事成绩记录，适合先判断整体规模和成绩表现。',
   };
@@ -5692,8 +5700,8 @@ function buildAiCompetitionLookupReport(query, competition) {
       sportCode: competition.sportCode,
     }],
     actions: [
-      competition.sportCode ? { label: '\u67e5\u770b\u8d5b\u4e8b\u8be6\u60c5', sportCode: competition.sportCode } : null,
-      { label: '\u67e5\u770b\u8d5b\u4e8b\u5217\u8868', mainTab: 'competitions', filters: { year: competitionYear(competition) || '', month: '', region: competition.region || '', status: competition.status || '' } },
+      competition.sportCode ? { label: '\u6253\u5f00\u8d5b\u4e8b\u8be6\u60c5', sportCode: competition.sportCode } : null,
+      { label: '\u770b\u540c\u5730\u533a\u8d5b\u4e8b', mainTab: 'competitions', filters: { year: competitionYear(competition) || '', month: '', region: competition.region || '', status: competition.status || '' } },
     ].filter(Boolean),
   };
 }
@@ -5799,9 +5807,9 @@ function buildAiCompetitionStats(query, filters) {
       sportCode: competition.sportCode,
     })),
     actions: [
-      actionRows[0]?.sportCode ? { label: '生成赛前情报包', prematchTemplateKind: 'prematch-pack', prematchSportCode: actionRows[0].sportCode } : null,
-      watchRows[0]?.sportCode ? { label: '加入赛前提醒', followCompetitionCode: watchRows[0].sportCode } : null,
-      { label: rows.length ? '查看匹配赛事' : '进入赛事列表', mainTab: 'competitions', filters },
+      actionRows[0]?.sportCode ? { label: '看赛前情报', prematchTemplateKind: 'prematch-pack', prematchSportCode: actionRows[0].sportCode } : null,
+      watchRows[0]?.sportCode ? { label: '关注最近赛事', followCompetitionCode: watchRows[0].sportCode } : null,
+      { label: rows.length ? '看这几场赛事' : '进入赛事列表', mainTab: 'competitions', filters },
     ].filter(Boolean),
   };
 }
@@ -7146,7 +7154,7 @@ function renderAiAnswer(report) {
           <strong>查看</strong>
           <div class="ai-action-row">
             ${primaryActions.map((action) => `
-              <button type="button" ${action.athleteId ? `data-athlete-id="${escapeHtml(action.athleteId)}"` : ''} ${action.parentGrowthAthleteId ? `data-parent-growth-athlete-id="${escapeHtml(action.parentGrowthAthleteId)}"` : ''} ${action.coachSegmentationClubId ? `data-coach-segmentation-club-id="${escapeHtml(action.coachSegmentationClubId)}"` : ''} ${action.followAthleteId ? `data-follow-athlete-id="${escapeHtml(action.followAthleteId)}"` : ''} ${action.followCompetitionCode ? `data-follow-competition-code="${escapeHtml(action.followCompetitionCode)}"` : ''} ${action.sportCode ? `data-sport-code="${escapeHtml(action.sportCode)}"` : ''} ${action.clubId ? `data-club-id="${escapeHtml(action.clubId)}"` : ''} ${action.prematchTemplateKind ? `data-prematch-template="${escapeHtml(action.prematchTemplateKind)}"` : ''} ${action.prematchSportCode ? `data-prematch-sport-code="${escapeHtml(action.prematchSportCode)}"` : ''} ${action.mainTab ? `data-main-target="${escapeHtml(action.mainTab)}"` : ''} ${action.filters ? `data-ai-filters="${escapeHtml(encodeURIComponent(JSON.stringify(action.filters)))}"` : ''}>
+              <button type="button" ${action.query ? `data-ai-action-query="${escapeHtml(action.query)}"` : ''} ${action.athleteId ? `data-athlete-id="${escapeHtml(action.athleteId)}"` : ''} ${action.parentGrowthAthleteId ? `data-parent-growth-athlete-id="${escapeHtml(action.parentGrowthAthleteId)}"` : ''} ${action.coachSegmentationClubId ? `data-coach-segmentation-club-id="${escapeHtml(action.coachSegmentationClubId)}"` : ''} ${action.followAthleteId ? `data-follow-athlete-id="${escapeHtml(action.followAthleteId)}"` : ''} ${action.followCompetitionCode ? `data-follow-competition-code="${escapeHtml(action.followCompetitionCode)}"` : ''} ${action.sportCode ? `data-sport-code="${escapeHtml(action.sportCode)}"` : ''} ${action.clubId ? `data-club-id="${escapeHtml(action.clubId)}"` : ''} ${action.prematchTemplateKind ? `data-prematch-template="${escapeHtml(action.prematchTemplateKind)}"` : ''} ${action.prematchSportCode ? `data-prematch-sport-code="${escapeHtml(action.prematchSportCode)}"` : ''} ${action.mainTab ? `data-main-target="${escapeHtml(action.mainTab)}"` : ''} ${action.filters ? `data-ai-filters="${escapeHtml(encodeURIComponent(JSON.stringify(action.filters)))}"` : ''}>
                 ${escapeHtml(action.label)}
               </button>
             `).join('')}
@@ -7200,6 +7208,9 @@ function bindAiAnswerActions(container) {
         button.disabled = false;
       }, 1600);
     });
+  });
+  container.querySelectorAll('[data-ai-action-query]').forEach((button) => {
+    button.addEventListener('click', () => submitAiQuery(button.dataset.aiActionQuery || ''));
   });
   container.querySelectorAll('[data-event-code]').forEach((button) => {
     button.addEventListener('click', () => {
