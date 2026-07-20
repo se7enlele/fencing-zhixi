@@ -5185,6 +5185,26 @@ function detectCompetitionLikeQuery(query) {
   };
 }
 
+function competitionNameMatchKey(value) {
+  return compactText(value)
+    .replace(/20\d{2}年?/g, '')
+    .replace(/第[一二三四五六七八九十\d]+站/g, '第一站')
+    .replace(/[“”"']/g, '');
+}
+
+function relatedCompetitionsForQuery(query) {
+  const key = competitionNameMatchKey(query);
+  if (key.length < 4) return [];
+  return (state.competitions || [])
+    .filter((competition) => {
+      const nameKey = competitionNameMatchKey(competition.sportName);
+      if (!nameKey) return false;
+      return nameKey.includes(key) || key.includes(nameKey);
+    })
+    .sort((a, b) => String(b.dateLabel || b.startDate || b.season || '').localeCompare(String(a.dateLabel || a.startDate || a.season || ''), 'zh-CN'))
+    .slice(0, 3);
+}
+
 function detectClubComparisonQuery(query) {
   const normalized = compactText(query);
   if (!/(对比|比较|比|更好|谁强|谁更强|领先|差距|优势)/.test(normalized)) return null;
@@ -5278,23 +5298,36 @@ function buildAiFallbackReport(query) {
 
   const competitionLike = detectCompetitionLikeQuery(text);
   if (competitionLike) {
+    const relatedCompetitions = relatedCompetitionsForQuery(text);
+    const relatedTitle = relatedCompetitions[0]?.sportName || '';
+    const title = competitionLike.year ? `未找到${competitionLike.year}年同名赛事` : '当前未收录这场赛事';
+    const summary = competitionLike.year
+      ? `当前资料库没有匹配的${competitionLike.year}年同名赛事。可以先查看${competitionLike.region || '相关地区'}赛事，或用赛程截图、报名页信息补充后再生成赛前分析。`
+      : '当前资料库没有匹配的同名赛事。可以先查看同地区或同类型赛事，确认是否是你要找的比赛。';
     const cards = [
       competitionLike.year ? ['年份', competitionLike.year] : null,
       competitionLike.region ? ['地区', competitionLike.region] : null,
       competitionLike.month ? ['月份', `${competitionLike.month}月`] : null,
+      relatedCompetitions.length ? ['相近赛事', `${relatedCompetitions.length} 场`] : null,
+      relatedTitle ? ['最近相近', displayDateLabel(relatedCompetitions[0].dateLabel || relatedCompetitions[0].startDate || relatedCompetitions[0].season || '')] : null,
       ['可查赛事', `${state.competitions.length} 场`],
     ].filter(Boolean);
     return {
       type: 'fallback',
-      title: '当前未收录这场赛事',
-      summary: '可以先查看同地区或同年份赛事；拿到赛事项目或报名名单后，这里会形成赛事详情和赛前分析。',
+      title,
+      summary,
       cards,
       actions: [
         { label: '查看相关赛事', mainTab: 'competitions', filters: competitionLike },
+        relatedCompetitions[0]?.sportCode ? { label: '查看相近赛事', sportCode: relatedCompetitions[0].sportCode } : null,
         { label: '统计同地区赛事', query: `${competitionLike.year || '2026'}年${competitionLike.region || ''}有几场比赛` },
-        { label: '查看赛前情报', query: `${competitionLike.year || '2026'}年${competitionLike.region || ''}赛前情报` },
-      ],
-      evidence: [],
+      ].filter(Boolean),
+      evidence: relatedCompetitions.map((competition) => ({
+        kind: '相近赛事',
+        label: competition.sportName || displayEventName(competition),
+        detail: [displayDateLabel(competition.dateLabel || competition.startDate || competition.season || ''), competition.venue || competition.region || '', statusLabel(competition.status)].filter(Boolean).join(' / '),
+        sportCode: competition.sportCode,
+      })),
     };
   }
 

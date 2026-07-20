@@ -37,6 +37,11 @@ const cases = [
     expect: ['赛事', '北京击剑联赛'],
   },
   {
+    id: 'competition-missing-year',
+    query: '2026年北京击剑联赛第一站',
+    expect: ['未找到2026年同名赛事', '相近赛事', '查看相关赛事'],
+  },
+  {
     id: 'recovery',
     query: '孩子击剑值不值得继续',
     expect: ['先确定关注对象'],
