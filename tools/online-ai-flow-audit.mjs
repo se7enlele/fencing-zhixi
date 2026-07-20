@@ -186,6 +186,7 @@ async function runCase(page, testCase) {
 async function verifyFirstEvidenceNavigation(page, answer, testCase) {
   const evidenceButton = answer.locator('.ai-evidence button').first();
   const sourceText = (await evidenceButton.innerText()).split('\n').filter(Boolean).slice(0, 4).join(' / ');
+  await evidenceButton.scrollIntoViewIfNeeded();
   await evidenceButton.click();
   await page.waitForFunction(
     () => {

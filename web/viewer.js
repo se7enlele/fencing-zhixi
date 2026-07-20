@@ -6663,7 +6663,7 @@ function buildAiAthleteComparison(query, left, right) {
         title: '直接交手',
         rows: direct.length
           ? direct.slice(0, 4).map((row) => `${row.phase || '淘汰赛'}：${row.name}，${row.record || row.score || ''}`)
-          : ['当前数据里没有识别到两人的直接交手；下面结论基于共同赛事、近期表现和历史成绩画像。'],
+          : ['暂未发现两人的直接交手记录；以下根据共同赛事、最近表现和历史成绩对比。'],
       },
       {
         title: '共同赛事',
