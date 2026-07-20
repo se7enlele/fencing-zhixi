@@ -505,7 +505,7 @@ async function clearAccountData(button) {
 async function showWechatAuthStatus() {
   try {
     const result = await fetchJson('/api/auth/wechat/status');
-    state.accountStatus = result.wechat?.message || '微信登录已预留，正式接入后可绑定当前账号。';
+    state.accountStatus = result.wechat?.message || '当前可使用手机号登录；微信登录开放后可在这里绑定。';
   } catch (error) {
     state.accountStatus = error.message || '微信登录状态读取失败。';
   }
@@ -7041,7 +7041,7 @@ function renderAiAnswer(report) {
       </div>
       ${enhancement ? `
         <div class="ai-enhancement-card">
-          <strong>${escapeHtml(enhancement.headline || 'AI增强解读')}</strong>
+          <strong>${escapeHtml(enhancement.headline || '补充解读')}</strong>
           ${enhancement.explanation ? `<p>${escapeHtml(enhancement.explanation)}</p>` : ''}
           ${enhancement.takeaways?.length ? `
             <div>
