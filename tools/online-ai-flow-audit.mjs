@@ -22,9 +22,9 @@ const bannedCopy = [
 
 const cases = [
   {
-    id: 'club-comparison',
-    query: '看2025和2026年，U10花剑男子和女子，北京金石是不是比北京艾鲁特更好',
-    expect: ['剑馆对比', '北京金石', '北京艾鲁特', '只看U10男花'],
+    id: 'competition-lookup',
+    query: '北京击剑联赛第一站',
+    expect: ['赛事', '北京击剑联赛'],
   },
   {
     id: 'competition-count',
@@ -32,14 +32,54 @@ const cases = [
     expect: ['赛事统计', '天津', '赛事数量'],
   },
   {
+    id: 'competition-largest',
+    query: '哪场比赛人数最多',
+    expect: ['赛事规模', '人数', '查看赛事'],
+  },
+  {
+    id: 'athlete-growth-recent',
+    query: '蔡廷彧最近有没有进步',
+    expect: ['成长', '蔡廷彧', '近期参赛'],
+  },
+  {
+    id: 'athlete-growth-yearly',
+    query: '蔡廷彧2025和2026年的表现有什么变化',
+    expect: ['成长', '蔡廷彧', '2025'],
+  },
+  {
     id: 'prematch-registration',
     query: '天津近期报名情况',
     expect: ['赛前情报', '报名名单', '优先关注'],
   },
   {
-    id: 'competition-lookup',
-    query: '北京击剑联赛第一站',
-    expect: ['赛事', '北京击剑联赛'],
+    id: 'club-project',
+    query: '山东小众体育U8男花怎么样',
+    expect: ['山东小众体育', 'U8 男花'],
+  },
+  {
+    id: 'club-recruiting',
+    query: '山东小众体育招生怎么讲',
+    expect: ['山东小众体育', '招生'],
+  },
+  {
+    id: 'club-comparison',
+    query: '北京金石和北京艾鲁特U10男花谁更强',
+    expect: ['剑馆对比', '北京金石', '北京艾鲁特'],
+  },
+  {
+    id: 'athlete-comparison',
+    query: '分析马潇和陶嘉月的对战情况',
+    expect: ['马潇', '陶嘉月'],
+  },
+  {
+    id: 'growth-report-template',
+    query: '帮我生成蔡廷彧成长报告',
+    expect: ['蔡廷彧', '成长'],
+  },
+  {
+    id: 'prematch-template',
+    query: '帮我生成赛前情报包',
+    expect: ['赛前情报包'],
   },
   {
     id: 'competition-missing-year',
@@ -143,7 +183,19 @@ try {
   );
 
   for (const testCase of cases) {
-    results.push(await runCase(page, testCase));
+    try {
+      results.push(await runCase(page, testCase));
+    } catch (error) {
+      const answerText = await page.locator('#aiAnswer').innerText().catch(() => '');
+      error.message = `${testCase.id}: ${error.message}`;
+      error.details = {
+        ...(error.details || {}),
+        query: testCase.query,
+        expected: testCase.expect,
+        answerText: answerText.slice(0, 2000),
+      };
+      throw error;
+    }
   }
 
   const payload = {

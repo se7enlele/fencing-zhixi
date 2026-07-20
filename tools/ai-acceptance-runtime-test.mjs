@@ -126,6 +126,8 @@ const functionNames = [
   'buildAiProductTemplateReport',
   'buildAiPreMatchReport',
   'buildAiAthleteComparison',
+  'athleteEventYear',
+  'athleteYearSummaryRows',
   'buildAiAthleteGrowth',
   'buildAiClubReport',
   'buildAiClubRecruitingReport',
@@ -379,6 +381,16 @@ for (const item of context.aiAcceptanceQueryCases()) {
 
 const growthReport = context.buildAiAnswer('蔡廷彧最近几场有没有进步');
 assert.equal(growthReport.type, 'growth', 'athlete growth query with 最近 must not route to prematch');
+
+const yearlyGrowthReport = context.buildAiAnswer('蔡廷彧2025和2026年的表现有什么变化');
+assert.equal(yearlyGrowthReport.type, 'growth', 'yearly athlete change queries should route to growth');
+assert.ok(yearlyGrowthReport.sections.some((section) => section.title === '年度变化'), 'yearly athlete change queries should include a yearly change section');
+assert.ok(yearlyGrowthReport.sections.find((section) => section.title === '年度变化')?.rows.some((row) => row.includes('2025')), 'yearly athlete change queries should mention the 2025 record');
+assert.ok(yearlyGrowthReport.sections.find((section) => section.title === '年度变化')?.rows.some((row) => row.includes('2026')), 'yearly athlete change queries should mention the 2026 record');
+
+const namedGrowthReport = context.buildAiAnswer('帮我生成蔡廷彧成长报告');
+assert.equal(namedGrowthReport.type, 'growth', 'named growth report requests should prioritize the athlete over a generic report template');
+assert.match(namedGrowthReport.title, /蔡廷彧/, 'named growth report requests should keep the athlete name in the result');
 
 const clubReport = context.buildAiAnswer('山东小众体育 U8 男花怎么样');
 assert.equal(clubReport.type, 'club');

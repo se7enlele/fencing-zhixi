@@ -5241,6 +5241,10 @@ function buildAiAnswer(query) {
   const competition = detectCompetitionInQuery(text);
   if (competition) return buildAiCompetitionLookupReport(text, competition);
 
+  const exactAthletes = detectExactAthletesInQuery(normalizeAiName(text));
+  if (exactAthletes.length >= 2) return buildAiAthleteComparison(text, exactAthletes[0], exactAthletes[1]);
+  if (exactAthletes.length === 1) return buildAiAthleteGrowth(text, exactAthletes[0]);
+
   const productTemplate = detectProductTemplateQuery(text);
   if (productTemplate) return buildAiProductTemplateReport(text, productTemplate);
 
@@ -5257,10 +5261,6 @@ function buildAiAnswer(query) {
 
   const clubComparison = detectClubComparisonQuery(text);
   if (clubComparison) return buildAiClubComparisonReport(text, clubComparison.clubs[0], clubComparison.clubs[1], clubComparison.filters);
-
-  const exactAthletes = detectExactAthletesInQuery(normalizeAiName(text));
-  if (exactAthletes.length >= 2) return buildAiAthleteComparison(text, exactAthletes[0], exactAthletes[1]);
-  if (exactAthletes.length === 1) return buildAiAthleteGrowth(text, exactAthletes[0]);
 
   const club = detectClubInQuery(text);
   if (club && detectClubRecruitingQuery(text)) return buildAiClubRecruitingReport(text, club);
@@ -6512,6 +6512,7 @@ function buildAiAthleteGrowth(query, athlete) {
   const latest = events[0] || null;
   const best = [...events].sort((a, b) => (Number(a.finalRank) || 999) - (Number(b.finalRank) || 999))[0] || null;
   const trend = athleteTrendLabel(events);
+  const yearRows = athleteYearSummaryRows(events, query);
   return {
     type: 'growth',
     title: `${athlete.name}的成长分析`,
@@ -6523,11 +6524,15 @@ function buildAiAthleteGrowth(query, athlete) {
       ['淘汰赛', `${athlete.eliminationWins || 0}胜${athlete.eliminationLosses || 0}负`],
     ],
     sections: [
+      yearRows.length ? {
+        title: '年度变化',
+        rows: yearRows,
+      } : null,
       {
         title: '近期参赛',
         rows: events.slice(0, 5).map((event) => `${displayEventName(event)} · 第${event.finalRank ?? '-'}名 · ${event.sportName}`),
       },
-      (athlete.opponents || []).length ? {
+      !yearRows.length && (athlete.opponents || []).length ? {
         title: '重点对手',
         rows: athlete.opponents.slice(0, 4).map((opponent) => `${opponent.name}：${opponent.wins}胜${opponent.losses}负 · ${opponent.latestPhase || '淘汰赛'}`),
       } : null,
@@ -6664,6 +6669,39 @@ function athleteTrendLabel(events) {
   if (latest < previous) return `较上次提升 ${previous - latest} 名`;
   if (latest > previous) return `较上次后退 ${latest - previous} 名`;
   return '最近两次名次稳定';
+}
+
+function athleteEventYear(event) {
+  const text = [event?.openDate, event?.dateLabel, event?.sportName].filter(Boolean).join(' ');
+  return text.match(/20\d{2}/)?.[0] || '';
+}
+
+function athleteYearSummaryRows(events, query = '') {
+  const explicitYears = detectYearsInQuery(query);
+  const rowsByYear = new Map();
+  for (const event of events || []) {
+    const year = athleteEventYear(event);
+    if (!year) continue;
+    if (explicitYears.length && !explicitYears.includes(year)) continue;
+    if (!rowsByYear.has(year)) rowsByYear.set(year, []);
+    rowsByYear.get(year).push(event);
+  }
+  const years = explicitYears.length
+    ? explicitYears.filter((year) => rowsByYear.has(year))
+    : [...rowsByYear.keys()].sort((a, b) => Number(b) - Number(a));
+  if (years.length < 2 && explicitYears.length < 2) return [];
+  return years.map((year) => {
+    const rows = rowsByYear.get(year) || [];
+    const bestRank = rows.reduce((best, event) => {
+      const rank = Number(event.finalRank || 0);
+      return rank ? Math.min(best, rank) : best;
+    }, 999);
+    const latest = rows[0] || null;
+    const medals = rows.filter((event) => event.medal || (Number(event.finalRank || 0) > 0 && Number(event.finalRank || 0) <= 3)).length;
+    const wins = rows.reduce((sum, event) => sum + (Number(event.eliminationWins) || 0), 0);
+    const losses = rows.reduce((sum, event) => sum + (Number(event.eliminationLosses) || 0), 0);
+    return `${year}：参赛 ${rows.length} 场，最好${bestRank < 999 ? `第${bestRank}名` : '待确认'}，最近${latest?.finalRank ? `第${latest.finalRank}名` : '待确认'}，奖牌 ${medals} 枚${wins || losses ? `，淘汰赛 ${wins}胜${losses}负` : ''}。`;
+  });
 }
 
 function sharedAthleteEvents(left, right) {
