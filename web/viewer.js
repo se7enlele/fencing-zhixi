@@ -4874,13 +4874,14 @@ function submitAiQuery(query) {
 }
 
 function aiEnhancementRequestPayload(report = {}) {
+  const visibleSections = (report.sections || []).filter(isUserFacingAiSection);
   return {
     type: report.type || '',
     title: report.title || '',
     summary: report.summary || '',
     query: report.query || '',
     cards: (report.cards || []).slice(0, 8),
-    sections: (report.sections || []).slice(0, 6).map((section) => ({
+    sections: visibleSections.slice(0, 6).map((section) => ({
       title: section.title || '',
       rows: (section.rows || []).slice(0, 6),
     })),
@@ -6852,6 +6853,7 @@ async function submitAiAnswerFeedback(report, feedbackType) {
   return result;
 }
 function buildAiAnswerShareText(report) {
+  const visibleSections = (report.sections || []).filter(isUserFacingAiSection);
   const lines = [
     `FencingAI 分析：${report.title || '数据分析'}`,
     report.summary || '',
@@ -6862,13 +6864,13 @@ function buildAiAnswerShareText(report) {
     report.cards.slice(0, 6).forEach(([label, value]) => lines.push(`- ${label}：${value}`));
   }
 
-  const trustRows = aiTrustRows(report);
-  if (trustRows.length) {
-    lines.push('', '判断依据');
-    trustRows.forEach((row) => lines.push(`- ${row.label}：${row.value}${row.detail ? `，${row.detail}` : ''}`));
+  const evidenceKinds = [...new Set((report.evidence || []).map((row) => aiEvidenceKind(row)).filter(Boolean))].slice(0, 3);
+  if (report.evidence?.length) {
+    lines.push('', '参考来源');
+    lines.push(`- ${report.evidence.length} 条可回查记录${evidenceKinds.length ? `：${evidenceKinds.join(' / ')}` : ''}`);
   }
 
-  (report.sections || []).slice(0, 4).forEach((section) => {
+  visibleSections.slice(0, 4).forEach((section) => {
     lines.push('', section.title);
     (section.rows || []).slice(0, 5).forEach((row) => lines.push(`- ${row}`));
   });

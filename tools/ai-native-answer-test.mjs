@@ -139,6 +139,8 @@ assert.match(js, /function buildAiAnswerShareText\(report\)/, 'AI answers must b
 assert.match(js, /function submitAiAnswerFeedback\(report, feedbackType\)/, 'AI answers must submit quality feedback');
 assert.match(js, /function buildAiAnswerFeedbackText\(report, feedbackType\)/, 'AI answer feedback must have admin-readable text');
 assert.match(js, /function aiEnhancementRequestPayload\(report = \{\}\)/, 'AI answers must build a bounded payload for optional LLM enhancement');
+assert.match(js, /const visibleSections = \(report\.sections \|\| \[\]\)\.filter\(isUserFacingAiSection\)/, 'AI enhancement and sharing payloads must use the same user-facing section filter as the rendered answer');
+assert.doesNotMatch(js, /sections: \(report\.sections \|\| \[\]\)\.slice\(0, 6\)/, 'AI enhancement payload must not send hidden internal sections');
 assert.match(js, /function requestAiEnhancement\(report = \{\}\)/, 'AI answers must request optional LLM enhancement through the backend');
 assert.match(js, /fetch\('\/api\/ai\/enhance'/, 'AI enhancement requests must go through the first-party backend endpoint');
 assert.match(js, /async function enhanceAiAnswer\(report, answer, bindAnswer\)/, 'AI workspace must enhance already-rendered deterministic answers when available');
@@ -186,6 +188,8 @@ assert.match(js, /answer\.querySelectorAll\('\[data-ai-follow-up\]'\)/, 'AI work
 assert.doesNotMatch(js, /class="ai-source-note"/, 'AI answer must not render internal data boundary notes');
 assert.doesNotMatch(js, /class="ai-trust-panel"/, 'AI answer must not render internal judgment-basis panels');
 assert.doesNotMatch(js, /<strong>判断依据<\/strong>/, 'AI answer must not show internal judgment-basis headings');
+assert.doesNotMatch(js, /lines\.push\('', '判断依据'\)/, 'AI copied summaries must not expose internal judgment-basis headings');
+assert.match(js, /lines\.push\('', '参考来源'\)/, 'AI copied summaries should use source-oriented wording');
 assert.match(js, /<em>\$\{escapeHtml\(aiEvidenceKind\(row\)\)\}<\/em>/, 'AI evidence cards must show evidence type');
 assert.doesNotMatch(js, /<small>\$\{escapeHtml\(row\.reason\)\}<\/small>/, 'AI evidence cards must not show internal relevance reasons');
 assert.doesNotMatch(js, /已关注这个孩子/, 'AI action buttons must not show ambiguous already-following child copy');
