@@ -469,6 +469,8 @@ assert.equal(fuzzyObjectFallback.type, 'fallback', 'short incomplete object quer
 assert.match(fuzzyObjectFallback.title, /\u5148\u786e\u8ba4\u4f60\u8981\u770b\u7684\u5bf9\u8c61/, 'fuzzy fallback should ask the user to confirm a specific object');
 assert.ok(fuzzyObjectFallback.evidence.some((row) => row.kind === '\u76f8\u8fd1\u4ff1\u4e50\u90e8' && row.clubId === 'club-sdzx'), 'fuzzy fallback should surface matching club candidates');
 assert.ok(fuzzyObjectFallback.actions.some((action) => action.clubId === 'club-sdzx'), 'fuzzy fallback should let users open the matching club');
+assert.equal(fuzzyObjectFallback.actions[0]?.clubId, 'club-sdzx', 'club-like fuzzy fallback should prioritize the matching club action');
+assert.equal(fuzzyObjectFallback.evidence[0]?.clubId, 'club-sdzx', 'club-like fuzzy fallback should show the matching club first');
 assert.ok(fuzzyObjectFallback.sections?.some((section) => section.title === '\u53ef\u4ee5\u5148\u770b'), 'fuzzy fallback should explain the candidate choices');
 
 const capabilityGuide = context.buildAiAnswer('\u6211\u60f3\u770b\u770b\u8fd9\u4e2a\u4ea7\u54c1\u80fd\u505a\u4ec0\u4e48');

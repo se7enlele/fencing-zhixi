@@ -5296,7 +5296,9 @@ function aiFallbackCandidates(query) {
   if (!terms.length) return { athletes: [], clubs: [], competitions: [] };
   const athletes = uniqueBy((state.athleteSearchIndex || [])
     .map((athlete) => {
-      const score = fallbackMatchScore([athlete.name, athlete.club, athlete.searchText].filter(Boolean).join(' '), terms);
+      const score = (fallbackMatchScore(athlete.name, terms) * 2)
+        + (fallbackMatchScore(athlete.club, terms) * 0.6)
+        + (fallbackMatchScore(athlete.searchText, terms) * 0.2);
       return score ? { athlete, score: score + Math.min(20, athlete.appearances || 0) } : null;
     })
     .filter(Boolean)
@@ -5305,7 +5307,8 @@ function aiFallbackCandidates(query) {
     .slice(0, 2);
   const clubs = uniqueBy((state.clubSearchIndex || [])
     .map((club) => {
-      const score = fallbackMatchScore([club.club, club.searchText].filter(Boolean).join(' '), terms);
+      const score = (fallbackMatchScore(club.club, terms) * 2)
+        + (fallbackMatchScore(club.searchText, terms) * 0.4);
       return score ? { club, score: score + Math.min(20, club.entrants || 0) } : null;
     })
     .filter(Boolean)
@@ -5526,31 +5529,45 @@ function buildAiFallbackReport(query) {
   }
 
   const candidates = aiFallbackCandidates(text);
-  const candidateEvidence = [
-    ...candidates.athletes.map((athlete) => ({
+  const candidateTerms = aiFallbackCandidateTerms(text);
+  const preferClub = candidates.clubs.some((club) => fallbackMatchScore(club.club, candidateTerms) >= 40);
+  const athleteEvidence = candidates.athletes.map((athlete) => ({
       kind: '相近选手',
       label: athlete.name,
       detail: `${athlete.club || '个人'} · ${athlete.appearances || 0} 次记录`,
       athleteId: athlete.id,
       eventCode: athlete.firstEventCode,
-    })),
-    ...candidates.clubs.map((club) => ({
+    }));
+  const clubEvidence = candidates.clubs.map((club) => ({
       kind: '相近俱乐部',
       label: club.club,
       detail: `参赛 ${club.entrants || 0} 人次 · 前八 ${club.top8 || 0}`,
       clubId: club.id,
-    })),
-    ...candidates.competitions.map((competition) => ({
+    }));
+  const competitionEvidence = candidates.competitions.map((competition) => ({
       kind: '相近赛事',
       label: competition.sportName,
       detail: [displayDateLabel(competition.dateLabel), competition.venue || competition.region || '', statusLabel(competition.status)].filter(Boolean).join(' · '),
       sportCode: competition.sportCode,
-    })),
+    }));
+  const candidateEvidence = [
+    ...(preferClub ? clubEvidence : athleteEvidence),
+    ...(preferClub ? athleteEvidence : clubEvidence),
+    ...competitionEvidence,
   ].slice(0, 5);
   if (candidateEvidence.length) {
     const firstAthlete = candidates.athletes[0];
     const firstClub = candidates.clubs[0];
     const firstCompetition = candidates.competitions[0];
+    const primaryActions = preferClub
+      ? [
+          firstClub?.id ? { label: `看${firstClub.club}`, clubId: firstClub.id } : null,
+          firstAthlete?.id ? { label: `看${firstAthlete.name}`, athleteId: firstAthlete.id } : null,
+        ]
+      : [
+          firstAthlete?.id ? { label: `看${firstAthlete.name}`, athleteId: firstAthlete.id } : null,
+          firstClub?.id ? { label: `看${firstClub.club}`, clubId: firstClub.id } : null,
+        ];
     return {
       type: 'fallback',
       title: '先确认你要看的对象',
@@ -5567,8 +5584,7 @@ function buildAiFallbackReport(query) {
         },
       ],
       actions: [
-        firstAthlete?.id ? { label: `看${firstAthlete.name}`, athleteId: firstAthlete.id } : null,
-        firstClub?.id ? { label: `看${firstClub.club}`, clubId: firstClub.id } : null,
+        ...primaryActions,
         firstCompetition?.sportCode ? { label: '看相近赛事', sportCode: firstCompetition.sportCode } : null,
         { label: '进入数据库', mainTab: 'competitions' },
       ].filter(Boolean),
