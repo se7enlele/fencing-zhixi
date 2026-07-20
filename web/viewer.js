@@ -5241,14 +5241,17 @@ function buildAiAnswer(query) {
   const competition = detectCompetitionInQuery(text);
   if (competition) return buildAiCompetitionLookupReport(text, competition);
 
+  const productTemplate = detectProductTemplateQuery(text);
+  if (productTemplate) return buildAiProductTemplateReport(text, productTemplate);
+
+  const preMatchQuery = detectPreMatchQuery(text);
+  if (preMatchQuery) return buildAiPreMatchReport(text, preMatchQuery);
+
   const competitionRankingQuery = detectCompetitionRankingQuery(text);
   if (competitionRankingQuery) return buildAiCompetitionRanking(text, competitionRankingQuery);
 
   const competitionQuery = detectCompetitionStatsQuery(text);
   if (competitionQuery) return buildAiCompetitionStats(text, competitionQuery);
-
-  const productTemplate = detectProductTemplateQuery(text);
-  if (productTemplate) return buildAiProductTemplateReport(text, productTemplate);
 
   if (detectBusinessInsightQuery(text)) return buildAiBusinessInsightReport(text);
 
@@ -5262,9 +5265,6 @@ function buildAiAnswer(query) {
   const club = detectClubInQuery(text);
   if (club && detectClubRecruitingQuery(text)) return buildAiClubRecruitingReport(text, club);
   if (club) return buildAiClubReport(text, club);
-
-  const preMatchQuery = detectPreMatchQuery(text);
-  if (preMatchQuery) return buildAiPreMatchReport(text, preMatchQuery);
 
   const athletes = detectAthletesInQuery(text);
   if (athletes.length >= 2) return buildAiAthleteComparison(text, athletes[0], athletes[1]);
@@ -5404,12 +5404,12 @@ function detectCompetitionRankingQuery(query) {
 
 function detectPreMatchQuery(query) {
   const normalized = compactText(query);
-  const hasPreMatchIntent = /(报名|名单|赛前|马上|近期|最近|未开赛|未开始|待开赛|即将)/.test(normalized);
+  const hasPreMatchIntent = /(报名|名单|赛前|马上|近期|未开赛|未开始|待开赛|即将)/.test(normalized);
   if (!hasPreMatchIntent) return null;
   const year = detectYearInQuery(normalized);
   const month = detectMonthInQuery(normalized);
   const region = detectRegionInQuery(normalized);
-  const status = detectStatusInQuery(normalized);
+  const status = normalized.includes('报名中') ? 'registration' : detectStatusInQuery(normalized.replace(/报名情况|报名信息|报名名单/g, ''));
   return { year, month, region, status };
 }
 
@@ -5507,6 +5507,21 @@ function aiPreMatchFocusRows(competitions) {
     const matchText = matched.length ? `匹配 ${matched.length} 场近期赛事` : '暂未匹配到同项目近期赛事';
     return `${prefix} ${athlete.name || '选手'}：历史项目 ${projectText}，${matchText}`;
   });
+}
+
+function aiPreMatchRosterInsightRows(competitions) {
+  const rosterRows = prematchRosterRows(competitions);
+  if (!rosterRows.length) return [];
+  const itemRows = rosterItemSummary(rosterRows);
+  const clubRows = rosterClubSummary(rosterRows, 3);
+  const preparationRows = rosterPreparationRows(rosterRows, aiAthletePool());
+  const rows = [`报名名单已有 ${rosterRows.length} 人次，可先看项目热度、重点俱乐部和历史强手。`];
+  if (itemRows[0]) rows.push(`人数最多项目：${itemRows[0].label}，${itemRows[0].count} 人。`);
+  if (clubRows[0]) rows.push(`报名最多俱乐部：${clubRows[0].club}，${clubRows[0].count} 人次，覆盖 ${clubRows[0].projectCount} 个项目。`);
+  if (preparationRows[0]?.history) {
+    rows.push(`重点选手线索：${preparationRows[0].name}，历史最好第 ${preparationRows[0].bestRank || '-'} 名，适合赛前重点关注。`);
+  }
+  return rows.slice(0, 4);
 }
 
 function projectMatchesAiHints(label, hints) {
@@ -6348,7 +6363,7 @@ function buildAiPreMatchReport(query, filters) {
       const regionOk = filters.region ? regionText.includes(filters.region) : true;
       const statusOk = filters.status
         ? competition.status === filters.status
-        : ['registration', 'upcoming', 'live'].includes(competition.status) || competition.isPreEvent;
+        : ['registration', 'upcoming', 'live'].includes(competition.status) || (competition.isPreEvent && competition.status !== 'completed');
       return yearOk && monthOk && regionOk && statusOk;
     })
     .sort((a, b) => {
@@ -6359,6 +6374,7 @@ function buildAiPreMatchReport(query, filters) {
   const rosterRows = rows.filter((competition) => competition.rosterStatus === 'partial' || competition.rosterStatus === 'complete');
   const projectRows = rows.filter(competitionHasItems);
   const focusRows = aiPreMatchFocusRows(rows);
+  const rosterInsightRows = aiPreMatchRosterInsightRows(rows);
   const expectedTotal = rows.reduce((sum, competition) => sum + (Number(competition.registrationSummary?.expectedRegistrationCount) || 0), 0);
   const rosterTotal = rows.reduce((sum, competition) => sum + (Number(competition.registrationSummary?.rosterCount) || 0), 0);
   const regionLabel = filters.region || '全部地区';
@@ -6375,29 +6391,20 @@ function buildAiPreMatchReport(query, filters) {
     summary,
     cards: [
       ['相关赛事', `${rows.length} 场`],
-      ['报名信息', `${rosterRows.length} 场`],
+      ['报名名单', rosterRows.length ? (rosterTotal || expectedTotal ? `${rosterTotal || 0}/${expectedTotal || '-'}` : `${rosterRows.length} 场`) : '0 场'],
       ['项目明细', `${projectRows.length} 场`],
       ['关注选手', focusRows.length ? `${focusRows.length} 人` : '-'],
-      ['报名记录', rosterTotal || expectedTotal ? `${rosterTotal || 0}/${expectedTotal || '-'}` : '-'],
     ],
     sections: rows.length ? [
-      focusRows.length ? {
-        title: '关注选手',
-        rows: focusRows,
+      (focusRows.length || rosterInsightRows.length) ? {
+        title: '赛前重点',
+        rows: [...focusRows.slice(0, 2), ...rosterInsightRows.slice(0, 3)].slice(0, 4),
       } : null,
       {
         title: '优先关注',
-        rows: rows.slice(0, 5).map((competition) => `${competition.sportName} · ${displayDateLabel(competition.dateLabel)} · ${statusLabel(competition.status)} · ${coverageLabel(competition)}`),
+        rows: rows.slice(0, 3).map((competition) => `${competition.sportName} · ${displayDateLabel(competition.dateLabel)} · ${statusLabel(competition.status)} · ${coverageLabel(competition)}`),
       },
-      {
-        title: '赛事信息',
-        rows: [
-          `已有报名信息：${rosterRows.length} 场`,
-          `已有项目明细：${projectRows.length} 场`,
-          `可用于赛前分析：${rows.filter((competition) => ['registration', 'upcoming', 'live'].includes(competition.status) || competition.isPreEvent).length} 场`,
-        ],
-      },
-    ] : [],
+    ].filter(Boolean) : [],
     evidence: rows.slice(0, 8).map((competition) => ({
       kind: '赛前赛事',
       label: competition.sportName,

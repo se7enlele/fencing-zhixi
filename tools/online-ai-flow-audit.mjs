@@ -32,6 +32,11 @@ const cases = [
     expect: ['赛事统计', '天津', '赛事数量'],
   },
   {
+    id: 'prematch-registration',
+    query: '天津近期报名情况',
+    expect: ['赛前情报', '报名名单', '优先关注'],
+  },
+  {
     id: 'competition-lookup',
     query: '北京击剑联赛第一站',
     expect: ['赛事', '北京击剑联赛'],
@@ -57,9 +62,9 @@ function assertCase(condition, message, details = {}) {
 }
 
 async function runCase(page, testCase) {
+  await page.locator('#aiQueryInput').waitFor({ state: 'visible', timeout: 30000 });
   await page.locator('#aiQueryInput').fill(testCase.query);
   await page.locator('#aiQueryForm button[data-ai-submit="true"]').waitFor({ state: 'visible', timeout: 30000 });
-  await page.waitForFunction(() => document.body.textContent.includes('赛事雷达'), null, { timeout: 30000 });
   await page.waitForTimeout(500);
   await page.locator('#aiQueryForm button[type="submit"]').click();
   await page.waitForFunction(
@@ -128,6 +133,14 @@ try {
   await page.goto(`${baseUrl}?v=online-ai-flow-audit-${runId}`, { waitUntil: 'domcontentloaded' });
   await page.locator('#aiQueryInput').waitFor({ state: 'visible', timeout: 30000 });
   await page.locator('#aiQueryForm button[data-ai-submit="true"]').waitFor({ state: 'visible', timeout: 30000 });
+  await page.waitForFunction(
+    () => {
+      const text = document.body.textContent || '';
+      return text.includes('选手画像') && text.includes('俱乐部') && !text.includes('正在加载数据');
+    },
+    null,
+    { timeout: 60000 },
+  );
 
   for (const testCase of cases) {
     results.push(await runCase(page, testCase));

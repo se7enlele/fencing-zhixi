@@ -42,6 +42,14 @@ const functionNames = [
   'statusLabel',
   'coverageLabel',
   'coverageDetail',
+  'rosterAthleteLabel',
+  'rosterClubText',
+  'rosterEventLabel',
+  'rosterHistoryMatch',
+  'prematchRosterRows',
+  'rosterItemSummary',
+  'rosterClubSummary',
+  'rosterPreparationRows',
   'parseDateCandidates',
   'displayDateLabel',
   'competitionDateValue',
@@ -78,6 +86,7 @@ const functionNames = [
   'aiAthleteProjectLabels',
   'competitionMatchesProjectLabel',
   'aiPreMatchFocusRows',
+  'aiPreMatchRosterInsightRows',
   'projectMatchesAiHints',
   'detectYearsInQuery',
   'aiClubComparisonFilters',
@@ -151,7 +160,16 @@ const sampleCompetitions = [
     isPreEvent: true,
     rosterStatus: 'partial',
     registrationSummary: { expectedRegistrationCount: 120, rosterCount: 18 },
-    items: [{ eventCode: 'TJ2026REG-U8MF', eventName: 'U8 男子花剑', shortEventName: 'U8 男花' }],
+    items: [{
+      eventCode: 'TJ2026REG-U8MF',
+      eventName: 'U8 男子花剑',
+      shortEventName: 'U8 男花',
+      roster: [
+        { athleteName: '马潇', organName: '北京金石', eventName: 'U8 男子花剑' },
+        { athleteName: '陶嘉月', organName: '山东小众体育', eventName: 'U8 男子花剑' },
+        { athleteName: '蔡廷彧', organName: '个人', eventName: 'U8 男子花剑' },
+      ],
+    }],
   },
   {
     sportCode: 'TJ2026DONE',
@@ -330,8 +348,22 @@ assert.equal(itemScaleStats.actions.find((action) => action.sportCode)?.sportCod
 
 const prematchReport = context.buildAiAnswer('\u0032\u0030\u0032\u0036\u5e74\u0036\u6708\u5929\u6d25\u8d5b\u524d\u60c5\u62a5');
 assert.equal(prematchReport.type, 'prematch', 'prematch query should route to prematch intelligence');
+assert.ok(prematchReport.cards.length <= 4, 'AI prematch reports should keep the first screen focused');
+assert.ok(prematchReport.cards.some(([label, value]) => label === '\u62a5\u540d\u540d\u5355' && value === '38/200'), 'AI prematch reports should expose roster progress as one focused metric');
+assert.ok(prematchReport.sections.some((section) => section.title === '\u8d5b\u524d\u91cd\u70b9'), 'AI prematch reports should combine focused athletes and roster signals');
+assert.ok(prematchReport.sections.find((section) => section.title === '\u8d5b\u524d\u91cd\u70b9')?.rows.some((row) => row.includes('\u4eba\u6570\u6700\u591a\u9879\u76ee')), 'AI prematch reports should highlight the largest registration project');
+assert.ok(prematchReport.sections.find((section) => section.title === '\u8d5b\u524d\u91cd\u70b9')?.rows.some((row) => row.includes('\u62a5\u540d\u6700\u591a\u4ff1\u4e50\u90e8')), 'AI prematch reports should highlight the most active registered club');
 const prematchReportAction = prematchReport.actions.find((action) => action.prematchTemplateKind === 'prematch-pack');
 assert.equal(prematchReportAction.prematchSportCode, 'TJ2026JUNE', 'AI prematch reports should open a report scoped to the nearest matched competition');
+
+const broadRegistrationReport = context.buildAiAnswer('\u5929\u6d25\u8fd1\u671f\u62a5\u540d\u60c5\u51b5');
+assert.equal(broadRegistrationReport.type, 'prematch', 'broad registration-status questions should route to prematch intelligence');
+assert.equal(broadRegistrationReport.cards[0][1], '3 \u573a', 'broad registration-status questions should include upcoming prematch competitions, not only registration status');
+assert.ok(broadRegistrationReport.sections.some((section) => section.title === '\u4f18\u5148\u5173\u6ce8'), 'broad registration-status questions should produce actionable competition rows');
+
+const strictRegistrationReport = context.buildAiAnswer('\u5929\u6d25\u62a5\u540d\u4e2d\u7684\u6bd4\u8d5b');
+assert.equal(strictRegistrationReport.type, 'prematch', 'explicit registration-only questions should route to prematch intelligence');
+assert.equal(strictRegistrationReport.cards[0][1], '2 \u573a', 'explicit registration-only questions should keep the registration status filter');
 
 const currentYear = String(new Date().getFullYear());
 assert.equal(context.detectYearInQuery('\u4eca\u5e74\u5929\u6d25\u6709\u51e0\u573a\u6bd4\u8d5b'), currentYear, 'AI year detection should support current-year wording');
