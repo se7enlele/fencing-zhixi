@@ -28,4 +28,7 @@ assert.match(js, /报告方案/, 'AI report planning answers should use user-fac
 
 assert.doesNotMatch(js, /\bP0\b|\bP1\b/, 'frontend copy must avoid internal priority labels');
 
+assert.doesNotMatch(js, /\u751f\u6210\u5224\u65ad/, 'AI submit button should use action-oriented copy instead of judgment-generation wording');
+assert.match(js, /\u5f00\u59cb\u5206\u6790/, 'AI submit button should use concise user-facing analysis copy');
+
 console.log('product-facing copy is covered');

@@ -1402,7 +1402,7 @@ function scrollToResultPanel(element, behavior = 'smooth') {
   const scroll = () => {
     const appHeader = document.querySelector('.app-header');
     const header = appHeader || document.querySelector('.topbar');
-    const target = element.querySelector?.('.ai-answer-card, .loading-row') || element;
+    const target = element.querySelector?.('.ai-answer-card, .ai-loading-card, .loading-row') || element;
     const headerOffset = (header?.getBoundingClientRect().height || 0) + 14;
     const top = Math.max(0, window.scrollY + target.getBoundingClientRect().top - headerOffset);
     window.scrollTo({ top, left: 0, behavior });
@@ -4736,7 +4736,7 @@ function renderAiWorkspace() {
         </div>
         <form class="ai-query-form" id="aiQueryForm">
           <textarea id="aiQueryInput" rows="3" placeholder="${escapeHtml(placeholder)}"></textarea>
-          <button type="submit">生成判断</button>
+          <button type="submit">开始分析</button>
         </form>
         <div class="ai-preset-row" aria-label="推荐问题">
           ${presets.map((preset) => `<button type="button" data-ai-preset="${escapeHtml(preset)}">${escapeHtml(preset)}</button>`).join('')}
@@ -4818,7 +4818,6 @@ function bindAiWorkspace(container) {
       submitButton.disabled = true;
       submitButton.textContent = '分析中';
     }
-    answer.innerHTML = '<div class="loading-row">正在匹配相关画像</div>';
     answer.innerHTML = renderAiLoadingState(normalizedQuery);
     scrollToResultPanel(answer, 'auto');
     try {

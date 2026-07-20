@@ -91,15 +91,15 @@ assert.doesNotMatch(js, /直接用问题查看击剑数据/, 'home hero must not
 assert.doesNotMatch(js, /保留传统检索入口/, 'home page must not expose internal navigation rationale');
 assert.match(js, /问一句，生成可追溯分析/, 'home hero must explain the product value directly');
 assert.match(js, /例如：\$\{examples\.join\('\\n例如：'\)/, 'AI home placeholder must carry dynamic examples instead of a separate explanatory line');
-assert.match(js, /<button type="submit">生成判断<\/button>/, 'AI home primary CTA must use judgment-oriented product copy');
+assert.match(js, /<button type="submit">开始分析<\/button>/, 'AI home primary CTA must use action-oriented analysis copy');
 assert.match(js, /function scrollToResultPanel\(element, behavior = 'smooth'\)/, 'AI question results must have a dedicated viewport-positioning helper');
 assert.match(js, /const appHeader = document\.querySelector\('\.app-header'\)/, 'AI result scrolling must keep the app-header compatibility path');
 assert.match(js, /appHeader \|\| document\.querySelector\('\.topbar'\)/, 'AI result scrolling must account for the actual sticky topbar');
-assert.match(js, /const target = element\.querySelector\?\.\('\.ai-answer-card, \.loading-row'\) \|\| element/, 'AI result scrolling must target the rendered answer content');
+assert.match(js, /const target = element\.querySelector\?\.\('\.ai-answer-card, \.ai-loading-card, \.loading-row'\) \|\| element/, 'AI result scrolling must target the rendered answer or loading content');
 assert.match(js, /window\.scrollY \+ target\.getBoundingClientRect\(\)\.top - headerOffset/, 'AI result scrolling must position the answer area below the header');
 assert.match(js, /setTimeout\(scroll, 120\)/, 'AI result scrolling must correct after mobile layout changes');
 assert.match(js, /input\.blur\(\);/, 'AI question submission must release mobile keyboard focus before scrolling');
-assert.match(js, /answer\.innerHTML = '<div class="loading-row">正在匹配相关画像<\/div>';[\s\S]*scrollToResultPanel\(answer, 'auto'\);/, 'AI question submission must immediately move the viewport to the result area while loading');
+assert.match(js, /answer\.innerHTML = renderAiLoadingState\(normalizedQuery\);[\s\S]*scrollToResultPanel\(answer, 'auto'\);/, 'AI question submission must immediately move the viewport to the result area while loading');
 assert.match(js, /answer\.innerHTML = renderAiAnswer\(report\);[\s\S]{0,80}bindAnswer\(report\);[\s\S]{0,80}scrollToResultPanel\(answer\);/, 'AI question results must keep the viewport on the answer card after rendering');
 assert.match(js, /function entityCoverageCounts\(\)/, 'home scale numbers must use data coverage summaries without hydrating full directories');
 assert.match(js, /onlyFollowedData: false/, 'database tab must track my-follow filter state');

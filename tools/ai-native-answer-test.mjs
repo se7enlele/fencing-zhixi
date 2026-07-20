@@ -29,6 +29,8 @@ assert.match(js, /await ensureAiEntityContext\(normalizedQuery\)/, 'AI home prom
 assert.match(js, /function trackAiAnalysisHistory\(query, report\)/, 'AI home prompt must persist successful answers as reusable analysis history');
 assert.match(js, /trackAiAnalysisHistory\(normalizedQuery, report\)/, 'AI home prompt must write each successful answer to analysis history');
 assert.match(js, /report\.type === 'empty' \|\| report\.type === 'fallback'/, 'AI history must not store empty or fallback answers');
+assert.match(js, /function renderAiLoadingState\(query = ''\)/, 'AI home prompt must render an immediate loading state while matching data');
+assert.match(js, /answer\.innerHTML = renderAiLoadingState\(normalizedQuery\);[\s\S]*scrollToResultPanel\(answer, 'auto'\);[\s\S]*await ensureAiEntityContext\(normalizedQuery\)/, 'AI home prompt must scroll to the loading answer before expensive entity hydration');
 assert.match(js, /const club = detectClubInQuery\(text\);[\s\S]*if \(club\) return buildAiClubReport\(text, club\);[\s\S]*const athletes = detectAthletesInQuery\(text\);/, 'AI routing must prefer exact club matches before fuzzy athlete guesses');
 assert.match(js, /function detectClubComparisonQuery\(query\)/, 'AI must detect two-club comparison questions');
 assert.match(js, /function buildAiClubComparisonReport\(query, leftClub, rightClub, filters\)/, 'AI must build club-to-club comparison reports');
