@@ -5813,7 +5813,6 @@ function aiClubComparisonScopeLabel(filters) {
     filters.age || '全部年龄段',
     weaponLabel,
     genderLabel,
-    filters.metricMode === 'quantity' ? '数量优先' : '',
   ].filter(Boolean).join(' · ');
 }
 
@@ -5833,7 +5832,7 @@ function aiClubComparisonRefineQuery(leftClub, rightClub, filters) {
 function aiClubComparisonRefineLabel(filters) {
   const age = filters.age || 'U10';
   const weapon = { foil: '花剑', epee: '重剑', sabre: '佩剑' }[filters.weapon] || '花剑';
-  return filters.includeTotal ? `按${age}${weapon}男女细看` : `只看${age}男${weapon}`;
+  return filters.includeTotal ? `查看${age}${weapon}男女对比` : `查看${age}男${weapon}对比`;
 }
 
 function aiClubComparisonCardLabel(metric) {
@@ -5848,7 +5847,7 @@ function aiClubComparisonCardValue(left, right) {
 function aiClubComparisonMetricLine(left, right) {
   const winner = aiClubComparisonWinner(left, right);
   const winnerText = winner ? `${winner.club.club}领先` : '两边接近';
-  return `${aiClubComparisonGenderLabel(left.gender)}：${left.club.club} ${left.entrants}人次、前八${left.top8}、奖牌${left.medals}、冠军${left.champions}；${right.club.club} ${right.entrants}人次、前八${right.top8}、奖牌${right.medals}、冠军${right.champions}。初步判断：${winnerText}。`;
+  return `${aiClubComparisonGenderLabel(left.gender)}：${left.club.club} ${left.entrants}人次、前八${left.top8}、奖牌${left.medals}、冠军${left.champions}；${right.club.club} ${right.entrants}人次、前八${right.top8}、奖牌${right.medals}、冠军${right.champions}。${winnerText}。`;
 }
 
 function aiClubComparisonConclusionRows(metrics) {
@@ -5893,8 +5892,8 @@ function buildAiClubComparisonReport(query, leftClub, rightClub, filters) {
     .slice(0, 3)
     .map(([left, right]) => [aiClubComparisonCardLabel(left), aiClubComparisonCardValue(left, right)]);
   const summary = overallWinner
-    ? `${scopeLabel}范围内，按参赛人次、前八、奖牌和冠军数对比，${overallWinner.club.club}更占优。`
-    : `${scopeLabel}范围内，两家俱乐部数量表现接近，建议结合前八率、对手强度和赛事级别一起看。`;
+    ? `${scopeLabel}，按参赛规模、前八、奖牌和冠军数对比，${overallWinner.club.club}更占优。`
+    : `${scopeLabel}，两家俱乐部表现接近，建议结合前八率、对手强度和赛事级别一起看。`;
 
   return {
     type: 'club-comparison',
@@ -5906,7 +5905,7 @@ function buildAiClubComparisonReport(query, leftClub, rightClub, filters) {
     ],
     sections: [
       {
-        title: '数量判断',
+        title: '对比结论',
         rows: aiClubComparisonConclusionRows(metricPairs),
       },
     ],
@@ -7131,8 +7130,8 @@ function aiFollowUpPrompts(report) {
   if (report.type === 'club-comparison') {
     const [left, right] = String(report.title || '').split(/\s+vs\s+/i);
     return [
-      left && right ? `只看2026年，${left}和${right}谁更强？` : '',
-      left && right ? `只看U10男花，${left}和${right}的前八率谁更高？` : '',
+      left && right ? `看2026年，${left}和${right}谁更强？` : '',
+      left && right ? `看U10男花，${left}和${right}的前八率谁更高？` : '',
     ].filter(Boolean);
   }
   if (report.type === 'growth') {
