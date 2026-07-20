@@ -4742,7 +4742,7 @@ function renderAiWorkspace() {
         </div>
         <form class="ai-query-form" id="aiQueryForm">
           <textarea id="aiQueryInput" rows="3" placeholder="${escapeHtml(placeholder)}"></textarea>
-          <button type="submit">开始分析</button>
+          <button type="button" data-ai-submit="true">开始分析</button>
         </form>
         <div class="ai-preset-row" aria-label="推荐问题">
           ${presets.map((preset) => `<button type="button" data-ai-preset="${escapeHtml(preset)}">${escapeHtml(preset)}</button>`).join('')}
@@ -4788,7 +4788,7 @@ function bindAiWorkspace(container) {
   const form = container.querySelector('#aiQueryForm');
   const input = container.querySelector('#aiQueryInput');
   const answer = container.querySelector('#aiAnswer');
-  const submitButton = form?.querySelector('button[type="submit"]');
+  const submitButton = form?.querySelector('button[data-ai-submit="true"]') || form?.querySelector('button[type="submit"]');
   if (!form || !input || !answer) return;
   if (submitButton) {
     submitButton.textContent = '开始分析';
@@ -4862,6 +4862,7 @@ function bindAiWorkspace(container) {
     event.preventDefault();
     run(input.value);
   });
+  form.dataset.aiBound = 'true';
 
   container.querySelectorAll('[data-ai-preset]').forEach((button) => {
     button.addEventListener('click', () => {

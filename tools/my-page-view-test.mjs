@@ -91,7 +91,7 @@ assert.doesNotMatch(js, /直接用问题查看击剑数据/, 'home hero must not
 assert.doesNotMatch(js, /保留传统检索入口/, 'home page must not expose internal navigation rationale');
 assert.match(js, /问一句，生成可追溯分析/, 'home hero must explain the product value directly');
 assert.match(js, /例如：\$\{examples\.join\('\\n例如：'\)/, 'AI home placeholder must carry dynamic examples instead of a separate explanatory line');
-assert.match(js, /<button type="submit">开始分析<\/button>/, 'AI home primary CTA must use action-oriented analysis copy');
+assert.match(js, /<button type="button" data-ai-submit="true">开始分析<\/button>/, 'AI home primary CTA must use action-oriented analysis copy without pre-bind form submission');
 assert.match(js, /function scrollToResultPanel\(element, behavior = 'smooth'\)/, 'AI question results must have a dedicated viewport-positioning helper');
 assert.match(js, /const appHeader = document\.querySelector\('\.app-header'\)/, 'AI result scrolling must keep the app-header compatibility path');
 assert.match(js, /appHeader \|\| document\.querySelector\('\.topbar'\)/, 'AI result scrolling must account for the actual sticky topbar');

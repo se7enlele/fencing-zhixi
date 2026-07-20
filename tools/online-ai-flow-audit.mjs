@@ -105,6 +105,7 @@ async function runCase(page, testCase) {
   const inputLocator = page.locator('#aiQueryInput:visible').first();
   const submitLocator = page.locator('#aiQueryForm button[data-ai-submit="true"]:visible').first();
   await inputLocator.waitFor({ state: 'visible', timeout: 30000 });
+  await page.locator('#aiQueryForm[data-ai-bound="true"]').waitFor({ state: 'attached', timeout: 30000 });
   await inputLocator.fill(testCase.query);
   await submitLocator.waitFor({ state: 'visible', timeout: 30000 });
   await inputLocator.evaluate((input, query) => {
@@ -113,7 +114,23 @@ async function runCase(page, testCase) {
     input.dispatchEvent(new InputEvent('input', { bubbles: true, inputType: 'insertText', data: query }));
     input.dispatchEvent(new Event('change', { bubbles: true }));
   }, testCase.query);
+  const beforeAnswerText = await page.locator('#aiAnswer').innerText().catch(() => '');
   await submitLocator.click();
+  try {
+    await page.waitForFunction(
+      (beforeText) => {
+        const node = document.querySelector('#aiAnswer');
+        if (!node) return false;
+        const text = node.textContent || '';
+        return text.trim() !== String(beforeText || '').trim()
+          && Boolean(node.querySelector('.ai-loading-card, .ai-answer-card'));
+      },
+      beforeAnswerText,
+      { timeout: 1500 },
+    );
+  } catch {
+    await submitLocator.evaluate((button) => button.click());
+  }
   await page.waitForFunction(
     (expected) => {
       const node = document.querySelector('#aiAnswer');
@@ -207,6 +224,7 @@ try {
   await page.goto(`${baseUrl}?v=online-ai-flow-audit-${runId}`, { waitUntil: 'domcontentloaded' });
   await page.locator('#aiQueryInput:visible').first().waitFor({ state: 'visible', timeout: 30000 });
   await page.locator('#aiQueryForm button[data-ai-submit="true"]:visible').first().waitFor({ state: 'visible', timeout: 30000 });
+  await page.locator('#aiQueryForm[data-ai-bound="true"]').waitFor({ state: 'attached', timeout: 30000 });
   await page.waitForFunction(
     () => {
       const text = document.body.textContent || '';
