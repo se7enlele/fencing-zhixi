@@ -4873,6 +4873,47 @@ function submitAiQuery(query) {
   form.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
 }
 
+const AI_ENHANCEMENT_BLOCKLIST = [
+  /[\u5206\u6790]\u53e3\u5f84/,
+  /\u5224\u65ad\u8def\u5f84/,
+  /\u5224\u65ad\u4f9d\u636e/,
+  /\u6570\u636e\u8fb9\u754c/,
+  /\u5185\u90e8\u89c4\u5219/,
+  /\u540e\u7eed/,
+  /\u9884\u7559/,
+  /\u7b2c\u4e00\u9636\u6bb5/,
+  /AI\s*\u589e\u5f3a/i,
+  /\u589e\u5f3a\u89e3\u8bfb/,
+  /implementation|internal|debug|pipeline|fallback|rollout/i,
+];
+
+function cleanAiEnhancementText(value) {
+  const text = String(value || '').replace(/\s+/g, ' ').trim();
+  if (!text) return '';
+  return AI_ENHANCEMENT_BLOCKLIST.some((pattern) => pattern.test(text)) ? '' : text;
+}
+
+function sanitizeAiEnhancement(enhancement = {}) {
+  if (!enhancement || typeof enhancement !== 'object') return null;
+  const headline = cleanAiEnhancementText(enhancement.headline);
+  const explanation = cleanAiEnhancementText(enhancement.explanation);
+  const takeaways = (Array.isArray(enhancement.takeaways) ? enhancement.takeaways : [])
+    .map(cleanAiEnhancementText)
+    .filter(Boolean)
+    .slice(0, 4);
+  const caveats = (Array.isArray(enhancement.caveats) ? enhancement.caveats : [])
+    .map(cleanAiEnhancementText)
+    .filter(Boolean)
+    .slice(0, 2);
+  if (!headline && !explanation && !takeaways.length && !caveats.length) return null;
+  return {
+    headline: headline || '\u8865\u5145\u89e3\u8bfb',
+    explanation,
+    takeaways,
+    caveats,
+  };
+}
+
 function aiEnhancementRequestPayload(report = {}) {
   const visibleSections = (report.sections || []).filter(isUserFacingAiSection);
   return {
@@ -4916,7 +4957,7 @@ function sameAiReport(left = {}, right = {}) {
 async function enhanceAiAnswer(report, answer, bindAnswer) {
   if (!reportCanUseAiEnhancement(report)) return;
   try {
-    const enhancement = await requestAiEnhancement(report);
+    const enhancement = sanitizeAiEnhancement(await requestAiEnhancement(report));
     if (!enhancement) return;
     const currentReport = answer.querySelector('.ai-answer-card')?.__aiReport;
     if (!sameAiReport(currentReport || report, report)) return;
@@ -7031,7 +7072,7 @@ function aiAnswerMetaRows(report = {}) {
 
 function renderAiAnswer(report) {
   const visibleSections = (report.sections || []).filter(isUserFacingAiSection);
-  const enhancement = report.enhancement || null;
+  const enhancement = sanitizeAiEnhancement(report.enhancement || null);
   return `
     <div class="ai-answer-card">
       <div class="ai-answer-head">

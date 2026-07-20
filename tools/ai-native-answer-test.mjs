@@ -144,7 +144,10 @@ assert.doesNotMatch(js, /sections: \(report\.sections \|\| \[\]\)\.slice\(0, 6\)
 assert.match(js, /function requestAiEnhancement\(report = \{\}\)/, 'AI answers must request optional LLM enhancement through the backend');
 assert.match(js, /fetch\('\/api\/ai\/enhance'/, 'AI enhancement requests must go through the first-party backend endpoint');
 assert.match(js, /async function enhanceAiAnswer\(report, answer, bindAnswer\)/, 'AI workspace must enhance already-rendered deterministic answers when available');
-assert.match(js, /report\.enhancement \|\| null/, 'AI answer renderer must support optional enhancement payloads');
+assert.match(js, /function sanitizeAiEnhancement\(enhancement = \{\}\)/, 'AI enhancement payloads must be sanitized before user-facing rendering');
+assert.match(js, /const enhancement = sanitizeAiEnhancement\(report\.enhancement \|\| null\)/, 'AI answer renderer must not render raw enhancement payloads');
+assert.doesNotMatch(js, /const enhancement = report\.enhancement \|\| null;/, 'AI answer renderer must not expose raw enhancement content from the backend');
+assert.match(js, /AI_ENHANCEMENT_BLOCKLIST/, 'AI enhancement sanitizer must block internal product and implementation wording');
 assert.match(js, /class="ai-enhancement-card"/, 'AI answer renderer must show enhanced analysis in a dedicated card');
 assert.match(js, /enhanceAiAnswer\(report, answer, bindAnswer\)/, 'AI workspace must trigger optional enhancement after the deterministic answer is shown');
 assert.match(js, /report\.query = normalizedQuery/, 'AI answer reports must keep the original user question for feedback and history');
