@@ -6223,7 +6223,7 @@ function productTemplateEvidence(kind) {
   if (kind === 'parent-growth-report') {
     return aiFocusedAthletes()
       .slice(0, 4)
-      .flatMap((athlete) => topEvidenceEvents(athlete.events || [], athlete.name, 2))
+      .flatMap((athlete) => topEvidenceEvents(athlete.events || [], athlete.name, 2, athlete.id))
       .slice(0, 6);
   }
   return (state.clubSearchIndex || [])
@@ -6420,8 +6420,8 @@ function buildAiAthleteComparison(query, left, right) {
         reason: '用于比较同一项目里的名次差距',
         eventCode: row.eventCode,
       })),
-      ...topEvidenceEvents(leftEvents, left.name, 2),
-      ...topEvidenceEvents(rightEvents, right.name, 2),
+      ...topEvidenceEvents(leftEvents, left.name, 2, left.id),
+      ...topEvidenceEvents(rightEvents, right.name, 2, right.id),
     ].slice(0, 7),
     actions: [
       left.id ? { label: `查看${left.name}`, athleteId: left.id } : null,
@@ -6468,7 +6468,7 @@ function buildAiAthleteGrowth(query, athlete) {
         rows: athlete.opponents.slice(0, 4).map((opponent) => `${opponent.name}：${opponent.wins}胜${opponent.losses}负 · ${opponent.latestPhase || '淘汰赛'}`),
       } : null,
     ].filter(Boolean),
-    evidence: topEvidenceEvents(events, athlete.name, 7),
+    evidence: topEvidenceEvents(events, athlete.name, 7, athlete.id),
     actions: [
       athlete.id ? { label: '查看完整选手画像', athleteId: athlete.id } : null,
       aiFollowAthleteAction(athlete),
@@ -6645,18 +6645,27 @@ function directOpponentRows(left, right) {
   return rows;
 }
 
-function topEvidenceEvents(events, owner, limit = 5) {
+function topEvidenceEvents(events, owner, limit = 5, athleteId = '') {
   return (events || []).slice(0, limit).map((event) => ({
     kind: '选手成绩',
     label: displayEventName(event),
     detail: `${owner} · ${event.sportName || ''} · 第${event.finalRank ?? '-'}名 · ${event.openDate || ''}`,
     reason: '用于核对选手名次、时间和参赛项目',
     eventCode: event.eventCode,
+    athleteId,
   }));
 }
 
 function aiEvidenceKind(row) {
   return row.kind || (row.sportCode ? '赛事记录' : row.eventCode ? '项目记录' : '数据来源');
+}
+
+function aiEvidenceActionLabel(row) {
+  if (row.sportCode) return '查看赛事';
+  if (row.eventCode) return '查看项目';
+  if (row.athleteId) return '查看选手';
+  if (row.clubId) return '查看俱乐部';
+  return '查看来源';
 }
 
 function aiTrustRows(report) {
@@ -7125,10 +7134,11 @@ function renderAiAnswer(report) {
         <div class="ai-evidence">
           <div class="chart-title">来源</div>
           ${report.evidence.map((row) => `
-            <button type="button" ${row.eventCode ? `data-event-code="${escapeHtml(row.eventCode)}"` : ''} ${row.sportCode ? `data-sport-code="${escapeHtml(row.sportCode)}"` : ''} ${row.clubId ? `data-club-id="${escapeHtml(row.clubId)}"` : ''}>
+            <button type="button" ${row.eventCode ? `data-event-code="${escapeHtml(row.eventCode)}"` : ''} ${row.sportCode ? `data-sport-code="${escapeHtml(row.sportCode)}"` : ''} ${row.clubId ? `data-club-id="${escapeHtml(row.clubId)}"` : ''} ${row.athleteId ? `data-athlete-id="${escapeHtml(row.athleteId)}"` : ''}>
               <em>${escapeHtml(aiEvidenceKind(row))}</em>
               <strong>${escapeHtml(row.label)}</strong>
               <span>${escapeHtml(row.detail)}</span>
+              <small>${escapeHtml(aiEvidenceActionLabel(row))}</small>
             </button>
           `).join('')}
         </div>

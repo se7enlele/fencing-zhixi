@@ -122,11 +122,13 @@ assert.match(js, /followCompetitionCode: watchRows\[0\]\.sportCode/, 'AI competi
 assert.match(js, /kind: '共同项目'/, 'AI evidence must label shared project evidence');
 assert.match(js, /reason: '用于比较同一项目里的名次差距'/, 'AI evidence must explain why a source supports the answer');
 assert.match(js, /function aiEvidenceKind\(row\)/, 'AI evidence renderer must normalize evidence type labels');
+assert.match(js, /function aiEvidenceActionLabel\(row\)/, 'AI evidence renderer must expose a clear source-opening action label');
 assert.match(js, /function aiTrustRows\(report\)/, 'AI answers must summarize judgment basis before detailed evidence');
 assert.match(js, /function aiFollowAthleteAction\(athlete\)/, 'AI answers must expose follow actions for athletes');
 assert.match(js, /followAthleteId: athlete\.id/, 'AI growth answers must include follow athlete action payload');
 assert.match(js, /data-follow-athlete-id/, 'AI action buttons must support follow-athlete actions');
 assert.match(js, /row\.clubId \? `data-club-id=/, 'AI evidence buttons must support club evidence actions');
+assert.match(js, /row\.athleteId \? `data-athlete-id=/, 'AI evidence buttons must support athlete evidence actions');
 assert.match(js, /upsertFollowedAthlete\(athlete\)/, 'AI follow action must reuse the existing follow handler');
 assert.match(js, /class="ai-action-block"/, 'AI answers must promote executable actions as a dedicated block');
 assert.match(js, /<strong>查看<\/strong>/, 'AI action block must use concise product-facing action copy');
@@ -196,6 +198,7 @@ assert.doesNotMatch(js, /<strong>判断依据<\/strong>/, 'AI answer must not sh
 assert.doesNotMatch(js, /lines\.push\('', '判断依据'\)/, 'AI copied summaries must not expose internal judgment-basis headings');
 assert.match(js, /lines\.push\('', '参考来源'\)/, 'AI copied summaries should use source-oriented wording');
 assert.match(js, /<em>\$\{escapeHtml\(aiEvidenceKind\(row\)\)\}<\/em>/, 'AI evidence cards must show evidence type');
+assert.match(js, /<small>\$\{escapeHtml\(aiEvidenceActionLabel\(row\)\)\}<\/small>/, 'AI evidence cards must show a clear source-opening action');
 assert.doesNotMatch(js, /<small>\$\{escapeHtml\(row\.reason\)\}<\/small>/, 'AI evidence cards must not show internal relevance reasons');
 assert.doesNotMatch(js, /已关注这个孩子/, 'AI action buttons must not show ambiguous already-following child copy');
 assert.doesNotMatch(js, /数据边界：/, 'AI answer copy and feedback must not expose internal data boundary notes');
@@ -216,7 +219,7 @@ assert.match(css, /\.ai-conversion-actions/, 'AI conversion action styles must e
 assert.match(css, /\.ai-share-row/, 'AI share action styles must exist');
 assert.doesNotMatch(css, /\.ai-follow-up-row/, 'AI follow-up question styles should be removed when hidden from the product UI');
 assert.match(css, /\.ai-evidence button em/, 'AI evidence type badge styles must exist');
-assert.doesNotMatch(css, /\.ai-evidence button small/, 'AI evidence reason styles must not exist');
+assert.match(css, /\.ai-evidence button small/, 'AI evidence action label styles must exist');
 assert.match(css, /contain: inline-size/, 'Pool process cards must contain wide tables inside the mobile viewport');
 assert.match(css, /touch-action: pan-x/, 'Pool tables must support horizontal pan without expanding the page');
 assert.match(css, /\.tab-panel,[\s\S]*#matchList[\s\S]*min-width: 0;/, 'Competition process panels must not expand wider than the mobile viewport');
