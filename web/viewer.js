@@ -4860,8 +4860,10 @@ function bindAiWorkspace(container) {
   });
   submitButton?.addEventListener('click', (event) => {
     event.preventDefault();
+    event.stopPropagation();
     run(input.value);
   });
+  form.__runAiQuery = run;
   form.dataset.aiBound = 'true';
 
   container.querySelectorAll('[data-ai-preset]').forEach((button) => {
@@ -4880,7 +4882,28 @@ function submitAiQuery(query) {
   const form = homePage?.querySelector('#aiQueryForm');
   if (!input || !form) return;
   input.value = text;
+  if (typeof form.__runAiQuery === 'function') {
+    form.__runAiQuery(text);
+    return;
+  }
   form.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
+}
+
+if (typeof document !== 'undefined') {
+  document.addEventListener('click', (event) => {
+    const button = event.target?.closest?.('button[data-ai-submit="true"]');
+    if (!button) return;
+    const form = button.closest('#aiQueryForm');
+    const input = form?.querySelector('#aiQueryInput');
+    if (!form || !input) return;
+    event.preventDefault();
+    const query = input.value;
+    if (typeof form.__runAiQuery === 'function') {
+      form.__runAiQuery(query);
+    } else {
+      submitAiQuery(query);
+    }
+  });
 }
 
 const AI_ENHANCEMENT_BLOCKLIST = [

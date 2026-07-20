@@ -106,16 +106,21 @@ async function runCase(page, testCase) {
   const submitLocator = page.locator('#aiQueryForm button[data-ai-submit="true"]:visible').first();
   await inputLocator.waitFor({ state: 'visible', timeout: 30000 });
   await page.locator('#aiQueryForm[data-ai-bound="true"]').waitFor({ state: 'attached', timeout: 30000 });
-  await inputLocator.fill(testCase.query);
   await submitLocator.waitFor({ state: 'visible', timeout: 30000 });
   await inputLocator.evaluate((input, query) => {
     if (!input) throw new Error('Missing AI query input');
+    input.focus();
     input.value = query;
     input.dispatchEvent(new InputEvent('input', { bubbles: true, inputType: 'insertText', data: query }));
     input.dispatchEvent(new Event('change', { bubbles: true }));
   }, testCase.query);
+  const confirmedQuery = await inputLocator.inputValue();
+  assertCase(confirmedQuery === testCase.query, `${testCase.id} query input was not set`, {
+    expected: testCase.query,
+    actual: confirmedQuery,
+  });
   const beforeAnswerText = await page.locator('#aiAnswer').innerText().catch(() => '');
-  await submitLocator.click();
+  await submitLocator.evaluate((button) => button.click());
   try {
     await page.waitForFunction(
       (beforeText) => {
@@ -133,18 +138,17 @@ async function runCase(page, testCase) {
   }
   await page.waitForFunction(
     (expected) => {
-      const node = document.querySelector('#aiAnswer');
-      if (!node) return false;
-      const text = node.textContent || '';
+      const card = document.querySelector('#aiAnswer .ai-answer-card');
+      if (!card) return false;
+      const text = card.textContent || '';
       return expected.every((phrase) => text.includes(phrase));
     },
     testCase.expect,
     { timeout: 30000 },
   );
-  await page.locator('#aiAnswer .ai-answer-card:visible').first().waitFor({ state: 'visible', timeout: 30000 });
   await page.waitForTimeout(300);
 
-  const answer = page.locator('#aiAnswer .ai-answer-card:visible').first();
+  const answer = page.locator('#aiAnswer .ai-answer-card').first();
   const text = await answer.innerText();
   const viewportTop = await answer.boundingBox();
   const actionLabels = await answer.locator('.ai-action-row button').evaluateAll((nodes) => nodes.map((node) => node.textContent.trim()));

@@ -33,6 +33,8 @@ assert.match(js, /function renderAiLoadingState\(query = ''\)/, 'AI home prompt 
 assert.match(js, /answer\.innerHTML = renderAiLoadingState\(normalizedQuery\);[\s\S]*scrollToResultPanel\(answer, 'auto'\);[\s\S]*await ensureAiEntityContext\(normalizedQuery\)/, 'AI home prompt must scroll to the loading answer before expensive entity hydration');
 assert.match(js, /<button type="button" data-ai-submit="true">/, 'AI submit button must not submit the form before JavaScript handlers are bound');
 assert.match(js, /form\.dataset\.aiBound = 'true'/, 'AI form must expose a bound marker before automation or fast users click it');
+assert.match(js, /form\.__runAiQuery = run/, 'AI form must expose its runner after home rerenders');
+assert.match(js, /document\.addEventListener\('click'[\s\S]*button\[data-ai-submit="true"\][\s\S]*form\.__runAiQuery/, 'AI submit button needs a delegated click fallback');
 assert.match(js, /const club = detectClubInQuery\(text\);[\s\S]*if \(club\) return buildAiClubReport\(text, club\);[\s\S]*const athletes = detectAthletesInQuery\(text\);/, 'AI routing must prefer exact club matches before fuzzy athlete guesses');
 assert.match(js, /function detectClubComparisonQuery\(query\)/, 'AI must detect two-club comparison questions');
 assert.match(js, /function buildAiClubComparisonReport\(query, leftClub, rightClub, filters\)/, 'AI must build club-to-club comparison reports');
