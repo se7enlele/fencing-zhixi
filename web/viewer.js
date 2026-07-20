@@ -6282,7 +6282,12 @@ function productTemplateSections(kind) {
 function productTemplateEvidence(kind) {
   if (kind === 'prematch-pack') {
     return (state.competitions || [])
-      .filter((competition) => ['registration', 'upcoming', 'live'].includes(competition.status) || competition.isPreEvent)
+      .filter((competition) => ['registration', 'upcoming', 'live'].includes(competition.status) || (competition.isPreEvent && competition.status !== 'completed'))
+      .sort((a, b) => {
+        const dayA = Math.abs(daysFromToday(competitionDateValue(a)));
+        const dayB = Math.abs(daysFromToday(competitionDateValue(b)));
+        return dayA - dayB || String(a.dateLabel || '').localeCompare(String(b.dateLabel || ''), 'zh-CN');
+      })
       .slice(0, 6)
       .map((competition) => ({
         kind: '赛前赛事',

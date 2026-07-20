@@ -102,11 +102,18 @@ function assertCase(condition, message, details = {}) {
 }
 
 async function runCase(page, testCase) {
-  await page.locator('#aiQueryInput').waitFor({ state: 'visible', timeout: 30000 });
-  await page.locator('#aiQueryInput').fill(testCase.query);
-  await page.locator('#aiQueryForm button[data-ai-submit="true"]').waitFor({ state: 'visible', timeout: 30000 });
-  await page.waitForTimeout(500);
-  await page.locator('#aiQueryForm button[type="submit"]').click();
+  const inputLocator = page.locator('#aiQueryInput:visible').first();
+  const submitLocator = page.locator('#aiQueryForm button[data-ai-submit="true"]:visible').first();
+  await inputLocator.waitFor({ state: 'visible', timeout: 30000 });
+  await inputLocator.fill(testCase.query);
+  await submitLocator.waitFor({ state: 'visible', timeout: 30000 });
+  await inputLocator.evaluate((input, query) => {
+    if (!input) throw new Error('Missing AI query input');
+    input.value = query;
+    input.dispatchEvent(new InputEvent('input', { bubbles: true, inputType: 'insertText', data: query }));
+    input.dispatchEvent(new Event('change', { bubbles: true }));
+  }, testCase.query);
+  await submitLocator.click();
   await page.waitForFunction(
     (expected) => {
       const node = document.querySelector('#aiAnswer');
@@ -117,10 +124,10 @@ async function runCase(page, testCase) {
     testCase.expect,
     { timeout: 30000 },
   );
-  await page.locator('#aiAnswer .ai-answer-card').first().waitFor({ state: 'visible', timeout: 30000 });
+  await page.locator('#aiAnswer .ai-answer-card:visible').first().waitFor({ state: 'visible', timeout: 30000 });
   await page.waitForTimeout(300);
 
-  const answer = page.locator('#aiAnswer .ai-answer-card').first();
+  const answer = page.locator('#aiAnswer .ai-answer-card:visible').first();
   const text = await answer.innerText();
   const viewportTop = await answer.boundingBox();
   const actionLabels = await answer.locator('.ai-action-row button').evaluateAll((nodes) => nodes.map((node) => node.textContent.trim()));
@@ -128,6 +135,7 @@ async function runCase(page, testCase) {
   const sectionCount = await answer.locator('.ai-section').count();
   const evidenceCount = await answer.locator('.ai-evidence button').count();
   const hasEvidenceSummary = await answer.locator('.ai-evidence-summary').count();
+  const evidenceNavigation = evidenceCount ? await verifyFirstEvidenceNavigation(page, answer, testCase) : null;
 
   const missingExpected = testCase.expect.filter((phrase) => !text.includes(phrase));
   const bannedHits = bannedCopy.filter((phrase) => text.includes(phrase));
@@ -148,9 +156,35 @@ async function runCase(page, testCase) {
     sectionCount,
     evidenceCount,
     hasEvidenceSummary: Boolean(hasEvidenceSummary),
+    evidenceNavigation,
     answerTop: viewportTop.y,
     title: text.split('\n').slice(0, 4).join(' / '),
   };
+}
+
+async function verifyFirstEvidenceNavigation(page, answer, testCase) {
+  const evidenceButton = answer.locator('.ai-evidence button').first();
+  const sourceText = (await evidenceButton.innerText()).split('\n').filter(Boolean).slice(0, 4).join(' / ');
+  await evidenceButton.click();
+  await page.waitForFunction(
+    () => {
+      const visibleHero = [...document.querySelectorAll('.hero-title')]
+        .find((node) => node.offsetParent !== null && node.textContent.trim());
+      return Boolean(visibleHero);
+    },
+    null,
+    { timeout: 30000 },
+  );
+  await page.waitForTimeout(300);
+  const bodyText = await page.locator('body').innerText();
+  const heroTitle = await page.locator('.hero-title:visible').first().innerText();
+  const failureCopy = ['读取失败', '不存在', 'Unexpected token', 'DOCTYPE'].filter((phrase) => bodyText.includes(phrase));
+  assertCase(!failureCopy.length, `${testCase.id} evidence navigation opens an error state`, { sourceText, heroTitle, failureCopy });
+  assertCase(Boolean(heroTitle.trim()), `${testCase.id} evidence navigation did not open a detail title`, { sourceText });
+
+  await page.evaluate(() => document.querySelector('[data-main-tab="home"]')?.click());
+  await page.locator('#aiQueryInput:visible').first().waitFor({ state: 'visible', timeout: 30000 });
+  return { sourceText, heroTitle };
 }
 
 const browser = await chromium.launch({
@@ -171,8 +205,8 @@ await page.addInitScript(() => {
 const results = [];
 try {
   await page.goto(`${baseUrl}?v=online-ai-flow-audit-${runId}`, { waitUntil: 'domcontentloaded' });
-  await page.locator('#aiQueryInput').waitFor({ state: 'visible', timeout: 30000 });
-  await page.locator('#aiQueryForm button[data-ai-submit="true"]').waitFor({ state: 'visible', timeout: 30000 });
+  await page.locator('#aiQueryInput:visible').first().waitFor({ state: 'visible', timeout: 30000 });
+  await page.locator('#aiQueryForm button[data-ai-submit="true"]:visible').first().waitFor({ state: 'visible', timeout: 30000 });
   await page.waitForFunction(
     () => {
       const text = document.body.textContent || '';

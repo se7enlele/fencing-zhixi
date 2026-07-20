@@ -84,6 +84,8 @@ assert.match(js, /data-coach-segmentation-club-id/, 'AI action buttons must supp
 assert.match(js, /openCoachSegmentationReport\(button\.dataset\.coachSegmentationClubId\)/, 'AI coach segmentation actions must bind to report navigation');
 assert.match(js, /function productTemplateSections\(kind\)/, 'AI templates must expose reusable report sections');
 assert.match(js, /function productTemplateEvidence\(kind\)/, 'AI templates must attach source evidence');
+assert.match(js, /competition\.isPreEvent && competition\.status !== 'completed'/, 'prematch template evidence must not include completed pre-event rows');
+assert.match(js, /daysFromToday\(competitionDateValue\(a\)\)/, 'prematch template evidence must prioritize nearest actionable competitions');
 assert.match(js, /title: '优先落地场景'/, 'AI business analysis must prioritize productized opportunities');
 assert.match(js, /title: '角色转化路径'/, 'AI business analysis must include parent, coach and event conversion paths');
 assert.match(js, /title: '数据成熟度'/, 'AI business analysis must show which data can support which business scenario');
