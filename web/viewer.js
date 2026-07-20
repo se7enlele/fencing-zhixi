@@ -369,7 +369,7 @@ function renderAccountPanel() {
           <span>密码</span>
           <input name="code" type="password" autocomplete="current-password" placeholder="至少 6 位，首次输入即创建账号">
         </label>
-        <button type="submit">登录或创建账号</button>
+        <button type="submit">登录账号</button>
         <em data-account-status>登录后，关注、历史和报告可以在不同设备继续查看。</em>
       </form>
     </section>
@@ -448,12 +448,12 @@ function renderAccountPanelV2() {
             <span>密码</span>
             <input name="code" type="password" autocomplete="current-password" placeholder="至少 6 位，首次输入即创建账号">
           </label>
-          <button type="submit">登录或创建账号</button>
-          <em data-account-status>${escapeHtml(state.accountStatus || '登录后，关注、历史和报告可以在不同设备继续查看。')}</em>
+          <button type="submit">登录账号</button>
+          <em data-account-status>${escapeHtml(state.accountStatus || '没有账号时会自动创建。登录后，关注、历史和报告可以在不同设备继续查看。')}</em>
         </form>
       ` : `
         <div class="account-action-row account-login-entry">
-          <button type="button" data-account-open-login>登录或创建账号</button>
+          <button type="button" data-account-open-login>登录账号</button>
         </div>
         ${state.accountStatus ? `<p class="account-status-line">${escapeHtml(state.accountStatus)}</p>` : ''}
       `}
@@ -523,7 +523,7 @@ async function clearAccountData(button) {
 async function showWechatAuthStatus() {
   try {
     const result = await fetchJson('/api/auth/wechat/status');
-    state.accountStatus = result.wechat?.message || '当前可使用手机号登录；微信登录开放后可在这里绑定。';
+    state.accountStatus = result.wechat?.message || '当前请使用手机号或邮箱登录。';
   } catch (error) {
     state.accountStatus = error.message || '微信登录状态读取失败。';
   }

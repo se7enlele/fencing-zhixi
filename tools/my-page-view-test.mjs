@@ -337,8 +337,12 @@ assert.match(js, /data-account-logout/, 'my page account panel must expose a log
 assert.match(js, /<span>未登录<\/span>/, 'account center must clearly show unauthenticated state');
 assert.match(js, /<strong>当前未登录<\/strong>/, 'account center must explain local browsing before login');
 assert.match(js, /<span>密码<\/span>/, 'account center must use normal password copy instead of login-code copy');
-assert.match(js, /登录或创建账号/, 'account center CTA must avoid slash-heavy login copy');
+assert.match(js, /data-account-open-login>登录账号<\/button>/, 'logged-out account center must open login with a direct CTA');
+assert.match(js, /<button type="submit">登录账号<\/button>/, 'account form submit copy must stay focused on login');
+assert.match(js, /没有账号时会自动创建。/, 'account form may explain first-time account creation as helper copy');
+assert.doesNotMatch(js, /登录或创建账号/, 'account center must not combine login and signup in one vague CTA');
 assert.doesNotMatch(js, /登录码/, 'account center must not call the password a login code');
+assert.doesNotMatch(js, /微信登录开放后/, 'account center must not expose future WeChat login roadmap');
 assert.match(js, /class="account-state-note signed"/, 'signed-in account center must show a dedicated logged-in state note');
 assert.match(js, /data-account-export/, 'my page account center must expose account data export');
 assert.match(js, /data-account-clear/, 'my page account center must expose account data clearing');
