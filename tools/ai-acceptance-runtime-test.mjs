@@ -64,6 +64,9 @@ const functionNames = [
   'detectCompetitionLikeQuery',
   'competitionNameMatchKey',
   'relatedCompetitionsForQuery',
+  'aiFallbackCandidateTerms',
+  'fallbackMatchScore',
+  'aiFallbackCandidates',
   'detectClubInQuery',
   'detectClubsInQuery',
   'detectClubComparisonQuery',
@@ -460,6 +463,13 @@ assert.ok(missingCompetitionFallback.actions.some((action) => action.sportCode =
 assert.ok(missingCompetitionFallback.actions.some((action) => action.query), 'missing competition fallback should offer a runnable follow-up question');
 assert.ok(missingCompetitionFallback.evidence.some((row) => row.kind === '\u76f8\u8fd1\u8d5b\u4e8b' && row.sportCode === 'RZSS2021040'), 'missing competition fallback should cite similar competitions as source evidence');
 assert.ok(!/(\u5bfc\u5165|\u7ee7\u7eed\u751f\u6210|\u540e\u7eed|\u6570\u636e\u8fb9\u754c|\u6682\u672a\u8bc6\u522b)/.test(`${missingCompetitionFallback.title}${missingCompetitionFallback.summary}`), 'missing competition fallback should use user-facing collection copy');
+
+const fuzzyObjectFallback = context.buildAiAnswer('\u5c0f\u4f17');
+assert.equal(fuzzyObjectFallback.type, 'fallback', 'short incomplete object queries should enter guided recovery');
+assert.match(fuzzyObjectFallback.title, /\u5148\u786e\u8ba4\u4f60\u8981\u770b\u7684\u5bf9\u8c61/, 'fuzzy fallback should ask the user to confirm a specific object');
+assert.ok(fuzzyObjectFallback.evidence.some((row) => row.kind === '\u76f8\u8fd1\u4ff1\u4e50\u90e8' && row.clubId === 'club-sdzx'), 'fuzzy fallback should surface matching club candidates');
+assert.ok(fuzzyObjectFallback.actions.some((action) => action.clubId === 'club-sdzx'), 'fuzzy fallback should let users open the matching club');
+assert.ok(fuzzyObjectFallback.sections?.some((section) => section.title === '\u53ef\u4ee5\u5148\u770b'), 'fuzzy fallback should explain the candidate choices');
 
 const capabilityGuide = context.buildAiAnswer('\u6211\u60f3\u770b\u770b\u8fd9\u4e2a\u4ea7\u54c1\u80fd\u505a\u4ec0\u4e48');
 assert.equal(capabilityGuide.type, 'capability-guide', 'generic exploratory questions should route to a capability guide, not a dead-end fallback');

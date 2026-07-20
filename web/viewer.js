@@ -5271,6 +5271,59 @@ function relatedCompetitionsForQuery(query) {
     .slice(0, 3);
 }
 
+function aiFallbackCandidateTerms(query) {
+  const terms = aiEntityCandidateTerms(query);
+  const compact = compactText(query);
+  if (compact.length >= 2 && !terms.includes(compact)) terms.push(compact);
+  return terms.filter((term) => term.length >= 2).slice(0, 10);
+}
+
+function fallbackMatchScore(text, terms) {
+  const haystack = compactText(text);
+  if (!haystack) return 0;
+  return terms.reduce((score, term) => {
+    const needle = compactText(term);
+    if (!needle) return score;
+    if (haystack === needle) return score + 80 + needle.length;
+    if (haystack.includes(needle)) return score + 40 + needle.length;
+    if (needle.includes(haystack) && haystack.length >= 2) return score + 20 + haystack.length;
+    return score;
+  }, 0);
+}
+
+function aiFallbackCandidates(query) {
+  const terms = aiFallbackCandidateTerms(query);
+  if (!terms.length) return { athletes: [], clubs: [], competitions: [] };
+  const athletes = uniqueBy((state.athleteSearchIndex || [])
+    .map((athlete) => {
+      const score = fallbackMatchScore([athlete.name, athlete.club, athlete.searchText].filter(Boolean).join(' '), terms);
+      return score ? { athlete, score: score + Math.min(20, athlete.appearances || 0) } : null;
+    })
+    .filter(Boolean)
+    .sort((a, b) => b.score - a.score || (b.athlete.appearances || 0) - (a.athlete.appearances || 0))
+    .map((row) => row.athlete), (athlete) => athlete.id || `${athlete.name}__${athlete.club || ''}`)
+    .slice(0, 2);
+  const clubs = uniqueBy((state.clubSearchIndex || [])
+    .map((club) => {
+      const score = fallbackMatchScore([club.club, club.searchText].filter(Boolean).join(' '), terms);
+      return score ? { club, score: score + Math.min(20, club.entrants || 0) } : null;
+    })
+    .filter(Boolean)
+    .sort((a, b) => b.score - a.score || (b.club.entrants || 0) - (a.club.entrants || 0))
+    .map((row) => row.club), (club) => club.id || compactText(club.club))
+    .slice(0, 2);
+  const competitions = uniqueBy((state.competitions || [])
+    .map((competition) => {
+      const score = fallbackMatchScore(cachedCompetitionSearchHaystack(competition), terms);
+      return score ? { competition, score: score + (competitionHasItems(competition) ? 5 : 0) } : null;
+    })
+    .filter(Boolean)
+    .sort((a, b) => b.score - a.score || String(b.competition.dateLabel || '').localeCompare(String(a.competition.dateLabel || ''), 'zh-CN'))
+    .map((row) => row.competition), (competition) => competition.sportCode || competition.sportId || competition.sportName)
+    .slice(0, 3);
+  return { athletes, clubs, competitions };
+}
+
 function detectClubComparisonQuery(query) {
   const normalized = compactText(query);
   if (!/(对比|比较|比|更好|谁强|谁更强|领先|差距|优势)/.test(normalized)) return null;
@@ -5443,7 +5496,7 @@ function buildAiFallbackReport(query) {
     const relatedTitle = relatedCompetitions[0]?.sportName || '';
     const title = competitionLike.year ? `未找到${competitionLike.year}年同名赛事` : '未找到这场赛事';
     const summary = competitionLike.year
-      ? `已收录赛事里没有匹配的${competitionLike.year}年同名赛事。可以先查看${competitionLike.region || '相关地区'}赛事，或用赛程截图、报名页信息补充后再生成赛前分析。`
+      ? `已收录赛事里没有匹配的${competitionLike.year}年同名赛事。可以先查看${competitionLike.region || '相关地区'}赛事，或打开相近赛事确认是否是你要找的比赛。`
       : '已收录赛事里没有匹配的同名赛事。可以先查看同地区或同类型赛事，确认是否是你要找的比赛。';
     const cards = [
       competitionLike.year ? ['年份', competitionLike.year] : null,
@@ -5469,6 +5522,57 @@ function buildAiFallbackReport(query) {
         detail: [displayDateLabel(competition.dateLabel || competition.startDate || competition.season || ''), competition.venue || competition.region || '', statusLabel(competition.status)].filter(Boolean).join(' / '),
         sportCode: competition.sportCode,
       })),
+    };
+  }
+
+  const candidates = aiFallbackCandidates(text);
+  const candidateEvidence = [
+    ...candidates.athletes.map((athlete) => ({
+      kind: '相近选手',
+      label: athlete.name,
+      detail: `${athlete.club || '个人'} · ${athlete.appearances || 0} 次记录`,
+      athleteId: athlete.id,
+      eventCode: athlete.firstEventCode,
+    })),
+    ...candidates.clubs.map((club) => ({
+      kind: '相近俱乐部',
+      label: club.club,
+      detail: `参赛 ${club.entrants || 0} 人次 · 前八 ${club.top8 || 0}`,
+      clubId: club.id,
+    })),
+    ...candidates.competitions.map((competition) => ({
+      kind: '相近赛事',
+      label: competition.sportName,
+      detail: [displayDateLabel(competition.dateLabel), competition.venue || competition.region || '', statusLabel(competition.status)].filter(Boolean).join(' · '),
+      sportCode: competition.sportCode,
+    })),
+  ].slice(0, 5);
+  if (candidateEvidence.length) {
+    const firstAthlete = candidates.athletes[0];
+    const firstClub = candidates.clubs[0];
+    const firstCompetition = candidates.competitions[0];
+    return {
+      type: 'fallback',
+      title: '先确认你要看的对象',
+      summary: '这个问题还缺少明确对象。下面是按关键词找到的相近结果，先选中对象后可以继续分析。',
+      cards: [
+        ['相近选手', `${candidates.athletes.length} 个`],
+        ['相近俱乐部', `${candidates.clubs.length} 个`],
+        ['相近赛事', `${candidates.competitions.length} 场`],
+      ],
+      sections: [
+        {
+          title: '可以先看',
+          rows: candidateEvidence.slice(0, 3).map((row) => `${row.kind}：${row.label} · ${row.detail}`),
+        },
+      ],
+      actions: [
+        firstAthlete?.id ? { label: `看${firstAthlete.name}`, athleteId: firstAthlete.id } : null,
+        firstClub?.id ? { label: `看${firstClub.club}`, clubId: firstClub.id } : null,
+        firstCompetition?.sportCode ? { label: '看相近赛事', sportCode: firstCompetition.sportCode } : null,
+        { label: '进入数据库', mainTab: 'competitions' },
+      ].filter(Boolean),
+      evidence: candidateEvidence,
     };
   }
 
@@ -10260,7 +10364,7 @@ function renderClubs(event) {
 function renderClubProfiles(event) {
   const rows = event.clubProfiles || [];
   if (!rows.length && event.clubDistribution && Object.keys(event.clubDistribution).length) {
-    clubProfiles.innerHTML = '<div class="empty">当前服务没有返回俱乐部画像，请重新启动新版服务。</div>';
+    clubProfiles.innerHTML = '<div class="empty">本场暂时没有可展开的俱乐部画像，可先查看俱乐部分布。</div>';
     return;
   }
   clubProfiles.innerHTML = rows.length
@@ -10284,7 +10388,7 @@ function renderClubProfiles(event) {
 function renderAthleteProfiles(event) {
   const rows = event.athleteProfiles || [];
   if (!rows.length && event.clubDistribution && Object.keys(event.clubDistribution).length) {
-    athleteProfiles.innerHTML = '<div class="empty">当前服务没有返回选手画像，请重新启动新版服务。</div>';
+    athleteProfiles.innerHTML = '<div class="empty">本场暂时没有可展开的选手画像，可先查看名单和排名。</div>';
     return;
   }
   athleteProfiles.innerHTML = rows.length
