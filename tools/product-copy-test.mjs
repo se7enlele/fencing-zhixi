@@ -31,4 +31,29 @@ assert.doesNotMatch(js, /\bP0\b|\bP1\b/, 'frontend copy must avoid internal prio
 assert.doesNotMatch(js, /\u751f\u6210\u5224\u65ad/, 'AI submit button should use action-oriented copy instead of judgment-generation wording');
 assert.match(js, /\u5f00\u59cb\u5206\u6790/, 'AI submit button should use concise user-facing analysis copy');
 
+[
+  '先看能否稳定进入后续轮次',
+  '后续出现接近比分后',
+  '后续有淘汰赛对阵后',
+  '沉淀后续动作',
+  '后续可直接复用',
+  '后续订阅报名和重点对手更新',
+  '后续赛事生成',
+  '后续再扩展会员或教练端 SaaS',
+  '后续提醒、报告或工作台',
+  '后续报告入口',
+  "label: '后续'",
+  '后续赛程',
+  '后续再细化到选手对标',
+  '后续名单和成绩补齐',
+  '后续成长报告',
+  '后续招生案例',
+  '后续训练反馈',
+  '后续成长复盘样本',
+  '后续赛前报告',
+  '暂未识别到',
+].forEach((phrase) => {
+  assert.ok(!js.includes(phrase), `frontend copy must not expose internal or dead-end wording: ${phrase}`);
+});
+
 console.log('product-facing copy is covered');

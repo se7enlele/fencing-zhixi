@@ -2170,7 +2170,7 @@ function parentNextFocusRows(model) {
       ? { title: '扩大淘汰赛优势', detail: `${model.totalElimWins}胜${model.totalElimLosses}负，适合重点研究强手对局。` }
       : { title: '积累淘汰赛经验', detail: `${model.totalElimWins}胜${model.totalElimLosses}负，下一步关注关键分处理。` });
   } else {
-    rows.push({ title: '争取淘汰赛突破', detail: '当前还缺少淘汰赛胜负样本，先看能否稳定进入后续轮次。' });
+    rows.push({ title: '争取淘汰赛突破', detail: '淘汰赛胜负样本还少，重点看能否稳定进入更深轮次。' });
   }
 
   rows.push(model.top8Count
@@ -2314,14 +2314,14 @@ function parentGrowthCloseBoutRows(athlete) {
   const rate = total ? Math.round((wins / total) * 100) : null;
   const summary = total
     ? `近似胶着对局 ${total} 场，${wins}胜${losses}负。`
-    : '暂未识别到一两剑分差的淘汰赛对局。';
+    : '接近比分样本还少。';
   const advice = total
     ? rate >= 60
       ? '胶着局处理有正向信号，下一步保持领先收尾和关键分主动性。'
       : wins
         ? '已经有胶着局取胜样本，建议继续复盘落后追分和最后两剑处理。'
         : '胶着局暂时偏吃亏，下一步重点复盘最后两剑、领先后收尾和落后追分。'
-    : '后续出现接近比分后，再重点观察最后两剑处理和关键分稳定性。';
+    : '接近比分增多时，重点观察最后两剑处理和关键分稳定性。';
   return {
     total,
     wins,
@@ -2716,7 +2716,7 @@ function renderParentGrowthReport(athleteId = '') {
             </div>
             <b>${escapeHtml(row.record)}</b>
           </button>
-        `).join('') : '<div class="empty compact-empty">当前还没有可追踪的直接对手记录。后续有淘汰赛对阵后，会在这里沉淀重点对手和交手变化。</div>'}
+        `).join('') : '<div class="empty compact-empty">当前还没有可追踪的直接对手记录。出现淘汰赛对阵后，这里会展示重点对手和交手变化。</div>'}
       </div>
     </article>
 
@@ -3209,7 +3209,7 @@ function reportNextActionRows(reportHistory = reportHistoryRows()) {
       trialLabel: '申请试用',
       reminderLabel: '',
       source: 'my-report-next-action',
-      next: '打开报告后，可继续沉淀后续动作。',
+      next: '打开报告后，可继续保存提醒、复盘和跟进动作。',
     };
     if (row.type === 'prematch') {
       return {
@@ -3241,7 +3241,7 @@ function reportNextActionRows(reportHistory = reportHistoryRows()) {
         ...base,
         actionLabel: '继续追问',
         trialLabel: '申请分析试用',
-        next: '把高频问题沉淀成固定报告，后续可直接复用。',
+        next: '把高频问题沉淀成固定报告，之后可直接复用。',
       };
     }
     return base;
@@ -3821,7 +3821,7 @@ function trialDeliverableRows() {
         ? `${prematch.sportName} 已可生成赛前项目、报名名单和强手线索。`
         : `${activeCount} 场赛前/报名赛事可作为备选，先选择目标赛事。`,
       next: prematch
-        ? `先生成本场情报包，后续订阅报名和重点对手更新。`
+        ? `先生成本场情报包，再订阅报名和重点对手更新。`
         : `已有 ${rosterCount} 场赛事带报名数据，可先从近期赛事开始。`,
       action: prematch ? 'prematch' : 'ask',
       sportCode: prematch?.sportCode || '',
@@ -3835,7 +3835,7 @@ function trialDeliverableRows() {
       tone: child ? 'ready' : 'pending',
       detail: child
         ? `${child.name} 已可生成成长复盘、名次变化和下一场建议。`
-        : '关注孩子后，成长报告会围绕他的比赛记录和后续赛事生成。',
+        : '关注孩子后，成长报告会围绕他的比赛记录和目标赛事生成。',
       next: child
         ? `先生成 ${child.name} 的完整成长报告，再订阅赛后复盘提醒。`
         : '先在搜索中关注孩子，避免报告出现无关选手。',
@@ -5278,10 +5278,12 @@ function buildAiFallbackReport(query) {
     return {
       type: 'fallback',
       title: '当前未收录这场赛事',
-      summary: '可以先查看同地区或同年份已收录赛事；如果你有赛事列表、项目或报名名单，导入后就能继续生成分析。',
+      summary: '可以先查看同地区或同年份赛事；拿到赛事项目或报名名单后，这里会形成赛事详情和赛前分析。',
       cards,
       actions: [
         { label: '查看相关赛事', mainTab: 'competitions', filters: competitionLike },
+        { label: '统计同地区赛事', query: `${competitionLike.year || '2026'}年${competitionLike.region || ''}有几场比赛` },
+        { label: '查看赛前情报', query: `${competitionLike.year || '2026'}年${competitionLike.region || ''}赛前情报` },
       ],
       evidence: [],
     };
@@ -6012,7 +6014,7 @@ function businessMonetizationRows() {
     `赛前情报包：用 ${activeCount} 场近期/报名赛事做高频入口，其中 ${rosterCount} 场已有报名名单，适合先做单场试用和赛前提醒。`,
     `家长成长报告：用 ${scoreCount} 场成绩样本沉淀月度/赛后复盘，当前 ${followedCount} 名关注选手可直接承接个人化报告。`,
     `教练工作台：用 ${clubCount} 个俱乐部画像承接学员分层、续费沟通和招生展示，优先服务熟悉的小型剑馆样板。`,
-    '商业闭环：免费问答负责发现需求，报告负责证明价值，关注/试用负责留存，后续再扩展会员或教练端 SaaS。沿这条路径推进，避免只做泛数据浏览。',
+    '商业闭环：免费问答负责发现需求，报告负责证明价值，关注/试用负责留存，再逐步扩展会员或教练端 SaaS。沿这条路径推进，避免只做泛数据浏览。',
   ];
 }
 
@@ -7001,7 +7003,7 @@ function aiReportConversionAction(report = {}) {
   return {
     source: `ai-${type}-answer`,
     title: '持续使用这类分析',
-    detail: '适合把本次分析沉淀为后续提醒、报告或工作台。',
+    detail: '适合把本次分析沉淀为提醒、报告或工作台。',
     primaryLabel: '申请试用',
     secondaryLabel: '了解会员权益',
   };
@@ -7038,7 +7040,7 @@ function aiConversionServiceRows(report = {}) {
     ];
   }
   return [
-    '把本次分析保存为后续报告入口',
+    '把本次分析保存为报告入口',
     '围绕关注选手、赛事和俱乐部持续更新',
     '需要时补充人工跟进和试用说明',
   ];
@@ -7077,7 +7079,7 @@ function aiAnswerMetaRows(report = {}) {
   });
   const actionCount = report.actions?.length || 0;
   rows.push({
-    label: '后续',
+    label: '动作',
     value: actionCount ? `${actionCount} 个动作` : '可继续追问',
   });
   return rows;
@@ -7875,7 +7877,7 @@ function recommendationReasonForCompetition(competition) {
   const topItem = [...competitionItemSummaries(competition)].sort((a, b) => (Number(b.competitionNo) || Number(b.expectedRegistrationCount) || 0) - (Number(a.competitionNo) || Number(a.expectedRegistrationCount) || 0))[0];
   const itemText = competition.topItemLabel || (topItem ? `${displayEventName(topItem)}数据较完整` : '项目数据已收录');
   if (days >= -90 && days <= 30) return `近期比赛 · ${itemText}`;
-  if (days > 30 && days < 99999) return `后续赛程 · ${itemText}`;
+  if (days > 30 && days < 99999) return `未来赛程 · ${itemText}`;
   if (days < -90) return `历史样本 · ${itemText}`;
   return `最新录入 · ${itemText}`;
 }
@@ -8587,11 +8589,11 @@ function competitionPreEventReadinessRows(competition) {
     title: '赛前可用信息',
     detail: rosterReady
       ? '已有报名线索，可先看同项目强手、熟悉对手和俱乐部分布。'
-      : '可先看比赛时间、地点和重点项目，后续再细化到选手对标。',
+      : '可先看比赛时间、地点和重点项目，再根据报名名单细化到选手对标。',
   });
   rows.push({
     title: '关注方式',
-    detail: '关注赛事后，后续名单和成绩补齐时可快速回到这场比赛继续查看。',
+    detail: '关注赛事后，名单和成绩更新时可快速回到这场比赛继续查看。',
   });
   return rows;
 }
@@ -9141,7 +9143,7 @@ function renderEventPreMatchIntelligence(event) {
       <div class="chart-title">赛前情报</div>
       <div class="event-prematch-summary">
         <strong>${escapeHtml(hasRoster ? `${model.registered} 条报名动态` : '报名动态持续更新')}</strong>
-        <span>${escapeHtml(hasRoster ? '先看报名热度、主要俱乐部和可重点关注选手。' : '当前先看比赛时间和项目热度，后续会形成对手分析。')}</span>
+        <span>${escapeHtml(hasRoster ? '先看报名热度、主要俱乐部和可重点关注选手。' : '当前先看比赛时间和项目热度，报名信息更新时可形成对手分析。')}</span>
       </div>
       <div class="event-prematch-metrics">
         <div>
@@ -10050,7 +10052,7 @@ function buildAthleteDataRequestText(athlete, requestType, details = {}) {
     requestType === 'hide'
       ? '申请说明：希望隐藏该选手公开画像，请进行身份和监护关系核验。'
       : requestType === 'claim-athlete'
-        ? '申请说明：希望认领该选手档案，用于后续成长报告、赛前提醒和数据核验。'
+        ? '申请说明：希望认领该选手档案，用于成长报告、赛前提醒和数据核验。'
         : '申请说明：需要更正姓名、俱乐部、赛事记录，或合并同名选手画像。',
     details.note ? `补充说明：${details.note}` : '补充说明：用户未填写。',
   ].filter(Boolean).join('\n');
@@ -10103,7 +10105,7 @@ function renderAthleteDataRequestPanel(athlete) {
     <div class="athlete-data-request">
       <div>
         <strong>数据反馈</strong>
-        <span>可认领档案用于后续成长报告和提醒；公开成绩如有误，也可以提交纠错、合并或隐藏申请。</span>
+        <span>可认领档案用于成长报告和提醒；公开成绩如有误，也可以提交纠错、合并或隐藏申请。</span>
       </div>
       <div class="athlete-data-request-actions">
         <button type="button" data-athlete-request="claim-athlete">认领档案</button>
@@ -10670,7 +10672,7 @@ function coachBusinessGrowthRows(club, projectRows, buckets) {
       label: `${(scoreBucket?.rows || []).length} 名冲成绩`,
       detail: (scoreBucket?.rows || []).length
         ? `代表学员 ${(scoreBucket.rows || []).slice(0, 3).map((athlete) => athlete.name).join('、')} 可作为训练成果案例。`
-        : '先把最稳定的学员成长过程沉淀下来，作为后续招生案例。',
+        : '先把最稳定的学员成长过程沉淀下来，作为招生案例。',
     },
   ];
 }
@@ -11133,14 +11135,14 @@ function buildClubCommunicationScripts(club, projectRows, athletes) {
       detail: `${bestProject.label} 是当前最适合对外展示的项目，已有最好第 ${bestProject.bestRank ?? '-'} 名和 ${bestProject.top8 || 0} 次前八表现。`,
     } : topProject ? {
       title: '重点项目',
-      detail: `${topProject.label} 参赛基础较完整，适合作为后续训练反馈和参赛规划的主线。`,
+      detail: `${topProject.label} 参赛基础较完整，适合作为训练反馈和参赛规划的主线。`,
     } : null,
     strongestAthlete ? {
       title: '成长案例',
       detail: `${strongestAthlete.name} 已有 ${strongestAthlete.appearances || 0} 次参赛记录，最好第 ${strongestAthlete.bestRank ?? '-'} 名，可用于说明训练和比赛经验的积累。`,
     } : steadyAthletes.length ? {
       title: '成长案例',
-      detail: `${steadyAthletes.map((athlete) => athlete.name).join('、')} 已形成连续参赛记录，可作为后续成长复盘样本。`,
+      detail: `${steadyAthletes.map((athlete) => athlete.name).join('、')} 已形成连续参赛记录，可作为成长复盘样本。`,
     } : null,
     {
       title: '下一步',
@@ -12190,7 +12192,7 @@ function prematchActionPlanRows({
         : '先关注孩子或学员，系统会把赛前报告切换到个人化项目匹配。',
       copy: focusNames.length
         ? `本次重点看 ${focusNames.join('、')}，先核对历史项目与本场项目是否匹配。`
-        : '建议先关注孩子或学员，后续赛前报告会自动生成个人化准备重点。',
+        : '建议先关注孩子或学员，赛前报告会自动生成个人化准备重点。',
     },
     {
       key: 'opponents',

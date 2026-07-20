@@ -393,6 +393,8 @@ assert.equal(missingCompetitionFallback.type, 'fallback', 'year-mismatched compe
 assert.match(missingCompetitionFallback.title, /\u5f53\u524d\u672a\u6536\u5f55\u8fd9\u573a\u8d5b\u4e8b/, 'missing competition fallback should explain current collection status');
 assert.ok(missingCompetitionFallback.cards.some(([label, value]) => label === '\u5e74\u4efd' && value === '2026'), 'missing competition fallback should preserve parsed year');
 assert.ok(missingCompetitionFallback.actions.some((action) => action.filters?.year === '2026' && action.filters?.region === '\u5317\u4eac'), 'missing competition fallback should offer a filtered database path');
+assert.ok(missingCompetitionFallback.actions.some((action) => action.query), 'missing competition fallback should offer a runnable follow-up question');
+assert.ok(!/(\u5bfc\u5165|\u7ee7\u7eed\u751f\u6210|\u540e\u7eed|\u6570\u636e\u8fb9\u754c|\u6682\u672a\u8bc6\u522b)/.test(`${missingCompetitionFallback.title}${missingCompetitionFallback.summary}`), 'missing competition fallback should use user-facing collection copy');
 
 const genericFallback = context.buildAiAnswer('\u6211\u60f3\u770b\u770b\u8fd9\u4e2a\u4ea7\u54c1\u80fd\u505a\u4ec0\u4e48');
 assert.equal(genericFallback.type, 'fallback', 'generic exploratory questions should stay recoverable');
