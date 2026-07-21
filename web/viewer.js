@@ -6480,7 +6480,7 @@ function buildAiCompetitionRanking(query, filters) {
 function businessMetricRows() {
   const competitions = state.competitions || [];
   const entityCounts = entityCoverageCounts();
-  const activeCompetitions = competitions.filter((competition) => ['registration', 'upcoming', 'live'].includes(competition.status) || competition.isPreEvent);
+  const activeCompetitions = competitions.filter(isActionablePrematchCompetition);
   const regionCount = new Set(competitions.map((competition) => competition.region || competition.venue).filter(Boolean)).size;
   const scoredCompetitions = competitions.filter((competition) => competition.status === 'completed' || competitionHasItems(competition));
   return [
@@ -6516,12 +6516,21 @@ function businessClubOpportunityRows() {
     .map((club) => `${club.club}：${club.entrants || 0} 人次，前八 ${club.top8 || 0}，奖牌 ${club.medals || 0}`);
 }
 
+function isActionablePrematchCompetition(competition) {
+  if (!competition || competition.status === 'completed') return false;
+  const hasPrematchStatus = ['registration', 'upcoming', 'live'].includes(competition.status) || competition.isPreEvent;
+  if (!hasPrematchStatus) return false;
+  if (competition.status === 'live') return true;
+  const days = daysFromToday(competitionDateValue(competition));
+  return days >= 0;
+}
+
 function businessCoverageOpportunityRows() {
   const competitions = state.competitions || [];
   const scoreCount = competitions.filter((competition) => competition.coverageLevel === 'score' || competitionHasItems(competition)).length;
   const rosterCount = competitions.filter((competition) => competition.coverageLevel === 'roster' || competition.rosterStatus === 'partial' || competition.rosterStatus === 'complete').length;
   const projectCount = competitions.filter((competition) => competition.coverageLevel === 'project' || competition.itemCount || competition.itemSummaries?.length).length;
-  const activeCount = competitions.filter((competition) => ['registration', 'upcoming', 'live'].includes(competition.status) || competition.isPreEvent).length;
+  const activeCount = competitions.filter(isActionablePrematchCompetition).length;
   const scoreRate = competitions.length ? Math.round((scoreCount / competitions.length) * 100) : 0;
   const rosterRate = activeCount ? Math.round((rosterCount / activeCount) * 100) : 0;
   return [
@@ -6534,7 +6543,7 @@ function businessCoverageOpportunityRows() {
 function businessRoleConversionRows() {
   const focused = aiFocusedAthletes();
   const club = state.currentClub || aiDefaultClub();
-  const activeCount = (state.competitions || []).filter((competition) => ['registration', 'upcoming', 'live'].includes(competition.status) || competition.isPreEvent).length;
+  const activeCount = (state.competitions || []).filter(isActionablePrematchCompetition).length;
   return [
     `家长转化：${focused.length ? `从已关注的 ${focused.length} 名孩子生成成长报告` : '先引导关注孩子'}，再承接赛后复盘、同龄段位置和下一场建议。`,
     `教练转化：${club?.club ? `从 ${club.club} 的俱乐部画像进入学员分层` : '从俱乐部搜索进入队伍画像'}，再承接续费沟通和训练反馈。`,
@@ -6544,7 +6553,7 @@ function businessRoleConversionRows() {
 
 function businessPriorityRows() {
   const competitions = state.competitions || [];
-  const activeCount = competitions.filter((competition) => ['registration', 'upcoming', 'live'].includes(competition.status) || competition.isPreEvent).length;
+  const activeCount = competitions.filter(isActionablePrematchCompetition).length;
   const scoreCount = competitions.filter((competition) => competition.coverageLevel === 'score' || competitionHasItems(competition)).length;
   const clubCount = entityCoverageCounts().clubs;
   return [
@@ -6555,7 +6564,7 @@ function businessPriorityRows() {
 }
 
 function businessProductOpportunityRows() {
-  const activeCount = (state.competitions || []).filter((competition) => ['registration', 'upcoming', 'live'].includes(competition.status) || competition.isPreEvent).length;
+  const activeCount = (state.competitions || []).filter(isActionablePrematchCompetition).length;
   const entityCounts = entityCoverageCounts();
   return [
     `家长端：用 ${entityCounts.athletes} 个选手画像生成成长报告、同龄段位置和下一场比赛建议。`,
@@ -6567,7 +6576,7 @@ function businessProductOpportunityRows() {
 
 function businessMonetizationRows() {
   const competitions = state.competitions || [];
-  const activeCount = competitions.filter((competition) => ['registration', 'upcoming', 'live'].includes(competition.status) || competition.isPreEvent).length;
+  const activeCount = competitions.filter(isActionablePrematchCompetition).length;
   const rosterCount = competitions.filter((competition) => competition.rosterStatus === 'partial' || competition.rosterStatus === 'complete').length;
   const scoreCount = competitions.filter((competition) => competition.coverageLevel === 'score' || competitionHasItems(competition)).length;
   const followedCount = aiFocusedAthletes().length;
@@ -6583,8 +6592,8 @@ function businessMonetizationRows() {
 function buildAiBusinessInsightReport(query) {
   const competitions = state.competitions || [];
   const activeRows = competitions
-    .filter((competition) => ['registration', 'upcoming', 'live'].includes(competition.status) || competition.isPreEvent)
-    .sort((a, b) => Math.abs(daysFromToday(competitionDateValue(a))) - Math.abs(daysFromToday(competitionDateValue(b))))
+    .filter(isActionablePrematchCompetition)
+    .sort((a, b) => daysFromToday(competitionDateValue(a)) - daysFromToday(competitionDateValue(b)))
     .slice(0, 5);
   const topClubs = (state.clubSearchIndex || [])
     .slice()

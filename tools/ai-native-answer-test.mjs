@@ -118,6 +118,8 @@ assert.match(js, /教练工作台/, 'AI business analysis must include the coach
 assert.match(js, /家长端：用/, 'AI business analysis must include parent-facing value');
 assert.match(js, /教练端：用/, 'AI business analysis must include coach-facing value');
 assert.match(js, /kind: '赛前机会'/, 'AI business evidence must include prematch opportunity sources');
+assert.match(js, /function isActionablePrematchCompetition\(competition\)/, 'AI business insight must centralize actionable prematch filtering');
+assert.match(js, /function buildAiBusinessInsightReport\(query\)[\s\S]*\.filter\(isActionablePrematchCompetition\)/, 'AI business insight must only cite actionable prematch opportunities');
 assert.match(js, /kind: '俱乐部资产'/, 'AI business evidence must include club business assets');
 assert.match(js, /label: '查看赛前情报包'/, 'AI business actions must open the prematch product package path');
 assert.match(js, /label: '查看成长报告'/, 'AI business actions must open the parent growth package path');

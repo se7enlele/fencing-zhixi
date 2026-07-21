@@ -124,6 +124,7 @@ const functionNames = [
   'businessMetricRows',
   'businessRegionRows',
   'businessClubOpportunityRows',
+  'isActionablePrematchCompetition',
   'businessCoverageOpportunityRows',
   'businessRoleConversionRows',
   'businessPriorityRows',
@@ -412,6 +413,13 @@ context.__state.clubSearchIndex = originalClubSearchIndex;
 context.__state.athletesById = originalAthletesById;
 context.__state.clubsById = originalClubsById;
 delete context.__state.dataCoverage;
+
+const businessCoverageReport = context.buildAiAnswer('这些击剑数据能产生什么商业价值');
+assert.equal(businessCoverageReport.type, 'business-insight', 'business-value questions should route to business insight');
+const prematchEvidence = businessCoverageReport.evidence.filter((row) => row.kind === '赛前机会');
+assert.ok(prematchEvidence.length, 'business insight should cite actionable prematch opportunities when available');
+assert.ok(!prematchEvidence.some((row) => row.sportCode === 'TJ2026REG'), 'business insight should not treat past registration rows as prematch opportunities');
+assert.ok(prematchEvidence.every((row) => context.isActionablePrematchCompetition(context.__state.competitions.find((competition) => competition.sportCode === row.sportCode))), 'business insight prematch evidence must use actionable future or live competitions');
 
 for (const item of context.aiAcceptanceQueryCases()) {
   const report = context.buildAiAnswer(item.query);
