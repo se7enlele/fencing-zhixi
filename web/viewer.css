@@ -2242,6 +2242,18 @@ select:focus {
   padding: 0 12px;
 }
 
+.my-hero-actions {
+  display: grid;
+  gap: 7px;
+  justify-items: end;
+}
+
+.my-hero.guest .my-hero-actions button:last-child {
+  border-color: rgba(13, 125, 103, 0.2);
+  background: var(--teal);
+  color: #fff;
+}
+
 .my-stat-grid,
 .home-stats-strip {
   display: grid;

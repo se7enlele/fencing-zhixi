@@ -8136,17 +8136,27 @@ function renderMyPage() {
   ];
   const primaryStats = stats.slice(0, 4);
   const secondaryStats = stats.slice(4);
-  const accountTag = state.authUser ? '账号已登录' : '账号未登录';
+  const isSignedIn = Boolean(state.authUser);
+  const accountTitle = isSignedIn
+    ? (state.authUser.displayName || state.authUser.identifier || '已登录用户')
+    : '账号未登录';
+  const accountTag = `使用视角：${roleLabel(state.userRole || 'parent')}`;
+  const accountDetail = isSignedIn
+    ? '关注、报告和历史会保存到当前账号。'
+    : '可以浏览公开赛事；登录后可保存关注、报告和历史。';
 
   myPage.innerHTML = `
-    <section class="my-hero panel">
+    <section class="my-hero panel ${isSignedIn ? 'signed' : 'guest'}">
       <div>
-        <span>使用视角</span>
-        <strong>${escapeHtml(`${roleLabel(state.userRole)}视角`)}</strong>
+        <span>${escapeHtml(isSignedIn ? '账号中心' : '访问状态')}</span>
+        <strong>${escapeHtml(accountTitle)}</strong>
         <i class="account-view-tag">${escapeHtml(accountTag)}</i>
-        <em>${escapeHtml(followCopy.heroDetail)}</em>
+        <em>${escapeHtml(accountDetail)}</em>
       </div>
-      <button type="button" data-role-switch>切换</button>
+      <div class="my-hero-actions">
+        <button type="button" data-role-switch>切换视角</button>
+        ${isSignedIn ? '' : '<button type="button" data-account-open-login>登录</button>'}
+      </div>
     </section>
 
     <section class="my-stat-grid">

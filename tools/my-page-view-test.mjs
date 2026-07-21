@@ -394,10 +394,12 @@ assert.match(js, /state\.userRole === 'coach'[\s\S]*title: '关注学员'/, 'coa
 assert.match(js, /state\.userRole === 'club'[\s\S]*title: '代表选手'/, 'club my page must frame followed athletes as representative athletes');
 assert.match(js, /statLabel: '关注学员'/, 'coach my page stats must frame followed athletes as students');
 assert.match(js, /statLabel: '代表选手'/, 'club my page stats must frame followed athletes as representative athletes');
-assert.match(js, /<span>使用视角<\/span>/, 'my page hero must describe role as a view instead of account identity');
-assert.match(js, /\$\{escapeHtml\(`\$\{roleLabel\(state\.userRole\)\}视角`\)\}/, 'my page hero must render the selected role as an analysis view');
-assert.match(js, /const accountTag = state\.authUser \? '账号已登录' : '账号未登录';/, 'my page hero must separate account status from the selected analysis view');
-assert.match(js, /class="account-view-tag"/, 'my page hero must render account status as a compact tag');
+assert.match(js, /const isSignedIn = Boolean\(state\.authUser\);/, 'my page hero must derive a real account login state');
+assert.match(js, /const accountTitle = isSignedIn[\s\S]*: '账号未登录';/, 'my page hero must show account state as the primary title when logged out');
+assert.match(js, /const accountTag = `使用视角：\$\{roleLabel\(state\.userRole \|\| 'parent'\)\}`;/, 'my page hero must keep parent/coach/club as a view tag');
+assert.match(js, /<span>\$\{escapeHtml\(isSignedIn \? '账号中心' : '访问状态'\)\}<\/span>/, 'my page hero must not present role choice as account identity');
+assert.match(js, /class="account-view-tag"/, 'my page hero must render the selected view as a compact tag');
+assert.match(js, /data-account-open-login>登录<\/button>/, 'logged-out my page hero must offer a direct login action');
 assert.match(js, /使用视角：\$\{escapeHtml\(roleLabel\(state\.userRole \|\| 'parent'\)\)\}/, 'home role bar must describe role as a view instead of account identity');
 assert.doesNotMatch(js, /账号状态见账号中心/, 'my page hero must not expose account implementation copy');
 assert.doesNotMatch(js, /当前工作台/, 'my page hero must not imply the user is signed in to a workspace');
@@ -560,6 +562,7 @@ assert.match(css, /\.focus-trial-actions/, 'follow reminder subscription actions
 assert.match(css, /\.focus-alert-card/, 'follow alert card styles must exist');
 assert.match(css, /\.focus-alert-actions/, 'follow alert action styles must exist');
 assert.match(css, /\.my-page-shell/, 'personal page styles must exist');
+assert.match(css, /\.my-hero-actions/, 'my page hero must keep role switching and login actions compact');
 assert.match(css, /\.account-panel/, 'account panel styles must exist');
 assert.match(css, /\.account-login-form/, 'account login form styles must exist');
 assert.match(css, /\.account-summary/, 'signed-in account summary styles must exist');
