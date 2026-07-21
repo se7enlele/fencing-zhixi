@@ -35,8 +35,8 @@ assert.doesNotMatch(js, /产品化方向|商业化落地顺序|商业闭环|SaaS
 
 assert.doesNotMatch(js, /\bP0\b|\bP1\b/, 'frontend copy must avoid internal priority labels');
 
-assert.doesNotMatch(js, /\u751f\u6210\u5224\u65ad|\u5f00\u59cb\u5206\u6790/, 'AI submit button should avoid vague judgment or process-oriented copy');
-assert.match(js, /\u67e5\u770b\u5206\u6790/, 'AI submit button should use a result-oriented analysis CTA');
+assert.doesNotMatch(js, /\u751f\u6210\u5224\u65ad/, 'AI submit button must not use vague judgment copy');
+assert.match(js, /\u5f00\u59cb\u5206\u6790/, 'AI submit button should use a direct action CTA');
 assert.match(html, /id="followFilterMenu"/, 'my-follow filter should have a visible inline menu container');
 assert.match(js, /function toggleFollowFilterMenu\(\)/, 'my-follow filter should toggle a real inline menu');
 assert.match(js, /data-follow-filter-value/, 'my-follow filter menu must render selectable options');

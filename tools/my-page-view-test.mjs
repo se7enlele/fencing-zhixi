@@ -83,15 +83,15 @@ assert.match(js, /function aiAnalyzeActionRow\(actions = \[\]\)/, 'database deta
 assert.match(js, /function bindAiAnalyzeActions\(container\)/, 'database detail AI entries must be bound to the home AI workspace');
 assert.match(js, /data-ai-analyze-query/, 'detail AI analysis actions must carry the prefilled question');
 assert.match(js, /submitAiQuery\(button\.dataset\.aiAnalyzeQuery \|\| ''\)/, 'detail AI analysis actions must route to the AI home answer flow');
-assert.match(js, /submitButton\.textContent = '查看分析'/, 'AI home CTA must be relabeled to a result-oriented analysis CTA');
+assert.match(js, /submitButton\.textContent = '开始分析'/, 'AI home CTA must use a direct action label');
 assert.match(js, /answer\.innerHTML = renderAiLoadingState\(normalizedQuery\);[\s\S]*scrollToResultPanel\(answer, 'auto'\);/, 'AI question submission must immediately show a skeleton state and move the viewport to it');
-assert.match(js, /submitButton\.disabled = true;[\s\S]*submitButton\.textContent = '分析中'/, 'AI question submission must disable the CTA while loading');
+assert.match(js, /submitButton\.disabled = true;[\s\S]*submitButton\.textContent = '分析中\.\.\.'/, 'AI question submission must disable the CTA while loading');
 assert.match(js, /<div class="ai-loading-progress" aria-hidden="true"><i><\/i><\/div>/, 'AI loading state must include an explicit progress indicator');
 assert.match(js, /<span>理解问题<\/span>[\s\S]*<span>查找相关记录<\/span>[\s\S]*<span>形成结论<\/span>/, 'AI loading steps must use user-facing progress copy');
 assert.doesNotMatch(js, /匹配赛事和画像/, 'AI loading copy must avoid internal matching wording');
 assert.match(js, /answer\.setAttribute\('aria-busy', 'true'\);/, 'AI answer area must expose busy state while loading');
 assert.match(js, /currentAnswer\.setAttribute\('aria-busy', 'false'\);/, 'AI answer area must clear busy state after rendering');
-assert.match(js, /finally \{[\s\S]*submitButton\.disabled = false;[\s\S]*submitButton\.textContent = '查看分析'/, 'AI question submission must restore the CTA after loading');
+assert.match(js, /finally \{[\s\S]*submitButton\.disabled = false;[\s\S]*submitButton\.textContent = '开始分析'/, 'AI question submission must restore the CTA after loading');
 assert.match(js, /function renderFocusedHomePage\(\)[\s\S]*<div class="home-dashboard home-dashboard-focused">[\s\S]*\$\{renderHomeRoleBar\(\)\}[\s\S]*\$\{renderAiWorkspace\('home'\)\}[\s\S]*\$\{renderHomeFocusCard\(\)\}[\s\S]*\$\{renderHomeRadarCard\(\)\}/, 'focused home page must start with role state, AI entry, active insight, and competition radar');
 assert.doesNotMatch(js, /function renderFocusedHomePage\(\)[\s\S]*home-stats-strip[\s\S]*function renderHomePage/, 'focused home page must not show statistic cards in the first screen');
 assert.match(js, /<section class="panel ai-home-primary">[\s\S]*<\/section>\s*<div class="ai-answer" id="aiAnswer">/, 'AI answers must render outside the dark home entry panel');
@@ -100,7 +100,7 @@ assert.doesNotMatch(js, /直接用问题查看击剑数据/, 'home hero must not
 assert.doesNotMatch(js, /保留传统检索入口/, 'home page must not expose internal navigation rationale');
 assert.match(js, /问一句，生成可追溯分析/, 'home hero must explain the product value directly');
 assert.match(js, /例如：\$\{examples\.join\('\\n例如：'\)/, 'AI home placeholder must carry dynamic examples instead of a separate explanatory line');
-assert.match(js, /<button type="button" data-ai-submit="true">查看分析<\/button>/, 'AI home primary CTA must use result-oriented analysis copy without pre-bind form submission');
+assert.match(js, /<button type="button" data-ai-submit="true">开始分析<\/button>/, 'AI home primary CTA must use direct action copy without pre-bind form submission');
 assert.match(js, /function scrollToResultPanel\(element, behavior = 'smooth'\)/, 'AI question results must have a dedicated viewport-positioning helper');
 assert.match(js, /const appHeader = document\.querySelector\('\.app-header'\)/, 'AI result scrolling must keep the app-header compatibility path');
 assert.match(js, /appHeader \|\| document\.querySelector\('\.topbar'\)/, 'AI result scrolling must account for the actual sticky topbar');
@@ -109,6 +109,9 @@ assert.match(js, /window\.scrollY \+ target\.getBoundingClientRect\(\)\.top - he
 assert.match(js, /setTimeout\(scroll, 120\)/, 'AI result scrolling must correct after mobile layout changes');
 assert.match(js, /input\.blur\(\);/, 'AI question submission must release mobile keyboard focus before scrolling');
 assert.match(js, /answer\.innerHTML = renderAiLoadingState\(normalizedQuery\);[\s\S]*scrollToResultPanel\(answer, 'auto'\);/, 'AI question submission must immediately move the viewport to the result area while loading');
+assert.match(js, /const AI_LOADING_MIN_MS = 420;/, 'AI loading state must remain visible long enough to be perceived');
+assert.match(js, /function waitForAiLoadingState\(ms = AI_LOADING_MIN_MS\)/, 'AI question submission must have a minimum loading delay helper');
+assert.match(js, /Promise\.allSettled\(\[[\s\S]*ensureAiEntityContext\(normalizedQuery\),[\s\S]*waitForAiLoadingState\(\),[\s\S]*\]\)/, 'AI question submission must keep the loading state visible while hydrating data');
 assert.match(js, /currentAnswer\.innerHTML = renderAiAnswer\(report\);[\s\S]{0,120}bindAnswer\(report, currentAnswer\);[\s\S]{0,120}scrollToResultPanel\(currentAnswer\);/, 'AI question results must keep the viewport on the current answer card after rendering');
 assert.match(js, /function entityCoverageCounts\(\)/, 'home scale numbers must use data coverage summaries without hydrating full directories');
 assert.match(js, /onlyFollowedData: false/, 'database tab must track my-follow filter state');

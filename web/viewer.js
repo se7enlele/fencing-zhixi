@@ -82,6 +82,7 @@ const AI_ANSWER_SECTION_LIMIT = 1;
 const AI_ANSWER_SECTION_ROW_LIMIT = 2;
 const AI_ANSWER_ACTION_LIMIT = 3;
 const AI_ANSWER_EVIDENCE_LIMIT = 2;
+const AI_LOADING_MIN_MS = 420;
 const MAIN_TABS = ['home', 'competitions', 'my'];
 
 const views = {
@@ -5035,7 +5036,7 @@ function renderAiWorkspace() {
         </div>
         <form class="ai-query-form" id="aiQueryForm">
           <textarea id="aiQueryInput" rows="3" placeholder="${escapeHtml(placeholder)}">${escapeHtml(activeQuery)}</textarea>
-          <button type="button" data-ai-submit="true">查看分析</button>
+          <button type="button" data-ai-submit="true">开始分析</button>
         </form>
         <div class="ai-preset-row" aria-label="推荐问题">
           ${presets.map((preset) => `<button type="button" data-ai-preset="${escapeHtml(preset)}">${escapeHtml(preset)}</button>`).join('')}
@@ -5075,6 +5076,10 @@ function renderAiLoadingState(query = '') {
   `;
 }
 
+function waitForAiLoadingState(ms = AI_LOADING_MIN_MS) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 function bindAiWorkspace(container) {
   const form = container.querySelector('#aiQueryForm');
   const input = container.querySelector('#aiQueryInput');
@@ -5082,7 +5087,7 @@ function bindAiWorkspace(container) {
   const submitButton = form?.querySelector('button[data-ai-submit="true"]') || form?.querySelector('button[type="submit"]');
   if (!form || !input || !answer) return;
   if (submitButton) {
-    submitButton.textContent = '查看分析';
+    submitButton.textContent = '开始分析';
     submitButton.dataset.aiSubmit = 'true';
   }
 
@@ -5120,12 +5125,16 @@ function bindAiWorkspace(container) {
     state.isAiAnswerLoading = true;
     if (submitButton) {
       submitButton.disabled = true;
-      submitButton.textContent = '分析中';
+      submitButton.textContent = '分析中...';
     }
     answer.innerHTML = renderAiLoadingState(normalizedQuery);
     scrollToResultPanel(answer, 'auto');
     try {
-      await ensureAiEntityContext(normalizedQuery);
+      const [contextResult] = await Promise.allSettled([
+        ensureAiEntityContext(normalizedQuery),
+        waitForAiLoadingState(),
+      ]);
+      if (contextResult.status === 'rejected') throw contextResult.reason;
       const report = buildAiAnswer(normalizedQuery);
       report.query = normalizedQuery;
       state.aiActiveReport = report;
@@ -5158,7 +5167,7 @@ function bindAiWorkspace(container) {
       form.classList.remove('is-submitting');
       if (submitButton) {
         submitButton.disabled = false;
-        submitButton.textContent = '查看分析';
+        submitButton.textContent = '开始分析';
       }
     }
   };
