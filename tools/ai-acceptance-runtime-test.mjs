@@ -314,7 +314,7 @@ const context = {
   },
 };
 vm.createContext(context);
-vm.runInContext(`const state = globalThis.__state;\n${functionNames.map(extractFunction).join('\n')}\nglobalThis.buildAiAnswer = buildAiAnswer;\nglobalThis.aiAcceptanceQueryCases = aiAcceptanceQueryCases;\nglobalThis.detectRegionInQuery = detectRegionInQuery;\nglobalThis.detectYearInQuery = detectYearInQuery;\nglobalThis.aiEntityCandidateTerms = aiEntityCandidateTerms;`, context);
+vm.runInContext(`const state = globalThis.__state;\n${functionNames.map(extractFunction).join('\n')}\nglobalThis.buildAiAnswer = buildAiAnswer;\nglobalThis.aiAcceptanceQueryCases = aiAcceptanceQueryCases;\nglobalThis.detectRegionInQuery = detectRegionInQuery;\nglobalThis.detectYearInQuery = detectYearInQuery;\nglobalThis.aiEntityCandidateTerms = aiEntityCandidateTerms;\nglobalThis.businessMetricRows = businessMetricRows;\nglobalThis.businessPriorityRows = businessPriorityRows;\nglobalThis.businessProductOpportunityRows = businessProductOpportunityRows;\nglobalThis.businessMonetizationRows = businessMonetizationRows;`, context);
 
 assert.equal(context.detectRegionInQuery('2026年天津有几场比赛'), '天津', 'AI region detection must not depend on the current dataset containing that city');
 
@@ -388,6 +388,30 @@ const currentYear = String(new Date().getFullYear());
 assert.equal(context.detectYearInQuery('\u4eca\u5e74\u5929\u6d25\u6709\u51e0\u573a\u6bd4\u8d5b'), currentYear, 'AI year detection should support current-year wording');
 const broadScaleStats = context.buildAiAnswer('\u54ea\u573a\u6bd4\u8d5b\u4eba\u6570\u6700\u591a\uff1f');
 assert.ok(!/(\u5168\u90e8\u5e74\u4efd|\u5168\u90e8\u6708\u4efd)/.test(`${broadScaleStats.title}${broadScaleStats.summary}`), 'broad competition stats copy should not expose all-year or all-month filler text');
+
+const originalAthleteSearchIndex = context.__state.athleteSearchIndex;
+const originalClubSearchIndex = context.__state.clubSearchIndex;
+const originalAthletesById = context.__state.athletesById;
+const originalClubsById = context.__state.clubsById;
+context.__state.athleteSearchIndex = [];
+context.__state.clubSearchIndex = [];
+context.__state.athletesById = {};
+context.__state.clubsById = {};
+context.__state.dataCoverage = { athletes: 27264, clubs: 825 };
+assert.equal(
+  JSON.stringify(context.businessMetricRows().slice(1, 3)),
+  JSON.stringify([['选手画像', '27264 人'], ['俱乐部画像', '825 个']]),
+  'business metric cards must use aggregate entity coverage when full indexes are not hydrated',
+);
+assert.ok(context.businessPriorityRows().some((row) => row.includes('825 个俱乐部画像')), 'business priority rows must use aggregate club coverage');
+assert.ok(context.businessProductOpportunityRows().some((row) => row.includes('27264 个选手画像')), 'business opportunity rows must use aggregate athlete coverage');
+assert.ok(context.businessProductOpportunityRows().some((row) => row.includes('825 个俱乐部画像')), 'business opportunity rows must use aggregate club coverage');
+assert.ok(context.businessMonetizationRows().some((row) => row.includes('825 个俱乐部画像')), 'business monetization rows must use aggregate club coverage');
+context.__state.athleteSearchIndex = originalAthleteSearchIndex;
+context.__state.clubSearchIndex = originalClubSearchIndex;
+context.__state.athletesById = originalAthletesById;
+context.__state.clubsById = originalClubsById;
+delete context.__state.dataCoverage;
 
 for (const item of context.aiAcceptanceQueryCases()) {
   const report = context.buildAiAnswer(item.query);

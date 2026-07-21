@@ -6479,15 +6479,14 @@ function buildAiCompetitionRanking(query, filters) {
 
 function businessMetricRows() {
   const competitions = state.competitions || [];
-  const athletes = state.athleteSearchIndex || [];
-  const clubs = state.clubSearchIndex || [];
+  const entityCounts = entityCoverageCounts();
   const activeCompetitions = competitions.filter((competition) => ['registration', 'upcoming', 'live'].includes(competition.status) || competition.isPreEvent);
   const regionCount = new Set(competitions.map((competition) => competition.region || competition.venue).filter(Boolean)).size;
   const scoredCompetitions = competitions.filter((competition) => competition.status === 'completed' || competitionHasItems(competition));
   return [
     ['赛事资产', `${competitions.length} 场`],
-    ['选手画像', `${athletes.length} 人`],
-    ['俱乐部画像', `${clubs.length} 个`],
+    ['选手画像', `${entityCounts.athletes} 人`],
+    ['俱乐部画像', `${entityCounts.clubs} 个`],
     ['赛前机会', `${activeCompetitions.length} 场`],
     ['地域覆盖', `${regionCount} 个`],
     ['可复盘样本', `${scoredCompetitions.length} 场`],
@@ -6547,7 +6546,7 @@ function businessPriorityRows() {
   const competitions = state.competitions || [];
   const activeCount = competitions.filter((competition) => ['registration', 'upcoming', 'live'].includes(competition.status) || competition.isPreEvent).length;
   const scoreCount = competitions.filter((competition) => competition.coverageLevel === 'score' || competitionHasItems(competition)).length;
-  const clubCount = (state.clubSearchIndex || []).length;
+  const clubCount = entityCoverageCounts().clubs;
   return [
     `赛前准备：${activeCount} 场近期赛事适合做报名提醒、项目核对和重点对手观察。`,
     `成长复盘：${scoreCount} 场有成绩的赛事适合整理孩子阶段变化和赛后复盘。`,
@@ -6557,11 +6556,10 @@ function businessPriorityRows() {
 
 function businessProductOpportunityRows() {
   const activeCount = (state.competitions || []).filter((competition) => ['registration', 'upcoming', 'live'].includes(competition.status) || competition.isPreEvent).length;
-  const athleteCount = (state.athleteSearchIndex || []).length;
-  const clubCount = (state.clubSearchIndex || []).length;
+  const entityCounts = entityCoverageCounts();
   return [
-    `家长端：用 ${athleteCount} 个选手画像生成成长报告、同龄段位置和下一场比赛建议。`,
-    `教练端：用 ${clubCount} 个俱乐部画像做学员分层、重点备赛和招生展示。`,
+    `家长端：用 ${entityCounts.athletes} 个选手画像生成成长报告、同龄段位置和下一场比赛建议。`,
+    `教练端：用 ${entityCounts.clubs} 个俱乐部画像做学员分层、重点备赛和招生展示。`,
     `赛前场景：${activeCount} 场赛前/报名赛事可用于对手观察和赛事提醒。`,
     '行业端：按地区、月份、项目和俱乐部活跃度输出区域增长与赛事供给判断。',
   ];
@@ -6573,7 +6571,7 @@ function businessMonetizationRows() {
   const rosterCount = competitions.filter((competition) => competition.rosterStatus === 'partial' || competition.rosterStatus === 'complete').length;
   const scoreCount = competitions.filter((competition) => competition.coverageLevel === 'score' || competitionHasItems(competition)).length;
   const followedCount = aiFocusedAthletes().length;
-  const clubCount = (state.clubSearchIndex || []).length;
+  const clubCount = entityCoverageCounts().clubs;
   return [
     `赛前情报包：用 ${activeCount} 场近期/报名赛事做高频入口，其中 ${rosterCount} 场有报名名单，适合先做单场试用和赛前提醒。`,
     `家长成长报告：用 ${scoreCount} 场成绩样本整理月度/赛后复盘，${followedCount} 名关注选手可直接生成个人化报告。`,

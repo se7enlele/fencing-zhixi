@@ -85,6 +85,8 @@ assert.match(js, /function businessPriorityRows\(\)/, 'AI business insight must 
 assert.match(js, /function businessRoleConversionRows\(\)/, 'AI business insight must map opportunities to user role conversion paths');
 assert.match(js, /function businessCoverageOpportunityRows\(\)/, 'AI business insight must explain data maturity before monetization');
 assert.match(js, /function businessMonetizationRows\(\)/, 'AI business insight must translate data assets into a commercial rollout order');
+assert.match(js, /function businessMetricRows\(\)[\s\S]*const entityCounts = entityCoverageCounts\(\);[\s\S]*\['选手画像', `\$\{entityCounts\.athletes\} 人`\][\s\S]*\['俱乐部画像', `\$\{entityCounts\.clubs\} 个`\]/, 'AI business metric cards must use aggregate entity coverage instead of empty search indexes');
+assert.match(js, /function businessProductOpportunityRows\(\)[\s\S]*const entityCounts = entityCoverageCounts\(\);[\s\S]*\$\{entityCounts\.athletes\} 个选手画像[\s\S]*\$\{entityCounts\.clubs\} 个俱乐部画像/, 'AI business opportunity rows must use aggregate entity coverage');
 assert.match(js, /function detectProductTemplateQuery\(query\)/, 'AI must detect report-template questions');
 assert.match(js, /function buildAiProductTemplateReport\(query, kind\)/, 'AI must generate productized report templates');
 assert.match(js, /return 'prematch-pack'/, 'AI templates must support prematch intelligence packages');
