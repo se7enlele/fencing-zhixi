@@ -3767,7 +3767,7 @@ function commercialIntentNextStep(row = {}) {
   if (row.type === 'reminder-interest' || /reminder|提醒/.test(source) || /提醒|订阅/.test(report)) return '会按你关注的赛事和选手确认提醒范围。';
   if (/prematch/.test(source) || /赛前|对手/.test(report)) return '会围绕目标赛事、报名名单和关注选手整理赛前提醒。';
   if (/growth|parent/.test(source) || /成长|家庭|家长/.test(report)) return '会围绕关注孩子整理成长报告和近期比赛复盘。';
-  if (/coach|club|recruiting|segmentation/.test(source) || /教练|剑馆|俱乐部|招生|学员/.test(report)) return '会围绕学员分层、优势项目和招生素材整理试用说明。';
+  if (/coach|club|recruiting|segmentation/.test(source) || /教练|剑馆|俱乐部|招生|学员/.test(report)) return '会围绕学员分层、优势项目和招生素材整理报告。';
   if (row.type === 'membership-interest') return '会确认关注选手、赛事提醒和报告保存需求。';
   return '会结合你关注的选手、赛事和报告记录确认试用场景。';
 }
@@ -7790,13 +7790,13 @@ function aiConversionServiceRows(report = {}) {
     return [
       '目标地区和年份的赛事更新提醒',
       '报名中、未开赛和已结束赛事分层',
-      '可继续生成赛前情报的赛事入口',
+      '可查看赛前提醒和重点对手提示',
     ];
   }
   return [
     '把本次分析保存为报告入口',
     '围绕关注选手、赛事和俱乐部持续更新',
-    '需要时补充人工跟进和试用说明',
+    '重要变化可形成长期报告',
   ];
 }
 
@@ -8172,7 +8172,7 @@ function myWorkspaceNextActions({ children = [], followedCompetitions = [], repo
     rows.push({
       action: 'prematch',
       title: '赛前提醒',
-      detail: `${firstCompetition.sportName || '关注赛事'} 可继续生成赛前情报和重点对手提示。`,
+      detail: `${firstCompetition.sportName || '关注赛事'} 可查看赛前提醒和重点对手提示。`,
       cta: '查看赛前',
       sportCode: firstCompetition.sportCode,
     });
@@ -8181,7 +8181,7 @@ function myWorkspaceNextActions({ children = [], followedCompetitions = [], repo
     rows.push({
       action: 'pilot',
       title: '保存长期分析',
-      detail: '报告和问答已经开始沉淀，适合申请试用，把成长、赛前和教练分析持续保存。',
+      detail: '把成长、赛前和训练相关分析长期保存，方便随时回看。',
       cta: '申请试用',
     });
   } else {
