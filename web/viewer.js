@@ -7458,7 +7458,7 @@ function buildAiClubReport(query, club) {
         rows: projects.map((row) => `${row.label}：${row.entrants}人次，前八${row.top8}，奖牌${row.medals}`),
       } : null,
     ].filter(Boolean),
-    evidence: (club.events || []).slice(0, 7).map((event) => ({
+    evidence: aiClubEvidenceEvents(club, hints, 7).map((event) => ({
       kind: '俱乐部记录',
       label: displayEventName(event),
       detail: `${event.sportName || ''} · ${event.openDate || ''}`,
@@ -7467,6 +7467,19 @@ function buildAiClubReport(query, club) {
     })),
     actions: club.id ? [{ label: '查看俱乐部画像', clubId: club.id }] : [],
   };
+}
+
+function aiClubEvidenceEvents(club, hints = [], limit = 7) {
+  const events = club.events || [];
+  const matched = hints.length
+    ? events.filter((event) => projectMatchesAiHints(displayEventName(event), hints))
+    : events;
+  return (matched.length ? matched : events)
+    .slice()
+    .sort((a, b) => (Number(b.entrants) || 0) - (Number(a.entrants) || 0)
+      || (Number(a.bestRank) || 999) - (Number(b.bestRank) || 999)
+      || String(b.openDate || b.dateLabel || '').localeCompare(String(a.openDate || a.dateLabel || ''), 'zh-CN'))
+    .slice(0, limit);
 }
 
 function buildAiClubRecruitingReport(query, club) {

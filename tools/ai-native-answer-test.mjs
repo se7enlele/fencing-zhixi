@@ -73,6 +73,7 @@ assert.match(js, /\['效率信号',/, 'AI club comparison cards must expose effi
 assert.match(js, /title: '对比结论'/, 'AI club comparison must expose user-facing comparison rows');
 assert.match(js, /function aiProjectHints\(query\)/, 'AI club reports must detect project hints like U8 male foil');
 assert.match(js, /function projectMatchesAiHints\(label, hints\)/, 'AI club reports must filter projects by question hints');
+assert.match(js, /function aiClubEvidenceEvents\(club, hints = \[\], limit = 7\)/, 'AI club reports must prioritize evidence that matches project hints');
 assert.match(js, /function aiCompetitionStatsDecisionRows\(rows, actionRows, rosterRows, scoreRows\)/, 'AI competition stats must translate counts into product-facing next-step judgment');
 assert.match(js, /function detectCompetitionRankingQuery\(query\)/, 'AI must detect competition ranking questions');
 assert.match(js, /const hasStatsIntent = \/\(有几场\|多少场\|几场\|多少\|统计\|数量\|列表\|有哪些\|哪几场\|人数最多\|规模最大\|最多人\)\//, 'AI competition stats should require an explicit statistics intent');

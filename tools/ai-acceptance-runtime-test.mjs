@@ -107,6 +107,7 @@ const functionNames = [
   'aiPreMatchRosterInsightRows',
   'aiPreMatchActionRows',
   'projectMatchesAiHints',
+  'aiClubEvidenceEvents',
   'detectYearsInQuery',
   'aiClubComparisonFilters',
   'aiClubEventYear',
@@ -308,6 +309,7 @@ const sampleClub = {
   medals: 8,
   bestRank: 1,
   events: [
+    { eventCode: 'CLUB-U12MF', eventName: 'U12 男子花剑', shortEventName: 'U12 男花', sportName: '2026年赛事', entrants: 20, top8: 8, medals: 4, bestRank: 1, openDate: '2026.04.01' },
     { eventCode: 'CLUB-U8MF', eventName: 'U8 男子花剑', shortEventName: 'U8 男花', sportName: '2026年赛事', entrants: 10, top8: 6, medals: 2, bestRank: 1, openDate: '2026.04.01' },
     { eventCode: 'CLUB-U10MF', eventName: 'U10 男子花剑', shortEventName: 'U10 男花', sportName: '2026年赛事', entrants: 4, top8: 1, medals: 0, bestRank: 9, openDate: '2026.04.01' },
   ],
@@ -504,6 +506,8 @@ const clubReport = context.buildAiAnswer('山东小众体育 U8 男花怎么样'
 assert.equal(clubReport.type, 'club');
 assert.match(clubReport.title, /U8 男 花|U8 男花|U8.*男.*花/, 'club scoped query should preserve project hints in title');
 assert.ok(clubReport.sections.some((section) => section.title === '重点项目'), 'club scoped query should show focused projects');
+assert.equal(clubReport.evidence[0].eventCode, 'CLUB-U8MF', 'club scoped query should make matching project evidence primary');
+assert.match(clubReport.evidence[0].label, /U8.*男.*花/, 'club scoped query evidence label should match the requested project');
 
 
 const recruitingReport = context.buildAiAnswer('山东小众体育招生怎么讲');
