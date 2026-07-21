@@ -434,13 +434,27 @@ const prematchReport = context.buildAiAnswer('\u0032\u0030\u0032\u0036\u5e74\u00
 assert.equal(prematchReport.type, 'prematch', 'prematch query should route to prematch intelligence');
 assert.ok(prematchReport.cards.length <= 4, 'AI prematch reports should keep the first screen focused');
 assert.ok(prematchReport.cards.some(([label, value]) => label === '\u62a5\u540d\u540d\u5355' && value === '38/200'), 'AI prematch reports should expose roster progress as one focused metric');
-assert.ok(prematchReport.sections.some((section) => section.title === '\u8d5b\u524d\u91cd\u70b9'), 'AI prematch reports should combine focused athletes and roster signals');
-assert.ok(prematchReport.sections.find((section) => section.title === '\u8d5b\u524d\u91cd\u70b9')?.rows.some((row) => row.includes('\u4eba\u6570\u6700\u591a\u9879\u76ee')), 'AI prematch reports should highlight the largest registration project');
-assert.ok(prematchReport.sections.find((section) => section.title === '\u8d5b\u524d\u91cd\u70b9')?.rows.some((row) => row.includes('\u62a5\u540d\u6700\u591a\u4ff1\u4e50\u90e8')), 'AI prematch reports should highlight the most active registered club');
-assert.ok(prematchReport.sections.find((section) => section.title === '\u8d5b\u524d\u91cd\u70b9')?.rows.some((row) => row.includes('\u8521\u5ef7\u5f67') && row.includes('\u5df2\u5728\u62a5\u540d\u540d\u5355')), 'AI prematch reports should identify when the selected child is already in the roster');
+assert.ok(prematchReport.cards.some(([label, value]) => label === '\u5173\u6ce8\u5bf9\u8c61' && value === '1 \u4eba'), 'AI prematch reports should expose focused-object count');
+assert.ok(prematchReport.sections.some((section) => section.title === '\u5173\u6ce8\u5bf9\u8c61'), 'AI prematch reports should show object-bound rows when a child or athlete is selected');
+assert.ok(prematchReport.sections.find((section) => section.title === '\u5173\u6ce8\u5bf9\u8c61')?.rows.some((row) => row.includes('\u4eba\u6570\u6700\u591a\u9879\u76ee')), 'AI prematch reports should still include roster structure with a focused object');
+assert.ok(prematchReport.sections.find((section) => section.title === '\u5173\u6ce8\u5bf9\u8c61')?.rows.some((row) => row.includes('\u62a5\u540d\u6700\u591a\u4ff1\u4e50\u90e8')), 'AI prematch reports should still highlight the most active registered club');
+assert.ok(prematchReport.sections.find((section) => section.title === '\u5173\u6ce8\u5bf9\u8c61')?.rows.some((row) => row.includes('\u8521\u5ef7\u5f67') && row.includes('\u5df2\u5728\u62a5\u540d\u540d\u5355')), 'AI prematch reports should identify when the selected child is already in the roster');
 assert.ok(prematchReport.sections.find((section) => section.title === '\u4f18\u5148\u5173\u6ce8')?.rows.some((row) => row.includes('\u5173\u6ce8\u5bf9\u8c61') || row.includes('\u62a5\u540d\u540d\u5355')), 'AI prematch reports should include actionable preparation guidance');
 const prematchReportAction = prematchReport.actions.find((action) => action.prematchTemplateKind === 'prematch-pack');
 assert.equal(prematchReportAction.prematchSportCode, 'TJ2026JUNE', 'AI prematch reports should open a report scoped to the nearest matched competition');
+
+const savedChildId = context.__state.selectedChildId;
+const savedFollowedAthletes = context.__state.followedAthletes;
+context.__state.selectedChildId = '';
+context.__state.followedAthletes = [];
+const noFocusPrematchReport = context.buildAiAnswer('\u0032\u0030\u0032\u0036\u5e74\u0036\u6708\u5929\u6d25\u8d5b\u524d\u60c5\u62a5');
+assert.equal(noFocusPrematchReport.type, 'prematch', 'prematch query without a focused athlete should still route to prematch intelligence');
+assert.ok(noFocusPrematchReport.cards.some(([label, value]) => label === '\u5173\u6ce8\u5bf9\u8c61' && value === '-'), 'prematch without a focused object should show no focused-object count');
+assert.ok(noFocusPrematchReport.sections.some((section) => section.title === '\u8d5b\u524d\u91cd\u70b9'), 'prematch without a focused object should stay at event and roster level');
+assert.ok(noFocusPrematchReport.sections.find((section) => section.title === '\u8d5b\u524d\u91cd\u70b9')?.rows.some((row) => row.includes('\u62a5\u540d\u7ed3\u6784')), 'prematch without a focused object should describe roster structure');
+assert.ok(!noFocusPrematchReport.sections.find((section) => section.title === '\u8d5b\u524d\u91cd\u70b9')?.rows.some((row) => row.includes('\u8521\u5ef7\u5f67') || row.includes('\u5386\u53f2\u5bf9\u624b')), 'prematch without a focused object must not show athlete-specific opponent rows');
+context.__state.selectedChildId = savedChildId;
+context.__state.followedAthletes = savedFollowedAthletes;
 
 const broadRegistrationReport = context.buildAiAnswer('\u5929\u6d25\u8fd1\u671f\u62a5\u540d\u60c5\u51b5');
 assert.equal(broadRegistrationReport.type, 'prematch', 'broad registration-status questions should route to prematch intelligence');

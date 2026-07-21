@@ -12,13 +12,16 @@ assert.match(js, /function aiPreMatchPersonalRelevanceRows\(competitions\)/, 'AI
 assert.match(js, /function aiPreMatchActionRows\(competitions, rosterRows, focusRows\)/, 'AI prematch answers must include actionable preparation rows');
 assert.match(js, /const focusRows = aiPreMatchFocusRows\(rows\)/, 'prematch report must compute focused-athlete rows from matched competitions');
 assert.match(js, /const personalRows = aiPreMatchPersonalRelevanceRows\(rows\)/, 'prematch report must compute personal relevance rows');
+assert.match(js, /const hasFocus = focusRows\.length > 0/, 'prematch report must distinguish focused and non-focused contexts');
 assert.match(js, /const rosterInsightRows = aiPreMatchRosterInsightRows\(rows\)/, 'prematch report must compute roster insight rows from matched competitions');
 assert.match(js, /const actionRows = aiPreMatchActionRows\(rows, rosterRows, focusRows\)/, 'prematch report must compute action rows from matched competitions');
-assert.match(js, /\['关注选手', focusRows\.length \? `\$\{focusRows\.length\} 人` : '-'\]/, 'prematch report must expose focused-athlete count');
+assert.match(js, /\['关注对象', focusRows\.length \? `\$\{focusRows\.length\} 人` : '-'\]/, 'prematch report must expose focused-athlete count');
 assert.match(js, /\['报名名单', rosterRows\.length \? \(rosterTotal \|\| expectedTotal \? `\$\{rosterTotal \|\| 0\}\/\$\{expectedTotal \|\| '-'\}` : `\$\{rosterRows\.length\} 场`\) : '0 场'\]/, 'prematch report must expose roster progress without adding a fifth metric card');
-assert.match(js, /title: '赛前重点'/, 'prematch report must combine focused athletes and roster insight into one focused section');
+assert.match(js, /title: hasFocus \? '关注对象' : '赛前重点'/, 'prematch report must use object-bound headings only when a focused athlete exists');
 assert.match(js, /报名名单包含 \$\{rosterRows\.length\} 人次/, 'prematch report must summarize roster size in user-facing copy');
 assert.match(js, /报名最多俱乐部/, 'prematch report must identify the most active registered club');
+assert.match(js, /报名名单包含 \$\{rosterRows\.length\} 人次，可先看项目热度、重点俱乐部和报名结构。/, 'prematch report without a focus object must stay at roster structure level');
+assert.match(js, /hasFocus && preparationRows\[0\]\?\.history/, 'prematch report must only show athlete-specific preparation lines when a focus object exists');
 
 assert.match(js, /followCompetitionCode: rows\[0\]\.sportCode/, 'prematch report must expose a follow action for the nearest matched competition');
 assert.match(js, /data-follow-competition-code/, 'AI answer buttons must render follow-competition actions');

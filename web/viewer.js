@@ -6430,14 +6430,15 @@ function aiPreMatchFocusRows(competitions) {
 function aiPreMatchRosterInsightRows(competitions) {
   const rosterRows = prematchRosterRows(competitions);
   if (!rosterRows.length) return [];
+  const hasFocus = aiFocusedAthletes().length > 0;
   const itemRows = rosterItemSummary(rosterRows);
   const clubRows = rosterClubSummary(rosterRows, 3);
   const preparationRows = rosterPreparationRows(rosterRows, aiAthletePool());
-  const rows = [`报名名单包含 ${rosterRows.length} 人次，可先看项目热度、重点俱乐部和历史强手。`];
+  const rows = [`报名名单包含 ${rosterRows.length} 人次，可先看项目热度、重点俱乐部和报名结构。`];
   if (itemRows[0]) rows.push(`人数最多项目：${itemRows[0].label}，${itemRows[0].count} 人。`);
   if (clubRows[0]) rows.push(`报名最多俱乐部：${clubRows[0].club}，${clubRows[0].count} 人次，覆盖 ${clubRows[0].projectCount} 个项目。`);
-  if (preparationRows[0]?.history) {
-    rows.push(`重点选手线索：${preparationRows[0].name}，历史最好第 ${preparationRows[0].bestRank || '-'} 名，适合赛前重点关注。`);
+  if (hasFocus && preparationRows[0]?.history) {
+    rows.push(`关注对象相关线索：${preparationRows[0].name}，历史最好第 ${preparationRows[0].bestRank || '-'} 名，可作为同项目参考。`);
   }
   return rows.slice(0, 4);
 }
@@ -6473,9 +6474,9 @@ function aiPreMatchActionRows(competitions, rosterRows, focusRows) {
       : '先确认目标赛事和项目范围，再进入赛前提醒。',
     rosterRows.length || rosterCount
       ? `报名名单包含 ${rosterCount || rosterRows.length} 人次，优先核对关注对象是否在对应项目。`
-      : '报名名单不足时，先看项目明细、赛事规模和历史强手，不直接推断真实对阵。',
+      : '报名名单不足时，先看项目明细、赛事规模和主要俱乐部，不直接推断真实对阵。',
     focusedCount || focusRows.length
-      ? '围绕关注对象整理历史项目、最近名次和同项目强手，形成赛前沟通材料。'
+      ? '围绕关注对象整理历史项目、最近名次和同项目参考对象，形成赛前沟通材料。'
       : '先关注孩子或学员，赛前报告会自动生成个人化准备重点。',
   ];
 }
@@ -7488,6 +7489,7 @@ function buildAiPreMatchReport(query, filters) {
   const projectRows = rows.filter(competitionHasItems);
   const focusRows = aiPreMatchFocusRows(rows);
   const personalRows = aiPreMatchPersonalRelevanceRows(rows);
+  const hasFocus = focusRows.length > 0;
   const rosterInsightRows = aiPreMatchRosterInsightRows(rows);
   const actionRows = aiPreMatchActionRows(rows, rosterRows, focusRows);
   const expectedTotal = rows.reduce((sum, competition) => sum + (Number(competition.registrationSummary?.expectedRegistrationCount) || 0), 0);
@@ -7507,12 +7509,14 @@ function buildAiPreMatchReport(query, filters) {
       ['相关赛事', `${rows.length} 场`],
       ['报名名单', rosterRows.length ? (rosterTotal || expectedTotal ? `${rosterTotal || 0}/${expectedTotal || '-'}` : `${rosterRows.length} 场`) : '0 场'],
       ['项目明细', `${projectRows.length} 场`],
-      ['关注选手', focusRows.length ? `${focusRows.length} 人` : '-'],
+      ['关注对象', focusRows.length ? `${focusRows.length} 人` : '-'],
     ],
     sections: rows.length ? [
       (personalRows.length || focusRows.length || rosterInsightRows.length) ? {
-        title: '赛前重点',
-        rows: [...personalRows.slice(0, 1), ...rosterInsightRows.slice(0, 3)].slice(0, 4),
+        title: hasFocus ? '关注对象' : '赛前重点',
+        rows: hasFocus
+          ? [...personalRows.slice(0, 1), ...rosterInsightRows.slice(0, 3)].slice(0, 4)
+          : rosterInsightRows.slice(0, 4),
       } : null,
       {
         title: '优先关注',
