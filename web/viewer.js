@@ -3494,7 +3494,7 @@ function reportNextActionRows(reportHistory = reportHistoryRows()) {
         ...base,
         actionLabel: '继续追问',
         trialLabel: '申请分析试用',
-        next: '把高频问题沉淀成固定报告，之后可直接复用。',
+        next: '把常问问题保存成报告，之后可直接回看。',
       };
     }
     return base;
@@ -3517,7 +3517,7 @@ function reportAssetSummaryRows(reportHistory = state.reportHistory || [], aiHis
       key: 'prematch',
       label: '赛前提醒',
       value: countByType('prematch'),
-      detail: '报名与项目数据完善后，沉淀赛前对手分析。',
+      detail: '关注赛事后，可持续查看报名、项目和重点对手。',
     },
     {
       key: 'growth',
@@ -3533,9 +3533,9 @@ function reportAssetSummaryRows(reportHistory = state.reportHistory || [], aiHis
     },
     {
       key: 'ai',
-      label: 'AI分析',
+      label: '最近分析',
       value: aiHistory.filter((row) => row?.query).length + countByType('ai-report'),
-      detail: '把常问问题和数据解读沉淀为可复用记录。',
+      detail: '保存常问问题和已经生成的分析。',
     },
   ];
 }
@@ -3552,7 +3552,7 @@ function membershipBenefitRows() {
     },
     {
       title: '教练与剑馆',
-      detail: '沉淀学员分层、续费沟通和招生展示素材，支撑日常经营。',
+      detail: '整理学员分层、续费沟通和招生展示素材，支撑日常经营。',
     },
   ];
 }
@@ -3865,7 +3865,7 @@ function renderAthleteDataRequestStatus(rows = athleteDataRequestRows()) {
   return `
     <section class="panel my-section athlete-data-progress-panel">
       <div class="section-title">
-        <h2>档案申请</h2>
+        <h2>档案请求</h2>
         <span>认领与纠错</span>
       </div>
       <div class="athlete-data-progress-list">
@@ -3891,7 +3891,7 @@ function renderCommercialIntentStatus(rows = commercialIntentRows()) {
   return `
     <section class="panel my-section service-progress-panel">
       <div class="section-title">
-        <h2>服务申请</h2>
+        <h2>服务沟通</h2>
         <span>已提交</span>
       </div>
       <div class="service-progress-list">
@@ -3958,7 +3958,7 @@ function serviceReadinessRows({ children = [], followedCompetitions = [], report
     {
       key: 'prematch',
       title: '赛前提醒',
-      status: prematch ? '可启动' : '待赛事',
+      status: prematch ? '可查看' : '先选赛事',
       tone: prematch ? 'ready' : 'pending',
       detail: prematch
         ? `${prematch.sportName} 可先看项目、报名和强手线索。`
@@ -3996,13 +3996,13 @@ function serviceReadinessRows({ children = [], followedCompetitions = [], report
     },
     {
       key: 'archive',
-      title: '报告复用',
-      status: savedCount ? '已沉淀' : '待生成',
+      title: '历史报告',
+      status: savedCount ? '可回看' : '暂无记录',
       tone: savedCount ? 'ready' : 'pending',
       detail: savedCount
         ? '已有报告和问答记录，可继续追问、复看和申请试用。'
-        : '生成报告或提问后，会沉淀为可复看的分析资产。',
-      meta: `${savedCount} 条可复用记录`,
+        : '生成报告或提问后，可以在这里回看。',
+      meta: `${savedCount} 条保存记录`,
       action: 'ask',
       query: '这些击剑数据能产生什么商业价值',
     },
@@ -4046,8 +4046,8 @@ function recommendedTrialRows({ children = [], followedCompetitions = [], report
     key: 'archive-trial',
     title: '长期报告试用',
     detail: savedCount
-      ? '把已经生成的报告和 AI 问答沉淀为可持续复看的分析资产。'
-        : '先从一次赛前提醒、成长报告或教练报告开始沉淀。',
+      ? '把已经生成的报告和问答保存下来，之后可以持续回看。'
+        : '先从一次赛前提醒、成长报告或教练报告开始。',
     scope: `${savedCount} 条已保存记录`,
     source: 'my-trial-archive',
   });
@@ -4068,7 +4068,7 @@ function trialDeliverableRows() {
       key: 'prematch',
       label: '赛前',
       title: '赛前提醒',
-      status: prematch ? '可交付' : '待选择赛事',
+      status: prematch ? '已准备好' : '先选择赛事',
       tone: prematch ? 'ready' : 'pending',
       detail: prematch
         ? `${prematch.sportName} 已可生成赛前项目、报名名单和强手线索。`
@@ -4084,7 +4084,7 @@ function trialDeliverableRows() {
       key: 'growth',
       label: '成长',
       title: '家庭成长报告',
-      status: child ? '可交付' : '待关注孩子',
+      status: child ? '已准备好' : '先关注孩子',
       tone: child ? 'ready' : 'pending',
       detail: child
         ? `${child.name} 已可生成成长复盘、名次变化和下一场建议。`
@@ -4100,7 +4100,7 @@ function trialDeliverableRows() {
       key: 'coach',
       label: '教练',
       title: '教练经营包',
-      status: club?.id ? '可交付' : '待选择俱乐部',
+      status: club?.id ? '已准备好' : '先选择俱乐部',
       tone: club?.id ? 'ready' : 'pending',
       detail: club?.club
         ? `${club.club} 已可生成学员分层、优势项目和招生展示素材。`
@@ -4116,14 +4116,14 @@ function trialDeliverableRows() {
       key: 'asset',
       label: '留存',
       title: '报告记录',
-      status: reportCount ? '可复看' : '待生成',
+      status: reportCount ? '可回看' : '暂无记录',
       tone: reportCount ? 'ready' : 'pending',
       detail: reportCount
         ? `已有 ${reportCount} 条报告/问答记录，可继续复看和追问。`
         : '生成赛前提醒、成长报告或教练报告后，可以在这里复看。',
       next: reportCount
         ? '优先把高频报告订阅成提醒，减少重复搜索。'
-        : '先完成一份赛前、成长或教练报告，形成第一条可复用记录。',
+        : '先完成一份赛前、成长或教练报告，形成第一条记录。',
       action: 'ask',
       query: '这些击剑数据能产生什么商业价值',
     },
@@ -8211,9 +8211,9 @@ function renderMyPage() {
     { value: children.length, label: followCopy.statLabel },
     { value: followedCompetitions.length, label: '关注赛事' },
     { value: reportHistory.length, label: '生成报告' },
-    { value: aiHistory.length, label: 'AI分析' },
-    { value: commercialIntentCount, label: '服务申请' },
-    { value: athleteDataRequestCount, label: '档案申请' },
+    { value: aiHistory.length, label: '最近分析' },
+    { value: commercialIntentCount, label: '服务沟通' },
+    { value: athleteDataRequestCount, label: '档案请求' },
     { value: recentRows.length, label: '最近查看' },
   ];
   const primaryStats = stats.slice(0, 4);
@@ -8264,7 +8264,7 @@ function renderMyPage() {
     <section class="panel my-section my-next-section">
       <div class="section-title">
         <h2>推荐操作</h2>
-        <span>按当前关注</span>
+        <span>下一步</span>
       </div>
       <div class="my-next-grid">
         ${nextActions.map((row) => `
@@ -8336,8 +8336,8 @@ function renderMyPage() {
 
     <section class="panel my-section trial-deliverable-section">
       <div class="section-title">
-        <h2>可生成内容</h2>
-        <span>按你的关注</span>
+        <h2>可以生成什么</h2>
+        <span>下一步</span>
       </div>
       <div class="trial-deliverable-grid">
         ${deliverableRows.map((row) => `
@@ -8374,8 +8374,8 @@ function renderMyPage() {
 
     <section class="panel my-section service-readiness-section">
       <div class="section-title">
-        <h2>可用能力</h2>
-        <span>当前可用</span>
+        <h2>可以继续做什么</h2>
+        <span>按你的关注</span>
       </div>
       <div class="service-readiness-list">
         ${readinessRows.map((row) => `

@@ -28,6 +28,7 @@ assert.doesNotMatch(js, /第一阶段|预留微信|微信登录已预留|后续�
 assert.doesNotMatch(js, /AI增强解读|增强解读/, 'AI answer copy must avoid implementation-oriented enhancement wording');
 assert.doesNotMatch(js, /数据处理进度|服务进度|处理编号|服务编号|本机已记录/, 'my-page request records must use user-facing application wording');
 assert.doesNotMatch(js, /当前筛选|全部数据|平台赛事|当前范围|深度赛事|报告资产|持续沉淀|按当前数据|工作台状态|来自 AI 问答|AI 历史|最近AI问题|最近 AI 分析|本地缓存/, 'database and my-page copy must avoid internal data/workspace wording');
+assert.doesNotMatch(js, /label: 'AI分析'|label: '服务申请'|label: '档案申请'|title: '报告复用'|status: .*'可交付'|status: .*'待关注孩子'|status: .*'待选择俱乐部'|status: .*'可启动'|<h2>可用能力<\/h2>|<h2>可生成内容<\/h2>|<span>当前可用<\/span>|<span>按当前关注<\/span>|分析资产|报名与项目数据完善后|可复用记录|沉淀学员/, 'my page copy must use customer-facing wording');
 assert.doesNotMatch(js, /继续生成赛前情报|可继续生成|人工跟进|试用说明/, 'AI and report copy must avoid process or sales-ops wording');
 assert.match(js, /常用报告/, 'home report center should use user-facing report copy');
 assert.match(js, /报告服务/, 'AI report planning answers should use user-facing report wording');
