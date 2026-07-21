@@ -2340,6 +2340,11 @@ select:focus {
   gap: 12px;
 }
 
+.account-login-page {
+  display: grid;
+  gap: 12px;
+}
+
 .account-center-head {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;

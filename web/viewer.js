@@ -16,6 +16,7 @@ const parentDashboard = document.querySelector('#parentDashboard');
 const homePage = document.querySelector('#homePage');
 const focusPage = document.querySelector('#focusPage');
 const myPage = document.querySelector('#myPage');
+const accountLoginPage = document.querySelector('#accountLoginPage');
 const bottomNav = document.querySelector('#bottomNav');
 const feedPanel = document.querySelector('#feedPanel');
 const searchAthletesPanel = document.querySelector('#searchAthletesPanel');
@@ -97,6 +98,7 @@ const views = {
   parentGrowthReport: document.querySelector('#view-parent-growth-report'),
   coachSegmentationReport: document.querySelector('#view-coach-segmentation-report'),
   my: document.querySelector('#view-my'),
+  accountLogin: document.querySelector('#view-account-login'),
   follow: document.querySelector('#view-follow'),
 };
 
@@ -318,6 +320,12 @@ async function submitAccountLogin(form) {
     renderPersonalPages();
     renderHomePage();
     if (status) status.textContent = result.isNew ? '账号已创建，本机内容已同步。' : '已登录，本机内容已同步。';
+    if (views.accountLogin?.classList.contains('active')) {
+      state.viewStack = ['my'];
+      state.activeMainTab = 'my';
+      showView('my');
+      scrollToPageTop();
+    }
     trackAnalyticsAction('auth_login', result.isNew ? 'new' : 'returning');
   } catch (error) {
     if (status) status.textContent = error.message || '登录失败';
@@ -438,27 +446,44 @@ function renderAccountPanelV2() {
         <div><strong>保存关注和报告</strong><span>换设备后可以继续查看关注选手、赛事提醒和历史分析。</span></div>
         <div><strong>继续历史分析</strong><span>再次登录后，可以接着查看之前保存的报告和提问记录。</span></div>
       </div>
-      ${state.showAccountLoginForm ? `
-        <form class="account-login-form" data-account-login>
-          <label>
-            <span>手机号或邮箱</span>
-            <input name="identifier" type="text" autocomplete="username" placeholder="用于找回关注、报告和历史">
-          </label>
-          <label>
-            <span>密码</span>
-            <input name="code" type="password" autocomplete="current-password" placeholder="至少 6 位，首次输入即创建账号">
-          </label>
-          <button type="submit">登录账号</button>
-          <em data-account-status>${escapeHtml(state.accountStatus || '没有账号时会自动创建。登录后，关注、历史和报告可以在不同设备继续查看。')}</em>
-        </form>
-      ` : `
-        <div class="account-action-row account-login-entry">
-          <button type="button" data-account-open-login>登录账号</button>
-        </div>
-        ${state.accountStatus ? `<p class="account-status-line">${escapeHtml(state.accountStatus)}</p>` : ''}
-      `}
+      <div class="account-action-row account-login-entry">
+        <button type="button" data-account-open-login>登录账号</button>
+      </div>
+      ${state.accountStatus ? `<p class="account-status-line">${escapeHtml(state.accountStatus)}</p>` : ''}
     </section>
   `;
+}
+
+function renderAccountLoginPage() {
+  if (!accountLoginPage) return;
+  accountLoginPage.innerHTML = `
+    <section class="panel account-login-page">
+      <div class="section-title">
+        <h2>登录账号</h2>
+        <span>保存你的关注和报告</span>
+      </div>
+      <div class="account-state-note">
+        <strong>手机号或邮箱登录</strong>
+        <span>登录后，关注选手、赛事提醒、历史分析和报告会保存到账号。</span>
+      </div>
+      <form class="account-login-form" data-account-login>
+        <label>
+          <span>手机号或邮箱</span>
+          <input name="identifier" type="text" autocomplete="username" placeholder="用于找回关注、报告和历史">
+        </label>
+        <label>
+          <span>密码</span>
+          <input name="code" type="password" autocomplete="current-password" placeholder="至少 6 位，首次输入即创建账号">
+        </label>
+        <button type="submit">登录账号</button>
+        <em data-account-status>${escapeHtml(state.accountStatus || '没有账号时会自动创建。')}</em>
+      </form>
+    </section>
+  `;
+  accountLoginPage.querySelector('[data-account-login]')?.addEventListener('submit', (event) => {
+    event.preventDefault();
+    submitAccountLogin(event.currentTarget);
+  });
 }
 
 function downloadJsonFile(fileName, data) {
@@ -1439,6 +1464,7 @@ function navigateTo(name) {
   if (name === 'home') renderHomePage();
   if (name === 'follow') renderFocusPage();
   if (name === 'my') renderPersonalPages();
+  if (name === 'accountLogin') renderAccountLoginPage();
   showView(name);
   scrollToPageTop();
 }
@@ -7984,6 +8010,7 @@ function renderPersonalPages() {
   renderHomePage();
   renderFocusPage();
   renderMyPage();
+  renderAccountLoginPage();
 }
 
 function myWorkspaceNextActions({ children = [], followedCompetitions = [], reportHistory = [], aiHistory = [] } = {}) {
@@ -8357,7 +8384,8 @@ function renderMyPage() {
   myPage.querySelector('[data-account-open-login]')?.addEventListener('click', () => {
     state.showAccountLoginForm = true;
     state.accountStatus = '';
-    renderMyPage();
+    renderAccountLoginPage();
+    navigateTo('accountLogin');
   });
   myPage.querySelector('[data-account-logout]')?.addEventListener('click', () => logoutAccount());
   myPage.querySelector('[data-account-export]')?.addEventListener('click', (event) => exportAccountData(event.currentTarget));
