@@ -4945,15 +4945,16 @@ function renderAiWorkspace() {
 function renderAiLoadingState(query = '') {
   const label = String(query || '').trim();
   return `
-    <div class="ai-loading-card" role="status" aria-live="polite">
+    <div class="ai-loading-card" role="status" aria-live="polite" aria-busy="true">
       <div class="ai-loading-head">
         <strong>正在分析</strong>
         <span>${escapeHtml(label || '正在理解问题')}</span>
       </div>
+      <div class="ai-loading-progress" aria-hidden="true"><i></i></div>
       <div class="ai-loading-steps">
-        <span>识别问题意图</span>
-        <span>匹配赛事和画像</span>
-        <span>整理可追溯结论</span>
+        <span>理解问题</span>
+        <span>查找相关记录</span>
+        <span>形成结论</span>
       </div>
       <div class="ai-skeleton-block">
         <i></i>
@@ -5006,6 +5007,7 @@ function bindAiWorkspace(container) {
     }
 
     answer.classList.add('has-answer');
+    answer.setAttribute('aria-busy', 'true');
     form.classList.add('is-submitting');
     state.aiActiveQuery = normalizedQuery;
     state.aiActiveReport = null;
@@ -5026,6 +5028,7 @@ function bindAiWorkspace(container) {
       trackAiAnalysisHistory(normalizedQuery, report);
       const currentAnswer = document.querySelector('#aiAnswer') || answer;
       currentAnswer.classList.add('has-answer');
+      currentAnswer.setAttribute('aria-busy', 'false');
       currentAnswer.innerHTML = renderAiAnswer(report);
       bindAnswer(report, currentAnswer);
       scrollToResultPanel(currentAnswer);
@@ -5039,11 +5042,13 @@ function bindAiWorkspace(container) {
       trackAiAnalysisHistory(normalizedQuery, report);
       const currentAnswer = document.querySelector('#aiAnswer') || answer;
       currentAnswer.classList.add('has-answer');
+      currentAnswer.setAttribute('aria-busy', 'false');
       currentAnswer.innerHTML = renderAiAnswer(report);
       bindAnswer(report, currentAnswer);
       scrollToResultPanel(currentAnswer);
       enhanceAiAnswer(report, currentAnswer, bindAnswer);
     } finally {
+      answer.setAttribute('aria-busy', 'false');
       form.classList.remove('is-submitting');
       if (submitButton) {
         submitButton.disabled = false;

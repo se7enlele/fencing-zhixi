@@ -1736,6 +1736,10 @@ select:focus {
   box-shadow: 0 12px 28px rgba(15, 37, 64, 0.06);
 }
 
+.ai-answer[aria-busy="true"] {
+  scroll-margin-top: 76px;
+}
+
 .ai-loading-head {
   display: grid;
   gap: 4px;
@@ -1755,6 +1759,22 @@ select:focus {
   line-height: 1.35;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.ai-loading-progress {
+  overflow: hidden;
+  height: 5px;
+  border-radius: 999px;
+  background: rgba(13, 125, 103, 0.1);
+}
+
+.ai-loading-progress i {
+  display: block;
+  width: 42%;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, rgba(13, 125, 103, 0.45), rgba(21, 95, 194, 0.82));
+  animation: aiLoadingProgress 1.05s ease-in-out infinite;
 }
 
 .ai-loading-steps {
@@ -1827,6 +1847,15 @@ select:focus {
   height: 58px;
 }
 
+@keyframes aiLoadingProgress {
+  0% {
+    transform: translateX(-105%);
+  }
+  100% {
+    transform: translateX(245%);
+  }
+}
+
 @keyframes aiSkeletonSweep {
   0% {
     background-position: 120% 0;
@@ -1837,6 +1866,7 @@ select:focus {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .ai-loading-progress i,
   .ai-skeleton-block i,
   .ai-skeleton-grid i {
     animation: none;
