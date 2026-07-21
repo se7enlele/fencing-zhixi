@@ -5199,15 +5199,15 @@ function renderAiWorkspace() {
       ? renderAiAnswer(state.aiActiveReport)
       : `
         <div class="ai-empty">
-          <strong>从问题开始</strong>
-          <span>回答会给出结论、关键指标和证据来源，点击证据可回到对应赛事、选手或俱乐部。</span>
+          <strong>输入一个击剑问题</strong>
+          <span>可以查赛事、看选手成长、比较剑馆表现，结果可打开来源核对。</span>
         </div>
       `;
   return `
     <div class="ai-workspace" id="aiWorkspace">
       <section class="panel ai-home-primary">
         <div class="ai-home-lead">
-          <strong>问一句，生成可追溯分析</strong>
+          <strong>问一句，看清比赛和成长</strong>
         </div>
         <form class="ai-query-form" id="aiQueryForm">
           <textarea id="aiQueryInput" rows="3" placeholder="${escapeHtml(placeholder)}">${escapeHtml(activeQuery)}</textarea>
@@ -6225,9 +6225,9 @@ function buildAiFallbackReport(query) {
     title: '需要补充一个对象',
     summary: '请写出选手姓名、俱乐部名称或赛事名称，例如“分析马潇和陶嘉月的对比情况”。',
     cards: [
-      ['可问选手', `${entityCounts.athletes} 个画像`],
-      ['可问俱乐部', `${entityCounts.clubs} 个俱乐部`],
-      ['可问赛事', `${state.competitions.length} 场赛事`],
+      ['选手画像', `${entityCounts.athletes} 个`],
+      ['俱乐部', `${entityCounts.clubs} 个`],
+      ['赛事记录', `${state.competitions.length} 场`],
     ],
     sections: [
       {

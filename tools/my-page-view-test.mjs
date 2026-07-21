@@ -99,7 +99,7 @@ assert.match(js, /<section class="panel ai-home-primary">[\s\S]*<\/section>\s*<d
 assert.doesNotMatch(js, /问 FencingAI/, 'home hero must not repeat the topbar product name');
 assert.doesNotMatch(js, /直接用问题查看击剑数据/, 'home hero must not use generic query copy');
 assert.doesNotMatch(js, /保留传统检索入口/, 'home page must not expose internal navigation rationale');
-assert.match(js, /问一句，生成可追溯分析/, 'home hero must explain the product value directly');
+assert.match(js, /问一句，看清比赛和成长/, 'home hero must explain the product value directly');
 assert.match(js, /例如：\$\{examples\.join\('\\n例如：'\)/, 'AI home placeholder must carry dynamic examples instead of a separate explanatory line');
 assert.match(js, /<button type="button" data-ai-submit="true">开始分析<\/button>/, 'AI home primary CTA must use direct action copy without pre-bind form submission');
 assert.match(js, /function scrollToResultPanel\(element, behavior = 'smooth'\)/, 'AI question results must have a dedicated viewport-positioning helper');
@@ -160,7 +160,9 @@ assert.match(js, /const publicEvents = state\.publicEvents \|\| \{\};/, 'home sc
 assert.match(js, /athletes: positiveMax\([\s\S]*state\.dataCoverage\?\.athletes[\s\S]*state\.dataCoverage\?\.athleteCount[\s\S]*nestedCoverage\.athleteCount[\s\S]*publicEvents\.athletes\?\.length[\s\S]*state\.athleteSearchIndex\.length[\s\S]*Object\.keys\(state\.athletesById \|\| \{\}\)\.length[\s\S]*\)/, 'home scale must combine athlete coverage with loaded search and detail indexes');
 assert.match(js, /clubs: positiveMax\([\s\S]*state\.dataCoverage\?\.clubs[\s\S]*state\.dataCoverage\?\.clubCount[\s\S]*nestedCoverage\.clubCount[\s\S]*publicEvents\.clubs\?\.length[\s\S]*state\.clubSearchIndex\.length[\s\S]*Object\.keys\(state\.clubsById \|\| \{\}\)\.length[\s\S]*\)/, 'home scale must combine club coverage with loaded search and detail indexes');
 assert.match(js, /\{ value: entityCounts\.athletes, label: '选手画像' \}/, 'home stats must display athlete coverage counts instead of empty local search indexes');
-assert.match(js, /\['可问选手', `\$\{entityCounts\.athletes\} 个画像`\]/, 'AI fallback must display athlete coverage counts instead of empty local search indexes');
+assert.match(js, /\['选手画像', `\$\{entityCounts\.athletes\} 个`\]/, 'AI fallback must display athlete coverage counts instead of empty local search indexes');
+assert.match(js, /\['俱乐部', `\$\{entityCounts\.clubs\} 个`\]/, 'AI fallback must display club coverage counts instead of empty local search indexes');
+assert.match(js, /\['赛事记录', `\$\{state\.competitions\.length\} 场`\]/, 'AI fallback must display competition coverage counts instead of empty local search indexes');
 assert.match(js, /const coachCount = entityCoverageCounts\(\)\.clubs;/, 'home service readiness must use aggregate club coverage counts');
 assert.match(js, /meta: `\$\{entityCoverageCounts\(\)\.clubs\} 个俱乐部画像`/, 'home coach entry must not use empty local club search index counts');
 assert.match(js, /<h2>常用功能<\/h2>/, 'home page must use user-facing task cards instead of another competition list');
@@ -328,7 +330,7 @@ assert.match(js, /if \(type === 'ai-report'\) \{[\s\S]*trackAnalyticsAction\('op
 assert.match(js, /openAiReportSnapshot\(button\.dataset\.aiSnapshotKey \|\| button\.dataset\.aiHistoryQuery \|\| ''\)/, 'recent AI analysis rows must restore the saved answer');
 assert.doesNotMatch(js, /function renderHomePage\(\)[\s\S]*<h2>近期值得看<\/h2>[\s\S]*function aiDefaultClub/, 'home page must not duplicate the competition list experience');
 assert.doesNotMatch(js, /<h2>问 FencingAI<\/h2>|<h2>闂?FencingAI<\/h2>/, 'AI workspace must not repeat the product name below the top bar');
-assert.match(js, /问一句，生成可追溯分析/, 'AI home lead must state the product value directly');
+assert.match(js, /问一句，看清比赛和成长/, 'AI home lead must state the product value directly');
 assert.match(js, /function aiPromptPlaceholder\(presets\)/, 'AI home examples must come from role-aware prompt presets');
 assert.match(js, /placeholder="\$\{escapeHtml\(placeholder\)\}"/, 'AI home textarea must use dynamic example prompts');
 assert.doesNotMatch(js, /<div class="ai-home-actions">[\s\S]*data-home-competitions/, 'AI home must not mix competition navigation with prompt presets');
