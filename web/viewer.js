@@ -11799,7 +11799,7 @@ function buildClubShareText(club, projectRows, athletes) {
     strongestAthlete ? `代表学员：${strongestAthlete.name}，最好第 ${strongestAthlete.bestRank ?? '-'} 名，${strongestAthlete.appearances || 0} 次参赛记录。` : '',
     scripts.length ? '对外沟通重点：' : '',
     ...scripts.map((row) => `${row.title}：${row.detail}`),
-    '数据来自已收录赛事成绩，可用于家长沟通、续费反馈和招生展示。',
+    '以上内容基于公开赛事成绩整理，可用于家长沟通、续费反馈和招生展示。',
   ].filter(Boolean);
   return lines.join('\n');
 }
@@ -11812,7 +11812,7 @@ function buildClubCommunicationScripts(club, projectRows, athletes) {
   return [
     {
       title: '成绩背书',
-      detail: `${club.club} 已收录 ${club.entrants || 0} 人次参赛，累计 ${club.top8 || 0} 次前八、${club.medals || 0} 枚奖牌，最好第 ${club.bestRank ?? '-'} 名。`,
+      detail: `${club.club} 有 ${club.entrants || 0} 人次参赛表现，累计 ${club.top8 || 0} 次前八、${club.medals || 0} 枚奖牌，最好第 ${club.bestRank ?? '-'} 名。`,
     },
     bestProject ? {
       title: '优势项目',
