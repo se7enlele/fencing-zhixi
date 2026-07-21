@@ -66,6 +66,12 @@ assert.match(js, /function detectCompetitionRankingQuery\(query\)/, 'AI must det
 assert.match(js, /function competitionEntrantCount\(competition\)/, 'AI competition ranking must compute actual entrant totals');
 assert.match(js, /function competitionItemEntrantRows\(competitions\)/, 'AI competition ranking must compute project-level entrant totals');
 assert.match(js, /function buildAiCompetitionRanking\(query, filters\)/, 'AI must answer competition scale ranking questions');
+assert.match(js, /function competitionAliasTerms\(competition\)/, 'AI competition lookup must generate aliases for real competition names');
+assert.match(js, /function chineseAdminAlias\(value\)[\s\S]*省\|市\|自治区\|特别行政区\|地区\|区\|县/, 'AI competition aliases must tolerate city and district suffix differences');
+assert.match(js, /function withoutYearAlias\(value\)[\s\S]*20\\d\{2\}年\?/, 'AI competition aliases must tolerate queries without a year prefix');
+assert.match(js, /function competitionSearchHaystack\(competition\)[\s\S]*\.\.\.competitionAliasTerms\(competition\)/, 'AI competition search haystack must include normalized aliases');
+assert.match(js, /function detectCompetitionInQuery\(query\)[\s\S]*const aliases = competitionAliasTerms\(competition\)\.map\(compactText\)[\s\S]*aliases\.some\(\(alias\) => alias === normalizedQuery\)[\s\S]*aliases\.some\(\(alias\) => alias\.includes\(normalizedQuery\)\)/, 'AI competition lookup must match Beijing league style aliases before falling back');
+assert.match(js, /function relatedCompetitionsForQuery\(query\)[\s\S]*withoutYearAlias\(query\)[\s\S]*chineseAdminAlias\(query\)[\s\S]*competitionAliasTerms\(competition\)\.map\(compactText\)/, 'AI missing competition fallback must use the same aliases for related event suggestions');
 assert.match(js, /function competitionMissingDiagnosisRows\(query, competitionLike, relatedCompetitions = \[\]\)/, 'AI missing-competition fallback must explain how users can verify a missing event');
 assert.match(js, /title: '可以这样核对'/, 'AI missing-competition fallback must show a user-facing diagnosis section');
 assert.match(js, /查看相关赛事/, 'AI missing-competition fallback must offer an action to inspect related competitions');

@@ -1098,7 +1098,7 @@ function competitionHasItems(competition) {
 function normalizeSearchText(value) {
   return String(value ?? '')
     .toLowerCase()
-    .replace(/[，。、“”‘’"'|/\\()[\]{}:：；;]+/g, ' ')
+    .replace(/[，。、“”‘’（）()【】\[\]《》"'|/\\{}:：；;,./·\-–—_]+/g, ' ')
     .replace(/\s+/g, ' ')
     .trim();
 }
@@ -1109,6 +1109,40 @@ function searchTokens(value) {
 
 function compactText(value) {
   return normalizeSearchText(value).replace(/\s+/g, '');
+}
+
+function chineseAdminAlias(value) {
+  const compact = compactText(value);
+  if (!/[\u4e00-\u9fa5]/.test(compact)) return '';
+  return compact.replace(/(省|市|自治区|特别行政区|地区|区|县)/g, '');
+}
+
+function withoutYearAlias(value) {
+  return String(value || '').replace(/20\d{2}年?/g, '');
+}
+
+function competitionAliasTerms(competition) {
+  const values = [
+    competition?.sportName,
+    competition?.venue,
+    competition?.region,
+    competition?.dateLabel,
+    competitionYear(competition),
+    competition?.season,
+    competition?.status,
+    competition?.sportCode,
+  ];
+  const aliases = [];
+  for (const value of values.filter(Boolean)) {
+    aliases.push(value);
+    const noAdmin = chineseAdminAlias(value);
+    if (noAdmin && noAdmin !== compactText(value)) aliases.push(noAdmin);
+    const noYear = withoutYearAlias(value);
+    if (noYear !== String(value)) aliases.push(noYear);
+    const noAdminNoYear = chineseAdminAlias(noYear);
+    if (noAdminNoYear) aliases.push(noAdminNoYear);
+  }
+  return [...new Set(aliases.filter(Boolean))];
 }
 
 function statusLabel(status) {
@@ -1204,6 +1238,7 @@ function competitionSearchHaystack(competition) {
     competition.venue,
     competition.region,
     competitionYear(competition),
+    ...competitionAliasTerms(competition),
   ];
 
   if (competition.itemSearchText) values.push(competition.itemSearchText);
@@ -5420,6 +5455,7 @@ function detectCompetitionInQuery(query) {
     .map((competition) => {
       const name = compactText(competition.sportName);
       const haystack = compactText(cachedCompetitionSearchHaystack(competition));
+      const aliases = competitionAliasTerms(competition).map(compactText).filter(Boolean);
       if (!name) return null;
       if (queryYear && competitionYear(competition) && competitionYear(competition) !== queryYear) return null;
 
@@ -5427,6 +5463,9 @@ function detectCompetitionInQuery(query) {
       if (name === normalizedQuery) score += 100;
       if (name.includes(normalizedQuery)) score += 80;
       if (normalizedQuery.includes(name)) score += 70;
+      if (!score && aliases.some((alias) => alias === normalizedQuery)) score += 95;
+      if (!score && aliases.some((alias) => alias.includes(normalizedQuery))) score += 75;
+      if (!score && aliases.some((alias) => normalizedQuery.includes(alias) && alias.length >= 4)) score += 65;
       if (!score && haystack.includes(normalizedQuery)) score += 45;
       if (!score) return null;
       score += Math.min(20, normalizedQuery.length);
@@ -5460,13 +5499,22 @@ function competitionNameMatchKey(value) {
 }
 
 function relatedCompetitionsForQuery(query) {
+  const queryAliases = [query, withoutYearAlias(query), chineseAdminAlias(query), chineseAdminAlias(withoutYearAlias(query))]
+    .map(compactText)
+    .filter((key) => key.length >= 4);
   const key = competitionNameMatchKey(query);
-  if (key.length < 4) return [];
+  if (key.length >= 4) queryAliases.push(key);
+  const keys = [...new Set(queryAliases)];
+  if (!keys.length) return [];
   return (state.competitions || [])
     .filter((competition) => {
       const nameKey = competitionNameMatchKey(competition.sportName);
-      if (!nameKey) return false;
-      return nameKey.includes(key) || key.includes(nameKey);
+      const aliases = [
+        nameKey,
+        ...competitionAliasTerms(competition).map(compactText),
+      ].filter((alias) => alias.length >= 4);
+      if (!aliases.length) return false;
+      return keys.some((queryKey) => aliases.some((alias) => alias.includes(queryKey) || queryKey.includes(alias)));
     })
     .sort((a, b) => String(b.dateLabel || b.startDate || b.season || '').localeCompare(String(a.dateLabel || a.startDate || a.season || ''), 'zh-CN'))
     .slice(0, 3);
