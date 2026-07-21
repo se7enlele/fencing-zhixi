@@ -46,6 +46,6 @@ function assertSameArray(actual, expected) {
 assertSameArray(context.filterOptions('year'), ['全部年份', '2026', '2025', '2024']);
 assertSameArray(context.filterOptions('region'), ['全部地区', '北京', '上海', '天津']);
 assertSameArray(context.filterOptions('item'), ['全部项目', 'U6 花剑', 'U8 花剑', 'U8 重剑']);
-assertSameArray(context.filterOptions('follow'), ['全部赛事', '我的关注', '关注选手', '关注赛事']);
+assertSameArray(context.filterOptions('follow'), ['全部赛事', '我的关注', '关注选手', '关注赛事', '关注俱乐部']);
 
 console.log('filter options are sorted');

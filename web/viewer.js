@@ -63,6 +63,7 @@ const athleteGrowth = document.querySelector('#athleteGrowth');
 const tabs = document.querySelector('#tabs');
 const FOLLOW_KEY = 'fencingai.followedAthletes.v1';
 const COMPETITION_FOLLOW_KEY = 'fencingai.followedCompetitions.v1';
+const CLUB_FOLLOW_KEY = 'fencingai.followedClubs.v1';
 const RECENT_KEY = 'fencingai.recentItems.v1';
 const REPORT_HISTORY_KEY = 'fencingai.reportHistory.v1';
 const AI_HISTORY_KEY = 'fencingai.aiHistory.v1';
@@ -138,6 +139,7 @@ const state = {
   selectedChildId: localStorage.getItem(CHILD_KEY) || '',
   followedAthletes: [],
   followedCompetitions: [],
+  followedClubs: [],
   recentItems: [],
   reportHistory: [],
   aiHistory: [],
@@ -207,6 +209,7 @@ function currentUserProfilePayload() {
     selectedChildId: state.selectedChildId,
     follows: state.followedAthletes || [],
     followedCompetitions: state.followedCompetitions || [],
+    followedClubs: state.followedClubs || [],
     recentItems: state.recentItems || [],
     reportHistory: state.reportHistory || [],
     aiHistory: state.aiHistory || [],
@@ -220,6 +223,7 @@ function applyUserProfile(profile = {}) {
   const localHasState = [
     state.followedAthletes,
     state.followedCompetitions,
+    state.followedClubs,
     state.recentItems,
     state.reportHistory,
     state.aiHistory,
@@ -228,6 +232,7 @@ function applyUserProfile(profile = {}) {
   const remoteHasState = [
     profile.follows,
     profile.followedCompetitions,
+    profile.followedClubs,
     profile.recentItems,
     profile.reportHistory,
     profile.aiHistory,
@@ -238,6 +243,7 @@ function applyUserProfile(profile = {}) {
   if (remoteHasState || !localHasState) {
     if (Array.isArray(profile.follows)) state.followedAthletes = profile.follows;
     if (Array.isArray(profile.followedCompetitions)) state.followedCompetitions = profile.followedCompetitions;
+    if (Array.isArray(profile.followedClubs)) state.followedClubs = profile.followedClubs;
     if (Array.isArray(profile.recentItems)) state.recentItems = profile.recentItems;
     if (Array.isArray(profile.reportHistory)) state.reportHistory = profile.reportHistory;
     if (Array.isArray(profile.aiHistory)) state.aiHistory = profile.aiHistory;
@@ -249,6 +255,7 @@ function applyUserProfile(profile = {}) {
   else localStorage.removeItem(CHILD_KEY);
   saveFollowedAthletes();
   saveStoredList(COMPETITION_FOLLOW_KEY, state.followedCompetitions, 30);
+  saveStoredList(CLUB_FOLLOW_KEY, state.followedClubs, 30);
   saveStoredList(RECENT_KEY, state.recentItems, 20);
   saveStoredList(REPORT_HISTORY_KEY, state.reportHistory, 12);
   saveStoredList(AI_HISTORY_KEY, state.aiHistory, 10);
@@ -362,6 +369,7 @@ function accountProfileCounts() {
   return {
     follows: (state.followedAthletes || []).length,
     followedCompetitions: (state.followedCompetitions || []).length,
+    followedClubs: (state.followedClubs || []).length,
     reports: (state.reportHistory || []).length,
     aiHistory: (state.aiHistory || []).length,
   };
@@ -391,8 +399,8 @@ function renderAccountPanelV2() {
         <div class="account-data-grid">
           <div><strong>${counts.follows}</strong><span>关注选手</span></div>
           <div><strong>${counts.followedCompetitions}</strong><span>关注赛事</span></div>
+          <div><strong>${counts.followedClubs}</strong><span>关注俱乐部</span></div>
           <div><strong>${counts.reports}</strong><span>报告</span></div>
-          <div><strong>${counts.aiHistory}</strong><span>分析历史</span></div>
         </div>
         <div class="account-policy-box">
           <strong>账号资料</strong>
@@ -526,6 +534,7 @@ async function clearAccountData(button) {
     state.accountStatus = '账号数据已清空。';
     state.followedAthletes = [];
     state.followedCompetitions = [];
+    state.followedClubs = [];
     state.recentItems = [];
     state.reportHistory = [];
     state.aiHistory = [];
@@ -644,6 +653,7 @@ async function fetchCachedDetail(type, key, path, pick) {
 
 state.followedAthletes = loadFollowedAthletes();
 state.followedCompetitions = loadStoredList(COMPETITION_FOLLOW_KEY);
+state.followedClubs = loadStoredList(CLUB_FOLLOW_KEY);
 state.recentItems = loadStoredList(RECENT_KEY);
 state.reportHistory = loadStoredList(REPORT_HISTORY_KEY);
 state.aiHistory = loadStoredList(AI_HISTORY_KEY);
@@ -712,6 +722,54 @@ function removeFollowedCompetition(sportCode) {
   saveStoredList(COMPETITION_FOLLOW_KEY, state.followedCompetitions, 30);
   if (state.currentCompetition?.sportCode === sportCode) renderCompetitionHero(state.currentCompetition);
   renderPersonalPages();
+}
+
+function clubSnapshot(club) {
+  return {
+    id: club.id,
+    club: club.club,
+    entrants: Number(club.entrants || 0),
+    top8: Number(club.top8 || 0),
+    medals: Number(club.medals || 0),
+    bestRank: club.bestRank ?? null,
+    events: (club.events || []).slice(0, 20).map((event) => ({
+      sportCode: event.sportCode || event.competitionCode || '',
+      competitionCode: event.competitionCode || event.sportCode || '',
+      eventCode: event.eventCode || '',
+      eventName: event.eventName || event.sportName || '',
+      sportName: event.sportName || event.eventName || '',
+      dateLabel: event.dateLabel || '',
+      venue: event.venue || event.region || '',
+      item: event.item || event.group || '',
+    })),
+  };
+}
+
+function isFollowedClub(clubId) {
+  return state.followedClubs.some((item) => item.id === clubId);
+}
+
+function upsertFollowedClub(club) {
+  if (!club?.id) return;
+  trackAnalyticsAction('follow_club', club.club || 'club');
+  state.followedClubs = [
+    clubSnapshot(club),
+    ...state.followedClubs.filter((item) => item.id !== club.id),
+  ].slice(0, 30);
+  saveStoredList(CLUB_FOLLOW_KEY, state.followedClubs, 30);
+  if (state.currentClub?.id === club.id) renderClubDetail(state.currentClub);
+  renderPersonalPages();
+  renderFilters();
+  applyCompetitionFilter();
+}
+
+function removeFollowedClub(clubId) {
+  state.followedClubs = state.followedClubs.filter((item) => item.id !== clubId);
+  saveStoredList(CLUB_FOLLOW_KEY, state.followedClubs, 30);
+  if (state.currentClub?.id === clubId) renderClubDetail(state.currentClub);
+  renderPersonalPages();
+  renderFilters();
+  applyCompetitionFilter();
 }
 
 function trackRecentItem(item) {
@@ -1685,7 +1743,7 @@ function filterOptions(type) {
     return ['全部状态', '报名中', '未开赛', '进行中', '已结束'];
   }
   if (type === 'follow') {
-    return ['全部赛事', '我的关注', '关注选手', '关注赛事'];
+    return ['全部赛事', '我的关注', '关注选手', '关注赛事', '关注俱乐部'];
   }
 
   const labels = new Set();
@@ -1853,15 +1911,28 @@ function followedAthleteCompetitionCodeSet() {
   return followedAthleteEvents;
 }
 
+function followedClubCompetitionCodeSet() {
+  const followedClubEvents = new Set();
+  for (const club of followedClubCards()) {
+    for (const event of club.events || []) {
+      if (event.sportCode) followedClubEvents.add(event.sportCode);
+      if (event.competitionCode) followedClubEvents.add(event.competitionCode);
+    }
+  }
+  return followedClubEvents;
+}
+
 function competitionMatchesFollowedData(competition) {
   const scope = state.followFilter || (state.onlyFollowedData ? '我的关注' : '全部赛事');
   if (scope === '全部赛事') return true;
   const sportCode = competition?.sportCode;
   const matchCompetition = followedCompetitionCodeSet().has(sportCode);
   const matchAthlete = followedAthleteCompetitionCodeSet().has(sportCode);
+  const matchClub = followedClubCompetitionCodeSet().has(sportCode);
   if (scope === '关注赛事') return matchCompetition;
   if (scope === '关注选手') return matchAthlete;
-  return matchCompetition || matchAthlete;
+  if (scope === '关注俱乐部') return matchClub;
+  return matchCompetition || matchAthlete || matchClub;
 }
 
 function applyCompetitionFilter() {
@@ -2225,7 +2296,7 @@ function officialCoverageCount() {
 }
 
 function followedDataCount() {
-  return (state.followedAthletes || []).length + (state.followedCompetitions || []).length;
+  return (state.followedAthletes || []).length + (state.followedCompetitions || []).length + (state.followedClubs || []).length;
 }
 
 function renderDatabaseDirectory() {
@@ -3396,6 +3467,13 @@ function followedCompetitionCards() {
     const live = findCompetitionBySportCode(follow.sportCode);
     return competitionSnapshot({ ...follow, ...(live || {}) });
   }).filter((competition) => competition.sportCode);
+}
+
+function followedClubCards() {
+  return (state.followedClubs || []).map((follow) => {
+    const live = state.clubsById?.[follow.id];
+    return clubSnapshot({ ...follow, ...(live || {}) });
+  }).filter((club) => club.id);
 }
 
 function focusSuggestionCompetitions() {
@@ -5014,6 +5092,8 @@ function renderHomePage() {
 }
 
 function aiDefaultClub() {
+  const followed = typeof followedClubCards === 'function' ? followedClubCards()[0] : null;
+  if (followed?.id) return followed;
   return [...(state.clubSearchIndex || [])]
     .filter((club) => club?.club)
     .sort((a, b) => (Number(b.entrants) || 0) - (Number(a.entrants) || 0) || String(a.club).localeCompare(String(b.club), 'zh-CN'))[0] || null;
@@ -7279,6 +7359,8 @@ function aiProductTemplateAthlete() {
 
 function aiProductTemplateClub() {
   if (state.currentClub?.id) return state.currentClub;
+  const followed = typeof followedClubCards === 'function' ? followedClubCards()[0] : null;
+  if (followed?.id) return followed;
   return (state.clubSearchIndex || [])
     .filter((club) => club?.id)
     .sort((a, b) => (Number(b.entrants) || 0) - (Number(a.entrants) || 0) || String(a.club || '').localeCompare(String(b.club || ''), 'zh-CN'))[0] || null;
@@ -8380,6 +8462,7 @@ function renderFocusPage() {
   if (!focusPage) return;
   const children = focusAthleteCards();
   const followedCompetitions = followedCompetitionCards();
+  const followedClubs = followedClubCards();
   const suggestedCompetitions = focusSuggestionCompetitions();
   const reminderSourceCompetitions = followedCompetitions.length ? followedCompetitions : suggestedCompetitions;
   const priorityCompetitions = focusCompetitionPriorityRows(reminderSourceCompetitions);
@@ -8413,6 +8496,10 @@ function renderFocusPage() {
         <div>
           <strong>${escapeHtml(followedCompetitions.length)}</strong>
           <span>关注赛事</span>
+        </div>
+        <div>
+          <strong>${escapeHtml(followedClubs.length)}</strong>
+          <span>关注俱乐部</span>
         </div>
         <div>
           <strong>${escapeHtml(priorityCompetitions.length)}</strong>
@@ -8483,6 +8570,21 @@ function renderFocusPage() {
         })).join('') : showingSuggestions ? '<div class="empty compact-empty">上方是近期可关注赛事，加入提醒后会固定在这里。</div>' : '<div class="empty compact-empty">进入赛事详情后，可关注重要比赛。</div>'}
       </div>
     </section>
+    <section class="panel my-section">
+      <div class="section-title">
+        <h2>关注俱乐部</h2>
+        <span>${followedClubs.length ? `${followedClubs.length} 个` : '待关注'}</span>
+      </div>
+      <div class="my-list">
+        ${followedClubs.length ? followedClubs.map((club) => myPageRow({
+          type: 'club',
+          id: club.id,
+          title: club.club,
+          meta: `参赛 ${club.entrants || 0} 人次`,
+          detail: `前八 ${club.top8 || 0} · 奖牌 ${club.medals || 0}`,
+        })).join('') : '<div class="empty compact-empty">进入俱乐部画像后，可关注重点俱乐部。</div>'}
+      </div>
+    </section>
   `;
   bindPersonalList(focusPage);
   bindReportConversionActions(focusPage);
@@ -8548,6 +8650,7 @@ function renderMyPage() {
   if (!myPage) return;
   const children = focusAthleteCards();
   const followedCompetitions = followedCompetitionCards();
+  const followedClubs = followedClubCards();
   const recentRows = (state.recentItems || []).slice(0, 6);
   const reportHistory = reportHistoryRows();
   const aiHistory = aiHistoryRows();
@@ -8568,6 +8671,7 @@ function renderMyPage() {
   const stats = [
     { value: children.length, label: followCopy.statLabel },
     { value: followedCompetitions.length, label: '关注赛事' },
+    { value: followedClubs.length, label: '关注俱乐部' },
     { value: reportHistory.length, label: '生成报告' },
     { value: aiHistory.length, label: '最近分析' },
     { value: commercialIntentCount, label: '服务沟通' },
@@ -8802,6 +8906,22 @@ function renderMyPage() {
           dateLabel: competition.dateLabel,
           venue: competition.venue,
         })).join('') : '<div class="empty compact-empty">进入赛事详情后，可关注重要比赛。</div>'}
+      </div>
+    </section>
+
+    <section class="panel my-section">
+      <div class="section-title">
+        <h2>关注俱乐部</h2>
+        <span>${followedClubs.length ? `${followedClubs.length} 个` : '经营画像'}</span>
+      </div>
+      <div class="my-list">
+        ${followedClubs.length ? followedClubs.map((club) => myPageRow({
+          type: 'club',
+          id: club.id,
+          title: club.club,
+          meta: `参赛 ${club.entrants || 0} 人次`,
+          detail: `前八 ${club.top8 || 0} · 奖牌 ${club.medals || 0}`,
+        })).join('') : '<div class="empty compact-empty">进入俱乐部画像后，可关注重点俱乐部。</div>'}
       </div>
     </section>
 
@@ -13018,8 +13138,12 @@ function renderClubDetail(club) {
   const actionPlan = buildCoachActionPlan({ club, projectRows, athletes, athleteBuckets, peerRows, rosterRows });
   const top8Rate = Number(club.entrants) ? Math.round((Number(club.top8 || 0) / Number(club.entrants)) * 100) : 0;
   const medalRate = Number(club.entrants) ? Math.round((Number(club.medals || 0) / Number(club.entrants)) * 100) : 0;
+  const followed = isFollowedClub(club.id);
 
   clubHero.innerHTML = `
+    <button class="follow-status-tag competition-follow-tag club-follow-tag ${followed ? 'active' : ''}" id="followClubBtn" type="button" aria-pressed="${followed ? 'true' : 'false'}">
+      ${followed ? '已关注' : '关注'}
+    </button>
     <div class="hero-title">${escapeHtml(club.club)}</div>
     <div class="hero-sub">馆长工作台 · 教练视角</div>
     <div class="badge-row">
@@ -13033,6 +13157,10 @@ function renderClubDetail(club) {
       { label: '学员分层', query: `${club.club} 哪些学员适合重点培养` },
     ])}
   `;
+  clubHero.querySelector('#followClubBtn')?.addEventListener('click', () => {
+    if (isFollowedClub(club.id)) removeFollowedClub(club.id);
+    else upsertFollowedClub(club);
+  });
   bindAiAnalyzeActions(clubHero);
 
   clubEvents.innerHTML = events.length

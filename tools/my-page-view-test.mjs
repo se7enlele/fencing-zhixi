@@ -34,6 +34,7 @@ assert.match(html, /<strong>收录概况<\/strong>/, 'database overview fold mus
 assert.equal(indexHtml, html, 'static index.html must stay in sync with viewer.html');
 
 assert.match(js, /COMPETITION_FOLLOW_KEY = 'fencingai\.followedCompetitions\.v1'/, 'competition follow state must be persisted');
+assert.match(js, /CLUB_FOLLOW_KEY = 'fencingai\.followedClubs\.v1'/, 'club follow state must be persisted');
 assert.match(js, /RECENT_KEY = 'fencingai\.recentItems\.v1'/, 'recent view state must be persisted');
 assert.match(js, /REPORT_HISTORY_KEY = 'fencingai\.reportHistory\.v1'/, 'generated report history must be persisted');
 assert.match(js, /AI_HISTORY_KEY = 'fencingai\.aiHistory\.v1'/, 'AI analysis history must be persisted');
@@ -117,7 +118,7 @@ assert.match(js, /currentAnswer\.innerHTML = renderAiAnswer\(report\);[\s\S]{0,1
 assert.match(js, /function entityCoverageCounts\(\)/, 'home scale numbers must use data coverage summaries without hydrating full directories');
 assert.match(js, /onlyFollowedData: false/, 'database tab must track my-follow filter state');
 assert.match(js, /followFilter: '全部赛事'/, 'database my-follow filter must track the selected follow scope');
-assert.match(js, /return \['全部赛事', '我的关注', '关注选手', '关注赛事'\]/, 'my-follow sheet must expose explicit follow scope options');
+assert.match(js, /return \['全部赛事', '我的关注', '关注选手', '关注赛事', '关注俱乐部'\]/, 'my-follow sheet must expose explicit follow scope options');
 assert.match(js, /function competitionMatchesFollowedData\(competition\)/, 'database tab must filter competitions by followed athletes and followed competitions');
 assert.match(js, /function followedCompetitionCodeSet\(\)/, 'my-follow filter must separate directly followed competitions');
 assert.match(js, /function followedAthleteCompetitionCodeSet\(\)/, 'my-follow filter must separate followed-athlete related competitions');
@@ -407,6 +408,7 @@ assert.match(js, /fetch\('\/api\/me\/profile', \{[\s\S]*method: 'DELETE'/, 'acco
 assert.match(js, /fetchJson\('\/api\/auth\/wechat\/status'\)/, 'WeChat placeholder must call the reserved status endpoint');
 assert.match(js, /follows: state\.followedAthletes \|\| \[\]/, 'account sync must include followed athletes');
 assert.match(js, /followedCompetitions: state\.followedCompetitions \|\| \[\]/, 'account sync must include followed competitions');
+assert.match(js, /followedClubs: state\.followedClubs \|\| \[\]/, 'account sync must include followed clubs');
 assert.match(js, /reportHistory: state\.reportHistory \|\| \[\]/, 'account sync must include generated reports');
 assert.match(js, /aiHistory: state\.aiHistory \|\| \[\]/, 'account sync must include AI analysis history');
 assert.match(js, /if \(!state\.authToken \|\| state\.isApplyingUserProfile\) return;/, 'account sync must not loop while applying remote state');
@@ -448,6 +450,8 @@ assert.match(js, /tone: child \? 'ready' : 'pending'/, 'growth deliverable must 
 assert.match(js, /status: club\?\.id \? '已准备好' : '先选择俱乐部'/, 'coach deliverable must expose current delivery status');
 assert.match(js, /tone: club\?\.id \? 'ready' : 'pending'/, 'coach deliverable must expose ready or pending tone');
 assert.match(js, /const prematchReminderRows = myPrematchReminderRows\(followedCompetitions\);/, 'my page must render prematch reminders from current follows');
+assert.match(js, /const followedClubs = followedClubCards\(\);/, 'my page must resolve followed club cards');
+assert.match(js, /<h2>关注俱乐部<\/h2>/, 'my page must expose followed clubs as a first-class saved object');
 assert.match(js, /const commercialIntents = commercialIntentRows\(\);/, 'my page must derive service progress from saved commercial intent state');
 assert.match(js, /const commercialIntentCount = \(state\.commercialIntents \|\| \[\]\)\.length;/, 'my page must count all saved service progress entries');
 assert.match(js, /class="panel my-section my-next-section"/, 'my page must expose a next-action workspace section');

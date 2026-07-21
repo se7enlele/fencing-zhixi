@@ -11,6 +11,10 @@ assert.match(js, /function buildClubCommunicationScripts\(club, projectRows, ath
 assert.match(js, /function renderClubCommunicationScripts\(club, projectRows, athletes\)/, 'club coach view must render parent-facing communication scripts');
 assert.match(js, /function renderClubShareCard\(club, projectRows, athletes\)/, 'club coach view must render a shareable recruiting card');
 assert.match(js, /function copyTextToClipboard\(text\)/, 'club share card must support copy action');
+assert.match(js, /CLUB_FOLLOW_KEY = 'fencingai\.followedClubs\.v1'/, 'club follows must have a dedicated persisted key');
+assert.match(js, /function followedClubCards\(\)/, 'club follows must resolve against current club data');
+assert.match(js, /function upsertFollowedClub\(club\)/, 'club detail must support following a club');
+assert.match(js, /id="followClubBtn"/, 'club detail hero must expose a compact follow tag');
 
 assert.match(js, /function buildCoachActionPlan\(\{ club, projectRows, athletes, athleteBuckets, peerRows, rosterRows \}\)/, 'club coach view must turn data into coach actions');
 assert.match(js, /function renderCoachActionPlan\(cards\)/, 'club coach view must render a weekly action plan');
