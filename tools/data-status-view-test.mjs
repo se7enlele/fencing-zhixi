@@ -21,7 +21,7 @@ assert.match(js, /最近更新.*generatedLabel/s, 'home data status should show 
 assert.match(js, /sync-status-note/, 'data status should render the latest sync status when available');
 assert.match(js, /data-coverage-competition/, 'coverage priority rows must link back to competition details');
 assert.match(js, /class="service-readiness-grid"/, 'data status must show service readiness for commercial use cases');
-assert.match(js, /title: '赛前情报'/, 'service readiness must include prematch intelligence');
+assert.match(js, /title: '赛前提醒'/, 'service readiness must include prematch reminders');
 assert.match(js, /title: '成长报告'/, 'service readiness must include growth reports');
 assert.match(js, /title: '教练工作台'/, 'service readiness must include coach workspace');
 assert.match(js, /renderHomeDataCoverage\(\)/, 'home dashboard must include the data status panel');

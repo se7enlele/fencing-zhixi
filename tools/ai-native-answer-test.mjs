@@ -136,7 +136,7 @@ assert.match(js, /kind: '赛前机会'/, 'AI business evidence must include prem
 assert.match(js, /function isActionablePrematchCompetition\(competition\)/, 'AI business insight must centralize actionable prematch filtering');
 assert.match(js, /function buildAiBusinessInsightReport\(query\)[\s\S]*\.filter\(isActionablePrematchCompetition\)/, 'AI business insight must only cite actionable prematch opportunities');
 assert.match(js, /kind: '俱乐部资产'/, 'AI business evidence must include club business assets');
-assert.match(js, /label: '查看赛前情报包'/, 'AI business actions must open the prematch product package path');
+assert.match(js, /label: '查看赛前提醒'/, 'AI business actions must open the prematch product package path');
 assert.match(js, /label: '查看成长报告'/, 'AI business actions must open the parent growth package path');
 assert.match(js, /label: '查看教练工作台'/, 'AI business actions must open the coach workspace package path');
 assert.match(js, /kind: '招生素材来源'/, 'AI recruiting evidence must cite concrete club event sources');
@@ -147,7 +147,7 @@ assert.match(js, /state\.aiCompetitionFilterSummary = aiCompetitionFilterSummary
 assert.match(js, /data-clear-ai-filter/, 'AI filtered competition lists must expose a clear action');
 assert.match(js, /JSON\.parse\(decodeURIComponent\(button\.dataset\.aiFilters\)\)/, 'AI answer action handlers must decode filter payloads before navigation');
 assert.match(js, /state\.selectedAiMonth/, 'AI competition filters must preserve month constraints that are not visible in the standard filter chips');
-assert.match(js, /report\.type === 'prematch' \? '赛前情报'/, 'AI answer header must label prematch reports');
+assert.match(js, /report\.type === 'prematch' \? '赛前提醒'/, 'AI answer header must label prematch reports');
 assert.match(js, /report\.type === 'business-insight' \? '商业洞察'/, 'AI answer header must label business insight reports');
 assert.match(js, /report\.type === 'product-template' \? '报告服务'/, 'AI answer header must label product template reports');
 assert.match(js, /report\.type === 'club-recruiting' \? '招生展示'/, 'AI answer header must label recruiting display reports');
@@ -231,7 +231,7 @@ assert.match(js, /还有 \$\{escapeHtml\(hiddenEvidenceCount\)\} 条来源，可
 assert.match(js, /重点赛事提醒和报名名单更新/, 'prematch conversion must include event and roster update value');
 assert.match(js, /学员分层和训练跟进建议/, 'coach conversion must include segmentation and training follow-up value');
 assert.match(js, /prematch:\s*\[[\s\S]*同组对手、强手和主要俱乐部分布/, 'AI prematch answers must guide users toward opponent and club checks');
-assert.match(js, /'business-insight':\s*\[[\s\S]*赛前情报包和选手成长报告/, 'AI business insight answers must guide users toward productized reports');
+assert.match(js, /'business-insight':\s*\[[\s\S]*赛前提醒和选手成长报告/, 'AI business insight answers must guide users toward productized reports');
 assert.match(js, /'product-template':\s*\[/, 'AI product templates must include next-step guidance');
 assert.match(js, /'club-recruiting':\s*\[[\s\S]*对外素材/, 'AI recruiting answers must include next-step guidance');
 assert.match(js, /comparison:\s*\[[\s\S]*共同项目和直接交手记录/, 'AI comparison answers must guide users to review shared projects and direct bouts');

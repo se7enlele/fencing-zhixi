@@ -284,7 +284,7 @@ assert.match(js, /function reportHistoryRows\(\)/, 'home page must build recentl
 assert.match(js, /function aiHistoryRows\(\)/, 'home page must build recent AI analysis entries');
 assert.match(js, /function reportAssetSummaryRows\(reportHistory = state\.reportHistory \|\| \[\], aiHistory = state\.aiHistory \|\| \[\]\)/, 'my page must summarize saved report assets');
 assert.match(js, /function reportNextActionRows\(reportHistory = reportHistoryRows\(\)\)/, 'my page must derive next actions from saved reports');
-assert.match(js, /label: '赛前情报'[\s\S]*label: '成长报告'[\s\S]*label: '教练报告'[\s\S]*label: 'AI分析'/, 'report asset summary must cover core saved asset types');
+assert.match(js, /label: '赛前提醒'[\s\S]*label: '成长报告'[\s\S]*label: '教练报告'[\s\S]*label: 'AI分析'/, 'report asset summary must cover core saved asset types');
 assert.match(js, /<h2>报告中心<\/h2>/, 'home page must expose a report center');
 assert.match(js, /class="report-center-grid"/, 'home page must render report center cards');
 assert.match(js, /class="report-history-list"/, 'home page must render recent report shortcuts when available');
@@ -416,9 +416,9 @@ assert.match(js, /const followCopy = myFollowSectionCopy\(\);/, 'my page render 
 assert.match(js, /<h2>\$\{escapeHtml\(followCopy\.title\)\}<\/h2>/, 'my page follow section title must be role-aware');
 assert.match(js, /<strong>\$\{escapeHtml\(followCopy\.emptyTitle\)\}<\/strong>/, 'my page follow empty state must be role-aware');
 assert.match(js, /function myPrematchReminderRows\(followedCompetitions = \[\]\)/, 'my page must derive prematch reminders from follows and recommendations');
-assert.match(js, /title: '赛前情报包'[\s\S]*title: '成长报告'[\s\S]*title: '教练\/俱乐部分析'[\s\S]*title: '报告复用'/, 'service readiness must cover P0 and P1 service lines');
-assert.match(js, /title: '赛前情报试用'[\s\S]*title: '家庭成长试用'[\s\S]*title: '教练经营试用'[\s\S]*title: '长期报告试用'/, 'trial plans must map P0 and P1 services into user-facing offers');
-assert.match(js, /title: '赛前情报包'[\s\S]*title: '家庭成长报告'[\s\S]*title: '教练经营包'/, 'trial deliverables must describe P0 and P1 package outputs');
+assert.match(js, /title: '赛前提醒'[\s\S]*title: '成长报告'[\s\S]*title: '教练\/俱乐部分析'[\s\S]*title: '报告复用'/, 'service readiness must cover P0 and P1 service lines');
+assert.match(js, /title: '赛前提醒服务'[\s\S]*title: '家庭成长试用'[\s\S]*title: '教练经营试用'[\s\S]*title: '长期报告试用'/, 'trial plans must map P0 and P1 services into user-facing offers');
+assert.match(js, /title: '赛前提醒'[\s\S]*title: '家庭成长报告'[\s\S]*title: '教练经营包'/, 'trial deliverables must describe P0 and P1 package outputs');
 assert.match(js, /const nextActions = myWorkspaceNextActions\(\{ children, followedCompetitions, reportHistory, aiHistory \}\);/, 'my page must render next actions from current state');
 assert.match(js, /const reportNextActions = reportNextActionRows\(reportHistory\);/, 'my page must render next actions from recent reports');
 assert.match(js, /const readinessRows = serviceReadinessRows\(\{ children, followedCompetitions, reportHistory, aiHistory \}\);/, 'my page must render readiness from current state');

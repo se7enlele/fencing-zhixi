@@ -1969,7 +1969,7 @@ function homeServiceReadinessRows(coverage, competitions = state.competitions ||
   const coachCount = entityCoverageCounts().clubs;
   return [
     {
-      title: '赛前情报',
+      title: '赛前提醒',
       value: prematchCount,
       detail: '报名、项目和未开赛赛事可用于赛前提醒。',
     },
@@ -3399,7 +3399,7 @@ function homeReportCenterRows(children, followedCompetitions) {
   return [
     {
       key: 'prematch',
-      title: '赛前情报包',
+      title: '赛前提醒',
       detail: prematch ? `${prematch.sportName || '近期赛事'} · ${displayDateLabel(prematch.dateLabel)}` : '近期报名和未开赛赛事',
       meta: prematch ? statusLabel(prematch.status) : '赛前准备',
       disabled: false,
@@ -3472,8 +3472,8 @@ function reportHistoryRows() {
         ...fallback,
         ...row,
         title: competition?.sportName || fallback.title,
-        detail: [competition?.venue, displayDateLabel(competition?.dateLabel)].filter(Boolean).join(' · ') || row.detail || '赛前情报',
-        typeLabel: '赛前情报',
+        detail: [competition?.venue, displayDateLabel(competition?.dateLabel)].filter(Boolean).join(' · ') || row.detail || '赛前提醒',
+        typeLabel: '赛前提醒',
       };
     }
     if (row.type === 'ai-report') {
@@ -3502,8 +3502,8 @@ function reportNextActionRows(reportHistory = reportHistoryRows()) {
     if (row.type === 'prematch') {
       return {
         ...base,
-        actionLabel: '查看赛前情报',
-        trialLabel: '申请赛前试用',
+        actionLabel: '查看赛前提醒',
+        trialLabel: '保存提醒',
         reminderLabel: '订阅提醒',
         next: '赛前节点明确，适合继续订阅提醒并补齐报名名单。',
       };
@@ -3550,7 +3550,7 @@ function reportAssetSummaryRows(reportHistory = state.reportHistory || [], aiHis
   return [
     {
       key: 'prematch',
-      label: '赛前情报',
+      label: '赛前提醒',
       value: countByType('prematch'),
       detail: '报名与项目数据完善后，沉淀赛前对手分析。',
     },
@@ -3582,7 +3582,7 @@ function membershipBenefitRows() {
       detail: '持续保存成长报告、阶段建议和近期比赛提醒，方便复盘投入效果。',
     },
     {
-      title: '赛前情报',
+      title: '赛前提醒',
       detail: '围绕关注选手和报名赛事，整理潜在对手、强手和备赛重点。',
     },
     {
@@ -3599,7 +3599,7 @@ function renderMembershipBenefits() {
         <h2>会员权益</h2>
         <span>持续使用</span>
       </div>
-      <p>把成长报告、赛前情报和教练工作台集中保存，关键比赛前可以直接继续分析。</p>
+      <p>把成长报告、赛前提醒和教练工作台集中保存，关键比赛前可以直接继续分析。</p>
       <div class="membership-benefit-grid">
         ${membershipBenefitRows().map((row) => `
           <article class="membership-benefit-card">
@@ -3623,10 +3623,10 @@ function homeDataValueRows() {
   return [
     {
       key: 'prematch-pack',
-      label: '赛前情报',
-      title: '赛前情报包',
+      label: '赛前提醒',
+      title: '赛前提醒',
       detail: prematch ? `${prematch.sportName} · ${displayDateLabel(prematch.dateLabel)}` : '按报名和近期赛事生成备赛重点',
-      query: prematch ? `${prematch.sportName}赛前情报包` : '生成赛前情报包',
+      query: prematch ? `${prematch.sportName}赛前提醒` : '查看赛前提醒',
     },
     {
       key: 'parent-growth',
@@ -3666,7 +3666,7 @@ function homeAiQuestionRows() {
     },
     {
       label: '赛前准备',
-      query: prematch ? `${prematch.sportName}赛前情报包` : '天津近期报名情况',
+      query: prematch ? `${prematch.sportName}赛前提醒` : '天津近期报名情况',
       detail: '报名和未开赛阶段，先看项目、名单和强手线索。',
     },
     {
@@ -3771,7 +3771,7 @@ function commercialIntentSourceLabel(source) {
     'my-prematch-reminder': '我的页赛前提醒',
     'parent-growth-report': '成长报告',
     'parent-growth-reminder': '成长复盘提醒',
-    'prematch-pack-report': '赛前情报',
+    'prematch-pack-report': '赛前提醒',
     'prematch-single-report': '单场赛前',
     'prematch-report-reminder': '赛前更新提醒',
     'coach-segmentation-report': '教练报告',
@@ -3992,7 +3992,7 @@ function serviceReadinessRows({ children = [], followedCompetitions = [], report
   return [
     {
       key: 'prematch',
-      title: '赛前情报包',
+      title: '赛前提醒',
       status: prematch ? '可启动' : '待赛事',
       tone: prematch ? 'ready' : 'pending',
       detail: prematch
@@ -4001,7 +4001,7 @@ function serviceReadinessRows({ children = [], followedCompetitions = [], report
       meta: `${rosterCount} 场已有报名名单`,
       action: prematch ? 'prematch' : 'ask',
       sportCode: prematch?.sportCode || '',
-      query: '近期哪些比赛适合做赛前情报包',
+      query: '近期哪些比赛适合做赛前提醒',
     },
     {
       key: 'growth',
@@ -4053,7 +4053,7 @@ function recommendedTrialRows({ children = [], followedCompetitions = [], report
   if (prematch?.sportCode) {
     rows.push({
       key: 'prematch-trial',
-      title: '赛前情报试用',
+      title: '赛前提醒服务',
       detail: `${prematch.sportName}：围绕项目、报名名单和潜在强手生成赛前提醒。`,
       scope: displayDateLabel(prematch.dateLabel) || statusLabel(prematch.status),
       source: 'my-trial-prematch',
@@ -4082,7 +4082,7 @@ function recommendedTrialRows({ children = [], followedCompetitions = [], report
     title: '长期报告试用',
     detail: savedCount
       ? '把已经生成的报告和 AI 问答沉淀为可持续复看的分析资产。'
-      : '先从一次赛前情报、成长报告或教练报告开始沉淀。',
+        : '先从一次赛前提醒、成长报告或教练报告开始沉淀。',
     scope: `${savedCount} 条已保存记录`,
     source: 'my-trial-archive',
   });
@@ -4102,18 +4102,18 @@ function trialDeliverableRows() {
     {
       key: 'prematch',
       label: '赛前',
-      title: '赛前情报包',
+      title: '赛前提醒',
       status: prematch ? '可交付' : '待选择赛事',
       tone: prematch ? 'ready' : 'pending',
       detail: prematch
         ? `${prematch.sportName} 已可生成赛前项目、报名名单和强手线索。`
         : `${activeCount} 场赛前/报名赛事可作为备选，先选择目标赛事。`,
       next: prematch
-        ? `先查看本场情报，再订阅报名和重点对手更新。`
+        ? `先查看本场提醒，再订阅报名和重点对手更新。`
         : `已有 ${rosterCount} 场赛事带报名数据，可先从近期赛事开始。`,
       action: prematch ? 'prematch' : 'ask',
       sportCode: prematch?.sportCode || '',
-      query: '近期哪些比赛适合做赛前情报包',
+      query: '近期哪些比赛适合做赛前提醒',
     },
     {
       key: 'growth',
@@ -4155,7 +4155,7 @@ function trialDeliverableRows() {
       tone: reportCount ? 'ready' : 'pending',
       detail: reportCount
         ? `已有 ${reportCount} 条报告/问答记录，可继续复看和追问。`
-        : '生成赛前情报、成长报告或教练报告后，可以在这里复看。',
+        : '生成赛前提醒、成长报告或教练报告后，可以在这里复看。',
       next: reportCount
         ? '优先把高频报告订阅成提醒，减少重复搜索。'
         : '先完成一份赛前、成长或教练报告，形成第一条可复用记录。',
@@ -4292,7 +4292,7 @@ function renderHomePrematchAction(row = homePrematchActionRow()) {
           <em>${escapeHtml(row.detail)}</em>
         </div>
         <div class="home-prematch-actions">
-          <button type="button" data-home-prematch="${escapeHtml(row.sportCode)}">赛前情报</button>
+          <button type="button" data-home-prematch="${escapeHtml(row.sportCode)}">赛前提醒</button>
           ${row.isFollowed ? '' : `<button type="button" data-home-prematch-follow="${escapeHtml(row.sportCode)}">加入提醒</button>`}
         </div>
       </article>
@@ -4545,7 +4545,7 @@ function homePilotInterestRow() {
   }
   return {
     title: '家庭成长试用',
-    detail: '围绕孩子成长报告、赛前情报和重点对手提醒，验证是否能支撑长期参赛决策。',
+    detail: '围绕孩子成长报告、赛前提醒和重点对手提示，验证是否能支撑长期参赛决策。',
     source: 'home-pilot-parent',
     report: '家庭成长试用',
   };
@@ -4621,7 +4621,7 @@ function renderHomeRadarCard(row = homePrematchActionRow(followedCompetitionCard
       </article>
       <div class="home-focus-actions">
         <button type="button" data-home-focus-competition="${escapeHtml(row.sportCode)}">赛事详情</button>
-        <button type="button" data-home-focus-prematch="${escapeHtml(row.sportCode)}">赛前情报</button>
+        <button type="button" data-home-focus-prematch="${escapeHtml(row.sportCode)}">赛前提醒</button>
         ${row.isFollowed ? '' : `<button type="button" data-home-focus-follow="${escapeHtml(row.sportCode)}">加入提醒</button>`}
       </div>
     </section>
@@ -5955,7 +5955,7 @@ function detectProductTemplateQuery(query) {
   const normalized = compactText(query);
   const hasTemplateIntent = /(模板|框架|报告怎么做|怎么做成报告|方案|生成.*报告|查看.*报告|生成.*情报包|查看.*情报包|做一份|输出一份)/.test(normalized);
   if (!hasTemplateIntent) return '';
-  if (/(赛前情报包|对手情报包|赛前包|报名情报)/.test(normalized)) return 'prematch-pack';
+  if (/(赛前提醒|赛前情报包|对手情报包|赛前包|报名情报)/.test(normalized)) return 'prematch-pack';
   if (/(家长|成长报告|孩子报告|选手成长)/.test(normalized)) return 'parent-growth-report';
   if (/(教练|学员分层|队员分层|续费|招生|训练反馈)/.test(normalized)) return 'coach-segmentation';
   return '';
@@ -5969,7 +5969,7 @@ function detectClubRecruitingQuery(query) {
 function detectBusinessInsightQuery(query) {
   const normalized = compactText(query);
   const hasDataAssetIntent = /(商业价值|数据价值|怎么变现|变现|商业化|产品机会|经营价值|行业洞察|用户价值|可以做哪些分析|值得做哪些分析|做哪些分析|数据.*利用|利用.*数据)/.test(normalized);
-  const hasRoleIntent = /(家长|教练|俱乐部|赛事方|协会|品牌|招生|留存|续费|赛前情报|成长报告|经营)/.test(normalized);
+  const hasRoleIntent = /(家长|教练|俱乐部|赛事方|协会|品牌|招生|留存|续费|赛前提醒|赛前情报|成长报告|经营)/.test(normalized);
   return hasDataAssetIntent || (normalized.includes('数据') && hasRoleIntent);
 }
 
@@ -6129,7 +6129,7 @@ function aiPreMatchRosterInsightRows(competitions) {
 function aiPreMatchPersonalRelevanceRows(competitions) {
   const focused = aiFocusedAthletes();
   if (!focused.length) {
-    return ['先关注孩子或学员，赛前情报会自动围绕他的项目、报名名单和历史对手生成。'];
+    return ['先关注孩子或学员，赛前提醒会自动围绕他的项目、报名名单和历史对手生成。'];
   }
   const rosterRows = prematchRosterRows(competitions);
   return focused.slice(0, 3).map((athlete) => {
@@ -6154,7 +6154,7 @@ function aiPreMatchActionRows(competitions, rosterRows, focusRows) {
   return [
     nearest
       ? `先打开 ${nearest.sportName}，确认时间、地点、状态和项目是否符合目标。`
-      : '先确认目标赛事和项目范围，再进入赛前情报包。',
+      : '先确认目标赛事和项目范围，再进入赛前提醒。',
     rosterRows.length || rosterCount
       ? `报名名单包含 ${rosterCount || rosterRows.length} 人次，优先核对关注对象是否在对应项目。`
       : '报名名单不足时，先看项目明细、赛事规模和历史强手，不直接推断真实对阵。',
@@ -6535,7 +6535,7 @@ function buildAiCompetitionStats(query, filters) {
       sportCode: competition.sportCode,
     })),
     actions: [
-      actionRows[0]?.sportCode ? { label: '看赛前情报', prematchTemplateKind: 'prematch-pack', prematchSportCode: actionRows[0].sportCode } : null,
+      actionRows[0]?.sportCode ? { label: '看赛前提醒', prematchTemplateKind: 'prematch-pack', prematchSportCode: actionRows[0].sportCode } : null,
       watchRows[0]?.sportCode ? { label: '关注最近赛事', followCompetitionCode: watchRows[0].sportCode } : null,
       { label: rows.length ? '看这几场赛事' : '进入赛事列表', mainTab: 'competitions', filters },
     ].filter(Boolean),
@@ -6596,7 +6596,7 @@ function buildAiCompetitionRanking(query, filters) {
           title: '查看建议',
           rows: [
             '优先查看人数最高的项目，确认该组别的报名名单、俱乐部分布和历史强手。',
-            '如果是赛前项目，可以生成赛前情报包，提前查看报名名单、重点对手和俱乐部分布。',
+            '如果是赛前项目，可以查看赛前提醒，提前了解报名名单、重点对手和俱乐部分布。',
           ],
         },
       ] : [],
@@ -6712,7 +6712,7 @@ function businessCoverageOpportunityRows() {
   const rosterRate = activeCount ? Math.round((rosterCount / activeCount) * 100) : 0;
   return [
     `赛后复盘：${scoreCount} 场有成绩/对阵，占全部赛事 ${scoreRate}%，适合先做家长成长报告和教练复盘。`,
-    `赛前服务：${rosterCount} 场有报名名单，覆盖近期/进行中赛事 ${rosterRate}%，适合做赛前情报包。`,
+    `赛前服务：${rosterCount} 场有报名名单，覆盖近期/进行中赛事 ${rosterRate}%，适合做赛前提醒。`,
     `赛事目录：${projectCount} 场至少有项目结构，可先支持筛选、提醒和项目级赛前判断。`,
   ];
 }
@@ -6759,7 +6759,7 @@ function businessMonetizationRows() {
   const followedCount = aiFocusedAthletes().length;
   const clubCount = entityCoverageCounts().clubs;
   return [
-    `赛前情报包：用 ${activeCount} 场近期/报名赛事做高频入口，其中 ${rosterCount} 场有报名名单，适合先做单场试用和赛前提醒。`,
+    `赛前提醒：用 ${activeCount} 场近期/报名赛事做高频入口，其中 ${rosterCount} 场有报名名单，适合先做单场提醒和持续跟进。`,
     `家长成长报告：用 ${scoreCount} 场成绩样本整理月度/赛后复盘，${followedCount} 名关注选手可直接生成个人化报告。`,
     `教练工作台：用 ${clubCount} 个俱乐部画像承接学员分层、续费沟通和招生展示，优先服务熟悉的小型剑馆样板。`,
     '服务路径：先用免费问答确认需求，再用报告证明价值，最后通过关注、提醒和试用服务形成持续使用。',
@@ -6821,7 +6821,7 @@ function buildAiBusinessInsightReport(query) {
         kind: '赛前机会',
         label: competition.sportName,
         detail: `${displayDateLabel(competition.dateLabel)} · ${competition.venue || competition.region || '地点待确认'} · ${statusLabel(competition.status)}`,
-        reason: '用于判断赛前情报、提醒和报名分析场景',
+        reason: '用于判断赛前提醒和报名分析场景',
         sportCode: competition.sportCode,
       })),
       ...topClubs.map((club) => ({
@@ -6835,7 +6835,7 @@ function buildAiBusinessInsightReport(query) {
     actions: [
       { label: '查看赛事机会', mainTab: 'competitions', filters: { status: 'registration' } },
       activeRows[0]?.sportCode ? { label: '加入最近赛事提醒', followCompetitionCode: activeRows[0].sportCode } : null,
-      { label: '查看赛前情报包', prematchTemplateKind: 'prematch-pack' },
+      { label: '查看赛前提醒', prematchTemplateKind: 'prematch-pack' },
       aiProductTemplateAthlete()?.id ? { label: '查看成长报告', parentGrowthAthleteId: aiProductTemplateAthlete().id } : null,
       aiProductTemplateClub()?.id ? { label: '查看教练工作台', coachSegmentationClubId: aiProductTemplateClub().id } : null,
     ].filter(Boolean),
@@ -6844,7 +6844,7 @@ function buildAiBusinessInsightReport(query) {
 }
 
 function productTemplateTitle(kind) {
-  if (kind === 'prematch-pack') return '赛前情报包';
+  if (kind === 'prematch-pack') return '赛前提醒';
   if (kind === 'parent-growth-report') return '家长成长报告';
   if (kind === 'coach-segmentation') return '教练学员分层';
   return '数据报告';
@@ -6976,7 +6976,7 @@ function productTemplateEvidence(kind) {
         kind: '赛前赛事',
         label: competition.sportName,
         detail: `${displayDateLabel(competition.dateLabel)} · ${competition.venue || competition.region || '地点待确认'} · ${statusLabel(competition.status)}`,
-        reason: '用于生成赛前情报包的赛事入口',
+        reason: '用于查看赛前提醒的赛事入口',
         sportCode: competition.sportCode,
       }));
   }
@@ -7018,7 +7018,7 @@ function buildAiProductTemplateReport(query, kind) {
   const templateAthlete = aiProductTemplateAthlete();
   const templateClub = aiProductTemplateClub();
   const summaryByKind = {
-    'prematch-pack': '把赛前赛事、报名名单、关注选手和历史成绩合并成一份可行动的备赛报告。',
+    'prematch-pack': '把赛前赛事、报名名单、关注选手和历史成绩合并成一份可行动的赛前提醒。',
     'parent-growth-report': '把孩子的参赛轨迹、名次变化和同龄位置整理成家长能理解的成长判断。',
     'coach-segmentation': '把俱乐部学员按成绩资产、参赛连续性和近期风险分层，服务训练、续费和招生。',
   };
@@ -7031,7 +7031,7 @@ function buildAiProductTemplateReport(query, kind) {
     sections: productTemplateSections(kind),
     evidence: productTemplateEvidence(kind),
     actions: [
-      kind === 'prematch-pack' ? { label: '生成赛前情报包', prematchTemplateKind: 'prematch-pack' } : null,
+      kind === 'prematch-pack' ? { label: '查看赛前提醒', prematchTemplateKind: 'prematch-pack' } : null,
       kind === 'prematch-pack' ? { label: '查看赛前赛事', mainTab: 'competitions', filters: { status: 'registration' } } : null,
       kind === 'parent-growth-report' && templateAthlete?.id ? { label: '生成成长报告', parentGrowthAthleteId: templateAthlete.id } : null,
       kind === 'parent-growth-report' && templateAthlete?.id ? { label: '查看选手画像', athleteId: templateAthlete.id } : null,
@@ -7069,7 +7069,7 @@ function buildAiPreMatchReport(query, filters) {
   const rosterTotal = rows.reduce((sum, competition) => sum + (Number(competition.registrationSummary?.rosterCount) || 0), 0);
   const regionLabel = filters.region || '不限';
   const scopeText = aiFilterScopeText(filters);
-  const title = `${scopeText === '全部赛事' ? '近期' : scopeText}赛前情报`;
+  const title = `${scopeText === '全部赛事' ? '近期' : scopeText}赛前提醒`;
   const summary = rows.length
     ? `${scopeText}有 ${rows.length} 场值得赛前关注的赛事，${rosterRows.length} 场可查看报名名单，${projectRows.length} 场可查看项目安排。`
     : `没有找到${scopeText === '全部赛事' ? '' : scopeText}赛前或报名赛事。`;
@@ -7109,7 +7109,7 @@ function buildAiPreMatchReport(query, filters) {
       rows[0]?.sportCode ? { label: '加入赛前提醒', followCompetitionCode: rows[0].sportCode } : null,
       { label: rows.length ? '查看赛前赛事' : '进入赛事列表', mainTab: 'competitions', filters },
     ].filter(Boolean),
-    sourceNote: '赛前情报基于赛事状态、项目安排和报名名单生成；报名名单较少时，先展示赛程、项目和重点赛事。',
+    sourceNote: '赛前提醒基于赛事状态、项目安排和报名名单生成；报名名单较少时，先展示赛程、项目和重点赛事。',
   };
 }
 
@@ -7575,7 +7575,7 @@ function aiNextStepRows(report) {
       '再用学员分层报告支撑续费沟通和招生转化。',
     ],
     'business-insight': [
-      '先把赛前情报包和选手成长报告做成稳定报告。',
+      '先把赛前提醒和选手成长报告做成稳定服务。',
       '再把教练工作台围绕学员分层、续费沟通和招生展示做闭环。',
     ],
     'product-template': [
@@ -7646,7 +7646,7 @@ function aiFollowUpPrompts(report) {
   if (report.type === 'product-template') {
     return [
       '这些击剑数据能产生什么商业价值',
-      report.templateKind === 'prematch-pack' ? '天津近期报名情况' : '生成赛前情报包',
+      report.templateKind === 'prematch-pack' ? '天津近期报名情况' : '查看赛前提醒',
     ];
   }
   return aiPromptPresets().slice(0, 2);
@@ -7738,7 +7738,7 @@ function aiReportConversionAction(report = {}) {
       source: 'ai-prematch-answer',
       title: '把这份赛前分析做成提醒',
       detail: '适合持续跟进报名名单、关注选手和重点对手。',
-      primaryLabel: '申请赛前试用',
+      primaryLabel: '关注赛前提醒',
       secondaryLabel: '了解会员权益',
     };
   }
@@ -7782,7 +7782,7 @@ function aiReportConversionAction(report = {}) {
     return {
       source: templateKind ? `ai-template-${templateKind}` : 'ai-business-insight-answer',
       title: type === 'product-template' ? '落地这类报告服务' : '申请产品试用',
-      detail: type === 'product-template' ? `围绕“${title}”验证真实用户是否愿意持续使用。` : '适合验证赛前情报、成长报告和教练工作台的商业转化。',
+      detail: type === 'product-template' ? `围绕“${title}”验证真实用户是否愿意持续使用。` : '适合验证赛前提醒、成长报告和教练工作台的商业转化。',
       primaryLabel: '申请试用',
       secondaryLabel: '了解会员权益',
     };
@@ -7900,7 +7900,7 @@ function renderAiAnswer(report) {
   return `
     <div class="ai-answer-card">
       <div class="ai-answer-head">
-        <span>${escapeHtml(report.type === 'comparison' ? '选手对比' : report.type === 'club-comparison' ? '剑馆对比' : report.type === 'growth' ? '成长分析' : report.type === 'club' ? '俱乐部画像' : report.type === 'prematch' ? '赛前情报' : report.type === 'business-insight' ? '商业洞察' : report.type === 'product-template' ? '报告服务' : report.type === 'club-recruiting' ? '招生展示' : '查询结果')}</span>
+        <span>${escapeHtml(report.type === 'comparison' ? '选手对比' : report.type === 'club-comparison' ? '剑馆对比' : report.type === 'growth' ? '成长分析' : report.type === 'club' ? '俱乐部画像' : report.type === 'prematch' ? '赛前提醒' : report.type === 'business-insight' ? '商业洞察' : report.type === 'product-template' ? '报告服务' : report.type === 'club-recruiting' ? '招生展示' : '查询结果')}</span>
         <strong>${escapeHtml(report.title)}</strong>
         <p>${escapeHtml(report.summary)}</p>
       </div>
@@ -8112,7 +8112,7 @@ function renderFocusPage() {
     <section class="panel my-section focus-trial-card">
       <div>
         <strong>提醒服务</strong>
-        <span>${escapeHtml(priorityCompetitions.length ? `把关注赛事、${followCopy.countLabel}和赛前情报固定下来，关键比赛前直接查看。` : `添加${followCopy.countLabel}或赛事后，可持续形成赛前提醒、成长报告和复盘入口。`)}</span>
+        <span>${escapeHtml(priorityCompetitions.length ? `把关注赛事、${followCopy.countLabel}和赛前提醒固定下来，关键比赛前直接查看。` : `添加${followCopy.countLabel}或赛事后，可持续形成赛前提醒、成长报告和复盘入口。`)}</span>
       </div>
       <div class="focus-trial-actions">
         <button type="button" data-reminder-interest data-commercial-source="focus-reminder" data-report-title="关注提醒订阅">订阅提醒</button>
@@ -8152,7 +8152,7 @@ function renderFocusPage() {
               <div class="focus-alert-actions">
                 <button type="button" data-focus-competition="${escapeHtml(competition.sportCode)}">赛事详情</button>
                 ${showingSuggestions ? `<button type="button" data-focus-follow="${escapeHtml(competition.sportCode)}">加入提醒</button>` : ''}
-                ${isPrematchCompetition(competition) ? `<button type="button" data-focus-prematch="${escapeHtml(competition.sportCode)}">赛前情报</button>` : ''}
+                ${isPrematchCompetition(competition) ? `<button type="button" data-focus-prematch="${escapeHtml(competition.sportCode)}">赛前提醒</button>` : ''}
               </div>
             </article>
           `).join('')}
@@ -8342,13 +8342,13 @@ function renderMyPage() {
             </article>
           `).join('')}
         </div>
-      ` : '<div class="empty compact-empty">生成成长报告、赛前情报或教练报告后，可以在这里继续查看。</div>'}
+      ` : '<div class="empty compact-empty">生成成长报告、赛前提醒或教练报告后，可以在这里继续查看。</div>'}
     </section>
 
     <section class="panel my-section my-prematch-section">
       <div class="section-title">
         <h2>近期赛前提醒</h2>
-        <span>${prematchReminderRows.length ? '赛前情报' : '待关注'}</span>
+        <span>${prematchReminderRows.length ? '赛前提醒' : '待关注'}</span>
       </div>
       ${prematchReminderRows.length ? `
         <div class="my-prematch-list">
@@ -8361,14 +8361,14 @@ function renderMyPage() {
               </div>
               <small>${escapeHtml(row.tag)}</small>
               <div class="my-prematch-actions">
-                <button type="button" data-my-prematch-report="${escapeHtml(row.sportCode)}">赛前情报</button>
+                <button type="button" data-my-prematch-report="${escapeHtml(row.sportCode)}">赛前提醒</button>
                 <button type="button" data-reminder-interest data-commercial-source="my-prematch-reminder" data-report-title="${escapeHtml(row.title)}提醒">订阅提醒</button>
                 ${row.isFollowed ? '' : `<button type="button" data-my-prematch-follow="${escapeHtml(row.sportCode)}">加入提醒</button>`}
               </div>
             </article>
           `).join('')}
         </div>
-      ` : '<div class="empty compact-empty">关注近期赛事后，这里会形成赛前情报和提醒入口。</div>'}
+      ` : '<div class="empty compact-empty">关注近期赛事后，这里会形成赛前提醒入口。</div>'}
     </section>
 
     ${renderCommercialIntentStatus(commercialIntents)}
@@ -8502,7 +8502,7 @@ function renderMyPage() {
             <strong>${escapeHtml(row.title)}</strong>
             <em>${escapeHtml(row.detail)}</em>
           </button>
-        `).join('') : '<div class="empty compact-empty">生成成长报告、赛前情报或教练报告后，会显示在这里。</div>'}
+        `).join('') : '<div class="empty compact-empty">生成成长报告、赛前提醒或教练报告后，会显示在这里。</div>'}
       </div>
     </section>
     <section class="panel my-section">
@@ -10080,7 +10080,7 @@ function renderEventPreMatchIntelligence(event) {
   const hasRoster = model.rosterRows.length > 0;
   return `
     <div class="chart-card event-prematch-card">
-      <div class="chart-title">赛前情报</div>
+      <div class="chart-title">赛前提醒</div>
       <div class="event-prematch-summary">
         <strong>${escapeHtml(hasRoster ? `${model.registered} 条报名动态` : '报名动态持续更新')}</strong>
         <span>${escapeHtml(hasRoster ? '先看报名热度、主要俱乐部和可重点关注选手。' : '当前先看比赛时间和项目热度，报名信息更新时可形成对手分析。')}</span>
@@ -11341,7 +11341,7 @@ function coachSegmentationBuckets(athletes) {
       key: 'score',
       title: '冲成绩学员',
       note: '已有前八/奖牌或最好名次靠前',
-      action: '重点安排强手对局、淘汰赛关键分和赛前情报。',
+      action: '重点安排强手对局、淘汰赛关键分和赛前提醒。',
       rows: take((athlete) => (athlete.bestRank ?? 999) <= 8 || (athlete.medals || 0) > 0),
     },
     {
@@ -12545,7 +12545,7 @@ function renderPreMatchIntelligence(club, projectRows, athletes, providedRosterR
   return `
     <section class="coach-section prematch-section">
       <div class="section-title">
-        <h2>赛前情报包</h2>
+        <h2>赛前提醒</h2>
         <span>赛前优先看</span>
       </div>
       <div class="coach-summary-card prematch-ready">
@@ -13182,7 +13182,7 @@ function prematchShareUrl(sportCode = '') {
 
 function buildPrematchPageShareText(competitions = [], isSingleCompetition = false, sportCode = '') {
   const nearest = competitions[0] || null;
-  const title = isSingleCompetition && nearest ? `${nearest.sportName} 赛前情报页` : '近期赛前情报页';
+  const title = isSingleCompetition && nearest ? `${nearest.sportName} 赛前提醒页` : '近期赛前提醒页';
   return [
     title,
     nearest ? `${displayDateLabel(nearest.dateLabel)} · ${nearest.venue || nearest.region || '地点待确认'}` : '',
@@ -13199,7 +13199,7 @@ function buildPrematchShareText(competitions, focusRows, opponentRows, isSingleC
   const rosterClubs = rosterClubSummary(rosterRows, 3);
   const actionPlanRows = prematchActionPlanRows({ competitions, focusRows, opponentRows, rosterRows, rosterProjectRows: rosterProjects, rosterClubRows: rosterClubs, isSingleCompetition });
   return [
-    isSingleCompetition && nearest ? `${nearest.sportName} 赛前情报包` : '赛前情报包',
+    isSingleCompetition && nearest ? `${nearest.sportName} 赛前提醒` : '赛前提醒',
     nearest ? `赛事：${nearest.sportName}` : '赛事：近期赛前赛事',
     nearest ? `时间地点：${displayDateLabel(nearest.dateLabel)} · ${nearest.venue || nearest.region || '地点待确认'}` : '',
     `相关赛事：${competitions.length} 场`,
@@ -13239,7 +13239,7 @@ function renderPrematchRelevanceSection(relevanceRows = []) {
             </div>
           `).join('')}
         </div>
-      ` : '<div class="empty compact-empty">关注孩子或学员后，赛前情报会优先显示和他相关的项目、名单和强手线索。</div>'}
+      ` : '<div class="empty compact-empty">关注孩子或学员后，赛前提醒会优先显示和他相关的项目、名单和强手线索。</div>'}
     </article>
   `;
 }
@@ -13264,7 +13264,7 @@ function renderPrematchReport(kind = 'prematch-pack', sportCode = '') {
   const actionPlanRows = prematchActionPlanRows({ competitions, focusRows, opponentRows, rosterRows, rosterProjectRows, rosterClubRows, isSingleCompetition });
 
   prematchReportHero.innerHTML = `
-    <div class="hero-title">${escapeHtml(isSingleCompetition ? '本场赛前情报包' : '赛前情报包')}</div>
+    <div class="hero-title">${escapeHtml(isSingleCompetition ? '本场赛前提醒' : '赛前提醒')}</div>
     <div class="hero-sub">${escapeHtml(nearest ? `${nearest.sportName} · ${displayDateLabel(nearest.dateLabel)}` : '从近期赛事和关注对象生成')}</div>
     <div class="badge-row">
       <span class="badge">${escapeHtml(isSingleCompetition ? '目标赛事' : '近期赛事')} ${escapeHtml(competitions.length)} 场</span>
@@ -13279,7 +13279,7 @@ function renderPrematchReport(kind = 'prematch-pack', sportCode = '') {
 
   const prematchShareButton = prematchReportHero.querySelector('[data-report-share="prematch"]');
   if (prematchShareButton) {
-    prematchShareButton.insertAdjacentHTML('afterend', '<button class="report-share-action secondary" type="button" data-report-share="prematch-page">复制情报页</button>');
+    prematchShareButton.insertAdjacentHTML('afterend', '<button class="report-share-action secondary" type="button" data-report-share="prematch-page">复制提醒页</button>');
   }
 
   prematchReportBody.innerHTML = `
@@ -13471,9 +13471,9 @@ function renderPrematchReport(kind = 'prematch-pack', sportCode = '') {
 
     ${reportConversionCard({
       source: isSingleCompetition ? 'prematch-single-report' : 'prematch-pack-report',
-      title: isSingleCompetition ? '生成本场赛前服务' : '建立赛前提醒服务',
+      title: isSingleCompetition ? '关注本场赛前提醒' : '保存赛前提醒',
       detail: isSingleCompetition ? '适合围绕本场报名、重点对象和强手线索持续更新。' : '适合把近期赛事、报名名单和关注对象做成赛前提醒。',
-      primaryLabel: '申请赛前试用',
+      primaryLabel: '关注赛前提醒',
       secondaryLabel: '关注会员权益',
     })}
     ${reportReminderCard({
@@ -13504,8 +13504,8 @@ function renderPrematchReport(kind = 'prematch-pack', sportCode = '') {
     bindCopyTextButton(button, () => prematchActionPlanText(row), 'prematch-action-plan', '已复制赛前动作。');
   });
   bindReportConversionActions(prematchReportBody);
-  bindCopyTextButton(prematchReportHero.querySelector('[data-report-share="prematch"]'), () => buildPrematchShareText(competitions, focusRows, opponentRows, isSingleCompetition, relevanceRows, rosterRows), isSingleCompetition ? 'prematch-single' : 'prematch-pack', '已复制，可继续申请赛前试用。');
-  bindCopyTextButton(prematchReportHero.querySelector('[data-report-share="prematch-page"]'), () => buildPrematchPageShareText(competitions, isSingleCompetition, sportCode), 'prematch-page', '已复制情报页，可直接发给家长或教练。');
+  bindCopyTextButton(prematchReportHero.querySelector('[data-report-share="prematch"]'), () => buildPrematchShareText(competitions, focusRows, opponentRows, isSingleCompetition, relevanceRows, rosterRows), isSingleCompetition ? 'prematch-single' : 'prematch-pack', '已复制赛前提醒。');
+  bindCopyTextButton(prematchReportHero.querySelector('[data-report-share="prematch-page"]'), () => buildPrematchPageShareText(competitions, isSingleCompetition, sportCode), 'prematch-page', '已复制提醒页，可直接发给家长或教练。');
 }
 
 function openPrematchReport(kind = 'prematch-pack', sportCode = '') {
@@ -13515,9 +13515,9 @@ function openPrematchReport(kind = 'prematch-pack', sportCode = '') {
   trackReportHistory({
     type: 'prematch',
     id: sportCode || kind,
-    title: competition?.sportName || '赛前情报包',
+    title: competition?.sportName || '赛前提醒',
     detail: competition ? [competition.venue, displayDateLabel(competition.dateLabel)].filter(Boolean).join(' · ') : '近期报名和未开赛赛事',
-    typeLabel: '赛前情报',
+    typeLabel: '赛前提醒',
   });
   navigateTo('prematchReport');
 }

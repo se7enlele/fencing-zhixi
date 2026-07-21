@@ -391,7 +391,7 @@ assert.equal(prematchReportAction.prematchSportCode, 'TJ2026JUNE', 'AI prematch 
 
 const broadRegistrationReport = context.buildAiAnswer('\u5929\u6d25\u8fd1\u671f\u62a5\u540d\u60c5\u51b5');
 assert.equal(broadRegistrationReport.type, 'prematch', 'broad registration-status questions should route to prematch intelligence');
-assert.equal(broadRegistrationReport.title, '\u5929\u6d25\u8d5b\u524d\u60c5\u62a5', 'broad prematch title should not expose all-year or all-month filler text');
+assert.equal(broadRegistrationReport.title, '\u5929\u6d25\u8d5b\u524d\u63d0\u9192', 'broad prematch title should not expose all-year or all-month filler text');
 assert.ok(!/(\u5168\u90e8\u5e74\u4efd|\u5168\u90e8\u6708\u4efd)/.test(`${broadRegistrationReport.title}${broadRegistrationReport.summary}`), 'broad prematch copy should use natural scope wording');
 assert.equal(broadRegistrationReport.cards[0][1], '3 \u573a', 'broad registration-status questions should include upcoming prematch competitions, not only registration status');
 assert.ok(broadRegistrationReport.sections.some((section) => section.title === '\u4f18\u5148\u5173\u6ce8'), 'broad registration-status questions should produce actionable competition rows');
@@ -553,8 +553,8 @@ assert.ok(businessReport.sections.some((section) => section.title === '\u89d2\u8
 assert.ok(businessReport.sections.some((section) => section.title === '\u6570\u636e\u6210\u719f\u5ea6'), 'business insight should show which data is ready for which business scenario');
 assert.ok(businessReport.sections.some((section) => section.title === '\u4f18\u5148\u4f7f\u7528\u573a\u666f'), 'business insight should include a user-facing service sequence');
 assert.ok(
-  businessReport.sections.find((section) => section.title === '\u4f18\u5148\u4f7f\u7528\u573a\u666f')?.rows.some((row) => row.includes('\u8d5b\u524d\u60c5\u62a5\u5305')),
-  'business insight should name prematch intelligence as the first opportunity',
+  businessReport.sections.find((section) => section.title === '\u4f18\u5148\u4f7f\u7528\u573a\u666f')?.rows.some((row) => row.includes('\u8d5b\u524d\u63d0\u9192')),
+  'business insight should name prematch reminders as the first opportunity',
 );
 assert.ok(
   businessReport.sections.find((section) => section.title === '\u4f18\u5148\u4f7f\u7528\u573a\u666f')?.rows.some((row) => row.includes('\u5bb6\u957f\u6210\u957f\u62a5\u544a')),
