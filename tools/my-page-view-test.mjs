@@ -118,9 +118,9 @@ assert.match(js, /onlyFollowedData: false/, 'database tab must track my-follow f
 assert.match(js, /function competitionMatchesFollowedData\(competition\)/, 'database tab must filter competitions by followed athletes and followed competitions');
 assert.doesNotMatch(js, /function toggleFollowedCompetitionFilter\(\)/, 'my-follow filter must not keep a silent toggle helper');
 assert.doesNotMatch(js, /state\.onlyFollowedData = !state\.onlyFollowedData;/, 'my-follow filter changes must happen through an explicit option selection');
-assert.match(html, /id="followFilterMenu"/, 'database tab must include an inline my-follow menu container');
-assert.match(js, /function toggleFollowFilterMenu\(\)/, 'database tab must toggle the my-follow dropdown menu when tapped');
-assert.match(js, /followFilterMenu\?\.addEventListener\('click'/, 'my-follow menu must handle explicit option selection');
+assert.doesNotMatch(html, /id="followFilterMenu"/, 'my-follow filter must use the shared sheet instead of a fragile inline menu');
+assert.doesNotMatch(js, /function toggleFollowFilterMenu\(\)/, 'my-follow filter must not keep an inline dropdown toggle');
+assert.match(js, /myFollowFilterButton\?\.addEventListener\('click', \(\) => openFilterSheet\('follow'\)\)/, 'my-follow filter button must open the shared sheet');
 assert.match(js, /if \(type === 'follow'\) state\.onlyFollowedData = value === '我的关注';/, 'my-follow sheet selection must update the followed-only filter');
 assert.match(js, /myFollowFilterButton\.innerHTML = `<span>\$\{isActive \? '我的关注' : '全部赛事'\}<\/span>`/, 'my-follow filter must show the selected option');
 assert.match(js, /myFollowFilterButton\?\.setAttribute\('aria-expanded', 'true'\);/, 'my-follow filter must mark the dropdown menu as open');

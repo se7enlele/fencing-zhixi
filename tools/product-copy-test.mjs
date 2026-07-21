@@ -38,12 +38,11 @@ assert.doesNotMatch(js, /\bP0\b|\bP1\b/, 'frontend copy must avoid internal prio
 
 assert.doesNotMatch(js, /\u751f\u6210\u5224\u65ad/, 'AI submit button must not use vague judgment copy');
 assert.match(js, /\u5f00\u59cb\u5206\u6790/, 'AI submit button should use a direct action CTA');
-assert.match(html, /id="followFilterMenu"/, 'my-follow filter should have a visible inline menu container');
-assert.match(js, /function toggleFollowFilterMenu\(\)/, 'my-follow filter should toggle a real inline menu');
-assert.match(js, /data-follow-filter-value/, 'my-follow filter menu must render selectable options');
-assert.match(js, /setFilterValue\('follow', button\.dataset\.followFilterValue\)/, 'my-follow filter options must update the follow scope explicitly');
-assert.match(css, /\.follow-filter-menu/, 'my-follow inline menu styles must exist');
-assert.match(css, /\.follow-filter-option\.active/, 'my-follow active menu option must be visually distinct');
+assert.doesNotMatch(html, /id="followFilterMenu"/, 'my-follow filter should not use a fragile inline menu container');
+assert.doesNotMatch(js, /function toggleFollowFilterMenu\(\)/, 'my-follow filter should use the shared sheet instead of an inline menu');
+assert.doesNotMatch(js, /data-follow-filter-value/, 'my-follow filter should use the shared sheet option data attributes');
+assert.match(js, /myFollowFilterButton\?\.addEventListener\('click', \(\) => openFilterSheet\('follow'\)\)/, 'my-follow filter button must open the shared sheet');
+assert.doesNotMatch(css, /\.follow-filter-menu|\.follow-filter-option/, 'my-follow inline menu styles must not remain');
 assert.doesNotMatch(js, /myFollowFilterButton\?\.addEventListener\('click', toggleFollowedCompetitionFilter\)/, 'my-follow dropdown-style filter must not be wired as a silent toggle');
 assert.doesNotMatch(js, /AI 分析入口|为你而生|主动洞察/, 'home and detail copy must avoid internal or vague AI-entry wording');
 assert.doesNotMatch(js, /label: '判断口径'|口径下|当前已收录|第一层结论/, 'AI answer copy must avoid internal methodology labels');
