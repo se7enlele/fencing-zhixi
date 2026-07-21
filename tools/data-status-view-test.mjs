@@ -14,7 +14,7 @@ assert.match(js, /taskTypes = summary\.taskTypes \|\| \{\}/, 'scheduled sync sta
 assert.match(js, /pre-event-roster/, 'scheduled sync status must expose pre-event roster work');
 assert.match(js, /completed-score/, 'scheduled sync status must expose completed score work');
 assert.match(js, /historical-score-backfill/, 'scheduled sync status must expose historical backfill work');
-assert.match(js, /历史补齐/, 'scheduled sync status must translate backfill into product-facing copy');
+assert.match(js, /历史成绩/, 'scheduled sync status must translate backfill into product-facing copy');
 assert.match(js, /state\.dataGeneratedAt = result\.generatedAt \|\| ''/, 'initial data load must store generatedAt from the public data index');
 assert.match(js, /state\.dataCoverage = result\.dataCoverage \|\| null/, 'initial data load must store data coverage and sync status');
 assert.match(js, /最近更新.*generatedLabel/s, 'home data status should show the data refresh time when available');

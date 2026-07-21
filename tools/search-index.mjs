@@ -34,17 +34,17 @@ function entityMatchScore(entity, keyword, fields) {
 
 function athleteMatchReason(athlete, keyword) {
   const compactKeyword = compactText(keyword);
-  if (compactText(athlete.name) === compactKeyword) return '姓名完全匹配';
-  if (compactText(athlete.name).includes(compactKeyword)) return '姓名匹配';
-  if (compactText(athlete.club).includes(compactKeyword)) return '俱乐部匹配';
-  return '相关记录匹配';
+  if (compactText(athlete.name) === compactKeyword) return '姓名一致';
+  if (compactText(athlete.name).includes(compactKeyword)) return '姓名相关';
+  if (compactText(athlete.club).includes(compactKeyword)) return '俱乐部相关';
+  return '相关记录';
 }
 
 function clubMatchReason(club, keyword) {
   const compactKeyword = compactText(keyword);
-  if (compactText(club.club) === compactKeyword) return '俱乐部完全匹配';
-  if (compactText(club.club).includes(compactKeyword)) return '俱乐部名称匹配';
-  return '相关记录匹配';
+  if (compactText(club.club) === compactKeyword) return '俱乐部名称一致';
+  if (compactText(club.club).includes(compactKeyword)) return '俱乐部名称相关';
+  return '相关记录';
 }
 
 export function compactAthleteForSearch(athlete) {
@@ -182,19 +182,19 @@ function publicClubResult(club, keyword) {
 
 function officialMatchReason(person, keyword) {
   const compactKeyword = compactText(keyword);
-  if (compactText(person.name) === compactKeyword || compactText(person.name).includes(compactKeyword)) return '姓名匹配';
-  if (compactText(person.club).includes(compactKeyword)) return '俱乐部匹配';
-  if (compactText(person.city).includes(compactKeyword) || compactText(person.province).includes(compactKeyword)) return '地区匹配';
-  if (compactText(person.role).includes(compactKeyword)) return '身份匹配';
-  return '公开资料匹配';
+  if (compactText(person.name) === compactKeyword || compactText(person.name).includes(compactKeyword)) return '姓名相关';
+  if (compactText(person.club).includes(compactKeyword)) return '俱乐部相关';
+  if (compactText(person.city).includes(compactKeyword) || compactText(person.province).includes(compactKeyword)) return '地区相关';
+  if (compactText(person.role).includes(compactKeyword)) return '身份相关';
+  return '公开资料';
 }
 
 function competitionMatchReason(competition, keyword) {
   const compactKeyword = compactText(keyword);
-  if (compactText(competition.sportName) === compactKeyword || compactText(competition.sportName).includes(compactKeyword)) return '赛事名称匹配';
-  if (chineseAdminAlias(competition.sportName).includes(compactKeyword) || chineseAdminAlias(competition.sportName).includes(chineseAdminAlias(keyword))) return '赛事名称匹配';
-  if (compactText(competition.venue).includes(compactKeyword) || compactText(competition.region).includes(compactKeyword)) return '地区匹配';
-  return '相关赛事匹配';
+  if (compactText(competition.sportName) === compactKeyword || compactText(competition.sportName).includes(compactKeyword)) return '赛事名称相关';
+  if (chineseAdminAlias(competition.sportName).includes(compactKeyword) || chineseAdminAlias(competition.sportName).includes(chineseAdminAlias(keyword))) return '赛事名称相关';
+  if (compactText(competition.venue).includes(compactKeyword) || compactText(competition.region).includes(compactKeyword)) return '地区相关';
+  return '相关赛事';
 }
 
 function publicOfficialResult(person, keyword) {

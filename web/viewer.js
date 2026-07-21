@@ -1240,7 +1240,7 @@ function scheduledSyncStatusLabel(syncStatus) {
   const parts = [
     Number(taskTypes['pre-event-roster'] || 0) ? `报名 ${Number(taskTypes['pre-event-roster'] || 0)}` : '',
     Number(taskTypes['completed-score'] || 0) ? `成绩 ${Number(taskTypes['completed-score'] || 0)}` : '',
-    Number(taskTypes['historical-score-backfill'] || summary.backfillCount || 0) ? `历史补齐 ${Number(taskTypes['historical-score-backfill'] || summary.backfillCount || 0)}` : '',
+    Number(taskTypes['historical-score-backfill'] || summary.backfillCount || 0) ? `历史成绩 ${Number(taskTypes['historical-score-backfill'] || summary.backfillCount || 0)}` : '',
   ].filter(Boolean);
   if (failedCount > 0) {
     return `${generatedLabel} 更新检查发现 ${failedCount} 项异常，已保留可用数据`;
@@ -1452,20 +1452,20 @@ function buildClubSearchIndex() {
 
 function athleteMatchReason(athlete, keyword) {
   const compactKeyword = compactText(keyword);
-  if (compactText(athlete.name) === compactKeyword) return '姓名完全匹配';
-  if (compactText(athlete.name).includes(compactKeyword)) return '姓名匹配';
-  if (compactText(athlete.club).includes(compactKeyword)) return '俱乐部匹配';
+  if (compactText(athlete.name) === compactKeyword) return '姓名一致';
+  if (compactText(athlete.name).includes(compactKeyword)) return '姓名相关';
+  if (compactText(athlete.club).includes(compactKeyword)) return '俱乐部相关';
   const event = (athlete.eventLabels || []).find((label) => compactText(label).includes(compactKeyword));
-  if (event) return `项目匹配：${event}`;
+  if (event) return `相关项目：${event}`;
   return `${athlete.appearances || 0} 次参赛记录`;
 }
 
 function clubMatchReason(club, keyword) {
   const compactKeyword = compactText(keyword);
-  if (compactText(club.club) === compactKeyword) return '俱乐部完全匹配';
-  if (compactText(club.club).includes(compactKeyword)) return '俱乐部名称匹配';
+  if (compactText(club.club) === compactKeyword) return '俱乐部名称一致';
+  if (compactText(club.club).includes(compactKeyword)) return '俱乐部名称相关';
   const event = (club.eventLabels || []).find((label) => compactText(label).includes(compactKeyword));
-  if (event) return `项目匹配：${event}`;
+  if (event) return `相关项目：${event}`;
   return `${club.entrants || 0} 人次参赛记录`;
 }
 
@@ -2246,7 +2246,7 @@ function renderDatabaseDirectory() {
       key: 'officials',
       title: '教练/裁判',
       detail: '按姓名检索公开资料',
-      count: officialCount ? `${officialCount} 个` : '待导入',
+      count: officialCount ? `${officialCount} 个` : '暂无资料',
       action: '搜索人员',
     },
     {
@@ -2482,7 +2482,7 @@ function parentNextFocusRows(model) {
   }
 
   if (model.poolRate === null) {
-    rows.push({ title: '补齐小组赛表现', detail: '优先看小组胜负和净胜剑，判断基础稳定性。' });
+    rows.push({ title: '观察小组赛表现', detail: '优先看小组胜负和净胜剑，判断基础稳定性。' });
   } else if (model.poolRate >= 60) {
     rows.push({ title: '保持小组赛稳定', detail: `当前小组胜率 ${model.poolRate}%，下一步看淘汰赛关键分。` });
   } else {
@@ -2711,7 +2711,7 @@ function parentGrowthActionRows(athlete, model, focusRows = []) {
       title: '赛后复盘',
       detail: latest
         ? `先复盘 ${displayEventName(latest)}：最终第 ${latest.finalRank ?? '-'} 名，小组第 ${latest.poolRank ?? '-'} 名。`
-        : '先补齐最近比赛记录，再判断小组赛和淘汰赛问题。',
+        : '先积累最近比赛记录，再判断小组赛和淘汰赛问题。',
     },
     {
       title: '训练沟通',
@@ -2761,7 +2761,7 @@ function parentGrowthCommunicationRows(athlete, model, focusRows = [], actionRow
       label: continuity?.level || '持续观察',
       message: [
         `${athlete.name} 当前参赛记录 ${model.events.length} 场，最好名次 ${model.best?.finalRank ? `第${model.best.finalRank}名` : '待确认'}`,
-        `小组胜率 ${model.poolRate === null ? '待补齐' : `${model.poolRate}%`}，淘汰赛 ${model.totalElimWins}胜${model.totalElimLosses}负`,
+        `小组胜率 ${model.poolRate === null ? '待观察' : `${model.poolRate}%`}，淘汰赛 ${model.totalElimWins}胜${model.totalElimLosses}负`,
         continuity?.detail || '先看参赛连续性，再判断训练投入节奏。',
       ].filter(Boolean).join('；'),
     },
@@ -2789,7 +2789,7 @@ function parentInvestmentSignalRows(model) {
       ? { level: '积累中', detail: `已有 ${model.events.length} 场记录，建议再观察 1-2 场形成趋势。` }
       : { level: '样本少', detail: '先积累至少 2-3 场比赛，再判断长期投入节奏。' };
   const poolSignal = model.poolRate === null
-    ? { level: '待补齐', detail: '小组胜负数据不足，先补齐基础稳定性证据。' }
+    ? { level: '待观察', detail: '小组胜负资料不足，先观察基础稳定性。' }
     : model.poolRate >= 60
       ? { level: '基础稳定', detail: `小组胜率 ${model.poolRate}%，下一步看淘汰赛关键分。` }
       : model.poolRate >= 45
@@ -2859,7 +2859,7 @@ function buildParentGrowthShareText(athlete, model, focusRows, actionRows = pare
     ...focusRows.slice(0, 3).map((row, index) => `关注点${index + 1}：${row.title}，${row.detail}`),
     ...actionRows.slice(0, 4).map((row) => `${row.title}：${row.detail}`),
     ...communicationRows.slice(0, 3).map((row, index) => `沟通卡${index + 1}：${row.title}，${row.message}`),
-    '数据来源：FencingAI 已收录赛事成绩',
+    '数据来源：FencingAI 公开赛事成绩',
   ].join('\n');
 }
 
@@ -3541,7 +3541,7 @@ function reportNextActionRows(reportHistory = reportHistoryRows()) {
         actionLabel: '查看赛前提醒',
         trialLabel: '保存提醒',
         reminderLabel: '订阅提醒',
-        next: '赛前节点明确，适合继续订阅提醒并补齐报名名单。',
+        next: '赛前节点明确，适合继续订阅提醒并关注报名名单。',
       };
     }
     if (row.type === 'parent-growth') {
@@ -4311,7 +4311,7 @@ function homePrematchActionRow(followedCompetitions = []) {
     meta: [timing, displayDateLabel(recommended.dateLabel), recommended.venue || recommended.region].filter(Boolean).join(' · '),
     detail: competitionCoverageLevel(recommended) === 'roster'
       ? '已有报名名单，可直接查看潜在对手和重点俱乐部。'
-      : '先看赛程、项目和历史强手，名单补齐后继续细化。',
+      : '先看赛程、项目和历史强手，适合提前确定关注对象。',
   };
 }
 
@@ -6244,7 +6244,7 @@ function aiPreMatchFocusRows(competitions) {
     const matched = competitions.filter((competition) => labels.some((label) => competitionMatchesProjectLabel(competition, label))).slice(0, 2);
     const prefix = athlete.focusKind === 'primary' ? '重点关注' : '已关注';
     const projectText = labels.length ? labels.slice(0, 2).join(' / ') : '项目待确认';
-    const matchText = matched.length ? `匹配 ${matched.length} 场近期赛事` : '暂未匹配到同项目近期赛事';
+    const matchText = matched.length ? `找到 ${matched.length} 场同项目近期赛事` : '暂未找到同项目近期赛事';
     return `${prefix} ${athlete.name || '选手'}：历史项目 ${projectText}，${matchText}`;
   });
 }
@@ -6278,7 +6278,7 @@ function aiPreMatchPersonalRelevanceRows(competitions) {
       return `${athlete.name}：已在报名名单中，项目为 ${rosterEventLabel(rosterHit)}，先核对同项目名单和历史强手。`;
     }
     if (matchedCompetitions.length) {
-      return `${athlete.name}：历史项目匹配 ${matchedCompetitions.length} 场近期赛事，先确认是否报名，再看同项目强手。`;
+      return `${athlete.name}：历史项目对应 ${matchedCompetitions.length} 场近期赛事，先确认是否报名，再看同项目强手。`;
     }
     const projectText = labels.length ? labels.slice(0, 2).join(' / ') : '历史项目待确认';
     return `${athlete.name}：先按 ${projectText} 准备，重点核对同项目名单和历史强手。`;
@@ -7097,7 +7097,7 @@ function productTemplateSections(kind) {
         title: '内容结构',
         rows: [
           '本场赛事概览：时间、地点、状态、项目和报名规模。',
-          '关注对象匹配：按历史项目匹配可能参赛项目。',
+          '关注对象：按历史项目判断可能参赛项目。',
           '强手与熟悉对手：按最好名次、前八、淘汰赛记录和共同赛事排序。',
           '备赛建议：给出重点训练方向和赛前沟通要点。',
         ],
@@ -7105,7 +7105,7 @@ function productTemplateSections(kind) {
       {
         title: '关键指标',
         rows: [
-          '报名人数、项目覆盖、关注选手匹配数、潜在强手数。',
+          '报名人数、项目覆盖、关注选手相关项目、潜在强手数。',
           '历史最好名次、近期趋势、淘汰赛胜负、共同赛事证据。',
         ],
       },
@@ -7401,7 +7401,7 @@ function buildAiAthleteComparison(query, left, right) {
 function athleteComparisonRiskRows({ left, right, leader, other, direct, shared }) {
   const rows = [];
   if (!direct.length) rows.push('没有直接交手记录，不能把历史名次直接等同为真实胜负关系。');
-  if (!shared.length) rows.push('共同赛事不足，赛前更适合关注项目匹配和近期状态，而不是下确定结论。');
+  if (!shared.length) rows.push('共同赛事不足，赛前更适合关注项目关系和近期状态，而不是下确定结论。');
   if (Math.abs((left.bestRank || 999) - (right.bestRank || 999)) <= 2) rows.push('最好名次接近，临场状态和签表位置可能比历史最好名次更关键。');
   if ((other.eliminationWins || 0) > (leader.eliminationWins || 0)) rows.push((other.name || '对手') + ' 淘汰赛推进记录不弱，需要重点看关键分处理。');
   if ((left.appearances || 0) < 2 || (right.appearances || 0) < 2) rows.push('一方参赛样本偏少，建议补看最近项目名单和同组对手。');
@@ -7763,7 +7763,7 @@ function aiTrustRows(report) {
     rows.push({
       label: '依据',
       value: '赛前信息',
-      detail: '按赛事状态、项目明细、报名名单和关注选手匹配生成。',
+      detail: '按赛事状态、项目明细、报名名单和关注选手生成。',
     });
   } else if (report.type === 'competition-stats') {
     rows.push({
@@ -7833,8 +7833,8 @@ function aiNextStepRows(report) {
       '再把教练工作台围绕学员分层、续费沟通和招生展示做闭环。',
     ],
     'product-template': [
-      '先用真实用户熟悉的对象跑一版模板，确认信息顺序和表达口径。',
-      '再把模板沉淀成可保存、可分享、可定期更新的报告。',
+      '先用你熟悉的选手、赛事或俱乐部生成一份报告，确认信息顺序和表达方式。',
+      '再把报告保存下来，后面可以继续查看、分享或定期更新。',
     ],
   };
   return rowsByType[report.type] || [
@@ -8964,7 +8964,7 @@ function daysFromToday(timestamp) {
 function recommendationReasonForCompetition(competition) {
   const days = daysFromToday(competitionDateValue(competition));
   const topItem = [...competitionItemSummaries(competition)].sort((a, b) => (Number(b.competitionNo) || Number(b.expectedRegistrationCount) || 0) - (Number(a.competitionNo) || Number(a.expectedRegistrationCount) || 0))[0];
-  const itemText = competition.topItemLabel || (topItem ? `${displayEventName(topItem)}数据较完整` : '项目数据已收录');
+  const itemText = competition.topItemLabel || (topItem ? `${displayEventName(topItem)}信息较完整` : '可查看项目安排');
   if (days >= -90 && days <= 30) return `近期比赛 · ${itemText}`;
   if (days > 30 && days < 99999) return `未来赛程 · ${itemText}`;
   if (days < -90) return `历史样本 · ${itemText}`;
@@ -9262,7 +9262,7 @@ function renderAthleteSearchResults(keyword) {
             <div class="athlete-result-main">
               <strong>${escapeHtml(person.name)}</strong>
               <span>${escapeHtml([person.roleLabel, person.club, person.city || person.province].filter(Boolean).join(' · '))}</span>
-              <em>${escapeHtml(person.matchReason || '公开资料匹配')}</em>
+              <em>${escapeHtml(person.matchReason || '公开资料')}</em>
             </div>
             <div class="athlete-result-side">
               <b>${escapeHtml(person.level || '-')}</b>
@@ -9274,7 +9274,7 @@ function renderAthleteSearchResults(keyword) {
     ` : ''}
     ${!athleteRows.length && !clubRows.length && !officialRows.length && hasCompetitionResults ? `
       <div class="search-hint-card">
-        <strong>已为你匹配到 ${escapeHtml(state.filteredCompetitions.length)} 场相关比赛</strong>
+        <strong>为你找到 ${escapeHtml(state.filteredCompetitions.length)} 场相关比赛</strong>
         <span>下面的比赛列表已经按当前搜索词和筛选条件更新。</span>
       </div>
     ` : ''}
@@ -9431,7 +9431,7 @@ function renderCompetitionList() {
         </button>
       ` : ''}
     `
-    : `${aiFilterNotice}<div class="empty">没有匹配的比赛。可以清除筛选，或减少年份、地区、项目条件后再看。</div>`;
+    : `${aiFilterNotice}<div class="empty">没有符合条件的比赛。可以清除筛选，或减少年份、地区、项目条件后再看。</div>`;
 
   competitionList.querySelectorAll('.competition-card').forEach((button) => {
     button.addEventListener('click', () => openCompetition(button.dataset.sportCode));
@@ -10416,7 +10416,7 @@ function eventCoachReviewRows(event) {
     title: '比赛结构',
     detail: competitionNo
       ? `${competitionNo} 人参赛，${qualifyNo || '-'} 人晋级，${elimination || 0} 场淘汰赛。`
-      : '当前项目规模还在补齐，先以已收录排名和对阵做复盘。',
+      : '项目规模还不完整，先用已有排名和对阵做复盘。',
   });
 
   if (topLeader) {
@@ -10460,7 +10460,7 @@ function buildEventCoachReviewText(event) {
     `赛事：${event.sportName || '待确认'}`,
     `时间地点：${[event.openDate, event.venue].filter(Boolean).join(' · ') || '待确认'}`,
     ...rows.map((row) => `${row.title}：${row.detail}`),
-    '数据来源：FencingAI 已收录赛事成绩',
+    '数据来源：FencingAI 公开赛事成绩',
   ].join('\n');
 }
 
@@ -11677,7 +11677,7 @@ function coachAthleteTrainingFocus(athlete) {
     parentMessage: `${model.investment}。${model.advice}`,
     watchPoint: latest
       ? `最近 ${displayEventName(latest)} 第 ${latest.finalRank ?? '-'} 名，下一场重点看名次是否前移。`
-      : '下一场先看项目匹配、对手强度和小组赛胜负。'
+      : '下一场先看项目关系、对手强度和小组赛胜负。'
   };
 }
 
@@ -11784,7 +11784,7 @@ function coachParentCommunicationText(row = {}) {
     row.title || '学员阶段反馈',
     row.message || '',
     row.nextStep ? `下一步观察：${row.nextStep}` : '',
-    '数据来源：FencingAI 已收录公开赛事成绩',
+    '数据来源：FencingAI 公开赛事成绩',
   ].filter(Boolean).join('\n');
 }
 
@@ -11860,7 +11860,7 @@ function coachBusinessGrowthRows(club, projectRows, buckets) {
       label: bestProject ? `最好第 ${bestProject.bestRank ?? '-'} 名` : `${club.top8 || 0} 次前八`,
       detail: bestProject
         ? `${bestProject.label} 已有最好第 ${bestProject.bestRank ?? '-'} 名，可作为对外口碑和圈内位置的证明点。`
-        : `当前已有 ${club.top8 || 0} 次前八、${club.medals || 0} 枚奖牌，可先整理成俱乐部成绩名片。`,
+        : `已有 ${club.top8 || 0} 次前八、${club.medals || 0} 枚奖牌，可先整理成俱乐部成绩名片。`,
     },
     {
       key: 'benchmark',
@@ -11933,7 +11933,7 @@ function buildCoachSegmentationShareText(club, buckets, followups, projectRows, 
     ...trainingRows.slice(0, 3).map((row, index) => `训练安排${index + 1}：${row.athlete.name}，${row.title}。${row.target}`),
     ...communicationRows.slice(0, 3).map((row, index) => `家长沟通${index + 1}：${row.title}。${row.message}`),
     ...businessRows.slice(0, 4).map((row) => `${row.title}：${row.label}。${row.detail}`),
-    '数据来源：FencingAI 已收录赛事成绩',
+    '数据来源：FencingAI 公开赛事成绩',
   ].join('\n');
 }
 
@@ -12054,7 +12054,7 @@ function renderCoachSegmentationReport(clubId = '') {
                     <em>${escapeHtml(row.training)}</em>
                   </button>
                 `;
-              }).join('') : '<div class="empty compact-empty">暂无匹配学员。</div>'}
+              }).join('') : '<div class="empty compact-empty">暂无相关学员。</div>'}
             </div>
           </section>
         `).join('')}
@@ -12585,7 +12585,7 @@ function coachOpponentMatchReason(candidate, opponents) {
   if (candidate.projectLabel) parts.push(`同项目 ${candidate.projectLabel}`);
   if (bestOpponent.bestRank) parts.push(`对手最好第 ${bestOpponent.bestRank} 名`);
   if (bestOpponent.appearances) parts.push(`${bestOpponent.appearances} 次记录`);
-  return parts.length ? parts.join(' · ') : '按同项目历史成绩匹配';
+  return parts.length ? parts.join(' · ') : '参考同项目历史成绩';
 }
 
 function coachOpponentTrainingFocus(candidate, opponents) {
@@ -12778,7 +12778,7 @@ function preMatchActionCards(rosterRows, opponentPool, relevantCompetitions) {
     },
     {
       title: '近期赛程',
-      value: relevantCompetitions.length ? `${relevantCompetitions.length} 场相关赛事` : '暂无匹配',
+      value: relevantCompetitions.length ? `${relevantCompetitions.length} 场相关赛事` : '暂无相关赛事',
       detail: relevantCompetitions.length ? '用于安排赛前节奏和家长沟通。' : '先关注报名中和未开赛赛事。',
     },
   ];
@@ -12908,9 +12908,9 @@ function renderPreMatchIntelligence(club, projectRows, athletes, providedRosterR
                   <strong>${escapeHtml(competition.sportName)}</strong>
                   <span>${escapeHtml([displayDateLabel(competition.dateLabel), competition.venue || competition.region].filter(Boolean).join(' · '))}</span>
                 </div>
-                <em>${escapeHtml(matchedItems.length ? `匹配 ${matchedItems.map(displayEventName).slice(0, 2).join(' / ')}` : coverageLabel(competition))}</em>
+                <em>${escapeHtml(matchedItems.length ? `相关项目 ${matchedItems.map(displayEventName).slice(0, 2).join(' / ')}` : coverageLabel(competition))}</em>
               </button>
-            `).join('') : '<div class="empty compact-empty">暂未发现与本馆强项直接匹配的近期赛事。</div>'}
+            `).join('') : '<div class="empty compact-empty">暂未找到与本馆强项相关的近期赛事。</div>'}
           </div>
         </div>
       </div>
@@ -13226,7 +13226,7 @@ function prematchReportFocusRows(competitions) {
       latest,
       advice: matched.length
         ? `优先核对 ${matched[0].sportName}，再看同项目报名名单和强手。`
-        : '先用历史项目建立备赛方向，等待报名名单进一步匹配。',
+        : '先用历史项目建立备赛方向，有更多名单时再核对重点对手。',
     };
   });
 }
@@ -13245,7 +13245,7 @@ function prematchPrimaryFocusDetail(row) {
   if (!row) return '';
   const matched = row.matched?.[0];
   const projectText = row.labels?.length ? row.labels.slice(0, 2).join(' / ') : '历史项目待确认';
-  const matchText = matched ? `匹配赛事：${matched.sportName}` : '暂未匹配到具体赛事，先按历史项目准备';
+  const matchText = matched ? `相关赛事：${matched.sportName}` : '暂未找到具体赛事，先按历史项目准备';
   return `${projectText} · ${matchText}`;
 }
 function prematchPersonalRelevanceRows({ competitions = [], focusRows = [], opponentRows = [] } = {}) {
@@ -13260,17 +13260,17 @@ function prematchPersonalRelevanceRows({ competitions = [], focusRows = [], oppo
       })
       : null;
     const title = row.athlete?.name || '关注选手';
-    const status = hasRoster ? '可核对名单' : matched ? '项目已匹配' : '先按历史项目准备';
+    const status = hasRoster ? '可核对名单' : matched ? '已有相关项目' : '先按历史项目准备';
     const detail = matched
       ? `${matched.sportName} · ${displayDateLabel(matched.dateLabel)}`
       : labels.length
-        ? `${labels.slice(0, 2).join(' / ')} · 等待报名名单补齐`
+        ? `${labels.slice(0, 2).join(' / ')} · 等待更多报名信息`
         : `${competitions.length} 场近期赛事 · 先确认目标项目`;
     const action = opponent
       ? `重点参考 ${opponent.name}，再看同项目报名和历史成绩。`
       : hasRoster
         ? '先核对报名名单，再确认同项目强手和分组风险。'
-        : '先确认参赛项目和时间，名单补齐后再做对手复核。';
+        : '先确认参赛项目和时间，再按历史强手准备。';
     return {
       athleteId: row.athlete?.id || '',
       sportCode: matched?.sportCode || '',
@@ -13330,13 +13330,13 @@ function prematchChecklistRows({ competitions = [], focusRows = [], opponentRows
       title: '1. 确认报名和项目',
       detail: rosterReady
         ? `${rosterReady} 场已有报名信息，先核对孩子或学员是否在目标项目里。`
-        : `${isSingleCompetition ? '本场' : '近期'}项目先作为备赛范围，报名名单补齐后再复核对手。`,
+        : `${isSingleCompetition ? '本场' : '近期'}项目先作为备赛范围，先确定重点关注对象。`,
     },
     {
       title: hasFocus ? '2. 锁定重点对象' : '2. 先关注孩子或学员',
       detail: hasFocus
         ? `优先看 ${focusRows.slice(0, 2).map((row) => row.athlete?.name).filter(Boolean).join('、')} 的历史项目和近期表现。`
-        : '关注孩子或学员后，赛前报告会自动生成个人化项目匹配和准备重点。',
+        : '关注孩子或学员后，赛前报告会自动生成个人化项目参考和准备重点。',
     },
     {
       title: hasOpponents ? '3. 对照强手准备' : '3. 等待强手线索',
@@ -13371,23 +13371,23 @@ function prematchActionPlanRows({
     {
       key: 'roster',
       title: '报名核对',
-      label: rosterRows.length ? `${rosterRows.length} 人次` : '名单待补齐',
+      label: rosterRows.length ? `${rosterRows.length} 人次` : '名单待确认',
       detail: rosterRows.length
         ? `先核对 ${projectLabels.join('、') || '目标项目'} 的报名名单，确认关注对象是否进入对应项目。`
-        : `${isSingleCompetition ? '本场' : '近期'}先按项目和时间准备，报名名单补齐后再复核对手。`,
+        : `${isSingleCompetition ? '本场' : '近期'}先按项目和时间准备，名单更完整时再复核对手。`,
       copy: rosterRows.length
-        ? `报名名单已收录 ${rosterRows.length} 人次，优先核对 ${projectLabels.join('、') || '目标项目'}。`
-        : '报名名单还未完整收录，先按赛事时间和项目范围准备，名单补齐后再更新对手判断。',
+        ? `已看到 ${rosterRows.length} 人次报名信息，优先核对 ${projectLabels.join('、') || '目标项目'}。`
+        : '报名名单还不完整，先按赛事时间和项目范围准备。',
     },
     {
       key: 'focus',
       title: '重点对象',
       label: focusNames.length ? focusNames.join('、') : '先关注选手',
       detail: focusNames.length
-        ? `围绕 ${focusNames.join('、')} 的历史项目、近期成绩和本场项目匹配做准备。`
-        : '先关注孩子或学员，系统会把赛前报告切换到个人化项目匹配。',
+        ? `围绕 ${focusNames.join('、')} 的历史项目、近期成绩和本场项目关系做准备。`
+        : '先关注孩子或学员，赛前报告会切换到个人化项目参考。',
       copy: focusNames.length
-        ? `本次重点看 ${focusNames.join('、')}，先核对历史项目与本场项目是否匹配。`
+        ? `本次重点看 ${focusNames.join('、')}，先核对历史项目与本场项目是否一致。`
         : '建议先关注孩子或学员，赛前报告会自动生成个人化准备重点。',
     },
     {
@@ -13467,7 +13467,7 @@ function buildPrematchShareText(competitions, focusRows, opponentRows, isSingleC
     ...opponentRows.slice(0, 3).map((athlete, index) => `强手线索${index + 1}：${athlete.name}，最好第 ${athlete.bestRank ?? '-'} 名`),
     ...actionPlanRows.slice(0, 4).map((row, index) => `赛前动作${index + 1}：${row.title}，${row.detail}`),
     ...checklistRows.slice(0, 4).map((row) => `${row.title}：${row.detail}`),
-    '数据来源：FencingAI 已收录赛事、报名和历史成绩',
+    '数据来源：FencingAI 公开赛事、报名和历史成绩',
   ].filter(Boolean).join('\n');
 }
 
@@ -13565,7 +13565,7 @@ function renderPrematchReport(kind = 'prematch-pack', sportCode = '') {
         <div><strong>${escapeHtml(opponentRows.length)}</strong><span>强手线索</span></div>
       </div>
       <div class="prematch-report-note">
-        ${escapeHtml(nearest ? `${isSingleCompetition ? '围绕本场赛事' : `先看最近的 ${nearest.sportName}`}，确认项目、报名名单和关注对象是否匹配。` : '当前没有识别到近期赛前赛事，可先围绕关注选手的历史项目准备。')}
+        ${escapeHtml(nearest ? `${isSingleCompetition ? '围绕本场赛事' : `先看最近的 ${nearest.sportName}`}，确认项目、报名名单和关注对象是否一致。` : '暂未找到近期赛前赛事，可先围绕关注选手的历史项目准备。')}
       </div>
     </article>
 
@@ -13647,7 +13647,7 @@ function renderPrematchReport(kind = 'prematch-pack', sportCode = '') {
 
     <article class="panel prematch-report-card">
       <div class="section-title">
-        <h2>关注对象匹配</h2>
+        <h2>关注对象</h2>
         <span>孩子/学员</span>
       </div>
       <div class="prematch-report-list">

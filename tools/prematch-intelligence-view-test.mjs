@@ -121,8 +121,8 @@ assert.match(js, /exportLabel = '保存 PDF'/, 'prematch report must inherit the
 assert.match(js, /bindReportConversionActions\(prematchReportBody\)/, 'prematch conversion actions must be wired');
 assert.match(js, /执行清单/, 'prematch report must include an action checklist');
 assert.match(js, /const checklistRows = prematchChecklistRows\(\{ competitions, focusRows, opponentRows, rosterReady, isSingleCompetition \}\)/, 'prematch report must render checklist from the current report state');
-assert.match(js, /报名名单补齐后再复核对手/, 'prematch checklist must explain what to do when roster data is incomplete');
-assert.match(js, /关注孩子或学员后，赛前报告会自动生成个人化项目匹配和准备重点/, 'prematch checklist must guide users to follow a child or athlete');
+assert.match(js, /先确定重点关注对象/, 'prematch checklist must explain what to do when roster data is incomplete');
+assert.match(js, /关注孩子或学员后，赛前报告会自动生成个人化项目参考和准备重点/, 'prematch checklist must guide users to follow a child or athlete');
 assert.match(js, /\.\.\.actionPlanRows\.slice\(0, 4\)\.map/, 'prematch share text must include execution plan rows');
 assert.match(js, /\.\.\.checklistRows\.slice\(0, 4\)\.map/, 'prematch share text must include action checklist rows');
 assert.match(css, /\.competition-prematch-cta/, 'competition prematch CTA must be styled');

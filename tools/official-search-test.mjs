@@ -50,7 +50,7 @@ assert.equal(coachResult.athletes.length, 0, 'coach search should not be returne
 assert.equal(coachResult.coaches.length, 1, 'coach search should return coach matches');
 assert.equal(coachResult.coaches[0].name, '\u5f20\u4e09');
 assert.equal(coachResult.coaches[0].role, 'coach');
-assert.equal(coachResult.coaches[0].matchReason, '\u59d3\u540d\u5339\u914d');
+assert.equal(coachResult.coaches[0].matchReason, '\u59d3\u540d\u76f8\u5173');
 
 const refereeResult = searchIndexes(indexes, '\u88c1\u5224 \u4e0a\u6d77');
 assert.equal(refereeResult.referees.length, 1, 'referee search should support role and city tokens');
@@ -76,7 +76,7 @@ assert.equal(coachOnlyResult.competitions.length, 0, 'type=coach should suppress
 const competitionAliasResult = searchIndexes(indexes, '\u5317\u4eac\u51fb\u5251\u8054\u8d5b\u7b2c\u4e00\u7ad9');
 assert.equal(competitionAliasResult.competitions.length, 1, 'competition search should match city-suffix and bracket-insensitive aliases');
 assert.equal(competitionAliasResult.competitions[0].sportCode, 'BJLEAGUE2026S1');
-assert.equal(competitionAliasResult.competitions[0].matchReason, '\u8d5b\u4e8b\u540d\u79f0\u5339\u914d');
+assert.equal(competitionAliasResult.competitions[0].matchReason, '\u8d5b\u4e8b\u540d\u79f0\u76f8\u5173');
 
 const competitionOnlyResult = searchIndexes(indexes, '\u5317\u4eac', { type: 'competition' });
 assert.equal(competitionOnlyResult.competitions.length, 1, 'type=competition should return competition rows');

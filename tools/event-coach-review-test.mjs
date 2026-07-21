@@ -14,7 +14,7 @@ assert.match(js, /data-event-coach-review/, 'coach review card must expose a cop
 assert.match(js, /trackAnalyticsAction\('share_report', 'event-coach-review'\)/, 'coach review copy must be tracked as a report share');
 assert.match(js, /教练复盘/, 'coach review must use user-facing coach review copy');
 assert.match(js, /训练安排/, 'coach review must translate event data into training guidance');
-assert.match(js, /数据来源：FencingAI 已收录赛事成绩/, 'coach review copied text must include source context');
+assert.match(js, /数据来源：FencingAI 公开赛事成绩/, 'coach review copied text must include source context');
 
 assert.match(css, /\.coach-review-card/, 'coach review card must be styled');
 assert.match(css, /\.coach-review-copy/, 'coach review copy action must be styled');
