@@ -430,6 +430,28 @@ function renderAccountPanelV2() {
 
 function renderAccountLoginPage() {
   if (!accountLoginPage) return;
+  if (state.authUser) {
+    accountLoginPage.innerHTML = `
+      <section class="panel account-login-page">
+        <div class="section-title">
+          <h2>账号中心</h2>
+          <span>已登录</span>
+        </div>
+        <div class="account-state-note signed">
+          <strong>${escapeHtml(state.authUser.displayName || state.authUser.identifier || '已登录用户')}</strong>
+          <span>关注、赛事提醒、历史分析和报告会保存到当前账号。</span>
+        </div>
+        <div class="account-action-row">
+          <button type="button" data-account-login-back>返回我的</button>
+          <button type="button" data-account-logout>退出</button>
+        </div>
+        ${state.accountStatus ? `<p class="account-status-line">${escapeHtml(state.accountStatus)}</p>` : ''}
+      </section>
+    `;
+    accountLoginPage.querySelector('[data-account-login-back]')?.addEventListener('click', () => navigateMain('my'));
+    accountLoginPage.querySelector('[data-account-logout]')?.addEventListener('click', () => logoutAccount());
+    return;
+  }
   accountLoginPage.innerHTML = `
     <section class="panel account-login-page">
       <div class="section-title">

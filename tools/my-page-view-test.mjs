@@ -372,6 +372,7 @@ assert.match(js, /showAccountLoginForm: false/, 'login form must be collapsed by
 assert.match(html, /id="view-account-login"/, 'login must have a dedicated page separate from My');
 assert.match(js, /const accountLoginPage = document\.querySelector\('#accountLoginPage'\)/, 'viewer must own the dedicated login page');
 assert.match(js, /function renderAccountLoginPage\(\)/, 'dedicated login page renderer must exist');
+assert.match(js, /function renderAccountLoginPage\(\)[\s\S]*if \(state\.authUser\) \{[\s\S]*<span>已登录<\/span>[\s\S]*data-account-login-back[\s\S]*return;[\s\S]*<form class="account-login-form" data-account-login>/, 'dedicated login page must not show the login form when already signed in');
 assert.match(js, /function renderAccountLoginPage\(\)[\s\S]*<form class="account-login-form" data-account-login>/, 'dedicated login page must own the login form');
 assert.match(js, /navigateTo\('accountLogin'\)/, 'my page login entry must navigate to the dedicated login page');
 assert.match(js, /myPage\.querySelector\('\[data-account-open-login\]'\)[\s\S]*state\.showAccountLoginForm = false;[\s\S]*navigateTo\('accountLogin'\)/, 'my page login entry must navigate without expanding inline account forms');
