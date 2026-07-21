@@ -132,6 +132,10 @@ assert.match(source, /renderCompetitionProjectGuide\(competition, sortedItems\)/
 assert.match(source, /默认展示最关键的 4 个项目/, 'project guide must explain collapsed project access in user-facing terms');
 assert.match(source, /renderCompetitionRosterSnapshot\(competition\)/, 'pre-event competition insight area must include roster snapshot analysis');
 assert.match(source, /比赛进行中，可优先查看已出结果的项目和需要继续关注的组别/, 'live competition hero must explain the in-progress user value');
+assert.match(source, /label: '查看赛事分析'/, 'competition detail AI action must use user-facing analysis copy');
+assert.match(source, /label: '查看赛前提醒'/, 'competition detail prematch action must use user-facing reminder copy');
+assert.match(source, /查看本场赛前提醒/, 'competition detail prematch CTA must be result-oriented');
+assert.doesNotMatch(source, /AI 分析赛事|生成本场赛前情报包/, 'competition detail CTAs must not expose machine-oriented or process wording');
 assert.match(source, /summary: `[\s\S]*\$\{sortedItems\.length\}[\s\S]*`/, 'competition event list must expose full project access as one grouped entry');
 assert.doesNotMatch(source, /class="event-list-more"/, 'competition event list must not add a second nested expand layer');
 assert.match(source, /secondaryItems\.length/, 'competition event list must keep full project access without showing everything by default');

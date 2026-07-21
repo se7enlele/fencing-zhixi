@@ -9230,8 +9230,8 @@ function renderCompetitionHero(competition) {
     <div class="hero-sub">${escapeHtml(competition.venue || '地点待确认')} · ${escapeHtml(displayDateLabel(competition.dateLabel))}</div>
     <div class="hero-sub coverage-copy">${escapeHtml(competitionHeroSummaryText(competition))}</div>
     ${aiAnalyzeActionRow([
-      { label: 'AI 分析赛事', query: `${competition.sportName} 有哪些重点信息和参赛判断` },
-      { label: '赛前情报', query: `${competition.sportName} 的报名情况和潜在对手` },
+      { label: '查看赛事分析', query: `${competition.sportName} 有哪些重点信息和参赛判断` },
+      { label: '查看赛前提醒', query: `${competition.sportName} 的报名情况和潜在对手` },
     ])}
     <div class="competition-scope-grid">
       <div><strong>${escapeHtml(scope.count || '-')}</strong><span>项目/组别</span></div>
@@ -9243,7 +9243,7 @@ function renderCompetitionHero(competition) {
     </div>
     ${isPreEventCompetition ? `
       <button class="competition-prematch-cta" type="button" data-prematch-sport-code="${escapeHtml(competition.sportCode || '')}">
-        生成本场赛前情报包
+        查看本场赛前提醒
       </button>
     ` : ''}
   `;
@@ -11100,7 +11100,7 @@ function renderAthleteDetail(athlete) {
       <span class="badge">淘汰赛 ${escapeHtml(athlete.eliminationWins ?? 0)}胜${escapeHtml(athlete.eliminationLosses ?? 0)}负</span>
     </div>
     ${aiAnalyzeActionRow([
-      { label: 'AI 成长分析', query: `分析${athlete.name}最近几场有没有进步` },
+      { label: '查看成长分析', query: `分析${athlete.name}最近几场有没有进步` },
       { label: '对手对比', query: `分析${athlete.name}的主要对手和胜负情况` },
     ])}
   `;
@@ -12712,7 +12712,7 @@ function renderClubDetail(club) {
       <span class="badge">最好第 ${escapeHtml(club.bestRank ?? '-')} 名</span>
     </div>
     ${aiAnalyzeActionRow([
-      { label: 'AI 分析剑馆', query: `分析${club.club}的学员表现、优势项目和招生价值` },
+      { label: '查看剑馆分析', query: `分析${club.club}的学员表现、优势项目和招生价值` },
       { label: '学员分层', query: `${club.club} 哪些学员适合重点培养` },
     ])}
   `;
