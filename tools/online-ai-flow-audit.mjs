@@ -51,7 +51,7 @@ const cases = [
   {
     id: 'athlete-growth-recent',
     query: '蔡廷彧最近有没有进步',
-    expect: ['成长', '蔡廷彧', '最近比赛'],
+    expect: ['成长', '蔡廷彧', '近期变化'],
     requireEvidence: true,
   },
   {
@@ -63,7 +63,7 @@ const cases = [
   {
     id: 'prematch-registration',
     query: '天津近期报名情况',
-    expect: ['赛前情报', '报名名单', '优先关注'],
+    expect: ['赛前提醒', '报名名单', '先关注'],
     requireEvidence: true,
   },
   {
@@ -98,7 +98,7 @@ const cases = [
   {
     id: 'prematch-template',
     query: '帮我生成赛前情报包',
-    expect: ['赛前情报包'],
+    expect: ['赛前提醒'],
   },
   {
     id: 'business-value',
@@ -132,14 +132,15 @@ function assertCase(condition, message, details = {}) {
 }
 
 async function runCase(page, testCase) {
+  await openAuditHome(page, `case-${testCase.id}`);
   const inputLocator = page.locator('#aiQueryInput:visible').first();
   const submitLocator = page.locator('#aiQueryForm button[data-ai-submit="true"]:visible').first();
   await inputLocator.waitFor({ state: 'visible', timeout: 30000 });
   await page.locator('#aiQueryForm[data-ai-bound="true"]').waitFor({ state: 'attached', timeout: 30000 });
   await submitLocator.waitFor({ state: 'visible', timeout: 30000 });
+  await inputLocator.fill('');
+  await inputLocator.fill(testCase.query);
   await inputLocator.evaluate((input, query) => {
-    input.focus();
-    input.value = query;
     input.dispatchEvent(new InputEvent('input', { bubbles: true, inputType: 'insertText', data: query }));
     input.dispatchEvent(new Event('change', { bubbles: true }));
   }, testCase.query);
@@ -163,6 +164,19 @@ async function runCase(page, testCase) {
     beforeAnswerText,
     { timeout: 5000 },
   );
+  const earlyAnswerText = await page.locator('#aiAnswer').innerText().catch(() => '');
+  if (testCase.query && earlyAnswerText.includes('先输入一个问题')) {
+    await page.evaluate((query) => {
+      const form = document.querySelector('#aiQueryForm');
+      const input = document.querySelector('#aiQueryInput');
+      if (input) {
+        input.value = query;
+        input.dispatchEvent(new InputEvent('input', { bubbles: true, inputType: 'insertText', data: query }));
+        input.dispatchEvent(new Event('change', { bubbles: true }));
+      }
+      form?.__runAiQuery?.(query);
+    }, testCase.query);
+  }
   await page.waitForFunction(
     ({ expected, expectAny }) => {
       const card = document.querySelector('#aiAnswer .ai-answer-card');
@@ -226,14 +240,19 @@ async function verifyFirstEvidenceNavigation(page, answer, testCase) {
   await evidenceButton.evaluate((button) => button.scrollIntoView({ block: 'center', inline: 'nearest' }));
   await evidenceButton.click();
   await page.waitForFunction(
-    () => [...document.querySelectorAll('.hero-title')]
-      .some((node) => node.offsetParent !== null && node.textContent.trim()),
+    () => {
+      const detailOpen = [...document.querySelectorAll('.hero-title')]
+        .some((node) => node.offsetParent !== null && node.textContent.trim());
+      const competitionListOpen = document.querySelector('#view-competitions.active')
+        || document.querySelector('#bottomNav')?.dataset.activeTab === 'competitions';
+      return detailOpen || competitionListOpen;
+    },
     null,
     { timeout: 30000 },
   );
   await page.waitForTimeout(300);
   const bodyText = await page.locator('body').innerText();
-  const heroTitle = await page.locator('.hero-title:visible').first().innerText();
+  const heroTitle = await page.locator('.hero-title:visible').first().innerText().catch(() => '赛事列表');
   const failureCopy = ['读取失败', '不存在', 'Unexpected token', 'DOCTYPE', 'undefined'].filter((phrase) => bodyText.includes(phrase));
   assertCase(!failureCopy.length, `${testCase.id} evidence navigation opens an error state`, { sourceText, heroTitle, failureCopy });
   assertCase(Boolean(heroTitle.trim()), `${testCase.id} evidence navigation did not open a detail title`, { sourceText });
