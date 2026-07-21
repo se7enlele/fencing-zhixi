@@ -8299,6 +8299,7 @@ function renderAiAnswer(report) {
   const hiddenEvidenceCount = Math.max(0, (report.evidence?.length || 0) - 1 - secondaryEvidence.length);
   const remainingEvidenceCount = Math.max(0, (report.evidence?.length || 0) - 1);
   const enhancement = sanitizeAiEnhancement(report.enhancement || null);
+  const hasSupportingNotes = Boolean(enhancement || visibleSections.length);
   return `
     <div class="ai-answer-card">
       <div class="ai-answer-head">
@@ -8306,20 +8307,6 @@ function renderAiAnswer(report) {
         <strong>${escapeHtml(report.title)}</strong>
         <p>${escapeHtml(report.summary)}</p>
       </div>
-      ${enhancement ? `
-        <div class="ai-enhancement-card">
-          <strong>${escapeHtml(enhancement.headline || '补充解读')}</strong>
-          ${enhancement.explanation ? `<p>${escapeHtml(enhancement.explanation)}</p>` : ''}
-          ${enhancement.takeaways?.length ? `
-            <div>
-              ${enhancement.takeaways.slice(0, 4).map((row) => `<span>${escapeHtml(row)}</span>`).join('')}
-            </div>
-          ` : ''}
-          ${enhancement.caveats?.length ? `
-            <em>${escapeHtml(enhancement.caveats.slice(0, 2).join('；'))}</em>
-          ` : ''}
-        </div>
-      ` : ''}
       ${primaryCards.length ? `
         <div class="ai-metric-grid">
           ${primaryCards.map(([label, value]) => `
@@ -8330,12 +8317,6 @@ function renderAiAnswer(report) {
           `).join('')}
         </div>
       ` : ''}
-      ${visibleSections.map((section) => `
-        <div class="ai-section">
-          <strong>${escapeHtml(section.title)}</strong>
-          ${section.rows.map((row) => `<span>${escapeHtml(row)}</span>`).join('')}
-        </div>
-      `).join('')}
       ${keyEvidence ? `
         <div class="ai-key-source">
           <strong>关键来源</strong>
@@ -8375,6 +8356,31 @@ function renderAiAnswer(report) {
             `).join('')}
             ${hiddenEvidenceCount ? `<div class="ai-evidence-summary">还有 ${escapeHtml(hiddenEvidenceCount)} 条来源，可在详情页继续核对。</div>` : ''}
           </div>
+        </details>
+      ` : ''}
+      ${hasSupportingNotes ? `
+        <details class="ai-supporting-notes">
+          <summary>更多说明</summary>
+          ${enhancement ? `
+            <div class="ai-enhancement-card">
+              <strong>${escapeHtml(enhancement.headline || '补充说明')}</strong>
+              ${enhancement.explanation ? `<p>${escapeHtml(enhancement.explanation)}</p>` : ''}
+              ${enhancement.takeaways?.length ? `
+                <div>
+                  ${enhancement.takeaways.slice(0, 4).map((row) => `<span>${escapeHtml(row)}</span>`).join('')}
+                </div>
+              ` : ''}
+              ${enhancement.caveats?.length ? `
+                <em>${escapeHtml(enhancement.caveats.slice(0, 2).join('；'))}</em>
+              ` : ''}
+            </div>
+          ` : ''}
+          ${visibleSections.map((section) => `
+            <div class="ai-section">
+              <strong>${escapeHtml(section.title)}</strong>
+              ${section.rows.map((row) => `<span>${escapeHtml(row)}</span>`).join('')}
+            </div>
+          `).join('')}
         </details>
       ` : ''}
       <div class="ai-share-row">

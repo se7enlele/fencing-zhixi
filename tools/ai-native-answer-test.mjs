@@ -230,6 +230,16 @@ assert.ok(
   js.indexOf('class="ai-action-block"') > -1 && js.indexOf('class="ai-action-block"') < js.indexOf('class="ai-evidence"'),
   'AI action block should appear before evidence so users can act first and verify next',
 );
+assert.match(js, /const hasSupportingNotes = Boolean\(enhancement \|\| visibleSections\.length\)/, 'AI answer renderer must separate supporting notes from the primary result');
+assert.ok(
+  js.indexOf('class="ai-key-source"') > -1 && js.indexOf('class="ai-supporting-notes"') > -1 && js.indexOf('class="ai-key-source"') < js.indexOf('class="ai-supporting-notes"'),
+  'AI key source must appear before collapsed supporting notes',
+);
+assert.ok(
+  js.indexOf('class="ai-action-block"') > -1 && js.indexOf('class="ai-supporting-notes"') > -1 && js.indexOf('class="ai-action-block"') < js.indexOf('class="ai-supporting-notes"'),
+  'AI primary actions must appear before collapsed supporting notes',
+);
+assert.match(js, /<details class="ai-supporting-notes">[\s\S]*<summary>更多说明<\/summary>/, 'AI supporting notes must be collapsed behind user-facing wording');
 assert.match(js, /function aiNextStepRows\(report\)/, 'AI answers must include contextual next-step guidance');
 assert.match(js, /function aiFollowUpPrompts\(report\)/, 'AI answers must generate related follow-up questions');
 assert.match(js, /function isUserFacingAiSection\(section = \{\}\)/, 'AI answer renderer must filter internal analysis sections before display');
@@ -325,6 +335,8 @@ assert.doesNotMatch(css, /\.ai-source-note/, 'AI source note styles should be re
 assert.doesNotMatch(css, /\.ai-answer-meta/, 'AI answer metadata strip styles should be removed when hidden from the product UI');
 assert.match(css, /\.ai-enhancement-card/, 'AI enhancement card styles must exist');
 assert.match(css, /\.ai-action-block/, 'AI action block styles must exist');
+assert.match(css, /\.ai-supporting-notes/, 'AI supporting notes styles must exist for collapsed secondary explanation');
+assert.match(css, /\.ai-supporting-notes > summary/, 'AI supporting notes summary must be styled as a lightweight mobile control');
 assert.doesNotMatch(css, /\.ai-trust-panel/, 'AI judgment-basis panel styles should be removed when hidden from the product UI');
 assert.doesNotMatch(css, /\.ai-trust-row/, 'AI judgment-basis row styles should be removed when hidden from the product UI');
 assert.match(css, /\.ai-filter-notice/, 'AI-filtered competition lists must show a visible filter notice');
