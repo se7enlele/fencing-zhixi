@@ -115,12 +115,13 @@ assert.match(js, /onlyFollowedData: false/, 'database tab must track my-follow f
 assert.match(js, /function competitionMatchesFollowedData\(competition\)/, 'database tab must filter competitions by followed athletes and followed competitions');
 assert.doesNotMatch(js, /function toggleFollowedCompetitionFilter\(\)/, 'my-follow filter must not keep a silent toggle helper');
 assert.doesNotMatch(js, /state\.onlyFollowedData = !state\.onlyFollowedData;/, 'my-follow filter changes must happen through an explicit option selection');
-assert.match(js, /myFollowFilterButton\?\.addEventListener\('click', \(\) => openFilterSheet\('follow'\)\)/, 'database tab must open the my-follow sheet when the dropdown-style filter is tapped');
-assert.match(js, /if \(type === 'follow'\) return '选择关注范围';/, 'my-follow sheet must use a clear title');
+assert.match(html, /id="followFilterMenu"/, 'database tab must include an inline my-follow menu container');
+assert.match(js, /function toggleFollowFilterMenu\(\)/, 'database tab must toggle the my-follow dropdown menu when tapped');
+assert.match(js, /followFilterMenu\?\.addEventListener\('click'/, 'my-follow menu must handle explicit option selection');
 assert.match(js, /if \(type === 'follow'\) state\.onlyFollowedData = value === '我的关注';/, 'my-follow sheet selection must update the followed-only filter');
 assert.match(js, /myFollowFilterButton\.innerHTML = `<span>\$\{isActive \? '我的关注' : '全部赛事'\}<\/span>`/, 'my-follow filter must show the selected option');
-assert.match(js, /if \(type === 'follow'\) myFollowFilterButton\?\.setAttribute\('aria-expanded', 'true'\);/, 'my-follow filter must mark the option sheet as open');
-assert.match(js, /if \(filterSheet\.dataset\.filterType === 'follow'\) myFollowFilterButton\?\.setAttribute\('aria-expanded', 'false'\);/, 'my-follow filter must reset expanded state when the sheet closes');
+assert.match(js, /myFollowFilterButton\?\.setAttribute\('aria-expanded', 'true'\);/, 'my-follow filter must mark the dropdown menu as open');
+assert.match(js, /myFollowFilterButton\?\.setAttribute\('aria-expanded', 'false'\);/, 'my-follow filter must reset expanded state when the menu closes');
 assert.match(js, /function renderDatabaseDirectory\(\)/, 'database tab must render a structured entry directory');
 assert.match(js, /data-database-entry="\$\{escapeHtml\(row\.key\)\}"/, 'database directory cards must carry explicit entry types');
 assert.match(js, /title: '赛事'[\s\S]*title: '选手'[\s\S]*title: '俱乐部'[\s\S]*title: '教练\/裁判'[\s\S]*title: '我的关注'/, 'database directory must cover competitions, athletes, clubs, officials and followed items');

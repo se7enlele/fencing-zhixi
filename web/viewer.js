@@ -5,6 +5,7 @@ const regionFilterButton = document.querySelector('#regionFilterButton');
 const itemFilterButton = document.querySelector('#itemFilterButton');
 const statusFilterButton = document.querySelector('#statusFilterButton');
 const myFollowFilterButton = document.querySelector('#myFollowFilterButton');
+const followFilterMenu = document.querySelector('#followFilterMenu');
 const filterSheet = document.querySelector('#filterSheet');
 const filterSheetMask = document.querySelector('#filterSheetMask');
 const filterSheetClose = document.querySelector('#filterSheetClose');
@@ -1666,9 +1667,11 @@ function renderFilters() {
     myFollowFilterButton.classList.toggle('active', isActive);
     myFollowFilterButton.innerHTML = `<span>${isActive ? '我的关注' : '全部赛事'}</span>`;
   }
+  renderFollowFilterMenu();
 }
 
 function openFilterSheet(type) {
+  closeFollowFilterMenu();
   const activeValue = activeFilterValue(type);
   filterSheet.dataset.filterType = type;
   filterSheetTitle.textContent = filterTitle(type);
@@ -1685,6 +1688,42 @@ function closeFilterSheet() {
   filterSheet.hidden = true;
   if (filterSheet.dataset.filterType === 'follow') myFollowFilterButton?.setAttribute('aria-expanded', 'false');
   filterSheet.dataset.filterType = '';
+}
+
+function followFilterOptionDetail(value) {
+  if (value === '我的关注') return '只看已关注选手参加过的赛事，以及已加入提醒的赛事';
+  return '查看当前数据库中的全部赛事';
+}
+
+function renderFollowFilterMenu() {
+  if (!followFilterMenu) return;
+  const activeValue = activeFilterValue('follow');
+  followFilterMenu.innerHTML = filterOptions('follow').map((value) => `
+    <button class="follow-filter-option ${value === activeValue ? 'active' : ''}" type="button" data-follow-filter-value="${escapeHtml(value)}">
+      <strong>${escapeHtml(value)}</strong>
+      <span>${escapeHtml(followFilterOptionDetail(value))}</span>
+    </button>
+  `).join('');
+}
+
+function openFollowFilterMenu() {
+  if (!followFilterMenu) return;
+  closeFilterSheet();
+  renderFollowFilterMenu();
+  followFilterMenu.hidden = false;
+  myFollowFilterButton?.setAttribute('aria-expanded', 'true');
+}
+
+function closeFollowFilterMenu() {
+  if (!followFilterMenu) return;
+  followFilterMenu.hidden = true;
+  myFollowFilterButton?.setAttribute('aria-expanded', 'false');
+}
+
+function toggleFollowFilterMenu() {
+  if (!followFilterMenu) return;
+  if (followFilterMenu.hidden) openFollowFilterMenu();
+  else closeFollowFilterMenu();
 }
 
 function renderRegionSelect() {
@@ -13518,7 +13557,17 @@ yearFilterButton.addEventListener('click', () => openFilterSheet('year'));
 regionFilterButton.addEventListener('click', () => openFilterSheet('region'));
 itemFilterButton.addEventListener('click', () => openFilterSheet('item'));
 statusFilterButton.addEventListener('click', () => openFilterSheet('status'));
-myFollowFilterButton?.addEventListener('click', () => openFilterSheet('follow'));
+myFollowFilterButton?.addEventListener('click', (event) => {
+  event.stopPropagation();
+  toggleFollowFilterMenu();
+});
+followFilterMenu?.addEventListener('click', (event) => {
+  event.stopPropagation();
+  const button = event.target.closest('[data-follow-filter-value]');
+  if (!button) return;
+  setFilterValue('follow', button.dataset.followFilterValue);
+  closeFollowFilterMenu();
+});
 filterSheetMask.addEventListener('click', closeFilterSheet);
 filterSheetClose.addEventListener('click', closeFilterSheet);
 filterSheetOptions.addEventListener('click', (event) => {
@@ -13526,6 +13575,11 @@ filterSheetOptions.addEventListener('click', (event) => {
   if (!button) return;
   setFilterValue(button.dataset.filterType, button.dataset.filterValue);
   closeFilterSheet();
+});
+document.addEventListener('click', (event) => {
+  if (followFilterMenu?.hidden) return;
+  if (event.target.closest('#myFollowFilterButton') || event.target.closest('#followFilterMenu')) return;
+  closeFollowFilterMenu();
 });
 memberCta?.addEventListener('click', (event) => submitMembershipInterest(event.currentTarget, {
   source: 'member-panel',
