@@ -100,7 +100,7 @@ const cases = [
   {
     id: 'competition-missing-year',
     query: '2026年北京击剑联赛第一站',
-    expect: ['未找到2026年同名赛事', '相近赛事', '查看相近赛事'],
+    expect: ['没有找到2026年同名赛事', '可以这样核对', '相近赛事', '查看相近赛事'],
   },
   {
     id: 'recovery',
