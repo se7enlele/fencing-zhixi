@@ -9153,13 +9153,14 @@ function competitionListInsight(competition) {
   }
   if (competition.isPreEvent) {
     const summary = competition.registrationSummary || {};
-    const rosterText = summary.rosterCount
-      ? `已有 ${summary.rosterCount} 条报名动态`
-      : '报名动态持续更新';
-    const expectedText = summary.expectedRegistrationCount
-      ? `预计 ${summary.expectedRegistrationCount} 人次参与`
-      : `${competitionItemCount(competition)} 个项目开放`;
-    return `${expectedText}，${rosterText}。关注后可继续看同组对手和重点选手。`;
+    if (summary.rosterCount) {
+      return `已有 ${summary.rosterCount} 条报名动态，可先看项目热度、主要俱乐部和重点选手。`;
+    }
+    const projectCount = competitionItemCount(competition);
+    if (projectCount) {
+      return `${projectCount} 个项目可查看，适合先关注赛程和项目安排。`;
+    }
+    return '可先关注赛程、地点和报名窗口。';
   }
   const total = competitionMetricTotal(competition, 'competitionNo');
   const elimination = competitionMetricTotal(competition, 'playedEliminationMatchCount');

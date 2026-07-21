@@ -35,5 +35,39 @@ assert.equal(context.coverageLabel(preEvent), '项目明细');
 assert.doesNotMatch(context.coverageDetail(preEvent), /projectlist|导入|继续补|已收录/);
 
 assert.doesNotMatch(source, /报名名单更新中|名单待更新|规模待确认|已收录 \${rosterRows\.length} 条报名记录|AI 分析项目/, 'pre-event visible copy must avoid back-office state wording');
+assert.doesNotMatch(source, /预计 \${summary\.expectedRegistrationCount} 人次参与/, 'competition cards must not present expectedRegistrationCount as real roster scale');
+
+const insightStart = source.indexOf('function competitionListInsight');
+const insightEnd = source.indexOf('function renderCompetitionHero');
+if (insightStart === -1 || insightEnd === -1 || insightEnd <= insightStart) {
+  throw new Error('Unable to locate competition list insight function in viewer.js');
+}
+
+const insightContext = {};
+vm.createContext(insightContext);
+vm.runInContext(`
+function competitionHasItems(competition) { return (competition.items || []).length > 0; }
+function competitionItemCount(competition) { return (competition.items || []).length; }
+function competitionMetricTotal() { return 0; }
+function competitionItemSummaries(competition) { return competition.items || []; }
+function displayEventName(item) { return item?.eventName || item?.shortEventName || ''; }
+${source.slice(insightStart, insightEnd)}
+globalThis.competitionListInsight = competitionListInsight;
+`, insightContext);
+
+const projectOnlyInsight = insightContext.competitionListInsight({
+  isPreEvent: true,
+  registrationSummary: { expectedRegistrationCount: 90000 },
+  items: [{ eventName: 'U8 男花' }, { eventName: 'U10 男花' }],
+});
+assert.equal(projectOnlyInsight, '2 个项目可查看，适合先关注赛程和项目安排。');
+assert.doesNotMatch(projectOnlyInsight, /90000|预计|人次参与/);
+
+const rosterInsight = insightContext.competitionListInsight({
+  isPreEvent: true,
+  registrationSummary: { rosterCount: 38, expectedRegistrationCount: 90000 },
+  items: [],
+});
+assert.equal(rosterInsight, '已有 38 条报名动态，可先看项目热度、主要俱乐部和重点选手。');
 
 console.log('pre-event view labels are covered');
