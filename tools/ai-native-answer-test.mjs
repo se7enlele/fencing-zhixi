@@ -91,6 +91,8 @@ assert.match(js, /title: '可以这样核对'/, 'AI missing-competition fallback
 assert.match(js, /查看相关赛事/, 'AI missing-competition fallback must offer an action to inspect related competitions');
 assert.match(js, /地方联赛或分站赛/, 'AI missing-competition fallback must handle local league and station naming differences');
 assert.match(js, /function aiFallbackRewriteActions\(query = '', candidates = \{\}\)/, 'AI fallback must generate runnable rewrite suggestions');
+assert.match(js, /if \(\/\^\[\\u4e00-\\u9fa5\]\$\/\.test\(compact\) && !terms\.includes\(compact\)\) terms\.push\(compact\);/, 'AI fallback should keep single-character Chinese surname queries as candidate terms');
+assert.match(js, /haystack\.startsWith\(needle\) \? score \+ 18 : score/, 'single-character surname matching must be limited to name prefixes');
 assert.match(js, /function aiFallbackClarificationRows\(query = ''\)/, 'AI fallback must explain what information the user should add next');
 assert.match(js, /对比两名选手或两家俱乐部时，写清双方名称、年份、年龄段、剑种和性别。/, 'AI fallback must guide scoped comparison questions');
 assert.match(js, /看赛前信息时，写清目标地区或赛事名；有关注选手后，会优先显示相关项目。/, 'AI fallback must guide prematch questions without implying fake opponents');

@@ -579,6 +579,13 @@ assert.ok(fuzzyObjectFallback.actions.some((action) => action.query && /\u5c71\u
 assert.equal(fuzzyObjectFallback.evidence[0]?.clubId, 'club-sdzx', 'club-like fuzzy fallback should show the matching club first');
 assert.ok(fuzzyObjectFallback.sections?.some((section) => section.title === '\u53ef\u4ee5\u5148\u786e\u8ba4'), 'fuzzy fallback should explain the candidate choices');
 
+const singleSurnameFallback = context.buildAiAnswer('\u8521');
+assert.equal(singleSurnameFallback.type, 'fallback', 'single-character surname queries should stay in guided recovery');
+assert.ok(singleSurnameFallback.evidence.some((row) => row.kind === '\u76f8\u8fd1\u9009\u624b' && row.athleteId === 'cai'), 'single-character surname recovery should surface matching athletes');
+assert.ok(singleSurnameFallback.actions.some((action) => action.athleteId === 'cai'), 'single-character surname recovery should let users open the matching athlete');
+assert.ok(singleSurnameFallback.actions.some((action) => action.query && /\u8521\u5ef7\u5f67/.test(action.query)), 'single-character surname recovery should offer a runnable growth question');
+assert.ok(!/(\u6682\u672a\u8bc6\u522b|\u5206\u6790\u53e3\u5f84|\u540e\u7eed)/.test(`${singleSurnameFallback.title}${singleSurnameFallback.summary}`), 'single-character surname recovery should avoid dead-end wording');
+
 const capabilityGuide = context.buildAiAnswer('\u6211\u60f3\u770b\u770b\u8fd9\u4e2a\u4ea7\u54c1\u80fd\u505a\u4ec0\u4e48');
 assert.equal(capabilityGuide.type, 'capability-guide', 'generic exploratory questions should route to a capability guide, not a dead-end fallback');
 assert.ok(capabilityGuide.cards?.some(([label]) => label === '\u8d5b\u4e8b'), 'capability guide should expose competition coverage');

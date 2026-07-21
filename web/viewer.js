@@ -5625,7 +5625,8 @@ function aiFallbackCandidateTerms(query) {
   const terms = aiEntityCandidateTerms(query);
   const compact = compactText(query);
   if (compact.length >= 2 && !terms.includes(compact)) terms.push(compact);
-  return terms.filter((term) => term.length >= 2).slice(0, 10);
+  if (/^[\u4e00-\u9fa5]$/.test(compact) && !terms.includes(compact)) terms.push(compact);
+  return terms.filter((term) => term.length >= 2 || /^[\u4e00-\u9fa5]$/.test(term)).slice(0, 10);
 }
 
 function fallbackMatchScore(text, terms) {
@@ -5634,6 +5635,9 @@ function fallbackMatchScore(text, terms) {
   return terms.reduce((score, term) => {
     const needle = compactText(term);
     if (!needle) return score;
+    if (needle.length === 1 && /[\u4e00-\u9fa5]/.test(needle)) {
+      return haystack.startsWith(needle) ? score + 18 : score;
+    }
     if (haystack === needle) return score + 80 + needle.length;
     if (haystack.includes(needle)) return score + 40 + needle.length;
     if (needle.includes(haystack) && haystack.length >= 2) return score + 20 + haystack.length;
