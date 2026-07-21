@@ -76,11 +76,11 @@ const ATHLETE_DATA_REQUEST_KEY = 'fencingai.athleteDataRequests.v1';
 const AUTH_TOKEN_KEY = 'fencingai.authToken.v1';
 const AUTH_USER_KEY = 'fencingai.authUser.v1';
 const COMPETITION_LIST_PAGE_SIZE = 30;
-const AI_ANSWER_CARD_LIMIT = 4;
-const AI_ANSWER_SECTION_LIMIT = 2;
-const AI_ANSWER_SECTION_ROW_LIMIT = 3;
+const AI_ANSWER_CARD_LIMIT = 3;
+const AI_ANSWER_SECTION_LIMIT = 1;
+const AI_ANSWER_SECTION_ROW_LIMIT = 2;
 const AI_ANSWER_ACTION_LIMIT = 3;
-const AI_ANSWER_EVIDENCE_LIMIT = 3;
+const AI_ANSWER_EVIDENCE_LIMIT = 2;
 const MAIN_TABS = ['home', 'competitions', 'my'];
 
 const views = {
@@ -7827,18 +7827,23 @@ function renderAiAnswer(report) {
         </div>
       ` : ''}
       ${primaryEvidence.length ? `
-        <div class="ai-evidence">
-          <div class="chart-title">可核对来源</div>
-          ${primaryEvidence.map((row) => `
-            <button type="button" ${row.eventCode ? `data-event-code="${escapeHtml(row.eventCode)}"` : ''} ${row.sportCode ? `data-sport-code="${escapeHtml(row.sportCode)}"` : ''} ${row.clubId ? `data-club-id="${escapeHtml(row.clubId)}"` : ''} ${row.athleteId ? `data-athlete-id="${escapeHtml(row.athleteId)}"` : ''}>
-              <em>${escapeHtml(aiEvidenceKind(row))}</em>
-              <strong>${escapeHtml(row.label)}</strong>
-              <span>${escapeHtml(row.detail)}</span>
-              <small>${escapeHtml(aiEvidenceActionLabel(row))}</small>
-            </button>
-          `).join('')}
-          ${hiddenEvidenceCount ? `<div class="ai-evidence-summary">另外还有 ${escapeHtml(hiddenEvidenceCount)} 条来源，打开详情可核对。</div>` : ''}
-        </div>
+        <details class="ai-evidence" data-ai-evidence-details>
+          <summary>
+            <strong>来源记录</strong>
+            <span>${escapeHtml(report.evidence?.length || primaryEvidence.length)} 条可核对</span>
+          </summary>
+          <div class="ai-evidence-list">
+            ${primaryEvidence.map((row) => `
+              <button type="button" ${row.eventCode ? `data-event-code="${escapeHtml(row.eventCode)}"` : ''} ${row.sportCode ? `data-sport-code="${escapeHtml(row.sportCode)}"` : ''} ${row.clubId ? `data-club-id="${escapeHtml(row.clubId)}"` : ''} ${row.athleteId ? `data-athlete-id="${escapeHtml(row.athleteId)}"` : ''}>
+                <em>${escapeHtml(aiEvidenceKind(row))}</em>
+                <strong>${escapeHtml(row.label)}</strong>
+                <span>${escapeHtml(row.detail)}</span>
+                <small>${escapeHtml(aiEvidenceActionLabel(row))}</small>
+              </button>
+            `).join('')}
+            ${hiddenEvidenceCount ? `<div class="ai-evidence-summary">还有 ${escapeHtml(hiddenEvidenceCount)} 条来源，可在详情页继续核对。</div>` : ''}
+          </div>
+        </details>
       ` : ''}
       <div class="ai-share-row">
         <button type="button" data-ai-share>复制分析摘要</button>

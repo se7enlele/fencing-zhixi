@@ -2011,6 +2011,42 @@ select:focus {
   gap: 7px;
 }
 
+.ai-evidence > summary {
+  align-items: center;
+  border: 1px solid rgba(21, 95, 194, 0.14);
+  border-radius: 10px;
+  background: rgba(21, 95, 194, 0.045);
+  color: var(--text);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  list-style: none;
+  min-height: 42px;
+  padding: 9px 11px;
+}
+
+.ai-evidence > summary::-webkit-details-marker {
+  display: none;
+}
+
+.ai-evidence > summary strong {
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.ai-evidence > summary span {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.ai-evidence-list {
+  display: grid;
+  gap: 7px;
+  margin-top: 7px;
+}
+
 .ai-evidence button {
   display: grid;
   gap: 3px;
