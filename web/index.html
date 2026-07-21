@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>FencingAI</title>
-    <link rel="stylesheet" href="/viewer.css?v=fencingai-product-20260721-event-state-copy-1">
+    <link rel="stylesheet" href="/viewer.css?v=fencingai-product-20260721-event-review-fold-1">
   </head>
   <body>
     <main class="app">
@@ -142,45 +142,53 @@
             </div>
             <div id="followedEventFocus" class="stack"></div>
           </article>
-          <article class="panel">
-            <div class="section-title">
-              <h2>分析图表</h2>
-              <span>关键指标</span>
+          <details class="event-review-details">
+            <summary>
+              <strong>完整复盘</strong>
+              <span>图表、路径、对手和画像</span>
+            </summary>
+            <div class="event-review-stack">
+              <article class="panel">
+                <div class="section-title">
+                  <h2>关键指标</h2>
+                  <span>结构与走势</span>
+                </div>
+                <div id="analysisCharts" class="chart-grid"></div>
+              </article>
+              <article class="panel">
+                <h2>冠军路径</h2>
+                <div id="championPath" class="match-list"></div>
+              </article>
+              <article class="panel">
+                <h2>淘汰赛表现</h2>
+                <div id="leadersList" class="stack"></div>
+              </article>
+              <article class="panel">
+                <h2>关键对手</h2>
+                <div id="opponentList" class="stack"></div>
+              </article>
+              <article class="panel">
+                <h2>排名反差</h2>
+                <div id="momentumList" class="stack"></div>
+              </article>
+              <article class="panel">
+                <div class="section-title">
+                  <h2>核心画像</h2>
+                  <span>俱乐部与选手</span>
+                </div>
+                <div class="portrait-section">
+                  <div>
+                    <h3>俱乐部画像</h3>
+                    <div id="clubProfiles" class="stack"></div>
+                  </div>
+                  <div>
+                    <h3>选手画像</h3>
+                    <div id="athleteProfiles" class="stack"></div>
+                  </div>
+                </div>
+              </article>
             </div>
-            <div id="analysisCharts" class="chart-grid"></div>
-          </article>
-          <article class="panel">
-            <h2>冠军路径</h2>
-            <div id="championPath" class="match-list"></div>
-          </article>
-          <article class="panel">
-            <h2>淘汰赛表现</h2>
-            <div id="leadersList" class="stack"></div>
-          </article>
-          <article class="panel">
-            <h2>关键对手</h2>
-            <div id="opponentList" class="stack"></div>
-          </article>
-          <article class="panel">
-            <h2>排名反差</h2>
-            <div id="momentumList" class="stack"></div>
-          </article>
-          <article class="panel">
-            <div class="section-title">
-              <h2>核心画像</h2>
-              <span>俱乐部与选手</span>
-            </div>
-            <div class="portrait-section">
-              <div>
-                <h3>俱乐部画像</h3>
-                <div id="clubProfiles" class="stack"></div>
-              </div>
-              <div>
-                <h3>选手画像</h3>
-                <div id="athleteProfiles" class="stack"></div>
-              </div>
-            </div>
-          </article>
+          </details>
         </section>
 
         <section class="tab-panel" id="tab-pool">
@@ -305,7 +313,7 @@
       </div>
     </main>
 
-    <script src="/viewer.js?v=fencingai-product-20260721-event-state-copy-1"></script>
+    <script src="/viewer.js?v=fencingai-product-20260721-event-review-fold-1"></script>
   </body>
 </html>
 

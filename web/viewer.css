@@ -5022,6 +5022,66 @@ select:focus {
   margin-top: 8px;
 }
 
+.event-review-details {
+  display: grid;
+  gap: 10px;
+}
+
+.event-review-details > summary {
+  align-items: center;
+  background: rgba(21, 95, 194, 0.06);
+  border: 1px solid rgba(21, 95, 194, 0.14);
+  border-radius: 12px;
+  color: var(--text);
+  cursor: pointer;
+  display: grid;
+  gap: 3px;
+  list-style: none;
+  min-height: 48px;
+  padding: 10px 42px 10px 12px;
+  position: relative;
+}
+
+.event-review-details > summary::-webkit-details-marker {
+  display: none;
+}
+
+.event-review-details > summary::after {
+  color: var(--primary);
+  content: "展开";
+  font-size: 12px;
+  font-weight: 800;
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.event-review-details[open] > summary::after {
+  content: "收起";
+}
+
+.event-review-details > summary strong,
+.event-review-details > summary span {
+  display: block;
+}
+
+.event-review-details > summary strong {
+  font-size: 15px;
+  font-weight: 900;
+}
+
+.event-review-details > summary span {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+.event-review-stack {
+  display: grid;
+  gap: 10px;
+}
+
 .competition-digest-list {
   display: grid;
   gap: 8px;

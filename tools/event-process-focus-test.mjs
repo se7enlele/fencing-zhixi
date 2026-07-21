@@ -6,6 +6,10 @@ const css = await readFile(new URL('../web/viewer.css', import.meta.url), 'utf8'
 const js = await readFile(new URL('../web/viewer.js', import.meta.url), 'utf8');
 
 assert.match(html, /id="followedEventFocus"/, 'event detail must expose followed athlete focus panel');
+assert.match(html, /class="event-review-details"/, 'event detail must fold secondary review sections by default');
+assert.match(html, />完整复盘</, 'event detail must expose one clear access point for secondary review sections');
+assert.match(html, />关键指标</, 'event review chart section must use user-facing wording');
+assert.doesNotMatch(html, />分析图表</, 'event detail must not expose generic chart wording in the primary review flow');
 assert.match(html, /data-tab="pool">循环赛/, 'event detail must use competition-process pool tab');
 assert.match(html, /data-tab="standing">小组排名/, 'event detail must expose pool standing tab');
 assert.match(html, /data-tab="tableau">单败表/, 'event detail must expose bracket tab');
@@ -33,6 +37,9 @@ assert.match(css, /\.app\s*\{[\s\S]*overflow-x:\s*hidden/, 'mobile app shell mus
 assert.match(css, /\.pool-matrix-wrap\s*\{[\s\S]*overflow-x:\s*auto/, 'pool matrix must scroll inside its card');
 assert.match(css, /\.pool-quick-summary/, 'pool quick summary styles must exist');
 assert.match(css, /\.process-scroll-hint/, 'pool scroll hint styles must exist');
+assert.match(css, /\.event-review-details\s*\{[\s\S]*display:\s*grid/, 'event review fold styles must exist');
+assert.match(css, /\.event-review-details > summary\s*\{[\s\S]*cursor:\s*pointer/, 'event review summary must be visibly interactive');
+assert.match(css, /\.event-review-stack\s*\{[\s\S]*gap:\s*10px/, 'event review folded sections must keep compact spacing');
 assert.match(css, /\.pool-result-table\s*\{[\s\S]*overflow-x:\s*auto/, 'pool result table must scroll inside its card');
 assert.match(css, /\.pool-matrix\s*\{[\s\S]*--pool-size/, 'pool matrix width must be based on active group size');
 assert.match(css, /\.pool-process-card\s*\{[\s\S]*contain:\s*inline-size/, 'pool process card must contain wide tables inside the mobile viewport');
