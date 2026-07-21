@@ -267,6 +267,14 @@ async function openAuditHome(page, tag = '') {
   await page.locator('#aiQueryInput:visible').first().waitFor({ state: 'visible', timeout: 30000 });
   await page.locator('#aiQueryForm button[data-ai-submit="true"]:visible').first().waitFor({ state: 'visible', timeout: 30000 });
   await page.locator('#aiQueryForm[data-ai-bound="true"]').waitFor({ state: 'attached', timeout: 30000 });
+  await page.waitForFunction(
+    () => {
+      const text = document.body.textContent || '';
+      return text.includes('选手画像') && text.includes('俱乐部') && !text.includes('正在加载数据');
+    },
+    null,
+    { timeout: 60000 },
+  );
 }
 
 const browser = await chromium.launch({
@@ -287,14 +295,6 @@ await page.addInitScript(() => {
 const results = [];
 try {
   await openAuditHome(page, 'start');
-  await page.waitForFunction(
-    () => {
-      const text = document.body.textContent || '';
-      return text.includes('选手画像') && text.includes('俱乐部') && !text.includes('正在加载数据');
-    },
-    null,
-    { timeout: 60000 },
-  );
 
   for (const testCase of cases) {
     try {

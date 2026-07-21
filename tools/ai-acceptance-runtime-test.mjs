@@ -64,6 +64,8 @@ const functionNames = [
   'aiAthletePool',
   'detectAthletesInQuery',
   'detectExactAthletesInQuery',
+  'detectAthleteComparisonIntent',
+  'detectComparisonAthletesInQuery',
   'detectCompetitionInQuery',
   'shouldRecoverStaleCompetitionNameMatch',
   'detectCompetitionLikeQuery',
@@ -300,6 +302,8 @@ const athletes = [
   { id: 'ma', name: '马潇', club: '北京金石', bestRank: 3, medals: 1, appearances: 4, events: maEvents, opponents: [], eliminationWins: 5, eliminationLosses: 2 },
   { id: 'tao', name: '陶嘉月', club: '山东小众体育', bestRank: 6, medals: 0, appearances: 3, events: taoEvents, opponents: [], eliminationWins: 2, eliminationLosses: 3 },
 ];
+const ma = athletes.find((athlete) => athlete.id === 'ma');
+const tao = athletes.find((athlete) => athlete.id === 'tao');
 
 const sampleClub = {
   id: 'club-sdzx',
@@ -528,6 +532,17 @@ assert.ok(
   comparisonReport.sections.find((section) => section.title === '\u5173\u952e\u98ce\u9669').rows.length,
   'athlete comparison report should include actionable risk rows',
 );
+
+const savedAthleteDetailsForComparison = context.__state.athletesById;
+const savedAthleteSearchForComparison = context.__state.athleteSearchIndex;
+context.__state.athletesById = { tao };
+context.__state.athleteSearchIndex = [ma, tao];
+const mixedPoolComparisonReport = context.buildAiAnswer('\u5206\u6790\u9a6c\u6f47\u548c\u9676\u5609\u6708\u7684\u5bf9\u6218\u60c5\u51b5');
+assert.equal(mixedPoolComparisonReport.type, 'comparison', 'athlete comparison intent must not fall back to growth when one athlete is only in the search index');
+assert.match(mixedPoolComparisonReport.title, /\u9a6c\u6f47/);
+assert.match(mixedPoolComparisonReport.title, /\u9676\u5609\u6708/);
+context.__state.athletesById = savedAthleteDetailsForComparison;
+context.__state.athleteSearchIndex = savedAthleteSearchForComparison;
 
 const clubComparisonReport = context.buildAiAnswer('\u770b2025\u548c2026\u5e74\uff0cU10\u82b1\u5251\u7537\u5b50\u548c\u5973\u5b50\uff0c\u5317\u4eac\u91d1\u77f3\u662f\u4e0d\u662f\u6bd4\u5317\u4eac\u827e\u9c81\u7279\u66f4\u597d');
 assert.equal(clubComparisonReport.type, 'club-comparison', 'two-club strength questions should route to club comparison');

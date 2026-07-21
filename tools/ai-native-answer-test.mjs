@@ -52,9 +52,11 @@ assert.match(js, /<button type="button" data-ai-submit="true">/, 'AI submit butt
 assert.match(js, /form\.dataset\.aiBound = 'true'/, 'AI form must expose a bound marker before automation or fast users click it');
 assert.match(js, /form\.__runAiQuery = run/, 'AI form must expose its runner after home rerenders');
 assert.match(js, /document\.addEventListener\('click'[\s\S]*button\[data-ai-submit="true"\][\s\S]*form\.__runAiQuery/, 'AI submit button needs a delegated click fallback');
-assert.match(js, /const club = detectClubInQuery\(text\);[\s\S]*if \(club\) return buildAiClubReport\(text, club\);[\s\S]*const athletes = detectAthletesInQuery\(text\);/, 'AI routing must prefer exact club matches before fuzzy athlete guesses');
+assert.match(js, /const club = detectClubInQuery\(text\);[\s\S]*if \(club\) return buildAiClubReport\(text, club\);[\s\S]*const athletes = athleteComparisonIntent \? detectComparisonAthletesInQuery\(text, exactAthletes\) : detectAthletesInQuery\(text\);/, 'AI routing must prefer exact club matches before fuzzy athlete guesses and use comparison-aware athlete detection');
 assert.match(js, /function detectClubComparisonQuery\(query\)/, 'AI must detect two-club comparison questions');
 assert.match(js, /function hasClubComparisonIntent\(query\)/, 'AI must keep club comparison intent separate from exact club matching');
+assert.match(js, /function detectAthleteComparisonIntent\(query\)/, 'AI must detect athlete comparison intent before falling back to growth');
+assert.match(js, /\.\.\.\(state\.athleteSearchIndex \|\| \[\]\)[\s\S]*\.\.\.Object\.values\(state\.athletesById \|\| \{\}\)/, 'AI athlete pool must merge search index and hydrated details');
 assert.match(js, /aiFallbackCandidates\(query\)\.clubs/, 'AI club comparison must recover abbreviated club names from nearby candidates');
 assert.match(js, /function buildAiClubComparisonReport\(query, leftClub, rightClub, filters\)/, 'AI must build club-to-club comparison reports');
 assert.match(js, /const clubComparison = detectClubComparisonQuery\(text\);[\s\S]*if \(clubComparison\) return buildAiClubComparisonReport/, 'AI routing must prefer club comparison before single-club reports');

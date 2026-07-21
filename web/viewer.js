@@ -5491,9 +5491,10 @@ async function ensureAiEntityContext(query) {
 }
 
 function aiAthletePool() {
-  const rows = Object.values(state.athletesById || {}).length
-    ? Object.values(state.athletesById || {})
-    : state.athleteSearchIndex || [];
+  const rows = [
+    ...(state.athleteSearchIndex || []),
+    ...Object.values(state.athletesById || {}),
+  ];
   const merged = new Map();
   rows.forEach((athlete) => {
     if (!athlete?.name) return;
@@ -5528,6 +5529,22 @@ function detectExactAthletesInQuery(normalizedQuery) {
     .filter((athlete) => normalizeAiName(athlete.name) && normalizedQuery.includes(normalizeAiName(athlete.name)))
     .sort((a, b) => normalizeAiName(b.name).length - normalizeAiName(a.name).length || (b.appearances || 0) - (a.appearances || 0)),
   (athlete) => athlete.id || `${athlete.name}__${athlete.club}`).slice(0, 3);
+}
+
+function detectAthleteComparisonIntent(query) {
+  return /(对比|对战|交手|谁强|谁更强|谁赢|打过|vs|VS)/.test(String(query || ''));
+}
+
+function detectComparisonAthletesInQuery(query, exactAthletes = detectExactAthletesInQuery(normalizeAiName(query))) {
+  const terms = aiEntityCandidateTerms(query);
+  const termMatches = aiAthletePool()
+    .filter((athlete) => {
+      const name = normalizeAiName(athlete.name);
+      if (!name) return false;
+      return terms.some((term) => term.length >= 2 && (name.includes(term) || term.includes(name)));
+    })
+    .sort((a, b) => normalizeAiName(b.name).length - normalizeAiName(a.name).length || (b.appearances || 0) - (a.appearances || 0));
+  return uniqueBy([...exactAthletes, ...termMatches], (athlete) => athlete.id || `${athlete.name}__${athlete.club}`).slice(0, 3);
 }
 
 function detectClubInQuery(query) {
@@ -5767,9 +5784,10 @@ function buildAiAnswer(query) {
   const competition = detectCompetitionInQuery(text);
   if (competition) return buildAiCompetitionLookupReport(text, competition);
 
+  const athleteComparisonIntent = detectAthleteComparisonIntent(text);
   const exactAthletes = detectExactAthletesInQuery(normalizeAiName(text));
   if (exactAthletes.length >= 2) return buildAiAthleteComparison(text, exactAthletes[0], exactAthletes[1]);
-  if (exactAthletes.length === 1) return buildAiAthleteGrowth(text, exactAthletes[0]);
+  if (exactAthletes.length === 1 && !athleteComparisonIntent) return buildAiAthleteGrowth(text, exactAthletes[0]);
 
   const productTemplate = detectProductTemplateQuery(text);
   if (productTemplate) return buildAiProductTemplateReport(text, productTemplate);
@@ -5794,7 +5812,7 @@ function buildAiAnswer(query) {
   if (club && detectClubRecruitingQuery(text)) return buildAiClubRecruitingReport(text, club);
   if (club) return buildAiClubReport(text, club);
 
-  const athletes = detectAthletesInQuery(text);
+  const athletes = athleteComparisonIntent ? detectComparisonAthletesInQuery(text, exactAthletes) : detectAthletesInQuery(text);
   if (athletes.length >= 2) return buildAiAthleteComparison(text, athletes[0], athletes[1]);
   if (athletes.length === 1) return buildAiAthleteGrowth(text, athletes[0]);
 
