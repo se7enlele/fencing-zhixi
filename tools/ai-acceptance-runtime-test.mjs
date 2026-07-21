@@ -414,7 +414,7 @@ assert.match(namedGrowthReport.title, /蔡廷彧/, 'named growth report requests
 const clubReport = context.buildAiAnswer('山东小众体育 U8 男花怎么样');
 assert.equal(clubReport.type, 'club');
 assert.match(clubReport.title, /U8 男 花|U8 男花|U8.*男.*花/, 'club scoped query should preserve project hints in title');
-assert.ok(clubReport.sections.some((section) => section.title === '匹配项目'), 'club scoped query should show matched projects');
+assert.ok(clubReport.sections.some((section) => section.title === '重点项目'), 'club scoped query should show focused projects');
 
 
 const recruitingReport = context.buildAiAnswer('山东小众体育招生怎么讲');

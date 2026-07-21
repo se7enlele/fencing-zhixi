@@ -68,7 +68,7 @@ assert.match(js, /查看相关赛事/, 'AI missing-competition fallback must off
 assert.match(js, /地方联赛或分站赛/, 'AI missing-competition fallback must handle local league and station naming differences');
 assert.match(js, /scope: hasItemIntent \? 'item' : 'competition'/, 'AI competition ranking must route project and group questions separately');
 assert.match(js, /filters\.scope === 'item'/, 'AI competition ranking must build a project-level answer');
-assert.match(js, /title: hints\.length \? '匹配项目' : '优势项目'/, 'AI club reports must label scoped project answers');
+assert.match(js, /title: hints\.length \? '重点项目' : '优势项目'/, 'AI club reports must label scoped project answers');
 assert.match(js, /function detectPreMatchQuery\(query\)/, 'AI must detect prematch and registration questions');
 assert.match(js, /function detectYearInQuery\(normalizedQuery\)/, 'AI competition questions must support relative year wording');
 assert.match(js, /function detectMonthInQuery\(normalizedQuery\)/, 'AI competition questions must support month filters');

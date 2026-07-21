@@ -4908,7 +4908,7 @@ function renderAiWorkspace() {
         </div>
         <form class="ai-query-form" id="aiQueryForm">
           <textarea id="aiQueryInput" rows="3" placeholder="${escapeHtml(placeholder)}">${escapeHtml(activeQuery)}</textarea>
-          <button type="button" data-ai-submit="true">开始分析</button>
+          <button type="button" data-ai-submit="true">查看分析</button>
         </form>
         <div class="ai-preset-row" aria-label="推荐问题">
           ${presets.map((preset) => `<button type="button" data-ai-preset="${escapeHtml(preset)}">${escapeHtml(preset)}</button>`).join('')}
@@ -4927,7 +4927,7 @@ function renderAiLoadingState(query = '') {
     <div class="ai-loading-card" role="status" aria-live="polite">
       <div class="ai-loading-head">
         <strong>正在分析</strong>
-        <span>${escapeHtml(label || '正在匹配问题')}</span>
+        <span>${escapeHtml(label || '正在理解问题')}</span>
       </div>
       <div class="ai-loading-steps">
         <span>识别问题意图</span>
@@ -4954,7 +4954,7 @@ function bindAiWorkspace(container) {
   const submitButton = form?.querySelector('button[data-ai-submit="true"]') || form?.querySelector('button[type="submit"]');
   if (!form || !input || !answer) return;
   if (submitButton) {
-    submitButton.textContent = '开始分析';
+    submitButton.textContent = '查看分析';
     submitButton.dataset.aiSubmit = 'true';
   }
 
@@ -5026,7 +5026,7 @@ function bindAiWorkspace(container) {
       form.classList.remove('is-submitting');
       if (submitButton) {
         submitButton.disabled = false;
-        submitButton.textContent = '开始分析';
+        submitButton.textContent = '查看分析';
       }
     }
   };
@@ -5636,7 +5636,7 @@ function buildAiFallbackReport(query) {
     return {
       type: 'fallback',
       title: '先确定关注对象',
-      summary: '请先选择孩子或输入选手姓名，系统才能围绕他的参赛记录、近期变化和同组表现生成成长判断。',
+      summary: '请先选择孩子或输入选手姓名，再查看他的参赛记录、近期变化和同组表现。',
       cards: [
         ['可看内容', '成长报告'],
         ['需要补充', '选手姓名'],
@@ -7024,7 +7024,7 @@ function buildAiAthleteGrowth(query, athlete) {
   return {
     type: 'growth',
     title: `${athlete.name}的成长分析`,
-    summary: `${athlete.name} 已有 ${events.length || athlete.appearances || 0} 场参赛表现，最好名次${best?.finalRank ? `第${best.finalRank}名` : '待确认'}，近期变化：${trend}。`,
+    summary: `${athlete.name}有 ${events.length || athlete.appearances || 0} 场参赛表现，最好名次${best?.finalRank ? `第${best.finalRank}名` : '待确认'}，近期变化：${trend}。`,
     cards: [
       ['最好名次', best?.finalRank ? `第${best.finalRank}名` : '-'],
       ['最近一次', latest?.finalRank ? `第${latest.finalRank}名` : '-'],
@@ -7066,7 +7066,7 @@ function buildAiClubReport(query, club) {
   return {
     type: 'club',
     title: `${club.club}${projectScope ? ` ${projectScope}` : ''}分析`,
-    summary: `${club.club} 有 ${club.entrants || 0} 人次参赛、${club.top8 || 0} 次前八、${club.medals || 0} 枚奖牌表现。${hints.length && matchedProjects.length ? `问题中的项目方向集中在 ${matchedProjects.length} 个项目。` : ''}${bestProject ? `优势项目集中在 ${bestProject.label}。` : ''}`,
+    summary: `${club.club}有 ${club.entrants || 0} 人次参赛、${club.top8 || 0} 次前八、${club.medals || 0} 枚奖牌表现。${hints.length && matchedProjects.length ? `本次重点查看 ${matchedProjects.length} 个重点项目。` : ''}${bestProject ? `优势项目集中在 ${bestProject.label}。` : ''}`,
     cards: [
       ['参赛人次', club.entrants || 0],
       ['前八', club.top8 || 0],
@@ -7079,7 +7079,7 @@ function buildAiClubReport(query, club) {
         rows: athletes.map((athlete) => `${athlete.name} · 最好第${athlete.bestRank || '-'}名 · ${athlete.appearances || 0}次记录`),
       } : null,
       projects.length ? {
-        title: hints.length ? '匹配项目' : '优势项目',
+        title: hints.length ? '重点项目' : '优势项目',
         rows: projects.map((row) => `${row.label}：${row.entrants}人次，前八${row.top8}，奖牌${row.medals}`),
       } : null,
     ].filter(Boolean),
@@ -11004,9 +11004,9 @@ function buildAthleteGrowthNote(athlete) {
   const latest = events[0];
   const best = [...events].sort((a, b) => (a.finalRank ?? 999) - (b.finalRank ?? 999))[0];
   if (events.length === 1) {
-    return `${athlete.name} 已有 1 场参赛表现，最终第 ${latest.finalRank ?? '-'} 名。下一场重点看名次稳定性和小组赛发挥。`;
+    return `${athlete.name}有 1 场参赛表现，最终第 ${latest.finalRank ?? '-'} 名。下一场重点看名次稳定性和小组赛发挥。`;
   }
-  return `${athlete.name} 已有 ${events.length} 场参赛表现，最好名次第 ${best.finalRank ?? '-'} 名，最近一次第 ${latest.finalRank ?? '-'} 名。`;
+  return `${athlete.name}有 ${events.length} 场参赛表现，最好名次第 ${best.finalRank ?? '-'} 名，最近一次第 ${latest.finalRank ?? '-'} 名。`;
 }
 
 function buildAthleteParentAdvice(athlete, metrics) {
@@ -11137,7 +11137,7 @@ function coachSegmentationBuckets(athletes) {
       key: 'new',
       title: '样本积累学员',
       note: '比赛样本较少，先建立参赛记录',
-      action: '先选择匹配项目和低压力赛事，形成可追踪成长样本。',
+      action: '先选择适合项目和低压力赛事，形成可追踪成长样本。',
       rows: take(() => true),
     },
   ].map((bucket) => ({ ...bucket, rows: bucket.rows.slice(0, 6) }));

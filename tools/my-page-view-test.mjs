@@ -80,10 +80,10 @@ assert.match(js, /function aiAnalyzeActionRow\(actions = \[\]\)/, 'database deta
 assert.match(js, /function bindAiAnalyzeActions\(container\)/, 'database detail AI entries must be bound to the home AI workspace');
 assert.match(js, /data-ai-analyze-query/, 'detail AI analysis actions must carry the prefilled question');
 assert.match(js, /submitAiQuery\(button\.dataset\.aiAnalyzeQuery \|\| ''\)/, 'detail AI analysis actions must route to the AI home answer flow');
-assert.match(js, /submitButton\.textContent = '开始分析'/, 'AI home CTA must be relabeled to an action-oriented analysis CTA');
+assert.match(js, /submitButton\.textContent = '查看分析'/, 'AI home CTA must be relabeled to a result-oriented analysis CTA');
 assert.match(js, /answer\.innerHTML = renderAiLoadingState\(normalizedQuery\);[\s\S]*scrollToResultPanel\(answer, 'auto'\);/, 'AI question submission must immediately show a skeleton state and move the viewport to it');
 assert.match(js, /submitButton\.disabled = true;[\s\S]*submitButton\.textContent = '分析中'/, 'AI question submission must disable the CTA while loading');
-assert.match(js, /finally \{[\s\S]*submitButton\.disabled = false;[\s\S]*submitButton\.textContent = '开始分析'/, 'AI question submission must restore the CTA after loading');
+assert.match(js, /finally \{[\s\S]*submitButton\.disabled = false;[\s\S]*submitButton\.textContent = '查看分析'/, 'AI question submission must restore the CTA after loading');
 assert.match(js, /function renderFocusedHomePage\(\)[\s\S]*<div class="home-dashboard home-dashboard-focused">[\s\S]*\$\{renderHomeRoleBar\(\)\}[\s\S]*\$\{renderAiWorkspace\('home'\)\}[\s\S]*\$\{renderHomeFocusCard\(\)\}[\s\S]*\$\{renderHomeRadarCard\(\)\}/, 'focused home page must start with role state, AI entry, active insight, and competition radar');
 assert.doesNotMatch(js, /function renderFocusedHomePage\(\)[\s\S]*home-stats-strip[\s\S]*function renderHomePage/, 'focused home page must not show statistic cards in the first screen');
 assert.match(js, /<section class="panel ai-home-primary">[\s\S]*<\/section>\s*<div class="ai-answer" id="aiAnswer">/, 'AI answers must render outside the dark home entry panel');
@@ -92,7 +92,7 @@ assert.doesNotMatch(js, /直接用问题查看击剑数据/, 'home hero must not
 assert.doesNotMatch(js, /保留传统检索入口/, 'home page must not expose internal navigation rationale');
 assert.match(js, /问一句，生成可追溯分析/, 'home hero must explain the product value directly');
 assert.match(js, /例如：\$\{examples\.join\('\\n例如：'\)/, 'AI home placeholder must carry dynamic examples instead of a separate explanatory line');
-assert.match(js, /<button type="button" data-ai-submit="true">开始分析<\/button>/, 'AI home primary CTA must use action-oriented analysis copy without pre-bind form submission');
+assert.match(js, /<button type="button" data-ai-submit="true">查看分析<\/button>/, 'AI home primary CTA must use result-oriented analysis copy without pre-bind form submission');
 assert.match(js, /function scrollToResultPanel\(element, behavior = 'smooth'\)/, 'AI question results must have a dedicated viewport-positioning helper');
 assert.match(js, /const appHeader = document\.querySelector\('\.app-header'\)/, 'AI result scrolling must keep the app-header compatibility path');
 assert.match(js, /appHeader \|\| document\.querySelector\('\.topbar'\)/, 'AI result scrolling must account for the actual sticky topbar');
