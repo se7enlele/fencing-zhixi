@@ -472,6 +472,64 @@ select:focus {
   padding: 11px 10px 10px;
 }
 
+.database-task-list {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.database-task-card {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 3px 10px;
+  min-width: 0;
+  border: 1px solid rgba(13, 125, 103, 0.16);
+  border-radius: 10px;
+  background: linear-gradient(135deg, rgba(13, 125, 103, 0.08), rgba(21, 95, 194, 0.04));
+  color: var(--text);
+  font: inherit;
+  text-align: left;
+  padding: 10px 11px;
+}
+
+.database-task-card strong,
+.database-task-card span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.database-task-card strong {
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.database-task-card span {
+  color: var(--muted);
+  font-size: 12px;
+  grid-column: 1;
+}
+
+.database-task-card em {
+  align-self: center;
+  border-radius: 999px;
+  background: #fff;
+  color: var(--primary);
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 900;
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  padding: 5px 8px;
+  white-space: nowrap;
+}
+
+.database-entry-title {
+  margin-top: 2px;
+}
+
 .database-entry-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));

@@ -27,7 +27,7 @@ assert.match(html, /id="myFollowFilterButton"/, 'database tab must expose a my-f
 assert.match(html, /id="myFollowFilterButton" class="filter-trigger follow-filter-trigger"[^>]*aria-haspopup="dialog"[^>]*aria-expanded="false"/, 'my-follow filter must look and behave like a normal dropdown filter');
 assert.doesNotMatch(html, /class="toggle-filter-trigger follow-filter-trigger"/, 'my-follow filter must not look like a silent toggle');
 assert.match(html, /id="databaseDirectory"/, 'database tab must expose a structured directory before the long list');
-assert.match(html, /<h2>数据库入口<\/h2>/, 'database tab must label the structured search entry clearly');
+assert.match(html, /<h2>赛事列表<\/h2>/, 'database tab must label the long competition list clearly');
 assert.match(html, /class="product-overview database-overview"/, 'database tab must keep overview metrics in a secondary section');
 assert.match(html, /<details class="database-overview-fold" id="databaseOverviewFold">/, 'database overview metrics must be collapsed by default');
 assert.match(html, /<strong>收录概况<\/strong>/, 'database overview fold must use a user-facing summary label');
@@ -124,6 +124,11 @@ assert.match(js, /myFollowFilterButton\?\.setAttribute\('aria-expanded', 'true'\
 assert.match(js, /myFollowFilterButton\?\.setAttribute\('aria-expanded', 'false'\);/, 'my-follow filter must reset expanded state when the menu closes');
 assert.match(js, /function renderDatabaseDirectory\(\)/, 'database tab must render a structured entry directory');
 assert.match(js, /data-database-entry="\$\{escapeHtml\(row\.key\)\}"/, 'database directory cards must carry explicit entry types');
+assert.match(js, /<h2>常用查找<\/h2>[\s\S]*<span>先选任务<\/span>/, 'database tab must start with user tasks instead of database structure');
+assert.match(js, /title: '找近期比赛'[\s\S]*title: '看选手成长'[\s\S]*title: '看俱乐部表现'/, 'database task cards must match common user jobs');
+assert.match(js, /key === 'competitions' \|\| key === 'task-competitions'/, 'competition task card must use the real competition search path');
+assert.match(js, /key === 'athletes' \|\| key === 'task-athlete-growth'/, 'athlete growth task card must use the real athlete search path');
+assert.match(js, /key === 'clubs' \|\| key === 'task-club-performance'/, 'club performance task card must use the real club search path');
 assert.match(js, /title: '赛事'[\s\S]*title: '选手'[\s\S]*title: '俱乐部'[\s\S]*title: '教练\/裁判'[\s\S]*title: '我的关注'/, 'database directory must cover competitions, athletes, clubs, officials and followed items');
 assert.match(js, /function handleDatabaseEntry\(key\)/, 'database directory entries must have runnable actions');
 assert.match(js, /homeStatsScope\) homeStatsScope\.textContent = active \? '筛选结果' : '赛事收录'/, 'database overview fold must summarize the selected scope without front-loading metrics');
@@ -133,6 +138,8 @@ assert.match(js, /focusDatabaseSearch\('输入选手姓名，例如 蔡廷彧'\)
 assert.match(js, /focusDatabaseSearch\('输入俱乐部名称，例如 山东小众体育'\)/, 'club directory entry must guide users to club search');
 assert.match(js, /focusDatabaseSearch\('输入教练员或裁判员姓名'\)/, 'official directory entry must guide users to official search');
 assert.match(css, /\.database-entry-grid/, 'database directory must have a compact mobile grid layout');
+assert.match(css, /\.database-task-list/, 'database task cards must have a dedicated mobile layout');
+assert.match(css, /\.database-task-card/, 'database task cards must be tappable and visually distinct');
 assert.match(css, /\.database-overview-fold summary/, 'database overview fold must have a compact mobile summary layout');
 assert.match(js, /const positiveMax = \(\.\.\.values\) => Math\.max\(0, \.\.\.values\.map\(\(value\) => Number\(value\) \|\| 0\)\)/, 'home scale must not let zero coverage fields override real loaded counts');
 assert.match(js, /const nestedCoverage = state\.publicEvents\?\.dataCoverage \|\| \{\};/, 'home scale must read nested static coverage when present');

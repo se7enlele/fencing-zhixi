@@ -2154,7 +2154,7 @@ function followedDataCount() {
 function renderDatabaseDirectory() {
   if (!databaseDirectory) return;
   if (state.isDataLoading) {
-    databaseDirectory.innerHTML = '<div class="loading-row">正在整理数据库入口</div>';
+    databaseDirectory.innerHTML = '<div class="loading-row">正在整理常用查找</div>';
     return;
   }
   if (state.dataLoadError) {
@@ -2164,6 +2164,26 @@ function renderDatabaseDirectory() {
 
   const entityCounts = entityCoverageCounts();
   const officialCount = officialCoverageCount();
+  const taskRows = [
+    {
+      key: 'task-competitions',
+      title: '找近期比赛',
+      detail: '按时间、地区和状态查看赛事',
+      action: '查赛事',
+    },
+    {
+      key: 'task-athlete-growth',
+      title: '看选手成长',
+      detail: '输入姓名查看名次、参赛和趋势',
+      action: '查选手',
+    },
+    {
+      key: 'task-club-performance',
+      title: '看俱乐部表现',
+      detail: '比较参赛规模、前八和优势项目',
+      action: '查俱乐部',
+    },
+  ];
   const rows = [
     {
       key: 'competitions',
@@ -2205,8 +2225,21 @@ function renderDatabaseDirectory() {
 
   databaseDirectory.innerHTML = `
     <div class="section-title">
-      <h2>数据库入口</h2>
-      <span>按对象查找</span>
+      <h2>常用查找</h2>
+      <span>先选任务</span>
+    </div>
+    <div class="database-task-list">
+      ${taskRows.map((row) => `
+        <button class="database-task-card" type="button" data-database-entry="${escapeHtml(row.key)}">
+          <strong>${escapeHtml(row.title)}</strong>
+          <span>${escapeHtml(row.detail)}</span>
+          <em>${escapeHtml(row.action)}</em>
+        </button>
+      `).join('')}
+    </div>
+    <div class="section-title database-entry-title">
+      <h2>按对象查找</h2>
+      <span>${escapeHtml(entityCounts.athletes)} 个选手 · ${escapeHtml(entityCounts.clubs)} 个俱乐部</span>
     </div>
     <div class="database-entry-grid">
       ${rows.map((row) => `
@@ -2232,18 +2265,18 @@ function focusDatabaseSearch(placeholder = '') {
 }
 
 function handleDatabaseEntry(key) {
-  if (key === 'competitions') {
+  if (key === 'competitions' || key === 'task-competitions') {
     searchInput.value = '';
     state.onlyFollowedData = false;
     clearAiCompetitionFilter();
     focusDatabaseSearch('搜索比赛、地区、U8 男花');
     return;
   }
-  if (key === 'athletes') {
+  if (key === 'athletes' || key === 'task-athlete-growth') {
     focusDatabaseSearch('输入选手姓名，例如 蔡廷彧');
     return;
   }
-  if (key === 'clubs') {
+  if (key === 'clubs' || key === 'task-club-performance') {
     focusDatabaseSearch('输入俱乐部名称，例如 山东小众体育');
     return;
   }
