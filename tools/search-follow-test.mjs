@@ -137,4 +137,39 @@ globalThis.resolveAthleteReference = resolveAthleteReference;
   assert.equal(candidates[0].events.length, cai.events.length, 'resolved child should keep full event history');
 }
 
+{
+  const start = source.indexOf('function followedCompetitionCodeSet');
+  const end = source.indexOf('function applyCompetitionFilter');
+  if (start === -1 || end === -1 || end <= start) {
+    throw new Error('Unable to locate followed competition filter helpers in viewer.js');
+  }
+
+  const context = {
+    state: {
+      onlyFollowedData: false,
+      followFilter: '全部赛事',
+      followedCompetitions: [{ sportCode: 'direct-event' }],
+    },
+    focusAthleteCards: () => [{
+      events: [{ sportCode: 'athlete-event' }, { competitionCode: 'legacy-athlete-event' }],
+    }],
+  };
+  vm.createContext(context);
+  vm.runInContext(`${source.slice(start, end)}
+globalThis.competitionMatchesFollowedData = competitionMatchesFollowedData;
+`, context);
+
+  assert.equal(context.competitionMatchesFollowedData({ sportCode: 'unrelated-event' }), true, 'all-events scope should not filter competitions');
+  context.state.followFilter = '我的关注';
+  assert.equal(context.competitionMatchesFollowedData({ sportCode: 'direct-event' }), true, 'my-follow scope should include directly followed competitions');
+  assert.equal(context.competitionMatchesFollowedData({ sportCode: 'athlete-event' }), true, 'my-follow scope should include followed-athlete related competitions');
+  assert.equal(context.competitionMatchesFollowedData({ sportCode: 'unrelated-event' }), false, 'my-follow scope should exclude unrelated competitions');
+  context.state.followFilter = '关注选手';
+  assert.equal(context.competitionMatchesFollowedData({ sportCode: 'athlete-event' }), true, 'followed-athlete scope should include athlete events');
+  assert.equal(context.competitionMatchesFollowedData({ sportCode: 'direct-event' }), false, 'followed-athlete scope should exclude only directly followed competitions');
+  context.state.followFilter = '关注赛事';
+  assert.equal(context.competitionMatchesFollowedData({ sportCode: 'direct-event' }), true, 'followed-competition scope should include directly followed competitions');
+  assert.equal(context.competitionMatchesFollowedData({ sportCode: 'athlete-event' }), false, 'followed-competition scope should exclude athlete-only events');
+}
+
 console.log('search and follow panel behavior is covered');

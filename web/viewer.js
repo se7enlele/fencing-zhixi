@@ -125,6 +125,7 @@ const state = {
   selectedStatus: '全部状态',
   selectedAiMonth: '',
   onlyFollowedData: false,
+  followFilter: '全部赛事',
   aiCompetitionFilterSummary: '',
   aiCompetitionFilterQuestion: '',
   visibleCompetitionLimit: COMPETITION_LIST_PAGE_SIZE,
@@ -1662,7 +1663,7 @@ function filterOptions(type) {
     return ['全部状态', '报名中', '未开赛', '进行中', '已结束'];
   }
   if (type === 'follow') {
-    return ['全部赛事', '我的关注'];
+    return ['全部赛事', '我的关注', '关注选手', '关注赛事'];
   }
 
   const labels = new Set();
@@ -1676,7 +1677,9 @@ function activeFilterValue(type) {
   if (type === 'year') return state.selectedYear;
   if (type === 'region') return state.selectedRegion;
   if (type === 'status') return state.selectedStatus;
-  if (type === 'follow') return state.onlyFollowedData ? '我的关注' : '全部赛事';
+  if (type === 'follow') {
+    return state.followFilter || (state.onlyFollowedData ? '我的关注' : '全部赛事');
+  }
   return state.selectedItem;
 }
 
@@ -1693,7 +1696,10 @@ function setFilterValue(type, value) {
   if (type === 'region') state.selectedRegion = value;
   if (type === 'item') state.selectedItem = value;
   if (type === 'status') state.selectedStatus = value;
-  if (type === 'follow') state.onlyFollowedData = value === '我的关注';
+  if (type === 'follow') {
+    state.followFilter = value || '全部赛事';
+    state.onlyFollowedData = state.followFilter !== '全部赛事';
+  }
   state.selectedAiMonth = '';
   state.aiCompetitionFilterSummary = '';
   renderFilters();
@@ -1772,9 +1778,10 @@ function renderFilters() {
     button.classList.toggle('active', value !== filterOptions(type)[0]);
   }
   if (myFollowFilterButton) {
-    const isActive = Boolean(state.onlyFollowedData);
+    const value = activeFilterValue('follow');
+    const isActive = value !== '全部赛事';
     myFollowFilterButton.classList.toggle('active', isActive);
-    myFollowFilterButton.innerHTML = `<span>${isActive ? '我的关注' : '全部赛事'}</span>`;
+    myFollowFilterButton.innerHTML = `<span>${escapeHtml(value)}</span>`;
   }
 }
 
@@ -1809,10 +1816,11 @@ function renderItemSelect() {
   renderFilters();
 }
 
-function competitionMatchesFollowedData(competition) {
-  if (!state.onlyFollowedData) return true;
-  const followedCompetitionCodes = new Set((state.followedCompetitions || []).map((item) => item.sportCode).filter(Boolean));
-  if (followedCompetitionCodes.has(competition.sportCode)) return true;
+function followedCompetitionCodeSet() {
+  return new Set((state.followedCompetitions || []).map((item) => item.sportCode).filter(Boolean));
+}
+
+function followedAthleteCompetitionCodeSet() {
   const followedAthleteEvents = new Set();
   for (const athlete of focusAthleteCards()) {
     for (const event of athlete.events || []) {
@@ -1820,7 +1828,18 @@ function competitionMatchesFollowedData(competition) {
       if (event.competitionCode) followedAthleteEvents.add(event.competitionCode);
     }
   }
-  return followedAthleteEvents.has(competition.sportCode);
+  return followedAthleteEvents;
+}
+
+function competitionMatchesFollowedData(competition) {
+  const scope = state.followFilter || (state.onlyFollowedData ? '我的关注' : '全部赛事');
+  if (scope === '全部赛事') return true;
+  const sportCode = competition?.sportCode;
+  const matchCompetition = followedCompetitionCodeSet().has(sportCode);
+  const matchAthlete = followedAthleteCompetitionCodeSet().has(sportCode);
+  if (scope === '关注赛事') return matchCompetition;
+  if (scope === '关注选手') return matchAthlete;
+  return matchCompetition || matchAthlete;
 }
 
 function applyCompetitionFilter() {
@@ -2254,7 +2273,7 @@ function renderDatabaseDirectory() {
       title: '我的关注',
       detail: '只看已关注选手和赛事相关内容',
       count: followedDataCount() ? `${followedDataCount()} 个` : '待添加',
-      action: state.onlyFollowedData ? '已开启' : '开启筛选',
+      action: state.onlyFollowedData ? activeFilterValue('follow') : '开启筛选',
       active: state.onlyFollowedData,
     },
   ];
@@ -2304,6 +2323,7 @@ function handleDatabaseEntry(key) {
   if (key === 'competitions' || key === 'task-competitions') {
     searchInput.value = '';
     state.onlyFollowedData = false;
+    state.followFilter = '全部赛事';
     clearAiCompetitionFilter();
     focusDatabaseSearch('搜索比赛、地区、U8 男花');
     return;
@@ -2322,6 +2342,7 @@ function handleDatabaseEntry(key) {
   }
   if (key === 'followed') {
     state.onlyFollowedData = true;
+    state.followFilter = '我的关注';
     state.selectedAiMonth = '';
     state.aiCompetitionFilterSummary = '';
     renderFilters();
