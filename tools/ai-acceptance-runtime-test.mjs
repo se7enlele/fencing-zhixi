@@ -455,6 +455,7 @@ assert.ok(noFocusPrematchReport.cards.some(([label, value]) => label === '\u5173
 assert.ok(noFocusPrematchReport.sections.some((section) => section.title === '\u8d5b\u524d\u91cd\u70b9'), 'prematch without a focused object should stay at event and roster level');
 assert.ok(noFocusPrematchReport.sections.find((section) => section.title === '\u8d5b\u524d\u91cd\u70b9')?.rows.some((row) => row.includes('\u62a5\u540d\u7ed3\u6784')), 'prematch without a focused object should describe roster structure');
 assert.ok(!noFocusPrematchReport.sections.find((section) => section.title === '\u8d5b\u524d\u91cd\u70b9')?.rows.some((row) => row.includes('\u8521\u5ef7\u5f67') || row.includes('\u5386\u53f2\u5bf9\u624b')), 'prematch without a focused object must not show athlete-specific opponent rows');
+assert.ok(noFocusPrematchReport.actions.some((action) => action.label === '\u5148\u5173\u6ce8\u5b69\u5b50\u6216\u5b66\u5458' && action.mainTab === 'my'), 'prematch without a focused object should show a visible follow-object action');
 context.__state.selectedChildId = savedChildId;
 context.__state.followedAthletes = savedFollowedAthletes;
 

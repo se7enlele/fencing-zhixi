@@ -7556,6 +7556,7 @@ function buildAiPreMatchReport(query, filters) {
     })),
     actions: [
       rows[0]?.sportCode ? { label: '查看本场情报', prematchTemplateKind: 'prematch-pack', prematchSportCode: rows[0].sportCode } : null,
+      !hasFocus ? { label: '先关注孩子或学员', mainTab: 'my' } : null,
       rows[0]?.sportCode ? { label: '加入赛前提醒', followCompetitionCode: rows[0].sportCode } : null,
       { label: rows.length ? '查看赛前赛事' : '进入赛事列表', mainTab: 'competitions', filters },
     ].filter(Boolean),
