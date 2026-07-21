@@ -7462,11 +7462,19 @@ function aiEvidenceKind(row) {
 }
 
 function aiEvidenceActionLabel(row) {
-  if (row.sportCode) return '查看赛事';
   if (row.eventCode) return '查看项目';
+  if (row.sportCode) return '查看赛事';
   if (row.athleteId) return '查看选手';
   if (row.clubId) return '查看俱乐部';
   return '查看来源';
+}
+
+function aiEvidenceTargetAttributes(row = {}) {
+  if (row.eventCode) return `data-event-code="${escapeHtml(row.eventCode)}"`;
+  if (row.sportCode) return `data-sport-code="${escapeHtml(row.sportCode)}"`;
+  if (row.athleteId) return `data-athlete-id="${escapeHtml(row.athleteId)}"`;
+  if (row.clubId) return `data-club-id="${escapeHtml(row.clubId)}"`;
+  return '';
 }
 
 function aiTrustRows(report) {
@@ -7934,7 +7942,7 @@ function renderAiAnswer(report) {
       ${keyEvidence ? `
         <div class="ai-key-source">
           <strong>关键来源</strong>
-          <button type="button" ${keyEvidence.eventCode ? `data-event-code="${escapeHtml(keyEvidence.eventCode)}"` : ''} ${keyEvidence.sportCode ? `data-sport-code="${escapeHtml(keyEvidence.sportCode)}"` : ''} ${keyEvidence.clubId ? `data-club-id="${escapeHtml(keyEvidence.clubId)}"` : ''} ${keyEvidence.athleteId ? `data-athlete-id="${escapeHtml(keyEvidence.athleteId)}"` : ''}>
+          <button type="button" ${aiEvidenceTargetAttributes(keyEvidence)}>
             <em>${escapeHtml(aiEvidenceKind(keyEvidence))}</em>
             <span>${escapeHtml(keyEvidence.label)}</span>
             <small>${escapeHtml(aiEvidenceActionLabel(keyEvidence))}</small>
@@ -7961,7 +7969,7 @@ function renderAiAnswer(report) {
           </summary>
           <div class="ai-evidence-list">
             ${secondaryEvidence.map((row) => `
-              <button type="button" ${row.eventCode ? `data-event-code="${escapeHtml(row.eventCode)}"` : ''} ${row.sportCode ? `data-sport-code="${escapeHtml(row.sportCode)}"` : ''} ${row.clubId ? `data-club-id="${escapeHtml(row.clubId)}"` : ''} ${row.athleteId ? `data-athlete-id="${escapeHtml(row.athleteId)}"` : ''}>
+              <button type="button" ${aiEvidenceTargetAttributes(row)}>
                 <em>${escapeHtml(aiEvidenceKind(row))}</em>
                 <strong>${escapeHtml(row.label)}</strong>
                 <span>${escapeHtml(row.detail)}</span>

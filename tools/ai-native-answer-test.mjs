@@ -179,6 +179,8 @@ assert.match(js, /kind: '共同项目'/, 'AI evidence must label shared project 
 assert.match(js, /reason: '用于比较同一项目里的名次差距'/, 'AI evidence must explain why a source supports the answer');
 assert.match(js, /function aiEvidenceKind\(row\)/, 'AI evidence renderer must normalize evidence type labels');
 assert.match(js, /function aiEvidenceActionLabel\(row\)/, 'AI evidence renderer must expose a clear source-opening action label');
+assert.match(js, /function aiEvidenceTargetAttributes\(row = \{\}\)/, 'AI evidence renderer must centralize source target attributes');
+assert.match(js, /function aiEvidenceActionLabel\(row\)[\s\S]*if \(row\.eventCode\) return '查看项目';[\s\S]*if \(row\.sportCode\) return '查看赛事';/, 'AI evidence action labels must prioritize exact project sources before competition pages');
 assert.match(js, /function aiTrustRows\(report\)/, 'AI answers must summarize judgment basis before detailed evidence');
 assert.match(js, /function aiFollowAthleteAction\(athlete\)/, 'AI answers must expose follow actions for athletes');
 assert.match(js, /followAthleteId: athlete\.id/, 'AI growth answers must include follow athlete action payload');
@@ -240,8 +242,10 @@ assert.match(js, /const keyEvidence = primaryEvidence\[0\] \|\| null;/, 'AI answ
 assert.match(js, /const secondaryEvidence = primaryEvidence\.slice\(1\);/, 'AI answer renderer must keep secondary sources out of the key source');
 assert.match(js, /class="ai-key-source"/, 'AI answer renderer must surface a visible key source block');
 assert.match(js, /<strong>关键来源<\/strong>/, 'AI key source block must use user-facing source wording');
+assert.match(js, /<button type="button" \$\{aiEvidenceTargetAttributes\(keyEvidence\)\}>/, 'AI key source must render only one prioritized navigation target');
 assert.match(js, /data-ai-evidence-details/, 'AI evidence should be collapsed behind a lightweight source entry');
 assert.match(js, /更多来源/, 'AI evidence block must describe secondary sources as checkable records');
+assert.match(js, /<button type="button" \$\{aiEvidenceTargetAttributes\(row\)\}>/, 'AI secondary sources must render only one prioritized navigation target');
 assert.match(js, /还有 \$\{escapeHtml\(hiddenEvidenceCount\)\} 条来源，可在详情页继续核对。/, 'AI answer renderer must tell users when more source records exist');
 assert.match(js, /重点赛事提醒和报名名单更新/, 'prematch conversion must include event and roster update value');
 assert.match(js, /学员分层和训练跟进建议/, 'coach conversion must include segmentation and training follow-up value');
