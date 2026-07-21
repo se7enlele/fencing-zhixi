@@ -133,6 +133,7 @@ assert.match(js, /key === 'competitions' \|\| key === 'task-competitions'/, 'com
 assert.match(js, /key === 'athletes' \|\| key === 'task-athlete-growth'/, 'athlete growth task card must use the real athlete search path');
 assert.match(js, /key === 'clubs' \|\| key === 'task-club-performance'/, 'club performance task card must use the real club search path');
 assert.match(js, /title: '赛事'[\s\S]*title: '选手'[\s\S]*title: '俱乐部'[\s\S]*title: '教练\/裁判'[\s\S]*title: '我的关注'/, 'database directory must cover competitions, athletes, clubs, officials and followed items');
+assert.match(js, /count: officialCount \? `\$\{officialCount\} 个` : '待导入'/, 'official directory must not imply searchable data when no official rows are imported');
 assert.match(js, /function handleDatabaseEntry\(key\)/, 'database directory entries must have runnable actions');
 assert.match(js, /homeStatsScope\) homeStatsScope\.textContent = active \? '筛选结果' : '赛事收录'/, 'database overview fold must summarize the selected scope without front-loading metrics');
 assert.match(js, /<strong>内容概况<\/strong>/, 'database coverage copy must use a user-facing content label');

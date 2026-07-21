@@ -2170,7 +2170,7 @@ function renderDatabaseDirectory() {
       key: 'officials',
       title: '教练/裁判',
       detail: '按姓名检索公开资料',
-      count: officialCount ? `${officialCount} 个` : '可搜索',
+      count: officialCount ? `${officialCount} 个` : '待导入',
       action: '搜索人员',
     },
     {
