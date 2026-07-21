@@ -8,6 +8,8 @@ assert.doesNotMatch(js, /const response = await fetch\('\/api\/competitions'\);[
 assert.doesNotMatch(js, /API returned non-JSON/, 'frontend copy must not expose API/non-JSON wording');
 assert.doesNotMatch(js, /Unexpected token|DOCTYPE/, 'frontend copy must not expose parser/runtime internals');
 assert.doesNotMatch(js, /重新启动新版服务|当前服务没有返回|赛程截图|报名页信息补充/, 'frontend copy must not expose service/debug or manual-import wording');
+assert.doesNotMatch(js, /报名名单更新中|名单待更新|规模待确认|AI 分析项目/, 'event and competition detail copy must use user-facing state labels');
+assert.doesNotMatch(js, /已收录 \${rosterRows\.length} 条报名记录|赛事基础信息已收录|项目明细已收录/, 'event and competition detail copy must avoid database-inventory wording');
 assert.doesNotMatch(js, new RegExp(['项目规模', '和名单信息更新后会自动完善'].join('')), 'competition cards must not expose data-pipeline wording');
 assert.doesNotMatch(js, new RegExp(['当前先看项目规模', '和比赛时间'].join('')), 'pre-event copy must describe user value instead of data availability');
 assert.doesNotMatch(js, new RegExp(['名单更新后', '会更准确'].join('')), 'pre-event metrics must avoid back-office data freshness wording');

@@ -1119,9 +1119,9 @@ function statusLabel(status) {
 }
 
 function rosterStatusLabel(status) {
-  if (status === 'partial') return '报名名单更新中';
-  if (status === 'complete') return '报名名单已完整';
-  return '名单待更新';
+  if (status === 'partial') return '报名陆续公布';
+  if (status === 'complete') return '报名名单可查看';
+  return '报名待公布';
 }
 
 function formatDataGeneratedAt(value) {
@@ -1174,11 +1174,11 @@ function coverageClass(competition) {
 
 function coverageDetail(competition) {
   if (competition.isPlatformEventList && !competitionHasItems(competition)) {
-    return '赛事基础信息已收录，可先关注赛程、地点和报名节奏。';
+    return '可先关注赛程、地点和报名节奏。';
   }
-  if (competition.rosterStatus === 'partial') return '报名信息正在更新，可先查看项目规模和初步赛前对标。';
+  if (competition.rosterStatus === 'partial') return '报名信息陆续公布，可先查看项目热度和初步赛前对标。';
   if (competition.rosterStatus === 'complete') return '报名信息已完整，可查看赛前对手、强手和熟悉对手分析。';
-  if (competition.isPreEvent) return '项目明细已收录，可查看组别、剑种和报名规模。';
+  if (competition.isPreEvent) return '可查看组别、剑种和报名规模。';
   return '赛果数据已完整，可查看排名、小组赛、淘汰赛和选手画像。';
 }
 
@@ -9390,11 +9390,11 @@ function competitionPreEventReadinessRows(competition) {
     title: '赛前可用信息',
     detail: rosterReady
       ? '已有报名线索，可先看同项目强手、熟悉对手和俱乐部分布。'
-      : '可先看比赛时间、地点和重点项目，再根据报名名单细化到选手对标。',
+      : '可先看比赛时间、地点和重点项目，报名公布后再细化到选手对标。',
   });
   rows.push({
     title: '关注方式',
-    detail: '关注赛事后，名单和成绩更新时可快速回到这场比赛继续查看。',
+    detail: '关注赛事后，赛程、报名或成绩变化时可快速回到这场比赛继续查看。',
   });
   return rows;
 }
@@ -9465,7 +9465,7 @@ function renderCompetitionRosterSnapshot(competition) {
                 <strong>${escapeHtml(row.label)}</strong>
                 <span>${escapeHtml(row.count)} 人 · ${escapeHtml(row.athletes.slice(0, 3).join(' / '))}</span>
               </div>
-            `).join('') || '<div><strong>重点项目</strong><span>报名动态更新后会按项目整理。</span></div>'}
+            `).join('') || '<div><strong>重点项目</strong><span>报名公布后会按项目整理。</span></div>'}
           </div>
         </div>
         <div>
@@ -9516,7 +9516,7 @@ function renderCompetitionPreEventPanel(competition) {
           ${topItems.map((row) => `
             <div>
               <strong>${escapeHtml(row.label)}</strong>
-              <span>${escapeHtml(row.count ? `${row.count} 人` : '规模待确认')}</span>
+              <span>${escapeHtml(row.count ? `${row.count} 人` : '人数待公布')}</span>
             </div>
           `).join('')}
         </div>
@@ -9639,13 +9639,13 @@ function competitionProjectFocusRows(competition, sortedItems) {
     rows.push({
       title: primary ? '优先看报名项目' : '优先看赛事安排',
       detail: primary
-        ? `${displayEventName(primary)} · ${registered ? `报名 ${registered} 人` : expected ? `预计 ${expected} 人` : '规模待确认'}`
+        ? `${displayEventName(primary)} · ${registered ? `报名 ${registered} 人` : expected ? `预计 ${expected} 人` : '人数待公布'}`
         : '先关注比赛时间、地点和报名窗口。',
     });
     rows.push({
       title: rosterRows.length ? '赛前可看对手' : '赛前观察重点',
       detail: rosterRows.length
-        ? `已收录 ${rosterRows.length} 条报名记录，可进入项目查看同组选手和重点对手。`
+        ? `已有 ${rosterRows.length} 人次报名，可进入项目查看同组选手和重点对手。`
         : `${itemCount || '多个'} 项目已开放，先根据项目规模和时间安排判断备赛优先级。`,
     });
   } else {
@@ -9730,7 +9730,7 @@ function renderEventList(competition) {
     const registered = Number(item.registrationCount) || Number(item.roster?.length) || 0;
     const meta = competition.isPreEvent || ['registration', 'upcoming', 'live'].includes(competition.status)
       ? [
-        expected ? `${expected} 人` : '规模待确认',
+        expected ? `${expected} 人` : '人数待公布',
         registered ? `报名 ${registered}` : rosterStatusLabel(competition.rosterStatus),
         statusLabel(item.status || competition.status),
       ]
@@ -9774,7 +9774,7 @@ function renderEventHero(event) {
     <div class="hero-sub">${escapeHtml(event.sportName)}</div>
     <div class="hero-sub">${escapeHtml(event.venue || '地点待确认')} · ${escapeHtml(event.openDate || '日期待确认')}</div>
     ${aiAnalyzeActionRow([
-      { label: 'AI 分析项目', query: `${event.sportName} ${displayEventName(event)} 项目表现和关键选手` },
+      { label: '分析项目', query: `${event.sportName} ${displayEventName(event)} 项目表现和关键选手` },
       { label: '复盘对手', query: `${displayEventName(event)} 的淘汰赛关键对手和排名反差` },
     ])}
     ${tracked.length ? `
@@ -13256,10 +13256,10 @@ function renderPrematchReport(kind = 'prematch-pack', sportCode = '') {
                 Number(item.registrationCount) ? `报名 ${Number(item.registrationCount)} 人` : '',
                 Number(item.competitionNo) ? `历史/成绩 ${Number(item.competitionNo)} 人` : '',
                 Number(item.poolQualifyNo) ? `晋级 ${Number(item.poolQualifyNo)} 人` : '',
-              ].filter(Boolean).join(' · ') || '项目规模待确认')}</span>
+              ].filter(Boolean).join(' · ') || '项目人数待公布')}</span>
               <em>${escapeHtml(selectedCompetition.venue || selectedCompetition.region || '地点待确认')}</em>
             </button>
-          `).join('') : '<div class="empty compact-empty">本场项目明细还在补充，先按赛事时间和报名状态安排关注。</div>'}
+          `).join('') : '<div class="empty compact-empty">本场项目安排暂未公布，先按赛事时间和报名状态安排关注。</div>'}
         </div>
       </article>
     ` : ''}

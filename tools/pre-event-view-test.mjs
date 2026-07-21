@@ -22,16 +22,18 @@ assert.equal(context.statusLabel('registration'), '报名中');
 assert.equal(context.statusLabel('upcoming'), '未开赛');
 assert.equal(context.statusLabel('live'), '进行中');
 assert.equal(context.statusLabel('completed'), '已结束');
-assert.equal(context.rosterStatusLabel('partial'), '报名名单更新中');
-assert.equal(context.rosterStatusLabel('complete'), '报名名单已完整');
-assert.equal(context.rosterStatusLabel('none'), '名单待更新');
+assert.equal(context.rosterStatusLabel('partial'), '报名陆续公布');
+assert.equal(context.rosterStatusLabel('complete'), '报名名单可查看');
+assert.equal(context.rosterStatusLabel('none'), '报名待公布');
 
 const platformOnly = { isPlatformEventList: true, items: [] };
 assert.equal(context.coverageLabel(platformOnly), '基础信息');
-assert.doesNotMatch(context.coverageDetail(platformOnly), /projectlist|导入|继续补/);
+assert.doesNotMatch(context.coverageDetail(platformOnly), /projectlist|导入|继续补|已收录/);
 
 const preEvent = { isPreEvent: true, items: [{ eventCode: 'TEST' }] };
 assert.equal(context.coverageLabel(preEvent), '项目明细');
-assert.doesNotMatch(context.coverageDetail(preEvent), /projectlist|导入|继续补/);
+assert.doesNotMatch(context.coverageDetail(preEvent), /projectlist|导入|继续补|已收录/);
+
+assert.doesNotMatch(source, /报名名单更新中|名单待更新|规模待确认|已收录 \${rosterRows\.length} 条报名记录|AI 分析项目/, 'pre-event visible copy must avoid back-office state wording');
 
 console.log('pre-event view labels are covered');
