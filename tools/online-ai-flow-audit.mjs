@@ -98,6 +98,11 @@ const cases = [
     expect: ['赛前情报包'],
   },
   {
+    id: 'business-value',
+    query: '这些击剑数据能产生什么商业价值',
+    expect: ['商业洞察', '27264', '825', '选手画像', '俱乐部画像'],
+  },
+  {
     id: 'competition-missing-year',
     query: '2026年北京击剑联赛第一站',
     expect: ['没有找到2026年同名赛事', '可以这样核对', '相近赛事', '查看相近赛事'],
