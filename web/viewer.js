@@ -6473,7 +6473,7 @@ function aiClubComparisonEvidenceRows(metrics) {
         .slice(0, 3)
         .forEach((event) => {
           rows.push({
-            kind: '俱乐部对比证据',
+            kind: '俱乐部成绩',
             label: event.sportName || displayEventName(event),
             detail: `${metric.club.club} · ${displayEventName(event)} · ${event.entrants || 0}人次 · 前八${event.top8 || 0} · 奖牌${event.medals || 0} · 最好第${event.bestRank ?? '-'}名`,
             reason: `${aiClubComparisonGenderLabel(metric.gender)}项目中的关键成绩样本`,
@@ -6568,7 +6568,7 @@ function buildAiCompetitionLookupReport(query, competition) {
   };
 }
 
-function aiCompetitionFilterEvidence(query, filters = {}, count = 0, label = '匹配赛事列表') {
+function aiCompetitionFilterEvidence(query, filters = {}, count = 0, label = '相关赛事列表') {
   const scopedFilters = {
     year: filters.year || '',
     month: filters.month || '',
@@ -6689,7 +6689,7 @@ function buildAiCompetitionStats(query, filters) {
           .map(([label, count]) => `${label}：${count} 场`),
       } : null,
       {
-        title: '匹配赛事',
+        title: '相关赛事',
         rows: rows.slice(0, 6).map((competition) => `${competition.sportName} · ${competition.dateLabel || '日期待确认'} · ${competition.venue || competition.region || ''}`),
       },
     ].filter(Boolean) : [],
@@ -7753,7 +7753,7 @@ function aiFollowAthleteAction(athlete) {
 function aiNextStepRows(report) {
   const rowsByType = {
     'competition-stats': [
-      '先进入匹配赛事列表，按状态和月份缩小范围。',
+      '先查看相关赛事，按状态和月份缩小范围。',
       '如果关注某场比赛，打开详情后看项目、报名和赛后成绩入口。',
     ],
     prematch: [

@@ -49,6 +49,7 @@ assert.doesNotMatch(js, /label: '判断口径'|口径下|当前已收录|第一�
 assert.doesNotMatch(js, /\['当前判断'|\['证据强度'|'数据助手'/, 'AI answer labels must stay user-facing and avoid internal/generic helper copy');
 assert.doesNotMatch(js, /<button type="button" data-ai-feedback=/, 'AI answer result should not show product feedback controls as primary user content');
 assert.doesNotMatch(js, /当前匹配|匹配项目|匹配赛事和画像|正在匹配问题|已有项目明细|名单不完整|生成本场情报包|当前数据里|当前数据中|当前资料库/, 'AI answer and database copy must avoid internal matching or data-stage wording');
+assert.doesNotMatch(js, /俱乐部对比证据|匹配赛事列表|title: '匹配赛事'|先进入匹配赛事列表/, 'AI result sources and sections must be phrased as user-facing records');
 assert.doesNotMatch(js, /已收录赛事里|已收录赛事中|已收录画像|已展示 \$\{escapeHtml\(primaryEvidence\.length\)\} 条关键来源|基于已收录赛事数据生成|已收录 \$\{club\.entrants/, 'AI answer copy must avoid database-inventory wording');
 assert.doesNotMatch(js, /本次问题重点匹配|报名名单已有|暂时没有可用于计算|暂未发现两人的直接交手记录|暂未发现两人出现在同一项目/, 'AI answer copy must avoid matching-process or dead-end wording');
 assert.doesNotMatch(js, /按提问筛选|名单更新后再复核|报名名单更新后|继续积累项目和报名数据/, 'AI-to-database and prematch copy must avoid process-oriented wording');

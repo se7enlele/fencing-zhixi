@@ -113,7 +113,9 @@ assert.match(js, /function detectMonthInQuery\(normalizedQuery\)/, 'AI competiti
 assert.match(js, /function competitionMonth\(competition\)/, 'AI competition questions must filter competitions by month');
 assert.match(js, /function applyAiCompetitionFilters\(filters = \{\}\)/, 'AI answer actions must apply competition filters when entering the competition list');
 assert.match(js, /function aiCompetitionFilterSummary\(filters = \{\}\)/, 'AI competition filters must expose a visible summary for the competition list');
-assert.match(js, /function aiCompetitionFilterEvidence\(query, filters = \{\}, count = 0, label = '匹配赛事列表'\)/, 'AI competition stats must expose a filtered-list evidence source');
+assert.match(js, /function aiCompetitionFilterEvidence\(query, filters = \{\}, count = 0, label = '相关赛事列表'\)/, 'AI competition stats must expose a filtered-list evidence source');
+assert.doesNotMatch(js, /俱乐部对比证据|匹配赛事列表|title: '匹配赛事'/, 'AI answer source labels and sections must use customer-facing wording');
+assert.match(js, /kind: '俱乐部成绩'/, 'AI club comparison evidence should use a customer-facing source label');
 assert.match(js, /function queryItemFilterOption\(query = ''\)/, 'AI competition-list actions must preserve project hints like U10 male foil');
 assert.match(js, /const itemFilter = filters\.item \|\| queryItemFilterOption\(question\)/, 'AI competition filters must derive item filters from the original question');
 assert.match(js, /aiCompetitionFilterQuestion: ''/, 'AI competition filter source question must have a stable state slot');
