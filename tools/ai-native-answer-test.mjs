@@ -97,6 +97,10 @@ assert.match(js, /function detectMonthInQuery\(normalizedQuery\)/, 'AI competiti
 assert.match(js, /function competitionMonth\(competition\)/, 'AI competition questions must filter competitions by month');
 assert.match(js, /function applyAiCompetitionFilters\(filters = \{\}\)/, 'AI answer actions must apply competition filters when entering the competition list');
 assert.match(js, /function aiCompetitionFilterSummary\(filters = \{\}\)/, 'AI competition filters must expose a visible summary for the competition list');
+assert.match(js, /function queryItemFilterOption\(query = ''\)/, 'AI competition-list actions must preserve project hints like U10 male foil');
+assert.match(js, /const itemFilter = filters\.item \|\| queryItemFilterOption\(question\)/, 'AI competition filters must derive item filters from the original question');
+assert.match(js, /return parts\.length \? `筛选结果：\$\{parts\.join\(' · '\)\}` : '';/, 'AI competition filter summary must be user-facing');
+assert.match(js, /没有匹配的比赛。可以清除筛选，或减少年份、地区、项目条件后再看。/, 'AI-filtered empty competition lists must offer recovery');
 assert.match(js, /function clearAiCompetitionFilter\(\)/, 'AI competition filters must be removable from the competition list');
 assert.match(js, /function buildAiPreMatchReport\(query, filters\)/, 'AI must build prematch reports from registration and project data');
 assert.match(js, /function detectBusinessInsightQuery\(query\)/, 'AI must detect data value and commercialization questions');
@@ -150,7 +154,7 @@ assert.match(js, /kind: '招生素材来源'/, 'AI recruiting evidence must cite
 assert.match(js, /查看招生名片/, 'AI recruiting answers must navigate back to the club recruiting card');
 assert.match(js, /data-ai-filters/, 'AI answer action buttons must carry structured competition filters');
 assert.match(js, /data-sport-code="\$\{escapeHtml\(action\.sportCode\)\}"/, 'AI action buttons must support direct competition navigation');
-assert.match(js, /state\.aiCompetitionFilterSummary = aiCompetitionFilterSummary\(filters\)/, 'AI filter actions must store a list-facing filter summary');
+assert.match(js, /state\.aiCompetitionFilterSummary = aiCompetitionFilterSummary\(\{[\s\S]*\.\.\.filters,[\s\S]*item: state\.selectedItem !== '全部项目' \? state\.selectedItem : '',[\s\S]*\}\)/, 'AI filter actions must store a list-facing filter summary with project scope');
 assert.match(js, /data-clear-ai-filter/, 'AI filtered competition lists must expose a clear action');
 assert.match(js, /JSON\.parse\(decodeURIComponent\(button\.dataset\.aiFilters\)\)/, 'AI answer action handlers must decode filter payloads before navigation');
 assert.match(js, /state\.selectedAiMonth/, 'AI competition filters must preserve month constraints that are not visible in the standard filter chips');

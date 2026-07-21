@@ -1635,22 +1635,36 @@ function matchingFilterOption(type, value) {
     || options[0];
 }
 
+function queryItemFilterOption(query = '') {
+  const hints = aiProjectHints(query);
+  if (!hints.length) return '';
+  return filterOptions('item').find((option) => (
+    option !== '全部项目' && projectMatchesAiHints(option, hints)
+  )) || '';
+}
+
 function aiCompetitionFilterSummary(filters = {}) {
   const parts = [];
   if (filters.year) parts.push(`${filters.year}年`);
   if (filters.month) parts.push(`${filters.month}月`);
   if (filters.region) parts.push(filters.region);
+  if (filters.item) parts.push(filters.item);
   if (filters.status) parts.push(statusLabel(filters.status));
-  return parts.length ? `按提问筛选：${parts.join(' · ')}` : '';
+  return parts.length ? `筛选结果：${parts.join(' · ')}` : '';
 }
 
 function applyAiCompetitionFilters(filters = {}) {
+  const question = filters.query || state.aiActiveQuery || '';
+  const itemFilter = filters.item || queryItemFilterOption(question);
   state.selectedYear = filters.year ? matchingFilterOption('year', filters.year) : '全部年份';
   state.selectedRegion = filters.region ? matchingFilterOption('region', filters.region) : '全部地区';
   state.selectedStatus = filters.status ? matchingFilterOption('status', statusLabel(filters.status)) : '全部状态';
-  state.selectedItem = '全部项目';
+  state.selectedItem = itemFilter ? matchingFilterOption('item', itemFilter) : '全部项目';
   state.selectedAiMonth = filters.month || '';
-  state.aiCompetitionFilterSummary = aiCompetitionFilterSummary(filters);
+  state.aiCompetitionFilterSummary = aiCompetitionFilterSummary({
+    ...filters,
+    item: state.selectedItem !== '全部项目' ? state.selectedItem : '',
+  });
   searchInput.value = '';
   renderFilters();
   applyCompetitionFilter();
@@ -6136,7 +6150,7 @@ function aiPreMatchPersonalRelevanceRows(competitions) {
       return `${athlete.name}：历史项目匹配 ${matchedCompetitions.length} 场近期赛事，先确认是否报名，再看同项目强手。`;
     }
     const projectText = labels.length ? labels.slice(0, 2).join(' / ') : '历史项目待确认';
-    return `${athlete.name}：暂无直接匹配赛事，先按 ${projectText} 准备，名单更新后再复核。`;
+    return `${athlete.name}：先按 ${projectText} 准备，重点核对同项目名单和历史强手。`;
   });
 }
 
@@ -6895,7 +6909,7 @@ function productTemplateSections(kind) {
       {
         title: '交付方式',
         rows: [
-          '赛前 3-7 天自动生成，报名名单更新后刷新。',
+          '赛前 3-7 天形成提醒，便于确认名单、项目和强手。',
           '家长版突出风险和准备重点，教练版突出对手结构和训练安排。',
         ],
       },
@@ -9122,7 +9136,7 @@ function renderCompetitionList() {
   const aiFilterNotice = state.aiCompetitionFilterSummary
     ? `
       <div class="ai-filter-notice">
-        <span>${escapeHtml(state.aiCompetitionFilterSummary)}，筛选结果 ${escapeHtml(state.filteredCompetitions.length)} 场</span>
+        <span>${escapeHtml(state.aiCompetitionFilterSummary)} · ${escapeHtml(state.filteredCompetitions.length)} 场</span>
         <button type="button" data-clear-ai-filter>清除筛选</button>
       </div>
     `
@@ -9156,7 +9170,7 @@ function renderCompetitionList() {
         </button>
       ` : ''}
     `
-    : `${aiFilterNotice}<div class="empty">没有匹配的比赛</div>`;
+    : `${aiFilterNotice}<div class="empty">没有匹配的比赛。可以清除筛选，或减少年份、地区、项目条件后再看。</div>`;
 
   competitionList.querySelectorAll('.competition-card').forEach((button) => {
     button.addEventListener('click', () => openCompetition(button.dataset.sportCode));
@@ -10064,7 +10078,7 @@ function renderEventPreMatchIntelligence(event) {
       <div class="chart-title">赛前提醒</div>
       <div class="event-prematch-summary">
         <strong>${escapeHtml(hasRoster ? `${model.registered} 条报名动态` : '报名动态持续更新')}</strong>
-        <span>${escapeHtml(hasRoster ? '先看报名热度、主要俱乐部和可重点关注选手。' : '当前先看比赛时间和项目热度，报名信息更新时可形成对手分析。')}</span>
+        <span>${escapeHtml(hasRoster ? '先看报名热度、主要俱乐部和可重点关注选手。' : '先看比赛时间、项目热度和同项目历史强手。')}</span>
       </div>
       <div class="event-prematch-metrics">
         <div>
@@ -12165,7 +12179,7 @@ function buildCoachActionPlan({ club, projectRows, athletes, athleteBuckets, pee
       value: focusNames.length ? focusNames.join(' / ') : (topProject?.label || '重点项目'),
       detail: focusNames.length
         ? `优先复盘重点学员最近比赛，围绕淘汰赛关键分和小组赛稳定性安排训练。`
-        : `先围绕 ${topProject?.label || '参赛最多项目'} 建立训练样本，继续积累可判断的数据。`,
+        : `先围绕 ${topProject?.label || '参赛最多项目'} 安排基础训练和赛后复盘。`,
     },
     {
       title: '家长沟通',
@@ -12179,7 +12193,7 @@ function buildCoachActionPlan({ club, projectRows, athletes, athleteBuckets, pee
       value: rosterRows.length ? `${rosterRows.length} 条报名` : (rosterProjects[0]?.label || '近期赛事'),
       detail: rosterRows.length
         ? `按 ${rosterProjects[0]?.label || '报名项目'} 拆备名单确认、重点对手和临场目标。`
-        : `先关注同项目近期赛事，名单更新后再细化到每个学员。`,
+        : `先关注同项目近期赛事和本馆常参项目。`,
     },
     {
       title: '招生素材',
@@ -12494,7 +12508,7 @@ function preMatchActionCards(rosterRows, opponentPool, relevantCompetitions) {
     {
       title: '确认名单',
       value: rosterRows.length ? `${rosterRows.length} 条本馆报名` : '等待名单',
-      detail: rosterRows.length ? '可以按项目拆训练重点。' : '先关注近期报名赛事，名单出现后再细化到学员。',
+      detail: rosterRows.length ? '可以按项目拆训练重点。' : '先关注近期报名赛事和本馆优势项目。',
     },
     {
       title: '锁定强手',
@@ -12504,7 +12518,7 @@ function preMatchActionCards(rosterRows, opponentPool, relevantCompetitions) {
     {
       title: '近期赛程',
       value: relevantCompetitions.length ? `${relevantCompetitions.length} 场相关赛事` : '暂无匹配',
-      detail: relevantCompetitions.length ? '用于安排赛前节奏和家长沟通。' : '继续积累项目和报名数据。',
+      detail: relevantCompetitions.length ? '用于安排赛前节奏和家长沟通。' : '先关注报名中和未开赛赛事。',
     },
   ];
 }
@@ -12521,7 +12535,7 @@ function renderPreMatchIntelligence(club, projectRows, athletes, providedRosterR
   const actionCards = preMatchActionCards(rosterRows, opponentPool, relevantCompetitions);
   const readiness = rosterRows.length
     ? `已识别到 ${rosterRows.length} 条本馆报名记录，可以按项目拆解备赛重点。`
-    : '当前先看近期赛事、优势项目和历史强手；报名名单更新后，再细化到每个学员。';
+    : '先看近期赛事、优势项目和历史强手，确定本轮备赛重点。';
 
   return `
     <section class="coach-section prematch-section">
