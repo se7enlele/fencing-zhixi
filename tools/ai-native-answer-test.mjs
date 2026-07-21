@@ -167,7 +167,9 @@ assert.match(js, /row\.clubId \? `data-club-id=/, 'AI evidence buttons must supp
 assert.match(js, /row\.athleteId \? `data-athlete-id=/, 'AI evidence buttons must support athlete evidence actions');
 assert.match(js, /upsertFollowedAthlete\(athlete\)/, 'AI follow action must reuse the existing follow handler');
 assert.match(js, /class="ai-action-block"/, 'AI answers must promote executable actions as a dedicated block');
-assert.match(js, /<strong>查看<\/strong>/, 'AI action block must use concise product-facing action copy');
+assert.match(js, /function aiResultActionTitle\(report = \{\}\)/, 'AI action block must derive a user-facing action title from the answer type');
+assert.match(js, /return '打开相关页面'/, 'AI action block must keep a generic user-facing fallback title');
+assert.doesNotMatch(js, /<strong>查看<\/strong>/, 'AI action block should avoid a vague generic action heading');
 assert.ok(
   js.indexOf('class="ai-action-block"') > -1 && js.indexOf('class="ai-action-block"') < js.indexOf('class="ai-evidence"'),
   'AI action block should appear before evidence so users can act first and verify next',
@@ -212,7 +214,8 @@ assert.match(js, /const primaryCards = \(report\.cards \|\| \[\]\)\.slice\(0, AI
 assert.match(js, /\.slice\(0, AI_ANSWER_SECTION_LIMIT\)[\s\S]*\.slice\(0, AI_ANSWER_SECTION_ROW_LIMIT\)/, 'AI answer renderer must only show primary explanatory rows');
 assert.match(js, /const primaryActions = \(report\.actions \|\| \[\]\)\.slice\(0, AI_ANSWER_ACTION_LIMIT\)/, 'AI answer renderer must only show primary actions');
 assert.match(js, /const primaryEvidence = \(report\.evidence \|\| \[\]\)\.slice\(0, AI_ANSWER_EVIDENCE_LIMIT\)/, 'AI answer renderer must only show primary evidence');
-assert.match(js, /还有 \$\{escapeHtml\(hiddenEvidenceCount\)\} 条相关来源，可继续查看。/, 'AI answer renderer must tell users when more source records exist');
+assert.match(js, /可核对来源/, 'AI evidence block must describe sources as checkable records');
+assert.match(js, /另外还有 \$\{escapeHtml\(hiddenEvidenceCount\)\} 条来源，打开详情可核对。/, 'AI answer renderer must tell users when more source records exist');
 assert.match(js, /重点赛事提醒和报名名单更新/, 'prematch conversion must include event and roster update value');
 assert.match(js, /学员分层和训练跟进建议/, 'coach conversion must include segmentation and training follow-up value');
 assert.match(js, /prematch:\s*\[[\s\S]*同组对手、强手和主要俱乐部分布/, 'AI prematch answers must guide users toward opponent and club checks');

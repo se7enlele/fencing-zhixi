@@ -7721,6 +7721,15 @@ function aiAnswerMetaRows(report = {}) {
   return rows;
 }
 
+function aiResultActionTitle(report = {}) {
+  if (report.type === 'fallback' || report.type === 'empty') return '选择一个结果';
+  if (report.type === 'competition-stats' || report.type === 'prematch') return '查看赛事';
+  if (report.type === 'growth' || report.type === 'comparison') return '查看选手';
+  if (report.type === 'club' || report.type === 'club-comparison' || report.type === 'club-recruiting') return '查看剑馆';
+  if (report.type === 'business-insight' || report.type === 'product-template') return '查看服务';
+  return '打开相关页面';
+}
+
 function renderAiAnswer(report) {
   const visibleSections = (report.sections || [])
     .filter(isUserFacingAiSection)
@@ -7774,7 +7783,7 @@ function renderAiAnswer(report) {
       `).join('')}
       ${primaryActions.length ? `
         <div class="ai-action-block">
-          <strong>查看</strong>
+          <strong>${escapeHtml(aiResultActionTitle(report))}</strong>
           <div class="ai-action-row">
             ${primaryActions.map((action) => `
               <button type="button" ${action.query ? `data-ai-action-query="${escapeHtml(action.query)}"` : ''} ${action.athleteId ? `data-athlete-id="${escapeHtml(action.athleteId)}"` : ''} ${action.parentGrowthAthleteId ? `data-parent-growth-athlete-id="${escapeHtml(action.parentGrowthAthleteId)}"` : ''} ${action.coachSegmentationClubId ? `data-coach-segmentation-club-id="${escapeHtml(action.coachSegmentationClubId)}"` : ''} ${action.followAthleteId ? `data-follow-athlete-id="${escapeHtml(action.followAthleteId)}"` : ''} ${action.followCompetitionCode ? `data-follow-competition-code="${escapeHtml(action.followCompetitionCode)}"` : ''} ${action.sportCode ? `data-sport-code="${escapeHtml(action.sportCode)}"` : ''} ${action.clubId ? `data-club-id="${escapeHtml(action.clubId)}"` : ''} ${action.prematchTemplateKind ? `data-prematch-template="${escapeHtml(action.prematchTemplateKind)}"` : ''} ${action.prematchSportCode ? `data-prematch-sport-code="${escapeHtml(action.prematchSportCode)}"` : ''} ${action.mainTab ? `data-main-target="${escapeHtml(action.mainTab)}"` : ''} ${action.filters ? `data-ai-filters="${escapeHtml(encodeURIComponent(JSON.stringify(action.filters)))}"` : ''}>
@@ -7786,7 +7795,7 @@ function renderAiAnswer(report) {
       ` : ''}
       ${primaryEvidence.length ? `
         <div class="ai-evidence">
-          <div class="chart-title">来源</div>
+          <div class="chart-title">可核对来源</div>
           ${primaryEvidence.map((row) => `
             <button type="button" ${row.eventCode ? `data-event-code="${escapeHtml(row.eventCode)}"` : ''} ${row.sportCode ? `data-sport-code="${escapeHtml(row.sportCode)}"` : ''} ${row.clubId ? `data-club-id="${escapeHtml(row.clubId)}"` : ''} ${row.athleteId ? `data-athlete-id="${escapeHtml(row.athleteId)}"` : ''}>
               <em>${escapeHtml(aiEvidenceKind(row))}</em>
@@ -7795,7 +7804,7 @@ function renderAiAnswer(report) {
               <small>${escapeHtml(aiEvidenceActionLabel(row))}</small>
             </button>
           `).join('')}
-          ${hiddenEvidenceCount ? `<div class="ai-evidence-summary">还有 ${escapeHtml(hiddenEvidenceCount)} 条相关来源，可继续查看。</div>` : ''}
+          ${hiddenEvidenceCount ? `<div class="ai-evidence-summary">另外还有 ${escapeHtml(hiddenEvidenceCount)} 条来源，打开详情可核对。</div>` : ''}
         </div>
       ` : ''}
       <div class="ai-share-row">
