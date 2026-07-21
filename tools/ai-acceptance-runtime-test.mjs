@@ -76,6 +76,7 @@ const functionNames = [
   'aiFallbackClarificationRows',
   'detectClubInQuery',
   'detectClubsInQuery',
+  'hasClubComparisonIntent',
   'detectClubComparisonQuery',
   'detectCapabilityGuideQuery',
   'uniqueBy',
@@ -539,6 +540,11 @@ assert.ok(clubComparisonReport.actions.some((action) => /\u5317\u4eac\u91d1\u77f
 const openScopeClubComparison = context.buildAiAnswer('\u5317\u4eac\u91d1\u77f3\u548c\u5317\u4eac\u827e\u9c81\u7279U10\u7537\u82b1\u8c01\u66f4\u5f3a');
 assert.equal(openScopeClubComparison.type, 'club-comparison', 'club comparison should support scoped questions without an explicit year');
 assert.ok(!/(\u5168\u90e8\u5e74\u4efd|\u5168\u90e8\u5251\u79cd|\u5168\u90e8\u6027\u522b)/.test(`${openScopeClubComparison.summary}${openScopeClubComparison.cards.map((row) => row.join(' ')).join(' ')}`), 'club comparison should not expose all-scope filler labels');
+
+const abbreviatedClubComparison = context.buildAiAnswer('\u5317\u4eac\u91d1\u77f3\u548c\u827e\u9c81\u7279U10\u7537\u82b1\u8c01\u66f4\u5f3a');
+assert.equal(abbreviatedClubComparison.type, 'club-comparison', 'club comparison should recover abbreviated club names');
+assert.ok(abbreviatedClubComparison.title.includes('\u5317\u4eac\u827e\u9c81\u7279'), 'abbreviated club comparison should resolve the full club name');
+assert.ok(abbreviatedClubComparison.actions.some((action) => action.clubId === 'club-airuite'), 'abbreviated club comparison should link to the recovered club');
 
 const childInvestmentFallback = context.buildAiAnswer('\u5b69\u5b50\u51fb\u5251\u503c\u4e0d\u503c\u5f97\u7ee7\u7eed');
 assert.equal(childInvestmentFallback.type, 'fallback', 'general child investment questions should stay in recovery when no child is named');

@@ -53,6 +53,8 @@ assert.match(js, /form\.__runAiQuery = run/, 'AI form must expose its runner aft
 assert.match(js, /document\.addEventListener\('click'[\s\S]*button\[data-ai-submit="true"\][\s\S]*form\.__runAiQuery/, 'AI submit button needs a delegated click fallback');
 assert.match(js, /const club = detectClubInQuery\(text\);[\s\S]*if \(club\) return buildAiClubReport\(text, club\);[\s\S]*const athletes = detectAthletesInQuery\(text\);/, 'AI routing must prefer exact club matches before fuzzy athlete guesses');
 assert.match(js, /function detectClubComparisonQuery\(query\)/, 'AI must detect two-club comparison questions');
+assert.match(js, /function hasClubComparisonIntent\(query\)/, 'AI must keep club comparison intent separate from exact club matching');
+assert.match(js, /aiFallbackCandidates\(query\)\.clubs/, 'AI club comparison must recover abbreviated club names from nearby candidates');
 assert.match(js, /function buildAiClubComparisonReport\(query, leftClub, rightClub, filters\)/, 'AI must build club-to-club comparison reports');
 assert.match(js, /const clubComparison = detectClubComparisonQuery\(text\);[\s\S]*if \(clubComparison\) return buildAiClubComparisonReport/, 'AI routing must prefer club comparison before single-club reports');
 assert.match(js, /function detectCapabilityGuideQuery\(query\)/, 'AI must detect exploratory product-capability questions');

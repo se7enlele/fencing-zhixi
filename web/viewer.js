@@ -5677,10 +5677,20 @@ function aiFallbackCandidates(query) {
   return { athletes, clubs, competitions };
 }
 
-function detectClubComparisonQuery(query) {
+function hasClubComparisonIntent(query) {
   const normalized = compactText(query);
-  if (!/(对比|比较|比|更好|谁强|谁更强|领先|差距|优势)/.test(normalized)) return null;
-  const clubs = detectClubsInQuery(query);
+  return /(对比|比较|比|更好|谁强|谁更强|领先|差距|优势)/.test(normalized);
+}
+
+function detectClubComparisonQuery(query) {
+  if (!hasClubComparisonIntent(query)) return null;
+  const exactClubs = detectClubsInQuery(query);
+  const clubs = exactClubs.length >= 2
+    ? exactClubs
+    : uniqueBy([
+        ...exactClubs,
+        ...(aiFallbackCandidates(query).clubs || []),
+      ], (club) => club.id || compactText(club.club)).slice(0, 3);
   if (clubs.length < 2) return null;
   return {
     clubs: clubs.slice(0, 2),
