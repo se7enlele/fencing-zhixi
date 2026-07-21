@@ -5821,7 +5821,7 @@ function competitionMissingDiagnosisRows(query, competitionLike, relatedCompetit
     competitionLike.region || '',
     competitionLike.month ? `${competitionLike.month}月` : '',
   ].filter(Boolean).join('、');
-  rows.push(scope ? `先核对${scope}范围内是否有同名或近似名称赛事。` : '先核对赛事全名、举办城市和比赛年份。');
+  rows.push(scope ? `这场赛事当前没有对应记录，可以先核对${scope}范围内的相近赛事。` : '这场赛事当前没有对应记录，可以先核对赛事全名、举办城市和比赛年份。');
   if (relatedCompetitions.length) {
     rows.push(`找到 ${relatedCompetitions.length} 场名称相近赛事，可以先打开最近的一场确认。`);
   } else if (nameKey.includes('联赛') || nameKey.includes('第一站')) {
@@ -6138,10 +6138,10 @@ function buildAiFallbackReport(query) {
     const relatedCompetitions = relatedCompetitionsForQuery(text);
     const relatedTitle = relatedCompetitions[0]?.sportName || '';
     const diagnosisRows = competitionMissingDiagnosisRows(text, competitionLike, relatedCompetitions);
-    const title = competitionLike.year ? `没有找到${competitionLike.year}年同名赛事` : '没有找到这场赛事';
+    const title = competitionLike.year ? `当前未收录${competitionLike.year}年这场赛事` : '当前未收录这场赛事';
     const summary = competitionLike.year
-      ? `可以先查看${competitionLike.region || '相关地区'}赛事，或打开相近赛事确认是否是你要找的比赛。`
-      : '可以先查看同地区或同类型赛事，确认是否是你要找的比赛。';
+      ? `这不代表赛事不存在。可以先查看${competitionLike.region || '相关地区'}赛事，或打开相近赛事确认是否是你要找的比赛。`
+      : '这不代表赛事不存在。可以先查看同地区或同类型赛事，确认是否是你要找的比赛。';
     const cards = [
       competitionLike.year ? ['年份', competitionLike.year] : null,
       competitionLike.region ? ['地区', competitionLike.region] : null,

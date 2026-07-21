@@ -397,7 +397,8 @@ context.__state.competitions = originalCompetitions.filter((competition) => comp
 context.__state.competitionSearchCache = new Map();
 const staleCompetitionName = context.buildAiAnswer('\u5317\u4eac\u51fb\u5251\u8054\u8d5b\u7b2c\u4e00\u7ad9');
 assert.equal(staleCompetitionName.type, 'fallback', 'plain station-league queries should not silently open a stale old-year event');
-assert.match(staleCompetitionName.title, /\u6ca1\u6709\u627e\u5230\u8fd9\u573a\u8d5b\u4e8b/, 'stale competition recovery should explain that the requested event is not directly found');
+assert.match(staleCompetitionName.title, /\u5f53\u524d\u672a\u6536\u5f55\u8fd9\u573a\u8d5b\u4e8b/, 'stale competition recovery should explain that the requested event is not directly found');
+assert.match(staleCompetitionName.summary, /\u8fd9\u4e0d\u4ee3\u8868\u8d5b\u4e8b\u4e0d\u5b58\u5728/, 'stale competition recovery should distinguish missing records from non-existent events');
 assert.ok(staleCompetitionName.evidence.some((row) => row.kind === '\u76f8\u8fd1\u8d5b\u4e8b' && row.sportCode === 'RZSS2021040'), 'stale competition recovery should still expose the old similar event as a source');
 assert.ok(staleCompetitionName.actions.some((action) => action.sportCode === 'RZSS2021040'), 'stale competition recovery should let users inspect the old similar event if needed');
 context.__state.competitions = originalCompetitions;
@@ -591,7 +592,8 @@ assert.ok(!/(\u6682\u672a\u8bc6\u522b|\u5206\u6790\u53e3\u5f84|\u540e\u7eed)/.te
 
 const missingCompetitionFallback = context.buildAiAnswer('\u0032\u0030\u0032\u0037\u5e74\u5317\u4eac\u51fb\u5251\u8054\u8d5b\u7b2c\u4e00\u7ad9');
 assert.equal(missingCompetitionFallback.type, 'fallback', 'year-mismatched competition names should not silently open another year');
-assert.match(missingCompetitionFallback.title, /\u6ca1\u6709\u627e\u52302027\u5e74\u540c\u540d\u8d5b\u4e8b/, 'missing competition fallback should explain the missing competition in user-facing copy');
+assert.match(missingCompetitionFallback.title, /\u5f53\u524d\u672a\u6536\u5f552027\u5e74\u8fd9\u573a\u8d5b\u4e8b/, 'missing competition fallback should explain the missing competition in user-facing copy');
+assert.match(missingCompetitionFallback.summary, /\u8fd9\u4e0d\u4ee3\u8868\u8d5b\u4e8b\u4e0d\u5b58\u5728/, 'missing competition fallback should distinguish missing records from non-existent events');
 assert.ok(missingCompetitionFallback.sections.some((section) => section.title === '\u53ef\u4ee5\u8fd9\u6837\u6838\u5bf9'), 'missing competition fallback should show a user-facing diagnosis section');
 assert.ok(missingCompetitionFallback.sections.find((section) => section.title === '\u53ef\u4ee5\u8fd9\u6837\u6838\u5bf9')?.rows.some((row) => /\u5730\u65b9\u8054\u8d5b|\u76f8\u8fd1/.test(row)), 'missing competition fallback should explain local league or similar-name checks');
 assert.ok(missingCompetitionFallback.cards.some(([label, value]) => label === '\u5e74\u4efd' && value === '2027'), 'missing competition fallback should preserve parsed year');
@@ -604,7 +606,8 @@ assert.ok(!/(\u5bfc\u5165|\u7ee7\u7eed\u751f\u6210|\u540e\u7eed|\u6570\u636e\u8f
 
 const noYearMissingCompetitionFallback = context.buildAiAnswer('\u5317\u4eac\u51fb\u5251\u8054\u8d5b\u7b2c\u4e8c\u7ad9');
 assert.equal(noYearMissingCompetitionFallback.type, 'fallback', 'specific event-name queries without a year should not be treated as regional competition stats');
-assert.match(noYearMissingCompetitionFallback.title, /\u6ca1\u6709\u627e\u5230\u8fd9\u573a\u8d5b\u4e8b/, 'specific missing event names should explain the event is not currently found');
+assert.match(noYearMissingCompetitionFallback.title, /\u5f53\u524d\u672a\u6536\u5f55\u8fd9\u573a\u8d5b\u4e8b/, 'specific missing event names should explain the event is not currently found');
+assert.match(noYearMissingCompetitionFallback.summary, /\u8fd9\u4e0d\u4ee3\u8868\u8d5b\u4e8b\u4e0d\u5b58\u5728/, 'specific missing event names should distinguish missing records from non-existent events');
 assert.ok(noYearMissingCompetitionFallback.sections.some((section) => section.title === '\u53ef\u4ee5\u8fd9\u6837\u6838\u5bf9'), 'specific missing event names should show verification guidance');
 assert.ok(noYearMissingCompetitionFallback.actions.some((action) => action.filters?.region === '\u5317\u4eac'), 'specific missing event names should still offer a filtered database path');
 assert.ok(!/(\u8d5b\u4e8b\u7edf\u8ba1|\u5317\u4eac\u8d5b\u4e8b\u7edf\u8ba1|\u6682\u672a\u8bc6\u522b|\u5206\u6790\u53e3\u5f84|\u540e\u7eed)/.test(`${noYearMissingCompetitionFallback.title}${noYearMissingCompetitionFallback.summary}`), 'specific missing event names should avoid statistics and internal wording');

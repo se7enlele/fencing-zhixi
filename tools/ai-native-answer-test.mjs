@@ -95,6 +95,8 @@ assert.doesNotMatch(js, /function detectCompetitionInQuery\(query\)[\s\S]*const 
 assert.match(js, /function relatedCompetitionsForQuery\(query\)[\s\S]*withoutYearAlias\(query\)[\s\S]*chineseAdminAlias\(query\)[\s\S]*competitionNameAliasTerms\(competition\)/, 'AI missing competition fallback must use the same name-only aliases for related event suggestions');
 assert.match(js, /function competitionMissingDiagnosisRows\(query, competitionLike, relatedCompetitions = \[\]\)/, 'AI missing-competition fallback must explain how users can verify a missing event');
 assert.match(js, /title: '可以这样核对'/, 'AI missing-competition fallback must show a user-facing diagnosis section');
+assert.match(js, /当前未收录\$\{competitionLike\.year\}年这场赛事/, 'AI missing-competition fallback must say when the current record is not collected');
+assert.match(js, /这不代表赛事不存在/, 'AI missing-competition fallback must distinguish missing records from non-existent events');
 assert.match(js, /查看相关赛事/, 'AI missing-competition fallback must offer an action to inspect related competitions');
 assert.match(js, /地方联赛或分站赛/, 'AI missing-competition fallback must handle local league and station naming differences');
 assert.match(js, /function aiFallbackRewriteActions\(query = '', candidates = \{\}\)/, 'AI fallback must generate runnable rewrite suggestions');
