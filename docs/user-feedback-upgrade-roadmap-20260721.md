@@ -274,3 +274,33 @@ Use these before release:
 10. 分析马潇和陶嘉月的对战情况
 11. 某场比赛U8男花淘汰赛表现怎么样
 12. 孩子击剑值不值得继续
+
+## Execution Log
+
+### 2026-07-21
+
+Shipped in commit `3566ee83` and deployed to Cloudflare version `2efdebd6-c8b2-4f6b-af9c-95610f0da3e5`.
+
+Completed:
+- Single-character surname recovery: short questions such as `蔡` can enter guided recovery and surface matching athletes instead of ending with a blank or unrelated answer.
+- Abbreviated club comparison recovery remains covered by runtime tests.
+- AI question submission has a visible loading state, progress steps, skeleton content and immediate scroll into the answer area.
+- Database `我的关注` filter is wired to the shared filter sheet instead of silently toggling.
+- My page account state is split into logged-in and logged-out displays; the login form lives on the dedicated login page.
+- Product copy tests guard against user-facing implementation terms such as rollout language, login-code wording and vague combined login/signup copy.
+
+Verification:
+- `node --check web\viewer.js`
+- `node tools\ai-native-answer-test.mjs`
+- `node tools\ai-acceptance-runtime-test.mjs`
+- `node tools\my-page-view-test.mjs`
+- `node tools\product-copy-test.mjs`
+- `npm.cmd run smoke`
+- Online `https://fencingai.uk/viewer.js` verification found the deployed markers for single-character recovery, AI loading state and the shared follow filter sheet.
+
+Still open:
+- Event-name intent and missing-event recovery, especially queries such as `北京击剑联赛第一站`.
+- Stronger evidence links for club comparison and athlete growth answers.
+- Roster-only prematch intelligence for upcoming events.
+- Real coach and referee data import.
+- Generated static data files remain dirty after deployment and should stay out of commits unless a data release is explicitly requested.
