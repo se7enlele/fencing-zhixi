@@ -222,16 +222,16 @@ async function verifyFirstEvidenceNavigation(page, answer, testCase) {
   assertCase(!failureCopy.length, `${testCase.id} evidence navigation opens an error state`, { sourceText, heroTitle, failureCopy });
   assertCase(Boolean(heroTitle.trim()), `${testCase.id} evidence navigation did not open a detail title`, { sourceText });
 
-  await page.evaluate(() => {
-    const buttons = [...document.querySelectorAll('[data-main-tab="home"]')];
-    const visibleButton = buttons.find((button) => {
-      const rect = button.getBoundingClientRect();
-      return rect.width > 0 && rect.height > 0;
-    }) || buttons[0];
-    visibleButton?.click();
-  });
-  await page.locator('#aiQueryInput:visible').first().waitFor({ state: 'visible', timeout: 30000 });
+  await openAuditHome(page, `return-${testCase.id}`);
   return { sourceText, heroTitle };
+}
+
+async function openAuditHome(page, tag = '') {
+  const suffix = tag ? `-${tag}` : '';
+  await page.goto(`${baseUrl}?v=online-ai-flow-audit-${runId}${suffix}`, { waitUntil: 'domcontentloaded' });
+  await page.locator('#aiQueryInput:visible').first().waitFor({ state: 'visible', timeout: 30000 });
+  await page.locator('#aiQueryForm button[data-ai-submit="true"]:visible').first().waitFor({ state: 'visible', timeout: 30000 });
+  await page.locator('#aiQueryForm[data-ai-bound="true"]').waitFor({ state: 'attached', timeout: 30000 });
 }
 
 const browser = await chromium.launch({
@@ -251,10 +251,7 @@ await page.addInitScript(() => {
 
 const results = [];
 try {
-  await page.goto(`${baseUrl}?v=online-ai-flow-audit-${runId}`, { waitUntil: 'domcontentloaded' });
-  await page.locator('#aiQueryInput:visible').first().waitFor({ state: 'visible', timeout: 30000 });
-  await page.locator('#aiQueryForm button[data-ai-submit="true"]:visible').first().waitFor({ state: 'visible', timeout: 30000 });
-  await page.locator('#aiQueryForm[data-ai-bound="true"]').waitFor({ state: 'attached', timeout: 30000 });
+  await openAuditHome(page, 'start');
   await page.waitForFunction(
     () => {
       const text = document.body.textContent || '';
