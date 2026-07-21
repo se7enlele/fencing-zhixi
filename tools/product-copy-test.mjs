@@ -45,6 +45,9 @@ assert.match(js, /myFollowFilterButton\?\.addEventListener\('click', \(\) => ope
 assert.doesNotMatch(css, /\.follow-filter-menu|\.follow-filter-option/, 'my-follow inline menu styles must not remain');
 assert.doesNotMatch(js, /myFollowFilterButton\?\.addEventListener\('click', toggleFollowedCompetitionFilter\)/, 'my-follow dropdown-style filter must not be wired as a silent toggle');
 assert.doesNotMatch(js, /AI 分析入口|为你而生|主动洞察/, 'home and detail copy must avoid internal or vague AI-entry wording');
+assert.doesNotMatch(js, /专业分析入口|<h2>工作入口<\/h2>|按任务进入|<span>当前角色：/, 'home and role copy must avoid internal navigation or role-state wording');
+assert.match(js, /<h2>常用功能<\/h2>/, 'home task cards should use user-facing function copy');
+assert.match(js, /使用视角：/, 'role state should be phrased as a user-facing viewing perspective');
 assert.doesNotMatch(js, /label: '判断口径'|口径下|当前已收录|第一层结论/, 'AI answer copy must avoid internal methodology labels');
 assert.doesNotMatch(js, /\['当前判断'|\['证据强度'|'数据助手'/, 'AI answer labels must stay user-facing and avoid internal/generic helper copy');
 assert.doesNotMatch(js, /<button type="button" data-ai-feedback=/, 'AI answer result should not show product feedback controls as primary user content');

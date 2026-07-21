@@ -2653,7 +2653,7 @@ function renderParentWorkspace() {
     <section class="panel role-panel parent-panel">
       <div class="role-panel-head">
         <div>
-          <span>当前角色：家长</span>
+          <span>使用视角：家长</span>
           <strong>${escapeHtml(child.name)} 的成长报告</strong>
           <em>${escapeHtml(child.club || '俱乐部待确认')}</em>
         </div>
@@ -3284,7 +3284,7 @@ function renderRoleWorkspaceLegacy() {
       <section class="panel role-panel">
         <div class="section-title">
           <h2>先选择你的视角</h2>
-          <span>专业分析入口</span>
+          <span>按身份查看</span>
         </div>
         <div class="role-grid">
           <button type="button" data-role="parent">
@@ -3313,9 +3313,9 @@ function renderRoleWorkspaceLegacy() {
       <section class="panel role-panel">
         <div class="role-panel-head">
           <div>
-            <span>当前角色：${escapeHtml(roleLabel(state.userRole))}</span>
+            <span>使用视角：${escapeHtml(roleLabel(state.userRole))}</span>
             <strong>${state.userRole === 'coach' ? '教练工作台' : state.userRole === 'club' ? '俱乐部工作台' : '赛事数据'}</strong>
-            <em>${state.userRole === 'data' ? '你可以继续使用搜索、筛选和赛事入口。' : '可从赛事、选手和俱乐部数据进入对应分析。'}</em>
+            <em>${state.userRole === 'data' ? '你可以继续使用搜索、筛选和赛事详情。' : '可从赛事、选手和俱乐部直接查看分析。'}</em>
           </div>
           <button type="button" data-role-reset>切换角色</button>
         </div>
@@ -4927,8 +4927,8 @@ function renderHomePage() {
       </section>
       <section class="panel my-section home-action-section">
         <div class="section-title">
-          <h2>工作入口</h2>
-          <span>按任务进入</span>
+          <h2>常用功能</h2>
+          <span>快速查看</span>
         </div>
         <div class="home-action-grid">
           <button type="button" data-home-competitions>
@@ -7291,7 +7291,7 @@ function productTemplateSections(kind) {
       title: '内容结构',
       rows: [
         '学员分层：冲成绩、稳定成长、需要关注、新手积累。',
-        '训练反馈：每个学员下一步训练重点和家长沟通重点。',
+        '训练反馈：每个学员的训练重点和家长沟通重点。',
         '项目矩阵：按年龄段、剑种、性别看强项和短板。',
         '经营动作：续费沟通、招生展示、重点比赛带队建议。',
       ],
@@ -8605,7 +8605,7 @@ function myWorkspaceNextActions({ children = [], followedCompetitions = [], repo
     rows.push({
       action: 'growth',
       title: `${firstChild.name} 成长报告`,
-      detail: '把近期成绩、阶段变化和下一步训练重点整理成可复看的报告。',
+      detail: '把近期成绩、阶段变化和训练重点整理成可复看的报告。',
       cta: '生成报告',
       athleteId: firstChild.id,
     });
@@ -8726,7 +8726,7 @@ function renderMyPage() {
     <section class="panel my-section my-next-section">
       <div class="section-title">
         <h2>推荐操作</h2>
-        <span>下一步</span>
+        <span>优先推荐</span>
       </div>
       <div class="my-next-grid">
         ${nextActions.map((row) => `

@@ -160,7 +160,8 @@ assert.match(js, /\{ value: entityCounts\.athletes, label: '选手画像' \}/, '
 assert.match(js, /\['可问选手', `\$\{entityCounts\.athletes\} 个画像`\]/, 'AI fallback must display athlete coverage counts instead of empty local search indexes');
 assert.match(js, /const coachCount = entityCoverageCounts\(\)\.clubs;/, 'home service readiness must use aggregate club coverage counts');
 assert.match(js, /meta: `\$\{entityCoverageCounts\(\)\.clubs\} 个俱乐部画像`/, 'home coach entry must not use empty local club search index counts');
-assert.match(js, /<h2>工作入口<\/h2>/, 'home page must use task-oriented entry cards instead of another competition list');
+assert.match(js, /<h2>常用功能<\/h2>/, 'home page must use user-facing task cards instead of another competition list');
+assert.doesNotMatch(js, /专业分析入口|<h2>工作入口<\/h2>|按任务进入/, 'home and role pages must avoid implementation-oriented navigation copy');
 assert.match(js, /class="home-action-grid"/, 'home page must render compact task entry cards');
 assert.match(js, /<h2>试用合作<\/h2>/, 'home page must expose a pilot trial intent section');
 assert.match(js, /data-pilot-interest/, 'home page pilot section must have a runnable intent action');
