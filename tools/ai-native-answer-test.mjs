@@ -103,6 +103,10 @@ assert.match(js, /function applyAiCompetitionFilters\(filters = \{\}\)/, 'AI ans
 assert.match(js, /function aiCompetitionFilterSummary\(filters = \{\}\)/, 'AI competition filters must expose a visible summary for the competition list');
 assert.match(js, /function queryItemFilterOption\(query = ''\)/, 'AI competition-list actions must preserve project hints like U10 male foil');
 assert.match(js, /const itemFilter = filters\.item \|\| queryItemFilterOption\(question\)/, 'AI competition filters must derive item filters from the original question');
+assert.match(js, /aiCompetitionFilterQuestion: ''/, 'AI competition filter source question must have a stable state slot');
+assert.match(js, /state\.aiCompetitionFilterQuestion = question;/, 'AI competition filters must preserve the source question for database verification');
+assert.match(js, /state\.aiCompetitionFilterQuestion = '';/, 'AI competition filters must clear the source question when removed');
+assert.match(js, /来自提问：\$\{escapeHtml\(state\.aiCompetitionFilterQuestion\)\}/, 'AI filtered competition lists must show which user question created the filter');
 assert.match(js, /return parts\.length \? `筛选结果：\$\{parts\.join\(' · '\)\}` : '';/, 'AI competition filter summary must be user-facing');
 assert.match(js, /没有匹配的比赛。可以清除筛选，或减少年份、地区、项目条件后再看。/, 'AI-filtered empty competition lists must offer recovery');
 assert.match(js, /function clearAiCompetitionFilter\(\)/, 'AI competition filters must be removable from the competition list');
@@ -300,6 +304,7 @@ assert.match(css, /\.ai-action-block/, 'AI action block styles must exist');
 assert.doesNotMatch(css, /\.ai-trust-panel/, 'AI judgment-basis panel styles should be removed when hidden from the product UI');
 assert.doesNotMatch(css, /\.ai-trust-row/, 'AI judgment-basis row styles should be removed when hidden from the product UI');
 assert.match(css, /\.ai-filter-notice/, 'AI-filtered competition lists must show a visible filter notice');
+assert.match(css, /\.ai-filter-notice strong/, 'AI-filtered competition source questions must have stable mobile styles');
 assert.doesNotMatch(css, /\.ai-next-steps/, 'AI next-step styles should be removed when hidden from the product UI');
 assert.match(css, /\.ai-conversion-card/, 'AI conversion block styles must exist');
 assert.match(css, /\.ai-conversion-service/, 'AI conversion block must style concrete trial contents');

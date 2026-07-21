@@ -125,6 +125,7 @@ const state = {
   selectedAiMonth: '',
   onlyFollowedData: false,
   aiCompetitionFilterSummary: '',
+  aiCompetitionFilterQuestion: '',
   visibleCompetitionLimit: COMPETITION_LIST_PAGE_SIZE,
   apiVersion: '',
   dataGeneratedAt: '',
@@ -1665,6 +1666,7 @@ function applyAiCompetitionFilters(filters = {}) {
     ...filters,
     item: state.selectedItem !== '全部项目' ? state.selectedItem : '',
   });
+  state.aiCompetitionFilterQuestion = question;
   searchInput.value = '';
   renderFilters();
   applyCompetitionFilter();
@@ -1678,6 +1680,7 @@ function clearAiCompetitionFilter() {
   state.selectedStatus = '全部状态';
   state.selectedAiMonth = '';
   state.aiCompetitionFilterSummary = '';
+  state.aiCompetitionFilterQuestion = '';
   searchInput.value = '';
   renderFilters();
   applyCompetitionFilter();
@@ -9202,6 +9205,7 @@ function renderCompetitionList() {
   const aiFilterNotice = state.aiCompetitionFilterSummary
     ? `
       <div class="ai-filter-notice">
+        ${state.aiCompetitionFilterQuestion ? `<strong>来自提问：${escapeHtml(state.aiCompetitionFilterQuestion)}</strong>` : ''}
         <span>${escapeHtml(state.aiCompetitionFilterSummary)} · ${escapeHtml(state.filteredCompetitions.length)} 场</span>
         <button type="button" data-clear-ai-filter>清除筛选</button>
       </div>

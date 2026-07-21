@@ -1244,6 +1244,7 @@ select:focus {
 
 .ai-filter-notice {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: 10px;
@@ -1257,7 +1258,16 @@ select:focus {
   line-height: 1.45;
 }
 
+.ai-filter-notice strong {
+  flex: 1 0 100%;
+  min-width: 0;
+  color: #0f172a;
+  font-size: 12px;
+  font-weight: 900;
+}
+
 .ai-filter-notice span {
+  flex: 1 1 auto;
   min-width: 0;
 }
 
