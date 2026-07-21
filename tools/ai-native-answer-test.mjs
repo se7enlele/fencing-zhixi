@@ -174,7 +174,9 @@ assert.match(js, /label: '查看教练工作台'/, 'AI business actions must ope
 assert.match(js, /kind: '招生素材来源'/, 'AI recruiting evidence must cite concrete club event sources');
 assert.match(js, /查看招生名片/, 'AI recruiting answers must navigate back to the club recruiting card');
 assert.match(js, /data-ai-filters/, 'AI answer action buttons must carry structured competition filters');
-assert.match(js, /data-sport-code="\$\{escapeHtml\(action\.sportCode\)\}"/, 'AI action buttons must support direct competition navigation');
+assert.match(js, /function aiActionTargetAttributes\(action = \{\}\)/, 'AI action buttons must centralize target attributes');
+assert.match(js, /action\.eventCode \? `data-event-code="\$\{escapeHtml\(action\.eventCode\)\}"` : action\.sportCode \? `data-sport-code="\$\{escapeHtml\(action\.sportCode\)\}"` : ''/, 'AI action buttons must prioritize exact event targets before competition pages');
+assert.match(js, /aiActionTargetAttributes\(action\)/, 'AI action rendering must use the centralized target helper');
 assert.match(js, /state\.aiCompetitionFilterSummary = aiCompetitionFilterSummary\(\{[\s\S]*\.\.\.filters,[\s\S]*item: state\.selectedItem !== '全部项目' \? state\.selectedItem : '',[\s\S]*\}\)/, 'AI filter actions must store a list-facing filter summary with project scope');
 assert.match(js, /data-clear-ai-filter/, 'AI filtered competition lists must expose a clear action');
 assert.match(js, /JSON\.parse\(decodeURIComponent\(button\.dataset\.aiFilters\)\)/, 'AI answer action handlers must decode filter payloads before navigation');

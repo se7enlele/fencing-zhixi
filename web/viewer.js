@@ -7651,6 +7651,23 @@ function aiEvidenceTargetAttributes(row = {}) {
   return '';
 }
 
+function aiActionTargetAttributes(action = {}) {
+  return [
+    action.query ? `data-ai-action-query="${escapeHtml(action.query)}"` : '',
+    action.athleteId ? `data-athlete-id="${escapeHtml(action.athleteId)}"` : '',
+    action.parentGrowthAthleteId ? `data-parent-growth-athlete-id="${escapeHtml(action.parentGrowthAthleteId)}"` : '',
+    action.coachSegmentationClubId ? `data-coach-segmentation-club-id="${escapeHtml(action.coachSegmentationClubId)}"` : '',
+    action.followAthleteId ? `data-follow-athlete-id="${escapeHtml(action.followAthleteId)}"` : '',
+    action.followCompetitionCode ? `data-follow-competition-code="${escapeHtml(action.followCompetitionCode)}"` : '',
+    action.eventCode ? `data-event-code="${escapeHtml(action.eventCode)}"` : action.sportCode ? `data-sport-code="${escapeHtml(action.sportCode)}"` : '',
+    action.clubId ? `data-club-id="${escapeHtml(action.clubId)}"` : '',
+    action.prematchTemplateKind ? `data-prematch-template="${escapeHtml(action.prematchTemplateKind)}"` : '',
+    action.prematchSportCode ? `data-prematch-sport-code="${escapeHtml(action.prematchSportCode)}"` : '',
+    action.mainTab ? `data-main-target="${escapeHtml(action.mainTab)}"` : '',
+    action.filters ? `data-ai-filters="${escapeHtml(encodeURIComponent(JSON.stringify(action.filters)))}"` : '',
+  ].filter(Boolean).join(' ');
+}
+
 function aiTrustRows(report) {
   const evidence = report.evidence || [];
   const evidenceKinds = [...new Set(evidence.map((row) => aiEvidenceKind(row)).filter(Boolean))].slice(0, 3);
@@ -8128,7 +8145,7 @@ function renderAiAnswer(report) {
           <strong>${escapeHtml(aiResultActionTitle(report))}</strong>
           <div class="ai-action-row">
             ${primaryActions.map((action) => `
-              <button type="button" ${action.query ? `data-ai-action-query="${escapeHtml(action.query)}"` : ''} ${action.athleteId ? `data-athlete-id="${escapeHtml(action.athleteId)}"` : ''} ${action.parentGrowthAthleteId ? `data-parent-growth-athlete-id="${escapeHtml(action.parentGrowthAthleteId)}"` : ''} ${action.coachSegmentationClubId ? `data-coach-segmentation-club-id="${escapeHtml(action.coachSegmentationClubId)}"` : ''} ${action.followAthleteId ? `data-follow-athlete-id="${escapeHtml(action.followAthleteId)}"` : ''} ${action.followCompetitionCode ? `data-follow-competition-code="${escapeHtml(action.followCompetitionCode)}"` : ''} ${action.sportCode ? `data-sport-code="${escapeHtml(action.sportCode)}"` : ''} ${action.clubId ? `data-club-id="${escapeHtml(action.clubId)}"` : ''} ${action.prematchTemplateKind ? `data-prematch-template="${escapeHtml(action.prematchTemplateKind)}"` : ''} ${action.prematchSportCode ? `data-prematch-sport-code="${escapeHtml(action.prematchSportCode)}"` : ''} ${action.mainTab ? `data-main-target="${escapeHtml(action.mainTab)}"` : ''} ${action.filters ? `data-ai-filters="${escapeHtml(encodeURIComponent(JSON.stringify(action.filters)))}"` : ''}>
+              <button type="button" ${aiActionTargetAttributes(action)}>
                 ${escapeHtml(action.label)}
               </button>
             `).join('')}

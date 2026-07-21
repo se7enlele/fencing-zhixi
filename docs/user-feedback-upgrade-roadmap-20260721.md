@@ -325,3 +325,18 @@ Verification:
 Still open:
 - Real data coverage for `北京击剑联赛第一站` still depends on whether the event exists in the collected source data.
 - If the event is not collected, the product should keep showing the user-facing missing-event recovery path and avoid implying the match does not exist.
+
+### 2026-07-21 Evidence Action Follow-up
+
+Completed:
+- AI answer primary action buttons now use a centralized target helper.
+- When an action has both `eventCode` and `sportCode`, the exact project/event target wins over the parent competition page.
+- This closes a traceability gap for answers such as "which project has the most participants", where the user expects the action to open the specific project rather than the generic event page.
+
+Verification:
+- `node --check web\viewer.js`
+- `node tools\ai-native-answer-test.mjs`
+- `node tools\ai-acceptance-runtime-test.mjs`
+- `node tools\my-page-view-test.mjs`
+- `node tools\product-copy-test.mjs`
+- `npm.cmd run smoke`
