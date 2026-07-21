@@ -304,3 +304,24 @@ Still open:
 - Roster-only prematch intelligence for upcoming events.
 - Real coach and referee data import.
 - Generated static data files remain dirty after deployment and should stay out of commits unless a data release is explicitly requested.
+
+### 2026-07-21 Follow-up
+
+Shipped in commit `dfb91dc5` and deployed to Cloudflare version `1ad65c4a-e7f3-4185-8d2c-efd88f200175`.
+
+Completed:
+- Specific event-name questions without an explicit statistics intent no longer route to broad regional event statistics.
+- Queries such as `北京击剑联赛第二站` now enter missing-event recovery instead of becoming a generic Beijing event count.
+- Regional statistics questions still work when the user asks with count language, such as `2026年天津有几场比赛`.
+
+Verification:
+- `node --check web\viewer.js`
+- `node tools\ai-native-answer-test.mjs`
+- `node tools\ai-acceptance-runtime-test.mjs`
+- `node tools\product-copy-test.mjs`
+- `npm.cmd run smoke`
+- Online `https://fencingai.uk/viewer.js` SHA256 matched the local deployed file and contains the explicit statistics-intent guard.
+
+Still open:
+- Real data coverage for `北京击剑联赛第一站` still depends on whether the event exists in the collected source data.
+- If the event is not collected, the product should keep showing the user-facing missing-event recovery path and avoid implying the match does not exist.
