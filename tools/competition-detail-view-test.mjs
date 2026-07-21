@@ -102,6 +102,8 @@ assert.match(source, /function competitionProjectScope\(competition\)/, 'competi
 assert.match(source, /function competitionHeroSummaryText\(competition\)/, 'competition hero must explain available value in user-facing language');
 assert.match(source, /function competitionDigestRows\(competition, insights, primaryEventRows, birthRows\)/, 'post-event competition detail must put interpretation before raw charts');
 assert.match(source, /competitionDigestPanel\(digestRows, '赛后复盘'\)/, 'post-event competition detail must render the interpretation summary first');
+assert.match(source, /function competitionChartDetails\(content, summary = '查看结构图表'\)/, 'post-event competition detail must collapse dense charts behind a user-controlled entry');
+assert.match(source, /competitionChartDetails\(chartContent\)/, 'post-event competition detail must not show every chart by default');
 assert.match(source, /function competitionRegistrationNumbers\(competition\)/, 'pre-event competition detail must summarize registration numbers');
 assert.match(source, /function competitionPreEventCards\(competition\)/, 'pre-event competition detail must use pre-match metric cards');
 assert.match(source, /function renderCompetitionPreEventPanel\(competition\)/, 'pre-event competition detail must render a dedicated preparation panel');
@@ -141,6 +143,8 @@ assert.match(css, /\.competition-scope-grid/, 'competition scope summary styles 
 assert.match(css, /\.competition-scope-grid strong,[\s\S]*text-overflow:\s*ellipsis/, 'competition scope cells must truncate long summaries');
 assert.match(css, /\.competition-digest-panel/, 'post-event competition digest panel styles must exist');
 assert.match(css, /\.competition-digest-list/, 'post-event competition digest list styles must exist');
+assert.match(css, /\.competition-chart-details/, 'post-event collapsed chart access styles must exist');
+assert.match(css, /\.competition-chart-stack/, 'post-event collapsed chart content must stay vertically contained');
 assert.match(css, /\.competition-prematch-panel/, 'pre-event preparation panel styles must exist');
 assert.match(css, /\.competition-live-panel/, 'live competition progress panel styles must exist');
 assert.match(css, /\.competition-live-items/, 'live competition focus project styles must exist');

@@ -4908,6 +4908,33 @@ select:focus {
   padding: 12px;
 }
 
+.competition-chart-details {
+  display: grid;
+  gap: 8px;
+}
+
+.competition-chart-details > summary {
+  list-style: none;
+  cursor: pointer;
+  border: 1px solid rgba(21, 95, 194, 0.14);
+  border-radius: 10px;
+  background: rgba(21, 95, 194, 0.06);
+  color: var(--primary);
+  font-size: 13px;
+  font-weight: 900;
+  padding: 11px 12px;
+}
+
+.competition-chart-details > summary::-webkit-details-marker {
+  display: none;
+}
+
+.competition-chart-stack {
+  display: grid;
+  gap: 10px;
+  margin-top: 8px;
+}
+
 .competition-digest-list {
   display: grid;
   gap: 8px;

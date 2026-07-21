@@ -9353,6 +9353,19 @@ function competitionDigestPanel(rows, title = '赛后复盘') {
   `;
 }
 
+function competitionChartDetails(content, summary = '查看结构图表') {
+  const body = String(content || '').trim();
+  if (!body) return '';
+  return `
+    <details class="competition-chart-details">
+      <summary>${escapeHtml(summary)}</summary>
+      <div class="competition-chart-stack">
+        ${body}
+      </div>
+    </details>
+  `;
+}
+
 function competitionPreEventReadinessRows(competition) {
   const numbers = competitionRegistrationNumbers(competition);
   const topItems = competitionPreEventTopItems(competition, 3);
@@ -9583,11 +9596,14 @@ function renderCompetitionInsights(competition) {
   }
 
   const digestRows = competitionDigestRows(competition, insights, primaryEventRows, birthRows);
-  competitionInsightBullets.innerHTML = `
-    ${competitionDigestPanel(digestRows, '赛后复盘')}
+  const chartContent = `
     ${donutChart('赛事结构', densityRows)}
     ${birthRows.length ? barChart('主要年龄段', birthRows, { tone: 'orange' }) : '<div class="empty compact-empty">暂无年龄段数据</div>'}
     ${primaryEventRows.length > 1 ? eventTiles('主要项目对比', primaryEventRows) : ''}
+  `;
+  competitionInsightBullets.innerHTML = `
+    ${competitionDigestPanel(digestRows, '赛后复盘')}
+    ${competitionChartDetails(chartContent)}
   `;
 }
 
