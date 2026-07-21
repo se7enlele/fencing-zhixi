@@ -347,43 +347,7 @@ function logoutAccount() {
 }
 
 function renderAccountPanel() {
-  if (state.authUser) {
-    return `
-      <section class="panel my-section account-panel account-panel-signed">
-        <div class="section-title">
-          <h2>账号中心</h2>
-          <span>已登录</span>
-        </div>
-        <div class="account-summary">
-          <div>
-            <strong>${escapeHtml(state.authUser.displayName || state.authUser.identifier || '已登录用户')}</strong>
-            <span>关注、历史和报告会保存到当前账号。</span>
-          </div>
-          <button type="button" data-account-logout>退出</button>
-        </div>
-      </section>
-    `;
-  }
-  return `
-    <section class="panel my-section account-panel">
-      <div class="section-title">
-        <h2>账号中心</h2>
-        <span>可选登录</span>
-      </div>
-      <form class="account-login-form" data-account-login>
-        <label>
-          <span>手机号或邮箱</span>
-          <input name="identifier" type="text" autocomplete="username" placeholder="用于找回关注和历史">
-        </label>
-        <label>
-          <span>密码</span>
-          <input name="code" type="password" autocomplete="current-password" placeholder="至少 6 位，首次输入即创建账号">
-        </label>
-        <button type="submit">登录账号</button>
-        <em data-account-status>登录后，关注、历史和报告可以在不同设备继续查看。</em>
-      </form>
-    </section>
-  `;
+  return renderAccountPanelV2();
 }
 
 function accountProfileCounts() {
@@ -8568,7 +8532,7 @@ function renderMyPage() {
     submitAccountLogin(event.currentTarget);
   });
   myPage.querySelector('[data-account-open-login]')?.addEventListener('click', () => {
-    state.showAccountLoginForm = true;
+    state.showAccountLoginForm = false;
     state.accountStatus = '';
     renderAccountLoginPage();
     navigateTo('accountLogin');
