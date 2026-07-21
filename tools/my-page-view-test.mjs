@@ -24,8 +24,8 @@ assert.match(html, /<nav class="bottom-nav" id="bottomNav" aria-label="主导航
 assert.doesNotMatch(html, /class="active"\s+data-main-tab=/, 'bottom navigation must not ship stale active classes in HTML');
 assert.match(html, /<strong>数据库<\/strong>/, 'second tab must be positioned as the structured database');
 assert.match(html, /id="myFollowFilterButton"/, 'database tab must expose a my-follow quick filter');
-assert.match(html, /class="toggle-filter-trigger follow-filter-trigger"/, 'my-follow quick filter must look like a toggle instead of a dropdown');
-assert.doesNotMatch(html, /id="myFollowFilterButton" class="filter-trigger/, 'my-follow quick filter must not reuse dropdown trigger styling');
+assert.match(html, /id="myFollowFilterButton" class="filter-trigger follow-filter-trigger"[^>]*aria-haspopup="dialog"[^>]*aria-expanded="false"/, 'my-follow filter must look and behave like a normal dropdown filter');
+assert.doesNotMatch(html, /class="toggle-filter-trigger follow-filter-trigger"/, 'my-follow filter must not look like a silent toggle');
 assert.match(html, /id="databaseDirectory"/, 'database tab must expose a structured directory before the long list');
 assert.match(html, /<h2>数据库入口<\/h2>/, 'database tab must label the structured search entry clearly');
 assert.equal(indexHtml, html, 'static index.html must stay in sync with viewer.html');
@@ -105,12 +105,14 @@ assert.match(js, /currentAnswer\.innerHTML = renderAiAnswer\(report\);[\s\S]{0,1
 assert.match(js, /function entityCoverageCounts\(\)/, 'home scale numbers must use data coverage summaries without hydrating full directories');
 assert.match(js, /onlyFollowedData: false/, 'database tab must track my-follow filter state');
 assert.match(js, /function competitionMatchesFollowedData\(competition\)/, 'database tab must filter competitions by followed athletes and followed competitions');
-assert.match(js, /function toggleFollowedCompetitionFilter\(\)/, 'my-follow filter keeps a reusable toggle helper for non-sheet actions');
-assert.match(js, /state\.onlyFollowedData = !state\.onlyFollowedData;/, 'my-follow helper must still switch between all competitions and followed competitions');
+assert.doesNotMatch(js, /function toggleFollowedCompetitionFilter\(\)/, 'my-follow filter must not keep a silent toggle helper');
+assert.doesNotMatch(js, /state\.onlyFollowedData = !state\.onlyFollowedData;/, 'my-follow filter changes must happen through an explicit option selection');
 assert.match(js, /myFollowFilterButton\?\.addEventListener\('click', \(\) => openFilterSheet\('follow'\)\)/, 'database tab must open the my-follow sheet when the dropdown-style filter is tapped');
 assert.match(js, /if \(type === 'follow'\) return '选择关注范围';/, 'my-follow sheet must use a clear title');
 assert.match(js, /if \(type === 'follow'\) state\.onlyFollowedData = value === '我的关注';/, 'my-follow sheet selection must update the followed-only filter');
 assert.match(js, /myFollowFilterButton\.innerHTML = `<span>\$\{isActive \? '我的关注' : '全部赛事'\}<\/span>`/, 'my-follow filter must show the selected option');
+assert.match(js, /if \(type === 'follow'\) myFollowFilterButton\?\.setAttribute\('aria-expanded', 'true'\);/, 'my-follow filter must mark the option sheet as open');
+assert.match(js, /if \(filterSheet\.dataset\.filterType === 'follow'\) myFollowFilterButton\?\.setAttribute\('aria-expanded', 'false'\);/, 'my-follow filter must reset expanded state when the sheet closes');
 assert.match(js, /function renderDatabaseDirectory\(\)/, 'database tab must render a structured entry directory');
 assert.match(js, /data-database-entry="\$\{escapeHtml\(row\.key\)\}"/, 'database directory cards must carry explicit entry types');
 assert.match(js, /title: '赛事'[\s\S]*title: '选手'[\s\S]*title: '俱乐部'[\s\S]*title: '教练\/裁判'[\s\S]*title: '我的关注'/, 'database directory must cover competitions, athletes, clubs, officials and followed items');
@@ -469,7 +471,7 @@ assert.match(js, /trackRecentItem\(\{[\s\S]*type: 'competition'/, 'competition d
 
 assert.match(css, /\.bottom-nav/, 'bottom navigation styles must exist');
 assert.match(css, /\.bottom-nav button\[aria-current="page"\]/, 'bottom navigation selected style must be driven by aria-current');
-assert.match(css, /\.toggle-filter-trigger/, 'my-follow quick filter must have distinct toggle styling');
+assert.doesNotMatch(css, /\.toggle-filter-trigger/, 'my-follow filter must not keep stale toggle-only styling');
 assert.match(css, /\.bottom-nav button:not\(\[aria-current="page"\]\)/, 'bottom navigation must explicitly reset non-current tabs');
 assert.match(css, /background: transparent !important/, 'non-current bottom tabs must not keep touch or focus selected backgrounds');
 assert.match(css, /\.ai-workspace/, 'AI workspace styles must exist');

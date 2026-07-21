@@ -1606,14 +1606,6 @@ function setFilterValue(type, value) {
   applyCompetitionFilter();
 }
 
-function toggleFollowedCompetitionFilter() {
-  state.onlyFollowedData = !state.onlyFollowedData;
-  state.selectedAiMonth = '';
-  state.aiCompetitionFilterSummary = '';
-  renderFilters();
-  applyCompetitionFilter();
-}
-
 function matchingFilterOption(type, value) {
   if (!value) return filterOptions(type)[0];
   const options = filterOptions(type);
@@ -1672,13 +1664,13 @@ function renderFilters() {
   if (myFollowFilterButton) {
     const isActive = Boolean(state.onlyFollowedData);
     myFollowFilterButton.classList.toggle('active', isActive);
-    myFollowFilterButton.setAttribute('aria-pressed', isActive ? 'true' : 'false');
     myFollowFilterButton.innerHTML = `<span>${isActive ? '我的关注' : '全部赛事'}</span>`;
   }
 }
 
 function openFilterSheet(type) {
   const activeValue = activeFilterValue(type);
+  filterSheet.dataset.filterType = type;
   filterSheetTitle.textContent = filterTitle(type);
   filterSheetOptions.innerHTML = filterOptions(type).map((value) => `
     <button class="sheet-option ${value === activeValue ? 'active' : ''}" type="button" data-filter-type="${type}" data-filter-value="${escapeHtml(value)}">
@@ -1686,10 +1678,13 @@ function openFilterSheet(type) {
     </button>
   `).join('');
   filterSheet.hidden = false;
+  if (type === 'follow') myFollowFilterButton?.setAttribute('aria-expanded', 'true');
 }
 
 function closeFilterSheet() {
   filterSheet.hidden = true;
+  if (filterSheet.dataset.filterType === 'follow') myFollowFilterButton?.setAttribute('aria-expanded', 'false');
+  filterSheet.dataset.filterType = '';
 }
 
 function renderRegionSelect() {
@@ -2184,7 +2179,7 @@ function handleDatabaseEntry(key) {
     return;
   }
   if (key === 'followed') {
-    state.onlyFollowedData = !state.onlyFollowedData;
+    state.onlyFollowedData = true;
     state.selectedAiMonth = '';
     state.aiCompetitionFilterSummary = '';
     renderFilters();
