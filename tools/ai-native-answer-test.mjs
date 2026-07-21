@@ -226,7 +226,7 @@ assert.match(js, /aiConversionServiceRows\(report\)/, 'AI conversion blocks must
 assert.doesNotMatch(js, /function aiAnswerMetaRows\(report = \{\}\)/, 'AI answers must not keep unused internal metadata helpers that can return to the UI');
 assert.doesNotMatch(js, /class="ai-answer-meta"/, 'AI answer renderer must not show internal question/evidence/action metadata cards');
 assert.doesNotMatch(js, /label: '问题'[\s\S]*label: '证据'[\s\S]*label: '动作'/, 'AI answers must not expose internal metadata labels');
-assert.match(js, /来源记录/, 'AI answers must expose traceability through source records instead of metadata cards');
+assert.match(js, /关键来源/, 'AI answers must expose traceability through a first-screen key source instead of metadata cards');
 assert.match(js, /const AI_ANSWER_CARD_LIMIT = 3/, 'AI answers must cap metric cards for a focused first screen');
 assert.match(js, /const AI_ANSWER_SECTION_LIMIT = 1/, 'AI answers must cap explanatory sections for a focused first screen');
 assert.match(js, /const AI_ANSWER_SECTION_ROW_LIMIT = 2/, 'AI answers must cap rows inside explanatory sections');
@@ -236,8 +236,12 @@ assert.match(js, /const primaryCards = \(report\.cards \|\| \[\]\)\.slice\(0, AI
 assert.match(js, /\.slice\(0, AI_ANSWER_SECTION_LIMIT\)[\s\S]*\.slice\(0, AI_ANSWER_SECTION_ROW_LIMIT\)/, 'AI answer renderer must only show primary explanatory rows');
 assert.match(js, /const primaryActions = \(report\.actions \|\| \[\]\)\.slice\(0, AI_ANSWER_ACTION_LIMIT\)/, 'AI answer renderer must only show primary actions');
 assert.match(js, /const primaryEvidence = \(report\.evidence \|\| \[\]\)\.slice\(0, AI_ANSWER_EVIDENCE_LIMIT\)/, 'AI answer renderer must only show primary evidence');
+assert.match(js, /const keyEvidence = primaryEvidence\[0\] \|\| null;/, 'AI answer renderer must split out the first source as the key source');
+assert.match(js, /const secondaryEvidence = primaryEvidence\.slice\(1\);/, 'AI answer renderer must keep secondary sources out of the key source');
+assert.match(js, /class="ai-key-source"/, 'AI answer renderer must surface a visible key source block');
+assert.match(js, /<strong>关键来源<\/strong>/, 'AI key source block must use user-facing source wording');
 assert.match(js, /data-ai-evidence-details/, 'AI evidence should be collapsed behind a lightweight source entry');
-assert.match(js, /来源记录/, 'AI evidence block must describe sources as checkable records');
+assert.match(js, /更多来源/, 'AI evidence block must describe secondary sources as checkable records');
 assert.match(js, /还有 \$\{escapeHtml\(hiddenEvidenceCount\)\} 条来源，可在详情页继续核对。/, 'AI answer renderer must tell users when more source records exist');
 assert.match(js, /重点赛事提醒和报名名单更新/, 'prematch conversion must include event and roster update value');
 assert.match(js, /学员分层和训练跟进建议/, 'coach conversion must include segmentation and training follow-up value');
@@ -293,6 +297,7 @@ assert.match(css, /\.ai-conversion-service/, 'AI conversion block must style con
 assert.match(css, /\.ai-conversion-actions/, 'AI conversion action styles must exist');
 assert.match(css, /\.ai-share-row/, 'AI share action styles must exist');
 assert.doesNotMatch(css, /\.ai-follow-up-row/, 'AI follow-up question styles should be removed when hidden from the product UI');
+assert.match(css, /\.ai-key-source/, 'AI key source styles must exist for first-screen traceability');
 assert.match(css, /\.ai-evidence > summary/, 'AI evidence summary styles must exist for collapsed sources');
 assert.match(css, /\.ai-evidence-list/, 'AI evidence list styles must exist for expanded sources');
 assert.match(css, /\.ai-evidence button em/, 'AI evidence type badge styles must exist');

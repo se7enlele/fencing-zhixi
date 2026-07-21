@@ -7889,7 +7889,10 @@ function renderAiAnswer(report) {
   const primaryCards = (report.cards || []).slice(0, AI_ANSWER_CARD_LIMIT);
   const primaryActions = (report.actions || []).slice(0, AI_ANSWER_ACTION_LIMIT);
   const primaryEvidence = (report.evidence || []).slice(0, AI_ANSWER_EVIDENCE_LIMIT);
-  const hiddenEvidenceCount = Math.max(0, (report.evidence?.length || 0) - primaryEvidence.length);
+  const keyEvidence = primaryEvidence[0] || null;
+  const secondaryEvidence = primaryEvidence.slice(1);
+  const hiddenEvidenceCount = Math.max(0, (report.evidence?.length || 0) - 1 - secondaryEvidence.length);
+  const remainingEvidenceCount = Math.max(0, (report.evidence?.length || 0) - 1);
   const enhancement = sanitizeAiEnhancement(report.enhancement || null);
   return `
     <div class="ai-answer-card">
@@ -7928,6 +7931,16 @@ function renderAiAnswer(report) {
           ${section.rows.map((row) => `<span>${escapeHtml(row)}</span>`).join('')}
         </div>
       `).join('')}
+      ${keyEvidence ? `
+        <div class="ai-key-source">
+          <strong>关键来源</strong>
+          <button type="button" ${keyEvidence.eventCode ? `data-event-code="${escapeHtml(keyEvidence.eventCode)}"` : ''} ${keyEvidence.sportCode ? `data-sport-code="${escapeHtml(keyEvidence.sportCode)}"` : ''} ${keyEvidence.clubId ? `data-club-id="${escapeHtml(keyEvidence.clubId)}"` : ''} ${keyEvidence.athleteId ? `data-athlete-id="${escapeHtml(keyEvidence.athleteId)}"` : ''}>
+            <em>${escapeHtml(aiEvidenceKind(keyEvidence))}</em>
+            <span>${escapeHtml(keyEvidence.label)}</span>
+            <small>${escapeHtml(aiEvidenceActionLabel(keyEvidence))}</small>
+          </button>
+        </div>
+      ` : ''}
       ${primaryActions.length ? `
         <div class="ai-action-block">
           <strong>${escapeHtml(aiResultActionTitle(report))}</strong>
@@ -7940,14 +7953,14 @@ function renderAiAnswer(report) {
           </div>
         </div>
       ` : ''}
-      ${primaryEvidence.length ? `
+      ${remainingEvidenceCount ? `
         <details class="ai-evidence" data-ai-evidence-details>
           <summary>
-            <strong>来源记录</strong>
-            <span>${escapeHtml(report.evidence?.length || primaryEvidence.length)} 条可核对</span>
+            <strong>更多来源</strong>
+            <span>${escapeHtml(remainingEvidenceCount)} 条可核对</span>
           </summary>
           <div class="ai-evidence-list">
-            ${primaryEvidence.map((row) => `
+            ${secondaryEvidence.map((row) => `
               <button type="button" ${row.eventCode ? `data-event-code="${escapeHtml(row.eventCode)}"` : ''} ${row.sportCode ? `data-sport-code="${escapeHtml(row.sportCode)}"` : ''} ${row.clubId ? `data-club-id="${escapeHtml(row.clubId)}"` : ''} ${row.athleteId ? `data-athlete-id="${escapeHtml(row.athleteId)}"` : ''}>
                 <em>${escapeHtml(aiEvidenceKind(row))}</em>
                 <strong>${escapeHtml(row.label)}</strong>
