@@ -49,6 +49,19 @@
 | 12 | 帮我生成蔡廷彧成长报告 | 报告产品化 |
 | 13 | 孩子击剑值不值得继续 | 模糊家长问题恢复 |
 
+自动评测命令：
+
+```powershell
+npm.cmd run audit:online-ai
+```
+
+输出文件：
+
+- `analysis-output/online-ai-flow-audit-*.json`
+- `analysis-output/real-user-ai-evaluation-*.md`
+
+评测摘要会按用户角色、研究阶段、原始问题、系统识别、证据来源、失败恢复和用户判断记录结果。
+
 ## 真实用户测试记录模板
 
 | 字段 | 记录内容 |

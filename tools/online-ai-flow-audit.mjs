@@ -107,8 +107,8 @@ const cases = [
   },
   {
     id: 'competition-missing-year',
-    query: '2026年北京击剑联赛第一站',
-    expect: ['没有找到2026年同名赛事', '可以这样核对', '相近赛事', '查看相近赛事'],
+    query: '2027年北京击剑联赛第一站',
+    expect: ['当前未收录2027年这场赛事', '可查内容', '赛事记录', '项目名单'],
   },
   {
     id: 'recovery',
@@ -122,6 +122,76 @@ const cases = [
     requireEvidence: true,
   },
 ];
+
+const realUserContextByCase = {
+  'competition-lookup': { role: '新用户', stage: '探索期', task: '用赛事名称确认系统能否找到目标比赛', expectedIntent: '赛事名识别' },
+  'competition-count': { role: '赛事运营方', stage: '赛事规划期', task: '查看指定地区和年份的赛事数量', expectedIntent: '赛事统计' },
+  'competition-largest': { role: '赛事运营方', stage: '规模判断期', task: '找出参赛规模最大的比赛', expectedIntent: '赛事规模排行' },
+  'athlete-growth-recent': { role: '进阶家长', stage: '成长复盘期', task: '判断孩子近期是否有进步', expectedIntent: '选手成长' },
+  'athlete-growth-yearly': { role: '进阶家长', stage: '年度复盘期', task: '比较孩子跨年度表现变化', expectedIntent: '年度成长' },
+  'prematch-registration': { role: '赛前家长', stage: '赛前准备期', task: '查看近期报名和关注对象准备重点', expectedIntent: '赛前情报' },
+  'club-project': { role: '小型剑馆教练', stage: '学员管理期', task: '查看本馆指定项目表现', expectedIntent: '俱乐部项目分析' },
+  'club-recruiting': { role: '剑馆管理者', stage: '招生沟通期', task: '把俱乐部成绩转成招生表达', expectedIntent: '招生展示' },
+  'club-comparison': { role: '竞品对比家长', stage: '选馆判断期', task: '比较两家剑馆在指定项目的表现', expectedIntent: '俱乐部对比' },
+  'athlete-comparison': { role: '深度数据用户', stage: '证据核验期', task: '比较两名选手历史表现和对战线索', expectedIntent: '选手对比' },
+  'growth-report-template': { role: '潜在付费家长', stage: '报告决策期', task: '判断成长报告是否值得保存复用', expectedIntent: '报告产品化' },
+  'prematch-template': { role: '潜在付费用户', stage: '赛前服务评估期', task: '判断赛前情报包是否可用', expectedIntent: '报告产品化' },
+  'business-value': { role: '产品/商业评估者', stage: '商业判断期', task: '判断数据资产能产生哪些服务价值', expectedIntent: '商业洞察' },
+  'competition-missing-year': { role: '新用户', stage: '失败恢复期', task: '搜索未收录赛事时理解缺在哪一层', expectedIntent: '未收录恢复' },
+  recovery: { role: '入门家长', stage: '项目认知期', task: '提出模糊投入问题时获得下一步', expectedIntent: '模糊问题恢复' },
+  'fuzzy-object-recovery': { role: '新用户', stage: '对象确认期', task: '输入简称时找到相近对象', expectedIntent: '模糊对象恢复' },
+};
+
+function caseEvaluationContext(testCase) {
+  return realUserContextByCase[testCase.id] || {
+    role: '真实用户',
+    stage: '未分类',
+    task: testCase.query,
+    expectedIntent: '待确认',
+  };
+}
+
+function userJudgmentForResult({ testCase, evidenceCount, actionLabels, evidenceNavigation, text }) {
+  if (testCase.requireEvidence && !evidenceCount) return '不可用';
+  if (testCase.requireEvidence && !evidenceNavigation) return '需要补证据';
+  if (!actionLabels.length && /当前未收录|先确定|可以这样核对/.test(text)) return '基本可用';
+  return '可信';
+}
+
+function failureRecoveryLabel(text) {
+  if (/当前未收录|可以这样核对|先确定|相近赛事|补充方式|可以这样问/.test(text)) return '有下一步';
+  return '非失败场景';
+}
+
+function markdownReport(payload) {
+  const lines = [
+    '# FencingAI 真实用户 AI 回归评测',
+    '',
+    `- 运行时间：${payload.checkedAt}`,
+    `- 目标地址：${payload.baseUrl}`,
+    `- 用例数量：${payload.results.length}`,
+    '',
+    '| 用户角色 | 阶段 | 原始问题 | 系统识别 | 证据来源 | 失败恢复 | 用户判断 |',
+    '| --- | --- | --- | --- | --- | --- | --- |',
+    ...payload.results.map((row) => [
+      row.role,
+      row.stage,
+      row.query,
+      row.expectedIntent,
+      row.evidenceStatus,
+      row.failureRecovery,
+      row.userJudgment,
+    ].map((value) => String(value || '').replace(/\|/g, '/')).join(' | ')).map((row) => `| ${row} |`),
+    '',
+    '## 下一步使用方式',
+    '',
+    '- `可信`：可以作为当前能力保留，并继续观察真实用户是否信任结论。',
+    '- `基本可用`：主路径可用，但需要继续优化文案、证据或动作。',
+    '- `需要补证据`：优先补来源跳转或详情页承接。',
+    '- `不可用`：进入 P0 修复。',
+  ];
+  return `${lines.join('\n')}\n`;
+}
 
 function assertCase(condition, message, details = {}) {
   if (!condition) {
@@ -220,8 +290,10 @@ async function runCase(page, testCase) {
   }
 
   const evidenceNavigation = evidenceCount ? await verifyFirstEvidenceNavigation(page, answer, testCase) : null;
+  const userContext = caseEvaluationContext(testCase);
   return {
     id: testCase.id,
+    ...userContext,
     query: testCase.query,
     actionLabels,
     metricCount,
@@ -229,6 +301,9 @@ async function runCase(page, testCase) {
     evidenceCount,
     hasEvidenceSummary: Boolean(hasEvidenceSummary),
     evidenceNavigation,
+    evidenceStatus: evidenceNavigation ? '可打开来源' : evidenceCount ? '有来源摘要' : '无来源',
+    failureRecovery: failureRecoveryLabel(text),
+    userJudgment: userJudgmentForResult({ testCase, evidenceCount, actionLabels, evidenceNavigation, text }),
     answerTop: viewportTop.y,
     title: text.split('\n').slice(0, 4).join(' / '),
   };
@@ -321,6 +396,7 @@ try {
   };
   await mkdir(outputDir, { recursive: true });
   await writeFile(`${outputDir}/online-ai-flow-audit-${runId}.json`, `${JSON.stringify(payload, null, 2)}\n`, 'utf8');
+  await writeFile(`${outputDir}/real-user-ai-evaluation-${runId}.md`, markdownReport(payload), 'utf8');
   console.log(JSON.stringify(payload, null, 2));
 } finally {
   await browser.close();

@@ -519,6 +519,7 @@ assert.equal(growthReport.type, 'growth', 'athlete growth query with 最近 must
 
 const yearlyGrowthReport = context.buildAiAnswer('蔡廷彧2025和2026年的表现有什么变化');
 assert.equal(yearlyGrowthReport.type, 'growth', 'yearly athlete change queries should route to growth');
+assert.match(yearlyGrowthReport.summary, /2025.*2026|2026.*2025/, 'yearly athlete change summaries should expose the requested years on the first screen');
 assert.ok(yearlyGrowthReport.sections.some((section) => section.title === '年度对比'), 'yearly athlete change queries should include a yearly comparison section');
 assert.ok(yearlyGrowthReport.sections.find((section) => section.title === '年度对比')?.rows.some((row) => row.includes('2025')), 'yearly athlete change queries should mention the 2025 record');
 assert.ok(yearlyGrowthReport.sections.find((section) => section.title === '年度对比')?.rows.some((row) => row.includes('2026')), 'yearly athlete change queries should mention the 2026 record');

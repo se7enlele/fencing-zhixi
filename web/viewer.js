@@ -7655,10 +7655,14 @@ function buildAiAthleteGrowth(query, athlete) {
   const best = [...events].sort((a, b) => (Number(a.finalRank) || 999) - (Number(b.finalRank) || 999))[0] || null;
   const trend = athleteTrendLabel(events);
   const yearRows = athleteYearSummaryRows(events, query);
+  const explicitYears = detectYearsInQuery(query);
+  const yearScopeText = yearRows.length && explicitYears.length >= 2 ? `${explicitYears.join('和')}年` : '';
   return {
     type: 'growth',
     title: `${athlete.name}的成长分析`,
-    summary: `${athlete.name}有 ${events.length || athlete.appearances || 0} 场参赛表现，最好名次${best?.finalRank ? `第${best.finalRank}名` : '待确认'}，近期变化：${trend}。`,
+    summary: yearScopeText
+      ? `${athlete.name}在${yearScopeText}有可对比记录，共 ${events.length || athlete.appearances || 0} 场参赛表现，最好名次${best?.finalRank ? `第${best.finalRank}名` : '待确认'}，近期变化：${trend}。`
+      : `${athlete.name}有 ${events.length || athlete.appearances || 0} 场参赛表现，最好名次${best?.finalRank ? `第${best.finalRank}名` : '待确认'}，近期变化：${trend}。`,
     cards: [
       ['最好名次', best?.finalRank ? `第${best.finalRank}名` : '-'],
       ['最近一次', latest?.finalRank ? `第${latest.finalRank}名` : '-'],
