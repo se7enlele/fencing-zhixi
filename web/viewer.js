@@ -5117,6 +5117,25 @@ function waitForAiLoadingState(ms = AI_LOADING_MIN_MS) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
+function waitForAiPrimaryDataReady(timeoutMs = 8000) {
+  if (!state.isDataLoading) return Promise.resolve();
+  const startedAt = Date.now();
+  return new Promise((resolve, reject) => {
+    const check = () => {
+      if (!state.isDataLoading) {
+        resolve();
+        return;
+      }
+      if (Date.now() - startedAt >= timeoutMs) {
+        reject(new Error('AI analysis timed out while waiting for primary data'));
+        return;
+      }
+      window.setTimeout(check, 80);
+    };
+    check();
+  });
+}
+
 function bindAiWorkspace(container) {
   const form = container.querySelector('#aiQueryForm');
   const input = container.querySelector('#aiQueryInput');
@@ -5168,7 +5187,7 @@ function bindAiWorkspace(container) {
     scrollToResultPanel(answer, 'auto');
     try {
       const [contextResult] = await Promise.allSettled([
-        ensureAiEntityContext(normalizedQuery),
+        waitForAiPrimaryDataReady().then(() => ensureAiEntityContext(normalizedQuery)),
         waitForAiLoadingState(),
       ]);
       if (contextResult.status === 'rejected') throw contextResult.reason;

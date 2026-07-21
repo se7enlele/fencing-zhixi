@@ -36,11 +36,12 @@ assert.match(js, /state\.aiActiveReport = \{ \.\.\.snapshot, query: snapshot\.qu
 assert.match(js, /trackAiAnalysisHistory\(enhancedReport\.query \|\| report\.query \|\| '', enhancedReport\)/, 'enhanced AI answers must update the saved snapshot');
 assert.match(js, /report\.type === 'empty' \|\| report\.type === 'fallback'/, 'AI history must not store empty or fallback answers');
 assert.match(js, /function renderAiLoadingState\(query = ''\)/, 'AI home prompt must render an immediate loading state while matching data');
+assert.match(js, /function waitForAiPrimaryDataReady\(timeoutMs = 8000\)/, 'AI home prompt must wait for primary data before building answers');
 assert.match(js, /<div class="ai-loading-progress" aria-hidden="true"><i><\/i><\/div>/, 'AI loading state must include a visible progress bar');
 assert.match(js, /<span>理解问题<\/span>[\s\S]*<span>查找相关记录<\/span>[\s\S]*<span>形成结论<\/span>/, 'AI loading state must use user-facing progress steps');
 assert.doesNotMatch(js, /匹配赛事和画像/, 'AI loading state must not expose internal matching wording');
 assert.match(css, /\.ai-loading-progress/, 'AI loading progress bar styles must exist');
-assert.match(js, /answer\.innerHTML = renderAiLoadingState\(normalizedQuery\);[\s\S]*scrollToResultPanel\(answer, 'auto'\);[\s\S]*Promise\.allSettled\(\[[\s\S]*ensureAiEntityContext\(normalizedQuery\),[\s\S]*waitForAiLoadingState\(\),/, 'AI home prompt must scroll to the loading answer before expensive entity hydration and keep it visible');
+assert.match(js, /answer\.innerHTML = renderAiLoadingState\(normalizedQuery\);[\s\S]*scrollToResultPanel\(answer, 'auto'\);[\s\S]*Promise\.allSettled\(\[[\s\S]*waitForAiPrimaryDataReady\(\)\.then\(\(\) => ensureAiEntityContext\(normalizedQuery\)\),[\s\S]*waitForAiLoadingState\(\),/, 'AI home prompt must scroll to the loading answer before data-backed entity hydration and keep it visible');
 assert.match(js, /aiActiveQuery: ''/, 'AI home prompt must persist the active query across home rerenders');
 assert.match(js, /aiActiveReport: null/, 'AI home prompt must persist the active answer across home rerenders');
 assert.match(js, /isAiAnswerLoading: false/, 'AI home prompt must persist loading state across home rerenders');
