@@ -28,6 +28,12 @@ assert.match(js, /async function ensureAiEntityContext\(query\)/, 'AI must hydra
 assert.match(js, /ensureAiEntityContext\(normalizedQuery\)/, 'AI home prompt must load relevant entity context before building an answer');
 assert.match(js, /function trackAiAnalysisHistory\(query, report\)/, 'AI home prompt must persist successful answers as reusable analysis history');
 assert.match(js, /trackAiAnalysisHistory\(normalizedQuery, report\)/, 'AI home prompt must write each successful answer to analysis history');
+assert.match(js, /AI_REPORT_SNAPSHOT_KEY = 'fencingai\.aiReportSnapshots\.v1'/, 'AI answers must have a dedicated saved-result store');
+assert.match(js, /function compactAiReportSnapshot\(query, report = \{\}\)/, 'AI answers must be compacted before being saved for review');
+assert.match(js, /function trackAiReportSnapshot\(query, report\)/, 'AI answers must persist a reusable report snapshot');
+assert.match(js, /function openAiReportSnapshot\(keyOrQuery = ''\)/, 'recent AI analysis rows must reopen saved answers before rerunning questions');
+assert.match(js, /state\.aiActiveReport = \{ \.\.\.snapshot, query: snapshot\.query \};/, 'opening a saved AI analysis must restore the rendered report');
+assert.match(js, /trackAiAnalysisHistory\(enhancedReport\.query \|\| report\.query \|\| '', enhancedReport\)/, 'enhanced AI answers must update the saved snapshot');
 assert.match(js, /report\.type === 'empty' \|\| report\.type === 'fallback'/, 'AI history must not store empty or fallback answers');
 assert.match(js, /function renderAiLoadingState\(query = ''\)/, 'AI home prompt must render an immediate loading state while matching data');
 assert.match(js, /<div class="ai-loading-progress" aria-hidden="true"><i><\/i><\/div>/, 'AI loading state must include a visible progress bar');

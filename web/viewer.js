@@ -66,6 +66,7 @@ const COMPETITION_FOLLOW_KEY = 'fencingai.followedCompetitions.v1';
 const RECENT_KEY = 'fencingai.recentItems.v1';
 const REPORT_HISTORY_KEY = 'fencingai.reportHistory.v1';
 const AI_HISTORY_KEY = 'fencingai.aiHistory.v1';
+const AI_REPORT_SNAPSHOT_KEY = 'fencingai.aiReportSnapshots.v1';
 const DEVICE_KEY = 'fencingai.deviceId.v1';
 const ROLE_KEY = 'fencingai.role.v1';
 const CHILD_KEY = 'fencingai.parentChildId.v1';
@@ -139,6 +140,7 @@ const state = {
   recentItems: [],
   reportHistory: [],
   aiHistory: [],
+  aiReportSnapshots: [],
   aiActiveQuery: '',
   aiActiveReport: null,
   isAiAnswerLoading: false,
@@ -207,6 +209,7 @@ function currentUserProfilePayload() {
     recentItems: state.recentItems || [],
     reportHistory: state.reportHistory || [],
     aiHistory: state.aiHistory || [],
+    aiReportSnapshots: state.aiReportSnapshots || [],
     commercialIntents: state.commercialIntents || [],
   };
 }
@@ -219,6 +222,7 @@ function applyUserProfile(profile = {}) {
     state.recentItems,
     state.reportHistory,
     state.aiHistory,
+    state.aiReportSnapshots,
   ].some((rows) => Array.isArray(rows) && rows.length);
   const remoteHasState = [
     profile.follows,
@@ -226,6 +230,7 @@ function applyUserProfile(profile = {}) {
     profile.recentItems,
     profile.reportHistory,
     profile.aiHistory,
+    profile.aiReportSnapshots,
   ].some((rows) => Array.isArray(rows) && rows.length);
   if (profile.role && !state.userRole) state.userRole = profile.role;
   if (profile.selectedChildId && !state.selectedChildId) state.selectedChildId = profile.selectedChildId;
@@ -235,6 +240,7 @@ function applyUserProfile(profile = {}) {
     if (Array.isArray(profile.recentItems)) state.recentItems = profile.recentItems;
     if (Array.isArray(profile.reportHistory)) state.reportHistory = profile.reportHistory;
     if (Array.isArray(profile.aiHistory)) state.aiHistory = profile.aiHistory;
+    if (Array.isArray(profile.aiReportSnapshots)) state.aiReportSnapshots = profile.aiReportSnapshots;
     if (Array.isArray(profile.commercialIntents)) state.commercialIntents = profile.commercialIntents;
   }
   localStorage.setItem(ROLE_KEY, state.userRole || '');
@@ -245,6 +251,7 @@ function applyUserProfile(profile = {}) {
   saveStoredList(RECENT_KEY, state.recentItems, 20);
   saveStoredList(REPORT_HISTORY_KEY, state.reportHistory, 12);
   saveStoredList(AI_HISTORY_KEY, state.aiHistory, 10);
+  saveStoredList(AI_REPORT_SNAPSHOT_KEY, state.aiReportSnapshots, 10);
   saveStoredList(COMMERCIAL_INTENT_KEY, state.commercialIntents, 10);
   state.isApplyingUserProfile = false;
 }
@@ -617,6 +624,7 @@ state.followedCompetitions = loadStoredList(COMPETITION_FOLLOW_KEY);
 state.recentItems = loadStoredList(RECENT_KEY);
 state.reportHistory = loadStoredList(REPORT_HISTORY_KEY);
 state.aiHistory = loadStoredList(AI_HISTORY_KEY);
+state.aiReportSnapshots = loadStoredList(AI_REPORT_SNAPSHOT_KEY);
 state.commercialIntents = loadStoredList(COMMERCIAL_INTENT_KEY);
 state.athleteDataRequests = loadStoredList(ATHLETE_DATA_REQUEST_KEY);
 
@@ -703,6 +711,69 @@ function trackReportHistory(report) {
   saveStoredList(REPORT_HISTORY_KEY, state.reportHistory, 12);
 }
 
+function aiReportHistoryKey(query = '') {
+  return compactText(query).slice(0, 80);
+}
+
+function compactAiSection(section = {}) {
+  return {
+    title: section.title || '',
+    rows: (section.rows || []).slice(0, 6).map((row) => ({ ...row })),
+  };
+}
+
+function compactAiReportSnapshot(query, report = {}) {
+  const text = String(query || report.query || '').trim();
+  if (!text || !report?.type || report.type === 'empty' || report.type === 'fallback') return null;
+  return {
+    key: aiReportHistoryKey(text),
+    query: text,
+    type: report.type || '',
+    title: report.title || text,
+    summary: report.summary || '',
+    cards: (report.cards || []).slice(0, 6).map((row) => ({ ...row })),
+    sections: (report.sections || []).filter(isUserFacingAiSection).slice(0, 4).map(compactAiSection),
+    evidence: (report.evidence || []).slice(0, 6).map((row) => ({ ...row })),
+    actions: (report.actions || []).slice(0, 6).map((row) => ({ ...row })),
+    enhancement: report.enhancement ? { ...report.enhancement } : null,
+    savedAt: Date.now(),
+  };
+}
+
+function trackAiReportSnapshot(query, report) {
+  const snapshot = compactAiReportSnapshot(query, report);
+  if (!snapshot) return null;
+  state.aiReportSnapshots = [
+    snapshot,
+    ...(state.aiReportSnapshots || []).filter((row) => row.key !== snapshot.key),
+  ].slice(0, 10);
+  saveStoredList(AI_REPORT_SNAPSHOT_KEY, state.aiReportSnapshots, 10);
+  return snapshot;
+}
+
+function findAiReportSnapshot(keyOrQuery = '') {
+  const text = String(keyOrQuery || '').trim();
+  if (!text) return null;
+  const key = aiReportHistoryKey(text);
+  return (state.aiReportSnapshots || []).find((row) => row?.key === text || row?.key === key || row?.query === text) || null;
+}
+
+function openAiReportSnapshot(keyOrQuery = '') {
+  const snapshot = findAiReportSnapshot(keyOrQuery);
+  if (!snapshot?.query) {
+    submitAiQuery(keyOrQuery);
+    return;
+  }
+  state.aiActiveQuery = snapshot.query;
+  state.aiActiveReport = { ...snapshot, query: snapshot.query };
+  state.isAiAnswerLoading = false;
+  navigateMain('home');
+  requestAnimationFrame(() => {
+    const answer = document.querySelector('#aiAnswer');
+    if (answer) scrollToResultPanel(answer);
+  });
+}
+
 function aiHistoryTypeLabel(type) {
   const labels = {
     'capability-guide': '使用指南',
@@ -722,11 +793,13 @@ function aiHistoryTypeLabel(type) {
 function trackAiAnalysisHistory(query, report) {
   const text = String(query || '').trim();
   if (!text || !report?.type || report.type === 'empty' || report.type === 'fallback') return;
-  const key = compactText(text).slice(0, 80);
+  const snapshot = trackAiReportSnapshot(text, report);
+  const key = snapshot?.key || aiReportHistoryKey(text);
   const typeLabel = aiHistoryTypeLabel(report.type);
   state.aiHistory = [
     {
       key,
+      snapshotKey: key,
       query: text,
       title: report.title || text,
       summary: report.summary || '',
@@ -3501,6 +3574,8 @@ function reportNextActionRows(reportHistory = reportHistoryRows()) {
 
 function aiHistoryRows() {
   return (state.aiHistory || []).slice(0, 4).filter((row) => row?.query).map((row) => ({
+    key: row.key || aiReportHistoryKey(row.query),
+    snapshotKey: row.snapshotKey || row.key || aiReportHistoryKey(row.query),
     query: row.query,
     title: row.title || row.query,
     summary: row.summary || '点击继续查看这次分析',
@@ -4691,7 +4766,7 @@ function renderHomePage() {
           </div>
           <div class="home-saved-list">
             ${savedAnalysisRows.map((row) => `
-              <button type="button" ${row.query ? `data-ai-history-query="${escapeHtml(row.query)}"` : `data-report-history-type="${escapeHtml(row.type || '')}" data-report-history-id="${escapeHtml(row.id || '')}"`}>
+              <button type="button" ${row.query ? `data-ai-snapshot-key="${escapeHtml(row.snapshotKey || row.key || row.query)}" data-ai-history-query="${escapeHtml(row.query)}"` : `data-report-history-type="${escapeHtml(row.type || '')}" data-report-history-id="${escapeHtml(row.id || '')}"`}>
                 <span>${escapeHtml(row.typeLabel)}</span>
                 <strong>${escapeHtml(row.title)}</strong>
               </button>
@@ -4804,7 +4879,7 @@ function renderHomePage() {
         </div>
         <div class="ai-history-list">
           ${aiHistory.map((row) => `
-            <button type="button" data-ai-history-query="${escapeHtml(row.query)}">
+            <button type="button" data-ai-snapshot-key="${escapeHtml(row.snapshotKey || row.key || row.query)}" data-ai-history-query="${escapeHtml(row.query)}">
               <span>${escapeHtml(row.typeLabel)}</span>
               <strong>${escapeHtml(row.title)}</strong>
               <em>${escapeHtml(row.summary)}</em>
@@ -4880,12 +4955,12 @@ function renderHomePage() {
       if (type === 'coach-segmentation') openCoachSegmentationReport(id);
       if (type === 'ai-report') {
         trackAnalyticsAction('open_report', 'ai-report');
-        submitAiQuery(id);
+        openAiReportSnapshot(id);
       }
     });
   });
   homePage.querySelectorAll('[data-ai-history-query]').forEach((button) => {
-    button.addEventListener('click', () => submitAiQuery(button.dataset.aiHistoryQuery || ''));
+    button.addEventListener('click', () => openAiReportSnapshot(button.dataset.aiSnapshotKey || button.dataset.aiHistoryQuery || ''));
   });
   homePage.querySelectorAll('[data-coverage-competition]').forEach((button) => {
     button.addEventListener('click', () => openCompetition(button.dataset.coverageCompetition));
@@ -5276,6 +5351,8 @@ async function enhanceAiAnswer(report, answer, bindAnswer) {
     const currentReport = answer.querySelector('.ai-answer-card')?.__aiReport;
     if (!sameAiReport(currentReport || report, report)) return;
     const enhancedReport = { ...report, enhancement };
+    state.aiActiveReport = enhancedReport;
+    trackAiAnalysisHistory(enhancedReport.query || report.query || '', enhancedReport);
     answer.innerHTML = renderAiAnswer(enhancedReport);
     bindAnswer(enhancedReport);
   } catch {
@@ -8608,7 +8685,7 @@ function renderMyPage() {
       </div>
       <div class="ai-history-list">
         ${aiHistory.length ? aiHistory.map((row) => `
-          <button type="button" data-ai-history-query="${escapeHtml(row.query)}">
+          <button type="button" data-ai-snapshot-key="${escapeHtml(row.snapshotKey || row.key || row.query)}" data-ai-history-query="${escapeHtml(row.query)}">
             <span>${escapeHtml(row.typeLabel)}</span>
             <strong>${escapeHtml(row.title)}</strong>
             <em>${escapeHtml(row.summary)}</em>
@@ -8676,7 +8753,7 @@ function renderMyPage() {
       if (type === 'coach-segmentation') openCoachSegmentationReport(id);
       if (type === 'ai-report') {
         trackAnalyticsAction('open_report', 'ai-report');
-        submitAiQuery(id);
+        openAiReportSnapshot(id);
       }
     });
   });
@@ -8687,7 +8764,7 @@ function renderMyPage() {
       if (type === 'prematch') openPrematchReport('prematch-pack', id === 'prematch-pack' ? '' : id);
       if (type === 'parent-growth') openParentGrowthReport(id);
       if (type === 'coach-segmentation') openCoachSegmentationReport(id);
-      if (type === 'ai-report') submitAiQuery(id);
+      if (type === 'ai-report') openAiReportSnapshot(id);
     });
   });
   myPage.querySelectorAll('[data-report-next-trial]').forEach((button) => {
@@ -8697,7 +8774,7 @@ function renderMyPage() {
     }));
   });
   myPage.querySelectorAll('[data-ai-history-query]').forEach((button) => {
-    button.addEventListener('click', () => submitAiQuery(button.dataset.aiHistoryQuery || ''));
+    button.addEventListener('click', () => openAiReportSnapshot(button.dataset.aiSnapshotKey || button.dataset.aiHistoryQuery || ''));
   });
   myPage.querySelectorAll('[data-my-next-action]').forEach((button) => {
     button.addEventListener('click', (event) => {
