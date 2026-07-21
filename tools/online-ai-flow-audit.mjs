@@ -31,7 +31,10 @@ const cases = [
   {
     id: 'competition-lookup',
     query: '北京击剑联赛第一站',
-    expect: ['赛事', '北京击剑联赛'],
+    expectAny: [
+      ['赛事', '北京击剑联赛'],
+      ['没有找到这场赛事', '相近赛事'],
+    ],
     requireEvidence: true,
   },
   {
@@ -161,13 +164,16 @@ async function runCase(page, testCase) {
     { timeout: 5000 },
   );
   await page.waitForFunction(
-    (expected) => {
+    ({ expected, expectAny }) => {
       const card = document.querySelector('#aiAnswer .ai-answer-card');
       if (!card) return false;
       const text = card.textContent || '';
+      if (Array.isArray(expectAny) && expectAny.length) {
+        return expectAny.some((phrases) => phrases.every((phrase) => text.includes(phrase)));
+      }
       return expected.every((phrase) => text.includes(phrase));
     },
-    testCase.expect,
+    { expected: testCase.expect || [], expectAny: testCase.expectAny || [] },
     { timeout: 30000 },
   );
   await page.waitForTimeout(300);
@@ -178,12 +184,17 @@ async function runCase(page, testCase) {
   const actionLabels = await answer.locator('.ai-action-row button').evaluateAll((nodes) => nodes.map((node) => node.textContent.trim()));
   const metricCount = await answer.locator('.ai-metric').count();
   const sectionCount = await answer.locator('.ai-section').count();
-  const evidenceCount = await answer.locator('.ai-evidence button:visible').count();
+  const evidenceCount = await answer.locator('.ai-key-source button:visible, .ai-evidence button:visible').count();
   const hasEvidenceSummary = await answer.locator('.ai-evidence-summary').count();
-  const missingExpected = testCase.expect.filter((phrase) => !text.includes(phrase));
+  const expectedMatched = testCase.expectAny?.length
+    ? testCase.expectAny.some((phrases) => phrases.every((phrase) => text.includes(phrase)))
+    : true;
+  const missingExpected = testCase.expectAny?.length
+    ? []
+    : (testCase.expect || []).filter((phrase) => !text.includes(phrase));
   const bannedHits = bannedCopy.filter((phrase) => text.includes(phrase));
 
-  assertCase(!missingExpected.length, `${testCase.id} missing expected copy`, { missingExpected, text });
+  assertCase(expectedMatched && !missingExpected.length, `${testCase.id} missing expected copy`, { missingExpected, expectAny: testCase.expectAny, text });
   assertCase(!bannedHits.length, `${testCase.id} exposes internal or broken copy`, { bannedHits, text });
   assertCase(metricCount <= 4, `${testCase.id} renders too many metric cards`, { metricCount });
   assertCase(sectionCount <= 2, `${testCase.id} renders too many explanation sections`, { sectionCount });
@@ -210,7 +221,7 @@ async function runCase(page, testCase) {
 }
 
 async function verifyFirstEvidenceNavigation(page, answer, testCase) {
-  const evidenceButton = answer.locator('.ai-evidence button:visible').first();
+  const evidenceButton = answer.locator('.ai-key-source button:visible, .ai-evidence button:visible').first();
   const sourceText = (await evidenceButton.innerText()).split('\n').filter(Boolean).slice(0, 4).join(' / ');
   await evidenceButton.evaluate((button) => button.scrollIntoView({ block: 'center', inline: 'nearest' }));
   await evidenceButton.click();

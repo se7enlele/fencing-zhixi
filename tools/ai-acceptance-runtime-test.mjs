@@ -65,6 +65,7 @@ const functionNames = [
   'detectAthletesInQuery',
   'detectExactAthletesInQuery',
   'detectCompetitionInQuery',
+  'shouldRecoverStaleCompetitionNameMatch',
   'detectCompetitionLikeQuery',
   'competitionNameMatchKey',
   'relatedCompetitionsForQuery',
@@ -380,6 +381,17 @@ assert.equal(namedCompetition.type, 'competition-stats', 'plain competition-name
 assert.match(namedCompetition.title, /\u5317\u4eac\u5e02\u51fb\u5251\u8054\u8d5b/, 'competition lookup should show the matched competition name');
 assert.equal(namedCompetition.evidence[0].sportCode, 'BJLEAGUE2026S1', 'competition lookup should cite the matched competition');
 assert.equal(namedCompetition.actions.find((action) => action.sportCode)?.sportCode, 'BJLEAGUE2026S1', 'competition lookup should open the matched competition directly');
+
+const originalCompetitions = context.__state.competitions;
+context.__state.competitions = originalCompetitions.filter((competition) => competition.sportCode === 'RZSS2021040');
+context.__state.competitionSearchCache = new Map();
+const staleCompetitionName = context.buildAiAnswer('\u5317\u4eac\u51fb\u5251\u8054\u8d5b\u7b2c\u4e00\u7ad9');
+assert.equal(staleCompetitionName.type, 'fallback', 'plain station-league queries should not silently open a stale old-year event');
+assert.match(staleCompetitionName.title, /\u6ca1\u6709\u627e\u5230\u8fd9\u573a\u8d5b\u4e8b/, 'stale competition recovery should explain that the requested event is not directly found');
+assert.ok(staleCompetitionName.evidence.some((row) => row.kind === '\u76f8\u8fd1\u8d5b\u4e8b' && row.sportCode === 'RZSS2021040'), 'stale competition recovery should still expose the old similar event as a source');
+assert.ok(staleCompetitionName.actions.some((action) => action.sportCode === 'RZSS2021040'), 'stale competition recovery should let users inspect the old similar event if needed');
+context.__state.competitions = originalCompetitions;
+context.__state.competitionSearchCache = new Map();
 
 const juneStats = context.buildAiAnswer('\u0032\u0030\u0032\u0036\u5e74\u0036\u6708\u5929\u6d25\u6709\u51e0\u573a\u6bd4\u8d5b');
 assert.equal(juneStats.type, 'competition-stats', 'month-based regional query should route to competition stats');

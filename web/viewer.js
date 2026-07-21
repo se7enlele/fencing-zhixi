@@ -5556,7 +5556,23 @@ function detectCompetitionInQuery(query) {
     .filter(Boolean)
     .sort((a, b) => b.score - a.score || String(b.competition.dateLabel || '').localeCompare(String(a.competition.dateLabel || ''), 'zh-CN'));
 
-  return rows[0]?.competition || null;
+  const top = rows[0]?.competition || null;
+  if (!queryYear && shouldRecoverStaleCompetitionNameMatch(normalizedQuery, top, rows)) return null;
+  return top;
+}
+
+function shouldRecoverStaleCompetitionNameMatch(normalizedQuery, competition, rows = []) {
+  if (!competition) return false;
+  if (!/(联赛|分站|第一站|第二站|第三站|第[一二三四五六七八九十\d]+站)/.test(normalizedQuery)) return false;
+  const currentYear = new Date().getFullYear();
+  const year = Number(competitionYear(competition));
+  if (!Number.isFinite(year)) return false;
+  if (year >= currentYear - 2) return false;
+  const recentSimilar = rows.some((row) => {
+    const rowYear = Number(competitionYear(row.competition));
+    return Number.isFinite(rowYear) && rowYear >= currentYear - 2;
+  });
+  return !recentSimilar;
 }
 
 function detectCompetitionLikeQuery(query) {
