@@ -113,12 +113,19 @@ const functionNames = [
   'aiClubComparisonMetric',
   'aiClubComparisonScore',
   'aiClubComparisonWinner',
+  'aiClubComparisonQuantityWinner',
+  'aiClubComparisonEfficiencyScore',
+  'aiClubComparisonEfficiencyWinner',
+  'aiClubComparisonPercent',
   'aiClubComparisonScopeLabel',
   'aiClubComparisonGenderLabel',
   'aiClubComparisonRefineQuery',
   'aiClubComparisonRefineLabel',
   'aiClubComparisonCardLabel',
   'aiClubComparisonCardValue',
+  'aiClubComparisonQuantitySummary',
+  'aiClubComparisonEfficiencySummary',
+  'aiClubComparisonRateLine',
   'aiClubComparisonMetricLine',
   'aiClubComparisonConclusionRows',
   'aiClubComparisonEvidenceRows',
@@ -499,7 +506,11 @@ assert.ok(
 const clubComparisonReport = context.buildAiAnswer('\u770b2025\u548c2026\u5e74\uff0cU10\u82b1\u5251\u7537\u5b50\u548c\u5973\u5b50\uff0c\u5317\u4eac\u91d1\u77f3\u662f\u4e0d\u662f\u6bd4\u5317\u4eac\u827e\u9c81\u7279\u66f4\u597d');
 assert.equal(clubComparisonReport.type, 'club-comparison', 'two-club strength questions should route to club comparison');
 assert.match(clubComparisonReport.summary, /\u5317\u4eac\u91d1\u77f3/, 'club comparison should name the leading club in the summary');
+assert.match(clubComparisonReport.summary, /\u6570\u91cf\u4e0a/, 'club comparison should explain the quantity signal separately');
+assert.match(clubComparisonReport.summary, /\u6548\u7387/, 'club comparison should explain the efficiency signal separately');
 assert.match(clubComparisonReport.cards[0][1], /2025\u30012026.*U10.*\u82b1\u5251.*\u7537\u5b50 \/ \u5973\u5b50/, 'club comparison should expose the requested years, age, weapon and gender scope');
+assert.ok(clubComparisonReport.cards.some(([label]) => label === '\u6570\u91cf\u4f18\u52bf'), 'club comparison should show a quantity advantage card');
+assert.ok(clubComparisonReport.cards.some(([label]) => label === '\u6548\u7387\u4fe1\u53f7'), 'club comparison should show an efficiency signal card');
 assert.ok(clubComparisonReport.cards.some(([label, value]) => label === '\u7537\u5b50\u7ed3\u8bba' && /\u5317\u4eac\u91d1\u77f3/.test(value)), 'club comparison should show a male result card');
 assert.ok(clubComparisonReport.cards.some(([label, value]) => label === '\u5973\u5b50\u7ed3\u8bba' && /\u5317\u4eac\u827e\u9c81\u7279/.test(value)), 'club comparison should show a female result card');
 assert.ok(clubComparisonReport.cards.some(([label, value]) => label === '\u5408\u8ba1\u7ed3\u8bba' && /\u5317\u4eac\u91d1\u77f3/.test(value)), 'club comparison should show a total result card');
@@ -508,6 +519,8 @@ assert.ok(!clubComparisonReport.sections.some((section) => /(\u5206\u6790\u53e3\
 assert.ok(clubComparisonReport.sections.some((section) => section.title === '\u5bf9\u6bd4\u7ed3\u8bba'), 'club comparison should include user-facing comparison rows');
 assert.ok(clubComparisonReport.sections.find((section) => section.title === '\u5bf9\u6bd4\u7ed3\u8bba')?.rows.some((row) => row.includes('\u7537\u5b50') && row.includes('\u5317\u4eac\u91d1\u77f3\u9886\u5148')), 'club comparison should split male foil judgment');
 assert.ok(clubComparisonReport.sections.find((section) => section.title === '\u5bf9\u6bd4\u7ed3\u8bba')?.rows.some((row) => row.includes('\u5973\u5b50') && row.includes('\u5317\u4eac\u827e\u9c81\u7279\u9886\u5148')), 'club comparison should split female foil judgment');
+assert.ok(clubComparisonReport.sections.find((section) => section.title === '\u5bf9\u6bd4\u7ed3\u8bba')?.rows.some((row) => /\u524d\u516b\u7387.*\u5956\u724c\u7387/.test(row)), 'club comparison should include top-8 and medal-rate evidence in conclusion rows');
+assert.ok(!/训练质量更好/.test(`${clubComparisonReport.summary}${clubComparisonReport.sections.map((section) => section.rows.join(' ')).join(' ')}`), 'club comparison should not infer training quality from participation counts');
 assert.ok(clubComparisonReport.evidence.some((row) => row.kind === '\u4ff1\u4e50\u90e8\u5bf9\u6bd4\u8bc1\u636e'), 'club comparison should cite concrete event evidence');
 assert.ok(clubComparisonReport.actions.some((action) => action.clubId === 'club-jinshi'), 'club comparison should link to the first club profile');
 assert.ok(clubComparisonReport.actions.some((action) => action.clubId === 'club-airuite'), 'club comparison should link to the second club profile');

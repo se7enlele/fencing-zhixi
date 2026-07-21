@@ -6252,6 +6252,9 @@ function aiClubComparisonMetric(club, filters, gender = 'total') {
     bestRank: Infinity,
   });
   metric.bestRank = metric.bestRank === Infinity ? null : metric.bestRank;
+  metric.top8Rate = metric.entrants ? metric.top8 / metric.entrants : 0;
+  metric.medalRate = metric.entrants ? metric.medals / metric.entrants : 0;
+  metric.championRate = metric.entrants ? metric.champions / metric.entrants : 0;
   return metric;
 }
 
@@ -6267,6 +6270,29 @@ function aiClubComparisonWinner(left, right) {
   const rightScore = aiClubComparisonScore(right);
   if (leftScore === rightScore) return null;
   return leftScore > rightScore ? left : right;
+}
+
+function aiClubComparisonQuantityWinner(left, right) {
+  const leftWins = ['entrants', 'projects', 'top8', 'medals', 'champions'].filter((key) => left[key] > right[key]).length;
+  const rightWins = ['entrants', 'projects', 'top8', 'medals', 'champions'].filter((key) => right[key] > left[key]).length;
+  if (leftWins === rightWins) return null;
+  return leftWins > rightWins ? left : right;
+}
+
+function aiClubComparisonEfficiencyScore(metric) {
+  return (metric.top8Rate * 4) + (metric.medalRate * 5) + (metric.championRate * 3);
+}
+
+function aiClubComparisonEfficiencyWinner(left, right) {
+  if (left.entrants < 3 || right.entrants < 3) return null;
+  const leftScore = aiClubComparisonEfficiencyScore(left);
+  const rightScore = aiClubComparisonEfficiencyScore(right);
+  if (Math.abs(leftScore - rightScore) < 0.02) return null;
+  return leftScore > rightScore ? left : right;
+}
+
+function aiClubComparisonPercent(value) {
+  return `${Math.round((Number(value) || 0) * 100)}%`;
 }
 
 function aiClubComparisonScopeLabel(filters) {
@@ -6309,14 +6335,32 @@ function aiClubComparisonCardLabel(metric) {
 }
 
 function aiClubComparisonCardValue(left, right) {
-  const winner = aiClubComparisonWinner(left, right);
+  const winner = aiClubComparisonQuantityWinner(left, right);
   return winner ? `${winner.club.club}占优` : '接近';
 }
 
+function aiClubComparisonQuantitySummary(left, right) {
+  const winner = aiClubComparisonQuantityWinner(left, right);
+  if (!winner) return '数量接近';
+  return `${winner.club.club}数量占优`;
+}
+
+function aiClubComparisonEfficiencySummary(left, right) {
+  const winner = aiClubComparisonEfficiencyWinner(left, right);
+  if (!winner) return '效率接近';
+  return `${winner.club.club}效率更突出`;
+}
+
+function aiClubComparisonRateLine(metric) {
+  return `${metric.club.club} 前八率${aiClubComparisonPercent(metric.top8Rate)}、奖牌率${aiClubComparisonPercent(metric.medalRate)}`;
+}
+
 function aiClubComparisonMetricLine(left, right) {
-  const winner = aiClubComparisonWinner(left, right);
-  const winnerText = winner ? `${winner.club.club}领先` : '两边接近';
-  return `${aiClubComparisonGenderLabel(left.gender)}：${left.club.club} ${left.entrants}人次、前八${left.top8}、奖牌${left.medals}、冠军${left.champions}；${right.club.club} ${right.entrants}人次、前八${right.top8}、奖牌${right.medals}、冠军${right.champions}。${winnerText}。`;
+  const quantityWinner = aiClubComparisonQuantityWinner(left, right);
+  const efficiencyWinner = aiClubComparisonEfficiencyWinner(left, right);
+  const quantityText = quantityWinner ? `数量上${quantityWinner.club.club}领先` : '数量接近';
+  const efficiencyText = efficiencyWinner ? `效率上${efficiencyWinner.club.club}更突出` : '效率接近';
+  return `${aiClubComparisonGenderLabel(left.gender)}：${quantityText}；${efficiencyText}。${left.club.club} ${left.entrants}人次、前八${left.top8}、奖牌${left.medals}；${right.club.club} ${right.entrants}人次、前八${right.top8}、奖牌${right.medals}。${aiClubComparisonRateLine(left)}；${aiClubComparisonRateLine(right)}。`;
 }
 
 function aiClubComparisonConclusionRows(metrics) {
@@ -6355,14 +6399,13 @@ function buildAiClubComparisonReport(query, leftClub, rightClub, filters) {
     aiClubComparisonMetric(rightClub, filters, gender),
   ]);
   const totalPair = metricPairs.find(([left]) => left.gender === 'total') || metricPairs[0];
-  const overallWinner = totalPair ? aiClubComparisonWinner(totalPair[0], totalPair[1]) : null;
+  const quantityWinner = totalPair ? aiClubComparisonQuantityWinner(totalPair[0], totalPair[1]) : null;
+  const efficiencyWinner = totalPair ? aiClubComparisonEfficiencyWinner(totalPair[0], totalPair[1]) : null;
   const scopeLabel = aiClubComparisonScopeLabel(filters);
   const resultCards = metricPairs
     .slice(0, 3)
     .map(([left, right]) => [aiClubComparisonCardLabel(left), aiClubComparisonCardValue(left, right)]);
-  const summary = overallWinner
-    ? `${scopeLabel}，按参赛规模、前八、奖牌和冠军数对比，${overallWinner.club.club}更占优。`
-    : `${scopeLabel}，两家俱乐部表现接近，建议结合前八率、对手强度和赛事级别一起看。`;
+  const summary = `${scopeLabel}，先看参赛规模，再看前八率和奖牌率。${quantityWinner ? `数量上${quantityWinner.club.club}更突出` : '数量接近'}；${efficiencyWinner ? `效率上${efficiencyWinner.club.club}更突出` : '效率接近'}。`;
 
   return {
     type: 'club-comparison',
@@ -6370,6 +6413,8 @@ function buildAiClubComparisonReport(query, leftClub, rightClub, filters) {
     summary,
     cards: [
       ['对比范围', scopeLabel],
+      ['数量优势', totalPair ? aiClubComparisonQuantitySummary(totalPair[0], totalPair[1]) : '样本不足'],
+      ['效率信号', totalPair ? aiClubComparisonEfficiencySummary(totalPair[0], totalPair[1]) : '样本不足'],
       ...resultCards,
     ],
     sections: [

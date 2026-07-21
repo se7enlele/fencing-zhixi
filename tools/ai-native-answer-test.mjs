@@ -54,10 +54,14 @@ assert.match(js, /function buildAiCapabilityGuideReport\(query\)/, 'AI must answ
 assert.match(js, /if \(detectCapabilityGuideQuery\(text\)\) return buildAiCapabilityGuideReport\(text\);/, 'AI routing must not send product-capability questions to the generic fallback');
 assert.match(js, /function aiClubComparisonFilters\(query\)/, 'AI club comparison must parse year, age, weapon and gender scope');
 assert.match(js, /function aiClubComparisonMetric\(club, filters, gender = 'total'\)/, 'AI club comparison must aggregate club metrics by scope');
+assert.match(js, /function aiClubComparisonQuantityWinner\(left, right\)/, 'AI club comparison must separate quantity advantage from overall judgment');
+assert.match(js, /function aiClubComparisonEfficiencyWinner\(left, right\)/, 'AI club comparison must separate efficiency signals from raw participation volume');
 assert.match(js, /function aiClubComparisonCardLabel\(metric\)/, 'AI club comparison must label male, female and total result cards');
 assert.match(js, /function aiClubComparisonCardValue\(left, right\)/, 'AI club comparison must summarize each gender split as a compact result card');
 assert.match(js, /function aiClubComparisonRefineLabel\(filters\)/, 'AI club comparison follow-up labels must match the current scope');
 assert.match(js, /type: 'club-comparison'/, 'AI club comparison report must have a stable report type');
+assert.match(js, /\['数量优势',/, 'AI club comparison cards must expose quantity advantage explicitly');
+assert.match(js, /\['效率信号',/, 'AI club comparison cards must expose efficiency signal explicitly');
 assert.match(js, /title: '对比结论'/, 'AI club comparison must expose user-facing comparison rows');
 assert.match(js, /function aiProjectHints\(query\)/, 'AI club reports must detect project hints like U8 male foil');
 assert.match(js, /function projectMatchesAiHints\(label, hints\)/, 'AI club reports must filter projects by question hints');
@@ -255,6 +259,7 @@ assert.match(js, /'product-template':\s*\[/, 'AI product templates must include 
 assert.match(js, /'club-recruiting':\s*\[[\s\S]*对外素材/, 'AI recruiting answers must include next-step guidance');
 assert.match(js, /comparison:\s*\[[\s\S]*共同项目和直接交手记录/, 'AI comparison answers must guide users to review shared projects and direct bouts');
 assert.match(js, /'club-comparison':\s*\[[\s\S]*前八率、奖牌率/, 'AI club comparison answers must guide users from quantity to efficiency');
+assert.doesNotMatch(js, /训练质量更好/, 'AI club comparison must not infer training quality from participation volume');
 assert.doesNotMatch(js, /<div class="ai-next-steps">/, 'AI answer renderer must not expose internal next-step guidance blocks');
 assert.doesNotMatch(js, /renderAiConversionBlock\(report\)/, 'AI answer renderer must not show commercial conversion blocks inside the answer result');
 assert.match(js, /data-commercial-intent="pilot"/, 'AI conversion block must expose pilot-interest actions');
