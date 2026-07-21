@@ -123,8 +123,15 @@ export function compactCompetitionForSearch(competition) {
   return row;
 }
 
+function normalizeOfficialRole(role, defaultRole) {
+  const roleText = String(role || defaultRole || '').trim().toLowerCase();
+  if (['coach', '教练', '教练员'].includes(roleText)) return 'coach';
+  if (['referee', '裁判', '裁判员'].includes(roleText)) return 'referee';
+  return defaultRole || '';
+}
+
 function compactOfficialForSearch(person, defaultRole) {
-  const role = person.role || defaultRole;
+  const role = normalizeOfficialRole(person.role, defaultRole);
   const row = {
     id: person.id,
     name: person.name,

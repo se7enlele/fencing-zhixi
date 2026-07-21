@@ -368,6 +368,13 @@ function officialId(row, role) {
   return `${role}-${hashText(seed).slice(0, 16)}`;
 }
 
+function normalizeOfficialRole(row = {}) {
+  const roleText = String(row.role || row.type || row.identity || row.roleName || row.category || '').trim().toLowerCase();
+  if (['referee', '裁判', '裁判员'].includes(roleText)) return 'referee';
+  if (['coach', '教练', '教练员'].includes(roleText)) return 'coach';
+  return '';
+}
+
 function normalizeOfficialRows(rawValue) {
   const sourceRows = Array.isArray(rawValue)
     ? rawValue
@@ -378,7 +385,7 @@ function normalizeOfficialRows(rawValue) {
     ];
   return sourceRows
     .map((row) => {
-      const role = row.role === 'referee' || row.type === 'referee' || row.identity === 'referee' ? 'referee' : row.role === 'coach' || row.type === 'coach' || row.identity === 'coach' ? 'coach' : '';
+      const role = normalizeOfficialRole(row);
       const name = String(row.name || row.personName || '').trim();
       if (!role || !name) return null;
       const normalized = {

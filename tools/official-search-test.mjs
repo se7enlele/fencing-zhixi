@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { execFileSync } from 'node:child_process';
 import { buildSearchIndexes, searchIndexes } from './search-index.mjs';
 import { getCoachDirectory, getRefereeDirectory } from '../server.mjs';
 
@@ -56,6 +57,15 @@ assert.equal(refereeResult.referees.length, 1, 'referee search should support ro
 assert.equal(refereeResult.referees[0].name, '\u674e\u56db');
 assert.equal(refereeResult.referees[0].role, 'referee');
 
+const chineseRoleIndexes = buildSearchIndexes(
+  [],
+  [],
+  [{ id: 'coach-cn', name: '\u738b\u6559\u7ec3', role: '\u6559\u7ec3\u5458', club: '\u5317\u4eac\u91d1\u77f3' }],
+  [{ id: 'referee-cn', name: '\u8d75\u88c1\u5224', role: '\u88c1\u5224\u5458', city: '\u5317\u4eac' }],
+);
+assert.equal(searchIndexes(chineseRoleIndexes, '\u6559\u7ec3\u5458 \u738b').coaches.length, 1, 'coach search should support Chinese role labels from manual imports');
+assert.equal(searchIndexes(chineseRoleIndexes, '\u88c1\u5224\u5458 \u5317\u4eac').referees.length, 1, 'referee search should support Chinese role labels from manual imports');
+
 const coachOnlyResult = searchIndexes(indexes, '\u5317\u4eac', { type: 'coach' });
 assert.equal(coachOnlyResult.coaches.length, 1, 'type=coach should return coach rows');
 assert.equal(coachOnlyResult.athletes.length, 0, 'type=coach should suppress athletes');
@@ -83,5 +93,9 @@ assert.deepEqual(emptyResult.competitions, [], 'missing competition data should 
 
 assert.ok(Array.isArray(await getCoachDirectory()), 'server should expose a coach directory array');
 assert.ok(Array.isArray(await getRefereeDirectory()), 'server should expose a referee directory array');
+const validation = JSON.parse(execFileSync(process.execPath, ['tools/validate-officials.mjs', 'data/analysis/officials.example.json'], { encoding: 'utf8' }));
+assert.equal(validation.ok, true, 'official directory example should pass validation');
+assert.equal(validation.coaches, 1, 'official directory example should include a coach');
+assert.equal(validation.referees, 1, 'official directory example should include a referee');
 
 console.log('official search index behavior is covered');
