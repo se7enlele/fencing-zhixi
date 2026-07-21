@@ -2004,7 +2004,8 @@ function isFilteringActive() {
     || state.selectedYear !== '全部年份'
     || state.selectedRegion !== '全部地区'
     || state.selectedItem !== '全部项目'
-    || state.selectedStatus !== '全部状态';
+    || state.selectedStatus !== '全部状态'
+    || Boolean(state.onlyFollowedData);
 }
 
 function entityCoverageCounts() {
@@ -5407,6 +5408,26 @@ function relatedCompetitionsForQuery(query) {
     .slice(0, 3);
 }
 
+function competitionMissingDiagnosisRows(query, competitionLike, relatedCompetitions = []) {
+  const rows = [];
+  const nameKey = competitionNameMatchKey(query);
+  const scope = [
+    competitionLike.year ? `${competitionLike.year}年` : '',
+    competitionLike.region || '',
+    competitionLike.month ? `${competitionLike.month}月` : '',
+  ].filter(Boolean).join('、');
+  rows.push(scope ? `先核对${scope}范围内是否有同名或近似名称赛事。` : '先核对赛事全名、举办城市和比赛年份。');
+  if (relatedCompetitions.length) {
+    rows.push(`找到 ${relatedCompetitions.length} 场名称相近赛事，可以先打开最近的一场确认。`);
+  } else if (nameKey.includes('联赛') || nameKey.includes('第一站')) {
+    rows.push('如果这是地方联赛或分站赛，可能需要用主办方名称、城市或完整赛事名再搜一次。');
+  } else {
+    rows.push('如果赛事来自其他平台，建议用城市、日期或主办方名称缩小范围。');
+  }
+  rows.push('仍然找不到时，可把赛事名称和截图留存；补充完成后就能直接查看。');
+  return rows.slice(0, 3);
+}
+
 function aiFallbackCandidateTerms(query) {
   const terms = aiEntityCandidateTerms(query);
   const compact = compactText(query);
@@ -5633,10 +5654,11 @@ function buildAiFallbackReport(query) {
   if (competitionLike) {
     const relatedCompetitions = relatedCompetitionsForQuery(text);
     const relatedTitle = relatedCompetitions[0]?.sportName || '';
-    const title = competitionLike.year ? `未找到${competitionLike.year}年同名赛事` : '未找到这场赛事';
+    const diagnosisRows = competitionMissingDiagnosisRows(text, competitionLike, relatedCompetitions);
+    const title = competitionLike.year ? `没有找到${competitionLike.year}年同名赛事` : '没有找到这场赛事';
     const summary = competitionLike.year
-      ? `没有找到${competitionLike.year}年同名赛事。可以先查看${competitionLike.region || '相关地区'}赛事，或打开相近赛事确认是否是你要找的比赛。`
-      : '没有找到同名赛事。可以先查看同地区或同类型赛事，确认是否是你要找的比赛。';
+      ? `可以先查看${competitionLike.region || '相关地区'}赛事，或打开相近赛事确认是否是你要找的比赛。`
+      : '可以先查看同地区或同类型赛事，确认是否是你要找的比赛。';
     const cards = [
       competitionLike.year ? ['年份', competitionLike.year] : null,
       competitionLike.region ? ['地区', competitionLike.region] : null,
@@ -5650,6 +5672,12 @@ function buildAiFallbackReport(query) {
       title,
       summary,
       cards,
+      sections: [
+        {
+          title: '可以这样核对',
+          rows: diagnosisRows,
+        },
+      ],
       actions: [
         { label: '查看相关赛事', mainTab: 'competitions', filters: competitionLike },
         relatedCompetitions[0]?.sportCode ? { label: '查看相近赛事', sportCode: relatedCompetitions[0].sportCode } : null,
@@ -13382,7 +13410,7 @@ yearFilterButton.addEventListener('click', () => openFilterSheet('year'));
 regionFilterButton.addEventListener('click', () => openFilterSheet('region'));
 itemFilterButton.addEventListener('click', () => openFilterSheet('item'));
 statusFilterButton.addEventListener('click', () => openFilterSheet('status'));
-myFollowFilterButton?.addEventListener('click', toggleFollowedCompetitionFilter);
+myFollowFilterButton?.addEventListener('click', () => openFilterSheet('follow'));
 filterSheetMask.addEventListener('click', closeFilterSheet);
 filterSheetClose.addEventListener('click', closeFilterSheet);
 filterSheetOptions.addEventListener('click', (event) => {

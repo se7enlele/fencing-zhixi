@@ -32,6 +32,8 @@ assert.doesNotMatch(js, /\bP0\b|\bP1\b/, 'frontend copy must avoid internal prio
 
 assert.doesNotMatch(js, /\u751f\u6210\u5224\u65ad/, 'AI submit button should use action-oriented copy instead of judgment-generation wording');
 assert.match(js, /\u5f00\u59cb\u5206\u6790/, 'AI submit button should use concise user-facing analysis copy');
+assert.match(js, /myFollowFilterButton\?\.addEventListener\('click', \(\) => openFilterSheet\('follow'\)\)/, 'my-follow filter should open a real option sheet instead of behaving like a broken dropdown');
+assert.doesNotMatch(js, /myFollowFilterButton\?\.addEventListener\('click', toggleFollowedCompetitionFilter\)/, 'my-follow dropdown-style filter must not be wired as a silent toggle');
 assert.doesNotMatch(js, /AI 分析入口|为你而生|主动洞察/, 'home and detail copy must avoid internal or vague AI-entry wording');
 assert.doesNotMatch(js, /label: '判断口径'|口径下|当前已收录|第一层结论/, 'AI answer copy must avoid internal methodology labels');
 assert.doesNotMatch(js, /\['当前判断'|\['证据强度'|'数据助手'/, 'AI answer labels must stay user-facing and avoid internal/generic helper copy');

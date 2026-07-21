@@ -105,9 +105,11 @@ assert.match(js, /currentAnswer\.innerHTML = renderAiAnswer\(report\);[\s\S]{0,1
 assert.match(js, /function entityCoverageCounts\(\)/, 'home scale numbers must use data coverage summaries without hydrating full directories');
 assert.match(js, /onlyFollowedData: false/, 'database tab must track my-follow filter state');
 assert.match(js, /function competitionMatchesFollowedData\(competition\)/, 'database tab must filter competitions by followed athletes and followed competitions');
-assert.match(js, /function toggleFollowedCompetitionFilter\(\)/, 'my-follow filter must toggle directly instead of looking like a broken dropdown');
-assert.match(js, /state\.onlyFollowedData = !state\.onlyFollowedData;/, 'my-follow filter must switch between all competitions and followed competitions');
-assert.match(js, /myFollowFilterButton\?\.addEventListener\('click', toggleFollowedCompetitionFilter\)/, 'database tab must bind the my-follow quick filter as an immediate toggle');
+assert.match(js, /function toggleFollowedCompetitionFilter\(\)/, 'my-follow filter keeps a reusable toggle helper for non-sheet actions');
+assert.match(js, /state\.onlyFollowedData = !state\.onlyFollowedData;/, 'my-follow helper must still switch between all competitions and followed competitions');
+assert.match(js, /myFollowFilterButton\?\.addEventListener\('click', \(\) => openFilterSheet\('follow'\)\)/, 'database tab must open the my-follow sheet when the dropdown-style filter is tapped');
+assert.match(js, /if \(type === 'follow'\) return '选择关注范围';/, 'my-follow sheet must use a clear title');
+assert.match(js, /if \(type === 'follow'\) state\.onlyFollowedData = value === '我的关注';/, 'my-follow sheet selection must update the followed-only filter');
 assert.match(js, /myFollowFilterButton\.innerHTML = `<span>\$\{isActive \? '我的关注' : '全部赛事'\}<\/span>`/, 'my-follow filter must show the selected option');
 assert.match(js, /function renderDatabaseDirectory\(\)/, 'database tab must render a structured entry directory');
 assert.match(js, /data-database-entry="\$\{escapeHtml\(row\.key\)\}"/, 'database directory cards must carry explicit entry types');

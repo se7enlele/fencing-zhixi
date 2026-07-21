@@ -62,6 +62,10 @@ assert.match(js, /function detectCompetitionRankingQuery\(query\)/, 'AI must det
 assert.match(js, /function competitionEntrantCount\(competition\)/, 'AI competition ranking must compute actual entrant totals');
 assert.match(js, /function competitionItemEntrantRows\(competitions\)/, 'AI competition ranking must compute project-level entrant totals');
 assert.match(js, /function buildAiCompetitionRanking\(query, filters\)/, 'AI must answer competition scale ranking questions');
+assert.match(js, /function competitionMissingDiagnosisRows\(query, competitionLike, relatedCompetitions = \[\]\)/, 'AI missing-competition fallback must explain how users can verify a missing event');
+assert.match(js, /title: '可以这样核对'/, 'AI missing-competition fallback must show a user-facing diagnosis section');
+assert.match(js, /查看相关赛事/, 'AI missing-competition fallback must offer an action to inspect related competitions');
+assert.match(js, /地方联赛或分站赛/, 'AI missing-competition fallback must handle local league and station naming differences');
 assert.match(js, /scope: hasItemIntent \? 'item' : 'competition'/, 'AI competition ranking must route project and group questions separately');
 assert.match(js, /filters\.scope === 'item'/, 'AI competition ranking must build a project-level answer');
 assert.match(js, /title: hints\.length \? '匹配项目' : '优势项目'/, 'AI club reports must label scoped project answers');

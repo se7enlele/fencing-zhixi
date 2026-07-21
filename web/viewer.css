@@ -438,12 +438,19 @@ select:focus {
 }
 
 .toggle-filter-trigger::before {
+  content: none;
+}
+
+.toggle-filter-trigger::after {
   content: "";
   width: 7px;
   height: 7px;
-  border-radius: 999px;
-  background: currentColor;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg) translateY(-2px);
+  color: currentColor;
   opacity: 0.74;
+  flex: 0 0 auto;
 }
 
 .toggle-filter-trigger.active {

@@ -64,6 +64,7 @@ const functionNames = [
   'detectCompetitionLikeQuery',
   'competitionNameMatchKey',
   'relatedCompetitionsForQuery',
+  'competitionMissingDiagnosisRows',
   'aiFallbackCandidateTerms',
   'fallbackMatchScore',
   'aiFallbackCandidates',
@@ -465,14 +466,16 @@ assert.ok(!/(\u6682\u672a\u8bc6\u522b|\u5206\u6790\u53e3\u5f84|\u540e\u7eed)/.te
 
 const missingCompetitionFallback = context.buildAiAnswer('\u0032\u0030\u0032\u0036\u5e74\u5317\u4eac\u51fb\u5251\u8054\u8d5b\u7b2c\u4e00\u7ad9');
 assert.equal(missingCompetitionFallback.type, 'fallback', 'year-mismatched competition names should not silently open another year');
-assert.match(missingCompetitionFallback.title, /\u672a\u627e\u52302026\u5e74\u540c\u540d\u8d5b\u4e8b/, 'missing competition fallback should explain current collection status');
+assert.match(missingCompetitionFallback.title, /\u6ca1\u6709\u627e\u52302026\u5e74\u540c\u540d\u8d5b\u4e8b/, 'missing competition fallback should explain the missing competition in user-facing copy');
+assert.ok(missingCompetitionFallback.sections.some((section) => section.title === '\u53ef\u4ee5\u8fd9\u6837\u6838\u5bf9'), 'missing competition fallback should show a user-facing diagnosis section');
+assert.ok(missingCompetitionFallback.sections.find((section) => section.title === '\u53ef\u4ee5\u8fd9\u6837\u6838\u5bf9')?.rows.some((row) => /\u5730\u65b9\u8054\u8d5b|\u76f8\u8fd1/.test(row)), 'missing competition fallback should explain local league or similar-name checks');
 assert.ok(missingCompetitionFallback.cards.some(([label, value]) => label === '\u5e74\u4efd' && value === '2026'), 'missing competition fallback should preserve parsed year');
 assert.ok(missingCompetitionFallback.cards.some(([label, value]) => label === '\u76f8\u8fd1\u8d5b\u4e8b' && value === '1 \u573a'), 'missing competition fallback should tell users when another year has a similar competition');
 assert.ok(missingCompetitionFallback.actions.some((action) => action.filters?.year === '2026' && action.filters?.region === '\u5317\u4eac'), 'missing competition fallback should offer a filtered database path');
 assert.ok(missingCompetitionFallback.actions.some((action) => action.sportCode === 'RZSS2021040'), 'missing competition fallback should let users open the similar competition');
 assert.ok(missingCompetitionFallback.actions.some((action) => action.query), 'missing competition fallback should offer a runnable follow-up question');
 assert.ok(missingCompetitionFallback.evidence.some((row) => row.kind === '\u76f8\u8fd1\u8d5b\u4e8b' && row.sportCode === 'RZSS2021040'), 'missing competition fallback should cite similar competitions as source evidence');
-assert.ok(!/(\u5bfc\u5165|\u7ee7\u7eed\u751f\u6210|\u540e\u7eed|\u6570\u636e\u8fb9\u754c|\u6682\u672a\u8bc6\u522b)/.test(`${missingCompetitionFallback.title}${missingCompetitionFallback.summary}`), 'missing competition fallback should use user-facing collection copy');
+assert.ok(!/(\u5bfc\u5165|\u7ee7\u7eed\u751f\u6210|\u540e\u7eed|\u6570\u636e\u8fb9\u754c|\u6682\u672a\u8bc6\u522b)/.test(`${missingCompetitionFallback.title}${missingCompetitionFallback.summary}${missingCompetitionFallback.sections.map((section) => section.rows.join('')).join('')}`), 'missing competition fallback should use user-facing collection copy');
 
 const fuzzyObjectFallback = context.buildAiAnswer('\u5c0f\u4f17');
 assert.equal(fuzzyObjectFallback.type, 'fallback', 'short incomplete object queries should enter guided recovery');
