@@ -6475,6 +6475,24 @@ function buildAiCompetitionLookupReport(query, competition) {
   };
 }
 
+function aiCompetitionFilterEvidence(query, filters = {}, count = 0, label = '匹配赛事列表') {
+  const scopedFilters = {
+    year: filters.year || '',
+    month: filters.month || '',
+    region: filters.region || '',
+    item: filters.item || '',
+    status: filters.status || '',
+    query: query || '',
+  };
+  return {
+    kind: '赛事列表',
+    label,
+    detail: `${aiCompetitionFilterSummary(scopedFilters) || '赛事列表'} · ${count} 场`,
+    mainTab: 'competitions',
+    filters: scopedFilters,
+  };
+}
+
 function aiCompetitionStatsDecisionRows(rows, actionRows, rosterRows, scoreRows) {
   if (!rows.length) return ['没有找到符合条件的赛事。可以调整年份、地区或赛事状态再看。'];
   const decisionRows = [];
@@ -6582,13 +6600,16 @@ function buildAiCompetitionStats(query, filters) {
         rows: rows.slice(0, 6).map((competition) => `${competition.sportName} · ${competition.dateLabel || '日期待确认'} · ${competition.venue || competition.region || ''}`),
       },
     ].filter(Boolean) : [],
-    evidence: rows.slice(0, 8).map((competition) => ({
-      kind: '赛事记录',
-      label: competition.sportName,
-      detail: `${competition.dateLabel || '日期待确认'} · ${competition.venue || competition.region || ''} · ${statusLabel(competition.status)}`,
-      reason: '用于核对赛事数量、地区和状态',
-      sportCode: competition.sportCode,
-    })),
+    evidence: [
+      aiCompetitionFilterEvidence(query, filters, rows.length),
+      ...rows.slice(0, 7).map((competition) => ({
+        kind: '赛事记录',
+        label: competition.sportName,
+        detail: `${competition.dateLabel || '日期待确认'} · ${competition.venue || competition.region || ''} · ${statusLabel(competition.status)}`,
+        reason: '用于核对赛事数量、地区和状态',
+        sportCode: competition.sportCode,
+      })),
+    ],
     actions: [
       actionRows[0]?.sportCode ? { label: '看赛前提醒', prematchTemplateKind: 'prematch-pack', prematchSportCode: actionRows[0].sportCode } : null,
       watchRows[0]?.sportCode ? { label: '关注最近赛事', followCompetitionCode: watchRows[0].sportCode } : null,
@@ -6655,14 +6676,17 @@ function buildAiCompetitionRanking(query, filters) {
           ],
         },
       ] : [],
-      evidence: itemRows.slice(0, 8).map((row) => ({
-        kind: '项目规模',
-        label: row.label,
-        detail: `${row.entrants} 人次 · ${row.competition.sportName} · ${displayDateLabel(row.competition.dateLabel)}`,
-        reason: '用于核对项目或组别参赛规模排行',
-        sportCode: row.competition.sportCode,
-        eventCode: row.eventCode,
-      })),
+      evidence: [
+        ...itemRows.slice(0, 7).map((row) => ({
+          kind: '项目规模',
+          label: row.label,
+          detail: `${row.entrants} 人次 · ${row.competition.sportName} · ${displayDateLabel(row.competition.dateLabel)}`,
+          reason: '用于核对项目或组别参赛规模排行',
+          sportCode: row.competition.sportCode,
+          eventCode: row.eventCode,
+        })),
+        aiCompetitionFilterEvidence(query, listFilters, matchedRows.length, '相关赛事列表'),
+      ].filter(Boolean),
       actions: [
         topItem?.competition?.sportCode ? { label: '查看人数最多的项目', sportCode: topItem.competition.sportCode, eventCode: topItem.eventCode } : null,
         { label: itemRows.length ? '查看赛事列表' : '进入赛事列表', mainTab: 'competitions', filters: listFilters },
@@ -6695,13 +6719,16 @@ function buildAiCompetitionRanking(query, filters) {
         ],
       },
     ] : [],
-    evidence: rows.slice(0, 8).map((row) => ({
-      kind: '赛事规模',
-      label: row.competition.sportName,
-      detail: `${row.entrants} 人次 · ${row.competition.dateLabel || '日期待确认'} · ${row.competition.venue || row.competition.region || ''}`,
-      reason: '用于核对赛事参赛规模排行',
-      sportCode: row.competition.sportCode,
-    })),
+    evidence: [
+      ...rows.slice(0, 7).map((row) => ({
+        kind: '赛事规模',
+        label: row.competition.sportName,
+        detail: `${row.entrants} 人次 · ${row.competition.dateLabel || '日期待确认'} · ${row.competition.venue || row.competition.region || ''}`,
+        reason: '用于核对赛事参赛规模排行',
+        sportCode: row.competition.sportCode,
+      })),
+      aiCompetitionFilterEvidence(query, listFilters, matchedRows.length, '相关赛事列表'),
+    ].filter(Boolean),
     actions: [
       top?.competition?.sportCode ? { label: '查看人数最多的赛事', sportCode: top.competition.sportCode } : null,
       { label: rows.length ? '查看赛事列表' : '进入赛事列表', mainTab: 'competitions', filters: listFilters },
@@ -7514,6 +7541,7 @@ function aiEvidenceActionLabel(row) {
   if (row.sportCode) return '查看赛事';
   if (row.athleteId) return '查看选手';
   if (row.clubId) return '查看俱乐部';
+  if (row.mainTab === 'competitions' || row.filters) return '查看列表';
   return '查看来源';
 }
 
@@ -7522,6 +7550,11 @@ function aiEvidenceTargetAttributes(row = {}) {
   if (row.sportCode) return `data-sport-code="${escapeHtml(row.sportCode)}"`;
   if (row.athleteId) return `data-athlete-id="${escapeHtml(row.athleteId)}"`;
   if (row.clubId) return `data-club-id="${escapeHtml(row.clubId)}"`;
+  if (row.mainTab || row.filters) {
+    const target = row.mainTab || 'competitions';
+    const filterPayload = row.filters ? ` data-ai-filters="${escapeHtml(encodeURIComponent(JSON.stringify(row.filters)))}"` : '';
+    return `data-main-target="${escapeHtml(target)}"${filterPayload}`;
+  }
   return '';
 }
 

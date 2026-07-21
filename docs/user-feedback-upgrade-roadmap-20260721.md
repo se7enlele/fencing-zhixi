@@ -48,13 +48,17 @@ Acceptance examples:
 
 ### 3. Evidence traceability
 
-Status: not complete.
+Status: partially done.
+
+Current progress:
+- AI answers expose compact clickable evidence rows.
+- Competition statistics now use the filtered competition list as the primary source, so users can verify the full result set.
+- Competition ranking still opens the top event or project first, with the related competition list kept as a secondary source.
 
 Remaining upgrades:
-- AI answers should expose clickable evidence rows.
 - Club comparison should link to both club profiles.
 - Athlete growth answers should link to the athlete profile and specific competition records.
-- Event statistics should link to the filtered competition list or event detail.
+- Expand the same list-level source pattern to more report types where the conclusion is based on a group of records.
 
 Acceptance examples:
 - For any conclusion card, the user can tap into the exact supporting data.

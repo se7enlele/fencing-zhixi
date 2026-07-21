@@ -80,6 +80,7 @@ const functionNames = [
   'detectCapabilityGuideQuery',
   'uniqueBy',
   'entityCoverageCounts',
+  'aiCompetitionFilterSummary',
   'aiFilterScopeText',
   'aiFilterCardLabel',
   'buildAiAnswer',
@@ -130,6 +131,7 @@ const functionNames = [
   'aiClubComparisonConclusionRows',
   'aiClubComparisonEvidenceRows',
   'buildAiClubComparisonReport',
+  'aiCompetitionFilterEvidence',
   'aiCompetitionStatsDecisionRows',
   'aiDefaultClub',
   'buildAiCompetitionStats',
@@ -364,6 +366,13 @@ assert.ok(clubTerms.includes('\u5c71\u4e1c\u5c0f\u4f17\u4f53\u80b2'), 'AI entity
 const seasonOnlyStats = context.buildAiAnswer('\u0032\u0030\u0032\u0036\u5e74\u5929\u6d25\u6709\u51e0\u573a\u6bd4\u8d5b');
 assert.equal(seasonOnlyStats.type, 'competition-stats', 'season-based regional query should route to competition stats');
 assert.equal(seasonOnlyStats.cards[0][1], '4 \u573a', 'AI competition stats should count events whose year is available only from season');
+assert.equal(seasonOnlyStats.evidence[0].kind, '\u8d5b\u4e8b\u5217\u8868', 'AI competition stats should make the filtered event list the primary source');
+assert.equal(seasonOnlyStats.evidence[0].mainTab, 'competitions', 'AI competition stats primary source should open the database list');
+assert.equal(
+  JSON.stringify(seasonOnlyStats.evidence[0].filters),
+  JSON.stringify({ year: '2026', month: '', region: '\u5929\u6d25', item: '', status: '', query: '\u0032\u0030\u0032\u0036\u5e74\u5929\u6d25\u6709\u51e0\u573a\u6bd4\u8d5b' }),
+  'AI competition stats primary source should preserve the exact filter set and source question',
+);
 
 const namedCompetition = context.buildAiAnswer('\u5317\u4eac\u51fb\u5251\u8054\u8d5b\u7b2c\u4e00\u7ad9');
 assert.equal(namedCompetition.type, 'competition-stats', 'plain competition-name questions should route to competition lookup');

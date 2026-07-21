@@ -101,6 +101,7 @@ assert.match(js, /function detectMonthInQuery\(normalizedQuery\)/, 'AI competiti
 assert.match(js, /function competitionMonth\(competition\)/, 'AI competition questions must filter competitions by month');
 assert.match(js, /function applyAiCompetitionFilters\(filters = \{\}\)/, 'AI answer actions must apply competition filters when entering the competition list');
 assert.match(js, /function aiCompetitionFilterSummary\(filters = \{\}\)/, 'AI competition filters must expose a visible summary for the competition list');
+assert.match(js, /function aiCompetitionFilterEvidence\(query, filters = \{\}, count = 0, label = '匹配赛事列表'\)/, 'AI competition stats must expose a filtered-list evidence source');
 assert.match(js, /function queryItemFilterOption\(query = ''\)/, 'AI competition-list actions must preserve project hints like U10 male foil');
 assert.match(js, /const itemFilter = filters\.item \|\| queryItemFilterOption\(question\)/, 'AI competition filters must derive item filters from the original question');
 assert.match(js, /aiCompetitionFilterQuestion: ''/, 'AI competition filter source question must have a stable state slot');
@@ -189,6 +190,8 @@ assert.match(js, /function aiEvidenceKind\(row\)/, 'AI evidence renderer must no
 assert.match(js, /function aiEvidenceActionLabel\(row\)/, 'AI evidence renderer must expose a clear source-opening action label');
 assert.match(js, /function aiEvidenceTargetAttributes\(row = \{\}\)/, 'AI evidence renderer must centralize source target attributes');
 assert.match(js, /function aiEvidenceActionLabel\(row\)[\s\S]*if \(row\.eventCode\) return '查看项目';[\s\S]*if \(row\.sportCode\) return '查看赛事';/, 'AI evidence action labels must prioritize exact project sources before competition pages');
+assert.match(js, /if \(row\.mainTab === 'competitions' \|\| row\.filters\) return '查看列表';/, 'AI evidence action labels must support filtered competition-list sources');
+assert.match(js, /if \(row\.mainTab \|\| row\.filters\)[\s\S]*data-main-target="\$\{escapeHtml\(target\)\}"\$\{filterPayload\}/, 'AI evidence buttons must support database filter targets');
 assert.match(js, /function aiTrustRows\(report\)/, 'AI answers must summarize judgment basis before detailed evidence');
 assert.match(js, /function aiFollowAthleteAction\(athlete\)/, 'AI answers must expose follow actions for athletes');
 assert.match(js, /followAthleteId: athlete\.id/, 'AI growth answers must include follow athlete action payload');
