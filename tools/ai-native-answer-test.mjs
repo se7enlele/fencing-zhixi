@@ -118,9 +118,15 @@ assert.match(js, /function detectMonthInQuery\(normalizedQuery\)/, 'AI competiti
 assert.match(js, /function competitionMonth\(competition\)/, 'AI competition questions must filter competitions by month');
 assert.match(js, /function applyAiCompetitionFilters\(filters = \{\}\)/, 'AI answer actions must apply competition filters when entering the competition list');
 assert.match(js, /function aiCompetitionFilterSummary\(filters = \{\}\)/, 'AI competition filters must expose a visible summary for the competition list');
+assert.match(js, /function normalizeAiFilterYears\(filters = \{\}\)/, 'AI competition filters must normalize single and multi-year scopes');
+assert.match(js, /state\.selectedAiYears = years\.length > 1 \? years : \[\]/, 'AI competition filters must preserve multi-year scopes outside the standard single-year dropdown');
+assert.match(js, /aiYearFilters\.length[\s\S]*aiYearFilters\.includes\(competitionYear\(competition\)\)/, 'competition list filtering must apply AI multi-year scopes');
 assert.match(js, /function aiCompetitionFilterEvidence\(query, filters = \{\}, count = 0, label = '相关赛事列表'\)/, 'AI competition stats must expose a filtered-list evidence source');
 assert.doesNotMatch(js, /俱乐部对比证据|匹配赛事列表|title: '匹配赛事'/, 'AI answer source labels and sections must use customer-facing wording');
 assert.match(js, /kind: '俱乐部成绩'/, 'AI club comparison evidence should use a customer-facing source label');
+assert.match(js, /function aiClubComparisonListFilters\(query, filters = \{\}\)/, 'AI club comparison must convert comparison scope into competition-list filters');
+assert.match(js, /function competitionsMatchingAiListFilters\(filters = \{\}\)/, 'AI club comparison must count related competitions with the same list filters');
+assert.match(js, /\{ label: '看相关赛事', mainTab: 'competitions', filters: listFilters \}/, 'AI club comparison must let users open the filtered evidence list');
 assert.match(js, /function queryItemFilterOption\(query = ''\)/, 'AI competition-list actions must preserve project hints like U10 male foil');
 assert.match(js, /const itemFilter = filters\.item \|\| queryItemFilterOption\(question\)/, 'AI competition filters must derive item filters from the original question');
 assert.match(js, /aiCompetitionFilterQuestion: ''/, 'AI competition filter source question must have a stable state slot');
@@ -188,6 +194,7 @@ assert.match(js, /state\.aiCompetitionFilterSummary = aiCompetitionFilterSummary
 assert.match(js, /data-clear-ai-filter/, 'AI filtered competition lists must expose a clear action');
 assert.match(js, /JSON\.parse\(decodeURIComponent\(button\.dataset\.aiFilters\)\)/, 'AI answer action handlers must decode filter payloads before navigation');
 assert.match(js, /state\.selectedAiMonth/, 'AI competition filters must preserve month constraints that are not visible in the standard filter chips');
+assert.match(js, /state\.selectedAiYears/, 'AI competition filters must preserve multi-year constraints that are not visible in the standard filter chips');
 assert.match(js, /report\.type === 'prematch' \? '赛前提醒'/, 'AI answer header must label prematch reports');
 assert.match(js, /report\.type === 'business-insight' \? '商业洞察'/, 'AI answer header must label business insight reports');
 assert.match(js, /report\.type === 'product-template' \? '报告服务'/, 'AI answer header must label product template reports');

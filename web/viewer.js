@@ -125,6 +125,7 @@ const state = {
   selectedItem: '全部项目',
   selectedStatus: '全部状态',
   selectedAiMonth: '',
+  selectedAiYears: [],
   onlyFollowedData: false,
   followFilter: '全部赛事',
   aiCompetitionFilterSummary: '',
@@ -1781,6 +1782,7 @@ function setFilterValue(type, value) {
     state.onlyFollowedData = state.followFilter !== '全部赛事';
   }
   state.selectedAiMonth = '';
+  state.selectedAiYears = [];
   state.aiCompetitionFilterSummary = '';
   renderFilters();
   applyCompetitionFilter();
@@ -1805,7 +1807,9 @@ function queryItemFilterOption(query = '') {
 
 function aiCompetitionFilterSummary(filters = {}) {
   const parts = [];
-  if (filters.year) parts.push(`${filters.year}年`);
+  const years = normalizeAiFilterYears(filters);
+  if (years.length > 1) parts.push(`${years.join('、')}年`);
+  else if (years.length === 1) parts.push(`${years[0]}年`);
   if (filters.month) parts.push(`${filters.month}月`);
   if (filters.region) parts.push(filters.region);
   if (filters.item) parts.push(filters.item);
@@ -1813,16 +1817,28 @@ function aiCompetitionFilterSummary(filters = {}) {
   return parts.length ? `筛选结果：${parts.join(' · ')}` : '';
 }
 
+function normalizeAiFilterYears(filters = {}) {
+  const values = [
+    ...(Array.isArray(filters.years) ? filters.years : []),
+    filters.year || '',
+  ];
+  return [...new Set(values.map((value) => String(value || '').match(/20\d{2}/)?.[0]).filter(Boolean))];
+}
+
 function applyAiCompetitionFilters(filters = {}) {
   const question = filters.query || state.aiActiveQuery || '';
   const itemFilter = filters.item || queryItemFilterOption(question);
-  state.selectedYear = filters.year ? matchingFilterOption('year', filters.year) : '全部年份';
+  const years = normalizeAiFilterYears(filters);
+  state.selectedAiYears = years.length > 1 ? years : [];
+  state.selectedYear = years.length === 1 ? matchingFilterOption('year', years[0]) : '全部年份';
   state.selectedRegion = filters.region ? matchingFilterOption('region', filters.region) : '全部地区';
   state.selectedStatus = filters.status ? matchingFilterOption('status', statusLabel(filters.status)) : '全部状态';
   state.selectedItem = itemFilter ? matchingFilterOption('item', itemFilter) : '全部项目';
   state.selectedAiMonth = filters.month || '';
   state.aiCompetitionFilterSummary = aiCompetitionFilterSummary({
     ...filters,
+    years,
+    year: years.length === 1 ? years[0] : '',
     item: state.selectedItem !== '全部项目' ? state.selectedItem : '',
   });
   state.aiCompetitionFilterQuestion = question;
@@ -1838,6 +1854,7 @@ function clearAiCompetitionFilter() {
   state.selectedItem = '全部项目';
   state.selectedStatus = '全部状态';
   state.selectedAiMonth = '';
+  state.selectedAiYears = [];
   state.aiCompetitionFilterSummary = '';
   state.aiCompetitionFilterQuestion = '';
   searchInput.value = '';
@@ -1945,9 +1962,12 @@ function applyCompetitionFilter() {
   const itemFilter = state.selectedItem;
   const statusFilter = state.selectedStatus;
   const monthFilter = state.selectedAiMonth;
+  const aiYearFilters = state.selectedAiYears || [];
   state.filteredCompetitions = state.competitions.filter((competition) => {
     const matchRegion = region === '全部地区' || (competition.region || '待确认') === region;
-    const matchYear = year === '全部年份' || competitionYear(competition) === year;
+    const matchYear = aiYearFilters.length
+      ? aiYearFilters.includes(competitionYear(competition))
+      : year === '全部年份' || competitionYear(competition) === year;
     const matchMonth = !monthFilter || competitionMonth(competition) === monthFilter;
     const matchItem = itemFilter === '全部项目' || competitionItemFilterLabels(competition).includes(itemFilter);
     const matchStatus = statusFilter === '全部状态' || statusLabel(competition.status || 'completed') === statusFilter;
@@ -2006,6 +2026,7 @@ function handleSearchInput() {
   state.searchRequestId += 1;
   if (searchDebounceTimer) clearTimeout(searchDebounceTimer);
   state.selectedAiMonth = '';
+  state.selectedAiYears = [];
   state.aiCompetitionFilterSummary = '';
   state.athleteSearchResults = [];
   state.clubSearchResults = [];
@@ -2452,6 +2473,7 @@ function handleDatabaseEntry(key) {
     state.onlyFollowedData = true;
     state.followFilter = '我的关注';
     state.selectedAiMonth = '';
+    state.selectedAiYears = [];
     state.aiCompetitionFilterSummary = '';
     renderFilters();
     applyCompetitionFilter();
@@ -6598,6 +6620,35 @@ function aiClubComparisonScopeLabel(filters) {
   return parts.length ? parts.join(' · ') : '全部赛事';
 }
 
+function aiClubComparisonItemFilter(filters = {}) {
+  const weaponLabel = { foil: '花剑', epee: '重剑', sabre: '佩剑' }[filters.weapon] || '';
+  return [filters.age || '', weaponLabel].filter(Boolean).join(' ');
+}
+
+function aiClubComparisonListFilters(query, filters = {}) {
+  return {
+    years: filters.years || [],
+    month: '',
+    region: '',
+    item: aiClubComparisonItemFilter(filters),
+    status: '',
+    query: query || '',
+  };
+}
+
+function competitionsMatchingAiListFilters(filters = {}) {
+  const years = normalizeAiFilterYears(filters);
+  return (state.competitions || []).filter((competition) => {
+    const yearOk = years.length ? years.includes(competitionYear(competition)) : true;
+    const monthOk = filters.month ? competitionMonth(competition) === filters.month : true;
+    const regionText = compactText([competition.venue, competition.region, competition.sportName].filter(Boolean).join(' '));
+    const regionOk = filters.region ? regionText.includes(filters.region) : true;
+    const itemOk = filters.item ? competitionItemFilterLabels(competition).includes(filters.item) : true;
+    const statusOk = filters.status ? competition.status === filters.status : true;
+    return yearOk && monthOk && regionOk && itemOk && statusOk;
+  });
+}
+
 function aiClubComparisonGenderLabel(gender) {
   if (gender === 'male') return '男子';
   if (gender === 'female') return '女子';
@@ -6679,6 +6730,8 @@ function aiClubComparisonEvidenceRows(metrics) {
 }
 
 function buildAiClubComparisonReport(query, leftClub, rightClub, filters) {
+  const listFilters = aiClubComparisonListFilters(query, filters);
+  const listCount = competitionsMatchingAiListFilters(listFilters).length;
   const genderScopes = [...filters.genders];
   if (filters.includeTotal) genderScopes.push('total');
   const metricPairs = genderScopes.map((gender) => [
@@ -6710,10 +6763,14 @@ function buildAiClubComparisonReport(query, leftClub, rightClub, filters) {
         rows: aiClubComparisonConclusionRows(metricPairs),
       },
     ],
-    evidence: aiClubComparisonEvidenceRows(metricPairs),
+    evidence: [
+      ...aiClubComparisonEvidenceRows(metricPairs),
+      aiCompetitionFilterEvidence(query, listFilters, listCount, '相关赛事列表'),
+    ],
     actions: [
       { label: `看${leftClub.club}画像`, clubId: leftClub.id },
       { label: `看${rightClub.club}画像`, clubId: rightClub.id },
+      { label: '看相关赛事', mainTab: 'competitions', filters: listFilters },
       { label: aiClubComparisonRefineLabel(filters), query: aiClubComparisonRefineQuery(leftClub, rightClub, filters) },
     ],
     sourceNote: '俱乐部对比来自公开赛事成绩记录，适合先判断整体规模和成绩表现。',
