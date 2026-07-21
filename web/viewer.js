@@ -5912,7 +5912,7 @@ function aiPreMatchRosterInsightRows(competitions) {
   const itemRows = rosterItemSummary(rosterRows);
   const clubRows = rosterClubSummary(rosterRows, 3);
   const preparationRows = rosterPreparationRows(rosterRows, aiAthletePool());
-  const rows = [`报名名单已有 ${rosterRows.length} 人次，可先看项目热度、重点俱乐部和历史强手。`];
+  const rows = [`报名名单包含 ${rosterRows.length} 人次，可先看项目热度、重点俱乐部和历史强手。`];
   if (itemRows[0]) rows.push(`人数最多项目：${itemRows[0].label}，${itemRows[0].count} 人。`);
   if (clubRows[0]) rows.push(`报名最多俱乐部：${clubRows[0].club}，${clubRows[0].count} 人次，覆盖 ${clubRows[0].projectCount} 个项目。`);
   if (preparationRows[0]?.history) {
@@ -5951,7 +5951,7 @@ function aiPreMatchActionRows(competitions, rosterRows, focusRows) {
       ? `先打开 ${nearest.sportName}，确认时间、地点、状态和项目是否符合目标。`
       : '先确认目标赛事和项目范围，再进入赛前情报包。',
     rosterRows.length || rosterCount
-      ? `报名名单已有 ${rosterCount || rosterRows.length} 人次，优先核对关注对象是否在对应项目。`
+      ? `报名名单包含 ${rosterCount || rosterRows.length} 人次，优先核对关注对象是否在对应项目。`
       : '报名名单不足时，先看项目明细、赛事规模和历史强手，不直接推断真实对阵。',
     focusedCount || focusRows.length
       ? '围绕关注对象整理历史项目、最近名次和同项目强手，形成赛前沟通材料。'
@@ -6223,7 +6223,7 @@ function aiCompetitionStatsDecisionRows(rows, actionRows, rosterRows, scoreRows)
     decisionRows.push(`${rosterRows.length} 场可查看报名名单，适合提前关注同组对手和参赛规模。`);
   }
   if (scoreRows.length) {
-    decisionRows.push(`${scoreRows.length} 场已有成绩或项目数据，适合做成长报告、教练复盘和俱乐部表现分析。`);
+    decisionRows.push(`${scoreRows.length} 场有成绩或项目数据，适合做成长报告、教练复盘和俱乐部表现分析。`);
   }
   if (!decisionRows.length) {
     decisionRows.push('可以先确认赛程、地点和项目安排，再结合报名名单或成绩做备赛复盘。');
@@ -6375,7 +6375,7 @@ function buildAiCompetitionRanking(query, filters) {
       title: '参赛人数最多的项目',
       summary: topItem
         ? `${scopeText}中，${topItem.label} 的参赛规模最高，约 ${topItem.entrants} 人次，来自 ${topItem.competition.sportName}。`
-        : `${scopeText}中暂时没有可用于计算项目人数的记录。`,
+        : `${scopeText}中还没有足够的项目人数记录。`,
       cards: [
         ['最高项目', topItem ? topItem.label : '-'],
         ['最高人数', topItem ? `${topItem.entrants} 人次` : '-'],
@@ -6415,7 +6415,7 @@ function buildAiCompetitionRanking(query, filters) {
     title: '参赛人数最多的赛事',
     summary: top
       ? `${scopeText}中，${top.competition.sportName} 的参赛规模最高，约 ${top.entrants} 人次。`
-      : `${scopeText}中暂时没有可用于计算参赛人数的赛事记录。`,
+      : `${scopeText}中还没有足够的参赛人数记录。`,
     cards: [
       ['最高人数', top ? `${top.entrants} 人次` : '-'],
       ['候选赛事', `${matchedRows.length} 场`],
@@ -6498,8 +6498,8 @@ function businessCoverageOpportunityRows() {
   const scoreRate = competitions.length ? Math.round((scoreCount / competitions.length) * 100) : 0;
   const rosterRate = activeCount ? Math.round((rosterCount / activeCount) * 100) : 0;
   return [
-    `赛后复盘：${scoreCount} 场已有成绩/对阵，占全部赛事 ${scoreRate}%，适合先做家长成长报告和教练复盘。`,
-    `赛前服务：${rosterCount} 场已有报名名单，覆盖近期/进行中赛事 ${rosterRate}%，适合做赛前情报包。`,
+    `赛后复盘：${scoreCount} 场有成绩/对阵，占全部赛事 ${scoreRate}%，适合先做家长成长报告和教练复盘。`,
+    `赛前服务：${rosterCount} 场有报名名单，覆盖近期/进行中赛事 ${rosterRate}%，适合做赛前情报包。`,
     `赛事目录：${projectCount} 场至少有项目结构，可先支持筛选、提醒和项目级赛前判断。`,
   ];
 }
@@ -6522,7 +6522,7 @@ function businessPriorityRows() {
   const clubCount = (state.clubSearchIndex || []).length;
   return [
     `赛前准备：${activeCount} 场近期赛事适合做报名提醒、项目核对和重点对手观察。`,
-    `成长复盘：${scoreCount} 场已有成绩的赛事适合整理孩子阶段变化和赛后复盘。`,
+    `成长复盘：${scoreCount} 场有成绩的赛事适合整理孩子阶段变化和赛后复盘。`,
     `教练经营：${clubCount} 个俱乐部画像可用于学员分层、优势项目和招生展示。`,
   ];
 }
@@ -6547,7 +6547,7 @@ function businessMonetizationRows() {
   const followedCount = aiFocusedAthletes().length;
   const clubCount = (state.clubSearchIndex || []).length;
   return [
-    `赛前情报包：用 ${activeCount} 场近期/报名赛事做高频入口，其中 ${rosterCount} 场已有报名名单，适合先做单场试用和赛前提醒。`,
+    `赛前情报包：用 ${activeCount} 场近期/报名赛事做高频入口，其中 ${rosterCount} 场有报名名单，适合先做单场试用和赛前提醒。`,
     `家长成长报告：用 ${scoreCount} 场成绩样本整理月度/赛后复盘，${followedCount} 名关注选手可直接生成个人化报告。`,
     `教练工作台：用 ${clubCount} 个俱乐部画像承接学员分层、续费沟通和招生展示，优先服务熟悉的小型剑馆样板。`,
     '服务路径：先用免费问答确认需求，再用报告证明价值，最后通过关注、提醒和试用服务形成持续使用。',
@@ -6644,7 +6644,7 @@ function productTemplateMetricRows(kind) {
     const roster = active.filter((competition) => competition.rosterStatus === 'partial' || competition.rosterStatus === 'complete');
     return [
       ['可生成赛事', `${active.length} 场`],
-      ['已有名单', `${roster.length} 场`],
+      ['名单赛事', `${roster.length} 场`],
       ['关注选手', `${aiFocusedAthletes().length} 人`],
       ['核心价值', '赛前决策'],
     ];
@@ -6914,7 +6914,7 @@ function buildAiAthleteComparison(query, left, right) {
   const confidence = athleteComparisonConfidence(direct, shared);
   const summaryParts = [];
   if (direct.length) summaryParts.push(`发现 ${direct.length} 条直接交手或对手记录`);
-  if (!direct.length && /对战|交手|谁赢|打过/.test(compactText(query))) summaryParts.push('暂未发现两人的直接交手记录');
+  if (!direct.length && /对战|交手|谁赢|打过/.test(compactText(query))) summaryParts.push('没有找到两人的直接交手记录');
   if (shared.length) summaryParts.push(`两人共同出现在 ${shared.length} 个项目里`);
   summaryParts.push(`${leader.name} 的综合记录更占优，主要来自最好名次、奖牌和参赛连续性`);
 
@@ -6933,13 +6933,13 @@ function buildAiAthleteComparison(query, left, right) {
         title: '直接交手',
         rows: direct.length
           ? direct.slice(0, 4).map((row) => `${row.phase || '淘汰赛'}：${row.name}，${row.record || row.score || ''}`)
-          : ['暂未发现两人的直接交手记录；以下根据共同赛事、最近表现和历史成绩对比。'],
+          : ['没有找到两人的直接交手记录；以下根据共同赛事、最近表现和历史成绩对比。'],
       },
       {
         title: '共同赛事',
         rows: shared.length
           ? shared.slice(0, 5).map((row) => `${row.eventName} · ${row.sportName} · ${left.name}第${row.leftRank || '-'}名 / ${right.name}第${row.rightRank || '-'}名`)
-          : ['暂未发现两人出现在同一项目的记录，建议先把结论作为赛前观察线索。'],
+          : ['没有找到两人出现在同一项目的记录，建议先把结论作为赛前观察线索。'],
       },
       {
         title: '近况差距',
@@ -7038,7 +7038,7 @@ function buildAiClubReport(query, club) {
   return {
     type: 'club',
     title: `${club.club}${projectScope ? ` ${projectScope}` : ''}分析`,
-    summary: `${club.club} 已有 ${club.entrants || 0} 人次参赛、${club.top8 || 0} 次前八、${club.medals || 0} 枚奖牌表现。${hints.length && matchedProjects.length ? `本次问题重点匹配 ${matchedProjects.length} 个项目。` : ''}${bestProject ? `优势项目集中在 ${bestProject.label}。` : ''}`,
+    summary: `${club.club} 有 ${club.entrants || 0} 人次参赛、${club.top8 || 0} 次前八、${club.medals || 0} 枚奖牌表现。${hints.length && matchedProjects.length ? `问题中的项目方向集中在 ${matchedProjects.length} 个项目。` : ''}${bestProject ? `优势项目集中在 ${bestProject.label}。` : ''}`,
     cards: [
       ['参赛人次', club.entrants || 0],
       ['前八', club.top8 || 0],
@@ -7089,7 +7089,7 @@ function buildAiClubRecruitingReport(query, club) {
       {
         title: '展示顺序',
         rows: [
-          topProject ? `先讲优势项目：${topProject.label}，参赛 ${topProject.entrants || 0} 人次，最好第 ${topProject.bestRank ?? '-'} 名。` : '先讲当前已有参赛基础和训练方向。',
+          topProject ? `先讲优势项目：${topProject.label}，参赛 ${topProject.entrants || 0} 人次，最好第 ${topProject.bestRank ?? '-'} 名。` : '先讲参赛基础和训练方向。',
           strongestAthlete ? `再讲成长案例：${strongestAthlete.name}，最好第 ${strongestAthlete.bestRank ?? '-'} 名，${strongestAthlete.appearances || 0} 次记录。` : '再讲学员参赛经历和持续记录。',
           '最后给家长明确下一步：适合参加哪些项目、如何准备近期比赛、如何看成长变化。',
         ],

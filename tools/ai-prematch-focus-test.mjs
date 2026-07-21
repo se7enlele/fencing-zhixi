@@ -17,7 +17,7 @@ assert.match(js, /const actionRows = aiPreMatchActionRows\(rows, rosterRows, foc
 assert.match(js, /\['关注选手', focusRows\.length \? `\$\{focusRows\.length\} 人` : '-'\]/, 'prematch report must expose focused-athlete count');
 assert.match(js, /\['报名名单', rosterRows\.length \? \(rosterTotal \|\| expectedTotal \? `\$\{rosterTotal \|\| 0\}\/\$\{expectedTotal \|\| '-'\}` : `\$\{rosterRows\.length\} 场`\) : '0 场'\]/, 'prematch report must expose roster progress without adding a fifth metric card');
 assert.match(js, /title: '赛前重点'/, 'prematch report must combine focused athletes and roster insight into one focused section');
-assert.match(js, /报名名单已有 \$\{rosterRows\.length\} 人次/, 'prematch report must summarize roster size in user-facing copy');
+assert.match(js, /报名名单包含 \$\{rosterRows\.length\} 人次/, 'prematch report must summarize roster size in user-facing copy');
 assert.match(js, /报名最多俱乐部/, 'prematch report must identify the most active registered club');
 
 assert.match(js, /followCompetitionCode: rows\[0\]\.sportCode/, 'prematch report must expose a follow action for the nearest matched competition');
