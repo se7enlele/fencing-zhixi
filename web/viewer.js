@@ -6078,6 +6078,8 @@ function detectCompetitionStatsQuery(query) {
   const normalized = compactText(query);
   const hasCompetitionIntent = /(比赛|赛事|公开赛|冠军赛|锦标赛|有几场|多少场|几场)/.test(normalized);
   if (!hasCompetitionIntent) return null;
+  const hasStatsIntent = /(有几场|多少场|几场|多少|统计|数量|列表|有哪些|哪几场|人数最多|规模最大|最多人)/.test(normalized);
+  if (!hasStatsIntent) return null;
 
   const year = detectYearInQuery(normalized);
   const month = detectMonthInQuery(normalized);

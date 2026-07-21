@@ -566,6 +566,13 @@ assert.ok(missingCompetitionFallback.actions.some((action) => action.query), 'mi
 assert.ok(missingCompetitionFallback.evidence.some((row) => row.kind === '\u76f8\u8fd1\u8d5b\u4e8b' && row.sportCode === 'BJLEAGUE2026S1'), 'missing competition fallback should cite similar competitions as source evidence');
 assert.ok(!/(\u5bfc\u5165|\u7ee7\u7eed\u751f\u6210|\u540e\u7eed|\u6570\u636e\u8fb9\u754c|\u6682\u672a\u8bc6\u522b)/.test(`${missingCompetitionFallback.title}${missingCompetitionFallback.summary}${missingCompetitionFallback.sections.map((section) => section.rows.join('')).join('')}`), 'missing competition fallback should use user-facing collection copy');
 
+const noYearMissingCompetitionFallback = context.buildAiAnswer('\u5317\u4eac\u51fb\u5251\u8054\u8d5b\u7b2c\u4e8c\u7ad9');
+assert.equal(noYearMissingCompetitionFallback.type, 'fallback', 'specific event-name queries without a year should not be treated as regional competition stats');
+assert.match(noYearMissingCompetitionFallback.title, /\u6ca1\u6709\u627e\u5230\u8fd9\u573a\u8d5b\u4e8b/, 'specific missing event names should explain the event is not currently found');
+assert.ok(noYearMissingCompetitionFallback.sections.some((section) => section.title === '\u53ef\u4ee5\u8fd9\u6837\u6838\u5bf9'), 'specific missing event names should show verification guidance');
+assert.ok(noYearMissingCompetitionFallback.actions.some((action) => action.filters?.region === '\u5317\u4eac'), 'specific missing event names should still offer a filtered database path');
+assert.ok(!/(\u8d5b\u4e8b\u7edf\u8ba1|\u5317\u4eac\u8d5b\u4e8b\u7edf\u8ba1|\u6682\u672a\u8bc6\u522b|\u5206\u6790\u53e3\u5f84|\u540e\u7eed)/.test(`${noYearMissingCompetitionFallback.title}${noYearMissingCompetitionFallback.summary}`), 'specific missing event names should avoid statistics and internal wording');
+
 const exactCompetitionWithSameYearNoise = context.detectCompetitionInQuery('\u0032\u0030\u0032\u0036\u5e74\u5317\u4eac\u51fb\u5251\u8054\u8d5b\u7b2c\u4e00\u7ad9');
 assert.equal(exactCompetitionWithSameYearNoise?.sportCode, 'BJLEAGUE2026S1', 'competition lookup must not match a random same-year event when the name points elsewhere');
 

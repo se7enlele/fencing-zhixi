@@ -75,6 +75,8 @@ assert.match(js, /function aiProjectHints\(query\)/, 'AI club reports must detec
 assert.match(js, /function projectMatchesAiHints\(label, hints\)/, 'AI club reports must filter projects by question hints');
 assert.match(js, /function aiCompetitionStatsDecisionRows\(rows, actionRows, rosterRows, scoreRows\)/, 'AI competition stats must translate counts into product-facing next-step judgment');
 assert.match(js, /function detectCompetitionRankingQuery\(query\)/, 'AI must detect competition ranking questions');
+assert.match(js, /const hasStatsIntent = \/\(有几场\|多少场\|几场\|多少\|统计\|数量\|列表\|有哪些\|哪几场\|人数最多\|规模最大\|最多人\)\//, 'AI competition stats should require an explicit statistics intent');
+assert.match(js, /if \(!hasStatsIntent\) return null;/, 'specific event-name queries must not be routed to regional competition stats');
 assert.match(js, /function competitionEntrantCount\(competition\)/, 'AI competition ranking must compute actual entrant totals');
 assert.match(js, /function competitionItemEntrantRows\(competitions\)/, 'AI competition ranking must compute project-level entrant totals');
 assert.match(js, /function buildAiCompetitionRanking\(query, filters\)/, 'AI must answer competition scale ranking questions');
