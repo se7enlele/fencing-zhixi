@@ -73,6 +73,7 @@ const functionNames = [
   'fallbackMatchScore',
   'aiFallbackCandidates',
   'aiFallbackRewriteActions',
+  'aiFallbackClarificationRows',
   'detectClubInQuery',
   'detectClubsInQuery',
   'detectClubComparisonQuery',
@@ -548,7 +549,7 @@ assert.ok(fuzzyObjectFallback.actions.some((action) => action.clubId === 'club-s
 assert.equal(fuzzyObjectFallback.actions[0]?.clubId, 'club-sdzx', 'club-like fuzzy fallback should prioritize the matching club action');
 assert.ok(fuzzyObjectFallback.actions.some((action) => action.query && /\u5c71\u4e1c\u5c0f\u4f17\u4f53\u80b2/.test(action.query)), 'fuzzy fallback should offer a runnable club-analysis rewrite');
 assert.equal(fuzzyObjectFallback.evidence[0]?.clubId, 'club-sdzx', 'club-like fuzzy fallback should show the matching club first');
-assert.ok(fuzzyObjectFallback.sections?.some((section) => section.title === '\u53ef\u4ee5\u5148\u770b'), 'fuzzy fallback should explain the candidate choices');
+assert.ok(fuzzyObjectFallback.sections?.some((section) => section.title === '\u53ef\u4ee5\u5148\u786e\u8ba4'), 'fuzzy fallback should explain the candidate choices');
 
 const capabilityGuide = context.buildAiAnswer('\u6211\u60f3\u770b\u770b\u8fd9\u4e2a\u4ea7\u54c1\u80fd\u505a\u4ec0\u4e48');
 assert.equal(capabilityGuide.type, 'capability-guide', 'generic exploratory questions should route to a capability guide, not a dead-end fallback');

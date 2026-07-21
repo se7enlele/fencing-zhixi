@@ -5759,6 +5759,30 @@ function aiFallbackRewriteActions(query = '', candidates = {}) {
   ].slice(0, limit);
 }
 
+function aiFallbackClarificationRows(query = '') {
+  const normalized = compactText(query);
+  const rows = [];
+  if (/(对比|比较|谁更强|谁更好|vs|VS)/i.test(query)) {
+    rows.push('对比两名选手或两家俱乐部时，写清双方名称、年份、年龄段、剑种和性别。');
+  }
+  if (/(比赛|赛事|联赛|公开赛|冠军赛|锦标赛|有几场|多少场|人数最多)/.test(normalized)) {
+    rows.push('查赛事时，写清年份、地区或完整赛事名，例如“2026年天津有几场比赛”。');
+  }
+  if (/(报名|赛前|马上|近期|未开赛|未开始|待开赛)/.test(normalized)) {
+    rows.push('看赛前信息时，写清目标地区或赛事名；有关注选手后，会优先显示相关项目。');
+  }
+  if (/(孩子|小孩|家长|继续|投入|值不值得|成长|训练|进步)/.test(normalized)) {
+    rows.push('看成长时，先写出选手姓名，或在选手详情里把孩子加入关注。');
+  }
+  if (/(教练|学员|剑馆|俱乐部|招生|续费|训练反馈|怎么讲)/.test(normalized)) {
+    rows.push('看教练或剑馆场景时，写清俱乐部名称和项目范围，例如“山东小众体育 U8 男花怎么样”。');
+  }
+  return uniqueBy(rows.length ? rows : [
+    '可以直接输入选手姓名、俱乐部名称或赛事名称。',
+    '需要统计时，补充年份、地区、年龄段、剑种或性别。',
+  ], (row) => row).slice(0, 3);
+}
+
 function buildAiFallbackReport(query) {
   const text = String(query || '').trim();
   const entityCounts = entityCoverageCounts();
@@ -5773,6 +5797,12 @@ function buildAiFallbackReport(query) {
         ['可看内容', '成长报告'],
         ['需要补充', '选手姓名'],
         ['可问画像', `${entityCounts.athletes} 个`],
+      ],
+      sections: [
+        {
+          title: '补充方式',
+          rows: aiFallbackClarificationRows(text),
+        },
       ],
       actions: [
         ...aiFallbackRewriteActions(text),
@@ -5875,8 +5905,11 @@ function buildAiFallbackReport(query) {
       ],
       sections: [
         {
-          title: '可以先看',
-          rows: candidateEvidence.slice(0, 3).map((row) => `${row.kind}：${row.label} · ${row.detail}`),
+          title: '可以先确认',
+          rows: [
+            ...candidateEvidence.slice(0, 2).map((row) => `${row.kind}：${row.label} · ${row.detail}`),
+            ...aiFallbackClarificationRows(text),
+          ].slice(0, 3),
         },
       ],
       actions: [
@@ -5896,6 +5929,12 @@ function buildAiFallbackReport(query) {
       ['可问选手', `${entityCounts.athletes} 个画像`],
       ['可问俱乐部', `${entityCounts.clubs} 个俱乐部`],
       ['可问赛事', `${state.competitions.length} 场赛事`],
+    ],
+    sections: [
+      {
+        title: '可以这样问',
+        rows: aiFallbackClarificationRows(text),
+      },
     ],
     actions: [
       ...aiFallbackRewriteActions(text),
@@ -7812,7 +7851,10 @@ function renderAiConversionBlock(report = {}) {
 
 function aiResultActionTitle(report = {}) {
   if (report.type === 'fallback' || report.type === 'empty') {
-    return report.actions?.some((action) => action.query) ? '换个问法' : '选择一个结果';
+    const hasQueryAction = report.actions?.some((action) => action.query);
+    const hasDirectAction = report.actions?.some((action) => !action.query);
+    if (hasQueryAction && hasDirectAction) return '选择或换个问法';
+    return hasQueryAction ? '换个问法' : '选择一个结果';
   }
   if (report.type === 'competition-stats' || report.type === 'prematch') return '查看赛事';
   if (report.type === 'growth' || report.type === 'comparison') return '查看选手';
