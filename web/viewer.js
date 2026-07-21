@@ -2299,6 +2299,15 @@ function followedDataCount() {
   return (state.followedAthletes || []).length + (state.followedCompetitions || []).length + (state.followedClubs || []).length;
 }
 
+function followedDataSummary() {
+  const parts = [
+    (state.followedAthletes || []).length ? `${state.followedAthletes.length} 个选手` : '',
+    (state.followedCompetitions || []).length ? `${state.followedCompetitions.length} 场赛事` : '',
+    (state.followedClubs || []).length ? `${state.followedClubs.length} 个俱乐部` : '',
+  ].filter(Boolean);
+  return parts.length ? parts.join(' · ') : '关注选手、赛事或俱乐部后可快速查看';
+}
+
 function renderDatabaseDirectory() {
   if (!databaseDirectory) return;
   if (state.isDataLoading) {
@@ -2330,6 +2339,12 @@ function renderDatabaseDirectory() {
       title: '看俱乐部表现',
       detail: '比较参赛规模、前八和优势项目',
       action: '查俱乐部',
+    },
+    {
+      key: 'task-followed',
+      title: '看我的关注',
+      detail: followedDataSummary(),
+      action: '筛选关注',
     },
   ];
   const rows = [
@@ -2364,7 +2379,7 @@ function renderDatabaseDirectory() {
     {
       key: 'followed',
       title: '我的关注',
-      detail: '只看已关注选手和赛事相关内容',
+      detail: followedDataSummary(),
       count: followedDataCount() ? `${followedDataCount()} 个` : '待添加',
       action: state.onlyFollowedData ? activeFilterValue('follow') : '开启筛选',
       active: state.onlyFollowedData,
@@ -2433,7 +2448,7 @@ function handleDatabaseEntry(key) {
     focusDatabaseSearch('输入教练员或裁判员姓名');
     return;
   }
-  if (key === 'followed') {
+  if (key === 'followed' || key === 'task-followed') {
     state.onlyFollowedData = true;
     state.followFilter = '我的关注';
     state.selectedAiMonth = '';
