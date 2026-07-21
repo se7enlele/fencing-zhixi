@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>FencingAI</title>
-    <link rel="stylesheet" href="/viewer.css?v=fencingai-product-20260721-competition-chart-fold-1">
+    <link rel="stylesheet" href="/viewer.css?v=fencingai-product-20260721-database-overview-fold-1">
   </head>
   <body>
     <main class="app">
@@ -81,13 +81,18 @@
           </div>
           <button type="button" id="memberCta">了解</button>
         </section>
-        <section class="product-overview">
-          <div class="section-title">
-            <h2>数据总览</h2>
-            <span id="homeStatsScope">全部赛事</span>
-          </div>
-          <div id="homeStats" class="stat-strip"></div>
-          <div id="dataCoverageSummary" class="data-coverage-summary"></div>
+        <section class="product-overview database-overview">
+          <details class="database-overview-fold" id="databaseOverviewFold">
+            <summary>
+              <div>
+                <strong>收录概况</strong>
+                <span>赛事、项目和赛果覆盖</span>
+              </div>
+              <em id="homeStatsScope">赛事收录</em>
+            </summary>
+            <div id="homeStats" class="stat-strip"></div>
+            <div id="dataCoverageSummary" class="data-coverage-summary"></div>
+          </details>
         </section>
         <div class="section-title list-title">
           <h2>数据库入口</h2>
@@ -300,7 +305,7 @@
       </div>
     </main>
 
-    <script src="/viewer.js?v=fencingai-product-20260721-competition-chart-fold-1"></script>
+    <script src="/viewer.js?v=fencingai-product-20260721-database-overview-fold-1"></script>
   </body>
 </html>
 

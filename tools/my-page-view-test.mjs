@@ -28,6 +28,9 @@ assert.match(html, /id="myFollowFilterButton" class="filter-trigger follow-filte
 assert.doesNotMatch(html, /class="toggle-filter-trigger follow-filter-trigger"/, 'my-follow filter must not look like a silent toggle');
 assert.match(html, /id="databaseDirectory"/, 'database tab must expose a structured directory before the long list');
 assert.match(html, /<h2>数据库入口<\/h2>/, 'database tab must label the structured search entry clearly');
+assert.match(html, /class="product-overview database-overview"/, 'database tab must keep overview metrics in a secondary section');
+assert.match(html, /<details class="database-overview-fold" id="databaseOverviewFold">/, 'database overview metrics must be collapsed by default');
+assert.match(html, /<strong>收录概况<\/strong>/, 'database overview fold must use a user-facing summary label');
 assert.equal(indexHtml, html, 'static index.html must stay in sync with viewer.html');
 
 assert.match(js, /COMPETITION_FOLLOW_KEY = 'fencingai\.followedCompetitions\.v1'/, 'competition follow state must be persisted');
@@ -122,10 +125,14 @@ assert.match(js, /function renderDatabaseDirectory\(\)/, 'database tab must rend
 assert.match(js, /data-database-entry="\$\{escapeHtml\(row\.key\)\}"/, 'database directory cards must carry explicit entry types');
 assert.match(js, /title: '赛事'[\s\S]*title: '选手'[\s\S]*title: '俱乐部'[\s\S]*title: '教练\/裁判'[\s\S]*title: '我的关注'/, 'database directory must cover competitions, athletes, clubs, officials and followed items');
 assert.match(js, /function handleDatabaseEntry\(key\)/, 'database directory entries must have runnable actions');
+assert.match(js, /homeStatsScope\) homeStatsScope\.textContent = active \? '筛选结果' : '赛事收录'/, 'database overview fold must summarize the selected scope without front-loading metrics');
+assert.match(js, /<strong>内容概况<\/strong>/, 'database coverage copy must use a user-facing content label');
+assert.doesNotMatch(js, /当前显示/, 'database coverage copy must not expose internal current-display wording');
 assert.match(js, /focusDatabaseSearch\('输入选手姓名，例如 蔡廷彧'\)/, 'athlete directory entry must guide users to athlete search');
 assert.match(js, /focusDatabaseSearch\('输入俱乐部名称，例如 山东小众体育'\)/, 'club directory entry must guide users to club search');
 assert.match(js, /focusDatabaseSearch\('输入教练员或裁判员姓名'\)/, 'official directory entry must guide users to official search');
 assert.match(css, /\.database-entry-grid/, 'database directory must have a compact mobile grid layout');
+assert.match(css, /\.database-overview-fold summary/, 'database overview fold must have a compact mobile summary layout');
 assert.match(js, /const positiveMax = \(\.\.\.values\) => Math\.max\(0, \.\.\.values\.map\(\(value\) => Number\(value\) \|\| 0\)\)/, 'home scale must not let zero coverage fields override real loaded counts');
 assert.match(js, /const nestedCoverage = state\.publicEvents\?\.dataCoverage \|\| \{\};/, 'home scale must read nested static coverage when present');
 assert.match(js, /const publicEvents = state\.publicEvents \|\| \{\};/, 'home scale must read top-level static coverage when present');

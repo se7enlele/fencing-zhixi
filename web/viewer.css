@@ -1345,6 +1345,81 @@ select:focus {
   margin: 6px 0 12px;
 }
 
+.database-overview {
+  margin-top: 4px;
+}
+
+.database-overview-fold {
+  border: 1px solid rgba(16, 24, 40, 0.08);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 8px 22px rgba(16, 24, 40, 0.035);
+  overflow: hidden;
+}
+
+.database-overview-fold summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  min-height: 46px;
+  padding: 10px 12px;
+  cursor: pointer;
+  list-style: none;
+}
+
+.database-overview-fold summary::-webkit-details-marker {
+  display: none;
+}
+
+.database-overview-fold summary::after {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid var(--muted);
+  border-bottom: 2px solid var(--muted);
+  transform: rotate(45deg) translateY(-2px);
+  transition: transform 0.18s ease;
+  flex: 0 0 auto;
+}
+
+.database-overview-fold[open] summary::after {
+  transform: rotate(225deg) translateY(-1px);
+}
+
+.database-overview-fold summary strong,
+.database-overview-fold summary span {
+  display: block;
+}
+
+.database-overview-fold summary strong {
+  font-size: 14px;
+  line-height: 1.2;
+}
+
+.database-overview-fold summary span {
+  color: var(--muted);
+  font-size: 11px;
+  margin-top: 2px;
+}
+
+.database-overview-fold summary em {
+  margin-left: auto;
+  border-radius: 999px;
+  background: rgba(13, 125, 103, 0.09);
+  color: var(--teal);
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 900;
+  padding: 4px 8px;
+  white-space: nowrap;
+}
+
+.database-overview-fold .stat-strip,
+.database-overview-fold .data-coverage-summary {
+  margin: 0 10px 10px;
+}
+
 .follow-panel[hidden],
 .member-panel[hidden] {
   display: none;

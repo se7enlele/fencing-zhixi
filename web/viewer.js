@@ -1986,17 +1986,16 @@ function renderDataCoverageSummary(source) {
   const total = source.length || 1;
   const scorePercent = Math.round((coverage.score / total) * 100);
   const syncLabel = scheduledSyncStatusLabel(state.dataCoverage?.scheduledSync);
-  const sourceNote = state.dataCoverage?.platformEvents
-    ? `${state.dataCoverage.platformEvents} 场赛事`
-    : `${source.length} 场赛事`;
+  const active = isFilteringActive();
+  const sourceNote = active ? `已筛出 ${source.length} 场` : `${source.length} 场赛事`;
 
   dataCoverageSummary.innerHTML = `
     <div class="coverage-summary-head">
       <div>
-        <strong>可以查看什么</strong>
-        <span>${escapeHtml(sourceNote)}，当前显示 ${escapeHtml(source.length)} 场</span>
+        <strong>内容概况</strong>
+        <span>${escapeHtml(sourceNote)}，其中 ${escapeHtml(coverage.score)} 场可做赛后复盘</span>
       </div>
-      <em>${escapeHtml(coverage.score)} 场有完整赛果</em>
+      <em>${escapeHtml(scorePercent)}% 可复盘</em>
     </div>
     <div class="coverage-level-grid">
       <div>
@@ -2015,7 +2014,7 @@ function renderDataCoverageSummary(source) {
         <small>看选手成长和队伍表现</small>
       </div>
     </div>
-    <p>${escapeHtml(scorePercent)}% 的赛事已有成绩或对阵，可以查看成长变化、对手表现和队伍表现；报名中的赛事更适合提前做赛前准备。</p>
+    <p>已出赛果的比赛适合看成长变化、对手表现和队伍表现；报名中的比赛适合提前准备参赛策略。</p>
     ${syncLabel ? `<div class="sync-status-note">${escapeHtml(syncLabel)}</div>` : ''}
   `;
 }
@@ -2189,13 +2188,13 @@ function handleDatabaseEntry(key) {
 
 function renderHomeStats() {
   if (state.isDataLoading) {
-    if (homeStatsScope) homeStatsScope.textContent = '加载中';
-    homeStats.innerHTML = '<div class="loading-row">正在加载数据</div>';
+    if (homeStatsScope) homeStatsScope.textContent = '整理中';
+    homeStats.innerHTML = '<div class="loading-row">正在整理赛事资料</div>';
     if (dataCoverageSummary) dataCoverageSummary.innerHTML = '';
     return;
   }
   if (state.dataLoadError) {
-    if (homeStatsScope) homeStatsScope.textContent = '加载失败';
+    if (homeStatsScope) homeStatsScope.textContent = '未能加载';
     homeStats.innerHTML = '';
     if (dataCoverageSummary) dataCoverageSummary.innerHTML = '';
     return;
@@ -2206,13 +2205,13 @@ function renderHomeStats() {
   const coverage = summarizeDataCoverage(source);
   const prematchCount = Math.max(coverage.actionable - coverage.score, 0);
   const active = isFilteringActive();
-  if (homeStatsScope) homeStatsScope.textContent = active ? '筛选结果' : '全部赛事';
+  if (homeStatsScope) homeStatsScope.textContent = active ? '筛选结果' : '赛事收录';
 
   homeStats.innerHTML = [
     ['比赛', source.length, `${regions} 地区`],
     ['项目', eventCount, '按组别查看'],
-    ['完整赛果', coverage.score, '可看成长分析'],
-    ['报名赛事', prematchCount, '可看参赛项目'],
+    ['赛后复盘', coverage.score, '可看成长分析'],
+    ['赛前准备', prematchCount, '可看参赛项目'],
   ].map(([label, value, detail]) => `
     <div class="stat-item">
       <strong>${escapeHtml(value)}</strong>
