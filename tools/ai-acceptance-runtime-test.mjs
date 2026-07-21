@@ -68,6 +68,7 @@ const functionNames = [
   'aiFallbackCandidateTerms',
   'fallbackMatchScore',
   'aiFallbackCandidates',
+  'aiFallbackRewriteActions',
   'detectClubInQuery',
   'detectClubsInQuery',
   'detectClubComparisonQuery',
@@ -494,6 +495,7 @@ const childInvestmentFallback = context.buildAiAnswer('\u5b69\u5b50\u51fb\u5251\
 assert.equal(childInvestmentFallback.type, 'fallback', 'general child investment questions should stay in recovery when no child is named');
 assert.match(childInvestmentFallback.title, /\u5148\u786e\u5b9a\u5173\u6ce8\u5bf9\u8c61/, 'child investment fallback should ask for the child or athlete first');
 assert.ok(childInvestmentFallback.actions.some((action) => action.mainTab === 'my'), 'child investment fallback should route users to manage followed children');
+assert.ok(childInvestmentFallback.actions.some((action) => action.query === '\u5929\u6d25\u8fd1\u671f\u62a5\u540d\u60c5\u51b5'), 'child investment fallback should offer a runnable rewrite suggestion');
 assert.ok(!/(\u6682\u672a\u8bc6\u522b|\u5206\u6790\u53e3\u5f84|\u540e\u7eed)/.test(`${childInvestmentFallback.title}${childInvestmentFallback.summary}`), 'fallback copy should avoid internal or dead-end wording');
 
 const missingCompetitionFallback = context.buildAiAnswer('\u0032\u0030\u0032\u0036\u5e74\u5317\u4eac\u51fb\u5251\u8054\u8d5b\u7b2c\u4e00\u7ad9');
@@ -515,6 +517,7 @@ assert.match(fuzzyObjectFallback.title, /\u5148\u786e\u8ba4\u4f60\u8981\u770b\u7
 assert.ok(fuzzyObjectFallback.evidence.some((row) => row.kind === '\u76f8\u8fd1\u4ff1\u4e50\u90e8' && row.clubId === 'club-sdzx'), 'fuzzy fallback should surface matching club candidates');
 assert.ok(fuzzyObjectFallback.actions.some((action) => action.clubId === 'club-sdzx'), 'fuzzy fallback should let users open the matching club');
 assert.equal(fuzzyObjectFallback.actions[0]?.clubId, 'club-sdzx', 'club-like fuzzy fallback should prioritize the matching club action');
+assert.ok(fuzzyObjectFallback.actions.some((action) => action.query && /\u5c71\u4e1c\u5c0f\u4f17\u4f53\u80b2/.test(action.query)), 'fuzzy fallback should offer a runnable club-analysis rewrite');
 assert.equal(fuzzyObjectFallback.evidence[0]?.clubId, 'club-sdzx', 'club-like fuzzy fallback should show the matching club first');
 assert.ok(fuzzyObjectFallback.sections?.some((section) => section.title === '\u53ef\u4ee5\u5148\u770b'), 'fuzzy fallback should explain the candidate choices');
 

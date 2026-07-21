@@ -5653,6 +5653,39 @@ function buildAiCapabilityGuideReport(query) {
   };
 }
 
+function aiFallbackRewriteActions(query = '', candidates = {}) {
+  const limit = 3;
+  const firstAthlete = candidates.athletes?.[0];
+  const secondAthlete = candidates.athletes?.[1];
+  const firstClub = candidates.clubs?.[0];
+  const secondClub = candidates.clubs?.[1];
+  const firstCompetition = candidates.competitions?.[0];
+  const actions = [];
+
+  if (firstAthlete?.name) {
+    actions.push({ label: `分析${firstAthlete.name}`, query: `分析${firstAthlete.name}最近有没有进步` });
+  }
+  if (firstAthlete?.name && secondAthlete?.name) {
+    actions.push({ label: `${firstAthlete.name} vs ${secondAthlete.name}`, query: `分析${firstAthlete.name}和${secondAthlete.name}的对比情况` });
+  }
+  if (firstClub?.club) {
+    actions.push({ label: `分析${firstClub.club}`, query: `${firstClub.club} U8 男花怎么样` });
+  }
+  if (firstClub?.club && secondClub?.club) {
+    actions.push({ label: `${firstClub.club} vs ${secondClub.club}`, query: `${firstClub.club}和${secondClub.club}谁更强` });
+  }
+  if (firstCompetition?.sportName) {
+    actions.push({ label: '分析这场比赛', query: `${firstCompetition.sportName}有哪些重点信息` });
+  }
+
+  return [
+    ...actions,
+    { label: '问天津近期报名', query: '天津近期报名情况' },
+    { label: '问赛事数量', query: '2026年天津有几场比赛' },
+    { label: '问数据价值', query: '这些击剑数据能产生什么商业价值' },
+  ].slice(0, limit);
+}
+
 function buildAiFallbackReport(query) {
   const text = String(query || '').trim();
   const entityCounts = entityCoverageCounts();
@@ -5669,8 +5702,8 @@ function buildAiFallbackReport(query) {
         ['可问画像', `${entityCounts.athletes} 个`],
       ],
       actions: [
+        ...aiFallbackRewriteActions(text),
         { label: '管理关注对象', mainTab: 'my' },
-        { label: '查看选手数据', mainTab: 'competitions' },
       ],
       evidence: [],
     };
@@ -5775,8 +5808,8 @@ function buildAiFallbackReport(query) {
       ],
       actions: [
         ...primaryActions,
+        ...aiFallbackRewriteActions(text, candidates),
         firstCompetition?.sportCode ? { label: '看相近赛事', sportCode: firstCompetition.sportCode } : null,
-        { label: '进入数据库', mainTab: 'competitions' },
       ].filter(Boolean),
       evidence: candidateEvidence,
     };
@@ -5792,9 +5825,8 @@ function buildAiFallbackReport(query) {
       ['可问赛事', `${state.competitions.length} 场赛事`],
     ],
     actions: [
+      ...aiFallbackRewriteActions(text),
       { label: '进入数据库', mainTab: 'competitions' },
-      { label: '试试赛事统计', query: '2026年天津有几场比赛' },
-      { label: '试试选手成长', query: '蔡廷彧最近有没有进步' },
     ],
     evidence: [],
   };
@@ -7722,7 +7754,9 @@ function aiAnswerMetaRows(report = {}) {
 }
 
 function aiResultActionTitle(report = {}) {
-  if (report.type === 'fallback' || report.type === 'empty') return '选择一个结果';
+  if (report.type === 'fallback' || report.type === 'empty') {
+    return report.actions?.some((action) => action.query) ? '换个问法' : '选择一个结果';
+  }
   if (report.type === 'competition-stats' || report.type === 'prematch') return '查看赛事';
   if (report.type === 'growth' || report.type === 'comparison') return '查看选手';
   if (report.type === 'club' || report.type === 'club-comparison' || report.type === 'club-recruiting') return '查看剑馆';

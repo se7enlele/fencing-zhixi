@@ -70,6 +70,11 @@ assert.match(js, /function competitionMissingDiagnosisRows\(query, competitionLi
 assert.match(js, /title: '可以这样核对'/, 'AI missing-competition fallback must show a user-facing diagnosis section');
 assert.match(js, /查看相关赛事/, 'AI missing-competition fallback must offer an action to inspect related competitions');
 assert.match(js, /地方联赛或分站赛/, 'AI missing-competition fallback must handle local league and station naming differences');
+assert.match(js, /function aiFallbackRewriteActions\(query = '', candidates = \{\}\)/, 'AI fallback must generate runnable rewrite suggestions');
+assert.match(js, /label: '问天津近期报名', query: '天津近期报名情况'/, 'AI fallback should offer a direct prematch rewrite suggestion');
+assert.match(js, /label: '问赛事数量', query: '2026年天津有几场比赛'/, 'AI fallback should offer a direct competition-stat rewrite suggestion');
+assert.match(js, /return report\.actions\?\.some\(\(action\) => action\.query\) \? '换个问法' : '选择一个结果'/, 'AI fallback action heading should match rewrite suggestions');
+assert.doesNotMatch(js, /试试赛事统计|试试选手成长/, 'AI fallback actions should be phrased as direct user questions');
 assert.match(js, /scope: hasItemIntent \? 'item' : 'competition'/, 'AI competition ranking must route project and group questions separately');
 assert.match(js, /filters\.scope === 'item'/, 'AI competition ranking must build a project-level answer');
 assert.match(js, /title: hints\.length \? '重点项目' : '优势项目'/, 'AI club reports must label scoped project answers');

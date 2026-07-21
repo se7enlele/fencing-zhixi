@@ -66,6 +66,8 @@ assert.doesNotMatch(js, /'全部剑种'|'全部性别'|filters\.years\?\.length 
   '暂未识别到',
   '系统才能',
   '问题中的项目方向集中',
+  '试试赛事统计',
+  '试试选手成长',
 ].forEach((phrase) => {
   assert.ok(!js.includes(phrase), `frontend copy must not expose internal or dead-end wording: ${phrase}`);
 });
