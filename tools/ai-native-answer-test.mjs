@@ -94,7 +94,11 @@ assert.match(js, /function detectCompetitionInQuery\(query\)[\s\S]*const aliases
 assert.doesNotMatch(js, /function detectCompetitionInQuery\(query\)[\s\S]*const aliases = competitionAliasTerms\(competition\)\.map\(compactText\)/, 'AI exact competition lookup must not treat year or status aliases as competition names');
 assert.match(js, /function relatedCompetitionsForQuery\(query\)[\s\S]*withoutYearAlias\(query\)[\s\S]*chineseAdminAlias\(query\)[\s\S]*competitionNameAliasTerms\(competition\)/, 'AI missing competition fallback must use the same name-only aliases for related event suggestions');
 assert.match(js, /function competitionMissingDiagnosisRows\(query, competitionLike, relatedCompetitions = \[\]\)/, 'AI missing-competition fallback must explain how users can verify a missing event');
+assert.match(js, /function missingCompetitionCoverageCards\(competitionLike, relatedCompetitions = \[\]\)/, 'AI missing-competition fallback must expose user-facing coverage cards');
+assert.match(js, /function missingCompetitionCoverageRows\(relatedCompetitions = \[\]\)/, 'AI missing-competition fallback must explain which layers can be verified');
+assert.match(js, /\['赛事记录', '未找到'\][\s\S]*\['项目名单', '无法核对'\][\s\S]*\['报名名单', '无法核对'\][\s\S]*\['赛果成绩', '无法核对'\]/, 'missing competition cards must separate event, project, roster and result coverage');
 assert.match(js, /title: '可以这样核对'/, 'AI missing-competition fallback must show a user-facing diagnosis section');
+assert.match(js, /title: '可查内容'/, 'AI missing-competition fallback must show a user-facing coverage section');
 assert.match(js, /当前未收录\$\{competitionLike\.year\}年这场赛事/, 'AI missing-competition fallback must say when the current record is not collected');
 assert.match(js, /这不代表赛事不存在/, 'AI missing-competition fallback must distinguish missing records from non-existent events');
 assert.match(js, /查看相关赛事/, 'AI missing-competition fallback must offer an action to inspect related competitions');

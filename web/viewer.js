@@ -5833,6 +5833,31 @@ function competitionMissingDiagnosisRows(query, competitionLike, relatedCompetit
   return rows.slice(0, 3);
 }
 
+function missingCompetitionCoverageCards(competitionLike, relatedCompetitions = []) {
+  return [
+    ['赛事记录', '未找到'],
+    ['项目名单', '无法核对'],
+    ['报名名单', '无法核对'],
+    ['赛果成绩', '无法核对'],
+    competitionLike.year ? ['年份', competitionLike.year] : null,
+    competitionLike.region ? ['地区', competitionLike.region] : null,
+    competitionLike.month ? ['月份', `${competitionLike.month}月`] : null,
+    relatedCompetitions.length ? ['相近赛事', `${relatedCompetitions.length} 场`] : null,
+    ['可查赛事', `${state.competitions.length} 场`],
+  ].filter(Boolean);
+}
+
+function missingCompetitionCoverageRows(relatedCompetitions = []) {
+  const rows = [
+    '赛事记录：没有找到与问题完全一致的赛事。',
+    '项目名单：需要先确认赛事后查看。',
+    '报名名单：需要先确认赛事后查看。',
+    '赛果成绩：需要先确认赛事后查看。',
+  ];
+  if (relatedCompetitions.length) rows.push('相近赛事：可以打开最近的一场核对名称、年份和地点。');
+  return rows;
+}
+
 function aiFallbackCandidateTerms(query) {
   const terms = aiEntityCandidateTerms(query);
   const compact = compactText(query);
@@ -6136,26 +6161,22 @@ function buildAiFallbackReport(query) {
   const competitionLike = detectCompetitionLikeQuery(text);
   if (competitionLike) {
     const relatedCompetitions = relatedCompetitionsForQuery(text);
-    const relatedTitle = relatedCompetitions[0]?.sportName || '';
     const diagnosisRows = competitionMissingDiagnosisRows(text, competitionLike, relatedCompetitions);
     const title = competitionLike.year ? `当前未收录${competitionLike.year}年这场赛事` : '当前未收录这场赛事';
     const summary = competitionLike.year
       ? `这不代表赛事不存在。可以先查看${competitionLike.region || '相关地区'}赛事，或打开相近赛事确认是否是你要找的比赛。`
       : '这不代表赛事不存在。可以先查看同地区或同类型赛事，确认是否是你要找的比赛。';
-    const cards = [
-      competitionLike.year ? ['年份', competitionLike.year] : null,
-      competitionLike.region ? ['地区', competitionLike.region] : null,
-      competitionLike.month ? ['月份', `${competitionLike.month}月`] : null,
-      relatedCompetitions.length ? ['相近赛事', `${relatedCompetitions.length} 场`] : null,
-      relatedTitle ? ['最近相近', displayDateLabel(relatedCompetitions[0].dateLabel || relatedCompetitions[0].startDate || relatedCompetitions[0].season || '')] : null,
-      ['可查赛事', `${state.competitions.length} 场`],
-    ].filter(Boolean);
+    const cards = missingCompetitionCoverageCards(competitionLike, relatedCompetitions);
     return {
       type: 'fallback',
       title,
       summary,
       cards,
       sections: [
+        {
+          title: '可查内容',
+          rows: missingCompetitionCoverageRows(relatedCompetitions),
+        },
         {
           title: '可以这样核对',
           rows: diagnosisRows,

@@ -16,7 +16,7 @@
 | --- | --- | --- | --- | --- |
 | P0-1 | AI 结果页文案清洗 | 页面出现内部过程说明，影响商业产品质感 | 已完成首轮结构压缩，继续做全页回归 | `product-copy-test`、`ai-native-answer-test` |
 | P0-2 | 加载与定位体验 | 点击开始分析后用户不知道系统是否在工作 | 已完成 loading、骨架屏和结果区定位 | `my-page-view-test`、`ai-native-answer-test` |
-| P0-3 | 未收录赛事恢复 | 搜“北京击剑联赛第一站”时需要解释为什么没有 | 已有未收录说明和相近赛事入口，需持续补数据覆盖状态 | `ai-acceptance-runtime-test` |
+| P0-3 | 未收录赛事恢复 | 搜“北京击剑联赛第一站”时需要解释为什么没有 | 本轮增强赛事、项目、名单和赛果四层状态 | `ai-acceptance-runtime-test` |
 | P0-4 | 俱乐部对比范围 | 用户问 U10 花剑男女，不能用泛俱乐部数据回答 | 已支持年份、年龄段、剑种、性别范围和相关赛事跳转 | `ai-acceptance-runtime-test` |
 | P0-5 | 赛前情报对象绑定 | 没有“我的孩子/学员”时不能说潜在对手 | 本轮已完成并通过测试 | `ai-prematch-focus-test`、`ai-acceptance-runtime-test` |
 
