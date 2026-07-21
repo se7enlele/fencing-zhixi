@@ -1109,6 +1109,26 @@ function competitionAliasTerms(competition) {
   return [...new Set(aliases.filter(Boolean))];
 }
 
+function competitionNameAliasTerms(competition) {
+  const values = [
+    competition?.sportName,
+    competition?.sportCode,
+  ];
+  const aliases = [];
+  for (const value of values.filter(Boolean)) {
+    aliases.push(value);
+    const noAdmin = chineseAdminAlias(value);
+    if (noAdmin && noAdmin !== compactText(value)) aliases.push(noAdmin);
+    const noYear = withoutYearAlias(value);
+    if (noYear !== String(value)) aliases.push(noYear);
+    const noAdminNoYear = chineseAdminAlias(noYear);
+    if (noAdminNoYear) aliases.push(noAdminNoYear);
+  }
+  const nameKey = competitionNameMatchKey(competition?.sportName || '');
+  if (nameKey) aliases.push(nameKey);
+  return [...new Set(aliases.map(compactText).filter((alias) => alias.length >= 4 && !/^20\d{2}$/.test(alias)))];
+}
+
 function statusLabel(status) {
   if (status === 'registration') return '报名中';
   if (status === 'upcoming') return '未开赛';
@@ -5422,7 +5442,7 @@ function detectCompetitionInQuery(query) {
     .map((competition) => {
       const name = compactText(competition.sportName);
       const haystack = compactText(cachedCompetitionSearchHaystack(competition));
-      const aliases = competitionAliasTerms(competition).map(compactText).filter(Boolean);
+      const aliases = competitionNameAliasTerms(competition);
       if (!name) return null;
       if (queryYear && competitionYear(competition) && competitionYear(competition) !== queryYear) return null;
 
@@ -5478,8 +5498,8 @@ function relatedCompetitionsForQuery(query) {
       const nameKey = competitionNameMatchKey(competition.sportName);
       const aliases = [
         nameKey,
-        ...competitionAliasTerms(competition).map(compactText),
-      ].filter((alias) => alias.length >= 4);
+        ...competitionNameAliasTerms(competition),
+      ].filter((alias) => alias.length >= 4 && !/^20\d{2}$/.test(alias));
       if (!aliases.length) return false;
       return keys.some((queryKey) => aliases.some((alias) => alias.includes(queryKey) || queryKey.includes(alias)));
     })

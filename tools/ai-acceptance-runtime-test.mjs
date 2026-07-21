@@ -33,6 +33,7 @@ const functionNames = [
   'chineseAdminAlias',
   'withoutYearAlias',
   'competitionAliasTerms',
+  'competitionNameAliasTerms',
   'competitionSearchHaystack',
   'cachedCompetitionSearchHaystack',
   'competitionEntrantCount',
@@ -256,6 +257,17 @@ const sampleCompetitions = [
     status: 'completed',
     itemCount: 0,
     items: [],
+  },
+  {
+    sportCode: 'FUTIAN2026',
+    sportName: '\u0032\u0030\u0032\u0036\u5e74\u201c\u798f\u7530\u676f\u201d\u96f7\u58f0\u51fb\u5251\u516c\u5f00\u8d5b',
+    season: '2026',
+    dateLabel: '2026.12.12 / 2026.12.13',
+    venue: '\u5e7f\u4e1c \u5e7f\u5dde',
+    region: '\u5e7f\u4e1c',
+    status: 'upcoming',
+    itemCount: 2,
+    items: [{ eventCode: 'FUTIAN2026-U10MF', eventName: 'U10 \u7537\u5b50\u82b1\u5251', shortEventName: 'U10 \u7537\u82b1' }],
   },
 ];
 
@@ -524,6 +536,9 @@ assert.ok(missingCompetitionFallback.actions.some((action) => action.sportCode =
 assert.ok(missingCompetitionFallback.actions.some((action) => action.query), 'missing competition fallback should offer a runnable follow-up question');
 assert.ok(missingCompetitionFallback.evidence.some((row) => row.kind === '\u76f8\u8fd1\u8d5b\u4e8b' && row.sportCode === 'BJLEAGUE2026S1'), 'missing competition fallback should cite similar competitions as source evidence');
 assert.ok(!/(\u5bfc\u5165|\u7ee7\u7eed\u751f\u6210|\u540e\u7eed|\u6570\u636e\u8fb9\u754c|\u6682\u672a\u8bc6\u522b)/.test(`${missingCompetitionFallback.title}${missingCompetitionFallback.summary}${missingCompetitionFallback.sections.map((section) => section.rows.join('')).join('')}`), 'missing competition fallback should use user-facing collection copy');
+
+const exactCompetitionWithSameYearNoise = context.detectCompetitionInQuery('\u0032\u0030\u0032\u0036\u5e74\u5317\u4eac\u51fb\u5251\u8054\u8d5b\u7b2c\u4e00\u7ad9');
+assert.equal(exactCompetitionWithSameYearNoise?.sportCode, 'BJLEAGUE2026S1', 'competition lookup must not match a random same-year event when the name points elsewhere');
 
 const fuzzyObjectFallback = context.buildAiAnswer('\u5c0f\u4f17');
 assert.equal(fuzzyObjectFallback.type, 'fallback', 'short incomplete object queries should enter guided recovery');
