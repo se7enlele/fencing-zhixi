@@ -7829,22 +7829,6 @@ function renderAiConversionBlock(report = {}) {
   `;
 }
 
-function aiAnswerMetaRows(report = {}) {
-  const rows = [];
-  if (report.query) rows.push({ label: '问题', value: report.query });
-  const evidenceCount = report.evidence?.length || 0;
-  rows.push({
-    label: '证据',
-    value: evidenceCount ? `${evidenceCount} 条可回查` : '当前为概览判断',
-  });
-  const actionCount = report.actions?.length || 0;
-  rows.push({
-    label: '动作',
-    value: actionCount ? `${actionCount} 个动作` : '可继续追问',
-  });
-  return rows;
-}
-
 function aiResultActionTitle(report = {}) {
   if (report.type === 'fallback' || report.type === 'empty') {
     return report.actions?.some((action) => action.query) ? '换个问法' : '选择一个结果';

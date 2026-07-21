@@ -212,10 +212,10 @@ assert.match(js, /function aiConversionServiceRows\(report = \{\}\)/, 'AI conver
 assert.match(js, /function renderAiConversionBlock\(report = \{\}\)/, 'AI answers must render a lightweight conversion block');
 assert.match(js, /<b>试用包含<\/b>/, 'AI conversion blocks must show a concrete trial contents label');
 assert.match(js, /aiConversionServiceRows\(report\)/, 'AI conversion blocks must derive trial contents from the report type');
-assert.match(js, /function aiAnswerMetaRows\(report = \{\}\)/, 'AI answers must summarize question, traceability and next actions');
+assert.doesNotMatch(js, /function aiAnswerMetaRows\(report = \{\}\)/, 'AI answers must not keep unused internal metadata helpers that can return to the UI');
 assert.doesNotMatch(js, /class="ai-answer-meta"/, 'AI answer renderer must not show internal question/evidence/action metadata cards');
-assert.match(js, /value: evidenceCount \? `\$\{evidenceCount\} 条可回查` : '当前为概览判断'/, 'AI result metadata must make traceability visible');
-assert.match(js, /value: actionCount \? `\$\{actionCount\} 个动作` : '可继续追问'/, 'AI result metadata must make next actions visible');
+assert.doesNotMatch(js, /label: '问题'[\s\S]*label: '证据'[\s\S]*label: '动作'/, 'AI answers must not expose internal metadata labels');
+assert.match(js, /来源记录/, 'AI answers must expose traceability through source records instead of metadata cards');
 assert.match(js, /const AI_ANSWER_CARD_LIMIT = 3/, 'AI answers must cap metric cards for a focused first screen');
 assert.match(js, /const AI_ANSWER_SECTION_LIMIT = 1/, 'AI answers must cap explanatory sections for a focused first screen');
 assert.match(js, /const AI_ANSWER_SECTION_ROW_LIMIT = 2/, 'AI answers must cap rows inside explanatory sections');
