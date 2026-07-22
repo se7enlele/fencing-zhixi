@@ -33,6 +33,9 @@ assert.doesNotMatch(js, /继续生成赛前情报|可继续生成|人工跟进|�
 assert.match(js, /常用报告/, 'home report center should use user-facing report copy');
 assert.match(js, /报告服务/, 'AI report planning answers should use user-facing report wording');
 assert.doesNotMatch(js, /产品化方向|商业化落地顺序|商业闭环|SaaS|生成赛前情报包方案|生成家长成长报告方案|生成教练工作台方案|赛前情报包方案|家长成长报告方案|教练学员分层方案|家长沟通口径/, 'AI business and report copy must avoid internal product-planning wording');
+assert.doesNotMatch(js, /title: '内容结构'|title: '交付方式'|\['核心价值'|\['交付节奏'/, 'AI report-service copy must avoid proposal-document wording');
+assert.match(js, /title: '报告会包含'[\s\S]*title: '重点数字'[\s\S]*title: '使用方式'/, 'AI report-service copy must use customer-facing report sections');
+assert.match(js, /\['适合用途'[\s\S]*\['使用节奏'/, 'AI report-service metric cards must describe customer value and usage rhythm');
 
 assert.doesNotMatch(js, /\bP0\b|\bP1\b/, 'frontend copy must avoid internal priority labels');
 

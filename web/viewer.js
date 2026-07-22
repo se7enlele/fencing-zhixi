@@ -7380,7 +7380,7 @@ function productTemplateMetricRows(kind) {
       ['可生成赛事', `${active.length} 场`],
       ['名单赛事', `${roster.length} 场`],
       ['关注选手', `${aiFocusedAthletes().length} 人`],
-      ['核心价值', '赛前决策'],
+      ['适合用途', '赛前决策'],
     ];
   }
   if (kind === 'parent-growth-report') {
@@ -7389,16 +7389,16 @@ function productTemplateMetricRows(kind) {
     return [
       ['关注孩子', `${focused.length} 人`],
       ['选手画像', `${athleteCount} 人`],
-      ['核心价值', '成长判断'],
-      ['交付节奏', '月/赛后'],
+      ['适合用途', '成长判断'],
+      ['使用节奏', '月/赛后'],
     ];
   }
   const clubs = state.clubSearchIndex || [];
   return [
     ['俱乐部画像', `${clubs.length} 个`],
     ['学员来源', '成绩画像'],
-    ['核心价值', '留存增长'],
-    ['交付节奏', '周/月'],
+    ['适合用途', '留存增长'],
+    ['使用节奏', '周/月'],
   ];
 }
 
@@ -7406,7 +7406,7 @@ function productTemplateSections(kind) {
   if (kind === 'prematch-pack') {
     return [
       {
-        title: '内容结构',
+        title: '报告会包含',
         rows: [
           '本场赛事概览：时间、地点、状态、项目和报名规模。',
           '关注对象：按历史项目判断可能参赛项目。',
@@ -7415,14 +7415,14 @@ function productTemplateSections(kind) {
         ],
       },
       {
-        title: '关键指标',
+        title: '重点数字',
         rows: [
           '报名人数、项目覆盖、关注选手相关项目、潜在强手数。',
           '历史最好名次、近期趋势、淘汰赛胜负、共同赛事证据。',
         ],
       },
       {
-        title: '交付方式',
+        title: '使用方式',
         rows: [
           '赛前 3-7 天形成提醒，便于确认名单、项目和强手。',
           '家长版突出风险和准备重点，教练版突出对手结构和训练安排。',
@@ -7433,7 +7433,7 @@ function productTemplateSections(kind) {
   if (kind === 'parent-growth-report') {
     return [
       {
-        title: '内容结构',
+        title: '报告会包含',
         rows: [
           '成长结论：近期变化、稳定性和下一步重点。',
           '参赛轨迹：按时间展示最近比赛、名次和项目变化。',
@@ -7442,14 +7442,14 @@ function productTemplateSections(kind) {
         ],
       },
       {
-        title: '关键指标',
+        title: '重点数字',
         rows: [
           '参赛次数、最好名次、最近名次、小组胜率、淘汰赛胜负。',
           '年度参赛频率、名次趋势、前八/奖牌记录、关键对手。',
         ],
       },
       {
-        title: '交付方式',
+        title: '使用方式',
         rows: [
           '赛后自动生成单场复盘，按月/季度生成成长报告。',
           '首页只显示核心结论，详情页保留证据和完整时间线。',
@@ -7459,7 +7459,7 @@ function productTemplateSections(kind) {
   }
   return [
     {
-      title: '内容结构',
+      title: '报告会包含',
       rows: [
         '学员分层：冲成绩、稳定成长、需要关注、新手积累。',
         '训练反馈：每个学员的训练重点和家长沟通重点。',
@@ -7468,14 +7468,14 @@ function productTemplateSections(kind) {
       ],
     },
     {
-      title: '关键指标',
+      title: '重点数字',
       rows: [
         '参赛人次、前八、奖牌、最好名次、参赛连续性。',
         '项目投入、年龄段断层、近期可关注赛事、代表学员。',
       ],
     },
     {
-      title: '交付方式',
+      title: '使用方式',
       rows: [
         '教练首页展示本周需要关注的学员和赛事。',
         '馆长视角展示团队增长、优势项目和可分享招生卡片。',

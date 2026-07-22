@@ -700,7 +700,7 @@ assert.ok(businessReport.actions.some((action) => action.coachSegmentationClubId
 const prematchTemplate = context.buildAiAnswer('\u751f\u6210\u8d5b\u524d\u60c5\u62a5\u5305\u6a21\u677f');
 assert.equal(prematchTemplate.type, 'product-template', 'prematch package request should route to product templates');
 assert.equal(prematchTemplate.templateKind, 'prematch-pack', 'prematch package template should preserve template kind');
-assert.ok(prematchTemplate.sections.some((section) => section.title === '\u5185\u5bb9\u7ed3\u6784'), 'prematch template should include report structure');
+assert.ok(prematchTemplate.sections.some((section) => section.title === '\u62a5\u544a\u4f1a\u5305\u542b'), 'prematch template should include user-facing report contents');
 assert.ok(prematchTemplate.evidence.some((row) => row.kind === '\u8d5b\u524d\u8d5b\u4e8b'), 'prematch template should cite prematch competitions');
 assert.ok(!prematchTemplate.evidence.some((row) => row.sportCode === 'RZSS2021040'), 'prematch template evidence should not cite completed historical competitions');
 assert.equal(prematchTemplate.evidence[0].sportCode, 'TJ2026JUNE', 'prematch template evidence should prioritize the nearest actionable competition');
@@ -709,7 +709,7 @@ assert.ok(prematchTemplate.actions.some((action) => action.prematchTemplateKind 
 const parentTemplate = context.buildAiAnswer('\u751f\u6210\u5bb6\u957f\u6210\u957f\u62a5\u544a\u6a21\u677f');
 assert.equal(parentTemplate.type, 'product-template', 'parent growth report request should route to product templates');
 assert.equal(parentTemplate.templateKind, 'parent-growth-report', 'parent template should preserve template kind');
-assert.ok(parentTemplate.sections.some((section) => section.title === '\u5173\u952e\u6307\u6807'), 'parent template should include metric requirements');
+assert.ok(parentTemplate.sections.some((section) => section.title === '\u91cd\u70b9\u6570\u5b57'), 'parent template should include user-facing key numbers');
 assert.ok(parentTemplate.actions.some((action) => action.parentGrowthAthleteId), 'parent template should open a real growth report when athlete data exists');
 
 const coachTemplate = context.buildAiAnswer('\u751f\u6210\u6559\u7ec3\u5b66\u5458\u5206\u5c42\u6a21\u677f');
