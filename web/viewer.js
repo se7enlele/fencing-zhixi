@@ -10097,9 +10097,19 @@ function compactCompetitionBarRows(rows, options = {}) {
   return [...visible, other];
 }
 
+function competitionItemPriorityValue(item) {
+  return Number(item.registrationCount)
+    || Number(item.roster?.length)
+    || Number(item.expectedRegistrationCount)
+    || Number(item.competitionNo)
+    || Number(item.poolQualifyNo)
+    || Number(item.playedEliminationMatchCount)
+    || 0;
+}
+
 function sortedCompetitionEventRows(rows) {
   return [...(rows || [])]
-    .sort((a, b) => (Number(b.competitionNo) || 0) - (Number(a.competitionNo) || 0) || displayEventName(a).localeCompare(displayEventName(b), 'zh-CN'));
+    .sort((a, b) => competitionItemPriorityValue(b) - competitionItemPriorityValue(a) || displayEventName(a).localeCompare(displayEventName(b), 'zh-CN'));
 }
 
 function compactCompetitionEventRows(rows, limit = 4) {
@@ -10609,8 +10619,8 @@ function competitionProjectFocusRows(competition, sortedItems) {
 
   if (secondaryCount) {
     rows.push({
-      title: '完整项目',
-      detail: `默认展示最关键的 4 个项目，其余 ${secondaryCount} 个可展开查看。`,
+      title: '更多项目',
+      detail: `还有 ${secondaryCount} 个项目，可按组别展开查看。`,
     });
   }
 
@@ -10634,7 +10644,7 @@ function renderCompetitionProjectGuide(competition, sortedItems) {
 
 function renderCompetitionProjectGroups(competition, sortedItems, eventCardHtml, options = {}) {
   const groups = competitionProjectGroups(sortedItems);
-  const summary = options.summary || '按年龄段查看全部项目';
+  const summary = options.summary || '查看全部项目';
   return `
     <details class="project-group-list">
       <summary>${escapeHtml(summary)}</summary>
@@ -10701,7 +10711,7 @@ function renderEventList(competition) {
       competition,
       sortedItems,
       eventCardHtml,
-      { summary: `按年龄段查看全部 ${sortedItems.length} 个项目` },
+      { summary: `查看全部 ${sortedItems.length} 个项目` },
     ) : ''}
   `;
 

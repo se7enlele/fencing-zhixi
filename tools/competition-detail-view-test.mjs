@@ -20,6 +20,7 @@ const context = {
 vm.createContext(context);
 vm.runInContext(`${source.slice(start, end)}
 globalThis.sortedCompetitionEventRows = sortedCompetitionEventRows;
+globalThis.competitionItemPriorityValue = competitionItemPriorityValue;
 globalThis.compactCompetitionBarRows = compactCompetitionBarRows;
 globalThis.compactCompetitionEventRows = compactCompetitionEventRows;
 globalThis.competitionDigestRows = competitionDigestRows;
@@ -76,6 +77,13 @@ const sortedEventRows = context.sortedCompetitionEventRows([
 ]);
 assert.equal(JSON.stringify(sortedEventRows.map((row) => row.shortEventName)), JSON.stringify(['U10 Foil', 'U8 Foil', 'U14 Foil']));
 
+const sortedPreEventRows = context.sortedCompetitionEventRows([
+  { shortEventName: 'U12 Foil', expectedRegistrationCount: 18 },
+  { shortEventName: 'U8 Foil', registrationCount: 30 },
+  { shortEventName: 'U10 Foil', roster: [{}, {}, {}], expectedRegistrationCount: 20 },
+]);
+assert.equal(JSON.stringify(sortedPreEventRows.map((row) => row.shortEventName)), JSON.stringify(['U8 Foil', 'U12 Foil', 'U10 Foil']));
+
 const groupedProjectRows = context.competitionProjectGroups([
   { shortEventName: 'U8 男花', competitionNo: 12 },
   { shortEventName: 'U10 男花', competitionNo: 8 },
@@ -121,7 +129,8 @@ assert.match(source, /function competitionProjectFocusRows\(competition, sortedI
 assert.match(source, /function renderCompetitionProjectGuide\(competition, sortedItems\)/, 'competition detail must render a project guide before raw project cards');
 assert.match(source, /function competitionProjectGroups\(items\)/, 'competition detail must group full project access by age band');
 assert.match(source, /function renderCompetitionProjectGroups\(competition, sortedItems, eventCardHtml, options = \{\}\)/, 'competition detail must render grouped full project access');
-assert.match(source, /按年龄段查看全部项目/, 'competition detail must offer grouped project navigation instead of a flat long list');
+assert.match(source, /查看全部项目/, 'competition detail must offer grouped project navigation instead of a flat long list');
+assert.match(source, /function competitionItemPriorityValue\(item\)/, 'competition project ordering must account for registration, roster, expected and score-backed counts');
 assert.match(source, /const chips = competitionProjectSummaryChips\(competition\)/, 'competition hero must use structural project summary chips');
 assert.match(source, /class="competition-scope-grid"/, 'competition hero must show compact scope metrics instead of raw full labels');
 assert.match(source, /project-summary-row/, 'competition hero project summary must have a dedicated compact row');
@@ -134,14 +143,15 @@ assert.match(source, /compactCompetitionEventRows\(eventRows, 3\)/, 'competition
 assert.match(source, /limit:\s*4,[\s\S]*otherLabel:\s*'其他年龄段'/, 'competition age distribution should aggregate lower-priority age buckets');
 assert.match(source, /const primaryItems = sortedItems\.slice\(0, 4\)/, 'competition event list should show only priority projects by default');
 assert.match(source, /renderCompetitionProjectGuide\(competition, sortedItems\)/, 'competition event list must put user-facing project guidance before cards');
-assert.match(source, /默认展示最关键的 4 个项目/, 'project guide must explain collapsed project access in user-facing terms');
+assert.match(source, /还有 \$\{secondaryCount\} 个项目，可按组别展开查看。/, 'project guide must explain collapsed project access in user-facing terms');
 assert.match(source, /renderCompetitionRosterSnapshot\(competition\)/, 'pre-event competition insight area must include roster snapshot analysis');
 assert.match(source, /比赛进行中，可优先查看已出结果的项目和需要继续关注的组别/, 'live competition hero must explain the in-progress user value');
 assert.match(source, /label: '查看赛事分析'/, 'competition detail AI action must use user-facing analysis copy');
 assert.match(source, /label: '查看赛前提醒'/, 'competition detail prematch action must use user-facing reminder copy');
 assert.match(source, /查看本场赛前提醒/, 'competition detail prematch CTA must be result-oriented');
 assert.doesNotMatch(source, /AI 分析赛事|生成本场赛前情报包/, 'competition detail CTAs must not expose machine-oriented or process wording');
-assert.match(source, /summary: `[\s\S]*\$\{sortedItems\.length\}[\s\S]*`/, 'competition event list must expose full project access as one grouped entry');
+assert.match(source, /summary: `查看全部 \$\{sortedItems\.length\} 个项目`/, 'competition event list must expose full project access as one grouped entry');
+assert.doesNotMatch(source, /按年龄段查看全部|默认展示最关键/, 'competition detail must avoid implementation-like project display explanations');
 assert.doesNotMatch(source, /class="event-list-more"/, 'competition event list must not add a second nested expand layer');
 assert.match(source, /secondaryItems\.length/, 'competition event list must keep full project access without showing everything by default');
 assert.doesNotMatch(source, /更新后会展示具体组别、剑种、报名规模和后续赛果入口/, 'empty project copy must not expose back-office update wording');
