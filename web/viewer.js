@@ -6204,12 +6204,12 @@ function buildAiFallbackReport(query) {
   if (childIntent) {
     return {
       type: 'fallback',
-      title: '先确定关注对象',
-      summary: '请先选择孩子或输入选手姓名，再查看他的参赛记录、近期变化和同组表现。',
+      title: '先选择孩子或选手',
+      summary: '输入选手姓名，或在“我的”里选择已关注的孩子，就能生成成长报告和近期比赛判断。',
       cards: [
-        ['可看内容', '成长报告'],
-        ['需要补充', '选手姓名'],
-        ['可问画像', `${entityCounts.athletes} 个`],
+        ['可生成', '成长报告'],
+        ['需要', '选手姓名'],
+        ['可查看', `${entityCounts.athletes} 个画像`],
       ],
       sections: [
         {
@@ -6267,20 +6267,20 @@ function buildAiFallbackReport(query) {
   const candidateTerms = aiFallbackCandidateTerms(text);
   const preferClub = candidates.clubs.some((club) => fallbackMatchScore(club.club, candidateTerms) >= 40);
   const athleteEvidence = candidates.athletes.map((athlete) => ({
-      kind: '相近选手',
+      kind: '选手',
       label: athlete.name,
       detail: `${athlete.club || '个人'} · ${athlete.appearances || 0} 次记录`,
       athleteId: athlete.id,
       eventCode: athlete.firstEventCode,
     }));
   const clubEvidence = candidates.clubs.map((club) => ({
-      kind: '相近俱乐部',
+      kind: '剑馆',
       label: club.club,
       detail: `参赛 ${club.entrants || 0} 人次 · 前八 ${club.top8 || 0}`,
       clubId: club.id,
     }));
   const competitionEvidence = candidates.competitions.map((competition) => ({
-      kind: '相近赛事',
+      kind: '赛事',
       label: competition.sportName,
       detail: [displayDateLabel(competition.dateLabel), competition.venue || competition.region || '', statusLabel(competition.status)].filter(Boolean).join(' · '),
       sportCode: competition.sportCode,
@@ -6305,12 +6305,12 @@ function buildAiFallbackReport(query) {
         ];
     return {
       type: 'fallback',
-      title: '先确认你要看的对象',
-      summary: '这个问题还缺少明确对象。下面是按关键词找到的相近结果，先选中对象后可以继续分析。',
+      title: '选择你想看的对象',
+      summary: '下面是和问题相关的选手、剑馆和赛事。先点开一个对象，再继续看成长、对比或赛前分析。',
       cards: [
-        ['相近选手', `${candidates.athletes.length} 个`],
-        ['相近俱乐部', `${candidates.clubs.length} 个`],
-        ['相近赛事', `${candidates.competitions.length} 场`],
+        ['可能是选手', `${candidates.athletes.length} 个`],
+        ['可能是剑馆', `${candidates.clubs.length} 个`],
+        ['可能是赛事', `${candidates.competitions.length} 场`],
       ],
       sections: [
         {
@@ -6332,8 +6332,8 @@ function buildAiFallbackReport(query) {
 
   return {
     type: 'fallback',
-    title: '需要补充一个对象',
-    summary: '请写出选手姓名、俱乐部名称或赛事名称，例如“分析马潇和陶嘉月的对比情况”。',
+    title: '告诉我你想看的对象',
+    summary: '可以输入选手姓名、剑馆名称或赛事名称，例如“分析马潇和陶嘉月的对比情况”。',
     cards: [
       ['选手画像', `${entityCounts.athletes} 个`],
       ['俱乐部', `${entityCounts.clubs} 个`],
@@ -8452,8 +8452,8 @@ function aiResultActionTitle(report = {}) {
   if (report.type === 'fallback' || report.type === 'empty') {
     const hasQueryAction = report.actions?.some((action) => action.query);
     const hasDirectAction = report.actions?.some((action) => !action.query);
-    if (hasQueryAction && hasDirectAction) return '选择或换个问法';
-    return hasQueryAction ? '换个问法' : '选择一个结果';
+    if (hasQueryAction && hasDirectAction) return '选择对象或继续问';
+    return hasQueryAction ? '继续这样问' : '选择一个结果';
   }
   if (report.type === 'competition-stats' || report.type === 'prematch') return '查看赛事';
   if (report.type === 'growth' || report.type === 'comparison') return '查看选手';

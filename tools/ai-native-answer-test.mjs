@@ -123,7 +123,7 @@ assert.match(js, /title: '补充方式'/, 'AI child-intent fallback must tell pa
 assert.match(js, /title: '可以这样问'/, 'AI generic fallback must provide concrete question shapes');
 assert.match(js, /label: '问天津近期报名', query: '天津近期报名情况'/, 'AI fallback should offer a direct prematch rewrite suggestion');
 assert.match(js, /label: '问赛事数量', query: '2026年天津有几场比赛'/, 'AI fallback should offer a direct competition-stat rewrite suggestion');
-assert.match(js, /if \(hasQueryAction && hasDirectAction\) return '选择或换个问法';/, 'AI fallback action heading should distinguish direct selections from rewrite suggestions');
+assert.match(js, /if \(hasQueryAction && hasDirectAction\) return '选择对象或继续问';/, 'AI fallback action heading should distinguish direct selections from rewrite suggestions');
 assert.doesNotMatch(js, /试试赛事统计|试试选手成长/, 'AI fallback actions should be phrased as direct user questions');
 assert.match(js, /scope: hasItemIntent \? 'item' : 'competition'/, 'AI competition ranking must route project and group questions separately');
 assert.match(js, /filters\.scope === 'item'/, 'AI competition ranking must build a project-level answer');

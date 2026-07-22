@@ -67,7 +67,7 @@ assert.match(js, /俱乐部名称一致/, 'club search result reasons should use
 assert.match(js, /相关项目：/, 'search result reasons should phrase project evidence as related records');
 assert.match(js, /已看到 \$\{rosterRows\.length\} 人次报名信息/, 'prematch copy should describe visible roster information in user-facing language');
 assert.match(js, /筛选结果：/, 'AI-to-database filter context should use user-facing wording');
-assert.match(js, /选择或换个问法/, 'AI fallback action title should support both direct choices and rewritten questions');
+assert.match(js, /选择对象或继续问/, 'AI fallback action title should support both direct choices and rewritten questions');
 assert.doesNotMatch(js, /\$\{yearLabel\} \$\{monthLabel\} \$\{regionLabel\}|\$\{yearLabel\}\$\{filters\.month \? monthLabel : ''\}/, 'AI answer copy must not concatenate all-year or all-month filler labels into titles and summaries');
 assert.doesNotMatch(js, /'全部剑种'|'全部性别'|filters\.years\?\.length \? filters\.years\.join\('、'\) : '全部年份'/, 'AI comparison copy must not expose all-scope filler labels');
 

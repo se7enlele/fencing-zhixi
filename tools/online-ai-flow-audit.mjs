@@ -113,12 +113,12 @@ const cases = [
   {
     id: 'recovery',
     query: '孩子击剑值不值得继续',
-    expect: ['先确定关注对象'],
+    expect: ['先选择孩子或选手'],
   },
   {
     id: 'fuzzy-object-recovery',
     query: '小众',
-    expect: ['先确认你要看的对象', '山东小众体育', '相近俱乐部'],
+    expect: ['选择你想看的对象', '山东小众体育', '可能是剑馆'],
     requireEvidence: true,
   },
 ];

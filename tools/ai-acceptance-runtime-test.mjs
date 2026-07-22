@@ -608,7 +608,7 @@ assert.ok(abbreviatedClubComparison.actions.some((action) => action.clubId === '
 
 const childInvestmentFallback = context.buildAiAnswer('\u5b69\u5b50\u51fb\u5251\u503c\u4e0d\u503c\u5f97\u7ee7\u7eed');
 assert.equal(childInvestmentFallback.type, 'fallback', 'general child investment questions should stay in recovery when no child is named');
-assert.match(childInvestmentFallback.title, /\u5148\u786e\u5b9a\u5173\u6ce8\u5bf9\u8c61/, 'child investment fallback should ask for the child or athlete first');
+assert.match(childInvestmentFallback.title, /\u5148\u9009\u62e9\u5b69\u5b50\u6216\u9009\u624b/, 'child investment fallback should ask for the child or athlete first');
 assert.ok(childInvestmentFallback.actions.some((action) => action.mainTab === 'my'), 'child investment fallback should route users to manage followed children');
 assert.ok(childInvestmentFallback.actions.some((action) => action.query === '\u5929\u6d25\u8fd1\u671f\u62a5\u540d\u60c5\u51b5'), 'child investment fallback should offer a runnable rewrite suggestion');
 assert.ok(!/(\u6682\u672a\u8bc6\u522b|\u5206\u6790\u53e3\u5f84|\u540e\u7eed)/.test(`${childInvestmentFallback.title}${childInvestmentFallback.summary}`), 'fallback copy should avoid internal or dead-end wording');
@@ -646,8 +646,8 @@ assert.equal(exactCompetitionWithSameYearNoise?.sportCode, 'BJLEAGUE2026S1', 'co
 
 const fuzzyObjectFallback = context.buildAiAnswer('\u5c0f\u4f17');
 assert.equal(fuzzyObjectFallback.type, 'fallback', 'short incomplete object queries should enter guided recovery');
-assert.match(fuzzyObjectFallback.title, /\u5148\u786e\u8ba4\u4f60\u8981\u770b\u7684\u5bf9\u8c61/, 'fuzzy fallback should ask the user to confirm a specific object');
-assert.ok(fuzzyObjectFallback.evidence.some((row) => row.kind === '\u76f8\u8fd1\u4ff1\u4e50\u90e8' && row.clubId === 'club-sdzx'), 'fuzzy fallback should surface matching club candidates');
+assert.match(fuzzyObjectFallback.title, /\u9009\u62e9\u4f60\u60f3\u770b\u7684\u5bf9\u8c61/, 'fuzzy fallback should ask the user to confirm a specific object');
+assert.ok(fuzzyObjectFallback.evidence.some((row) => row.kind === '\u5251\u9986' && row.clubId === 'club-sdzx'), 'fuzzy fallback should surface matching club candidates');
 assert.ok(fuzzyObjectFallback.actions.some((action) => action.clubId === 'club-sdzx'), 'fuzzy fallback should let users open the matching club');
 assert.equal(fuzzyObjectFallback.actions[0]?.clubId, 'club-sdzx', 'club-like fuzzy fallback should prioritize the matching club action');
 assert.ok(fuzzyObjectFallback.actions.some((action) => action.query && /\u5c71\u4e1c\u5c0f\u4f17\u4f53\u80b2/.test(action.query)), 'fuzzy fallback should offer a runnable club-analysis rewrite');
@@ -656,7 +656,7 @@ assert.ok(fuzzyObjectFallback.sections?.some((section) => section.title === '\u5
 
 const singleSurnameFallback = context.buildAiAnswer('\u8521');
 assert.equal(singleSurnameFallback.type, 'fallback', 'single-character surname queries should stay in guided recovery');
-assert.ok(singleSurnameFallback.evidence.some((row) => row.kind === '\u76f8\u8fd1\u9009\u624b' && row.athleteId === 'cai'), 'single-character surname recovery should surface matching athletes');
+assert.ok(singleSurnameFallback.evidence.some((row) => row.kind === '\u9009\u624b' && row.athleteId === 'cai'), 'single-character surname recovery should surface matching athletes');
 assert.ok(singleSurnameFallback.actions.some((action) => action.athleteId === 'cai'), 'single-character surname recovery should let users open the matching athlete');
 assert.ok(singleSurnameFallback.actions.some((action) => action.query && /\u8521\u5ef7\u5f67/.test(action.query)), 'single-character surname recovery should offer a runnable growth question');
 assert.ok(!/(\u6682\u672a\u8bc6\u522b|\u5206\u6790\u53e3\u5f84|\u540e\u7eed)/.test(`${singleSurnameFallback.title}${singleSurnameFallback.summary}`), 'single-character surname recovery should avoid dead-end wording');
