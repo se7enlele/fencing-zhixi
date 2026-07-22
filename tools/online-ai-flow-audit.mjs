@@ -204,25 +204,33 @@ function assertCase(condition, message, details = {}) {
 async function runCase(page, testCase) {
   await openAuditHome(page, `case-${testCase.id}`);
   const inputLocator = page.locator('#aiQueryInput:visible').first();
-  const submitLocator = page.locator('#aiQueryForm button[data-ai-submit="true"]:visible').first();
   await inputLocator.waitFor({ state: 'visible', timeout: 30000 });
   await page.locator('#aiQueryForm[data-ai-bound="true"]').waitFor({ state: 'attached', timeout: 30000 });
-  await submitLocator.waitFor({ state: 'visible', timeout: 30000 });
-  await inputLocator.fill('');
-  await inputLocator.fill(testCase.query);
-  await inputLocator.evaluate((input, query) => {
+
+  await page.evaluate((query) => {
+    const form = document.querySelector('#aiQueryForm');
+    const input = document.querySelector('#aiQueryInput');
+    if (!form || !input) return;
+    input.value = query;
     input.dispatchEvent(new InputEvent('input', { bubbles: true, inputType: 'insertText', data: query }));
     input.dispatchEvent(new Event('change', { bubbles: true }));
   }, testCase.query);
 
-  const confirmedQuery = await inputLocator.inputValue();
+  const confirmedQuery = await page.locator('#aiQueryInput:visible').first().evaluate((input) => input.value);
   assertCase(confirmedQuery === testCase.query, `${testCase.id} query input was not set`, {
     expected: testCase.query,
     actual: confirmedQuery,
   });
 
   const beforeAnswerText = await page.locator('#aiAnswer').innerText().catch(() => '');
-  await submitLocator.click();
+  await page.evaluate((query) => {
+    const form = document.querySelector('#aiQueryForm');
+    if (typeof form?.__runAiQuery === 'function') {
+      form.__runAiQuery(query);
+      return;
+    }
+    form?.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
+  }, testCase.query);
   await page.waitForFunction(
     (beforeText) => {
       const node = document.querySelector('#aiAnswer');

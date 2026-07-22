@@ -86,7 +86,7 @@ assert.match(js, /function aiProjectHints\(query\)/, 'AI club reports must detec
 assert.match(js, /function aiProjectScopeLabel\(hints = \[\]\)/, 'AI club reports must format project hints as natural user-facing labels');
 assert.match(js, /function projectMatchesAiHints\(label, hints\)/, 'AI club reports must filter projects by question hints');
 assert.match(js, /function aiClubEvidenceEvents\(club, hints = \[\], limit = 7\)/, 'AI club reports must prioritize evidence that matches project hints');
-assert.match(js, /if \(!evidenceRows\.length && club\.id\)[\s\S]*kind: '俱乐部画像'[\s\S]*clubId: club\.id/, 'AI club reports must fall back to a clickable club-profile evidence source');
+assert.match(js, /const evidenceRows = \[[\s\S]*club\.id \? \{[\s\S]*kind: '俱乐部画像'[\s\S]*clubId: club\.id[\s\S]*\.\.\.projectEvidenceRows/, 'AI club reports must put the clickable club profile before project evidence');
 assert.match(js, /function aiCompetitionStatsDecisionRows\(rows, actionRows, rosterRows, scoreRows\)/, 'AI competition stats must translate counts into product-facing next-step judgment');
 assert.match(js, /function detectCompetitionRankingQuery\(query\)/, 'AI must detect competition ranking questions');
 assert.match(js, /const hasStatsIntent = \/\(有几场\|多少场\|几场\|多少\|统计\|数量\|列表\|有哪些\|哪几场\|人数最多\|规模最大\|最多人\)\//, 'AI competition stats should require an explicit statistics intent');

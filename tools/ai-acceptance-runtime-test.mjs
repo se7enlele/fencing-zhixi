@@ -535,8 +535,11 @@ assert.equal(clubReport.type, 'club');
 assert.match(clubReport.title, /U8 男花/, 'club scoped query should preserve natural project hints in title');
 assert.doesNotMatch(clubReport.title, /U8 男 花/, 'club scoped query should not split gender and weapon in the visible title');
 assert.ok(clubReport.sections.some((section) => section.title === '重点项目'), 'club scoped query should show focused projects');
-assert.equal(clubReport.evidence[0].eventCode, 'CLUB-U8MF', 'club scoped query should make matching project evidence primary');
-assert.match(clubReport.evidence[0].label, /U8.*男.*花/, 'club scoped query evidence label should match the requested project');
+assert.equal(clubReport.evidence[0].clubId, 'club-sdzx', 'club scoped query should make the stable club profile the primary evidence target');
+assert.ok(
+  clubReport.evidence.some((row) => row.eventCode === 'CLUB-U8MF' && /U8.*男.*花/.test(row.label)),
+  'club scoped query should keep matching project evidence as a supporting source',
+);
 
 
 const recruitingReport = context.buildAiAnswer('山东小众体育招生怎么讲');

@@ -7779,7 +7779,7 @@ function buildAiClubReport(query, club) {
   const projects = (matchedProjects.length ? matchedProjects : allProjects).slice(0, 5);
   const bestProject = projects[0] || null;
   const projectScope = aiProjectScopeLabel(hints);
-  const evidenceRows = aiClubEvidenceEvents(club, hints, 7)
+  const projectEvidenceRows = aiClubEvidenceEvents(club, hints, 7)
     .filter((event) => event.eventCode)
     .map((event) => ({
       kind: '俱乐部记录',
@@ -7788,15 +7788,16 @@ function buildAiClubReport(query, club) {
       reason: '用于核对俱乐部参赛项目和成绩来源',
       eventCode: event.eventCode,
     }));
-  if (!evidenceRows.length && club.id) {
-    evidenceRows.push({
+  const evidenceRows = [
+    club.id ? {
       kind: '俱乐部画像',
       label: club.club,
       detail: `${club.entrants || 0} 人次 · 前八 ${club.top8 || 0} · 奖牌 ${club.medals || 0}`,
       reason: '用于核对俱乐部整体成绩来源',
       clubId: club.id,
-    });
-  }
+    } : null,
+    ...projectEvidenceRows,
+  ].filter(Boolean);
   return {
     type: 'club',
     title: `${club.club}${projectScope ? ` ${projectScope}` : ''}分析`,
