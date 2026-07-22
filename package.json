@@ -15,6 +15,7 @@
     "analysis:three-year": "node tools/three-year-analysis.mjs",
     "coverage:data:online": "node tools/data-coverage-report.mjs --url=https://fencingai.uk/api/events",
     "audit:online-ai": "node tools/online-ai-flow-audit.mjs",
+    "audit:online-p0": "node tools/online-p0-interaction-audit.mjs",
     "sync:platform": "node tools/sync-platform-data.mjs",
     "sync:scheduled": "node tools/scheduled-sync.mjs",
     "sync:scheduled:dry": "node tools/scheduled-sync.mjs --dry-run",
