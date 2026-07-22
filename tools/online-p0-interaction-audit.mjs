@@ -39,7 +39,7 @@ async function runAiQuery(page, query) {
     input.dispatchEvent(new Event('change', { bubbles: true }));
     form.__runAiQuery?.(text);
   }, query);
-  await page.locator('#aiAnswer .ai-answer-card').first().waitFor({ state: 'visible', timeout: 45000 });
+  await page.locator('#aiAnswer .ai-answer-card:visible').first().waitFor({ state: 'visible', timeout: 45000 });
   await page.waitForTimeout(250);
 }
 

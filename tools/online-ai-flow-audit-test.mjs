@@ -21,6 +21,7 @@ assert.match(p0Source, /const expectedAssetVersion = process\.env\.FENCINGAI_EXP
 assert.match(p0Source, /async function auditAssetVersion\(page\)/, 'P0 audit must check HTML asset cache-busting references');
 assert.match(p0Source, /assets\.script\.includes\(expectedAssetVersion\)/, 'P0 audit must require the expected viewer.js version');
 assert.match(p0Source, /assets\.stylesheet\.includes\(expectedAssetVersion\)/, 'P0 audit must require the expected viewer.css version');
+assert.match(p0Source, /#aiAnswer \.ai-answer-card:visible/, 'P0 audit must wait for the visible AI answer card, not a hidden stale instance');
 assert.match(p0Source, /async function auditFocusedHome\(page\)/, 'P0 audit must verify the focused landing page structure');
 assert.match(p0Source, /priorityCards === 1/, 'P0 audit must catch stacked home priority cards');
 assert.match(p0Source, /result\.text\.includes\('下一步'\) && !result\.text\.includes\('关注与赛事'\)/, 'P0 audit must require the focused next-step heading');
