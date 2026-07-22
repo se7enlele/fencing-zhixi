@@ -625,6 +625,7 @@ const childInvestmentFallback = context.buildAiAnswer('\u5b69\u5b50\u51fb\u5251\
 assert.equal(childInvestmentFallback.type, 'fallback', 'general child investment questions should stay in recovery when no child is named');
 assert.match(childInvestmentFallback.title, /\u5148\u9009\u62e9\u5b69\u5b50\u6216\u9009\u624b/, 'child investment fallback should ask for the child or athlete first');
 assert.ok(childInvestmentFallback.actions.some((action) => action.mainTab === 'my'), 'child investment fallback should route users to manage followed children');
+assert.equal(childInvestmentFallback.actions[0]?.mainTab, 'my', 'child investment fallback should keep the follow-object action visible in the first action slot');
 assert.ok(childInvestmentFallback.actions.some((action) => action.query === '\u5929\u6d25\u8fd1\u671f\u62a5\u540d\u60c5\u51b5'), 'child investment fallback should offer a runnable rewrite suggestion');
 assert.ok(!/(\u6682\u672a\u8bc6\u522b|\u5206\u6790\u53e3\u5f84|\u540e\u7eed)/.test(`${childInvestmentFallback.title}${childInvestmentFallback.summary}`), 'fallback copy should avoid internal or dead-end wording');
 
@@ -677,6 +678,13 @@ assert.ok(singleSurnameFallback.actions.some((action) => action.athleteId === 'c
 assert.ok(singleSurnameFallback.actions.some((action) => action.query && /\u8521\u5ef7\u5f67/.test(action.query)), 'single-character surname recovery should offer a runnable growth question');
 assert.ok(!/(\u6682\u672a\u8bc6\u522b|\u5206\u6790\u53e3\u5f84|\u540e\u7eed)/.test(`${singleSurnameFallback.title}${singleSurnameFallback.summary}`), 'single-character surname recovery should avoid dead-end wording');
 assert.ok(!singleSurnameFallback.cards.some(([, value]) => /^0 /.test(value)), 'single-character surname recovery should not show zero-count candidate categories');
+
+const genericFallback = context.buildAiAnswer('\u968f\u4fbf\u770b\u770b');
+assert.equal(genericFallback.type, 'fallback', 'generic unclear questions should stay in guided recovery');
+assert.equal(genericFallback.actions[0]?.mainTab, 'competitions', 'generic fallback should keep the database recovery action visible in the first action slot');
+assert.ok(genericFallback.actions.slice(0, 3).some((action) => action.mainTab === 'competitions'), 'generic fallback first-screen actions must include the database path');
+assert.ok(genericFallback.actions.slice(0, 3).some((action) => action.query), 'generic fallback first-screen actions must still include a runnable rewritten question');
+assert.ok(!/(\u6682\u672a\u8bc6\u522b|\u5206\u6790\u53e3\u5f84|\u540e\u7eed)/.test(`${genericFallback.title}${genericFallback.summary}`), 'generic fallback copy should avoid internal or dead-end wording');
 
 const capabilityGuide = context.buildAiAnswer('\u6211\u60f3\u770b\u770b\u8fd9\u4e2a\u4ea7\u54c1\u80fd\u505a\u4ec0\u4e48');
 assert.equal(capabilityGuide.type, 'capability-guide', 'generic exploratory questions should route to a capability guide, not a dead-end fallback');

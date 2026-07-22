@@ -6394,8 +6394,8 @@ function buildAiFallbackReport(query) {
         },
       ],
       actions: [
-        ...aiFallbackRewriteActions(text),
         { label: '管理关注对象', mainTab: 'my' },
+        ...aiFallbackRewriteActions(text),
       ],
       evidence: [],
     };
@@ -6518,8 +6518,8 @@ function buildAiFallbackReport(query) {
       },
     ],
     actions: [
-      ...aiFallbackRewriteActions(text),
       { label: '进入数据库', mainTab: 'competitions' },
+      ...aiFallbackRewriteActions(text),
     ],
     evidence: [],
   };

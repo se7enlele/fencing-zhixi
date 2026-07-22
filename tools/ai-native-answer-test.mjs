@@ -127,6 +127,8 @@ assert.match(js, /对比两名选手或两家俱乐部时，写清双方名称�
 assert.match(js, /看赛前信息时，写清目标地区或赛事名；有关注选手后，会优先显示相关项目。/, 'AI fallback must guide prematch questions without implying fake opponents');
 assert.match(js, /title: '补充方式'/, 'AI child-intent fallback must tell parents how to continue');
 assert.match(js, /title: '可以这样问'/, 'AI generic fallback must provide concrete question shapes');
+assert.match(js, /actions: \[\s*\{ label: '管理关注对象', mainTab: 'my' \},\s*\.\.\.aiFallbackRewriteActions\(text\),\s*\]/, 'AI child-intent fallback must make the follow-object action visible before rewrite suggestions');
+assert.match(js, /actions: \[\s*\{ label: '进入数据库', mainTab: 'competitions' \},\s*\.\.\.aiFallbackRewriteActions\(text\),\s*\]/, 'AI generic fallback must make the database recovery action visible before rewrite suggestions');
 assert.match(js, /label: '问天津近期报名', query: '天津近期报名情况'/, 'AI fallback should offer a direct prematch rewrite suggestion');
 assert.match(js, /label: '问赛事数量', query: '2026年天津有几场比赛'/, 'AI fallback should offer a direct competition-stat rewrite suggestion');
 assert.match(js, /\['可以问', '选手\/剑馆\/赛事'\][\s\S]*\['建议补充', '年份\/地区\/项目'\][\s\S]*\['也可以', '进入数据库'\]/, 'AI generic fallback cards must show user next steps instead of raw database totals');
