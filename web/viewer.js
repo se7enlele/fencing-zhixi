@@ -281,7 +281,7 @@ async function syncUserProfile() {
     body: JSON.stringify(currentUserProfilePayload()),
   });
   const result = await response.json();
-  if (!response.ok || !result.ok) throw new Error(result.message || '同步失败');
+  if (!response.ok || !result.ok) throw new Error(result.message || '保存失败');
   if (result.user) {
     state.authUser = result.user;
     localStorage.setItem(AUTH_USER_KEY, JSON.stringify(result.user));
@@ -329,7 +329,7 @@ async function submitAccountLogin(form) {
     state.authToken = result.token;
     state.authUser = result.user;
     state.authCapabilities = result.capabilities || state.authCapabilities;
-    state.accountStatus = result.isNew ? '账号已创建，本机内容已同步。' : '已登录，本机内容已同步。';
+    state.accountStatus = result.isNew ? '账号已创建，关注和报告已保存。' : '已登录，关注和报告已保存。';
     localStorage.setItem(AUTH_TOKEN_KEY, state.authToken);
     localStorage.setItem(AUTH_USER_KEY, JSON.stringify(state.authUser));
     applyUserProfile(result.profile || {});
@@ -337,7 +337,7 @@ async function submitAccountLogin(form) {
     await hydrateFollowedAthleteProfiles();
     renderPersonalPages();
     renderHomePage();
-    if (status) status.textContent = result.isNew ? '账号已创建，本机内容已同步。' : '已登录，本机内容已同步。';
+    if (status) status.textContent = result.isNew ? '账号已创建，关注和报告已保存。' : '已登录，关注和报告已保存。';
     if (views.accountLogin?.classList.contains('active')) {
       state.viewStack = ['my'];
       state.activeMainTab = 'my';
@@ -522,7 +522,7 @@ async function exportAccountData(button) {
 
 async function clearAccountData(button) {
   if (!state.authToken) return;
-  if (!window.confirm('确认清空账号内的关注、报告和历史记录？本机当前页面也会同步清空。')) return;
+  if (!window.confirm('确认清空账号内的关注、报告和历史记录？当前页面也会清空这些内容。')) return;
   const original = button?.textContent || '';
   if (button) button.textContent = '正在清空';
   try {
