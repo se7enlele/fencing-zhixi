@@ -1940,6 +1940,10 @@ select:focus {
   opacity: 0.82;
 }
 
+.ai-workspace.is-running .ai-home-primary {
+  box-shadow: 0 14px 34px rgba(15, 37, 64, 0.18);
+}
+
 .ai-loading-card {
   display: grid;
   gap: 12px;
@@ -1974,6 +1978,13 @@ select:focus {
   line-height: 1.35;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.ai-loading-head em {
+  color: var(--muted);
+  font-size: 12px;
+  font-style: normal;
+  line-height: 1.45;
 }
 
 .ai-loading-progress {

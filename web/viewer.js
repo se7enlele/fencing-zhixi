@@ -5478,8 +5478,9 @@ function renderAiLoadingState(query = '') {
   return `
     <div class="ai-loading-card" role="status" aria-live="polite" aria-busy="true">
       <div class="ai-loading-head">
-        <strong>正在生成分析</strong>
+        <strong>正在分析</strong>
         <span>${escapeHtml(label || '正在查找相关记录')}</span>
+        <em>正在整理可核对的比赛记录，请稍候。</em>
       </div>
       <div class="ai-loading-progress" aria-hidden="true"><i></i></div>
       <div class="ai-loading-steps">
@@ -5547,6 +5548,7 @@ function bindAiWorkspace(container) {
   const answer = container.querySelector('#aiAnswer');
   const submitButton = form?.querySelector('button[data-ai-submit="true"]') || form?.querySelector('button[type="submit"]');
   if (!form || !input || !answer) return;
+  const workspace = form.closest('.ai-workspace');
   if (submitButton) {
     submitButton.textContent = '开始分析';
     submitButton.dataset.aiSubmit = 'true';
@@ -5584,12 +5586,14 @@ function bindAiWorkspace(container) {
     state.aiActiveQuery = normalizedQuery;
     state.aiActiveReport = null;
     state.isAiAnswerLoading = true;
+    workspace?.classList.add('is-running');
     if (submitButton) {
       submitButton.disabled = true;
-      submitButton.textContent = '正在生成...';
+      submitButton.textContent = '分析中';
+      submitButton.setAttribute('aria-disabled', 'true');
     }
     answer.innerHTML = renderAiLoadingState(normalizedQuery);
-    scrollToResultPanel(answer, 'auto');
+    scrollToResultPanel(answer, 'smooth');
     try {
       const [contextResult] = await Promise.allSettled([
         waitForAiPrimaryDataReady().then(() => ensureAiEntityContext(normalizedQuery)),
@@ -5626,9 +5630,11 @@ function bindAiWorkspace(container) {
     } finally {
       answer.setAttribute('aria-busy', 'false');
       form.classList.remove('is-submitting');
+      workspace?.classList.remove('is-running');
       if (submitButton) {
         submitButton.disabled = false;
         submitButton.textContent = '开始分析';
+        submitButton.removeAttribute('aria-disabled');
       }
     }
   };

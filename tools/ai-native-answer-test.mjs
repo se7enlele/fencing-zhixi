@@ -46,12 +46,16 @@ assert.match(js, /Boolean\(\(state\.competitions \|\| \[\]\)\.length \|\| Number
 assert.match(js, /function buildAiDataLoadingReport\(query\)/, 'AI home prompt must show a loading-safe fallback instead of answering from empty data');
 assert.match(js, /hasAiPrimaryDataReady\(\)[\s\S]*\? buildAiAnswer\(normalizedQuery\)[\s\S]*: buildAiDataLoadingReport\(normalizedQuery\)/, 'AI catch path must not build normal answers from empty data');
 assert.match(js, /<div class="ai-loading-progress" aria-hidden="true"><i><\/i><\/div>/, 'AI loading state must include a visible progress bar');
-assert.match(js, /<strong>正在生成分析<\/strong>[\s\S]*<span>\$\{escapeHtml\(label \|\| '正在查找相关记录'\)\}<\/span>/, 'AI loading state must tell users that the answer is being generated from records');
+assert.match(js, /<strong>正在分析<\/strong>[\s\S]*<span>\$\{escapeHtml\(label \|\| '正在查找相关记录'\)\}<\/span>[\s\S]*正在整理可核对的比赛记录，请稍候。/, 'AI loading state must tell users that records are being checked');
 assert.match(js, /<span>理解问题<\/span>[\s\S]*<span>核对比赛记录<\/span>[\s\S]*<span>生成结果<\/span>/, 'AI loading state must use user-facing progress steps');
 assert.doesNotMatch(js, /匹配赛事和画像/, 'AI loading state must not expose internal matching wording');
 assert.doesNotMatch(js, /生成判断/, 'AI answer flow must not expose judgment-generation copy');
 assert.match(css, /\.ai-loading-progress/, 'AI loading progress bar styles must exist');
-assert.match(js, /answer\.innerHTML = renderAiLoadingState\(normalizedQuery\);[\s\S]*scrollToResultPanel\(answer, 'auto'\);[\s\S]*Promise\.allSettled\(\[[\s\S]*waitForAiPrimaryDataReady\(\)\.then\(\(\) => ensureAiEntityContext\(normalizedQuery\)\),[\s\S]*waitForAiLoadingState\(\),/, 'AI home prompt must scroll to the loading answer before data-backed entity hydration and keep it visible');
+assert.match(css, /\.ai-workspace\.is-running \.ai-home-primary/, 'AI running workspace must have a visible active state');
+assert.match(css, /\.ai-loading-head em/, 'AI loading helper text must be styled');
+assert.match(js, /answer\.innerHTML = renderAiLoadingState\(normalizedQuery\);[\s\S]*scrollToResultPanel\(answer, 'smooth'\);[\s\S]*Promise\.allSettled\(\[[\s\S]*waitForAiPrimaryDataReady\(\)\.then\(\(\) => ensureAiEntityContext\(normalizedQuery\)\),[\s\S]*waitForAiLoadingState\(\),/, 'AI home prompt must smoothly scroll to the loading answer before data-backed entity hydration and keep it visible');
+assert.match(js, /submitButton\.textContent = '分析中';[\s\S]*submitButton\.setAttribute\('aria-disabled', 'true'\)/, 'AI submit button must show an immediate running state');
+assert.match(js, /workspace\?\.classList\.add\('is-running'\)/, 'AI workspace must expose a running state for styling');
 assert.match(js, /aiActiveQuery: ''/, 'AI home prompt must persist the active query across home rerenders');
 assert.match(js, /aiActiveReport: null/, 'AI home prompt must persist the active answer across home rerenders');
 assert.match(js, /isAiAnswerLoading: false/, 'AI home prompt must persist loading state across home rerenders');

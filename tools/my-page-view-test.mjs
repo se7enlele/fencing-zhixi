@@ -86,10 +86,10 @@ assert.match(js, /function bindAiAnalyzeActions\(container\)/, 'database detail 
 assert.match(js, /data-ai-analyze-query/, 'detail AI analysis actions must carry the prefilled question');
 assert.match(js, /submitAiQuery\(button\.dataset\.aiAnalyzeQuery \|\| ''\)/, 'detail AI analysis actions must route to the AI home answer flow');
 assert.match(js, /submitButton\.textContent = '开始分析'/, 'AI home CTA must use a direct action label');
-assert.match(js, /answer\.innerHTML = renderAiLoadingState\(normalizedQuery\);[\s\S]*scrollToResultPanel\(answer, 'auto'\);/, 'AI question submission must immediately show a skeleton state and move the viewport to it');
-assert.match(js, /submitButton\.disabled = true;[\s\S]*submitButton\.textContent = '正在生成\.\.\.'/, 'AI question submission must disable the CTA while loading');
+assert.match(js, /answer\.innerHTML = renderAiLoadingState\(normalizedQuery\);[\s\S]*scrollToResultPanel\(answer, 'smooth'\);/, 'AI question submission must immediately show a skeleton state and smoothly move the viewport to it');
+assert.match(js, /submitButton\.disabled = true;[\s\S]*submitButton\.textContent = '分析中'/, 'AI question submission must disable the CTA while loading');
 assert.match(js, /<div class="ai-loading-progress" aria-hidden="true"><i><\/i><\/div>/, 'AI loading state must include an explicit progress indicator');
-assert.match(js, /<strong>正在生成分析<\/strong>[\s\S]*<span>\$\{escapeHtml\(label \|\| '正在查找相关记录'\)\}<\/span>/, 'AI loading state must explain that the answer is being generated from records');
+assert.match(js, /<strong>正在分析<\/strong>[\s\S]*<span>\$\{escapeHtml\(label \|\| '正在查找相关记录'\)\}<\/span>[\s\S]*正在整理可核对的比赛记录，请稍候。/, 'AI loading state must explain that records are being checked');
 assert.match(js, /<span>理解问题<\/span>[\s\S]*<span>核对比赛记录<\/span>[\s\S]*<span>生成结果<\/span>/, 'AI loading steps must use user-facing progress copy');
 assert.doesNotMatch(js, /匹配赛事和画像/, 'AI loading copy must avoid internal matching wording');
 assert.doesNotMatch(js, /生成判断/, 'AI home CTA must not use judgment-generation copy');
@@ -112,7 +112,7 @@ assert.match(js, /const target = element\.querySelector\?\.\('\.ai-answer-card, 
 assert.match(js, /window\.scrollY \+ target\.getBoundingClientRect\(\)\.top - headerOffset/, 'AI result scrolling must position the answer area below the header');
 assert.match(js, /setTimeout\(scroll, 120\)/, 'AI result scrolling must correct after mobile layout changes');
 assert.match(js, /input\.blur\(\);/, 'AI question submission must release mobile keyboard focus before scrolling');
-assert.match(js, /answer\.innerHTML = renderAiLoadingState\(normalizedQuery\);[\s\S]*scrollToResultPanel\(answer, 'auto'\);/, 'AI question submission must immediately move the viewport to the result area while loading');
+assert.match(js, /answer\.innerHTML = renderAiLoadingState\(normalizedQuery\);[\s\S]*scrollToResultPanel\(answer, 'smooth'\);/, 'AI question submission must immediately move the viewport to the result area while loading');
 assert.match(js, /const AI_LOADING_MIN_MS = 420;/, 'AI loading state must remain visible long enough to be perceived');
 assert.match(js, /function waitForAiLoadingState\(ms = AI_LOADING_MIN_MS\)/, 'AI question submission must have a minimum loading delay helper');
 assert.match(js, /function waitForAiPrimaryDataReady\(timeoutMs = 15000\)/, 'AI question submission must wait for the primary dataset before answering');
