@@ -185,6 +185,8 @@ const functionNames = [
   'buildClubCommunicationScripts',
   'athleteStrengthScore',
   'athleteMetricLine',
+  'athleteProfileEvidence',
+  'clubProfileEvidence',
   'athleteComparisonRiskRows',
   'athleteComparisonConfidence',
   'athleteRankGapText',
@@ -532,6 +534,8 @@ for (const item of context.aiAcceptanceQueryCases()) {
 
 const growthReport = context.buildAiAnswer('蔡廷彧最近几场有没有进步');
 assert.equal(growthReport.type, 'growth', 'athlete growth query with 最近 must not route to prematch');
+assert.equal(growthReport.evidence[0]?.athleteId, 'cai', 'growth reports should make the athlete profile the primary evidence target');
+assert.ok(growthReport.evidence.some((row) => row.eventCode), 'growth reports should keep competition records after the athlete profile');
 
 const yearlyGrowthReport = context.buildAiAnswer('蔡廷彧2025和2026年的表现有什么变化');
 assert.equal(yearlyGrowthReport.type, 'growth', 'yearly athlete change queries should route to growth');
@@ -565,6 +569,9 @@ assert.ok(recruitingReport.actions.some((action) => action.coachSegmentationClub
 
 const comparisonReport = context.buildAiAnswer('\u5206\u6790\u9a6c\u6d88\u548c\u9676\u5609\u6708\u7684\u5bf9\u6218\u60c5\u51b5');
 assert.equal(comparisonReport.type, 'comparison', 'athlete comparison query should route to comparison report');
+assert.ok(comparisonReport.evidence.some((row) => row.athleteId === 'ma'), 'athlete comparison should cite the first athlete profile as evidence');
+assert.ok(comparisonReport.evidence.some((row) => row.athleteId === 'tao'), 'athlete comparison should cite the second athlete profile as evidence');
+assert.ok(comparisonReport.evidence.some((row) => row.eventCode), 'athlete comparison should keep shared or recent project records as evidence');
 assert.equal(
   JSON.stringify(comparisonReport.sections.map((section) => section.title)),
   JSON.stringify(['\u76f4\u63a5\u4ea4\u624b', '\u5171\u540c\u8d5b\u4e8b', '\u8fd1\u51b5\u5dee\u8ddd', '\u9700\u8981\u7559\u610f']),
@@ -605,6 +612,9 @@ assert.ok(clubComparisonReport.sections.find((section) => section.title === '\u5
 assert.ok(clubComparisonReport.sections.find((section) => section.title === '\u5bf9\u6bd4\u7ed3\u8bba')?.rows.some((row) => /\u524d\u516b\u7387.*\u5956\u724c\u7387/.test(row)), 'club comparison should include top-8 and medal-rate evidence in conclusion rows');
 assert.ok(!/训练质量更好/.test(`${clubComparisonReport.summary}${clubComparisonReport.sections.map((section) => section.rows.join(' ')).join(' ')}`), 'club comparison should not infer training quality from participation counts');
 assert.ok(clubComparisonReport.evidence.some((row) => row.kind === '\u4ff1\u4e50\u90e8\u6210\u7ee9'), 'club comparison should cite concrete event evidence with customer-facing source labels');
+assert.ok(clubComparisonReport.evidence.some((row) => row.clubId === 'club-jinshi'), 'club comparison should cite the first club profile as evidence');
+assert.ok(clubComparisonReport.evidence.some((row) => row.clubId === 'club-airuite'), 'club comparison should cite the second club profile as evidence');
+assert.ok(clubComparisonReport.evidence.some((row) => row.mainTab === 'competitions' && row.filters), 'club comparison should keep a filtered competition list as evidence');
 assert.ok(clubComparisonReport.evidence.length >= 4, 'club comparison should keep enough source records for traceable review');
 assert.ok(!clubComparisonReport.evidence.some((row) => row.kind === '\u4ff1\u4e50\u90e8\u5bf9\u6bd4\u8bc1\u636e'), 'club comparison evidence must not expose internal source labels');
 assert.ok(clubComparisonReport.actions.some((action) => action.clubId === 'club-jinshi'), 'club comparison should link to the first club profile');

@@ -9,6 +9,8 @@ const clubComparisonEvidenceFunction = js.slice(
 );
 
 assert.match(js, /function athleteComparisonConfidence\(direct, shared\)/, 'AI athlete comparison must expose evidence strength');
+assert.match(js, /function athleteProfileEvidence\(athlete\)/, 'AI athlete answers must expose a reusable athlete profile evidence source');
+assert.match(js, /function clubProfileEvidence\(club\)/, 'AI club answers must expose a reusable club profile evidence source');
 assert.match(js, /function athleteRankGapText\(left, right\)/, 'AI athlete comparison must explain rank gap');
 assert.match(js, /function athleteComparisonRiskRows\(\{ left, right, leader, other, direct, shared \}\)/, 'AI athlete comparison must expose prematch risk rows');
 assert.match(js, /title: '直接交手'/, 'AI athlete comparison must show direct bouts as a fixed section');
@@ -74,6 +76,9 @@ assert.match(js, /function detectAthleteComparisonIntent\(query\)/, 'AI must det
 assert.match(js, /\.\.\.\(state\.athleteSearchIndex \|\| \[\]\)[\s\S]*\.\.\.Object\.values\(state\.athletesById \|\| \{\}\)/, 'AI athlete pool must merge search index and hydrated details');
 assert.match(js, /aiFallbackCandidates\(query\)\.clubs/, 'AI club comparison must recover abbreviated club names from nearby candidates');
 assert.match(js, /function buildAiClubComparisonReport\(query, leftClub, rightClub, filters\)/, 'AI must build club-to-club comparison reports');
+assert.match(js, /function buildAiClubComparisonReport\(query, leftClub, rightClub, filters\)[\s\S]*evidence: \[[\s\S]*clubProfileEvidence\(leftClub\)[\s\S]*clubProfileEvidence\(rightClub\)/, 'AI club comparison should cite both club profiles before source records');
+assert.match(js, /function buildAiAthleteComparison\(query, left, right\)[\s\S]*evidence: \[[\s\S]*athleteProfileEvidence\(left\)[\s\S]*athleteProfileEvidence\(right\)/, 'AI athlete comparison should cite both athlete profiles before source records');
+assert.match(js, /function buildAiAthleteGrowth\(query, athlete\)[\s\S]*evidence: \[[\s\S]*athleteProfileEvidence\(athlete\)[\s\S]*topEvidenceEvents/, 'AI growth reports should cite the athlete profile before recent competition records');
 assert.match(js, /const clubComparison = detectClubComparisonQuery\(text\);[\s\S]*if \(clubComparison\) return buildAiClubComparisonReport/, 'AI routing must prefer club comparison before single-club reports');
 assert.match(js, /function detectCapabilityGuideQuery\(query\)/, 'AI must detect exploratory product-capability questions');
 assert.match(js, /function buildAiCapabilityGuideReport\(query\)/, 'AI must answer exploratory product-capability questions with runnable examples');

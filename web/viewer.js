@@ -7138,9 +7138,11 @@ function buildAiClubComparisonReport(query, leftClub, rightClub, filters) {
       },
     ],
     evidence: [
+      clubProfileEvidence(leftClub),
+      clubProfileEvidence(rightClub),
       ...aiClubComparisonEvidenceRows(metricPairs),
       aiCompetitionFilterEvidence(query, listFilters, listCount, '相关赛事列表'),
-    ],
+    ].filter(Boolean),
     actions: [
       { label: `看${leftClub.club}画像`, clubId: leftClub.id },
       { label: `看${rightClub.club}画像`, clubId: rightClub.id },
@@ -7978,6 +7980,8 @@ function buildAiAthleteComparison(query, left, right) {
       },
     ],
     evidence: [
+      athleteProfileEvidence(left),
+      athleteProfileEvidence(right),
       ...shared.slice(0, 5).map((row) => ({
         kind: '共同项目',
         label: row.eventName,
@@ -7987,7 +7991,7 @@ function buildAiAthleteComparison(query, left, right) {
       })),
       ...topEvidenceEvents(leftEvents, left.name, 2, left.id),
       ...topEvidenceEvents(rightEvents, right.name, 2, right.id),
-    ].slice(0, 7),
+    ].filter(Boolean).slice(0, 7),
     actions: [
       left.id ? { label: `查看${left.name}`, athleteId: left.id } : null,
       right.id ? { label: `查看${right.name}`, athleteId: right.id } : null,
@@ -8042,7 +8046,10 @@ function buildAiAthleteGrowth(query, athlete) {
         rows: athlete.opponents.slice(0, 4).map((opponent) => `${opponent.name}：${opponent.wins}胜${opponent.losses}负 · ${opponent.latestPhase || '淘汰赛'}`),
       } : null,
     ].filter(Boolean),
-    evidence: topEvidenceEvents(events, athlete.name, 7, athlete.id),
+    evidence: [
+      athleteProfileEvidence(athlete),
+      ...topEvidenceEvents(events, athlete.name, 6, athlete.id),
+    ].filter(Boolean),
     actions: [
       athlete.id ? { label: '查看完整选手画像', athleteId: athlete.id } : null,
       aiFollowAthleteAction(athlete),
@@ -8172,6 +8179,28 @@ function athleteStrengthScore(athlete) {
 
 function athleteMetricLine(athlete) {
   return `最好第${athlete.bestRank || '-'}名 · ${athlete.appearances || athlete.events?.length || 0}次 · ${athlete.medals || 0}奖牌`;
+}
+
+function athleteProfileEvidence(athlete) {
+  if (!athlete?.id) return null;
+  return {
+    kind: '选手画像',
+    label: athlete.name || '选手',
+    detail: athleteMetricLine(athlete),
+    reason: '用于核对选手身份和整体参赛表现',
+    athleteId: athlete.id,
+  };
+}
+
+function clubProfileEvidence(club) {
+  if (!club?.id) return null;
+  return {
+    kind: '剑馆画像',
+    label: club.club || '剑馆',
+    detail: `参赛${club.entrants || 0}人次 · 前八${club.top8 || 0}次 · 奖牌${club.medals || 0}枚 · 最好第${club.bestRank || '-'}名`,
+    reason: '用于核对剑馆身份和整体参赛表现',
+    clubId: club.id,
+  };
 }
 
 function athleteComparisonConfidence(direct, shared) {
