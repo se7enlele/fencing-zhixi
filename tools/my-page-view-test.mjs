@@ -558,11 +558,13 @@ assert.match(css, /@keyframes aiSkeletonSweep/, 'AI loading skeleton must have a
 assert.match(css, /\.home-dashboard-focused/, 'focused home dashboard styles must exist');
 assert.match(css, /\.home-role-bar/, 'focused home role bar styles must exist');
 assert.match(css, /\.home-shortcut-strip/, 'focused home shortcut strip styles must exist');
-assert.match(js, /function renderHomePriorityPanel\(\)/, 'focused home must combine focus and radar into one compact priority panel');
+assert.match(js, /function renderHomePriorityPanel\(\)/, 'focused home must render one compact priority panel');
+assert.match(js, /function homePrimaryPriorityItem\(\)/, 'focused home must choose one primary next step instead of stacking multiple cards');
 assert.match(js, /function homeSavedAnalysisItem\(\)/, 'focused home must surface the latest saved analysis in the priority panel');
 assert.match(js, /function renderHomeSavedAnalysisItem\(row = homeSavedAnalysisItem\(\)\)/, 'focused home must render the saved analysis as a compact priority row');
 assert.match(js, /<section class="home-shortcut-strip" aria-label="快捷入口">[\s\S]*data-home-compact-nav="competitions"[\s\S]*查赛事和选手[\s\S]*data-home-compact-nav="my"[\s\S]*我的关注/, 'focused home shortcuts must route lookup to database and follow-up to my page');
-assert.match(js, /renderHomePriorityPanel\(\)[\s\S]*const savedAnalysis = homeSavedAnalysisItem\(\);[\s\S]*\$\{renderHomeSavedAnalysisItem\(savedAnalysis\)\}/, 'focused home priority panel must include saved analysis after focus and competition radar');
+assert.match(js, /renderHomePriorityPanel\(\)[\s\S]*const row = homePrimaryPriorityItem\(\);[\s\S]*<h2>下一步<\/h2>[\s\S]*row\.actions\.map/, 'focused home priority panel must show one primary action group');
+assert.doesNotMatch(js, /renderHomePriorityPanel\(\)[\s\S]*\$\{renderHomeSavedAnalysisItem\(savedAnalysis\)\}[\s\S]*<\/section>/, 'focused home priority panel must not stack saved analysis below focus and radar cards');
 assert.match(js, /function renderFocusedHomePage\(\)[\s\S]*homePage\.querySelectorAll\('\[data-ai-history-query\]'\)[\s\S]*openAiReportSnapshot\(button\.dataset\.aiSnapshotKey \|\| button\.dataset\.aiHistoryQuery \|\| ''\)/, 'focused home saved analysis rows must reopen saved AI answers');
 assert.match(js, /function renderFocusedHomePage\(\)[\s\S]*homePage\.querySelectorAll\('\[data-report-history-type\]'\)[\s\S]*if \(type === 'ai-report'\)[\s\S]*openAiReportSnapshot\(id\);/, 'focused home saved report rows must reopen AI report snapshots');
 assert.match(css, /\.home-priority-panel/, 'focused home priority panel styles must exist');

@@ -4979,49 +4979,84 @@ function renderHomeSavedAnalysisItem(row = homeSavedAnalysisItem()) {
   `;
 }
 
-function renderHomePriorityPanel() {
+function homePrimaryPriorityItem() {
   const focus = homeFocusItem();
   const radar = homePrematchActionRow(followedCompetitionCards());
   const savedAnalysis = homeSavedAnalysisItem();
-  const focusPrimaryAction = focus.type === 'coach'
-      ? `<button type="button" data-home-focus-coach="${escapeHtml(focus.id)}">查看剑馆</button>`
-      : focus.type === 'athlete'
-        ? `<button type="button" data-home-focus-athlete="${escapeHtml(focus.id)}">查看画像</button>`
-        : '<button type="button" data-home-compact-nav="my">添加关注</button>';
+  if (focus?.type && focus.type !== 'empty') {
+    return {
+      kind: 'focus',
+      eyebrow: '关注对象',
+      title: focus.title,
+      meta: focus.meta,
+      detail: focus.detail,
+      actions: focus.type === 'coach'
+        ? [
+          { label: '查看剑馆', attrs: `data-home-focus-coach="${escapeHtml(focus.id)}"` },
+          { label: '管理关注', attrs: 'data-home-compact-nav="my"' },
+        ]
+        : [
+          { label: '查看画像', attrs: `data-home-focus-athlete="${escapeHtml(focus.id)}"` },
+          { label: '管理关注', attrs: 'data-home-compact-nav="my"' },
+        ],
+    };
+  }
+  if (radar) {
+    return {
+      kind: 'radar',
+      eyebrow: radar.isFollowed ? '已关注赛事' : '推荐赛事',
+      title: radar.sportName || '近期赛事',
+      meta: radar.meta || '',
+      detail: radar.detail || '',
+      actions: [
+        { label: '赛事详情', attrs: `data-home-focus-competition="${escapeHtml(radar.sportCode)}"` },
+        { label: '赛前提醒', attrs: `data-home-focus-prematch="${escapeHtml(radar.sportCode)}"` },
+        ...(radar.isFollowed ? [] : [{ label: '加入提醒', attrs: `data-home-focus-follow="${escapeHtml(radar.sportCode)}"` }]),
+      ],
+    };
+  }
+  if (savedAnalysis) {
+    const attrs = savedAnalysis.query
+      ? `data-ai-snapshot-key="${escapeHtml(savedAnalysis.snapshotKey || savedAnalysis.key || savedAnalysis.query)}" data-ai-history-query="${escapeHtml(savedAnalysis.query)}"`
+      : `data-report-history-type="${escapeHtml(savedAnalysis.type || '')}" data-report-history-id="${escapeHtml(savedAnalysis.id || '')}"`;
+    return {
+      kind: 'analysis',
+      eyebrow: '最近分析',
+      title: savedAnalysis.title || savedAnalysis.query || '已保存分析',
+      meta: savedAnalysis.typeLabel || '数据分析',
+      detail: savedAnalysis.summary || savedAnalysis.detail || '继续查看上次保存的分析。',
+      actions: [{ label: '继续查看', attrs }],
+    };
+  }
+  return {
+    kind: 'empty',
+    eyebrow: '下一步',
+    title: focus.title,
+    meta: focus.meta,
+    detail: focus.detail,
+    actions: [{ label: '添加关注', attrs: 'data-home-compact-nav="my"' }],
+  };
+}
+
+function renderHomePriorityPanel() {
+  const row = homePrimaryPriorityItem();
   return `
     <section class="panel my-section home-priority-panel">
       <div class="section-title">
-        <h2>重点动态</h2>
-        <span>关注与赛事</span>
+        <h2>下一步</h2>
+        <span>${escapeHtml(row.eyebrow)}</span>
       </div>
-      <article class="home-priority-item">
+      <article class="home-priority-item home-priority-item-${escapeHtml(row.kind)}">
         <div>
-          <small>关注对象</small>
-          <strong>${escapeHtml(focus.title)}</strong>
-          <span>${escapeHtml(focus.meta)}</span>
-          <em>${escapeHtml(focus.detail)}</em>
+          <small>${escapeHtml(row.eyebrow)}</small>
+          <strong>${escapeHtml(row.title)}</strong>
+          <span>${escapeHtml(row.meta)}</span>
+          <em>${escapeHtml(row.detail)}</em>
         </div>
         <div class="home-focus-actions">
-          ${focusPrimaryAction}
-          <button type="button" data-home-compact-nav="my">管理关注</button>
+          ${row.actions.map((action) => `<button type="button" ${action.attrs}>${escapeHtml(action.label)}</button>`).join('')}
         </div>
       </article>
-      ${radar ? `
-        <article class="home-priority-item home-priority-item-radar">
-          <div>
-            <small>${escapeHtml(radar.isFollowed ? '已关注赛事' : '推荐赛事')}</small>
-            <strong>${escapeHtml(radar.sportName || '近期赛事')}</strong>
-            <span>${escapeHtml(radar.meta || '')}</span>
-            <em>${escapeHtml(radar.detail || '')}</em>
-          </div>
-          <div class="home-focus-actions">
-            <button type="button" data-home-focus-competition="${escapeHtml(radar.sportCode)}">赛事详情</button>
-            <button type="button" data-home-focus-prematch="${escapeHtml(radar.sportCode)}">赛前提醒</button>
-            ${radar.isFollowed ? '' : `<button type="button" data-home-focus-follow="${escapeHtml(radar.sportCode)}">加入提醒</button>`}
-          </div>
-        </article>
-      ` : ''}
-      ${renderHomeSavedAnalysisItem(savedAnalysis)}
     </section>
   `;
 }
