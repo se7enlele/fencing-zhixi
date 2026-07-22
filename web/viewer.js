@@ -6241,6 +6241,7 @@ function hasClubComparisonIntent(query) {
 
 function detectClubComparisonQuery(query) {
   if (!hasClubComparisonIntent(query)) return null;
+  const normalizedQuery = compactText(query);
   const exactClubs = detectClubsInQuery(query);
   const clubs = exactClubs.length >= 2
     ? exactClubs
@@ -6249,8 +6250,13 @@ function detectClubComparisonQuery(query) {
         ...(aiFallbackCandidates(query).clubs || []),
       ], (club) => club.id || compactText(club.club)).slice(0, 3);
   if (clubs.length < 2) return null;
+  const orderedClubs = clubs.slice().sort((a, b) => {
+    const leftIndex = normalizedQuery.indexOf(compactText(a.club));
+    const rightIndex = normalizedQuery.indexOf(compactText(b.club));
+    return (leftIndex < 0 ? 9999 : leftIndex) - (rightIndex < 0 ? 9999 : rightIndex);
+  });
   return {
-    clubs: clubs.slice(0, 2),
+    clubs: orderedClubs.slice(0, 2),
     filters: aiClubComparisonFilters(query),
   };
 }
