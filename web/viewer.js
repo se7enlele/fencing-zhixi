@@ -8905,6 +8905,27 @@ function aiResultActionTitle(report = {}) {
   return '打开相关页面';
 }
 
+function aiAnswerTypeLabel(report = {}) {
+  if (report.type === 'comparison') return '选手对比';
+  if (report.type === 'club-comparison') return '剑馆对比';
+  if (report.type === 'growth') return '成长分析';
+  if (report.type === 'club') return '俱乐部画像';
+  if (report.type === 'prematch') return '赛前提醒';
+  if (report.type === 'business-insight') return '商业洞察';
+  if (report.type === 'product-template') return '报告服务';
+  if (report.type === 'club-recruiting') return '招生展示';
+  if (report.type === 'official-directory') return '人员资料';
+  if (report.type === 'competition-stats') return '赛事统计';
+  if (report.type === 'empty') return '开始提问';
+  if (report.type === 'fallback') {
+    const title = String(report.title || '');
+    if (/赛事记录|赛事名称|相近赛事/.test(title)) return '赛事查询';
+    if (/选择.*对象|想看的对象|选择孩子|选手/.test(title)) return '选择对象';
+    return '继续提问';
+  }
+  return '分析结果';
+}
+
 function renderAiAnswer(report) {
   const primaryCards = (report.cards || []).slice(0, AI_ANSWER_CARD_LIMIT);
   const primaryActions = (report.actions || []).slice(0, AI_ANSWER_ACTION_LIMIT);
@@ -8916,7 +8937,7 @@ function renderAiAnswer(report) {
   return `
     <div class="ai-answer-card">
       <div class="ai-answer-head">
-        <span>${escapeHtml(report.type === 'comparison' ? '选手对比' : report.type === 'club-comparison' ? '剑馆对比' : report.type === 'growth' ? '成长分析' : report.type === 'club' ? '俱乐部画像' : report.type === 'prematch' ? '赛前提醒' : report.type === 'business-insight' ? '商业洞察' : report.type === 'product-template' ? '报告服务' : report.type === 'club-recruiting' ? '招生展示' : report.type === 'official-directory' ? '人员资料' : '查询结果')}</span>
+        <span>${escapeHtml(aiAnswerTypeLabel(report))}</span>
         <strong>${escapeHtml(report.title)}</strong>
         <p>${escapeHtml(report.summary)}</p>
       </div>
