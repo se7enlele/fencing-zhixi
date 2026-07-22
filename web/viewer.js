@@ -2135,6 +2135,49 @@ function competitionAvailableLayerLabels(competition) {
   return labels;
 }
 
+function competitionCoverageStageRows(competition) {
+  const level = competitionCoverageLevel(competition);
+  const hasProject = ['project', 'roster', 'score'].includes(level);
+  const hasRoster = ['roster', 'score'].includes(level);
+  const hasScore = level === 'score';
+  const isFinished = (competition.status || 'completed') === 'completed';
+  return [
+    {
+      title: '赛程',
+      value: '可查看',
+      ready: true,
+    },
+    {
+      title: '项目',
+      value: hasProject ? '可查看' : '待公布',
+      ready: hasProject,
+    },
+    {
+      title: '名单',
+      value: hasRoster ? '可查看' : '待公布',
+      ready: hasRoster,
+    },
+    {
+      title: '成绩',
+      value: hasScore ? '可查看' : (isFinished ? '待整理' : '未开赛'),
+      ready: hasScore,
+    },
+  ];
+}
+
+function renderCompetitionCoverageStages(competition) {
+  return `
+    <div class="competition-coverage-stages" aria-label="可查看内容">
+      ${competitionCoverageStageRows(competition).map((row) => `
+        <span class="${row.ready ? 'ready' : 'pending'}">
+          <b>${escapeHtml(row.title)}</b>
+          <em>${escapeHtml(row.value)}</em>
+        </span>
+      `).join('')}
+    </div>
+  `;
+}
+
 function dataCoveragePriorityRows(competitions, limit = 3) {
   return [...competitions]
     .map((competition) => {
@@ -10070,6 +10113,7 @@ function renderCompetitionHero(competition) {
     <div class="hero-title">${escapeHtml(competition.sportName)}</div>
     <div class="hero-sub">${escapeHtml(competition.venue || '地点待确认')} · ${escapeHtml(displayDateLabel(competition.dateLabel))}</div>
     <div class="hero-sub coverage-copy">${escapeHtml(competitionHeroSummaryText(competition))}</div>
+    ${renderCompetitionCoverageStages(competition)}
     ${aiAnalyzeActionRow([
       { label: '查看赛事分析', query: `${competition.sportName} 有哪些重点信息和参赛判断` },
       { label: '查看赛前提醒', query: `${competition.sportName} 的报名情况和潜在对手` },

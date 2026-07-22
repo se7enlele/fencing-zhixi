@@ -110,6 +110,11 @@ assert.match(source, /function competitionAvailableLayerLabels\(competition\)/, 
 assert.match(source, /const labels = \['赛程'\];[\s\S]*labels\.push\('项目'\)[\s\S]*labels\.push\('报名'\)[\s\S]*labels\.push\('赛果'\)/, 'competition available layers must progress from schedule to project, roster and results');
 assert.match(source, /class="available-layer-row" aria-label="可查内容"[\s\S]*competitionAvailableLayerLabels\(competition\)/, 'competition list cards must show available data layers before entering detail');
 assert.match(css, /\.available-layer-row/, 'competition available data layer tags must be styled');
+assert.match(source, /function competitionCoverageStageRows\(competition\)/, 'competition detail must derive unified user-facing coverage stages');
+assert.match(source, /function renderCompetitionCoverageStages\(competition\)/, 'competition detail must render coverage stages');
+assert.match(source, /renderCompetitionCoverageStages\(competition\)/, 'competition hero must show what users can view for this competition');
+assert.match(source, /title: '赛程'[\s\S]*title: '项目'[\s\S]*title: '名单'[\s\S]*title: '成绩'/, 'competition coverage stages must use user-facing availability labels');
+assert.match(css, /\.competition-coverage-stages/, 'competition coverage stage styles must exist');
 assert.match(source, /function competitionProjectSummaryChips\(competition\)/, 'competition hero must summarize project structure instead of listing raw labels');
 assert.match(source, /function competitionProjectScope\(competition\)/, 'competition hero must render a structured project scope summary');
 assert.match(source, /function competitionHeroSummaryText\(competition\)/, 'competition hero must explain available value in user-facing language');

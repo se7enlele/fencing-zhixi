@@ -5,6 +5,9 @@ const js = await readFile(new URL('../web/viewer.js', import.meta.url), 'utf8');
 const css = await readFile(new URL('../web/viewer.css', import.meta.url), 'utf8');
 
 assert.match(js, /function competitionCoverageLevel\(competition\)/, 'home data status must classify competition coverage');
+assert.match(js, /function competitionCoverageStageRows\(competition\)/, 'competition detail must derive unified user-facing coverage stages');
+assert.match(js, /function renderCompetitionCoverageStages\(competition\)/, 'competition detail must render unified coverage stages');
+assert.match(js, /title: '赛程'[\s\S]*title: '项目'[\s\S]*title: '名单'[\s\S]*title: '成绩'/, 'coverage stages must explain schedule, project, roster and result availability');
 assert.match(js, /function dataCoveragePriorityRows\(competitions, limit = 3\)/, 'home data status must surface priority gaps');
 assert.match(js, /function homeServiceReadinessRows\(coverage, competitions = state\.competitions \|\| \[\]\)/, 'home data status must derive service readiness from current coverage');
 assert.match(js, /function renderHomeDataCoverage\(\)/, 'home page must render product-facing data coverage status');
@@ -39,5 +42,7 @@ assert.match(css, /\.sync-status-note/, 'scheduled sync status should use compac
 assert.match(css, /\.coverage-stage-strip/, 'coverage stages must use a compact mobile layout');
 assert.match(css, /\.service-readiness-grid/, 'service readiness rows must use a compact mobile layout');
 assert.match(css, /\.coverage-priority-list/, 'coverage priority rows must be styled');
+assert.match(css, /\.competition-coverage-stages/, 'competition detail coverage stages must be styled');
+assert.match(css, /\.competition-coverage-stages span\.ready/, 'available coverage stages must be visually distinct');
 
 console.log('home data status coverage is wired');

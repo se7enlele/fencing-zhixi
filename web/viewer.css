@@ -1441,6 +1441,53 @@ select:focus {
   color: #526070;
 }
 
+.competition-coverage-stages {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.competition-coverage-stages span {
+  min-width: 0;
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  border-radius: 9px;
+  background: rgba(255, 255, 255, 0.68);
+  padding: 7px 8px;
+}
+
+.competition-coverage-stages span.ready {
+  border-color: rgba(13, 125, 103, 0.18);
+  background: rgba(13, 125, 103, 0.08);
+}
+
+.competition-coverage-stages b,
+.competition-coverage-stages em {
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.competition-coverage-stages b {
+  color: var(--text);
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.competition-coverage-stages em {
+  margin-top: 2px;
+  color: var(--muted);
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 700;
+}
+
+.competition-coverage-stages span.ready em {
+  color: var(--teal);
+}
+
 .competition-scope-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
