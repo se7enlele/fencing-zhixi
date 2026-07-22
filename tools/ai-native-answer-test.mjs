@@ -327,6 +327,12 @@ assert.match(js, /data-commercial-intent="pilot"/, 'AI conversion block must exp
 assert.match(js, /bindReportConversionActions\(container\)/, 'AI answer actions must reuse the existing commercial-interest submission flow');
 assert.match(js, /class="ai-share-row"/, 'AI answer renderer must expose a copy summary action');
 assert.match(js, /data-ai-share/, 'AI answer copy action must be addressable');
+assert.match(js, /function isAiReportSaveable\(report = \{\}\)/, 'AI answers must decide whether a result can be saved for later review');
+assert.match(js, /data-ai-save/, 'AI answer renderer must expose a save analysis action');
+assert.match(js, />保存分析</, 'AI answer save action must use user-facing copy');
+assert.match(js, /trackAiAnalysisHistory\(query, report\);[\s\S]*renderPersonalPages\(\);[\s\S]*trackAnalyticsAction\('save_ai_report'/, 'AI answer save action must persist the report and refresh reusable analysis sections');
+assert.match(js, /scheduleUserStateSync\(\);[\s\S]*}\s*function aiReportSaveQuery/, 'saved AI analysis must be eligible for account sync');
+assert.doesNotMatch(js, /保存快照|分析快照/, 'AI answer save action must not expose snapshot terminology');
 assert.doesNotMatch(js, /data-ai-feedback=\"ai-helpful\"/, 'AI answer should not expose helpful feedback inside the main result');
 assert.doesNotMatch(js, /data-ai-feedback=\"ai-needs-work\"/, 'AI answer should not expose needs-work feedback inside the main result');
 assert.doesNotMatch(js, /class="ai-follow-up-row"/, 'AI answer renderer must not show follow-up question chips inside the result card');

@@ -901,6 +901,16 @@ function trackAiAnalysisHistory(query, report) {
       query: text,
     });
   }
+  scheduleUserStateSync();
+}
+
+function aiReportSaveQuery(report = {}) {
+  return String(report.query || state.aiActiveQuery || '').trim();
+}
+
+function isAiReportSaveable(report = {}) {
+  if (!report?.type || report.type === 'empty' || report.type === 'fallback') return false;
+  return Boolean(aiReportSaveQuery(report) && (report.summary || report.cards?.length || report.evidence?.length || report.sections?.length));
 }
 
 function setUserRole(role) {
@@ -8543,6 +8553,7 @@ function renderAiAnswer(report) {
         </details>
       ` : ''}
       <div class="ai-share-row">
+        ${isAiReportSaveable(report) ? '<button type="button" data-ai-save>保存分析</button>' : ''}
         <button type="button" data-ai-share>复制分析摘要</button>
       </div>
     </div>
@@ -8554,6 +8565,25 @@ function bindAiAnswerActions(container) {
     const card = button.closest('.ai-answer-card');
     const report = card?.__aiReport;
     bindCopyTextButton(button, () => buildAiAnswerShareText(report || {}), `ai-${report?.type || 'unknown'}`);
+  });
+  container.querySelectorAll('[data-ai-save]').forEach((button) => {
+    button.addEventListener('click', () => {
+      const card = button.closest('.ai-answer-card');
+      const report = card?.__aiReport || state.aiActiveReport || {};
+      const query = aiReportSaveQuery(report);
+      if (!query || !isAiReportSaveable(report)) {
+        button.textContent = '暂不可保存';
+        setTimeout(() => {
+          button.textContent = '保存分析';
+        }, 1400);
+        return;
+      }
+      trackAiAnalysisHistory(query, report);
+      renderPersonalPages();
+      trackAnalyticsAction('save_ai_report', report.type || 'unknown');
+      button.textContent = '已保存';
+      button.disabled = true;
+    });
   });
   container.querySelectorAll('[data-ai-feedback]').forEach((button) => {
     button.addEventListener('click', async () => {

@@ -327,6 +327,8 @@ assert.match(js, /button\.dataset\.homeReport === 'club-recruiting'[^\n]+submitA
 assert.match(js, /function trackReportHistory\(report\)/, 'generated reports must be tracked for reuse');
 assert.match(js, /function trackAiAnalysisHistory\(query, report\)/, 'AI analysis answers must be tracked for reuse');
 assert.match(js, /AI_REPORT_SNAPSHOT_KEY = 'fencingai\.aiReportSnapshots\.v1'/, 'AI analysis snapshots must be persisted for direct review');
+assert.match(js, /data-ai-save/, 'AI answer cards must let users explicitly save an analysis into reusable history');
+assert.match(js, /trackAiAnalysisHistory\(query, report\);[\s\S]*renderPersonalPages\(\);/, 'explicitly saved AI analysis must refresh My page reusable history');
 assert.match(js, /aiReportSnapshots: state\.aiReportSnapshots \|\| \[\]/, 'account sync must include saved AI analysis snapshots');
 assert.match(js, /saveStoredList\(AI_REPORT_SNAPSHOT_KEY, state\.aiReportSnapshots, 10\)/, 'saved AI snapshots must survive page reloads');
 assert.match(js, /data-ai-snapshot-key="\$\{escapeHtml\(row\.snapshotKey \|\| row\.key \|\| row\.query\)\}"/, 'recent AI analysis rows must carry a saved-result key');
