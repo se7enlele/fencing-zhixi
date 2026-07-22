@@ -5001,7 +5001,7 @@ function homePrimaryPriorityItem() {
   const focus = homeFocusItem();
   const radar = homePrematchActionRow(followedCompetitionCards());
   const savedAnalysis = homeSavedAnalysisItem();
-  if (focus?.type && focus.type !== 'empty') {
+  if (focus?.type === 'athlete' || focus?.type === 'coach') {
     return {
       kind: 'focus',
       eyebrow: '关注对象',

@@ -5,7 +5,7 @@ const baseUrl = process.env.FENCINGAI_AUDIT_URL || 'https://fencingai.uk/';
 const outputDir = process.env.ANALYSIS_OUTPUT_DIR || 'analysis-output';
 const runId = new Date().toISOString().replace(/[:.]/g, '-');
 const chromiumExecutable = process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE || '';
-const expectedAssetVersion = process.env.FENCINGAI_EXPECTED_ASSET_VERSION || 'fencingai-product-20260723-ai-p0-ux-1';
+const expectedAssetVersion = process.env.FENCINGAI_EXPECTED_ASSET_VERSION || 'fencingai-product-20260723-home-focus-1';
 
 function assertAudit(condition, message, details = {}) {
   if (!condition) {

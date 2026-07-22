@@ -181,6 +181,8 @@ assert.match(js, /\['建议补充', '年份\/地区\/项目'\]/, 'AI fallback mu
 assert.match(js, /\['也可以', '进入数据库'\]/, 'AI fallback must keep a direct database recovery path');
 assert.match(js, /const coachCount = entityCoverageCounts\(\)\.clubs;/, 'home service readiness must use aggregate club coverage counts');
 assert.match(js, /meta: `\$\{entityCoverageCounts\(\)\.clubs\} 个俱乐部画像`/, 'home coach entry must not use empty local club search index counts');
+assert.match(js, /if \(focus\?\.type === 'athlete' \|\| focus\?\.type === 'coach'\)/, 'focused home must only open detail pages for real athlete or coach focus objects');
+assert.doesNotMatch(js, /if \(focus\?\.type && focus\.type !== 'empty'\)/, 'focused home must not treat empty follow prompts as athlete detail links');
 assert.match(js, /<h2>常用功能<\/h2>/, 'home page must use user-facing task cards instead of another competition list');
 assert.doesNotMatch(js, /专业分析入口|<h2>工作入口<\/h2>|按任务进入/, 'home and role pages must avoid implementation-oriented navigation copy');
 assert.match(js, /class="home-action-grid"/, 'home page must render compact task entry cards');
