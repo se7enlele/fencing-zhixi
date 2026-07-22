@@ -3046,6 +3046,70 @@ select:focus {
   color: #fff;
 }
 
+.home-priority-panel {
+  display: grid;
+  gap: 10px;
+  border-color: rgba(8, 119, 96, 0.16);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(239, 250, 248, 0.94));
+}
+
+.home-priority-item {
+  display: grid;
+  gap: 10px;
+  border: 1px solid rgba(8, 119, 96, 0.12);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.72);
+  padding: 11px;
+}
+
+.home-priority-item + .home-priority-item {
+  border-top-color: rgba(21, 95, 194, 0.14);
+}
+
+.home-priority-item div:first-child {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+
+.home-priority-item small {
+  color: var(--teal);
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.home-priority-item strong {
+  overflow: hidden;
+  color: var(--text);
+  font-size: 15px;
+  font-weight: 900;
+  line-height: 1.28;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.home-priority-item span {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+.home-priority-item em {
+  display: -webkit-box;
+  overflow: hidden;
+  color: var(--teal);
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: 1.4;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.home-priority-item .home-focus-actions {
+  grid-template-columns: repeat(auto-fit, minmax(96px, 1fr));
+}
+
 .home-status-compact {
   display: grid;
   gap: 8px;

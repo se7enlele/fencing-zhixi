@@ -4824,6 +4824,51 @@ function renderHomeRadarCard(row = homePrematchActionRow(followedCompetitionCard
   `;
 }
 
+function renderHomePriorityPanel() {
+  const focus = homeFocusItem();
+  const radar = homePrematchActionRow(followedCompetitionCards());
+  const focusPrimaryAction = focus.type === 'coach'
+      ? `<button type="button" data-home-focus-coach="${escapeHtml(focus.id)}">查看剑馆</button>`
+      : focus.type === 'athlete'
+        ? `<button type="button" data-home-focus-athlete="${escapeHtml(focus.id)}">查看画像</button>`
+        : '<button type="button" data-home-compact-nav="my">添加关注</button>';
+  return `
+    <section class="panel my-section home-priority-panel">
+      <div class="section-title">
+        <h2>重点动态</h2>
+        <span>关注与赛事</span>
+      </div>
+      <article class="home-priority-item">
+        <div>
+          <small>关注对象</small>
+          <strong>${escapeHtml(focus.title)}</strong>
+          <span>${escapeHtml(focus.meta)}</span>
+          <em>${escapeHtml(focus.detail)}</em>
+        </div>
+        <div class="home-focus-actions">
+          ${focusPrimaryAction}
+          <button type="button" data-home-compact-nav="my">管理关注</button>
+        </div>
+      </article>
+      ${radar ? `
+        <article class="home-priority-item home-priority-item-radar">
+          <div>
+            <small>${escapeHtml(radar.isFollowed ? '已关注赛事' : '推荐赛事')}</small>
+            <strong>${escapeHtml(radar.sportName || '近期赛事')}</strong>
+            <span>${escapeHtml(radar.meta || '')}</span>
+            <em>${escapeHtml(radar.detail || '')}</em>
+          </div>
+          <div class="home-focus-actions">
+            <button type="button" data-home-focus-competition="${escapeHtml(radar.sportCode)}">赛事详情</button>
+            <button type="button" data-home-focus-prematch="${escapeHtml(radar.sportCode)}">赛前提醒</button>
+            ${radar.isFollowed ? '' : `<button type="button" data-home-focus-follow="${escapeHtml(radar.sportCode)}">加入提醒</button>`}
+          </div>
+        </article>
+      ` : ''}
+    </section>
+  `;
+}
+
 function renderHomeRoleBar() {
   return `
     <section class="home-role-bar">
@@ -4840,8 +4885,7 @@ function renderFocusedHomePage() {
     <div class="home-dashboard home-dashboard-focused">
       ${renderHomeRoleBar()}
       ${renderAiWorkspace('home')}
-      ${renderHomeFocusCard()}
-      ${renderHomeRadarCard()}
+      ${renderHomePriorityPanel()}
     </div>
   `;
   homePage.querySelectorAll('[data-home-compact-nav]').forEach((button) => {

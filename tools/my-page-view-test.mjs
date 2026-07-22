@@ -93,7 +93,7 @@ assert.doesNotMatch(js, /匹配赛事和画像/, 'AI loading copy must avoid int
 assert.match(js, /answer\.setAttribute\('aria-busy', 'true'\);/, 'AI answer area must expose busy state while loading');
 assert.match(js, /currentAnswer\.setAttribute\('aria-busy', 'false'\);/, 'AI answer area must clear busy state after rendering');
 assert.match(js, /finally \{[\s\S]*submitButton\.disabled = false;[\s\S]*submitButton\.textContent = '开始分析'/, 'AI question submission must restore the CTA after loading');
-assert.match(js, /function renderFocusedHomePage\(\)[\s\S]*<div class="home-dashboard home-dashboard-focused">[\s\S]*\$\{renderHomeRoleBar\(\)\}[\s\S]*\$\{renderAiWorkspace\('home'\)\}[\s\S]*\$\{renderHomeFocusCard\(\)\}[\s\S]*\$\{renderHomeRadarCard\(\)\}/, 'focused home page must start with role state, AI entry, active insight, and competition radar');
+assert.match(js, /function renderFocusedHomePage\(\)[\s\S]*<div class="home-dashboard home-dashboard-focused">[\s\S]*\$\{renderHomeRoleBar\(\)\}[\s\S]*\$\{renderAiWorkspace\('home'\)\}[\s\S]*\$\{renderHomePriorityPanel\(\)\}/, 'focused home page must start with role state, AI entry, and one compact priority panel');
 assert.doesNotMatch(js, /function renderFocusedHomePage\(\)[\s\S]*home-stats-strip[\s\S]*function renderHomePage/, 'focused home page must not show statistic cards in the first screen');
 assert.match(js, /<section class="panel ai-home-primary">[\s\S]*<\/section>\s*<div class="ai-answer" id="aiAnswer">/, 'AI answers must render outside the dark home entry panel');
 assert.doesNotMatch(js, /问 FencingAI/, 'home hero must not repeat the topbar product name');
@@ -533,6 +533,9 @@ assert.match(css, /\.ai-skeleton-block/, 'AI loading skeleton block styles must 
 assert.match(css, /@keyframes aiSkeletonSweep/, 'AI loading skeleton must have a shimmer animation');
 assert.match(css, /\.home-dashboard-focused/, 'focused home dashboard styles must exist');
 assert.match(css, /\.home-role-bar/, 'focused home role bar styles must exist');
+assert.match(js, /function renderHomePriorityPanel\(\)/, 'focused home must combine focus and radar into one compact priority panel');
+assert.match(css, /\.home-priority-panel/, 'focused home priority panel styles must exist');
+assert.match(css, /\.home-priority-item/, 'focused home priority rows must be styled');
 assert.match(css, /\.home-focus-card/, 'focused home next-step card styles must exist');
 assert.match(css, /\.home-radar-card/, 'focused home competition radar styles must exist');
 assert.match(css, /\.home-focus-actions/, 'focused home next-step actions must be styled');
