@@ -32,6 +32,9 @@ assert.doesNotMatch(js, /label: 'AI分析'|label: '服务申请'|label: '档案�
 assert.doesNotMatch(js, /继续生成赛前情报|可继续生成|人工跟进|试用说明/, 'AI and report copy must avoid process or sales-ops wording');
 assert.match(js, /常用报告/, 'home report center should use user-facing report copy');
 assert.match(js, /报告服务/, 'AI report planning answers should use user-facing report wording');
+assert.match(js, /人员资料补充后可按姓名查找/, 'official search entry should explain availability in user-facing copy');
+assert.match(js, /status: officialCount \? '可查' : '先查赛事'/, 'official coverage state should guide users to available data first');
+assert.doesNotMatch(js, /教练\/裁判[\s\S]{0,160}暂无资料/, 'official search entry must not look like a broken zero-result state');
 assert.doesNotMatch(js, /产品化方向|商业化落地顺序|商业闭环|SaaS|生成赛前情报包方案|生成家长成长报告方案|生成教练工作台方案|赛前情报包方案|家长成长报告方案|教练学员分层方案|家长沟通口径/, 'AI business and report copy must avoid internal product-planning wording');
 assert.doesNotMatch(js, /title: '内容结构'|title: '交付方式'|\['核心价值'|\['交付节奏'/, 'AI report-service copy must avoid proposal-document wording');
 assert.match(js, /title: '报告会包含'[\s\S]*title: '重点数字'[\s\S]*title: '使用方式'/, 'AI report-service copy must use customer-facing report sections');

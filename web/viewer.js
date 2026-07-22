@@ -2347,6 +2347,56 @@ function followedDataSummary() {
   return parts.length ? parts.join(' · ') : '关注选手、赛事或俱乐部后可快速查看';
 }
 
+function databaseCoverageLayerRows() {
+  const entityCounts = entityCoverageCounts();
+  const officialCount = officialCoverageCount();
+  return [
+    {
+      key: 'competitions',
+      title: '赛事',
+      value: `${state.competitions.length} 场`,
+      status: state.competitions.length ? '可查' : '整理中',
+      ready: Boolean(state.competitions.length),
+    },
+    {
+      key: 'athletes',
+      title: '选手',
+      value: `${entityCounts.athletes} 个`,
+      status: entityCounts.athletes ? '可查' : '整理中',
+      ready: Boolean(entityCounts.athletes),
+    },
+    {
+      key: 'clubs',
+      title: '俱乐部',
+      value: `${entityCounts.clubs} 个`,
+      status: entityCounts.clubs ? '可查' : '整理中',
+      ready: Boolean(entityCounts.clubs),
+    },
+    {
+      key: 'officials',
+      title: '教练/裁判',
+      value: officialCount ? `${officialCount} 个` : '待补充',
+      status: officialCount ? '可查' : '先查赛事',
+      ready: Boolean(officialCount),
+    },
+  ];
+}
+
+function renderDatabaseCoverageLayers() {
+  const rows = databaseCoverageLayerRows();
+  return `
+    <div class="database-coverage-strip" aria-label="资料覆盖">
+      ${rows.map((row) => `
+        <button class="${row.ready ? 'ready' : 'pending'}" type="button" data-database-entry="${escapeHtml(row.key)}">
+          <span>${escapeHtml(row.title)}</span>
+          <strong>${escapeHtml(row.value)}</strong>
+          <em>${escapeHtml(row.status)}</em>
+        </button>
+      `).join('')}
+    </div>
+  `;
+}
+
 function renderDatabaseDirectory() {
   if (!databaseDirectory) return;
   if (state.isDataLoading) {
@@ -2411,8 +2461,8 @@ function renderDatabaseDirectory() {
     {
       key: 'officials',
       title: '教练/裁判',
-      detail: '按姓名检索公开资料',
-      count: officialCount ? `${officialCount} 个` : '暂无资料',
+      detail: officialCount ? '按姓名、地区和身份查找' : '人员资料补充后可按姓名查找',
+      count: officialCount ? `${officialCount} 个` : '待补充',
       action: '搜索人员',
     },
     {
@@ -2430,6 +2480,7 @@ function renderDatabaseDirectory() {
       <h2>常用查找</h2>
       <span>先选任务</span>
     </div>
+    ${renderDatabaseCoverageLayers()}
     <div class="database-task-list">
       ${taskRows.map((row) => `
         <button class="database-task-card" type="button" data-database-entry="${escapeHtml(row.key)}">

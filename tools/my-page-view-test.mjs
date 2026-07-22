@@ -146,7 +146,10 @@ assert.match(js, /key === 'followed' \|\| key === 'task-followed'/, 'followed ta
 assert.match(js, /title: '赛事'[\s\S]*title: '选手'[\s\S]*title: '俱乐部'[\s\S]*title: '教练\/裁判'[\s\S]*title: '我的关注'/, 'database directory must cover competitions, athletes, clubs, officials and followed items');
 assert.match(js, /function followedDataSummary\(\)/, 'database followed entry must summarize followed athletes, competitions, and clubs');
 assert.match(js, /关注选手、赛事或俱乐部后可快速查看/, 'empty followed entry must explain all supported follow object types');
-assert.match(js, /count: officialCount \? `\$\{officialCount\} 个` : '暂无资料'/, 'official directory must not imply searchable data when no official rows are imported');
+assert.match(js, /function databaseCoverageLayerRows\(\)/, 'database tab must show searchable data layers');
+assert.match(js, /function renderDatabaseCoverageLayers\(\)/, 'database tab must render coverage layers before entry cards');
+assert.match(js, /value: officialCount \? `\$\{officialCount\} 个` : '待补充'[\s\S]*status: officialCount \? '可查' : '先查赛事'/, 'official coverage must not imply searchable personnel data when no official rows are imported');
+assert.match(js, /count: officialCount \? `\$\{officialCount\} 个` : '待补充'/, 'official directory must show pending availability instead of a broken zero-result state');
 assert.match(js, /function handleDatabaseEntry\(key\)/, 'database directory entries must have runnable actions');
 assert.match(js, /homeStatsScope\) homeStatsScope\.textContent = active \? '筛选结果' : '赛事收录'/, 'database overview fold must summarize the selected scope without front-loading metrics');
 assert.match(js, /<strong>内容概况<\/strong>/, 'database coverage copy must use a user-facing content label');

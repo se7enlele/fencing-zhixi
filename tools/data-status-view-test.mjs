@@ -8,6 +8,11 @@ assert.match(js, /function competitionCoverageLevel\(competition\)/, 'home data 
 assert.match(js, /function dataCoveragePriorityRows\(competitions, limit = 3\)/, 'home data status must surface priority gaps');
 assert.match(js, /function homeServiceReadinessRows\(coverage, competitions = state\.competitions \|\| \[\]\)/, 'home data status must derive service readiness from current coverage');
 assert.match(js, /function renderHomeDataCoverage\(\)/, 'home page must render product-facing data coverage status');
+assert.match(js, /function databaseCoverageLayerRows\(\)/, 'database page must derive coverage rows for searchable entities');
+assert.match(js, /function renderDatabaseCoverageLayers\(\)/, 'database page must show searchable data layers before task entries');
+assert.match(js, /title: '教练\/裁判'[\s\S]*value: officialCount \? `\$\{officialCount\} 个` : '待补充'[\s\S]*status: officialCount \? '可查' : '先查赛事'/, 'official coverage must explain missing personnel data without looking like a broken search');
+assert.match(js, /renderDatabaseCoverageLayers\(\)[\s\S]*database-task-list/, 'database coverage layers must appear before task cards');
+assert.match(js, /detail: officialCount \? '按姓名、地区和身份查找' : '人员资料补充后可按姓名查找'/, 'official directory entry must explain current availability');
 assert.match(js, /function formatDataGeneratedAt\(value\)/, 'data status must format generatedAt for users');
 assert.match(js, /function scheduledSyncStatusLabel\(syncStatus\)/, 'data status must format the latest scheduled sync status');
 assert.match(js, /taskTypes = summary\.taskTypes \|\| \{\}/, 'scheduled sync status must read task type counts');
@@ -27,6 +32,9 @@ assert.match(js, /title: '教练工作台'/, 'service readiness must include coa
 assert.match(js, /renderHomeDataCoverage\(\)/, 'home dashboard must include the data status panel');
 
 assert.match(css, /\.data-status-panel/, 'data status panel styles must exist');
+assert.match(css, /\.database-coverage-strip/, 'database coverage layer strip styles must exist');
+assert.match(css, /\.database-coverage-strip button\.ready/, 'ready database coverage layers must be visually distinct');
+assert.match(css, /\.database-coverage-strip button\.pending/, 'pending database coverage layers must be visually distinct');
 assert.match(css, /\.sync-status-note/, 'scheduled sync status should use compact product-facing styling');
 assert.match(css, /\.coverage-stage-strip/, 'coverage stages must use a compact mobile layout');
 assert.match(css, /\.service-readiness-grid/, 'service readiness rows must use a compact mobile layout');
