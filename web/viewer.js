@@ -2103,6 +2103,15 @@ function competitionCoverageNeed(competition) {
   return '已有完整赛果';
 }
 
+function competitionAvailableLayerLabels(competition) {
+  const level = competitionCoverageLevel(competition);
+  const labels = ['赛程'];
+  if (['project', 'roster', 'score'].includes(level)) labels.push('项目');
+  if (['roster', 'score'].includes(level)) labels.push('报名');
+  if (level === 'score') labels.push('赛果');
+  return labels;
+}
+
 function dataCoveragePriorityRows(competitions, limit = 3) {
   return [...competitions]
     .map((competition) => {
@@ -9775,6 +9784,9 @@ function renderCompetitionList() {
         <div class="meta-row">
           <span class="badge">${escapeHtml(displayDateLabel(competition.dateLabel))}</span>
           <span class="badge">${escapeHtml(competition.venue || competition.region || '地点待确认')}</span>
+        </div>
+        <div class="available-layer-row" aria-label="可查内容">
+          ${competitionAvailableLayerLabels(competition).map((label) => `<span>${escapeHtml(label)}</span>`).join('')}
         </div>
         <div class="event-chip-row">
           ${competitionChips(competition, 4).visible.map((label) => `<span>${escapeHtml(label)}</span>`).join('')}

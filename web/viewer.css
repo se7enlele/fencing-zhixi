@@ -1242,6 +1242,26 @@ select:focus {
   line-height: 1.45;
 }
 
+.available-layer-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.available-layer-row span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 22px;
+  border-radius: 999px;
+  padding: 3px 7px;
+  background: rgba(13, 125, 103, 0.09);
+  color: var(--teal);
+  font-size: 11px;
+  font-weight: 900;
+  line-height: 1;
+}
+
 .ai-filter-notice {
   display: flex;
   flex-wrap: wrap;

@@ -4,6 +4,7 @@ import vm from 'node:vm';
 
 const source = await readFile(new URL('../web/viewer.js', import.meta.url), 'utf8');
 const html = await readFile(new URL('../web/viewer.html', import.meta.url), 'utf8');
+const css = await readFile(new URL('../web/viewer.css', import.meta.url), 'utf8');
 const start = source.indexOf('function compactCompetitionBarRows');
 const end = source.indexOf('function renderCompetitionInsights');
 
@@ -97,6 +98,10 @@ assert.equal(digestRows[1].title, '主要年龄段');
 assert.equal(digestRows[2].title, '赛事强度');
 
 assert.match(source, /competitionChips\(competition, 4\)/, 'competition list cards must limit raw project chips and summarize the rest');
+assert.match(source, /function competitionAvailableLayerLabels\(competition\)/, 'competition list cards must derive user-facing available data layers');
+assert.match(source, /const labels = \['赛程'\];[\s\S]*labels\.push\('项目'\)[\s\S]*labels\.push\('报名'\)[\s\S]*labels\.push\('赛果'\)/, 'competition available layers must progress from schedule to project, roster and results');
+assert.match(source, /class="available-layer-row" aria-label="可查内容"[\s\S]*competitionAvailableLayerLabels\(competition\)/, 'competition list cards must show available data layers before entering detail');
+assert.match(css, /\.available-layer-row/, 'competition available data layer tags must be styled');
 assert.match(source, /function competitionProjectSummaryChips\(competition\)/, 'competition hero must summarize project structure instead of listing raw labels');
 assert.match(source, /function competitionProjectScope\(competition\)/, 'competition hero must render a structured project scope summary');
 assert.match(source, /function competitionHeroSummaryText\(competition\)/, 'competition hero must explain available value in user-facing language');
@@ -142,7 +147,6 @@ assert.match(source, /secondaryItems\.length/, 'competition event list must keep
 assert.doesNotMatch(source, /更新后会展示具体组别、剑种、报名规模和后续赛果入口/, 'empty project copy must not expose back-office update wording');
 assert.doesNotMatch(html, /赛事画像|结构与年龄段|项目列表/, 'competition detail headings must use product-facing language');
 
-const css = await readFile(new URL('../web/viewer.css', import.meta.url), 'utf8');
 assert.match(css, /\.competition-scope-grid/, 'competition scope summary styles must exist');
 assert.match(css, /\.competition-scope-grid strong,[\s\S]*text-overflow:\s*ellipsis/, 'competition scope cells must truncate long summaries');
 assert.match(css, /\.competition-digest-panel/, 'post-event competition digest panel styles must exist');
