@@ -5896,16 +5896,16 @@ function competitionMissingDiagnosisRows(query, competitionLike, relatedCompetit
   } else {
     rows.push('如果赛事来自其他平台，建议用城市、日期或主办方名称缩小范围。');
   }
-  rows.push('仍然找不到时，可把赛事名称和截图留存；补充完成后就能直接查看。');
+  rows.push('仍然找不到时，可以先保存赛事名称和截图，再次核对时会更快定位。');
   return rows.slice(0, 3);
 }
 
 function missingCompetitionCoverageCards(competitionLike, relatedCompetitions = []) {
   return [
     ['赛事记录', '未找到'],
-    ['项目名单', '无法核对'],
-    ['报名名单', '无法核对'],
-    ['赛果成绩', '无法核对'],
+    ['项目名单', '先确认赛事'],
+    ['报名名单', '先确认赛事'],
+    ['赛果成绩', '先确认赛事'],
     competitionLike.year ? ['年份', competitionLike.year] : null,
     competitionLike.region ? ['地区', competitionLike.region] : null,
     competitionLike.month ? ['月份', `${competitionLike.month}月`] : null,
@@ -5917,9 +5917,9 @@ function missingCompetitionCoverageCards(competitionLike, relatedCompetitions = 
 function missingCompetitionCoverageRows(relatedCompetitions = []) {
   const rows = [
     '赛事记录：暂时没有找到完全一致的赛事。',
-    '项目名单：需要先确认赛事后查看。',
-    '报名名单：需要先确认赛事后查看。',
-    '赛果成绩：需要先确认赛事后查看。',
+    '项目名单：先确认赛事名称，再查看对应项目。',
+    '报名名单：先确认赛事名称，再查看报名情况。',
+    '赛果成绩：先确认赛事名称，再查看成绩和对阵。',
   ];
   if (relatedCompetitions.length) rows.push('相近赛事：可以打开最近的一场核对名称、年份和地点。');
   return rows;
