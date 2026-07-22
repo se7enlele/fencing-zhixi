@@ -1918,12 +1918,14 @@ function openFilterSheet(type) {
       ${escapeHtml(value)}
     </button>
   `).join('');
-  filterSheet.hidden = false;
+  filterSheet.removeAttribute('hidden');
+  filterSheet.setAttribute('aria-hidden', 'false');
   if (type === 'follow') myFollowFilterButton?.setAttribute('aria-expanded', 'true');
 }
 
 function closeFilterSheet() {
-  filterSheet.hidden = true;
+  filterSheet.setAttribute('hidden', '');
+  filterSheet.setAttribute('aria-hidden', 'true');
   if (filterSheet.dataset.filterType === 'follow') myFollowFilterButton?.setAttribute('aria-expanded', 'false');
   filterSheet.dataset.filterType = '';
 }

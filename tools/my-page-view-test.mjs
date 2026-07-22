@@ -25,6 +25,7 @@ assert.doesNotMatch(html, /class="active"\s+data-main-tab=/, 'bottom navigation 
 assert.match(html, /<strong>数据库<\/strong>/, 'second tab must be positioned as the structured database');
 assert.match(html, /id="myFollowFilterButton"/, 'database tab must expose a my-follow quick filter');
 assert.match(html, /id="myFollowFilterButton" class="filter-trigger follow-filter-trigger"[^>]*aria-haspopup="dialog"[^>]*aria-expanded="false"/, 'my-follow filter must look and behave like a normal dropdown filter');
+assert.match(html, /id="filterSheet" class="filter-sheet" hidden aria-hidden="true"/, 'shared filter sheet must ship hidden to assistive tech and browsers');
 assert.doesNotMatch(html, /class="toggle-filter-trigger follow-filter-trigger"/, 'my-follow filter must not look like a silent toggle');
 assert.match(html, /id="databaseDirectory"/, 'database tab must expose a structured directory before the long list');
 assert.match(html, /<h2>赛事列表<\/h2>/, 'database tab must label the long competition list clearly');
@@ -134,7 +135,9 @@ assert.doesNotMatch(js, /function toggleFollowFilterMenu\(\)/, 'my-follow filter
 assert.match(js, /myFollowFilterButton\?\.addEventListener\('click', \(\) => openFilterSheet\('follow'\)\)/, 'my-follow filter button must open the shared sheet');
 assert.match(js, /if \(type === 'follow'\) \{[\s\S]*state\.followFilter = value \|\| '全部赛事';[\s\S]*state\.onlyFollowedData = state\.followFilter !== '全部赛事';[\s\S]*\}/, 'my-follow sheet selection must update the selected follow scope');
 assert.match(js, /myFollowFilterButton\.innerHTML = `<span>\$\{escapeHtml\(value\)\}<\/span>`/, 'my-follow filter must show the selected option');
+assert.match(js, /filterSheet\.removeAttribute\('hidden'\);[\s\S]*filterSheet\.setAttribute\('aria-hidden', 'false'\);/, 'filter sheet must explicitly remove hidden and clear aria-hidden when opened');
 assert.match(js, /myFollowFilterButton\?\.setAttribute\('aria-expanded', 'true'\);/, 'my-follow filter must mark the dropdown menu as open');
+assert.match(js, /filterSheet\.setAttribute\('hidden', ''\);[\s\S]*filterSheet\.setAttribute\('aria-hidden', 'true'\);/, 'filter sheet must explicitly restore hidden and aria-hidden when closed');
 assert.match(js, /myFollowFilterButton\?\.setAttribute\('aria-expanded', 'false'\);/, 'my-follow filter must reset expanded state when the menu closes');
 assert.match(js, /function renderDatabaseDirectory\(\)/, 'database tab must render a structured entry directory');
 assert.match(js, /data-database-entry="\$\{escapeHtml\(row\.key\)\}"/, 'database directory cards must carry explicit entry types');
