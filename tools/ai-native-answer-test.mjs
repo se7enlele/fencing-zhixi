@@ -74,6 +74,8 @@ assert.match(js, /function detectClubComparisonQuery\(query\)/, 'AI must detect 
 assert.match(js, /function hasClubComparisonIntent\(query\)/, 'AI must keep club comparison intent separate from exact club matching');
 assert.match(js, /function detectAthleteComparisonIntent\(query\)/, 'AI must detect athlete comparison intent before falling back to growth');
 assert.match(js, /\.\.\.\(state\.athleteSearchIndex \|\| \[\]\)[\s\S]*\.\.\.Object\.values\(state\.athletesById \|\| \{\}\)/, 'AI athlete pool must merge search index and hydrated details');
+assert.match(js, /function aiClubPool\(\)[\s\S]*state\.clubSearchIndex[\s\S]*Object\.values\(state\.clubsById \|\| \{\}\)/, 'AI club matching must merge search index and loaded club profiles');
+assert.match(js, /function detectClubsInQuery\(query\)[\s\S]*aiClubPool\(\)/, 'AI club comparison detection must not depend only on the search index');
 assert.match(js, /aiFallbackCandidates\(query\)\.clubs/, 'AI club comparison must recover abbreviated club names from nearby candidates');
 assert.match(js, /function buildAiClubComparisonReport\(query, leftClub, rightClub, filters\)/, 'AI must build club-to-club comparison reports');
 assert.match(js, /function buildAiClubComparisonReport\(query, leftClub, rightClub, filters\)[\s\S]*evidence: \[[\s\S]*clubProfileEvidence\(leftClub\)[\s\S]*clubProfileEvidence\(rightClub\)/, 'AI club comparison should cite both club profiles before source records');

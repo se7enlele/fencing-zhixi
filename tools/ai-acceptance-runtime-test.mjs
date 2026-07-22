@@ -62,6 +62,7 @@ const functionNames = [
   'aiEntityCandidateTerms',
   'normalizeAiName',
   'aiAthletePool',
+  'aiClubPool',
   'detectAthletesInQuery',
   'detectExactAthletesInQuery',
   'detectAthleteComparisonIntent',
@@ -389,6 +390,9 @@ assert.equal(context.detectRegionInQuery('2026年天津有几场比赛'), '天�
 
 const comparisonTerms = context.aiEntityCandidateTerms('\u5206\u6790\u9a6c\u6d88\u548c\u9676\u5609\u6708\u7684\u5bf9\u6218\u60c5\u51b5');
 assert.ok(comparisonTerms.includes('\u9a6c\u6f47'), 'AI entity hydration should normalize common athlete name typos');
+const clubComparisonTerms = context.aiEntityCandidateTerms('\u770b2025\u548c2026\u5e74\uff0cU10\u82b1\u5251\uff0c\u7537\u5b50\u548c\u5973\u5b50\uff0c\u5317\u4eac\u91d1\u77f3\u662f\u4e0d\u662f\u6bd4\u5317\u4eac\u827e\u9c81\u7279\u6210\u7ee9\u66f4\u597d');
+assert.ok(clubComparisonTerms.includes('\u5317\u4eac\u91d1\u77f3'), 'AI entity hydration should keep the first city-prefixed club name');
+assert.ok(clubComparisonTerms.includes('\u5317\u4eac\u827e\u9c81\u7279'), 'AI entity hydration should keep the second city-prefixed club name');
 assert.ok(comparisonTerms.includes('\u9676\u5609\u6708'), 'AI entity hydration should extract the second athlete name');
 
 const clubTerms = context.aiEntityCandidateTerms('\u5c71\u4e1c\u5c0f\u4f17\u4f53\u80b2 U8 \u7537\u82b1\u600e\u4e48\u6837');
@@ -630,6 +634,14 @@ const abbreviatedClubComparison = context.buildAiAnswer('\u5317\u4eac\u91d1\u77f
 assert.equal(abbreviatedClubComparison.type, 'club-comparison', 'club comparison should recover abbreviated club names');
 assert.ok(abbreviatedClubComparison.title.includes('\u5317\u4eac\u827e\u9c81\u7279'), 'abbreviated club comparison should resolve the full club name');
 assert.ok(abbreviatedClubComparison.actions.some((action) => action.clubId === 'club-airuite'), 'abbreviated club comparison should link to the recovered club');
+
+const savedClubSearchIndexForComparison = context.__state.clubSearchIndex;
+context.__state.clubSearchIndex = [];
+const clubsByIdOnlyComparison = context.buildAiAnswer('\u770b2025\u548c2026\u5e74\uff0cU10\u82b1\u5251\uff0c\u7537\u5b50\u548c\u5973\u5b50\uff0c\u5317\u4eac\u91d1\u77f3\u662f\u4e0d\u662f\u6bd4\u5317\u4eac\u827e\u9c81\u7279\u6210\u7ee9\u66f4\u597d\uff0c\u5148\u7528\u6570\u91cf\u5224\u65ad');
+assert.equal(clubsByIdOnlyComparison.type, 'club-comparison', 'club comparison should work from clubsById even when the club search index is not ready');
+assert.ok(clubsByIdOnlyComparison.evidence.some((row) => row.clubId === 'club-jinshi'), 'clubsById fallback should cite the first club');
+assert.ok(clubsByIdOnlyComparison.evidence.some((row) => row.clubId === 'club-airuite'), 'clubsById fallback should cite the second club');
+context.__state.clubSearchIndex = savedClubSearchIndexForComparison;
 
 const childInvestmentFallback = context.buildAiAnswer('\u5b69\u5b50\u51fb\u5251\u503c\u4e0d\u503c\u5f97\u7ee7\u7eed');
 assert.equal(childInvestmentFallback.type, 'fallback', 'general child investment questions should stay in recovery when no child is named');

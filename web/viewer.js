@@ -5393,7 +5393,7 @@ function renderHomePage() {
 function aiDefaultClub() {
   const followed = typeof followedClubCards === 'function' ? followedClubCards()[0] : null;
   if (followed?.id) return followed;
-  return [...(state.clubSearchIndex || [])]
+  return aiClubPool()
     .filter((club) => club?.club)
     .sort((a, b) => (Number(b.entrants) || 0) - (Number(a.entrants) || 0) || String(a.club).localeCompare(String(b.club), 'zh-CN'))[0] || null;
 }
@@ -5853,9 +5853,11 @@ function normalizeAiName(value) {
 
 function aiEntityCandidateTerms(query) {
   const stopWords = /(帮我|请问|分析|对比|对战|交手|情况|最近|有没有|是否|是不是|进步|怎么样|如何|表现|成长|比赛|赛事|报名|几场|多少场|当前|数据|查看|看一下|和|与|跟|的|vs)/ig;
-  const normalized = normalizeAiName(query).replace(stopWords, ' ');
+  const compactOriginal = normalizeAiName(query);
+  const clubLikeTerms = compactOriginal.match(/(?:北京|上海|天津|重庆|山东|江苏|浙江|广东|河北|河南|山西|陕西|安徽|福建|湖北|湖南|四川|辽宁|吉林|黑龙江|江西|广西|云南|贵州|海南|甘肃|青海|宁夏|新疆|西藏|内蒙古)[\u4e00-\u9fa5]{2,8}?(?=和|与|跟|vs|VS|比|是|更|成绩|表现|优势|差距|,|，|。|、|\s|$)/g) || [];
+  const normalized = compactOriginal.replace(stopWords, ' ');
   const segments = normalized.match(/[\u4e00-\u9fa5]{2,12}|[a-z0-9]{2,12}/ig) || [];
-  const terms = [];
+  const terms = [...clubLikeTerms];
   for (const segment of segments) {
     const text = compactText(segment);
     if (!text || /^u\d{1,2}$/i.test(text) || text.length < 2) continue;
@@ -5951,6 +5953,30 @@ function aiAthletePool() {
   return [...merged.values()];
 }
 
+function aiClubPool() {
+  const rows = [
+    ...(state.clubSearchIndex || []),
+    ...Object.values(state.clubsById || {}),
+  ];
+  const merged = new Map();
+  rows.forEach((club) => {
+    if (!club?.club) return;
+    const key = club.id || compactText(club.club);
+    const existing = merged.get(key);
+    if (!existing || (club.events?.length || 0) > (existing.events?.length || 0)) {
+      merged.set(key, {
+        ...existing,
+        ...club,
+        searchText: club.searchText || existing?.searchText || normalizeSearchText([
+          club.club,
+          ...(club.events || []).flatMap((event) => [event.eventName, event.shortEventName, event.sportName]),
+        ].join(' ')),
+      });
+    }
+  });
+  return [...merged.values()];
+}
+
 function detectAthletesInQuery(query) {
   const normalizedQuery = normalizeAiName(query);
   const exact = detectExactAthletesInQuery(normalizedQuery);
@@ -5995,14 +6021,14 @@ function detectComparisonAthletesInQuery(query, exactAthletes = detectExactAthle
 
 function detectClubInQuery(query) {
   const normalizedQuery = compactText(query);
-  return (state.clubSearchIndex || [])
+  return aiClubPool()
     .filter((club) => compactText(club.club) && normalizedQuery.includes(compactText(club.club)))
     .sort((a, b) => compactText(b.club).length - compactText(a.club).length || (b.entrants || 0) - (a.entrants || 0))[0] || null;
 }
 
 function detectClubsInQuery(query) {
   const normalizedQuery = compactText(query);
-  return uniqueBy((state.clubSearchIndex || [])
+  return uniqueBy(aiClubPool()
     .filter((club) => compactText(club.club) && normalizedQuery.includes(compactText(club.club)))
     .sort((a, b) => compactText(b.club).length - compactText(a.club).length || (b.entrants || 0) - (a.entrants || 0)),
   (club) => club.id || compactText(club.club)).slice(0, 3);
@@ -6182,7 +6208,7 @@ function aiFallbackCandidates(query) {
     .sort((a, b) => b.score - a.score || (b.athlete.appearances || 0) - (a.athlete.appearances || 0))
     .map((row) => row.athlete), (athlete) => athlete.id || `${athlete.name}__${athlete.club || ''}`)
     .slice(0, 2);
-  const clubs = uniqueBy((state.clubSearchIndex || [])
+  const clubs = uniqueBy(aiClubPool()
     .map((club) => {
       const score = (fallbackMatchScore(club.club, terms) * 2)
         + (fallbackMatchScore(club.searchText, terms) * 0.4);
