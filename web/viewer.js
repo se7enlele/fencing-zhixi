@@ -5300,14 +5300,14 @@ function renderAiLoadingState(query = '') {
   return `
     <div class="ai-loading-card" role="status" aria-live="polite" aria-busy="true">
       <div class="ai-loading-head">
-        <strong>正在分析</strong>
-        <span>${escapeHtml(label || '正在理解问题')}</span>
+        <strong>正在生成分析</strong>
+        <span>${escapeHtml(label || '正在查找相关记录')}</span>
       </div>
       <div class="ai-loading-progress" aria-hidden="true"><i></i></div>
       <div class="ai-loading-steps">
         <span>理解问题</span>
-        <span>查找相关记录</span>
-        <span>形成结论</span>
+        <span>核对比赛记录</span>
+        <span>生成结果</span>
       </div>
       <div class="ai-skeleton-block">
         <i></i>
@@ -5408,7 +5408,7 @@ function bindAiWorkspace(container) {
     state.isAiAnswerLoading = true;
     if (submitButton) {
       submitButton.disabled = true;
-      submitButton.textContent = '分析中...';
+      submitButton.textContent = '正在生成...';
     }
     answer.innerHTML = renderAiLoadingState(normalizedQuery);
     scrollToResultPanel(answer, 'auto');

@@ -86,10 +86,12 @@ assert.match(js, /data-ai-analyze-query/, 'detail AI analysis actions must carry
 assert.match(js, /submitAiQuery\(button\.dataset\.aiAnalyzeQuery \|\| ''\)/, 'detail AI analysis actions must route to the AI home answer flow');
 assert.match(js, /submitButton\.textContent = '开始分析'/, 'AI home CTA must use a direct action label');
 assert.match(js, /answer\.innerHTML = renderAiLoadingState\(normalizedQuery\);[\s\S]*scrollToResultPanel\(answer, 'auto'\);/, 'AI question submission must immediately show a skeleton state and move the viewport to it');
-assert.match(js, /submitButton\.disabled = true;[\s\S]*submitButton\.textContent = '分析中\.\.\.'/, 'AI question submission must disable the CTA while loading');
+assert.match(js, /submitButton\.disabled = true;[\s\S]*submitButton\.textContent = '正在生成\.\.\.'/, 'AI question submission must disable the CTA while loading');
 assert.match(js, /<div class="ai-loading-progress" aria-hidden="true"><i><\/i><\/div>/, 'AI loading state must include an explicit progress indicator');
-assert.match(js, /<span>理解问题<\/span>[\s\S]*<span>查找相关记录<\/span>[\s\S]*<span>形成结论<\/span>/, 'AI loading steps must use user-facing progress copy');
+assert.match(js, /<strong>正在生成分析<\/strong>[\s\S]*<span>\$\{escapeHtml\(label \|\| '正在查找相关记录'\)\}<\/span>/, 'AI loading state must explain that the answer is being generated from records');
+assert.match(js, /<span>理解问题<\/span>[\s\S]*<span>核对比赛记录<\/span>[\s\S]*<span>生成结果<\/span>/, 'AI loading steps must use user-facing progress copy');
 assert.doesNotMatch(js, /匹配赛事和画像/, 'AI loading copy must avoid internal matching wording');
+assert.doesNotMatch(js, /生成判断/, 'AI home CTA must not use judgment-generation copy');
 assert.match(js, /answer\.setAttribute\('aria-busy', 'true'\);/, 'AI answer area must expose busy state while loading');
 assert.match(js, /currentAnswer\.setAttribute\('aria-busy', 'false'\);/, 'AI answer area must clear busy state after rendering');
 assert.match(js, /finally \{[\s\S]*submitButton\.disabled = false;[\s\S]*submitButton\.textContent = '开始分析'/, 'AI question submission must restore the CTA after loading');

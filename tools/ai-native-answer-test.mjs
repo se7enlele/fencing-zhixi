@@ -46,8 +46,10 @@ assert.match(js, /Boolean\(\(state\.competitions \|\| \[\]\)\.length \|\| Number
 assert.match(js, /function buildAiDataLoadingReport\(query\)/, 'AI home prompt must show a loading-safe fallback instead of answering from empty data');
 assert.match(js, /hasAiPrimaryDataReady\(\)[\s\S]*\? buildAiAnswer\(normalizedQuery\)[\s\S]*: buildAiDataLoadingReport\(normalizedQuery\)/, 'AI catch path must not build normal answers from empty data');
 assert.match(js, /<div class="ai-loading-progress" aria-hidden="true"><i><\/i><\/div>/, 'AI loading state must include a visible progress bar');
-assert.match(js, /<span>理解问题<\/span>[\s\S]*<span>查找相关记录<\/span>[\s\S]*<span>形成结论<\/span>/, 'AI loading state must use user-facing progress steps');
+assert.match(js, /<strong>正在生成分析<\/strong>[\s\S]*<span>\$\{escapeHtml\(label \|\| '正在查找相关记录'\)\}<\/span>/, 'AI loading state must tell users that the answer is being generated from records');
+assert.match(js, /<span>理解问题<\/span>[\s\S]*<span>核对比赛记录<\/span>[\s\S]*<span>生成结果<\/span>/, 'AI loading state must use user-facing progress steps');
 assert.doesNotMatch(js, /匹配赛事和画像/, 'AI loading state must not expose internal matching wording');
+assert.doesNotMatch(js, /生成判断/, 'AI answer flow must not expose judgment-generation copy');
 assert.match(css, /\.ai-loading-progress/, 'AI loading progress bar styles must exist');
 assert.match(js, /answer\.innerHTML = renderAiLoadingState\(normalizedQuery\);[\s\S]*scrollToResultPanel\(answer, 'auto'\);[\s\S]*Promise\.allSettled\(\[[\s\S]*waitForAiPrimaryDataReady\(\)\.then\(\(\) => ensureAiEntityContext\(normalizedQuery\)\),[\s\S]*waitForAiLoadingState\(\),/, 'AI home prompt must scroll to the loading answer before data-backed entity hydration and keep it visible');
 assert.match(js, /aiActiveQuery: ''/, 'AI home prompt must persist the active query across home rerenders');
