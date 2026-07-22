@@ -5,6 +5,7 @@ const baseUrl = process.env.FENCINGAI_AUDIT_URL || 'https://fencingai.uk/';
 const outputDir = process.env.ANALYSIS_OUTPUT_DIR || 'analysis-output';
 const runId = new Date().toISOString().replace(/[:.]/g, '-');
 const chromiumExecutable = process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE || '';
+const expectedAssetVersion = process.env.FENCINGAI_EXPECTED_ASSET_VERSION || 'fencingai-product-20260722-focused-home-1';
 
 function assertAudit(condition, message, details = {}) {
   if (!condition) {
@@ -44,6 +45,42 @@ async function runAiQuery(page, query) {
 
 async function activeViewId(page) {
   return page.evaluate(() => document.querySelector('.view.active')?.id || '');
+}
+
+async function auditAssetVersion(page) {
+  await openHome(page, '-asset-version');
+  const assets = await page.evaluate(() => ({
+    script: document.querySelector('script[src*="viewer.js"]')?.getAttribute('src') || '',
+    stylesheet: document.querySelector('link[href*="viewer.css"]')?.getAttribute('href') || '',
+  }));
+  assertAudit(assets.script.includes(expectedAssetVersion), 'HTML should reference the expected viewer.js version', { assets, expectedAssetVersion });
+  assertAudit(assets.stylesheet.includes(expectedAssetVersion), 'HTML should reference the expected viewer.css version', { assets, expectedAssetVersion });
+  assertAudit(!assets.script.includes('official-data-state-1') && !assets.stylesheet.includes('official-data-state-1'), 'HTML should not reference the stale focused-home predecessor assets', { assets });
+  return assets;
+}
+
+async function auditFocusedHome(page) {
+  await openHome(page, '-focused-home');
+  const result = await page.evaluate(() => {
+    const home = document.querySelector('#homePage');
+    return {
+      activeView: document.querySelector('.view.active')?.id || '',
+      hasFocusedHome: Boolean(home?.querySelector('.home-dashboard-focused')),
+      priorityCards: home?.querySelectorAll('.home-priority-item')?.length || 0,
+      shortcutLabels: [...(home?.querySelectorAll('.home-shortcut-strip button') || [])].map((node) => node.textContent.trim()),
+      text: home?.innerText || '',
+    };
+  });
+  assertAudit(result.activeView === 'view-home', 'focused home should be the active landing page', result);
+  assertAudit(result.hasFocusedHome, 'home should render the focused dashboard', result);
+  assertAudit(result.priorityCards === 1, 'focused home should show exactly one next-step priority card', result);
+  assertAudit(result.text.includes('下一步') && !result.text.includes('关注与赛事'), 'focused home should use a single next-step heading instead of stacked priority copy', { text: result.text.slice(0, 800) });
+  assertAudit(result.shortcutLabels.includes('查赛事和选手') && result.shortcutLabels.includes('我的关注'), 'focused home should keep the two compact shortcuts', result);
+  return {
+    activeView: result.activeView,
+    priorityCards: result.priorityCards,
+    shortcutLabels: result.shortcutLabels,
+  };
 }
 
 async function auditGenericFallback(page) {
@@ -118,6 +155,8 @@ async function main() {
   const results = {};
   try {
     await context.clearCookies();
+    results.assetVersion = await auditAssetVersion(page);
+    results.focusedHome = await auditFocusedHome(page);
     results.genericFallback = await auditGenericFallback(page);
     results.childFallback = await auditChildFallback(page);
     results.followFilterSheet = await auditFollowFilterSheet(page);
