@@ -6115,6 +6115,7 @@ function buildAiCapabilityGuideReport(query) {
         label: '赛事库',
         detail: `${state.competitions.length} 场赛事记录`,
         reason: '用于回答赛事数量、地区、状态和规模问题',
+        mainTab: 'competitions',
       },
       sampleAthlete?.id ? {
         kind: '选手画像',

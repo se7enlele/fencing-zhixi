@@ -71,6 +71,7 @@ assert.match(js, /const clubComparison = detectClubComparisonQuery\(text\);[\s\S
 assert.match(js, /function detectCapabilityGuideQuery\(query\)/, 'AI must detect exploratory product-capability questions');
 assert.match(js, /function buildAiCapabilityGuideReport\(query\)/, 'AI must answer exploratory product-capability questions with runnable examples');
 assert.match(js, /if \(detectCapabilityGuideQuery\(text\)\) return buildAiCapabilityGuideReport\(text\);/, 'AI routing must not send product-capability questions to the generic fallback');
+assert.match(js, /kind: '赛事数据'[\s\S]*label: '赛事库'[\s\S]*mainTab: 'competitions'/, 'AI capability guide evidence must open the competition database');
 assert.match(js, /function aiClubComparisonFilters\(query\)/, 'AI club comparison must parse year, age, weapon and gender scope');
 assert.match(js, /function aiClubComparisonMetric\(club, filters, gender = 'total'\)/, 'AI club comparison must aggregate club metrics by scope');
 assert.match(js, /function aiClubComparisonQuantityWinner\(left, right\)/, 'AI club comparison must separate quantity advantage from overall judgment');

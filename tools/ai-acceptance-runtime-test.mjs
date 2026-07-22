@@ -369,6 +369,16 @@ const context = {
 vm.createContext(context);
 vm.runInContext(`const state = globalThis.__state;\n${functionNames.map(extractFunction).join('\n')}\nglobalThis.buildAiAnswer = buildAiAnswer;\nglobalThis.aiAcceptanceQueryCases = aiAcceptanceQueryCases;\nglobalThis.detectRegionInQuery = detectRegionInQuery;\nglobalThis.detectYearInQuery = detectYearInQuery;\nglobalThis.aiEntityCandidateTerms = aiEntityCandidateTerms;\nglobalThis.businessMetricRows = businessMetricRows;\nglobalThis.businessPriorityRows = businessPriorityRows;\nglobalThis.businessProductOpportunityRows = businessProductOpportunityRows;\nglobalThis.businessMonetizationRows = businessMonetizationRows;`, context);
 
+function hasEvidenceTarget(row = {}) {
+  return Boolean(row.eventCode || row.sportCode || row.athleteId || row.clubId || row.mainTab || row.filters);
+}
+
+function assertTraceableEvidence(report, label) {
+  for (const [index, row] of (report.evidence || []).entries()) {
+    assert.ok(hasEvidenceTarget(row), `${label} evidence ${index + 1} should open a source record or filtered list`);
+  }
+}
+
 assert.equal(context.detectRegionInQuery('2026年天津有几场比赛'), '天津', 'AI region detection must not depend on the current dataset containing that city');
 
 const comparisonTerms = context.aiEntityCandidateTerms('\u5206\u6790\u9a6c\u6d88\u548c\u9676\u5609\u6708\u7684\u5bf9\u6218\u60c5\u51b5');
@@ -718,5 +728,33 @@ assert.equal(coachTemplate.type, 'product-template', 'coach segmentation request
 assert.equal(coachTemplate.templateKind, 'coach-segmentation', 'coach template should preserve template kind');
 assert.ok(coachTemplate.evidence.some((row) => row.kind === '\u4ff1\u4e50\u90e8\u8d44\u4ea7'), 'coach template should cite club assets');
 assert.ok(coachTemplate.actions.some((action) => action.coachSegmentationClubId), 'coach template should open a real segmentation report when club data exists');
+
+[
+  ['season competition stats', seasonOnlyStats],
+  ['named competition', namedCompetition],
+  ['stale competition recovery', staleCompetitionName],
+  ['monthly competition stats', juneStats],
+  ['competition scale stats', scaleStats],
+  ['project scale stats', itemScaleStats],
+  ['prematch report', prematchReport],
+  ['broad registration report', broadRegistrationReport],
+  ['business coverage report', businessCoverageReport],
+  ['growth report', growthReport],
+  ['yearly growth report', yearlyGrowthReport],
+  ['named growth report', namedGrowthReport],
+  ['club report', clubReport],
+  ['recruiting report', recruitingReport],
+  ['athlete comparison report', comparisonReport],
+  ['mixed athlete comparison report', mixedPoolComparisonReport],
+  ['club comparison report', clubComparisonReport],
+  ['missing competition fallback', missingCompetitionFallback],
+  ['fuzzy object fallback', fuzzyObjectFallback],
+  ['single surname fallback', singleSurnameFallback],
+  ['capability guide', capabilityGuide],
+  ['business report', businessReport],
+  ['prematch template', prematchTemplate],
+  ['parent template', parentTemplate],
+  ['coach template', coachTemplate],
+].forEach(([label, report]) => assertTraceableEvidence(report, label));
 
 console.log('AI acceptance runtime queries are covered');
