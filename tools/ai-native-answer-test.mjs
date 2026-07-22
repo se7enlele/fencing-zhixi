@@ -260,7 +260,7 @@ assert.match(js, /function aiEvidenceTargetAttributes\(row = \{\}\)/, 'AI eviden
 assert.match(js, /function aiEvidenceActionLabel\(row\)[\s\S]*if \(row\.eventCode\) return '查看项目';[\s\S]*if \(row\.sportCode\) return '查看赛事';/, 'AI evidence action labels must prioritize exact project sources before competition pages');
 assert.match(js, /if \(row\.mainTab === 'competitions' \|\| row\.filters\) return '查看列表';/, 'AI evidence action labels must support filtered competition-list sources');
 assert.match(js, /if \(row\.mainTab \|\| row\.filters\)[\s\S]*data-main-target="\$\{escapeHtml\(target\)\}"\$\{filterPayload\}/, 'AI evidence buttons must support database filter targets');
-assert.match(js, /function aiTrustRows\(report\)/, 'AI answers must summarize judgment basis before detailed evidence');
+assert.doesNotMatch(js, /function renderAiAnswer\(report\)[\s\S]*aiTrustRows\(/, 'AI answer renderer must not restore internal judgment-basis cards');
 assert.match(js, /function aiFollowAthleteAction\(athlete\)/, 'AI answers must expose follow actions for athletes');
 assert.match(js, /followAthleteId: athlete\.id/, 'AI growth answers must include follow athlete action payload');
 assert.match(js, /data-follow-athlete-id/, 'AI action buttons must support follow-athlete actions');
