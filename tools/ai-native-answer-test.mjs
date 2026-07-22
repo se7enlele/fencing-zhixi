@@ -36,9 +36,11 @@ assert.match(js, /state\.aiActiveReport = \{ \.\.\.snapshot, query: snapshot\.qu
 assert.match(js, /trackAiAnalysisHistory\(enhancedReport\.query \|\| report\.query \|\| '', enhancedReport\)/, 'enhanced AI answers must update the saved snapshot');
 assert.match(js, /report\.type === 'empty' \|\| report\.type === 'fallback'/, 'AI history must not store empty or fallback answers');
 assert.match(js, /function renderAiLoadingState\(query = ''\)/, 'AI home prompt must render an immediate loading state while matching data');
-assert.match(js, /function waitForAiPrimaryDataReady\(timeoutMs = 8000\)/, 'AI home prompt must wait for primary data before building answers');
+assert.match(js, /function waitForAiPrimaryDataReady\(timeoutMs = 15000\)/, 'AI home prompt must wait long enough for primary data before building answers');
 assert.match(js, /function hasAiPrimaryDataReady\(\)/, 'AI home prompt must use a concrete data-readiness guard before building answers');
 assert.match(js, /Boolean\(\(state\.competitions \|\| \[\]\)\.length \|\| Number\(coverage\.platformEvents\) \|\| Number\(coverage\.scorePackages\)\)/, 'AI data-readiness guard must wait for competition data or coverage counts');
+assert.match(js, /function buildAiDataLoadingReport\(query\)/, 'AI home prompt must show a loading-safe fallback instead of answering from empty data');
+assert.match(js, /hasAiPrimaryDataReady\(\)[\s\S]*\? buildAiAnswer\(normalizedQuery\)[\s\S]*: buildAiDataLoadingReport\(normalizedQuery\)/, 'AI catch path must not build normal answers from empty data');
 assert.match(js, /<div class="ai-loading-progress" aria-hidden="true"><i><\/i><\/div>/, 'AI loading state must include a visible progress bar');
 assert.match(js, /<span>理解问题<\/span>[\s\S]*<span>查找相关记录<\/span>[\s\S]*<span>形成结论<\/span>/, 'AI loading state must use user-facing progress steps');
 assert.doesNotMatch(js, /匹配赛事和画像/, 'AI loading state must not expose internal matching wording');

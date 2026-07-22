@@ -5327,7 +5327,7 @@ function hasAiPrimaryDataReady() {
     && Boolean((state.competitions || []).length || Number(coverage.platformEvents) || Number(coverage.scorePackages));
 }
 
-function waitForAiPrimaryDataReady(timeoutMs = 8000) {
+function waitForAiPrimaryDataReady(timeoutMs = 15000) {
   if (hasAiPrimaryDataReady()) return Promise.resolve();
   const startedAt = Date.now();
   return new Promise((resolve, reject) => {
@@ -5344,6 +5344,18 @@ function waitForAiPrimaryDataReady(timeoutMs = 8000) {
     };
     check();
   });
+}
+
+function buildAiDataLoadingReport(query) {
+  return {
+    type: 'empty',
+    title: '数据正在整理',
+    summary: '赛事资料还没有完成加载，请稍后再试一次。',
+    cards: [],
+    sections: [],
+    evidence: [],
+    actions: query ? [{ label: '重新分析', query }] : [],
+  };
 }
 
 function bindAiWorkspace(container) {
@@ -5415,7 +5427,9 @@ function bindAiWorkspace(container) {
       scrollToResultPanel(currentAnswer);
       enhanceAiAnswer(report, currentAnswer, bindAnswer);
     } catch {
-      const report = buildAiAnswer(normalizedQuery);
+      const report = hasAiPrimaryDataReady()
+        ? buildAiAnswer(normalizedQuery)
+        : buildAiDataLoadingReport(normalizedQuery);
       report.query = normalizedQuery;
       state.aiActiveReport = report;
       state.isAiAnswerLoading = false;
@@ -14323,6 +14337,7 @@ window.addEventListener('pagehide', () => {
 async function init() {
   state.isDataLoading = true;
   state.dataLoadError = '';
+  document.body.dataset.fencingaiReady = 'false';
   homeStats.innerHTML = '<div class="loading-row">正在加载数据</div>';
   competitionList.innerHTML = '<div class="loading-row">正在整理比赛列表</div>';
   const result = await fetchJson('/api/competitions');
@@ -14333,6 +14348,7 @@ async function init() {
   state.competitions = result.competitions?.length ? result.competitions : buildCompetitionsFromEvents(result.events);
   state.competitionSearchCache.clear();
   state.isDataLoading = false;
+  document.body.dataset.fencingaiReady = 'true';
   await restoreAuthSession();
   renderHomeStats();
   renderRoleWorkspacePremium();
@@ -14382,6 +14398,7 @@ renderPersonalPages();
 init().catch((error) => {
   state.isDataLoading = false;
   state.dataLoadError = error.message;
+  document.body.dataset.fencingaiReady = 'error';
   renderHomeStats();
   renderDatabaseDirectory();
   renderFeedPanel();

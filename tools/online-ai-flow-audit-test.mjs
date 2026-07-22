@@ -12,5 +12,6 @@ assert.match(source, /expect: \['当前未收录2027年这场赛事', '赛事记
 assert.match(source, /function userJudgmentForResult\(/, 'online AI audit must classify result quality from the user perspective');
 assert.match(source, /function markdownReport\(payload\)/, 'online AI audit must produce a markdown real-user evaluation report');
 assert.match(source, /real-user-ai-evaluation-\$\{runId\}\.md/, 'online AI audit must save the markdown evaluation artifact');
+assert.match(source, /document\.body\?\.dataset\?\.fencingaiReady === 'true'/, 'online AI audit must wait for the app-level data-ready marker before submitting questions');
 
 console.log('online AI flow audit real-user context is covered');

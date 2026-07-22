@@ -344,8 +344,7 @@ async function openAuditHome(page, tag = '') {
   await page.locator('#aiQueryForm[data-ai-bound="true"]').waitFor({ state: 'attached', timeout: 30000 });
   await page.waitForFunction(
     () => {
-      const text = document.body.textContent || '';
-      return text.includes('选手画像') && text.includes('俱乐部') && !text.includes('正在加载数据');
+      return document.body?.dataset?.fencingaiReady === 'true';
     },
     null,
     { timeout: 60000 },
