@@ -79,8 +79,6 @@ const AUTH_TOKEN_KEY = 'fencingai.authToken.v1';
 const AUTH_USER_KEY = 'fencingai.authUser.v1';
 const COMPETITION_LIST_PAGE_SIZE = 30;
 const AI_ANSWER_CARD_LIMIT = 4;
-const AI_ANSWER_SECTION_LIMIT = 1;
-const AI_ANSWER_SECTION_ROW_LIMIT = 2;
 const AI_ANSWER_ACTION_LIMIT = 3;
 const AI_ANSWER_EVIDENCE_LIMIT = 2;
 const AI_LOADING_MIN_MS = 420;
@@ -5432,7 +5430,6 @@ function bindAiWorkspace(container) {
       currentAnswer.innerHTML = renderAiAnswer(report);
       bindAnswer(report, currentAnswer);
       scrollToResultPanel(currentAnswer);
-      enhanceAiAnswer(report, currentAnswer, bindAnswer);
     } catch {
       const report = hasAiPrimaryDataReady()
         ? buildAiAnswer(normalizedQuery)
@@ -5448,7 +5445,6 @@ function bindAiWorkspace(container) {
       currentAnswer.innerHTML = renderAiAnswer(report);
       bindAnswer(report, currentAnswer);
       scrollToResultPanel(currentAnswer);
-      enhanceAiAnswer(report, currentAnswer, bindAnswer);
     } finally {
       answer.setAttribute('aria-busy', 'false');
       form.classList.remove('is-submitting');
@@ -8467,14 +8463,6 @@ function aiResultActionTitle(report = {}) {
 }
 
 function renderAiAnswer(report) {
-  const visibleSections = (report.sections || [])
-    .filter(isUserFacingAiSection)
-    .slice(0, AI_ANSWER_SECTION_LIMIT)
-    .map((section) => ({
-      ...section,
-      rows: (section.rows || []).slice(0, AI_ANSWER_SECTION_ROW_LIMIT),
-    }))
-    .filter((section) => section.rows.length);
   const primaryCards = (report.cards || []).slice(0, AI_ANSWER_CARD_LIMIT);
   const primaryActions = (report.actions || []).slice(0, AI_ANSWER_ACTION_LIMIT);
   const primaryEvidence = (report.evidence || []).slice(0, AI_ANSWER_EVIDENCE_LIMIT);
@@ -8482,8 +8470,6 @@ function renderAiAnswer(report) {
   const secondaryEvidence = primaryEvidence.slice(1);
   const hiddenEvidenceCount = Math.max(0, (report.evidence?.length || 0) - 1 - secondaryEvidence.length);
   const remainingEvidenceCount = Math.max(0, (report.evidence?.length || 0) - 1);
-  const enhancement = sanitizeAiEnhancement(report.enhancement || null);
-  const hasSupportingNotes = Boolean(enhancement || visibleSections.length);
   return `
     <div class="ai-answer-card">
       <div class="ai-answer-head">
@@ -8503,7 +8489,7 @@ function renderAiAnswer(report) {
       ` : ''}
       ${keyEvidence ? `
         <div class="ai-key-source">
-          <strong>关键来源</strong>
+          <strong>主要证据</strong>
           <button type="button" ${aiEvidenceTargetAttributes(keyEvidence)}>
             <em>${escapeHtml(aiEvidenceKind(keyEvidence))}</em>
             <span>${escapeHtml(keyEvidence.label)}</span>
@@ -8526,7 +8512,7 @@ function renderAiAnswer(report) {
       ${remainingEvidenceCount ? `
         <details class="ai-evidence" data-ai-evidence-details>
           <summary>
-            <strong>更多来源</strong>
+            <strong>更多证据</strong>
             <span>${escapeHtml(remainingEvidenceCount)} 条可核对</span>
           </summary>
           <div class="ai-evidence-list">
@@ -8538,33 +8524,8 @@ function renderAiAnswer(report) {
                 <small>${escapeHtml(aiEvidenceActionLabel(row))}</small>
               </button>
             `).join('')}
-            ${hiddenEvidenceCount ? `<div class="ai-evidence-summary">还有 ${escapeHtml(hiddenEvidenceCount)} 条来源，可在详情页继续核对。</div>` : ''}
+            ${hiddenEvidenceCount ? `<div class="ai-evidence-summary">还有 ${escapeHtml(hiddenEvidenceCount)} 条证据，可在详情页继续核对。</div>` : ''}
           </div>
-        </details>
-      ` : ''}
-      ${hasSupportingNotes ? `
-        <details class="ai-supporting-notes">
-          <summary>更多说明</summary>
-          ${enhancement ? `
-            <div class="ai-enhancement-card">
-              <strong>${escapeHtml(enhancement.headline || '补充说明')}</strong>
-              ${enhancement.explanation ? `<p>${escapeHtml(enhancement.explanation)}</p>` : ''}
-              ${enhancement.takeaways?.length ? `
-                <div>
-                  ${enhancement.takeaways.slice(0, 4).map((row) => `<span>${escapeHtml(row)}</span>`).join('')}
-                </div>
-              ` : ''}
-              ${enhancement.caveats?.length ? `
-                <em>${escapeHtml(enhancement.caveats.slice(0, 2).join('；'))}</em>
-              ` : ''}
-            </div>
-          ` : ''}
-          ${visibleSections.map((section) => `
-            <div class="ai-section">
-              <strong>${escapeHtml(section.title)}</strong>
-              ${section.rows.map((row) => `<span>${escapeHtml(row)}</span>`).join('')}
-            </div>
-          `).join('')}
         </details>
       ` : ''}
       <div class="ai-share-row">

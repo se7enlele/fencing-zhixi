@@ -1787,7 +1787,6 @@ select:focus {
 
 .ai-empty strong,
 .ai-answer-head strong,
-.ai-section strong,
 .ai-evidence button strong {
   display: block;
 }
@@ -1795,7 +1794,6 @@ select:focus {
 .ai-empty span,
 .ai-answer-head span,
 .ai-answer-head p,
-.ai-section span,
 .ai-evidence button span {
   color: var(--muted);
   font-size: 12px;
@@ -1809,57 +1807,6 @@ select:focus {
   border-radius: 12px;
   background: linear-gradient(180deg, rgba(248, 252, 251, 0.98), #fff);
   padding: 11px;
-}
-
-.ai-enhancement-card {
-  display: grid;
-  gap: 8px;
-  border: 1px solid rgba(13, 125, 103, 0.18);
-  border-radius: 10px;
-  background: linear-gradient(135deg, rgba(13, 125, 103, 0.09), rgba(21, 95, 194, 0.055));
-  padding: 10px;
-}
-
-.ai-enhancement-card strong,
-.ai-enhancement-card p,
-.ai-enhancement-card span,
-.ai-enhancement-card em {
-  min-width: 0;
-}
-
-.ai-enhancement-card strong {
-  color: var(--teal);
-  font-size: 14px;
-  font-weight: 900;
-  line-height: 1.35;
-}
-
-.ai-enhancement-card p {
-  margin: 0;
-  color: var(--text);
-  font-size: 13px;
-  line-height: 1.55;
-}
-
-.ai-enhancement-card div {
-  display: grid;
-  gap: 5px;
-}
-
-.ai-enhancement-card span {
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.72);
-  color: var(--text);
-  font-size: 12px;
-  line-height: 1.45;
-  padding: 7px 8px;
-}
-
-.ai-enhancement-card em {
-  color: var(--muted);
-  font-size: 11px;
-  font-style: normal;
-  line-height: 1.45;
 }
 
 .ai-query-form.is-submitting button,
@@ -2060,49 +2007,6 @@ select:focus {
   margin-top: 4px;
   color: var(--muted);
   font-size: 12px;
-}
-
-.ai-section {
-  display: grid;
-  gap: 6px;
-  border-radius: 10px;
-  background: rgba(21, 95, 194, 0.05);
-  padding: 10px;
-}
-
-.ai-section strong {
-  font-size: 14px;
-}
-
-.ai-supporting-notes {
-  border: 1px solid rgba(21, 95, 194, 0.12);
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.72);
-  padding: 0;
-}
-
-.ai-supporting-notes > summary {
-  cursor: pointer;
-  color: var(--muted);
-  font-size: 12px;
-  font-weight: 850;
-  list-style: none;
-  padding: 9px 10px;
-}
-
-.ai-supporting-notes > summary::-webkit-details-marker {
-  display: none;
-}
-
-.ai-supporting-notes[open] {
-  display: grid;
-  gap: 8px;
-  padding-bottom: 9px;
-}
-
-.ai-supporting-notes[open] > .ai-section,
-.ai-supporting-notes[open] > .ai-enhancement-card {
-  margin: 0 9px;
 }
 
 .ai-key-source {

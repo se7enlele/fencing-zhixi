@@ -255,16 +255,10 @@ assert.ok(
   js.indexOf('class="ai-action-block"') > -1 && js.indexOf('class="ai-action-block"') < js.indexOf('class="ai-evidence"'),
   'AI action block should appear before evidence so users can act first and verify next',
 );
-assert.match(js, /const hasSupportingNotes = Boolean\(enhancement \|\| visibleSections\.length\)/, 'AI answer renderer must separate supporting notes from the primary result');
-assert.ok(
-  js.indexOf('class="ai-key-source"') > -1 && js.indexOf('class="ai-supporting-notes"') > -1 && js.indexOf('class="ai-key-source"') < js.indexOf('class="ai-supporting-notes"'),
-  'AI key source must appear before collapsed supporting notes',
-);
-assert.ok(
-  js.indexOf('class="ai-action-block"') > -1 && js.indexOf('class="ai-supporting-notes"') > -1 && js.indexOf('class="ai-action-block"') < js.indexOf('class="ai-supporting-notes"'),
-  'AI primary actions must appear before collapsed supporting notes',
-);
-assert.match(js, /<details class="ai-supporting-notes">[\s\S]*<summary>更多说明<\/summary>/, 'AI supporting notes must be collapsed behind user-facing wording');
+assert.doesNotMatch(js, /const hasSupportingNotes = Boolean\(enhancement \|\| visibleSections\.length\)/, 'AI answer renderer must not keep a secondary explanation bucket in the main result');
+assert.doesNotMatch(js, /class="ai-supporting-notes"/, 'AI answer renderer must not show supporting notes in the main result');
+assert.doesNotMatch(js, /<summary>更多说明<\/summary>/, 'AI answer renderer must not expose generic explanation copy');
+assert.doesNotMatch(js, /class="ai-enhancement-card"/, 'AI answer renderer must not show LLM enhancement as another visible result block');
 assert.match(js, /function aiNextStepRows\(report\)/, 'AI answers must include contextual next-step guidance');
 assert.match(js, /function aiFollowUpPrompts\(report\)/, 'AI answers must generate related follow-up questions');
 assert.match(js, /function isUserFacingAiSection\(section = \{\}\)/, 'AI answer renderer must filter internal analysis sections before display');
@@ -278,11 +272,10 @@ assert.match(js, /function requestAiEnhancement\(report = \{\}\)/, 'AI answers m
 assert.match(js, /fetch\('\/api\/ai\/enhance'/, 'AI enhancement requests must go through the first-party backend endpoint');
 assert.match(js, /async function enhanceAiAnswer\(report, answer, bindAnswer\)/, 'AI workspace must enhance already-rendered deterministic answers when available');
 assert.match(js, /function sanitizeAiEnhancement\(enhancement = \{\}\)/, 'AI enhancement payloads must be sanitized before user-facing rendering');
-assert.match(js, /const enhancement = sanitizeAiEnhancement\(report\.enhancement \|\| null\)/, 'AI answer renderer must not render raw enhancement payloads');
+assert.doesNotMatch(js, /const enhancement = sanitizeAiEnhancement\(report\.enhancement \|\| null\)/, 'AI answer renderer must not render enhancement payloads in the main result');
 assert.doesNotMatch(js, /const enhancement = report\.enhancement \|\| null;/, 'AI answer renderer must not expose raw enhancement content from the backend');
 assert.match(js, /AI_ENHANCEMENT_BLOCKLIST/, 'AI enhancement sanitizer must block internal product and implementation wording');
-assert.match(js, /class="ai-enhancement-card"/, 'AI answer renderer must show enhanced analysis in a dedicated card');
-assert.match(js, /enhanceAiAnswer\(report, answer, bindAnswer\)/, 'AI workspace must trigger optional enhancement after the deterministic answer is shown');
+assert.doesNotMatch(js, /enhanceAiAnswer\(report, currentAnswer, bindAnswer\)/, 'AI workspace must not append an extra enhancement block after the deterministic answer');
 assert.match(js, /report\.query = normalizedQuery/, 'AI answer reports must keep the original user question for feedback and history');
 assert.match(js, /原始问题：\$\{report\.query\}/, 'AI feedback must include the original user question');
 assert.match(js, /转化来源：\$\{conversionAction\.source\}/, 'AI feedback must include the related conversion source');
@@ -295,25 +288,23 @@ assert.match(js, /aiConversionServiceRows\(report\)/, 'AI conversion blocks must
 assert.doesNotMatch(js, /function aiAnswerMetaRows\(report = \{\}\)/, 'AI answers must not keep unused internal metadata helpers that can return to the UI');
 assert.doesNotMatch(js, /class="ai-answer-meta"/, 'AI answer renderer must not show internal question/evidence/action metadata cards');
 assert.doesNotMatch(js, /label: '问题'[\s\S]*label: '证据'[\s\S]*label: '动作'/, 'AI answers must not expose internal metadata labels');
-assert.match(js, /关键来源/, 'AI answers must expose traceability through a first-screen key source instead of metadata cards');
+assert.match(js, /主要证据/, 'AI answers must expose traceability through a first-screen evidence block instead of metadata cards');
 assert.match(js, /const AI_ANSWER_CARD_LIMIT = 4/, 'AI answers must cap metric cards while allowing four key coverage states');
-assert.match(js, /const AI_ANSWER_SECTION_LIMIT = 1/, 'AI answers must cap explanatory sections for a focused first screen');
-assert.match(js, /const AI_ANSWER_SECTION_ROW_LIMIT = 2/, 'AI answers must cap rows inside explanatory sections');
 assert.match(js, /const AI_ANSWER_ACTION_LIMIT = 3/, 'AI answers must cap visible actions to avoid clutter');
 assert.match(js, /const AI_ANSWER_EVIDENCE_LIMIT = 2/, 'AI answers must cap visible evidence while preserving traceability');
 assert.match(js, /const primaryCards = \(report\.cards \|\| \[\]\)\.slice\(0, AI_ANSWER_CARD_LIMIT\)/, 'AI answer renderer must only show primary metric cards');
-assert.match(js, /\.slice\(0, AI_ANSWER_SECTION_LIMIT\)[\s\S]*\.slice\(0, AI_ANSWER_SECTION_ROW_LIMIT\)/, 'AI answer renderer must only show primary explanatory rows');
+assert.doesNotMatch(js, /AI_ANSWER_SECTION_LIMIT|AI_ANSWER_SECTION_ROW_LIMIT/, 'AI answer renderer must not expose explanatory sections as another main-screen block');
 assert.match(js, /const primaryActions = \(report\.actions \|\| \[\]\)\.slice\(0, AI_ANSWER_ACTION_LIMIT\)/, 'AI answer renderer must only show primary actions');
 assert.match(js, /const primaryEvidence = \(report\.evidence \|\| \[\]\)\.slice\(0, AI_ANSWER_EVIDENCE_LIMIT\)/, 'AI answer renderer must only show primary evidence');
 assert.match(js, /const keyEvidence = primaryEvidence\[0\] \|\| null;/, 'AI answer renderer must split out the first source as the key source');
 assert.match(js, /const secondaryEvidence = primaryEvidence\.slice\(1\);/, 'AI answer renderer must keep secondary sources out of the key source');
 assert.match(js, /class="ai-key-source"/, 'AI answer renderer must surface a visible key source block');
-assert.match(js, /<strong>关键来源<\/strong>/, 'AI key source block must use user-facing source wording');
+assert.match(js, /<strong>主要证据<\/strong>/, 'AI key source block must use user-facing evidence wording');
 assert.match(js, /<button type="button" \$\{aiEvidenceTargetAttributes\(keyEvidence\)\}>/, 'AI key source must render only one prioritized navigation target');
 assert.match(js, /data-ai-evidence-details/, 'AI evidence should be collapsed behind a lightweight source entry');
-assert.match(js, /更多来源/, 'AI evidence block must describe secondary sources as checkable records');
+assert.match(js, /更多证据/, 'AI evidence block must describe secondary sources as checkable evidence');
 assert.match(js, /<button type="button" \$\{aiEvidenceTargetAttributes\(row\)\}>/, 'AI secondary sources must render only one prioritized navigation target');
-assert.match(js, /还有 \$\{escapeHtml\(hiddenEvidenceCount\)\} 条来源，可在详情页继续核对。/, 'AI answer renderer must tell users when more source records exist');
+assert.match(js, /还有 \$\{escapeHtml\(hiddenEvidenceCount\)\} 条证据，可在详情页继续核对。/, 'AI answer renderer must tell users when more source records exist');
 assert.match(js, /重点赛事提醒和报名名单更新/, 'prematch conversion must include event and roster update value');
 assert.match(js, /学员分层和训练跟进建议/, 'coach conversion must include segmentation and training follow-up value');
 assert.match(js, /prematch:\s*\[[\s\S]*同组对手、强手和主要俱乐部分布/, 'AI prematch answers must guide users toward opponent and club checks');
@@ -358,10 +349,10 @@ assert.doesNotMatch(js, /value: '需核对'/, 'AI trust rows must not expose int
 
 assert.doesNotMatch(css, /\.ai-source-note/, 'AI source note styles should be removed when source notes are hidden');
 assert.doesNotMatch(css, /\.ai-answer-meta/, 'AI answer metadata strip styles should be removed when hidden from the product UI');
-assert.match(css, /\.ai-enhancement-card/, 'AI enhancement card styles must exist');
+assert.doesNotMatch(css, /\.ai-enhancement-card/, 'AI enhancement card styles should be removed when hidden from the product UI');
 assert.match(css, /\.ai-action-block/, 'AI action block styles must exist');
-assert.match(css, /\.ai-supporting-notes/, 'AI supporting notes styles must exist for collapsed secondary explanation');
-assert.match(css, /\.ai-supporting-notes > summary/, 'AI supporting notes summary must be styled as a lightweight mobile control');
+assert.doesNotMatch(css, /\.ai-supporting-notes/, 'AI supporting notes styles should be removed when hidden from the product UI');
+assert.doesNotMatch(css, /\.ai-section/, 'AI section styles should be removed from the main answer result');
 assert.doesNotMatch(css, /\.ai-trust-panel/, 'AI judgment-basis panel styles should be removed when hidden from the product UI');
 assert.doesNotMatch(css, /\.ai-trust-row/, 'AI judgment-basis row styles should be removed when hidden from the product UI');
 assert.match(css, /\.ai-filter-notice/, 'AI-filtered competition lists must show a visible filter notice');
