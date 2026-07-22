@@ -10075,7 +10075,7 @@ function renderCompetitionList() {
         </button>
       ` : ''}
     `
-    : `${aiFilterNotice}<div class="empty">没有符合条件的比赛。可以清除筛选，或减少年份、地区、项目条件后再看。</div>`;
+    : `${aiFilterNotice}${renderCompetitionEmptyState()}`;
 
   competitionList.querySelectorAll('.competition-card').forEach((button) => {
     button.addEventListener('click', () => openCompetition(button.dataset.sportCode));
@@ -10085,6 +10085,19 @@ function renderCompetitionList() {
     state.visibleCompetitionLimit += COMPETITION_LIST_PAGE_SIZE;
     renderCompetitionList();
   });
+}
+
+function renderCompetitionEmptyState() {
+  if (state.aiCompetitionFilterSummary || state.aiCompetitionFilterQuestion) {
+    return `
+      <div class="empty recovery-empty">
+        <strong>这次筛选没有找到比赛</strong>
+        <span>可以先放宽年份、地区或项目条件，再查看相关赛事。</span>
+        <button type="button" data-clear-ai-filter>查看全部赛事</button>
+      </div>
+    `;
+  }
+  return '<div class="empty">没有符合条件的比赛。可以清除筛选，或减少年份、地区、项目条件后再看。</div>';
 }
 
 function competitionListInsight(competition) {

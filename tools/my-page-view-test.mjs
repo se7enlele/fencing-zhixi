@@ -617,5 +617,9 @@ assert.match(css, /\.account-data-grid/, 'account center data summary styles mus
 assert.match(css, /\.account-action-row/, 'account center action styles must exist');
 assert.match(css, /\.account-status-line/, 'account center status styles must exist');
 assert.match(css, /\.competition-follow-tag/, 'competition follow tag styles must exist');
+assert.match(css, /\.recovery-empty/, 'database empty-result recovery card styles must exist');
+
+assert.match(js, /function renderCompetitionEmptyState\(\)/, 'database list must have a dedicated empty-result recovery state');
+assert.match(js, new RegExp('state\\.aiCompetitionFilterSummary \\|\\| state\\.aiCompetitionFilterQuestion[\\s\\S]*\\u8fd9\\u6b21\\u7b5b\\u9009\\u6ca1\\u6709\\u627e\\u5230\\u6bd4\\u8d5b[\\s\\S]*data-clear-ai-filter[\\s\\S]*\\u67e5\\u770b\\u5168\\u90e8\\u8d5b\\u4e8b'), 'AI-to-database empty results must offer a clear recovery action');
 
 console.log('home, follow, my page and bottom navigation are covered');
