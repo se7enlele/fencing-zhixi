@@ -87,11 +87,14 @@ const functionNames = [
   'detectCapabilityGuideQuery',
   'uniqueBy',
   'entityCoverageCounts',
+  'officialCoverageCount',
   'normalizeAiFilterYears',
   'aiCompetitionFilterSummary',
   'aiFilterScopeText',
   'aiFilterCardLabel',
   'buildAiAnswer',
+  'detectOfficialDirectoryQuery',
+  'buildAiOfficialDirectoryReport',
   'buildAiCapabilityGuideReport',
   'buildAiFallbackReport',
   'detectCompetitionStatsQuery',
@@ -684,6 +687,15 @@ assert.ok(capabilityGuide.actions?.some((action) => action.query === '\u0032\u00
 assert.ok(capabilityGuide.actions?.some((action) => action.query?.includes('\u6700\u8fd1\u6709\u6ca1\u6709\u8fdb\u6b65')), 'capability guide should offer a runnable growth example');
 assert.ok(capabilityGuide.evidence?.some((row) => row.kind === '\u8d5b\u4e8b\u6570\u636e'), 'capability guide should keep traceable data sources');
 assert.ok(!/(\u6682\u672a\u8bc6\u522b|\u5206\u6790\u53e3\u5f84|\u540e\u7eed|\u6570\u636e\u8fb9\u754c)/.test(`${capabilityGuide.title}${capabilityGuide.summary}`), 'capability guide copy should avoid dead-end or internal wording');
+
+const officialDirectoryReport = context.buildAiAnswer('\u80fd\u67e5\u6559\u7ec3\u5458\u548c\u88c1\u5224\u5458\u5417');
+assert.equal(officialDirectoryReport.type, 'official-directory', 'coach and referee questions should route to personnel availability instead of generic fallback');
+assert.match(officialDirectoryReport.title, /\u6559\u7ec3\u5458\u548c\u88c1\u5224\u5458\u8d44\u6599/, 'official-directory report should show a clear personnel title');
+assert.ok(officialDirectoryReport.cards.some(([label, value]) => label === '\u6559\u7ec3/\u88c1\u5224' && value === '\u8865\u5145\u4e2d'), 'official-directory report should expose personnel availability without a broken zero state');
+assert.ok(officialDirectoryReport.sections.some((section) => section.title === '\u53ef\u4ee5\u5148\u8fd9\u6837\u67e5'), 'official-directory report should guide users to available search paths');
+assert.ok(officialDirectoryReport.actions.some((action) => action.officialSearchQuery), 'official-directory report should expose a direct personnel search action');
+assertTraceableEvidence(officialDirectoryReport, 'official-directory report');
+assert.ok(!/(\u6682\u672a\u8bc6\u522b|\u5206\u6790\u53e3\u5f84|\u540e\u7eed|\u6570\u636e\u8fb9\u754c|\u6682\u65e0\u8d44\u6599)/.test(`${officialDirectoryReport.title}${officialDirectoryReport.summary}${officialDirectoryReport.sections.map((section) => section.rows.join('')).join('')}`), 'official-directory copy should avoid dead-end or internal wording');
 
 const businessReport = context.buildAiAnswer('\u8fd9\u4e9b\u51fb\u5251\u6570\u636e\u80fd\u4ea7\u751f\u4ec0\u4e48\u5546\u4e1a\u4ef7\u503c');
 assert.equal(businessReport.type, 'business-insight', 'data value questions should route to business insight');

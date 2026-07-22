@@ -33,6 +33,8 @@ assert.doesNotMatch(js, /继续生成赛前情报|可继续生成|人工跟进|�
 assert.match(js, /常用报告/, 'home report center should use user-facing report copy');
 assert.match(js, /报告服务/, 'AI report planning answers should use user-facing report wording');
 assert.match(js, /人员资料补充后可按姓名查找/, 'official search entry should explain availability in user-facing copy');
+assert.match(js, /人员资料还在补充中；赛事、选手和俱乐部资料可以继续查看。/, 'official AI answer should explain unavailable personnel data without dead-end wording');
+assert.match(js, /资料补充完成后，可以按姓名、地区、俱乐部和身份查找。/, 'official AI answer should describe the future searchable shape in user-facing terms');
 assert.match(js, /status: officialCount \? '可查' : '先查赛事'/, 'official coverage state should guide users to available data first');
 assert.doesNotMatch(js, /教练\/裁判[\s\S]{0,160}暂无资料/, 'official search entry must not look like a broken zero-result state');
 assert.doesNotMatch(js, /产品化方向|商业化落地顺序|商业闭环|SaaS|生成赛前情报包方案|生成家长成长报告方案|生成教练工作台方案|赛前情报包方案|家长成长报告方案|教练学员分层方案|家长沟通口径/, 'AI business and report copy must avoid internal product-planning wording');

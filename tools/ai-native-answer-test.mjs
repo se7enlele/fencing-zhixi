@@ -225,7 +225,7 @@ assert.match(js, /report\.type === 'business-insight' \? '商业洞察'/, 'AI an
 assert.match(js, /report\.type === 'product-template' \? '报告服务'/, 'AI answer header must label product template reports');
 assert.match(js, /report\.type === 'club-recruiting' \? '招生展示'/, 'AI answer header must label recruiting display reports');
 assert.match(js, /report\.type === 'club-comparison' \? '剑馆对比'/, 'AI answer header must label club comparison reports');
-assert.match(js, /report\.type === 'club-recruiting' \? '招生展示' : '查询结果'/, 'AI answer fallback header must use user-facing result wording');
+assert.match(js, /report\.type === 'official-directory' \? '人员资料' : '查询结果'/, 'AI answer fallback header must use user-facing result wording');
 assert.match(js, /\['对比结论', `\$\{leader\.name\} 略优于 \$\{other\.name\}`\]/, 'AI comparison cards must use user-facing conclusion labels');
 assert.match(js, /\['参考强度', confidence\]/, 'AI comparison cards must avoid internal evidence-strength wording');
 assert.doesNotMatch(js, /<button type="button" data-ai-feedback=/, 'AI answers should not render feedback buttons in the main user result');

@@ -357,6 +357,13 @@ assert.match(js, /state\.userRole === 'club'[\s\S]*U8 男花怎么样/, 'club AI
 assert.match(js, /state\.userRole === 'data'[\s\S]*2026年天津有几场比赛/, 'data AI presets must prioritize competition statistics');
 assert.match(js, /\[\.\.\.new Set\(\[\.\.\.rolePresets, \.\.\.fallbackPresets\]\)\]\.slice\(0, 5\)/, 'role AI presets must deduplicate and stay compact');
 assert.match(js, /function buildAiAnswer\(query\)/, 'AI workspace must build structured answers from local data');
+assert.match(js, /function detectOfficialDirectoryQuery\(query = ''\)/, 'AI workspace must detect coach and referee directory questions');
+assert.match(js, /function buildAiOfficialDirectoryReport\(query = ''\)/, 'AI workspace must provide a dedicated personnel answer');
+assert.match(js, /if \(detectOfficialDirectoryQuery\(text\)\) return buildAiOfficialDirectoryReport\(text\);/, 'coach and referee questions must not fall into generic fallback');
+assert.match(js, /type: 'official-directory'[\s\S]*title: '教练员和裁判员资料'/, 'official directory answer must use a user-facing title');
+assert.match(js, /人员资料还在补充中；赛事、选手和俱乐部资料可以继续查看。/, 'official directory answer must guide users to available data first');
+assert.match(js, /data-ai-official-search/, 'official directory answer must offer a runnable personnel search action');
+assert.match(js, /state\.databaseSearchIntent = 'officials';[\s\S]*focusDatabaseSearch\('输入教练员或裁判员姓名'\)/, 'official directory action must set official search intent before focusing database search');
 assert.match(js, /function buildAiCompetitionStats\(query, filters\)/, 'AI workspace must answer year and region competition statistics');
 assert.match(js, /data-sport-code/, 'AI evidence cards must link back to competition details');
 assert.match(js, /replaceAll\('马消', '马潇'\)/, 'AI workspace must tolerate common athlete name typos');

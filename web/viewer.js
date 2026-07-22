@@ -858,6 +858,7 @@ function openAiReportSnapshot(keyOrQuery = '') {
 function aiHistoryTypeLabel(type) {
   const labels = {
     'capability-guide': '使用指南',
+    'official-directory': '人员资料',
     'competition-stats': '赛事统计',
     prematch: '赛前分析',
     growth: '成长分析',
@@ -6169,6 +6170,8 @@ function buildAiAnswer(query) {
 
   if (detectCapabilityGuideQuery(text)) return buildAiCapabilityGuideReport(text);
 
+  if (detectOfficialDirectoryQuery(text)) return buildAiOfficialDirectoryReport(text);
+
   const clubComparison = detectClubComparisonQuery(text);
   if (clubComparison) return buildAiClubComparisonReport(text, clubComparison.clubs[0], clubComparison.clubs[1], clubComparison.filters);
 
@@ -6181,6 +6184,58 @@ function buildAiAnswer(query) {
   if (athletes.length === 1) return buildAiAthleteGrowth(text, athletes[0]);
 
   return buildAiFallbackReport(text);
+}
+
+function detectOfficialDirectoryQuery(query = '') {
+  return /(教练|教练员|裁判|裁判员|coach|referee)/i.test(String(query || ''));
+}
+
+function buildAiOfficialDirectoryReport(query = '') {
+  const entityCounts = entityCoverageCounts();
+  const officialCount = officialCoverageCount();
+  const availableLabel = officialCount ? `${officialCount} 个` : '补充中';
+  return {
+    type: 'official-directory',
+    title: '教练员和裁判员资料',
+    summary: officialCount
+      ? '可以按姓名查找教练员和裁判员，也可以从相关赛事继续核对。'
+      : '人员资料还在补充中；赛事、选手和俱乐部资料可以继续查看。',
+    cards: [
+      ['赛事', `${state.competitions.length} 场`],
+      ['选手', `${entityCounts.athletes} 个`],
+      ['俱乐部', `${entityCounts.clubs} 个`],
+      ['教练/裁判', availableLabel],
+    ],
+    sections: [
+      {
+        title: '可以先这样查',
+        rows: [
+          '输入赛事名称，查看项目、报名、成绩和相关俱乐部。',
+          '输入选手姓名，查看成长记录、参赛时间线和对手表现。',
+          '输入俱乐部名称，查看队伍项目、代表选手和近期赛事。',
+        ],
+      },
+      {
+        title: '人员资料',
+        rows: officialCount
+          ? ['输入教练员或裁判员姓名，可以继续查看公开身份资料。']
+          : ['资料补充完成后，可以按姓名、地区、俱乐部和身份查找。'],
+      },
+    ],
+    evidence: [
+      {
+        kind: '资料范围',
+        label: '赛事、选手、俱乐部',
+        detail: `${state.competitions.length} 场赛事 · ${entityCounts.athletes} 个选手 · ${entityCounts.clubs} 个俱乐部`,
+        mainTab: 'competitions',
+      },
+    ],
+    actions: [
+      { label: '进入人员查找', officialSearchQuery: query },
+      { label: '查赛事资料', mainTab: 'competitions' },
+      { label: '看看能问什么', query: '这个产品能做什么' },
+    ],
+  };
 }
 
 function buildAiCapabilityGuideReport(query) {
@@ -8157,6 +8212,7 @@ function aiEvidenceTargetAttributes(row = {}) {
 function aiActionTargetAttributes(action = {}) {
   return [
     action.query ? `data-ai-action-query="${escapeHtml(action.query)}"` : '',
+    action.officialSearchQuery ? `data-ai-official-search="${escapeHtml(action.officialSearchQuery)}"` : '',
     action.athleteId ? `data-athlete-id="${escapeHtml(action.athleteId)}"` : '',
     action.parentGrowthAthleteId ? `data-parent-growth-athlete-id="${escapeHtml(action.parentGrowthAthleteId)}"` : '',
     action.coachSegmentationClubId ? `data-coach-segmentation-club-id="${escapeHtml(action.coachSegmentationClubId)}"` : '',
@@ -8590,7 +8646,7 @@ function renderAiAnswer(report) {
   return `
     <div class="ai-answer-card">
       <div class="ai-answer-head">
-        <span>${escapeHtml(report.type === 'comparison' ? '选手对比' : report.type === 'club-comparison' ? '剑馆对比' : report.type === 'growth' ? '成长分析' : report.type === 'club' ? '俱乐部画像' : report.type === 'prematch' ? '赛前提醒' : report.type === 'business-insight' ? '商业洞察' : report.type === 'product-template' ? '报告服务' : report.type === 'club-recruiting' ? '招生展示' : '查询结果')}</span>
+        <span>${escapeHtml(report.type === 'comparison' ? '选手对比' : report.type === 'club-comparison' ? '剑馆对比' : report.type === 'growth' ? '成长分析' : report.type === 'club' ? '俱乐部画像' : report.type === 'prematch' ? '赛前提醒' : report.type === 'business-insight' ? '商业洞察' : report.type === 'product-template' ? '报告服务' : report.type === 'club-recruiting' ? '招生展示' : report.type === 'official-directory' ? '人员资料' : '查询结果')}</span>
         <strong>${escapeHtml(report.title)}</strong>
         <p>${escapeHtml(report.summary)}</p>
       </div>
@@ -8699,6 +8755,19 @@ function bindAiAnswerActions(container) {
   });
   container.querySelectorAll('[data-ai-action-query]').forEach((button) => {
     button.addEventListener('click', () => submitAiQuery(button.dataset.aiActionQuery || ''));
+  });
+  container.querySelectorAll('[data-ai-official-search]').forEach((button) => {
+    button.addEventListener('click', () => {
+      navigateMain('competitions');
+      state.databaseSearchIntent = 'officials';
+      const query = String(button.dataset.aiOfficialSearch || '').trim();
+      window.requestAnimationFrame(() => {
+        searchInput.value = query;
+        focusDatabaseSearch('输入教练员或裁判员姓名');
+        applyCompetitionFilter();
+        if (query) refreshEntitySearch(query);
+      });
+    });
   });
   container.querySelectorAll('[data-event-code]').forEach((button) => {
     button.addEventListener('click', () => {
