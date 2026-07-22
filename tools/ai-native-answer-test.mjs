@@ -291,7 +291,7 @@ assert.doesNotMatch(js, /label: '问题'[\s\S]*label: '证据'[\s\S]*label: '动
 assert.match(js, /主要证据/, 'AI answers must expose traceability through a first-screen evidence block instead of metadata cards');
 assert.match(js, /const AI_ANSWER_CARD_LIMIT = 4/, 'AI answers must cap metric cards while allowing four key coverage states');
 assert.match(js, /const AI_ANSWER_ACTION_LIMIT = 3/, 'AI answers must cap visible actions to avoid clutter');
-assert.match(js, /const AI_ANSWER_EVIDENCE_LIMIT = 2/, 'AI answers must cap visible evidence while preserving traceability');
+assert.match(js, /const AI_ANSWER_EVIDENCE_LIMIT = 4/, 'AI answers must keep enough traceable evidence without expanding the first screen');
 assert.match(js, /const primaryCards = \(report\.cards \|\| \[\]\)\.slice\(0, AI_ANSWER_CARD_LIMIT\)/, 'AI answer renderer must only show primary metric cards');
 assert.doesNotMatch(js, /AI_ANSWER_SECTION_LIMIT|AI_ANSWER_SECTION_ROW_LIMIT/, 'AI answer renderer must not expose explanatory sections as another main-screen block');
 assert.match(js, /const primaryActions = \(report\.actions \|\| \[\]\)\.slice\(0, AI_ANSWER_ACTION_LIMIT\)/, 'AI answer renderer must only show primary actions');

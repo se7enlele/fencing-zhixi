@@ -591,6 +591,7 @@ assert.ok(clubComparisonReport.sections.find((section) => section.title === '\u5
 assert.ok(clubComparisonReport.sections.find((section) => section.title === '\u5bf9\u6bd4\u7ed3\u8bba')?.rows.some((row) => /\u524d\u516b\u7387.*\u5956\u724c\u7387/.test(row)), 'club comparison should include top-8 and medal-rate evidence in conclusion rows');
 assert.ok(!/训练质量更好/.test(`${clubComparisonReport.summary}${clubComparisonReport.sections.map((section) => section.rows.join(' ')).join(' ')}`), 'club comparison should not infer training quality from participation counts');
 assert.ok(clubComparisonReport.evidence.some((row) => row.kind === '\u4ff1\u4e50\u90e8\u6210\u7ee9'), 'club comparison should cite concrete event evidence with customer-facing source labels');
+assert.ok(clubComparisonReport.evidence.length >= 4, 'club comparison should keep enough source records for traceable review');
 assert.ok(!clubComparisonReport.evidence.some((row) => row.kind === '\u4ff1\u4e50\u90e8\u5bf9\u6bd4\u8bc1\u636e'), 'club comparison evidence must not expose internal source labels');
 assert.ok(clubComparisonReport.actions.some((action) => action.clubId === 'club-jinshi'), 'club comparison should link to the first club profile');
 assert.ok(clubComparisonReport.actions.some((action) => action.clubId === 'club-airuite'), 'club comparison should link to the second club profile');

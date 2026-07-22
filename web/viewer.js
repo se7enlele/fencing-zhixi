@@ -80,7 +80,7 @@ const AUTH_USER_KEY = 'fencingai.authUser.v1';
 const COMPETITION_LIST_PAGE_SIZE = 30;
 const AI_ANSWER_CARD_LIMIT = 4;
 const AI_ANSWER_ACTION_LIMIT = 3;
-const AI_ANSWER_EVIDENCE_LIMIT = 2;
+const AI_ANSWER_EVIDENCE_LIMIT = 4;
 const AI_LOADING_MIN_MS = 420;
 const MAIN_TABS = ['home', 'competitions', 'my'];
 
