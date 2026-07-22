@@ -33,6 +33,7 @@ assert.match(js, /data-coach-task-action/, 'coach workspace actions must be trac
 assert.match(js, /data-coach-segmentation-club-id/, 'coach workspace segmentation action must open the segmentation report');
 assert.match(js, /function coachAthleteTrainingFocus\(athlete\)/, 'club coach view must derive athlete-level training followups');
 assert.match(js, /function coachAthleteFollowupRows\(athletes\)/, 'club coach view must prioritize athletes for followup');
+assert.match(js, /function coachAthleteTrainingFocus\(athlete\)[\s\S]*training,[\s\S]*title: training,[\s\S]*watchPoint:/, 'coach followup rows must expose a title so workspace cards never render undefined');
 assert.match(js, /function renderCoachAthleteFollowups\(athletes\)/, 'club coach view must render athlete-level followup cards');
 assert.match(js, /renderCoachAthleteFollowups\(athletes\)/, 'club detail must put athlete followups inside the existing-student section');
 assert.match(js, /buildParentGrowthModel\(athlete\)/, 'coach athlete followups must reuse the same growth model as parent reporting');

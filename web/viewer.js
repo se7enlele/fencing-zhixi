@@ -12383,6 +12383,7 @@ function coachAthleteTrainingFocus(athlete) {
     poolText,
     trendText,
     training,
+    title: training,
     parentMessage: `${model.investment}。${model.advice}`,
     watchPoint: latest
       ? `最近 ${displayEventName(latest)} 第 ${latest.finalRank ?? '-'} 名，下一场重点看名次是否前移。`

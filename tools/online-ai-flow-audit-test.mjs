@@ -17,7 +17,7 @@ assert.match(source, /real-user-ai-evaluation-\$\{runId\}\.md/, 'online AI audit
 assert.match(source, /document\.body\?\.dataset\?\.fencingaiReady === 'true'/, 'online AI audit must wait for the app-level data-ready marker before submitting questions');
 
 assert.match(packageJson, /"audit:online-p0": "node tools\/online-p0-interaction-audit\.mjs"/, 'package scripts must expose the P0 interaction audit');
-assert.match(p0Source, /const expectedAssetVersion = process\.env\.FENCINGAI_EXPECTED_ASSET_VERSION \|\| 'fencingai-product-20260722-club-fallback-1'/, 'P0 audit must verify the deployed asset version');
+assert.match(p0Source, /const expectedAssetVersion = process\.env\.FENCINGAI_EXPECTED_ASSET_VERSION \|\| 'fencingai-product-20260722-club-followup-1'/, 'P0 audit must verify the deployed asset version');
 assert.match(p0Source, /async function auditAssetVersion\(page\)/, 'P0 audit must check HTML asset cache-busting references');
 assert.match(p0Source, /assets\.script\.includes\(expectedAssetVersion\)/, 'P0 audit must require the expected viewer.js version');
 assert.match(p0Source, /assets\.stylesheet\.includes\(expectedAssetVersion\)/, 'P0 audit must require the expected viewer.css version');
