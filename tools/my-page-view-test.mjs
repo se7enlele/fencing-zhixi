@@ -113,6 +113,7 @@ assert.match(js, /answer\.innerHTML = renderAiLoadingState\(normalizedQuery\);[\
 assert.match(js, /const AI_LOADING_MIN_MS = 420;/, 'AI loading state must remain visible long enough to be perceived');
 assert.match(js, /function waitForAiLoadingState\(ms = AI_LOADING_MIN_MS\)/, 'AI question submission must have a minimum loading delay helper');
 assert.match(js, /function waitForAiPrimaryDataReady\(timeoutMs = 8000\)/, 'AI question submission must wait for the primary dataset before answering');
+assert.match(js, /state\.competitions = result\.competitions\?\.length \? result\.competitions : buildCompetitionsFromEvents\(result\.events\);[\s\S]*state\.competitionSearchCache\.clear\(\);[\s\S]*state\.isDataLoading = false;/, 'initial data loading must finish only after primary competition data is assigned');
 assert.match(js, /Promise\.allSettled\(\[[\s\S]*waitForAiPrimaryDataReady\(\)\.then\(\(\) => ensureAiEntityContext\(normalizedQuery\)\),[\s\S]*waitForAiLoadingState\(\),[\s\S]*\]\)/, 'AI question submission must keep the loading state visible while hydrating data after the primary dataset is ready');
 assert.match(js, /currentAnswer\.innerHTML = renderAiAnswer\(report\);[\s\S]{0,120}bindAnswer\(report, currentAnswer\);[\s\S]{0,120}scrollToResultPanel\(currentAnswer\);/, 'AI question results must keep the viewport on the current answer card after rendering');
 assert.match(js, /function entityCoverageCounts\(\)/, 'home scale numbers must use data coverage summaries without hydrating full directories');

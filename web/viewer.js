@@ -5321,12 +5321,18 @@ function waitForAiLoadingState(ms = AI_LOADING_MIN_MS) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
+function hasAiPrimaryDataReady() {
+  const coverage = state.dataCoverage || state.publicEvents?.dataCoverage || {};
+  return !state.isDataLoading
+    && Boolean((state.competitions || []).length || Number(coverage.platformEvents) || Number(coverage.scorePackages));
+}
+
 function waitForAiPrimaryDataReady(timeoutMs = 8000) {
-  if (!state.isDataLoading) return Promise.resolve();
+  if (hasAiPrimaryDataReady()) return Promise.resolve();
   const startedAt = Date.now();
   return new Promise((resolve, reject) => {
     const check = () => {
-      if (!state.isDataLoading) {
+      if (hasAiPrimaryDataReady()) {
         resolve();
         return;
       }
@@ -7153,12 +7159,18 @@ function buildAiCompetitionRanking(query, filters) {
 
 function businessMetricRows() {
   const competitions = state.competitions || [];
+  const coverage = state.dataCoverage || state.publicEvents?.dataCoverage || {};
+  const competitionCount = Math.max(
+    competitions.length,
+    Number(coverage.platformEvents) || 0,
+    Number(coverage.scorePackages) || 0,
+  );
   const entityCounts = entityCoverageCounts();
   const activeCompetitions = competitions.filter(isActionablePrematchCompetition);
   const regionCount = new Set(competitions.map((competition) => competition.region || competition.venue).filter(Boolean)).size;
   const scoredCompetitions = competitions.filter((competition) => competition.status === 'completed' || competitionHasItems(competition));
   return [
-    ['赛事资产', `${competitions.length} 场`],
+    ['赛事资产', `${competitionCount} 场`],
     ['选手画像', `${entityCounts.athletes} 人`],
     ['俱乐部画像', `${entityCounts.clubs} 个`],
     ['赛前机会', `${activeCompetitions.length} 场`],
@@ -14314,13 +14326,13 @@ async function init() {
   homeStats.innerHTML = '<div class="loading-row">正在加载数据</div>';
   competitionList.innerHTML = '<div class="loading-row">正在整理比赛列表</div>';
   const result = await fetchJson('/api/competitions');
-  state.isDataLoading = false;
   state.apiVersion = result.version || '';
   state.dataGeneratedAt = result.generatedAt || '';
   state.dataCoverage = result.dataCoverage || null;
   state.publicEvents = result.publicEvents || null;
   state.competitions = result.competitions?.length ? result.competitions : buildCompetitionsFromEvents(result.events);
   state.competitionSearchCache.clear();
+  state.isDataLoading = false;
   await restoreAuthSession();
   renderHomeStats();
   renderRoleWorkspacePremium();

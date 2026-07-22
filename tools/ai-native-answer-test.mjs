@@ -37,6 +37,8 @@ assert.match(js, /trackAiAnalysisHistory\(enhancedReport\.query \|\| report\.que
 assert.match(js, /report\.type === 'empty' \|\| report\.type === 'fallback'/, 'AI history must not store empty or fallback answers');
 assert.match(js, /function renderAiLoadingState\(query = ''\)/, 'AI home prompt must render an immediate loading state while matching data');
 assert.match(js, /function waitForAiPrimaryDataReady\(timeoutMs = 8000\)/, 'AI home prompt must wait for primary data before building answers');
+assert.match(js, /function hasAiPrimaryDataReady\(\)/, 'AI home prompt must use a concrete data-readiness guard before building answers');
+assert.match(js, /Boolean\(\(state\.competitions \|\| \[\]\)\.length \|\| Number\(coverage\.platformEvents\) \|\| Number\(coverage\.scorePackages\)\)/, 'AI data-readiness guard must wait for competition data or coverage counts');
 assert.match(js, /<div class="ai-loading-progress" aria-hidden="true"><i><\/i><\/div>/, 'AI loading state must include a visible progress bar');
 assert.match(js, /<span>理解问题<\/span>[\s\S]*<span>查找相关记录<\/span>[\s\S]*<span>形成结论<\/span>/, 'AI loading state must use user-facing progress steps');
 assert.doesNotMatch(js, /匹配赛事和画像/, 'AI loading state must not expose internal matching wording');
@@ -188,6 +190,7 @@ assert.match(js, /教练端：用/, 'AI business analysis must include coach-fac
 assert.match(js, /kind: '赛前机会'/, 'AI business evidence must include prematch opportunity sources');
 assert.match(js, /function isActionablePrematchCompetition\(competition\)/, 'AI business insight must centralize actionable prematch filtering');
 assert.match(js, /function buildAiBusinessInsightReport\(query\)[\s\S]*\.filter\(isActionablePrematchCompetition\)/, 'AI business insight must only cite actionable prematch opportunities');
+assert.match(js, /const competitionCount = Math\.max\([\s\S]*Number\(coverage\.platformEvents\)[\s\S]*Number\(coverage\.scorePackages\)/, 'AI business metrics must fall back to data coverage counts instead of showing zero assets');
 assert.match(js, /kind: '俱乐部资产'/, 'AI business evidence must include club business assets');
 assert.match(js, /label: '查看赛前提醒'/, 'AI business actions must open the prematch product package path');
 assert.match(js, /label: '查看成长报告'/, 'AI business actions must open the parent growth package path');
