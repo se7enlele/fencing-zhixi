@@ -109,7 +109,7 @@ assert.match(js, /function missingCompetitionCoverageRows\(relatedCompetitions =
 assert.match(js, /\['赛事记录', '未找到'\][\s\S]*\['项目名单', '无法核对'\][\s\S]*\['报名名单', '无法核对'\][\s\S]*\['赛果成绩', '无法核对'\]/, 'missing competition cards must separate event, project, roster and result coverage');
 assert.match(js, /title: '可以这样核对'/, 'AI missing-competition fallback must show a user-facing diagnosis section');
 assert.match(js, /title: '可查内容'/, 'AI missing-competition fallback must show a user-facing coverage section');
-assert.match(js, /当前未收录\$\{competitionLike\.year\}年这场赛事/, 'AI missing-competition fallback must say when the current record is not collected');
+assert.match(js, /暂时没有\$\{competitionLike\.year\}年这场赛事记录/, 'AI missing-competition fallback must say when the requested event record is unavailable');
 assert.match(js, /这不代表赛事不存在/, 'AI missing-competition fallback must distinguish missing records from non-existent events');
 assert.match(js, /查看相关赛事/, 'AI missing-competition fallback must offer an action to inspect related competitions');
 assert.match(js, /地方联赛或分站赛/, 'AI missing-competition fallback must handle local league and station naming differences');

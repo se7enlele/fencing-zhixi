@@ -108,7 +108,7 @@ const cases = [
   {
     id: 'competition-missing-year',
     query: '2027年北京击剑联赛第一站',
-    expect: ['当前未收录2027年这场赛事', '赛事记录', '项目名单', '赛果成绩'],
+    expect: ['暂时没有2027年这场赛事记录', '赛事记录', '项目名单', '赛果成绩'],
   },
   {
     id: 'recovery',
@@ -154,12 +154,12 @@ function caseEvaluationContext(testCase) {
 function userJudgmentForResult({ testCase, evidenceCount, actionLabels, evidenceNavigation, text }) {
   if (testCase.requireEvidence && !evidenceCount) return '不可用';
   if (testCase.requireEvidence && !evidenceNavigation) return '需要补证据';
-  if (!actionLabels.length && /当前未收录|先确定|可以这样核对/.test(text)) return '基本可用';
+  if (!actionLabels.length && /暂时没有|先确定|可以这样核对/.test(text)) return '基本可用';
   return '可信';
 }
 
 function failureRecoveryLabel(text) {
-  if (/当前未收录|可以这样核对|先确定|相近赛事|补充方式|可以这样问/.test(text)) return '有下一步';
+  if (/暂时没有|可以这样核对|先确定|相近赛事|补充方式|可以这样问/.test(text)) return '有下一步';
   return '非失败场景';
 }
 
