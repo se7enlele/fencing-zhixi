@@ -317,6 +317,47 @@ function stripBom(value) {
   return String(value || '').replace(/^\uFEFF/, '');
 }
 
+function eventKeySet(events = []) {
+  return new Set((events || [])
+    .flatMap((event) => [String(event?.sportCode || ''), String(event?.sportId || '')])
+    .filter(Boolean));
+}
+
+function compactEvent(row = {}) {
+  return {
+    sportId: row.sportId,
+    sportCode: row.sportCode,
+    sportName: row.sportName,
+    startDate: row.startDate,
+    endDate: row.endDate,
+    provinceName: row.provinceName,
+    cityName: row.cityName,
+    sportactive: row.sportactive,
+    sigupactive: row.sigupactive,
+  };
+}
+
+export function compareEventListRefresh(localEvents = [], latestEvents = []) {
+  const localKeys = eventKeySet(localEvents);
+  const latestKeys = eventKeySet(latestEvents);
+  const added = latestEvents
+    .filter((event) => !localKeys.has(String(event?.sportCode || '')) && !localKeys.has(String(event?.sportId || '')))
+    .map(compactEvent);
+  const removed = localEvents
+    .filter((event) => !latestKeys.has(String(event?.sportCode || '')) && !latestKeys.has(String(event?.sportId || '')))
+    .map(compactEvent);
+
+  return {
+    ok: true,
+    localCount: localEvents.length,
+    latestCount: latestEvents.length,
+    addedCount: added.length,
+    removedCount: removed.length,
+    added: added.slice(0, 20),
+    removed: removed.slice(0, 20),
+  };
+}
+
 async function loadProjectReports(outputDir) {
   const names = (await readdir(outputDir).catch(() => []))
     .filter((name) => /^projectlist-.+-analysis\.json$/.test(name));
@@ -431,6 +472,20 @@ export function buildScheduledSyncStatus(report) {
   };
 }
 
+async function inspectEventListRefresh(args, localEvents) {
+  if (args.skipEventListRefresh) return { ok: true, skipped: true };
+  const payload = JSON.parse(stripBom(await fetchText(args.eventListUrl, args.timeoutSec)));
+  const report = buildFrontSportEventListReport(payload, {
+    input: args.eventListUrl,
+    sourceUrl: args.eventListUrl,
+    analyzedAt: new Date().toISOString(),
+  });
+  return {
+    ...compareEventListRefresh(localEvents, report.normalizedEvents),
+    skipped: false,
+  };
+}
+
 async function writeSyncStatus(outputDir, report) {
   await mkdir(outputDir, { recursive: true });
   const outputPath = path.join(outputDir, 'scheduled-sync-status.json');
@@ -440,9 +495,12 @@ async function writeSyncStatus(outputDir, report) {
 
 async function main() {
   const args = parseArgs(process.argv);
-  const eventListRefresh = args.dryRun || args.skipEventListRefresh
-    ? { ok: true, skipped: true }
-    : await refreshEventList(args);
+  const eventsBeforeRefresh = await loadEvents(args.input);
+  const eventListRefresh = args.dryRun
+    ? await inspectEventListRefresh(args, eventsBeforeRefresh)
+    : args.skipEventListRefresh
+      ? { ok: true, skipped: true }
+      : await refreshEventList(args);
   const events = await loadEvents(args.input);
   const plan = buildScheduledSyncPlan(events, args);
   const backfillTasks = await buildLoadedHistoricalBackfillTasks(events, args);

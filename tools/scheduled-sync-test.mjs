@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
-import { buildHistoricalBackfillTasks, buildScheduledSyncPlan, buildScheduledSyncStatus } from './scheduled-sync.mjs';
+import { buildHistoricalBackfillTasks, buildScheduledSyncPlan, buildScheduledSyncStatus, compareEventListRefresh } from './scheduled-sync.mjs';
 
 const events = [
   {
@@ -179,6 +179,27 @@ assert.equal(status.summary.completedCount, 1);
 assert.equal(status.summary.backfillCount, 1);
 assert.equal(status.summary.taskTypes['pre-event-roster'], 1);
 assert.equal(status.failures[0].eventCode, 'OLD2025MFIU6');
+
+const refreshDiff = compareEventListRefresh(events.slice(0, 2), [
+  ...events.slice(0, 2),
+  {
+    sportId: 105,
+    sportCode: 'NEW2026',
+    sportName: 'New Event',
+    startDate: '2026-08-01 08:00:00',
+    endDate: '2026-08-02 18:00:00',
+    sportactive: '0',
+    sigupactive: '0',
+  },
+]);
+
+assert.equal(refreshDiff.ok, true);
+assert.equal(refreshDiff.localCount, 2);
+assert.equal(refreshDiff.latestCount, 3);
+assert.equal(refreshDiff.addedCount, 1);
+assert.equal(refreshDiff.removedCount, 0);
+assert.equal(refreshDiff.added[0].sportId, 105);
+assert.equal(refreshDiff.added[0].sportName, 'New Event');
 
 const workflow = await readFile(new URL('../.github/workflows/scheduled-sync.yml', import.meta.url), 'utf8');
 assert.match(workflow, /--fail-on-task-error/, 'scheduled workflow must stop before deploy when sync tasks fail');
