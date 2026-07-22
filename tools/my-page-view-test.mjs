@@ -152,6 +152,11 @@ assert.doesNotMatch(js, /当前显示/, 'database coverage copy must not expose 
 assert.match(js, /focusDatabaseSearch\('输入选手姓名，例如 蔡廷彧'\)/, 'athlete directory entry must guide users to athlete search');
 assert.match(js, /focusDatabaseSearch\('输入俱乐部名称，例如 山东小众体育'\)/, 'club directory entry must guide users to club search');
 assert.match(js, /focusDatabaseSearch\('输入教练员或裁判员姓名'\)/, 'official directory entry must guide users to official search');
+assert.match(js, /databaseSearchIntent: ''/, 'database search must track the current directory search intent');
+assert.match(js, /state\.databaseSearchIntent = 'officials';[\s\S]*focusDatabaseSearch\('输入教练员或裁判员姓名'\)/, 'official directory entry must mark official search intent before focusing search');
+assert.match(js, /function isOfficialSearchIntent\(keyword = ''\)/, 'database search must infer official search intent from role words');
+assert.match(js, /const showOfficialEmpty = Boolean\(keyword && isOfficialSearchIntent\(keyword\) && !officialRows\.length && !officialCoverageCount\(\)\)/, 'official search must show a clear empty state when no official rows are imported');
+assert.match(js, /暂时还没有教练员和裁判员资料/, 'official search empty state must explain missing official records in user-facing wording');
 assert.match(css, /\.database-entry-grid/, 'database directory must have a compact mobile grid layout');
 assert.match(css, /\.database-task-list/, 'database task cards must have a dedicated mobile layout');
 assert.match(css, /\.database-task-card/, 'database task cards must be tappable and visually distinct');

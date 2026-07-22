@@ -128,6 +128,7 @@ const state = {
   selectedAiYears: [],
   onlyFollowedData: false,
   followFilter: '全部赛事',
+  databaseSearchIntent: '',
   aiCompetitionFilterSummary: '',
   aiCompetitionFilterQuestion: '',
   visibleCompetitionLimit: COMPETITION_LIST_PAGE_SIZE,
@@ -2448,7 +2449,12 @@ function focusDatabaseSearch(placeholder = '') {
   searchShell?.scrollIntoView({ block: 'start', behavior: 'smooth' });
 }
 
+function isOfficialSearchIntent(keyword = '') {
+  return state.databaseSearchIntent === 'officials' || /(教练|教练员|裁判|裁判员|coach|referee)/i.test(String(keyword || ''));
+}
+
 function handleDatabaseEntry(key) {
+  state.databaseSearchIntent = '';
   if (key === 'competitions' || key === 'task-competitions') {
     searchInput.value = '';
     state.onlyFollowedData = false;
@@ -2466,6 +2472,7 @@ function handleDatabaseEntry(key) {
     return;
   }
   if (key === 'officials') {
+    state.databaseSearchIntent = 'officials';
     focusDatabaseSearch('输入教练员或裁判员姓名');
     return;
   }
@@ -9577,7 +9584,8 @@ function renderAthleteSearchResults(keyword) {
     ...refereeRows.map((row) => ({ ...row, roleLabel: '裁判员' })),
   ];
   const hasCompetitionResults = Boolean(keyword && state.filteredCompetitions.length);
-  searchAthletesPanel.hidden = !keyword || (!athleteRows.length && !clubRows.length && !officialRows.length && !hasCompetitionResults);
+  const showOfficialEmpty = Boolean(keyword && isOfficialSearchIntent(keyword) && !officialRows.length && !officialCoverageCount());
+  searchAthletesPanel.hidden = !keyword || (!athleteRows.length && !clubRows.length && !officialRows.length && !hasCompetitionResults && !showOfficialEmpty);
   if (searchAthletesPanel.hidden) {
     searchAthletesPanel.innerHTML = '';
     return;
@@ -9649,6 +9657,12 @@ function renderAthleteSearchResults(keyword) {
             </div>
           </article>
         `).join('')}
+      </div>
+    ` : ''}
+    ${showOfficialEmpty ? `
+      <div class="search-hint-card official-empty-card">
+        <strong>暂时还没有教练员和裁判员资料</strong>
+        <span>赛事、选手和俱乐部资料可继续检索；人员资料加入后，会支持按姓名、地区、俱乐部和身份查找。</span>
       </div>
     ` : ''}
     ${!athleteRows.length && !clubRows.length && !officialRows.length && hasCompetitionResults ? `
