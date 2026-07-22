@@ -111,6 +111,16 @@ const cases = [
     expect: ['暂时没有2027年这场赛事记录', '赛事记录', '项目名单', '赛果成绩'],
   },
   {
+    id: 'competition-missing-data',
+    query: '\u4e3a\u4ec0\u4e48\u6211\u7684\u6570\u636e\u5e93\u91cc\u6ca1\u6709\u5317\u4eac\u51fb\u5251\u8054\u8d5b\u7684\u6570\u636e\uff1f',
+    expect: ['\u53ef\u4ee5\u8fd9\u6837\u6838\u5bf9', '\u8d5b\u4e8b\u8bb0\u5f55'],
+    expectAny: [
+      ['\u53ef\u80fd\u662f\u8d5b\u4e8b\u540d\u79f0\u4e0d\u5b8c\u5168\u4e00\u81f4', '\u627e\u5230\u76f8\u8fd1'],
+      ['\u6682\u65f6\u6ca1\u6709\u8fd9\u573a\u8d5b\u4e8b\u8bb0\u5f55', '\u53ef\u67e5\u5185\u5bb9'],
+    ],
+    requireEvidence: true,
+  },
+  {
     id: 'recovery',
     query: '孩子击剑值不值得继续',
     expect: ['先选择孩子或选手'],
@@ -138,6 +148,7 @@ const realUserContextByCase = {
   'prematch-template': { role: '潜在付费用户', stage: '赛前服务评估期', task: '判断赛前情报包是否可用', expectedIntent: '报告产品化' },
   'business-value': { role: '产品/商业评估者', stage: '商业判断期', task: '判断数据资产能产生哪些服务价值', expectedIntent: '商业洞察' },
   'competition-missing-year': { role: '新用户', stage: '失败恢复期', task: '搜索未收录赛事时理解缺在哪一层', expectedIntent: '未收录恢复' },
+  'competition-missing-data': { role: '新用户', stage: '数据核对期', task: '询问为什么数据库没有某项赛事数据', expectedIntent: '赛事覆盖诊断' },
   recovery: { role: '入门家长', stage: '项目认知期', task: '提出模糊投入问题时获得下一步', expectedIntent: '模糊问题恢复' },
   'fuzzy-object-recovery': { role: '新用户', stage: '对象确认期', task: '输入简称时找到相近对象', expectedIntent: '模糊对象恢复' },
 };
