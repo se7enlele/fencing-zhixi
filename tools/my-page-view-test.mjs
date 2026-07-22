@@ -618,8 +618,13 @@ assert.match(css, /\.account-action-row/, 'account center action styles must exi
 assert.match(css, /\.account-status-line/, 'account center status styles must exist');
 assert.match(css, /\.competition-follow-tag/, 'competition follow tag styles must exist');
 assert.match(css, /\.recovery-empty/, 'database empty-result recovery card styles must exist');
+assert.match(css, /\.ai-filter-notice em/, 'AI-to-database context should have secondary evidence guidance styling');
 
 assert.match(js, /function renderCompetitionEmptyState\(\)/, 'database list must have a dedicated empty-result recovery state');
 assert.match(js, new RegExp('state\\.aiCompetitionFilterSummary \\|\\| state\\.aiCompetitionFilterQuestion[\\s\\S]*\\u8fd9\\u6b21\\u7b5b\\u9009\\u6ca1\\u6709\\u627e\\u5230\\u6bd4\\u8d5b[\\s\\S]*data-clear-ai-filter[\\s\\S]*\\u67e5\\u770b\\u5168\\u90e8\\u8d5b\\u4e8b'), 'AI-to-database empty results must offer a clear recovery action');
+assert.match(js, /function renderAiCompetitionFilterNotice\(\)/, 'AI-to-database context must render through a dedicated helper');
+assert.match(js, /\u53ef\u6838\u5bf9\u8d5b\u4e8b \$\{escapeHtml\(state\.filteredCompetitions\.length\)\} \u573a/, 'AI-to-database context must frame results as verifiable competitions');
+assert.match(js, /\u70b9\u51fb\u8d5b\u4e8b\u5361\uff0c\u53ef\u7ee7\u7eed\u67e5\u770b\u9879\u76ee\u3001\u540d\u5355\u548c\u6210\u7ee9\u3002/, 'AI-to-database context must explain the evidence path');
+assert.match(js, /function handleSearchInput\(\)[\s\S]*state\.aiCompetitionFilterSummary = '';[\s\S]*state\.aiCompetitionFilterQuestion = '';/, 'manual database search must clear stale AI filter context');
 
 console.log('home, follow, my page and bottom navigation are covered');

@@ -1349,6 +1349,12 @@ select:focus {
   min-width: 0;
 }
 
+.ai-filter-notice em {
+  flex: 1 0 100%;
+  color: var(--muted);
+  font-style: normal;
+}
+
 .ai-filter-notice button {
   flex: 0 0 auto;
   height: 28px;

@@ -174,7 +174,8 @@ assert.match(js, /const itemFilter = filters\.item \|\| queryItemFilterOption\(q
 assert.match(js, /aiCompetitionFilterQuestion: ''/, 'AI competition filter source question must have a stable state slot');
 assert.match(js, /state\.aiCompetitionFilterQuestion = question;/, 'AI competition filters must preserve the source question for database verification');
 assert.match(js, /state\.aiCompetitionFilterQuestion = '';/, 'AI competition filters must clear the source question when removed');
-assert.match(js, /来自提问：\$\{escapeHtml\(state\.aiCompetitionFilterQuestion\)\}/, 'AI filtered competition lists must show which user question created the filter');
+assert.match(js, /这次问题：\$\{state\.aiCompetitionFilterQuestion\}/, 'AI filtered competition lists must show which user question created the filter');
+assert.match(js, /可核对赛事 \$\{escapeHtml\(state\.filteredCompetitions\.length\)\} 场/, 'AI filtered competition lists must frame database results as verifiable records');
 assert.match(js, /return parts\.length \? `筛选结果：\$\{parts\.join\(' · '\)\}` : '';/, 'AI competition filter summary must be user-facing');
 assert.match(js, /没有符合条件的比赛。可以清除筛选，或减少年份、地区、项目条件后再看。/, 'AI-filtered empty competition lists must offer recovery');
 assert.match(js, /function clearAiCompetitionFilter\(\)/, 'AI competition filters must be removable from the competition list');

@@ -1806,6 +1806,7 @@ function setFilterValue(type, value) {
   state.selectedAiMonth = '';
   state.selectedAiYears = [];
   state.aiCompetitionFilterSummary = '';
+  state.aiCompetitionFilterQuestion = '';
   renderFilters();
   applyCompetitionFilter();
 }
@@ -2050,6 +2051,7 @@ function handleSearchInput() {
   state.selectedAiMonth = '';
   state.selectedAiYears = [];
   state.aiCompetitionFilterSummary = '';
+  state.aiCompetitionFilterQuestion = '';
   state.athleteSearchResults = [];
   state.clubSearchResults = [];
   state.coachSearchResults = [];
@@ -2606,6 +2608,7 @@ function handleDatabaseEntry(key) {
     state.selectedAiMonth = '';
     state.selectedAiYears = [];
     state.aiCompetitionFilterSummary = '';
+    state.aiCompetitionFilterQuestion = '';
     renderFilters();
     applyCompetitionFilter();
   }
@@ -10034,15 +10037,7 @@ function renderCompetitionList() {
   }
   const visibleCompetitions = state.filteredCompetitions.slice(0, state.visibleCompetitionLimit);
   const remainingCount = Math.max(0, state.filteredCompetitions.length - visibleCompetitions.length);
-  const aiFilterNotice = state.aiCompetitionFilterSummary
-    ? `
-      <div class="ai-filter-notice">
-        ${state.aiCompetitionFilterQuestion ? `<strong>来自提问：${escapeHtml(state.aiCompetitionFilterQuestion)}</strong>` : ''}
-        <span>${escapeHtml(state.aiCompetitionFilterSummary)} · ${escapeHtml(state.filteredCompetitions.length)} 场</span>
-        <button type="button" data-clear-ai-filter>清除筛选</button>
-      </div>
-    `
-    : '';
+  const aiFilterNotice = renderAiCompetitionFilterNotice();
   competitionList.innerHTML = state.filteredCompetitions.length
     ? `
       ${aiFilterNotice}
@@ -10085,6 +10080,19 @@ function renderCompetitionList() {
     state.visibleCompetitionLimit += COMPETITION_LIST_PAGE_SIZE;
     renderCompetitionList();
   });
+}
+
+function renderAiCompetitionFilterNotice() {
+  if (!state.aiCompetitionFilterSummary) return '';
+  const question = state.aiCompetitionFilterQuestion ? `这次问题：${state.aiCompetitionFilterQuestion}` : '这次问题的相关赛事';
+  return `
+    <div class="ai-filter-notice">
+      <strong>${escapeHtml(question)}</strong>
+      <span>${escapeHtml(state.aiCompetitionFilterSummary)} · 可核对赛事 ${escapeHtml(state.filteredCompetitions.length)} 场</span>
+      <em>点击赛事卡，可继续查看项目、名单和成绩。</em>
+      <button type="button" data-clear-ai-filter>查看全部赛事</button>
+    </div>
+  `;
 }
 
 function renderCompetitionEmptyState() {
