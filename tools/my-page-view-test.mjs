@@ -169,9 +169,9 @@ assert.match(js, /const publicEvents = state\.publicEvents \|\| \{\};/, 'home sc
 assert.match(js, /athletes: positiveMax\([\s\S]*state\.dataCoverage\?\.athletes[\s\S]*state\.dataCoverage\?\.athleteCount[\s\S]*nestedCoverage\.athleteCount[\s\S]*publicEvents\.athletes\?\.length[\s\S]*state\.athleteSearchIndex\.length[\s\S]*Object\.keys\(state\.athletesById \|\| \{\}\)\.length[\s\S]*\)/, 'home scale must combine athlete coverage with loaded search and detail indexes');
 assert.match(js, /clubs: positiveMax\([\s\S]*state\.dataCoverage\?\.clubs[\s\S]*state\.dataCoverage\?\.clubCount[\s\S]*nestedCoverage\.clubCount[\s\S]*publicEvents\.clubs\?\.length[\s\S]*state\.clubSearchIndex\.length[\s\S]*Object\.keys\(state\.clubsById \|\| \{\}\)\.length[\s\S]*\)/, 'home scale must combine club coverage with loaded search and detail indexes');
 assert.match(js, /\{ value: entityCounts\.athletes, label: '选手画像' \}/, 'home stats must display athlete coverage counts instead of empty local search indexes');
-assert.match(js, /\['选手画像', `\$\{entityCounts\.athletes\} 个`\]/, 'AI fallback must display athlete coverage counts instead of empty local search indexes');
-assert.match(js, /\['俱乐部', `\$\{entityCounts\.clubs\} 个`\]/, 'AI fallback must display club coverage counts instead of empty local search indexes');
-assert.match(js, /\['赛事记录', `\$\{state\.competitions\.length\} 场`\]/, 'AI fallback must display competition coverage counts instead of empty local search indexes');
+assert.match(js, /\['可以问', '选手\/剑馆\/赛事'\]/, 'AI fallback must show a user-facing next step instead of broad data totals');
+assert.match(js, /\['建议补充', '年份\/地区\/项目'\]/, 'AI fallback must guide users to add scope when the object is unclear');
+assert.match(js, /\['也可以', '进入数据库'\]/, 'AI fallback must keep a direct database recovery path');
 assert.match(js, /const coachCount = entityCoverageCounts\(\)\.clubs;/, 'home service readiness must use aggregate club coverage counts');
 assert.match(js, /meta: `\$\{entityCoverageCounts\(\)\.clubs\} 个俱乐部画像`/, 'home coach entry must not use empty local club search index counts');
 assert.match(js, /<h2>常用功能<\/h2>/, 'home page must use user-facing task cards instead of another competition list');

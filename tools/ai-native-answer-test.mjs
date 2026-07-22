@@ -120,12 +120,15 @@ assert.match(js, /function aiFallbackRewriteActions\(query = '', candidates = \{
 assert.match(js, /if \(\/\^\[\\u4e00-\\u9fa5\]\$\/\.test\(compact\) && !terms\.includes\(compact\)\) terms\.push\(compact\);/, 'AI fallback should keep single-character Chinese surname queries as candidate terms');
 assert.match(js, /haystack\.startsWith\(needle\) \? score \+ 18 : score/, 'single-character surname matching must be limited to name prefixes');
 assert.match(js, /function aiFallbackClarificationRows\(query = ''\)/, 'AI fallback must explain what information the user should add next');
+assert.match(js, /function aiCandidateSummaryCards\(candidates = \{\}\)/, 'AI fallback must summarize only candidate categories that actually exist');
+assert.match(js, /candidates\.athletes\?\.length \? \['可能是选手', `\$\{candidates\.athletes\.length\} 个`\] : null/, 'AI fallback candidate cards must not show zero-athlete noise');
 assert.match(js, /对比两名选手或两家俱乐部时，写清双方名称、年份、年龄段、剑种和性别。/, 'AI fallback must guide scoped comparison questions');
 assert.match(js, /看赛前信息时，写清目标地区或赛事名；有关注选手后，会优先显示相关项目。/, 'AI fallback must guide prematch questions without implying fake opponents');
 assert.match(js, /title: '补充方式'/, 'AI child-intent fallback must tell parents how to continue');
 assert.match(js, /title: '可以这样问'/, 'AI generic fallback must provide concrete question shapes');
 assert.match(js, /label: '问天津近期报名', query: '天津近期报名情况'/, 'AI fallback should offer a direct prematch rewrite suggestion');
 assert.match(js, /label: '问赛事数量', query: '2026年天津有几场比赛'/, 'AI fallback should offer a direct competition-stat rewrite suggestion');
+assert.match(js, /\['可以问', '选手\/剑馆\/赛事'\][\s\S]*\['建议补充', '年份\/地区\/项目'\][\s\S]*\['也可以', '进入数据库'\]/, 'AI generic fallback cards must show user next steps instead of raw database totals');
 assert.match(js, /if \(hasQueryAction && hasDirectAction\) return '选择对象或继续问';/, 'AI fallback action heading should distinguish direct selections from rewrite suggestions');
 assert.doesNotMatch(js, /试试赛事统计|试试选手成长/, 'AI fallback actions should be phrased as direct user questions');
 assert.match(js, /scope: hasItemIntent \? 'item' : 'competition'/, 'AI competition ranking must route project and group questions separately');

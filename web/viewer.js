@@ -6197,6 +6197,14 @@ function aiFallbackClarificationRows(query = '') {
   ], (row) => row).slice(0, 3);
 }
 
+function aiCandidateSummaryCards(candidates = {}) {
+  return [
+    candidates.athletes?.length ? ['可能是选手', `${candidates.athletes.length} 个`] : null,
+    candidates.clubs?.length ? ['可能是剑馆', `${candidates.clubs.length} 个`] : null,
+    candidates.competitions?.length ? ['可能是赛事', `${candidates.competitions.length} 场`] : null,
+  ].filter(Boolean);
+}
+
 function buildAiFallbackReport(query) {
   const text = String(query || '').trim();
   const entityCounts = entityCoverageCounts();
@@ -6308,11 +6316,7 @@ function buildAiFallbackReport(query) {
       type: 'fallback',
       title: '选择你想看的对象',
       summary: '下面是和问题相关的选手、剑馆和赛事。先点开一个对象，再继续看成长、对比或赛前分析。',
-      cards: [
-        ['可能是选手', `${candidates.athletes.length} 个`],
-        ['可能是剑馆', `${candidates.clubs.length} 个`],
-        ['可能是赛事', `${candidates.competitions.length} 场`],
-      ],
+      cards: aiCandidateSummaryCards(candidates),
       sections: [
         {
           title: '可以先确认',
@@ -6336,9 +6340,9 @@ function buildAiFallbackReport(query) {
     title: '告诉我你想看的对象',
     summary: '可以输入选手姓名、剑馆名称或赛事名称，例如“分析马潇和陶嘉月的对比情况”。',
     cards: [
-      ['选手画像', `${entityCounts.athletes} 个`],
-      ['俱乐部', `${entityCounts.clubs} 个`],
-      ['赛事记录', `${state.competitions.length} 场`],
+      ['可以问', '选手/剑馆/赛事'],
+      ['建议补充', '年份/地区/项目'],
+      ['也可以', '进入数据库'],
     ],
     sections: [
       {
