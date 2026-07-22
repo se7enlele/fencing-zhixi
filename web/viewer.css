@@ -6051,6 +6051,77 @@ select:focus {
   line-height: 1.45;
 }
 
+.coach-workspace-tasks {
+  border-color: rgba(13, 125, 103, 0.18);
+  background: linear-gradient(180deg, rgba(239, 252, 248, 0.94), rgba(255, 255, 255, 0.94));
+}
+
+.coach-workspace-task-grid {
+  display: grid;
+  gap: 9px;
+}
+
+.coach-workspace-task-card {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+  border: 1px solid rgba(13, 125, 103, 0.14);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 11px;
+}
+
+.coach-workspace-task-card span,
+.coach-workspace-task-card strong,
+.coach-workspace-task-card em {
+  display: block;
+  min-width: 0;
+}
+
+.coach-workspace-task-card span {
+  color: var(--primary);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.coach-workspace-task-card strong {
+  overflow: hidden;
+  color: var(--text);
+  font-size: 16px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.coach-workspace-task-card em {
+  color: var(--muted);
+  font-size: 12px;
+  font-style: normal;
+  line-height: 1.45;
+}
+
+.coach-workspace-task-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  padding-top: 2px;
+}
+
+.coach-workspace-task-actions button {
+  border: 1px solid rgba(15, 92, 192, 0.12);
+  border-radius: 9px;
+  background: rgba(239, 246, 255, 0.92);
+  color: var(--blue);
+  font-size: 12px;
+  font-weight: 900;
+  padding: 7px 10px;
+}
+
+.coach-workspace-task-actions .coach-task-primary {
+  border-color: rgba(13, 125, 103, 0.22);
+  background: rgba(13, 125, 103, 0.1);
+  color: var(--primary);
+}
+
 .club-script-list {
   display: grid;
   gap: 8px;

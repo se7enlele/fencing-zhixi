@@ -12807,6 +12807,105 @@ function projectCoachAdvice(row) {
   return '样本仍少，先保持参赛连续性，积累可判断的数据。';
 }
 
+function buildCoachWorkspaceTasks({ club, projectRows, athletes, athleteBuckets, rosterRows }) {
+  const followups = coachAthleteFollowupRows(athletes);
+  const topFollowup = followups[0];
+  const topProject = projectRows[0];
+  const bestProject = [...projectRows].sort((a, b) => (a.bestRank ?? 999) - (b.bestRank ?? 999))[0];
+  const rosterProjects = rosterItemSummary(rosterRows);
+  const segmentParts = [
+    athleteBuckets.focus.length ? `${athleteBuckets.focus.length} 名冲成绩` : '',
+    athleteBuckets.steady.length ? `${athleteBuckets.steady.length} 名稳定成长` : '',
+    athleteBuckets.observe.length ? `${athleteBuckets.observe.length} 名继续观察` : '',
+  ].filter(Boolean);
+  const strongestProof = bestProject
+    ? `${bestProject.label} 最好第 ${bestProject.bestRank ?? '-'} 名`
+    : `最好第 ${club.bestRank ?? '-'} 名`;
+  return [
+    {
+      key: 'segmentation',
+      title: '学员分层',
+      value: athletes.length ? `${athletes.length} 名学员` : '等待学员画像',
+      detail: segmentParts.length
+        ? segmentParts.join('，') + '。'
+        : '先按参赛次数、最好名次和近期表现建立队伍分层。',
+      primaryLabel: '看分层报告',
+      coachSegmentationClubId: club.id || '',
+      secondaryLabel: '生成分析',
+      query: `${club.club} 哪些学员适合重点培养`,
+    },
+    {
+      key: 'followup',
+      title: '重点跟进',
+      value: topFollowup?.athlete?.name || rosterProjects[0]?.label || topProject?.label || '近期比赛',
+      detail: topFollowup
+        ? `${topFollowup.title}，${topFollowup.watchPoint}`
+        : rosterRows.length
+          ? `已有 ${rosterRows.length} 条报名记录，先确认名单和重点项目。`
+          : '先关注近期赛事、报名名单和常参项目。',
+      primaryLabel: topFollowup?.athlete?.id ? '查看学员' : '赛前准备',
+      athleteId: topFollowup?.athlete?.id || '',
+      query: topFollowup?.athlete?.name
+        ? `分析${topFollowup.athlete.name}最近比赛和下一步训练重点`
+        : `分析${club.club}近期报名和赛前准备`,
+    },
+    {
+      key: 'recruiting',
+      title: '招生素材',
+      value: strongestProof,
+      detail: bestProject
+        ? `用 ${bestProject.label}、代表学员和前八/奖牌记录形成对外展示。`
+        : '先整理代表项目、代表学员和可验证成绩。',
+      primaryLabel: '复制摘要',
+      shareClub: true,
+      secondaryLabel: '生成分析',
+      query: `分析${club.club}的优势项目和招生价值`,
+    },
+  ];
+}
+
+function renderCoachWorkspaceTasks(tasks) {
+  if (!tasks.length) return '';
+  const renderActionButton = (task, primary = true) => {
+    const label = primary ? task.primaryLabel : task.secondaryLabel;
+    if (!label) return '';
+    const className = primary ? 'coach-task-primary' : 'coach-task-secondary';
+    const attrs = [
+      `class="${className}"`,
+      'type="button"',
+      `data-coach-task-action="${escapeHtml(task.key)}"`,
+    ];
+    if (primary && task.coachSegmentationClubId) attrs.push(`data-coach-segmentation-club-id="${escapeHtml(task.coachSegmentationClubId)}"`);
+    if (primary && task.athleteId) attrs.push(`data-athlete-id="${escapeHtml(task.athleteId)}"`);
+    if (primary && task.shareClub) attrs.push('data-share-club');
+    if ((!primary || (!task.coachSegmentationClubId && !task.athleteId && !task.shareClub)) && task.query) {
+      attrs.push(`data-ai-query="${escapeHtml(task.query)}"`);
+    }
+    return `<button ${attrs.join(' ')}>${escapeHtml(label)}</button>`;
+  };
+  return `
+    <section class="coach-section coach-workspace-tasks">
+      <div class="section-title">
+        <h2>教练工作台</h2>
+        <span>先处理这三件事</span>
+      </div>
+      <div class="coach-workspace-task-grid">
+        ${tasks.map((task) => `
+          <div class="coach-workspace-task-card coach-task-${escapeHtml(task.key)}">
+            <span>${escapeHtml(task.title)}</span>
+            <strong>${escapeHtml(task.value)}</strong>
+            <em>${escapeHtml(task.detail)}</em>
+            <div class="coach-workspace-task-actions">
+              ${renderActionButton(task, true)}
+              ${renderActionButton(task, false)}
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    </section>
+  `;
+}
+
 function buildCoachActionPlan({ club, projectRows, athletes, athleteBuckets, peerRows, rosterRows }) {
   const focusNames = athleteBuckets.focus.map((athlete) => athlete.name).filter(Boolean).slice(0, 2);
   const steadyNames = athleteBuckets.steady.map((athlete) => athlete.name).filter(Boolean).slice(0, 2);
@@ -12856,8 +12955,8 @@ function renderCoachActionPlan(cards) {
   return `
     <section class="coach-section">
       <div class="section-title">
-        <h2>本周行动</h2>
-        <span>训练、留存、增长</span>
+        <h2>接下来优先做</h2>
+        <span>训练、沟通、增长</span>
       </div>
       <div class="coach-action-grid">
         ${cards.map((card) => `
@@ -13333,6 +13432,7 @@ function renderClubDetail(club) {
   const businessCards = buildClubBusinessCards(club, projectRows, athletes, peerRows);
   const shareText = buildClubShareText(club, projectRows, athletes);
   const rosterRows = clubRosterRows(club);
+  const workspaceTasks = buildCoachWorkspaceTasks({ club, projectRows, athletes, athleteBuckets, rosterRows });
   const actionPlan = buildCoachActionPlan({ club, projectRows, athletes, athleteBuckets, peerRows, rosterRows });
   const top8Rate = Number(club.entrants) ? Math.round((Number(club.top8 || 0) / Number(club.entrants)) * 100) : 0;
   const medalRate = Number(club.entrants) ? Math.round((Number(club.medals || 0) / Number(club.entrants)) * 100) : 0;
@@ -13374,6 +13474,8 @@ function renderClubDetail(club) {
         </div>
         <button class="secondary-action compact-action" type="button" data-coach-segmentation-club-id="${escapeHtml(club.id || '')}">生成学员分层报告</button>
       </section>
+
+      ${renderCoachWorkspaceTasks(workspaceTasks)}
 
       ${renderCoachActionPlan(actionPlan)}
 

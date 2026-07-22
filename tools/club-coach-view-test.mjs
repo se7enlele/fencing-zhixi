@@ -18,6 +18,13 @@ assert.match(js, /id="followClubBtn"/, 'club detail hero must expose a compact f
 
 assert.match(js, /function buildCoachActionPlan\(\{ club, projectRows, athletes, athleteBuckets, peerRows, rosterRows \}\)/, 'club coach view must turn data into coach actions');
 assert.match(js, /function renderCoachActionPlan\(cards\)/, 'club coach view must render a weekly action plan');
+assert.match(js, /function buildCoachWorkspaceTasks\(\{ club, projectRows, athletes, athleteBuckets, rosterRows \}\)/, 'club detail must build the three coach workspace tasks');
+assert.match(js, /function renderCoachWorkspaceTasks\(tasks\)/, 'club detail must render coach workspace tasks');
+assert.match(js, /<h2>教练工作台<\/h2>[\s\S]*先处理这三件事/, 'coach workspace must explain the first three coach jobs');
+assert.match(js, /title: '学员分层'[\s\S]*title: '重点跟进'[\s\S]*title: '招生素材'/, 'coach workspace must focus on segmentation, followup and recruiting assets');
+assert.match(js, /renderCoachWorkspaceTasks\(workspaceTasks\)/, 'club detail must show coach workspace before deeper report sections');
+assert.match(js, /data-coach-task-action/, 'coach workspace actions must be trackable and clickable');
+assert.match(js, /data-coach-segmentation-club-id/, 'coach workspace segmentation action must open the segmentation report');
 assert.match(js, /function coachAthleteTrainingFocus\(athlete\)/, 'club coach view must derive athlete-level training followups');
 assert.match(js, /function coachAthleteFollowupRows\(athletes\)/, 'club coach view must prioritize athletes for followup');
 assert.match(js, /function renderCoachAthleteFollowups\(athletes\)/, 'club coach view must render athlete-level followup cards');
@@ -42,6 +49,10 @@ assert.match(css, /\.club-share-kpis/, 'shareable recruiting card must expose co
 assert.match(css, /\.club-share-action/, 'shareable recruiting card must style its copy action');
 assert.match(css, /\.coach-action-grid/, 'coach action plan must have a mobile grid layout');
 assert.match(css, /\.coach-action-card:first-child/, 'primary coach action must be visually emphasized');
+assert.match(css, /\.coach-workspace-tasks/, 'coach workspace must have a distinct section style');
+assert.match(css, /\.coach-workspace-task-grid/, 'coach workspace tasks must have mobile layout styles');
+assert.match(css, /\.coach-workspace-task-card/, 'coach workspace task cards must be styled');
+assert.match(css, /\.coach-workspace-task-actions/, 'coach workspace task actions must be compact on mobile');
 assert.match(css, /\.coach-followup-list/, 'athlete followup list must have mobile layout styles');
 assert.match(css, /\.coach-followup-card/, 'athlete followup cards must be styled');
 assert.match(css, /\.coach-followup-tags/, 'athlete followup cards must expose compact evidence tags');
