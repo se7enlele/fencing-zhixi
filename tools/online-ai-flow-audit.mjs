@@ -108,7 +108,7 @@ const cases = [
   {
     id: 'competition-missing-year',
     query: '2027年北京击剑联赛第一站',
-    expect: ['当前未收录2027年这场赛事', '可查内容', '赛事记录', '项目名单'],
+    expect: ['当前未收录2027年这场赛事', '赛事记录', '项目名单', '赛果成绩'],
   },
   {
     id: 'recovery',

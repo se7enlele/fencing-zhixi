@@ -285,7 +285,7 @@ assert.doesNotMatch(js, /function aiAnswerMetaRows\(report = \{\}\)/, 'AI answer
 assert.doesNotMatch(js, /class="ai-answer-meta"/, 'AI answer renderer must not show internal question/evidence/action metadata cards');
 assert.doesNotMatch(js, /label: '问题'[\s\S]*label: '证据'[\s\S]*label: '动作'/, 'AI answers must not expose internal metadata labels');
 assert.match(js, /关键来源/, 'AI answers must expose traceability through a first-screen key source instead of metadata cards');
-assert.match(js, /const AI_ANSWER_CARD_LIMIT = 3/, 'AI answers must cap metric cards for a focused first screen');
+assert.match(js, /const AI_ANSWER_CARD_LIMIT = 4/, 'AI answers must cap metric cards while allowing four key coverage states');
 assert.match(js, /const AI_ANSWER_SECTION_LIMIT = 1/, 'AI answers must cap explanatory sections for a focused first screen');
 assert.match(js, /const AI_ANSWER_SECTION_ROW_LIMIT = 2/, 'AI answers must cap rows inside explanatory sections');
 assert.match(js, /const AI_ANSWER_ACTION_LIMIT = 3/, 'AI answers must cap visible actions to avoid clutter');
