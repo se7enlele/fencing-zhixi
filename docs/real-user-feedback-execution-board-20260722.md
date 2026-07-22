@@ -87,6 +87,18 @@ npm.cmd run audit:online-ai
   - `analysis-output/online-ai-flow-audit-2026-07-22T00-40-26-554Z.json`
   - `analysis-output/real-user-ai-evaluation-2026-07-22T00-40-26-554Z.md`
 
+### 俱乐部证据链加固
+
+- 部署版本：`16caaaf0-904a-403d-af8b-5934cceb9030`
+- 代码提交：`405e0797 Stabilize club AI evidence navigation`
+- 线上校验：`viewer.js` 本地与线上 SHA256 一致。
+- 产品调整：俱乐部项目类 AI 回答优先打开稳定的俱乐部画像，匹配项目记录保留为补充来源，避免“有来源但项目详情偶发打不开”。
+- 审计加固：线上 AI 审计改为调用页面真实提交入口，并为首页 ready 状态增加重试和诊断。
+- 在线审计：`npm.cmd run audit:online-ai` 通过，16 个真实用户问题场景全部达到 `可信` 或可恢复状态。
+- 审计输出：
+  - `analysis-output/online-ai-flow-audit-2026-07-22T03-21-14-418Z.json`
+  - `analysis-output/real-user-ai-evaluation-2026-07-22T03-21-14-418Z.md`
+
 ## 本轮完成口径
 
 本轮不追求一次性完成所有长期能力。完成口径是：

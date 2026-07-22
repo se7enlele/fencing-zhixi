@@ -346,17 +346,35 @@ async function verifyFirstEvidenceNavigation(page, answer, testCase) {
 
 async function openAuditHome(page, tag = '') {
   const suffix = tag ? `-${tag}` : '';
-  await page.goto(`${baseUrl}?v=online-ai-flow-audit-${runId}${suffix}`, { waitUntil: 'domcontentloaded' });
-  await page.locator('#aiQueryInput:visible').first().waitFor({ state: 'visible', timeout: 30000 });
-  await page.locator('#aiQueryForm button[data-ai-submit="true"]:visible').first().waitFor({ state: 'visible', timeout: 30000 });
-  await page.locator('#aiQueryForm[data-ai-bound="true"]').waitFor({ state: 'attached', timeout: 30000 });
-  await page.waitForFunction(
-    () => {
-      return document.body?.dataset?.fencingaiReady === 'true';
-    },
-    null,
-    { timeout: 60000 },
-  );
+  let lastError = null;
+  for (let attempt = 1; attempt <= 2; attempt += 1) {
+    try {
+      await page.goto(`${baseUrl}?v=online-ai-flow-audit-${runId}${suffix}-${attempt}`, { waitUntil: 'domcontentloaded' });
+      await page.locator('#aiQueryInput:visible').first().waitFor({ state: 'visible', timeout: 30000 });
+      await page.locator('#aiQueryForm button[data-ai-submit="true"]:visible').first().waitFor({ state: 'visible', timeout: 30000 });
+      await page.locator('#aiQueryForm[data-ai-bound="true"]').waitFor({ state: 'attached', timeout: 30000 });
+      await page.waitForFunction(
+        () => {
+          return document.body?.dataset?.fencingaiReady === 'true';
+        },
+        null,
+        { timeout: 60000 },
+      );
+      return;
+    } catch (error) {
+      lastError = error;
+      if (attempt < 2) await page.waitForTimeout(1200);
+    }
+  }
+  const readyState = await page.evaluate(() => document.body?.dataset?.fencingaiReady || '').catch(() => '');
+  const bodyText = await page.locator('body').innerText().catch(() => '');
+  const error = new Error(`audit home did not become ready: ${lastError?.message || 'unknown error'}`);
+  error.details = {
+    tag,
+    readyState,
+    bodyText: bodyText.slice(0, 600),
+  };
+  throw error;
 }
 
 const browser = await chromium.launch({
