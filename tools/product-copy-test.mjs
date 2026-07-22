@@ -58,6 +58,8 @@ assert.match(js, /<h2>常用功能<\/h2>/, 'home task cards should use user-faci
 assert.match(js, /使用视角：/, 'role state should be phrased as a user-facing viewing perspective');
 assert.doesNotMatch(js, /label: '判断口径'|口径下|当前已收录|第一层结论/, 'AI answer copy must avoid internal methodology labels');
 assert.doesNotMatch(js, /\['当前判断'|\['证据强度'|'数据助手'/, 'AI answer labels must stay user-facing and avoid internal/generic helper copy');
+assert.doesNotMatch(js, /主要证据|更多证据|参考强度|关键风险|数据依据|项目依据|参考来源/, 'AI answer and report copy must use user-facing source and caution wording');
+assert.match(js, /可核对记录/, 'AI answer should phrase evidence as records users can verify');
 assert.doesNotMatch(js, /<button type="button" data-ai-feedback=/, 'AI answer result should not show product feedback controls as primary user content');
 assert.doesNotMatch(js, /当前匹配|匹配项目|匹配赛事和画像|正在匹配问题|已有项目明细|名单不完整|生成本场情报包|当前数据里|当前数据中|当前资料库/, 'AI answer and database copy must avoid internal matching or data-stage wording');
 assert.doesNotMatch(js, /当前未收录|当前没有对应记录/, 'missing-competition copy must avoid system-oriented collection wording');

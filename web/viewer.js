@@ -2766,9 +2766,9 @@ function parentNextFocusRows(model) {
   if (model.poolRate === null) {
     rows.push({ title: '观察小组赛表现', detail: '优先看小组胜负和净胜剑，判断基础稳定性。' });
   } else if (model.poolRate >= 60) {
-    rows.push({ title: '保持小组赛稳定', detail: `当前小组胜率 ${model.poolRate}%，下一步看淘汰赛关键分。` });
+    rows.push({ title: '保持小组赛稳定', detail: `小组胜率 ${model.poolRate}%，重点看淘汰赛关键分。` });
   } else {
-    rows.push({ title: '提升小组赛稳定性', detail: `当前小组胜率 ${model.poolRate}%，重点复盘开局和连续失分。` });
+    rows.push({ title: '提升小组赛稳定性', detail: `小组胜率 ${model.poolRate}%，重点复盘开局和连续失分。` });
   }
 
   if (model.totalElimWins + model.totalElimLosses) {
@@ -2978,7 +2978,7 @@ function parentGrowthPeerPositionRows(athlete, model) {
       selfRank,
       referenceNames,
       detail: referenceNames
-        ? `当前可对照 ${referenceNames}，下一步看同项目连续参赛后的名次变化。`
+        ? `可对照 ${referenceNames}，继续看同项目连续参赛后的名次变化。`
         : `已识别 ${peers.length} 个同项目样本，继续积累后会形成更稳定的横向判断。`,
     };
   }).filter((row) => row.label);
@@ -3157,7 +3157,7 @@ function buildParentGrowthPageShareText(athlete, model) {
   return [
     `${athlete.name} 的击剑成长页`,
     `${athlete.club || '俱乐部待确认'} · 参赛 ${model.events.length} 场 · 最好${model.best?.finalRank ? `第${model.best.finalRank}名` : '待确认'}`,
-    '打开后可查看参赛轨迹、成长判断、重点对手和数据依据。',
+    '打开后可查看参赛轨迹、成长观察、重点对手和参赛记录。',
     parentGrowthShareUrl(athlete),
   ].join('\n');
 }
@@ -3381,7 +3381,7 @@ function renderParentGrowthReport(athleteId = '') {
 
     <article class="panel parent-growth-report-card">
       <div class="section-title">
-        <h2>数据依据</h2>
+        <h2>参赛记录</h2>
         <span>可追溯</span>
       </div>
       <div class="parent-growth-evidence">
@@ -7947,7 +7947,7 @@ function buildAiAthleteComparison(query, left, right) {
       [left.name, athleteMetricLine(left)],
       [right.name, athleteMetricLine(right)],
       ['对比结论', `${leader.name} 略优于 ${other.name}`],
-      ['参考强度', confidence],
+      ['可信程度', confidence],
     ],
     sections: [
       {
@@ -7973,7 +7973,7 @@ function buildAiAthleteComparison(query, left, right) {
         ],
       },
       {
-        title: '关键风险',
+        title: '需要留意',
         rows: athleteComparisonRiskRows({ left, right, leader, other, direct, shared }),
       },
     ],
@@ -8004,7 +8004,7 @@ function athleteComparisonRiskRows({ left, right, leader, other, direct, shared 
   if (Math.abs((left.bestRank || 999) - (right.bestRank || 999)) <= 2) rows.push('最好名次接近，临场状态和签表位置可能比历史最好名次更关键。');
   if ((other.eliminationWins || 0) > (leader.eliminationWins || 0)) rows.push((other.name || '对手') + ' 淘汰赛推进记录不弱，需要重点看关键分处理。');
   if ((left.appearances || 0) < 2 || (right.appearances || 0) < 2) rows.push('一方参赛样本偏少，建议补看最近项目名单和同组对手。');
-  rows.push('当前更适合把 ' + (leader.name || '优势方') + ' 作为强度参照，同时保留对 ' + (other.name || '另一方') + ' 近期状态的观察。');
+  rows.push('更适合把 ' + (leader.name || '优势方') + ' 作为强度参照，同时继续观察 ' + (other.name || '另一方') + ' 的近期状态。');
   return rows.slice(0, 4);
 }
 
@@ -8346,7 +8346,7 @@ function aiTrustRows(report) {
   }
 
   if (report.type === 'comparison') {
-    const confidence = report.cards?.find(([label]) => label === '参考强度')?.[1] || '历史画像对比';
+    const confidence = report.cards?.find(([label]) => label === '可信程度')?.[1] || '历史画像对比';
     rows.push({
       label: '依据',
       value: confidence,
@@ -8580,7 +8580,7 @@ function buildAiAnswerShareText(report) {
 
   const evidenceKinds = [...new Set((report.evidence || []).map((row) => aiEvidenceKind(row)).filter(Boolean))].slice(0, 3);
   if (report.evidence?.length) {
-    lines.push('', '参考来源');
+    lines.push('', '可核对记录');
     lines.push(`- ${report.evidence.length} 条可回查记录${evidenceKinds.length ? `：${evidenceKinds.join(' / ')}` : ''}`);
   }
 
@@ -8591,7 +8591,7 @@ function buildAiAnswerShareText(report) {
 
   const nextSteps = aiNextStepRows(report).slice(0, 2);
   if (nextSteps.length) {
-    lines.push('', '下一步');
+    lines.push('', '可以继续');
     nextSteps.forEach((row) => lines.push(`- ${row}`));
   }
 
@@ -8768,7 +8768,7 @@ function renderAiAnswer(report) {
       ` : ''}
       ${keyEvidence ? `
         <div class="ai-key-source">
-          <strong>主要证据</strong>
+          <strong>可核对记录</strong>
           <button type="button" ${aiEvidenceTargetAttributes(keyEvidence)}>
             <em>${escapeHtml(aiEvidenceKind(keyEvidence))}</em>
             <span>${escapeHtml(keyEvidence.label)}</span>
@@ -8791,7 +8791,7 @@ function renderAiAnswer(report) {
       ${remainingEvidenceCount ? `
         <details class="ai-evidence" data-ai-evidence-details>
           <summary>
-            <strong>更多证据</strong>
+            <strong>更多记录</strong>
             <span>${escapeHtml(remainingEvidenceCount)} 条可核对</span>
           </summary>
           <div class="ai-evidence-list">
@@ -8803,7 +8803,7 @@ function renderAiAnswer(report) {
                 <small>${escapeHtml(aiEvidenceActionLabel(row))}</small>
               </button>
             `).join('')}
-            ${hiddenEvidenceCount ? `<div class="ai-evidence-summary">还有 ${escapeHtml(hiddenEvidenceCount)} 条证据，可在详情页继续核对。</div>` : ''}
+            ${hiddenEvidenceCount ? `<div class="ai-evidence-summary">还有 ${escapeHtml(hiddenEvidenceCount)} 条记录，可在详情页继续核对。</div>` : ''}
           </div>
         </details>
       ` : ''}
@@ -12429,7 +12429,7 @@ function coachTrainingPlanText(row = {}) {
   return [
     `${athleteName} 训练安排`,
     `训练主题：${row.title || '阶段提升'}`,
-    row.evidence ? `依据：${row.evidence}` : '',
+    row.evidence ? `可核对成绩：${row.evidence}` : '',
     row.drill ? `训练安排：${row.drill}` : '',
     row.target ? `下场观察：${row.target}` : '',
     row.parentLine ? `给家长：${row.parentLine}` : '',
@@ -12463,7 +12463,7 @@ function coachParentCommunicationText(row = {}) {
   return [
     row.title || '学员阶段反馈',
     row.message || '',
-    row.nextStep ? `下一步观察：${row.nextStep}` : '',
+    row.nextStep ? `观察重点：${row.nextStep}` : '',
     '数据来源：FencingAI 公开赛事成绩',
   ].filter(Boolean).join('\n');
 }
@@ -12754,7 +12754,7 @@ function renderCoachSegmentationReport(clubId = '') {
               <span>${escapeHtml(row.title)}</span>
             </div>
             <p>${escapeHtml(row.drill)}</p>
-            <em>${escapeHtml(row.evidence || '依据继续积累')}</em>
+            <em>${escapeHtml(row.evidence || '继续观察近期比赛')}</em>
             <small>${escapeHtml(row.parentLine)}</small>
             <div class="coach-training-plan-actions">
               <button type="button" data-coach-training-plan="${escapeHtml(index)}">复制训练安排</button>
@@ -12821,7 +12821,7 @@ function renderCoachSegmentationReport(clubId = '') {
 
     <article class="panel coach-segmentation-report-card">
       <div class="section-title">
-        <h2>项目依据</h2>
+        <h2>相关项目</h2>
         <span>可追溯</span>
       </div>
       <div class="coach-segmentation-evidence">

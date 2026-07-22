@@ -14,7 +14,8 @@ assert.match(js, /function athleteComparisonRiskRows\(\{ left, right, leader, ot
 assert.match(js, /title: '直接交手'/, 'AI athlete comparison must show direct bouts as a fixed section');
 assert.match(js, /title: '共同赛事'/, 'AI athlete comparison must show shared events as a fixed section');
 assert.match(js, /title: '近况差距'/, 'AI athlete comparison must show recent form gap as a fixed section');
-assert.match(js, /title: '关键风险'/, 'AI athlete comparison must show prematch risk as a fixed section');
+assert.match(js, /title: '需要留意'/, 'AI athlete comparison must show user-facing caution notes as a fixed section');
+assert.doesNotMatch(js, /title: '关键风险'/, 'AI athlete comparison must not expose risk-register wording');
 assert.match(js, /function aiAcceptanceQueryCases\(\)/, 'AI must keep a stable acceptance query set');
 assert.match(js, /expectedType: 'competition-stats'/, 'AI acceptance queries must cover regional competition stats');
 assert.match(js, /expectedType: 'prematch'/, 'AI acceptance queries must cover prematch registration questions');
@@ -233,7 +234,8 @@ assert.match(js, /report\.type === 'club-recruiting' \? '招生展示'/, 'AI ans
 assert.match(js, /report\.type === 'club-comparison' \? '剑馆对比'/, 'AI answer header must label club comparison reports');
 assert.match(js, /report\.type === 'official-directory' \? '人员资料' : '查询结果'/, 'AI answer fallback header must use user-facing result wording');
 assert.match(js, /\['对比结论', `\$\{leader\.name\} 略优于 \$\{other\.name\}`\]/, 'AI comparison cards must use user-facing conclusion labels');
-assert.match(js, /\['参考强度', confidence\]/, 'AI comparison cards must avoid internal evidence-strength wording');
+assert.match(js, /\['可信程度', confidence\]/, 'AI comparison cards must use user-facing confidence wording');
+assert.doesNotMatch(js, /\['参考强度', confidence\]/, 'AI comparison cards must avoid internal evidence-strength wording');
 assert.doesNotMatch(js, /<button type="button" data-ai-feedback=/, 'AI answers should not render feedback buttons in the main user result');
 assert.match(js, /kind: '赛前赛事'/, 'AI prematch evidence must label prematch competitions');
 assert.match(js, /报名名单较少时，先展示赛程、项目和重点赛事/, 'AI prematch report must use user-facing roster scope');
@@ -301,7 +303,8 @@ assert.match(js, /aiConversionServiceRows\(report\)/, 'AI conversion blocks must
 assert.doesNotMatch(js, /function aiAnswerMetaRows\(report = \{\}\)/, 'AI answers must not keep unused internal metadata helpers that can return to the UI');
 assert.doesNotMatch(js, /class="ai-answer-meta"/, 'AI answer renderer must not show internal question/evidence/action metadata cards');
 assert.doesNotMatch(js, /label: '问题'[\s\S]*label: '证据'[\s\S]*label: '动作'/, 'AI answers must not expose internal metadata labels');
-assert.match(js, /主要证据/, 'AI answers must expose traceability through a first-screen evidence block instead of metadata cards');
+assert.match(js, /可核对记录/, 'AI answers must expose traceability through a first-screen evidence block instead of metadata cards');
+assert.doesNotMatch(js, /主要证据|更多证据/, 'AI answers must not use internal evidence labels in the user-facing card');
 assert.match(js, /const AI_ANSWER_CARD_LIMIT = 4/, 'AI answers must cap metric cards while allowing four key coverage states');
 assert.match(js, /const AI_ANSWER_ACTION_LIMIT = 3/, 'AI answers must cap visible actions to avoid clutter');
 assert.match(js, /const AI_ANSWER_EVIDENCE_LIMIT = 4/, 'AI answers must keep enough traceable evidence without expanding the first screen');
@@ -312,12 +315,12 @@ assert.match(js, /const primaryEvidence = \(report\.evidence \|\| \[\]\)\.slice\
 assert.match(js, /const keyEvidence = primaryEvidence\[0\] \|\| null;/, 'AI answer renderer must split out the first source as the key source');
 assert.match(js, /const secondaryEvidence = primaryEvidence\.slice\(1\);/, 'AI answer renderer must keep secondary sources out of the key source');
 assert.match(js, /class="ai-key-source"/, 'AI answer renderer must surface a visible key source block');
-assert.match(js, /<strong>主要证据<\/strong>/, 'AI key source block must use user-facing evidence wording');
+assert.match(js, /<strong>可核对记录<\/strong>/, 'AI key source block must use user-facing evidence wording');
 assert.match(js, /<button type="button" \$\{aiEvidenceTargetAttributes\(keyEvidence\)\}>/, 'AI key source must render only one prioritized navigation target');
 assert.match(js, /data-ai-evidence-details/, 'AI evidence should be collapsed behind a lightweight source entry');
-assert.match(js, /更多证据/, 'AI evidence block must describe secondary sources as checkable evidence');
+assert.match(js, /更多记录/, 'AI evidence block must describe secondary sources as checkable records');
 assert.match(js, /<button type="button" \$\{aiEvidenceTargetAttributes\(row\)\}>/, 'AI secondary sources must render only one prioritized navigation target');
-assert.match(js, /还有 \$\{escapeHtml\(hiddenEvidenceCount\)\} 条证据，可在详情页继续核对。/, 'AI answer renderer must tell users when more source records exist');
+assert.match(js, /还有 \$\{escapeHtml\(hiddenEvidenceCount\)\} 条记录，可在详情页继续核对。/, 'AI answer renderer must tell users when more source records exist');
 assert.match(js, /重点赛事提醒和报名名单更新/, 'prematch conversion must include event and roster update value');
 assert.match(js, /学员分层和训练跟进建议/, 'coach conversion must include segmentation and training follow-up value');
 assert.match(js, /prematch:\s*\[[\s\S]*同组对手、强手和主要俱乐部分布/, 'AI prematch answers must guide users toward opponent and club checks');
@@ -357,7 +360,7 @@ assert.doesNotMatch(js, /class="ai-source-note"/, 'AI answer must not render int
 assert.doesNotMatch(js, /class="ai-trust-panel"/, 'AI answer must not render internal judgment-basis panels');
 assert.doesNotMatch(js, /<strong>判断依据<\/strong>/, 'AI answer must not show internal judgment-basis headings');
 assert.doesNotMatch(js, /lines\.push\('', '判断依据'\)/, 'AI copied summaries must not expose internal judgment-basis headings');
-assert.match(js, /lines\.push\('', '参考来源'\)/, 'AI copied summaries should use source-oriented wording');
+assert.match(js, /lines\.push\('', '可核对记录'\)/, 'AI copied summaries should use source-oriented wording');
 assert.match(js, /<em>\$\{escapeHtml\(aiEvidenceKind\(row\)\)\}<\/em>/, 'AI evidence cards must show evidence type');
 assert.match(js, /<small>\$\{escapeHtml\(aiEvidenceActionLabel\(row\)\)\}<\/small>/, 'AI evidence cards must show a clear source-opening action');
 assert.doesNotMatch(js, /<small>\$\{escapeHtml\(row\.reason\)\}<\/small>/, 'AI evidence cards must not show internal relevance reasons');

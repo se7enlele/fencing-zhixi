@@ -567,12 +567,12 @@ const comparisonReport = context.buildAiAnswer('\u5206\u6790\u9a6c\u6d88\u548c\u
 assert.equal(comparisonReport.type, 'comparison', 'athlete comparison query should route to comparison report');
 assert.equal(
   JSON.stringify(comparisonReport.sections.map((section) => section.title)),
-  JSON.stringify(['\u76f4\u63a5\u4ea4\u624b', '\u5171\u540c\u8d5b\u4e8b', '\u8fd1\u51b5\u5dee\u8ddd', '\u5173\u952e\u98ce\u9669']),
+  JSON.stringify(['\u76f4\u63a5\u4ea4\u624b', '\u5171\u540c\u8d5b\u4e8b', '\u8fd1\u51b5\u5dee\u8ddd', '\u9700\u8981\u7559\u610f']),
   'athlete comparison report should use the prematch analysis section structure',
 );
 assert.ok(
-  comparisonReport.sections.find((section) => section.title === '\u5173\u952e\u98ce\u9669').rows.length,
-  'athlete comparison report should include actionable risk rows',
+  comparisonReport.sections.find((section) => section.title === '\u9700\u8981\u7559\u610f').rows.length,
+  'athlete comparison report should include actionable caution rows',
 );
 
 const savedAthleteDetailsForComparison = context.__state.athletesById;
