@@ -79,6 +79,7 @@ assert.match(js, /function homeFocusItem\(\)/, 'focused home page must derive on
 assert.match(js, /function renderHomeFocusCard\(row = homeFocusItem\(\)\)/, 'focused home page must render a single next-step card');
 assert.match(js, /function renderHomeRadarCard\(row = homePrematchActionRow\(followedCompetitionCards\(\)\)\)/, 'home page must render a dedicated competition radar card');
 assert.match(js, /function renderHomeRoleBar\(\)/, 'home page must render a role status bar');
+assert.match(js, /function renderHomeShortcutStrip\(\)/, 'home page must render compact shortcuts instead of a second database page');
 assert.match(js, /function renderAiLoadingState\(query = ''\)/, 'AI question submission must render a structured loading state');
 assert.match(js, /function aiAnalyzeActionRow\(actions = \[\]\)/, 'database detail pages must expose a reusable AI analysis entry');
 assert.match(js, /function bindAiAnalyzeActions\(container\)/, 'database detail AI entries must be bound to the home AI workspace');
@@ -95,7 +96,7 @@ assert.doesNotMatch(js, /生成判断/, 'AI home CTA must not use judgment-gener
 assert.match(js, /answer\.setAttribute\('aria-busy', 'true'\);/, 'AI answer area must expose busy state while loading');
 assert.match(js, /currentAnswer\.setAttribute\('aria-busy', 'false'\);/, 'AI answer area must clear busy state after rendering');
 assert.match(js, /finally \{[\s\S]*submitButton\.disabled = false;[\s\S]*submitButton\.textContent = '开始分析'/, 'AI question submission must restore the CTA after loading');
-assert.match(js, /function renderFocusedHomePage\(\)[\s\S]*<div class="home-dashboard home-dashboard-focused">[\s\S]*\$\{renderHomeRoleBar\(\)\}[\s\S]*\$\{renderAiWorkspace\('home'\)\}[\s\S]*\$\{renderHomePriorityPanel\(\)\}/, 'focused home page must start with role state, AI entry, and one compact priority panel');
+assert.match(js, /function renderFocusedHomePage\(\)[\s\S]*<div class="home-dashboard home-dashboard-focused">[\s\S]*\$\{renderHomeRoleBar\(\)\}[\s\S]*\$\{renderAiWorkspace\('home'\)\}[\s\S]*\$\{renderHomeShortcutStrip\(\)\}[\s\S]*\$\{renderHomePriorityPanel\(\)\}/, 'focused home page must start with role state, AI entry, compact shortcuts and one priority panel');
 assert.doesNotMatch(js, /function renderFocusedHomePage\(\)[\s\S]*home-stats-strip[\s\S]*function renderHomePage/, 'focused home page must not show statistic cards in the first screen');
 assert.match(js, /<section class="panel ai-home-primary">[\s\S]*<\/section>\s*<div class="ai-answer" id="aiAnswer">/, 'AI answers must render outside the dark home entry panel');
 assert.doesNotMatch(js, /问 FencingAI/, 'home hero must not repeat the topbar product name');
@@ -554,9 +555,11 @@ assert.match(css, /\.ai-skeleton-block/, 'AI loading skeleton block styles must 
 assert.match(css, /@keyframes aiSkeletonSweep/, 'AI loading skeleton must have a shimmer animation');
 assert.match(css, /\.home-dashboard-focused/, 'focused home dashboard styles must exist');
 assert.match(css, /\.home-role-bar/, 'focused home role bar styles must exist');
+assert.match(css, /\.home-shortcut-strip/, 'focused home shortcut strip styles must exist');
 assert.match(js, /function renderHomePriorityPanel\(\)/, 'focused home must combine focus and radar into one compact priority panel');
 assert.match(js, /function homeSavedAnalysisItem\(\)/, 'focused home must surface the latest saved analysis in the priority panel');
 assert.match(js, /function renderHomeSavedAnalysisItem\(row = homeSavedAnalysisItem\(\)\)/, 'focused home must render the saved analysis as a compact priority row');
+assert.match(js, /<section class="home-shortcut-strip" aria-label="快捷入口">[\s\S]*data-home-compact-nav="competitions"[\s\S]*查赛事和选手[\s\S]*data-home-compact-nav="my"[\s\S]*我的关注/, 'focused home shortcuts must route lookup to database and follow-up to my page');
 assert.match(js, /renderHomePriorityPanel\(\)[\s\S]*const savedAnalysis = homeSavedAnalysisItem\(\);[\s\S]*\$\{renderHomeSavedAnalysisItem\(savedAnalysis\)\}/, 'focused home priority panel must include saved analysis after focus and competition radar');
 assert.match(js, /function renderFocusedHomePage\(\)[\s\S]*homePage\.querySelectorAll\('\[data-ai-history-query\]'\)[\s\S]*openAiReportSnapshot\(button\.dataset\.aiSnapshotKey \|\| button\.dataset\.aiHistoryQuery \|\| ''\)/, 'focused home saved analysis rows must reopen saved AI answers');
 assert.match(js, /function renderFocusedHomePage\(\)[\s\S]*homePage\.querySelectorAll\('\[data-report-history-type\]'\)[\s\S]*if \(type === 'ai-report'\)[\s\S]*openAiReportSnapshot\(id\);/, 'focused home saved report rows must reopen AI report snapshots');

@@ -4980,6 +4980,15 @@ function renderHomeRoleBar() {
   `;
 }
 
+function renderHomeShortcutStrip() {
+  return `
+    <section class="home-shortcut-strip" aria-label="快捷入口">
+      <button type="button" data-home-compact-nav="competitions">查赛事和选手</button>
+      <button type="button" data-home-compact-nav="my">我的关注</button>
+    </section>
+  `;
+}
+
 function renderFocusedHomePage() {
   if (!homePage) return true;
   if (state.isDataLoading) return false;
@@ -4987,6 +4996,7 @@ function renderFocusedHomePage() {
     <div class="home-dashboard home-dashboard-focused">
       ${renderHomeRoleBar()}
       ${renderAiWorkspace('home')}
+      ${renderHomeShortcutStrip()}
       ${renderHomePriorityPanel()}
     </div>
   `;
