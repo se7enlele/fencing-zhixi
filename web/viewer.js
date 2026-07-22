@@ -124,6 +124,7 @@ const state = {
   selectedStatus: '全部状态',
   selectedAiMonth: '',
   selectedAiYears: [],
+  selectedAiRegion: '',
   onlyFollowedData: false,
   followFilter: '全部赛事',
   databaseSearchIntent: '',
@@ -1805,6 +1806,7 @@ function setFilterValue(type, value) {
   }
   state.selectedAiMonth = '';
   state.selectedAiYears = [];
+  state.selectedAiRegion = '';
   state.aiCompetitionFilterSummary = '';
   state.aiCompetitionFilterQuestion = '';
   renderFilters();
@@ -1858,6 +1860,7 @@ function applyAiCompetitionFilters(filters = {}) {
   state.selectedStatus = filters.status ? matchingFilterOption('status', statusLabel(filters.status)) : '全部状态';
   state.selectedItem = itemFilter ? matchingFilterOption('item', itemFilter) : '全部项目';
   state.selectedAiMonth = filters.month || '';
+  state.selectedAiRegion = filters.region || '';
   state.aiCompetitionFilterSummary = aiCompetitionFilterSummary({
     ...filters,
     years,
@@ -1878,6 +1881,7 @@ function clearAiCompetitionFilter() {
   state.selectedStatus = '全部状态';
   state.selectedAiMonth = '';
   state.selectedAiYears = [];
+  state.selectedAiRegion = '';
   state.aiCompetitionFilterSummary = '';
   state.aiCompetitionFilterQuestion = '';
   searchInput.value = '';
@@ -1986,8 +1990,15 @@ function applyCompetitionFilter() {
   const statusFilter = state.selectedStatus;
   const monthFilter = state.selectedAiMonth;
   const aiYearFilters = state.selectedAiYears || [];
+  const aiRegionFilter = state.selectedAiRegion || '';
+  const allRegionOption = filterOptions('region')[0];
   state.filteredCompetitions = state.competitions.filter((competition) => {
-    const matchRegion = region === '全部地区' || (competition.region || '待确认') === region;
+    const regionHaystack = cachedCompetitionSearchHaystack(competition);
+    const normalizedAiRegion = compactText(aiRegionFilter);
+    const normalizedRegion = normalizedAiRegion || (region === allRegionOption ? '' : compactText(region));
+    const matchRegion = !normalizedRegion
+      || (competition.region || '待确认') === region
+      || (normalizedRegion && regionHaystack.includes(normalizedRegion));
     const matchYear = aiYearFilters.length
       ? aiYearFilters.includes(competitionYear(competition))
       : year === '全部年份' || competitionYear(competition) === year;
@@ -2050,6 +2061,7 @@ function handleSearchInput() {
   if (searchDebounceTimer) clearTimeout(searchDebounceTimer);
   state.selectedAiMonth = '';
   state.selectedAiYears = [];
+  state.selectedAiRegion = '';
   state.aiCompetitionFilterSummary = '';
   state.aiCompetitionFilterQuestion = '';
   state.athleteSearchResults = [];
@@ -2607,6 +2619,7 @@ function handleDatabaseEntry(key) {
     state.followFilter = '我的关注';
     state.selectedAiMonth = '';
     state.selectedAiYears = [];
+    state.selectedAiRegion = '';
     state.aiCompetitionFilterSummary = '';
     state.aiCompetitionFilterQuestion = '';
     renderFilters();

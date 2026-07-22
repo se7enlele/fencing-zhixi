@@ -5,7 +5,7 @@ const baseUrl = process.env.FENCINGAI_AUDIT_URL || 'https://fencingai.uk/';
 const outputDir = process.env.ANALYSIS_OUTPUT_DIR || 'analysis-output';
 const runId = new Date().toISOString().replace(/[:.]/g, '-');
 const chromiumExecutable = process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE || '';
-const expectedAssetVersion = process.env.FENCINGAI_EXPECTED_ASSET_VERSION || 'fencingai-product-20260722-database-evidence-1';
+const expectedAssetVersion = process.env.FENCINGAI_EXPECTED_ASSET_VERSION || 'fencingai-product-20260723-database-evidence-2';
 
 function assertAudit(condition, message, details = {}) {
   if (!condition) {
@@ -95,6 +95,26 @@ async function auditGenericFallback(page) {
   return { labels, activeView: await activeViewId(page) };
 }
 
+async function auditAiDatabaseEvidenceContext(page) {
+  await openHome(page, '-ai-database-evidence');
+  await runAiQuery(page, '2026年天津有几场比赛');
+  const answer = page.locator('#aiAnswer .ai-answer-card').first();
+  const labels = await answer.locator('.ai-action-row button').evaluateAll((nodes) => nodes.map((node) => node.textContent.trim()));
+  const listAction = labels.find((label) => label.includes('这几场赛事'))
+    || labels.find((label) => label.includes('赛事列表'))
+    || labels.find((label) => label.startsWith('看') && label.includes('赛事'));
+  assertAudit(Boolean(listAction), 'competition stats answer should expose a competition-list action', { labels });
+  await answer.locator('.ai-action-row button', { hasText: listAction }).first().click();
+  await page.waitForFunction(() => document.querySelector('#view-competitions')?.classList.contains('active'), { timeout: 10000 });
+  await page.locator('#competitionList .ai-filter-notice').first().waitFor({ state: 'visible', timeout: 10000 });
+  const notice = await page.locator('#competitionList .ai-filter-notice').first().innerText();
+  assertAudit(notice.includes('这次问题：2026年天津有几场比赛'), 'database evidence context should retain the original AI question', { notice });
+  assertAudit(notice.includes('可核对赛事') && notice.includes('点击赛事卡'), 'database evidence context should explain the verifiable evidence path', { notice });
+  assertAudit(notice.includes('可核对赛事 4 场'), 'database evidence context should keep the same result count as the AI answer', { notice });
+  assertAudit(notice.includes('项目、名单和成绩'), 'database evidence context should tell users what can be checked after opening a card', { notice });
+  return { labels, notice, activeView: await activeViewId(page) };
+}
+
 async function auditChildFallback(page) {
   await openHome(page, '-child');
   await runAiQuery(page, '孩子击剑值不值得继续');
@@ -158,6 +178,7 @@ async function main() {
     results.assetVersion = await auditAssetVersion(page);
     results.focusedHome = await auditFocusedHome(page);
     results.genericFallback = await auditGenericFallback(page);
+    results.aiDatabaseEvidenceContext = await auditAiDatabaseEvidenceContext(page);
     results.childFallback = await auditChildFallback(page);
     results.followFilterSheet = await auditFollowFilterSheet(page);
     results.myAccountState = await auditMyAccountState(page);
