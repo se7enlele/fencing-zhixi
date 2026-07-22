@@ -375,6 +375,21 @@ function accountProfileCounts() {
   };
 }
 
+function renderAccountModeComparison() {
+  return `
+    <div class="account-mode-grid" aria-label="账号状态说明">
+      <div>
+        <strong>游客模式</strong>
+        <span>可以浏览公开赛事、选手和俱乐部资料。</span>
+      </div>
+      <div>
+        <strong>账号模式</strong>
+        <span>保存关注、报告和历史，换设备后继续查看。</span>
+      </div>
+    </div>
+  `;
+}
+
 function renderAccountPanelV2() {
   const counts = accountProfileCounts();
   if (state.authUser) {
@@ -424,10 +439,7 @@ function renderAccountPanelV2() {
         <strong>当前未登录</strong>
         <span>你仍然可以浏览赛事数据；登录后，关注、报告和历史可以随账号保存。</span>
       </div>
-      <div class="account-value-list">
-        <div><strong>保存关注和报告</strong><span>换设备后可以继续查看关注选手、赛事提醒和历史分析。</span></div>
-        <div><strong>继续历史分析</strong><span>再次登录后，可以接着查看之前保存的报告和提问记录。</span></div>
-      </div>
+      ${renderAccountModeComparison()}
       <div class="account-action-row account-login-entry">
         <button type="button" data-account-open-login>登录账号</button>
       </div>

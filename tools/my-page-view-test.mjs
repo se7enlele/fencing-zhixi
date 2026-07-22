@@ -396,6 +396,8 @@ assert.match(js, /AUTH_USER_KEY = 'fencingai\.authUser\.v1'/, 'account user summ
 assert.match(js, /function renderAccountPanel\(\)[\s\S]*return renderAccountPanelV2\(\);[\s\S]*function accountProfileCounts/, 'legacy account panel must delegate to the form-free account center');
 assert.match(js, /function renderAccountPanelV2\(\)/, 'my page must render the phase-two account center');
 assert.match(js, /renderAccountPanelV2\(\)/, 'my page must use the phase-two account center renderer');
+assert.match(js, /function renderAccountModeComparison\(\)/, 'logged-out account center must render account mode comparison without inline inputs');
+assert.match(js, /<strong>游客模式<\/strong>[\s\S]*<strong>账号模式<\/strong>/, 'logged-out account center must clearly separate guest browsing from account saving');
 assert.match(js, /data-account-open-login/, 'logged-out account center must keep the login form behind an explicit entry action');
 assert.match(js, /showAccountLoginForm: false/, 'login form must be collapsed by default');
 assert.match(html, /id="view-account-login"/, 'login must have a dedicated page separate from My');
@@ -638,6 +640,7 @@ assert.match(css, /\.account-center-panel/, 'phase-two account center styles mus
 assert.match(css, /\.account-login-page/, 'dedicated account login page styles must exist');
 assert.match(css, /\.account-state-note/, 'account center must style explicit logged-in and logged-out states');
 assert.match(css, /\.account-state-note\.signed/, 'account center must distinguish signed-in state');
+assert.match(css, /\.account-mode-grid/, 'logged-out account mode comparison must have distinct styles');
 assert.match(css, /\.account-data-grid/, 'account center data summary styles must exist');
 assert.match(css, /\.account-action-row/, 'account center action styles must exist');
 assert.match(css, /\.account-status-line/, 'account center status styles must exist');

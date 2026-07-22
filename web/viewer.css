@@ -2702,6 +2702,39 @@ select:focus {
   line-height: 1.25;
 }
 
+.account-mode-grid {
+  display: grid;
+  gap: 8px;
+}
+
+.account-mode-grid div {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+  border: 1px solid rgba(15, 92, 192, 0.1);
+  border-radius: 11px;
+  background: rgba(255, 255, 255, 0.86);
+  padding: 10px 11px;
+}
+
+.account-mode-grid strong,
+.account-mode-grid span {
+  display: block;
+  min-width: 0;
+}
+
+.account-mode-grid strong {
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.account-mode-grid span {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
 .account-policy-box,
 .account-value-list div {
   border: 1px solid rgba(13, 125, 103, 0.12);
