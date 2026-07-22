@@ -6412,6 +6412,14 @@ function aiProjectHints(query) {
   return hints;
 }
 
+function aiProjectScopeLabel(hints = []) {
+  const age = hints.find((hint) => /^U\d{1,2}$/i.test(hint)) || '';
+  const gender = hints.includes('男') ? '男' : hints.includes('女') ? '女' : '';
+  const weapon = hints.includes('花') ? '花' : hints.includes('重') ? '重' : hints.includes('佩') ? '佩' : '';
+  const compactProject = gender || weapon ? `${gender}${weapon}` : '';
+  return [age, compactProject].filter(Boolean).join(' ');
+}
+
 function aiFocusedAthletes() {
   const rows = [];
   const selected = state.selectedChildId ? state.athletesById?.[state.selectedChildId] : null;
@@ -7701,7 +7709,7 @@ function buildAiClubReport(query, club) {
     : allProjects;
   const projects = (matchedProjects.length ? matchedProjects : allProjects).slice(0, 5);
   const bestProject = projects[0] || null;
-  const projectScope = hints.length ? hints.join(' ') : '';
+  const projectScope = aiProjectScopeLabel(hints);
   return {
     type: 'club',
     title: `${club.club}${projectScope ? ` ${projectScope}` : ''}分析`,

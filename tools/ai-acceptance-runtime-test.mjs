@@ -104,6 +104,7 @@ const functionNames = [
   'detectRegionInQuery',
   'detectStatusInQuery',
   'aiProjectHints',
+  'aiProjectScopeLabel',
   'aiFocusedAthletes',
   'aiAthleteProjectLabels',
   'competitionMatchesProjectLabel',
@@ -531,7 +532,8 @@ assert.match(namedGrowthReport.title, /蔡廷彧/, 'named growth report requests
 
 const clubReport = context.buildAiAnswer('山东小众体育 U8 男花怎么样');
 assert.equal(clubReport.type, 'club');
-assert.match(clubReport.title, /U8 男 花|U8 男花|U8.*男.*花/, 'club scoped query should preserve project hints in title');
+assert.match(clubReport.title, /U8 男花/, 'club scoped query should preserve natural project hints in title');
+assert.doesNotMatch(clubReport.title, /U8 男 花/, 'club scoped query should not split gender and weapon in the visible title');
 assert.ok(clubReport.sections.some((section) => section.title === '重点项目'), 'club scoped query should show focused projects');
 assert.equal(clubReport.evidence[0].eventCode, 'CLUB-U8MF', 'club scoped query should make matching project evidence primary');
 assert.match(clubReport.evidence[0].label, /U8.*男.*花/, 'club scoped query evidence label should match the requested project');

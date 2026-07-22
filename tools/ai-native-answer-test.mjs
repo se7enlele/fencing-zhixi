@@ -75,6 +75,7 @@ assert.match(js, /\['数量优势',/, 'AI club comparison cards must expose quan
 assert.match(js, /\['效率信号',/, 'AI club comparison cards must expose efficiency signal explicitly');
 assert.match(js, /title: '对比结论'/, 'AI club comparison must expose user-facing comparison rows');
 assert.match(js, /function aiProjectHints\(query\)/, 'AI club reports must detect project hints like U8 male foil');
+assert.match(js, /function aiProjectScopeLabel\(hints = \[\]\)/, 'AI club reports must format project hints as natural user-facing labels');
 assert.match(js, /function projectMatchesAiHints\(label, hints\)/, 'AI club reports must filter projects by question hints');
 assert.match(js, /function aiClubEvidenceEvents\(club, hints = \[\], limit = 7\)/, 'AI club reports must prioritize evidence that matches project hints');
 assert.match(js, /function aiCompetitionStatsDecisionRows\(rows, actionRows, rosterRows, scoreRows\)/, 'AI competition stats must translate counts into product-facing next-step judgment');
