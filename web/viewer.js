@@ -13058,6 +13058,90 @@ function buildCoachWorkspaceTasks({ club, projectRows, athletes, athleteBuckets,
   ];
 }
 
+function buildCoachQuickActions({ club, projectRows, athletes, athleteBuckets, rosterRows }) {
+  const followups = coachAthleteFollowupRows(athletes);
+  const topFollowup = followups[0];
+  const scoreAthlete = athleteBuckets.focus[0] || topFollowup?.athlete || athletes[0] || null;
+  const topProject = projectRows[0] || null;
+  const nextEventCode = topProject?.events?.[0]?.eventCode || '';
+  const rosterProjects = rosterItemSummary(rosterRows);
+  return [
+    {
+      key: 'student',
+      title: '重点学员',
+      value: scoreAthlete?.name || '先看学员分层',
+      detail: topFollowup?.training || '按参赛次数、最好名次和近期表现确定重点学员。',
+      label: scoreAthlete?.id ? '看学员' : '看分层',
+      athleteId: scoreAthlete?.id || '',
+      coachSegmentationClubId: scoreAthlete?.id ? '' : club.id || '',
+    },
+    {
+      key: 'parent',
+      title: '家长沟通',
+      value: topFollowup?.athlete?.name || '阶段复盘',
+      detail: topFollowup?.parentMessage || '把参赛次数、最好名次和下一场观察点讲清楚。',
+      label: '看分层报告',
+      coachSegmentationClubId: club.id || '',
+    },
+    {
+      key: 'prematch',
+      title: '赛前准备',
+      value: rosterProjects[0]?.label || topProject?.label || '近期赛事',
+      detail: rosterRows.length
+        ? `已有 ${rosterRows.length} 条本馆报名，先确认名单和重点项目。`
+        : '先看近期相关赛事和本馆常参项目。',
+      label: nextEventCode ? '看项目' : '生成分析',
+      eventCode: nextEventCode,
+      query: nextEventCode ? '' : `分析${club.club}近期赛事和赛前准备`,
+    },
+    {
+      key: 'share',
+      title: '招生素材',
+      value: topProject?.label || `最好第 ${club.bestRank ?? '-'} 名`,
+      detail: topProject
+        ? `用 ${topProject.label}、代表学员和成绩记录形成对外展示。`
+        : '先整理代表项目、代表学员和可验证成绩。',
+      label: '复制名片',
+      shareClub: true,
+    },
+  ];
+}
+
+function renderCoachQuickActions(actions) {
+  if (!actions.length) return '';
+  const attrsFor = (action) => {
+    const attrs = [
+      'class="coach-quick-action"',
+      'type="button"',
+      `data-coach-quick-action="${escapeHtml(action.key)}"`,
+    ];
+    if (action.athleteId) attrs.push(`data-athlete-id="${escapeHtml(action.athleteId)}"`);
+    if (action.coachSegmentationClubId) attrs.push(`data-coach-segmentation-club-id="${escapeHtml(action.coachSegmentationClubId)}"`);
+    if (action.eventCode) attrs.push(`data-event-code="${escapeHtml(action.eventCode)}"`);
+    if (action.query) attrs.push(`data-ai-query="${escapeHtml(action.query)}"`);
+    if (action.shareClub) attrs.push('data-share-club');
+    return attrs.join(' ');
+  };
+  return `
+    <section class="coach-section coach-quick-actions">
+      <div class="section-title">
+        <h2>本周行动</h2>
+        <span>直接处理</span>
+      </div>
+      <div class="coach-quick-action-grid">
+        ${actions.map((action) => `
+          <button ${attrsFor(action)}>
+            <span>${escapeHtml(action.title)}</span>
+            <strong>${escapeHtml(action.value)}</strong>
+            <em>${escapeHtml(action.detail)}</em>
+            <small>${escapeHtml(action.label)}</small>
+          </button>
+        `).join('')}
+      </div>
+    </section>
+  `;
+}
+
 function renderCoachWorkspaceTasks(tasks) {
   if (!tasks.length) return '';
   const renderActionButton = (task, primary = true) => {
@@ -13627,6 +13711,7 @@ function renderClubDetail(club) {
   const shareText = buildClubShareText(club, projectRows, athletes);
   const rosterRows = clubRosterRows(club);
   const workspaceTasks = buildCoachWorkspaceTasks({ club, projectRows, athletes, athleteBuckets, rosterRows });
+  const quickActions = buildCoachQuickActions({ club, projectRows, athletes, athleteBuckets, rosterRows });
   const actionPlan = buildCoachActionPlan({ club, projectRows, athletes, athleteBuckets, peerRows, rosterRows });
   const top8Rate = Number(club.entrants) ? Math.round((Number(club.top8 || 0) / Number(club.entrants)) * 100) : 0;
   const medalRate = Number(club.entrants) ? Math.round((Number(club.medals || 0) / Number(club.entrants)) * 100) : 0;
@@ -13670,6 +13755,8 @@ function renderClubDetail(club) {
       </section>
 
       ${renderCoachWorkspaceTasks(workspaceTasks)}
+
+      ${renderCoachQuickActions(quickActions)}
 
       ${renderCoachActionPlan(actionPlan)}
 
