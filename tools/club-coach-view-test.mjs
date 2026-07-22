@@ -47,6 +47,9 @@ assert.match(js, /data-club-id/, 'peer club cards must navigate to club profiles
 assert.match(js, /data-share-club/, 'club recruiting card must expose a share action');
 assert.match(js, /openClub\(button\.dataset\.clubId\)/, 'peer cards must open the selected club profile');
 assert.match(js, /openAthlete\(button\.dataset\.athleteId\)/, 'coach athlete cards must open athlete profiles');
+assert.match(js, /function findClubByReference\(reference = ''\)/, 'club detail navigation must resolve local and temporary club profiles');
+assert.match(js, /const localClub = findClubByReference\(clubId\);[\s\S]*fetchCachedDetail\([\s\S]*'clubs'[\s\S]*renderClubDetail\(renderedClub\)/, 'club detail navigation should fetch when possible but keep the local club context');
+assert.match(js, /catch \(error\) \{[\s\S]*if \(localClub\?\.club\) \{[\s\S]*renderClubDetail\(renderedClub\);[\s\S]*\} else \{[\s\S]*setInlineError\(clubHero, friendlyErrorMessage\('俱乐部详情'\)\)/, 'club detail navigation must fall back to local club profiles instead of showing an error');
 
 assert.match(css, /\.business-card-grid/, 'recruiting cards must have mobile layout styles');
 assert.match(css, /\.business-card:first-child/, 'primary recruiting card must be visually emphasized');

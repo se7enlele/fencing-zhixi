@@ -12527,6 +12527,30 @@ function findClubById(clubId) {
   return state.clubsById?.[clubId] || (state.clubSearchIndex || []).find((club) => club.id === clubId) || null;
 }
 
+function safeDecodeURIComponent(value = '') {
+  try {
+    return decodeURIComponent(value);
+  } catch {
+    return value;
+  }
+}
+
+function findClubByReference(reference = '') {
+  const raw = String(reference || '').trim();
+  if (!raw || raw === 'undefined' || raw === 'null') return null;
+  const decoded = safeDecodeURIComponent(raw);
+  const compactReference = compactText(decoded || raw);
+  const rows = [
+    state.currentClub,
+    ...Object.values(state.clubsById || {}),
+    ...(state.clubSearchIndex || []),
+  ].filter(Boolean);
+  return rows.find((club) => club.id === raw || club.id === decoded)
+    || rows.find((club) => compactText(club.club) && compactText(club.club) === compactReference)
+    || rows.find((club) => compactText(club.club) && compactReference.includes(compactText(club.club)))
+    || null;
+}
+
 function coachSegmentationEvidenceRows(club, projectRows) {
   return (club.events || []).slice(0, 6).map((event) => ({
     eventCode: event.eventCode,
@@ -14073,19 +14097,38 @@ async function openAthlete(athleteId) {
 }
 
 async function openClub(clubId) {
+  const localClub = findClubByReference(clubId);
   let renderedClub = null;
   try {
+    if (!clubId || clubId === 'undefined' || clubId === 'null') {
+      if (localClub?.club) {
+        renderedClub = localClub;
+        state.currentClub = renderedClub;
+        renderClubDetail(renderedClub);
+        navigateTo('club');
+        return;
+      }
+      throw new Error('缺少俱乐部ID，请重新搜索并进入俱乐部画像。');
+    }
     renderedClub = await fetchCachedDetail(
       'clubs',
       clubId,
       `/api/clubs/${encodeURIComponent(clubId)}`,
       (result) => result.club,
     );
+    renderedClub = localClub ? { ...localClub, ...renderedClub } : renderedClub;
+    mergeAiClubResult(renderedClub);
     state.currentClub = renderedClub;
     renderClubDetail(renderedClub);
   } catch (error) {
-    setInlineError(clubHero, friendlyErrorMessage('俱乐部详情'));
-    clubEvents.innerHTML = '';
+    if (localClub?.club) {
+      renderedClub = localClub;
+      state.currentClub = renderedClub;
+      renderClubDetail(renderedClub);
+    } else {
+      setInlineError(clubHero, friendlyErrorMessage('俱乐部详情'));
+      clubEvents.innerHTML = '';
+    }
   }
   if (renderedClub?.id) {
     trackRecentItem({
