@@ -3034,6 +3034,11 @@ select:focus {
   grid-template-columns: repeat(auto-fit, minmax(96px, 1fr));
 }
 
+.home-priority-item-analysis {
+  border-color: rgba(21, 95, 194, 0.14);
+  background: rgba(245, 249, 255, 0.78);
+}
+
 .home-status-compact {
   display: grid;
   gap: 8px;

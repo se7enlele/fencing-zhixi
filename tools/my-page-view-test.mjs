@@ -545,8 +545,14 @@ assert.match(css, /@keyframes aiSkeletonSweep/, 'AI loading skeleton must have a
 assert.match(css, /\.home-dashboard-focused/, 'focused home dashboard styles must exist');
 assert.match(css, /\.home-role-bar/, 'focused home role bar styles must exist');
 assert.match(js, /function renderHomePriorityPanel\(\)/, 'focused home must combine focus and radar into one compact priority panel');
+assert.match(js, /function homeSavedAnalysisItem\(\)/, 'focused home must surface the latest saved analysis in the priority panel');
+assert.match(js, /function renderHomeSavedAnalysisItem\(row = homeSavedAnalysisItem\(\)\)/, 'focused home must render the saved analysis as a compact priority row');
+assert.match(js, /renderHomePriorityPanel\(\)[\s\S]*const savedAnalysis = homeSavedAnalysisItem\(\);[\s\S]*\$\{renderHomeSavedAnalysisItem\(savedAnalysis\)\}/, 'focused home priority panel must include saved analysis after focus and competition radar');
+assert.match(js, /function renderFocusedHomePage\(\)[\s\S]*homePage\.querySelectorAll\('\[data-ai-history-query\]'\)[\s\S]*openAiReportSnapshot\(button\.dataset\.aiSnapshotKey \|\| button\.dataset\.aiHistoryQuery \|\| ''\)/, 'focused home saved analysis rows must reopen saved AI answers');
+assert.match(js, /function renderFocusedHomePage\(\)[\s\S]*homePage\.querySelectorAll\('\[data-report-history-type\]'\)[\s\S]*if \(type === 'ai-report'\)[\s\S]*openAiReportSnapshot\(id\);/, 'focused home saved report rows must reopen AI report snapshots');
 assert.match(css, /\.home-priority-panel/, 'focused home priority panel styles must exist');
 assert.match(css, /\.home-priority-item/, 'focused home priority rows must be styled');
+assert.match(css, /\.home-priority-item-analysis/, 'focused home saved analysis row must have a stable style hook');
 assert.match(css, /\.home-focus-card/, 'focused home next-step card styles must exist');
 assert.match(css, /\.home-radar-card/, 'focused home competition radar styles must exist');
 assert.match(css, /\.home-focus-actions/, 'focused home next-step actions must be styled');

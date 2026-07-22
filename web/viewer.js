@@ -4848,9 +4848,34 @@ function renderHomeRadarCard(row = homePrematchActionRow(followedCompetitionCard
   `;
 }
 
+function homeSavedAnalysisItem() {
+  return [...aiHistoryRows(), ...reportHistoryRows()][0] || null;
+}
+
+function renderHomeSavedAnalysisItem(row = homeSavedAnalysisItem()) {
+  if (!row) return '';
+  const attrs = row.query
+    ? `data-ai-snapshot-key="${escapeHtml(row.snapshotKey || row.key || row.query)}" data-ai-history-query="${escapeHtml(row.query)}"`
+    : `data-report-history-type="${escapeHtml(row.type || '')}" data-report-history-id="${escapeHtml(row.id || '')}"`;
+  return `
+    <article class="home-priority-item home-priority-item-analysis">
+      <div>
+        <small>最近分析</small>
+        <strong>${escapeHtml(row.title || row.query || '已保存分析')}</strong>
+        <span>${escapeHtml(row.typeLabel || '数据分析')}</span>
+        <em>${escapeHtml(row.summary || row.detail || '继续查看上次保存的分析。')}</em>
+      </div>
+      <div class="home-focus-actions">
+        <button type="button" ${attrs}>继续查看</button>
+      </div>
+    </article>
+  `;
+}
+
 function renderHomePriorityPanel() {
   const focus = homeFocusItem();
   const radar = homePrematchActionRow(followedCompetitionCards());
+  const savedAnalysis = homeSavedAnalysisItem();
   const focusPrimaryAction = focus.type === 'coach'
       ? `<button type="button" data-home-focus-coach="${escapeHtml(focus.id)}">查看剑馆</button>`
       : focus.type === 'athlete'
@@ -4889,6 +4914,7 @@ function renderHomePriorityPanel() {
           </div>
         </article>
       ` : ''}
+      ${renderHomeSavedAnalysisItem(savedAnalysis)}
     </section>
   `;
 }
@@ -4934,6 +4960,22 @@ function renderFocusedHomePage() {
   homePage.querySelector('[data-home-focus-coach]')?.addEventListener('click', (event) => {
     trackAnalyticsAction('home_coach', 'segmentation');
     openCoachSegmentationReport(event.currentTarget.dataset.homeFocusCoach || '');
+  });
+  homePage.querySelectorAll('[data-report-history-type]').forEach((button) => {
+    button.addEventListener('click', () => {
+      const type = button.dataset.reportHistoryType;
+      const id = button.dataset.reportHistoryId || '';
+      if (type === 'prematch') openPrematchReport('prematch-pack', id === 'prematch-pack' ? '' : id);
+      if (type === 'parent-growth') openParentGrowthReport(id);
+      if (type === 'coach-segmentation') openCoachSegmentationReport(id);
+      if (type === 'ai-report') {
+        trackAnalyticsAction('open_report', 'ai-report');
+        openAiReportSnapshot(id);
+      }
+    });
+  });
+  homePage.querySelectorAll('[data-ai-history-query]').forEach((button) => {
+    button.addEventListener('click', () => openAiReportSnapshot(button.dataset.aiSnapshotKey || button.dataset.aiHistoryQuery || ''));
   });
   homePage.querySelector('[data-home-role-switch]')?.addEventListener('click', () => {
     state.userRole = '';
