@@ -6100,6 +6100,29 @@ function detectCompetitionLikeQuery(query) {
   };
 }
 
+function detectCompetitionCoverageQuestion(query = '') {
+  const normalized = compactText(query);
+  if (!normalized) return null;
+  const hasMissingIntent = /(为什么|为啥|怎么没有|没有|查不到|搜不到|找不到|没找到)/.test(normalized);
+  const hasDataScope = /(数据库|数据|记录|收录|赛事|比赛|联赛|公开赛|锦标赛|冠军赛)/.test(normalized);
+  if (!hasMissingIntent || !hasDataScope) return null;
+  const nameHint = competitionCoverageNameHint(query);
+  if (!/(比赛|赛事|公开赛|联赛|冠军赛|锦标赛|杯|站)/.test(nameHint)) return null;
+  return {
+    year: detectYearInQuery(query) || '',
+    month: detectMonthInQuery(query) || '',
+    region: detectRegionInQuery(query) || '',
+    status: detectStatusInQuery(query) || '',
+    nameHint,
+  };
+}
+
+function competitionCoverageNameHint(query = '') {
+  return compactText(query)
+    .replace(/为什么|为啥|怎么|我的|数据库|数据|记录|收录|没有|查不到|搜不到|找不到|没找到|里面|里|中|的/g, '')
+    .replace(/[？?。,.，、]/g, '');
+}
+
 function competitionNameMatchKey(value) {
   return compactText(value)
     .replace(/20\d{2}年?/g, '')
@@ -6108,10 +6131,12 @@ function competitionNameMatchKey(value) {
 }
 
 function relatedCompetitionsForQuery(query) {
-  const queryAliases = [query, withoutYearAlias(query), chineseAdminAlias(query), chineseAdminAlias(withoutYearAlias(query))]
+  const coverageHint = competitionCoverageNameHint(query);
+  const seed = coverageHint.length >= 4 ? coverageHint : query;
+  const queryAliases = [seed, withoutYearAlias(seed), chineseAdminAlias(seed), chineseAdminAlias(withoutYearAlias(seed))]
     .map(compactText)
     .filter((key) => key.length >= 4);
-  const key = competitionNameMatchKey(query);
+  const key = competitionNameMatchKey(seed);
   if (key.length >= 4) queryAliases.push(key);
   const keys = [...new Set(queryAliases)];
   if (!keys.length) return [];
@@ -6172,6 +6197,59 @@ function missingCompetitionCoverageRows(relatedCompetitions = []) {
   ];
   if (relatedCompetitions.length) rows.push('相近赛事：可以打开最近的一场核对名称、年份和地点。');
   return rows;
+}
+
+function buildAiCompetitionCoverageReport(query, competitionLike) {
+  const relatedCompetitions = relatedCompetitionsForQuery(competitionLike.nameHint || query);
+  const nearest = relatedCompetitions[0] || null;
+  const cards = nearest
+    ? [
+        ['赛事记录', '找到相近'],
+        ['名称线索', competitionLike.nameHint || '赛事名称'],
+        ['相近赛事', `${relatedCompetitions.length} 场`],
+        ['可查内容', coverageLabel(nearest)],
+      ]
+    : missingCompetitionCoverageCards(competitionLike, relatedCompetitions);
+  return {
+    type: 'fallback',
+    title: nearest ? '可能是赛事名称不完全一致' : (competitionLike.year ? `暂时没有${competitionLike.year}年这场赛事记录` : '暂时没有这场赛事记录'),
+    summary: nearest
+      ? `已找到名称相近的赛事：${nearest.sportName}。如果你指的是这场，可以直接打开核对项目、报名和成绩；如果不是，可以补充年份、城市或完整赛事名。`
+      : '这不代表赛事不存在。可以先核对赛事全名、举办城市和比赛年份，再查看同地区或相近名称的赛事。',
+    cards,
+    sections: [
+      {
+        title: '可以这样核对',
+        rows: nearest
+          ? [
+              `先打开 ${nearest.sportName}，核对年份、地点和主办方是否一致。`,
+              '如果名称来自截图或小程序，优先补充完整赛事标题和比赛日期。',
+              '确认赛事后，再看项目名单、报名名单和赛果成绩是否已经可查。',
+            ]
+          : competitionMissingDiagnosisRows(query, competitionLike, relatedCompetitions),
+      },
+      {
+        title: '可查内容',
+        rows: nearest ? [
+          `赛事记录：已找到相近赛事 ${nearest.sportName}。`,
+          `项目名单：${competitionHasItems(nearest) ? '可以打开赛事详情查看。' : '先打开赛事确认是否已有项目。'}`,
+          `报名名单：${nearest.rosterStatus === 'partial' || nearest.rosterStatus === 'complete' ? '可以查看报名相关信息。' : '先确认赛事后再看报名情况。'}`,
+          `赛果成绩：${nearest.coverageLevel === 'score' || competitionHasItems(nearest) ? '可以查看成绩和对阵入口。' : '先确认赛事后再看成绩和对阵。'}`,
+        ] : missingCompetitionCoverageRows(relatedCompetitions),
+      },
+    ],
+    actions: [
+      nearest?.sportCode ? { label: '打开相近赛事', sportCode: nearest.sportCode } : null,
+      { label: '查看相关赛事', mainTab: 'competitions', filters: competitionLike },
+      { label: '按地区统计赛事', query: `${competitionLike.year || '2026'}年${competitionLike.region || ''}有几场比赛` },
+    ].filter(Boolean),
+    evidence: relatedCompetitions.map((competition) => ({
+      kind: '相近赛事',
+      label: competition.sportName || displayEventName(competition),
+      detail: [displayDateLabel(competition.dateLabel || competition.startDate || competition.season || ''), competition.venue || competition.region || '', statusLabel(competition.status)].filter(Boolean).join(' / '),
+      sportCode: competition.sportCode,
+    })),
+  };
 }
 
 function aiFallbackCandidateTerms(query) {
@@ -6287,6 +6365,9 @@ function buildAiAnswer(query) {
       evidence: [],
     };
   }
+
+  const competitionCoverageQuestion = detectCompetitionCoverageQuestion(text);
+  if (competitionCoverageQuestion) return buildAiCompetitionCoverageReport(text, competitionCoverageQuestion);
 
   const competition = detectCompetitionInQuery(text);
   if (competition) return buildAiCompetitionLookupReport(text, competition);

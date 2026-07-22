@@ -68,6 +68,8 @@ const functionNames = [
   'detectAthleteComparisonIntent',
   'detectComparisonAthletesInQuery',
   'detectCompetitionInQuery',
+  'detectCompetitionCoverageQuestion',
+  'competitionCoverageNameHint',
   'shouldRecoverStaleCompetitionNameMatch',
   'detectCompetitionLikeQuery',
   'competitionNameMatchKey',
@@ -75,6 +77,7 @@ const functionNames = [
   'competitionMissingDiagnosisRows',
   'missingCompetitionCoverageCards',
   'missingCompetitionCoverageRows',
+  'buildAiCompetitionCoverageReport',
   'aiFallbackCandidateTerms',
   'fallbackMatchScore',
   'aiFallbackCandidates',
@@ -414,6 +417,14 @@ assert.equal(namedCompetition.type, 'competition-stats', 'plain competition-name
 assert.match(namedCompetition.title, /\u5317\u4eac\u5e02\u51fb\u5251\u8054\u8d5b/, 'competition lookup should show the matched competition name');
 assert.equal(namedCompetition.evidence[0].sportCode, 'BJLEAGUE2026S1', 'competition lookup should cite the matched competition');
 assert.equal(namedCompetition.actions.find((action) => action.sportCode)?.sportCode, 'BJLEAGUE2026S1', 'competition lookup should open the matched competition directly');
+
+const missingDataQuestion = context.buildAiAnswer('\u4e3a\u4ec0\u4e48\u6211\u7684\u6570\u636e\u5e93\u91cc\u6ca1\u6709\u5317\u4eac\u51fb\u5251\u8054\u8d5b\u7684\u6570\u636e\uff1f');
+assert.equal(missingDataQuestion.type, 'fallback', 'missing-data wording should route to coverage diagnosis instead of plain lookup');
+assert.match(missingDataQuestion.title, /\u8d5b\u4e8b\u540d\u79f0\u4e0d\u5b8c\u5168\u4e00\u81f4/, 'missing-data diagnosis should explain likely name mismatch when a similar event exists');
+assert.ok(missingDataQuestion.cards.some(([label, value]) => label === '\u8d5b\u4e8b\u8bb0\u5f55' && value === '\u627e\u5230\u76f8\u8fd1'), 'missing-data diagnosis should show that a similar event record exists');
+assert.ok(missingDataQuestion.actions.some((action) => action.sportCode === 'BJLEAGUE2026S1'), 'missing-data diagnosis should let users open the similar competition');
+assert.ok(missingDataQuestion.sections.some((section) => section.title === '\u53ef\u4ee5\u8fd9\u6837\u6838\u5bf9'), 'missing-data diagnosis should provide verification guidance');
+assert.ok(!/(\u5bfc\u5165|\u540e\u7eed|\u6570\u636e\u8fb9\u754c|\u6682\u672a\u8bc6\u522b)/.test(`${missingDataQuestion.title}${missingDataQuestion.summary}${missingDataQuestion.sections.map((section) => section.rows.join('')).join('')}`), 'missing-data diagnosis should avoid internal data-pipeline wording');
 
 const originalCompetitions = context.__state.competitions;
 context.__state.competitions = originalCompetitions.filter((competition) => competition.sportCode === 'RZSS2021040');
