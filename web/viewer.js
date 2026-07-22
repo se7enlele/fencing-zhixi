@@ -6023,14 +6023,18 @@ function detectClubInQuery(query) {
   const normalizedQuery = compactText(query);
   return aiClubPool()
     .filter((club) => compactText(club.club) && normalizedQuery.includes(compactText(club.club)))
-    .sort((a, b) => compactText(b.club).length - compactText(a.club).length || (b.entrants || 0) - (a.entrants || 0))[0] || null;
+    .sort((a, b) => normalizedQuery.indexOf(compactText(a.club)) - normalizedQuery.indexOf(compactText(b.club))
+      || compactText(b.club).length - compactText(a.club).length
+      || (b.entrants || 0) - (a.entrants || 0))[0] || null;
 }
 
 function detectClubsInQuery(query) {
   const normalizedQuery = compactText(query);
   return uniqueBy(aiClubPool()
     .filter((club) => compactText(club.club) && normalizedQuery.includes(compactText(club.club)))
-    .sort((a, b) => compactText(b.club).length - compactText(a.club).length || (b.entrants || 0) - (a.entrants || 0)),
+    .sort((a, b) => normalizedQuery.indexOf(compactText(a.club)) - normalizedQuery.indexOf(compactText(b.club))
+      || compactText(b.club).length - compactText(a.club).length
+      || (b.entrants || 0) - (a.entrants || 0)),
   (club) => club.id || compactText(club.club)).slice(0, 3);
 }
 

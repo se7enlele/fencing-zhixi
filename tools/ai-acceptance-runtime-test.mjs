@@ -599,6 +599,7 @@ context.__state.athleteSearchIndex = savedAthleteSearchForComparison;
 
 const clubComparisonReport = context.buildAiAnswer('\u770b2025\u548c2026\u5e74\uff0cU10\u82b1\u5251\u7537\u5b50\u548c\u5973\u5b50\uff0c\u5317\u4eac\u91d1\u77f3\u662f\u4e0d\u662f\u6bd4\u5317\u4eac\u827e\u9c81\u7279\u66f4\u597d');
 assert.equal(clubComparisonReport.type, 'club-comparison', 'two-club strength questions should route to club comparison');
+assert.match(clubComparisonReport.title, /\u5317\u4eac\u91d1\u77f3 vs \u5317\u4eac\u827e\u9c81\u7279/, 'club comparison title should preserve the order from the user question');
 assert.match(clubComparisonReport.summary, /\u5317\u4eac\u91d1\u77f3/, 'club comparison should name the leading club in the summary');
 assert.match(clubComparisonReport.summary, /\u6570\u91cf\u4e0a/, 'club comparison should explain the quantity signal separately');
 assert.match(clubComparisonReport.summary, /\u6548\u7387/, 'club comparison should explain the efficiency signal separately');
