@@ -6814,7 +6814,6 @@ function aiClubComparisonEvidenceRows(metrics) {
             detail: `${metric.club.club} · ${displayEventName(event)} · ${event.entrants || 0}人次 · 前八${event.top8 || 0} · 奖牌${event.medals || 0} · 最好第${event.bestRank ?? '-'}名`,
             reason: `${aiClubComparisonGenderLabel(metric.gender)}项目中的关键成绩样本`,
             sportCode: event.sportCode,
-            eventCode: event.eventCode,
             clubId: metric.club.id,
           });
         });

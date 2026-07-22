@@ -3,6 +3,10 @@ import { readFile } from 'node:fs/promises';
 
 const js = await readFile(new URL('../web/viewer.js', import.meta.url), 'utf8');
 const css = await readFile(new URL('../web/viewer.css', import.meta.url), 'utf8');
+const clubComparisonEvidenceFunction = js.slice(
+  js.indexOf('function aiClubComparisonEvidenceRows'),
+  js.indexOf('function buildAiClubComparisonReport'),
+);
 
 assert.match(js, /function athleteComparisonConfidence\(direct, shared\)/, 'AI athlete comparison must expose evidence strength');
 assert.match(js, /function athleteRankGapText\(left, right\)/, 'AI athlete comparison must explain rank gap');
@@ -136,6 +140,7 @@ assert.match(js, /aiYearFilters\.length[\s\S]*aiYearFilters\.includes\(competiti
 assert.match(js, /function aiCompetitionFilterEvidence\(query, filters = \{\}, count = 0, label = '相关赛事列表'\)/, 'AI competition stats must expose a filtered-list evidence source');
 assert.doesNotMatch(js, /俱乐部对比证据|匹配赛事列表|title: '匹配赛事'/, 'AI answer source labels and sections must use customer-facing wording');
 assert.match(js, /kind: '俱乐部成绩'/, 'AI club comparison evidence should use a customer-facing source label');
+assert.doesNotMatch(clubComparisonEvidenceFunction, /eventCode: event\.eventCode/, 'AI club comparison evidence should open the stable competition source instead of a brittle project detail');
 assert.match(js, /function aiClubComparisonListFilters\(query, filters = \{\}\)/, 'AI club comparison must convert comparison scope into competition-list filters');
 assert.match(js, /function competitionsMatchingAiListFilters\(filters = \{\}\)/, 'AI club comparison must count related competitions with the same list filters');
 assert.match(js, /\{ label: '看相关赛事', mainTab: 'competitions', filters: listFilters \}/, 'AI club comparison must let users open the filtered evidence list');
