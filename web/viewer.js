@@ -9161,18 +9161,6 @@ function renderMyPage() {
   const recentRows = (state.recentItems || []).slice(0, 6);
   const reportHistory = reportHistoryRows();
   const aiHistory = aiHistoryRows();
-  const reportAssets = reportAssetSummaryRows(state.reportHistory || [], state.aiHistory || []);
-  const commercialIntents = commercialIntentRows();
-  const commercialIntentCount = (state.commercialIntents || []).length;
-  const athleteDataRequests = athleteDataRequestRows();
-  const athleteDataRequestCount = (state.athleteDataRequests || []).length;
-  const followedAthletes = children.slice(0, 6);
-  const nextActions = myWorkspaceNextActions({ children, followedCompetitions, reportHistory, aiHistory });
-  const reportNextActions = reportNextActionRows(reportHistory);
-  const readinessRows = serviceReadinessRows({ children, followedCompetitions, reportHistory, aiHistory });
-  const trialRows = recommendedTrialRows({ children, followedCompetitions, reportHistory, aiHistory });
-  const deliverableRows = trialDeliverableRows();
-  const prematchReminderRows = myPrematchReminderRows(followedCompetitions);
   const followCopy = myFollowSectionCopy();
   const generatedLabel = formatDataGeneratedAt(state.dataGeneratedAt);
   const stats = [
@@ -9181,12 +9169,8 @@ function renderMyPage() {
     { value: followedClubs.length, label: '关注俱乐部' },
     { value: reportHistory.length, label: '生成报告' },
     { value: aiHistory.length, label: '最近分析' },
-    { value: commercialIntentCount, label: '服务沟通' },
-    { value: athleteDataRequestCount, label: '档案请求' },
     { value: recentRows.length, label: '最近查看' },
   ];
-  const primaryStats = stats.slice(0, 4);
-  const secondaryStats = stats.slice(4);
   const isSignedIn = Boolean(state.authUser);
   const accountTitle = isSignedIn
     ? (state.authUser.displayName || state.authUser.identifier || '已登录用户')
@@ -9211,7 +9195,7 @@ function renderMyPage() {
     </section>
 
     <section class="my-stat-grid">
-      ${primaryStats.map((item) => `
+      ${stats.map((item) => `
         <div class="my-stat">
           <strong>${escapeHtml(item.value)}</strong>
           <span>${escapeHtml(item.label)}</span>
@@ -9219,162 +9203,7 @@ function renderMyPage() {
       `).join('')}
     </section>
 
-    <section class="my-secondary-status" aria-label="我的记录">
-      ${secondaryStats.map((item) => `
-        <div>
-          <strong>${escapeHtml(item.value)}</strong>
-          <span>${escapeHtml(item.label)}</span>
-        </div>
-      `).join('')}
-    </section>
-
     ${renderAccountPanelV2()}
-
-    <section class="panel my-section my-next-section">
-      <div class="section-title">
-        <h2>推荐操作</h2>
-        <span>优先推荐</span>
-      </div>
-      <div class="my-next-grid">
-        ${nextActions.map((row) => `
-          <button type="button" class="my-next-card" data-my-next-action="${escapeHtml(row.action)}" ${row.athleteId ? `data-athlete-id="${escapeHtml(row.athleteId)}"` : ''} ${row.sportCode ? `data-sport-code="${escapeHtml(row.sportCode)}"` : ''} ${row.query ? `data-ai-query="${escapeHtml(row.query)}"` : ''}>
-            <strong>${escapeHtml(row.title)}</strong>
-            <span>${escapeHtml(row.detail)}</span>
-            <em>${escapeHtml(row.cta)}</em>
-          </button>
-        `).join('')}
-      </div>
-    </section>
-
-    <section class="panel my-section report-next-action-section">
-      <div class="section-title">
-        <h2>最近报告</h2>
-        <span>${reportNextActions.length ? '继续查看' : '暂无报告'}</span>
-      </div>
-      ${reportNextActions.length ? `
-        <div class="report-next-action-list">
-          ${reportNextActions.map((row) => `
-            <article class="report-next-action-card">
-              <div>
-                <span>${escapeHtml(row.typeLabel)}</span>
-                <strong>${escapeHtml(row.title)}</strong>
-                <em>${escapeHtml(row.next)}</em>
-              </div>
-              <div class="report-next-action-buttons">
-                <button type="button" data-report-next-open data-report-next-type="${escapeHtml(row.type || '')}" data-report-next-id="${escapeHtml(row.id || '')}">${escapeHtml(row.actionLabel)}</button>
-                <button type="button" data-report-next-trial data-commercial-source="${escapeHtml(row.source)}" data-report-title="${escapeHtml(row.title)}">${escapeHtml(row.trialLabel)}</button>
-                ${row.reminderLabel ? `<button type="button" data-reminder-interest data-commercial-source="my-report-next-reminder" data-report-title="${escapeHtml(row.title)}提醒">${escapeHtml(row.reminderLabel)}</button>` : ''}
-              </div>
-            </article>
-          `).join('')}
-        </div>
-      ` : '<div class="empty compact-empty">生成成长报告、赛前提醒或教练报告后，可以在这里继续查看。</div>'}
-    </section>
-
-    <section class="panel my-section my-prematch-section">
-      <div class="section-title">
-        <h2>近期赛前提醒</h2>
-        <span>${prematchReminderRows.length ? '赛前提醒' : '待关注'}</span>
-      </div>
-      ${prematchReminderRows.length ? `
-        <div class="my-prematch-list">
-          ${prematchReminderRows.map((row) => `
-            <article class="my-prematch-card">
-              <div>
-                <strong>${escapeHtml(row.title)}</strong>
-                <span>${escapeHtml(row.detail)}</span>
-                <em>${escapeHtml(row.meta)}</em>
-              </div>
-              <small>${escapeHtml(row.tag)}</small>
-              <div class="my-prematch-actions">
-                <button type="button" data-my-prematch-report="${escapeHtml(row.sportCode)}">赛前提醒</button>
-                <button type="button" data-reminder-interest data-commercial-source="my-prematch-reminder" data-report-title="${escapeHtml(row.title)}提醒">订阅提醒</button>
-                ${row.isFollowed ? '' : `<button type="button" data-my-prematch-follow="${escapeHtml(row.sportCode)}">加入提醒</button>`}
-              </div>
-            </article>
-          `).join('')}
-        </div>
-      ` : '<div class="empty compact-empty">关注近期赛事后，这里会形成赛前提醒入口。</div>'}
-    </section>
-
-    ${renderCommercialIntentStatus(commercialIntents)}
-
-    ${renderAthleteDataRequestStatus(athleteDataRequests)}
-
-    ${renderMembershipBenefits()}
-
-    <section class="panel my-section trial-deliverable-section">
-      <div class="section-title">
-        <h2>可以生成什么</h2>
-        <span>下一步</span>
-      </div>
-      <div class="trial-deliverable-grid">
-        ${deliverableRows.map((row) => `
-          <button type="button" class="trial-deliverable-card trial-deliverable-${escapeHtml(row.key)} trial-deliverable-${escapeHtml(row.tone)}" data-trial-deliverable-action="${escapeHtml(row.action)}" ${row.sportCode ? `data-sport-code="${escapeHtml(row.sportCode)}"` : ''} ${row.athleteId ? `data-athlete-id="${escapeHtml(row.athleteId)}"` : ''} ${row.clubId ? `data-club-id="${escapeHtml(row.clubId)}"` : ''} ${row.query ? `data-ai-query="${escapeHtml(row.query)}"` : ''}>
-            <span>${escapeHtml(row.label)}</span>
-            <div>
-              <strong>${escapeHtml(row.title)}</strong>
-              <small>${escapeHtml(row.status)}</small>
-              <em>${escapeHtml(row.detail)}</em>
-              <b>${escapeHtml(row.next)}</b>
-            </div>
-          </button>
-        `).join('')}
-      </div>
-    </section>
-
-    <section class="panel my-section trial-plan-section">
-      <div class="section-title">
-        <h2>推荐服务</h2>
-        <span>按你的关注</span>
-      </div>
-      <div class="trial-plan-list">
-        ${trialRows.map((row) => `
-          <button type="button" class="trial-plan-card" data-trial-plan-source="${escapeHtml(row.source)}" data-report-title="${escapeHtml(row.title)}">
-            <div>
-              <strong>${escapeHtml(row.title)}</strong>
-              <span>${escapeHtml(row.detail)}</span>
-            </div>
-            <em>${escapeHtml(row.scope)}</em>
-          </button>
-        `).join('')}
-      </div>
-    </section>
-
-    <section class="panel my-section service-readiness-section">
-      <div class="section-title">
-        <h2>可以继续做什么</h2>
-        <span>按你的关注</span>
-      </div>
-      <div class="service-readiness-list">
-        ${readinessRows.map((row) => `
-          <button type="button" class="service-readiness-card service-readiness-${escapeHtml(row.tone)}" data-my-readiness-action="${escapeHtml(row.action)}" ${row.sportCode ? `data-sport-code="${escapeHtml(row.sportCode)}"` : ''} ${row.athleteId ? `data-athlete-id="${escapeHtml(row.athleteId)}"` : ''} ${row.clubId ? `data-club-id="${escapeHtml(row.clubId)}"` : ''} ${row.query ? `data-ai-query="${escapeHtml(row.query)}"` : ''}>
-            <div>
-              <strong>${escapeHtml(row.title)}</strong>
-              <span>${escapeHtml(row.detail)}</span>
-              <em>${escapeHtml(row.meta)}</em>
-            </div>
-            <b>${escapeHtml(row.status)}</b>
-          </button>
-        `).join('')}
-      </div>
-    </section>
-
-    <section class="panel my-section report-asset-section">
-      <div class="section-title">
-        <h2>我的内容</h2>
-        <span>保存记录</span>
-      </div>
-      <div class="report-asset-grid">
-        ${reportAssets.map((row) => `
-          <div class="report-asset-card report-asset-${escapeHtml(row.key)}">
-            <strong>${escapeHtml(row.value)}</strong>
-            <span>${escapeHtml(row.label)}</span>
-            <em>${escapeHtml(row.detail)}</em>
-          </div>
-        `).join('')}
-      </div>
-    </section>
 
     <section class="panel my-section">
       <div class="section-title">
