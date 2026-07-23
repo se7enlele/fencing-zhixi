@@ -5220,7 +5220,6 @@ function renderFocusedHomePage() {
     <div class="home-dashboard home-dashboard-focused">
       ${renderHomeRoleBar()}
       ${renderAiWorkspace('home')}
-      ${renderHomeShortcutStrip()}
       ${renderHomePriorityPanel()}
     </div>
   `;
