@@ -878,8 +878,8 @@ function aiHistoryTypeLabel(type) {
     comparison: '选手对比',
     'club-comparison': '剑馆对比',
     club: '俱乐部分析',
-    'business-insight': '商业洞察',
-    'product-template': '报告服务',
+    'business-insight': '经营分析',
+    'product-template': '分析报告',
     'club-recruiting': '招生展示',
   };
   return labels[type] || '数据分析';
@@ -7835,7 +7835,7 @@ function buildAiBusinessInsightReport(query) {
       aiProductTemplateAthlete()?.id ? { label: '查看成长报告', parentGrowthAthleteId: aiProductTemplateAthlete().id } : null,
       aiProductTemplateClub()?.id ? { label: '查看教练工作台', coachSegmentationClubId: aiProductTemplateClub().id } : null,
     ].filter(Boolean),
-    sourceNote: '商业洞察来自赛事、选手、俱乐部和赛前状态记录，可用于判断产品服务方向。',
+    sourceNote: '经营分析来自赛事、选手、俱乐部和赛前状态记录，可用于判断重点机会。',
   };
 }
 
@@ -8885,7 +8885,7 @@ function aiResultActionTitle(report = {}) {
   if (report.type === 'competition-stats' || report.type === 'prematch') return '查看赛事';
   if (report.type === 'growth' || report.type === 'comparison') return '查看选手';
   if (report.type === 'club' || report.type === 'club-comparison' || report.type === 'club-recruiting') return '查看剑馆';
-  if (report.type === 'business-insight' || report.type === 'product-template') return '查看服务';
+  if (report.type === 'business-insight' || report.type === 'product-template') return '查看报告';
   return '打开相关页面';
 }
 
@@ -8895,8 +8895,8 @@ function aiAnswerTypeLabel(report = {}) {
   if (report.type === 'growth') return '成长分析';
   if (report.type === 'club') return '俱乐部画像';
   if (report.type === 'prematch') return '赛前提醒';
-  if (report.type === 'business-insight') return '商业洞察';
-  if (report.type === 'product-template') return '报告服务';
+  if (report.type === 'business-insight') return '经营分析';
+  if (report.type === 'product-template') return '分析报告';
   if (report.type === 'club-recruiting') return '招生展示';
   if (report.type === 'official-directory') return '人员资料';
   if (report.type === 'competition-stats') return '赛事统计';

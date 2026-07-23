@@ -31,13 +31,14 @@ assert.doesNotMatch(js, /当前筛选|全部数据|平台赛事|当前范围|深
 assert.doesNotMatch(js, /label: 'AI分析'|label: '服务申请'|label: '档案申请'|title: '报告复用'|status: .*'可交付'|status: .*'待关注孩子'|status: .*'待选择俱乐部'|status: .*'可启动'|<h2>可用能力<\/h2>|<h2>可生成内容<\/h2>|<span>当前可用<\/span>|<span>按当前关注<\/span>|分析资产|报名与项目数据完善后|可复用记录|沉淀学员/, 'my page copy must use customer-facing wording');
 assert.doesNotMatch(js, /继续生成赛前情报|可继续生成|人工跟进|试用说明/, 'AI and report copy must avoid process or sales-ops wording');
 assert.match(js, /常用报告/, 'home report center should use user-facing report copy');
-assert.match(js, /报告服务/, 'AI report planning answers should use user-facing report wording');
+assert.match(js, /分析报告/, 'AI report planning answers should use user-facing report wording');
 assert.match(js, /人员资料补充后可按姓名查找/, 'official search entry should explain availability in user-facing copy');
 assert.match(js, /人员资料还在补充中；赛事、选手和俱乐部资料可以继续查看。/, 'official AI answer should explain unavailable personnel data without dead-end wording');
 assert.match(js, /资料补充完成后，可以按姓名、地区、俱乐部和身份查找。/, 'official AI answer should describe the future searchable shape in user-facing terms');
 assert.match(js, /status: officialCount \? '可查' : '先查赛事'/, 'official coverage state should guide users to available data first');
 assert.doesNotMatch(js, /教练\/裁判[\s\S]{0,160}暂无资料/, 'official search entry must not look like a broken zero-result state');
 assert.doesNotMatch(js, /产品化方向|商业化落地顺序|商业闭环|SaaS|生成赛前情报包方案|生成家长成长报告方案|生成教练工作台方案|赛前情报包方案|家长成长报告方案|教练学员分层方案|家长沟通口径/, 'AI business and report copy must avoid internal product-planning wording');
+assert.doesNotMatch(js, /查看服务|商业洞察/, 'AI result labels must not sound like internal service packaging');
 assert.doesNotMatch(js, /title: '内容结构'|title: '交付方式'|\['核心价值'|\['交付节奏'/, 'AI report-service copy must avoid proposal-document wording');
 assert.match(js, /title: '报告会包含'[\s\S]*title: '重点数字'[\s\S]*title: '使用方式'/, 'AI report-service copy must use customer-facing report sections');
 assert.match(js, /\['适合用途'[\s\S]*\['使用节奏'/, 'AI report-service metric cards must describe customer value and usage rhythm');

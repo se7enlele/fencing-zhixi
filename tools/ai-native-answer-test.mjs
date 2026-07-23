@@ -248,8 +248,8 @@ assert.match(js, /state\.selectedAiMonth/, 'AI competition filters must preserve
 assert.match(js, /state\.selectedAiYears/, 'AI competition filters must preserve multi-year constraints that are not visible in the standard filter chips');
 assert.match(js, /function aiAnswerTypeLabel\(report = \{\}\)/, 'AI answer type labels must be centralized');
 assert.match(js, /if \(report\.type === 'prematch'\) return '赛前提醒';/, 'AI answer header must label prematch reports');
-assert.match(js, /if \(report\.type === 'business-insight'\) return '商业洞察';/, 'AI answer header must label business insight reports');
-assert.match(js, /if \(report\.type === 'product-template'\) return '报告服务';/, 'AI answer header must label product template reports');
+assert.match(js, /if \(report\.type === 'business-insight'\) return '经营分析';/, 'AI answer header must label business insight reports in user-facing language');
+assert.match(js, /if \(report\.type === 'product-template'\) return '分析报告';/, 'AI answer header must label report planning answers in user-facing language');
 assert.match(js, /if \(report\.type === 'club-recruiting'\) return '招生展示';/, 'AI answer header must label recruiting display reports');
 assert.match(js, /if \(report\.type === 'club-comparison'\) return '剑馆对比';/, 'AI answer header must label club comparison reports');
 assert.match(js, /if \(report\.type === 'competition-stats'\) return '赛事统计';/, 'competition stats answers should have a specific user-facing type label');
