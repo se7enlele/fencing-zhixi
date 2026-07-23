@@ -10104,20 +10104,42 @@ function renderCompetitionList() {
     button.addEventListener('click', () => openCompetition(button.dataset.sportCode));
   });
   competitionList.querySelector('[data-clear-ai-filter]')?.addEventListener('click', clearAiCompetitionFilter);
+  competitionList.querySelector('[data-adjust-ai-filter]')?.addEventListener('click', () => {
+    searchShell?.scrollIntoView({ block: 'start', behavior: 'smooth' });
+    yearFilterButton?.focus({ preventScroll: true });
+  });
   competitionList.querySelector('[data-load-more-competitions]')?.addEventListener('click', () => {
     state.visibleCompetitionLimit += COMPETITION_LIST_PAGE_SIZE;
     renderCompetitionList();
   });
 }
 
+function aiCompetitionFilterChips() {
+  const chips = [];
+  if (state.selectedAiYears?.length > 1) chips.push(`年份 ${state.selectedAiYears.join(' / ')}`);
+  else if (state.selectedYear && state.selectedYear !== '全部年份') chips.push(`年份 ${state.selectedYear}`);
+  if (state.selectedAiMonth) chips.push(`${state.selectedAiMonth} 月`);
+  if (state.selectedRegion && state.selectedRegion !== '全部地区') chips.push(`地区 ${state.selectedRegion}`);
+  if (state.selectedItem && state.selectedItem !== '全部项目') chips.push(`项目 ${state.selectedItem}`);
+  if (state.selectedStatus && state.selectedStatus !== '全部状态') chips.push(`状态 ${state.selectedStatus}`);
+  return chips;
+}
+
 function renderAiCompetitionFilterNotice() {
   if (!state.aiCompetitionFilterSummary) return '';
   const question = state.aiCompetitionFilterQuestion ? `这次问题：${state.aiCompetitionFilterQuestion}` : '这次问题的相关赛事';
+  const chips = aiCompetitionFilterChips();
   return `
     <div class="ai-filter-notice">
       <strong>${escapeHtml(question)}</strong>
       <span>${escapeHtml(state.aiCompetitionFilterSummary)} · 可核对赛事 ${escapeHtml(state.filteredCompetitions.length)} 场</span>
+      ${chips.length ? `
+        <div class="ai-filter-chip-row" aria-label="筛选条件">
+          ${chips.map((chip) => `<i>${escapeHtml(chip)}</i>`).join('')}
+        </div>
+      ` : ''}
       <em>点击赛事卡，可继续查看项目、名单和成绩。</em>
+      <button type="button" data-adjust-ai-filter>调整筛选</button>
       <button type="button" data-clear-ai-filter>查看全部赛事</button>
     </div>
   `;

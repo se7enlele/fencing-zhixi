@@ -162,6 +162,7 @@ assert.match(js, /function detectMonthInQuery\(normalizedQuery\)/, 'AI competiti
 assert.match(js, /function competitionMonth\(competition\)/, 'AI competition questions must filter competitions by month');
 assert.match(js, /function applyAiCompetitionFilters\(filters = \{\}\)/, 'AI answer actions must apply competition filters when entering the competition list');
 assert.match(js, /function aiCompetitionFilterSummary\(filters = \{\}\)/, 'AI competition filters must expose a visible summary for the competition list');
+assert.match(js, /function aiCompetitionFilterChips\(\)/, 'AI competition filters must expose active conditions as database chips');
 assert.match(js, /function normalizeAiFilterYears\(filters = \{\}\)/, 'AI competition filters must normalize single and multi-year scopes');
 assert.match(js, /state\.selectedAiYears = years\.length > 1 \? years : \[\]/, 'AI competition filters must preserve multi-year scopes outside the standard single-year dropdown');
 assert.match(js, /aiYearFilters\.length[\s\S]*aiYearFilters\.includes\(competitionYear\(competition\)\)/, 'competition list filtering must apply AI multi-year scopes');
@@ -240,6 +241,8 @@ assert.match(js, /action\.eventCode \? `data-event-code="\$\{escapeHtml\(action\
 assert.match(js, /aiActionTargetAttributes\(action\)/, 'AI action rendering must use the centralized target helper');
 assert.match(js, /state\.aiCompetitionFilterSummary = aiCompetitionFilterSummary\(\{[\s\S]*\.\.\.filters,[\s\S]*item: state\.selectedItem !== '全部项目' \? state\.selectedItem : '',[\s\S]*\}\)/, 'AI filter actions must store a list-facing filter summary with project scope');
 assert.match(js, /data-clear-ai-filter/, 'AI filtered competition lists must expose a clear action');
+assert.match(js, /data-adjust-ai-filter/, 'AI filtered competition lists must expose an adjust-filter action');
+assert.match(js, /class="ai-filter-chip-row"[\s\S]*筛选条件/, 'AI filtered competition lists must show active filter conditions');
 assert.match(js, /JSON\.parse\(decodeURIComponent\(button\.dataset\.aiFilters\)\)/, 'AI answer action handlers must decode filter payloads before navigation');
 assert.match(js, /state\.selectedAiMonth/, 'AI competition filters must preserve month constraints that are not visible in the standard filter chips');
 assert.match(js, /state\.selectedAiYears/, 'AI competition filters must preserve multi-year constraints that are not visible in the standard filter chips');
@@ -404,6 +407,7 @@ assert.doesNotMatch(css, /\.ai-trust-panel/, 'AI judgment-basis panel styles sho
 assert.doesNotMatch(css, /\.ai-trust-row/, 'AI judgment-basis row styles should be removed when hidden from the product UI');
 assert.match(css, /\.ai-filter-notice/, 'AI-filtered competition lists must show a visible filter notice');
 assert.match(css, /\.ai-filter-notice strong/, 'AI-filtered competition source questions must have stable mobile styles');
+assert.match(css, /\.ai-filter-chip-row/, 'AI-filtered competition chips must have stable mobile styles');
 assert.doesNotMatch(css, /\.ai-next-steps/, 'AI next-step styles should be removed when hidden from the product UI');
 assert.match(css, /\.ai-conversion-card/, 'AI conversion block styles must exist');
 assert.match(css, /\.ai-conversion-service/, 'AI conversion block must style concrete trial contents');

@@ -1355,6 +1355,32 @@ select:focus {
   font-style: normal;
 }
 
+.ai-filter-chip-row {
+  display: flex;
+  flex: 1 0 100%;
+  flex-wrap: wrap;
+  gap: 6px;
+  min-width: 0;
+}
+
+.ai-filter-chip-row i {
+  display: inline-flex;
+  align-items: center;
+  max-width: 100%;
+  min-height: 22px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(13, 125, 103, 0.09);
+  color: var(--teal);
+  font-style: normal;
+  font-size: 11px;
+  font-weight: 900;
+  line-height: 1;
+  padding: 3px 8px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .ai-filter-notice button {
   flex: 0 0 auto;
   height: 28px;
