@@ -7226,8 +7226,8 @@ function aiClubComparisonCardValue(left, right) {
 
 function aiClubComparisonQuantitySummary(left, right) {
   const winner = aiClubComparisonQuantityWinner(left, right);
-  if (!winner) return '数量接近';
-  return `${winner.club.club}数量占优`;
+  if (!winner) return '成绩积累接近';
+  return `${winner.club.club}成绩积累更突出`;
 }
 
 function aiClubComparisonEfficiencySummary(left, right) {
@@ -7243,13 +7243,29 @@ function aiClubComparisonRateLine(metric) {
 function aiClubComparisonMetricLine(left, right) {
   const quantityWinner = aiClubComparisonQuantityWinner(left, right);
   const efficiencyWinner = aiClubComparisonEfficiencyWinner(left, right);
-  const quantityText = quantityWinner ? `数量上${quantityWinner.club.club}领先` : '数量接近';
+  const quantityText = quantityWinner ? `成绩积累上${quantityWinner.club.club}领先` : '成绩积累接近';
   const efficiencyText = efficiencyWinner ? `效率上${efficiencyWinner.club.club}更突出` : '效率接近';
   return `${aiClubComparisonGenderLabel(left.gender)}：${quantityText}；${efficiencyText}。${left.club.club} ${left.entrants}人次、前八${left.top8}、奖牌${left.medals}；${right.club.club} ${right.entrants}人次、前八${right.top8}、奖牌${right.medals}。${aiClubComparisonRateLine(left)}；${aiClubComparisonRateLine(right)}。`;
 }
 
 function aiClubComparisonConclusionRows(metrics) {
   return metrics.map(([left, right]) => aiClubComparisonMetricLine(left, right));
+}
+
+function aiClubComparisonReasonRows(totalPair, metricPairs = []) {
+  if (!totalPair) return [];
+  const [left, right] = totalPair;
+  const genderRows = metricPairs
+    .filter(([metric]) => metric.gender !== 'total')
+    .map(([leftMetric, rightMetric]) => {
+      const winner = aiClubComparisonWinner(leftMetric, rightMetric);
+      return winner ? `${aiClubComparisonGenderLabel(leftMetric.gender)}${winner.club.club}领先` : `${aiClubComparisonGenderLabel(leftMetric.gender)}接近`;
+    });
+  return [
+    `规模：${left.club.club} ${left.entrants} 人次，${right.club.club} ${right.entrants} 人次。`,
+    `成绩：${left.club.club}前八${left.top8}、奖牌${left.medals}；${right.club.club}前八${right.top8}、奖牌${right.medals}。`,
+    genderRows.length ? `分项：${genderRows.join('，')}。` : '',
+  ].filter(Boolean);
 }
 
 function aiClubComparisonEvidenceRows(metrics) {
@@ -7285,21 +7301,23 @@ function buildAiClubComparisonReport(query, leftClub, rightClub, filters) {
     aiClubComparisonMetric(rightClub, filters, gender),
   ]);
   const totalPair = metricPairs.find(([left]) => left.gender === 'total') || metricPairs[0];
+  const overallWinner = totalPair ? aiClubComparisonWinner(totalPair[0], totalPair[1]) : null;
   const quantityWinner = totalPair ? aiClubComparisonQuantityWinner(totalPair[0], totalPair[1]) : null;
   const efficiencyWinner = totalPair ? aiClubComparisonEfficiencyWinner(totalPair[0], totalPair[1]) : null;
   const scopeLabel = aiClubComparisonScopeLabel(filters);
   const resultCards = metricPairs
     .slice(0, 3)
     .map(([left, right]) => [aiClubComparisonCardLabel(left), aiClubComparisonCardValue(left, right)]);
-  const summary = `${scopeLabel}，先看参赛规模，再看前八率和奖牌率。${quantityWinner ? `数量上${quantityWinner.club.club}更突出` : '数量接近'}；${efficiencyWinner ? `效率上${efficiencyWinner.club.club}更突出` : '效率接近'}。`;
+  const summary = `${scopeLabel}下，${overallWinner ? `${overallWinner.club.club}暂时更占优` : '两家表现接近'}。${quantityWinner ? `成绩积累上${quantityWinner.club.club}更突出` : '成绩积累接近'}；${efficiencyWinner ? `效率上${efficiencyWinner.club.club}更突出` : '效率接近'}。`;
 
   return {
     type: 'club-comparison',
     title: `${leftClub.club} vs ${rightClub.club}`,
     summary,
+    reasons: aiClubComparisonReasonRows(totalPair, metricPairs),
     cards: [
       ['对比范围', scopeLabel],
-      ['数量优势', totalPair ? aiClubComparisonQuantitySummary(totalPair[0], totalPair[1]) : '样本不足'],
+      ['成绩积累', totalPair ? aiClubComparisonQuantitySummary(totalPair[0], totalPair[1]) : '样本不足'],
       ['效率信号', totalPair ? aiClubComparisonEfficiencySummary(totalPair[0], totalPair[1]) : '样本不足'],
       ...resultCards,
     ],
@@ -8893,6 +8911,7 @@ function aiAnswerTypeLabel(report = {}) {
 
 function renderAiAnswer(report) {
   const primaryCards = (report.cards || []).slice(0, AI_ANSWER_CARD_LIMIT);
+  const primaryReasons = (report.reasons || []).filter(Boolean).slice(0, 3);
   const primaryActions = (report.actions || []).slice(0, AI_ANSWER_ACTION_LIMIT);
   const primaryEvidence = (report.evidence || []).slice(0, AI_ANSWER_EVIDENCE_LIMIT);
   const keyEvidence = primaryEvidence[0] || null;
@@ -8913,6 +8932,11 @@ function renderAiAnswer(report) {
         <strong>${escapeHtml(report.title)}</strong>
         <p>${escapeHtml(report.summary)}</p>
       </div>
+      ${primaryReasons.length ? `
+        <div class="ai-reason-list" aria-label="关键理由">
+          ${primaryReasons.map((row) => `<span>${escapeHtml(row)}</span>`).join('')}
+        </div>
+      ` : ''}
       ${primaryCards.length ? `
         <div class="ai-metric-grid">
           ${primaryCards.map(([label, value]) => `

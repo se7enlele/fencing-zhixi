@@ -150,6 +150,7 @@ const functionNames = [
   'aiClubComparisonRateLine',
   'aiClubComparisonMetricLine',
   'aiClubComparisonConclusionRows',
+  'aiClubComparisonReasonRows',
   'aiClubComparisonEvidenceRows',
   'aiClubComparisonItemFilter',
   'aiClubComparisonListFilters',
@@ -624,10 +625,13 @@ const clubComparisonReport = context.buildAiAnswer('\u770b2025\u548c2026\u5e74\u
 assert.equal(clubComparisonReport.type, 'club-comparison', 'two-club strength questions should route to club comparison');
 assert.match(clubComparisonReport.title, /\u5317\u4eac\u91d1\u77f3 vs \u5317\u4eac\u827e\u9c81\u7279/, 'club comparison title should preserve the order from the user question');
 assert.match(clubComparisonReport.summary, /\u5317\u4eac\u91d1\u77f3/, 'club comparison should name the leading club in the summary');
-assert.match(clubComparisonReport.summary, /\u6570\u91cf\u4e0a/, 'club comparison should explain the quantity signal separately');
+assert.match(clubComparisonReport.summary, /\u6210\u7ee9\u79ef\u7d2f\u4e0a/, 'club comparison should explain accumulated result signals separately');
 assert.match(clubComparisonReport.summary, /\u6548\u7387/, 'club comparison should explain the efficiency signal separately');
+assert.ok(clubComparisonReport.reasons?.some((row) => /\u89c4\u6a21/.test(row) && /\u5317\u4eac\u91d1\u77f3/.test(row) && /\u5317\u4eac\u827e\u9c81\u7279/.test(row)), 'club comparison should expose a user-facing scale reason');
+assert.ok(clubComparisonReport.reasons?.some((row) => /\u6210\u7ee9/.test(row) && /\u524d\u516b/.test(row) && /\u5956\u724c/.test(row)), 'club comparison should expose top-8 and medal reasons');
+assert.ok(clubComparisonReport.reasons?.some((row) => /\u5206\u9879/.test(row) && /\u7537\u5b50/.test(row) && /\u5973\u5b50/.test(row)), 'club comparison should explain gender-split differences when both genders are requested');
 assert.match(clubComparisonReport.cards[0][1], /2025\u30012026.*U10.*\u82b1\u5251.*\u7537\u5b50 \/ \u5973\u5b50/, 'club comparison should expose the requested years, age, weapon and gender scope');
-assert.ok(clubComparisonReport.cards.some(([label]) => label === '\u6570\u91cf\u4f18\u52bf'), 'club comparison should show a quantity advantage card');
+assert.ok(clubComparisonReport.cards.some(([label]) => label === '\u6210\u7ee9\u79ef\u7d2f'), 'club comparison should show an accumulated result card');
 assert.ok(clubComparisonReport.cards.some(([label]) => label === '\u6548\u7387\u4fe1\u53f7'), 'club comparison should show an efficiency signal card');
 assert.ok(clubComparisonReport.cards.some(([label, value]) => label === '\u7537\u5b50\u7ed3\u8bba' && /\u5317\u4eac\u91d1\u77f3/.test(value)), 'club comparison should show a male result card');
 assert.ok(clubComparisonReport.cards.some(([label, value]) => label === '\u5973\u5b50\u7ed3\u8bba' && /\u5317\u4eac\u827e\u9c81\u7279/.test(value)), 'club comparison should show a female result card');

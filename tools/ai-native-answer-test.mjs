@@ -94,7 +94,7 @@ assert.match(js, /function aiClubComparisonCardLabel\(metric\)/, 'AI club compar
 assert.match(js, /function aiClubComparisonCardValue\(left, right\)/, 'AI club comparison must summarize each gender split as a compact result card');
 assert.match(js, /function aiClubComparisonRefineLabel\(filters\)/, 'AI club comparison follow-up labels must match the current scope');
 assert.match(js, /type: 'club-comparison'/, 'AI club comparison report must have a stable report type');
-assert.match(js, /\['数量优势',/, 'AI club comparison cards must expose quantity advantage explicitly');
+assert.match(js, /\['成绩积累',/, 'AI club comparison cards must expose accumulated result signals explicitly');
 assert.match(js, /\['效率信号',/, 'AI club comparison cards must expose efficiency signal explicitly');
 assert.match(js, /title: '对比结论'/, 'AI club comparison must expose user-facing comparison rows');
 assert.match(js, /function aiProjectHints\(query\)/, 'AI club reports must detect project hints like U8 male foil');
@@ -330,6 +330,8 @@ assert.match(js, /const AI_ANSWER_CARD_LIMIT = 4/, 'AI answers must cap metric c
 assert.match(js, /const AI_ANSWER_ACTION_LIMIT = 3/, 'AI answers must cap visible actions to avoid clutter');
 assert.match(js, /const AI_ANSWER_EVIDENCE_LIMIT = 4/, 'AI answers must keep enough traceable evidence without expanding the first screen');
 assert.match(js, /const primaryCards = \(report\.cards \|\| \[\]\)\.slice\(0, AI_ANSWER_CARD_LIMIT\)/, 'AI answer renderer must only show primary metric cards');
+assert.match(js, /const primaryReasons = \(report\.reasons \|\| \[\]\)\.filter\(Boolean\)\.slice\(0, 3\)/, 'AI answer renderer must expose a short user-facing reason list');
+assert.match(js, /class="ai-reason-list"/, 'AI answer renderer must show key reasons without restoring internal sections');
 assert.doesNotMatch(js, /AI_ANSWER_SECTION_LIMIT|AI_ANSWER_SECTION_ROW_LIMIT/, 'AI answer renderer must not expose explanatory sections as another main-screen block');
 assert.match(js, /const primaryActions = \(report\.actions \|\| \[\]\)\.slice\(0, AI_ANSWER_ACTION_LIMIT\)/, 'AI answer renderer must only show primary actions');
 assert.match(js, /const primaryEvidence = \(report\.evidence \|\| \[\]\)\.slice\(0, AI_ANSWER_EVIDENCE_LIMIT\)/, 'AI answer renderer must only show primary evidence');
@@ -397,6 +399,7 @@ assert.doesNotMatch(css, /\.ai-enhancement-card/, 'AI enhancement card styles sh
 assert.match(css, /\.ai-action-block/, 'AI action block styles must exist');
 assert.doesNotMatch(css, /\.ai-supporting-notes/, 'AI supporting notes styles should be removed when hidden from the product UI');
 assert.doesNotMatch(css, /\.ai-section/, 'AI section styles should be removed from the main answer result');
+assert.match(css, /\.ai-reason-list/, 'AI key reason list styles must exist');
 assert.doesNotMatch(css, /\.ai-trust-panel/, 'AI judgment-basis panel styles should be removed when hidden from the product UI');
 assert.doesNotMatch(css, /\.ai-trust-row/, 'AI judgment-basis row styles should be removed when hidden from the product UI');
 assert.match(css, /\.ai-filter-notice/, 'AI-filtered competition lists must show a visible filter notice');
