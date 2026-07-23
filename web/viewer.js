@@ -3338,6 +3338,26 @@ function renderParentGrowthReport(athleteId = '') {
         `).join('')}
       </div>
     </article>
+    <article class="panel parent-growth-report-card">
+      <div class="section-title">
+        <h2>下一步关注点</h2>
+        <span>训练沟通</span>
+      </div>
+      <div class="parent-growth-focus-list">
+        ${focusRows.map((row) => `
+          <div>
+            <strong>${escapeHtml(row.title)}</strong>
+            <span>${escapeHtml(row.detail)}</span>
+          </div>
+        `).join('')}
+      </div>
+    </article>
+
+    <details class="parent-growth-detail-fold">
+      <summary>
+        <strong>完整成长复盘</strong>
+        <span>查看胶着局、同组位置、重点对手和参赛记录</span>
+      </summary>
     <article class="panel parent-growth-report-card parent-close-bout">
       <div class="section-title">
         <h2>胶着局表现</h2>
@@ -3377,21 +3397,6 @@ function renderParentGrowthReport(athleteId = '') {
         `).join('') : '<div class="empty compact-empty">还没有足够的同项目样本。比赛记录更完整后，会在这里显示横向位置和可参考对象。</div>'}
       </div>
     </article>
-    <article class="panel parent-growth-report-card">
-      <div class="section-title">
-        <h2>下一步关注点</h2>
-        <span>训练沟通</span>
-      </div>
-      <div class="parent-growth-focus-list">
-        ${focusRows.map((row) => `
-          <div>
-            <strong>${escapeHtml(row.title)}</strong>
-            <span>${escapeHtml(row.detail)}</span>
-          </div>
-        `).join('')}
-      </div>
-    </article>
-
     <article class="panel parent-growth-report-card parent-opponent-tracking">
       <div class="section-title">
         <h2>重点对手追踪</h2>
@@ -3480,6 +3485,7 @@ function renderParentGrowthReport(athleteId = '') {
       </div>
       <button class="primary-action compact-action" type="button" data-athlete-id="${escapeHtml(athlete.id)}">查看完整选手画像</button>
     </article>
+    </details>
 
     ${reportConversionCard({
       source: 'parent-growth-report',
@@ -3991,7 +3997,7 @@ function membershipBenefitRows() {
   return [
     {
       title: '家庭成长跟踪',
-      detail: '持续保存成长报告、阶段建议和近期比赛提醒，方便复盘投入效果。',
+      detail: '持续保存成长报告、阶段建议和近期比赛提醒，方便复盘成长变化。',
     },
     {
       title: '赛前提醒',
@@ -4042,9 +4048,9 @@ function homeDataValueRows() {
     },
     {
       key: 'parent-growth',
-      label: '家长决策',
+      label: '成长复盘',
       title: '成长报告',
-      detail: child ? `${child.name} · ${child.summary}` : '关注孩子后生成成长趋势和投入判断',
+      detail: child ? `${child.name} · ${child.summary}` : '关注孩子后生成成长趋势和阶段变化',
       query: child ? `${child.name}最近几场有没有进步` : '查看家长成长报告',
     },
     {

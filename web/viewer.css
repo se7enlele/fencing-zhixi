@@ -6972,6 +6972,63 @@ select:focus {
   gap: 10px;
 }
 
+.parent-growth-detail-fold {
+  display: grid;
+  gap: 10px;
+  border: 1px solid rgba(15, 92, 192, 0.1);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 10px;
+}
+
+.parent-growth-detail-fold > summary {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 4px 10px;
+  align-items: center;
+  cursor: pointer;
+  list-style: none;
+}
+
+.parent-growth-detail-fold > summary::-webkit-details-marker {
+  display: none;
+}
+
+.parent-growth-detail-fold > summary::after {
+  content: "展开";
+  border-radius: 999px;
+  background: rgba(11, 135, 116, 0.1);
+  color: var(--teal);
+  font-size: 12px;
+  font-weight: 900;
+  padding: 6px 10px;
+}
+
+.parent-growth-detail-fold[open] > summary::after {
+  content: "收起";
+}
+
+.parent-growth-detail-fold > summary strong,
+.parent-growth-detail-fold > summary span {
+  display: block;
+  min-width: 0;
+}
+
+.parent-growth-detail-fold > summary strong {
+  color: var(--text);
+  font-size: 15px;
+  font-weight: 900;
+}
+
+.parent-growth-detail-fold > summary span {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.parent-growth-detail-fold > .parent-growth-report-card {
+  margin-top: 10px;
+}
+
 .parent-growth-decision > strong {
   color: var(--teal);
   font-size: 24px;

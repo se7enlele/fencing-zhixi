@@ -64,6 +64,9 @@ assert.match(js, /data-ai-query="\$\{escapeHtml\(row\.query\)\}"/, 'opponent tra
 assert.match(js, /parentGrowthReportBody\.querySelectorAll\('\[data-ai-query\]'\)/, 'growth report must bind opponent analysis actions');
 assert.match(js, /重点对手：/, 'growth report share text must include opponent summary lines');
 assert.match(js, /class="parent-growth-focus-list"/, 'growth report must render next focus points');
+assert.match(js, /class="parent-growth-detail-fold"/, 'growth report must fold deeper review modules behind a compact entry');
+assert.match(js, /完整成长复盘/, 'growth report must label the folded deep review in parent-facing language');
+assert.match(js, /下一步关注点[\s\S]*class="parent-growth-detail-fold"/, 'growth report must show next focus points before deeper review modules');
 assert.match(js, /class="parent-growth-action-list"/, 'growth report must render a family action plan');
 assert.match(js, /家庭执行计划/, 'growth report must label the family action plan clearly');
 assert.match(js, /class="panel parent-growth-report-card parent-growth-communication"/, 'growth report must render family communication cards');
@@ -97,6 +100,8 @@ assert.match(js, /查看完整选手画像/, 'growth report must allow drilling 
 
 assert.match(css, /\.parent-growth-report-shell/, 'parent growth report shell styles must exist');
 assert.match(css, /\.parent-growth-report-card/, 'parent growth report card styles must exist');
+assert.match(css, /\.parent-growth-detail-fold/, 'parent growth detail fold styles must exist');
+assert.match(css, /\.parent-growth-detail-fold > summary/, 'parent growth detail fold summary must be styled');
 assert.match(css, /\.parent-growth-decision/, 'parent growth decision styles must exist');
 assert.match(css, /\.parent-growth-metrics/, 'parent growth metric styles must exist');
 assert.match(css, /\.parent-investment-signal-list/, 'parent investment signal list styles must exist');
