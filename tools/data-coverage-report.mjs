@@ -42,7 +42,7 @@ function competitionCoverage(competition, scoreSportCodes = new Set()) {
 function statusGroup(competition) {
   if (competition.status === 'registration') return '报名中';
   if (competition.status === 'upcoming') return '未开赛';
-  if (competition.status === 'running') return '进行中';
+  if (competition.status === 'live' || competition.status === 'running') return '进行中';
   if (competition.status === 'completed') return '已结束';
   return competition.status || '待确认';
 }
@@ -73,7 +73,7 @@ function businessPriority(competition) {
     score += 40;
     reasons.push('山东区域');
   }
-  if (['registration', 'upcoming', 'running'].includes(competition.status)) {
+  if (['registration', 'upcoming', 'live', 'running'].includes(competition.status)) {
     score += 35;
     reasons.push('赛前/近期');
   }
