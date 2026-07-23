@@ -29,6 +29,14 @@ async function openHome(page, suffix = '') {
   await waitForReady(page);
 }
 
+async function visibleAiAnswer(page, timeout = 45000) {
+  const answer = page.locator('#aiAnswer .ai-answer-card:visible').first();
+  await answer.waitFor({ state: 'visible', timeout });
+  await answer.evaluate((node) => node.scrollIntoView({ block: 'start', inline: 'nearest', behavior: 'instant' }));
+  await page.waitForTimeout(200);
+  return answer;
+}
+
 async function runAiQuery(page, query) {
   await page.evaluate((text) => {
     const input = document.querySelector('#aiQueryInput');
@@ -39,8 +47,7 @@ async function runAiQuery(page, query) {
     input.dispatchEvent(new Event('change', { bubbles: true }));
     form.__runAiQuery?.(text);
   }, query);
-  await page.locator('#aiAnswer .ai-answer-card:visible').first().waitFor({ state: 'visible', timeout: 45000 });
-  await page.waitForTimeout(250);
+  await visibleAiAnswer(page);
 }
 
 async function activeViewId(page) {
@@ -86,7 +93,7 @@ async function auditFocusedHome(page) {
 async function auditGenericFallback(page) {
   await openHome(page, '-generic');
   await runAiQuery(page, '随便看看');
-  const answer = page.locator('#aiAnswer .ai-answer-card').first();
+  const answer = await visibleAiAnswer(page);
   const labels = await answer.locator('.ai-action-row button').evaluateAll((nodes) => nodes.map((node) => node.textContent.trim()));
   assertAudit(labels[0] === '进入数据库', 'generic fallback first action should open database', { labels });
   assertAudit(labels.slice(0, 3).some((label) => label.includes('问')), 'generic fallback should keep runnable rewritten questions visible', { labels });
@@ -98,7 +105,7 @@ async function auditGenericFallback(page) {
 async function auditAiDatabaseEvidenceContext(page) {
   await openHome(page, '-ai-database-evidence');
   await runAiQuery(page, '2026年天津有几场比赛');
-  const answer = page.locator('#aiAnswer .ai-answer-card').first();
+  const answer = await visibleAiAnswer(page);
   const labels = await answer.locator('.ai-action-row button').evaluateAll((nodes) => nodes.map((node) => node.textContent.trim()));
   const listAction = labels.find((label) => label.includes('这几场赛事'))
     || labels.find((label) => label.includes('赛事列表'))
@@ -118,7 +125,7 @@ async function auditAiDatabaseEvidenceContext(page) {
 async function auditChildFallback(page) {
   await openHome(page, '-child');
   await runAiQuery(page, '孩子击剑值不值得继续');
-  const answer = page.locator('#aiAnswer .ai-answer-card').first();
+  const answer = await visibleAiAnswer(page);
   const labels = await answer.locator('.ai-action-row button').evaluateAll((nodes) => nodes.map((node) => node.textContent.trim()));
   assertAudit(labels[0] === '管理关注对象', 'child fallback first action should open My page', { labels });
   await answer.locator('.ai-action-row button', { hasText: '管理关注对象' }).first().click();

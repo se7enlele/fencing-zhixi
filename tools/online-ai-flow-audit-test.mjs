@@ -15,6 +15,10 @@ assert.match(source, /function userJudgmentForResult\(/, 'online AI audit must c
 assert.match(source, /function markdownReport\(payload\)/, 'online AI audit must produce a markdown real-user evaluation report');
 assert.match(source, /real-user-ai-evaluation-\$\{runId\}\.md/, 'online AI audit must save the markdown evaluation artifact');
 assert.match(source, /document\.body\?\.dataset\?\.fencingaiReady === 'true'/, 'online AI audit must wait for the app-level data-ready marker before submitting questions');
+assert.match(source, /async function visibleAiAnswer\(page, timeout = 45000\)/, 'online AI audit must centralize visible answer waiting');
+assert.match(source, /#aiAnswer \.ai-answer-card:visible/, 'online AI audit must wait for a visible answer card');
+assert.match(source, /scrollIntoView\(\{ block: 'start', inline: 'nearest', behavior: 'instant' \}\)/, 'online AI audit must scroll the rendered answer into view before measuring');
+assert.match(source, /async function answerViewportBox\(page, answer\)/, 'online AI audit must retry answer viewport measurement before failing');
 
 assert.match(packageJson, /"audit:online-p0": "node tools\/online-p0-interaction-audit\.mjs"/, 'package scripts must expose the P0 interaction audit');
 assert.match(p0Source, /const expectedAssetVersion = process\.env\.FENCINGAI_EXPECTED_ASSET_VERSION \|\| 'fencingai-product-20260723-ai-reasons-1'/, 'P0 audit must verify the deployed asset version');
@@ -22,6 +26,8 @@ assert.match(p0Source, /async function auditAssetVersion\(page\)/, 'P0 audit mus
 assert.match(p0Source, /assets\.script\.includes\(expectedAssetVersion\)/, 'P0 audit must require the expected viewer.js version');
 assert.match(p0Source, /assets\.stylesheet\.includes\(expectedAssetVersion\)/, 'P0 audit must require the expected viewer.css version');
 assert.match(p0Source, /#aiAnswer \.ai-answer-card:visible/, 'P0 audit must wait for the visible AI answer card, not a hidden stale instance');
+assert.match(p0Source, /async function visibleAiAnswer\(page, timeout = 45000\)/, 'P0 audit must centralize visible answer waiting');
+assert.match(p0Source, /await visibleAiAnswer\(page\);/, 'P0 audit query runner must scroll to the rendered answer before continuing');
 assert.match(p0Source, /async function auditFocusedHome\(page\)/, 'P0 audit must verify the focused landing page structure');
 assert.match(p0Source, /priorityCards === 1/, 'P0 audit must catch stacked home priority cards');
 assert.match(p0Source, /result\.text\.includes\('下一步'\) && !result\.text\.includes\('关注与赛事'\)/, 'P0 audit must require the focused next-step heading');

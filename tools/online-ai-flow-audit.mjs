@@ -212,6 +212,24 @@ function assertCase(condition, message, details = {}) {
   }
 }
 
+async function visibleAiAnswer(page, timeout = 45000) {
+  const answer = page.locator('#aiAnswer .ai-answer-card:visible').first();
+  await answer.waitFor({ state: 'visible', timeout });
+  await answer.evaluate((node) => node.scrollIntoView({ block: 'start', inline: 'nearest', behavior: 'instant' }));
+  await page.waitForTimeout(200);
+  return answer;
+}
+
+async function answerViewportBox(page, answer) {
+  for (let attempt = 0; attempt < 3; attempt += 1) {
+    const box = await answer.boundingBox();
+    if (box) return box;
+    await answer.evaluate((node) => node.scrollIntoView({ block: 'start', inline: 'nearest', behavior: 'instant' })).catch(() => {});
+    await page.waitForTimeout(250);
+  }
+  return null;
+}
+
 async function runCase(page, testCase) {
   await openAuditHome(page, `case-${testCase.id}`);
   const inputLocator = page.locator('#aiQueryInput:visible').first();
@@ -281,9 +299,9 @@ async function runCase(page, testCase) {
   );
   await page.waitForTimeout(300);
 
-  const answer = page.locator('#aiAnswer .ai-answer-card').first();
+  const answer = await visibleAiAnswer(page);
   const text = await answer.innerText();
-  const viewportTop = await answer.boundingBox();
+  const viewportTop = await answerViewportBox(page, answer);
   const actionLabels = await answer.locator('.ai-action-row button').evaluateAll((nodes) => nodes.map((node) => node.textContent.trim()));
   const metricCount = await answer.locator('.ai-metric').count();
   const sectionCount = await answer.locator('.ai-section').count();
