@@ -8079,6 +8079,59 @@ select:focus {
   gap: 8px;
 }
 
+.club-share-projects {
+  display: grid;
+  gap: 7px;
+}
+
+.club-share-projects::before {
+  content: "适合对外展示的项目";
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.club-share-projects div {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 3px 8px;
+  min-width: 0;
+  border: 1px solid rgba(13, 125, 103, 0.12);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.78);
+  padding: 8px 9px;
+}
+
+.club-share-projects strong,
+.club-share-projects span,
+.club-share-projects em {
+  display: block;
+  min-width: 0;
+}
+
+.club-share-projects strong {
+  overflow: hidden;
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 900;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.club-share-projects span {
+  color: var(--primary);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.club-share-projects em {
+  grid-column: 1 / -1;
+  color: var(--muted);
+  font-size: 12px;
+  font-style: normal;
+  line-height: 1.45;
+}
+
 .club-share-proof::before {
   content: "可核对成绩依据";
   color: var(--muted);

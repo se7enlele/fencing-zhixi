@@ -13150,17 +13150,38 @@ function clubRecruitingProofRows(club, projectRows, athletes) {
   ].slice(0, 4);
 }
 
+function clubRecruitingProjectRows(projectRows = []) {
+  return coachProjectMatrixRows(projectRows)
+    .filter((row) => row.entrants > 0 || row.top8 > 0 || row.medals > 0)
+    .slice(0, 3)
+    .map((row) => {
+      const result = row.medals
+        ? `${row.medals} 枚奖牌`
+        : row.top8
+          ? `${row.top8} 次前八`
+          : `${row.entrants} 人次参赛`;
+      return {
+        label: row.label,
+        result,
+        detail: `${row.projectCount} 个项目，${row.entrants} 人次参赛。`,
+      };
+    });
+}
+
 function buildClubShareText(club, projectRows, athletes) {
   const highlights = clubShareHighlights(club, projectRows, athletes);
   const bestProject = [...projectRows].sort((a, b) => (a.bestRank ?? 999) - (b.bestRank ?? 999))[0];
   const strongestAthlete = athletes[0];
   const scripts = buildClubCommunicationScripts(club, projectRows, athletes);
   const proofRows = clubRecruitingProofRows(club, projectRows, athletes);
+  const recruitingProjects = clubRecruitingProjectRows(projectRows);
   const lines = [
     `${club.club} 击剑招生名片`,
     highlights.slice(0, 4).join('，'),
     bestProject ? `优势项目：${bestProject.label}，参赛 ${bestProject.entrants || 0} 人次，最好第 ${bestProject.bestRank ?? '-'} 名。` : '',
     strongestAthlete ? `代表学员：${strongestAthlete.name}，最好第 ${strongestAthlete.bestRank ?? '-'} 名，${strongestAthlete.appearances || 0} 次参赛记录。` : '',
+    recruitingProjects.length ? '适合对外展示的项目：' : '',
+    ...recruitingProjects.map((row) => `${row.label}：${row.result}，${row.detail}`),
     proofRows.length ? '可核对成绩依据：' : '',
     ...proofRows.map((row) => `${row.title}：${row.value}，${row.detail}`),
     scripts.length ? '对外沟通重点：' : '',
@@ -13225,6 +13246,7 @@ function renderClubCommunicationScripts(club, projectRows, athletes) {
 function renderClubShareCard(club, projectRows, athletes) {
   const highlights = clubShareHighlights(club, projectRows, athletes).slice(0, 4);
   const proofRows = clubRecruitingProofRows(club, projectRows, athletes);
+  const recruitingProjects = clubRecruitingProjectRows(projectRows);
   return `
     <section class="coach-section club-share-section">
       <div class="section-title">
@@ -13240,6 +13262,17 @@ function renderClubShareCard(club, projectRows, athletes) {
         <div class="club-share-kpis">
           ${highlights.map((text) => `<span>${escapeHtml(text)}</span>`).join('')}
         </div>
+        ${recruitingProjects.length ? `
+          <div class="club-share-projects">
+            ${recruitingProjects.map((row) => `
+              <div>
+                <strong>${escapeHtml(row.label)}</strong>
+                <span>${escapeHtml(row.result)}</span>
+                <em>${escapeHtml(row.detail)}</em>
+              </div>
+            `).join('')}
+          </div>
+        ` : ''}
         <div class="club-share-proof">
           ${proofRows.map((row) => `
             <div>
