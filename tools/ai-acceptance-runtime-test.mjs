@@ -47,6 +47,7 @@ const functionNames = [
   'coverageLabel',
   'coverageDetail',
   'competitionCoverageLevel',
+  'competitionCoverageState',
   'rosterAthleteLabel',
   'rosterClubText',
   'rosterEventLabel',
@@ -428,6 +429,9 @@ assert.ok(missingDataQuestion.cards.some(([label, value]) => label === '\u8d5b\u
 assert.ok(missingDataQuestion.cards.some(([label]) => label === '\u9879\u76ee\u540d\u5355'), 'missing-data diagnosis should expose project availability for the similar event');
 assert.ok(missingDataQuestion.cards.some(([label]) => label === '\u62a5\u540d\u540d\u5355'), 'missing-data diagnosis should expose roster availability for the similar event');
 assert.ok(missingDataQuestion.cards.some(([label]) => label === '\u8d5b\u679c\u6210\u7ee9'), 'missing-data diagnosis should expose result availability for the similar event');
+assert.ok(missingDataQuestion.cards.some(([label, value]) => label === '\u9879\u76ee\u540d\u5355' && value === '\u53ef\u67e5\u770b'), 'missing-data diagnosis should show project data as available when the similar event has items');
+assert.ok(missingDataQuestion.cards.some(([label, value]) => label === '\u62a5\u540d\u540d\u5355' && value === '\u6682\u65e0\u540d\u5355'), 'missing-data diagnosis should distinguish missing rosters from unavailable events');
+assert.ok(missingDataQuestion.cards.some(([label, value]) => label === '\u8d5b\u679c\u6210\u7ee9' && value === '\u6682\u65e0\u6210\u7ee9'), 'missing-data diagnosis should distinguish missing scores from unavailable events');
 assert.ok(missingDataQuestion.actions.some((action) => action.sportCode === 'BJLEAGUE2026S1'), 'missing-data diagnosis should let users open the similar competition');
 assert.ok(missingDataQuestion.sections.some((section) => section.title === '\u53ef\u4ee5\u8fd9\u6837\u6838\u5bf9'), 'missing-data diagnosis should provide verification guidance');
 assert.ok(missingDataQuestion.sections.some((section) => section.title === '\u53ef\u67e5\u5185\u5bb9'), 'missing-data diagnosis should show a visible coverage section for similar events');

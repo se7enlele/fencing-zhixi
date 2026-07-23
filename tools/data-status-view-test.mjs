@@ -5,9 +5,12 @@ const js = await readFile(new URL('../web/viewer.js', import.meta.url), 'utf8');
 const css = await readFile(new URL('../web/viewer.css', import.meta.url), 'utf8');
 
 assert.match(js, /function competitionCoverageLevel\(competition\)/, 'home data status must classify competition coverage');
+assert.match(js, /function competitionCoverageState\(competition = \{\}\)/, 'competition coverage state must centralize visible layer labels');
 assert.match(js, /function competitionCoverageStageRows\(competition\)/, 'competition detail must derive unified user-facing coverage stages');
 assert.match(js, /function renderCompetitionCoverageStages\(competition\)/, 'competition detail must render unified coverage stages');
 assert.match(js, /title: '赛程'[\s\S]*title: '项目'[\s\S]*title: '名单'[\s\S]*title: '成绩'/, 'coverage stages must explain schedule, project, roster and result availability');
+assert.match(js, /score: hasScore \? '可查看' : isLive \? '比赛进行中' : isPreStart \? '未开赛' : '暂无成绩'/, 'coverage state must separate live, pre-start and finished-without-score result states');
+assert.match(js, /roster: hasRoster \? '可查看' : \(isFinished \? '暂无名单' : '暂无名单'\)/, 'coverage state must clearly mark missing rosters as unavailable instead of pending forever');
 assert.match(js, /function dataCoveragePriorityRows\(competitions, limit = 3\)/, 'home data status must surface priority gaps');
 assert.match(js, /function homeServiceReadinessRows\(coverage, competitions = state\.competitions \|\| \[\]\)/, 'home data status must derive service readiness from current coverage');
 assert.match(js, /function renderHomeDataCoverage\(\)/, 'home page must render product-facing data coverage status');

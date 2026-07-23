@@ -1358,8 +1358,10 @@ function scheduledSyncStatusLabel(syncStatus) {
 
 function coverageLabel(competition) {
   if (competition.isPlatformEventList && !competitionHasItems(competition)) return '基础信息';
+  if (competition.status === 'live') return '比赛进行中';
   if (competition.rosterStatus === 'partial' || competition.rosterStatus === 'complete') return '报名信息';
   if (competition.isPreEvent) return '项目明细';
+  if (competitionCoverageLevel(competition) !== 'score') return '成绩待查看';
   return '完整赛果';
 }
 
@@ -1374,9 +1376,16 @@ function coverageDetail(competition) {
   if (competition.isPlatformEventList && !competitionHasItems(competition)) {
     return '可先关注赛程、地点和报名节奏。';
   }
+  if (competition.status === 'live') {
+    const level = competitionCoverageLevel(competition);
+    if (level === 'score') return '比赛进行中，可优先查看已出结果的项目和需要继续关注的组别。';
+    if (level === 'roster') return '比赛进行中，可先查看报名名单、项目安排和成绩更新。';
+    return '比赛进行中，可先关注赛程、项目安排和成绩更新。';
+  }
   if (competition.rosterStatus === 'partial') return '报名信息陆续公布，可先查看项目热度和初步赛前对标。';
   if (competition.rosterStatus === 'complete') return '报名信息已完整，可查看赛前对手、强手和熟悉对手分析。';
   if (competition.isPreEvent) return '可查看组别、剑种和报名规模。';
+  if (competitionCoverageLevel(competition) !== 'score') return '赛事已结束，但暂时还没有可查看的完整成绩。';
   return '赛果数据已完整，可查看排名、小组赛、淘汰赛和选手画像。';
 }
 
@@ -2151,32 +2160,50 @@ function competitionAvailableLayerLabels(competition) {
   return labels;
 }
 
-function competitionCoverageStageRows(competition) {
+function competitionCoverageState(competition = {}) {
   const level = competitionCoverageLevel(competition);
+  const status = competition.status || 'completed';
   const hasProject = ['project', 'roster', 'score'].includes(level);
   const hasRoster = ['roster', 'score'].includes(level);
   const hasScore = level === 'score';
-  const isFinished = (competition.status || 'completed') === 'completed';
+  const isLive = status === 'live';
+  const isFinished = status === 'completed';
+  const isPreStart = ['registration', 'upcoming'].includes(status);
+  return {
+    level,
+    status,
+    hasProject,
+    hasRoster,
+    hasScore,
+    schedule: '可查看',
+    project: hasProject ? '可查看' : (isLive ? '关注赛程' : '待公布'),
+    roster: hasRoster ? '可查看' : (isFinished ? '暂无名单' : '暂无名单'),
+    score: hasScore ? '可查看' : isLive ? '比赛进行中' : isPreStart ? '未开赛' : '暂无成绩',
+  };
+}
+
+function competitionCoverageStageRows(competition) {
+  const coverage = competitionCoverageState(competition);
   return [
     {
       title: '赛程',
-      value: '可查看',
+      value: coverage.schedule,
       ready: true,
     },
     {
       title: '项目',
-      value: hasProject ? '可查看' : '待公布',
-      ready: hasProject,
+      value: coverage.project,
+      ready: coverage.hasProject,
     },
     {
       title: '名单',
-      value: hasRoster ? '可查看' : '待公布',
-      ready: hasRoster,
+      value: coverage.roster,
+      ready: coverage.hasRoster,
     },
     {
       title: '成绩',
-      value: hasScore ? '可查看' : (isFinished ? '待整理' : '未开赛'),
-      ready: hasScore,
+      value: coverage.score,
+      ready: coverage.hasScore,
     },
   ];
 }
@@ -6207,28 +6234,22 @@ function missingCompetitionCoverageCards(competitionLike, relatedCompetitions = 
 }
 
 function competitionCoverageStageCards(competition) {
-  const level = competitionCoverageLevel(competition || {});
-  const hasProject = ['project', 'roster', 'score'].includes(level);
-  const hasRoster = ['roster', 'score'].includes(level);
-  const hasScore = level === 'score';
+  const coverage = competitionCoverageState(competition || {});
   return [
     ['赛事记录', competition?.sportName ? '找到相近' : '未找到'],
-    ['项目名单', hasProject ? '可查看' : '先核对赛事'],
-    ['报名名单', hasRoster ? '可查看' : '先核对赛事'],
-    ['赛果成绩', hasScore ? '可查看' : '暂未看到'],
+    ['项目名单', coverage.hasProject ? '可查看' : '先核对赛事'],
+    ['报名名单', coverage.hasRoster ? '可查看' : coverage.roster],
+    ['赛果成绩', coverage.score],
   ];
 }
 
 function competitionCoverageDiagnosisRows(competition) {
-  const level = competitionCoverageLevel(competition || {});
-  const hasProject = ['project', 'roster', 'score'].includes(level);
-  const hasRoster = ['roster', 'score'].includes(level);
-  const hasScore = level === 'score';
+  const coverage = competitionCoverageState(competition || {});
   return [
     `赛事记录：已找到相近赛事 ${competition.sportName}。`,
-    `项目名单：${hasProject ? '可以打开赛事详情查看。' : '先打开赛事确认项目安排。'}`,
-    `报名名单：${hasRoster ? '可以查看报名相关信息。' : '先核对赛事后再看报名情况。'}`,
-    `赛果成绩：${hasScore ? '可以查看成绩和对阵。' : '暂时没有看到完整赛果。'}`,
+    `项目名单：${coverage.hasProject ? '可以打开赛事详情查看。' : '先打开赛事确认项目安排。'}`,
+    `报名名单：${coverage.hasRoster ? '可以查看报名相关信息。' : `${coverage.roster}，先核对赛事后再看报名情况。`}`,
+    `赛果成绩：${coverage.hasScore ? '可以查看成绩和对阵。' : `${coverage.score}，可继续关注项目和赛果更新。`}`,
   ];
 }
 

@@ -111,6 +111,9 @@ assert.match(source, /const labels = \['赛程'\];[\s\S]*labels\.push\('项目'\
 assert.match(source, /class="available-layer-row" aria-label="可查内容"[\s\S]*competitionAvailableLayerLabels\(competition\)/, 'competition list cards must show available data layers before entering detail');
 assert.match(css, /\.available-layer-row/, 'competition available data layer tags must be styled');
 assert.match(source, /function competitionCoverageStageRows\(competition\)/, 'competition detail must derive unified user-facing coverage stages');
+assert.match(source, /function competitionCoverageState\(competition = \{\}\)/, 'competition detail must use a shared coverage state helper');
+assert.match(source, /score: hasScore \? '可查看' : isLive \? '比赛进行中' : isPreStart \? '未开赛' : '暂无成绩'/, 'competition detail must distinguish live, pre-start and finished-without-score states');
+assert.match(source, /roster: hasRoster \? '可查看' : \(isFinished \? '暂无名单' : '暂无名单'\)/, 'competition detail must show missing roster state clearly');
 assert.match(source, /function renderCompetitionCoverageStages\(competition\)/, 'competition detail must render coverage stages');
 assert.match(source, /renderCompetitionCoverageStages\(competition\)/, 'competition hero must show what users can view for this competition');
 assert.match(source, /title: '赛程'[\s\S]*title: '项目'[\s\S]*title: '名单'[\s\S]*title: '成绩'/, 'competition coverage stages must use user-facing availability labels');
