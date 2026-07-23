@@ -9405,7 +9405,7 @@ function renderMyPage() {
 
     <section class="panel my-section">
       <div class="section-title">
-        <h2>赛事数据</h2>
+        <h2>资料更新</h2>
         <span>${escapeHtml(generatedLabel || '最近更新待确认')}</span>
       </div>
       <div class="my-status-note">
@@ -9425,10 +9425,6 @@ function renderMyPage() {
     renderRoleWorkspacePremium();
     showView('roleHome');
     scrollToPageTop();
-  });
-  myPage.querySelector('[data-account-login]')?.addEventListener('submit', (event) => {
-    event.preventDefault();
-    submitAccountLogin(event.currentTarget);
   });
   myPage.querySelector('[data-account-open-login]')?.addEventListener('click', () => {
     state.showAccountLoginForm = false;

@@ -395,6 +395,9 @@ assert.match(js, /data-focus-follow/, 'follow recommendations must expose a dire
 assert.match(js, /openPrematchReport\('prematch-pack', button\.dataset\.focusPrematch \|\| ''\)/, 'follow prematch action must open the scoped prematch report');
 assert.match(js, /upsertFollowedCompetition\(competition\)/, 'follow recommendation action must persist the recommended competition');
 assert.match(js, /function renderMyPage\(\)/, 'my page renderer must exist');
+const renderMyPageSource = js.slice(js.indexOf('function renderMyPage()'), js.indexOf('function updateHomeStats'));
+assert.doesNotMatch(renderMyPageSource, /<form class="account-login-form" data-account-login>|手机号或邮箱|<span>密码<\/span>|data-account-login'\]\)/, 'my page must not render or bind the account login form inline');
+assert.match(renderMyPageSource, /<h2>资料更新<\/h2>/, 'my page status card must use customer-facing update copy');
 assert.match(js, /AUTH_TOKEN_KEY = 'fencingai\.authToken\.v1'/, 'account auth token must be persisted separately from public device state');
 assert.match(js, /AUTH_USER_KEY = 'fencingai\.authUser\.v1'/, 'account user summary must be persisted locally for fast page restore');
 assert.match(js, /function renderAccountPanel\(\)[\s\S]*return renderAccountPanelV2\(\);[\s\S]*function accountProfileCounts/, 'legacy account panel must delegate to the form-free account center');
