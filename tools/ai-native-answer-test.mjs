@@ -321,6 +321,7 @@ assert.match(js, /function renderAiConversionBlock\(report = \{\}\)/, 'AI answer
 assert.match(js, /<b>试用包含<\/b>/, 'AI conversion blocks must show a concrete trial contents label');
 assert.match(js, /aiConversionServiceRows\(report\)/, 'AI conversion blocks must derive trial contents from the report type');
 assert.doesNotMatch(js, /function aiAnswerMetaRows\(report = \{\}\)/, 'AI answers must not keep unused internal metadata helpers that can return to the UI');
+assert.doesNotMatch(js, /function aiTrustRows\(report\)/, 'AI answers must not keep unused internal trust-row helpers that can return to the UI');
 assert.doesNotMatch(js, /class="ai-answer-meta"/, 'AI answer renderer must not show internal question/evidence/action metadata cards');
 assert.doesNotMatch(js, /label: '问题'[\s\S]*label: '证据'[\s\S]*label: '动作'/, 'AI answers must not expose internal metadata labels');
 assert.match(js, /可核对记录/, 'AI answers must expose traceability through a first-screen evidence block instead of metadata cards');
