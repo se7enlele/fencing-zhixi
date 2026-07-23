@@ -872,6 +872,7 @@ function aiHistoryTypeLabel(type) {
   const labels = {
     'capability-guide': '使用指南',
     'official-directory': '人员资料',
+    'competition-lookup': '赛事查询',
     'competition-stats': '赛事统计',
     prematch: '赛前分析',
     growth: '成长分析',
@@ -7354,7 +7355,7 @@ function buildAiCompetitionLookupReport(query, competition) {
   const currentStatus = statusLabel(competition.status);
 
   return {
-    type: 'competition-stats',
+    type: 'competition-lookup',
     title,
     summary: [date, venue, currentStatus].filter(Boolean).join(' / ') || '\u5df2\u5339\u914d\u5230\u8d5b\u4e8b\u8bb0\u5f55\u3002',
     cards: [
@@ -8882,7 +8883,7 @@ function aiResultActionTitle(report = {}) {
     if (hasQueryAction && hasDirectAction) return '选择对象或继续问';
     return hasQueryAction ? '继续这样问' : '选择一个结果';
   }
-  if (report.type === 'competition-stats' || report.type === 'prematch') return '查看赛事';
+  if (report.type === 'competition-lookup' || report.type === 'competition-stats' || report.type === 'prematch') return '查看赛事';
   if (report.type === 'growth' || report.type === 'comparison') return '查看选手';
   if (report.type === 'club' || report.type === 'club-comparison' || report.type === 'club-recruiting') return '查看剑馆';
   if (report.type === 'business-insight' || report.type === 'product-template') return '查看报告';
@@ -8899,6 +8900,7 @@ function aiAnswerTypeLabel(report = {}) {
   if (report.type === 'product-template') return '分析报告';
   if (report.type === 'club-recruiting') return '招生展示';
   if (report.type === 'official-directory') return '人员资料';
+  if (report.type === 'competition-lookup') return '赛事查询';
   if (report.type === 'competition-stats') return '赛事统计';
   if (report.type === 'empty') return '开始提问';
   if (report.type === 'fallback') {

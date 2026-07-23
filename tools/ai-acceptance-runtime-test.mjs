@@ -418,7 +418,7 @@ assert.equal(
 );
 
 const namedCompetition = context.buildAiAnswer('\u5317\u4eac\u51fb\u5251\u8054\u8d5b\u7b2c\u4e00\u7ad9');
-assert.equal(namedCompetition.type, 'competition-stats', 'plain competition-name questions should route to competition lookup');
+assert.equal(namedCompetition.type, 'competition-lookup', 'plain competition-name questions should route to a competition lookup instead of regional stats');
 assert.match(namedCompetition.title, /\u5317\u4eac\u5e02\u51fb\u5251\u8054\u8d5b/, 'competition lookup should show the matched competition name');
 assert.equal(namedCompetition.evidence[0].sportCode, 'BJLEAGUE2026S1', 'competition lookup should cite the matched competition');
 assert.equal(namedCompetition.actions.find((action) => action.sportCode)?.sportCode, 'BJLEAGUE2026S1', 'competition lookup should open the matched competition directly');

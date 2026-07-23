@@ -248,11 +248,13 @@ assert.match(js, /state\.selectedAiMonth/, 'AI competition filters must preserve
 assert.match(js, /state\.selectedAiYears/, 'AI competition filters must preserve multi-year constraints that are not visible in the standard filter chips');
 assert.match(js, /function aiAnswerTypeLabel\(report = \{\}\)/, 'AI answer type labels must be centralized');
 assert.match(js, /if \(report\.type === 'prematch'\) return '赛前提醒';/, 'AI answer header must label prematch reports');
+assert.match(js, /if \(report\.type === 'competition-lookup'\) return '赛事查询';/, 'competition-name lookup answers should have a specific user-facing type label');
 assert.match(js, /if \(report\.type === 'business-insight'\) return '经营分析';/, 'AI answer header must label business insight reports in user-facing language');
 assert.match(js, /if \(report\.type === 'product-template'\) return '分析报告';/, 'AI answer header must label report planning answers in user-facing language');
 assert.match(js, /if \(report\.type === 'club-recruiting'\) return '招生展示';/, 'AI answer header must label recruiting display reports');
 assert.match(js, /if \(report\.type === 'club-comparison'\) return '剑馆对比';/, 'AI answer header must label club comparison reports');
 assert.match(js, /if \(report\.type === 'competition-stats'\) return '赛事统计';/, 'competition stats answers should have a specific user-facing type label');
+assert.match(js, /function buildAiCompetitionLookupReport\(query, competition\)[\s\S]*type: 'competition-lookup'/, 'plain competition-name questions must not reuse the competition stats answer type');
 assert.match(js, /if \(\/赛事记录\|赛事名称\|相近赛事\/\.test\(title\)\) return '赛事查询';/, 'missing or approximate competition answers should not fall back to a generic result label');
 assert.match(js, /if \(\/选择\.\*对象\|想看的对象\|选择孩子\|选手\/\.test\(title\)\) return '选择对象';/, 'object recovery answers should have a specific user-facing type label');
 assert.doesNotMatch(js, /: '查询结果'\)\}/, 'AI answer header must not default unknown and fallback results to generic query-result copy');
