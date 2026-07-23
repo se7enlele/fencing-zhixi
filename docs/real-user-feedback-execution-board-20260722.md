@@ -28,7 +28,7 @@
 | P1-1 | 家长成长报告 | 让家长看到孩子阶段、变化和可观察信号 | 固定报告结构，减少刺激性判断 |
 | P1-2 | 教练工作台 | 让教练看到学员分层、训练重点和沟通素材 | 俱乐部页按教练任务重组 |
 | P1-3 | 剑馆招生名片 | 把成绩变成可对外展示的可信材料 | 生成可复制摘要和分享卡 |
-| P1-4 | 数据覆盖解释 | 区分未收录、未开赛、暂无名单、暂无成绩 | 增加覆盖层级展示 |
+| P1-4 | 数据覆盖解释 | 区分未收录、未开赛、暂无名单、暂无成绩 | 已开始：AI 覆盖诊断统一展示赛事、项目、报名、成绩四层状态 |
 
 ## 固定回归问题
 
@@ -122,6 +122,23 @@ npm.cmd run audit:online-ai
   - `analysis-output/online-p0-interaction-audit-2026-07-22T17-15-05-762Z.json`
   - `analysis-output/online-ai-flow-audit-2026-07-22T17-15-35-592Z.json`
   - `analysis-output/real-user-ai-evaluation-2026-07-22T17-15-35-592Z.md`
+
+### 数据覆盖解释加固
+
+- 代码提交：随本次变更提交
+- 产品调整：用户问“为什么没有某场赛事”或系统只找到相近赛事时，AI 回答不再只给一个泛化的“相近赛事”状态，而是统一展示四层可核对状态：
+  - 赛事记录
+  - 项目名单
+  - 报名名单
+  - 赛果成绩
+- 用户价值：能明确知道是赛事名称需要核对，还是项目、报名、成绩某一层尚未可查看。
+- 本地验证：
+  - `node --check web\viewer.js`
+  - `node tools\competition-detail-view-test.mjs`
+  - `node tools\ai-native-answer-test.mjs`
+  - `node tools\ai-acceptance-runtime-test.mjs`
+  - `node tools\product-copy-test.mjs`
+  - `npm.cmd run smoke`
 
 ## 本轮完成口径
 

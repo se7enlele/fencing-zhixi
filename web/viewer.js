@@ -6206,6 +6206,32 @@ function missingCompetitionCoverageCards(competitionLike, relatedCompetitions = 
   ].filter(Boolean);
 }
 
+function competitionCoverageStageCards(competition) {
+  const level = competitionCoverageLevel(competition || {});
+  const hasProject = ['project', 'roster', 'score'].includes(level);
+  const hasRoster = ['roster', 'score'].includes(level);
+  const hasScore = level === 'score';
+  return [
+    ['赛事记录', competition?.sportName ? '找到相近' : '未找到'],
+    ['项目名单', hasProject ? '可查看' : '先核对赛事'],
+    ['报名名单', hasRoster ? '可查看' : '先核对赛事'],
+    ['赛果成绩', hasScore ? '可查看' : '暂未看到'],
+  ];
+}
+
+function competitionCoverageDiagnosisRows(competition) {
+  const level = competitionCoverageLevel(competition || {});
+  const hasProject = ['project', 'roster', 'score'].includes(level);
+  const hasRoster = ['roster', 'score'].includes(level);
+  const hasScore = level === 'score';
+  return [
+    `赛事记录：已找到相近赛事 ${competition.sportName}。`,
+    `项目名单：${hasProject ? '可以打开赛事详情查看。' : '先打开赛事确认项目安排。'}`,
+    `报名名单：${hasRoster ? '可以查看报名相关信息。' : '先核对赛事后再看报名情况。'}`,
+    `赛果成绩：${hasScore ? '可以查看成绩和对阵。' : '暂时没有看到完整赛果。'}`,
+  ];
+}
+
 function missingCompetitionCoverageRows(relatedCompetitions = []) {
   const rows = [
     '赛事记录：暂时没有找到完全一致的赛事。',
@@ -6221,12 +6247,7 @@ function buildAiCompetitionCoverageReport(query, competitionLike) {
   const relatedCompetitions = relatedCompetitionsForQuery(competitionLike.nameHint || query);
   const nearest = relatedCompetitions[0] || null;
   const cards = nearest
-    ? [
-        ['赛事记录', '找到相近'],
-        ['名称线索', competitionLike.nameHint || '赛事名称'],
-        ['相近赛事', `${relatedCompetitions.length} 场`],
-        ['可查内容', coverageLabel(nearest)],
-      ]
+    ? competitionCoverageStageCards(nearest)
     : missingCompetitionCoverageCards(competitionLike, relatedCompetitions);
   return {
     type: 'fallback',
@@ -6248,12 +6269,7 @@ function buildAiCompetitionCoverageReport(query, competitionLike) {
       },
       {
         title: '可查内容',
-        rows: nearest ? [
-          `赛事记录：已找到相近赛事 ${nearest.sportName}。`,
-          `项目名单：${competitionHasItems(nearest) ? '可以打开赛事详情查看。' : '先打开赛事确认是否已有项目。'}`,
-          `报名名单：${nearest.rosterStatus === 'partial' || nearest.rosterStatus === 'complete' ? '可以查看报名相关信息。' : '先确认赛事后再看报名情况。'}`,
-          `赛果成绩：${nearest.coverageLevel === 'score' || competitionHasItems(nearest) ? '可以查看成绩和对阵入口。' : '先确认赛事后再看成绩和对阵。'}`,
-        ] : missingCompetitionCoverageRows(relatedCompetitions),
+        rows: nearest ? competitionCoverageDiagnosisRows(nearest) : missingCompetitionCoverageRows(relatedCompetitions),
       },
     ],
     actions: [

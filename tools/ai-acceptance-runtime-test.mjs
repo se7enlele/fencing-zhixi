@@ -46,6 +46,7 @@ const functionNames = [
   'statusLabel',
   'coverageLabel',
   'coverageDetail',
+  'competitionCoverageLevel',
   'rosterAthleteLabel',
   'rosterClubText',
   'rosterEventLabel',
@@ -76,6 +77,8 @@ const functionNames = [
   'relatedCompetitionsForQuery',
   'competitionMissingDiagnosisRows',
   'missingCompetitionCoverageCards',
+  'competitionCoverageStageCards',
+  'competitionCoverageDiagnosisRows',
   'missingCompetitionCoverageRows',
   'buildAiCompetitionCoverageReport',
   'aiFallbackCandidateTerms',
@@ -422,8 +425,12 @@ const missingDataQuestion = context.buildAiAnswer('\u4e3a\u4ec0\u4e48\u6211\u768
 assert.equal(missingDataQuestion.type, 'fallback', 'missing-data wording should route to coverage diagnosis instead of plain lookup');
 assert.match(missingDataQuestion.title, /\u8d5b\u4e8b\u540d\u79f0\u4e0d\u5b8c\u5168\u4e00\u81f4/, 'missing-data diagnosis should explain likely name mismatch when a similar event exists');
 assert.ok(missingDataQuestion.cards.some(([label, value]) => label === '\u8d5b\u4e8b\u8bb0\u5f55' && value === '\u627e\u5230\u76f8\u8fd1'), 'missing-data diagnosis should show that a similar event record exists');
+assert.ok(missingDataQuestion.cards.some(([label]) => label === '\u9879\u76ee\u540d\u5355'), 'missing-data diagnosis should expose project availability for the similar event');
+assert.ok(missingDataQuestion.cards.some(([label]) => label === '\u62a5\u540d\u540d\u5355'), 'missing-data diagnosis should expose roster availability for the similar event');
+assert.ok(missingDataQuestion.cards.some(([label]) => label === '\u8d5b\u679c\u6210\u7ee9'), 'missing-data diagnosis should expose result availability for the similar event');
 assert.ok(missingDataQuestion.actions.some((action) => action.sportCode === 'BJLEAGUE2026S1'), 'missing-data diagnosis should let users open the similar competition');
 assert.ok(missingDataQuestion.sections.some((section) => section.title === '\u53ef\u4ee5\u8fd9\u6837\u6838\u5bf9'), 'missing-data diagnosis should provide verification guidance');
+assert.ok(missingDataQuestion.sections.some((section) => section.title === '\u53ef\u67e5\u5185\u5bb9'), 'missing-data diagnosis should show a visible coverage section for similar events');
 assert.ok(!/(\u5bfc\u5165|\u540e\u7eed|\u6570\u636e\u8fb9\u754c|\u6682\u672a\u8bc6\u522b)/.test(`${missingDataQuestion.title}${missingDataQuestion.summary}${missingDataQuestion.sections.map((section) => section.rows.join('')).join('')}`), 'missing-data diagnosis should avoid internal data-pipeline wording');
 
 const originalCompetitions = context.__state.competitions;
