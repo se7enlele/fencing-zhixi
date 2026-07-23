@@ -78,7 +78,7 @@ function competitionNameFor(sportCode, items, rosterRows) {
 }
 
 function buildPlatformEventCompetition(event) {
-  const venue = [event.provinceName, event.cityName].filter(Boolean).join(' ');
+  const venue = event.venueName || event.venue || [event.provinceName, event.cityName].filter(Boolean).join(' ');
   const groupLabels = event.groupLabels || event.groups?.map((group) => group.groupName).filter(Boolean) || [];
   const status = inferPlatformStatus(event);
 

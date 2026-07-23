@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { readFile } from 'node:fs/promises';
 import { buildFrontSportEventListReport, looksLikeFrontSportEventList } from './parse-frontsporteventlist.mjs';
 import { buildPreEventCompetitions } from './pre-event-data.mjs';
 
@@ -111,6 +112,19 @@ assert.equal(enriched.status, 'registration');
 const liveEnriched = competitions.find((row) => row.sportCode === 'LIVE001');
 assert.equal(liveEnriched.status, 'live');
 assert.equal(liveEnriched.items[0].status, 'live');
+
+const manualPlatformReport = JSON.parse(await readFile(new URL('../data/analysis/manual-platform-events.json', import.meta.url), 'utf8'));
+const manualCompetitions = buildPreEventCompetitions({
+  platformEventLists: [{ fileName: 'manual-platform-events.json', report: manualPlatformReport }],
+});
+const beijingLeague = manualCompetitions.find((row) => row.sportCode === 'BJLEAGUE2026S1');
+assert.ok(beijingLeague, 'manual platform event supplement must include 2026 Beijing fencing league');
+assert.equal(beijingLeague.sportName, '2026年北京击剑联赛第一站');
+assert.equal(beijingLeague.venue, '北京市顺义区首都国际会展中心');
+assert.equal(beijingLeague.status, 'completed');
+assert.deepEqual(beijingLeague.groupLabels, ['U6', 'U8', 'U10', 'U12', 'U16']);
+assert.equal(beijingLeague.items.length, 0);
+assert.equal(beijingLeague.platformMeta.sourceCoverage, 'event-list-only');
 
 console.log('platform event list parsing is covered');
 

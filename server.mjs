@@ -274,14 +274,16 @@ async function getPreEventReports() {
     const rosterBatches = [];
     const platformEventLists = [];
     for (const fileName of files.filter((file) => file.endsWith('.json'))) {
-      if (!fileName.startsWith('projectlist-') && !fileName.startsWith('registration-roster-') && fileName !== 'frontsporteventlist-analysis.json') continue;
+      const isPlatformEventList = fileName === 'frontsporteventlist-analysis.json'
+        || fileName.startsWith('manual-platform-events');
+      if (!fileName.startsWith('projectlist-') && !fileName.startsWith('registration-roster-') && !isPlatformEventList) continue;
       try {
         const report = JSON.parse(await readFile(path.join(analysisDir, fileName), 'utf8'));
         if (fileName.startsWith('projectlist-')) projectLists.push({ fileName, report });
         if (fileName.startsWith('registration-roster-') && report.importType === 'registration-roster') {
           rosterBatches.push({ fileName, report });
         }
-        if (fileName === 'frontsporteventlist-analysis.json' && report.importType === 'frontsporteventlist') {
+        if (isPlatformEventList && report.importType === 'frontsporteventlist') {
           platformEventLists.push({ fileName, report });
         }
       } catch {
