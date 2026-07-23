@@ -184,9 +184,9 @@ assert.match(js, /const itemFilter = filters\.item \|\| queryItemFilterOption\(q
 assert.match(js, /aiCompetitionFilterQuestion: ''/, 'AI competition filter source question must have a stable state slot');
 assert.match(js, /state\.aiCompetitionFilterQuestion = question;/, 'AI competition filters must preserve the source question for database verification');
 assert.match(js, /state\.aiCompetitionFilterQuestion = '';/, 'AI competition filters must clear the source question when removed');
-assert.match(js, /这次问题：\$\{state\.aiCompetitionFilterQuestion\}/, 'AI filtered competition lists must show which user question created the filter');
+assert.match(js, /来自你的提问：\$\{state\.aiCompetitionFilterQuestion\}/, 'AI filtered competition lists must show which user question created the filter');
 assert.match(js, /可核对赛事 \$\{escapeHtml\(state\.filteredCompetitions\.length\)\} 场/, 'AI filtered competition lists must frame database results as verifiable records');
-assert.match(js, /return parts\.length \? `筛选结果：\$\{parts\.join\(' · '\)\}` : '';/, 'AI competition filter summary must be user-facing');
+assert.match(js, /return parts\.length \? parts\.join\(' · '\) : '';/, 'AI competition filter summary must keep the range copy clean');
 assert.match(js, /没有符合条件的比赛。可以清除筛选，或减少年份、地区、项目条件后再看。/, 'AI-filtered empty competition lists must offer recovery');
 assert.match(js, /function clearAiCompetitionFilter\(\)/, 'AI competition filters must be removable from the competition list');
 assert.match(js, /function buildAiPreMatchReport\(query, filters\)/, 'AI must build prematch reports from registration and project data');
@@ -248,7 +248,7 @@ assert.match(js, /aiActionTargetAttributes\(action\)/, 'AI action rendering must
 assert.match(js, /state\.aiCompetitionFilterSummary = aiCompetitionFilterSummary\(\{[\s\S]*\.\.\.filters,[\s\S]*item: state\.selectedItem !== '全部项目' \? state\.selectedItem : '',[\s\S]*\}\)/, 'AI filter actions must store a list-facing filter summary with project scope');
 assert.match(js, /data-clear-ai-filter/, 'AI filtered competition lists must expose a clear action');
 assert.match(js, /data-adjust-ai-filter/, 'AI filtered competition lists must expose an adjust-filter action');
-assert.match(js, /class="ai-filter-chip-row"[\s\S]*筛选条件/, 'AI filtered competition lists must show active filter conditions');
+assert.match(js, /class="ai-filter-chip-row"[\s\S]*相关条件/, 'AI filtered competition lists must show active filter conditions');
 assert.match(js, /JSON\.parse\(decodeURIComponent\(button\.dataset\.aiFilters\)\)/, 'AI answer action handlers must decode filter payloads before navigation');
 assert.match(js, /state\.selectedAiMonth/, 'AI competition filters must preserve month constraints that are not visible in the standard filter chips');
 assert.match(js, /state\.selectedAiYears/, 'AI competition filters must preserve multi-year constraints that are not visible in the standard filter chips');

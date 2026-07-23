@@ -115,8 +115,8 @@ async function auditAiDatabaseEvidenceContext(page) {
   await page.waitForFunction(() => document.querySelector('#view-competitions')?.classList.contains('active'), { timeout: 10000 });
   await page.locator('#competitionList .ai-filter-notice').first().waitFor({ state: 'visible', timeout: 10000 });
   const notice = await page.locator('#competitionList .ai-filter-notice').first().innerText();
-  assertAudit(notice.includes('这次问题：2026年天津有几场比赛'), 'database evidence context should retain the original AI question', { notice });
-  assertAudit(notice.includes('可核对赛事') && notice.includes('点击赛事卡'), 'database evidence context should explain the verifiable evidence path', { notice });
+  assertAudit(notice.includes('来自你的提问：2026年天津有几场比赛'), 'database evidence context should retain the original AI question', { notice });
+  assertAudit(notice.includes('可核对赛事') && notice.includes('打开赛事后'), 'database evidence context should explain the verifiable evidence path', { notice });
   assertAudit(notice.includes('可核对赛事 4 场'), 'database evidence context should keep the same result count as the AI answer', { notice });
   assertAudit(notice.includes('项目、名单和成绩'), 'database evidence context should tell users what can be checked after opening a card', { notice });
   return { labels, notice, activeView: await activeViewId(page) };

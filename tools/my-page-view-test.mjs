@@ -636,7 +636,7 @@ assert.match(js, /function renderAiCompetitionFilterNotice\(\)/, 'AI-to-database
 assert.match(js, /function aiCompetitionFilterChips\(\)/, 'AI-to-database context must derive visible filter chips');
 assert.match(js, /\u53ef\u6838\u5bf9\u8d5b\u4e8b \$\{escapeHtml\(state\.filteredCompetitions\.length\)\} \u573a/, 'AI-to-database context must frame results as verifiable competitions');
 assert.match(js, /data-adjust-ai-filter[\s\S]*searchShell\?\.scrollIntoView[\s\S]*yearFilterButton\?\.focus/, 'AI-to-database context must let users jump back to filters');
-assert.match(js, /\u70b9\u51fb\u8d5b\u4e8b\u5361\uff0c\u53ef\u7ee7\u7eed\u67e5\u770b\u9879\u76ee\u3001\u540d\u5355\u548c\u6210\u7ee9\u3002/, 'AI-to-database context must explain the evidence path');
+assert.match(js, /\u6253\u5f00\u8d5b\u4e8b\u540e\uff0c\u53ef\u4ee5\u7ee7\u7eed\u6838\u5bf9\u9879\u76ee\u3001\u540d\u5355\u548c\u6210\u7ee9\u3002/, 'AI-to-database context must explain the evidence path');
 assert.match(js, /function handleSearchInput\(\)[\s\S]*state\.aiCompetitionFilterSummary = '';[\s\S]*state\.aiCompetitionFilterQuestion = '';/, 'manual database search must clear stale AI filter context');
 
 console.log('home, follow, my page and bottom navigation are covered');

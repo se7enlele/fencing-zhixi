@@ -34,8 +34,8 @@ assert.match(p0Source, /result\.text\.includes\('下一步'\) && !result\.text\.
 assert.match(p0Source, /async function auditGenericFallback\(page\)/, 'P0 audit must verify generic AI fallback recovery');
 assert.match(p0Source, /labels\[0\] === '进入数据库'/, 'P0 audit must require the database recovery action to stay first');
 assert.match(p0Source, /async function auditAiDatabaseEvidenceContext\(page\)/, 'P0 audit must verify AI-to-database evidence context');
-assert.match(p0Source, /这次问题：2026年天津有几场比赛/, 'P0 audit must require the database evidence banner to retain the user question');
-assert.match(p0Source, /可核对赛事[\s\S]*点击赛事卡[\s\S]*项目、名单和成绩/, 'P0 audit must require user-facing evidence path copy in the database banner');
+assert.match(p0Source, /来自你的提问：2026年天津有几场比赛/, 'P0 audit must require the database evidence banner to retain the user question');
+assert.match(p0Source, /可核对赛事[\s\S]*打开赛事后[\s\S]*项目、名单和成绩/, 'P0 audit must require user-facing evidence path copy in the database banner');
 assert.match(p0Source, /可核对赛事 4 场/, 'P0 audit must catch mismatched AI answer and database evidence counts');
 assert.match(p0Source, /async function auditChildFallback\(page\)/, 'P0 audit must verify child-investment fallback recovery');
 assert.match(p0Source, /labels\[0\] === '管理关注对象'/, 'P0 audit must require the followed-object recovery action to stay first');

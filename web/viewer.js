@@ -1850,7 +1850,7 @@ function aiCompetitionFilterSummary(filters = {}) {
   if (filters.region) parts.push(filters.region);
   if (filters.item) parts.push(filters.item);
   if (filters.status) parts.push(statusLabel(filters.status));
-  return parts.length ? `筛选结果：${parts.join(' · ')}` : '';
+  return parts.length ? parts.join(' · ') : '';
 }
 
 function normalizeAiFilterYears(filters = {}) {
@@ -10206,18 +10206,18 @@ function aiCompetitionFilterChips() {
 
 function renderAiCompetitionFilterNotice() {
   if (!state.aiCompetitionFilterSummary) return '';
-  const question = state.aiCompetitionFilterQuestion ? `这次问题：${state.aiCompetitionFilterQuestion}` : '这次问题的相关赛事';
+  const question = state.aiCompetitionFilterQuestion ? `来自你的提问：${state.aiCompetitionFilterQuestion}` : '与你的问题相关';
   const chips = aiCompetitionFilterChips();
   return `
     <div class="ai-filter-notice">
       <strong>${escapeHtml(question)}</strong>
-      <span>${escapeHtml(state.aiCompetitionFilterSummary)} · 可核对赛事 ${escapeHtml(state.filteredCompetitions.length)} 场</span>
+      <span>为你找到：${escapeHtml(state.aiCompetitionFilterSummary)} · 可核对赛事 ${escapeHtml(state.filteredCompetitions.length)} 场</span>
       ${chips.length ? `
-        <div class="ai-filter-chip-row" aria-label="筛选条件">
+        <div class="ai-filter-chip-row" aria-label="相关条件">
           ${chips.map((chip) => `<i>${escapeHtml(chip)}</i>`).join('')}
         </div>
       ` : ''}
-      <em>点击赛事卡，可继续查看项目、名单和成绩。</em>
+      <em>打开赛事后，可以继续核对项目、名单和成绩。</em>
       <button type="button" data-adjust-ai-filter>调整筛选</button>
       <button type="button" data-clear-ai-filter>查看全部赛事</button>
     </div>
