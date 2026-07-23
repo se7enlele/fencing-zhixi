@@ -100,7 +100,7 @@ assert.match(js, /finally \{[\s\S]*submitButton\.disabled = false;[\s\S]*submitB
 assert.match(js, /function renderFocusedHomePage\(\)[\s\S]*<div class="home-dashboard home-dashboard-focused">[\s\S]*\$\{renderHomeRoleBar\(\)\}[\s\S]*\$\{renderAiWorkspace\('home'\)\}[\s\S]*\$\{renderHomeShortcutStrip\(\)\}[\s\S]*\$\{renderHomePriorityPanel\(\)\}/, 'focused home page must start with role state, AI entry, compact shortcuts and one priority card');
 assert.doesNotMatch(js, /function renderFocusedHomePage\(\)[\s\S]*\$\{renderHomeFocusCard\(\)\}[\s\S]*\$\{renderHomeRadarCard\(\)\}/, 'focused home page must not stack focus and prematch cards in the first screen');
 assert.doesNotMatch(js, /function renderFocusedHomePage\(\)[\s\S]*home-stats-strip[\s\S]*function renderHomePage/, 'focused home page must not show statistic cards in the first screen');
-assert.match(js, /<section class="panel ai-home-primary">[\s\S]*<\/section>\s*<div class="ai-answer" id="aiAnswer">/, 'AI answers must render outside the dark home entry panel');
+assert.match(js, /<section class="panel ai-home-primary">[\s\S]*<\/section>\s*<div class="ai-answer" id="aiAnswer" aria-busy="\$\{state\.isAiAnswerLoading \? 'true' : 'false'\}">/, 'AI answers must render outside the dark home entry panel with persistent loading semantics');
 assert.doesNotMatch(js, /问 FencingAI/, 'home hero must not repeat the topbar product name');
 assert.doesNotMatch(js, /直接用问题查看击剑数据/, 'home hero must not use generic query copy');
 assert.doesNotMatch(js, /保留传统检索入口/, 'home page must not expose internal navigation rationale');

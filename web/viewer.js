@@ -5365,7 +5365,7 @@ function renderAiWorkspace() {
           ${presets.map((preset) => `<button type="button" data-ai-preset="${escapeHtml(preset)}">${escapeHtml(preset)}</button>`).join('')}
         </div>
       </section>
-      <div class="ai-answer" id="aiAnswer">
+      <div class="ai-answer" id="aiAnswer" aria-busy="${state.isAiAnswerLoading ? 'true' : 'false'}">
         ${answerHtml}
       </div>
     </div>

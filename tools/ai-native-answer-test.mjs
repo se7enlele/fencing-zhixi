@@ -67,6 +67,7 @@ assert.match(js, /aiActiveQuery: ''/, 'AI home prompt must persist the active qu
 assert.match(js, /aiActiveReport: null/, 'AI home prompt must persist the active answer across home rerenders');
 assert.match(js, /isAiAnswerLoading: false/, 'AI home prompt must persist loading state across home rerenders');
 assert.match(js, /const answerHtml = state\.isAiAnswerLoading[\s\S]*renderAiAnswer\(state\.aiActiveReport\)/, 'AI workspace must restore loading or answer content after home rerenders');
+assert.match(js, /<div class="ai-answer" id="aiAnswer" aria-busy="\$\{state\.isAiAnswerLoading \? 'true' : 'false'\}">/, 'AI answer container must preserve loading semantics across home rerenders');
 assert.match(js, /state\.aiActiveReport = report;[\s\S]*state\.isAiAnswerLoading = false/, 'AI runner must save the generated report before rendering it');
 assert.match(js, /const currentAnswer = document\.querySelector\('#aiAnswer'\) \|\| answer;[\s\S]*currentAnswer\.innerHTML = renderAiAnswer\(report\)/, 'AI runner must write completed answers into the current DOM after home rerenders');
 assert.match(js, /<button type="button" data-ai-submit="true">/, 'AI submit button must not submit the form before JavaScript handlers are bound');
