@@ -5135,8 +5135,7 @@ function renderFocusedHomePage() {
       ${renderHomeRoleBar()}
       ${renderAiWorkspace('home')}
       ${renderHomeShortcutStrip()}
-      ${renderHomeFocusCard()}
-      ${renderHomeRadarCard()}
+      ${renderHomePriorityPanel()}
     </div>
   `;
   homePage.querySelectorAll('[data-home-compact-nav]').forEach((button) => {
