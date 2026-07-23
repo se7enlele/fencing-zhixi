@@ -6305,6 +6305,7 @@ function buildAiCompetitionCoverageReport(query, competitionLike) {
     ],
     actions: [
       nearest?.sportCode ? { label: '打开相近赛事', sportCode: nearest.sportCode } : null,
+      aiOriginalQuestionSearchAction(query),
       { label: '查看相关赛事', mainTab: 'competitions', filters: competitionLike },
       { label: '按地区统计赛事', query: `${competitionLike.year || '2026'}年${competitionLike.region || ''}有几场比赛` },
     ].filter(Boolean),
