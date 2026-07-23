@@ -342,7 +342,10 @@ assert.match(js, /const primaryActions = \(report\.actions \|\| \[\]\)\.slice\(0
 assert.match(js, /const primaryEvidence = \(report\.evidence \|\| \[\]\)\.slice\(0, AI_ANSWER_EVIDENCE_LIMIT\)/, 'AI answer renderer must only show primary evidence');
 assert.match(js, /const keyEvidence = primaryEvidence\[0\] \|\| null;/, 'AI answer renderer must split out the first source as the key source');
 assert.match(js, /const secondaryEvidence = primaryEvidence\.slice\(1\);/, 'AI answer renderer must keep secondary sources out of the key source');
+assert.match(js, /function aiEvidenceSummaryText\(report = \{\}, primaryEvidence = \[\]\)/, 'AI answers must summarize traceable source coverage without adding extra explanation cards');
+assert.match(js, /const evidenceSummary = aiEvidenceSummaryText\(report, primaryEvidence\);/, 'AI answer renderer must compute a compact evidence summary for the source block');
 assert.match(js, /class="ai-key-source"/, 'AI answer renderer must surface a visible key source block');
+assert.match(js, /class="ai-source-head"/, 'AI key source must show source title and coverage in a compact header');
 assert.match(js, /<strong>可核对记录<\/strong>/, 'AI key source block must use user-facing evidence wording');
 assert.match(js, /<button type="button" \$\{aiEvidenceTargetAttributes\(keyEvidence\)\}>/, 'AI key source must render only one prioritized navigation target');
 assert.match(js, /data-ai-evidence-details/, 'AI evidence should be collapsed behind a lightweight source entry');

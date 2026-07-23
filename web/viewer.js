@@ -8912,6 +8912,13 @@ function aiAnswerTypeLabel(report = {}) {
   return '分析结果';
 }
 
+function aiEvidenceSummaryText(report = {}, primaryEvidence = []) {
+  const evidenceCount = Number(report.evidence?.length || primaryEvidence.length || 0);
+  if (!evidenceCount) return '';
+  const kinds = [...new Set(primaryEvidence.map((row) => aiEvidenceKind(row)).filter(Boolean))].slice(0, 2);
+  return `${evidenceCount} 条可核对${kinds.length ? ` · ${kinds.join(' / ')}` : ''}`;
+}
+
 function renderAiAnswer(report) {
   const primaryCards = (report.cards || []).slice(0, AI_ANSWER_CARD_LIMIT);
   const primaryReasons = (report.reasons || []).filter(Boolean).slice(0, 3);
@@ -8921,6 +8928,7 @@ function renderAiAnswer(report) {
   const secondaryEvidence = primaryEvidence.slice(1);
   const hiddenEvidenceCount = Math.max(0, (report.evidence?.length || 0) - 1 - secondaryEvidence.length);
   const remainingEvidenceCount = Math.max(0, (report.evidence?.length || 0) - 1);
+  const evidenceSummary = aiEvidenceSummaryText(report, primaryEvidence);
   const saveAction = isAiReportSaveable(report) ? '<button type="button" data-ai-save>保存</button>' : '';
   return `
     <div class="ai-answer-card">
@@ -8952,7 +8960,10 @@ function renderAiAnswer(report) {
       ` : ''}
       ${keyEvidence ? `
         <div class="ai-key-source">
-          <strong>可核对记录</strong>
+          <div class="ai-source-head">
+            <strong>可核对记录</strong>
+            ${evidenceSummary ? `<span>${escapeHtml(evidenceSummary)}</span>` : ''}
+          </div>
           <button type="button" ${aiEvidenceTargetAttributes(keyEvidence)}>
             <em>${escapeHtml(aiEvidenceKind(keyEvidence))}</em>
             <span>${escapeHtml(keyEvidence.label)}</span>
