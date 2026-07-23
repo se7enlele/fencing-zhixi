@@ -14095,75 +14095,82 @@ function renderClubDetail(club) {
 
       ${renderPreMatchIntelligence(club, projectRows, athletes, rosterRows)}
 
-      <div class="report-grid">
-        <div class="report-card"><strong>${escapeHtml(top8Rate)}%</strong><span>前八率</span></div>
-        <div class="report-card"><strong>${escapeHtml(medalRate)}%</strong><span>奖牌率</span></div>
-        <div class="report-card"><strong>${escapeHtml(projectRows.length)}</strong><span>项目组别</span></div>
-        <div class="report-card"><strong>${escapeHtml(athletes.length || '-')}</strong><span>学员数量</span></div>
-      </div>
+      <details class="coach-detail-fold">
+        <summary>
+          <strong>完整教练复盘</strong>
+          <span>学员、项目、对标和口碑</span>
+        </summary>
 
-      <section class="coach-section">
-        <div class="section-title">
-          <h2>带好现有学员</h2>
-          <span>提升成绩与留存</span>
+        <div class="report-grid">
+          <div class="report-card"><strong>${escapeHtml(top8Rate)}%</strong><span>前八率</span></div>
+          <div class="report-card"><strong>${escapeHtml(medalRate)}%</strong><span>奖牌率</span></div>
+          <div class="report-card"><strong>${escapeHtml(projectRows.length)}</strong><span>项目组别</span></div>
+          <div class="report-card"><strong>${escapeHtml(athletes.length || '-')}</strong><span>学员数量</span></div>
         </div>
-        ${renderCoachAthleteFollowups(athletes)}
-        ${renderCoachAthleteBucket('重点培养', '已有名次或奖牌表现', athleteBuckets.focus)}
-        ${renderCoachAthleteBucket('稳定基础', '有参赛连续性，适合复盘训练', athleteBuckets.steady)}
-        ${renderCoachAthleteBucket('继续观察', '样本较少，先积累比赛记录', athleteBuckets.observe)}
-        ${athletes.length ? '' : '<div class="empty compact-empty">当前俱乐部学员画像还在形成中，更多赛果收录后会呈现更完整的队伍表现。</div>'}
-      </section>
 
-      <section class="coach-section">
-        <div class="section-title">
-          <h2>项目经营</h2>
-          <span>班型与训练重点</span>
-        </div>
-        ${barChart('项目投入', projectRows.slice(0, 5).map((row) => ({
-          label: row.label,
-          value: row.entrants,
-          display: `${row.entrants} 人`,
-        })), { tone: 'teal' })}
-        <div class="project-advice-list">
-          ${projectRows.map((row) => `
-            <button class="project-advice-card" type="button" data-event-code="${escapeHtml(row.events[0]?.eventCode || '')}">
-              <div>
-                <strong>${escapeHtml(row.label)}</strong>
-                <span>${escapeHtml(projectCoachAdvice(row))}</span>
-              </div>
-              <em>参赛 ${escapeHtml(row.entrants)} · 前八 ${escapeHtml(row.top8)} · 奖牌 ${escapeHtml(row.medals)} · 最好第 ${escapeHtml(row.bestRank ?? '-')}</em>
-            </button>
-          `).join('')}
-        </div>
-      </section>
+        <section class="coach-section">
+          <div class="section-title">
+            <h2>带好现有学员</h2>
+            <span>提升成绩与留存</span>
+          </div>
+          ${renderCoachAthleteFollowups(athletes)}
+          ${renderCoachAthleteBucket('重点培养', '已有名次或奖牌表现', athleteBuckets.focus)}
+          ${renderCoachAthleteBucket('稳定基础', '有参赛连续性，适合复盘训练', athleteBuckets.steady)}
+          ${renderCoachAthleteBucket('继续观察', '样本较少，先积累比赛记录', athleteBuckets.observe)}
+          ${athletes.length ? '' : '<div class="empty compact-empty">学员画像会随参赛记录逐步完善。</div>'}
+        </section>
 
-      <section class="coach-section">
-        <div class="section-title">
-          <h2>同项目对标</h2>
-          <span>口碑位置</span>
-        </div>
-        <div class="project-advice-list">
-          ${peerRows.length ? peerRows.map((peer) => `
-            <button class="project-advice-card peer-card" type="button" data-club-id="${escapeHtml(peer.id || '')}">
-              <div>
-                <strong>${escapeHtml(peer.club)}</strong>
-                <span>${escapeHtml(peer.overlapProjects.map((row) => row.label).slice(0, 3).join(' / '))}</span>
-              </div>
-              <em>重合项目 ${escapeHtml(peer.overlapCount)} · 前八 ${escapeHtml(peer.overlapTop8)} · 奖牌 ${escapeHtml(peer.overlapMedals)} · 最好第 ${escapeHtml(peer.bestRank ?? '-')}</em>
-            </button>
-          `).join('') : '<div class="empty compact-empty">暂未形成稳定的同项目对标样本。</div>'}
-        </div>
-      </section>
+        <section class="coach-section">
+          <div class="section-title">
+            <h2>项目经营</h2>
+            <span>班型与训练重点</span>
+          </div>
+          ${barChart('项目投入', projectRows.slice(0, 5).map((row) => ({
+            label: row.label,
+            value: row.entrants,
+            display: `${row.entrants} 人`,
+          })), { tone: 'teal' })}
+          <div class="project-advice-list">
+            ${projectRows.map((row) => `
+              <button class="project-advice-card" type="button" data-event-code="${escapeHtml(row.events[0]?.eventCode || '')}">
+                <div>
+                  <strong>${escapeHtml(row.label)}</strong>
+                  <span>${escapeHtml(projectCoachAdvice(row))}</span>
+                </div>
+                <em>参赛 ${escapeHtml(row.entrants)} · 前八 ${escapeHtml(row.top8)} · 奖牌 ${escapeHtml(row.medals)} · 最好第 ${escapeHtml(row.bestRank ?? '-')}</em>
+              </button>
+            `).join('')}
+          </div>
+        </section>
 
-      <section class="coach-section">
-        <div class="section-title">
-          <h2>增长与口碑</h2>
-          <span>招生素材</span>
-        </div>
-        <div class="growth-highlight-list">
-          ${highlights.map((text) => `<div class="growth-highlight">${escapeHtml(text)}</div>`).join('')}
-        </div>
-      </section>
+        <section class="coach-section">
+          <div class="section-title">
+            <h2>同项目对标</h2>
+            <span>口碑位置</span>
+          </div>
+          <div class="project-advice-list">
+            ${peerRows.length ? peerRows.map((peer) => `
+              <button class="project-advice-card peer-card" type="button" data-club-id="${escapeHtml(peer.id || '')}">
+                <div>
+                  <strong>${escapeHtml(peer.club)}</strong>
+                  <span>${escapeHtml(peer.overlapProjects.map((row) => row.label).slice(0, 3).join(' / '))}</span>
+                </div>
+                <em>重合项目 ${escapeHtml(peer.overlapCount)} · 前八 ${escapeHtml(peer.overlapTop8)} · 奖牌 ${escapeHtml(peer.overlapMedals)} · 最好第 ${escapeHtml(peer.bestRank ?? '-')}</em>
+              </button>
+            `).join('') : '<div class="empty compact-empty">暂未形成稳定的同项目对标样本。</div>'}
+          </div>
+        </section>
+
+        <section class="coach-section">
+          <div class="section-title">
+            <h2>增长与口碑</h2>
+            <span>招生素材</span>
+          </div>
+          <div class="growth-highlight-list">
+            ${highlights.map((text) => `<div class="growth-highlight">${escapeHtml(text)}</div>`).join('')}
+          </div>
+        </section>
+      </details>
     `
     : '<div class="empty">暂无参赛项目</div>';
 

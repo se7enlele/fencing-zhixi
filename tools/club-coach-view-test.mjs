@@ -35,6 +35,7 @@ assert.match(js, /<h2>教练工作台<\/h2>[\s\S]*先处理这三件事/, 'coach
 assert.match(js, /title: '学员分层'[\s\S]*title: '重点跟进'[\s\S]*title: '招生素材'/, 'coach workspace must focus on segmentation, followup and recruiting assets');
 assert.match(js, /renderCoachWorkspaceTasks\(workspaceTasks\)/, 'club detail must show coach workspace before deeper report sections');
 assert.match(js, /renderCoachQuickActions\(quickActions\)/, 'club detail must show weekly coach actions before the deeper action plan');
+assert.match(js, /<details class="coach-detail-fold">[\s\S]*<strong>完整教练复盘<\/strong>[\s\S]*带好现有学员[\s\S]*项目经营[\s\S]*同项目对标[\s\S]*增长与口碑[\s\S]*<\/details>/, 'club detail must fold deeper coach review sections behind one explicit entry');
 assert.match(js, /<h2>本周行动<\/h2>[\s\S]*直接处理/, 'weekly coach actions must be framed as direct user actions');
 assert.match(js, /title: '重点学员'[\s\S]*title: '家长沟通'[\s\S]*title: '赛前准备'[\s\S]*title: '招生素材'/, 'weekly coach actions must map to student, parent, prematch and recruiting jobs');
 assert.match(js, /data-coach-quick-action/, 'weekly coach actions must be trackable');
@@ -70,6 +71,8 @@ assert.match(css, /\.club-share-proof::before/, 'shareable recruiting card must 
 assert.match(css, /\.club-share-action/, 'shareable recruiting card must style its copy action');
 assert.match(css, /\.coach-action-grid/, 'coach action plan must have a mobile grid layout');
 assert.match(css, /\.coach-action-card:first-child/, 'primary coach action must be visually emphasized');
+assert.match(css, /\.coach-detail-fold/, 'folded coach review entry must have mobile styles');
+assert.match(css, /\.coach-detail-fold > summary::after/, 'folded coach review summary must expose a clear expand affordance');
 assert.match(css, /\.coach-workspace-tasks/, 'coach workspace must have a distinct section style');
 assert.match(css, /\.coach-workspace-task-grid/, 'coach workspace tasks must have mobile layout styles');
 assert.match(css, /\.coach-workspace-task-card/, 'coach workspace task cards must be styled');
