@@ -667,6 +667,11 @@ assert.ok(clubComparisonReport.cards.some(([label]) => label === '\u6548\u7387\u
 assert.ok(clubComparisonReport.cards.some(([label, value]) => label === '\u7537\u5b50\u7ed3\u8bba' && /\u5317\u4eac\u91d1\u77f3/.test(value)), 'club comparison should show a male result card');
 assert.ok(clubComparisonReport.cards.some(([label, value]) => label === '\u5973\u5b50\u7ed3\u8bba' && /\u5317\u4eac\u827e\u9c81\u7279/.test(value)), 'club comparison should show a female result card');
 assert.ok(clubComparisonReport.cards.some(([label, value]) => label === '\u5408\u8ba1\u7ed3\u8bba' && /\u5317\u4eac\u91d1\u77f3/.test(value)), 'club comparison should show a total result card');
+assert.match(
+  clubComparisonReport.cards.slice(0, 4).map(([label]) => label).join('|'),
+  /^\u5bf9\u6bd4\u8303\u56f4\|\u7537\u5b50\u7ed3\u8bba\|\u5973\u5b50\u7ed3\u8bba\|\u5408\u8ba1\u7ed3\u8bba$/,
+  'club comparison first-screen cards should prioritize requested male, female and total conclusions',
+);
 assert.ok(!clubComparisonReport.cards.some(([label]) => label === '\u5206\u6790\u53e3\u5f84'), 'club comparison should not expose internal analysis scope as a card');
 assert.ok(!clubComparisonReport.sections.some((section) => /(\u5206\u6790\u53e3\u5f84|\u5224\u65ad\u53e3\u5f84|\u540e\u7eed|\u4e0b\u4e00\u6b65)/.test(section.title)), 'club comparison should not expose internal workflow labels as sections');
 assert.ok(clubComparisonReport.sections.some((section) => section.title === '\u6570\u91cf\u5224\u65ad'), 'club comparison should include a dedicated quantity judgment section');

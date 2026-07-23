@@ -7411,9 +7411,9 @@ function buildAiClubComparisonReport(query, leftClub, rightClub, filters) {
     reasons: aiClubComparisonReasonRows(totalPair, metricPairs),
     cards: [
       ['对比范围', scopeLabel],
+      ...resultCards,
       ['成绩积累', totalPair ? aiClubComparisonQuantitySummary(totalPair[0], totalPair[1]) : '样本不足'],
       ['效率信号', totalPair ? aiClubComparisonEfficiencySummary(totalPair[0], totalPair[1]) : '样本不足'],
-      ...resultCards,
     ],
     sections: [
       {
