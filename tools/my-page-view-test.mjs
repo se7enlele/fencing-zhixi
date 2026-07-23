@@ -312,7 +312,9 @@ assert.match(js, /submitAiQuery\(button\.dataset\.homeAiQuestion \|\| ''\)/, 'ho
 assert.match(js, /data-home-ai-product="\$\{escapeHtml\(row\.query\)\}"/, 'data value cards must carry runnable AI product questions');
 assert.match(js, /homePage\.querySelectorAll\('\[data-home-ai-product\]'\)/, 'home page must bind data value cards');
 assert.match(js, /submitAiQuery\(button\.dataset\.homeAiProduct \|\| ''\)/, 'data value cards must launch the AI answer flow');
-assert.match(js, /data-home-follow/, 'home page must link directly to the follow tab');
+assert.match(js, /data-home-my-follow/, 'home page must link follow-related shortcuts to My');
+assert.match(js, /homePage\.querySelector\('\[data-home-my-follow\]'\)\?\.addEventListener\('click', \(\) => navigateMain\('my'\)\)/, 'home follow shortcut must open My in the three-tab structure');
+assert.doesNotMatch(js, /homePage\.querySelector\('\[data-home-follow\]'\)/, 'home page must not keep the removed follow-tab shortcut');
 assert.match(js, /data-home-my/, 'home page must link directly to the my tab');
 assert.match(js, /function homeReportCenterRows\(children, followedCompetitions\)/, 'home page must build productized report center entries');
 assert.match(js, /function reportHistoryRows\(\)/, 'home page must build recently generated report entries');

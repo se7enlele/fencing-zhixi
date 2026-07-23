@@ -5282,7 +5282,7 @@ function renderHomePage() {
             <strong>赛事数据</strong>
             <span>搜索、筛选和进入赛事详情</span>
           </button>
-          <button type="button" data-home-follow>
+          <button type="button" data-home-my-follow>
             <strong>关注</strong>
             <span>${escapeHtml(children.length + followedCompetitions.length ? `${children.length} 个选手 / ${followedCompetitions.length} 场赛事` : '添加重点选手和赛事')}</span>
           </button>
@@ -5369,7 +5369,7 @@ function renderHomePage() {
     ${renderHomeDataCoverage()}
   `;
   homePage.querySelector('[data-home-competitions]')?.addEventListener('click', () => navigateMain('competitions'));
-  homePage.querySelector('[data-home-follow]')?.addEventListener('click', () => navigateMain('follow'));
+  homePage.querySelector('[data-home-my-follow]')?.addEventListener('click', () => navigateMain('my'));
   homePage.querySelector('[data-home-my]')?.addEventListener('click', () => navigateMain('my'));
   homePage.querySelector('[data-home-prematch]')?.addEventListener('click', (event) => {
     trackAnalyticsAction('home_prematch', 'open');
@@ -9167,7 +9167,7 @@ function bindAiAnswerActions(container) {
       upsertFollowedCompetition(competition);
       button.textContent = '已加入赛前提醒';
       button.setAttribute('aria-pressed', 'true');
-      navigateMain('follow');
+      navigateMain('my');
     });
   });
   container.querySelectorAll('[data-club-id]').forEach((button) => {

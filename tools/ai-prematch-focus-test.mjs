@@ -27,6 +27,7 @@ assert.match(js, /followCompetitionCode: rows\[0\]\.sportCode/, 'prematch report
 assert.match(js, /data-follow-competition-code/, 'AI answer buttons must render follow-competition actions');
 assert.match(js, /querySelectorAll\('\[data-follow-competition-code\]'\)/, 'AI answer bindings must handle follow-competition actions');
 assert.match(js, /upsertFollowedCompetition\(competition\)/, 'follow-competition actions must persist the selected competition');
-assert.match(js, /navigateMain\('follow'\)/, 'follow-competition actions must take users to the follow/reminder page');
+assert.match(js, /navigateMain\('my'\)/, 'follow-competition actions must take users to My for reminders in the three-tab structure');
+assert.doesNotMatch(js, /navigateMain\('follow'\)/, 'follow-competition actions must not target the removed follow main tab');
 
 console.log('AI prematch focused-athlete answers are covered');
