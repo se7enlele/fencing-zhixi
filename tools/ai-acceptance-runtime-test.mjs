@@ -465,8 +465,8 @@ assert.equal(namedCompetition.actions.find((action) => action.sportCode)?.sportC
 
 const missingDataQuestion = context.buildAiAnswer('\u4e3a\u4ec0\u4e48\u6211\u7684\u6570\u636e\u5e93\u91cc\u6ca1\u6709\u5317\u4eac\u51fb\u5251\u8054\u8d5b\u7684\u6570\u636e\uff1f');
 assert.equal(missingDataQuestion.type, 'fallback', 'missing-data wording should route to coverage diagnosis instead of plain lookup');
-assert.match(missingDataQuestion.title, /\u8d5b\u4e8b\u540d\u79f0\u4e0d\u5b8c\u5168\u4e00\u81f4/, 'missing-data diagnosis should explain likely name mismatch when a similar event exists');
-assert.ok(missingDataQuestion.cards.some(([label, value]) => label === '\u8d5b\u4e8b\u8bb0\u5f55' && value === '\u627e\u5230\u76f8\u8fd1'), 'missing-data diagnosis should show that a similar event record exists');
+assert.match(missingDataQuestion.title, /\u540d\u79f0\u76f8\u8fd1/, 'missing-data diagnosis should explain likely name mismatch when a similar event exists');
+assert.ok(missingDataQuestion.cards.some(([label, value]) => label === '\u8d5b\u4e8b\u8bb0\u5f55' && value === '\u627e\u5230\u76f8\u8fd1\u8bb0\u5f55'), 'missing-data diagnosis should show that a similar event record exists');
 assert.ok(missingDataQuestion.cards.some(([label]) => label === '\u9879\u76ee\u540d\u5355'), 'missing-data diagnosis should expose project availability for the similar event');
 assert.ok(missingDataQuestion.cards.some(([label]) => label === '\u62a5\u540d\u540d\u5355'), 'missing-data diagnosis should expose roster availability for the similar event');
 assert.ok(missingDataQuestion.cards.some(([label]) => label === '\u8d5b\u679c\u6210\u7ee9'), 'missing-data diagnosis should expose result availability for the similar event');
@@ -478,11 +478,12 @@ assert.ok(missingDataQuestion.actions.some((action) => action.sportCode === 'BJL
 assert.ok(missingDataQuestion.sections.some((section) => section.title === '\u53ef\u4ee5\u8fd9\u6837\u6838\u5bf9'), 'missing-data diagnosis should provide verification guidance');
 assert.ok(missingDataQuestion.sections.some((section) => section.title === '\u53ef\u67e5\u5185\u5bb9'), 'missing-data diagnosis should show a visible coverage section for similar events');
 assert.ok(!/\u76f4\u63a5\u6253\u5f00\u6838\u5bf9\u9879\u76ee\u3001\u62a5\u540d\u548c\u6210\u7ee9/.test(missingDataQuestion.summary), 'missing-data diagnosis should not imply every coverage layer is available for a similar event');
+assert.ok(/(\u5b8c\u5168\u4e00\u81f4|\u76f8\u8fd1\u8bb0\u5f55|\u540d\u79f0\u76f8\u8fd1)/.test(`${missingDataQuestion.title}${missingDataQuestion.summary}${missingDataQuestion.cards.map((row) => row.join('')).join('')}`), 'missing-data diagnosis should frame coverage as exact-match versus similar-record status');
 assert.ok(!/(\u5bfc\u5165|\u540e\u7eed|\u6570\u636e\u8fb9\u754c|\u6682\u672a\u8bc6\u522b)/.test(`${missingDataQuestion.title}${missingDataQuestion.summary}${missingDataQuestion.sections.map((section) => section.rows.join('')).join('')}`), 'missing-data diagnosis should avoid internal data-pipeline wording');
 
 const recoveryButtonQuestion = context.buildAiAnswer('\u6211\u7684\u6570\u636e\u5e93\u91cc\u6ca1\u6709\u5317\u4eac\u51fb\u5251\u8054\u8d5b\u7b2c\u4e00\u7ad9\uff0c\u4e3a\u4ec0\u4e48\u6ca1\u6709\u627e\u5230');
 assert.equal(recoveryButtonQuestion.type, 'fallback', 'database recovery button question should route to coverage diagnosis');
-assert.match(recoveryButtonQuestion.title, /(\u8d5b\u4e8b\u540d\u79f0\u4e0d\u5b8c\u5168\u4e00\u81f4|\u6682\u65f6\u6ca1\u6709)/, 'database recovery button question should explain the coverage state');
+assert.match(recoveryButtonQuestion.title, /(\u540d\u79f0\u76f8\u8fd1|\u6ca1\u6709\u627e\u5230.*\u5b8c\u5168\u4e00\u81f4)/, 'database recovery button question should explain the coverage state');
 assert.ok(recoveryButtonQuestion.cards.some(([label]) => label === '\u8d5b\u4e8b\u8bb0\u5f55'), 'database recovery button question should expose event-record coverage');
 assert.ok(recoveryButtonQuestion.sections.some((section) => section.title === '\u53ef\u4ee5\u8fd9\u6837\u6838\u5bf9'), 'database recovery button question should provide verification guidance');
 assert.ok(recoveryButtonQuestion.actions.some((action) => action.filters?.searchKeyword === '\u6211\u7684\u6570\u636e\u5e93\u91cc\u6ca1\u6709\u5317\u4eac\u51fb\u5251\u8054\u8d5b\u7b2c\u4e00\u7ad9\uff0c\u4e3a\u4ec0\u4e48\u6ca1\u6709\u627e\u5230'), 'database recovery button question should preserve the original recovery question');
@@ -492,7 +493,7 @@ context.__state.competitions = originalCompetitions.filter((competition) => comp
 context.__state.competitionSearchCache = new Map();
 const staleCompetitionName = context.buildAiAnswer('\u5317\u4eac\u51fb\u5251\u8054\u8d5b\u7b2c\u4e00\u7ad9');
 assert.equal(staleCompetitionName.type, 'fallback', 'plain station-league queries should not silently open a stale old-year event');
-assert.match(staleCompetitionName.title, /\u6682\u65f6\u6ca1\u6709\u8fd9\u573a\u8d5b\u4e8b\u8bb0\u5f55/, 'stale competition recovery should explain that the requested event is not directly found');
+assert.match(staleCompetitionName.title, /\u6ca1\u6709\u627e\u5230\u5b8c\u5168\u4e00\u81f4\u8d5b\u4e8b/, 'stale competition recovery should explain that the requested event is not directly found');
 assert.match(staleCompetitionName.summary, /\u8fd9\u4e0d\u4ee3\u8868\u8d5b\u4e8b\u4e0d\u5b58\u5728/, 'stale competition recovery should distinguish missing records from non-existent events');
 assert.ok(staleCompetitionName.evidence.some((row) => row.kind === '\u76f8\u8fd1\u8d5b\u4e8b' && row.sportCode === 'RZSS2021040'), 'stale competition recovery should still expose the old similar event as a source');
 assert.ok(staleCompetitionName.actions.some((action) => action.sportCode === 'RZSS2021040'), 'stale competition recovery should let users inspect the old similar event if needed');
@@ -744,14 +745,14 @@ assert.ok(!/(\u6682\u672a\u8bc6\u522b|\u5206\u6790\u53e3\u5f84|\u540e\u7eed)/.te
 
 const missingCompetitionFallback = context.buildAiAnswer('\u0032\u0030\u0032\u0037\u5e74\u5317\u4eac\u51fb\u5251\u8054\u8d5b\u7b2c\u4e00\u7ad9');
 assert.equal(missingCompetitionFallback.type, 'fallback', 'year-mismatched competition names should not silently open another year');
-assert.match(missingCompetitionFallback.title, /\u6682\u65f6\u6ca1\u67092027\u5e74\u8fd9\u573a\u8d5b\u4e8b\u8bb0\u5f55/, 'missing competition fallback should explain the missing competition in user-facing copy');
+assert.match(missingCompetitionFallback.title, /\u6ca1\u6709\u627e\u52302027\u5e74\u5b8c\u5168\u4e00\u81f4\u8d5b\u4e8b/, 'missing competition fallback should explain the missing competition in user-facing copy');
 assert.match(missingCompetitionFallback.summary, /\u8fd9\u4e0d\u4ee3\u8868\u8d5b\u4e8b\u4e0d\u5b58\u5728/, 'missing competition fallback should distinguish missing records from non-existent events');
-assert.ok(missingCompetitionFallback.cards.some(([label, value]) => label === '\u8d5b\u4e8b\u8bb0\u5f55' && value === '\u672a\u627e\u5230'), 'missing competition fallback should expose event-record coverage');
-assert.ok(missingCompetitionFallback.cards.some(([label, value]) => label === '\u9879\u76ee\u540d\u5355' && value === '\u5148\u786e\u8ba4\u8d5b\u4e8b'), 'missing competition fallback should expose project-list coverage with an action');
-assert.ok(missingCompetitionFallback.cards.some(([label, value]) => label === '\u62a5\u540d\u540d\u5355' && value === '\u5148\u786e\u8ba4\u8d5b\u4e8b'), 'missing competition fallback should expose roster coverage with an action');
-assert.ok(missingCompetitionFallback.cards.some(([label, value]) => label === '\u8d5b\u679c\u6210\u7ee9' && value === '\u5148\u786e\u8ba4\u8d5b\u4e8b'), 'missing competition fallback should expose result coverage with an action');
+assert.ok(missingCompetitionFallback.cards.some(([label, value]) => label === '\u8d5b\u4e8b\u8bb0\u5f55' && value === '\u672a\u5b8c\u5168\u547d\u4e2d'), 'missing competition fallback should expose event-record coverage');
+assert.ok(missingCompetitionFallback.cards.some(([label, value]) => label === '\u9879\u76ee\u540d\u5355' && value === '\u786e\u8ba4\u540e\u67e5\u770b'), 'missing competition fallback should expose project-list coverage with an action');
+assert.ok(missingCompetitionFallback.cards.some(([label, value]) => label === '\u62a5\u540d\u540d\u5355' && value === '\u786e\u8ba4\u540e\u67e5\u770b'), 'missing competition fallback should expose roster coverage with an action');
+assert.ok(missingCompetitionFallback.cards.some(([label, value]) => label === '\u8d5b\u679c\u6210\u7ee9' && value === '\u786e\u8ba4\u540e\u67e5\u770b'), 'missing competition fallback should expose result coverage with an action');
 assert.ok(missingCompetitionFallback.sections.some((section) => section.title === '\u53ef\u67e5\u5185\u5bb9'), 'missing competition fallback should show a user-facing coverage section');
-assert.ok(missingCompetitionFallback.sections.find((section) => section.title === '\u53ef\u67e5\u5185\u5bb9')?.rows.some((row) => /\u9879\u76ee\u540d\u5355/.test(row) && /\u5148\u786e\u8ba4\u8d5b\u4e8b\u540d\u79f0/.test(row)), 'missing competition coverage should explain that project rows depend on confirming the event name first');
+assert.ok(missingCompetitionFallback.sections.find((section) => section.title === '\u53ef\u67e5\u5185\u5bb9')?.rows.some((row) => /\u9879\u76ee\u540d\u5355/.test(row) && /\u786e\u8ba4\u8d5b\u4e8b\u540d\u79f0/.test(row)), 'missing competition coverage should explain that project rows depend on confirming the event name first');
 assert.ok(missingCompetitionFallback.sections.some((section) => section.title === '\u53ef\u4ee5\u8fd9\u6837\u6838\u5bf9'), 'missing competition fallback should show a user-facing diagnosis section');
 assert.ok(missingCompetitionFallback.sections.find((section) => section.title === '\u53ef\u4ee5\u8fd9\u6837\u6838\u5bf9')?.rows.some((row) => /\u5730\u65b9\u8054\u8d5b|\u76f8\u8fd1/.test(row)), 'missing competition fallback should explain local league or similar-name checks');
 assert.ok(missingCompetitionFallback.cards.some(([label, value]) => label === '\u5e74\u4efd' && value === '2027'), 'missing competition fallback should preserve parsed year');
@@ -765,7 +766,7 @@ assert.ok(!/(\u5bfc\u5165|\u7ee7\u7eed\u751f\u6210|\u540e\u7eed|\u6570\u636e\u8f
 
 const noYearMissingCompetitionFallback = context.buildAiAnswer('\u5317\u4eac\u51fb\u5251\u8054\u8d5b\u7b2c\u4e8c\u7ad9');
 assert.equal(noYearMissingCompetitionFallback.type, 'fallback', 'specific event-name queries without a year should not be treated as regional competition stats');
-assert.match(noYearMissingCompetitionFallback.title, /\u6682\u65f6\u6ca1\u6709\u8fd9\u573a\u8d5b\u4e8b\u8bb0\u5f55/, 'specific missing event names should explain the event is not currently found');
+assert.match(noYearMissingCompetitionFallback.title, /\u6ca1\u6709\u627e\u5230\u5b8c\u5168\u4e00\u81f4\u8d5b\u4e8b/, 'specific missing event names should explain the event is not currently found');
 assert.match(noYearMissingCompetitionFallback.summary, /\u8fd9\u4e0d\u4ee3\u8868\u8d5b\u4e8b\u4e0d\u5b58\u5728/, 'specific missing event names should distinguish missing records from non-existent events');
 assert.ok(noYearMissingCompetitionFallback.sections.some((section) => section.title === '\u53ef\u4ee5\u8fd9\u6837\u6838\u5bf9'), 'specific missing event names should show verification guidance');
 assert.ok(noYearMissingCompetitionFallback.actions.some((action) => action.filters?.region === '\u5317\u4eac'), 'specific missing event names should still offer a filtered database path');
