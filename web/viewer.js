@@ -13052,19 +13052,56 @@ function clubShareHighlights(club, projectRows, athletes) {
   ].filter(Boolean);
 }
 
+function clubRecruitingProofRows(club, projectRows, athletes) {
+  const bestProject = [...projectRows].sort((a, b) => (a.bestRank ?? 999) - (b.bestRank ?? 999))[0];
+  const topProject = projectRows[0];
+  const strongestAthlete = athletes[0];
+  const evidenceEvents = [...(club.events || [])]
+    .sort((a, b) => (Number(a.bestRank) || 999) - (Number(b.bestRank) || 999)
+      || (Number(b.top8) || 0) - (Number(a.top8) || 0)
+      || String(b.openDate || b.dateLabel || '').localeCompare(String(a.openDate || a.dateLabel || ''), 'zh-CN'))
+    .slice(0, 2);
+  return [
+    {
+      title: '优势项目',
+      value: bestProject?.label || topProject?.label || '持续积累中',
+      detail: bestProject
+        ? `最好第 ${bestProject.bestRank ?? '-'} 名，${bestProject.top8 || 0} 次前八，参赛 ${bestProject.entrants || 0} 人次。`
+        : topProject
+          ? `参赛 ${topProject.entrants || 0} 人次，适合持续展示训练参与度。`
+          : '继续积累项目参赛记录后，会形成更清晰的项目名片。',
+    },
+    {
+      title: '代表学员',
+      value: strongestAthlete?.name || '持续积累中',
+      detail: strongestAthlete
+        ? `最好第 ${strongestAthlete.bestRank ?? '-'} 名，${strongestAthlete.appearances || 0} 次参赛记录。`
+        : '继续积累学员成绩后，可形成可讲述的成长案例。',
+    },
+    ...evidenceEvents.map((event) => ({
+      title: '成绩依据',
+      value: displayEventName(event),
+      detail: `${event.openDate || event.dateLabel || '日期待确认'} · 参赛 ${event.entrants || 0} · 前八 ${event.top8 || 0} · 最好第 ${event.bestRank ?? '-'}`,
+    })),
+  ].slice(0, 4);
+}
+
 function buildClubShareText(club, projectRows, athletes) {
   const highlights = clubShareHighlights(club, projectRows, athletes);
   const bestProject = [...projectRows].sort((a, b) => (a.bestRank ?? 999) - (b.bestRank ?? 999))[0];
   const strongestAthlete = athletes[0];
   const scripts = buildClubCommunicationScripts(club, projectRows, athletes);
+  const proofRows = clubRecruitingProofRows(club, projectRows, athletes);
   const lines = [
-    `${club.club} 击剑成长数据名片`,
+    `${club.club} 击剑招生名片`,
     highlights.slice(0, 4).join('，'),
     bestProject ? `优势项目：${bestProject.label}，参赛 ${bestProject.entrants || 0} 人次，最好第 ${bestProject.bestRank ?? '-'} 名。` : '',
     strongestAthlete ? `代表学员：${strongestAthlete.name}，最好第 ${strongestAthlete.bestRank ?? '-'} 名，${strongestAthlete.appearances || 0} 次参赛记录。` : '',
+    proofRows.length ? '可核对成绩依据：' : '',
+    ...proofRows.map((row) => `${row.title}：${row.value}，${row.detail}`),
     scripts.length ? '对外沟通重点：' : '',
     ...scripts.map((row) => `${row.title}：${row.detail}`),
-    '以上内容基于公开赛事成绩整理，可用于家长沟通、续费反馈和招生展示。',
+    '以上内容基于公开赛事成绩整理，适合用于家长沟通和招生展示。',
   ].filter(Boolean);
   return lines.join('\n');
 }
@@ -13123,34 +13160,30 @@ function renderClubCommunicationScripts(club, projectRows, athletes) {
 
 function renderClubShareCard(club, projectRows, athletes) {
   const highlights = clubShareHighlights(club, projectRows, athletes).slice(0, 4);
-  const bestProject = [...projectRows].sort((a, b) => (a.bestRank ?? 999) - (b.bestRank ?? 999))[0];
-  const strongestAthlete = athletes[0];
+  const proofRows = clubRecruitingProofRows(club, projectRows, athletes);
   return `
     <section class="coach-section club-share-section">
       <div class="section-title">
-        <h2>分享名片</h2>
-        <span>家长可看</span>
+        <h2>招生名片</h2>
+        <span>可直接转发</span>
       </div>
       <div class="club-share-card">
         <div class="club-share-head">
           <span>FencingAI</span>
           <strong>${escapeHtml(club.club)}</strong>
-          <em>击剑成长数据名片</em>
+          <em>击剑招生名片</em>
         </div>
         <div class="club-share-kpis">
           ${highlights.map((text) => `<span>${escapeHtml(text)}</span>`).join('')}
         </div>
         <div class="club-share-proof">
-          <div>
-            <span>优势项目</span>
-            <strong>${escapeHtml(bestProject?.label || '持续积累中')}</strong>
-            <em>${escapeHtml(bestProject ? `参赛 ${bestProject.entrants || 0} 人次，最好第 ${bestProject.bestRank ?? '-'} 名` : '更多成绩收录后会形成项目案例')}</em>
-          </div>
-          <div>
-            <span>代表学员</span>
-            <strong>${escapeHtml(strongestAthlete?.name || '持续积累中')}</strong>
-            <em>${escapeHtml(strongestAthlete ? `最好第 ${strongestAthlete.bestRank ?? '-'} 名，${strongestAthlete.appearances || 0} 次记录` : '更多学员成绩收录后会形成成长案例')}</em>
-          </div>
+          ${proofRows.map((row) => `
+            <div>
+              <span>${escapeHtml(row.title)}</span>
+              <strong>${escapeHtml(row.value)}</strong>
+              <em>${escapeHtml(row.detail)}</em>
+            </div>
+          `).join('')}
         </div>
         <button class="club-share-action" type="button" data-share-club>复制分享文案</button>
       </div>

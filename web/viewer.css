@@ -7998,6 +7998,13 @@ select:focus {
   gap: 8px;
 }
 
+.club-share-proof::before {
+  content: "可核对成绩依据";
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 900;
+}
+
 .club-share-proof div {
   display: grid;
   gap: 3px;

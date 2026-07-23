@@ -7,9 +7,14 @@ const css = await readFile(new URL('../web/viewer.css', import.meta.url), 'utf8'
 assert.match(js, /function clubPeerRows\(club, projectRows\)/, 'club coach view must compute same-project peers');
 assert.match(js, /function buildClubBusinessCards\(club, projectRows, athletes, peerRows\)/, 'club coach view must build business-facing cards');
 assert.match(js, /function buildClubShareText\(club, projectRows, athletes\)/, 'club coach view must build shareable recruiting copy');
+assert.match(js, /function clubRecruitingProofRows\(club, projectRows, athletes\)/, 'club recruiting card must derive reusable proof rows');
 assert.match(js, /function buildClubCommunicationScripts\(club, projectRows, athletes\)/, 'club coach view must translate data into parent-facing communication scripts');
 assert.match(js, /function renderClubCommunicationScripts\(club, projectRows, athletes\)/, 'club coach view must render parent-facing communication scripts');
 assert.match(js, /function renderClubShareCard\(club, projectRows, athletes\)/, 'club coach view must render a shareable recruiting card');
+assert.match(js, /clubRecruitingProofRows\(club, projectRows, athletes\)/, 'club recruiting share copy and card must use the same proof rows');
+assert.match(js, /可核对成绩依据：/, 'club recruiting share text must include traceable evidence');
+assert.match(js, /<h2>招生名片<\/h2>[\s\S]*可直接转发/, 'club recruiting card must be framed as a shareable recruiting card');
+assert.match(js, /击剑招生名片/, 'club recruiting card must use recruiting-card copy');
 assert.match(js, /function copyTextToClipboard\(text\)/, 'club share card must support copy action');
 assert.match(js, /CLUB_FOLLOW_KEY = 'fencingai\.followedClubs\.v1'/, 'club follows must have a dedicated persisted key');
 assert.match(js, /function followedClubCards\(\)/, 'club follows must resolve against current club data');
@@ -56,6 +61,7 @@ assert.match(css, /\.business-card-grid/, 'recruiting cards must have mobile lay
 assert.match(css, /\.business-card:first-child/, 'primary recruiting card must be visually emphasized');
 assert.match(css, /\.club-share-card/, 'shareable recruiting card must have a distinct mobile card layout');
 assert.match(css, /\.club-share-kpis/, 'shareable recruiting card must expose compact proof points');
+assert.match(css, /\.club-share-proof::before/, 'shareable recruiting card must label evidence rows');
 assert.match(css, /\.club-share-action/, 'shareable recruiting card must style its copy action');
 assert.match(css, /\.coach-action-grid/, 'coach action plan must have a mobile grid layout');
 assert.match(css, /\.coach-action-card:first-child/, 'primary coach action must be visually emphasized');

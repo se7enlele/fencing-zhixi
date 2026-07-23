@@ -233,6 +233,7 @@ assert.match(js, /label: '查看成长报告'/, 'AI business actions must open t
 assert.match(js, /label: '查看教练工作台'/, 'AI business actions must open the coach workspace package path');
 assert.match(js, /kind: '招生素材来源'/, 'AI recruiting evidence must cite concrete club event sources');
 assert.match(js, /查看招生名片/, 'AI recruiting answers must navigate back to the club recruiting card');
+assert.match(js, /可核对成绩依据：/, 'AI recruiting path must connect share copy to traceable evidence');
 assert.match(js, /data-ai-filters/, 'AI answer action buttons must carry structured competition filters');
 assert.match(js, /function aiActionTargetAttributes\(action = \{\}\)/, 'AI action buttons must centralize target attributes');
 assert.match(js, /action\.eventCode \? `data-event-code="\$\{escapeHtml\(action\.eventCode\)\}"` : action\.sportCode \? `data-sport-code="\$\{escapeHtml\(action\.sportCode\)\}"` : ''/, 'AI action buttons must prioritize exact event targets before competition pages');
