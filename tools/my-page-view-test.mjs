@@ -285,6 +285,8 @@ assert.match(js, /data-commercial-source="my-membership"/, 'my page membership p
 assert.match(js, /bindReportConversionActions\(myPage\)/, 'my page membership buttons must reuse commercial conversion actions');
 assert.match(js, /function homeDataValueRows\(\)/, 'home page must build productized data value entry cards');
 assert.match(js, /function homeAiQuestionRows\(\)/, 'home page must build runnable AI-native question examples');
+assert.match(js, /哪场比赛人数最多？/, 'home AI question shortcuts must include a competition-scale question from real use');
+assert.match(js, /北京击剑联赛第一站/, 'home AI question shortcuts must include a concrete event-name lookup from real use');
 assert.match(js, /const savedAnalysisRows = \[\.\.\.aiHistory, \.\.\.reportHistory\]\.slice\(0, 3\);/, 'home page must combine saved analysis into one consistent recent section');
 assert.match(js, /function roleVisibleHomeReportRows\(rows\)/, 'home report center must filter report entry points by selected role');
 assert.match(js, /state\.userRole === 'parent'[\s\S]*\['prematch', 'growth'\]/, 'parent home report center must stay focused on prematch and child growth');

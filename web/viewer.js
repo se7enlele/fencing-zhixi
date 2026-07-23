@@ -4035,6 +4035,16 @@ function homeAiQuestionRows() {
   const year = prematch?.season || detectYearInQuery(prematch?.sportName || '') || new Date().getFullYear();
   return [
     {
+      label: '赛事热度',
+      query: '哪场比赛人数最多？',
+      detail: '按参赛人数快速找到规模最大的比赛，再进入详情核对项目和名单。',
+    },
+    {
+      label: '找具体赛事',
+      query: '北京击剑联赛第一站',
+      detail: '输入赛事名称或简称，先确认是否有相近赛事记录。',
+    },
+    {
       label: '赛事统计',
       query: `${year}年${region}有几场比赛`,
       detail: '按年份、城市、状态直接统计赛事机会。',
@@ -5496,6 +5506,8 @@ function aiPromptPresets() {
 
 function aiUserTaskPromptPresets(primary, secondary) {
   return [
+    '哪场比赛人数最多？',
+    '北京击剑联赛第一站',
     '2026年天津有几场比赛',
     '天津近期报名情况',
     primary ? `${primary.name}最近几场有没有进步` : '蔡廷彧最近几场有没有进步',
