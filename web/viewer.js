@@ -4983,7 +4983,7 @@ function renderHomeRadarCard(row = homePrematchActionRow(followedCompetitionCard
   return `
     <section class="panel my-section home-radar-card">
       <div class="section-title">
-        <h2>赛事雷达</h2>
+        <h2>下一场重点赛事</h2>
         <span>${escapeHtml(row.isFollowed ? '已关注' : '推荐关注')}</span>
       </div>
       <article>
@@ -5132,7 +5132,8 @@ function renderFocusedHomePage() {
       ${renderHomeRoleBar()}
       ${renderAiWorkspace('home')}
       ${renderHomeShortcutStrip()}
-      ${renderHomePriorityPanel()}
+      ${renderHomeFocusCard()}
+      ${renderHomeRadarCard()}
     </div>
   `;
   homePage.querySelectorAll('[data-home-compact-nav]').forEach((button) => {
