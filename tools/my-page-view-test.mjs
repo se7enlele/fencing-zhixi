@@ -368,7 +368,7 @@ assert.match(js, /state\.userRole === 'parent'[\s\S]*最近几场有没有进步
 assert.match(js, /state\.userRole === 'coach'[\s\S]*有哪些优势项目/, 'coach AI presets must prioritize club management questions');
 assert.match(js, /state\.userRole === 'club'[\s\S]*U8 男花怎么样/, 'club AI presets must prioritize project strength questions');
 assert.match(js, /state\.userRole === 'data'[\s\S]*2026年天津有几场比赛/, 'data AI presets must prioritize competition statistics');
-assert.match(js, /\[\.\.\.new Set\(\[\.\.\.rolePresets, \.\.\.taskPresets\]\)\]\.slice\(0, 5\)/, 'role AI presets must deduplicate and stay compact');
+assert.match(js, /\[\.\.\.new Set\(\[\.\.\.rolePresets, \.\.\.taskPresets\]\)\]\.slice\(0, 4\)/, 'role AI presets must deduplicate and stay compact');
 assert.match(js, /function aiUserTaskPromptPresets\(primary, secondary\)/, 'AI home must use a dedicated user-task prompt pool');
 assert.match(js, /function buildAiAnswer\(query\)/, 'AI workspace must build structured answers from local data');
 assert.match(js, /function detectOfficialDirectoryQuery\(query = ''\)/, 'AI workspace must detect coach and referee directory questions');

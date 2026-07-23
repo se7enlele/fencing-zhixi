@@ -5536,7 +5536,7 @@ function aiPromptPresets() {
   const secondary = athletes[1] || state.athleteSearchIndex.find((athlete) => athlete.name !== primary?.name && athlete.events?.length);
   const rolePresets = roleAiPromptPresets(primary, secondary);
   const taskPresets = aiUserTaskPromptPresets(primary, secondary);
-  return [...new Set([...rolePresets, ...taskPresets])].slice(0, 5);
+  return [...new Set([...rolePresets, ...taskPresets])].slice(0, 4);
 }
 
 function aiUserTaskPromptPresets(primary, secondary) {
