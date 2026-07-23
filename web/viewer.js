@@ -8919,10 +8919,27 @@ function aiEvidenceSummaryText(report = {}, primaryEvidence = []) {
   return `${evidenceCount} 条可核对${kinds.length ? ` · ${kinds.join(' / ')}` : ''}`;
 }
 
+function aiActionPriority(action = {}) {
+  if (action.eventCode || action.sportCode || action.athleteId || action.clubId || action.parentGrowthAthleteId || action.coachSegmentationClubId || action.prematchTemplateKind) return 100;
+  if (action.followAthleteId || action.followCompetitionCode) return 90;
+  if (action.mainTab === 'my') return 88;
+  if (action.mainTab || action.filters || action.officialSearchQuery) return 80;
+  if (action.query) return 40;
+  return 10;
+}
+
+function primaryAiActions(actions = []) {
+  return (actions || [])
+    .map((action, index) => ({ action, index, priority: aiActionPriority(action) }))
+    .sort((a, b) => b.priority - a.priority || a.index - b.index)
+    .slice(0, AI_ANSWER_ACTION_LIMIT)
+    .map((row) => row.action);
+}
+
 function renderAiAnswer(report) {
   const primaryCards = (report.cards || []).slice(0, AI_ANSWER_CARD_LIMIT);
   const primaryReasons = (report.reasons || []).filter(Boolean).slice(0, 3);
-  const primaryActions = (report.actions || []).slice(0, AI_ANSWER_ACTION_LIMIT);
+  const primaryActions = primaryAiActions(report.actions || []);
   const primaryEvidence = (report.evidence || []).slice(0, AI_ANSWER_EVIDENCE_LIMIT);
   const keyEvidence = primaryEvidence[0] || null;
   const secondaryEvidence = primaryEvidence.slice(1);

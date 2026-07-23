@@ -338,7 +338,10 @@ assert.match(js, /const primaryCards = \(report\.cards \|\| \[\]\)\.slice\(0, AI
 assert.match(js, /const primaryReasons = \(report\.reasons \|\| \[\]\)\.filter\(Boolean\)\.slice\(0, 3\)/, 'AI answer renderer must expose a short user-facing reason list');
 assert.match(js, /class="ai-reason-list"/, 'AI answer renderer must show key reasons without restoring internal sections');
 assert.doesNotMatch(js, /AI_ANSWER_SECTION_LIMIT|AI_ANSWER_SECTION_ROW_LIMIT/, 'AI answer renderer must not expose explanatory sections as another main-screen block');
-assert.match(js, /const primaryActions = \(report\.actions \|\| \[\]\)\.slice\(0, AI_ANSWER_ACTION_LIMIT\)/, 'AI answer renderer must only show primary actions');
+assert.match(js, /function aiActionPriority\(action = \{\}\)/, 'AI answer actions must be prioritized by user value before the first-screen cap');
+assert.match(js, /function primaryAiActions\(actions = \[\]\)/, 'AI answer renderer must centralize primary action selection');
+assert.match(js, /const primaryActions = primaryAiActions\(report\.actions \|\| \[\]\)/, 'AI answer renderer must render prioritized primary actions instead of raw first actions');
+assert.doesNotMatch(js, /const primaryActions = \(report\.actions \|\| \[\]\)\.slice\(0, AI_ANSWER_ACTION_LIMIT\)/, 'AI answer renderer must not let low-value query actions crowd out direct source actions');
 assert.match(js, /const primaryEvidence = \(report\.evidence \|\| \[\]\)\.slice\(0, AI_ANSWER_EVIDENCE_LIMIT\)/, 'AI answer renderer must only show primary evidence');
 assert.match(js, /const keyEvidence = primaryEvidence\[0\] \|\| null;/, 'AI answer renderer must split out the first source as the key source');
 assert.match(js, /const secondaryEvidence = primaryEvidence\.slice\(1\);/, 'AI answer renderer must keep secondary sources out of the key source');
