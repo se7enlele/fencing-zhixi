@@ -332,10 +332,10 @@ assert.match(js, /原始问题：\$\{report\.query\}/, 'AI feedback must include
 assert.match(js, /转化来源：\$\{conversionAction\.source\}/, 'AI feedback must include the related conversion source');
 assert.match(js, /关联服务：\$\{conversionAction\.title\}/, 'AI feedback must include the related service');
 assert.match(js, /function aiReportConversionAction\(report = \{\}\)/, 'AI answers must map report types to commercial conversion actions');
-assert.match(js, /function aiConversionServiceRows\(report = \{\}\)/, 'AI conversion blocks must explain what each trial includes');
+assert.match(js, /function aiConversionServiceRows\(report = \{\}\)/, 'AI conversion blocks must explain what users can continue viewing');
 assert.match(js, /function renderAiConversionBlock\(report = \{\}\)/, 'AI answers must render a lightweight conversion block');
-assert.match(js, /<b>试用包含<\/b>/, 'AI conversion blocks must show a concrete trial contents label');
-assert.match(js, /aiConversionServiceRows\(report\)/, 'AI conversion blocks must derive trial contents from the report type');
+assert.match(js, /<b>可以继续查看<\/b>/, 'AI conversion blocks must show a customer-facing continuation label');
+assert.match(js, /aiConversionServiceRows\(report\)/, 'AI conversion blocks must derive continuation rows from the report type');
 assert.doesNotMatch(js, /function aiAnswerMetaRows\(report = \{\}\)/, 'AI answers must not keep unused internal metadata helpers that can return to the UI');
 assert.doesNotMatch(js, /function aiTrustRows\(report\)/, 'AI answers must not keep unused internal trust-row helpers that can return to the UI');
 assert.doesNotMatch(js, /class="ai-answer-meta"/, 'AI answer renderer must not show internal question/evidence/action metadata cards');

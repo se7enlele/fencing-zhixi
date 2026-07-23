@@ -8613,28 +8613,28 @@ function aiReportConversionAction(report = {}) {
   if (type === 'prematch') {
     return {
       source: 'ai-prematch-answer',
-      title: '把这份赛前分析做成提醒',
+      title: '关注这场赛前变化',
       detail: '适合持续跟进报名名单、关注选手和重点对手。',
-      primaryLabel: '关注赛前提醒',
-      secondaryLabel: '了解会员权益',
+      primaryLabel: '加入提醒',
+      secondaryLabel: '查看权益',
     };
   }
   if (type === 'growth') {
     return {
       source: 'ai-growth-answer',
-      title: '生成持续成长报告',
-      detail: '适合按月/按赛事复盘孩子进步、稳定性和下一步投入。',
-      primaryLabel: '申请家庭试用',
-      secondaryLabel: '了解会员权益',
+      title: '保存成长报告',
+      detail: '适合按月或按赛事复盘孩子进步、稳定性和比赛准备。',
+      primaryLabel: '保存报告',
+      secondaryLabel: '查看权益',
     };
   }
   if (type === 'club' || type === 'club-recruiting' || type === 'club-comparison') {
     return {
       source: type === 'club-recruiting' ? 'ai-club-recruiting-answer' : type === 'club-comparison' ? 'ai-club-comparison-answer' : 'ai-club-answer',
-      title: '建立剑馆经营看板',
-      detail: type === 'club-comparison' ? '适合持续跟踪同项目竞争对手、优势项目和招生表达。' : '适合把学员分层、强项项目和招生素材做成固定工作台。',
-      primaryLabel: '申请教练试用',
-      secondaryLabel: '了解剑馆权益',
+      title: '关注剑馆表现',
+      detail: type === 'club-comparison' ? '适合持续跟踪同项目竞争对手、优势项目和招生表达。' : '适合查看学员分层、强项项目和代表成绩。',
+      primaryLabel: '保存看板',
+      secondaryLabel: '查看权益',
     };
   }
   if (type === 'competition-stats' || type === 'competition-ranking') {
@@ -8642,8 +8642,8 @@ function aiReportConversionAction(report = {}) {
       source: 'ai-competition-stats-answer',
       title: '订阅赛事和报名提醒',
       detail: '适合持续跟踪目标地区、项目和状态变化。',
-      primaryLabel: '申请赛事提醒',
-      secondaryLabel: '了解会员权益',
+      primaryLabel: '加入提醒',
+      secondaryLabel: '查看权益',
     };
   }
   if (type === 'comparison') {
@@ -8651,25 +8651,25 @@ function aiReportConversionAction(report = {}) {
       source: 'ai-comparison-answer',
       title: '持续跟踪这组选手',
       detail: '适合赛前复盘交手记录、共同项目和近期状态变化。',
-      primaryLabel: '申请对手分析',
-      secondaryLabel: '了解会员权益',
+      primaryLabel: '保存对比',
+      secondaryLabel: '查看权益',
     };
   }
   if (type === 'business-insight' || type === 'product-template') {
     return {
       source: templateKind ? `ai-template-${templateKind}` : 'ai-business-insight-answer',
-      title: type === 'product-template' ? '落地这类报告服务' : '申请产品试用',
-      detail: type === 'product-template' ? `围绕“${title}”验证真实用户是否愿意持续使用。` : '适合验证赛前提醒、成长报告和教练工作台的商业转化。',
-      primaryLabel: '申请试用',
-      secondaryLabel: '了解会员权益',
+      title: type === 'product-template' ? '保存这份报告' : '查看可用报告',
+      detail: type === 'product-template' ? `围绕“${title}”继续查看相关赛事、选手和剑馆记录。` : '适合查看赛前提醒、成长报告和教练工作台。',
+      primaryLabel: '保存报告',
+      secondaryLabel: '查看权益',
     };
   }
   return {
     source: `ai-${type}-answer`,
     title: '持续使用这类分析',
-    detail: '适合把本次分析沉淀为提醒、报告或工作台。',
-    primaryLabel: '申请试用',
-    secondaryLabel: '了解会员权益',
+    detail: '适合把本次分析保存为提醒、报告或看板。',
+    primaryLabel: '保存分析',
+    secondaryLabel: '查看权益',
   };
 }
 
@@ -8721,7 +8721,7 @@ function renderAiConversionBlock(report = {}) {
         <span>${escapeHtml(action.detail)}</span>
       </div>
       <div class="ai-conversion-service">
-        <b>试用包含</b>
+        <b>可以继续查看</b>
         ${services.map((item) => `<span>${escapeHtml(item)}</span>`).join('')}
       </div>
       <div class="ai-conversion-actions">
