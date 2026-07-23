@@ -86,6 +86,7 @@ const functionNames = [
   'fallbackMatchScore',
   'aiFallbackCandidates',
   'aiFallbackRewriteActions',
+  'aiOriginalQuestionSearchAction',
   'aiFallbackClarificationRows',
   'aiCandidateSummaryCards',
   'detectClubInQuery',
@@ -694,6 +695,7 @@ assert.ok(missingCompetitionFallback.sections.find((section) => section.title ==
 assert.ok(missingCompetitionFallback.cards.some(([label, value]) => label === '\u5e74\u4efd' && value === '2027'), 'missing competition fallback should preserve parsed year');
 assert.ok(missingCompetitionFallback.cards.some(([label, value]) => label === '\u76f8\u8fd1\u8d5b\u4e8b' && /[12] \u573a/.test(value)), 'missing competition fallback should tell users when another year has a similar competition');
 assert.ok(missingCompetitionFallback.actions.some((action) => action.filters?.year === '2027' && action.filters?.region === '\u5317\u4eac'), 'missing competition fallback should offer a filtered database path');
+assert.ok(missingCompetitionFallback.actions.some((action) => action.filters?.searchKeyword === '\u0032\u0030\u0032\u0037\u5e74\u5317\u4eac\u51fb\u5251\u8054\u8d5b\u7b2c\u4e00\u7ad9'), 'missing competition fallback should preserve the original question as a database search keyword');
 assert.ok(missingCompetitionFallback.actions.some((action) => action.sportCode === 'BJLEAGUE2026S1'), 'missing competition fallback should let users open the nearest similar competition');
 assert.ok(missingCompetitionFallback.actions.some((action) => action.query), 'missing competition fallback should offer a runnable follow-up question');
 assert.ok(missingCompetitionFallback.evidence.some((row) => row.kind === '\u76f8\u8fd1\u8d5b\u4e8b' && row.sportCode === 'BJLEAGUE2026S1'), 'missing competition fallback should cite similar competitions as source evidence');
@@ -716,6 +718,7 @@ assert.match(fuzzyObjectFallback.title, /\u9009\u62e9\u4f60\u60f3\u770b\u7684\u5
 assert.ok(fuzzyObjectFallback.evidence.some((row) => row.kind === '\u5251\u9986' && row.clubId === 'club-sdzx'), 'fuzzy fallback should surface matching club candidates');
 assert.ok(fuzzyObjectFallback.actions.some((action) => action.clubId === 'club-sdzx'), 'fuzzy fallback should let users open the matching club');
 assert.equal(fuzzyObjectFallback.actions[0]?.clubId, 'club-sdzx', 'club-like fuzzy fallback should prioritize the matching club action');
+assert.ok(fuzzyObjectFallback.actions.slice(0, 3).some((action) => action.filters?.searchKeyword === '\u5c0f\u4f17'), 'fuzzy fallback should keep the original text available as a database search action');
 assert.ok(fuzzyObjectFallback.actions.some((action) => action.query && /\u5c71\u4e1c\u5c0f\u4f17\u4f53\u80b2/.test(action.query)), 'fuzzy fallback should offer a runnable club-analysis rewrite');
 assert.equal(fuzzyObjectFallback.evidence[0]?.clubId, 'club-sdzx', 'club-like fuzzy fallback should show the matching club first');
 assert.ok(fuzzyObjectFallback.sections?.some((section) => section.title === '\u53ef\u4ee5\u5148\u786e\u8ba4'), 'fuzzy fallback should explain the candidate choices');

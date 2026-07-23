@@ -139,6 +139,8 @@ assert.match(js, /这不代表赛事不存在/, 'AI missing-competition fallback
 assert.match(js, /查看相关赛事/, 'AI missing-competition fallback must offer an action to inspect related competitions');
 assert.match(js, /地方联赛或分站赛/, 'AI missing-competition fallback must handle local league and station naming differences');
 assert.match(js, /function aiFallbackRewriteActions\(query = '', candidates = \{\}\)/, 'AI fallback must generate runnable rewrite suggestions');
+assert.match(js, /function aiOriginalQuestionSearchAction\(query = ''\)[\s\S]*searchKeyword: text/, 'AI fallback must preserve the original question for one-tap database search');
+assert.match(js, /const searchKeyword = String\(filters\.searchKeyword \|\| ''\)\.trim\(\);[\s\S]*searchInput\.value = searchKeyword;/, 'AI database recovery filters must apply the preserved search keyword');
 assert.match(js, /if \(\/\^\[\\u4e00-\\u9fa5\]\$\/\.test\(compact\) && !terms\.includes\(compact\)\) terms\.push\(compact\);/, 'AI fallback should keep single-character Chinese surname queries as candidate terms');
 assert.match(js, /haystack\.startsWith\(needle\) \? score \+ 18 : score/, 'single-character surname matching must be limited to name prefixes');
 assert.match(js, /function aiFallbackClarificationRows\(query = ''\)/, 'AI fallback must explain what information the user should add next');

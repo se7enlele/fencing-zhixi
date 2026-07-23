@@ -1862,6 +1862,7 @@ function normalizeAiFilterYears(filters = {}) {
 
 function applyAiCompetitionFilters(filters = {}) {
   const question = filters.query || state.aiActiveQuery || '';
+  const searchKeyword = String(filters.searchKeyword || '').trim();
   const itemFilter = filters.item || queryItemFilterOption(question);
   const years = normalizeAiFilterYears(filters);
   state.selectedAiYears = years.length > 1 ? years : [];
@@ -1878,7 +1879,7 @@ function applyAiCompetitionFilters(filters = {}) {
     item: state.selectedItem !== '全部项目' ? state.selectedItem : '',
   });
   state.aiCompetitionFilterQuestion = question;
-  searchInput.value = '';
+  searchInput.value = searchKeyword;
   renderFilters();
   applyCompetitionFilter();
   navigateMain('competitions');
@@ -6627,6 +6628,21 @@ function aiFallbackRewriteActions(query = '', candidates = {}) {
   ].slice(0, limit);
 }
 
+function aiOriginalQuestionSearchAction(query = '') {
+  const text = String(query || '').trim();
+  const compact = compactText(text);
+  if (compact.length < 2) return null;
+  if (/^(随便看看|看看|帮我看看|查一下|分析一下)$/.test(compact)) return null;
+  return {
+    label: '按原问题搜索',
+    mainTab: 'competitions',
+    filters: {
+      query: text,
+      searchKeyword: text,
+    },
+  };
+}
+
 function aiFallbackClarificationRows(query = '') {
   const normalized = compactText(query);
   const rows = [];
@@ -6713,6 +6729,7 @@ function buildAiFallbackReport(query) {
         },
       ],
       actions: [
+        aiOriginalQuestionSearchAction(text),
         { label: '查看相关赛事', mainTab: 'competitions', filters: competitionLike },
         relatedCompetitions[0]?.sportCode ? { label: '查看相近赛事', sportCode: relatedCompetitions[0].sportCode } : null,
         { label: '统计同地区赛事', query: `${competitionLike.year || '2026'}年${competitionLike.region || ''}有几场比赛` },
@@ -6782,6 +6799,7 @@ function buildAiFallbackReport(query) {
       ],
       actions: [
         ...primaryActions,
+        aiOriginalQuestionSearchAction(text),
         ...aiFallbackRewriteActions(text, candidates),
         firstCompetition?.sportCode ? { label: '看相近赛事', sportCode: firstCompetition.sportCode } : null,
       ].filter(Boolean),
