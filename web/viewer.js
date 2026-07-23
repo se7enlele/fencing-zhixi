@@ -2833,7 +2833,7 @@ function renderParentWorkspace() {
     `;
   }
 
-  const trendLabel = model.trend === null ? '趋势待确认' : model.trend > 0 ? `进步 ${model.trend} 名` : model.trend < 0 ? `后退 ${Math.abs(model.trend)} 名` : '名次持平';
+  const trendLabel = model.trend === null ? '趋势待确认' : model.trend > 0 ? `进步 ${model.trend} 名` : model.trend < 0 ? `较上次回落 ${Math.abs(model.trend)} 名` : '名次持平';
   const focusRows = parentNextFocusRows(model);
   return `
     <section class="panel role-panel parent-panel">
@@ -3005,7 +3005,7 @@ function parentGrowthPeerPositionRows(athlete, model) {
 function parentGrowthActionRows(athlete, model, focusRows = []) {
   const latest = model.latest;
   const bestProject = model.best ? displayEventName(model.best) : (latest ? displayEventName(latest) : '常参项目');
-  const trendText = model.trend === null ? '名次变化还需要继续观察' : model.trend > 0 ? `最近名次前进 ${model.trend} 名` : model.trend < 0 ? `最近名次后退 ${Math.abs(model.trend)} 名` : '最近名次基本稳定';
+  const trendText = model.trend === null ? '名次变化还需要继续观察' : model.trend > 0 ? `最近名次前进 ${model.trend} 名` : model.trend < 0 ? `最近名次回落 ${Math.abs(model.trend)} 名` : '最近名次基本稳定';
   return [
     {
       title: '赛后复盘',
@@ -3024,8 +3024,8 @@ function parentGrowthActionRows(athlete, model, focusRows = []) {
       detail: `优先选择 ${bestProject} 或相近项目，目标是验证 ${trendText} 是否持续。`,
     },
     {
-      title: '投入观察',
-      detail: `连续 2-3 场看参赛频率、名次变化和淘汰赛表现，再决定训练强度和参赛安排。`,
+      title: '阶段节奏',
+      detail: `连续 2-3 场看参赛频率、名次变化和淘汰赛表现，再调整训练节奏和参赛安排。`,
     },
   ];
 }
@@ -3037,7 +3037,7 @@ function parentGrowthCommunicationRows(athlete, model, focusRows = [], actionRow
     : model.trend > 0
       ? `最近名次前进 ${model.trend} 名`
       : model.trend < 0
-        ? `最近名次后退 ${Math.abs(model.trend)} 名`
+        ? `最近名次回落 ${Math.abs(model.trend)} 名`
         : '最近名次基本稳定';
   const focus = focusRows[0] || null;
   const continuity = signalRows.find((row) => row.title === '参赛连续性') || signalRows[0] || null;
@@ -3062,7 +3062,7 @@ function parentGrowthCommunicationRows(athlete, model, focusRows = [], actionRow
       message: [
         `${athlete.name} 当前参赛记录 ${model.events.length} 场，最好名次 ${model.best?.finalRank ? `第${model.best.finalRank}名` : '待确认'}`,
         `小组胜率 ${model.poolRate === null ? '待观察' : `${model.poolRate}%`}，淘汰赛 ${model.totalElimWins}胜${model.totalElimLosses}负`,
-        continuity?.detail || '先看参赛连续性，再判断训练投入节奏。',
+        continuity?.detail || '先看参赛连续性，再判断训练节奏。',
       ].filter(Boolean).join('；'),
     },
     {
@@ -3087,7 +3087,7 @@ function parentInvestmentSignalRows(model) {
     ? { level: '稳定', detail: `已有 ${model.events.length} 场参赛记录，可以开始按季度复盘。` }
     : model.events.length >= 2
       ? { level: '积累中', detail: `已有 ${model.events.length} 场记录，建议再观察 1-2 场形成趋势。` }
-      : { level: '样本少', detail: '先积累至少 2-3 场比赛，再判断长期投入节奏。' };
+      : { level: '样本少', detail: '先积累至少 2-3 场比赛，再判断长期训练节奏。' };
   const poolSignal = model.poolRate === null
     ? { level: '待观察', detail: '小组胜负资料不足，先观察基础稳定性。' }
     : model.poolRate >= 60
@@ -3106,7 +3106,7 @@ function parentInvestmentSignalRows(model) {
     : model.trend > 0
       ? { level: '向前', detail: `最近名次前进 ${model.trend} 名，可以保持参赛节奏。` }
       : model.trend < 0
-        ? { level: '复盘', detail: `最近名次后退 ${Math.abs(model.trend)} 名，建议先做赛后复盘。` }
+        ? { level: '复盘', detail: `最近名次回落 ${Math.abs(model.trend)} 名，建议先做赛后复盘。` }
         : { level: '持平', detail: '最近名次基本持平，下一场重点看小组赛稳定性。' };
   return [
     { title: '参赛连续性', ...eventSignal },
@@ -3210,7 +3210,7 @@ function renderParentGrowthReport(athleteId = '') {
   const peerRows = parentGrowthPeerPositionRows(athlete, model);
   const closeBout = parentGrowthCloseBoutRows(athlete);
   const latestText = model.latest ? `${displayEventName(model.latest)} · 第${model.latest.finalRank ?? '-'}名` : '暂无记录';
-  const trendLabel = model.trend === null ? '趋势待确认' : model.trend > 0 ? `进步 ${model.trend} 名` : model.trend < 0 ? `后退 ${Math.abs(model.trend)} 名` : '名次持平';
+  const trendLabel = model.trend === null ? '趋势待确认' : model.trend > 0 ? `进步 ${model.trend} 名` : model.trend < 0 ? `较上次回落 ${Math.abs(model.trend)} 名` : '名次持平';
 
   parentGrowthReportHero.innerHTML = `
     <div class="hero-title">${escapeHtml(athlete.name)} 的成长报告</div>
@@ -3230,7 +3230,7 @@ function renderParentGrowthReport(athleteId = '') {
   parentGrowthReportBody.innerHTML = `
     <article class="panel parent-growth-report-card parent-growth-decision">
       <div class="section-title">
-        <h2>成长判断</h2>
+        <h2>成长阶段</h2>
         <span>家长视角</span>
       </div>
       <strong>${escapeHtml(model.investment)}</strong>
@@ -3258,8 +3258,8 @@ function renderParentGrowthReport(athleteId = '') {
 
     <article class="panel parent-growth-report-card parent-investment-signals">
       <div class="section-title">
-        <h2>投入观察指标</h2>
-        <span>继续投入前先看这些信号</span>
+        <h2>成长观察指标</h2>
+        <span>用这些信号看阶段变化</span>
       </div>
       <div class="parent-investment-signal-list">
         ${signalRows.map((row) => `
@@ -3475,7 +3475,7 @@ function renderRoleWorkspaceLegacy() {
         <div class="role-grid">
           <button type="button" data-role="parent">
             <strong>我是家长</strong>
-            <span>看孩子是否进步、是否值得继续投入</span>
+            <span>看孩子长期成长和阶段变化</span>
           </button>
           <button type="button" data-role="coach">
             <strong>我是教练</strong>
@@ -3570,7 +3570,7 @@ function renderRoleWorkspaceHome() {
       <div class="role-grid">
         <button type="button" data-role="parent">
           <strong>我是家长</strong>
-          <span>看孩子长期成长、是否进步、是否值得继续投入</span>
+          <span>看孩子长期成长、阶段变化和下一场重点</span>
         </button>
         <button type="button" data-role="coach">
           <strong>我是教练</strong>
@@ -7872,7 +7872,7 @@ function productTemplateSections(kind) {
           '成长结论：近期变化、稳定性和下一步重点。',
           '参赛轨迹：按时间展示最近比赛、名次和项目变化。',
           '同龄位置：用同项目、同年龄段成绩判断相对位置。',
-          '投入建议：用温和表达给出继续积累、重点突破或调整比赛节奏。',
+          '成长建议：用温和表达给出继续积累、重点突破或调整比赛节奏。',
         ],
       },
       {

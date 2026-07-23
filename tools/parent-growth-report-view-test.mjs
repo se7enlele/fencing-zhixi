@@ -40,8 +40,11 @@ assert.match(js, /roleWorkspace\.querySelectorAll\('\[data-parent-growth-athlete
 
 assert.match(js, /parent-growth-decision/, 'growth report must render a parent-facing decision block');
 assert.match(js, /class="parent-growth-metrics"/, 'growth report must render key metrics');
-assert.match(js, /class="panel parent-growth-report-card parent-investment-signals"/, 'growth report must render investment observation signals');
-assert.match(js, /投入观察指标/, 'growth report must label investment observation signals clearly');
+assert.match(js, /class="panel parent-growth-report-card parent-investment-signals"/, 'growth report must render growth observation signals');
+assert.match(js, /成长观察指标/, 'growth report must label growth observation signals clearly');
+assert.match(js, /<h2>成长阶段<\/h2>/, 'growth report must frame the parent summary as a growth stage');
+assert.match(js, /阶段节奏/, 'growth report action plan must describe training rhythm as stage pacing');
+assert.doesNotMatch(js, /投入观察指标|继续投入前先看这些信号|训练投入节奏|长期投入节奏|最近名次后退/, 'growth report must avoid blunt investment or regression wording');
 assert.match(js, /const signalRows = parentInvestmentSignalRows\(model\)/, 'growth report must render signal rows from the current athlete model');
 assert.match(js, /const communicationRows = parentGrowthCommunicationRows\(athlete, model, focusRows, actionRows, signalRows\)/, 'growth report must render communication cards from the current athlete model');
 assert.match(js, /const peerRows = parentGrowthPeerPositionRows\(athlete, model\)/, 'growth report must render peer position rows from the current athlete model');
