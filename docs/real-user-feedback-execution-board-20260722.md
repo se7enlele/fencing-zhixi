@@ -49,6 +49,10 @@
 | 11 | 分析马潇和陶嘉月的对战情况 | 选手对比 |
 | 12 | 帮我生成蔡廷彧成长报告 | 报告产品化 |
 | 13 | 孩子击剑值不值得继续 | 模糊家长问题恢复 |
+| 14 | 2027年北京击剑联赛第一站 | 未收录赛事恢复 |
+| 15 | 为什么我的数据库里没有北京击剑联赛的数据？ | 数据覆盖诊断 |
+| 16 | 帮我生成赛前情报包 | 报告产品化 |
+| 17 | 小众 | 模糊对象恢复 |
 
 自动评测命令：
 
@@ -98,6 +102,26 @@ npm.cmd run audit:online-ai
 - 审计输出：
   - `analysis-output/online-ai-flow-audit-2026-07-22T03-21-14-418Z.json`
   - `analysis-output/real-user-ai-evaluation-2026-07-22T03-21-14-418Z.md`
+
+### 首页聚焦入口修复
+
+- 部署版本：`d8845a20-cf52-4736-8a21-db707711ecf8`
+- 代码提交：`6bf6e691 Fix focused home empty follow action`
+- 产品调整：当首页没有真实关注选手或教练对象时，不再展示空的“查看画像”动作，改为进入关注管理、赛事提醒或数据库证据链。
+- 缓存版本：`fencingai-product-20260723-home-focus-1`
+- 本地验证：
+  - `node --check web\viewer.js`
+  - `node tools\my-page-view-test.mjs`
+  - `node tools\online-ai-flow-audit-test.mjs`
+  - `node tools\product-copy-test.mjs`
+  - `npm.cmd run smoke`
+- 线上审计：
+  - `npm.cmd run audit:online-p0` 通过，覆盖首页聚焦卡、AI 到数据库证据入口、关注筛选下拉、我的页登录状态和底部 Tab 单选状态。
+  - `npm.cmd run audit:online-ai` 通过，17 个真实用户问题场景全部达到 `可信` 或可恢复状态。
+- 审计输出：
+  - `analysis-output/online-p0-interaction-audit-2026-07-22T17-15-05-762Z.json`
+  - `analysis-output/online-ai-flow-audit-2026-07-22T17-15-35-592Z.json`
+  - `analysis-output/real-user-ai-evaluation-2026-07-22T17-15-35-592Z.md`
 
 ## 本轮完成口径
 
