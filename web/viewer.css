@@ -8241,6 +8241,18 @@ select:focus {
   font-style: normal;
 }
 
+.club-share-claim {
+  margin: 0;
+  border: 1px solid rgba(13, 125, 103, 0.14);
+  border-radius: 10px;
+  background: rgba(240, 251, 247, 0.82);
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 1.55;
+  padding: 9px 10px;
+}
+
 .club-share-kpis {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -8343,6 +8355,27 @@ select:focus {
 }
 
 .club-share-proof em {
+  line-height: 1.45;
+}
+
+.club-share-parent-step {
+  display: grid;
+  gap: 4px;
+  border: 1px solid rgba(21, 95, 194, 0.1);
+  border-radius: 10px;
+  background: rgba(236, 245, 255, 0.72);
+  padding: 9px 10px;
+}
+
+.club-share-parent-step strong {
+  color: var(--primary);
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.club-share-parent-step span {
+  color: var(--muted);
+  font-size: 12px;
   line-height: 1.45;
 }
 

@@ -12,12 +12,16 @@ assert.match(js, /function buildClubCommunicationScripts\(club, projectRows, ath
 assert.match(js, /function renderClubCommunicationScripts\(club, projectRows, athletes\)/, 'club coach view must render parent-facing communication scripts');
 assert.match(js, /function renderClubShareCard\(club, projectRows, athletes\)/, 'club coach view must render a shareable recruiting card');
 assert.match(js, /function clubRecruitingProjectRows\(projectRows = \[\]\)/, 'club recruiting card must derive project-level selling points');
+assert.match(js, /function clubRecruitingParentLine\(club, projectRows = \[\], athletes = \[\]\)/, 'club recruiting card must build a parent-facing consultation line');
 assert.match(js, /coachProjectMatrixRows\(projectRows\)/, 'club recruiting project rows must reuse the same project dimension model as the coach workspace');
 assert.match(js, /clubRecruitingProofRows\(club, projectRows, athletes\)/, 'club recruiting share copy and card must use the same proof rows');
 assert.match(js, /适合对外展示的项目：/, 'club recruiting share text must include project-level selling points');
+assert.match(js, /家长咨询建议：\$\{parentLine\}/, 'club recruiting share text must include parent consultation guidance');
 assert.match(js, /可核对成绩依据：/, 'club recruiting share text must include traceable evidence');
 assert.match(js, /<h2>招生名片<\/h2>[\s\S]*可直接转发/, 'club recruiting card must be framed as a shareable recruiting card');
 assert.match(js, /击剑招生名片/, 'club recruiting card must use recruiting-card copy');
+assert.match(js, /class="club-share-claim"/, 'club recruiting card must show a parent-facing claim before proof points');
+assert.match(js, /class="club-share-parent-step"/, 'club recruiting card must show a parent consultation next step');
 assert.match(js, /class="club-share-projects"/, 'club recruiting card must render project-level selling points');
 assert.match(js, /function copyTextToClipboard\(text\)/, 'club share card must support copy action');
 assert.match(js, /CLUB_FOLLOW_KEY = 'fencingai\.followedClubs\.v1'/, 'club follows must have a dedicated persisted key');
@@ -65,9 +69,11 @@ assert.match(js, /catch \(error\) \{[\s\S]*if \(localClub\?\.club\) \{[\s\S]*ren
 assert.match(css, /\.business-card-grid/, 'recruiting cards must have mobile layout styles');
 assert.match(css, /\.business-card:first-child/, 'primary recruiting card must be visually emphasized');
 assert.match(css, /\.club-share-card/, 'shareable recruiting card must have a distinct mobile card layout');
+assert.match(css, /\.club-share-claim/, 'shareable recruiting card must style its parent-facing claim');
 assert.match(css, /\.club-share-kpis/, 'shareable recruiting card must expose compact proof points');
 assert.match(css, /\.club-share-projects/, 'shareable recruiting card must style project-level selling points');
 assert.match(css, /\.club-share-proof::before/, 'shareable recruiting card must label evidence rows');
+assert.match(css, /\.club-share-parent-step/, 'shareable recruiting card must style the parent consultation step');
 assert.match(css, /\.club-share-action/, 'shareable recruiting card must style its copy action');
 assert.match(css, /\.coach-action-grid/, 'coach action plan must have a mobile grid layout');
 assert.match(css, /\.coach-action-card:first-child/, 'primary coach action must be visually emphasized');

@@ -13177,6 +13177,17 @@ function clubRecruitingProjectRows(projectRows = []) {
     });
 }
 
+function clubRecruitingParentLine(club, projectRows = [], athletes = []) {
+  const recruitingProjects = clubRecruitingProjectRows(projectRows);
+  const bestProject = [...projectRows].sort((a, b) => (a.bestRank ?? 999) - (b.bestRank ?? 999))[0];
+  const strongestAthlete = athletes[0];
+  const projectNames = recruitingProjects.length
+    ? recruitingProjects.map((row) => row.label).slice(0, 2).join('、')
+    : bestProject?.label || '常参项目';
+  const athletePart = strongestAthlete?.name ? `，也可以参考 ${strongestAthlete.name} 的比赛经历` : '';
+  return `${club.club} 可以先围绕 ${projectNames} 向家长展示真实参赛经历${athletePart}。咨询时建议先确认孩子年龄段、剑种兴趣和近期适合参加的比赛。`;
+}
+
 function buildClubShareText(club, projectRows, athletes) {
   const highlights = clubShareHighlights(club, projectRows, athletes);
   const bestProject = [...projectRows].sort((a, b) => (a.bestRank ?? 999) - (b.bestRank ?? 999))[0];
@@ -13184,9 +13195,11 @@ function buildClubShareText(club, projectRows, athletes) {
   const scripts = buildClubCommunicationScripts(club, projectRows, athletes);
   const proofRows = clubRecruitingProofRows(club, projectRows, athletes);
   const recruitingProjects = clubRecruitingProjectRows(projectRows);
+  const parentLine = clubRecruitingParentLine(club, projectRows, athletes);
   const lines = [
     `${club.club} 击剑招生名片`,
     highlights.slice(0, 4).join('，'),
+    `家长咨询建议：${parentLine}`,
     bestProject ? `优势项目：${bestProject.label}，参赛 ${bestProject.entrants || 0} 人次，最好第 ${bestProject.bestRank ?? '-'} 名。` : '',
     strongestAthlete ? `代表学员：${strongestAthlete.name}，最好第 ${strongestAthlete.bestRank ?? '-'} 名，${strongestAthlete.appearances || 0} 次参赛记录。` : '',
     recruitingProjects.length ? '适合对外展示的项目：' : '',
@@ -13256,6 +13269,7 @@ function renderClubShareCard(club, projectRows, athletes) {
   const highlights = clubShareHighlights(club, projectRows, athletes).slice(0, 4);
   const proofRows = clubRecruitingProofRows(club, projectRows, athletes);
   const recruitingProjects = clubRecruitingProjectRows(projectRows);
+  const parentLine = clubRecruitingParentLine(club, projectRows, athletes);
   return `
     <section class="coach-section club-share-section">
       <div class="section-title">
@@ -13268,6 +13282,7 @@ function renderClubShareCard(club, projectRows, athletes) {
           <strong>${escapeHtml(club.club)}</strong>
           <em>击剑招生名片</em>
         </div>
+        <p class="club-share-claim">${escapeHtml(parentLine)}</p>
         <div class="club-share-kpis">
           ${highlights.map((text) => `<span>${escapeHtml(text)}</span>`).join('')}
         </div>
@@ -13290,6 +13305,10 @@ function renderClubShareCard(club, projectRows, athletes) {
               <em>${escapeHtml(row.detail)}</em>
             </div>
           `).join('')}
+        </div>
+        <div class="club-share-parent-step">
+          <strong>家长咨询建议</strong>
+          <span>先确认孩子年龄段、剑种兴趣和近期比赛计划，再选择对应项目体验。</span>
         </div>
         <button class="club-share-action" type="button" data-share-club>复制分享文案</button>
       </div>
