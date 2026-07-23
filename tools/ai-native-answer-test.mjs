@@ -20,6 +20,7 @@ assert.match(js, /title: '需要留意'/, 'AI athlete comparison must show user-
 assert.doesNotMatch(js, /title: '关键风险'/, 'AI athlete comparison must not expose risk-register wording');
 assert.match(js, /function aiAcceptanceQueryCases\(\)/, 'AI must keep a stable acceptance query set');
 assert.match(js, /expectedType: 'competition-stats'/, 'AI acceptance queries must cover regional competition stats');
+assert.match(js, /expectedType: 'competition-ranking'/, 'AI acceptance queries must cover competition scale ranking questions');
 assert.match(js, /expectedType: 'prematch'/, 'AI acceptance queries must cover prematch registration questions');
 assert.match(js, /expectedType: 'club'/, 'AI acceptance queries must cover scoped club analysis');
 assert.match(js, /expectedType: 'growth'/, 'AI acceptance queries must cover athlete growth analysis');
@@ -253,6 +254,7 @@ assert.match(js, /state\.selectedAiYears/, 'AI competition filters must preserve
 assert.match(js, /function aiAnswerTypeLabel\(report = \{\}\)/, 'AI answer type labels must be centralized');
 assert.match(js, /if \(report\.type === 'prematch'\) return '赛前提醒';/, 'AI answer header must label prematch reports');
 assert.match(js, /if \(report\.type === 'competition-lookup'\) return '赛事查询';/, 'competition-name lookup answers should have a specific user-facing type label');
+assert.match(js, /if \(report\.type === 'competition-ranking'\) return '规模排行';/, 'competition ranking answers should have a specific user-facing type label');
 assert.match(js, /if \(report\.type === 'business-insight'\) return '经营分析';/, 'AI answer header must label business insight reports in user-facing language');
 assert.match(js, /if \(report\.type === 'product-template'\) return '分析报告';/, 'AI answer header must label report planning answers in user-facing language');
 assert.match(js, /if \(report\.type === 'club-recruiting'\) return '招生展示';/, 'AI answer header must label recruiting display reports');

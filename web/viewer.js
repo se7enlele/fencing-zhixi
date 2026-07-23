@@ -874,6 +874,7 @@ function aiHistoryTypeLabel(type) {
     'official-directory': '人员资料',
     'competition-lookup': '赛事查询',
     'competition-stats': '赛事统计',
+    'competition-ranking': '规模排行',
     prematch: '赛前分析',
     growth: '成长分析',
     comparison: '选手对比',
@@ -5513,7 +5514,7 @@ function aiPromptPlaceholder(presets) {
 
 function aiAcceptanceQueryCases() {
   return [
-    { query: '哪场比赛人数最多？', expectedType: 'competition-stats' },
+    { query: '哪场比赛人数最多？', expectedType: 'competition-ranking' },
     { query: '2026年天津有几场比赛', expectedType: 'competition-stats' },
     { query: '天津近期报名情况', expectedType: 'prematch' },
     { query: '山东小众体育 U8 男花怎么样', expectedType: 'club' },
@@ -7587,7 +7588,7 @@ function buildAiCompetitionRanking(query, filters) {
         || String(a.competition.sportName || '').localeCompare(String(b.competition.sportName || ''), 'zh-CN'));
     const topItem = itemRows[0];
     return {
-      type: 'competition-stats',
+      type: 'competition-ranking',
       title: '参赛人数最多的项目',
       summary: topItem
         ? `${scopeText}中，${topItem.label} 的参赛规模最高，约 ${topItem.entrants} 人次，来自 ${topItem.competition.sportName}。`
@@ -7630,7 +7631,7 @@ function buildAiCompetitionRanking(query, filters) {
   }
 
   return {
-    type: 'competition-stats',
+    type: 'competition-ranking',
     title: '参赛人数最多的赛事',
     summary: top
       ? `${scopeText}中，${top.competition.sportName} 的参赛规模最高，约 ${top.entrants} 人次。`
@@ -8596,6 +8597,10 @@ function aiNextStepRows(report) {
       '先查看相关赛事，按状态和月份缩小范围。',
       '如果关注某场比赛，打开详情后看项目、报名和赛后成绩入口。',
     ],
+    'competition-ranking': [
+      '先打开排名靠前的赛事，核对项目分布和参赛规模。',
+      '如果是赛前赛事，再继续看报名名单、重点项目和俱乐部分布。',
+    ],
     prematch: [
       '先看最近开赛和报名中的赛事，确认孩子或学员所在项目。',
       '报名动态完整后，再重点看同组对手、强手和主要俱乐部分布。',
@@ -8639,7 +8644,7 @@ function aiFollowUpPrompts(report) {
   const region = filters.region || '天津';
   const year = filters.year || '2026';
   const month = filters.month ? `${filters.month}月` : '';
-  if (report.type === 'competition-stats') {
+  if (report.type === 'competition-stats' || report.type === 'competition-ranking') {
     return [
       `${year}${month}${region}报名情况`,
       `${region}近期有哪些比赛`,
@@ -8806,7 +8811,7 @@ function aiReportConversionAction(report = {}) {
       secondaryLabel: '了解剑馆权益',
     };
   }
-  if (type === 'competition-stats') {
+  if (type === 'competition-stats' || type === 'competition-ranking') {
     return {
       source: 'ai-competition-stats-answer',
       title: '订阅赛事和报名提醒',
@@ -8865,7 +8870,7 @@ function aiConversionServiceRows(report = {}) {
       '同项目俱乐部对标与经营动作',
     ];
   }
-  if (type === 'competition-stats') {
+  if (type === 'competition-stats' || type === 'competition-ranking') {
     return [
       '目标地区和年份的赛事更新提醒',
       '报名中、未开赛和已结束赛事分层',
@@ -8909,7 +8914,7 @@ function aiResultActionTitle(report = {}) {
     if (hasQueryAction && hasDirectAction) return '选择对象或继续问';
     return hasQueryAction ? '继续这样问' : '选择一个结果';
   }
-  if (report.type === 'competition-lookup' || report.type === 'competition-stats' || report.type === 'prematch') return '查看赛事';
+  if (report.type === 'competition-lookup' || report.type === 'competition-stats' || report.type === 'competition-ranking' || report.type === 'prematch') return '查看赛事';
   if (report.type === 'growth' || report.type === 'comparison') return '查看选手';
   if (report.type === 'club' || report.type === 'club-comparison' || report.type === 'club-recruiting') return '查看剑馆';
   if (report.type === 'business-insight' || report.type === 'product-template') return '查看报告';
@@ -8928,6 +8933,7 @@ function aiAnswerTypeLabel(report = {}) {
   if (report.type === 'official-directory') return '人员资料';
   if (report.type === 'competition-lookup') return '赛事查询';
   if (report.type === 'competition-stats') return '赛事统计';
+  if (report.type === 'competition-ranking') return '规模排行';
   if (report.type === 'empty') return '开始提问';
   if (report.type === 'fallback') {
     const title = String(report.title || '');

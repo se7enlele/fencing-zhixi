@@ -467,13 +467,13 @@ const juneFilterAction = juneStats.actions.find((action) => action.filters);
 assert.equal(JSON.stringify(juneFilterAction.filters), JSON.stringify({ year: '2026', month: '6', region: '\u5929\u6d25', status: '' }), 'AI competition stats action should preserve the matched filters');
 
 const scaleStats = context.buildAiAnswer('\u54ea\u573a\u6bd4\u8d5b\u4eba\u6570\u6700\u591a\uff1f');
-assert.equal(scaleStats.type, 'competition-stats', 'competition scale query should route to competition stats');
+assert.equal(scaleStats.type, 'competition-ranking', 'competition scale query should route to competition ranking');
 assert.equal(scaleStats.cards[0][1], '140 \u4eba\u6b21', 'AI competition scale answer should rank by actual entrant totals');
 assert.equal(scaleStats.evidence[0].sportCode, 'BIG2026DONE', 'AI competition scale answer should cite the largest competition first');
 assert.equal(scaleStats.actions.find((action) => action.sportCode)?.sportCode, 'BIG2026DONE', 'AI competition scale answer should open the largest competition directly');
 
 const itemScaleStats = context.buildAiAnswer('\u54ea\u4e2a\u9879\u76ee\u4eba\u6570\u6700\u591a\uff1f');
-assert.equal(itemScaleStats.type, 'competition-stats', 'project scale query should route to competition stats');
+assert.equal(itemScaleStats.type, 'competition-ranking', 'project scale query should route to competition ranking');
 assert.equal(itemScaleStats.cards[0][1], 'U8 \u7537\u82b1', 'AI project scale answer should name the largest project');
 assert.equal(itemScaleStats.cards[1][1], '75 \u4eba\u6b21', 'AI project scale answer should rank by project entrants');
 assert.equal(itemScaleStats.evidence[0].eventCode, 'BIG2026DONE-U8MF', 'AI project scale answer should cite the largest event item first');
