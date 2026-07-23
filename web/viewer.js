@@ -7281,6 +7281,19 @@ function aiClubComparisonConclusionRows(metrics) {
   return metrics.map(([left, right]) => aiClubComparisonMetricLine(left, right));
 }
 
+function aiClubComparisonQuantityRows(totalPair, metricPairs = []) {
+  const pairs = [
+    totalPair,
+    ...metricPairs.filter(([metric]) => metric.gender !== 'total'),
+  ].filter(Boolean);
+  return pairs.map(([left, right]) => {
+    const winner = aiClubComparisonQuantityWinner(left, right);
+    const label = aiClubComparisonGenderLabel(left.gender);
+    const result = winner ? `${winner.club.club}数量占优` : '数量接近';
+    return `${label}：${result}。${left.club.club} ${left.entrants}人次、前八${left.top8}、奖牌${left.medals}、冠军${left.champions}；${right.club.club} ${right.entrants}人次、前八${right.top8}、奖牌${right.medals}、冠军${right.champions}。`;
+  });
+}
+
 function aiClubComparisonReasonRows(totalPair, metricPairs = []) {
   if (!totalPair) return [];
   const [left, right] = totalPair;
@@ -7351,6 +7364,10 @@ function buildAiClubComparisonReport(query, leftClub, rightClub, filters) {
       ...resultCards,
     ],
     sections: [
+      {
+        title: '数量判断',
+        rows: aiClubComparisonQuantityRows(totalPair, metricPairs),
+      },
       {
         title: '对比结论',
         rows: aiClubComparisonConclusionRows(metricPairs),

@@ -151,6 +151,7 @@ const functionNames = [
   'aiClubComparisonRateLine',
   'aiClubComparisonMetricLine',
   'aiClubComparisonConclusionRows',
+  'aiClubComparisonQuantityRows',
   'aiClubComparisonReasonRows',
   'aiClubComparisonEvidenceRows',
   'aiClubComparisonItemFilter',
@@ -640,6 +641,8 @@ assert.ok(clubComparisonReport.cards.some(([label, value]) => label === '\u5973\
 assert.ok(clubComparisonReport.cards.some(([label, value]) => label === '\u5408\u8ba1\u7ed3\u8bba' && /\u5317\u4eac\u91d1\u77f3/.test(value)), 'club comparison should show a total result card');
 assert.ok(!clubComparisonReport.cards.some(([label]) => label === '\u5206\u6790\u53e3\u5f84'), 'club comparison should not expose internal analysis scope as a card');
 assert.ok(!clubComparisonReport.sections.some((section) => /(\u5206\u6790\u53e3\u5f84|\u5224\u65ad\u53e3\u5f84|\u540e\u7eed|\u4e0b\u4e00\u6b65)/.test(section.title)), 'club comparison should not expose internal workflow labels as sections');
+assert.ok(clubComparisonReport.sections.some((section) => section.title === '\u6570\u91cf\u5224\u65ad'), 'club comparison should include a dedicated quantity judgment section');
+assert.ok(clubComparisonReport.sections.find((section) => section.title === '\u6570\u91cf\u5224\u65ad')?.rows.some((row) => /\u4eba\u6b21/.test(row) && /\u524d\u516b/.test(row) && /\u5956\u724c/.test(row) && /\u51a0\u519b/.test(row)), 'club comparison quantity judgment should expose participation, top-8, medal and champion counts');
 assert.ok(clubComparisonReport.sections.some((section) => section.title === '\u5bf9\u6bd4\u7ed3\u8bba'), 'club comparison should include user-facing comparison rows');
 assert.ok(clubComparisonReport.sections.find((section) => section.title === '\u5bf9\u6bd4\u7ed3\u8bba')?.rows.some((row) => row.includes('\u7537\u5b50') && row.includes('\u5317\u4eac\u91d1\u77f3\u9886\u5148')), 'club comparison should split male foil judgment');
 assert.ok(clubComparisonReport.sections.find((section) => section.title === '\u5bf9\u6bd4\u7ed3\u8bba')?.rows.some((row) => row.includes('\u5973\u5b50') && row.includes('\u5317\u4eac\u827e\u9c81\u7279\u9886\u5148')), 'club comparison should split female foil judgment');

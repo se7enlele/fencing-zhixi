@@ -95,6 +95,7 @@ assert.match(js, /function aiClubComparisonQuantityWinner\(left, right\)/, 'AI c
 assert.match(js, /function aiClubComparisonEfficiencyWinner\(left, right\)/, 'AI club comparison must separate efficiency signals from raw participation volume');
 assert.match(js, /function aiClubComparisonCardLabel\(metric\)/, 'AI club comparison must label male, female and total result cards');
 assert.match(js, /function aiClubComparisonCardValue\(left, right\)/, 'AI club comparison must summarize each gender split as a compact result card');
+assert.match(js, /function aiClubComparisonQuantityRows\(totalPair, metricPairs = \[\]\)/, 'AI club comparison must expose a dedicated quantity-first judgment section');
 assert.match(js, /function aiClubComparisonRefineLabel\(filters\)/, 'AI club comparison follow-up labels must match the current scope');
 assert.match(js, /type: 'club-comparison'/, 'AI club comparison report must have a stable report type');
 assert.match(js, /\['成绩积累',/, 'AI club comparison cards must expose accumulated result signals explicitly');
