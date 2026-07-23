@@ -5,6 +5,7 @@ const regionFilterButton = document.querySelector('#regionFilterButton');
 const itemFilterButton = document.querySelector('#itemFilterButton');
 const statusFilterButton = document.querySelector('#statusFilterButton');
 const myFollowFilterButton = document.querySelector('#myFollowFilterButton');
+const myFollowFilterMenu = document.querySelector('#myFollowFilterMenu');
 const filterSheet = document.querySelector('#filterSheet');
 const filterSheetMask = document.querySelector('#filterSheetMask');
 const filterSheetClose = document.querySelector('#filterSheetClose');
@@ -1919,9 +1920,45 @@ function renderFilters() {
     myFollowFilterButton.classList.toggle('active', isActive);
     myFollowFilterButton.innerHTML = `<span>${escapeHtml(value)}</span>`;
   }
+  renderFollowFilterMenu();
+}
+
+function renderFollowFilterMenu() {
+  if (!myFollowFilterMenu) return;
+  const activeValue = activeFilterValue('follow');
+  myFollowFilterMenu.innerHTML = filterOptions('follow').map((value) => `
+    <button class="follow-filter-option ${value === activeValue ? 'active' : ''}" type="button" role="option" aria-selected="${value === activeValue ? 'true' : 'false'}" data-filter-value="${escapeHtml(value)}">
+      ${escapeHtml(value)}
+    </button>
+  `).join('');
+}
+
+function closeFollowFilterMenu() {
+  if (!myFollowFilterMenu) return;
+  myFollowFilterMenu.setAttribute('hidden', '');
+  myFollowFilterButton?.setAttribute('aria-expanded', 'false');
+}
+
+function openFollowFilterMenu() {
+  if (!myFollowFilterMenu) return;
+  renderFollowFilterMenu();
+  closeFilterSheet();
+  myFollowFilterMenu.removeAttribute('hidden');
+  myFollowFilterButton?.setAttribute('aria-expanded', 'true');
+}
+
+function toggleFollowFilterMenu() {
+  if (!myFollowFilterMenu) return;
+  if (myFollowFilterMenu.hasAttribute('hidden')) openFollowFilterMenu();
+  else closeFollowFilterMenu();
 }
 
 function openFilterSheet(type) {
+  if (type === 'follow') {
+    openFollowFilterMenu();
+    return;
+  }
+  closeFollowFilterMenu();
   const activeValue = activeFilterValue(type);
   filterSheet.dataset.filterType = type;
   filterSheetTitle.textContent = filterTitle(type);
@@ -14930,7 +14967,24 @@ yearFilterButton.addEventListener('click', () => openFilterSheet('year'));
 regionFilterButton.addEventListener('click', () => openFilterSheet('region'));
 itemFilterButton.addEventListener('click', () => openFilterSheet('item'));
 statusFilterButton.addEventListener('click', () => openFilterSheet('status'));
-myFollowFilterButton?.addEventListener('click', () => openFilterSheet('follow'));
+myFollowFilterButton?.addEventListener('click', (event) => {
+  event.stopPropagation();
+  toggleFollowFilterMenu();
+});
+myFollowFilterMenu?.addEventListener('click', (event) => {
+  const button = event.target.closest('.follow-filter-option');
+  if (!button) return;
+  setFilterValue('follow', button.dataset.filterValue);
+  closeFollowFilterMenu();
+});
+document.addEventListener('click', (event) => {
+  if (!myFollowFilterMenu || myFollowFilterMenu.hasAttribute('hidden')) return;
+  if (myFollowFilterButton?.contains(event.target) || myFollowFilterMenu.contains(event.target)) return;
+  closeFollowFilterMenu();
+});
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape') closeFollowFilterMenu();
+});
 filterSheetMask.addEventListener('click', closeFilterSheet);
 filterSheetClose.addEventListener('click', closeFilterSheet);
 filterSheetOptions.addEventListener('click', (event) => {

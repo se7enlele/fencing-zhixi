@@ -49,11 +49,10 @@ assert.doesNotMatch(js, /\bP0\b|\bP1\b/, 'frontend copy must avoid internal prio
 
 assert.doesNotMatch(js, /\u751f\u6210\u5224\u65ad/, 'AI submit button must not use vague judgment copy');
 assert.match(js, /\u5f00\u59cb\u5206\u6790/, 'AI submit button should use a direct action CTA');
-assert.doesNotMatch(html, /id="followFilterMenu"/, 'my-follow filter should not use a fragile inline menu container');
-assert.doesNotMatch(js, /function toggleFollowFilterMenu\(\)/, 'my-follow filter should use the shared sheet instead of an inline menu');
-assert.doesNotMatch(js, /data-follow-filter-value/, 'my-follow filter should use the shared sheet option data attributes');
-assert.match(js, /myFollowFilterButton\?\.addEventListener\('click', \(\) => openFilterSheet\('follow'\)\)/, 'my-follow filter button must open the shared sheet');
-assert.doesNotMatch(css, /\.follow-filter-menu|\.follow-filter-option/, 'my-follow inline menu styles must not remain');
+assert.match(html, /id="myFollowFilterMenu" class="follow-filter-menu" role="listbox" aria-label="选择关注范围" hidden/, 'my-follow filter should expose a visible inline menu after click');
+assert.match(js, /function toggleFollowFilterMenu\(\)/, 'my-follow filter should use direct dropdown behavior instead of a silent toggle');
+assert.match(js, /myFollowFilterButton\?\.addEventListener\('click', \(event\) => \{[\s\S]*toggleFollowFilterMenu\(\);[\s\S]*\}\)/, 'my-follow filter button must open the inline menu');
+assert.match(css, /\.follow-filter-menu|\.follow-filter-option/, 'my-follow inline menu styles must exist');
 assert.doesNotMatch(js, /myFollowFilterButton\?\.addEventListener\('click', toggleFollowedCompetitionFilter\)/, 'my-follow dropdown-style filter must not be wired as a silent toggle');
 assert.doesNotMatch(js, /AI 分析入口|为你而生|主动洞察/, 'home and detail copy must avoid internal or vague AI-entry wording');
 assert.doesNotMatch(js, /专业分析入口|<h2>工作入口<\/h2>|按任务进入|<span>当前角色：/, 'home and role copy must avoid internal navigation or role-state wording');

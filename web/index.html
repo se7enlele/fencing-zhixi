@@ -65,9 +65,10 @@
             <button id="regionFilterButton" class="filter-trigger" type="button"></button>
             <button id="itemFilterButton" class="filter-trigger" type="button"></button>
             <button id="statusFilterButton" class="filter-trigger" type="button"></button>
-            <button id="myFollowFilterButton" class="filter-trigger follow-filter-trigger" type="button" aria-haspopup="dialog" aria-expanded="false">
+            <button id="myFollowFilterButton" class="filter-trigger follow-filter-trigger" type="button" aria-haspopup="listbox" aria-expanded="false" aria-controls="myFollowFilterMenu">
               <span>全部赛事</span>
             </button>
+            <div id="myFollowFilterMenu" class="follow-filter-menu" role="listbox" aria-label="选择关注范围" hidden></div>
           </div>
         </section>
         <section class="panel search-athletes-panel" id="searchAthletesPanel" hidden></section>

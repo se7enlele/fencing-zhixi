@@ -412,6 +412,39 @@ select:focus {
   color: #fff;
 }
 
+.follow-filter-menu {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  padding: 8px;
+  border: 1px solid rgba(21, 95, 194, 0.14);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 12px 26px rgba(16, 24, 40, 0.08);
+}
+
+.follow-filter-menu[hidden] {
+  display: none;
+}
+
+.follow-filter-option {
+  min-height: 34px;
+  border: 1px solid rgba(16, 24, 40, 0.09);
+  border-radius: 9px;
+  background: #fff;
+  color: var(--text);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.follow-filter-option.active {
+  background: rgba(21, 95, 194, 0.1);
+  border-color: rgba(21, 95, 194, 0.35);
+  color: var(--primary);
+}
+
 .search-athletes-panel {
   margin-bottom: 12px;
   padding-bottom: 10px;

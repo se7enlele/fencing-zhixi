@@ -138,11 +138,11 @@ async function auditFollowFilterSheet(page) {
   await page.locator('#bottomNav [data-main-tab="competitions"]').click();
   await page.waitForFunction(() => document.querySelector('#view-competitions')?.classList.contains('active'), { timeout: 10000 });
   await page.locator('#myFollowFilterButton').click();
-  await page.waitForFunction(() => !document.querySelector('#filterSheet')?.hidden, { timeout: 10000 });
-  const options = await page.locator('#filterSheetOptions .sheet-option').evaluateAll((nodes) => nodes.map((node) => node.textContent.trim()));
-  assertAudit(options.includes('我的关注') && options.includes('关注选手'), 'follow filter sheet should expose follow-scope options', { options });
-  await page.locator('#filterSheetOptions .sheet-option', { hasText: '关注选手' }).click();
-  await page.waitForFunction(() => document.querySelector('#filterSheet')?.hidden, { timeout: 10000 });
+  await page.waitForFunction(() => !document.querySelector('#myFollowFilterMenu')?.hidden, { timeout: 10000 });
+  const options = await page.locator('#myFollowFilterMenu .follow-filter-option').evaluateAll((nodes) => nodes.map((node) => node.textContent.trim()));
+  assertAudit(options.includes('我的关注') && options.includes('关注选手'), 'follow filter dropdown should expose follow-scope options', { options });
+  await page.locator('#myFollowFilterMenu .follow-filter-option', { hasText: '关注选手' }).click();
+  await page.waitForFunction(() => document.querySelector('#myFollowFilterMenu')?.hidden, { timeout: 10000 });
   const buttonText = await page.locator('#myFollowFilterButton').innerText();
   const expanded = await page.locator('#myFollowFilterButton').getAttribute('aria-expanded');
   assertAudit(buttonText.includes('关注选手'), 'follow filter button should show selected scope', { buttonText });
