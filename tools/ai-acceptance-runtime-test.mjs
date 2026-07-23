@@ -390,10 +390,37 @@ function hasEvidenceTarget(row = {}) {
   return Boolean(row.eventCode || row.sportCode || row.athleteId || row.clubId || row.mainTab || row.filters);
 }
 
+function hasRunnableActionTarget(row = {}) {
+  return Boolean(
+    row.query
+    || row.sportCode
+    || row.eventCode
+    || row.athleteId
+    || row.clubId
+    || row.mainTab
+    || row.filters
+    || row.followAthleteId
+    || row.followCompetitionCode
+    || row.parentGrowthAthleteId
+    || row.coachSegmentationClubId
+    || row.prematchTemplateKind
+    || row.prematchSportCode
+    || row.officialSearchQuery,
+  );
+}
+
 function assertTraceableEvidence(report, label) {
   for (const [index, row] of (report.evidence || []).entries()) {
     assert.ok(hasEvidenceTarget(row), `${label} evidence ${index + 1} should open a source record or filtered list`);
   }
+}
+
+function assertRunnableActions(report, label) {
+  assert.ok(report.actions?.length, `${label} should include a next action`);
+  assert.ok(
+    report.actions.some((action) => hasRunnableActionTarget(action)),
+    `${label} should include a runnable next action target`,
+  );
 }
 
 assert.equal(context.detectRegionInQuery('2026年天津有几场比赛'), '天津', 'AI region detection must not depend on the current dataset containing that city');
@@ -558,6 +585,7 @@ for (const item of context.aiAcceptanceQueryCases()) {
   const report = context.buildAiAnswer(item.query);
   assert.equal(report.type, item.expectedType, `${item.query} should return ${item.expectedType}`);
   assert.ok(report.cards?.length, `${item.query} should return metric cards`);
+  assertRunnableActions(report, item.query);
   if (report.type !== 'growth') {
     assert.ok(report.evidence?.length, `${item.query} should include clickable evidence`);
   }
