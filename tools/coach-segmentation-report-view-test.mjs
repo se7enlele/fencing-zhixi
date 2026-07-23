@@ -5,6 +5,10 @@ const html = await readFile(new URL('../web/viewer.html', import.meta.url), 'utf
 const indexHtml = await readFile(new URL('../web/index.html', import.meta.url), 'utf8');
 const js = await readFile(new URL('../web/viewer.js', import.meta.url), 'utf8');
 const css = await readFile(new URL('../web/viewer.css', import.meta.url), 'utf8');
+const projectMatrixSource = js.slice(
+  js.indexOf('function coachProjectDimension'),
+  js.indexOf('function coachBusinessGrowthRows'),
+);
 
 assert.equal(indexHtml, html, 'static index.html must stay in sync with viewer.html');
 assert.match(html, /id="view-coach-segmentation-report"/, 'coach segmentation report must have a standalone view');
@@ -24,12 +28,14 @@ assert.match(js, /title: '需要关注学员'/, 'segmentation must include risk/
 assert.match(js, /title: '样本积累学员'/, 'segmentation must include sample-building athletes');
 assert.match(js, /function coachSegmentationEvidenceRows\(club, projectRows\)/, 'segmentation report must expose traceable project evidence');
 assert.match(js, /function coachBusinessGrowthRows\(club, projectRows, buckets\)/, 'coach report must derive recruiting and reputation assets');
+assert.match(js, /function coachProjectDimension\(row = \{\}\)/, 'coach report must classify project dimensions');
+assert.match(js, /function coachProjectMatrixRows\(projectRows = \[\]\)/, 'coach report must derive project matrix rows');
 assert.match(js, /function coachOperatingChecklistRows\(club, buckets = \[\], followups = \[\], projectRows = \[\], businessRows = \[\]\)/, 'coach report must derive an operating checklist from segmentation data');
 assert.match(js, /function coachTrainingPlanRows\(followups = \[\], buckets = \[\], projectRows = \[\]\)/, 'coach report must derive actionable training plan rows');
 assert.match(js, /function coachTrainingPlanText\(row = \{\}\)/, 'coach report must build copyable training plan text');
 assert.match(js, /function coachParentCommunicationRows\(club, followups = \[\], buckets = \[\]\)/, 'coach report must derive parent communication summaries');
 assert.match(js, /function coachParentCommunicationText\(row = \{\}\)/, 'coach report must build copyable parent communication text');
-assert.match(js, /function buildCoachSegmentationShareText\(club, buckets, followups, projectRows, businessRows = \[\]\)/, 'segmentation report must build shareable summary text');
+assert.match(js, /function buildCoachSegmentationShareText\(club, buckets, followups, projectRows, businessRows = \[\], projectMatrixRows = coachProjectMatrixRows\(projectRows\)\)/, 'segmentation report must build shareable summary text');
 assert.match(js, /function coachSegmentationShareUrl\(clubId = ''\)/, 'segmentation report must build a shareable report URL');
 assert.match(js, /function buildCoachSegmentationPageShareText\(club, buckets = \[\], projectRows = \[\]\)/, 'segmentation report must build shareable page text');
 assert.match(js, /function renderCoachSegmentationReport\(clubId = ''\)/, 'coach workspace must render from a club id');
@@ -51,6 +57,11 @@ assert.match(js, /学员分层 · 训练跟进 · 家长沟通/, 'coach workspac
 assert.match(js, /学员 \$\{escapeHtml\(athletes\.length\)\}/, 'coach workspace must describe student count without system wording');
 assert.doesNotMatch(js, /识别学员|训练反馈与留存沟通|增长使用|可追溯成绩依据/, 'coach workspace copy must avoid internal or sales-ops wording');
 assert.match(js, /class="coach-segmentation-metrics"/, 'segmentation report must show bucket metrics');
+assert.match(js, /const projectMatrixRows = coachProjectMatrixRows\(projectRows\)/, 'coach report must build project matrix from current project data');
+assert.match(js, /<h2>项目分组看板<\/h2>[\s\S]*按年龄段、剑种、性别看/, 'coach report must expose project matrix by practical dimensions');
+assert.match(js, /class="coach-project-matrix-grid"/, 'coach report must render a compact project matrix grid');
+assert.match(js, /项目分组：\$\{row\.label\}/, 'coach report share text must include project matrix rows');
+assert.doesNotMatch(projectMatrixSource, /年龄待确认|剑种待确认|性别待确认|项目样本增加后/, 'coach project matrix copy must avoid internal fallback wording');
 assert.match(js, /class="coach-segmentation-buckets"/, 'segmentation report must show athlete buckets');
 assert.match(js, /class="coach-segmentation-followups"/, 'segmentation report must show follow-up actions');
 assert.match(js, /class="panel coach-segmentation-report-card coach-operating-checklist"/, 'segmentation report must expose a coach operating checklist');
@@ -66,7 +77,7 @@ assert.match(js, /data-coach-parent-message="\$\{escapeHtml\(index\)\}"/, 'paren
 assert.match(js, /class="panel coach-segmentation-report-card coach-business-growth"/, 'segmentation report must expose recruiting and reputation assets');
 assert.match(js, /招生与口碑素材/, 'coach report must include business-growth copy');
 assert.match(js, /const businessRows = coachBusinessGrowthRows\(club, projectRows, buckets\)/, 'coach report must render business rows from current club data');
-assert.match(js, /buildCoachSegmentationShareText\(club, buckets, followups, projectRows, businessRows\)/, 'coach report share text must include business rows');
+assert.match(js, /buildCoachSegmentationShareText\(club, buckets, followups, projectRows, businessRows, projectMatrixRows\)/, 'coach report share text must include business and project matrix rows');
 assert.match(js, /训练安排\$\{index \+ 1\}/, 'coach report share text must include training plan rows');
 assert.match(js, /家长沟通\$\{index \+ 1\}/, 'coach report share text must include parent communication rows');
 assert.match(js, /class="coach-segmentation-evidence"/, 'segmentation report must show traceable evidence');
@@ -101,6 +112,9 @@ assert.match(css, /\.coach-segmentation-followups/, 'coach segmentation follow-u
 assert.match(css, /\.coach-operating-checklist/, 'coach operating checklist styles must exist');
 assert.match(css, /\.coach-operating-grid/, 'coach operating checklist grid styles must exist');
 assert.match(css, /\.coach-operating-card/, 'coach operating checklist cards must be styled');
+assert.match(css, /\.coach-project-matrix/, 'coach project matrix styles must exist');
+assert.match(css, /\.coach-project-matrix-grid/, 'coach project matrix grid styles must exist');
+assert.match(css, /\.coach-project-matrix-card/, 'coach project matrix cards must be styled');
 assert.match(css, /\.coach-parent-message-list/, 'parent communication list styles must exist');
 assert.match(css, /\.coach-parent-message-card/, 'parent communication card styles must exist');
 assert.match(css, /\.coach-parent-message-actions/, 'parent communication action styles must exist');

@@ -12558,7 +12558,74 @@ function coachSegmentationEvidenceRows(club, projectRows) {
     title: row.label,
     detail: '项目汇总',
     result: `参赛 ${row.entrants || 0} · 前八 ${row.top8 || 0} · 奖牌 ${row.medals || 0}`,
-  }))).slice(0, 8);
+    }))).slice(0, 8);
+}
+
+function coachProjectDimension(row = {}) {
+  const text = `${row.label || ''} ${(row.events || []).map((event) => `${event.eventName || ''} ${event.shortEventName || ''}`).join(' ')}`;
+  const compact = compactText(text);
+  const age = compact.match(/U\d{1,2}/i)?.[0]?.toUpperCase()
+    || (compact.includes('成年') ? '成年' : compact.includes('公开') ? '公开组' : '其他年龄组');
+  const weapon = compact.includes('花剑') || compact.includes('男花') || compact.includes('女花') || compact.endsWith('花')
+    ? '花剑'
+    : compact.includes('重剑') || compact.includes('男重') || compact.includes('女重') || compact.endsWith('重')
+      ? '重剑'
+      : compact.includes('佩剑') || compact.includes('男佩') || compact.includes('女佩') || compact.endsWith('佩')
+        ? '佩剑'
+        : '其他剑种';
+  const gender = compact.includes('男子') || compact.includes('男花') || compact.includes('男重') || compact.includes('男佩') || compact.includes('男')
+    ? '男子'
+    : compact.includes('女子') || compact.includes('女花') || compact.includes('女重') || compact.includes('女佩') || compact.includes('女')
+      ? '女子'
+      : '综合组';
+  return { age, weapon, gender, key: `${age}|${weapon}|${gender}` };
+}
+
+function coachProjectMatrixRows(projectRows = []) {
+  const groups = new Map();
+  (projectRows || []).forEach((project) => {
+    const dimension = coachProjectDimension(project);
+    if (!groups.has(dimension.key)) {
+      groups.set(dimension.key, {
+        ...dimension,
+        label: [dimension.age, dimension.weapon, dimension.gender].filter(Boolean).join(' · '),
+        projectCount: 0,
+        entrants: 0,
+        top8: 0,
+        medals: 0,
+        bestRank: null,
+        projects: [],
+      });
+    }
+    const row = groups.get(dimension.key);
+    row.projectCount += 1;
+    row.entrants += Number(project.entrants) || 0;
+    row.top8 += Number(project.top8) || 0;
+    row.medals += Number(project.medals) || 0;
+    row.bestRank = row.bestRank === null ? project.bestRank : Math.min(row.bestRank, project.bestRank ?? 999);
+    row.projects.push(project);
+  });
+  return [...groups.values()]
+    .map((row) => {
+      const topProject = [...row.projects].sort((a, b) => (Number(b.entrants) || 0) - (Number(a.entrants) || 0))[0] || null;
+      const resultText = row.medals
+        ? `${row.medals} 枚奖牌`
+        : row.top8
+          ? `${row.top8} 次前八`
+          : row.bestRank !== null
+            ? `最好第 ${row.bestRank} 名`
+            : '继续积累';
+      return {
+        ...row,
+        topProject,
+        resultText,
+        advice: row.entrants >= 8 || row.top8 > 0
+          ? `优先围绕 ${topProject?.label || row.label} 做训练复盘和对外展示。`
+          : `${row.label} 可以继续积累参赛记录，再判断是否作为重点项目。`,
+      };
+    })
+    .sort((a, b) => b.entrants - a.entrants || b.top8 - a.top8 || (a.bestRank ?? 999) - (b.bestRank ?? 999))
+    .slice(0, 8);
 }
 
 function coachBusinessGrowthRows(club, projectRows, buckets) {
@@ -12648,7 +12715,7 @@ function coachOperatingChecklistRows(club, buckets = [], followups = [], project
   ];
 }
 
-function buildCoachSegmentationShareText(club, buckets, followups, projectRows, businessRows = []) {
+function buildCoachSegmentationShareText(club, buckets, followups, projectRows, businessRows = [], projectMatrixRows = coachProjectMatrixRows(projectRows)) {
   const topProject = projectRows[0];
   const communicationRows = coachParentCommunicationRows(club, followups, buckets);
   const checklistRows = coachOperatingChecklistRows(club, buckets, followups, projectRows, businessRows);
@@ -12658,6 +12725,7 @@ function buildCoachSegmentationShareText(club, buckets, followups, projectRows, 
     `学员：${buckets.reduce((sum, bucket) => sum + bucket.rows.length, 0)} 人`,
     topProject ? `重点项目：${topProject.label}，参赛 ${topProject.entrants || 0} 人次，最好第 ${topProject.bestRank ?? '-'} 名` : '重点项目：待形成',
     ...buckets.map((bucket) => `${bucket.title}：${bucket.rows.map((athlete) => athlete.name).filter(Boolean).slice(0, 4).join(' / ') || '暂无'}。${bucket.action}`),
+    ...projectMatrixRows.slice(0, 4).map((row) => `项目分组：${row.label}，${row.entrants} 人次，${row.resultText}。${row.advice}`),
     ...followups.slice(0, 3).map((row, index) => `跟进${index + 1}：${row.athlete.name}，${row.training}`),
     ...trainingRows.slice(0, 3).map((row, index) => `训练安排${index + 1}：${row.athlete.name}，${row.title}。${row.target}`),
     ...communicationRows.slice(0, 3).map((row, index) => `家长沟通${index + 1}：${row.title}。${row.message}`),
@@ -12706,6 +12774,7 @@ function renderCoachSegmentationReport(clubId = '') {
   const followups = coachAthleteFollowupRows(athletes);
   const evidenceRows = coachSegmentationEvidenceRows(club, projectRows);
   const businessRows = coachBusinessGrowthRows(club, projectRows, buckets);
+  const projectMatrixRows = coachProjectMatrixRows(projectRows);
   const communicationRows = coachParentCommunicationRows(club, followups, buckets);
   const checklistRows = coachOperatingChecklistRows(club, buckets, followups, projectRows, businessRows);
   const trainingRows = coachTrainingPlanRows(followups, buckets, projectRows);
@@ -12741,6 +12810,25 @@ function renderCoachSegmentationReport(clubId = '') {
         <div><strong>${escapeHtml(buckets.find((bucket) => bucket.key === 'steady')?.rows.length || 0)}</strong><span>稳定成长</span></div>
         <div><strong>${escapeHtml(riskBucket?.rows.length || 0)}</strong><span>需要关注</span></div>
         <div><strong>${escapeHtml(buckets.find((bucket) => bucket.key === 'new')?.rows.length || 0)}</strong><span>样本积累</span></div>
+      </div>
+    </article>
+
+    <article class="panel coach-segmentation-report-card coach-project-matrix">
+      <div class="section-title">
+        <h2>项目分组看板</h2>
+        <span>按年龄段、剑种、性别看</span>
+      </div>
+      <div class="coach-project-matrix-grid">
+        ${projectMatrixRows.length ? projectMatrixRows.map((row) => `
+          <article class="coach-project-matrix-card">
+            <div>
+              <strong>${escapeHtml(row.label)}</strong>
+              <span>${escapeHtml(row.resultText)}</span>
+            </div>
+            <p>${escapeHtml(`${row.projectCount} 个项目 · ${row.entrants} 人次 · 前八 ${row.top8}`)}</p>
+            <em>${escapeHtml(row.advice)}</em>
+          </article>
+        `).join('') : '<div class="empty compact-empty">有更多项目记录后，会按年龄段、剑种和性别形成分组看板。</div>'}
       </div>
     </article>
 
@@ -12918,7 +13006,7 @@ function renderCoachSegmentationReport(clubId = '') {
   });
   coachSegmentationReportBody.querySelector('[data-club-id]')?.addEventListener('click', () => openClub(club.id));
   bindReportConversionActions(coachSegmentationReportBody);
-  bindCopyTextButton(coachSegmentationReportHero.querySelector('[data-report-share="coach-segmentation"]'), () => buildCoachSegmentationShareText(club, buckets, followups, projectRows, businessRows), 'coach-segmentation', '已复制，可继续申请教练试用。');
+  bindCopyTextButton(coachSegmentationReportHero.querySelector('[data-report-share="coach-segmentation"]'), () => buildCoachSegmentationShareText(club, buckets, followups, projectRows, businessRows, projectMatrixRows), 'coach-segmentation', '已复制，可继续申请教练试用。');
   bindCopyTextButton(coachSegmentationReportHero.querySelector('[data-report-share="coach-segmentation-page"]'), () => buildCoachSegmentationPageShareText(club, buckets, projectRows), 'coach-segmentation-page', '已复制工作台页，可直接发给教练或馆长。');
 }
 

@@ -7415,6 +7415,57 @@ select:focus {
   line-height: 1.45;
 }
 
+.coach-project-matrix {
+  border-color: rgba(21, 95, 194, 0.14);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(242, 248, 255, 0.92));
+}
+
+.coach-project-matrix-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.coach-project-matrix-card {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+  border: 1px solid rgba(21, 95, 194, 0.14);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.92);
+  padding: 10px;
+}
+
+.coach-project-matrix-card strong,
+.coach-project-matrix-card span,
+.coach-project-matrix-card p,
+.coach-project-matrix-card em {
+  display: block;
+  min-width: 0;
+}
+
+.coach-project-matrix-card strong {
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 900;
+  line-height: 1.35;
+}
+
+.coach-project-matrix-card span {
+  color: var(--primary);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.coach-project-matrix-card p,
+.coach-project-matrix-card em {
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+  font-style: normal;
+  line-height: 1.45;
+}
+
 .coach-business-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -7599,7 +7650,8 @@ select:focus {
 }
 
 @media (max-width: 360px) {
-  .coach-business-grid {
+  .coach-business-grid,
+  .coach-project-matrix-grid {
     grid-template-columns: 1fr;
   }
 }
