@@ -72,6 +72,7 @@ assert.doesNotMatch(js, /是否值得继续投入|投入观察指标|继续投�
 assert.doesNotMatch(js, /识别学员|训练反馈与留存沟通|增长使用|可追溯成绩依据|最近后退/, 'coach workspace copy must avoid internal, sales-ops, or blunt regression wording');
 assert.doesNotMatch(js, /姓名完全匹配|姓名匹配|俱乐部匹配|俱乐部完全匹配|俱乐部名称匹配|项目匹配|公开资料匹配|已为你匹配到|没有匹配的比赛/, 'search and result copy must not expose matching-process wording');
 assert.doesNotMatch(js, /名单待补齐|名单补齐后|补齐后继续细化|报名名单还未完整收录|项目数据已收录|当前没有识别到近期赛前赛事/, 'prematch and event copy must not expose data-pipeline progress wording');
+assert.doesNotMatch(js, /暂未找到同项目近期赛事/, 'prematch copy should offer a next action instead of a dead-end no-match message');
 assert.match(js, /姓名一致/, 'search result reasons should use user-facing exact-name wording');
 assert.match(js, /俱乐部名称一致/, 'club search result reasons should use user-facing exact-club wording');
 assert.match(js, /相关项目：/, 'search result reasons should phrase project evidence as related records');

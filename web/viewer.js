@@ -6997,7 +6997,7 @@ function aiPreMatchFocusRows(competitions) {
     const matched = competitions.filter((competition) => labels.some((label) => competitionMatchesProjectLabel(competition, label))).slice(0, 2);
     const prefix = athlete.focusKind === 'primary' ? '重点关注' : '已关注';
     const projectText = labels.length ? labels.slice(0, 2).join(' / ') : '项目待确认';
-    const matchText = matched.length ? `找到 ${matched.length} 场同项目近期赛事` : '暂未找到同项目近期赛事';
+    const matchText = matched.length ? `找到 ${matched.length} 场同项目近期赛事` : '先关注同项目赛事和报名变化';
     return `${prefix} ${athlete.name || '选手'}：历史项目 ${projectText}，${matchText}`;
   });
 }
