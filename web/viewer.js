@@ -9930,13 +9930,23 @@ function competitionProjectSummaryChips(competition) {
   return chips;
 }
 
+function compactCompetitionScopeText(value, limit = 3) {
+  const parts = String(value || '')
+    .split(/\s*(?:\/|、|,|，|\||·)\s*/)
+    .map((part) => part.trim())
+    .filter(Boolean);
+  const unique = [...new Set(parts)];
+  if (!unique.length) return '待确认';
+  return `${unique.slice(0, limit).join(' / ')}${unique.length > limit ? ` +${unique.length - limit}` : ''}`;
+}
+
 function competitionProjectScope(competition) {
   if (competition.projectScope) {
     return {
       count: competitionItemCount(competition),
-      ageText: competition.projectScope.ageText || '待确认',
-      weaponText: competition.projectScope.weaponText || '待确认',
-      genderText: competition.projectScope.genderText || '待确认',
+      ageText: compactCompetitionScopeText(competition.projectScope.ageText, 3),
+      weaponText: compactCompetitionScopeText(competition.projectScope.weaponText, 3),
+      genderText: compactCompetitionScopeText(competition.projectScope.genderText, 2),
     };
   }
   const itemLabels = competitionItemSummaries(competition).map((item) => displayEventName(item)).filter(Boolean);
@@ -9958,9 +9968,9 @@ function competitionProjectScope(competition) {
   }).filter(Boolean))];
   return {
     count: labels.length,
-    ageText: ages.length ? `${ages.slice(0, 4).join(' / ')}${ages.length > 4 ? ` +${ages.length - 4}` : ''}` : '待确认',
-    weaponText: weapons.length ? weapons.join(' / ') : '待确认',
-    genderText: genders.length ? genders.join(' / ') : '待确认',
+    ageText: compactCompetitionScopeText(ages.join(' / '), 3),
+    weaponText: compactCompetitionScopeText(weapons.join(' / '), 3),
+    genderText: compactCompetitionScopeText(genders.join(' / '), 2),
   };
 }
 

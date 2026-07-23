@@ -5,7 +5,7 @@ import vm from 'node:vm';
 const source = await readFile(new URL('../web/viewer.js', import.meta.url), 'utf8');
 const html = await readFile(new URL('../web/viewer.html', import.meta.url), 'utf8');
 const css = await readFile(new URL('../web/viewer.css', import.meta.url), 'utf8');
-const start = source.indexOf('function compactCompetitionBarRows');
+const start = source.indexOf('function compactCompetitionScopeText');
 const end = source.indexOf('function renderCompetitionInsights');
 
 if (start === -1 || end === -1 || end <= start) {
@@ -15,6 +15,7 @@ if (start === -1 || end === -1 || end <= start) {
 const context = {
   displayEventName: (row) => row.shortEventName || row.eventName || '',
   competitionMetricTotal: () => 0,
+  competitionItemCount: (competition) => competition.items?.length || 0,
   compactText: (value) => String(value || '').replace(/\s+/g, ''),
 };
 vm.createContext(context);
@@ -25,6 +26,8 @@ globalThis.compactCompetitionBarRows = compactCompetitionBarRows;
 globalThis.compactCompetitionEventRows = compactCompetitionEventRows;
 globalThis.competitionDigestRows = competitionDigestRows;
 globalThis.competitionProjectGroups = competitionProjectGroups;
+globalThis.compactCompetitionScopeText = compactCompetitionScopeText;
+globalThis.competitionProjectScope = competitionProjectScope;
 `, context);
 
 const compactAgeRows = context.compactCompetitionBarRows([
@@ -94,6 +97,19 @@ assert.equal(groupedProjectRows[0].age, 'U8');
 assert.equal(groupedProjectRows[0].items.length, 2);
 assert.match(groupedProjectRows[0].weaponText, /花剑|重剑/);
 
+assert.equal(context.compactCompetitionScopeText('U8 / U10 / U12 / U14 / U16', 3), 'U8 / U10 / U12 +2');
+const compactScope = context.competitionProjectScope({
+  projectScope: {
+    ageText: 'U8 / U10 / U12 / U14 / U16',
+    weaponText: '花剑 / 重剑 / 佩剑',
+    genderText: '男子 / 女子 / 混合',
+  },
+  items: [{}, {}, {}, {}, {}, {}],
+});
+assert.equal(compactScope.ageText, 'U8 / U10 / U12 +2');
+assert.equal(compactScope.weaponText, '花剑 / 重剑 / 佩剑');
+assert.equal(compactScope.genderText, '男子 / 女子 +1');
+
 const digestRows = context.competitionDigestRows(
   {},
   { bullets: ['U8 foil is the strongest signal.'] },
@@ -119,6 +135,7 @@ assert.match(source, /renderCompetitionCoverageStages\(competition\)/, 'competit
 assert.match(source, /title: '赛程'[\s\S]*title: '项目'[\s\S]*title: '名单'[\s\S]*title: '成绩'/, 'competition coverage stages must use user-facing availability labels');
 assert.match(css, /\.competition-coverage-stages/, 'competition coverage stage styles must exist');
 assert.match(source, /function competitionProjectSummaryChips\(competition\)/, 'competition hero must summarize project structure instead of listing raw labels');
+assert.match(source, /function compactCompetitionScopeText\(value, limit = 3\)/, 'competition hero must compress long scope labels before rendering');
 assert.match(source, /function competitionProjectScope\(competition\)/, 'competition hero must render a structured project scope summary');
 assert.match(source, /function competitionHeroSummaryText\(competition\)/, 'competition hero must explain available value in user-facing language');
 assert.match(source, /function competitionDigestRows\(competition, insights, primaryEventRows, birthRows\)/, 'post-event competition detail must put interpretation before raw charts');
@@ -141,6 +158,8 @@ assert.match(source, /查看全部项目/, 'competition detail must offer groupe
 assert.match(source, /function competitionItemPriorityValue\(item\)/, 'competition project ordering must account for registration, roster, expected and score-backed counts');
 assert.match(source, /const chips = competitionProjectSummaryChips\(competition\)/, 'competition hero must use structural project summary chips');
 assert.match(source, /class="competition-scope-grid"/, 'competition hero must show compact scope metrics instead of raw full labels');
+assert.match(source, /ageText: compactCompetitionScopeText\(competition\.projectScope\.ageText, 3\)/, 'competition hero must not render all age bands from source data');
+assert.match(source, /genderText: compactCompetitionScopeText\(competition\.projectScope\.genderText, 2\)/, 'competition hero must keep gender scope short on mobile');
 assert.match(source, /project-summary-row/, 'competition hero project summary must have a dedicated compact row');
 assert.match(source, /const isPreEventCompetition = competition\.isPreEvent \|\| \['registration', 'upcoming', 'live'\]\.includes\(competition\.status\)/, 'pre-event competitions must not reuse post-event chart assumptions');
 assert.match(source, /const isLiveCompetition = competition\.status === 'live'/, 'live competitions must be separated from pre-event preparation');
