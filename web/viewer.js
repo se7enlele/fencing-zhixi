@@ -5237,256 +5237,12 @@ function renderFocusedHomePage() {
 }
 
 function renderHomePage() {
-  if (renderFocusedHomePage()) return;
   if (!homePage) return;
   if (state.isDataLoading) {
     homePage.innerHTML = '<section class="panel"><div class="loading-row">正在加载数据</div></section>';
     return;
   }
-  const children = focusAthleteCards();
-  const followedCompetitions = followedCompetitionCards();
-  const reportRows = roleVisibleHomeReportRows(homeReportCenterRows(children, followedCompetitions));
-  const reportHistory = reportHistoryRows();
-  const aiHistory = aiHistoryRows();
-  const commercialIntents = commercialIntentRows();
-  const savedAnalysisRows = [...aiHistory, ...reportHistory].slice(0, 3);
-  const prematchAction = homePrematchActionRow(followedCompetitions);
-  const coachAction = homeCoachActionRow();
-  const dataValueRows = shouldShowHomeDataValueSection() ? homeDataValueRows() : [];
-  const aiQuestionRows = homeAiQuestionRows();
-  const pilotRow = homePilotInterestRow();
-  const recentRows = (state.recentItems || []).slice(0, 3);
-  const entityCounts = entityCoverageCounts();
-  const stats = [
-    { value: state.competitions.length, label: '赛事收录' },
-    { value: entityCounts.athletes, label: '选手画像' },
-    { value: entityCounts.clubs, label: '俱乐部' },
-  ];
-  homePage.innerHTML = `
-    <div class="home-dashboard">
-      ${renderAiWorkspace('home')}
-      <section class="home-stats-strip" aria-label="数据规模">
-        ${stats.map((item) => `
-          <div class="my-stat">
-            <strong>${escapeHtml(item.value)}</strong>
-            <span>${escapeHtml(item.label)}</span>
-          </div>
-        `).join('')}
-      </section>
-      ${renderHomePrematchAction(prematchAction)}
-      ${renderHomeCoachAction(coachAction)}
-      ${savedAnalysisRows.length ? `
-        <section class="panel my-section home-saved-section">
-          <div class="section-title">
-            <h2>最近分析</h2>
-            <span>继续查看</span>
-          </div>
-          <div class="home-saved-list">
-            ${savedAnalysisRows.map((row) => `
-              <button type="button" ${row.query ? `data-ai-snapshot-key="${escapeHtml(row.snapshotKey || row.key || row.query)}" data-ai-history-query="${escapeHtml(row.query)}"` : `data-report-history-type="${escapeHtml(row.type || '')}" data-report-history-id="${escapeHtml(row.id || '')}"`}>
-                <span>${escapeHtml(row.typeLabel)}</span>
-                <strong>${escapeHtml(row.title)}</strong>
-              </button>
-            `).join('')}
-          </div>
-        </section>
-      ` : ''}
-      <section class="panel my-section home-question-section">
-        <div class="section-title">
-          <h2>可以直接问</h2>
-          <span>赛事问答</span>
-        </div>
-        <div class="home-question-list">
-          ${aiQuestionRows.map((row) => `
-            <button type="button" data-home-ai-question="${escapeHtml(row.query)}">
-              <span>${escapeHtml(row.label)}</span>
-              <strong>${escapeHtml(row.query)}</strong>
-              <em>${escapeHtml(row.detail)}</em>
-            </button>
-          `).join('')}
-        </div>
-      </section>
-      ${dataValueRows.length ? `
-      <section class="panel my-section home-value-section">
-        <div class="section-title">
-          <h2>数据价值</h2>
-          <span>一键生成</span>
-        </div>
-        <div class="data-value-grid">
-          ${dataValueRows.map((row) => `
-            <button type="button" data-home-ai-product="${escapeHtml(row.query)}">
-              <span>${escapeHtml(row.label)}</span>
-              <strong>${escapeHtml(row.title)}</strong>
-              <em>${escapeHtml(row.detail)}</em>
-            </button>
-          `).join('')}
-        </div>
-      </section>
-      ` : ''}
-      <section class="panel my-section home-action-section">
-        <div class="section-title">
-          <h2>常用功能</h2>
-          <span>快速查看</span>
-        </div>
-        <div class="home-action-grid">
-          <button type="button" data-home-competitions>
-            <strong>赛事数据</strong>
-            <span>搜索、筛选和进入赛事详情</span>
-          </button>
-          <button type="button" data-home-my-follow>
-            <strong>关注</strong>
-            <span>${escapeHtml(children.length + followedCompetitions.length ? `${children.length} 个选手 / ${followedCompetitions.length} 场赛事` : '添加重点选手和赛事')}</span>
-          </button>
-          <button type="button" data-home-my>
-            <strong>我的</strong>
-            <span>${escapeHtml(recentRows.length ? `最近查看 ${recentRows.length} 条` : '查看关注与访问记录')}</span>
-          </button>
-        </div>
-      </section>
-      <section class="panel my-section home-pilot-section">
-        <div class="section-title">
-          <h2>试用合作</h2>
-          <span>产品验证</span>
-        </div>
-        <div class="pilot-interest-card">
-          <div>
-            <strong>${escapeHtml(pilotRow.title)}</strong>
-            <span>${escapeHtml(pilotRow.detail)}</span>
-          </div>
-          <button type="button" data-pilot-interest data-pilot-source="${escapeHtml(pilotRow.source)}" data-pilot-report="${escapeHtml(pilotRow.report)}">申请试用</button>
-        </div>
-      </section>
-      ${renderCommercialIntentStatus(commercialIntents.slice(0, 2))}
-    </div>
-    <section class="panel my-section">
-      <div class="section-title">
-        <h2>报告中心</h2>
-        <span>常用报告</span>
-      </div>
-      <div class="report-center-grid">
-        ${reportRows.map((row) => `
-          <button type="button" data-home-report="${escapeHtml(row.key)}" ${row.disabled ? 'disabled' : ''} ${row.sportCode ? `data-sport-code="${escapeHtml(row.sportCode)}"` : ''} ${row.athleteId ? `data-athlete-id="${escapeHtml(row.athleteId)}"` : ''} ${row.clubId ? `data-club-id="${escapeHtml(row.clubId)}"` : ''} ${row.query ? `data-ai-query="${escapeHtml(row.query)}"` : ''}>
-            <span>${escapeHtml(row.meta)}</span>
-            <strong>${escapeHtml(row.title)}</strong>
-            <em>${escapeHtml(row.detail)}</em>
-          </button>
-        `).join('')}
-      </div>
-    </section>
-    ${reportHistory.length ? `
-      <section class="panel my-section">
-        <div class="section-title">
-          <h2>最近报告</h2>
-          <span>快速继续</span>
-        </div>
-        <div class="report-history-list">
-          ${reportHistory.map((row) => `
-            <button type="button" data-report-history-type="${escapeHtml(row.type || '')}" data-report-history-id="${escapeHtml(row.id || '')}">
-              <span>${escapeHtml(row.typeLabel)}</span>
-              <strong>${escapeHtml(row.title)}</strong>
-              <em>${escapeHtml(row.detail)}</em>
-            </button>
-          `).join('')}
-        </div>
-      </section>
-    ` : ''}
-    ${aiHistory.length ? `
-      <section class="panel my-section">
-        <div class="section-title">
-          <h2>最近分析</h2>
-          <span>再次查看</span>
-        </div>
-        <div class="ai-history-list">
-          ${aiHistory.map((row) => `
-            <button type="button" data-ai-snapshot-key="${escapeHtml(row.snapshotKey || row.key || row.query)}" data-ai-history-query="${escapeHtml(row.query)}">
-              <span>${escapeHtml(row.typeLabel)}</span>
-              <strong>${escapeHtml(row.title)}</strong>
-              <em>${escapeHtml(row.summary)}</em>
-            </button>
-          `).join('')}
-        </div>
-      </section>
-    ` : ''}
-    <section class="panel my-section">
-      <div class="section-title">
-        <h2>关注概览</h2>
-        <span>${children.length + followedCompetitions.length ? '已同步' : '待关注'}</span>
-      </div>
-      <div class="my-status-note">
-        <strong>${escapeHtml(children.length + followedCompetitions.length)}</strong>
-        <span>关注的选手和赛事会集中在关注页，方便赛前快速查看。</span>
-      </div>
-    </section>
-    ${renderHomeDataCoverage()}
-  `;
-  homePage.querySelector('[data-home-competitions]')?.addEventListener('click', () => navigateMain('competitions'));
-  homePage.querySelector('[data-home-my-follow]')?.addEventListener('click', () => navigateMain('my'));
-  homePage.querySelector('[data-home-my]')?.addEventListener('click', () => navigateMain('my'));
-  homePage.querySelector('[data-home-prematch]')?.addEventListener('click', (event) => {
-    trackAnalyticsAction('home_prematch', 'open');
-    openPrematchReport('prematch-pack', event.currentTarget.dataset.homePrematch || '');
-  });
-  homePage.querySelector('[data-home-prematch-follow]')?.addEventListener('click', (event) => {
-    const competition = findCompetitionBySportCode(event.currentTarget.dataset.homePrematchFollow);
-    if (!competition?.sportCode) return;
-    trackAnalyticsAction('home_prematch', 'follow');
-    upsertFollowedCompetition(competition);
-  });
-  homePage.querySelector('[data-home-coach-report]')?.addEventListener('click', (event) => {
-    trackAnalyticsAction('home_coach', 'segmentation');
-    openCoachSegmentationReport(event.currentTarget.dataset.homeCoachReport || '');
-  });
-  homePage.querySelector('[data-home-coach-query]')?.addEventListener('click', (event) => {
-    trackAnalyticsAction('home_coach', 'recruiting');
-    submitAiQuery(event.currentTarget.dataset.homeCoachQuery || '');
-  });
-  homePage.querySelectorAll('[data-home-ai-question]').forEach((button) => {
-    button.addEventListener('click', () => {
-      trackAnalyticsAction('home_ai_question', button.dataset.homeAiQuestion ? 'query' : 'empty');
-      submitAiQuery(button.dataset.homeAiQuestion || '');
-    });
-  });
-  homePage.querySelector('[data-pilot-interest]')?.addEventListener('click', (event) => submitPilotInterest(event.currentTarget, {
-    source: event.currentTarget.dataset.pilotSource || 'home-pilot',
-    report: event.currentTarget.dataset.pilotReport || '试用合作',
-  }));
-  homePage.querySelectorAll('[data-home-ai-product]').forEach((button) => {
-    button.addEventListener('click', () => {
-      trackAnalyticsAction('home_ai_product', button.dataset.homeAiProduct ? 'query' : 'empty');
-      submitAiQuery(button.dataset.homeAiProduct || '');
-    });
-  });
-  homePage.querySelectorAll('[data-home-report]').forEach((button) => {
-    button.addEventListener('click', () => {
-      trackAnalyticsAction('home_report', button.dataset.homeReport || 'unknown');
-      if (button.dataset.homeReport === 'prematch') openPrematchReport('prematch-pack', button.dataset.sportCode || '');
-      if (button.dataset.homeReport === 'growth') openParentGrowthReport(button.dataset.athleteId || '');
-      if (button.dataset.homeReport === 'coach') openCoachSegmentationReport(button.dataset.clubId || '');
-      if (button.dataset.homeReport === 'club-recruiting') submitAiQuery(button.dataset.aiQuery || '');
-    });
-  });
-  homePage.querySelectorAll('[data-report-history-type]').forEach((button) => {
-    button.addEventListener('click', () => {
-      const type = button.dataset.reportHistoryType;
-      const id = button.dataset.reportHistoryId || '';
-      if (type === 'prematch') openPrematchReport('prematch-pack', id === 'prematch-pack' ? '' : id);
-      if (type === 'parent-growth') openParentGrowthReport(id);
-      if (type === 'coach-segmentation') openCoachSegmentationReport(id);
-      if (type === 'ai-report') {
-        trackAnalyticsAction('open_report', 'ai-report');
-        openAiReportSnapshot(id);
-      }
-    });
-  });
-  homePage.querySelectorAll('[data-ai-history-query]').forEach((button) => {
-    button.addEventListener('click', () => openAiReportSnapshot(button.dataset.aiSnapshotKey || button.dataset.aiHistoryQuery || ''));
-  });
-  homePage.querySelectorAll('[data-coverage-competition]').forEach((button) => {
-    button.addEventListener('click', () => openCompetition(button.dataset.coverageCompetition));
-  });
-  bindAiWorkspace(homePage);
-  bindServiceProgressActions(homePage);
-  bindPersonalList(homePage);
+  renderFocusedHomePage();
 }
 
 function aiDefaultClub() {
@@ -9441,6 +9197,7 @@ function renderMyPage() {
   const recentRows = (state.recentItems || []).slice(0, 6);
   const reportHistory = reportHistoryRows();
   const aiHistory = aiHistoryRows();
+  const commercialIntents = commercialIntentRows();
   const followCopy = myFollowSectionCopy();
   const generatedLabel = formatDataGeneratedAt(state.dataGeneratedAt);
   const stats = [
@@ -9484,6 +9241,8 @@ function renderMyPage() {
     </section>
 
     ${renderAccountPanelV2()}
+
+    ${renderCommercialIntentStatus(commercialIntents)}
 
     <section class="panel my-section">
       <div class="section-title">

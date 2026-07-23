@@ -294,8 +294,8 @@ assert.match(js, /followAthleteId: athlete\.id/, 'AI growth answers must include
 assert.match(js, /data-follow-athlete-id/, 'AI action buttons must support follow-athlete actions');
 assert.match(js, /data-ai-action-query/, 'AI action buttons must support direct follow-up analysis queries');
 assert.match(js, /submitAiQuery\(button\.dataset\.aiActionQuery \|\| ''\)/, 'AI action query buttons must rerun the AI workspace');
-assert.match(js, /row\.clubId \? `data-club-id=/, 'AI evidence buttons must support club evidence actions');
-assert.match(js, /row\.athleteId \? `data-athlete-id=/, 'AI evidence buttons must support athlete evidence actions');
+assert.match(js, /if \(row\.clubId\) return `data-club-id=/, 'AI evidence buttons must support club evidence actions');
+assert.match(js, /if \(row\.athleteId\) return `data-athlete-id=/, 'AI evidence buttons must support athlete evidence actions');
 assert.match(js, /upsertFollowedAthlete\(athlete\)/, 'AI follow action must reuse the existing follow handler');
 assert.match(js, /class="ai-action-block"/, 'AI answers must promote executable actions as a dedicated block');
 assert.match(js, /function aiResultActionTitle\(report = \{\}\)/, 'AI action block must derive a user-facing action title from the answer type');

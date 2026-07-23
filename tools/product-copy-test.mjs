@@ -30,7 +30,7 @@ assert.doesNotMatch(js, /数据处理进度|服务进度|处理编号|服务编�
 assert.doesNotMatch(js, /当前筛选|全部数据|平台赛事|当前范围|深度赛事|报告资产|持续沉淀|按当前数据|工作台状态|来自 AI 问答|AI 历史|最近AI问题|最近 AI 分析|本地缓存/, 'database and my-page copy must avoid internal data/workspace wording');
 assert.doesNotMatch(js, /label: 'AI分析'|label: '服务申请'|label: '档案申请'|title: '报告复用'|status: .*'可交付'|status: .*'待关注孩子'|status: .*'待选择俱乐部'|status: .*'可启动'|<h2>可用能力<\/h2>|<h2>可生成内容<\/h2>|<span>当前可用<\/span>|<span>按当前关注<\/span>|分析资产|报名与项目数据完善后|可复用记录|沉淀学员/, 'my page copy must use customer-facing wording');
 assert.doesNotMatch(js, /继续生成赛前情报|可继续生成|人工跟进|试用说明/, 'AI and report copy must avoid process or sales-ops wording');
-assert.match(js, /常用报告/, 'home report center should use user-facing report copy');
+assert.match(js, /问一句，看清比赛和成长/, 'home entry should use user-facing AI analysis copy');
 assert.match(js, /分析报告/, 'AI report planning answers should use user-facing report wording');
 assert.match(js, /人员资料补充后可按姓名查找/, 'official search entry should explain availability in user-facing copy');
 assert.match(js, /人员资料还在补充中；赛事、选手和俱乐部资料可以继续查看。/, 'official AI answer should explain unavailable personnel data without dead-end wording');
@@ -55,7 +55,7 @@ assert.doesNotMatch(css, /\.follow-filter-menu|\.follow-filter-option/, 'my-foll
 assert.doesNotMatch(js, /myFollowFilterButton\?\.addEventListener\('click', toggleFollowedCompetitionFilter\)/, 'my-follow dropdown-style filter must not be wired as a silent toggle');
 assert.doesNotMatch(js, /AI 分析入口|为你而生|主动洞察/, 'home and detail copy must avoid internal or vague AI-entry wording');
 assert.doesNotMatch(js, /专业分析入口|<h2>工作入口<\/h2>|按任务进入|<span>当前角色：/, 'home and role copy must avoid internal navigation or role-state wording');
-assert.match(js, /<h2>常用功能<\/h2>/, 'home task cards should use user-facing function copy');
+assert.match(js, /查赛事和选手/, 'home compact shortcuts should use user-facing lookup copy');
 assert.match(js, /使用视角：/, 'role state should be phrased as a user-facing viewing perspective');
 assert.doesNotMatch(js, /label: '判断口径'|口径下|当前已收录|第一层结论/, 'AI answer copy must avoid internal methodology labels');
 assert.doesNotMatch(js, /\['当前判断'|\['证据强度'|'数据助手'/, 'AI answer labels must stay user-facing and avoid internal/generic helper copy');
