@@ -158,7 +158,8 @@ assert.match(js, /actions: \[\s*\{ label: '进入数据库', mainTab: 'competiti
 assert.match(js, /label: '问天津近期报名', query: '天津近期报名情况'/, 'AI fallback should offer a direct prematch rewrite suggestion');
 assert.match(js, /label: '问赛事数量', query: '2026年天津有几场比赛'/, 'AI fallback should offer a direct competition-stat rewrite suggestion');
 assert.match(js, /\['可以问', '选手\/剑馆\/赛事'\][\s\S]*\['建议补充', '年份\/地区\/项目'\][\s\S]*\['也可以', '进入数据库'\]/, 'AI generic fallback cards must show user next steps instead of raw database totals');
-assert.match(js, /if \(hasQueryAction && hasDirectAction\) return '选择对象或继续问';/, 'AI fallback action heading should distinguish direct selections from rewrite suggestions');
+assert.match(js, /if \(hasQueryAction && hasDirectAction\) return '选择要看的对象';/, 'AI fallback action heading should focus on the direct user choice');
+assert.match(js, /return hasQueryAction \? '换个问法' : '打开结果';/, 'AI fallback action heading should avoid generic continuation wording');
 assert.doesNotMatch(js, /试试赛事统计|试试选手成长/, 'AI fallback actions should be phrased as direct user questions');
 assert.match(js, /scope: hasItemIntent \? 'item' : 'competition'/, 'AI competition ranking must route project and group questions separately');
 assert.match(js, /filters\.scope === 'item'/, 'AI competition ranking must build a project-level answer');
@@ -265,6 +266,7 @@ assert.match(js, /if \(report\.type === 'competition-stats'\) return '赛事统�
 assert.match(js, /function buildAiCompetitionLookupReport\(query, competition\)[\s\S]*type: 'competition-lookup'/, 'plain competition-name questions must not reuse the competition stats answer type');
 assert.match(js, /if \(\/赛事记录\|赛事名称\|相近赛事\/\.test\(title\)\) return '赛事查询';/, 'missing or approximate competition answers should not fall back to a generic result label');
 assert.match(js, /if \(\/选择\.\*对象\|想看的对象\|选择孩子\|选手\/\.test\(title\)\) return '选择对象';/, 'object recovery answers should have a specific user-facing type label');
+assert.match(js, /return '补充信息';/, 'ambiguous fallback answers should ask for additional information instead of generic continuation');
 assert.doesNotMatch(js, /: '查询结果'\)\}/, 'AI answer header must not default unknown and fallback results to generic query-result copy');
 assert.match(js, /\['对比结论', `\$\{leader\.name\} 略优于 \$\{other\.name\}`\]/, 'AI comparison cards must use user-facing conclusion labels');
 assert.match(js, /\['可信程度', confidence\]/, 'AI comparison cards must use user-facing confidence wording');

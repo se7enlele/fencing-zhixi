@@ -5394,7 +5394,7 @@ function renderHomePage() {
       <section class="panel my-section">
         <div class="section-title">
           <h2>最近分析</h2>
-          <span>继续提问</span>
+          <span>再次查看</span>
         </div>
         <div class="ai-history-list">
           ${aiHistory.map((row) => `
@@ -8980,8 +8980,8 @@ function aiResultActionTitle(report = {}) {
   if (report.type === 'fallback' || report.type === 'empty') {
     const hasQueryAction = report.actions?.some((action) => action.query);
     const hasDirectAction = report.actions?.some((action) => !action.query);
-    if (hasQueryAction && hasDirectAction) return '选择对象或继续问';
-    return hasQueryAction ? '继续这样问' : '选择一个结果';
+    if (hasQueryAction && hasDirectAction) return '选择要看的对象';
+    return hasQueryAction ? '换个问法' : '打开结果';
   }
   if (report.type === 'competition-lookup' || report.type === 'competition-stats' || report.type === 'competition-ranking' || report.type === 'prematch') return '查看赛事';
   if (report.type === 'growth' || report.type === 'comparison') return '查看选手';
@@ -9008,7 +9008,7 @@ function aiAnswerTypeLabel(report = {}) {
     const title = String(report.title || '');
     if (/赛事记录|赛事名称|相近赛事/.test(title)) return '赛事查询';
     if (/选择.*对象|想看的对象|选择孩子|选手/.test(title)) return '选择对象';
-    return '继续提问';
+    return '补充信息';
   }
   return '分析结果';
 }
@@ -9559,7 +9559,7 @@ function renderMyPage() {
     <section class="panel my-section">
       <div class="section-title">
         <h2>最近分析</h2>
-        <span>${aiHistory.length ? '继续提问' : '提问后可复看'}</span>
+        <span>${aiHistory.length ? '再次查看' : '提问后可复看'}</span>
       </div>
       <div class="ai-history-list">
         ${aiHistory.length ? aiHistory.map((row) => `
