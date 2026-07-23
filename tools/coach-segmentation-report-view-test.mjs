@@ -32,8 +32,8 @@ assert.match(js, /function coachParentCommunicationText\(row = \{\}\)/, 'coach r
 assert.match(js, /function buildCoachSegmentationShareText\(club, buckets, followups, projectRows, businessRows = \[\]\)/, 'segmentation report must build shareable summary text');
 assert.match(js, /function coachSegmentationShareUrl\(clubId = ''\)/, 'segmentation report must build a shareable report URL');
 assert.match(js, /function buildCoachSegmentationPageShareText\(club, buckets = \[\], projectRows = \[\]\)/, 'segmentation report must build shareable page text');
-assert.match(js, /function renderCoachSegmentationReport\(clubId = ''\)/, 'segmentation report must render from a club id');
-assert.match(js, /function openCoachSegmentationReport\(clubId = ''\)/, 'segmentation report must be navigable');
+assert.match(js, /function renderCoachSegmentationReport\(clubId = ''\)/, 'coach workspace must render from a club id');
+assert.match(js, /function openCoachSegmentationReport\(clubId = ''\)/, 'coach workspace must be navigable');
 assert.match(js, /trackReportHistory\(\{[\s\S]*type: 'coach-segmentation'/, 'opening a coach segmentation report must save it to recent reports');
 assert.match(js, /navigateTo\('coachSegmentationReport'\)/, 'segmentation report must use normal navigation');
 
@@ -44,7 +44,12 @@ assert.match(js, /openCoachSegmentationReport\(button\.dataset\.coachSegmentatio
 assert.match(js, /clubEvents\.querySelectorAll\('\[data-coach-segmentation-club-id\]'\)/, 'club detail must bind segmentation report actions');
 assert.match(js, /生成学员分层报告/, 'club detail must expose a product-facing segmentation report CTA');
 
-assert.match(js, /coach-segmentation-summary/, 'segmentation report must show a coach summary');
+assert.match(js, /coach-segmentation-summary/, 'coach workspace must show a coach summary');
+assert.match(js, /\$\{escapeHtml\(club\.club\)\} 教练工作台/, 'coach workspace hero must use workbench copy');
+assert.match(js, /<h2>本周重点<\/h2>[\s\S]*先处理这三件事/, 'coach workspace must prioritize weekly decisions first');
+assert.match(js, /学员分层 · 训练跟进 · 家长沟通/, 'coach workspace hero must map to coach jobs');
+assert.match(js, /学员 \$\{escapeHtml\(athletes\.length\)\}/, 'coach workspace must describe student count without system wording');
+assert.doesNotMatch(js, /识别学员|训练反馈与留存沟通|增长使用|可追溯成绩依据/, 'coach workspace copy must avoid internal or sales-ops wording');
 assert.match(js, /class="coach-segmentation-metrics"/, 'segmentation report must show bucket metrics');
 assert.match(js, /class="coach-segmentation-buckets"/, 'segmentation report must show athlete buckets');
 assert.match(js, /class="coach-segmentation-followups"/, 'segmentation report must show follow-up actions');
@@ -70,7 +75,7 @@ assert.match(js, /bindCopyTextButton\(coachSegmentationReportHero\.querySelector
 assert.match(js, /initialParams\.get\('coach'\)/, 'initial route must support shared coach report links');
 assert.match(js, /openCoachSegmentationReport\(initialCoachClubId === 'coach-segmentation' \? '' : initialCoachClubId\)/, 'shared coach links must open the report directly');
 assert.match(js, /复制工作台页/, 'segmentation report must use user-facing workspace page copy');
-assert.match(js, /已复制工作台页，可直接发给教练或馆长。/, 'segmentation page copy must confirm user-facing sharing');
+assert.match(js, /已复制工作台页，可直接发给教练或馆长。/, 'coach workspace page copy must confirm user-facing sharing');
 assert.match(js, /data-report-share="coach-segmentation"/, 'segmentation report must expose a copy summary action');
 assert.match(js, /bindCopyTextButton\(coachSegmentationReportHero\.querySelector\('\[data-report-share="coach-segmentation"\]'\)/, 'segmentation report copy action must be wired');
 assert.match(js, /已复制，可继续申请教练试用。/, 'segmentation report copy action must guide users toward coach trial');

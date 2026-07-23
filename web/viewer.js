@@ -12386,7 +12386,7 @@ function coachAthleteTrainingFocus(athlete) {
     : model.trend > 0
       ? `最近前进 ${model.trend} 名`
       : model.trend < 0
-        ? `最近后退 ${Math.abs(model.trend)} 名`
+        ? `最近回落 ${Math.abs(model.trend)} 名`
         : '最近名次持平';
   let training = '先保证参赛连续性，重点看小组赛稳定性和临场专注度。';
   if ((model.poolRate ?? 0) >= 60 && (athlete.bestRank ?? 999) <= 8) {
@@ -12678,8 +12678,8 @@ function buildCoachSegmentationShareText(club, buckets, followups, projectRows, 
   const checklistRows = coachOperatingChecklistRows(club, buckets, followups, projectRows, businessRows);
   const trainingRows = coachTrainingPlanRows(followups, buckets, projectRows);
   return [
-    `${club.club} 学员分层报告`,
-    `识别学员：${buckets.reduce((sum, bucket) => sum + bucket.rows.length, 0)} 人`,
+    `${club.club} 教练工作台`,
+    `学员：${buckets.reduce((sum, bucket) => sum + bucket.rows.length, 0)} 人`,
     topProject ? `重点项目：${topProject.label}，参赛 ${topProject.entrants || 0} 人次，最好第 ${topProject.bestRank ?? '-'} 名` : '重点项目：待形成',
     ...buckets.map((bucket) => `${bucket.title}：${bucket.rows.map((athlete) => athlete.name).filter(Boolean).slice(0, 4).join(' / ') || '暂无'}。${bucket.action}`),
     ...followups.slice(0, 3).map((row, index) => `跟进${index + 1}：${row.athlete.name}，${row.training}`),
@@ -12703,8 +12703,8 @@ function buildCoachSegmentationPageShareText(club, buckets = [], projectRows = [
   const athleteCount = buckets.reduce((sum, bucket) => sum + (bucket.rows?.length || 0), 0);
   return [
     `${club.club} 教练工作台`,
-    `识别学员 ${athleteCount} 人${topProject ? ` · 重点项目 ${topProject.label}` : ''}`,
-    '打开后可查看学员分层、家长沟通摘要、招生素材和可追溯成绩依据。',
+    `学员 ${athleteCount} 人${topProject ? ` · 重点项目 ${topProject.label}` : ''}`,
+    '打开后可查看学员分层、训练安排、家长沟通和招生素材。',
     coachSegmentationShareUrl(club.id),
   ].filter(Boolean).join('\n');
 }
@@ -12713,12 +12713,12 @@ function renderCoachSegmentationReport(clubId = '') {
   const club = findClubById(clubId) || state.clubSearchIndex?.[0] || null;
   if (!club?.id) {
     coachSegmentationReportHero.innerHTML = `
-      <div class="hero-title">学员分层报告</div>
-      <div class="hero-sub">先进入一个俱乐部后生成</div>
+      <div class="hero-title">教练工作台</div>
+      <div class="hero-sub">先进入一个俱乐部后查看</div>
     `;
     coachSegmentationReportBody.innerHTML = `
       <article class="panel coach-segmentation-report-card">
-        <div class="empty compact-empty">还没有可生成报告的俱乐部。先搜索并进入俱乐部画像，再生成学员分层报告。</div>
+        <div class="empty compact-empty">先搜索并进入俱乐部画像，再查看学员分层、训练安排和家长沟通素材。</div>
       </article>
     `;
     return;
@@ -12738,10 +12738,10 @@ function renderCoachSegmentationReport(clubId = '') {
   const riskBucket = buckets.find((bucket) => bucket.key === 'risk');
 
   coachSegmentationReportHero.innerHTML = `
-    <div class="hero-title">${escapeHtml(club.club)} 学员分层报告</div>
-    <div class="hero-sub">教练视角 · 训练反馈与留存沟通</div>
+    <div class="hero-title">${escapeHtml(club.club)} 教练工作台</div>
+    <div class="hero-sub">学员分层 · 训练跟进 · 家长沟通</div>
     <div class="badge-row">
-      <span class="badge">识别学员 ${escapeHtml(athletes.length)}</span>
+      <span class="badge">学员 ${escapeHtml(athletes.length)}</span>
       <span class="badge">项目 ${escapeHtml(projectRows.length)}</span>
       <span class="badge">前八 ${escapeHtml(club.top8 || 0)}</span>
       <span class="badge">最好第 ${escapeHtml(club.bestRank ?? '-')} 名</span>
@@ -12755,8 +12755,8 @@ function renderCoachSegmentationReport(clubId = '') {
   coachSegmentationReportBody.innerHTML = `
     <article class="panel coach-segmentation-report-card coach-segmentation-summary">
       <div class="section-title">
-        <h2>教练摘要</h2>
-        <span>先看动作</span>
+        <h2>本周重点</h2>
+        <span>先处理这三件事</span>
       </div>
       <strong>${escapeHtml(buildClubOwnerSummary(club, projectRows))}</strong>
       <p>${escapeHtml(topProject ? `${topProject.label} 是当前最主要项目；建议先把重点学员、稳定学员和需关注学员拆开沟通。` : '先积累项目参赛记录，再形成稳定分层。')}</p>
@@ -12879,7 +12879,7 @@ function renderCoachSegmentationReport(clubId = '') {
     <article class="panel coach-segmentation-report-card coach-business-growth">
       <div class="section-title">
         <h2>招生与口碑素材</h2>
-        <span>增长使用</span>
+        <span>对外展示</span>
       </div>
       <div class="coach-business-grid">
         ${businessRows.map((row) => `
@@ -12912,14 +12912,14 @@ function renderCoachSegmentationReport(clubId = '') {
     ${reportConversionCard({
       source: 'coach-segmentation-report',
       title: '把学员分层用于日常经营',
-      detail: '适合小型剑馆验证训练反馈、家长沟通和招生展示是否能形成稳定流程。',
+      detail: '适合小型剑馆把训练反馈、家长沟通和招生展示固定成日常流程。',
       primaryLabel: '申请教练试用',
       secondaryLabel: '关注团队权益',
     })}
     ${reportReminderCard({
       source: 'coach-segmentation-reminder',
       title: '学员跟进提醒',
-      detail: '把重点学员、家长沟通和赛前名单更新固定下来，方便教练持续跟进。',
+      detail: '把重点学员、家长沟通和赛前提醒固定下来，方便教练持续跟进。',
       label: '订阅跟进提醒',
     })}
   `;
@@ -12954,8 +12954,8 @@ function openCoachSegmentationReport(clubId = '') {
     trackReportHistory({
       type: 'coach-segmentation',
       id: club.id,
-      title: `${club.club} 学员分层`,
-      detail: '教练视角',
+      title: `${club.club} 教练工作台`,
+      detail: '学员分层与训练跟进',
       typeLabel: '教练报告',
     });
   }
@@ -13966,7 +13966,7 @@ function renderClubDetail(club) {
         <div class="report-card"><strong>${escapeHtml(top8Rate)}%</strong><span>前八率</span></div>
         <div class="report-card"><strong>${escapeHtml(medalRate)}%</strong><span>奖牌率</span></div>
         <div class="report-card"><strong>${escapeHtml(projectRows.length)}</strong><span>项目组别</span></div>
-        <div class="report-card"><strong>${escapeHtml(athletes.length || '-')}</strong><span>识别学员</span></div>
+        <div class="report-card"><strong>${escapeHtml(athletes.length || '-')}</strong><span>学员数量</span></div>
       </div>
 
       <section class="coach-section">
