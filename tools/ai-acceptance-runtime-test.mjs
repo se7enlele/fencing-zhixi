@@ -152,6 +152,7 @@ const functionNames = [
   'aiClubComparisonMetricLine',
   'aiClubComparisonConclusionRows',
   'aiClubComparisonQuantityRows',
+  'aiClubComparisonYearRows',
   'aiClubComparisonReasonRows',
   'aiClubComparisonEvidenceRows',
   'aiClubComparisonItemFilter',
@@ -700,6 +701,9 @@ assert.match(
 );
 assert.ok(!clubComparisonReport.cards.some(([label]) => label === '\u5206\u6790\u53e3\u5f84'), 'club comparison should not expose internal analysis scope as a card');
 assert.ok(!clubComparisonReport.sections.some((section) => /(\u5206\u6790\u53e3\u5f84|\u5224\u65ad\u53e3\u5f84|\u540e\u7eed|\u4e0b\u4e00\u6b65)/.test(section.title)), 'club comparison should not expose internal workflow labels as sections');
+assert.ok(clubComparisonReport.sections.some((section) => section.title === '\u5e74\u5ea6\u5bf9\u6bd4'), 'club comparison should include a year-by-year section when multiple years are requested');
+assert.ok(clubComparisonReport.sections.find((section) => section.title === '\u5e74\u5ea6\u5bf9\u6bd4')?.rows.some((row) => /2025.*\u7537\u5b50.*\u5317\u4eac\u91d1\u77f3.*\u5317\u4eac\u827e\u9c81\u7279/.test(row)), 'club comparison yearly rows should expose 2025 male quantity evidence');
+assert.ok(clubComparisonReport.sections.find((section) => section.title === '\u5e74\u5ea6\u5bf9\u6bd4')?.rows.some((row) => /2026.*\u5973\u5b50.*\u5317\u4eac\u827e\u9c81\u7279/.test(row)), 'club comparison yearly rows should expose 2026 female quantity evidence');
 assert.ok(clubComparisonReport.sections.some((section) => section.title === '\u6570\u91cf\u5224\u65ad'), 'club comparison should include a dedicated quantity judgment section');
 assert.ok(clubComparisonReport.sections.find((section) => section.title === '\u6570\u91cf\u5224\u65ad')?.rows.some((row) => /\u4eba\u6b21/.test(row) && /\u524d\u516b/.test(row) && /\u5956\u724c/.test(row) && /\u51a0\u519b/.test(row)), 'club comparison quantity judgment should expose participation, top-8, medal and champion counts');
 assert.ok(clubComparisonReport.sections.some((section) => section.title === '\u5bf9\u6bd4\u7ed3\u8bba'), 'club comparison should include user-facing comparison rows');

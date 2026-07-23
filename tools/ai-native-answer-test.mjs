@@ -98,10 +98,12 @@ assert.match(js, /function aiClubComparisonEfficiencyWinner\(left, right\)/, 'AI
 assert.match(js, /function aiClubComparisonCardLabel\(metric\)/, 'AI club comparison must label male, female and total result cards');
 assert.match(js, /function aiClubComparisonCardValue\(left, right\)/, 'AI club comparison must summarize each gender split as a compact result card');
 assert.match(js, /function aiClubComparisonQuantityRows\(totalPair, metricPairs = \[\]\)/, 'AI club comparison must expose a dedicated quantity-first judgment section');
+assert.match(js, /function aiClubComparisonYearRows\(leftClub, rightClub, filters = \{\}\)/, 'AI club comparison must split multi-year questions into year-by-year rows');
 assert.match(js, /function aiClubComparisonRefineLabel\(filters\)/, 'AI club comparison follow-up labels must match the current scope');
 assert.match(js, /type: 'club-comparison'/, 'AI club comparison report must have a stable report type');
 assert.match(js, /\['成绩积累',/, 'AI club comparison cards must expose accumulated result signals explicitly');
 assert.match(js, /\['效率信号',/, 'AI club comparison cards must expose efficiency signal explicitly');
+assert.match(js, /title: '年度对比'/, 'AI club comparison must expose yearly rows when the question includes multiple years');
 assert.match(js, /title: '对比结论'/, 'AI club comparison must expose user-facing comparison rows');
 assert.match(js, /function aiProjectHints\(query\)/, 'AI club reports must detect project hints like U8 male foil');
 assert.match(js, /function aiProjectScopeLabel\(hints = \[\]\)/, 'AI club reports must format project hints as natural user-facing labels');

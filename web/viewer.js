@@ -7140,6 +7140,25 @@ function aiClubComparisonQuantityRows(totalPair, metricPairs = []) {
   });
 }
 
+function aiClubComparisonYearRows(leftClub, rightClub, filters = {}) {
+  const years = [...new Set(filters.years || [])];
+  if (years.length < 2) return [];
+  const genders = filters.includeTotal
+    ? [...new Set(filters.genders || [])]
+    : [...new Set(filters.genders || ['total'])];
+  return years.flatMap((year) => genders.map((gender) => {
+    const scopedFilters = { ...filters, years: [year] };
+    const left = aiClubComparisonMetric(leftClub, scopedFilters, gender);
+    const right = aiClubComparisonMetric(rightClub, scopedFilters, gender);
+    const label = gender === 'total' ? '合计' : aiClubComparisonGenderLabel(gender);
+    const hasData = left.entrants || right.entrants || left.top8 || right.top8 || left.medals || right.medals;
+    if (!hasData) return `${year} ${label}：暂无可比记录。`;
+    const winner = aiClubComparisonQuantityWinner(left, right);
+    const result = winner ? `${winner.club.club}数量占优` : '数量接近';
+    return `${year} ${label}：${result}。${left.club.club} ${left.entrants}人次、前八${left.top8}、奖牌${left.medals}；${right.club.club} ${right.entrants}人次、前八${right.top8}、奖牌${right.medals}。`;
+  }));
+}
+
 function aiClubComparisonReasonRows(totalPair, metricPairs = []) {
   if (!totalPair) return [];
   const [left, right] = totalPair;
@@ -7193,6 +7212,7 @@ function buildAiClubComparisonReport(query, leftClub, rightClub, filters) {
   const quantityWinner = totalPair ? aiClubComparisonQuantityWinner(totalPair[0], totalPair[1]) : null;
   const efficiencyWinner = totalPair ? aiClubComparisonEfficiencyWinner(totalPair[0], totalPair[1]) : null;
   const scopeLabel = aiClubComparisonScopeLabel(filters);
+  const yearRows = aiClubComparisonYearRows(leftClub, rightClub, filters);
   const resultCards = metricPairs
     .slice(0, 3)
     .map(([left, right]) => [aiClubComparisonCardLabel(left), aiClubComparisonCardValue(left, right)]);
@@ -7210,6 +7230,10 @@ function buildAiClubComparisonReport(query, leftClub, rightClub, filters) {
       ['效率信号', totalPair ? aiClubComparisonEfficiencySummary(totalPair[0], totalPair[1]) : '样本不足'],
     ],
     sections: [
+      ...(yearRows.length ? [{
+        title: '年度对比',
+        rows: yearRows,
+      }] : []),
       {
         title: '数量判断',
         rows: aiClubComparisonQuantityRows(totalPair, metricPairs),
