@@ -3861,6 +3861,7 @@ function reportHistoryRows() {
       title: row.title || '报告',
       detail: row.detail || '点击继续查看',
       typeLabel: row.typeLabel || '报告',
+      reuseHint: row.reuseHint || '打开后继续查看。',
     };
     if (row.type === 'parent-growth') {
       const athlete = findAthleteByReference({ id: row.id });
@@ -3870,6 +3871,7 @@ function reportHistoryRows() {
         title: athlete?.name ? `${athlete.name} 成长报告` : fallback.title,
         detail: athlete?.club || row.detail || '家长视角',
         typeLabel: '成长报告',
+        reuseHint: '适合持续复盘阶段变化和下一场目标。',
       };
     }
     if (row.type === 'coach-segmentation') {
@@ -3880,6 +3882,7 @@ function reportHistoryRows() {
         title: club?.club ? `${club.club} 学员分层` : fallback.title,
         detail: row.detail || '教练视角',
         typeLabel: '教练报告',
+        reuseHint: '适合复看学员分层、重点项目和沟通素材。',
       };
     }
     if (row.type === 'prematch') {
@@ -3890,6 +3893,7 @@ function reportHistoryRows() {
         title: competition?.sportName || fallback.title,
         detail: [competition?.venue, displayDateLabel(competition?.dateLabel)].filter(Boolean).join(' · ') || row.detail || '赛前提醒',
         typeLabel: '赛前提醒',
+        reuseHint: '适合赛前查看报名、重点对象和提醒。',
       };
     }
     if (row.type === 'ai-report') {
@@ -3899,6 +3903,7 @@ function reportHistoryRows() {
         title: row.title || fallback.title,
         detail: row.detail || row.query || '点击继续查看这份分析',
         typeLabel: row.typeLabel || 'AI报告',
+        reuseHint: '适合继续查看原问题和来源记录。',
       };
     }
     return fallback;
@@ -9378,6 +9383,7 @@ function renderMyPage() {
             <span>${escapeHtml(row.typeLabel)}</span>
             <strong>${escapeHtml(row.title)}</strong>
             <em>${escapeHtml(row.detail)}</em>
+            <small>${escapeHtml(row.reuseHint || '打开后继续查看。')}</small>
           </button>
         `).join('') : '<div class="empty compact-empty">生成成长报告、赛前提醒或教练报告后，会显示在这里。</div>'}
       </div>
