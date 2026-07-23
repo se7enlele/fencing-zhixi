@@ -5489,13 +5489,20 @@ function aiPromptPresets() {
   const primary = athletes[0] || state.athleteSearchIndex.find((athlete) => athlete.events?.length);
   const secondary = athletes[1] || state.athleteSearchIndex.find((athlete) => athlete.name !== primary?.name && athlete.events?.length);
   const rolePresets = roleAiPromptPresets(primary, secondary);
-  const fallbackPresets = [
-    '这些击剑数据能产生什么商业价值',
-    primary && secondary ? `分析${primary.name}和${secondary.name}的对比情况` : '分析马潇和陶嘉月的对比情况',
+  const taskPresets = aiUserTaskPromptPresets(primary, secondary);
+  return [...new Set([...rolePresets, ...taskPresets])].slice(0, 5);
+}
+
+function aiUserTaskPromptPresets(primary, secondary) {
+  return [
+    '2026年天津有几场比赛',
+    '天津近期报名情况',
     primary ? `${primary.name}最近几场有没有进步` : '蔡廷彧最近几场有没有进步',
-    ...aiAcceptanceQueryCases().slice(1, 4).map((item) => item.query),
+    '山东小众体育 U8 男花怎么样',
+    primary && secondary ? `分析${primary.name}和${secondary.name}的对比情况` : '分析马潇和陶嘉月的对比情况',
+    '看2025和2026年，U10花剑男子和女子，北京金石是不是比北京艾鲁特更好',
+    '这些击剑数据能产生什么商业价值',
   ];
-  return [...new Set([...rolePresets, ...fallbackPresets])].slice(0, 5);
 }
 
 function aiPromptPlaceholder(presets) {

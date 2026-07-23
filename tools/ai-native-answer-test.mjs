@@ -28,7 +28,9 @@ assert.match(js, /expectedType: 'club-comparison'/, 'AI acceptance queries must 
 assert.match(js, /expectedType: 'business-insight'/, 'AI acceptance queries must cover business value analysis');
 assert.match(js, /expectedType: 'product-template'/, 'AI acceptance queries must cover productized report templates');
 assert.match(js, /expectedType: 'club-recruiting'/, 'AI acceptance queries must cover club recruiting display questions');
-assert.match(js, /aiAcceptanceQueryCases\(\)\.slice\(1, 4\)/, 'AI home presets must reuse acceptance questions');
+assert.match(js, /function aiUserTaskPromptPresets\(primary, secondary\)/, 'AI home presets must use a user-task prompt pool instead of exposing internal acceptance ordering');
+assert.doesNotMatch(js, /aiAcceptanceQueryCases\(\)\.slice\(1, 4\)/, 'AI home presets must not depend on acceptance-test ordering');
+assert.match(js, /2026年天津有几场比赛[\s\S]*天津近期报名情况[\s\S]*山东小众体育 U8 男花怎么样[\s\S]*北京金石是不是比北京艾鲁特更好/, 'AI home presets must cover competition stats, prematch, club analysis and club comparison tasks');
 assert.match(js, /function detectExactAthletesInQuery\(normalizedQuery\)/, 'AI routing must separate exact athlete matches from fuzzy matches');
 assert.match(js, /function aiEntityCandidateTerms\(query\)/, 'AI must extract entity candidates before answering from the home prompt');
 assert.match(js, /async function ensureAiEntityContext\(query\)/, 'AI must hydrate athlete and club context on demand');
