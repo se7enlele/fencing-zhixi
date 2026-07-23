@@ -322,6 +322,10 @@ assert.match(js, /function reportHistoryRows\(\)/, 'home page must build recentl
 assert.match(js, /reuseHint: '适合持续复盘阶段变化和下一场目标。'/, 'parent growth reports must expose a reusable next-use hint');
 assert.match(js, /reuseHint: '适合赛前查看报名、重点对象和提醒。'/, 'prematch reports must expose a reusable next-use hint');
 assert.match(js, /reuseHint: '适合复看学员分层、重点项目和沟通素材。'/, 'coach reports must expose a reusable next-use hint');
+assert.match(js, /nextLabel: '更新成长节奏'/, 'parent growth reports must expose a concrete next action');
+assert.match(js, /nextLabel: '查看赛前提醒'/, 'prematch reports must expose a concrete next action');
+assert.match(js, /nextLabel: '复看学员分层'/, 'coach reports must expose a concrete next action');
+assert.match(js, /nextLabel: '继续追问'/, 'AI reports must expose a concrete next action');
 assert.match(js, /function aiHistoryRows\(\)/, 'home page must build recent AI analysis entries');
 assert.match(js, /function reportAssetSummaryRows\(reportHistory = state\.reportHistory \|\| \[\], aiHistory = state\.aiHistory \|\| \[\]\)/, 'my page must summarize saved report assets');
 assert.match(js, /function reportNextActionRows\(reportHistory = reportHistoryRows\(\)\)/, 'my page must derive next actions from saved reports');
@@ -336,6 +340,7 @@ assert.match(js, /\$\{club\.club\}招生怎么讲/, 'club recruiting report card
 assert.match(js, /data-ai-query="\$\{escapeHtml\(row\.query\)\}"/, 'report AI cards must still carry runnable AI queries outside the focused home renderer');
 assert.match(js, /data-report-history-type="\$\{escapeHtml\(row\.type \|\| ''\)\}"/, 'recent report rows must carry runnable report actions outside the focused home renderer');
 assert.match(js, /<small>\$\{escapeHtml\(row\.reuseHint \|\| '打开后继续查看。'\)\}<\/small>/, 'recent report rows must show a clear reusable next-use hint');
+assert.match(js, /<b>\$\{escapeHtml\(row\.nextLabel \|\| '继续查看'\)\}<\/b>/, 'recent report rows must show a concrete next action');
 assert.match(js, /data-ai-history-query="\$\{escapeHtml\(row\.query\)\}"/, 'recent AI analysis rows must carry runnable queries outside the focused home renderer');
 assert.match(js, /function trackReportHistory\(report\)/, 'generated reports must be tracked for reuse');
 assert.match(js, /function trackAiAnalysisHistory\(query, report\)/, 'AI analysis answers must be tracked for reuse');
@@ -631,6 +636,7 @@ assert.match(css, /\.account-data-grid/, 'account center data summary styles mus
 assert.match(css, /\.account-action-row/, 'account center action styles must exist');
 assert.match(css, /\.account-status-line/, 'account center status styles must exist');
 assert.match(css, /\.competition-follow-tag/, 'competition follow tag styles must exist');
+assert.match(css, /\.report-history-list b/, 'report history next-action tag styles must exist');
 assert.match(css, /\.recovery-empty/, 'database empty-result recovery card styles must exist');
 assert.match(css, /\.ai-filter-notice em/, 'AI-to-database context should have secondary evidence guidance styling');
 assert.match(css, /\.ai-filter-chip-row/, 'AI-to-database context should style active filter chips');
