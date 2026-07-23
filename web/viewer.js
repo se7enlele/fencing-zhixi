@@ -4033,7 +4033,7 @@ function homeAiQuestionRows() {
   const club = state.currentClub || aiDefaultClub();
   const region = detectRegionInQuery(prematch?.venue || prematch?.region || '') || prematch?.region || '天津';
   const year = prematch?.season || detectYearInQuery(prematch?.sportName || '') || new Date().getFullYear();
-  return [
+  const coreRows = [
     {
       label: '赛事热度',
       query: '哪场比赛人数最多？',
@@ -4044,27 +4044,62 @@ function homeAiQuestionRows() {
       query: '北京击剑联赛第一站',
       detail: '输入赛事名称或简称，先确认是否有相近赛事记录。',
     },
-    {
-      label: '赛事统计',
-      query: `${year}年${region}有几场比赛`,
-      detail: '按年份、城市、状态直接统计赛事机会。',
-    },
-    {
-      label: '赛前准备',
-      query: prematch ? `${prematch.sportName}赛前提醒` : '天津近期报名情况',
-      detail: '报名和未开赛阶段，先看项目、名单和强手线索。',
-    },
-    {
-      label: '成长判断',
-      query: child ? `${child.name}最近几场有没有进步` : '蔡廷彧最近几场有没有进步',
-      detail: '把参赛连续性、名次变化和小组表现放在一起看。',
-    },
-    {
-      label: '教练经营',
-      query: club?.club ? `${club.club}招生怎么讲` : '山东小众体育招生怎么讲',
-      detail: '把俱乐部成绩资产转成家长能理解的展示素材。',
-    },
   ];
+  const roleRows = [];
+  if (state.userRole === 'parent') {
+    roleRows.push(
+      {
+        label: '成长判断',
+        query: child ? `${child.name}最近几场有没有进步` : '蔡廷彧最近几场有没有进步',
+        detail: '把参赛连续性、名次变化和小组表现放在一起看。',
+      },
+      {
+        label: '赛前准备',
+        query: prematch ? `${prematch.sportName}赛前提醒` : '天津近期报名情况',
+        detail: '报名和未开赛阶段，先看项目、名单和强手线索。',
+      },
+    );
+  } else if (state.userRole === 'coach' || state.userRole === 'club') {
+    roleRows.push(
+      {
+        label: '教练经营',
+        query: club?.club ? `${club.club}招生怎么讲` : '山东小众体育招生怎么讲',
+        detail: '把俱乐部成绩资产转成家长能理解的展示素材。',
+      },
+      {
+        label: '队伍观察',
+        query: club?.club ? `${club.club}有哪些优势项目` : '山东小众体育 U8 男花怎么样',
+        detail: '按项目、年龄段和成绩记录查看队伍优势。',
+      },
+    );
+  } else if (state.userRole === 'data') {
+    roleRows.push(
+      {
+        label: '赛事统计',
+        query: `${year}年${region}有几场比赛`,
+        detail: '按年份、城市、状态直接统计赛事机会。',
+      },
+      {
+        label: '数据价值',
+        query: '这些击剑数据能产生什么商业价值',
+        detail: '把赛事、选手和俱乐部数据转成可售卖报告和提醒。',
+      },
+    );
+  } else {
+    roleRows.push(
+      {
+        label: '赛事统计',
+        query: `${year}年${region}有几场比赛`,
+        detail: '按年份、城市、状态直接统计赛事机会。',
+      },
+      {
+        label: '赛前准备',
+        query: prematch ? `${prematch.sportName}赛前提醒` : '天津近期报名情况',
+        detail: '报名和未开赛阶段，先看项目、名单和强手线索。',
+      },
+    );
+  }
+  return uniqueBy([...coreRows, ...roleRows], (row) => row.query).slice(0, 4);
 }
 
 function commercialInterestContextRows(context = {}) {
