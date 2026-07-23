@@ -431,6 +431,7 @@ assert.ok(missingDataQuestion.cards.some(([label]) => label === '\u8d5b\u679c\u6
 assert.ok(missingDataQuestion.actions.some((action) => action.sportCode === 'BJLEAGUE2026S1'), 'missing-data diagnosis should let users open the similar competition');
 assert.ok(missingDataQuestion.sections.some((section) => section.title === '\u53ef\u4ee5\u8fd9\u6837\u6838\u5bf9'), 'missing-data diagnosis should provide verification guidance');
 assert.ok(missingDataQuestion.sections.some((section) => section.title === '\u53ef\u67e5\u5185\u5bb9'), 'missing-data diagnosis should show a visible coverage section for similar events');
+assert.ok(!/\u76f4\u63a5\u6253\u5f00\u6838\u5bf9\u9879\u76ee\u3001\u62a5\u540d\u548c\u6210\u7ee9/.test(missingDataQuestion.summary), 'missing-data diagnosis should not imply every coverage layer is available for a similar event');
 assert.ok(!/(\u5bfc\u5165|\u540e\u7eed|\u6570\u636e\u8fb9\u754c|\u6682\u672a\u8bc6\u522b)/.test(`${missingDataQuestion.title}${missingDataQuestion.summary}${missingDataQuestion.sections.map((section) => section.rows.join('')).join('')}`), 'missing-data diagnosis should avoid internal data-pipeline wording');
 
 const originalCompetitions = context.__state.competitions;

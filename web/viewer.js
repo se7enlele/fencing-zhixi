@@ -6253,7 +6253,7 @@ function buildAiCompetitionCoverageReport(query, competitionLike) {
     type: 'fallback',
     title: nearest ? '可能是赛事名称不完全一致' : (competitionLike.year ? `暂时没有${competitionLike.year}年这场赛事记录` : '暂时没有这场赛事记录'),
     summary: nearest
-      ? `已找到名称相近的赛事：${nearest.sportName}。如果你指的是这场，可以直接打开核对项目、报名和成绩；如果不是，可以补充年份、城市或完整赛事名。`
+      ? `已找到名称相近的赛事：${nearest.sportName}。如果你指的是这场，可以直接打开核对赛事信息和可查看内容；如果不是，可以补充年份、城市或完整赛事名。`
       : '这不代表赛事不存在。可以先核对赛事全名、举办城市和比赛年份，再查看同地区或相近名称的赛事。',
     cards,
     sections: [
