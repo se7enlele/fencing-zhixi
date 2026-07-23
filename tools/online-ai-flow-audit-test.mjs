@@ -6,6 +6,18 @@ const p0Source = await readFile(new URL('./online-p0-interaction-audit.mjs', imp
 const packageJson = await readFile(new URL('../package.json', import.meta.url), 'utf8');
 
 assert.match(source, /const realUserContextByCase = \{/, 'online AI audit must map cases to real user contexts');
+const caseIds = [...source.matchAll(/^\s*id: '([^']+)'/gm)].map((match) => match[1]);
+const contextBlock = source.match(/const realUserContextByCase = \{([\s\S]*?)\n\};/)?.[1] || '';
+const contextKeys = [...contextBlock.matchAll(/^\s*(?:'([^']+)'|([a-zA-Z0-9_-]+)):\s*\{/gm)].map((match) => match[1] || match[2]);
+const contextRoles = [...contextBlock.matchAll(/role: '([^']+)'/g)].map((match) => match[1]);
+const contextStages = [...contextBlock.matchAll(/stage: '([^']+)'/g)].map((match) => match[1]);
+const contextTasks = [...contextBlock.matchAll(/task: '([^']+)'/g)].map((match) => match[1]);
+const missingContextCases = caseIds.filter((id) => !contextKeys.includes(id));
+assert.ok(caseIds.length >= 15, 'online AI audit must cover a broad set of real-user questions, not a tiny smoke list');
+assert.deepEqual(missingContextCases, [], 'every online AI audit case must have a real-user context');
+assert.ok(new Set(contextRoles).size >= 10, 'online AI audit must model at least 10 distinct user roles or user situations');
+assert.ok(new Set(contextStages).size >= 10, 'online AI audit must cover at least 10 distinct research or decision stages');
+assert.ok(contextTasks.length >= caseIds.length, 'every real-user context must state the concrete task being evaluated');
 assert.match(source, /role: '进阶家长'[\s\S]*stage: '成长复盘期'/, 'online AI audit must include parent growth-review context');
 assert.match(source, /role: '小型剑馆教练'[\s\S]*stage: '学员管理期'/, 'online AI audit must include coach student-management context');
 assert.match(source, /role: '竞品对比家长'[\s\S]*stage: '选馆判断期'/, 'online AI audit must include club-comparison parent context');
