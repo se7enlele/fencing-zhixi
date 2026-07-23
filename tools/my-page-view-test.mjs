@@ -651,7 +651,7 @@ assert.match(js, /没有找到与“\$\{escapeHtml\(searchKeyword\)\}”完全�
 assert.match(js, /这不代表赛事、选手或俱乐部不存在/, 'database empty state must avoid implying a missing object does not exist');
 assert.match(js, /data-clear-search[\s\S]*data-ai-missing-search="\$\{escapeHtml\(searchKeyword\)\}"/, 'database empty state must offer clear-search and AI-check recovery actions');
 assert.match(js, /competitionList\.querySelector\('\[data-clear-search\]'\)\?\.addEventListener\('click'[\s\S]*searchInput\.value = '';[\s\S]*handleSearchInput\(\);/, 'clear-search recovery action must reset the database search');
-assert.match(js, /competitionList\.querySelector\('\[data-ai-missing-search\]'\)\?\.addEventListener\('click'[\s\S]*submitAiQuery\(`\$\{keyword\} 为什么没有找到`\);/, 'AI-check recovery action must preserve the missing query');
+assert.match(js, /competitionList\.querySelector\('\[data-ai-missing-search\]'\)\?\.addEventListener\('click'[\s\S]*submitAiQuery\(`我的数据库里没有\$\{keyword\}，为什么没有找到`\);/, 'AI-check recovery action must preserve the missing query with coverage context');
 assert.match(css, /\.empty-action-row/, 'database recovery actions must have a stable mobile row style');
 
 console.log('home, follow, my page and bottom navigation are covered');

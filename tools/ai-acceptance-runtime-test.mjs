@@ -469,6 +469,13 @@ assert.ok(missingDataQuestion.sections.some((section) => section.title === '\u53
 assert.ok(!/\u76f4\u63a5\u6253\u5f00\u6838\u5bf9\u9879\u76ee\u3001\u62a5\u540d\u548c\u6210\u7ee9/.test(missingDataQuestion.summary), 'missing-data diagnosis should not imply every coverage layer is available for a similar event');
 assert.ok(!/(\u5bfc\u5165|\u540e\u7eed|\u6570\u636e\u8fb9\u754c|\u6682\u672a\u8bc6\u522b)/.test(`${missingDataQuestion.title}${missingDataQuestion.summary}${missingDataQuestion.sections.map((section) => section.rows.join('')).join('')}`), 'missing-data diagnosis should avoid internal data-pipeline wording');
 
+const recoveryButtonQuestion = context.buildAiAnswer('\u6211\u7684\u6570\u636e\u5e93\u91cc\u6ca1\u6709\u5317\u4eac\u51fb\u5251\u8054\u8d5b\u7b2c\u4e00\u7ad9\uff0c\u4e3a\u4ec0\u4e48\u6ca1\u6709\u627e\u5230');
+assert.equal(recoveryButtonQuestion.type, 'fallback', 'database recovery button question should route to coverage diagnosis');
+assert.match(recoveryButtonQuestion.title, /(\u8d5b\u4e8b\u540d\u79f0\u4e0d\u5b8c\u5168\u4e00\u81f4|\u6682\u65f6\u6ca1\u6709)/, 'database recovery button question should explain the coverage state');
+assert.ok(recoveryButtonQuestion.cards.some(([label]) => label === '\u8d5b\u4e8b\u8bb0\u5f55'), 'database recovery button question should expose event-record coverage');
+assert.ok(recoveryButtonQuestion.sections.some((section) => section.title === '\u53ef\u4ee5\u8fd9\u6837\u6838\u5bf9'), 'database recovery button question should provide verification guidance');
+assert.ok(recoveryButtonQuestion.actions.some((action) => action.filters?.searchKeyword === '\u6211\u7684\u6570\u636e\u5e93\u91cc\u6ca1\u6709\u5317\u4eac\u51fb\u5251\u8054\u8d5b\u7b2c\u4e00\u7ad9\uff0c\u4e3a\u4ec0\u4e48\u6ca1\u6709\u627e\u5230'), 'database recovery button question should preserve the original recovery question');
+
 const originalCompetitions = context.__state.competitions;
 context.__state.competitions = originalCompetitions.filter((competition) => competition.sportCode === 'RZSS2021040');
 context.__state.competitionSearchCache = new Map();

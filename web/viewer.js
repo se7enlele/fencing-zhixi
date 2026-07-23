@@ -10244,7 +10244,7 @@ function renderCompetitionList() {
   });
   competitionList.querySelector('[data-ai-missing-search]')?.addEventListener('click', (event) => {
     const keyword = event.currentTarget.dataset.aiMissingSearch || '';
-    submitAiQuery(`${keyword} 为什么没有找到`);
+    submitAiQuery(`我的数据库里没有${keyword}，为什么没有找到`);
   });
   competitionList.querySelector('[data-adjust-ai-filter]')?.addEventListener('click', () => {
     searchShell?.scrollIntoView({ block: 'start', behavior: 'smooth' });
