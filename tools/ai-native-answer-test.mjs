@@ -355,11 +355,12 @@ assert.doesNotMatch(js, /<div class="ai-next-steps">/, 'AI answer renderer must 
 assert.doesNotMatch(js, /renderAiConversionBlock\(report\)/, 'AI answer renderer must not show commercial conversion blocks inside the answer result');
 assert.match(js, /data-commercial-intent="pilot"/, 'AI conversion block must expose pilot-interest actions');
 assert.match(js, /bindReportConversionActions\(container\)/, 'AI answer actions must reuse the existing commercial-interest submission flow');
-assert.match(js, /class="ai-share-row"/, 'AI answer renderer must expose a copy summary action');
+assert.match(js, /class="ai-answer-tools"/, 'AI answer renderer must keep save and copy as compact header tools');
+assert.doesNotMatch(js, /class="ai-share-row"/, 'AI answer renderer must not spend a separate bottom row on save and copy controls');
 assert.match(js, /data-ai-share/, 'AI answer copy action must be addressable');
 assert.match(js, /function isAiReportSaveable\(report = \{\}\)/, 'AI answers must decide whether a result can be saved for later review');
 assert.match(js, /data-ai-save/, 'AI answer renderer must expose a save analysis action');
-assert.match(js, />保存分析</, 'AI answer save action must use user-facing copy');
+assert.match(js, />保存</, 'AI answer save action must use short user-facing copy');
 assert.match(js, /trackAiAnalysisHistory\(query, report\);[\s\S]*renderPersonalPages\(\);[\s\S]*trackAnalyticsAction\('save_ai_report'/, 'AI answer save action must persist the report and refresh reusable analysis sections');
 assert.match(js, /scheduleUserStateSync\(\);[\s\S]*}\s*function aiReportSaveQuery/, 'saved AI analysis must be eligible for account sync');
 assert.doesNotMatch(js, /保存快照|分析快照/, 'AI answer save action must not expose snapshot terminology');
@@ -404,7 +405,8 @@ assert.doesNotMatch(css, /\.ai-next-steps/, 'AI next-step styles should be remov
 assert.match(css, /\.ai-conversion-card/, 'AI conversion block styles must exist');
 assert.match(css, /\.ai-conversion-service/, 'AI conversion block must style concrete trial contents');
 assert.match(css, /\.ai-conversion-actions/, 'AI conversion action styles must exist');
-assert.match(css, /\.ai-share-row/, 'AI share action styles must exist');
+assert.match(css, /\.ai-answer-tools/, 'AI save and copy tools must have compact header styles');
+assert.doesNotMatch(css, /\.ai-share-row/, 'AI share row styles should be removed when share actions move into the header');
 assert.doesNotMatch(css, /\.ai-follow-up-row/, 'AI follow-up question styles should be removed when hidden from the product UI');
 assert.match(css, /\.ai-key-source/, 'AI key source styles must exist for first-screen traceability');
 assert.match(css, /\.ai-evidence > summary/, 'AI evidence summary styles must exist for collapsed sources');

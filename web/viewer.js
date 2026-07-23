@@ -8899,10 +8899,17 @@ function renderAiAnswer(report) {
   const secondaryEvidence = primaryEvidence.slice(1);
   const hiddenEvidenceCount = Math.max(0, (report.evidence?.length || 0) - 1 - secondaryEvidence.length);
   const remainingEvidenceCount = Math.max(0, (report.evidence?.length || 0) - 1);
+  const saveAction = isAiReportSaveable(report) ? '<button type="button" data-ai-save>保存</button>' : '';
   return `
     <div class="ai-answer-card">
       <div class="ai-answer-head">
-        <span>${escapeHtml(aiAnswerTypeLabel(report))}</span>
+        <div class="ai-answer-kicker">
+          <span>${escapeHtml(aiAnswerTypeLabel(report))}</span>
+          <div class="ai-answer-tools">
+            ${saveAction}
+            <button type="button" data-ai-share>复制</button>
+          </div>
+        </div>
         <strong>${escapeHtml(report.title)}</strong>
         <p>${escapeHtml(report.summary)}</p>
       </div>
@@ -8957,10 +8964,6 @@ function renderAiAnswer(report) {
           </div>
         </details>
       ` : ''}
-      <div class="ai-share-row">
-        ${isAiReportSaveable(report) ? '<button type="button" data-ai-save>保存分析</button>' : ''}
-        <button type="button" data-ai-share>复制分析摘要</button>
-      </div>
     </div>
   `;
 }
@@ -8979,7 +8982,7 @@ function bindAiAnswerActions(container) {
       if (!query || !isAiReportSaveable(report)) {
         button.textContent = '暂不可保存';
         setTimeout(() => {
-          button.textContent = '保存分析';
+          button.textContent = '保存';
         }, 1400);
         return;
       }
