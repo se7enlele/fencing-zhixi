@@ -10128,10 +10128,24 @@ function renderAiCompetitionFilterNotice() {
 function renderCompetitionEmptyState() {
   const searchKeyword = normalizeSearchText(searchInput?.value || state.lastSearchKeyword || '');
   if (searchKeyword) {
+    const coverageRows = [
+      ['赛事记录', '先核对名称、年份和城市'],
+      ['项目名单', '打开相近赛事后查看项目'],
+      ['报名名单', '有赛前资料时查看名单'],
+      ['赛果成绩', '比赛结束后查看成绩和对阵'],
+    ];
     return `
       <div class="empty recovery-empty search-recovery-empty">
         <strong>没有找到与“${escapeHtml(searchKeyword)}”完全匹配的记录</strong>
-        <span>这不代表赛事、选手或俱乐部不存在。可以先核对全名、城市、年份或主办方名称，也可以用 AI 帮你找相近记录。</span>
+        <span>这不代表赛事、选手或俱乐部不存在。可以先按下面四类内容核对，也可以用 AI 帮你找相近记录。</span>
+        <div class="missing-coverage-list" aria-label="可以继续核对的内容">
+          ${coverageRows.map(([label, value]) => `
+            <div>
+              <strong>${escapeHtml(label)}</strong>
+              <span>${escapeHtml(value)}</span>
+            </div>
+          `).join('')}
+        </div>
         <div class="empty-action-row">
           <button type="button" data-clear-search>清空搜索</button>
           <button type="button" data-ai-missing-search="${escapeHtml(searchKeyword)}">用 AI 核对</button>
