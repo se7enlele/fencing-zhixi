@@ -284,6 +284,8 @@ assert.match(js, /function renderMembershipBenefits\(\)/, 'my page must render a
 assert.match(js, /data-commercial-source="my-membership"/, 'my page membership panel must submit a traceable commercial source');
 assert.match(js, /bindReportConversionActions\(myPage\)/, 'my page membership buttons must reuse commercial conversion actions');
 assert.match(js, /function homeDataValueRows\(\)/, 'home page must build productized data value entry cards');
+assert.match(js, /function shouldShowHomeDataValueSection\(\)/, 'home page must define role-aware visibility for productized data value cards');
+assert.match(js, /return \['coach', 'club', 'data'\]\.includes\(state\.userRole\);/, 'home data value cards must stay off the default parent-focused first screen');
 assert.match(js, /function homeAiQuestionRows\(\)/, 'home page must build runnable AI-native question examples');
 assert.match(js, /哪场比赛人数最多？/, 'home AI question shortcuts must include a competition-scale question from real use');
 assert.match(js, /北京击剑联赛第一站/, 'home AI question shortcuts must include a concrete event-name lookup from real use');
@@ -293,7 +295,8 @@ assert.match(js, /const savedAnalysisRows = \[\.\.\.aiHistory, \.\.\.reportHisto
 assert.match(js, /function roleVisibleHomeReportRows\(rows\)/, 'home report center must filter report entry points by selected role');
 assert.match(js, /state\.userRole === 'parent'[\s\S]*\['prematch', 'growth'\]/, 'parent home report center must stay focused on prematch and child growth');
 assert.match(js, /roleVisibleHomeReportRows\(homeReportCenterRows\(children, followedCompetitions\)\)/, 'home page must apply role-aware report filtering');
-assert.match(js, /class="data-value-grid"/, 'home page must render productized data value cards');
+assert.match(js, /const dataValueRows = shouldShowHomeDataValueSection\(\) \? homeDataValueRows\(\) : \[\];/, 'home page must derive productized data value cards only for relevant roles');
+assert.match(js, /\$\{dataValueRows\.length \? `[\s\S]*class="data-value-grid"[\s\S]*` : ''\}/, 'home page must render productized data value cards conditionally');
 assert.match(js, /class="home-question-list"/, 'home page must render AI-native question shortcuts');
 assert.match(js, /\$\{renderHomePrematchAction\(prematchAction\)\}/, 'home page must surface the next prematch action before generic report cards');
 assert.match(js, /\$\{renderHomeCoachAction\(coachAction\)\}/, 'home page must surface the coach business action before generic report cards');

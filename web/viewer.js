@@ -4027,6 +4027,10 @@ function homeDataValueRows() {
   ];
 }
 
+function shouldShowHomeDataValueSection() {
+  return ['coach', 'club', 'data'].includes(state.userRole);
+}
+
 function homeAiQuestionRows() {
   const prematch = prematchReportCompetitions()[0];
   const child = focusAthleteCards()[0];
@@ -5248,7 +5252,7 @@ function renderHomePage() {
   const savedAnalysisRows = [...aiHistory, ...reportHistory].slice(0, 3);
   const prematchAction = homePrematchActionRow(followedCompetitions);
   const coachAction = homeCoachActionRow();
-  const dataValueRows = homeDataValueRows();
+  const dataValueRows = shouldShowHomeDataValueSection() ? homeDataValueRows() : [];
   const aiQuestionRows = homeAiQuestionRows();
   const pilotRow = homePilotInterestRow();
   const recentRows = (state.recentItems || []).slice(0, 3);
@@ -5302,6 +5306,7 @@ function renderHomePage() {
           `).join('')}
         </div>
       </section>
+      ${dataValueRows.length ? `
       <section class="panel my-section home-value-section">
         <div class="section-title">
           <h2>数据价值</h2>
@@ -5317,6 +5322,7 @@ function renderHomePage() {
           `).join('')}
         </div>
       </section>
+      ` : ''}
       <section class="panel my-section home-action-section">
         <div class="section-title">
           <h2>常用功能</h2>
