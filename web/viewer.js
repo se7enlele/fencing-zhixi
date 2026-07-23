@@ -10236,6 +10236,16 @@ function renderCompetitionList() {
     button.addEventListener('click', () => openCompetition(button.dataset.sportCode));
   });
   competitionList.querySelector('[data-clear-ai-filter]')?.addEventListener('click', clearAiCompetitionFilter);
+  competitionList.querySelector('[data-clear-search]')?.addEventListener('click', () => {
+    searchInput.value = '';
+    state.lastSearchKeyword = '';
+    handleSearchInput();
+    searchInput.focus({ preventScroll: true });
+  });
+  competitionList.querySelector('[data-ai-missing-search]')?.addEventListener('click', (event) => {
+    const keyword = event.currentTarget.dataset.aiMissingSearch || '';
+    submitAiQuery(`${keyword} 为什么没有找到`);
+  });
   competitionList.querySelector('[data-adjust-ai-filter]')?.addEventListener('click', () => {
     searchShell?.scrollIntoView({ block: 'start', behavior: 'smooth' });
     yearFilterButton?.focus({ preventScroll: true });
@@ -10278,6 +10288,19 @@ function renderAiCompetitionFilterNotice() {
 }
 
 function renderCompetitionEmptyState() {
+  const searchKeyword = normalizeSearchText(searchInput?.value || state.lastSearchKeyword || '');
+  if (searchKeyword) {
+    return `
+      <div class="empty recovery-empty search-recovery-empty">
+        <strong>没有找到与“${escapeHtml(searchKeyword)}”完全匹配的记录</strong>
+        <span>这不代表赛事、选手或俱乐部不存在。可以先核对全名、城市、年份或主办方名称，也可以用 AI 帮你找相近记录。</span>
+        <div class="empty-action-row">
+          <button type="button" data-clear-search>清空搜索</button>
+          <button type="button" data-ai-missing-search="${escapeHtml(searchKeyword)}">用 AI 核对</button>
+        </div>
+      </div>
+    `;
+  }
   if (state.aiCompetitionFilterSummary || state.aiCompetitionFilterQuestion) {
     return `
       <div class="empty recovery-empty">

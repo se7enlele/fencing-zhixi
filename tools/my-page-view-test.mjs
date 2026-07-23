@@ -646,4 +646,12 @@ assert.match(js, /data-adjust-ai-filter[\s\S]*searchShell\?\.scrollIntoView[\s\S
 assert.match(js, /\u6253\u5f00\u8d5b\u4e8b\u540e\uff0c\u53ef\u4ee5\u7ee7\u7eed\u6838\u5bf9\u9879\u76ee\u3001\u540d\u5355\u548c\u6210\u7ee9\u3002/, 'AI-to-database context must explain the evidence path');
 assert.match(js, /function handleSearchInput\(\)[\s\S]*state\.aiCompetitionFilterSummary = '';[\s\S]*state\.aiCompetitionFilterQuestion = '';/, 'manual database search must clear stale AI filter context');
 
+assert.match(js, /function renderCompetitionEmptyState\(\)[\s\S]*const searchKeyword = normalizeSearchText\(searchInput\?\.value \|\| state\.lastSearchKeyword \|\| ''\);/, 'database empty state must detect the active search keyword');
+assert.match(js, /没有找到与“\$\{escapeHtml\(searchKeyword\)\}”完全匹配的记录/, 'database empty state must explain the exact missing query');
+assert.match(js, /这不代表赛事、选手或俱乐部不存在/, 'database empty state must avoid implying a missing object does not exist');
+assert.match(js, /data-clear-search[\s\S]*data-ai-missing-search="\$\{escapeHtml\(searchKeyword\)\}"/, 'database empty state must offer clear-search and AI-check recovery actions');
+assert.match(js, /competitionList\.querySelector\('\[data-clear-search\]'\)\?\.addEventListener\('click'[\s\S]*searchInput\.value = '';[\s\S]*handleSearchInput\(\);/, 'clear-search recovery action must reset the database search');
+assert.match(js, /competitionList\.querySelector\('\[data-ai-missing-search\]'\)\?\.addEventListener\('click'[\s\S]*submitAiQuery\(`\$\{keyword\} 为什么没有找到`\);/, 'AI-check recovery action must preserve the missing query');
+assert.match(css, /\.empty-action-row/, 'database recovery actions must have a stable mobile row style');
+
 console.log('home, follow, my page and bottom navigation are covered');

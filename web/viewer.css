@@ -9595,6 +9595,12 @@ th {
   line-height: 1.5;
 }
 
+.empty-action-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
 .recovery-empty button {
   justify-self: start;
   height: 32px;
