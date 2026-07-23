@@ -6667,12 +6667,13 @@ function detectCompetitionStatsQuery(query) {
   const hasCompetitionIntent = /(比赛|赛事|公开赛|冠军赛|锦标赛|有几场|多少场|几场)/.test(normalized);
   if (!hasCompetitionIntent) return null;
   const hasStatsIntent = /(有几场|多少场|几场|多少|统计|数量|列表|有哪些|哪几场|人数最多|规模最大|最多人)/.test(normalized);
-  if (!hasStatsIntent) return null;
+  const status = detectStatusInQuery(normalized);
+  const hasStatusListIntent = Boolean(status) && /(比赛|赛事|公开赛|冠军赛|锦标赛)/.test(normalized);
+  if (!hasStatsIntent && !hasStatusListIntent) return null;
 
   const year = detectYearInQuery(normalized);
   const month = detectMonthInQuery(normalized);
   const region = detectRegionInQuery(normalized);
-  const status = detectStatusInQuery(normalized);
   if (!year && !month && !region && !status) return null;
   return { year, month, region, status };
 }
@@ -6749,7 +6750,7 @@ function detectStatusInQuery(normalizedQuery) {
   if (normalizedQuery.includes('报名')) return 'registration';
   if (normalizedQuery.includes('未开赛') || normalizedQuery.includes('未开始') || normalizedQuery.includes('待开赛')) return 'upcoming';
   if (normalizedQuery.includes('已结束') || normalizedQuery.includes('结束')) return 'completed';
-  if (normalizedQuery.includes('进行中')) return 'live';
+  if (/(进行中|比赛中|正在比赛|正在进行|开赛中)/.test(normalizedQuery)) return 'live';
   return '';
 }
 

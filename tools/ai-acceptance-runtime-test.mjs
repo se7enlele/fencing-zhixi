@@ -308,6 +308,17 @@ const sampleCompetitions = [
     itemCount: 2,
     items: [{ eventCode: 'FUTIAN2026-U10MF', eventName: 'U10 \u7537\u5b50\u82b1\u5251', shortEventName: 'U10 \u7537\u82b1' }],
   },
+  {
+    sportCode: 'CANGZHOU2026LIVE',
+    sportName: '\u0032\u0030\u0032\u0036\u5e74\u6cb3\u5317\u6ca7\u5dde\u51fb\u5251\u516c\u5f00\u8d5b',
+    season: '2026',
+    dateLabel: '\u65e5\u671f\u5f85\u786e\u8ba4',
+    venue: '\u6cb3\u5317\u00b7\u6ca7\u5dde',
+    region: '\u6cb3\u5317',
+    status: 'live',
+    itemCount: 1,
+    items: [{ eventCode: 'CANGZHOU2026LIVE-U10MF', eventName: 'U10 \u7537\u5b50\u82b1\u5251', shortEventName: 'U10 \u7537\u82b1' }],
+  },
 ];
 
 const caiEvents = [
@@ -556,6 +567,13 @@ const currentYear = String(new Date().getFullYear());
 assert.equal(context.detectYearInQuery('\u4eca\u5e74\u5929\u6d25\u6709\u51e0\u573a\u6bd4\u8d5b'), currentYear, 'AI year detection should support current-year wording');
 const broadScaleStats = context.buildAiAnswer('\u54ea\u573a\u6bd4\u8d5b\u4eba\u6570\u6700\u591a\uff1f');
 assert.ok(!/(\u5168\u90e8\u5e74\u4efd|\u5168\u90e8\u6708\u4efd)/.test(`${broadScaleStats.title}${broadScaleStats.summary}`), 'broad competition stats copy should not expose all-year or all-month filler text');
+assert.equal(context.detectStatusInQuery('\u6cb3\u5317\u6ca7\u5dde\u6b63\u5728\u6bd4\u8d5b\u7684\u8d5b\u4e8b'), 'live', 'AI status detection should understand current competition wording');
+assert.equal(context.detectStatusInQuery('\u6cb3\u5317\u6ca7\u5dde\u6bd4\u8d5b\u4e2d\u7684\u8d5b\u4e8b'), 'live', 'AI status detection should understand in-competition wording');
+assert.equal(context.detectStatusInQuery('\u6cb3\u5317\u6ca7\u5dde\u6b63\u5728\u8fdb\u884c\u7684\u8d5b\u4e8b'), 'live', 'AI status detection should understand in-progress wording');
+const liveStatsReport = context.buildAiAnswer('\u6cb3\u5317\u6ca7\u5dde\u6b63\u5728\u6bd4\u8d5b\u7684\u8d5b\u4e8b');
+assert.equal(liveStatsReport.type, 'competition-stats', 'current competition wording should route to competition statistics');
+assert.ok(liveStatsReport.evidence.some((row) => row.sportCode === 'CANGZHOU2026LIVE'), 'current competition stats should cite the matched live competition');
+assert.ok(liveStatsReport.actions.some((action) => action.filters?.status === 'live'), 'current competition stats action should preserve the live status filter');
 
 const originalAthleteSearchIndex = context.__state.athleteSearchIndex;
 const originalClubSearchIndex = context.__state.clubSearchIndex;
