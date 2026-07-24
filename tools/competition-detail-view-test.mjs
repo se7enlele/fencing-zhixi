@@ -128,6 +128,9 @@ assert.match(source, /class="available-layer-row" aria-label="可查内容"[\s\S
 assert.match(css, /\.available-layer-row/, 'competition available data layer tags must be styled');
 assert.match(source, /function competitionCoverageStageRows\(competition\)/, 'competition detail must derive unified user-facing coverage stages');
 assert.match(source, /function competitionCoverageState\(competition = \{\}\)/, 'competition detail must use a shared coverage state helper');
+assert.match(source, /function isLiveCompetitionStatus\(status\)[\s\S]*status === 'running'/, 'competition status helpers must treat running as in-progress');
+assert.match(source, /function isPrematchStatusValue\(status\)/, 'active competition checks must use a shared status helper');
+assert.match(source, /function competitionStatusMatches\(actualStatus, expectedStatus\)/, 'competition filters must treat live and running as equivalent states');
 assert.match(source, /score: hasScore \? '可查看' : isLive \? '比赛进行中' : isPreStart \? '未开赛' : '暂无成绩'/, 'competition detail must distinguish live, pre-start and finished-without-score states');
 assert.match(source, /roster: hasRoster \? '可查看' : \(isFinished \? '暂无名单' : '暂无名单'\)/, 'competition detail must show missing roster state clearly');
 assert.match(source, /function renderCompetitionCoverageStages\(competition\)/, 'competition detail must render coverage stages');
@@ -161,8 +164,8 @@ assert.match(source, /class="competition-scope-grid"/, 'competition hero must sh
 assert.match(source, /ageText: compactCompetitionScopeText\(competition\.projectScope\.ageText, 3\)/, 'competition hero must not render all age bands from source data');
 assert.match(source, /genderText: compactCompetitionScopeText\(competition\.projectScope\.genderText, 2\)/, 'competition hero must keep gender scope short on mobile');
 assert.match(source, /project-summary-row/, 'competition hero project summary must have a dedicated compact row');
-assert.match(source, /const isPreEventCompetition = competition\.isPreEvent \|\| \['registration', 'upcoming', 'live'\]\.includes\(competition\.status\)/, 'pre-event competitions must not reuse post-event chart assumptions');
-assert.match(source, /const isLiveCompetition = competition\.status === 'live'/, 'live competitions must be separated from pre-event preparation');
+assert.match(source, /const isPreEventCompetition = competition\.isPreEvent \|\| isPrematchStatusValue\(competition\.status\)/, 'pre-event competitions must not reuse post-event chart assumptions');
+assert.match(source, /const isLiveCompetition = isLiveCompetitionStatus\(competition\.status\)/, 'live competitions must be separated from pre-event preparation');
 assert.match(source, /isLiveCompetition[\s\S]*renderCompetitionLivePanel\(competition\)[\s\S]*return;/, 'live competition insight area must not fall through to pre-event preparation');
 assert.match(source, /renderCompetitionPreEventPanel\(competition\)/, 'pre-event competition insight area must show preparation guidance');
 assert.match(source, /registered \? `报名 \$\{registered\}` : rosterStatusLabel\(competition\.rosterStatus\)/, 'pre-event project cards must show roster status instead of undefined post-event metrics');

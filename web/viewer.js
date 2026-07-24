@@ -1314,9 +1314,23 @@ function competitionNameAliasTerms(competition) {
 function statusLabel(status) {
   if (status === 'registration') return '报名中';
   if (status === 'upcoming') return '未开赛';
-  if (status === 'live') return '进行中';
+  if (isLiveCompetitionStatus(status)) return '进行中';
   if (status === 'completed') return '已结束';
   return '状态待确认';
+}
+
+function isLiveCompetitionStatus(status) {
+  return status === 'live' || status === 'running';
+}
+
+function isPrematchStatusValue(status) {
+  return ['registration', 'upcoming'].includes(status) || isLiveCompetitionStatus(status);
+}
+
+function competitionStatusMatches(actualStatus, expectedStatus) {
+  if (!expectedStatus) return true;
+  if (isLiveCompetitionStatus(actualStatus) && isLiveCompetitionStatus(expectedStatus)) return true;
+  return actualStatus === expectedStatus;
 }
 
 function rosterStatusLabel(status) {
@@ -1361,7 +1375,7 @@ function scheduledSyncStatusLabel(syncStatus) {
 
 function coverageLabel(competition) {
   if (competition.isPlatformEventList && !competitionHasItems(competition)) return '基础信息';
-  if (competition.status === 'live') return '比赛进行中';
+  if (isLiveCompetitionStatus(competition.status)) return '比赛进行中';
   if (competition.rosterStatus === 'partial' || competition.rosterStatus === 'complete') return '报名信息';
   if (competition.isPreEvent) return '项目明细';
   if (competitionCoverageLevel(competition) !== 'score') return '成绩待查看';
@@ -1379,7 +1393,7 @@ function coverageDetail(competition) {
   if (competition.isPlatformEventList && !competitionHasItems(competition)) {
     return '可先关注赛程、地点和报名节奏。';
   }
-  if (competition.status === 'live') {
+  if (isLiveCompetitionStatus(competition.status)) {
     const level = competitionCoverageLevel(competition);
     if (level === 'score') return '比赛进行中，可优先查看已出结果的项目和需要继续关注的组别。';
     if (level === 'roster') return '比赛进行中，可先查看报名名单、项目安排和成绩更新。';
@@ -2206,7 +2220,7 @@ function competitionCoverageState(competition = {}) {
   const hasProject = ['project', 'roster', 'score'].includes(level);
   const hasRoster = ['roster', 'score'].includes(level);
   const hasScore = level === 'score';
-  const isLive = status === 'live';
+  const isLive = isLiveCompetitionStatus(status);
   const isFinished = status === 'completed';
   const isPreStart = ['registration', 'upcoming'].includes(status);
   return {
@@ -4461,7 +4475,7 @@ function bindServiceProgressActions(container) {
 
 function serviceReadinessRows({ children = [], followedCompetitions = [], reportHistory = [], aiHistory = [] } = {}) {
   const prematch = (followedCompetitions || []).find(isPrematchCompetition) || prematchReportCompetitions()[0] || null;
-  const activeCount = (state.competitions || []).filter((competition) => ['registration', 'upcoming', 'live'].includes(competition.status) || competition.isPreEvent).length;
+  const activeCount = (state.competitions || []).filter((competition) => isPrematchStatusValue(competition.status) || competition.isPreEvent).length;
   const rosterCount = (state.competitions || []).filter((competition) => competition.rosterStatus === 'partial' || competition.rosterStatus === 'complete').length;
   const child = children[0] || null;
   const club = state.currentClub || aiDefaultClub();
@@ -4572,7 +4586,7 @@ function trialDeliverableRows() {
   const prematch = (followedCompetitions || []).find(isPrematchCompetition) || prematchReportCompetitions()[0] || null;
   const child = children[0] || null;
   const club = state.currentClub || aiDefaultClub();
-  const activeCount = (state.competitions || []).filter((competition) => ['registration', 'upcoming', 'live'].includes(competition.status) || competition.isPreEvent).length;
+  const activeCount = (state.competitions || []).filter((competition) => isPrematchStatusValue(competition.status) || competition.isPreEvent).length;
   const rosterCount = (state.competitions || []).filter((competition) => competition.rosterStatus === 'partial' || competition.rosterStatus === 'complete').length;
   const reportCount = (state.reportHistory || []).length + (state.aiHistory || []).length;
   return [
@@ -6400,7 +6414,7 @@ function buildAiOfficialDirectoryReport(query = '') {
 
 function buildAiCapabilityGuideReport(query) {
   const entityCounts = entityCoverageCounts();
-  const activeCount = (state.competitions || []).filter((competition) => ['registration', 'upcoming', 'live'].includes(competition.status) || competition.isPreEvent).length;
+  const activeCount = (state.competitions || []).filter((competition) => isPrematchStatusValue(competition.status) || competition.isPreEvent).length;
   const focused = aiFocusedAthletes();
   const club = state.currentClub || aiDefaultClub();
   const sampleAthlete = focused[0] || (state.athleteSearchIndex || []).find((athlete) => athlete?.events?.length);
@@ -7397,9 +7411,9 @@ function buildAiCompetitionStats(query, filters) {
     return map;
   }, new Map());
   const watchRows = rows
-    .filter((competition) => ['registration', 'upcoming', 'live'].includes(competition.status) || competition.isPreEvent)
+    .filter((competition) => isPrematchStatusValue(competition.status) || competition.isPreEvent)
     .slice(0, 3);
-  const actionRows = rows.filter((competition) => ['registration', 'upcoming', 'live'].includes(competition.status) || competition.isPreEvent);
+  const actionRows = rows.filter((competition) => isPrematchStatusValue(competition.status) || competition.isPreEvent);
   const rosterRows = rows.filter((competition) => competition.rosterStatus === 'partial' || competition.rosterStatus === 'complete');
   const scoreRows = rows.filter((competition) => competition.status === 'completed' || competitionHasItems(competition));
   const regionLabel = filters.region || '不限';
@@ -7612,7 +7626,7 @@ function businessRegionRows() {
     const key = competition.region || competition.venue || '地区待确认';
     const current = rows.get(key) || { total: 0, active: 0 };
     current.total += 1;
-    if (['registration', 'upcoming', 'live'].includes(competition.status) || competition.isPreEvent) current.active += 1;
+    if (isPrematchStatusValue(competition.status) || competition.isPreEvent) current.active += 1;
     rows.set(key, current);
   }
   return [...rows.entries()]
@@ -7631,9 +7645,9 @@ function businessClubOpportunityRows() {
 
 function isActionablePrematchCompetition(competition) {
   if (!competition || competition.status === 'completed') return false;
-  const hasPrematchStatus = ['registration', 'upcoming', 'live'].includes(competition.status) || competition.isPreEvent;
+  const hasPrematchStatus = isPrematchStatusValue(competition.status) || competition.isPreEvent;
   if (!hasPrematchStatus) return false;
-  if (competition.status === 'live') return true;
+  if (isLiveCompetitionStatus(competition.status)) return true;
   const days = daysFromToday(competitionDateValue(competition));
   return days >= 0;
 }
@@ -7788,7 +7802,7 @@ function productTemplateTitle(kind) {
 
 function productTemplateMetricRows(kind) {
   if (kind === 'prematch-pack') {
-    const active = (state.competitions || []).filter((competition) => ['registration', 'upcoming', 'live'].includes(competition.status) || competition.isPreEvent);
+    const active = (state.competitions || []).filter((competition) => isPrematchStatusValue(competition.status) || competition.isPreEvent);
     const roster = active.filter((competition) => competition.rosterStatus === 'partial' || competition.rosterStatus === 'complete');
     return [
       ['可生成赛事', `${active.length} 场`],
@@ -7901,7 +7915,7 @@ function productTemplateSections(kind) {
 function productTemplateEvidence(kind) {
   if (kind === 'prematch-pack') {
     return (state.competitions || [])
-      .filter((competition) => ['registration', 'upcoming', 'live'].includes(competition.status) || (competition.isPreEvent && competition.status !== 'completed'))
+      .filter((competition) => isPrematchStatusValue(competition.status) || (competition.isPreEvent && competition.status !== 'completed'))
       .sort((a, b) => {
         const dayA = Math.abs(daysFromToday(competitionDateValue(a)));
         const dayB = Math.abs(daysFromToday(competitionDateValue(b)));
@@ -7988,8 +8002,8 @@ function buildAiPreMatchReport(query, filters) {
       const regionText = compactText([competition.venue, competition.region, competition.sportName].filter(Boolean).join(' '));
       const regionOk = filters.region ? regionText.includes(filters.region) : true;
       const statusOk = filters.status
-        ? competition.status === filters.status
-        : ['registration', 'upcoming', 'live'].includes(competition.status) || (competition.isPreEvent && competition.status !== 'completed');
+        ? competitionStatusMatches(competition.status, filters.status)
+        : isPrematchStatusValue(competition.status) || (competition.isPreEvent && competition.status !== 'completed');
       return yearOk && monthOk && regionOk && statusOk;
     })
     .sort((a, b) => {
@@ -9583,7 +9597,7 @@ function displayDateLabel(value, fallback = '日期待确认') {
 }
 
 function displayMetricValue(value) {
-  if (['registration', 'upcoming', 'live', 'completed'].includes(value)) return statusLabel(value);
+  if (isPrematchStatusValue(value) || value === 'completed') return statusLabel(value);
   return value ?? '-';
 }
 
@@ -10022,7 +10036,7 @@ function competitionProjectScope(competition) {
 }
 
 function competitionHeroSummaryText(competition) {
-  if (competition.status === 'live') {
+  if (isLiveCompetitionStatus(competition.status)) {
     return '比赛进行中，可优先查看已出结果的项目和需要继续关注的组别。';
   }
   if (competition.isPlatformEventList && !competitionHasItems(competition)) {
@@ -10209,7 +10223,7 @@ function renderCompetitionHero(competition) {
   const chips = competitionProjectSummaryChips(competition);
   const scope = competitionProjectScope(competition);
   const followed = isFollowedCompetition(competition.sportCode);
-  const isPreEventCompetition = competition.isPreEvent || ['registration', 'upcoming', 'live'].includes(competition.status);
+  const isPreEventCompetition = competition.isPreEvent || isPrematchStatusValue(competition.status);
   competitionHero.classList.add('compact');
   competitionHero.innerHTML = `
     <div class="status-row">
@@ -10660,8 +10674,8 @@ function renderCompetitionInsights(competition) {
   const insights = competition.insights || {};
   const cards = insights.summaryCards || [];
   const bullets = insights.bullets || [];
-  const isPreEventCompetition = competition.isPreEvent || ['registration', 'upcoming', 'live'].includes(competition.status);
-  const isLiveCompetition = competition.status === 'live';
+  const isPreEventCompetition = competition.isPreEvent || isPrematchStatusValue(competition.status);
+  const isLiveCompetition = isLiveCompetitionStatus(competition.status);
 
   const displayCards = isLiveCompetition
     ? competitionLiveCards(competition)
@@ -10755,7 +10769,7 @@ function setInlineError(container, message) {
 }
 
 function competitionProjectFocusRows(competition, sortedItems) {
-  const isPreEventCompetition = competition.isPreEvent || ['registration', 'upcoming', 'live'].includes(competition.status);
+  const isPreEventCompetition = competition.isPreEvent || isPrematchStatusValue(competition.status);
   const itemCount = sortedItems.length;
   const primary = sortedItems[0] || null;
   const secondaryCount = Math.max(0, itemCount - 4);
@@ -10858,7 +10872,7 @@ function renderEventList(competition) {
   const eventCardHtml = (item) => {
     const expected = Number(item.expectedRegistrationCount) || Number(item.competitionNo) || 0;
     const registered = Number(item.registrationCount) || Number(item.roster?.length) || 0;
-    const meta = competition.isPreEvent || ['registration', 'upcoming', 'live'].includes(competition.status)
+    const meta = competition.isPreEvent || isPrematchStatusValue(competition.status)
       ? [
         expected ? `${expected} 人` : '人数待公布',
         registered ? `报名 ${registered}` : rosterStatusLabel(competition.rosterStatus),
@@ -11079,7 +11093,7 @@ function buildEventPreMatchModel(event) {
 }
 
 function renderEventPreMatchIntelligence(event) {
-  const isPreMatch = event.isPreEvent || ['registration', 'upcoming', 'live'].includes(event.status) || Number(event.registrationCount || 0) > 0;
+  const isPreMatch = event.isPreEvent || isPrematchStatusValue(event.status) || Number(event.registrationCount || 0) > 0;
   if (!isPreMatch) return '';
   const model = buildEventPreMatchModel(event);
   const hasRoster = model.rosterRows.length > 0;
@@ -14363,7 +14377,7 @@ async function openClub(clubId) {
 }
 
 function isPrematchCompetition(competition) {
-  return ['registration', 'upcoming', 'live'].includes(competition?.status) || Boolean(competition?.isPreEvent);
+  return isPrematchStatusValue(competition?.status) || Boolean(competition?.isPreEvent);
 }
 
 function prematchReportCompetitions(sportCode = '') {

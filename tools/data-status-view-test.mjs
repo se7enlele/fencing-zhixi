@@ -6,6 +6,8 @@ const css = await readFile(new URL('../web/viewer.css', import.meta.url), 'utf8'
 
 assert.match(js, /function competitionCoverageLevel\(competition\)/, 'home data status must classify competition coverage');
 assert.match(js, /function competitionCoverageState\(competition = \{\}\)/, 'competition coverage state must centralize visible layer labels');
+assert.match(js, /function isLiveCompetitionStatus\(status\)[\s\S]*status === 'running'/, 'data status must treat running competitions as in-progress');
+assert.match(js, /function isPrematchStatusValue\(status\)/, 'data status must use a shared active-status helper');
 assert.match(js, /function competitionCoverageStageRows\(competition\)/, 'competition detail must derive unified user-facing coverage stages');
 assert.match(js, /function renderCompetitionCoverageStages\(competition\)/, 'competition detail must render unified coverage stages');
 assert.match(js, /title: '赛程'[\s\S]*title: '项目'[\s\S]*title: '名单'[\s\S]*title: '成绩'/, 'coverage stages must explain schedule, project, roster and result availability');
