@@ -1951,6 +1951,7 @@ function closeFollowFilterMenu() {
   if (!myFollowFilterMenu) return;
   myFollowFilterMenu.setAttribute('hidden', '');
   myFollowFilterButton?.setAttribute('aria-expanded', 'false');
+  searchShell?.classList.remove('follow-menu-open');
 }
 
 function openFollowFilterMenu() {
@@ -1959,6 +1960,7 @@ function openFollowFilterMenu() {
   closeFilterSheet();
   myFollowFilterMenu.removeAttribute('hidden');
   myFollowFilterButton?.setAttribute('aria-expanded', 'true');
+  searchShell?.classList.add('follow-menu-open');
 }
 
 function toggleFollowFilterMenu() {

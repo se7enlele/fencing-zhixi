@@ -365,6 +365,7 @@ select:focus {
 }
 
 .filter-actions {
+  position: relative;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 8px;
@@ -413,6 +414,8 @@ select:focus {
 }
 
 .follow-filter-menu {
+  position: relative;
+  z-index: 4;
   grid-column: 1 / -1;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -422,6 +425,11 @@ select:focus {
   border-radius: 12px;
   background: rgba(255, 255, 255, 0.94);
   box-shadow: 0 12px 26px rgba(16, 24, 40, 0.08);
+}
+
+.search-shell.follow-menu-open {
+  z-index: 14;
+  overflow: visible;
 }
 
 .follow-filter-menu[hidden] {
@@ -9994,6 +10002,19 @@ input::placeholder {
   border-color: var(--primary);
   color: #fff;
   box-shadow: 0 8px 18px rgba(21, 95, 194, 0.18);
+}
+
+.search-shell.follow-menu-open {
+  box-shadow: 0 18px 42px rgba(17, 24, 39, 0.1);
+}
+
+.follow-filter-menu {
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.98);
+}
+
+.follow-filter-option {
+  border-radius: 999px;
 }
 
 .feed-panel,

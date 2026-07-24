@@ -143,7 +143,11 @@ assert.match(js, /myFollowFilterMenu\.removeAttribute\('hidden'\);[\s\S]*myFollo
 assert.match(js, /myFollowFilterButton\?\.setAttribute\('aria-expanded', 'true'\);/, 'my-follow filter must mark the dropdown menu as open');
 assert.match(js, /myFollowFilterMenu\.setAttribute\('hidden', ''\);[\s\S]*myFollowFilterButton\?\.setAttribute\('aria-expanded', 'false'\);/, 'my-follow dropdown must restore hidden and expanded state when closed');
 assert.match(js, /myFollowFilterButton\?\.setAttribute\('aria-expanded', 'false'\);/, 'my-follow filter must reset expanded state when the menu closes');
+assert.match(js, /searchShell\?\.classList\.add\('follow-menu-open'\)/, 'opening the my-follow dropdown must raise the filter panel above nearby cards');
+assert.match(js, /searchShell\?\.classList\.remove\('follow-menu-open'\)/, 'closing the my-follow dropdown must restore the filter panel state');
 assert.match(css, /\.follow-filter-menu\s*\{[\s\S]*grid-column: 1 \/ -1;[\s\S]*\}/, 'my-follow dropdown must appear inside the filter area instead of a bottom sheet');
+assert.match(css, /\.follow-filter-menu\s*\{[\s\S]*z-index: 4;[\s\S]*\}/, 'my-follow dropdown must stay visible above the following panels');
+assert.match(css, /\.search-shell\.follow-menu-open\s*\{[\s\S]*overflow: visible;[\s\S]*\}/, 'open my-follow dropdown must not be clipped by the sticky search shell');
 assert.match(js, /function renderDatabaseDirectory\(\)/, 'database tab must render a structured entry directory');
 assert.match(js, /data-database-entry="\$\{escapeHtml\(row\.key\)\}"/, 'database directory cards must carry explicit entry types');
 assert.match(js, /<h2>常用查找<\/h2>[\s\S]*<span>先选任务<\/span>/, 'database tab must start with user tasks instead of database structure');
