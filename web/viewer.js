@@ -5390,6 +5390,7 @@ function aiAcceptanceQueryCases() {
     { query: '帮我生成蔡廷彧成长报告', expectedType: 'growth' },
     { query: '帮我生成赛前情报包', expectedType: 'product-template' },
     { query: '孩子击剑值不值得继续', expectedType: 'fallback', requireEvidence: false },
+    { query: '能查教练员和裁判员吗', expectedType: 'official-directory' },
     { query: '生成赛前情报包', expectedType: 'product-template' },
     { query: '查看家长成长报告', expectedType: 'product-template' },
     { query: '生成教练学员分层报告', expectedType: 'product-template' },

@@ -21,6 +21,8 @@ assert.ok(contextTasks.length >= caseIds.length, 'every real-user context must s
 assert.match(source, /role: '进阶家长'[\s\S]*stage: '成长复盘期'/, 'online AI audit must include parent growth-review context');
 assert.match(source, /role: '小型剑馆教练'[\s\S]*stage: '学员管理期'/, 'online AI audit must include coach student-management context');
 assert.match(source, /role: '竞品对比家长'[\s\S]*stage: '选馆判断期'/, 'online AI audit must include club-comparison parent context');
+assert.match(source, /id: 'official-directory'[\s\S]*query: '能查教练员和裁判员吗'/, 'online AI audit must include official directory query coverage');
+assert.match(source, /role: '教练信息查询用户'[\s\S]*stage: '人员资料核对期'/, 'online AI audit must include coach and referee directory context');
 assert.match(source, /query: '2027年北京击剑联赛第一站'/, 'missing competition recovery should use a truly missing future-year case');
 assert.match(source, /expect: \['暂时没有2027年这场赛事记录', '赛事记录', '项目名单', '赛果成绩'\]/, 'missing competition recovery must assert coverage-layer copy');
 assert.match(source, /function userJudgmentForResult\(/, 'online AI audit must classify result quality from the user perspective');
