@@ -8,6 +8,7 @@ const packageJson = await readFile(new URL('../package.json', import.meta.url), 
 
 const fixedQuestions = [
   '北京击剑联赛第一站',
+  '为什么我的数据库里没有北京击剑联赛的数据',
   '2026年天津有几场比赛',
   '哪场比赛人数最多',
   '蔡廷彧最近有没有进步',

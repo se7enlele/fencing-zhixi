@@ -112,11 +112,11 @@ const cases = [
   },
   {
     id: 'competition-missing-data',
-    query: '\u4e3a\u4ec0\u4e48\u6211\u7684\u6570\u636e\u5e93\u91cc\u6ca1\u6709\u5317\u4eac\u51fb\u5251\u8054\u8d5b\u7684\u6570\u636e\uff1f',
-    expect: ['\u53ef\u4ee5\u8fd9\u6837\u6838\u5bf9', '\u8d5b\u4e8b\u8bb0\u5f55'],
+    query: '为什么我的数据库里没有北京击剑联赛的数据？',
+    expect: ['可以这样核对', '赛事记录'],
     expectAny: [
-      ['\u53ef\u80fd\u662f\u8d5b\u4e8b\u540d\u79f0\u4e0d\u5b8c\u5168\u4e00\u81f4', '\u627e\u5230\u76f8\u8fd1'],
-      ['\u6682\u65f6\u6ca1\u6709\u8fd9\u573a\u8d5b\u4e8b\u8bb0\u5f55', '\u53ef\u67e5\u5185\u5bb9'],
+      ['可能是赛事名称不完全一致', '找到相近'],
+      ['暂时没有这场赛事记录', '可查内容'],
     ],
     requireEvidence: true,
   },

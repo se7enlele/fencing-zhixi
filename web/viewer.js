@@ -5376,6 +5376,7 @@ function aiAcceptanceQueryCases() {
   return [
     { query: '哪场比赛人数最多？', expectedType: 'competition-ranking' },
     { query: '北京击剑联赛第一站', expectedType: 'competition-lookup' },
+    { query: '为什么我的数据库里没有北京击剑联赛的数据？', expectedType: 'fallback' },
     { query: '2026年天津有几场比赛', expectedType: 'competition-stats' },
     { query: '天津近期报名情况', expectedType: 'prematch' },
     { query: '山东小众体育 U8 男花怎么样', expectedType: 'club' },
