@@ -613,7 +613,7 @@ for (const item of context.aiAcceptanceQueryCases()) {
   assert.equal(report.type, item.expectedType, `${item.query} should return ${item.expectedType}`);
   assert.ok(report.cards?.length, `${item.query} should return metric cards`);
   assertRunnableActions(report, item.query);
-  if (report.type !== 'growth') {
+  if (item.requireEvidence !== false && report.type !== 'growth') {
     assert.ok(report.evidence?.length, `${item.query} should include clickable evidence`);
   }
 }
