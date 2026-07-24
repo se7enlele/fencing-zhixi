@@ -112,6 +112,12 @@ const cases = [
     requireEvidence: true,
   },
   {
+    id: 'official-directory-search',
+    query: '能搜索教练员和裁判员么',
+    expect: ['教练员和裁判员资料', '教练/裁判', '进入人员查找'],
+    requireEvidence: true,
+  },
+  {
     id: 'competition-missing-year',
     query: '2027年北京击剑联赛第一站',
     expect: ['暂时没有2027年这场赛事记录', '赛事记录', '项目名单', '赛果成绩'],
@@ -154,6 +160,7 @@ const realUserContextByCase = {
   'prematch-template': { role: '潜在付费用户', stage: '赛前服务评估期', task: '判断赛前情报包是否可用', expectedIntent: '报告产品化' },
   'business-value': { role: '产品/商业评估者', stage: '商业判断期', task: '判断数据资产能产生哪些服务价值', expectedIntent: '商业洞察' },
   'official-directory': { role: '教练信息查询用户', stage: '人员资料核对期', task: '确认是否可以搜索教练员和裁判员资料', expectedIntent: '人员资料' },
+  'official-directory-search': { role: '教练信息查询用户', stage: '人员资料核对期', task: '用自然语言确认教练员和裁判员搜索能力', expectedIntent: '人员资料' },
   'competition-missing-year': { role: '新用户', stage: '失败恢复期', task: '搜索未收录赛事时理解缺在哪一层', expectedIntent: '未收录恢复' },
   'competition-missing-data': { role: '新用户', stage: '数据核对期', task: '询问为什么数据库没有某项赛事数据', expectedIntent: '赛事覆盖诊断' },
   recovery: { role: '入门家长', stage: '项目认知期', task: '提出模糊投入问题时获得下一步', expectedIntent: '模糊问题恢复' },

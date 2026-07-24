@@ -4,6 +4,7 @@ import { readFile } from 'node:fs/promises';
 const viewer = await readFile(new URL('../web/viewer.js', import.meta.url), 'utf8');
 const onlineAudit = await readFile(new URL('./online-ai-flow-audit.mjs', import.meta.url), 'utf8');
 const upgradeList = await readFile(new URL('../docs/real-user-feedback-upgrade-list.md', import.meta.url), 'utf8');
+const roadmap = await readFile(new URL('../docs/real-user-upgrade-roadmap-20260723.md', import.meta.url), 'utf8');
 const packageJson = await readFile(new URL('../package.json', import.meta.url), 'utf8');
 
 function publishedRegressionQuestions(markdown) {
@@ -13,6 +14,14 @@ function publishedRegressionQuestions(markdown) {
 
 const fixedQuestions = publishedRegressionQuestions(upgradeList);
 assert.ok(fixedQuestions.length >= 14, 'published regression list must keep at least 14 real-user questions');
+
+const roadmapQuestions = publishedRegressionQuestions(roadmap);
+for (const question of roadmapQuestions) {
+  assert.ok(
+    fixedQuestions.includes(question),
+    `${question} from the real-user roadmap must be synced into the canonical upgrade list`,
+  );
+}
 
 function comparableText(value) {
   return String(value || '').replace(/[\s？?]/g, '');
