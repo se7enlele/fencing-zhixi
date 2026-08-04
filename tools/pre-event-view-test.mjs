@@ -45,10 +45,10 @@ assert.doesNotMatch(context.coverageDetail(preEvent), /projectlist|导入|继续
 assert.doesNotMatch(source, /报名名单更新中|名单待更新|规模待确认|已收录 \${rosterRows\.length} 条报名记录|AI 分析项目/, 'pre-event visible copy must avoid back-office state wording');
 assert.doesNotMatch(source, /预计 \${summary\.expectedRegistrationCount} 人次参与/, 'competition cards must not present expectedRegistrationCount as real roster scale');
 
-const insightStart = source.indexOf('function competitionListInsight');
+const insightStart = source.indexOf('function competitionListActionLabel');
 const insightEnd = source.indexOf('function renderCompetitionHero');
 if (insightStart === -1 || insightEnd === -1 || insightEnd <= insightStart) {
-  throw new Error('Unable to locate competition list insight function in viewer.js');
+  throw new Error('Unable to locate competition list card helpers in viewer.js');
 }
 
 const insightContext = {};
@@ -59,23 +59,37 @@ function competitionItemCount(competition) { return (competition.items || []).le
 function competitionMetricTotal() { return 0; }
 function competitionItemSummaries(competition) { return competition.items || []; }
 function displayEventName(item) { return item?.eventName || item?.shortEventName || ''; }
+function competitionCoverageLevel(competition) { return competition.coverageLevel || 'schedule'; }
+function isLiveCompetitionStatus(status) { return status === 'live' || status === 'running'; }
 ${source.slice(insightStart, insightEnd)}
-globalThis.competitionListInsight = competitionListInsight;
+globalThis.competitionListActionLabel = competitionListActionLabel;
+globalThis.competitionListSummary = competitionListSummary;
 `, insightContext);
 
-const projectOnlyInsight = insightContext.competitionListInsight({
+const projectOnlyInsight = insightContext.competitionListSummary({
+  status: 'upcoming',
   isPreEvent: true,
   registrationSummary: { expectedRegistrationCount: 90000 },
   items: [{ eventName: 'U8 男花' }, { eventName: 'U10 男花' }],
 });
-assert.equal(projectOnlyInsight, '2 个项目可查看，适合先关注赛程和项目安排。');
+assert.equal(projectOnlyInsight, '2 个项目 · 即将开赛');
 assert.doesNotMatch(projectOnlyInsight, /90000|预计|人次参与/);
 
-const rosterInsight = insightContext.competitionListInsight({
+const rosterInsight = insightContext.competitionListSummary({
+  status: 'registration',
   isPreEvent: true,
   registrationSummary: { rosterCount: 38, expectedRegistrationCount: 90000 },
   items: [],
 });
-assert.equal(rosterInsight, '已有 38 条报名动态，可先看项目热度、主要俱乐部和重点选手。');
+assert.equal(rosterInsight, '38 人次已报名 · 名单可查看');
+assert.equal(insightContext.competitionListActionLabel({ status: 'registration' }), '查看报名');
+assert.equal(insightContext.competitionListActionLabel({ status: 'running' }), '查看赛况');
+assert.equal(insightContext.competitionListActionLabel({ status: 'completed', coverageLevel: 'score' }), '查看赛果');
+
+const listStart = source.indexOf('function renderCompetitionList');
+const listEnd = source.indexOf('function aiCompetitionFilterChips');
+const listSource = source.slice(listStart, listEnd);
+assert.doesNotMatch(listSource, /coverage-badge|roster-badge|available-layer-row|event-chip-row|competitionChips\(|competitionAvailableLayerLabels\(/, 'competition list cards must not expose data-layer labels or enumerate projects');
+assert.match(listSource, /competition-card-action/, 'competition list cards should provide one status-driven action');
 
 console.log('pre-event view labels are covered');

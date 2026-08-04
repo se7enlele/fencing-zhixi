@@ -121,11 +121,13 @@ assert.equal(digestRows[0].title, '重点项目');
 assert.equal(digestRows[1].title, '主要年龄段');
 assert.equal(digestRows[2].title, '赛事强度');
 
-assert.match(source, /competitionChips\(competition, 4\)/, 'competition list cards must limit raw project chips and summarize the rest');
-assert.match(source, /function competitionAvailableLayerLabels\(competition\)/, 'competition list cards must derive user-facing available data layers');
-assert.match(source, /const labels = \['赛程'\];[\s\S]*labels\.push\('项目'\)[\s\S]*labels\.push\('报名'\)[\s\S]*labels\.push\('赛果'\)/, 'competition available layers must progress from schedule to project, roster and results');
-assert.match(source, /class="available-layer-row" aria-label="可查内容"[\s\S]*competitionAvailableLayerLabels\(competition\)/, 'competition list cards must show available data layers before entering detail');
-assert.match(css, /\.available-layer-row/, 'competition available data layer tags must be styled');
+const listStart = source.indexOf('function renderCompetitionList');
+const listEnd = source.indexOf('function aiCompetitionFilterChips');
+const listSource = source.slice(listStart, listEnd);
+assert.doesNotMatch(listSource, /coverage-badge|roster-badge|available-layer-row|event-chip-row|competitionChips\(|competitionAvailableLayerLabels\(/, 'competition list cards must not expose coverage internals or enumerate projects');
+assert.match(listSource, /competitionListSummary\(competition\)/, 'competition list cards must show one concise status-driven summary');
+assert.match(listSource, /competitionListActionLabel\(competition\)/, 'competition list cards must show one status-driven action');
+assert.match(css, /\.competition-card-summary/, 'competition list summary must be styled');
 assert.match(source, /function competitionCoverageStageRows\(competition\)/, 'competition detail must derive unified user-facing coverage stages');
 assert.match(source, /function competitionCoverageState\(competition = \{\}\)/, 'competition detail must use a shared coverage state helper');
 assert.match(source, /function isLiveCompetitionStatus\(status\)[\s\S]*status === 'running'/, 'competition status helpers must treat running as in-progress');

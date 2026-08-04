@@ -2360,15 +2360,6 @@ function competitionCoverageNeed(competition) {
   return '已有完整赛果';
 }
 
-function competitionAvailableLayerLabels(competition) {
-  const level = competitionCoverageLevel(competition);
-  const labels = ['赛程'];
-  if (['project', 'roster', 'score'].includes(level)) labels.push('项目');
-  if (['roster', 'score'].includes(level)) labels.push('报名');
-  if (level === 'score') labels.push('赛果');
-  return labels;
-}
-
 function competitionCoverageState(competition = {}) {
   const level = competitionCoverageLevel(competition);
   const status = competition.status || 'completed';
@@ -10141,17 +10132,6 @@ function renderAthleteSearchResults(keyword) {
   });
 }
 
-function competitionChips(competition, limit = Infinity) {
-  const itemLabels = competitionItemSummaries(competition).map((item) => displayEventName(item)).filter(Boolean);
-  const groupLabels = itemLabels.length ? [] : (competition.groupLabels || []);
-  const labels = [...itemLabels, ...groupLabels].filter(Boolean);
-  const visible = labels.slice(0, limit);
-  return {
-    visible,
-    remaining: Math.max(0, (competitionItemCount(competition) || labels.length) - visible.length),
-  };
-}
-
 function competitionProjectSummaryChips(competition) {
   const itemLabels = competitionItemSummaries(competition).map((item) => displayEventName(item)).filter(Boolean);
   const fallbackLabels = itemLabels.length ? [] : (competition.groupLabels || []);
@@ -10252,24 +10232,17 @@ function renderCompetitionList() {
       ${aiFilterNotice}
       ${visibleCompetitions.map((competition) => `
       <button class="competition-card" data-sport-code="${escapeHtml(competition.sportCode)}">
-        <div class="status-row">
+        <div class="competition-card-head">
           <span class="status-badge status-${escapeHtml(competition.status || 'completed')}">${escapeHtml(statusLabel(competition.status || 'completed'))}</span>
-          <span class="coverage-badge ${escapeHtml(coverageClass(competition))}">${escapeHtml(coverageLabel(competition))}</span>
-          ${competition.isPreEvent ? `<span class="roster-badge">${escapeHtml(rosterStatusLabel(competition.rosterStatus))}</span>` : ''}
+          <span class="competition-card-action">${escapeHtml(competitionListActionLabel(competition))}<span aria-hidden="true">›</span></span>
         </div>
-        <strong>${escapeHtml(competition.sportName)}</strong>
-        <div class="meta-row">
-          <span class="badge">${escapeHtml(displayDateLabel(competition.dateLabel))}</span>
-          <span class="badge">${escapeHtml(competition.venue || competition.region || '地点待确认')}</span>
+        <strong class="competition-card-title">${escapeHtml(competition.sportName)}</strong>
+        <div class="competition-card-meta">
+          <span>${escapeHtml(displayDateLabel(competition.dateLabel))}</span>
+          <i aria-hidden="true">·</i>
+          <span>${escapeHtml(competition.venue || competition.region || '地点待确认')}</span>
         </div>
-        <div class="available-layer-row" aria-label="可查内容">
-          ${competitionAvailableLayerLabels(competition).map((label) => `<span>${escapeHtml(label)}</span>`).join('')}
-        </div>
-        <div class="event-chip-row">
-          ${competitionChips(competition, 4).visible.map((label) => `<span>${escapeHtml(label)}</span>`).join('')}
-          ${competitionChips(competition, 4).remaining ? `<span>+${competitionChips(competition, 4).remaining}</span>` : ''}
-        </div>
-        <div class="card-insight">${escapeHtml(competitionListInsight(competition))}</div>
+        <div class="competition-card-summary">${escapeHtml(competitionListSummary(competition))}</div>
       </button>
     `).join('')}
       ${remainingCount ? `
@@ -10379,28 +10352,44 @@ function renderCompetitionEmptyState() {
   return '<div class="empty">没有符合条件的比赛。可以清除筛选，或减少年份、地区、项目条件后再看。</div>';
 }
 
-function competitionListInsight(competition) {
-  if (competition.isPlatformEventList && !competitionHasItems(competition)) {
-    const type = competition.platformMeta?.gameDesc || '认证赛事';
-    const groups = competition.groupLabels?.length ? `${competition.groupLabels.length} 个组别` : '组别待确认';
-    return `${type}，覆盖 ${groups}。适合先关注赛程和报名窗口。`;
+function competitionListActionLabel(competition) {
+  const status = competition.status || 'completed';
+  if (status === 'registration') return '查看报名';
+  if (isLiveCompetitionStatus(status)) return '查看赛况';
+  if (status === 'upcoming') {
+    return Number(competition.registrationSummary?.rosterCount) > 0 ? '查看报名' : '查看赛程';
   }
-  if (competition.isPreEvent) {
-    const summary = competition.registrationSummary || {};
-    if (summary.rosterCount) {
-      return `已有 ${summary.rosterCount} 条报名动态，可先看项目热度、主要俱乐部和重点选手。`;
-    }
-    const projectCount = competitionItemCount(competition);
-    if (projectCount) {
-      return `${projectCount} 个项目可查看，适合先关注赛程和项目安排。`;
-    }
-    return '可先关注赛程、地点和报名窗口。';
+  if (status === 'completed' && competitionCoverageLevel(competition) === 'score') return '查看赛果';
+  return '查看详情';
+}
+
+function competitionListSummary(competition) {
+  const status = competition.status || 'completed';
+  const itemCount = competitionItemCount(competition);
+  const rosterCount = Number(competition.registrationSummary?.rosterCount) || 0;
+  const groupCount = Array.isArray(competition.groupLabels) ? competition.groupLabels.length : 0;
+  const coverage = competitionCoverageLevel(competition);
+
+  if (status === 'registration') {
+    if (rosterCount) return `${rosterCount} 人次已报名 · 名单可查看`;
+    if (itemCount) return `${itemCount} 个项目 · 报名进行中`;
+    return '报名进行中';
   }
-  const total = competitionMetricTotal(competition, 'competitionNo');
-  const elimination = competitionMetricTotal(competition, 'playedEliminationMatchCount');
-  const topItemLabel = competition.topItemLabel || displayEventName(competitionItemSummaries(competition)[0]);
-  if (!topItemLabel) return '暂无项目数据';
-  return `${topItemLabel} 人数最多，${total} 人次参赛，${elimination} 场淘汰赛。`;
+  if (isLiveCompetitionStatus(status)) {
+    if (itemCount && coverage === 'score') return `${itemCount} 个项目 · 赛果持续更新`;
+    if (itemCount) return `${itemCount} 个项目 · 比赛进行中`;
+    return '比赛进行中';
+  }
+  if (status === 'upcoming') {
+    if (rosterCount) return `${rosterCount} 人次已报名 · 即将开赛`;
+    if (itemCount) return `${itemCount} 个项目 · 即将开赛`;
+    if (groupCount) return `${groupCount} 个组别 · 即将开赛`;
+    return '即将开赛';
+  }
+  if (itemCount && coverage === 'score') return `${itemCount} 个项目 · 成绩已公布`;
+  if (itemCount) return `${itemCount} 个项目 · 比赛已结束`;
+  if (groupCount) return `${groupCount} 个组别 · 比赛已结束`;
+  return '比赛已结束';
 }
 
 function renderCompetitionHero(competition) {
