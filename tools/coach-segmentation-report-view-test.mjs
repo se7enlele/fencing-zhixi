@@ -20,6 +20,10 @@ assert.match(js, /coachSegmentationReportBody = document\.querySelector\('#coach
 assert.match(js, /coachSegmentationReport: document\.querySelector\('#view-coach-segmentation-report'\)/, 'coach segmentation view must be registered');
 assert.match(js, /currentClub: null/, 'current club detail must be cached for report generation');
 assert.match(js, /state\.currentClub = renderedClub/, 'openClub must keep the loaded detail for reports');
+assert.match(js, /async function ensureClubAthleteContext\(club\)/, 'opening a club must hydrate the athletes needed by the coach workspace');
+assert.match(js, /athleteLimit: '100'/, 'club athlete hydration must not stop at the normal short search result limit');
+assert.match(js, /await ensureClubAthleteContext\(renderedClub\)/, 'openClub must wait for club athlete context before the final detail render');
+assert.match(js, /\.\.\.\(state\.athleteSearchIndex \|\| \[\]\),[\s\S]*\.\.\.Object\.values\(state\.athletesById \|\| \{\}\)/, 'club athletes must merge the search index and detail cache');
 
 assert.match(js, /function coachSegmentationBuckets\(athletes\)/, 'coach segmentation must classify athletes into buckets');
 assert.match(js, /title: '冲成绩学员'/, 'segmentation must include score-focused athletes');
@@ -27,9 +31,20 @@ assert.match(js, /title: '稳定成长学员'/, 'segmentation must include stead
 assert.match(js, /title: '需要关注学员'/, 'segmentation must include risk/follow-up athletes');
 assert.match(js, /title: '样本积累学员'/, 'segmentation must include sample-building athletes');
 assert.match(js, /function coachSegmentationEvidenceRows\(club, projectRows\)/, 'segmentation report must expose traceable project evidence');
+assert.match(js, /const scopedEvents = uniqueBy\([\s\S]*\(projectRows \|\| \[\]\)\.flatMap/, 'filtered coach evidence must stay inside the selected project scope');
 assert.match(js, /function coachBusinessGrowthRows\(club, projectRows, buckets\)/, 'coach report must derive recruiting and reputation assets');
 assert.match(js, /function coachProjectDimension\(row = \{\}\)/, 'coach report must classify project dimensions');
 assert.match(js, /function coachProjectMatrixRows\(projectRows = \[\]\)/, 'coach report must derive project matrix rows');
+assert.match(js, /function coachProjectMatchesFilters\(row = \{\}, filters = \{\}\)/, 'coach report must apply one project filter contract across dimensions');
+assert.match(js, /function coachAthleteMatchesFilters\(athlete = \{\}, filters = \{\}\)/, 'coach report must filter athletes using their actual event dimensions');
+assert.match(js, /function coachFilterOptions\(projectRows = \[\]\)/, 'coach report must derive available filters from club projects');
+assert.match(js, /function renderCoachReportFilters\(options = \{\}, filters = \{\}\)/, 'coach report must render real filter controls');
+assert.match(js, /data-coach-report-filter/, 'coach report filters must expose interactive controls');
+assert.match(js, /所选项目有成绩，暂未对应到具体学员/, 'empty filtered athlete results must explain the available project evidence');
+assert.match(js, /项目表现可以继续查看，学员名单补充后会显示分层与训练建议/, 'empty filtered athlete results must avoid presenting zero as a club-wide student count');
+assert.match(js, /allAthletes\.filter\(\(athlete\) => coachAthleteMatchesFilters\(athlete, filters\)\)/, 'coach report must recompute athlete sections from the selected scope');
+assert.match(js, /allProjectRows\.filter\(\(row\) => coachProjectMatchesFilters\(row, filters\)\)/, 'coach report must recompute project sections from the selected scope');
+assert.match(js, /state\.coachReportFilters = nextFilters;[\s\S]*renderCoachSegmentationReport\(club\.id\)/, 'changing a coach filter must rerender the complete workbench');
 assert.match(js, /function coachOperatingChecklistRows\(club, buckets = \[\], followups = \[\], projectRows = \[\], businessRows = \[\]\)/, 'coach report must derive an operating checklist from segmentation data');
 assert.match(js, /function coachTrainingPlanRows\(followups = \[\], buckets = \[\], projectRows = \[\]\)/, 'coach report must derive actionable training plan rows');
 assert.match(js, /function coachTrainingPlanText\(row = \{\}\)/, 'coach report must build copyable training plan text');
@@ -54,7 +69,7 @@ assert.match(js, /coach-segmentation-summary/, 'coach workspace must show a coac
 assert.match(js, /\$\{escapeHtml\(club\.club\)\} 教练工作台/, 'coach workspace hero must use workbench copy');
 assert.match(js, /<h2>本周重点<\/h2>[\s\S]*先处理这三件事/, 'coach workspace must prioritize weekly decisions first');
 assert.match(js, /学员分层 · 训练跟进 · 家长沟通/, 'coach workspace hero must map to coach jobs');
-assert.match(js, /学员 \$\{escapeHtml\(athletes\.length\)\}/, 'coach workspace must describe student count without system wording');
+assert.match(js, /\$\{hasActiveFilters \? '匹配学员' : '学员'\} \$\{escapeHtml\(athletes\.length\)\}/, 'coach workspace must describe student count without system wording');
 assert.doesNotMatch(js, /识别学员|训练反馈与留存沟通|增长使用|可追溯成绩依据/, 'coach workspace copy must avoid internal or sales-ops wording');
 assert.match(js, /class="coach-segmentation-metrics"/, 'segmentation report must show bucket metrics');
 assert.match(js, /const projectMatrixRows = coachProjectMatrixRows\(projectRows\)/, 'coach report must build project matrix from current project data');
@@ -106,6 +121,9 @@ assert.match(js, /查看完整俱乐部画像/, 'segmentation report must allow 
 
 assert.match(css, /\.coach-segmentation-report-shell/, 'coach segmentation shell styles must exist');
 assert.match(css, /\.coach-segmentation-report-card/, 'coach segmentation card styles must exist');
+assert.match(css, /\.coach-report-filter-grid/, 'coach report filter controls must have a mobile-safe grid');
+assert.match(css, /\.coach-report-filter-grid select/, 'coach report filter selects must be styled');
+assert.match(css, /\.coach-filter-empty-note/, 'filtered athlete gaps must have a visible explanatory state');
 assert.match(css, /\.coach-segmentation-metrics/, 'coach segmentation metric styles must exist');
 assert.match(css, /\.coach-segmentation-bucket/, 'coach segmentation bucket styles must exist');
 assert.match(css, /\.coach-segmentation-followups/, 'coach segmentation follow-up styles must exist');

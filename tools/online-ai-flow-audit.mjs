@@ -103,7 +103,7 @@ const cases = [
   {
     id: 'business-value',
     query: '这些击剑数据能产生什么商业价值',
-    expect: ['商业洞察', '27264', '825', '选手画像', '俱乐部画像'],
+    expect: ['经营分析', '选手画像', '俱乐部画像', '赛前机会'],
   },
   {
     id: 'official-directory',
@@ -120,15 +120,15 @@ const cases = [
   {
     id: 'competition-missing-year',
     query: '2027年北京击剑联赛第一站',
-    expect: ['暂时没有2027年这场赛事记录', '赛事记录', '项目名单', '赛果成绩'],
+    expect: ['没有找到2027年完全一致赛事', '赛事记录', '项目名单', '赛果成绩'],
   },
   {
     id: 'competition-missing-data',
     query: '为什么我的数据库里没有北京击剑联赛的数据？',
-    expect: ['可以这样核对', '赛事记录'],
+    expect: ['赛事记录', '项目名单', '报名名单', '赛果成绩'],
     expectAny: [
-      ['可能是赛事名称不完全一致', '找到相近'],
-      ['暂时没有这场赛事记录', '可查内容'],
+      ['找到一场名称相近的赛事', '找到相近记录'],
+      ['没有找到完全一致赛事', '未完全命中'],
     ],
     requireEvidence: true,
   },
@@ -176,15 +176,22 @@ function caseEvaluationContext(testCase) {
   };
 }
 
-function userJudgmentForResult({ testCase, evidenceCount, actionLabels, evidenceNavigation, text }) {
+function isRecoveryAnswer(typeLabel = '', text = '') {
+  return /补充信息|选择对象/.test(typeLabel)
+    || /先选择孩子或选手|选择你想看的对象/.test(text);
+}
+
+function userJudgmentForResult({ testCase, evidenceCount, actionLabels, evidenceNavigation, text, typeLabel }) {
   if (testCase.requireEvidence && !evidenceCount) return '不可用';
   if (testCase.requireEvidence && !evidenceNavigation) return '需要补证据';
+  if (isRecoveryAnswer(typeLabel, text)) return '基本可用';
   if (!actionLabels.length && /暂时没有|先确定|可以这样核对/.test(text)) return '基本可用';
   return '可信';
 }
 
-function failureRecoveryLabel(text) {
-  if (/暂时没有|可以这样核对|先确定|相近赛事|补充方式|可以这样问/.test(text)) return '有下一步';
+function failureRecoveryLabel(text, typeLabel = '') {
+  if (isRecoveryAnswer(typeLabel, text)) return '有下一步';
+  if (/暂时没有|可以这样核对|先确定|补充方式|可以这样问/.test(text)) return '有下一步';
   return '非失败场景';
 }
 
@@ -303,10 +310,11 @@ async function runCase(page, testCase) {
       const card = document.querySelector('#aiAnswer .ai-answer-card');
       if (!card) return false;
       const text = card.textContent || '';
-      if (Array.isArray(expectAny) && expectAny.length) {
-        return expectAny.some((phrases) => phrases.every((phrase) => text.includes(phrase)));
-      }
-      return expected.every((phrase) => text.includes(phrase));
+      const expectedMatched = expected.every((phrase) => text.includes(phrase));
+      const alternativeMatched = !Array.isArray(expectAny)
+        || !expectAny.length
+        || expectAny.some((phrases) => phrases.every((phrase) => text.includes(phrase)));
+      return expectedMatched && alternativeMatched;
     },
     { expected: testCase.expect || [], expectAny: testCase.expectAny || [] },
     { timeout: 30000 },
@@ -315,18 +323,16 @@ async function runCase(page, testCase) {
 
   const answer = await visibleAiAnswer(page);
   const text = await answer.innerText();
+  const typeLabel = await answer.locator('.ai-answer-kicker > span').first().innerText().catch(() => '');
   const viewportTop = await answerViewportBox(page, answer);
   const actionLabels = await answer.locator('.ai-action-row button').evaluateAll((nodes) => nodes.map((node) => node.textContent.trim()));
   const metricCount = await answer.locator('.ai-metric').count();
   const sectionCount = await answer.locator('.ai-section').count();
   const evidenceCount = await answer.locator('.ai-key-source button:visible, .ai-evidence button:visible').count();
   const hasEvidenceSummary = await answer.locator('.ai-evidence-summary').count();
-  const expectedMatched = testCase.expectAny?.length
-    ? testCase.expectAny.some((phrases) => phrases.every((phrase) => text.includes(phrase)))
-    : true;
-  const missingExpected = testCase.expectAny?.length
-    ? []
-    : (testCase.expect || []).filter((phrase) => !text.includes(phrase));
+  const expectedMatched = !testCase.expectAny?.length
+    || testCase.expectAny.some((phrases) => phrases.every((phrase) => text.includes(phrase)));
+  const missingExpected = (testCase.expect || []).filter((phrase) => !text.includes(phrase));
   const bannedHits = bannedCopy.filter((phrase) => text.includes(phrase));
 
   assertCase(expectedMatched && !missingExpected.length, `${testCase.id} missing expected copy`, { missingExpected, expectAny: testCase.expectAny, text });
@@ -346,6 +352,7 @@ async function runCase(page, testCase) {
     id: testCase.id,
     ...userContext,
     query: testCase.query,
+    typeLabel,
     actionLabels,
     metricCount,
     sectionCount,
@@ -353,8 +360,8 @@ async function runCase(page, testCase) {
     hasEvidenceSummary: Boolean(hasEvidenceSummary),
     evidenceNavigation,
     evidenceStatus: evidenceNavigation ? '可打开来源' : evidenceCount ? '有来源摘要' : '无来源',
-    failureRecovery: failureRecoveryLabel(text),
-    userJudgment: userJudgmentForResult({ testCase, evidenceCount, actionLabels, evidenceNavigation, text }),
+    failureRecovery: failureRecoveryLabel(text, typeLabel),
+    userJudgment: userJudgmentForResult({ testCase, evidenceCount, actionLabels, evidenceNavigation, text, typeLabel }),
     answerTop: viewportTop.y,
     title: text.split('\n').slice(0, 4).join(' / '),
   };

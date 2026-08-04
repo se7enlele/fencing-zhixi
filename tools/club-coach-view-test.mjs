@@ -60,6 +60,12 @@ assert.match(js, /submitAiQuery\(button\.dataset\.aiQuery\)/, 'club AI action ch
 
 assert.match(js, /data-club-id/, 'peer club cards must navigate to club profiles');
 assert.match(js, /data-share-club/, 'club recruiting card must expose a share action');
+assert.match(js, /data-save-club-card/, 'club recruiting card must expose a visual save action');
+assert.match(js, /function drawClubRecruitingCard\(canvas, club, projectRows, athletes\)/, 'club recruiting card must render a standalone image');
+assert.match(js, /function saveClubRecruitingCard\(club, projectRows, athletes\)/, 'club recruiting card must support PNG export');
+assert.match(js, /canvas\.toBlob\([\s\S]*'image\/png'/, 'club recruiting export must generate a PNG');
+assert.match(js, /link\.download = fileName/, 'club recruiting export must download with a user-facing file name');
+assert.match(js, /trackAnalyticsAction\('save_club', 'recruiting-card-image'\)/, 'club recruiting image saves must be tracked');
 assert.match(js, /openClub\(button\.dataset\.clubId\)/, 'peer cards must open the selected club profile');
 assert.match(js, /openAthlete\(button\.dataset\.athleteId\)/, 'coach athlete cards must open athlete profiles');
 assert.match(js, /function findClubByReference\(reference = ''\)/, 'club detail navigation must resolve local and temporary club profiles');
@@ -75,6 +81,8 @@ assert.match(css, /\.club-share-projects/, 'shareable recruiting card must style
 assert.match(css, /\.club-share-proof::before/, 'shareable recruiting card must label evidence rows');
 assert.match(css, /\.club-share-parent-step/, 'shareable recruiting card must style the parent consultation step');
 assert.match(css, /\.club-share-action/, 'shareable recruiting card must style its copy action');
+assert.match(css, /\.club-share-actions/, 'shareable recruiting card must lay out copy and save actions on mobile');
+assert.match(css, /\.club-share-action\.secondary/, 'shareable recruiting card must distinguish the image save action');
 assert.match(css, /\.coach-action-grid/, 'coach action plan must have a mobile grid layout');
 assert.match(css, /\.coach-action-card:first-child/, 'primary coach action must be visually emphasized');
 assert.match(css, /\.coach-detail-fold/, 'folded coach review entry must have mobile styles');

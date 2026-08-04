@@ -321,6 +321,7 @@ assert.match(js, /function submitAiAnswerFeedback\(report, feedbackType\)/, 'AI 
 assert.match(js, /function buildAiAnswerFeedbackText\(report, feedbackType\)/, 'AI answer feedback must have admin-readable text');
 assert.match(js, /function aiEnhancementRequestPayload\(report = \{\}\)/, 'AI answers must build a bounded payload for optional LLM enhancement');
 assert.match(js, /const visibleSections = \(report\.sections \|\| \[\]\)\.filter\(isUserFacingAiSection\)/, 'AI enhancement and sharing payloads must use the same user-facing section filter as the rendered answer');
+assert.match(js, /分析口径\|判断\|路径\|下一步\|后续\|继续问\|数据边界\|边界\|口径\|转化/, 'AI shared summaries must filter internal judgment, path and conversion section titles');
 assert.doesNotMatch(js, /sections: \(report\.sections \|\| \[\]\)\.slice\(0, 6\)/, 'AI enhancement payload must not send hidden internal sections');
 assert.match(js, /function requestAiEnhancement\(report = \{\}\)/, 'AI answers must request optional LLM enhancement through the backend');
 assert.match(js, /fetch\('\/api\/ai\/enhance'/, 'AI enhancement requests must go through the first-party backend endpoint');

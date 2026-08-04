@@ -54,12 +54,15 @@ const functionNames = [
   'rosterAthleteLabel',
   'rosterClubText',
   'rosterEventLabel',
+  'rosterCompetitionLabel',
   'rosterHistoryMatch',
   'prematchRosterRows',
   'rosterItemSummary',
   'rosterClubSummary',
   'rosterPreparationRows',
   'parseDateCandidates',
+  'eventYear',
+  'buildParentGrowthModel',
   'displayDateLabel',
   'competitionDateValue',
   'daysFromToday',
@@ -92,6 +95,7 @@ const functionNames = [
   'aiOriginalQuestionSearchAction',
   'aiFallbackClarificationRows',
   'aiCandidateSummaryCards',
+  'buildAiChildContinuationReport',
   'detectClubInQuery',
   'detectClubsInQuery',
   'hasClubComparisonIntent',
@@ -128,6 +132,12 @@ const functionNames = [
   'aiPreMatchPersonalRelevanceRows',
   'aiPreMatchRosterInsightRows',
   'aiPreMatchActionRows',
+  'prematchReportFocusRows',
+  'prematchPrimaryFocusRow',
+  'prematchPersonalRelevanceRows',
+  'prematchRosterOpponentRows',
+  'prematchReportOpponentRows',
+  'prematchOpponentWatchlistRows',
   'projectMatchesAiHints',
   'aiClubEvidenceEvents',
   'detectYearsInQuery',
@@ -198,6 +208,11 @@ const functionNames = [
   'buildClubBusinessCards',
   'clubShareHighlights',
   'buildClubCommunicationScripts',
+  'coachProjectDimension',
+  'coachProjectMatchesFilters',
+  'coachAthleteMatchesFilters',
+  'coachFilterOptions',
+  'coachFilterScopeText',
   'athleteStrengthScore',
   'athleteMetricLine',
   'athleteProfileEvidence',
@@ -399,7 +414,7 @@ const context = {
   },
 };
 vm.createContext(context);
-vm.runInContext(`const state = globalThis.__state;\n${functionNames.map(extractFunction).join('\n')}\nglobalThis.buildAiAnswer = buildAiAnswer;\nglobalThis.aiAcceptanceQueryCases = aiAcceptanceQueryCases;\nglobalThis.detectRegionInQuery = detectRegionInQuery;\nglobalThis.detectYearInQuery = detectYearInQuery;\nglobalThis.aiEntityCandidateTerms = aiEntityCandidateTerms;\nglobalThis.businessMetricRows = businessMetricRows;\nglobalThis.businessPriorityRows = businessPriorityRows;\nglobalThis.businessProductOpportunityRows = businessProductOpportunityRows;\nglobalThis.businessMonetizationRows = businessMonetizationRows;`, context);
+vm.runInContext(`const state = globalThis.__state;\n${functionNames.map(extractFunction).join('\n')}\nglobalThis.buildAiAnswer = buildAiAnswer;\nglobalThis.aiAcceptanceQueryCases = aiAcceptanceQueryCases;\nglobalThis.detectRegionInQuery = detectRegionInQuery;\nglobalThis.detectYearInQuery = detectYearInQuery;\nglobalThis.aiEntityCandidateTerms = aiEntityCandidateTerms;\nglobalThis.businessMetricRows = businessMetricRows;\nglobalThis.businessPriorityRows = businessPriorityRows;\nglobalThis.businessProductOpportunityRows = businessProductOpportunityRows;\nglobalThis.businessMonetizationRows = businessMonetizationRows;\nglobalThis.prematchReportFocusRows = prematchReportFocusRows;\nglobalThis.prematchPersonalRelevanceRows = prematchPersonalRelevanceRows;\nglobalThis.prematchReportOpponentRows = prematchReportOpponentRows;\nglobalThis.prematchOpponentWatchlistRows = prematchOpponentWatchlistRows;\nglobalThis.clubWorkspaceAthletes = clubWorkspaceAthletes;\nglobalThis.coachProjectMatchesFilters = coachProjectMatchesFilters;\nglobalThis.coachAthleteMatchesFilters = coachAthleteMatchesFilters;\nglobalThis.coachFilterOptions = coachFilterOptions;\nglobalThis.coachFilterScopeText = coachFilterScopeText;`, context);
 
 function hasEvidenceTarget(row = {}) {
   return Boolean(row.eventCode || row.sportCode || row.athleteId || row.clubId || row.mainTab || row.filters);
@@ -543,6 +558,70 @@ assert.ok(prematchReport.sections.find((section) => section.title === '\u4f18\u5
 const prematchReportAction = prematchReport.actions.find((action) => action.prematchTemplateKind === 'prematch-pack');
 assert.equal(prematchReportAction.prematchSportCode, 'TJ2026JUNE', 'AI prematch reports should open a report scoped to the nearest matched competition');
 
+const rosterCompetition = context.__state.competitions.find((competition) => competition.sportCode === 'TJ2026REG');
+const rosterFocusRows = context.prematchReportFocusRows([rosterCompetition]);
+const unregisteredStrongAthlete = {
+  id: 'not-registered',
+  name: '未报名强手',
+  club: '测试俱乐部',
+  bestRank: 1,
+  appearances: 9,
+  eventLabels: ['U8 男花'],
+  events: [{ eventCode: 'HISTORY-ONLY', eventName: 'U8 男子花剑', shortEventName: 'U8 男花' }],
+};
+context.__state.athleteSearchIndex.push(unregisteredStrongAthlete);
+const rosterOpponentRows = context.prematchReportOpponentRows(['U8 男花'], [rosterCompetition], rosterFocusRows);
+assert.deepEqual(
+  [...rosterOpponentRows.map((athlete) => athlete.name)].sort(),
+  ['陶嘉月', '马潇'].sort(),
+  'roster-backed prematch opponents should include only registered athletes with historical profiles and exclude the selected child',
+);
+assert.ok(rosterOpponentRows.every((athlete) => athlete.prematchSource === '报名名单'), 'roster-backed opponent rows should expose the roster as their source');
+assert.ok(!rosterOpponentRows.some((athlete) => athlete.id === unregisteredStrongAthlete.id), 'unregistered historical strong athletes must not be presented as current-event opponents');
+const rosterRelevanceRows = context.prematchPersonalRelevanceRows({
+  competitions: [rosterCompetition],
+  focusRows: rosterFocusRows,
+  opponentRows: rosterOpponentRows,
+});
+assert.equal(rosterRelevanceRows[0].status, '已在报名名单', 'selected child should show an explicit roster hit');
+const originalCaiOpponents = context.__state.athletesById.cai.opponents;
+context.__state.athletesById.cai.opponents = [{ name: '马潇', wins: 1, losses: 1, latestPhase: '淘汰赛', latestScore: '10:9' }];
+rosterFocusRows[0].athlete.opponents = context.__state.athletesById.cai.opponents;
+const familiarWatchRows = context.prematchOpponentWatchlistRows(rosterOpponentRows, rosterFocusRows);
+assert.equal(familiarWatchRows.find((row) => row.athlete.name === '马潇')?.relation, '熟悉对手', 'direct history should label a registered athlete as a familiar opponent');
+context.__state.athletesById.cai.opponents = originalCaiOpponents;
+context.__state.athleteSearchIndex = context.__state.athleteSearchIndex.filter((athlete) => athlete.id !== unregisteredStrongAthlete.id);
+
+const coachFilterProjects = [
+  { label: 'U10 男花', events: [{ eventName: 'U10 男子花剑' }] },
+  { label: 'U8 女重', events: [{ eventName: 'U8 女子重剑' }] },
+  { label: 'U12 男佩', events: [{ eventName: 'U12 男子佩剑' }] },
+];
+const coachOptions = context.coachFilterOptions(coachFilterProjects);
+assert.deepEqual([...coachOptions.ages], ['U8', 'U10', 'U12'], 'coach age filters should use a natural numeric order');
+assert.deepEqual([...coachOptions.weapons], ['花剑', '重剑', '佩剑'], 'coach weapon filters should include only dimensions present in the club data');
+assert.ok(context.coachProjectMatchesFilters(coachFilterProjects[0], { age: 'U10', weapon: '花剑', gender: '男子' }), 'coach project filters should match all selected dimensions');
+assert.ok(!context.coachProjectMatchesFilters(coachFilterProjects[1], { age: 'U10' }), 'coach project filters should exclude other age groups');
+assert.ok(context.coachAthleteMatchesFilters({ events: [{ eventName: 'U8 女子重剑' }] }, { age: 'U8', weapon: '重剑', gender: '女子' }), 'coach athlete filters should use the athlete event history');
+assert.ok(!context.coachAthleteMatchesFilters({ events: [{ eventName: 'U8 女子重剑' }] }, { gender: '男子' }), 'coach athlete filters should remove athletes outside the selected scope');
+assert.equal(context.coachFilterScopeText({ age: 'U8', weapon: '重剑', gender: '女子' }), 'U8 · 重剑 · 女子', 'coach filter scope should stay visible in user-facing copy');
+
+const savedWorkspaceAthleteIndex = context.__state.athleteSearchIndex;
+const savedWorkspaceAthletesById = context.__state.athletesById;
+context.__state.athleteSearchIndex = [
+  { id: 'club-student', name: '\u4ff1\u4e50\u90e8\u5b66\u5458', club: '\u5c71\u4e1c\u5c0f\u4f17\u4f53\u80b2', appearances: 2, events: [] },
+  { id: 'other-student', name: '\u5176\u4ed6\u5b66\u5458', club: '\u5176\u4ed6\u4ff1\u4e50\u90e8', appearances: 5, events: [] },
+];
+context.__state.athletesById = {
+  followed: { id: 'followed', name: '\u5df2\u5173\u6ce8\u5b66\u5458', club: '\u5c71\u4e1c\u5c0f\u4f17\u4f53\u80b2', appearances: 1, events: [] },
+  'club-student': { id: 'club-student', name: '\u4ff1\u4e50\u90e8\u5b66\u5458', club: '\u5c71\u4e1c\u5c0f\u4f17\u4f53\u80b2', appearances: 2, events: [{ eventName: 'U8 \u7537\u5b50\u82b1\u5251' }] },
+};
+const workspaceAthletes = context.clubWorkspaceAthletes({ club: '\u5c71\u4e1c\u5c0f\u4f17\u4f53\u80b2' });
+assert.equal([...workspaceAthletes].map((row) => row.id).sort().join(','), 'club-student,followed', 'coach workspace athletes should merge the full search index with followed/detail athletes');
+assert.equal(workspaceAthletes.find((row) => row.id === 'club-student')?.events.length, 1, 'coach workspace athlete merge should keep the richer detail record');
+context.__state.athleteSearchIndex = savedWorkspaceAthleteIndex;
+context.__state.athletesById = savedWorkspaceAthletesById;
+
 const savedChildId = context.__state.selectedChildId;
 const savedFollowedAthletes = context.__state.followedAthletes;
 context.__state.selectedChildId = '';
@@ -636,6 +715,23 @@ assert.ok(yearlyGrowthReport.sections.find((section) => section.title === '年�
 const namedGrowthReport = context.buildAiAnswer('帮我生成蔡廷彧成长报告');
 assert.equal(namedGrowthReport.type, 'growth', 'named growth report requests should prioritize the athlete over a generic report template');
 assert.match(namedGrowthReport.title, /蔡廷彧/, 'named growth report requests should keep the athlete name in the result');
+
+const selectedChildContinuationReport = context.buildAiAnswer('孩子击剑值不值得继续');
+assert.equal(selectedChildContinuationReport.type, 'growth', 'child continuation questions should use the selected child instead of asking the parent to select again');
+assert.match(selectedChildContinuationReport.title, /蔡廷彧.*成长观察/, 'child continuation answers should name the selected child');
+assert.match(selectedChildContinuationReport.summary, /兴趣.*训练反馈.*比赛稳定性/, 'child continuation answers should frame the decision constructively');
+assert.doesNotMatch(selectedChildContinuationReport.summary, /谨慎投入/, 'child continuation answers must not use harsh investment wording');
+assert.ok(selectedChildContinuationReport.evidence.some((row) => row.athleteId === 'cai'), 'child continuation answers should keep the selected athlete profile as evidence');
+
+const savedContinuationChildId = context.__state.selectedChildId;
+const savedContinuationFollows = context.__state.followedAthletes;
+context.__state.selectedChildId = '';
+context.__state.followedAthletes = [];
+const unboundChildContinuationReport = context.buildAiAnswer('孩子击剑值不值得继续');
+assert.equal(unboundChildContinuationReport.type, 'fallback', 'child continuation questions should still request an object when no child is selected');
+assert.match(unboundChildContinuationReport.title, /先选择孩子或选手/, 'unbound child continuation answers should provide a clear next step');
+context.__state.selectedChildId = savedContinuationChildId;
+context.__state.followedAthletes = savedContinuationFollows;
 
 const clubReport = context.buildAiAnswer('山东小众体育 U8 男花怎么样');
 assert.equal(clubReport.type, 'club');
@@ -741,14 +837,6 @@ assert.equal(clubsByIdOnlyComparison.type, 'club-comparison', 'club comparison s
 assert.ok(clubsByIdOnlyComparison.evidence.some((row) => row.clubId === 'club-jinshi'), 'clubsById fallback should cite the first club');
 assert.ok(clubsByIdOnlyComparison.evidence.some((row) => row.clubId === 'club-airuite'), 'clubsById fallback should cite the second club');
 context.__state.clubSearchIndex = savedClubSearchIndexForComparison;
-
-const childInvestmentFallback = context.buildAiAnswer('\u5b69\u5b50\u51fb\u5251\u503c\u4e0d\u503c\u5f97\u7ee7\u7eed');
-assert.equal(childInvestmentFallback.type, 'fallback', 'general child investment questions should stay in recovery when no child is named');
-assert.match(childInvestmentFallback.title, /\u5148\u9009\u62e9\u5b69\u5b50\u6216\u9009\u624b/, 'child investment fallback should ask for the child or athlete first');
-assert.ok(childInvestmentFallback.actions.some((action) => action.mainTab === 'my'), 'child investment fallback should route users to manage followed children');
-assert.equal(childInvestmentFallback.actions[0]?.mainTab, 'my', 'child investment fallback should keep the follow-object action visible in the first action slot');
-assert.ok(childInvestmentFallback.actions.some((action) => action.query === '\u5929\u6d25\u8fd1\u671f\u62a5\u540d\u60c5\u51b5'), 'child investment fallback should offer a runnable rewrite suggestion');
-assert.ok(!/(\u6682\u672a\u8bc6\u522b|\u5206\u6790\u53e3\u5f84|\u540e\u7eed)/.test(`${childInvestmentFallback.title}${childInvestmentFallback.summary}`), 'fallback copy should avoid internal or dead-end wording');
 
 const missingCompetitionFallback = context.buildAiAnswer('\u0032\u0030\u0032\u0037\u5e74\u5317\u4eac\u51fb\u5251\u8054\u8d5b\u7b2c\u4e00\u7ad9');
 assert.equal(missingCompetitionFallback.type, 'fallback', 'year-mismatched competition names should not silently open another year');

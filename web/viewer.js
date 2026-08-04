@@ -5405,7 +5405,7 @@ function aiAcceptanceQueryCases() {
     { query: '这些击剑数据能产生什么商业价值', expectedType: 'business-insight' },
     { query: '帮我生成蔡廷彧成长报告', expectedType: 'growth' },
     { query: '帮我生成赛前情报包', expectedType: 'product-template' },
-    { query: '孩子击剑值不值得继续', expectedType: 'fallback', requireEvidence: false },
+    { query: '孩子击剑值不值得继续', expectedType: 'growth' },
     { query: '能查教练员和裁判员吗', expectedType: 'official-directory' },
     { query: '能搜索教练员和裁判员么', expectedType: 'official-directory' },
     { query: '生成赛前情报包', expectedType: 'product-template' },
@@ -6563,12 +6563,35 @@ function aiCandidateSummaryCards(candidates = {}) {
   ].filter(Boolean);
 }
 
+function buildAiChildContinuationReport(query, athlete) {
+  const report = buildAiAthleteGrowth(query, athlete);
+  const model = buildParentGrowthModel(athlete);
+  const recordCount = model.events.length || Number(athlete.appearances) || 0;
+  return {
+    ...report,
+    title: `${athlete.name}的成长观察`,
+    summary: recordCount
+      ? `${athlete.name}目前处于${model.investment}。已有 ${recordCount} 场参赛表现可供观察，是否继续更适合结合兴趣、训练反馈和比赛稳定性一起判断。`
+      : `${athlete.name}的比赛记录还在积累。可以先结合训练反馈和孩子的兴趣，继续观察参赛连续性与比赛适应情况。`,
+    reasons: [
+      model.advice,
+      '重点看参赛连续性、小组赛稳定性和淘汰赛突破，不用一次名次替代长期判断。',
+    ],
+  };
+}
+
 function buildAiFallbackReport(query) {
   const text = String(query || '').trim();
   const entityCounts = entityCoverageCounts();
   const normalized = compactText(text);
   const childIntent = /(孩子|小孩|家长|继续|投入|值不值得|成长|训练)/.test(normalized);
   if (childIntent) {
+    const focusedAthletes = aiFocusedAthletes();
+    const focusedAthlete = focusedAthletes.find((athlete) => athlete.focusKind === 'primary')
+      || (focusedAthletes.length === 1 ? focusedAthletes[0] : null);
+    if (focusedAthlete && ((focusedAthlete.events || []).length || Number(focusedAthlete.appearances))) {
+      return buildAiChildContinuationReport(text, focusedAthlete);
+    }
     return {
       type: 'fallback',
       title: '先选择孩子或选手',
@@ -8634,7 +8657,7 @@ function aiFollowUpPrompts(report) {
 function isUserFacingAiSection(section = {}) {
   const title = String(section.title || '').trim();
   if (!title) return false;
-  if (/分析口径|判断路径|判断依据|下一步|后续|继续问|数据边界|边界|口径/.test(title)) return false;
+  if (/分析口径|判断|路径|下一步|后续|继续问|数据边界|边界|口径|转化/.test(title)) return false;
   return true;
 }
 
@@ -12294,17 +12317,57 @@ function buildOpponentAdvice(athlete) {
 
 function clubWorkspaceAthletes(club) {
   const compactClub = compactText(club.club);
-  const rows = Object.values(state.athletesById || {}).length
-    ? Object.values(state.athletesById || {})
-    : state.athleteSearchIndex || [];
+  const rows = [
+    ...(state.athleteSearchIndex || []),
+    ...Object.values(state.athletesById || {}),
+  ];
   const merged = new Map();
   rows.forEach((athlete) => {
-    if (!athlete?.name || !compactText(athlete.club).includes(compactClub)) return;
+    const athleteClub = compactText(athlete?.club);
+    if (!athlete?.name || !athleteClub || (!athleteClub.includes(compactClub) && !compactClub.includes(athleteClub))) return;
     const key = athlete.id || `${athlete.name}__${athlete.club || ''}`;
-    if (!merged.has(key)) merged.set(key, athlete);
+    const existing = merged.get(key);
+    if (!existing || (athlete.events?.length || 0) > (existing.events?.length || 0)) merged.set(key, athlete);
   });
   return [...merged.values()]
     .sort((a, b) => (a.bestRank ?? 999) - (b.bestRank ?? 999) || (b.medals || 0) - (a.medals || 0) || (b.appearances || 0) - (a.appearances || 0));
+}
+
+async function ensureClubAthleteContext(club) {
+  if (!club?.club) return [];
+  const params = new URLSearchParams({
+    q: club.club,
+    type: 'athletes',
+    athleteLimit: '100',
+  });
+  let athletes = [];
+  try {
+    const result = await fetchJson(`/api/search?${params.toString()}`);
+    athletes = (result.athletes || []).filter((athlete) => {
+      const athleteClub = compactText(athlete?.club);
+      const compactClub = compactText(club.club);
+      return athleteClub && (athleteClub.includes(compactClub) || compactClub.includes(athleteClub));
+    });
+    athletes.forEach(mergeAiAthleteResult);
+  } catch {
+    return clubWorkspaceAthletes(club);
+  }
+
+  const details = await Promise.all(athletes.map(async (athlete) => {
+    if (!athlete.id || state.athletesById[athlete.id]?.events?.length) return null;
+    try {
+      return await fetchCachedDetail(
+        'athletes',
+        athlete.id,
+        `/api/athletes/${encodeURIComponent(athlete.id)}`,
+        (result) => result.athlete,
+      );
+    } catch {
+      return null;
+    }
+  }));
+  details.filter(Boolean).forEach(mergeAiAthleteResult);
+  return clubWorkspaceAthletes(club);
 }
 
 function clubProjectRows(club) {
@@ -12609,7 +12672,11 @@ function findClubByReference(reference = '') {
 }
 
 function coachSegmentationEvidenceRows(club, projectRows) {
-  return (club.events || []).slice(0, 6).map((event) => ({
+  const scopedEvents = uniqueBy(
+    (projectRows || []).flatMap((row) => row.events || []),
+    (event) => event.eventCode || `${event.sportCode || ''}__${displayEventName(event)}`,
+  );
+  return scopedEvents.slice(0, 6).map((event) => ({
     eventCode: event.eventCode,
     title: displayEventName(event),
     detail: [event.sportName, event.venue || club.club].filter(Boolean).join(' · '),
@@ -12640,6 +12707,64 @@ function coachProjectDimension(row = {}) {
       ? '女子'
       : '综合组';
   return { age, weapon, gender, key: `${age}|${weapon}|${gender}` };
+}
+
+function coachProjectMatchesFilters(row = {}, filters = {}) {
+  const dimension = coachProjectDimension(row);
+  return (!filters.age || dimension.age === filters.age)
+    && (!filters.weapon || dimension.weapon === filters.weapon)
+    && (!filters.gender || dimension.gender === filters.gender);
+}
+
+function coachAthleteMatchesFilters(athlete = {}, filters = {}) {
+  if (!filters.age && !filters.weapon && !filters.gender) return true;
+  return (athlete.events || []).some((event) => coachProjectMatchesFilters({
+    label: displayEventName(event),
+    events: [event],
+  }, filters));
+}
+
+function coachFilterOptions(projectRows = []) {
+  const dimensions = projectRows.map(coachProjectDimension);
+  const ageOrder = (value) => {
+    const numeric = Number(String(value).match(/\d+/)?.[0]);
+    return Number.isFinite(numeric) ? numeric : 999;
+  };
+  return {
+    ages: [...new Set(dimensions.map((row) => row.age).filter(Boolean))]
+      .sort((a, b) => ageOrder(a) - ageOrder(b) || a.localeCompare(b, 'zh-CN')),
+    weapons: ['花剑', '重剑', '佩剑', '其他剑种'].filter((value) => dimensions.some((row) => row.weapon === value)),
+    genders: ['男子', '女子', '综合组'].filter((value) => dimensions.some((row) => row.gender === value)),
+  };
+}
+
+function coachFilterScopeText(filters = {}) {
+  return [filters.age, filters.weapon, filters.gender].filter(Boolean).join(' · ') || '全部学员';
+}
+
+function renderCoachReportFilters(options = {}, filters = {}) {
+  const select = (key, label, rows) => `
+    <label>
+      <span>${escapeHtml(label)}</span>
+      <select data-coach-report-filter="${escapeHtml(key)}">
+        <option value="">全部${escapeHtml(label)}</option>
+        ${(rows || []).map((value) => `<option value="${escapeHtml(value)}" ${filters[key] === value ? 'selected' : ''}>${escapeHtml(value)}</option>`).join('')}
+      </select>
+    </label>
+  `;
+  return `
+    <article class="panel coach-segmentation-report-card coach-report-filters">
+      <div class="section-title">
+        <h2>查看范围</h2>
+        <span>${escapeHtml(coachFilterScopeText(filters))}</span>
+      </div>
+      <div class="coach-report-filter-grid">
+        ${select('age', '年龄段', options.ages)}
+        ${select('weapon', '剑种', options.weapons)}
+        ${select('gender', '性别', options.genders)}
+      </div>
+    </article>
+  `;
 }
 
 function coachProjectMatrixRows(projectRows = []) {
@@ -12829,8 +12954,18 @@ function renderCoachSegmentationReport(clubId = '') {
     return;
   }
 
-  const athletes = clubWorkspaceAthletes(club);
-  const projectRows = clubProjectRows(club);
+  const allAthletes = clubWorkspaceAthletes(club);
+  const allProjectRows = clubProjectRows(club);
+  const savedFilters = state.coachReportFilters?.clubId === club.id ? state.coachReportFilters : {};
+  const filters = {
+    age: savedFilters.age || '',
+    weapon: savedFilters.weapon || '',
+    gender: savedFilters.gender || '',
+  };
+  const filterOptions = coachFilterOptions(allProjectRows);
+  const athletes = allAthletes.filter((athlete) => coachAthleteMatchesFilters(athlete, filters));
+  const projectRows = allProjectRows.filter((row) => coachProjectMatchesFilters(row, filters));
+  const hasActiveFilters = Boolean(filters.age || filters.weapon || filters.gender);
   const buckets = coachSegmentationBuckets(athletes);
   const followups = coachAthleteFollowupRows(athletes);
   const evidenceRows = coachSegmentationEvidenceRows(club, projectRows);
@@ -12847,8 +12982,9 @@ function renderCoachSegmentationReport(clubId = '') {
     <div class="hero-title">${escapeHtml(club.club)} 教练工作台</div>
     <div class="hero-sub">学员分层 · 训练跟进 · 家长沟通</div>
     <div class="badge-row">
-      <span class="badge">学员 ${escapeHtml(athletes.length)}</span>
+      <span class="badge">${hasActiveFilters ? '匹配学员' : '学员'} ${escapeHtml(athletes.length)}</span>
       <span class="badge">项目 ${escapeHtml(projectRows.length)}</span>
+      <span class="badge">${escapeHtml(coachFilterScopeText(filters))}</span>
       <span class="badge">前八 ${escapeHtml(club.top8 || 0)}</span>
       <span class="badge">最好第 ${escapeHtml(club.bestRank ?? '-')} 名</span>
     </div>
@@ -12859,6 +12995,13 @@ function renderCoachSegmentationReport(clubId = '') {
   `;
 
   coachSegmentationReportBody.innerHTML = `
+    ${renderCoachReportFilters(filterOptions, filters)}
+    ${hasActiveFilters && !athletes.length ? `
+      <article class="panel coach-segmentation-report-card coach-filter-empty-note">
+        <strong>所选项目有成绩，暂未对应到具体学员</strong>
+        <p>${escapeHtml(coachFilterScopeText(filters))} 已记录 ${escapeHtml(projectRows.reduce((sum, row) => sum + (Number(row.entrants) || 0), 0))} 人次参赛。项目表现可以继续查看，学员名单补充后会显示分层与训练建议。</p>
+      </article>
+    ` : ''}
     <article class="panel coach-segmentation-report-card coach-segmentation-summary">
       <div class="section-title">
         <h2>本周重点</h2>
@@ -13052,6 +13195,16 @@ function renderCoachSegmentationReport(clubId = '') {
   coachSegmentationReportBody.querySelectorAll('[data-athlete-id]').forEach((button) => {
     if (!button.dataset.athleteId) return;
     button.addEventListener('click', () => openAthlete(button.dataset.athleteId));
+  });
+  coachSegmentationReportBody.querySelectorAll('[data-coach-report-filter]').forEach((select) => {
+    select.addEventListener('change', () => {
+      const nextFilters = { clubId: club.id, age: '', weapon: '', gender: '' };
+      coachSegmentationReportBody.querySelectorAll('[data-coach-report-filter]').forEach((input) => {
+        nextFilters[input.dataset.coachReportFilter] = input.value || '';
+      });
+      state.coachReportFilters = nextFilters;
+      renderCoachSegmentationReport(club.id);
+    });
   });
   coachSegmentationReportBody.querySelectorAll('[data-event-code]').forEach((button) => {
     if (!button.dataset.eventCode) return;
@@ -13362,7 +13515,10 @@ function renderClubShareCard(club, projectRows, athletes) {
           <strong>家长咨询建议</strong>
           <span>先确认孩子年龄段、剑种兴趣和近期比赛计划，再选择对应项目体验。</span>
         </div>
-        <button class="club-share-action" type="button" data-share-club>复制分享文案</button>
+        <div class="club-share-actions">
+          <button class="club-share-action" type="button" data-share-club>复制分享文案</button>
+          <button class="club-share-action secondary" type="button" data-save-club-card>保存图片</button>
+        </div>
       </div>
     </section>
   `;
@@ -13382,6 +13538,179 @@ async function copyTextToClipboard(text) {
   textarea.select();
   document.execCommand('copy');
   textarea.remove();
+}
+
+function canvasRoundRect(context, x, y, width, height, radius = 24) {
+  const safeRadius = Math.min(radius, width / 2, height / 2);
+  context.beginPath();
+  context.moveTo(x + safeRadius, y);
+  context.arcTo(x + width, y, x + width, y + height, safeRadius);
+  context.arcTo(x + width, y + height, x, y + height, safeRadius);
+  context.arcTo(x, y + height, x, y, safeRadius);
+  context.arcTo(x, y, x + width, y, safeRadius);
+  context.closePath();
+}
+
+function canvasTextLines(context, text, maxWidth, maxLines = 3) {
+  const characters = [...String(text || '')];
+  const lines = [];
+  let line = '';
+  for (const character of characters) {
+    const next = `${line}${character}`;
+    if (line && context.measureText(next).width > maxWidth) {
+      lines.push(line.trim());
+      line = character;
+      if (lines.length === maxLines) break;
+    } else {
+      line = next;
+    }
+  }
+  if (lines.length < maxLines && line.trim()) lines.push(line.trim());
+  if (lines.length === maxLines && characters.join('').length > lines.join('').length) {
+    let last = lines[maxLines - 1];
+    while (last && context.measureText(`${last}…`).width > maxWidth) last = last.slice(0, -1);
+    lines[maxLines - 1] = `${last}…`;
+  }
+  return lines;
+}
+
+function drawClubRecruitingCard(canvas, club, projectRows, athletes) {
+  const context = canvas.getContext('2d');
+  if (!context) throw new Error('当前浏览器无法生成图片');
+  const width = 1080;
+  const height = 1440;
+  const padding = 72;
+  canvas.width = width;
+  canvas.height = height;
+
+  context.fillStyle = '#f4f8f7';
+  context.fillRect(0, 0, width, height);
+  context.fillStyle = '#075f72';
+  context.fillRect(0, 0, width, 292);
+  context.fillStyle = '#0b8975';
+  context.beginPath();
+  context.arc(980, 82, 230, 0, Math.PI * 2);
+  context.fill();
+
+  canvasRoundRect(context, padding, 54, 78, 78, 20);
+  context.fillStyle = '#ffffff';
+  context.fill();
+  context.fillStyle = '#0b8975';
+  context.beginPath();
+  context.arc(112, 93, 18, 0, Math.PI * 2);
+  context.fill();
+
+  context.fillStyle = '#ffffff';
+  context.font = '800 34px system-ui, "Microsoft YaHei", sans-serif';
+  context.fillText('FencingAI', 172, 106);
+  context.font = '900 58px system-ui, "Microsoft YaHei", sans-serif';
+  canvasTextLines(context, club.club, width - padding * 2, 2).forEach((line, index) => {
+    context.fillText(line, padding, 192 + index * 66);
+  });
+  context.font = '700 25px system-ui, "Microsoft YaHei", sans-serif';
+  context.fillStyle = 'rgba(255,255,255,.8)';
+  context.fillText('击剑成长与成绩名片', padding, 265);
+
+  const highlights = clubShareHighlights(club, projectRows, athletes).slice(0, 4);
+  const recruitingProjects = clubRecruitingProjectRows(projectRows).slice(0, 3);
+  const proofRows = clubRecruitingProofRows(club, projectRows, athletes).slice(0, 2);
+  let top = 330;
+
+  context.fillStyle = '#ffffff';
+  canvasRoundRect(context, padding, top, width - padding * 2, 224, 28);
+  context.fill();
+  context.fillStyle = '#14213d';
+  context.font = '900 28px system-ui, "Microsoft YaHei", sans-serif';
+  context.fillText('成绩概览', padding + 32, top + 50);
+  highlights.forEach((text, index) => {
+    const column = index % 2;
+    const row = Math.floor(index / 2);
+    const x = padding + 32 + column * 456;
+    const y = top + 94 + row * 62;
+    context.fillStyle = '#eef6ff';
+    canvasRoundRect(context, x, y, 428, 48, 12);
+    context.fill();
+    context.fillStyle = '#155fc2';
+    context.font = '800 23px system-ui, "Microsoft YaHei", sans-serif';
+    context.fillText(text, x + 18, y + 32);
+  });
+
+  top += 252;
+  context.fillStyle = '#ffffff';
+  canvasRoundRect(context, padding, top, width - padding * 2, 340, 28);
+  context.fill();
+  context.fillStyle = '#14213d';
+  context.font = '900 28px system-ui, "Microsoft YaHei", sans-serif';
+  context.fillText('优势项目', padding + 32, top + 52);
+  recruitingProjects.forEach((row, index) => {
+    const y = top + 84 + index * 78;
+    context.fillStyle = index === 0 ? '#eaf7f3' : '#f5f7fa';
+    canvasRoundRect(context, padding + 30, y, width - padding * 2 - 60, 62, 14);
+    context.fill();
+    context.fillStyle = '#14213d';
+    context.font = '800 23px system-ui, "Microsoft YaHei", sans-serif';
+    context.fillText(row.label, padding + 50, y + 39);
+    context.fillStyle = '#0b8975';
+    context.textAlign = 'right';
+    context.fillText(row.result, width - padding - 50, y + 39);
+    context.textAlign = 'left';
+  });
+  if (!recruitingProjects.length) {
+    context.fillStyle = '#667085';
+    context.font = '500 24px system-ui, "Microsoft YaHei", sans-serif';
+    context.fillText('持续积累参赛记录后，会形成更清晰的优势项目。', padding + 32, top + 112);
+  }
+
+  top += 368;
+  context.fillStyle = '#ffffff';
+  canvasRoundRect(context, padding, top, width - padding * 2, 278, 28);
+  context.fill();
+  context.fillStyle = '#14213d';
+  context.font = '900 28px system-ui, "Microsoft YaHei", sans-serif';
+  context.fillText('可核对成绩', padding + 32, top + 52);
+  proofRows.forEach((row, index) => {
+    const y = top + 88 + index * 82;
+    context.fillStyle = '#667085';
+    context.font = '700 20px system-ui, "Microsoft YaHei", sans-serif';
+    context.fillText(row.title, padding + 32, y);
+    context.fillStyle = '#14213d';
+    context.font = '800 22px system-ui, "Microsoft YaHei", sans-serif';
+    canvasTextLines(context, `${row.value} · ${row.detail}`, width - padding * 2 - 64, 2).forEach((line, lineIndex) => {
+      context.fillText(line, padding + 32, y + 31 + lineIndex * 27);
+    });
+  });
+
+  context.fillStyle = '#0b8975';
+  context.font = '800 23px system-ui, "Microsoft YaHei", sans-serif';
+  context.fillText('家长咨询建议', padding, 1310);
+  context.fillStyle = '#475467';
+  context.font = '500 21px system-ui, "Microsoft YaHei", sans-serif';
+  const parentLine = '先确认孩子年龄段、剑种兴趣和近期比赛计划，再选择对应项目体验。';
+  canvasTextLines(context, parentLine, width - padding * 2, 2).forEach((line, index) => {
+    context.fillText(line, padding, 1344 + index * 29);
+  });
+  context.fillStyle = '#98a2b3';
+  context.font = '500 18px system-ui, "Microsoft YaHei", sans-serif';
+  context.fillText('成绩来自公开赛事记录 · FencingAI', padding, 1402);
+  return canvas;
+}
+
+async function saveClubRecruitingCard(club, projectRows, athletes) {
+  if (document.fonts?.ready) await document.fonts.ready;
+  const canvas = drawClubRecruitingCard(document.createElement('canvas'), club, projectRows, athletes);
+  const blob = await new Promise((resolve, reject) => {
+    canvas.toBlob((result) => (result ? resolve(result) : reject(new Error('图片生成失败'))), 'image/png');
+  });
+  const fileName = `${String(club.club || '剑馆').replace(/[\\/:*?"<>|]/g, '-')}-成绩名片.png`;
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = fileName;
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+  return fileName;
 }
 
 function projectCoachAdvice(row) {
@@ -14290,6 +14619,24 @@ function renderClubDetail(club) {
       }, 1400);
     });
   });
+  clubEvents.querySelectorAll('[data-save-club-card]').forEach((button) => {
+    button.addEventListener('click', async () => {
+      const originalLabel = button.textContent;
+      button.disabled = true;
+      button.textContent = '正在生成';
+      try {
+        await saveClubRecruitingCard(club, projectRows, athletes);
+        trackAnalyticsAction('save_club', 'recruiting-card-image');
+        button.textContent = '图片已生成';
+      } catch (error) {
+        button.textContent = '生成失败';
+      }
+      setTimeout(() => {
+        button.disabled = false;
+        button.textContent = originalLabel;
+      }, 1600);
+    });
+  });
 }
 
 async function openAthlete(athleteId) {
@@ -14357,6 +14704,9 @@ async function openClub(clubId) {
     mergeAiClubResult(renderedClub);
     state.currentClub = renderedClub;
     renderClubDetail(renderedClub);
+    navigateTo('club');
+    await ensureClubAthleteContext(renderedClub);
+    if (state.currentClub?.id === renderedClub.id) renderClubDetail(renderedClub);
   } catch (error) {
     if (localClub?.club) {
       renderedClub = localClub;
@@ -14435,10 +14785,12 @@ function prematchPrimaryFocusDetail(row) {
   return `${projectText} · ${matchText}`;
 }
 function prematchPersonalRelevanceRows({ competitions = [], focusRows = [], opponentRows = [] } = {}) {
+  const rosterRows = prematchRosterRows(competitions);
+  const hasRosterData = rosterRows.length > 0;
   return (focusRows || []).slice(0, 4).map((row) => {
     const matched = row.matched?.[0] || null;
     const labels = row.labels || [];
-    const hasRoster = matched && competitionCoverageLevel(matched) === 'roster';
+    const rosterHit = rosterRows.find((rosterRow) => compactText(rosterAthleteLabel(rosterRow)) === compactText(row.athlete?.name));
     const opponent = labels.length
       ? (opponentRows || []).find((athlete) => {
         const text = compactText([...(athlete.eventLabels || []), ...(athlete.events || []).map((event) => displayEventName(event))].join(' '));
@@ -14446,20 +14798,24 @@ function prematchPersonalRelevanceRows({ competitions = [], focusRows = [], oppo
       })
       : null;
     const title = row.athlete?.name || '关注选手';
-    const status = hasRoster ? '可核对名单' : matched ? '已有相关项目' : '先按历史项目准备';
-    const detail = matched
+    const status = rosterHit ? '已在报名名单' : hasRosterData ? '当前名单未找到' : matched ? '等待报名名单' : '先按历史项目准备';
+    const detail = rosterHit
+      ? `${rosterCompetitionLabel(rosterHit)} · ${rosterEventLabel(rosterHit)}`
+      : matched
       ? `${matched.sportName} · ${displayDateLabel(matched.dateLabel)}`
       : labels.length
         ? `${labels.slice(0, 2).join(' / ')} · 等待更多报名信息`
         : `${competitions.length} 场近期赛事 · 先确认目标项目`;
     const action = opponent
-      ? `重点参考 ${opponent.name}，再看同项目报名和历史成绩。`
-      : hasRoster
-        ? '先核对报名名单，再确认同项目强手和分组风险。'
+      ? `${opponent.prematchSource === '报名名单' ? '同项目报名选手' : '历史强手参考'}：${opponent.name}。`
+      : rosterHit
+        ? '已确认报名，继续查看同项目报名选手和历史表现。'
+        : hasRosterData
+          ? '当前名单中尚未找到该选手，先确认报名姓名和项目。'
         : '先确认参赛项目和时间，再按历史强手准备。';
     return {
       athleteId: row.athlete?.id || '',
-      sportCode: matched?.sportCode || '',
+      sportCode: rosterHit?.sportCode || matched?.sportCode || '',
       title,
       status,
       detail,
@@ -14468,32 +14824,75 @@ function prematchPersonalRelevanceRows({ competitions = [], focusRows = [], oppo
   });
 }
 
-function prematchReportOpponentRows(projectLabels) {
-  const labels = projectLabels.map((label) => compactText(label)).filter(Boolean);
-  return (state.athleteSearchIndex || [])
-    .filter((athlete) => {
-      if (!athlete?.name || (athlete.bestRank ?? 999) > 16) return false;
-      const eventText = compactText([...(athlete.eventLabels || []), ...(athlete.events || []).map((event) => displayEventName(event))].join(' '));
-      return labels.length ? labels.some((label) => eventText.includes(label) || label.includes(eventText)) : true;
-    })
+function prematchRosterOpponentRows(competitions = [], focusRows = [], projectLabels = []) {
+  const rosterRows = prematchRosterRows(competitions);
+  if (!rosterRows.length) return [];
+  const focusNames = new Set((focusRows || []).map((row) => compactText(row.athlete?.name)).filter(Boolean));
+  const focusLabels = (focusRows || []).flatMap((row) => row.labels || []);
+  const scopeLabels = focusLabels.length ? focusLabels : projectLabels;
+  const candidates = new Map();
+  for (const rosterRow of rosterRows) {
+    const name = compactText(rosterAthleteLabel(rosterRow));
+    if (!name || focusNames.has(name)) continue;
+    const rosterProject = rosterEventLabel(rosterRow);
+    const projectMatches = !scopeLabels.length || scopeLabels.some((label) => projectMatchesAiHints(rosterProject, aiProjectHints(label)));
+    if (!projectMatches) continue;
+    const history = rosterHistoryMatch(rosterRow);
+    if (!history?.id && !history?.name) continue;
+    const key = history.id || `${compactText(history.name)}__${compactText(history.club)}`;
+    const candidate = {
+      ...history,
+      prematchSource: '报名名单',
+      rosterEventLabel: rosterProject,
+      rosterSportCode: rosterRow.sportCode || '',
+    };
+    const current = candidates.get(key);
+    if (!current || (candidate.bestRank ?? 999) < (current.bestRank ?? 999)) candidates.set(key, candidate);
+  }
+  return [...candidates.values()]
     .sort((a, b) => (a.bestRank ?? 999) - (b.bestRank ?? 999) || (b.appearances || 0) - (a.appearances || 0))
     .slice(0, 6);
 }
 
+function prematchReportOpponentRows(projectLabels, competitions = [], focusRows = []) {
+  const rosterRows = prematchRosterRows(competitions);
+  if (rosterRows.length) return prematchRosterOpponentRows(competitions, focusRows, projectLabels);
+  const labels = projectLabels.map((label) => compactText(label)).filter(Boolean);
+  const focusNames = new Set((focusRows || []).map((row) => compactText(row.athlete?.name)).filter(Boolean));
+  return (state.athleteSearchIndex || [])
+    .filter((athlete) => {
+      if (!athlete?.name || (athlete.bestRank ?? 999) > 16) return false;
+      if (focusNames.has(compactText(athlete.name))) return false;
+      const eventText = compactText([...(athlete.eventLabels || []), ...(athlete.events || []).map((event) => displayEventName(event))].join(' '));
+      return labels.length ? labels.some((label) => eventText.includes(label) || label.includes(eventText)) : true;
+    })
+    .sort((a, b) => (a.bestRank ?? 999) - (b.bestRank ?? 999) || (b.appearances || 0) - (a.appearances || 0))
+    .slice(0, 6)
+    .map((athlete) => ({ ...athlete, prematchSource: '历史成绩' }));
+}
+
 function prematchOpponentWatchlistRows(opponentRows = [], focusRows = []) {
   const focusLabels = new Set((focusRows || []).flatMap((row) => row.labels || []).map((label) => compactText(label)).filter(Boolean));
+  const primaryFocus = prematchPrimaryFocusRow(focusRows);
   return (opponentRows || []).slice(0, 6).map((athlete) => {
     const labels = [...new Set((athlete.eventLabels || []).filter(Boolean))];
     const matchedLabels = labels.filter((label) => focusLabels.has(compactText(label))).slice(0, 2);
     const bestRank = Number(athlete.bestRank) || 999;
     const appearances = Number(athlete.appearances) || 0;
-    const level = bestRank <= 4 ? '高优先级' : bestRank <= 8 ? '重点关注' : '观察对象';
-    const note = matchedLabels.length
-      ? `与关注对象项目重合：${matchedLabels.join(' / ')}`
+    const directRows = primaryFocus?.athlete ? directOpponentRows(primaryFocus.athlete, athlete) : [];
+    const sharedRows = primaryFocus?.athlete ? sharedAthleteEvents(primaryFocus.athlete, athlete) : [];
+    const relation = directRows.length ? '熟悉对手' : sharedRows.length ? '有同场记录' : '同项目强手';
+    const level = directRows.length ? '优先复盘' : bestRank <= 4 ? '高优先级' : bestRank <= 8 ? '重点关注' : '观察对象';
+    const note = athlete.prematchSource === '报名名单'
+      ? `${athlete.rosterEventLabel || '同项目报名'} · ${relation}`
+      : matchedLabels.length
+        ? `与关注对象项目重合：${matchedLabels.join(' / ')} · ${relation}`
       : labels.length
-        ? `历史项目：${labels.slice(0, 2).join(' / ')}`
-        : '同项目历史成绩较靠前';
-    const action = bestRank <= 8
+        ? `历史项目：${labels.slice(0, 2).join(' / ')} · ${relation}`
+        : `同项目历史成绩较靠前 · ${relation}`;
+    const action = directRows.length
+      ? `先复盘双方 ${directRows.length} 条直接交手记录，再准备关键分。`
+      : bestRank <= 8
       ? '赛前优先看小组稳定性、淘汰赛关键分和最近一次名次。'
       : '先作为同项目样本，用于判断本场竞争深度。';
     return {
@@ -14501,8 +14900,10 @@ function prematchOpponentWatchlistRows(opponentRows = [], focusRows = []) {
       level,
       note,
       action,
+      relation,
+      source: athlete.prematchSource || '历史成绩',
       score: bestRank <= 4 ? 3 : bestRank <= 8 ? 2 : 1,
-      meta: `最好第 ${bestRank === 999 ? '-' : bestRank} 名 · ${appearances} 次记录`,
+      meta: `${athlete.prematchSource || '历史成绩'} · 最好第 ${bestRank === 999 ? '-' : bestRank} 名 · ${appearances} 次记录`,
     };
   });
 }
@@ -14693,7 +15094,7 @@ function renderPrematchReport(kind = 'prematch-pack', sportCode = '') {
   const projectLabels = prematchReportProjectLabels(competitions);
   const focusRows = prematchReportFocusRows(competitions);
   const primaryFocus = prematchPrimaryFocusRow(focusRows);
-  const opponentRows = prematchReportOpponentRows(projectLabels);
+  const opponentRows = prematchReportOpponentRows(projectLabels, competitions, focusRows);
   const opponentWatchlistRows = prematchOpponentWatchlistRows(opponentRows, focusRows);
   const relevanceRows = prematchPersonalRelevanceRows({ competitions, focusRows, opponentRows });
   const rosterReady = competitions.filter((competition) => competition.rosterStatus === 'partial' || competition.rosterStatus === 'complete').length;
@@ -14850,8 +15251,8 @@ function renderPrematchReport(kind = 'prematch-pack', sportCode = '') {
     ${opponentWatchlistRows.length ? `
       <article class="panel prematch-report-card prematch-opponent-watchlist">
         <div class="section-title">
-          <h2>重点对手看板</h2>
-          <span>赛前优先</span>
+          <h2>${escapeHtml(opponentWatchlistRows.some((row) => row.source === '报名名单') ? '报名对手看板' : '历史强手参考')}</h2>
+          <span>${escapeHtml(opponentWatchlistRows.some((row) => row.source === '报名名单') ? '名单 + 历史成绩' : '历史成绩')}</span>
         </div>
         <div class="prematch-opponent-watch-grid">
           ${opponentWatchlistRows.map((row) => `
@@ -14885,15 +15286,18 @@ function renderPrematchReport(kind = 'prematch-pack', sportCode = '') {
 
     <article class="panel prematch-report-card">
       <div class="section-title">
-        <h2>强手线索</h2>
-        <span>同项目参考</span>
+        <h2>${escapeHtml(opponentRows.some((athlete) => athlete.prematchSource === '报名名单') ? '报名强手线索' : '历史强手参考')}</h2>
+        <span>${escapeHtml(opponentRows.some((athlete) => athlete.prematchSource === '报名名单') ? '来自报名名单' : '未作为真实对阵')}</span>
       </div>
       <div class="prematch-report-list">
         ${opponentRows.length ? opponentRows.map((athlete) => `
           <button type="button" data-athlete-id="${escapeHtml(athlete.id || '')}">
             <strong>${escapeHtml(athlete.name)}</strong>
             <span>${escapeHtml(athlete.club || '俱乐部待确认')} · 最好第 ${escapeHtml(athlete.bestRank ?? '-')} 名</span>
-            <em>${escapeHtml((athlete.eventLabels || []).slice(0, 2).join(' / ') || '同项目历史成绩')}</em>
+            <em>${escapeHtml([
+              athlete.prematchSource || '历史成绩',
+              athlete.rosterEventLabel || (athlete.eventLabels || []).slice(0, 2).join(' / ') || '同项目历史成绩',
+            ].filter(Boolean).join(' · '))}</em>
           </button>
         `).join('') : '<div class="empty compact-empty">关注项目还没有足够强手样本，先用赛事和报名信息判断难度。</div>'}
       </div>

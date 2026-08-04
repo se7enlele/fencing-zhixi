@@ -24,8 +24,14 @@ assert.match(source, /role: '竞品对比家长'[\s\S]*stage: '选馆判断期'/
 assert.match(source, /id: 'official-directory'[\s\S]*query: '能查教练员和裁判员吗'/, 'online AI audit must include official directory query coverage');
 assert.match(source, /role: '教练信息查询用户'[\s\S]*stage: '人员资料核对期'/, 'online AI audit must include coach and referee directory context');
 assert.match(source, /query: '2027年北京击剑联赛第一站'/, 'missing competition recovery should use a truly missing future-year case');
-assert.match(source, /expect: \['暂时没有2027年这场赛事记录', '赛事记录', '项目名单', '赛果成绩'\]/, 'missing competition recovery must assert coverage-layer copy');
+assert.match(source, /expect: \['没有找到2027年完全一致赛事', '赛事记录', '项目名单', '赛果成绩'\]/, 'missing competition recovery must assert coverage-layer copy');
+assert.match(source, /const expectedMatched = expected\.every\(\(phrase\) => text\.includes\(phrase\)\)/, 'online AI audit must always require common expected copy');
+assert.match(source, /return expectedMatched && alternativeMatched;/, 'online AI audit must require common copy and one allowed alternative');
+assert.match(source, /expect: \['经营分析', '选手画像', '俱乐部画像', '赛前机会'\]/, 'business-value audit must use current product copy without hard-coded growing counts');
 assert.match(source, /function userJudgmentForResult\(/, 'online AI audit must classify result quality from the user perspective');
+assert.match(source, /function isRecoveryAnswer\(typeLabel = '', text = ''\)/, 'online AI audit must classify recovery from the visible answer type');
+assert.match(source, /补充信息\|选择对象/, 'recovery answers must be recognized from current user-facing type labels');
+assert.match(source, /userJudgmentForResult\(\{ testCase, evidenceCount, actionLabels, evidenceNavigation, text, typeLabel \}\)/, 'result quality must use the visible answer type');
 assert.match(source, /function markdownReport\(payload\)/, 'online AI audit must produce a markdown real-user evaluation report');
 assert.match(source, /real-user-ai-evaluation-\$\{runId\}\.md/, 'online AI audit must save the markdown evaluation artifact');
 assert.match(source, /document\.body\?\.dataset\?\.fencingaiReady === 'true'/, 'online AI audit must wait for the app-level data-ready marker before submitting questions');
