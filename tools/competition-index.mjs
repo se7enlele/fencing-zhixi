@@ -54,6 +54,36 @@ function projectScope(labels) {
   };
 }
 
+function itemFilterDimensions(label) {
+  const text = String(label || '');
+  const age = text.match(/U\d+|\d+\+|成年组|公开组|老将组/)?.[0] || '';
+  const weapon = text.includes('花') ? '花剑' : text.includes('重') ? '重剑' : text.includes('佩') ? '佩剑' : '';
+  const gender = text.includes('女') ? '女子' : text.includes('男') ? '男子' : '';
+  return { age, weapon, gender };
+}
+
+function ageFilterIndex(age) {
+  const underAge = String(age || '').match(/^U(\d{1,2})$/i);
+  if (underAge && Number(underAge[1]) <= 31) return Number(underAge[1]);
+  return ({ '17+': 32, '35+': 33, '40+': 34, 成年组: 35, 公开组: 36, 老将组: 37 })[age] ?? -1;
+}
+
+function filterBitmap(labels) {
+  const weaponIndexes = { 花剑: 0, 重剑: 1, 佩剑: 2 };
+  const genderIndexes = { 男子: 0, 女子: 1 };
+  let bits = 0n;
+  for (const label of labels) {
+    const row = itemFilterDimensions(label);
+    const ageIndex = ageFilterIndex(row.age);
+    const weaponIndex = weaponIndexes[row.weapon];
+    const genderIndex = genderIndexes[row.gender];
+    if (ageIndex < 0 || weaponIndex === undefined || genderIndex === undefined) continue;
+    const bitIndex = ageIndex * 6 + weaponIndex * 2 + genderIndex;
+    bits |= 1n << BigInt(bitIndex);
+  }
+  return bits ? bits.toString(16) : '';
+}
+
 function compactPlatformMeta(meta = null) {
   if (!meta) return undefined;
   return {
@@ -64,7 +94,7 @@ function compactPlatformMeta(meta = null) {
 export function compactCompetitionForIndex(competition) {
   const items = competition.items || [];
   const itemLabels = items.map(displayItemName).filter(Boolean);
-  const itemFilters = [...new Set(items.map(itemFilterLabel).filter(Boolean))];
+  const compactFilterBits = filterBitmap(itemLabels);
   const itemSummaries = [...items]
     .sort((a, b) => (Number(b.competitionNo) || Number(b.expectedRegistrationCount) || Number(b.registrationCount) || 0)
       - (Number(a.competitionNo) || Number(a.expectedRegistrationCount) || Number(a.registrationCount) || 0)
@@ -110,10 +140,9 @@ export function compactCompetitionForIndex(competition) {
     coverageLevel: competitionCoverageLevel(competition),
     itemCount: items.length,
     itemSummaries,
-    itemFilters,
+    filterBits: compactFilterBits,
     itemSearchText: compactText([
       ...itemLabels.slice(0, 8),
-      ...itemFilters,
     ].filter(Boolean).join(' ')),
     metricTotals,
     topItemLabel: topItem ? displayItemName(topItem) : '',

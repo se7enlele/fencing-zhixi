@@ -59,7 +59,7 @@ assert.match(
 );
 assert.match(
   await readFile(new URL('./competition-index.mjs', import.meta.url), 'utf8'),
-  /itemSummaries[\s\S]*itemFilters[\s\S]*metricTotals[\s\S]*projectScope/,
+  /itemSummaries[\s\S]*filterBits[\s\S]*metricTotals[\s\S]*projectScope/,
   'competition index should expose summaries, filter labels, metric totals and project scope instead of full items',
 );
 

@@ -28,6 +28,7 @@ const functionNames = [
   'competitionItemSummaries',
   'itemFilterLabel',
   'competitionItemCount',
+  'competitionFilterDimensionRows',
   'competitionItemFilterLabels',
   'competitionMetricTotal',
   'chineseAdminAlias',

@@ -2,7 +2,9 @@ const topBack = document.querySelector('#topBack');
 const searchInput = document.querySelector('#searchInput');
 const yearFilterButton = document.querySelector('#yearFilterButton');
 const regionFilterButton = document.querySelector('#regionFilterButton');
-const itemFilterButton = document.querySelector('#itemFilterButton');
+const ageFilterButton = document.querySelector('#ageFilterButton');
+const weaponFilterButton = document.querySelector('#weaponFilterButton');
+const genderFilterButton = document.querySelector('#genderFilterButton');
 const statusFilterButton = document.querySelector('#statusFilterButton');
 const myFollowFilterButton = document.querySelector('#myFollowFilterButton');
 const myFollowFilterMenu = document.querySelector('#myFollowFilterMenu');
@@ -122,6 +124,9 @@ const state = {
   selectedRegion: '全部地区',
   selectedYear: '全部年份',
   selectedItem: '全部项目',
+  selectedAge: '全部年龄组',
+  selectedWeapon: '全部剑种',
+  selectedGender: '全部性别',
   selectedStatus: '全部状态',
   selectedAiMonth: '',
   selectedAiYears: [],
@@ -1203,7 +1208,103 @@ function competitionItemCount(competition) {
 
 function competitionItemFilterLabels(competition) {
   if (Array.isArray(competition.itemFilters)) return competition.itemFilters;
+  const codedRows = competitionFilterDimensionRows(competition);
+  if (codedRows.length) {
+    return [...new Set(codedRows.map((row) => [row.age, row.weapon].filter(Boolean).join(' ')).filter(Boolean))];
+  }
   return [...new Set(competitionItemSummaries(competition).map(itemFilterLabel).filter(Boolean))];
+}
+
+const PROVINCE_LABELS = [
+  '北京', '天津', '上海', '重庆', '河北', '山西', '辽宁', '吉林', '黑龙江', '江苏', '浙江', '安徽',
+  '福建', '江西', '山东', '河南', '湖北', '湖南', '广东', '海南', '四川', '贵州', '云南', '陕西',
+  '甘肃', '青海', '台湾', '内蒙古', '广西', '西藏', '宁夏', '新疆', '香港', '澳门',
+];
+
+function normalizeRegionLabel(value) {
+  const text = compactText(value).replace(/(壮族|回族|维吾尔|自治区|特别行政区|省|市)/g, '');
+  if (!text || text.includes('待确认')) return '';
+  return PROVINCE_LABELS.find((label) => text.includes(label)) || '';
+}
+
+function competitionRegionLabel(competition) {
+  return normalizeRegionLabel(competition?.region) || normalizeRegionLabel(competition?.venue);
+}
+
+function itemDimensionValues(item) {
+  const text = [item?.eventName, item?.shortEventName, item?.itemName, displayEventName(item)]
+    .filter(Boolean)
+    .join(' ');
+  const age = text.match(/U\d{1,2}|\d+\+|成年组|公开组|老将组/i)?.[0]?.toUpperCase() || '';
+  const weapon = text.includes('花剑') || /[男女]花/.test(text) ? '花剑'
+    : text.includes('重剑') || /[男女]重/.test(text) ? '重剑'
+      : text.includes('佩剑') || /[男女]佩/.test(text) ? '佩剑'
+        : '';
+  const gender = text.includes('女子') || text.includes('女') ? '女子'
+    : text.includes('男子') || text.includes('男') ? '男子'
+      : '';
+  return { age, weapon, gender };
+}
+
+function competitionDimensionValues(competition, type) {
+  const codes = competitionFilterDimensionRows(competition);
+  if (codes.length) return [...new Set(codes.map((row) => row[type]).filter(Boolean))];
+  return [...new Set(competitionItemSummaries(competition)
+    .map((item) => itemDimensionValues(item)[type])
+    .filter(Boolean))];
+}
+
+function competitionFilterDimensionRows(competition) {
+  const ageLabel = (index) => index <= 31 ? `U${index}` : ({ 32: '17+', 33: '35+', 34: '40+', 35: '成年组', 36: '公开组', 37: '老将组' })[index] || '';
+  const weaponLabelsByIndex = ['花剑', '重剑', '佩剑'];
+  const genderLabelsByIndex = ['男子', '女子'];
+  const bitmap = String(competition?.filterBits || '');
+  if (/^[0-9a-f]+$/i.test(bitmap)) {
+    const bits = BigInt(`0x${bitmap}`);
+    const rows = [];
+    for (let ageIndex = 0; ageIndex <= 37; ageIndex += 1) {
+      for (let weaponIndex = 0; weaponIndex < weaponLabelsByIndex.length; weaponIndex += 1) {
+        for (let genderIndex = 0; genderIndex < genderLabelsByIndex.length; genderIndex += 1) {
+          const bitIndex = ageIndex * 6 + weaponIndex * 2 + genderIndex;
+          if ((bits & (1n << BigInt(bitIndex))) === 0n) continue;
+          rows.push({
+            age: ageLabel(ageIndex),
+            weapon: weaponLabelsByIndex[weaponIndex],
+            gender: genderLabelsByIndex[genderIndex],
+          });
+        }
+      }
+    }
+    return rows;
+  }
+  const ageLabels = { A: '成年组', O: '公开组', V: '老将组' };
+  const weaponLabels = { F: '花剑', E: '重剑', S: '佩剑' };
+  const genderLabels = { M: '男子', W: '女子' };
+  return String(competition?.filterCodes || '').split('/').map((code) => {
+    const match = code.match(/^(U\d+|\d+\+|A|O|V)(F|E|S)(M|W)$/);
+    if (!match) return null;
+    return {
+      age: ageLabels[match[1]] || match[1],
+      weapon: weaponLabels[match[2]],
+      gender: genderLabels[match[3]],
+    };
+  }).filter(Boolean);
+}
+
+function competitionMatchesDimensions(competition, filters = {}) {
+  const activeFilters = Object.entries(filters)
+    .filter(([, value]) => value && !String(value).startsWith('全部'));
+  if (!activeFilters.length) return true;
+  const codedDimensions = competitionFilterDimensionRows(competition);
+  if (codedDimensions.length) {
+    return codedDimensions.some((dimensions) => (
+      activeFilters.every(([type, selected]) => dimensions[type] === selected)
+    ));
+  }
+  return competitionItemSummaries(competition).some((item) => {
+    const dimensions = itemDimensionValues(item);
+    return activeFilters.every(([type, value]) => dimensions[type] === value);
+  });
 }
 
 function competitionMetricTotal(competition, key) {
@@ -1431,6 +1532,10 @@ function competitionSearchHaystack(competition) {
   ];
 
   if (competition.itemSearchText) values.push(competition.itemSearchText);
+  for (const row of competitionFilterDimensionRows(competition)) {
+    const compactWeapon = row.weapon.replace('剑', '');
+    values.push(`${row.age} ${row.gender} ${row.weapon}`, `${row.age} ${row.gender.replace('子', '')}${compactWeapon}`);
+  }
   for (const item of competitionItemSummaries(competition)) {
     values.push(
       displayEventName(item),
@@ -1782,18 +1887,36 @@ function sortItemLabels(values) {
   });
 }
 
+function sortAgeLabels(values) {
+  return [...values].sort((a, b) => {
+    const age = (value) => Number(String(value).match(/U(\d+)/i)?.[1] || (String(value).includes('17+') ? 17 : 999));
+    return age(a) - age(b) || String(a).localeCompare(String(b), 'zh-CN');
+  });
+}
+
 function filterOptions(type) {
   if (type === 'year') {
     return ['全部年份', ...sortYearsDescending(new Set(state.competitions.map(competitionYear)))];
   }
   if (type === 'region') {
-    return ['全部地区', ...sortRegions(new Set(state.competitions.map((item) => item.region || '待确认')))];
+    return ['全部地区', ...sortRegions(new Set(state.competitions.map(competitionRegionLabel).filter(Boolean)))];
   }
   if (type === 'status') {
     return ['全部状态', '报名中', '未开赛', '进行中', '已结束'];
   }
   if (type === 'follow') {
     return ['全部赛事', '我的关注', '关注选手', '关注赛事', '关注俱乐部'];
+  }
+  if (type === 'age') {
+    return ['全部年龄组', ...sortAgeLabels(new Set(state.competitions.flatMap((item) => competitionDimensionValues(item, 'age'))))];
+  }
+  if (type === 'weapon') {
+    const values = new Set(state.competitions.flatMap((item) => competitionDimensionValues(item, 'weapon')));
+    return ['全部剑种', ...['花剑', '重剑', '佩剑'].filter((value) => values.has(value))];
+  }
+  if (type === 'gender') {
+    const values = new Set(state.competitions.flatMap((item) => competitionDimensionValues(item, 'gender')));
+    return ['全部性别', ...['男子', '女子'].filter((value) => values.has(value))];
   }
 
   const labels = new Set();
@@ -1810,6 +1933,9 @@ function activeFilterValue(type) {
   if (type === 'follow') {
     return state.followFilter || (state.onlyFollowedData ? '我的关注' : '全部赛事');
   }
+  if (type === 'age') return state.selectedAge;
+  if (type === 'weapon') return state.selectedWeapon;
+  if (type === 'gender') return state.selectedGender;
   return state.selectedItem;
 }
 
@@ -1818,6 +1944,9 @@ function filterTitle(type) {
   if (type === 'region') return '选择地区';
   if (type === 'status') return '选择状态';
   if (type === 'follow') return '选择关注范围';
+  if (type === 'age') return '选择年龄组';
+  if (type === 'weapon') return '选择剑种';
+  if (type === 'gender') return '选择性别';
   return '选择项目';
 }
 
@@ -1825,6 +1954,10 @@ function setFilterValue(type, value) {
   if (type === 'year') state.selectedYear = value;
   if (type === 'region') state.selectedRegion = value;
   if (type === 'item') state.selectedItem = value;
+  if (type === 'age') state.selectedAge = value;
+  if (type === 'weapon') state.selectedWeapon = value;
+  if (type === 'gender') state.selectedGender = value;
+  if (['age', 'weapon', 'gender'].includes(type)) state.selectedItem = '全部项目';
   if (type === 'status') state.selectedStatus = value;
   if (type === 'follow') {
     state.followFilter = value || '全部赛事';
@@ -1842,6 +1975,10 @@ function setFilterValue(type, value) {
 function matchingFilterOption(type, value) {
   if (!value) return filterOptions(type)[0];
   const options = filterOptions(type);
+  if (type === 'region') {
+    const normalizedRegion = normalizeRegionLabel(value);
+    return options.find((option) => option === normalizedRegion) || options[0];
+  }
   const normalized = compactText(value);
   return options.find((option) => compactText(option) === normalized)
     || options.find((option) => compactText(option).includes(normalized) || normalized.includes(compactText(option)))
@@ -1886,6 +2023,11 @@ function applyAiCompetitionFilters(filters = {}) {
   state.selectedRegion = filters.region ? matchingFilterOption('region', filters.region) : '全部地区';
   state.selectedStatus = filters.status ? matchingFilterOption('status', statusLabel(filters.status)) : '全部状态';
   state.selectedItem = itemFilter ? matchingFilterOption('item', itemFilter) : '全部项目';
+  const dimensionHints = aiProjectHints(itemFilter || question);
+  const ageHint = dimensionHints.find((hint) => /^U\d{1,2}$/i.test(hint)) || '';
+  state.selectedAge = ageHint ? matchingFilterOption('age', ageHint) : '全部年龄组';
+  state.selectedWeapon = dimensionHints.includes('花') ? '花剑' : dimensionHints.includes('重') ? '重剑' : dimensionHints.includes('佩') ? '佩剑' : '全部剑种';
+  state.selectedGender = dimensionHints.includes('男') ? '男子' : dimensionHints.includes('女') ? '女子' : '全部性别';
   state.selectedAiMonth = filters.month || '';
   state.selectedAiRegion = filters.region || '';
   state.aiCompetitionFilterSummary = aiCompetitionFilterSummary({
@@ -1905,6 +2047,9 @@ function clearAiCompetitionFilter() {
   state.selectedYear = '全部年份';
   state.selectedRegion = '全部地区';
   state.selectedItem = '全部项目';
+  state.selectedAge = '全部年龄组';
+  state.selectedWeapon = '全部剑种';
+  state.selectedGender = '全部性别';
   state.selectedStatus = '全部状态';
   state.selectedAiMonth = '';
   state.selectedAiYears = [];
@@ -1920,7 +2065,9 @@ function renderFilters() {
   const configs = [
     [yearFilterButton, 'year', state.selectedYear],
     [regionFilterButton, 'region', state.selectedRegion],
-    [itemFilterButton, 'item', state.selectedItem],
+    [ageFilterButton, 'age', state.selectedAge],
+    [weaponFilterButton, 'weapon', state.selectedWeapon],
+    [genderFilterButton, 'gender', state.selectedGender],
     [statusFilterButton, 'status', state.selectedStatus],
   ];
 
@@ -2054,6 +2201,11 @@ function applyCompetitionFilter() {
   const region = state.selectedRegion;
   const year = state.selectedYear;
   const itemFilter = state.selectedItem;
+  const dimensionFilters = {
+    age: state.selectedAge,
+    weapon: state.selectedWeapon,
+    gender: state.selectedGender,
+  };
   const statusFilter = state.selectedStatus;
   const monthFilter = state.selectedAiMonth;
   const aiYearFilters = state.selectedAiYears || [];
@@ -2064,17 +2216,18 @@ function applyCompetitionFilter() {
     const normalizedAiRegion = compactText(aiRegionFilter);
     const normalizedRegion = normalizedAiRegion || (region === allRegionOption ? '' : compactText(region));
     const matchRegion = !normalizedRegion
-      || (competition.region || '待确认') === region
+      || competitionRegionLabel(competition) === region
       || (normalizedRegion && regionHaystack.includes(normalizedRegion));
     const matchYear = aiYearFilters.length
       ? aiYearFilters.includes(competitionYear(competition))
       : year === '全部年份' || competitionYear(competition) === year;
     const matchMonth = !monthFilter || competitionMonth(competition) === monthFilter;
     const matchItem = itemFilter === '全部项目' || competitionItemFilterLabels(competition).includes(itemFilter);
+    const matchDimensions = competitionMatchesDimensions(competition, dimensionFilters);
     const matchStatus = statusFilter === '全部状态' || statusLabel(competition.status || 'completed') === statusFilter;
     const haystack = cachedCompetitionSearchHaystack(competition);
     const matchKeyword = !keyword || tokens.every((token) => haystack.includes(token)) || haystack.includes(compactKeyword);
-    return matchRegion && matchYear && matchMonth && matchItem && matchStatus && matchKeyword && competitionMatchesFollowedData(competition);
+    return matchRegion && matchYear && matchMonth && matchItem && matchDimensions && matchStatus && matchKeyword && competitionMatchesFollowedData(competition);
   });
   if (!keyword) {
     state.athleteSearchResults = [];
@@ -2440,6 +2593,9 @@ function isFilteringActive() {
     || state.selectedYear !== '全部年份'
     || state.selectedRegion !== '全部地区'
     || state.selectedItem !== '全部项目'
+    || state.selectedAge !== '全部年龄组'
+    || state.selectedWeapon !== '全部剑种'
+    || state.selectedGender !== '全部性别'
     || state.selectedStatus !== '全部状态'
     || Boolean(state.onlyFollowedData);
 }
@@ -10156,6 +10312,9 @@ function aiCompetitionFilterChips() {
   if (state.selectedAiMonth) chips.push(`${state.selectedAiMonth} 月`);
   if (state.selectedRegion && state.selectedRegion !== '全部地区') chips.push(`地区 ${state.selectedRegion}`);
   if (state.selectedItem && state.selectedItem !== '全部项目') chips.push(`项目 ${state.selectedItem}`);
+  if (state.selectedAge && state.selectedAge !== '全部年龄组') chips.push(`年龄 ${state.selectedAge}`);
+  if (state.selectedWeapon && state.selectedWeapon !== '全部剑种') chips.push(`剑种 ${state.selectedWeapon}`);
+  if (state.selectedGender && state.selectedGender !== '全部性别') chips.push(`性别 ${state.selectedGender}`);
   if (state.selectedStatus && state.selectedStatus !== '全部状态') chips.push(`状态 ${state.selectedStatus}`);
   return chips;
 }
@@ -11992,7 +12151,7 @@ function buildAthleteTimelineRows(athlete) {
     eventCode: event.eventCode,
     title: displayEventName(event),
     competition: event.sportName || '比赛名称待确认',
-    date: event.openDate || '日期待确认',
+    date: displayDateLabel(event.openDate),
     venue: event.venue || '',
     rank: rankLabel(event.finalRank),
     pool: poolRankLabel(event.poolRank),
@@ -12010,7 +12169,7 @@ function buildPoolPerformanceRows(events) {
     return {
       eventCode: event.eventCode,
       title: displayEventName(event),
-      date: event.openDate || '日期待确认',
+      date: displayDateLabel(event.openDate),
       record: matches ? `${wins}/${matches}` : '-',
       percent,
       label: matches ? poolPerformanceLabel(percent) : '数据待确认',
@@ -15482,7 +15641,9 @@ tabs.addEventListener('click', (event) => {
 searchInput.addEventListener('input', handleSearchInput);
 yearFilterButton.addEventListener('click', () => openFilterSheet('year'));
 regionFilterButton.addEventListener('click', () => openFilterSheet('region'));
-itemFilterButton.addEventListener('click', () => openFilterSheet('item'));
+ageFilterButton.addEventListener('click', () => openFilterSheet('age'));
+weaponFilterButton.addEventListener('click', () => openFilterSheet('weapon'));
+genderFilterButton.addEventListener('click', () => openFilterSheet('gender'));
 statusFilterButton.addEventListener('click', () => openFilterSheet('status'));
 myFollowFilterButton?.addEventListener('click', (event) => {
   event.stopPropagation();

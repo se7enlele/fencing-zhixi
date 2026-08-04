@@ -82,7 +82,7 @@ assert.match(js, /为你找到：/, 'AI-to-database filter context should use us
 assert.match(js, /选择要看的对象/, 'AI fallback action title should focus on the direct user choice');
 assert.doesNotMatch(js, /选择对象或继续问|继续提问|继续这样问/, 'AI fallback and history copy must avoid generic continuation wording');
 assert.doesNotMatch(js, /\$\{yearLabel\} \$\{monthLabel\} \$\{regionLabel\}|\$\{yearLabel\}\$\{filters\.month \? monthLabel : ''\}/, 'AI answer copy must not concatenate all-year or all-month filler labels into titles and summaries');
-assert.doesNotMatch(js, /'全部剑种'|'全部性别'|filters\.years\?\.length \? filters\.years\.join\('、'\) : '全部年份'/, 'AI comparison copy must not expose all-scope filler labels');
+assert.doesNotMatch(js, /\$\{[^}]*\|\| '全部剑种'\}|\$\{[^}]*\|\| '全部性别'\}|filters\.years\?\.length \? filters\.years\.join\('、'\) : '全部年份'/, 'AI comparison copy must not expose all-scope filler labels');
 
 [
   '先看能否稳定进入后续轮次',

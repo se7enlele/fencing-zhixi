@@ -54,8 +54,8 @@ try {
   if (!Array.isArray(partialScoreCompetition.itemSummaries) || !partialScoreCompetition.itemSummaries.length) {
     throw new Error('/api/competitions should include a small project preview');
   }
-  if (!Array.isArray(partialScoreCompetition.itemFilters) || !partialScoreCompetition.itemFilters.length) {
-    throw new Error('/api/competitions should include filter labels without full project payloads');
+  if (!/^[0-9a-f]+$/.test(String(partialScoreCompetition.filterBits || ''))) {
+    throw new Error('/api/competitions should preserve project combinations in a compact bitmap');
   }
   if ('itemLabels' in partialScoreCompetition) {
     throw new Error('/api/competitions should not duplicate project labels outside the preview rows');
