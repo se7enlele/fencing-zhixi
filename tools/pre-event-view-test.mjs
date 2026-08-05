@@ -46,6 +46,8 @@ assert.doesNotMatch(source, /报名名单更新中|名单待更新|规模待确�
 assert.doesNotMatch(source, /预计 \${summary\.expectedRegistrationCount} 人次参与/, 'competition cards must not present expectedRegistrationCount as real roster scale');
 
 assert.match(source, /value: numbers\.registered \|\| '-'\,/, 'pre-event cards must only display confirmed roster counts');
+assert.match(source, /count: Number\(item\.registrationCount\) \|\| Number\(item\.roster\?\.length\) \|\| 0,/, 'pre-event project rankings must only use confirmed roster counts');
+assert.match(source, /showParticipantTotals && group\.total/, 'pre-event project groups must hide unconfirmed capacity totals');
 
 const insightStart = source.indexOf('function competitionListActionLabel');
 const insightEnd = source.indexOf('function renderCompetitionHero');

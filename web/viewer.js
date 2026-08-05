@@ -10527,7 +10527,7 @@ function competitionPreEventTopItems(competition, limit = 3) {
     .map((item) => ({
       item,
       label: displayEventName(item),
-      count: Number(item.registrationCount) || Number(item.expectedRegistrationCount) || Number(item.competitionNo) || 0,
+      count: Number(item.registrationCount) || Number(item.roster?.length) || 0,
       date: item.openDate || item.closeDate || competition.dateLabel || '',
     }))
     .filter((row) => row.label)
@@ -10948,7 +10948,6 @@ function competitionProjectFocusRows(competition, sortedItems) {
   const secondaryCount = Math.max(0, itemCount - 4);
   const rosterRows = isPreEventCompetition ? competitionRosterRows(competition) : [];
   const registered = primary ? (Number(primary.registrationCount) || Number(primary.roster?.length) || 0) : 0;
-  const expected = primary ? (Number(primary.expectedRegistrationCount) || Number(primary.competitionNo) || 0) : 0;
   const elimination = primary ? Number(primary.playedEliminationMatchCount) || 0 : 0;
   const rows = [];
 
@@ -10956,7 +10955,7 @@ function competitionProjectFocusRows(competition, sortedItems) {
     rows.push({
       title: primary ? '优先看报名项目' : '优先看赛事安排',
       detail: primary
-        ? `${displayEventName(primary)} · ${registered ? `报名 ${registered} 人` : expected ? `预计 ${expected} 人` : '人数待公布'}`
+        ? `${displayEventName(primary)} · ${registered ? `报名 ${registered} 人` : '人数待公布'}`
         : '先关注比赛时间、地点和报名窗口。',
     });
     rows.push({
@@ -11008,6 +11007,7 @@ function renderCompetitionProjectGuide(competition, sortedItems) {
 function renderCompetitionProjectGroups(competition, sortedItems, eventCardHtml, options = {}) {
   const groups = competitionProjectGroups(sortedItems);
   const summary = options.summary || '查看全部项目';
+  const showParticipantTotals = !(competition.isPreEvent || isPrematchStatusValue(competition.status));
   return `
     <details class="project-group-list">
       <summary>${escapeHtml(summary)}</summary>
@@ -11016,7 +11016,7 @@ function renderCompetitionProjectGroups(competition, sortedItems, eventCardHtml,
           <details class="project-group-card" ${index === 0 ? 'open' : ''}>
             <summary>
               <strong>${escapeHtml(group.age)}</strong>
-              <span>${escapeHtml(group.items.length)} 项 · ${escapeHtml(group.weaponText)}${group.total ? ` · ${escapeHtml(group.total)} 人` : ''}</span>
+              <span>${escapeHtml(group.items.length)} 项 · ${escapeHtml(group.weaponText)}${showParticipantTotals && group.total ? ` · ${escapeHtml(group.total)} 人` : ''}</span>
             </summary>
             <div class="event-list-more-grid">
               ${group.items.map(eventCardHtml).join('')}
@@ -11043,11 +11043,10 @@ function renderEventList(competition) {
   const primaryItems = sortedItems.slice(0, 4);
   const secondaryItems = sortedItems.slice(4);
   const eventCardHtml = (item) => {
-    const expected = Number(item.expectedRegistrationCount) || Number(item.competitionNo) || 0;
     const registered = Number(item.registrationCount) || Number(item.roster?.length) || 0;
     const meta = competition.isPreEvent || isPrematchStatusValue(competition.status)
       ? [
-        expected ? `${expected} 人` : '人数待公布',
+        registered ? `${registered} 人` : '人数待公布',
         registered ? `报名 ${registered}` : rosterStatusLabel(competition.rosterStatus),
         statusLabel(item.status || competition.status),
       ]
