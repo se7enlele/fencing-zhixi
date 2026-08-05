@@ -10550,7 +10550,7 @@ function competitionPreEventCards(competition) {
     },
     {
       title: '报名规模',
-      value: numbers.registered || numbers.expected || '-',
+      value: numbers.registered || '-',
       detail: numbers.registered && numbers.expected ? `${numbers.registered}/${numbers.expected}` : '报名动态持续更新',
     },
   ];

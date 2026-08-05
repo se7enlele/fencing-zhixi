@@ -45,6 +45,8 @@ assert.doesNotMatch(context.coverageDetail(preEvent), /projectlist|导入|继续
 assert.doesNotMatch(source, /报名名单更新中|名单待更新|规模待确认|已收录 \${rosterRows\.length} 条报名记录|AI 分析项目/, 'pre-event visible copy must avoid back-office state wording');
 assert.doesNotMatch(source, /预计 \${summary\.expectedRegistrationCount} 人次参与/, 'competition cards must not present expectedRegistrationCount as real roster scale');
 
+assert.match(source, /value: numbers\.registered \|\| '-'\,/, 'pre-event cards must only display confirmed roster counts');
+
 const insightStart = source.indexOf('function competitionListActionLabel');
 const insightEnd = source.indexOf('function renderCompetitionHero');
 if (insightStart === -1 || insightEnd === -1 || insightEnd <= insightStart) {
