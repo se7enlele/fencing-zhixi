@@ -5762,19 +5762,6 @@ select:focus {
   min-width: 0;
 }
 
-.competition-prematch-cta {
-  width: 100%;
-  border: 1px solid rgba(37, 99, 235, 0.18);
-  background: rgba(37, 99, 235, 0.08);
-  color: var(--blue-700);
-  border-radius: 12px;
-  padding: 10px 12px;
-  font-size: 14px;
-  font-weight: 800;
-  margin-top: 10px;
-  box-shadow: none;
-}
-
 .competition-live-panel {
   display: grid;
   gap: 10px;
@@ -5987,6 +5974,54 @@ select:focus {
   padding-right: 76px;
   padding-bottom: 11px;
   gap: 6px;
+}
+
+.hero.compact.competition-hero-clean {
+  padding: 14px;
+  gap: 8px;
+}
+
+.competition-hero-topline {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.competition-hero-clean .competition-follow-tag {
+  position: static;
+}
+
+.competition-registration-window {
+  position: relative;
+  color: #526070;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.competition-hero-clean .competition-scope-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0;
+  margin-top: 4px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(21, 95, 194, 0.1);
+}
+
+.competition-hero-clean .competition-scope-grid div {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  padding: 0 10px;
+}
+
+.competition-hero-clean .competition-scope-grid div:first-child {
+  padding-left: 0;
+}
+
+.competition-hero-clean .competition-scope-grid div + div {
+  border-left: 1px solid rgba(21, 95, 194, 0.1);
 }
 
 .hero-title {

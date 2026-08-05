@@ -17,6 +17,7 @@ assert.doesNotMatch(js, new RegExp(['当前先看项目规模', '和比赛时间
 assert.doesNotMatch(js, new RegExp(['名单更新后', '会更准确'].join('')), 'pre-event metrics must avoid back-office data freshness wording');
 assert.doesNotMatch(js, new RegExp(['已识别 \\$\\{model\\.registered\\}', ' 条报名记录'].join('')), 'pre-event intelligence must avoid technical recognition wording');
 assert.doesNotMatch(js, /更新优先级|补项目清单|补报名名单|补赛后成绩|下一阶段会接入/, 'frontend copy must not expose internal roadmap or back-office task wording');
+assert.doesNotMatch(js, /适合先关注赛程|作为近期参赛安排参考|适合赛前关注/, 'competition detail must avoid generic guidance that does not help the user decide');
 assert.match(js, /function friendlyErrorMessage\(scope\)/, 'detail failures must use a product-facing fallback');
 assert.match(js, /赛前准备/, 'data status should explain available data in user-facing product language');
 assert.match(js, /成长变化、对手表现和队伍表现/, 'data status should connect full score data to user-facing analysis value');

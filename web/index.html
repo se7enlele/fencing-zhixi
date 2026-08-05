@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>FencingAI</title>
-    <link rel="stylesheet" href="/viewer.css?v=fencingai-product-20260723-ai-reasons-1">
+    <link rel="stylesheet" href="/viewer.css?v=fencingai-product-20260805-detail-focus-1">
   </head>
   <body>
     <main class="app">
@@ -106,16 +106,19 @@
 
       <section class="view" id="view-competition-detail">
         <article class="hero panel" id="competitionHero"></article>
-        <article class="panel insight-panel">
+        <article class="panel insight-panel" id="competitionInsightPanel">
           <div class="section-title">
-            <h2>赛事解读</h2>
-            <span>先看重点</span>
+            <h2 id="competitionInsightTitle">赛事概览</h2>
+            <span id="competitionInsightMeta"></span>
           </div>
           <div id="competitionInsightCards" class="metric-grid"></div>
           <div id="competitionInsightBullets" class="stack"></div>
         </article>
-        <article class="panel">
-          <h2>重点项目</h2>
+        <article class="panel" id="competitionProjectsPanel">
+          <div class="section-title">
+            <h2>项目</h2>
+            <span id="competitionProjectsMeta"></span>
+          </div>
           <div id="eventList" class="stack"></div>
         </article>
       </section>
@@ -316,6 +319,6 @@
       </div>
     </main>
 
-    <script src="/viewer.js?v=fencingai-product-20260723-ai-reasons-1"></script>
+    <script src="/viewer.js?v=fencingai-product-20260805-detail-focus-1"></script>
   </body>
 </html>
