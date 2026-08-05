@@ -10916,7 +10916,6 @@ function renderCompetitionInsights(competition) {
   if (isPreEventCompetition) {
     competitionInsightBullets.innerHTML = `
       ${renderCompetitionPreEventPanel(competition)}
-      ${primaryEventRows.length > 1 ? eventTiles('重点项目', primaryEventRows) : ''}
     `;
     return;
   }

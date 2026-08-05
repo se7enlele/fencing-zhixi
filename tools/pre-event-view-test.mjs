@@ -48,6 +48,7 @@ assert.doesNotMatch(source, /预计 \${summary\.expectedRegistrationCount} 人�
 assert.match(source, /value: numbers\.registered \|\| '-'\,/, 'pre-event cards must only display confirmed roster counts');
 assert.match(source, /count: Number\(item\.registrationCount\) \|\| Number\(item\.roster\?\.length\) \|\| 0,/, 'pre-event project rankings must only use confirmed roster counts');
 assert.match(source, /showParticipantTotals && group\.total/, 'pre-event project groups must hide unconfirmed capacity totals');
+assert.doesNotMatch(source, /renderCompetitionPreEventPanel\(competition\)[\s\S]{0,120}eventTiles\('重点项目'/, 'pre-event insights must not render score-style event tiles');
 
 const insightStart = source.indexOf('function competitionListActionLabel');
 const insightEnd = source.indexOf('function renderCompetitionHero');
