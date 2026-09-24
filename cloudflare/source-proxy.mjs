@@ -23,11 +23,9 @@ export default {
       });
     }
 
-    const canRetry = ["GET", "HEAD"].includes(request.method)
-      || (request.method === "POST" && url.pathname === "/fencingapi/sigup/memberlistbytype");
-    const body = ["GET", "HEAD"].includes(request.method) ? null
-      : canRetry ? await request.arrayBuffer() : request.body;
-    const send = (base) => fetch(base + url.pathname + url.search, {
+    const targetURL = TARGET_BASE + url.pathname + url.search;
+
+    const response = await fetch(targetURL, {
       method: request.method,
       headers: {
         ...BROWSER_HEADERS,
@@ -38,21 +36,8 @@ export default {
           ? { Authorization: request.headers.get("Authorization") }
           : {}),
       },
-      body,
-      ...(canRetry ? { signal: AbortSignal.timeout(10000) } : {}),
+      body: ["GET", "HEAD"].includes(request.method) ? null : request.body,
     });
-    let response;
-    let usedFallback = false;
-    try {
-      response = await send(TARGET_BASE);
-    } catch (error) {
-      if (!canRetry) throw error;
-      usedFallback = true;
-      response = await send("https://fencing.yy-sport.com.cn");
-    }
-    if (canRetry && !usedFallback && [502, 503, 504, 522, 524].includes(response.status)) {
-      response = await send("https://fencing.yy-sport.com.cn");
-    }
 
     const newHeaders = new Headers(response.headers);
     newHeaders.set("Access-Control-Allow-Origin", "*");
