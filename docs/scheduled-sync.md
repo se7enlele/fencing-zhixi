@@ -127,3 +127,10 @@ Until that storage migration is done, GitHub Actions is the correct automation l
 - `scheduled-sync-status.json` is excluded from source-data freshness calculations, so a failed check cannot make source data appear newly fetched.
 
 Run `npm run test:data-trust` for catalogue preservation, failed child exits, stalled bodies, task timeouts, expiry boundaries, coverage tiers and individual/team separation. Use `CF_BUILD_OUTPUT_ROOT=output/review-20260923` with `npm run cf:build-data` to inspect a build without replacing the existing generated files. After an explicitly authorized deployment, verify production `generatedAt`, expected records and the last sync report through the public APIs.
+
+## Transport repair (2026-09-24)
+
+- The deployed forwarding Worker omitted `Content-Type` on POST requests. Its maintained source is now `cloudflare/source-proxy.mjs`; deploy with `npx wrangler deploy --config cloudflare/wrangler.proxy.toml`. Preserve the incoming JSON content type and body. `tools/source-proxy-test.mjs` checks this contract.
+- Public forwarding requests and machines with proxy environment variables use curl, which honors the configured network proxy. Local test requests remain direct. GET transport retries transient failures twice within a bounded budget; POST body reads have the same timeout protection as GET.
+- A missing score resource (HTTP 404) plus a successful, empty official ranking list is recorded as `unavailableCount`, separately from failed requests and imported files. Timeouts and nonzero source API codes remain failures. A completed sync never proves every project's results have been published.
+- Publish the same revision to the default branch used by scheduled workflows and to the Worker; otherwise a later automatic run can restore an older application version.

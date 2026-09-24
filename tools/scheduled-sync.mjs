@@ -496,7 +496,7 @@ export function buildScheduledSyncStatus(report) {
       sportCode: result.sportCode,
       sportName: result.sportName,
       eventCode: result.eventCode,
-      message: result.message || result.stderr || result.stdout || 'task failed',
+      message: String(result.message || result.stderr || result.stdout || 'task failed').slice(0, 400),
     }));
 
   return {
@@ -512,6 +512,7 @@ export function buildScheduledSyncStatus(report) {
       backfillCount: Array.isArray(selected.backfill) ? selected.backfill.length : 0,
       taskTypes,
       importedCount: results.reduce((n, result) => n + (Number(result.importSummary?.importedCount) || 0), 0),
+      unavailableCount: results.reduce((n, result) => n + (Number(result.importSummary?.unavailableCount) || 0), 0),
     },
     eventListRefresh: report?.eventListRefresh || null,
     failures,

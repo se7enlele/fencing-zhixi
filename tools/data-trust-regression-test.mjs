@@ -6,7 +6,7 @@ import { isTeamEvent } from './entity-kind.mjs';
 import { buildAthleteDirectory } from '../server.mjs';
 import { buildAthleteDirectoryFromEvents } from '../cloudflare/edge-data.mjs';
 import { buildScheduledSyncStatus, runScheduledTasks } from './scheduled-sync.mjs';
-import { summarizeImportLog, fetchTextWithNode, postJsonTextWithNode, useProxyTransport } from './sync-platform-data.mjs';
+import { summarizeImportLog, fetchTextWithNode, postJsonTextWithNode, useProxyTransport, isUnpublishedScore } from './sync-platform-data.mjs';
 import { createServer } from 'node:http';
 import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
@@ -69,6 +69,10 @@ assert.ok(people.every((person) => person.events.every((event) => !isTeamEvent(e
 assert.equal(buildAthleteDirectory([reports[1]]).length, 0, 'team event cannot create personal profiles');
 
 assert.equal(summarizeImportLog({ scores: { imported: 1, failed: [{}] } }).failedCount, 1);
+assert.equal(isUnpublishedScore(new Error('HTTP 404 Not Found'), { code: 0, data: [] }), true);
+assert.equal(isUnpublishedScore(new Error('timeout'), { code: 0, data: [] }), false);
+assert.equal(isUnpublishedScore(new Error('HTTP 404 Not Found'), { code: 1, data: [] }), false);
+assert.equal(summarizeImportLog({ scores: { unavailable: [{}] } }).unavailableCount, 1);
 assert.equal(buildScheduledSyncStatus({ eventListRefresh: { ok: false } }).ok, false);
 assert.equal(buildScheduledSyncStatus({ results: [{ ok: false }] }).ok, false);
 assert.equal(buildScheduledSyncStatus({ running: true }).ok, false);

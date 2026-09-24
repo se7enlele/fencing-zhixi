@@ -233,13 +233,16 @@ async function fetchTextWithCurl(url, timeoutSec) {
     '--fail',
     '--silent',
     '--show-error',
+    '--retry', '2',
+    '--retry-delay', '1',
+    '--retry-max-time', String(timeout * 2),
     '--max-time',
     String(timeout),
     ...curlSourceHeaders(url),
     url,
   ], {
     maxBuffer: 25 * 1024 * 1024,
-    timeout: (timeout + 5) * 1000,
+    timeout: (timeout * 3 + 5) * 1000,
     killSignal: 'SIGTERM',
   });
   return stdout;
@@ -501,6 +504,12 @@ async function runConcurrent(items, concurrency, worker) {
   }));
 }
 
+export function isUnpublishedScore(scoreError, rankPayload) {
+  return /(?:HTTP 404|error: 404)/i.test(scoreError?.message || '')
+    && Number(rankPayload?.code) === 0
+    && Array.isArray(rankPayload?.data) && rankPayload.data.length === 0;
+}
+
 async function fetchScorePayload(item, event, url, args) {
   try {
     return {
@@ -518,6 +527,7 @@ async function fetchScorePayload(item, event, url, args) {
     }
     return {
       payload: classmentRankToScorePayload(rankPayload, item, event),
+      unavailable: isUnpublishedScore(scoreError, rankPayload),
       sourceUrl: rankUrl,
       sourceType: 'classmentrank',
       fallbackFrom: url,
@@ -549,6 +559,11 @@ async function syncScoreItem(item, event, args, files, log) {
   try {
     progress(args, 'score fetch', { eventCode });
     const fetched = await fetchScorePayload(item, event, url, args);
+    if (fetched.unavailable) {
+      log.scores.unavailable.push({ eventCode, reason: 'Official score resource is absent and ranking list is empty.' });
+      progress(args, 'score not published', { eventCode });
+      return;
+    }
     const report = buildScoreReport(fetched.payload, {
       sourceUrl: fetched.sourceUrl,
       sourceType: fetched.sourceType,
@@ -670,6 +685,7 @@ export function summarizeImportLog(log) {
     importedCount: groups.reduce((n, group) => n + (Number(group?.imported) || 0), 0),
     skippedCount: groups.reduce((n, group) => n + (Number(group?.skipped) || 0), 0),
     failedCount: groups.reduce((n, group) => n + (group?.failed?.length || 0), 0),
+    unavailableCount: groups.reduce((n, group) => n + (group?.unavailable?.length || 0), 0),
   };
 }
 
@@ -715,6 +731,7 @@ async function main() {
       imported: 0,
       skipped: 0,
       failed: [],
+      unavailable: [],
       dryRun: [],
     },
     rosters: {
