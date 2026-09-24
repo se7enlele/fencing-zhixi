@@ -4,6 +4,8 @@ import { buildPreEventCompetitions } from '../tools/pre-event-data.mjs';
 import { sanitizePublicData } from '../tools/public-sanitize.mjs';
 import { searchIndexes } from '../tools/search-index.mjs';
 import { compactCompetitionIndex } from '../tools/competition-index.mjs';
+import { normalizeCompetitionState } from '../tools/competition-index.mjs';
+import { buildEventDateFallbacks, enrichScoreReportDates } from '../tools/event-date.mjs';
 import {
   buildAthleteDirectoryFromEvents,
   buildClubDirectoryFromEvents,
@@ -967,6 +969,14 @@ async function readDynamicPreEventReports(env) {
   return { projectLists, rosterBatches };
 }
 
+function enrichDynamicScoreReports(dynamicReports, preEventReports) {
+  const fallbacks = buildEventDateFallbacks(preEventReports);
+  return dynamicReports.map((entry) => ({
+    ...entry,
+    report: enrichScoreReportDates(entry.report, fallbacks),
+  }));
+}
+
 function mergeDynamicCompetition(base, dynamicCompetition) {
   if (!base) return dynamicCompetition;
   const items = mergeCompetitionItems(base.items, dynamicCompetition.items);
@@ -974,6 +984,7 @@ function mergeDynamicCompetition(base, dynamicCompetition) {
   return {
     ...(baseHasScores ? dynamicCompetition : base),
     ...(baseHasScores ? base : dynamicCompetition),
+    sourceStatus: baseHasScores ? (base.sourceStatus || base.status) : (dynamicCompetition.sourceStatus || dynamicCompetition.status),
     sportName: dynamicCompetition.sportName?.startsWith('赛前赛事 ') ? base.sportName : (dynamicCompetition.sportName || base.sportName),
     venue: dynamicCompetition.venue || base.venue,
     region: dynamicCompetition.region || base.region,
@@ -1005,7 +1016,7 @@ async function getCompetitionIndex(env) {
   const index = await loadBundledIndex(env);
   const preEventReports = await readDynamicPreEventReports(env);
   if (!preEventReports.projectLists.length && !preEventReports.rosterBatches.length) {
-    return { index, competitions: index.publicEvents.competitions || [], hasDynamicPreEvent: false };
+    return { index, competitions: (index.publicEvents.competitions || []).map((row) => normalizeCompetitionState(row)), hasDynamicPreEvent: false };
   }
 
   const dynamicCompetitions = buildPreEventCompetitions(preEventReports);
@@ -1017,7 +1028,7 @@ async function getCompetitionIndex(env) {
 
   return {
     index,
-    competitions: [...bySportCode.values()],
+    competitions: [...bySportCode.values()].map((row) => normalizeCompetitionState(row)),
     hasDynamicPreEvent: true,
   };
 }
@@ -1048,8 +1059,8 @@ function buildPreEventDetails(competitions) {
 async function getMergedData(env) {
   const data = await loadBundledData(env);
   const baseVersion = data.version || APP_VERSION;
-  const dynamicReports = await readDynamicScoreReports(env);
   const preEventReports = await readDynamicPreEventReports(env);
+  const dynamicReports = enrichDynamicScoreReports(await readDynamicScoreReports(env), preEventReports);
   if (!dynamicReports.length && !preEventReports.projectLists.length && !preEventReports.rosterBatches.length) {
     return {
       version: baseVersion,

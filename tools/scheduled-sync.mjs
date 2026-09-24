@@ -1,5 +1,5 @@
 import { execFile } from 'node:child_process';
-import { mkdir, readdir, readFile, writeFile } from 'node:fs/promises';
+import { mkdir, readdir, readFile, writeFile, rename } from 'node:fs/promises';
 import path from 'node:path';
 import process from 'node:process';
 import { promisify } from 'node:util';
@@ -28,6 +28,8 @@ function parseArgs(argv) {
     rosterMaxPages: 12,
     scoreLimit: 12,
     scoreConcurrency: 1,
+    taskConcurrency: 2,
+    taskTimeoutSec: 600,
     backfillLimit: 0,
     backfillBeforeDays: 45,
     dryRun: false,
@@ -54,6 +56,8 @@ function parseArgs(argv) {
     if (arg === '--roster-max-pages') args.rosterMaxPages = Number(argv[++i]);
     if (arg === '--score-limit') args.scoreLimit = Number(argv[++i]);
     if (arg === '--score-concurrency') args.scoreConcurrency = Number(argv[++i]);
+    if (arg === '--task-concurrency') args.taskConcurrency = Number(argv[++i]);
+    if (arg === '--task-timeout-sec') args.taskTimeoutSec = Number(argv[++i]);
     if (arg === '--backfill-limit') args.backfillLimit = Number(argv[++i]);
     if (arg === '--backfill-before-days') args.backfillBeforeDays = Number(argv[++i]);
     if (arg === '--now') args.now = argv[++i];
@@ -254,6 +258,7 @@ export function buildScheduledSyncPlan(events, options = {}) {
       rosterMaxPages: args.rosterMaxPages,
       scoreLimit: args.scoreLimit,
       scoreConcurrency: normalizeConcurrency(args.scoreConcurrency),
+      taskConcurrency: normalizeConcurrency(args.taskConcurrency),
       backfillLimit: numberOrDefault(args.backfillLimit, 0),
       backfillBeforeDays: numberOrDefault(args.backfillBeforeDays, recentCompletedDays),
     },
@@ -395,8 +400,11 @@ async function refreshEventList(args) {
     sourceUrl: args.eventListUrl,
     analyzedAt: new Date().toISOString(),
   });
+  if (!report.normalizedEvents?.length || report.normalizedEvents.some((row) => !row.sportId || !row.sportName)) {
+    throw new Error('Invalid or empty event list; existing catalogue retained.');
+  }
   await mkdir(path.dirname(args.input), { recursive: true });
-  await writeFile(args.input, stableStringify(report), 'utf8');
+  await writeAtomicJson(args.input, report);
   return {
     ok: true,
     eventCount: report.summary.eventCount,
@@ -404,22 +412,29 @@ async function refreshEventList(args) {
   };
 }
 
-async function runTask(task) {
+async function runTask(task, timeoutSec = 600) {
   try {
     const { stdout, stderr } = await execFileAsync(process.execPath, task.scriptArgs, {
       cwd: process.cwd(),
       maxBuffer: 1024 * 1024 * 20,
+      timeout: Math.max(1, Number(timeoutSec) || 600) * 1000,
+      killSignal: 'SIGTERM',
     });
+    const output = JSON.parse(stdout);
     return {
       ...task,
-      ok: true,
+      ok: output.ok !== false && !(Number(output.summary?.failedCount) > 0),
+      importSummary: output.summary,
       stdout: stdout.trim(),
       stderr: stderr.trim(),
     };
   } catch (error) {
+    let importSummary;
+    try { importSummary = JSON.parse(error.stdout || '').summary; } catch { /* No complete child report. */ }
     return {
       ...task,
       ok: false,
+      importSummary,
       exitCode: error.code ?? 1,
       message: error.message,
       stdout: String(error.stdout || '').trim(),
@@ -434,6 +449,35 @@ async function writeRunReport(reportDir, report) {
   const outputPath = path.join(reportDir, `sync-run-${stamp}.json`);
   await writeFile(outputPath, stableStringify(report), 'utf8');
   return outputPath;
+}
+
+export async function runScheduledTasks(tasks, options = {}) {
+  const rows = Array.isArray(tasks) ? tasks : [];
+  const concurrency = normalizeConcurrency(options.concurrency);
+  const execute = typeof options.execute === 'function' ? options.execute : (task) => runTask(task, options.taskTimeoutSec);
+  const onProgress = typeof options.onProgress === 'function' ? options.onProgress : () => {};
+  const results = new Array(rows.length);
+  let nextIndex = 0;
+
+  await Promise.all(Array.from({ length: Math.min(concurrency, Math.max(rows.length, 1)) }, async () => {
+    while (nextIndex < rows.length) {
+      const index = nextIndex;
+      nextIndex += 1;
+      const task = rows[index];
+      const startedAt = Date.now();
+      await onProgress({ phase: 'start', task });
+      let result;
+      try { result = await execute(task); }
+      catch (error) { result = { ...task, ok: false, message: error.message }; }
+      results[index] = {
+        ...result,
+        durationMs: Math.max(0, Date.now() - startedAt),
+      };
+      await onProgress({ phase: 'complete', task, result: results[index] });
+    }
+  }));
+
+  return results;
 }
 
 export function buildScheduledSyncStatus(report) {
@@ -457,7 +501,8 @@ export function buildScheduledSyncStatus(report) {
 
   return {
     generatedAt: new Date().toISOString(),
-    ok: Number(report?.summary?.failedCount || 0) === 0,
+    ok: !report.running && report.eventListRefresh?.ok !== false && !results.some((result) => !result.ok) && Number(report?.summary?.failedCount || 0) === 0,
+    phase: report.running ? 'running' : 'finished',
     summary: {
       taskCount: Number(report?.summary?.taskCount || results.length || 0),
       successCount: Number(report?.summary?.successCount || results.filter((result) => result.ok).length || 0),
@@ -466,6 +511,7 @@ export function buildScheduledSyncStatus(report) {
       completedCount: Array.isArray(selected.completed) ? selected.completed.length : 0,
       backfillCount: Array.isArray(selected.backfill) ? selected.backfill.length : 0,
       taskTypes,
+      importedCount: results.reduce((n, result) => n + (Number(result.importSummary?.importedCount) || 0), 0),
     },
     eventListRefresh: report?.eventListRefresh || null,
     failures,
@@ -486,21 +532,38 @@ async function inspectEventListRefresh(args, localEvents) {
   };
 }
 
+async function writeAtomicJson(outputPath, data) {
+  const tempPath = `${outputPath}.${process.pid}.tmp`;
+  await writeFile(tempPath, stableStringify(data), 'utf8');
+  await rename(tempPath, outputPath);
+}
+
 async function writeSyncStatus(outputDir, report) {
   await mkdir(outputDir, { recursive: true });
   const outputPath = path.join(outputDir, 'scheduled-sync-status.json');
-  await writeFile(outputPath, stableStringify(buildScheduledSyncStatus(report)), 'utf8');
+  await writeAtomicJson(outputPath, buildScheduledSyncStatus(report));
   return outputPath;
 }
 
 async function main() {
   const args = parseArgs(process.argv);
-  const eventsBeforeRefresh = await loadEvents(args.input);
-  const eventListRefresh = args.dryRun
-    ? await inspectEventListRefresh(args, eventsBeforeRefresh)
-    : args.skipEventListRefresh
-      ? { ok: true, skipped: true }
-      : await refreshEventList(args);
+  if (!args.dryRun) await writeSyncStatus(args.outputDir, { running: true });
+  let eventListRefresh;
+  try {
+    const eventsBeforeRefresh = await loadEvents(args.input);
+    eventListRefresh = args.dryRun
+      ? await inspectEventListRefresh(args, eventsBeforeRefresh)
+      : args.skipEventListRefresh
+        ? { ok: true, skipped: true }
+        : await refreshEventList(args);
+  } catch (error) {
+    const report = { eventListRefresh: { ok: false, message: '赛事目录获取失败，保留原有数据。' }, results: [], summary: { taskCount: 0, successCount: 0, failedCount: 1 } };
+    if (!args.dryRun) {
+      await writeRunReport(args.reportDir, report);
+      await writeSyncStatus(args.outputDir, report);
+    }
+    throw error;
+  }
   const events = await loadEvents(args.input);
   const plan = buildScheduledSyncPlan(events, args);
   const backfillTasks = await buildLoadedHistoricalBackfillTasks(events, args);
@@ -520,17 +583,27 @@ async function main() {
     return;
   }
 
-  const results = [];
-  for (const task of plan.tasks) {
-    console.error(stableStringify({
-      at: new Date().toISOString(),
-      message: 'scheduled sync task start',
-      type: task.type,
-      sportId: task.sportId,
-      sportName: task.sportName,
-    }));
-    results.push(await runTask(task));
-  }
+  const completedResults = [];
+  let checkpoint = Promise.resolve();
+  const results = await runScheduledTasks(plan.tasks, {
+    concurrency: args.taskConcurrency,
+    taskTimeoutSec: args.taskTimeoutSec,
+    onProgress: async ({ phase, task, result }) => {
+      console.error(stableStringify({
+        at: new Date().toISOString(),
+        message: `scheduled sync task ${phase}`,
+        type: task.type,
+        sportId: task.sportId,
+        sportName: task.sportName,
+        ok: result?.ok,
+        durationMs: result?.durationMs,
+      }));
+      if (phase === 'complete') completedResults.push(result);
+      const snapshot = { ...plan, running: true, results: [...completedResults], summary: { taskCount: plan.tasks.length } };
+      checkpoint = checkpoint.then(() => writeSyncStatus(args.outputDir, snapshot));
+      await checkpoint;
+    },
+  });
 
   const report = {
     ...plan,

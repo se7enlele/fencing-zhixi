@@ -5552,6 +5552,104 @@ select:focus {
   padding: 12px;
 }
 
+.athlete-profile-meta {
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+.athlete-age-summary,
+.athlete-cross-age {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.86);
+  padding: 12px;
+}
+
+.athlete-age-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.athlete-age-summary-item {
+  min-width: 0;
+  border: 1px solid rgba(21, 95, 194, 0.12);
+  border-radius: 9px;
+  background: rgba(21, 95, 194, 0.045);
+  padding: 10px;
+}
+
+.athlete-age-summary-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.athlete-age-summary-head strong {
+  font-size: 16px;
+}
+
+.athlete-age-summary-head b {
+  color: var(--primary);
+  font-size: 14px;
+}
+
+.athlete-age-summary-item span,
+.athlete-age-summary-item em {
+  display: block;
+  margin-top: 5px;
+  color: var(--muted);
+  font-size: 11px;
+  font-style: normal;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+.athlete-cross-age p {
+  margin: -2px 0 10px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.athlete-cross-age-list {
+  display: grid;
+  gap: 7px;
+}
+
+.athlete-cross-age-list button {
+  display: grid;
+  gap: 4px;
+  width: 100%;
+  min-width: 0;
+  border: 1px solid rgba(16, 24, 40, 0.075);
+  border-radius: 9px;
+  background: #fff;
+  color: var(--text);
+  font: inherit;
+  padding: 10px;
+  text-align: left;
+}
+
+.athlete-cross-age-list span,
+.athlete-cross-age-list strong {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.athlete-cross-age-list span {
+  font-size: 12px;
+}
+
+.athlete-cross-age-list strong {
+  color: var(--primary);
+  font-size: 13px;
+}
+
 .competition-chart-details {
   display: grid;
   gap: 8px;
@@ -10498,4 +10596,16 @@ button.primary-action {
     break-inside: avoid;
     box-shadow: none !important;
   }
+}
+.data-scope-note {
+  color: #64748b;
+  font-size: 13px;
+  line-height: 1.6;
+  margin: 10px 0;
+  overflow-wrap: anywhere;
+}
+
+.status-needs-verification {
+  color: #92400e;
+  background: #fffbeb;
 }

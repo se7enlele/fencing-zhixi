@@ -16,20 +16,36 @@ function compactText(value) {
   return String(value ?? '').toLowerCase().replace(/[，。、“”‘’"'|/\\()[\]{}:：；;]+/g, ' ').replace(/\s+/g, ' ').trim();
 }
 
-function competitionCoverageLevel(competition) {
-  const items = competition.items || [];
+export function competitionCoverageLevel(competition) {
+  const items = competition.items || competition.itemSummaries || [];
   const hasScore = items.some((item) => (
-    (item.athleteProfiles || []).length
+    (!item.isPreEvent && (item.athleteProfiles || []).length)
     || (item.poolGroups || []).length
     || (item.eliminationMatches || []).length
-    || (item.participants || []).length
+    || (!item.isPreEvent && (item.participants || []).length)
     || (!item.isPreEvent && (Number(item.playedEliminationMatchCount) > 0 || Number(item.competitionNo) > 0))
   ));
   if (hasScore) return 'score';
   const hasRoster = items.some((item) => (item.roster || []).length || Number(item.registrationCount) > 0);
   if (hasRoster || competition.rosterStatus === 'partial' || competition.rosterStatus === 'complete') return 'roster';
-  if (items.length || competition.isPreEvent) return 'project';
+  if (items.length || Number(competition.itemCount) > 0) return 'project';
   return 'directory';
+}
+
+export function normalizeCompetitionState(competition, now = Date.now()) {
+  const active = ['registration', 'upcoming', 'live', 'running'];
+  const dates = [...String(competition.dateLabel || '').matchAll(/(20\d{2})[.\-/年](\d{1,2})[.\-/月](\d{1,2})/g)]
+    .map((m) => `${m[1]}-${m[2].padStart(2, '0')}-${m[3].padStart(2, '0')}`).sort();
+  const today = new Date(now + 8 * 3600000).toISOString().slice(0, 10);
+  const sourceStatus = competition.sourceStatus || competition.status;
+  const expired = active.includes(sourceStatus) && dates.length > 0 && dates.at(-1) < today;
+  return {
+    ...competition,
+    sourceStatus,
+    status: expired ? 'needs-verification' : sourceStatus,
+    statusReason: expired ? 'displayed-date-passed' : undefined,
+    coverageLevel: competitionCoverageLevel(competition),
+  };
 }
 
 function projectScope(labels) {
@@ -92,6 +108,7 @@ function compactPlatformMeta(meta = null) {
 }
 
 export function compactCompetitionForIndex(competition) {
+  competition = normalizeCompetitionState(competition);
   const items = competition.items || [];
   const itemLabels = items.map(displayItemName).filter(Boolean);
   const compactFilterBits = filterBitmap(itemLabels);
@@ -131,6 +148,8 @@ export function compactCompetitionForIndex(competition) {
     venue: competition.venue,
     region: competition.region,
     status: competition.status,
+    sourceStatus: competition.sourceStatus,
+    statusReason: competition.statusReason,
     groupLabels: competition.groupLabels,
     isPreEvent: competition.isPreEvent,
     isPlatformEventList: competition.isPlatformEventList,

@@ -33,7 +33,7 @@ concurrency:
 jobs:
   sync:
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 90
 
     steps:
       - name: Checkout
@@ -50,7 +50,17 @@ jobs:
           COMPLETED_LIMIT: ${{ github.event.inputs.completed_limit || '4' }}
           ROSTER_MAX_PAGES: ${{ github.event.inputs.roster_max_pages || '12' }}
           BACKFILL_LIMIT: ${{ github.event.inputs.backfill_limit || '2' }}
-        run: npm run sync:scheduled -- --active-limit "$ACTIVE_LIMIT" --completed-limit "$COMPLETED_LIMIT" --roster-page-size 50 --roster-max-pages "$ROSTER_MAX_PAGES" --score-limit 12 --backfill-limit "$BACKFILL_LIMIT" --fail-on-task-error
+        run: npm run sync:scheduled -- --active-limit "$ACTIVE_LIMIT" --completed-limit "$COMPLETED_LIMIT" --roster-page-size 50 --roster-max-pages "$ROSTER_MAX_PAGES" --score-limit 12 --task-concurrency "2" --task-timeout-sec 600 --backfill-limit "$BACKFILL_LIMIT" --fail-on-task-error
+
+      - name: Preserve sync diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: scheduled-sync-diagnostics
+          path: |
+            data/analysis/scheduled-sync-status.json
+            analysis-output/scheduled-sync/
+          retention-days: 14
 
       - name: Rebuild analytics
         run: npm run analysis:three-year

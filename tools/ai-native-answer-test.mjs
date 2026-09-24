@@ -272,7 +272,7 @@ assert.match(js, /if \(\/赛事记录\|赛事名称\|相近赛事\/\.test\(title
 assert.match(js, /if \(\/选择\.\*对象\|想看的对象\|选择孩子\|选手\/\.test\(title\)\) return '选择对象';/, 'object recovery answers should have a specific user-facing type label');
 assert.match(js, /return '补充信息';/, 'ambiguous fallback answers should ask for additional information instead of generic continuation');
 assert.doesNotMatch(js, /: '查询结果'\)\}/, 'AI answer header must not default unknown and fallback results to generic query-result copy');
-assert.match(js, /\['对比结论', `\$\{leader\.name\} 略优于 \$\{other\.name\}`\]/, 'AI comparison cards must use user-facing conclusion labels');
+assert.match(js, /\['对比结论', shared\.length \? '先核对共同项目' : '暂不判断强弱'\]/, 'AI comparison must not infer strength from unrelated historical totals');
 assert.match(js, /\['可信程度', confidence\]/, 'AI comparison cards must use user-facing confidence wording');
 assert.doesNotMatch(js, /\['参考强度', confidence\]/, 'AI comparison cards must avoid internal evidence-strength wording');
 assert.doesNotMatch(js, /<button type="button" data-ai-feedback=/, 'AI answers should not render feedback buttons in the main user result');

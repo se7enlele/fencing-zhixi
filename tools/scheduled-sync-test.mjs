@@ -1,6 +1,12 @@
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
-import { buildHistoricalBackfillTasks, buildScheduledSyncPlan, buildScheduledSyncStatus, compareEventListRefresh } from './scheduled-sync.mjs';
+import {
+  buildHistoricalBackfillTasks,
+  buildScheduledSyncPlan,
+  buildScheduledSyncStatus,
+  compareEventListRefresh,
+  runScheduledTasks,
+} from './scheduled-sync.mjs';
 
 const events = [
   {
@@ -100,6 +106,31 @@ assert.deepEqual(
 assert.equal(plan.selected.completed.length, 1);
 assert.equal(plan.selected.completed[0].sportId, 103);
 assert.equal(plan.policy.scoreConcurrency, 2);
+
+let activeTasks = 0;
+let maxActiveTasks = 0;
+const progressEvents = [];
+const concurrentResults = await runScheduledTasks([
+  { sportId: 201, type: 'pre-event-roster' },
+  { sportId: 202, type: 'pre-event-roster' },
+  { sportId: 203, type: 'completed-score' },
+], {
+  concurrency: 2,
+  execute: async (task) => {
+    activeTasks += 1;
+    maxActiveTasks = Math.max(maxActiveTasks, activeTasks);
+    await new Promise((resolve) => setTimeout(resolve, task.sportId === 201 ? 20 : 5));
+    activeTasks -= 1;
+    return { ...task, ok: true };
+  },
+  onProgress: (event) => progressEvents.push(event),
+});
+
+assert.equal(maxActiveTasks, 2, 'scheduled tasks should use bounded concurrency');
+assert.deepEqual(concurrentResults.map((result) => result.sportId), [201, 202, 203], 'task results should preserve plan order');
+assert.ok(concurrentResults.every((result) => Number.isFinite(result.durationMs)), 'task results should record duration');
+assert.equal(progressEvents.filter((event) => event.phase === 'start').length, 3);
+assert.equal(progressEvents.filter((event) => event.phase === 'complete').length, 3);
 
 const backfillTasks = buildHistoricalBackfillTasks(events, [
   {
@@ -203,6 +234,8 @@ assert.equal(refreshDiff.added[0].sportName, 'New Event');
 
 const workflow = await readFile(new URL('../.github/workflows/scheduled-sync.yml', import.meta.url), 'utf8');
 assert.match(workflow, /--fail-on-task-error/, 'scheduled workflow must stop before deploy when sync tasks fail');
+assert.match(workflow, /timeout-minutes:\s*90/, 'scheduled workflow must allow the bounded sync batch to finish');
+assert.match(workflow, /--task-concurrency\s+"2"/, 'scheduled workflow must use bounded event concurrency');
 assert.match(workflow, /git add data\/analysis web\/data cloudflare\/data/, 'scheduled workflow must commit sync status with generated data');
 
 console.log('scheduled sync planning is covered');

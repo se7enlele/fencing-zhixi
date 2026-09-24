@@ -116,3 +116,14 @@ That migration requires a storage change:
 - Frontend API reads from runtime storage instead of static `web/data` chunks.
 
 Until that storage migration is done, GitHub Actions is the correct automation layer.
+
+## Failure handling and acceptance (2026-09-23)
+
+- `fetchTextWithNode` keeps its timeout active through reading the response body.
+- Each scheduled child has a 600-second budget (`--task-timeout-sec`). A failed import returns a nonzero exit status, including failures caught inside the import loop.
+- The catalogue refresh rejects empty or malformed rows and atomically replaces the old file only after validation. Refresh failure preserves the old catalogue and writes a failed sync status.
+- The scheduler saves an atomic checkpoint after each task. `phase=running` is not a successful update; an interrupted run retains that state. Successful task execution and the count of imported files are separate fields.
+- GitHub Actions uploads diagnostics even on failure; a failed sync still blocks deployment. Diagnostics are not a substitute for a successful production refresh.
+- `scheduled-sync-status.json` is excluded from source-data freshness calculations, so a failed check cannot make source data appear newly fetched.
+
+Run `npm run test:data-trust` for catalogue preservation, failed child exits, stalled bodies, task timeouts, expiry boundaries, coverage tiers and individual/team separation. Use `CF_BUILD_OUTPUT_ROOT=output/review-20260923` with `npm run cf:build-data` to inspect a build without replacing the existing generated files. After an explicitly authorized deployment, verify production `generatedAt`, expected records and the last sync report through the public APIs.

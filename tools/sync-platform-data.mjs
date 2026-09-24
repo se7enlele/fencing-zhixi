@@ -1,4 +1,4 @@
-import { mkdir, readFile, readdir, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, readdir, writeFile, rename } from 'node:fs/promises';
 import path from 'node:path';
 import process from 'node:process';
 import { fileURLToPath } from 'node:url';
@@ -17,6 +17,13 @@ const DEFAULT_HEADERS = {
   Referer: 'https://fencing.yy-sport.com.cn/',
   'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/125 Safari/537.36',
 };
+
+function curlSourceHeaders(url) {
+  // The forwarding Worker sets origin headers; send them only to the origin itself.
+  return new URL(url).hostname === 'fencing.yy-sport.com.cn'
+    ? Object.entries(DEFAULT_HEADERS).flatMap(([key, value]) => ['--header', `${key}: ${value}`])
+    : [];
+}
 
 function parseArgs(argv) {
   const args = {
@@ -185,21 +192,20 @@ function rosterFileName(sportCode, eventCode, page) {
   return `registration-roster-${sportCode || 'unknown'}-${eventCode || 'unknown'}-${page}.json`;
 }
 
-async function fetchTextWithNode(url, timeoutSec) {
+export async function fetchTextWithNode(url, timeoutSec) {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), Math.max(1, timeoutSec) * 1000);
   let response;
   try {
     response = await fetch(url, { headers: DEFAULT_HEADERS, signal: controller.signal });
+    const text = await response.text();
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status} ${response.statusText}`);
+    }
+    return text;
   } finally {
     clearTimeout(timeout);
   }
-  const text = await response.text();
-  if (!response.ok) {
-    const excerpt = text.slice(0, 200).replace(/\s+/g, ' ');
-    throw new Error(`HTTP ${response.status} ${response.statusText}: ${excerpt}`);
-  }
-  return text;
 }
 
 async function fetchTextWithPowerShell(url, timeoutSec) {
@@ -229,12 +235,7 @@ async function fetchTextWithCurl(url, timeoutSec) {
     '--show-error',
     '--max-time',
     String(timeout),
-    '--header',
-    'Accept: application/json',
-    '--header',
-    'Referer: https://fencing.yy-sport.com.cn/',
-    '--header',
-    `User-Agent: ${DEFAULT_HEADERS['User-Agent']}`,
+    ...curlSourceHeaders(url),
     url,
   ], {
     maxBuffer: 25 * 1024 * 1024,
@@ -245,9 +246,14 @@ async function fetchTextWithCurl(url, timeoutSec) {
 }
 
 async function fetchTextWithCommand(url, timeoutSec) {
-  return process.platform === 'win32'
-    ? fetchTextWithPowerShell(url, timeoutSec)
-    : fetchTextWithCurl(url, timeoutSec);
+  return fetchTextWithCurl(url, timeoutSec);
+}
+
+export function useProxyTransport(url) {
+  const host = new URL(url).hostname;
+  return !['localhost', '127.0.0.1', '[::1]'].includes(host)
+    && (host === new URL(DEFAULT_PROXY_BASE).hostname
+      || Boolean(process.env.HTTPS_PROXY || process.env.HTTP_PROXY || process.env.ALL_PROXY));
 }
 
 export function isHttpStatusError(error) {
@@ -255,6 +261,7 @@ export function isHttpStatusError(error) {
 }
 
 export async function fetchText(url, timeoutSec = 20) {
+  if (useProxyTransport(url)) return fetchTextWithCommand(url, timeoutSec);
   try {
     return await fetchTextWithNode(url, timeoutSec);
   } catch (error) {
@@ -310,7 +317,7 @@ function classmentRankToScorePayload(payload, item, event = {}) {
   };
 }
 
-async function postJsonTextWithNode(url, body, timeoutSec) {
+export async function postJsonTextWithNode(url, body, timeoutSec) {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), Math.max(1, timeoutSec) * 1000);
   let response;
@@ -324,15 +331,12 @@ async function postJsonTextWithNode(url, body, timeoutSec) {
       body: JSON.stringify(body || {}),
       signal: controller.signal,
     });
+    const text = await response.text();
+    if (!response.ok) throw new Error(`HTTP ${response.status} ${response.statusText}`);
+    return text;
   } finally {
     clearTimeout(timeout);
   }
-  const text = await response.text();
-  if (!response.ok) {
-    const excerpt = text.slice(0, 200).replace(/\s+/g, ' ');
-    throw new Error(`HTTP ${response.status} ${response.statusText}: ${excerpt}`);
-  }
-  return text;
 }
 
 async function postJsonTextWithPowerShell(url, body, timeoutSec) {
@@ -366,14 +370,9 @@ async function postJsonTextWithCurl(url, body, timeoutSec) {
     String(timeout),
     '--request',
     'POST',
-    '--header',
-    'Accept: application/json',
-    '--header',
-    'Referer: https://fencing.yy-sport.com.cn/',
+    ...curlSourceHeaders(url),
     '--header',
     'Content-Type: application/json;charset=UTF-8',
-    '--header',
-    `User-Agent: ${DEFAULT_HEADERS['User-Agent']}`,
     '--data',
     JSON.stringify(body || {}),
     url,
@@ -386,15 +385,15 @@ async function postJsonTextWithCurl(url, body, timeoutSec) {
 }
 
 async function postJsonTextWithCommand(url, body, timeoutSec) {
-  return process.platform === 'win32'
-    ? postJsonTextWithPowerShell(url, body, timeoutSec)
-    : postJsonTextWithCurl(url, body, timeoutSec);
+  return postJsonTextWithCurl(url, body, timeoutSec);
 }
 
 async function postJsonText(url, body, timeoutSec = 20) {
+  if (useProxyTransport(url)) return postJsonTextWithCommand(url, body, timeoutSec);
   try {
     return await postJsonTextWithNode(url, body, timeoutSec);
   } catch (error) {
+    if (isHttpStatusError(error)) throw error;
     try {
       return await postJsonTextWithCommand(url, body, timeoutSec);
     } catch (fallbackError) {
@@ -412,7 +411,10 @@ async function sleep(ms) {
 
 async function writeReport(outputDir, fileName, report) {
   await mkdir(outputDir, { recursive: true });
-  await writeFile(path.join(outputDir, fileName), stableStringify(report), 'utf8');
+  const target = path.join(outputDir, fileName);
+  const temporary = `${target}.${process.pid}.tmp`;
+  await writeFile(temporary, stableStringify(report), 'utf8');
+  await rename(temporary, target);
 }
 
 async function fetchJsonTextWithRetry(url, args, context = {}) {
@@ -476,6 +478,10 @@ export function sliceScoreItems(items, args) {
   return Number.isFinite(args.scoreLimit) && args.scoreLimit > 0
     ? sourceItems.slice(0, args.scoreLimit)
     : sourceItems;
+}
+
+export function shouldSyncScores(event, args = {}) {
+  return event?.inferredStatus === 'completed' || Boolean(args.forceScore);
 }
 
 export function normalizeConcurrency(value) {
@@ -658,6 +664,15 @@ async function syncRosterItem(item, args, files, log) {
   }
 }
 
+export function summarizeImportLog(log) {
+  const groups = [log.projectlists, log.scores, log.rosters];
+  return {
+    importedCount: groups.reduce((n, group) => n + (Number(group?.imported) || 0), 0),
+    skippedCount: groups.reduce((n, group) => n + (Number(group?.skipped) || 0), 0),
+    failedCount: groups.reduce((n, group) => n + (group?.failed?.length || 0), 0),
+  };
+}
+
 async function main() {
   const args = parseArgs(process.argv);
   const events = await loadPlatformEvents(args.input);
@@ -724,7 +739,7 @@ async function main() {
         }
       }
 
-      if (args.score && event.inferredStatus === 'completed' && projectReport) {
+      if (args.score && shouldSyncScores(event, args) && projectReport) {
         const scoreItems = sliceScoreItems(projectReport.normalizedItems || [], args);
         await runConcurrent(scoreItems, args.scoreConcurrency, async (item) => {
           await syncScoreItem(item, event, args, files, log);
@@ -752,7 +767,10 @@ async function main() {
     }
   }
 
+  log.summary = summarizeImportLog(log);
+  log.ok = log.summary.failedCount === 0;
   console.log(stableStringify(log));
+  if (!log.ok) process.exitCode = 1;
 }
 
 if (path.basename(process.argv[1] || '') === 'sync-platform-data.mjs') {

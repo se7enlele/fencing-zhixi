@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import vm from 'node:vm';
+import { competitionCoverageLevel } from './competition-index.mjs';
 
 const source = await readFile(new URL('../web/viewer.js', import.meta.url), 'utf8');
 const start = source.indexOf('function itemFilterLabel');
@@ -9,7 +10,7 @@ if (start === -1 || end === -1 || end <= start) {
   throw new Error('Unable to locate status helper functions in viewer.js');
 }
 
-const context = {};
+const context = { competitionCoverageLevel };
 vm.createContext(context);
 vm.runInContext(`${source.slice(start, end)}
 globalThis.statusLabel = statusLabel;

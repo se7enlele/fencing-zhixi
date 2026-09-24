@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import vm from 'node:vm';
+import './event-date-enrichment-test.mjs';
 
 const source = await readFile(new URL('../web/viewer.js', import.meta.url), 'utf8');
 const css = await readFile(new URL('../web/viewer.css', import.meta.url), 'utf8');
@@ -15,17 +16,23 @@ vm.createContext(context);
 vm.runInContext(`${source.slice(start, end)}
 globalThis.buildAthleteTimelineRows = buildAthleteTimelineRows;
 globalThis.buildPoolPerformanceRows = buildPoolPerformanceRows;
+globalThis.athleteBirthCohort = athleteBirthCohort;
+globalThis.athleteAgeGroupSummaryRows = athleteAgeGroupSummaryRows;
+globalThis.athleteCrossAgeCompetitionRows = athleteCrossAgeCompetitionRows;
 `, context);
 
 const athlete = {
   name: '测试选手',
   events: [
     {
+      sportCode: 'TIANJIN-2026',
       eventName: 'U8 男子花剑',
       shortEventName: 'U8 男花',
       sportName: '天津公开赛',
-      openDate: '2026.06.12',
+      openDate: '2026-06-12 08:00:00',
+      ageBand: '2018 上半年',
       finalRank: 3,
+      medal: '铜',
       poolRank: 2,
       poolWins: 5,
       poolMatches: 6,
@@ -34,6 +41,7 @@ const athlete = {
       venue: '天津',
     },
     {
+      sportCode: 'TIANJIN-2026',
       eventName: 'U10 男子花剑',
       shortEventName: 'U10 男花',
       sportName: '北京公开赛',
@@ -72,20 +80,45 @@ assert.deepEqual(context.buildAthleteTimelineRows(athlete).map((row) => ({
   },
 ]);
 
+assert.equal(context.athleteBirthCohort(athlete), '2018 上半年');
+assert.deepEqual(JSON.parse(JSON.stringify(context.athleteAgeGroupSummaryRows(athlete.events).map((row) => ({
+  age: row.age,
+  appearances: row.appearances,
+  competitions: row.competitions,
+  bestRank: row.bestRank,
+  top8: row.top8,
+  medals: row.medals,
+})))), [
+  { age: 'U8', appearances: 1, competitions: 1, bestRank: 3, top8: 1, medals: 1 },
+  { age: 'U10', appearances: 1, competitions: 1, bestRank: 16, top8: 0, medals: 0 },
+]);
+assert.deepEqual(JSON.parse(JSON.stringify(context.athleteCrossAgeCompetitionRows(athlete.events).map((row) => ({
+  competition: row.competition,
+  ages: row.ages,
+  results: row.results,
+})))), [{
+  competition: '天津公开赛',
+  ages: ['U8', 'U10'],
+  results: ['U8 第3名', 'U10 第16名'],
+}]);
+
 assert.deepEqual(context.buildPoolPerformanceRows(athlete.events).map((row) => ({
   title: row.title,
+  date: row.date,
   record: row.record,
   percent: row.percent,
   label: row.label,
 })), [
   {
     title: 'U8 男花',
+    date: '2026.06.12',
     record: '5/6',
     percent: 83,
     label: '稳定发挥',
   },
   {
     title: 'U10 男花',
+    date: '2026.04.25',
     record: '2/5',
     percent: 40,
     label: '重点复盘',
@@ -115,7 +148,12 @@ assert.match(source, /trackAthleteDataRequest\(athlete, button\.dataset\.athlete
 assert.match(source, /button\.textContent = '已提交'/, 'athlete data feedback must confirm successful submission');
 assert.match(source, /button\.textContent = '已复制说明'/, 'athlete data feedback must fall back to copied request text');
 assert.match(source, /renderAthleteDataRequestPanel\(athlete\)/, 'athlete detail rendering must show the data feedback panel');
+assert.match(source, /athlete-profile-meta/, 'athlete detail must show basic profile information without exposing exact birthday');
+assert.match(source, /年龄组表现/, 'athlete detail must summarize U8, U10 and other age-group participation separately');
+assert.match(source, /跨组参赛/, 'athlete detail must surface same-competition cross-age participation');
 assert.match(css, /\.athlete-data-request/, 'athlete data feedback panel styles must exist');
 assert.match(css, /\.athlete-data-request-actions/, 'athlete data feedback action styles must exist');
+assert.match(css, /\.athlete-age-summary/, 'athlete age-group summary must have a mobile-safe layout');
+assert.match(css, /\.athlete-cross-age/, 'athlete cross-age highlights must have a focused visual treatment');
 
 console.log('athlete detail view model is clear');

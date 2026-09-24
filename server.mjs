@@ -12,6 +12,9 @@ import { buildPreEventCompetitions } from './tools/pre-event-data.mjs';
 import { sanitizePublicData } from './tools/public-sanitize.mjs';
 import { buildSearchIndexes, searchIndexes } from './tools/search-index.mjs';
 import { compactCompetitionIndex } from './tools/competition-index.mjs';
+import { normalizeCompetitionState } from './tools/competition-index.mjs';
+import { isTeamEvent } from './tools/entity-kind.mjs';
+import { buildEventDateFallbacks, enrichScoreReportDates } from './tools/event-date.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PORT = Number(process.env.PORT ?? 5177);
@@ -192,13 +195,14 @@ async function loadScoreReports() {
   const analysisDir = path.join(__dirname, 'data', 'analysis');
   const files = await readdir(analysisDir);
   const scoreFiles = files.filter((file) => file.startsWith('score-') && file.endsWith('-analysis.json'));
+  const dateFallbacks = buildEventDateFallbacks(await getPreEventReports());
   const reports = [];
 
   for (const fileName of scoreFiles) {
     const raw = await readFile(path.join(analysisDir, fileName), 'utf8');
     reports.push({
       fileName,
-      report: JSON.parse(raw),
+      report: enrichScoreReportDates(JSON.parse(raw), dateFallbacks),
     });
   }
 
@@ -234,7 +238,7 @@ function collectAnalysisTimestamps(value, timestamps = []) {
 async function latestAnalysisGeneratedAt(files = null) {
   const analysisDir = path.join(__dirname, 'data', 'analysis');
   const analysisFiles = files || await readdir(analysisDir).catch(() => []);
-  const jsonFiles = analysisFiles.filter((file) => file.endsWith('.json'));
+  const jsonFiles = analysisFiles.filter((file) => file.endsWith('.json') && file !== 'scheduled-sync-status.json');
   if (!jsonFiles.length) return new Date().toISOString();
   const contentTimestamps = [];
   await Promise.all(jsonFiles.map(async (file) => {
@@ -348,7 +352,7 @@ async function getPublicEventsPayload() {
       },
     };
   }
-  return publicEventsCache;
+  return { ...publicEventsCache, competitions: publicEventsCache.competitions.map((row) => normalizeCompetitionState(row)) };
 }
 
 async function getAthleteDirectory() {
@@ -1852,7 +1856,7 @@ function makeClubId(club) {
   return encodeURIComponent(club || 'unknown');
 }
 
-function buildAthleteDirectory(reports) {
+export function buildAthleteDirectory(reports) {
   const athletes = new Map();
 
   function opponentKey(name, licence, club) {
@@ -1892,6 +1896,7 @@ function buildAthleteDirectory(reports) {
 
   for (const { fileName, report } of reports) {
     const event = buildEventDetail(report, fileName);
+    if (isTeamEvent(event)) continue;
     for (const athlete of event.athleteProfiles || []) {
       const id = makeAthleteId(athlete.name, athlete.licence, athlete.club);
       if (!athletes.has(id)) {

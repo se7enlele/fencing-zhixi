@@ -706,6 +706,7 @@ export function groupEventsBySport(events) {
 export function buildAthleteDirectoryFromEvents(eventsByCode) {
   const athletes = new Map();
   for (const event of Object.values(eventsByCode)) {
+    if (isTeamEvent(event)) continue;
     for (const athlete of event.athleteProfiles || event.participants || []) {
       const id = athlete.id || makeAthleteId(athlete.name, athlete.licence, athlete.club);
       if (!athletes.has(id)) {
@@ -714,7 +715,7 @@ export function buildAthleteDirectoryFromEvents(eventsByCode) {
           name: athlete.name,
           club: athlete.club,
           bestRank: athlete.finalRank ?? null,
-          medals: athlete.medal ? 1 : 0,
+          medals: 0,
           appearances: 0,
           eliminationWins: 0,
           eliminationLosses: 0,
@@ -830,3 +831,4 @@ export function buildClubDirectoryFromEvents(eventsByCode) {
     .map((club) => ({ ...club, events: sortClubEvents(club.events) }))
     .sort((a, b) => b.medals - a.medals || b.top8 - a.top8 || (a.bestRank ?? 999) - (b.bestRank ?? 999));
 }
+import { isTeamEvent } from '../tools/entity-kind.mjs';

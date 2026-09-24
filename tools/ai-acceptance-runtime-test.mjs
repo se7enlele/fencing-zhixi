@@ -4,6 +4,10 @@ import vm from 'node:vm';
 
 const source = await readFile(new URL('../web/viewer.js', import.meta.url), 'utf8');
 
+assert.doesNotMatch(source, /terms\.forEach\(\(term\) => state\.aiHydratedTerms\.add\(term\)\)/, 'AI entity search must not mark a name as loaded before the request succeeds');
+assert.match(source, /state\.aiHydratedTerms\.add\(term\)/, 'AI entity search should cache successful search terms');
+assert.match(source, /state\.aiHydratedTerms\.delete\(term\)/, 'AI entity search should allow failed terms to retry');
+
 function extractFunction(name) {
   const marker = `function ${name}(`;
   const start = source.indexOf(marker);
@@ -128,6 +132,9 @@ const functionNames = [
   'aiProjectScopeLabel',
   'aiFocusedAthletes',
   'aiAthleteProjectLabels',
+  'athleteAgeGroupLabel',
+  'athleteAgeGroupSummaryRows',
+  'athleteCrossAgeCompetitionRows',
   'competitionMatchesProjectLabel',
   'aiPreMatchFocusRows',
   'aiPreMatchPersonalRelevanceRows',
@@ -282,7 +289,11 @@ const sampleCompetitions = [
     isPreEvent: true,
     rosterStatus: 'partial',
     registrationSummary: { expectedRegistrationCount: 80, rosterCount: 20 },
-    items: [{ eventCode: 'TJ2026JUNE-U10MF', eventName: 'U10 \u7537\u5b50\u82b1\u5251', shortEventName: 'U10 \u7537\u82b1' }],
+    items: [{ eventCode: 'TJ2026JUNE-U10MF', eventName: 'U10 \u7537\u5b50\u82b1\u5251', shortEventName: 'U10 \u7537\u82b1', roster: [
+      { athleteName: '马潇', organName: '北京金石', eventName: 'U10男子花剑' },
+      { athleteName: '陶嘉月', organName: '山东小众体育', eventName: 'U10男子花剑' },
+      { athleteName: '蔡廷彧', organName: '个人', eventName: 'U10男子花剑' },
+    ] }],
   },
   {
     sportCode: 'TJSEASONONLY',
@@ -403,6 +414,10 @@ const airuiteClub = {
 };
 
 const context = {
+  Date: class extends Date {
+    constructor(...args) { super(...(args.length ? args : ['2026-06-08T04:00:00Z'])); }
+    static now() { return new Date('2026-06-08T04:00:00Z').getTime(); }
+  },
   __state: {
     competitions: sampleCompetitions,
     athletesById: Object.fromEntries(athletes.map((athlete) => [athlete.id, athlete])),
@@ -549,7 +564,7 @@ assert.equal(itemScaleStats.actions.find((action) => action.sportCode)?.sportCod
 const prematchReport = context.buildAiAnswer('\u0032\u0030\u0032\u0036\u5e74\u0036\u6708\u5929\u6d25\u8d5b\u524d\u60c5\u62a5');
 assert.equal(prematchReport.type, 'prematch', 'prematch query should route to prematch intelligence');
 assert.ok(prematchReport.cards.length <= 4, 'AI prematch reports should keep the first screen focused');
-assert.ok(prematchReport.cards.some(([label, value]) => label === '\u62a5\u540d\u540d\u5355' && value === '38/200'), 'AI prematch reports should expose roster progress as one focused metric');
+assert.ok(prematchReport.cards.some(([label, value]) => label === '\u62a5\u540d\u540d\u5355' && value === '20/80'), 'AI prematch reports should exclude expired registration rows from roster progress');
 assert.ok(prematchReport.cards.some(([label, value]) => label === '\u5173\u6ce8\u5bf9\u8c61' && value === '1 \u4eba'), 'AI prematch reports should expose focused-object count');
 assert.ok(prematchReport.sections.some((section) => section.title === '\u5173\u6ce8\u5bf9\u8c61'), 'AI prematch reports should show object-bound rows when a child or athlete is selected');
 assert.ok(prematchReport.sections.find((section) => section.title === '\u5173\u6ce8\u5bf9\u8c61')?.rows.some((row) => row.includes('\u4eba\u6570\u6700\u591a\u9879\u76ee')), 'AI prematch reports should still include roster structure with a focused object');
@@ -641,12 +656,12 @@ const broadRegistrationReport = context.buildAiAnswer('\u5929\u6d25\u8fd1\u671f\
 assert.equal(broadRegistrationReport.type, 'prematch', 'broad registration-status questions should route to prematch intelligence');
 assert.equal(broadRegistrationReport.title, '\u5929\u6d25\u8d5b\u524d\u63d0\u9192', 'broad prematch title should not expose all-year or all-month filler text');
 assert.ok(!/(\u5168\u90e8\u5e74\u4efd|\u5168\u90e8\u6708\u4efd)/.test(`${broadRegistrationReport.title}${broadRegistrationReport.summary}`), 'broad prematch copy should use natural scope wording');
-assert.equal(broadRegistrationReport.cards[0][1], '3 \u573a', 'broad registration-status questions should include upcoming prematch competitions, not only registration status');
+assert.equal(broadRegistrationReport.cards[0][1], '2 \u573a', 'broad registration queries include future registration and upcoming events, excluding expired ones');
 assert.ok(broadRegistrationReport.sections.some((section) => section.title === '\u4f18\u5148\u5173\u6ce8'), 'broad registration-status questions should produce actionable competition rows');
 
 const strictRegistrationReport = context.buildAiAnswer('\u5929\u6d25\u62a5\u540d\u4e2d\u7684\u6bd4\u8d5b');
 assert.equal(strictRegistrationReport.type, 'prematch', 'explicit registration-only questions should route to prematch intelligence');
-assert.equal(strictRegistrationReport.cards[0][1], '2 \u573a', 'explicit registration-only questions should keep the registration status filter');
+assert.equal(strictRegistrationReport.cards[0][1], '1 \u573a', 'explicit registration-only queries keep the status filter and exclude expired events');
 
 const currentYear = String(new Date().getFullYear());
 assert.equal(context.detectYearInQuery('\u4eca\u5e74\u5929\u6d25\u6709\u51e0\u573a\u6bd4\u8d5b'), currentYear, 'AI year detection should support current-year wording');
@@ -705,6 +720,8 @@ const growthReport = context.buildAiAnswer('蔡廷彧最近几场有没有进步
 assert.equal(growthReport.type, 'growth', 'athlete growth query with 最近 must not route to prematch');
 assert.equal(growthReport.evidence[0]?.athleteId, 'cai', 'growth reports should make the athlete profile the primary evidence target');
 assert.ok(growthReport.evidence.some((row) => row.eventCode), 'growth reports should keep competition records after the athlete profile');
+assert.ok(growthReport.sections.some((section) => section.title === '年龄组表现'), 'growth reports should separate participation and results by age group');
+assert.ok(growthReport.reasons.some((row) => /U\d+/.test(row)), 'growth reports should surface age-group highlights in the primary answer');
 
 const yearlyGrowthReport = context.buildAiAnswer('蔡廷彧2025和2026年的表现有什么变化');
 assert.equal(yearlyGrowthReport.type, 'growth', 'yearly athlete change queries should route to growth');

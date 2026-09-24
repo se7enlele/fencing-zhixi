@@ -51,6 +51,7 @@ const context = {
 vm.createContext(context);
 vm.runInContext(`${source.slice(start, end)}
 globalThis.filterOptions = filterOptions;
+globalThis.filterTriggerLabel = filterTriggerLabel;
 globalThis.competitionMatchesDimensions = competitionMatchesDimensions;
 `, context);
 
@@ -64,6 +65,14 @@ assertSameArray(context.filterOptions('age'), ['全部年龄组', 'U6', 'U8', 'U
 assertSameArray(context.filterOptions('weapon'), ['全部剑种', '花剑', '重剑', '佩剑']);
 assertSameArray(context.filterOptions('gender'), ['全部性别', '男子', '女子']);
 assertSameArray(context.filterOptions('follow'), ['全部赛事', '我的关注', '关注选手', '关注赛事', '关注俱乐部']);
+assert.equal(context.filterTriggerLabel('year', '全部年份'), '年份');
+assert.equal(context.filterTriggerLabel('region', '全部地区'), '地区');
+assert.equal(context.filterTriggerLabel('age', '全部年龄组'), '年龄组');
+assert.equal(context.filterTriggerLabel('weapon', '全部剑种'), '剑种');
+assert.equal(context.filterTriggerLabel('gender', '全部性别'), '性别');
+assert.equal(context.filterTriggerLabel('status', '全部状态'), '状态');
+assert.equal(context.filterTriggerLabel('follow', '全部赛事'), '赛事');
+assert.equal(context.filterTriggerLabel('year', '2026'), '2026');
 assert.equal(context.competitionMatchesDimensions(context.state.competitions[0], {
   age: 'U8',
   weapon: '花剑',

@@ -138,7 +138,7 @@ assert.match(js, /function toggleFollowFilterMenu\(\)/, 'my-follow filter must s
 assert.match(js, /myFollowFilterButton\?\.addEventListener\('click', \(event\) => \{[\s\S]*event\.stopPropagation\(\);[\s\S]*toggleFollowFilterMenu\(\);[\s\S]*\}\)/, 'my-follow filter button must open the inline dropdown without immediately closing it');
 assert.match(js, /myFollowFilterMenu\?\.addEventListener\('click', \(event\) => \{[\s\S]*setFilterValue\('follow', button\.dataset\.filterValue\);[\s\S]*closeFollowFilterMenu\(\);[\s\S]*\}\)/, 'my-follow dropdown selection must update the selected follow scope');
 assert.match(js, /if \(type === 'follow'\) \{[\s\S]*state\.followFilter = value \|\| '全部赛事';[\s\S]*state\.onlyFollowedData = state\.followFilter !== '全部赛事';[\s\S]*\}/, 'my-follow dropdown selection must update the selected follow scope');
-assert.match(js, /myFollowFilterButton\.innerHTML = `<span>\$\{escapeHtml\(value\)\}<\/span>`/, 'my-follow filter must show the selected option');
+assert.match(js, /myFollowFilterButton\.innerHTML = `<span>\$\{escapeHtml\(filterTriggerLabel\('follow', value\)\)\}<\/span>`/, 'my-follow filter must show the selected option and use a concise default label');
 assert.match(js, /myFollowFilterMenu\.removeAttribute\('hidden'\);[\s\S]*myFollowFilterButton\?\.setAttribute\('aria-expanded', 'true'\);/, 'my-follow dropdown must remove hidden and mark itself expanded when opened');
 assert.match(js, /myFollowFilterButton\?\.setAttribute\('aria-expanded', 'true'\);/, 'my-follow filter must mark the dropdown menu as open');
 assert.match(js, /myFollowFilterMenu\.setAttribute\('hidden', ''\);[\s\S]*myFollowFilterButton\?\.setAttribute\('aria-expanded', 'false'\);/, 'my-follow dropdown must restore hidden and expanded state when closed');
@@ -372,9 +372,9 @@ assert.doesNotMatch(js, /保留传统检索入口/, 'AI home must not expose imp
 assert.match(js, /function roleAiPromptPresets\(primary, secondary\)/, 'AI home presets must adapt to the selected role');
 assert.match(js, /state\.userRole === 'parent'[\s\S]*最近几场有没有进步/, 'parent AI presets must prioritize growth questions');
 assert.match(js, /state\.userRole === 'coach'[\s\S]*有哪些优势项目/, 'coach AI presets must prioritize club management questions');
-assert.match(js, /state\.userRole === 'club'[\s\S]*U8 男花怎么样/, 'club AI presets must prioritize project strength questions');
-assert.match(js, /state\.userRole === 'data'[\s\S]*2026年天津有几场比赛/, 'data AI presets must prioritize competition statistics');
-assert.match(js, /\[\.\.\.new Set\(\[\.\.\.rolePresets, \.\.\.taskPresets\]\)\]\.slice\(0, 4\)/, 'role AI presets must deduplicate and stay compact');
+assert.match(js, /state\.userRole === 'club'[\s\S]*club\?\.club/, 'club prompts must use a selected club instead of a demo club');
+assert.match(js, /const year = new Date\(\)\.getFullYear\(\)/, 'competition prompts must use the current year');
+assert.match(js, /\[\.\.\.new Set\(roleAiPromptPresets\(athletes\[0\], athletes\[1\]\)\)\]\.slice\(0, 4\)/, 'role AI presets must deduplicate and stay compact');
 assert.match(js, /function aiUserTaskPromptPresets\(primary, secondary\)/, 'AI home must use a dedicated user-task prompt pool');
 assert.match(js, /function buildAiAnswer\(query\)/, 'AI workspace must build structured answers from local data');
 assert.match(js, /function detectOfficialDirectoryQuery\(query = ''\)/, 'AI workspace must detect coach and referee directory questions');

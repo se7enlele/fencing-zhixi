@@ -1,6 +1,7 @@
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { getPublicEventsPayload } from '../server.mjs';
+import { competitionCoverageLevel } from './competition-index.mjs';
 
 const outputDir = path.resolve('analysis-output');
 const outputJson = path.join(outputDir, 'data-coverage-report.json');
@@ -30,13 +31,7 @@ function hasScoreItem(item) {
 
 function competitionCoverage(competition, scoreSportCodes = new Set()) {
   if (scoreSportCodes.has(competition.sportCode)) return 'score';
-  const items = competition.items || [];
-  const rosterItems = items.filter((item) => (item.roster || []).length || Number(item.registrationCount) > 0);
-  const scoreItems = items.filter(hasScoreItem);
-  if (scoreItems.length) return 'score';
-  if (rosterItems.length) return 'roster';
-  if (items.length) return 'project';
-  return 'directory';
+  return competitionCoverageLevel(competition);
 }
 
 function statusGroup(competition) {
@@ -221,7 +216,7 @@ function mdTable(rows, columns) {
 
 function buildMarkdown(report) {
   const coverageRows = Object.entries(report.summary.coverage).map(([coverage, count]) => ({ coverage, count }));
-  return `# 744 条赛事数据覆盖状态
+  return `# ${report.summary.competitions} 条赛事数据覆盖状态
 
 生成时间：${report.generatedAt}
 

@@ -1417,6 +1417,7 @@ function statusLabel(status) {
   if (status === 'upcoming') return '未开赛';
   if (isLiveCompetitionStatus(status)) return '进行中';
   if (status === 'completed') return '已结束';
+  if (status === 'needs-verification') return '状态待核实';
   return '状态待确认';
 }
 
@@ -1457,6 +1458,9 @@ function scheduledSyncStatusLabel(syncStatus) {
   const generatedLabel = formatDataGeneratedAt(syncStatus.generatedAt);
   if (!generatedLabel) return '';
   const summary = syncStatus.summary || {};
+  if (syncStatus.phase === 'running') return `${generatedLabel} 更新尚未完成，当前展示已有记录`;
+  if (syncStatus.ok === false && syncStatus.eventListRefresh?.ok === false) return `${generatedLabel} 未能获取赛事目录，当前展示已有记录`;
+  if (Date.now() - new Date(syncStatus.generatedAt).getTime() > 48 * 3600000) return `${generatedLabel} 后尚无新的更新记录，请核对近期赛事`;
   const updatedCount = Number(summary.taskCount || 0);
   const failedCount = Number(summary.failedCount || 0);
   const taskTypes = summary.taskTypes || {};
@@ -1475,22 +1479,17 @@ function scheduledSyncStatusLabel(syncStatus) {
 }
 
 function coverageLabel(competition) {
-  if (competition.isPlatformEventList && !competitionHasItems(competition)) return '基础信息';
-  if (isLiveCompetitionStatus(competition.status)) return '比赛进行中';
-  if (competition.rosterStatus === 'partial' || competition.rosterStatus === 'complete') return '报名信息';
-  if (competition.isPreEvent) return '项目明细';
-  if (competitionCoverageLevel(competition) !== 'score') return '成绩待查看';
-  return '完整赛果';
+  return { directory: '基础信息', project: '项目明细', roster: '报名信息', score: '已收录成绩' }[competitionCoverageLevel(competition)];
 }
 
 function coverageClass(competition) {
-  if (competition.isPlatformEventList && !competitionHasItems(competition)) return 'coverage-list';
-  if (competition.rosterStatus === 'partial' || competition.rosterStatus === 'complete') return 'coverage-roster';
-  if (competition.isPreEvent) return 'coverage-project';
-  return 'coverage-score';
+  const level = competitionCoverageLevel(competition);
+  return level === 'directory' ? 'coverage-list' : `coverage-${level}`;
 }
 
 function coverageDetail(competition) {
+  if (competition.status === 'needs-verification') return '已过所示比赛日期，请核对主办方最新安排。';
+  if (competitionCoverageLevel(competition) === 'score') return '可查看已有项目的名次和对阵，不代表全部项目已完整收录。';
   if (competition.isPlatformEventList && !competitionHasItems(competition)) {
     return '可先关注赛程、地点和报名节奏。';
   }
@@ -1504,7 +1503,7 @@ function coverageDetail(competition) {
   if (competition.rosterStatus === 'complete') return '报名信息已完整，可查看赛前对手、强手和熟悉对手分析。';
   if (competition.isPreEvent) return '可查看组别、剑种和报名规模。';
   if (competitionCoverageLevel(competition) !== 'score') return '赛事已结束，但暂时还没有可查看的完整成绩。';
-  return '赛果数据已完整，可查看排名、小组赛、淘汰赛和选手画像。';
+  return '可查看已有成绩和对阵记录。';
 }
 
 function entityMatchScore(entity, keyword, fields) {
@@ -1926,6 +1925,20 @@ function filterOptions(type) {
   return ['全部项目', ...sortItemLabels(labels)];
 }
 
+function filterTriggerLabel(type, value) {
+  const defaultLabels = {
+    year: ['全部年份', '年份'],
+    region: ['全部地区', '地区'],
+    age: ['全部年龄组', '年龄组'],
+    weapon: ['全部剑种', '剑种'],
+    gender: ['全部性别', '性别'],
+    status: ['全部状态', '状态'],
+    follow: ['全部赛事', '赛事'],
+  };
+  const [defaultValue, label] = defaultLabels[type] || [];
+  return value === defaultValue ? label : value;
+}
+
 function activeFilterValue(type) {
   if (type === 'year') return state.selectedYear;
   if (type === 'region') return state.selectedRegion;
@@ -2072,14 +2085,14 @@ function renderFilters() {
   ];
 
   for (const [button, type, value] of configs) {
-    button.innerHTML = `<span>${escapeHtml(value)}</span>`;
+    button.innerHTML = `<span>${escapeHtml(filterTriggerLabel(type, value))}</span>`;
     button.classList.toggle('active', value !== filterOptions(type)[0]);
   }
   if (myFollowFilterButton) {
     const value = activeFilterValue('follow');
     const isActive = value !== '全部赛事';
     myFollowFilterButton.classList.toggle('active', isActive);
-    myFollowFilterButton.innerHTML = `<span>${escapeHtml(value)}</span>`;
+    myFollowFilterButton.innerHTML = `<span>${escapeHtml(filterTriggerLabel('follow', value))}</span>`;
   }
   renderFollowFilterMenu();
 }
@@ -2312,15 +2325,7 @@ function summarizeDataCoverage(competitions) {
   };
 
   for (const competition of competitions) {
-    if (competition.rosterStatus === 'partial' || competition.rosterStatus === 'complete') {
-      summary.roster += 1;
-    } else if (competition.isPlatformEventList && !competitionHasItems(competition)) {
-      summary.directory += 1;
-    } else if (competition.isPreEvent) {
-      summary.project += 1;
-    } else {
-      summary.score += 1;
-    }
+    summary[competitionCoverageLevel(competition)] += 1;
   }
 
   summary.actionable = summary.project + summary.roster + summary.score;
@@ -2337,18 +2342,18 @@ function coverageProductLabel(level) {
 }
 
 function competitionCoverageLevel(competition) {
-  if (competition.coverageLevel) return competition.coverageLevel;
-  const items = competition.items || [];
+  const items = competition.items || competition.itemSummaries || [];
   const hasScore = items.some((item) => (
-    (item.athleteProfiles || []).length
+    (!item.isPreEvent && (item.athleteProfiles || []).length)
     || (item.poolGroups || []).length
     || (item.eliminationMatches || []).length
-    || (item.participants || []).length
+    || (!item.isPreEvent && (item.participants || []).length)
+    || (!item.isPreEvent && (Number(item.playedEliminationMatchCount) > 0 || Number(item.competitionNo) > 0))
   ));
-  if (hasScore) return 'score';
+  if (hasScore || competition.coverageLevel === 'score') return 'score';
   const hasRoster = items.some((item) => (item.roster || []).length || Number(item.registrationCount) > 0);
   if (hasRoster || competition.rosterStatus === 'partial' || competition.rosterStatus === 'complete') return 'roster';
-  if (items.length || competition.isPreEvent) return 'project';
+  if (items.length || Number(competition.itemCount) > 0) return 'project';
   return 'directory';
 }
 
@@ -2491,7 +2496,7 @@ function renderHomeDataCoverage() {
     <section class="panel my-section data-status-panel">
       <div class="section-title">
         <h2>数据概览</h2>
-        <span>${escapeHtml(actionablePercent)}% 可分析</span>
+        <span>${escapeHtml(scorePercent)}% 赛事已收录成绩</span>
       </div>
       <div class="coverage-stage-strip">
         <div>
@@ -3908,7 +3913,7 @@ function focusSuggestionCompetitions() {
 function focusCompetitionPriorityRows(competitions) {
   return [...(competitions || [])]
     .map((competition) => {
-      const days = daysFromToday(competitionDateValue(competition));
+      const days = daysFromToday(competitionDateValue(competition, 'start'));
       const timing = days === 0 ? '今天' : days > 0 && days <= 30 ? `${days} 天后` : days < 0 && days >= -14 ? `${Math.abs(days)} 天前` : statusLabel(competition.status);
       const level = competitionCoverageLevel(competition);
       const action = level === 'roster'
@@ -4624,7 +4629,7 @@ function bindServiceProgressActions(container) {
 
 function serviceReadinessRows({ children = [], followedCompetitions = [], reportHistory = [], aiHistory = [] } = {}) {
   const prematch = (followedCompetitions || []).find(isPrematchCompetition) || prematchReportCompetitions()[0] || null;
-  const activeCount = (state.competitions || []).filter((competition) => isPrematchStatusValue(competition.status) || competition.isPreEvent).length;
+  const activeCount = (state.competitions || []).filter((competition) => isActionablePrematchCompetition(competition)).length;
   const rosterCount = (state.competitions || []).filter((competition) => competition.rosterStatus === 'partial' || competition.rosterStatus === 'complete').length;
   const child = children[0] || null;
   const club = state.currentClub || aiDefaultClub();
@@ -4735,7 +4740,7 @@ function trialDeliverableRows() {
   const prematch = (followedCompetitions || []).find(isPrematchCompetition) || prematchReportCompetitions()[0] || null;
   const child = children[0] || null;
   const club = state.currentClub || aiDefaultClub();
-  const activeCount = (state.competitions || []).filter((competition) => isPrematchStatusValue(competition.status) || competition.isPreEvent).length;
+  const activeCount = (state.competitions || []).filter((competition) => isActionablePrematchCompetition(competition)).length;
   const rosterCount = (state.competitions || []).filter((competition) => competition.rosterStatus === 'partial' || competition.rosterStatus === 'complete').length;
   const reportCount = (state.reportHistory || []).length + (state.aiHistory || []).length;
   return [
@@ -4900,7 +4905,7 @@ function homePrematchActionRow(followedCompetitions = []) {
   const followed = (followedCompetitions || []).find(isPrematchCompetition);
   const recommended = followed || prematchReportCompetitions()[0] || null;
   if (!recommended?.sportCode) return null;
-  const days = daysFromToday(competitionDateValue(recommended));
+  const days = daysFromToday(competitionDateValue(recommended, 'start'));
   const timing = days === 0
     ? '今天'
     : days > 0 && days <= 30
@@ -5469,51 +5474,26 @@ function aiDefaultClub() {
 }
 
 function roleAiPromptPresets(primary, secondary) {
-  const club = aiDefaultClub();
+  const club = typeof followedClubCards === 'function' ? followedClubCards()[0] : null;
+  const year = new Date().getFullYear();
+  const region = state.selectedRegion && !/全部/.test(state.selectedRegion) ? state.selectedRegion : '';
+  const general = [`${year}年${region}有几场比赛`, '生成赛前情报包'];
   if (state.userRole === 'parent') {
     return [
-      primary ? `${primary.name}最近几场有没有进步` : '蔡廷彧最近几场有没有进步',
-      primary && secondary ? `分析${primary.name}和${secondary.name}的对比情况` : '分析马潇和陶嘉月的对战情况',
-      '天津近期报名情况',
-      '2026年天津有几场比赛',
+      primary ? `${primary.name}最近几场有没有进步` : '孩子击剑值不值得继续',
+      ...(primary && secondary ? [`分析${primary.name}和${secondary.name}的对比情况`] : []),
+      ...general,
     ];
   }
-  if (state.userRole === 'coach') {
-    const clubName = club?.club || '山东小众体育';
-    return [
-      `${clubName} U8 男花怎么样`,
-      `${clubName}有哪些优势项目`,
-      '天津近期报名情况',
-      primary ? `${primary.name}最近几场有没有进步` : '蔡廷彧最近几场有没有进步',
-    ];
+  if (state.userRole === 'coach' || state.userRole === 'club') {
+    return [...(club?.club ? [`${club.club}有哪些优势项目`] : []), ...general];
   }
-  if (state.userRole === 'club') {
-    const clubName = club?.club || '山东小众体育';
-    return [
-      `${clubName}有哪些优势项目`,
-      `${clubName} U8 男花怎么样`,
-      '2026年天津有几场比赛',
-      '天津近期报名情况',
-    ];
-  }
-  if (state.userRole === 'data') {
-    return [
-      '2026年天津有几场比赛',
-      '天津近期报名情况',
-      '山东小众体育 U8 男花怎么样',
-      primary && secondary ? `分析${primary.name}和${secondary.name}的对比情况` : '分析马潇和陶嘉月的对战情况',
-    ];
-  }
-  return [];
+  return general;
 }
 
 function aiPromptPresets() {
   const athletes = focusAthleteCards();
-  const primary = athletes[0] || state.athleteSearchIndex.find((athlete) => athlete.events?.length);
-  const secondary = athletes[1] || state.athleteSearchIndex.find((athlete) => athlete.name !== primary?.name && athlete.events?.length);
-  const rolePresets = roleAiPromptPresets(primary, secondary);
-  const taskPresets = aiUserTaskPromptPresets(primary, secondary);
-  return [...new Set([...rolePresets, ...taskPresets])].slice(0, 4);
+  return [...new Set(roleAiPromptPresets(athletes[0], athletes[1]))].slice(0, 4);
 }
 
 function aiUserTaskPromptPresets(primary, secondary) {
@@ -5573,7 +5553,7 @@ function renderAiWorkspace() {
       : `
         <div class="ai-empty">
           <strong>输入一个击剑问题</strong>
-          <span>可以查赛事、看选手成长、比较剑馆表现，结果可打开来源核对。</span>
+          <span>先在数据库搜索并关注孩子或剑馆，再查看专属问题；也可直接输入赛事名称，打开来源核对。</span>
         </div>
       `;
   return `
@@ -5985,7 +5965,6 @@ function mergeAiClubResult(club) {
 async function ensureAiEntityContext(query) {
   const terms = aiEntityCandidateTerms(query).filter((term) => !state.aiHydratedTerms.has(term));
   if (!terms.length) return;
-  terms.forEach((term) => state.aiHydratedTerms.add(term));
 
   const searchResults = await Promise.all(terms.map(async (term) => {
     try {
@@ -5995,8 +5974,11 @@ async function ensureAiEntityContext(query) {
         athleteLimit: '3',
         clubLimit: '2',
       });
-      return await fetchJson(`/api/search?${params.toString()}`);
+      const result = await fetchJson(`/api/search?${params.toString()}`);
+      state.aiHydratedTerms.add(term);
+      return result;
     } catch {
+      state.aiHydratedTerms.delete(term);
       return null;
     }
   }));
@@ -6563,7 +6545,7 @@ function buildAiOfficialDirectoryReport(query = '') {
 
 function buildAiCapabilityGuideReport(query) {
   const entityCounts = entityCoverageCounts();
-  const activeCount = (state.competitions || []).filter((competition) => isPrematchStatusValue(competition.status) || competition.isPreEvent).length;
+  const activeCount = (state.competitions || []).filter((competition) => isActionablePrematchCompetition(competition)).length;
   const focused = aiFocusedAthletes();
   const club = state.currentClub || aiDefaultClub();
   const sampleAthlete = focused[0] || (state.athleteSearchIndex || []).find((athlete) => athlete?.events?.length);
@@ -7583,11 +7565,11 @@ function buildAiCompetitionStats(query, filters) {
     return map;
   }, new Map());
   const watchRows = rows
-    .filter((competition) => isPrematchStatusValue(competition.status) || competition.isPreEvent)
+    .filter((competition) => isActionablePrematchCompetition(competition))
     .slice(0, 3);
-  const actionRows = rows.filter((competition) => isPrematchStatusValue(competition.status) || competition.isPreEvent);
+  const actionRows = rows.filter((competition) => isActionablePrematchCompetition(competition));
   const rosterRows = rows.filter((competition) => competition.rosterStatus === 'partial' || competition.rosterStatus === 'complete');
-  const scoreRows = rows.filter((competition) => competition.status === 'completed' || competitionHasItems(competition));
+  const scoreRows = rows.filter((competition) => competitionCoverageLevel(competition) === 'score');
   const regionLabel = filters.region || '不限';
   const yearLabel = aiFilterCardLabel(filters.year, '年');
   const monthLabel = aiFilterCardLabel(filters.month, '月');
@@ -7595,7 +7577,7 @@ function buildAiCompetitionStats(query, filters) {
   const scopeText = aiFilterScopeText(filters);
   const title = `${scopeText === '全部赛事' ? '' : scopeText}赛事统计`;
   const summary = rows.length
-    ? `${scopeText}共有 ${rows.length} 场赛事${filters.status ? `，状态为${statusLabelText}` : ''}。`
+    ? `${scopeText}已收录 ${rows.length} 场赛事${filters.status ? `，状态为${statusLabelText}` : ''}。`
     : `没有找到${scopeText === '全部赛事' ? '' : scopeText}赛事记录。`;
 
   return {
@@ -7781,7 +7763,7 @@ function businessMetricRows() {
   const entityCounts = entityCoverageCounts();
   const activeCompetitions = competitions.filter(isActionablePrematchCompetition);
   const regionCount = new Set(competitions.map((competition) => competition.region || competition.venue).filter(Boolean)).size;
-  const scoredCompetitions = competitions.filter((competition) => competition.status === 'completed' || competitionHasItems(competition));
+  const scoredCompetitions = competitions.filter((competition) => competitionCoverageLevel(competition) === 'score');
   return [
     ['赛事资产', `${competitionCount} 场`],
     ['选手画像', `${entityCounts.athletes} 人`],
@@ -7798,7 +7780,7 @@ function businessRegionRows() {
     const key = competition.region || competition.venue || '地区待确认';
     const current = rows.get(key) || { total: 0, active: 0 };
     current.total += 1;
-    if (isPrematchStatusValue(competition.status) || competition.isPreEvent) current.active += 1;
+    if (isActionablePrematchCompetition(competition)) current.active += 1;
     rows.set(key, current);
   }
   return [...rows.entries()]
@@ -7816,7 +7798,7 @@ function businessClubOpportunityRows() {
 }
 
 function isActionablePrematchCompetition(competition) {
-  if (!competition || competition.status === 'completed') return false;
+  if (!competition || ['completed', 'needs-verification'].includes(competition.status)) return false;
   const hasPrematchStatus = isPrematchStatusValue(competition.status) || competition.isPreEvent;
   if (!hasPrematchStatus) return false;
   if (isLiveCompetitionStatus(competition.status)) return true;
@@ -7826,7 +7808,7 @@ function isActionablePrematchCompetition(competition) {
 
 function businessCoverageOpportunityRows() {
   const competitions = state.competitions || [];
-  const scoreCount = competitions.filter((competition) => competition.coverageLevel === 'score' || competitionHasItems(competition)).length;
+  const scoreCount = competitions.filter((competition) => competitionCoverageLevel(competition) === 'score').length;
   const rosterCount = competitions.filter((competition) => competition.coverageLevel === 'roster' || competition.rosterStatus === 'partial' || competition.rosterStatus === 'complete').length;
   const projectCount = competitions.filter((competition) => competition.coverageLevel === 'project' || competition.itemCount || competition.itemSummaries?.length).length;
   const activeCount = competitions.filter(isActionablePrematchCompetition).length;
@@ -7853,7 +7835,7 @@ function businessRoleConversionRows() {
 function businessPriorityRows() {
   const competitions = state.competitions || [];
   const activeCount = competitions.filter(isActionablePrematchCompetition).length;
-  const scoreCount = competitions.filter((competition) => competition.coverageLevel === 'score' || competitionHasItems(competition)).length;
+  const scoreCount = competitions.filter((competition) => competitionCoverageLevel(competition) === 'score').length;
   const clubCount = entityCoverageCounts().clubs;
   return [
     `赛前准备：${activeCount} 场近期赛事适合做报名提醒、项目核对和重点对手观察。`,
@@ -7877,7 +7859,7 @@ function businessMonetizationRows() {
   const competitions = state.competitions || [];
   const activeCount = competitions.filter(isActionablePrematchCompetition).length;
   const rosterCount = competitions.filter((competition) => competition.rosterStatus === 'partial' || competition.rosterStatus === 'complete').length;
-  const scoreCount = competitions.filter((competition) => competition.coverageLevel === 'score' || competitionHasItems(competition)).length;
+  const scoreCount = competitions.filter((competition) => competitionCoverageLevel(competition) === 'score').length;
   const followedCount = aiFocusedAthletes().length;
   const clubCount = entityCoverageCounts().clubs;
   return [
@@ -7974,7 +7956,7 @@ function productTemplateTitle(kind) {
 
 function productTemplateMetricRows(kind) {
   if (kind === 'prematch-pack') {
-    const active = (state.competitions || []).filter((competition) => isPrematchStatusValue(competition.status) || competition.isPreEvent);
+    const active = (state.competitions || []).filter((competition) => isActionablePrematchCompetition(competition));
     const roster = active.filter((competition) => competition.rosterStatus === 'partial' || competition.rosterStatus === 'complete');
     return [
       ['可生成赛事', `${active.length} 场`],
@@ -8087,7 +8069,7 @@ function productTemplateSections(kind) {
 function productTemplateEvidence(kind) {
   if (kind === 'prematch-pack') {
     return (state.competitions || [])
-      .filter((competition) => isPrematchStatusValue(competition.status) || (competition.isPreEvent && competition.status !== 'completed'))
+      .filter(isActionablePrematchCompetition)
       .sort((a, b) => {
         const dayA = Math.abs(daysFromToday(competitionDateValue(a)));
         const dayB = Math.abs(daysFromToday(competitionDateValue(b)));
@@ -8168,6 +8150,7 @@ function buildAiProductTemplateReport(query, kind) {
 
 function buildAiPreMatchReport(query, filters) {
   const rows = state.competitions
+    .filter(isActionablePrematchCompetition)
     .filter((competition) => {
       const yearOk = filters.year ? competitionYear(competition) === filters.year : true;
       const monthOk = filters.month ? competitionMonth(competition) === filters.month : true;
@@ -8256,16 +8239,17 @@ function buildAiAthleteComparison(query, left, right) {
   if (direct.length) summaryParts.push(`发现 ${direct.length} 条直接交手或对手记录`);
   if (!direct.length && /对战|交手|谁赢|打过/.test(compactText(query))) summaryParts.push('没有找到两人的直接交手记录');
   if (shared.length) summaryParts.push(`两人共同出现在 ${shared.length} 个项目里`);
-  summaryParts.push(`${leader.name} 的综合记录更占优，主要来自最好名次、奖牌和参赛连续性`);
+  summaryParts.push(shared.length ? '可先核对共同项目名次；历史记录不代表下一场胜负' : '缺少共同项目，暂不判断两人谁更强');
 
   return {
     type: 'comparison',
     title: `${left.name} vs ${right.name}`,
+    scope: `${left.name}最新记录：${left.latestDate || leftEvents[0]?.openDate || '待确认'}；${right.name}最新记录：${right.latestDate || rightEvents[0]?.openDate || '待确认'}。仅代表已收录比赛。`,
     summary: summaryParts.join('；') + '。',
     cards: [
       [left.name, athleteMetricLine(left)],
       [right.name, athleteMetricLine(right)],
-      ['对比结论', `${leader.name} 略优于 ${other.name}`],
+      ['对比结论', shared.length ? '先核对共同项目' : '暂不判断强弱'],
       ['可信程度', confidence],
     ],
     sections: [
@@ -8333,23 +8317,42 @@ function buildAiAthleteGrowth(query, athlete) {
   const events = athlete.events || [];
   const latest = events[0] || null;
   const best = [...events].sort((a, b) => (Number(a.finalRank) || 999) - (Number(b.finalRank) || 999))[0] || null;
-  const trend = athleteTrendLabel(events);
+  const comparableEvents = latest ? events.filter((event) => displayEventName(event) === displayEventName(latest)) : [];
+  const trend = comparableEvents.length >= 2 ? athleteTrendLabel(comparableEvents) : '同项目记录不足两次，暂不判断进退';
   const yearRows = athleteYearSummaryRows(events, query);
+  const ageRows = athleteAgeGroupSummaryRows(events);
+  const crossAgeRows = athleteCrossAgeCompetitionRows(events);
   const explicitYears = detectYearsInQuery(query);
   const yearScopeText = yearRows.length && explicitYears.length >= 2 ? `${explicitYears.join('和')}年` : '';
+  const ageScopeText = ageRows.map((row) => row.age).join(' / ');
+  const crossAgeText = crossAgeRows.length ? `，其中 ${crossAgeRows.length} 场赛事同时参加多个年龄组` : '';
   return {
     type: 'growth',
     title: `${athlete.name}的成长分析`,
+    scope: `基于已收录的 ${events.length} 次个人项目记录，最新比赛日期：${latest?.openDate || '待确认'}。变化仅比较同项目记录；未收录比赛不代表没有参赛。`,
     summary: yearScopeText
-      ? `${athlete.name}在${yearScopeText}有可对比记录，共 ${events.length || athlete.appearances || 0} 场参赛表现，最好名次${best?.finalRank ? `第${best.finalRank}名` : '待确认'}，近期变化：${trend}。`
-      : `${athlete.name}有 ${events.length || athlete.appearances || 0} 场参赛表现，最好名次${best?.finalRank ? `第${best.finalRank}名` : '待确认'}，近期变化：${trend}。`,
+      ? `${athlete.name}在${yearScopeText}有可对比记录，共 ${events.length || athlete.appearances || 0} 次项目记录，覆盖 ${ageScopeText || '当前年龄组'}${crossAgeText}；最好名次${best?.finalRank ? `第${best.finalRank}名` : '待确认'}，已收录记录变化：${trend}。`
+      : `${athlete.name}有 ${events.length || athlete.appearances || 0} 次项目记录，覆盖 ${ageScopeText || '当前年龄组'}${crossAgeText}；最好名次${best?.finalRank ? `第${best.finalRank}名` : '待确认'}，已收录记录变化：${trend}。`,
     cards: [
       ['最好名次', best?.finalRank ? `第${best.finalRank}名` : '-'],
       ['最近一次', latest?.finalRank ? `第${latest.finalRank}名` : '-'],
       ['奖牌', `${athlete.medals || 0} 枚`],
       ['淘汰赛', `${athlete.eliminationWins || 0}胜${athlete.eliminationLosses || 0}负`],
     ],
+    reasons: [
+      ...[...ageRows].sort((a, b) => b.appearances - a.appearances).slice(0, 2)
+        .map((row) => `${row.age}：${row.competitions} 场，最好第${row.bestRank ?? '-'}名，前八 ${row.top8} 次`),
+      crossAgeRows.length ? `${crossAgeRows.length} 场赛事跨年龄组参赛` : '',
+    ].filter(Boolean),
     sections: [
+      ageRows.length ? {
+        title: '年龄组表现',
+        rows: ageRows.map((row) => `${row.age}：${row.competitions} 场赛事 · ${row.appearances} 次项目 · 最好第${row.bestRank ?? '-'}名 · 前八 ${row.top8} 次 · 奖牌 ${row.medals} 枚`),
+      } : null,
+      crossAgeRows.length ? {
+        title: '跨组参赛',
+        rows: crossAgeRows.slice(0, 5).map((row) => `${row.competition}：${row.results.join(' / ')}`),
+      } : null,
       yearRows.length ? {
         title: '年度对比',
         rows: yearRows,
@@ -9089,6 +9092,7 @@ function renderAiAnswer(report) {
         </div>
         <strong>${escapeHtml(report.title)}</strong>
         <p>${escapeHtml(report.summary)}</p>
+        ${report.scope ? `<p class="data-scope-note">${escapeHtml(report.scope)}</p>` : ''}
       </div>
       ${primaryReasons.length ? `
         <div class="ai-reason-list" aria-label="关键理由">
@@ -9773,12 +9777,10 @@ function displayMetricValue(value) {
   return value ?? '-';
 }
 
-function competitionDateValue(competition) {
-  const dates = [
-    ...parseDateCandidates(competition.dateLabel),
-    ...parseDateCandidates(competition.sportName),
-  ];
-  return dates.length ? Math.max(...dates.map((date) => date.getTime())) : 0;
+function competitionDateValue(competition, boundary = 'end') {
+  const labeledDates = parseDateCandidates(competition.dateLabel);
+  const dates = labeledDates.length ? labeledDates : parseDateCandidates(competition.sportName);
+  return dates.length ? (boundary === 'start' ? Math.min : Math.max)(...dates.map((date) => date.getTime())) : 0;
 }
 
 function daysFromToday(timestamp) {
@@ -10365,6 +10367,7 @@ function competitionListActionLabel(competition) {
 
 function competitionListSummary(competition) {
   const status = competition.status || 'completed';
+  if (status === 'needs-verification') return '已过所示比赛日期，请核对主办方最新安排';
   const itemCount = competitionItemCount(competition);
   const rosterCount = Number(competition.registrationSummary?.rosterCount) || 0;
   const groupCount = Array.isArray(competition.groupLabels) ? competition.groupLabels.length : 0;
@@ -11090,6 +11093,7 @@ function renderEventHero(event) {
     <div class="hero-title">${escapeHtml(displayEventName(event))}</div>
     <div class="hero-sub">${escapeHtml(event.sportName)}</div>
     <div class="hero-sub">${escapeHtml(event.venue || '地点待确认')} · ${escapeHtml(event.openDate || '日期待确认')}</div>
+    ${/团体|team/i.test(event.eventName || '') ? '<p class="data-scope-note">团体成绩按本场队伍展示，不计入个人成长档案。</p>' : ''}
     ${aiAnalyzeActionRow([
       { label: '分析项目', query: `${event.sportName} ${displayEventName(event)} 项目表现和关键选手` },
       { label: '复盘对手', query: `${displayEventName(event)} 的淘汰赛关键对手和排名反差` },
@@ -12166,6 +12170,88 @@ function buildPoolPerformanceRows(events) {
   });
 }
 
+function athleteAgeGroupLabel(event = {}) {
+  return String(displayEventName(event) || event.eventName || '')
+    .match(/U\d{1,2}/i)?.[0]?.toUpperCase() || '';
+}
+
+function athleteBirthCohort(athlete = {}) {
+  const value = athlete.birthCohort
+    || athlete.ageBand
+    || (athlete.events || []).find((event) => event.ageBand)?.ageBand
+    || '';
+  const dateMatch = String(value).match(/^(20\d{2})[-/.](\d{1,2})/);
+  if (dateMatch) return `${dateMatch[1]} ${Number(dateMatch[2]) <= 6 ? '上半年' : '下半年'}`;
+  return String(value).trim();
+}
+
+function athleteGenderLabel(athlete = {}) {
+  const direct = String(athlete.gender || athlete.sex || '').toLowerCase();
+  if (direct === 'm' || direct === 'male' || direct.includes('男')) return '男子';
+  if (direct === 'f' || direct === 'female' || direct.includes('女')) return '女子';
+  const labels = (athlete.events || []).map((event) => displayEventName(event)).join(' ');
+  if (labels.includes('男')) return '男子';
+  if (labels.includes('女')) return '女子';
+  return '';
+}
+
+function athleteAgeGroupSummaryRows(events = []) {
+  const groups = new Map();
+  events.forEach((event) => {
+    const age = athleteAgeGroupLabel(event);
+    if (!age) return;
+    if (!groups.has(age)) {
+      groups.set(age, { age, appearances: 0, competitionKeys: new Set(), bestRank: null, top8: 0, medals: 0 });
+    }
+    const row = groups.get(age);
+    const rank = Number(event.finalRank);
+    row.appearances += 1;
+    row.competitionKeys.add(event.sportCode || event.sportName || event.eventCode || `${age}:${row.appearances}`);
+    if (Number.isFinite(rank) && rank > 0) {
+      if (!row.bestRank || rank < row.bestRank) row.bestRank = rank;
+      if (rank <= 8) row.top8 += 1;
+    }
+    if (event.medal) row.medals += 1;
+  });
+  return [...groups.values()]
+    .map(({ competitionKeys, ...row }) => ({ ...row, competitions: competitionKeys.size }))
+    .sort((a, b) => Number(a.age.slice(1)) - Number(b.age.slice(1)) || b.appearances - a.appearances);
+}
+
+function athleteCrossAgeCompetitionRows(events = []) {
+  const competitions = new Map();
+  events.forEach((event) => {
+    const age = athleteAgeGroupLabel(event);
+    if (!age) return;
+    const key = event.sportCode || event.sportName || '';
+    if (!key) return;
+    if (!competitions.has(key)) competitions.set(key, []);
+    competitions.get(key).push({ ...event, age });
+  });
+  return [...competitions.values()]
+    .map((rows) => {
+      const rowsByAge = new Map();
+      rows.forEach((row) => {
+        const existing = rowsByAge.get(row.age);
+        if (!existing || (Number(row.finalRank) || 999) < (Number(existing.finalRank) || 999)) {
+          rowsByAge.set(row.age, row);
+        }
+      });
+      const byAge = [...rowsByAge.values()]
+        .sort((a, b) => Number(a.age.slice(1)) - Number(b.age.slice(1)));
+      if (byAge.length < 2) return null;
+      return {
+        sportCode: rows[0].sportCode || '',
+        competition: rows[0].sportName || '比赛名称待确认',
+        date: rows.map((row) => row.openDate).filter(Boolean).sort().at(-1) || '',
+        ages: byAge.map((row) => row.age),
+        results: byAge.map((row) => `${row.age} 第${Number(row.finalRank) || '-'}名`),
+      };
+    })
+    .filter(Boolean)
+    .sort((a, b) => String(b.date).localeCompare(String(a.date), 'zh-CN'));
+}
+
 function buildAthleteDataRequestText(athlete, requestType, details = {}) {
   const typeLabel = requestType === 'hide'
     ? '申请隐藏公开选手画像'
@@ -12276,11 +12362,13 @@ function renderAthleteDataRequestPanel(athlete) {
 
 function renderAthleteDetail(athlete) {
   const followed = isFollowedAthlete(athlete.id);
+  const profileMeta = [athleteBirthCohort(athlete), athleteGenderLabel(athlete)].filter(Boolean).join(' · ');
   athleteHero.innerHTML = `
     <div class="athlete-hero-head">
       <div>
         <div class="hero-title">${escapeHtml(athlete.name)}</div>
         <div class="hero-sub">${escapeHtml(athlete.club || '俱乐部待确认')}</div>
+        ${profileMeta ? `<div class="athlete-profile-meta">${escapeHtml(profileMeta)}</div>` : ''}
       </div>
       <button class="follow-status-tag ${followed ? 'active' : ''}" id="followAthleteBtn" type="button" aria-pressed="${followed ? 'true' : 'false'}" aria-label="${followed ? '取消关注' : '关注这个孩子'}">
         ${followed ? '已关注' : '未关注'}
@@ -12291,6 +12379,7 @@ function renderAthleteDetail(athlete) {
       <span class="badge">${escapeHtml(athlete.medals ?? 0)} 枚奖牌</span>
       <span class="badge">淘汰赛 ${escapeHtml(athlete.eliminationWins ?? 0)}胜${escapeHtml(athlete.eliminationLosses ?? 0)}负</span>
     </div>
+    <p class="data-scope-note">已收录 ${escapeHtml(athlete.events?.length || 0)} 次个人项目记录 · 最新比赛 ${escapeHtml(athlete.latestDate || '日期待确认')}。未收录比赛不代表没有参赛。</p>
     ${aiAnalyzeActionRow([
       { label: '查看成长分析', query: `分析${athlete.name}最近几场有没有进步` },
       { label: '对手对比', query: `分析${athlete.name}的主要对手和胜负情况` },
@@ -12319,6 +12408,8 @@ function renderAthleteDetail(athlete) {
   const totalElimLosses = events.reduce((sum, event) => sum + (Number(event.eliminationLosses) || 0), 0);
   const timelineRows = buildAthleteTimelineRows(athlete);
   const poolPerformanceRows = buildPoolPerformanceRows(events).slice(0, 8);
+  const ageGroupRows = athleteAgeGroupSummaryRows(events);
+  const crossAgeRows = athleteCrossAgeCompetitionRows(events);
   const opponentRows = (athlete.opponents || []).slice(0, 5).map((opponent) => ({
     label: opponent.name,
     value: opponent.matches,
@@ -12338,6 +12429,36 @@ function renderAthleteDetail(athlete) {
           <span>${escapeHtml(label)}</span>
         </div>
       `).join('')}</div>`,
+      ageGroupRows.length ? `<div class="athlete-age-summary">
+        <div class="chart-title">年龄组表现</div>
+        <div class="athlete-age-summary-grid">
+          ${ageGroupRows.map((row) => `
+            <div class="athlete-age-summary-item">
+              <div class="athlete-age-summary-head">
+                <strong>${escapeHtml(row.age)}</strong>
+                <b>${escapeHtml(row.competitions)} 场</b>
+              </div>
+              <span>${escapeHtml(row.appearances)} 次项目 · 最好第${escapeHtml(row.bestRank ?? '-')}名</span>
+              <em>前八 ${escapeHtml(row.top8)} 次 · 奖牌 ${escapeHtml(row.medals)} 枚</em>
+            </div>
+          `).join('')}
+        </div>
+      </div>` : '',
+      crossAgeRows.length ? `<div class="athlete-cross-age">
+        <div class="chart-title-row">
+          <div class="chart-title">跨组参赛</div>
+          <span>${escapeHtml(crossAgeRows.length)} 场</span>
+        </div>
+        <p>同时参加多个年龄组，可观察更高年龄组中的适应和成绩变化。</p>
+        <div class="athlete-cross-age-list">
+          ${crossAgeRows.slice(0, 5).map((row) => `
+            <button type="button" data-sport-code="${escapeHtml(row.sportCode || '')}">
+              <span>${escapeHtml(row.competition)}</span>
+              <strong>${escapeHtml(row.results.join(' · '))}</strong>
+            </button>
+          `).join('')}
+        </div>
+      </div>` : '',
       `<div class="athlete-timeline-card">
         <div class="chart-title">参赛时间线</div>
         <div class="athlete-timeline-list">
@@ -12396,6 +12517,11 @@ function renderAthleteDetail(athlete) {
   athleteGrowth.querySelectorAll('[data-event-code]').forEach((button) => {
     button.addEventListener('click', () => {
       if (button.dataset.eventCode) openEvent(button.dataset.eventCode);
+    });
+  });
+  athleteGrowth.querySelectorAll('[data-sport-code]').forEach((button) => {
+    button.addEventListener('click', () => {
+      if (button.dataset.sportCode) openCompetition(button.dataset.sportCode);
     });
   });
 
@@ -14877,7 +15003,7 @@ async function openClub(clubId) {
 }
 
 function isPrematchCompetition(competition) {
-  return isPrematchStatusValue(competition?.status) || Boolean(competition?.isPreEvent);
+  return isActionablePrematchCompetition(competition);
 }
 
 function prematchReportCompetitions(sportCode = '') {
@@ -15569,6 +15695,13 @@ function renderEventTab(tabName) {
   } else if (tabName === 'participants') {
     renderParticipants(state.currentEvent);
   }
+  if (/团体|team/i.test(state.currentEvent.eventName || '') || /[MW][FES]T(?:U\d+|\d|$)/i.test(state.currentEvent.eventCode || '')) {
+    views.event.querySelectorAll('[data-athlete-id]').forEach((element) => {
+      element.inert = true;
+      element.title = '团体成绩按本场队伍展示，不计入个人成长档案';
+      element.removeAttribute('data-athlete-id');
+    });
+  }
   state.eventRenderedTabs.add(tabName);
 }
 
@@ -15718,6 +15851,8 @@ async function init() {
   state.competitions = result.competitions?.length ? result.competitions : buildCompetitionsFromEvents(result.events);
   state.competitionSearchCache.clear();
   state.isDataLoading = false;
+  renderHomeStats();
+  renderHomePage();
   document.body.dataset.fencingaiReady = 'true';
   await restoreAuthSession();
   renderHomeStats();

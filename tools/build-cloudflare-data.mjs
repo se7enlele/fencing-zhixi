@@ -11,11 +11,11 @@ import {
 import { sanitizePublicData } from './public-sanitize.mjs';
 import { buildSearchIndexes } from './search-index.mjs';
 
-const assetOutDir = path.join('web', 'data');
+const outputRoot = path.resolve(process.env.CF_BUILD_OUTPUT_ROOT || '.');
+const assetOutDir = path.join(outputRoot, 'web', 'data');
 const assetOutPath = path.join(assetOutDir, 'public-data-index.json');
 const lookupOutPath = path.join(assetOutDir, 'public-data-lookup.json');
-const searchOutPath = path.join(assetOutDir, 'public-data-search-0.json');
-const moduleOutDir = path.join('cloudflare', 'data');
+const moduleOutDir = path.join(outputRoot, 'cloudflare', 'data');
 const moduleOutPath = path.join(moduleOutDir, 'public-data.mjs');
 const maxChunkBytes = 8 * 1024 * 1024;
 const detailConcurrency = Math.max(1, Number(process.env.CF_BUILD_DETAIL_CONCURRENCY || 12));
@@ -76,6 +76,37 @@ async function writeObjectChunks(name, objectValue) {
   }
 
   return { chunks, chunkLookup };
+}
+
+async function writeSearchChunks(searchIndexes) {
+  const chunks = [];
+  const groups = ['athletes', 'clubs', 'coaches', 'referees', 'competitions'];
+  let chunk = Object.fromEntries(groups.map((group) => [group, []]));
+  let chunkIndex = 0;
+  let chunkBytes = byteLength(chunk);
+
+  async function flushChunk() {
+    const fileName = `public-data-search-${chunkIndex}.json`;
+    await writeJsonFile(path.join(assetOutDir, fileName), chunk);
+    chunks.push(`/data/${fileName}`);
+    chunk = Object.fromEntries(groups.map((group) => [group, []]));
+    chunkBytes = byteLength(chunk);
+    chunkIndex += 1;
+  }
+
+  for (const group of groups) {
+    for (const row of searchIndexes[group] || []) {
+      const rowBytes = byteLength(row) + 1;
+      if (groups.some((key) => chunk[key].length) && chunkBytes + rowBytes > maxChunkBytes - 1024) {
+        await flushChunk();
+      }
+      chunk[group].push(row);
+      chunkBytes += rowBytes;
+    }
+  }
+
+  if (groups.some((group) => chunk[group].length) || !chunks.length) await flushChunk();
+  return chunks;
 }
 
 async function mapLimit(items, limit, mapper) {
@@ -169,11 +200,12 @@ await mkdir(moduleOutDir, { recursive: true });
 const eventChunks = await writeObjectChunks('events', payload.eventsByCode);
 const athleteChunks = await writeObjectChunks('athletes', payload.athletesById);
 const clubChunks = await writeObjectChunks('clubs', payload.clubsById);
+const searchChunks = await writeSearchChunks(searchIndexes);
 const chunks = {
   eventsByCode: eventChunks.chunks,
   athletesById: athleteChunks.chunks,
   clubsById: clubChunks.chunks,
-  search: ['/data/public-data-search-0.json'],
+  search: searchChunks,
 };
 const chunkLookup = {
   eventsByCode: eventChunks.chunkLookup,
@@ -195,7 +227,6 @@ const lookupPayload = {
 };
 await writeFile(assetOutPath, `${JSON.stringify(indexPayload)}\n`, 'utf8');
 await writeFile(lookupOutPath, `${JSON.stringify(lookupPayload)}\n`, 'utf8');
-await writeFile(searchOutPath, `${JSON.stringify(searchIndexes)}\n`, 'utf8');
 await writeFile(moduleOutPath, `export default { version: ${JSON.stringify(payload.version)}, assetPath: '/data/public-data-index.json' };\n`, 'utf8');
 console.log(JSON.stringify({
   ok: true,
