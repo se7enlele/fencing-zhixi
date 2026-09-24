@@ -108,6 +108,7 @@ function preEventTask(event, args) {
       '--no-score',
       '--force-projectlist',
       '--force-roster',
+      '--roster-max-age-minutes', '60',
       '--roster-base', args.rosterBase,
       '--roster-limit', '0',
       '--roster-page-size', String(args.rosterPageSize),

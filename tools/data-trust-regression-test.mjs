@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { readFile, mkdir } from 'node:fs/promises';
+import { readFile, mkdir, writeFile } from 'node:fs/promises';
 import vm from 'node:vm';
 import { competitionCoverageLevel, normalizeCompetitionState } from './competition-index.mjs';
 import { isTeamEvent } from './entity-kind.mjs';
@@ -109,6 +109,10 @@ try {
     const report = JSON.parse(error.stdout);
     return error.code === 1 && report.ok === false && report.summary.failedCount > 0;
   });
+  await writeFile(path.join(fixtureDir, `projectlist-${sportId}-analysis.json`), JSON.stringify({ normalizedItems: [{ sourceEventCode: 'TESTMFIU6', sourceSportCode: 'TEST', itemTypeCode: 'I' }] }));
+  await writeFile(path.join(fixtureDir, 'registration-roster-TEST-TESTMFIU6-1.json'), JSON.stringify({ ok: true, source: { importedAt: new Date().toISOString() }, page: { total: 0 }, summary: { recordCount: 0 } }));
+  const resumed = await run(process.execPath, ['tools/sync-platform-data.mjs', '--input', input, '--output-dir', fixtureDir, '--sport-id', String(sportId), '--roster-base', base, '--no-projectlist', '--no-score', '--roster', '--force-roster', '--roster-max-age-minutes', '60'], { timeout: 15000 });
+  assert.equal(JSON.parse(resumed.stdout).summary.skippedCount, 1, 'a fresh verified empty roster must be reusable during an upstream outage');
 } finally {
   origin.closeAllConnections();
   await new Promise((resolve) => origin.close(resolve));

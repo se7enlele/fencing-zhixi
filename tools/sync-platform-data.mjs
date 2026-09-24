@@ -40,6 +40,7 @@ function parseArgs(argv) {
     scoreConcurrency: 1,
     rosterLimit: 5,
     rosterConcurrency: 2,
+    rosterMaxAgeMinutes: 0,
     rosterPageSize: 10,
     rosterMaxPages: 3,
     rosterAgeGroups: [],
@@ -72,6 +73,7 @@ function parseArgs(argv) {
     if (arg === '--score-concurrency') args.scoreConcurrency = Number(argv[++i]);
     if (arg === '--roster-limit') args.rosterLimit = Number(argv[++i]);
     if (arg === '--roster-concurrency') args.rosterConcurrency = Number(argv[++i]);
+    if (arg === '--roster-max-age-minutes') args.rosterMaxAgeMinutes = Number(argv[++i]);
     if (arg === '--roster-page-size') args.rosterPageSize = Number(argv[++i]);
     if (arg === '--roster-max-pages') args.rosterMaxPages = Number(argv[++i]);
     if (arg === '--roster-age-groups') args.rosterAgeGroups = argv[++i].split(',').map((value) => value.trim()).filter(Boolean);
@@ -640,12 +642,16 @@ async function syncRosterItem(item, args, files, log) {
 
   for (let page = 1; page <= maxPages; page += 1) {
     const fileName = rosterFileName(sportCode, eventCode, page);
-    if (!args.forceRoster && files.has(fileName)) {
+    const existingReport = files.has(fileName)
+      ? JSON.parse(stripBom(await readFile(path.join(args.outputDir, fileName), 'utf8'))) : null;
+    const importedAt = Date.parse(existingReport?.source?.importedAt || '');
+    const age = Date.now() - importedAt;
+    const recent = existingReport?.ok === true && age >= 0 && age < args.rosterMaxAgeMinutes * 60000;
+    if (existingReport && (!args.forceRoster || recent)) {
       log.rosters.skipped += 1;
       progress(args, 'roster skipped', { eventCode, page });
-      const existingReport = JSON.parse(stripBom(await readFile(path.join(args.outputDir, fileName), 'utf8')));
       const expectedPages = expectedRosterPages(existingReport, pageSize);
-      if (expectedPages && page >= expectedPages) break;
+      if (existingReport.summary.recordCount === 0 || (expectedPages && page >= expectedPages)) break;
       continue;
     }
 
