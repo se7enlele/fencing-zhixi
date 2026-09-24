@@ -8,6 +8,7 @@ import { stableStringify } from './analyzer-core.mjs';
 import { buildProjectListReport } from './parse-projectlist.mjs';
 import { buildRegistrationRosterReport } from './parse-registration-roster.mjs';
 import { buildScoreReport } from './parse-score.mjs';
+import { isTeamEvent } from './entity-kind.mjs';
 
 const execFileAsync = promisify(execFile);
 const DEFAULT_PROXY_BASE = 'https://fencing-proxy.aixindiandian.workers.dev';
@@ -514,7 +515,16 @@ export function isUnpublishedScore(scoreError, rankPayload) {
     && Array.isArray(rankPayload?.data) && rankPayload.data.length === 0;
 }
 
-async function fetchScorePayload(item, event, url, args) {
+export async function fetchScorePayload(item, event, url, args) {
+  const eventCode = item.sourceEventCode || item.eventCode;
+  const rankUrl = `${args.proxyBase}/fencingapi/matchresult/classmentrank/${encodeURIComponent(eventCode)}`;
+  let checkedRank;
+  if (isTeamEvent(item)) {
+    checkedRank = parseJsonOrJsObject(await fetchText(rankUrl, args.timeoutSec));
+    if (Number(checkedRank?.code) === 0 && Array.isArray(checkedRank.data) && checkedRank.data.length === 0) {
+      return { unavailable: true, unavailableReason: 'Official team ranking list has no published rows.', sourceUrl: rankUrl, sourceType: 'classmentrank' };
+    }
+  }
   try {
     return {
       payload: parseJsonOrJsObject(await fetchText(url, args.timeoutSec)),
@@ -522,10 +532,8 @@ async function fetchScorePayload(item, event, url, args) {
       sourceType: 'score-resource',
     };
   } catch (scoreError) {
-    const eventCode = item.sourceEventCode || item.eventCode;
-    const rankUrl = `${args.proxyBase}/fencingapi/matchresult/classmentrank/${encodeURIComponent(eventCode)}`;
     progress(args, 'score fallback classmentrank fetch', { eventCode, message: scoreError.message });
-    const rankPayload = parseJsonOrJsObject(await fetchText(rankUrl, args.timeoutSec));
+    const rankPayload = checkedRank || parseJsonOrJsObject(await fetchText(rankUrl, args.timeoutSec));
     if (rankPayload?.code !== undefined && Number(rankPayload.code) !== 0) {
       throw new Error(rankPayload.msg || `classmentrank API code ${rankPayload.code}`);
     }
@@ -564,7 +572,7 @@ async function syncScoreItem(item, event, args, files, log) {
     progress(args, 'score fetch', { eventCode });
     const fetched = await fetchScorePayload(item, event, url, args);
     if (fetched.unavailable) {
-      log.scores.unavailable.push({ eventCode, reason: 'Official score resource is absent and ranking list is empty.' });
+      log.scores.unavailable.push({ eventCode, sourceUrl: fetched.sourceUrl, reason: fetched.unavailableReason || 'Official score resource is absent and ranking list is empty.' });
       progress(args, 'score not published', { eventCode });
       return;
     }

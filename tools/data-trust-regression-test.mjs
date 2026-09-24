@@ -6,7 +6,7 @@ import { isTeamEvent } from './entity-kind.mjs';
 import { buildAthleteDirectory } from '../server.mjs';
 import { buildAthleteDirectoryFromEvents } from '../cloudflare/edge-data.mjs';
 import { buildScheduledSyncStatus, runScheduledTasks } from './scheduled-sync.mjs';
-import { summarizeImportLog, fetchTextWithNode, postJsonTextWithNode, useProxyTransport, isUnpublishedScore } from './sync-platform-data.mjs';
+import { summarizeImportLog, fetchTextWithNode, postJsonTextWithNode, useProxyTransport, isUnpublishedScore, fetchScorePayload } from './sync-platform-data.mjs';
 import { createServer } from 'node:http';
 import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
@@ -80,6 +80,11 @@ const taskResults = await runScheduledTasks([{ scriptArgs: ['-e', 'setInterval((
 assert.equal(taskResults[0].ok, false, 'hung child must fail within the task budget');
 
 const origin = createServer((request, response) => {
+  if (request.url === '/fencingapi/matchresult/classmentrank/EMPTYTEAM') {
+    response.writeHead(200, { 'Content-Type': 'application/json' });
+    response.end(JSON.stringify({ code: 0, data: [] }));
+    return;
+  }
   if (request.url === '/stall') {
     response.writeHead(200, { 'Content-Type': 'application/json' });
     response.flushHeaders();
@@ -91,6 +96,8 @@ const origin = createServer((request, response) => {
 await new Promise((resolve) => origin.listen(0, '127.0.0.1', resolve));
 const base = `http://127.0.0.1:${origin.address().port}`;
 try {
+  const emptyTeam = await fetchScorePayload({ eventCode: 'EMPTYTEAM', itemTypeCode: 'T' }, {}, `${base}/unavailable-resource`, { proxyBase: base, timeoutSec: 1, progress: false });
+  assert.equal(emptyTeam.unavailable, true, 'an explicitly empty team ranking must not trigger a missing score-resource request');
   await assert.rejects(fetchTextWithNode(`${base}/stall`, 1), /abort/i, 'body reads must share the fetch timeout');
   await assert.rejects(postJsonTextWithNode(`${base}/stall`, {}, 1), /abort/i, 'roster body reads must share the request timeout');
   assert.equal(useProxyTransport(base), false, 'local requests must not go through an external proxy');
