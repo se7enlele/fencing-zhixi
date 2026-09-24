@@ -95,8 +95,7 @@ assert.match(js, /trackReportHistory\(\{[\s\S]*type: 'prematch'/, 'opening a pre
 assert.match(js, /data-prematch-template/, 'AI product template actions must open the prematch report');
 assert.match(js, /data-prematch-sport-code/, 'prematch report actions must be able to carry a sportCode');
 assert.match(js, /openPrematchReport\(button\.dataset\.prematchTemplate \|\| 'prematch-pack', button\.dataset\.prematchSportCode \|\| ''\)/, 'prematch template action must bind template and sportCode to report navigation');
-assert.match(js, /class="competition-prematch-cta"/, 'competition detail must expose a compact prematch report CTA');
-assert.match(js, /openPrematchReport\('prematch-pack', event\.currentTarget\.dataset\.prematchSportCode/, 'competition prematch CTA must open a single-competition report');
+assert.doesNotMatch(js, /class="competition-prematch-cta"/, 'competition detail header must not expose a second large prematch CTA');
 assert.match(js, /const isSingleCompetition = Boolean\(sportCode && competitions\.length\)/, 'prematch report must distinguish global and single-event reports');
 assert.match(js, /const rosterRows = prematchRosterRows\(competitions\);/, 'prematch report must derive roster rows for the current report scope');
 assert.match(js, /const actionPlanRows = prematchActionPlanRows\(\{ competitions, focusRows, opponentRows, rosterRows, rosterProjectRows, rosterClubRows, isSingleCompetition \}\)/, 'prematch report must render execution plan rows from current report state');
@@ -134,7 +133,7 @@ assert.match(js, /先确定重点关注对象/, 'prematch checklist must explain
 assert.match(js, /关注孩子或学员后，赛前报告会自动生成个人化项目参考和准备重点/, 'prematch checklist must guide users to follow a child or athlete');
 assert.match(js, /\.\.\.actionPlanRows\.slice\(0, 4\)\.map/, 'prematch share text must include execution plan rows');
 assert.match(js, /\.\.\.checklistRows\.slice\(0, 4\)\.map/, 'prematch share text must include action checklist rows');
-assert.match(css, /\.competition-prematch-cta/, 'competition prematch CTA must be styled');
+assert.doesNotMatch(css, /\.competition-prematch-cta/, 'removed competition header CTA styles must not remain');
 assert.match(css, /\.prematch-report-shell/, 'prematch report shell styles must exist');
 assert.match(css, /\.prematch-report-metrics/, 'prematch report metrics must be styled');
 assert.match(css, /\.prematch-report-list/, 'prematch report lists must be styled');
