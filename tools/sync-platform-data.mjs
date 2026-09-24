@@ -39,6 +39,7 @@ function parseArgs(argv) {
     scoreLimit: 3,
     scoreConcurrency: 1,
     rosterLimit: 5,
+    rosterConcurrency: 2,
     rosterPageSize: 10,
     rosterMaxPages: 3,
     rosterAgeGroups: [],
@@ -70,6 +71,7 @@ function parseArgs(argv) {
     if (arg === '--score-limit') args.scoreLimit = Number(argv[++i]);
     if (arg === '--score-concurrency') args.scoreConcurrency = Number(argv[++i]);
     if (arg === '--roster-limit') args.rosterLimit = Number(argv[++i]);
+    if (arg === '--roster-concurrency') args.rosterConcurrency = Number(argv[++i]);
     if (arg === '--roster-page-size') args.rosterPageSize = Number(argv[++i]);
     if (arg === '--roster-max-pages') args.rosterMaxPages = Number(argv[++i]);
     if (arg === '--roster-age-groups') args.rosterAgeGroups = argv[++i].split(',').map((value) => value.trim()).filter(Boolean);
@@ -768,10 +770,10 @@ async function main() {
         const rosterItems = Number.isFinite(args.rosterLimit) && args.rosterLimit > 0
           ? filteredRosterItems.slice(0, args.rosterLimit)
           : filteredRosterItems;
-        for (const item of rosterItems) {
+        await runConcurrent(rosterItems, args.rosterConcurrency, async (item) => {
           await syncRosterItem(item, args, files, log);
           await sleep(args.delayMs);
-        }
+        });
       }
       progress(args, 'event done', { sportId: event.sportId });
     } catch (error) {
