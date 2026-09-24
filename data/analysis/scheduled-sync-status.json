@@ -1,22 +1,24 @@
 {
-  "generatedAt": "2026-07-11T07:08:04.684Z",
+  "generatedAt": "2026-09-24T00:47:59.101Z",
   "ok": true,
+  "phase": "finished",
   "summary": {
-    "taskCount": 14,
-    "successCount": 14,
+    "taskCount": 2,
+    "successCount": 2,
     "failedCount": 0,
-    "activeCount": 8,
-    "completedCount": 4,
-    "backfillCount": 2,
+    "activeCount": 1,
+    "completedCount": 1,
+    "backfillCount": 0,
     "taskTypes": {
-      "pre-event-roster": 8,
-      "completed-score": 4,
-      "historical-score-backfill": 2
-    }
+      "pre-event-roster": 1,
+      "completed-score": 1
+    },
+    "importedCount": 10,
+    "unavailableCount": 6
   },
   "eventListRefresh": {
     "ok": true,
-    "eventCount": 747,
+    "eventCount": 752,
     "outputPath": "data/analysis/frontsporteventlist-analysis.json"
   },
   "failures": []

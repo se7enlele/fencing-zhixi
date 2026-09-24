@@ -41,8 +41,17 @@ assert.equal(typeof index.generatedAt, "string", "public data index should expos
 assert.ok(index.chunks && typeof index.chunks === "object", "public data index should expose chunks");
 assert.equal(index.chunkLookup, undefined, "public data index must not inline chunkLookup");
 assert.equal(index.lookupPath, "/data/public-data-lookup.json", "public data index should point to the lazy lookup asset");
-assert.equal(JSON.stringify(index).includes('"roster"'), false, "public data index must not inline registration rosters");
-assert.equal(JSON.stringify(index).includes("athleteNames"), false, "public data index must not inline athlete name lists");
+function assertNoInlinePersonLists(value) {
+  if (!value || typeof value !== 'object') return;
+  for (const [key, child] of Object.entries(value)) {
+    assert.notEqual(key, 'roster', 'public data index must not inline registration rosters');
+    assert.notEqual(key, 'athleteNames', 'public data index must not inline athlete name lists');
+    assertNoInlinePersonLists(child);
+  }
+}
+// Coverage labels may equal "roster"; only an embedded data field is forbidden.
+assertNoInlinePersonLists(index);
+assert.throws(() => assertNoInlinePersonLists({ items: [{ roster: [{ name: 'test' }] }] }));
 
 const lookupBytes = fs.statSync(LOOKUP_FILE).size;
 assert.ok(
