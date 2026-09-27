@@ -14,7 +14,7 @@ assert.match(html, /data-main-tab="home"/, 'bottom navigation must expose home t
 assert.match(html, /data-main-tab="competitions"/, 'bottom navigation must expose database tab');
 assert.match(html, /data-main-tab="my"/, 'bottom navigation must expose my tab');
 assert.doesNotMatch(html, /data-main-tab="follow"/, 'follow must be managed inside my tab instead of a standalone bottom tab');
-assert.equal([...html.matchAll(/data-main-tab="/g)].length, 3, 'bottom navigation must use the PRD three-tab structure');
+assert.equal([...html.matchAll(/data-main-tab="/g)].length, 4, 'bottom navigation must use the calendar redesign four-tab structure');
 assert.equal([...html.matchAll(/data-main-tab="my"/g)].length, 1, 'my tab must be unique');
 assert.equal([...html.matchAll(/aria-current="page"/g)].length, 1, 'only one bottom navigation tab can be current in static HTML');
 assert.match(html, /<section class="view active" id="view-home">/, 'home dashboard must be the default landing view');
@@ -22,7 +22,7 @@ assert.doesNotMatch(html, /<section class="view active" id="view-competitions">/
 assert.doesNotMatch(html, /<section class="view active" id="view-role-home">/, 'role selection must not be the default landing view');
 assert.match(html, /<nav class="bottom-nav" id="bottomNav" aria-label="主导航">/, 'bottom navigation must be visible on first load');
 assert.doesNotMatch(html, /class="active"\s+data-main-tab=/, 'bottom navigation must not ship stale active classes in HTML');
-assert.match(html, /<strong>数据库<\/strong>/, 'second tab must be positioned as the structured database');
+assert.match(html, /<strong>赛事<\/strong>/, 'second tab must be positioned as the structured database');
 assert.match(html, /id="myFollowFilterButton"/, 'database tab must expose a my-follow quick filter');
 assert.match(html, /id="myFollowFilterButton" class="filter-trigger follow-filter-trigger"[^>]*aria-haspopup="listbox"[^>]*aria-expanded="false"[^>]*aria-controls="myFollowFilterMenu"/, 'my-follow filter must expose an inline dropdown menu');
 assert.match(html, /id="myFollowFilterMenu" class="follow-filter-menu" role="listbox" aria-label="选择关注范围" hidden/, 'my-follow filter must ship a hidden inline option menu');
@@ -63,7 +63,7 @@ assert.match(js, /document\.addEventListener\('visibilitychange'/, 'viewer must 
 assert.match(js, /window\.addEventListener\('pagehide'/, 'viewer must flush duration when the page unloads');
 assert.match(js, /viewStack: \['home'\]/, 'default navigation stack must start at home dashboard');
 assert.match(js, /activeMainTab: 'home'/, 'home tab must be active by default');
-assert.match(js, /const MAIN_TABS = \['home', 'competitions', 'my'\]/, 'main tab state must use the PRD three-tab structure');
+assert.match(js, /const MAIN_TABS = \['home', 'competitions', 'points', 'my'\]/, 'main tab state must use the calendar redesign four-tab structure');
 assert.match(js, /button\.classList\.remove\('active'\)/, 'bottom tab rendering must clear stale active classes first');
 assert.match(js, /button\.removeAttribute\('aria-current'\)/, 'bottom tab rendering must clear stale aria-current state');
 assert.match(js, /setAttribute\('aria-selected', 'false'\)/, 'bottom tab rendering must clear stale selected state');
@@ -98,7 +98,7 @@ assert.doesNotMatch(js, /生成判断/, 'AI home CTA must not use judgment-gener
 assert.match(js, /answer\.setAttribute\('aria-busy', 'true'\);/, 'AI answer area must expose busy state while loading');
 assert.match(js, /currentAnswer\.setAttribute\('aria-busy', 'false'\);/, 'AI answer area must clear busy state after rendering');
 assert.match(js, /finally \{[\s\S]*submitButton\.disabled = false;[\s\S]*submitButton\.textContent = '开始分析'/, 'AI question submission must restore the CTA after loading');
-assert.match(js, /function renderFocusedHomePage\(\)[\s\S]*<div class="home-dashboard home-dashboard-focused">[\s\S]*\$\{renderHomeRoleBar\(\)\}[\s\S]*\$\{renderAiWorkspace\('home'\)\}[\s\S]*\$\{renderHomePriorityPanel\(\)\}/, 'focused home page must start with role state, AI entry and one priority card');
+assert.match(js, /function renderFocusedHomePage\(\)[\s\S]*renderCalendarHomeContent\(\)/, 'home must render the calendar-first entry');
 assert.doesNotMatch(js, /function renderFocusedHomePage\(\)[\s\S]*\$\{renderHomeShortcutStrip\(\)\}[\s\S]*\$\{renderHomePriorityPanel\(\)\}/, 'focused home page must not render a separate shortcut strip before the priority card');
 assert.doesNotMatch(js, /function renderFocusedHomePage\(\)[\s\S]*\$\{renderHomeFocusCard\(\)\}[\s\S]*\$\{renderHomeRadarCard\(\)\}/, 'focused home page must not stack focus and prematch cards in the first screen');
 assert.doesNotMatch(js, /function renderFocusedHomePage\(\)[\s\S]*home-stats-strip[\s\S]*function renderHomePage/, 'focused home page must not show statistic cards in the first screen');
@@ -306,7 +306,7 @@ assert.doesNotMatch(js, /function renderHomePage\(\)[\s\S]*home-stats-strip[\s\S
 assert.doesNotMatch(js, /function renderHomePage\(\)[\s\S]*data-value-grid[\s\S]*function aiDefaultClub/, 'home page must not render data-value grids after loading');
 assert.doesNotMatch(js, /function renderHomePage\(\)[\s\S]*report-center-grid[\s\S]*function aiDefaultClub/, 'home page must not render report center grids after loading');
 assert.doesNotMatch(js, /function renderHomePage\(\)[\s\S]*home-question-list[\s\S]*function aiDefaultClub/, 'home page must not render a second AI question list after loading');
-assert.match(js, /function renderFocusedHomePage\(\)[\s\S]*renderAiWorkspace\('home'\)[\s\S]*renderHomePriorityPanel\(\)/, 'focused home page must keep AI and one priority panel as the full home structure');
+assert.match(js, /bindCalendarHome\(homePage\)/, 'home must bind calendar navigation and search');
 assert.doesNotMatch(js, /function renderFocusedHomePage\(\)[\s\S]*renderHomeShortcutStrip\(\)[\s\S]*function renderHomePage/, 'focused home page must not render redundant shortcut rows');
 assert.match(js, /data-home-prematch="\$\{escapeHtml\(row\.sportCode\)\}"/, 'home prematch card must open the scoped prematch report');
 assert.match(js, /data-home-prematch-follow="\$\{escapeHtml\(row\.sportCode\)\}"/, 'home prematch card must allow adding recommended competitions to reminders');

@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>FencingAI</title>
-    <link rel="stylesheet" href="/viewer.css?v=fencingai-product-20260805-detail-focus-1">
+    <link rel="stylesheet" href="/viewer.css?v=fencingai-calendar-20260927-1">
+    <link rel="stylesheet" href="/event-home.css?v=20260927-1">
   </head>
   <body>
     <main class="app">
@@ -62,6 +63,7 @@
           </div>
           <div class="filter-actions">
             <button id="yearFilterButton" class="filter-trigger" type="button"></button>
+            <label class="event-month-label"><span class="sr-only">筛选赛事月份</span><select id="eventMonthFilter"><option value="">全部月份</option><option value="1">1月</option><option value="2">2月</option><option value="3">3月</option><option value="4">4月</option><option value="5">5月</option><option value="6">6月</option><option value="7">7月</option><option value="8">8月</option><option value="9">9月</option><option value="10">10月</option><option value="11">11月</option><option value="12">12月</option></select></label>
             <button id="regionFilterButton" class="filter-trigger" type="button"></button>
             <button id="ageFilterButton" class="filter-trigger" type="button"></button>
             <button id="weaponFilterButton" class="filter-trigger" type="button"></button>
@@ -74,8 +76,8 @@
           </div>
         </section>
         <section class="panel search-athletes-panel" id="searchAthletesPanel" hidden></section>
-        <section class="panel database-directory-panel" id="databaseDirectory"></section>
-        <section class="panel feed-panel" id="feedPanel"></section>
+        <details class="directory-disclosure"><summary>更多查询与数据范围 <span>选手 · 俱乐部 · 教练 · 裁判</span></summary><section class="panel database-directory-panel" id="databaseDirectory"></section></details>
+        <details class="directory-disclosure"><summary>关注动态</summary><section class="panel feed-panel" id="feedPanel"></section></details>
         <section class="panel follow-panel" id="followPanel" hidden></section>
         <section class="panel member-panel" id="memberPanel" hidden>
           <div>
@@ -292,17 +294,20 @@
         <section class="my-page-shell" id="focusPage"></section>
       </section>
 
+      <section class="view" id="view-points"><div id="pointsPage" class="my-page-shell"></div></section>
+
       <nav class="bottom-nav" id="bottomNav" aria-label="主导航">
         <button type="button" data-main-tab="home" aria-current="page">
-          <span aria-hidden="true">⌂</span>
+          <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m3 10 9-7 9 7v10H3z"/><path d="M9 20v-7h6v7"/></svg>
           <strong>首页</strong>
         </button>
         <button type="button" data-main-tab="competitions">
-          <span aria-hidden="true">◇</span>
-          <strong>数据库</strong>
+          <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M7 3v4m10-4v4M3 11h18m-13 4h3m3 0h3"/></svg>
+          <strong>赛事</strong>
         </button>
+        <button type="button" data-main-tab="points"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3h8v5a4 4 0 0 1-8 0zM8 5H4v2a4 4 0 0 0 4 4m8-6h4v2a4 4 0 0 1-4 4m-4 1v6m-5 3h10m-9 0v-3h8v3"/></svg><strong>积分</strong></button>
         <button type="button" data-main-tab="my">
-          <span aria-hidden="true">◎</span>
+          <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="4"/><path d="M4 21v-3a8 8 0 0 1 16 0v3"/></svg>
           <strong>我的</strong>
         </button>
       </nav>
@@ -319,6 +324,7 @@
       </div>
     </main>
 
-    <script src="/viewer.js?v=fencingai-product-20260805-detail-focus-1"></script>
+    <script src="/event-home.js?v=20260927-1"></script>
+    <script src="/viewer.js?v=fencingai-calendar-20260927-1"></script>
   </body>
 </html>

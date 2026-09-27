@@ -89,11 +89,12 @@ const AI_ANSWER_CARD_LIMIT = 4;
 const AI_ANSWER_ACTION_LIMIT = 3;
 const AI_ANSWER_EVIDENCE_LIMIT = 4;
 const AI_LOADING_MIN_MS = 420;
-const MAIN_TABS = ['home', 'competitions', 'my'];
+const MAIN_TABS = ['home', 'competitions', 'points', 'my'];
 
 const views = {
   roleHome: document.querySelector('#view-role-home'),
   home: document.querySelector('#view-home'),
+  points: document.querySelector('#view-points'),
   parentHome: document.querySelector('#view-parent-home'),
   coachHome: document.querySelector('#view-coach-home'),
   clubHome: document.querySelector('#view-club-home'),
@@ -1795,6 +1796,7 @@ function navigateTo(name) {
   if (current !== name) state.viewStack.push(name);
   if (MAIN_TABS.includes(name)) state.activeMainTab = name;
   if (name === 'home') renderHomePage();
+  if (name === 'points') renderPointsPage();
   if (name === 'follow') renderFocusPage();
   if (name === 'my') renderPersonalPages();
   if (name === 'accountLogin') renderAccountLoginPage();
@@ -1806,6 +1808,7 @@ function navigateMain(name) {
   const targetView = name === 'follow' ? 'my' : name;
   state.activeMainTab = MAIN_TABS.includes(targetView) ? targetView : 'home';
   if (targetView === 'home') renderHomePage();
+  if (targetView === 'points') renderPointsPage();
   if (targetView === 'my') renderPersonalPages();
   state.viewStack = [targetView];
   showView(targetView);
@@ -2079,6 +2082,8 @@ function clearAiCompetitionFilter() {
 }
 
 function renderFilters() {
+  const monthSelect = document.querySelector('#eventMonthFilter');
+  if (monthSelect) monthSelect.value = state.selectedAiMonth || '';
   const configs = [
     [yearFilterButton, 'year', state.selectedYear],
     [regionFilterButton, 'region', state.selectedRegion],
@@ -5406,9 +5411,7 @@ function renderFocusedHomePage() {
   if (state.isDataLoading) return false;
   homePage.innerHTML = `
     <div class="home-dashboard home-dashboard-focused">
-      ${renderHomeRoleBar()}
-      ${renderAiWorkspace('home')}
-      ${renderHomePriorityPanel()}
+      ${renderCalendarHomeContent()}
     </div>
   `;
   homePage.querySelectorAll('[data-home-compact-nav]').forEach((button) => {
@@ -5456,6 +5459,7 @@ function renderFocusedHomePage() {
     renderRoleWorkspacePremium();
     navigateTo('roleHome');
   });
+  bindCalendarHome(homePage);
   bindAiWorkspace(homePage);
   return true;
 }
@@ -5776,6 +5780,8 @@ function submitAiQuery(query) {
   const form = homePage?.querySelector('#aiQueryForm');
   if (!input || !form) return;
   input.value = text;
+  const analysisPanel = homePage.querySelector('#homeAnalysis');
+  if (analysisPanel) analysisPanel.open = true;
   if (typeof form.__runAiQuery === 'function') {
     form.__runAiQuery(text);
     return;
@@ -15763,6 +15769,10 @@ tabs.addEventListener('click', (event) => {
 });
 
 searchInput.addEventListener('input', handleSearchInput);
+searchInput.addEventListener('input', () => {
+  const monthSelect = document.querySelector('#eventMonthFilter');
+  if (monthSelect) monthSelect.value = state.selectedAiMonth || '';
+});
 yearFilterButton.addEventListener('click', () => openFilterSheet('year'));
 regionFilterButton.addEventListener('click', () => openFilterSheet('region'));
 ageFilterButton.addEventListener('click', () => openFilterSheet('age'));
@@ -15812,6 +15822,13 @@ document.querySelectorAll('[data-nav-role-home]').forEach((button) => {
 });
 document.querySelectorAll('[data-nav-competitions]').forEach((button) => {
   button.addEventListener('click', () => navigateMain('competitions'));
+});
+
+document.querySelector('#eventMonthFilter')?.addEventListener('change', (event) => {
+  state.selectedAiMonth = event.target.value;
+  state.aiCompetitionFilterSummary = '';
+  state.aiCompetitionFilterQuestion = '';
+  applyCompetitionFilter();
 });
 
 bottomNav?.querySelectorAll('[data-main-tab]').forEach((button) => {
