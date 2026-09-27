@@ -1,6 +1,6 @@
 # 赛事详情本地改版 · 2026-09-27
 
-状态：本地可预览，未发布本次改动。预览 http://localhost:5199 。
+状态：已于 2026-09-27 发布至 https://fencingai.uk 和 https://www.fencingai.uk 。
 
 ## 已实现
 
@@ -25,3 +25,14 @@
 ## 数据边界
 
 本次未新增数据抓取或线上数据写入。缺少可核验链接或数据的规程 PDF、报名收费、检录、微信群、订阅通知、精确倒计时未伪造。现场完整性和正式成绩仍以赛事官方发布为准。
+
+## 正式发布核对
+
+- 代码提交 `013768f3` 已推送 master 和开发分支。
+- Worker 版本 `bdc42c26-b7e9-49fc-bc9c-3249df4ea2ba`。
+- 发布前 49 项 smoke 通过，数据构建成功：753 场赛事、2202 个成绩包、25690 名选手、826 家俱乐部。构建依据现有日期规则刷新状态，未增加赛果。
+- 两个域名首页均引用新版详情资源，event-detail.js、event-detail.css、viewer.js 的 SHA-256 与发布文件一致。
+- 两个域名均回读 RZSS2034020MFIU10 的 13 人名单、小组和淘汰赛数据。
+- 两个域名均回读第三十八周 U10 男子花剑积分榜：1672 人，榜首 5772 分，返回 cached。
+- 浏览器视觉与触控验收仍未完成，不以接口成功代替视觉验收。
+- 证据：`output/detail-release-smoke.log`、`output/detail-release-build.log`、`output/detail-release-deploy.log`、`output/detail-release-live.json`。
