@@ -41,6 +41,8 @@ const fallback = await getPointsPage(new URLSearchParams('groupCode=U12'), { sou
 assert.equal(fallback.cacheStatus, 'stale');
 assert.equal(fallback.query.groupCode, 'U12');
 assert.equal(fallback.query.week, week);
+const explicit = await getPointsPage(new URLSearchParams({ season: seed.metadata.season, week: seed.metadata.weeks[0].value, q: 'explicit-week-test' }), options);
+assert.equal(explicit.metadataStatus, 'reference', 'explicit published weeks must not wait on another upstream directory request');
 
 const page = { innerHTML: '', querySelector: () => null, querySelectorAll: () => [] };
 const context = vm.createContext({ document: { querySelector: () => page }, Date, console, AbortSignal, URLSearchParams, escapeHtml: value => String(value ?? '').replaceAll('<','&lt;').replaceAll('"','&quot;'), openHomeSearch: () => {} });

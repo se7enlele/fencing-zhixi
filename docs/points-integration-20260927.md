@@ -34,4 +34,17 @@
 
 `tools/points-test.mjs` 覆盖周次和分组一致性、积分和名次保留、字段隐私、空结果与错误的区分、参数校验、重复请求合并和前端异步请求竞态。原有全量 smoke 保留，新测试加入流程。
 
-正式部署与线上回读结果在发布后补充。
+正式发布已完成：
+
+- 实现提交 `ce75dcc1`、目录查询优化 `67aa0e56` 已推送 master 和开发分支。
+- 最终 Worker 版本 `f1eda801-33d8-41d1-a232-3f0a31bc9d33`。
+- 54 个分组首页快照全部成功获取；后续页、搜索、历史周榜使用官方接口，并非只展示快照中的前 20 人。
+- 48 项 smoke 检查通过；目录查询优化后再次通过积分专项测试。
+- 本地及线上各 8 类接口检查通过：元数据、首页、第二页、姓名匹配、无匹配、女子佩剑、历史周次、非法参数。
+- 两个正式域名均核对前端 JS/CSS 哈希一致，并保留 753 场赛事数据。
+- 最终版本两个域名均再次回读明确周次的 U10 男花榜单，确认 1672 人，前三积分 5772 / 4338 / 3990。主域名返回 fresh，www 域名返回 cached。
+- 初次线上检查中官方目录和首页曾返回 stale 后备数据，www 有一次超时；随后重试通过。源站不稳定没有被隐藏或误报成空榜。
+- 已选的已知周次直接使用已验证目录校验，避免每次分页再等待一次目录请求。
+- 浏览器连接仍报错，未完成视觉和真实手机交互验收。
+
+证据：`output/points-release-smoke-final.log`、`output/points-deploy-final.log`、`output/points-verification-fencingai.uk.json`、`output/points-online-assets.json`、`output/points-final-release-verification.json`。
