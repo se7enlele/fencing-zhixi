@@ -1,4 +1,6 @@
 import { createServer } from 'node:http';
+import { getPointsMetadata, getPointsPage } from './tools/points-data.mjs';
+import { pointsSourceJson } from './tools/points-source-node.mjs';
 import { readFile, writeFile, mkdir, readdir, stat } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -2456,6 +2458,15 @@ const server = createServer(async (request, response) => {
     } catch (error) {
       sendJson(response, 500, { ok: false, message: error.message });
     }
+    return;
+  }
+
+  if (request.method === 'GET' && ['/api/points', '/api/points/meta'].includes(url.pathname)) {
+    try {
+      const options = { sourceJson: pointsSourceJson };
+      const data = url.pathname.endsWith('/meta') ? await getPointsMetadata(options) : await getPointsPage(url.searchParams, options);
+      sendJson(response, 200, { ok: true, ...data });
+    } catch (error) { sendJson(response, error.status || 502, { ok: false, message: '积分数据暂不可用，请稍后重试', ...(error.status === 400 ? { message: error.message } : {}) }); }
     return;
   }
 

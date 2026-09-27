@@ -145,9 +145,5 @@ function bindCalendarHome(container) {
 }
 
 function renderPointsPage() {
-  const page = document.querySelector('#pointsPage');
-  if (!page) return;
-  page.innerHTML = `<section class="points-intro"><span class="eyebrow">RANKINGS</span><h2>个人积分</h2><p>查看排名之前，先确认榜单来源与更新时间。</p></section><section class="points-empty panel"><span class="points-symbol" aria-hidden="true">▤</span><h3>官方积分榜暂未接入</h3><p>当前可查单场比赛名次和选手参赛记录，尚无可核验的官方周积分数据。</p><p>单场名次不等于全国积分，暂不展示积分排名。</p><button type="button" class="points-search">查找运动员参赛记录</button></section><section class="panel points-guide"><h3>你现在可以查看</h3><div><strong>赛事成绩</strong><p>进入赛事，选择项目查看已收录名次。</p></div><div><strong>选手成长</strong><p>搜索并关注选手，查看历次参赛表现。</p></div><button type="button" data-points-events>浏览赛事 ›</button></section>`;
-  page.querySelector('.points-search').addEventListener('click', () => openHomeSearch(''));
-  page.querySelector('[data-points-events]').addEventListener('click', () => navigateMain('competitions'));
+  renderOfficialPointsPage();
 }

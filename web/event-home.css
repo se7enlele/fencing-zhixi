@@ -106,6 +106,40 @@ button:focus-visible, input:focus-visible, summary:focus-visible { outline: 2px 
 .points-guide { padding: 22px; }
 .points-guide > div { border-top: 1px solid #edf0f3; padding: 16px 0 5px; }
 .points-guide strong { font-size: 14px; }
+.points-controls { padding: 16px; }
+.points-filter-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+.points-controls label > span { display: block; font-size: 11px; color: #737e8d; margin-bottom: 6px; }
+.points-controls select { width: 100%; min-width: 0; min-height: 42px; padding: 8px 7px; font: inherit; font-size: 13px; border: 1px solid #e9ecf0; border-radius: 9px; background: #f7f8fa; color: #263442; }
+.points-week-label { display: block; margin: 15px 0; }
+.points-controls .home-search { padding: 5px 6px 5px 12px; }
+.points-clear { min-height: 38px; border: 0; background: transparent; color: #a84931; font-size: 12px; margin-top: 7px; }
+.points-results h3 { font-size: 16px; margin: 0; }
+.points-results { margin-top: 8px; }
+.points-list { display: grid; gap: 10px; }
+.points-row { display: grid; grid-template-columns: 34px minmax(0,1fr) auto; align-items: center; gap: 13px; padding: 18px 14px; background: #fff; border: 1px solid #edf0f3; border-radius: 17px; }
+.points-rank { font-size: 21px; font-weight: 650; text-align: center; color: #7b8492; }
+.points-top-1 { background: #fffaf0; border-color: #f3e5c9; }
+.points-top-2 { background: #f4f9fb; border-color: #e0edf3; }
+.points-top-3 { background: #fff5f0; border-color: #f4e1d5; }
+.points-top-1 .points-rank { color: #ac7b2f; }
+.points-top-2 .points-rank { color: #608499; }
+.points-top-3 .points-rank { color: #ad7860; }
+.points-person strong { display: block; font-size: 17px; font-weight: 650; }
+.points-person > span { display: block; color: #76818e; font-size: 12px; line-height: 1.6; margin: 6px 0 2px; overflow-wrap: anywhere; }
+.points-person button { display: block; border: 0; color: #9a543d; background: transparent; padding: 7px 0 0; font-size: 11px; min-height: 28px; }
+.points-value { text-align: right; }
+.points-value strong { display: block; font-size: 23px; letter-spacing: -.6px; }
+.points-value small { display: block; margin-top: 5px; font-size: 10px; color: #7b8590; }
+.points-pagination { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin: 20px 0; font-size: 12px; color: #778391; }
+.points-pagination button { min-height: 42px; padding: 8px 18px; border: 1px solid #e6e9ee; border-radius: 10px; color: #a64e34; background: #fff; }
+.points-pagination button:disabled { opacity: .4; color: #7b8590; }
+.points-source-note { font-size: 11px; line-height: 1.9; color: #7b8590; }
+.points-source-note a { color: #9b5339; }
+.points-warning { background: #fff4df; color: #875d26; font-size: 12px; line-height: 1.8; padding: 12px; border-radius: 12px; }
+.points-loading { text-align: center; padding: 35px 18px; }
+.points-loading p { color: #7b8590; font-size: 12px; }
+.points-loading-dot { display: block; width: 24px; height: 24px; border: 2px solid #f1ded4; border-top-color: #b96549; border-radius: 50%; margin: 0 auto 16px; animation: points-spin 1s linear infinite; }
+@keyframes points-spin { to { transform: rotate(360deg); } }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
 @media (max-width: 380px) {
   .app { padding-left: 12px; padding-right: 12px; }

@@ -1,5 +1,6 @@
 import adminImportHtml from '../web/admin-import.html';
 import viewerHtml from '../web/viewer.html';
+import { getPointsMetadata, getPointsPage } from '../tools/points-data.mjs';
 import { buildPreEventCompetitions } from '../tools/pre-event-data.mjs';
 import { sanitizePublicData } from '../tools/public-sanitize.mjs';
 import { searchIndexes } from '../tools/search-index.mjs';
@@ -1257,6 +1258,15 @@ async function handleAdminImport(request, env, url) {
 }
 
 async function routeApi(request, env, url) {
+  if (request.method === 'GET' && ['/api/points', '/api/points/meta'].includes(url.pathname)) {
+    try {
+      const options = { kv: env.FOLLOWS };
+      const data = url.pathname.endsWith('/meta') ? await getPointsMetadata(options) : await getPointsPage(url.searchParams, options);
+      return json({ ok: true, ...data }, 200, 'no-store');
+    } catch (error) {
+      return json({ ok: false, message: error.status === 400 ? error.message : '积分数据暂不可用，请稍后重试' }, error.status || 502);
+    }
+  }
   if (url.pathname === '/api/competitions' && request.method === 'GET') {
     const { index, competitions, hasDynamicPreEvent } = await getCompetitionIndex(env);
     const dataCoverage = await dataCoverageWithEntityCounts(env, index);
