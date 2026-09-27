@@ -78,7 +78,12 @@ export async function getPointsMetadata({ kv, sourceJson = fetchPointsJson } = {
 }
 
 export async function getPointsPage(params, options = {}) {
-  const meta = await getPointsMetadata(options);
+  // The UI already selected an explicit published week. Validate known weeks locally
+  // so an unrelated metadata timeout cannot add another 20s before the page request.
+  const knownWeek = seed.metadata?.season === params.get('season')
+    && seed.metadata.weeks.some(row => row.value === params.get('week'))
+    && seed.metadata.groups.some(row => row.value === (params.get('groupCode') || 'U10'));
+  const meta = knownWeek ? { ...seed.metadata, cacheStatus: 'reference' } : await getPointsMetadata(options);
   const query = pointsQuery(params, meta);
   const key = pointsKey(query);
   // Search queries are not persisted in KV; regular group/week pages share a short cache.
