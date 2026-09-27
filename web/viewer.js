@@ -11037,7 +11037,8 @@ function renderCompetitionProjectGroups(competition, sortedItems, eventCardHtml,
   `;
 }
 
-function renderEventList(competition) {
+function renderEventList(competition, filters = null) {
+  if (!filters) renderProjectFilters(competition);
   const eventItems = competition.items || competition.itemSummaries || [];
   competitionProjectsMeta.textContent = eventItems.length ? `${eventItems.length} 项` : '';
   if (!eventItems.length) {
@@ -11049,7 +11050,9 @@ function renderEventList(competition) {
     return;
   }
 
-  const sortedItems = sortedCompetitionEventRows(eventItems);
+  const sortedItems = sortedCompetitionEventRows(filters ? EventDetail.filter(eventItems, filters) : eventItems);
+  const hasFilters = filters && Object.values(filters).some(Boolean);
+  competitionProjectsMeta.textContent = `${sortedItems.length} / ${eventItems.length} 项`;
   const primaryItems = sortedItems.slice(0, 4);
   const secondaryItems = sortedItems.slice(4);
   const showProjectGuide = !(competition.isPreEvent || isPrematchStatusValue(competition.status))
@@ -11080,8 +11083,8 @@ function renderEventList(competition) {
 
   eventList.innerHTML = `
     ${showProjectGuide ? renderCompetitionProjectGuide(competition, sortedItems) : ''}
-    ${primaryItems.map(eventCardHtml).join('')}
-    ${secondaryItems.length ? renderCompetitionProjectGroups(
+    ${hasFilters ? (sortedItems.map(eventCardHtml).join('') || '<div class="empty">没有符合条件的项目，可重置筛选查看全部。</div>') : primaryItems.map(eventCardHtml).join('')}
+    ${!hasFilters && secondaryItems.length ? renderCompetitionProjectGroups(
       competition,
       sortedItems,
       eventCardHtml,
@@ -11101,11 +11104,8 @@ function renderEventHero(event) {
     <div class="hero-title">${escapeHtml(displayEventName(event))}</div>
     <div class="hero-sub">${escapeHtml(event.sportName)}</div>
     <div class="hero-sub">${escapeHtml(event.venue || '地点待确认')} · ${escapeHtml(event.openDate || '日期待确认')}</div>
+    <p class="detail-source">已收录的赛事成绩${state.dataGeneratedAt ? ` · 数据版本 ${escapeHtml(formatDataGeneratedAt(state.dataGeneratedAt))}` : ''}。现场进度及正式赛果以赛事官方发布为准。</p>
     ${/团体|team/i.test(event.eventName || '') ? '<p class="data-scope-note">团体成绩按本场队伍展示，不计入个人成长档案。</p>' : ''}
-    ${aiAnalyzeActionRow([
-      { label: '分析项目', query: `${event.sportName} ${displayEventName(event)} 项目表现和关键选手` },
-      { label: '复盘对手', query: `${displayEventName(event)} 的淘汰赛关键对手和排名反差` },
-    ])}
     ${tracked.length ? `
       <div class="event-focus-strip">
         ${tracked.slice(0, 3).map((athlete) => `
@@ -11116,7 +11116,13 @@ function renderEventHero(event) {
       </div>
     ` : ''}
   `;
-  bindAiAnalyzeActions(eventHero);
+  const reviewActions = document.querySelector('#eventReviewActions');
+  reviewActions.innerHTML = `${aiAnalyzeActionRow([
+      { label: '分析项目', query: `${event.sportName} ${displayEventName(event)} 项目表现和关键选手` },
+      { label: '复盘对手', query: `${displayEventName(event)} 的淘汰赛关键对手和排名反差` },
+    ])}`;
+  bindAiAnalyzeActions(reviewActions);
+  renderEventFinder(event);
 }
 
 function renderMetrics(event) {
@@ -11886,7 +11892,12 @@ function renderPoolGroups(event, activeIndex = 0) {
               const isSelf = Number(rowAthlete.drawNo) === Number(colAthlete.drawNo);
               const isFocusLine = focusClassForAthlete(rowAthlete) || focusClassForAthlete(colAthlete);
               const label = poolCellLabel(group, rowAthlete, colAthlete);
-              return `<td class="${isSelf ? 'self' : ''} ${isFocusLine ? 'focus-line' : ''}">${escapeHtml(label)}</td>`;
+              const bout = !isSelf && poolBoutForPair(group, rowAthlete, colAthlete);
+              const outcome = bout ? poolBoutOutcome(bout) : {};
+              const rowHome = bout && Number(bout.homeNumber) === Number(rowAthlete.drawNo);
+              const won = rowHome ? outcome.homeWon : outcome.awayWon;
+              const lost = rowHome ? outcome.awayWon : outcome.homeWon;
+              return `<td class="${isSelf ? 'self' : ''} ${isFocusLine ? 'focus-line' : ''} ${won ? 'pool-win' : lost ? 'pool-loss' : ''}">${escapeHtml(label)}${won || lost ? `<small>${won ? '胜' : '负'}</small>` : ''}</td>`;
             }).join('')}
               </tr>
             `).join('')}
@@ -11932,8 +11943,10 @@ function phaseSeed(match, side) {
 }
 
 function matchWinnerName(match) {
-  const homeWon = match.home?.result === 'W';
-  return match.winner?.name || (homeWon ? match.home?.name : match.away?.name) || '-';
+  if (match.winner?.name) return match.winner.name;
+  if (match.home?.result === 'W' && match.away?.result !== 'W') return match.home.name || '-';
+  if (match.away?.result === 'W' && match.home?.result !== 'W') return match.away.name || '-';
+  return '-';
 }
 
 function matchScoreText(match) {
@@ -11988,11 +12001,13 @@ function renderMatches(event, activeIndex = 0) {
   const winnerRows = tableauWinnerRows(matches);
   matchList.innerHTML = `
     <div class="process-switch phase-switch" aria-label="选择轮次">
+      <button type="button" data-phase-index="${index - 1}" ${index === 0 ? 'disabled' : ''} aria-label="上一轮">‹ 上一轮</button>
       ${groups.map((item, itemIndex) => `
         <button type="button" class="${itemIndex === index ? 'active' : ''}" data-phase-index="${itemIndex}">
           ${escapeHtml(item.phase)}
         </button>
       `).join('')}
+      <button type="button" data-phase-index="${index + 1}" ${index === groups.length - 1 ? 'disabled' : ''} aria-label="下一轮">下一轮 ›</button>
     </div>
     <section class="tableau-phase-summary">
       <div>
@@ -15692,7 +15707,9 @@ function renderEventOverview(event) {
 
 function renderEventTab(tabName) {
   if (!state.currentEvent || state.eventRenderedTabs.has(tabName)) return;
-  if (tabName === 'overview') {
+  if (tabName === 'roster') {
+    renderEventRoster(state.currentEvent);
+  } else if (tabName === 'overview') {
     renderEventOverview(state.currentEvent);
   } else if (tabName === 'pool') {
     renderPoolGroups(state.currentEvent);
@@ -15722,13 +15739,16 @@ async function openEvent(eventCode) {
       (result) => result.event,
     );
     state.eventRenderedTabs = new Set();
-    activateEventTab('overview');
+    activateEventTab(EventDetail.defaultTab(state.currentEvent));
     renderEventHero(state.currentEvent);
     renderMetrics(state.currentEvent);
-    renderEventTab('overview');
     navigateTo('event');
   } catch (error) {
     state.eventRenderedTabs = new Set();
+    state.currentEvent = null;
+    document.querySelector('#eventFinder').innerHTML = '';
+    document.querySelector('#eventRoster').innerHTML = '';
+    document.querySelector('#eventReviewActions').innerHTML = '';
     setInlineError(eventHero, friendlyErrorMessage('项目详情'));
     metricGrid.innerHTML = '';
     insightCards.innerHTML = '';

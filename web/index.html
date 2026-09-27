@@ -6,6 +6,7 @@
     <title>FencingAI</title>
     <link rel="stylesheet" href="/viewer.css?v=fencingai-calendar-20260927-1">
     <link rel="stylesheet" href="/event-home.css?v=20260927-points-1">
+    <link rel="stylesheet" href="/event-detail.css?v=20260927-detail-1">
   </head>
   <body>
     <main class="app">
@@ -121,23 +122,28 @@
             <h2>项目</h2>
             <span id="competitionProjectsMeta"></span>
           </div>
+          <div id="projectFilters" class="detail-filters"></div>
           <div id="eventList" class="stack"></div>
         </article>
       </section>
 
       <section class="view" id="view-event-detail">
         <article class="hero panel" id="eventHero"></article>
-        <section class="metric-grid" id="metricGrid"></section>
+        <section class="panel detail-finder" id="eventFinder"></section>
 
         <nav class="tabs process-tabs" id="tabs">
-          <button class="tab active" data-tab="overview">概览</button>
+          <button class="tab" data-tab="roster">参赛名单</button>
           <button class="tab" data-tab="pool">循环赛</button>
           <button class="tab" data-tab="standing">小组排名</button>
           <button class="tab" data-tab="tableau">单败表</button>
           <button class="tab" data-tab="participants">最终排名</button>
+          <button class="tab" data-tab="overview">赛后复盘</button>
         </nav>
 
-        <section class="tab-panel active" id="tab-overview">
+        <section class="tab-panel" id="tab-roster"><article class="panel"><h2>参赛名单</h2><div id="eventRoster"></div></article></section>
+        <section class="tab-panel" id="tab-overview">
+          <section class="metric-grid" id="metricGrid"></section>
+          <div id="eventReviewActions"></div>
           <article class="panel">
             <h2>项目洞察</h2>
             <div id="insightCards" class="metric-grid"></div>
@@ -326,6 +332,7 @@
 
     <script src="/points.js?v=20260927-points-1"></script>
     <script src="/event-home.js?v=20260927-points-1"></script>
-    <script src="/viewer.js?v=fencingai-calendar-20260927-1"></script>
+    <script src="/event-detail.js?v=20260927-detail-1"></script>
+    <script src="/viewer.js?v=20260927-detail-1"></script>
   </body>
 </html>

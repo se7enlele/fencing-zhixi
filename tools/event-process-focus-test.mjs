@@ -28,7 +28,7 @@ assert.match(js, /focusClassForAthlete\(rowAthlete\)/, 'pool matrix rows must hi
 assert.match(js, /focusLabelForAthlete\(row\)/, 'final ranking rows must label followed athletes');
 assert.match(js, /class="pool-matrix" style="--pool-size:/, 'pool matrix must size itself from the active group');
 assert.match(js, /class="process-table pool-results-table"/, 'pool result table must have a mobile-specific width contract');
-assert.match(js, /renderEventTab\('overview'\)/, 'opening an event should render only the visible overview tab immediately');
+assert.match(js, /activateEventTab\(EventDetail.defaultTab\(state.currentEvent\)\)/, 'opening an event should select a data-backed result tab');
 assert.doesNotMatch(js, /openEvent\(eventCode\)[\s\S]*renderPoolGroups\(state\.currentEvent\)[\s\S]*renderPoolStanding\(state\.currentEvent\)[\s\S]*renderMatches\(state\.currentEvent\)/, 'opening an event must not eagerly render all hidden process tabs');
 
 assert.match(css, /body\s*\{[\s\S]*overflow-x:\s*hidden/, 'mobile body must not scroll horizontally');
