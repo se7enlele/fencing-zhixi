@@ -45,6 +45,7 @@ jobs:
           node-version: 20
 
       - name: Run scheduled sync
+        if: ${{ github.event_name != 'workflow_dispatch' || github.event.inputs.active_limit != '0' || github.event.inputs.completed_limit != '0' || github.event.inputs.backfill_limit != '0' }}
         env:
           ACTIVE_LIMIT: ${{ github.event.inputs.active_limit || '8' }}
           COMPLETED_LIMIT: ${{ github.event.inputs.completed_limit || '4' }}
