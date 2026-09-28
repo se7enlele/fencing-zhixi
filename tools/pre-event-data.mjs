@@ -1,5 +1,9 @@
 function parseDate(value) {
-  const timestamp = Date.parse(String(value || '').replace(' ', 'T'));
+  const text = String(value || '').trim().replace(' ', 'T');
+  const shanghaiTime = /^\d{4}-\d{2}-\d{2}(?:T\d{2}:\d{2}(?::\d{2})?)?$/.test(text)
+    ? `${text.includes('T') ? text : `${text}T00:00:00`}+08:00`
+    : text;
+  const timestamp = Date.parse(shanghaiTime);
   return Number.isFinite(timestamp) ? timestamp : null;
 }
 
