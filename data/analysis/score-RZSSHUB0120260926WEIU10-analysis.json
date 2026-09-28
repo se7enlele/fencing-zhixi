@@ -1,0 +1,689 @@
+{
+  "ok": true,
+  "source": {
+    "sourceUrl": "https://fencing-proxy.aixindiandian.workers.dev/fencingapi/matchresult/classmentrank/RZSSHUB0120260926WEIU10",
+    "sourceType": "classmentrank",
+    "fallbackFrom": "https://fencing-proxy.aixindiandian.workers.dev/Resource/score/RZSSHUB0120260926WEIU10.js",
+    "fallbackMessage": "Command failed: curl --location --fail --silent --show-error --retry 2 --retry-delay 1 --retry-max-time 40 --max-time 20 https://fencing-proxy.aixindiandian.workers.dev/Resource/score/RZSSHUB0120260926WEIU10.js\ncurl: (28) Operation timed out after 20010 milliseconds with 0 bytes received\r\ncurl: (28) Operation timed out after 20009 milliseconds with 0 bytes received\r\n",
+    "importedAt": "2026-09-28T09:02:31.590Z"
+  },
+  "general": {
+    "sportName": "2026年“楚天杯”湖北省青少年击剑联赛",
+    "eventName": "U10女子重剑个人",
+    "openDate": "2026-09-26 08:00:00",
+    "venue": "武汉市",
+    "competitionNo": 28,
+    "exemptionNo": null,
+    "poolFencerNo": null,
+    "poolQualifyNo": null,
+    "preDeStartPhase": null,
+    "deStartPhase": null,
+    "sportCode": "RZSSHUB0120260926",
+    "eventCode": "RZSSHUB0120260926WEIU10"
+  },
+  "summary": {
+    "classmentCount": 28,
+    "initialSeedCount": 0,
+    "poolCount": 0,
+    "poolStandingCount": 0,
+    "poolResultCount": 0,
+    "poolBoutCount": 0,
+    "tableauCount": 0,
+    "eliminationMatchCount": 0,
+    "playedEliminationMatchCount": 0,
+    "byeMatchCount": 0,
+    "athleteCountByLicence": 28
+  },
+  "distributions": {
+    "poolStatus": {},
+    "poolRemark": {},
+    "tableau": {},
+    "eliminationByPhase": {},
+    "eliminationResult": {},
+    "medal": {
+      "金": 1,
+      "银": 1,
+      "铜": 2,
+      "(无奖牌)": 24
+    }
+  },
+  "normalized": {
+    "classment": [
+      {
+        "rank": 1,
+        "displayRank": "1",
+        "name": "吕乐萱",
+        "licence": "20160129F202203020409",
+        "club": "河南豫剑",
+        "birthday": "2016-01-29",
+        "medal": "金",
+        "status": "N",
+        "sourcePosition": "1",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 2,
+        "displayRank": "2",
+        "name": "张若涵",
+        "licence": "20170207F202402071216",
+        "club": "杭州钱江万国",
+        "birthday": "2017-02-07",
+        "medal": "银",
+        "status": "N",
+        "sourcePosition": "2",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 3,
+        "displayRank": "3",
+        "name": "李兰君",
+        "licence": "20170501F202502140539",
+        "club": "合肥奥创",
+        "birthday": "2017-05-01",
+        "medal": "铜",
+        "status": "N",
+        "sourcePosition": "3",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 3,
+        "displayRank": "3",
+        "name": "黃苡珊",
+        "licence": "20160104F202506131147",
+        "club": "个人",
+        "birthday": "2016-01-04",
+        "medal": "铜",
+        "status": "N",
+        "sourcePosition": "4",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 5,
+        "displayRank": "5",
+        "name": "朱羽馨",
+        "licence": "20170612F202302080616",
+        "club": "湖北永尚",
+        "birthday": "2017-06-12",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "5",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 6,
+        "displayRank": "6",
+        "name": "吴一诺",
+        "licence": "20160118F202408111007",
+        "club": "武汉剑乐会",
+        "birthday": "2016-01-18",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "6",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 7,
+        "displayRank": "7",
+        "name": "鹿呦呦",
+        "licence": "20170427F202401140433",
+        "club": "合肥奥创",
+        "birthday": "2017-04-27",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "7",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 8,
+        "displayRank": "8",
+        "name": "周歆桐",
+        "licence": "20160728F202309040751",
+        "club": "武汉武昌万国",
+        "birthday": "2016-07-28",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "8",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 9,
+        "displayRank": "9",
+        "name": "白若水",
+        "licence": "20160520F202306100312",
+        "club": "武汉武昌万国",
+        "birthday": "2016-05-20",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "9",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 10,
+        "displayRank": "10",
+        "name": "潘美亚",
+        "licence": "20161120F202501221044",
+        "club": "武汉经开车谷",
+        "birthday": "2016-11-20",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "10",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 11,
+        "displayRank": "11",
+        "name": "沈梦甜",
+        "licence": "20160527M202402081008",
+        "club": "湖北优肯",
+        "birthday": "2016-05-27",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "11",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 12,
+        "displayRank": "12",
+        "name": "谢羽萌",
+        "licence": "20160728F202603120838",
+        "club": "个人",
+        "birthday": "2016-07-28",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "12",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 13,
+        "displayRank": "13",
+        "name": "王馨瑶",
+        "licence": "20180409F202505100311",
+        "club": "个人",
+        "birthday": "2018-04-09",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "13",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 14,
+        "displayRank": "14",
+        "name": "廖洵艺",
+        "licence": "20170202M202507070613",
+        "club": "上海青浦",
+        "birthday": "2017-02-02",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "14",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 15,
+        "displayRank": "15",
+        "name": "王梓玥",
+        "licence": "20161211F202601100257",
+        "club": "武汉益博",
+        "birthday": "2016-12-11",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "15",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 16,
+        "displayRank": "16",
+        "name": "严其心",
+        "licence": "20160101F202402270540",
+        "club": "湖北永尚",
+        "birthday": "2016-01-01",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "16",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 17,
+        "displayRank": "17",
+        "name": "赖唯煊",
+        "licence": "20161112M202312050528",
+        "club": "深圳瑞锋熊猫",
+        "birthday": "2016-11-12",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "17",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 18,
+        "displayRank": "18",
+        "name": "梁泠然",
+        "licence": "20160312M202501100633",
+        "club": "武汉剑乐会",
+        "birthday": "2016-03-12",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "18",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 19,
+        "displayRank": "19",
+        "name": "孙舒静",
+        "licence": "20180928F202411280715",
+        "club": "安徽骑兵",
+        "birthday": "2018-09-28",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "19",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 20,
+        "displayRank": "20",
+        "name": "张涵语",
+        "licence": "20160830F202504170106",
+        "club": "武汉剑乐会",
+        "birthday": "2016-08-30",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "20",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 21,
+        "displayRank": "21",
+        "name": "翟蝉曦",
+        "licence": "20181112F202407231212",
+        "club": "陕西星耀",
+        "birthday": "2018-11-12",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "21",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 22,
+        "displayRank": "22",
+        "name": "郭宇涵",
+        "licence": "20160917F202608261059",
+        "club": "个人",
+        "birthday": "2016-09-17",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "22",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 23,
+        "displayRank": "23",
+        "name": "邓睿思",
+        "licence": "20171004F202402290408",
+        "club": "湖北永尚",
+        "birthday": "2017-10-04",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "23",
+        "qualifyStatusId": "0"
+      },
+      {
+        "rank": 23,
+        "displayRank": "23",
+        "name": "贺慕茜",
+        "licence": "20170503F202501121150",
+        "club": "武汉剑乐会",
+        "birthday": "2017-05-03",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "24",
+        "qualifyStatusId": "0"
+      },
+      {
+        "rank": 25,
+        "displayRank": "25",
+        "name": "张雲心",
+        "licence": "20180923F202411250447",
+        "club": "上海万国",
+        "birthday": "2018-09-23",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "25",
+        "qualifyStatusId": "0"
+      },
+      {
+        "rank": 26,
+        "displayRank": "26",
+        "name": "郑壹心",
+        "licence": "20160704F202604241133",
+        "club": "山东小众体育",
+        "birthday": "2016-07-04",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "26",
+        "qualifyStatusId": "0"
+      },
+      {
+        "rank": 27,
+        "displayRank": "27",
+        "name": "张亦萱",
+        "licence": "20170209F202503150609",
+        "club": "湖北优肯",
+        "birthday": "2017-02-09",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "27",
+        "qualifyStatusId": "0"
+      },
+      {
+        "rank": 28,
+        "displayRank": "28",
+        "name": "肖洛彤",
+        "licence": "20170713F202501110404",
+        "club": "武汉汇星",
+        "birthday": "2017-07-13",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "28",
+        "qualifyStatusId": "0"
+      }
+    ],
+    "poolStandings": [],
+    "poolResults": [],
+    "poolBouts": [],
+    "eliminationMatches": []
+  },
+  "completeness": [
+    {
+      "section": "General",
+      "rows": 1,
+      "fields": [
+        {
+          "key": "SportName",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "2026年“楚天杯”湖北省青少年击剑联赛"
+          ]
+        },
+        {
+          "key": "EventName",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "U10女子重剑个人"
+          ]
+        },
+        {
+          "key": "OpenDate",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "2026-09-26 08:00:00"
+          ]
+        },
+        {
+          "key": "Venue",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "武汉市"
+          ]
+        },
+        {
+          "key": "CompetitionNo",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            28
+          ]
+        },
+        {
+          "key": "ExemptionNo",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "PoolFencerNo",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "PoolQualifyNo",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "PDEstartPhase",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "DEstartPhase",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "Scode",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "RZSSHUB0120260926"
+          ]
+        },
+        {
+          "key": "Ecode",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "RZSSHUB0120260926WEIU10"
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Classment",
+      "rows": 28,
+      "fields": [
+        {
+          "key": "EventRank",
+          "nonEmpty": 28,
+          "fillRate": 1,
+          "sampleValues": [
+            "1",
+            "2",
+            "3",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9"
+          ]
+        },
+        {
+          "key": "EventShowRank",
+          "nonEmpty": 28,
+          "fillRate": 1,
+          "sampleValues": [
+            "1",
+            "2",
+            "3",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9"
+          ]
+        },
+        {
+          "key": "Fencer",
+          "nonEmpty": 28,
+          "fillRate": 1,
+          "sampleValues": [
+            "吕乐萱",
+            "张若涵",
+            "李兰君",
+            "黃苡珊",
+            "朱羽馨",
+            "吴一诺",
+            "鹿呦呦",
+            "周歆桐"
+          ]
+        },
+        {
+          "key": "Licence",
+          "nonEmpty": 28,
+          "fillRate": 1,
+          "sampleValues": [
+            "20160129F202203020409",
+            "20170207F202402071216",
+            "20170501F202502140539",
+            "20160104F202506131147",
+            "20170612F202302080616",
+            "20160118F202408111007",
+            "20170427F202401140433",
+            "20160728F202309040751"
+          ]
+        },
+        {
+          "key": "NOCCode",
+          "nonEmpty": 28,
+          "fillRate": 1,
+          "sampleValues": [
+            "河南豫剑",
+            "杭州钱江万国",
+            "合肥奥创",
+            "个人",
+            "湖北永尚",
+            "武汉剑乐会",
+            "武汉武昌万国",
+            "武汉经开车谷"
+          ]
+        },
+        {
+          "key": "Birthday",
+          "nonEmpty": 28,
+          "fillRate": 1,
+          "sampleValues": [
+            "2016-01-29",
+            "2017-02-07",
+            "2017-05-01",
+            "2016-01-04",
+            "2017-06-12",
+            "2016-01-18",
+            "2017-04-27",
+            "2016-07-28"
+          ]
+        },
+        {
+          "key": "Medal",
+          "nonEmpty": 4,
+          "fillRate": 0.1429,
+          "sampleValues": [
+            "金",
+            "银",
+            "铜"
+          ]
+        },
+        {
+          "key": "Statut",
+          "nonEmpty": 28,
+          "fillRate": 1,
+          "sampleValues": [
+            "N"
+          ]
+        },
+        {
+          "key": "F_EventDisPos",
+          "nonEmpty": 28,
+          "fillRate": 1,
+          "sampleValues": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8"
+          ]
+        },
+        {
+          "key": "QualifyStatusId",
+          "nonEmpty": 28,
+          "fillRate": 1,
+          "sampleValues": [
+            "1",
+            "0"
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Pools",
+      "rows": 0,
+      "fields": []
+    },
+    {
+      "section": "PoolStanding",
+      "rows": 0,
+      "fields": []
+    },
+    {
+      "section": "PoolResults",
+      "rows": 0,
+      "fields": []
+    },
+    {
+      "section": "PRDetails",
+      "rows": 0,
+      "fields": []
+    },
+    {
+      "section": "Tableaus",
+      "rows": 0,
+      "fields": []
+    },
+    {
+      "section": "Matchs",
+      "rows": 0,
+      "fields": []
+    },
+    {
+      "section": "IniStarts",
+      "rows": 0,
+      "fields": []
+    }
+  ],
+  "analysisCapabilities": [
+    "项目概要",
+    "最终排名",
+    "初始排位",
+    "小组赛排名",
+    "小组赛每场比分",
+    "小组赛晋级人数",
+    "淘汰赛阶段结构",
+    "淘汰赛每场比分",
+    "选手完整比赛路径",
+    "对手交手记录",
+    "胜负和净胜剑统计"
+  ],
+  "privacyRecommendation": {
+    "publicFields": [
+      "rank",
+      "name",
+      "club",
+      "scores",
+      "winner",
+      "medal"
+    ],
+    "privateFields": [
+      "Licence",
+      "Birthday"
+    ],
+    "note": "Licence 和 Birthday 只用于内部消歧，不建议公开展示。"
+  }
+}
