@@ -1,0 +1,568 @@
+{
+  "ok": true,
+  "source": {
+    "sourceUrl": "https://fencing-proxy.aixindiandian.workers.dev/fencingapi/matchresult/classmentrank/RZSSSC1020260822MEIU8",
+    "sourceType": "classmentrank",
+    "fallbackFrom": "https://fencing-proxy.aixindiandian.workers.dev/Resource/score/RZSSSC1020260822MEIU8.js",
+    "fallbackMessage": "Command failed: curl --location --fail --silent --show-error --retry 2 --retry-delay 1 --retry-max-time 40 --max-time 20 https://fencing-proxy.aixindiandian.workers.dev/Resource/score/RZSSSC1020260822MEIU8.js\ncurl: (28) Operation timed out after 20015 milliseconds with 0 bytes received\r\ncurl: (28) Operation timed out after 20015 milliseconds with 0 bytes received\r\n",
+    "importedAt": "2026-09-28T11:51:05.813Z"
+  },
+  "general": {
+    "sportName": "2026年“新奥杯”四川乐山击剑公开赛暨老山击剑公开赛",
+    "eventName": "U8男子重剑个人",
+    "openDate": "2026-08-22 08:00:00",
+    "venue": "乐山市",
+    "competitionNo": 18,
+    "exemptionNo": null,
+    "poolFencerNo": null,
+    "poolQualifyNo": null,
+    "preDeStartPhase": null,
+    "deStartPhase": null,
+    "sportCode": "RZSSSC1020260822",
+    "eventCode": "RZSSSC1020260822MEIU8"
+  },
+  "summary": {
+    "classmentCount": 18,
+    "initialSeedCount": 0,
+    "poolCount": 0,
+    "poolStandingCount": 0,
+    "poolResultCount": 0,
+    "poolBoutCount": 0,
+    "tableauCount": 0,
+    "eliminationMatchCount": 0,
+    "playedEliminationMatchCount": 0,
+    "byeMatchCount": 0,
+    "athleteCountByLicence": 18
+  },
+  "distributions": {
+    "poolStatus": {},
+    "poolRemark": {},
+    "tableau": {},
+    "eliminationByPhase": {},
+    "eliminationResult": {},
+    "medal": {
+      "金": 1,
+      "银": 1,
+      "铜": 2,
+      "(无奖牌)": 14
+    }
+  },
+  "normalized": {
+    "classment": [
+      {
+        "rank": 1,
+        "displayRank": "1",
+        "name": "范加乐",
+        "licence": "20180427M202504130228",
+        "club": "成都高新万国",
+        "birthday": "2018-04-27",
+        "medal": "金",
+        "status": "N",
+        "sourcePosition": "1",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 2,
+        "displayRank": "2",
+        "name": "杨明轩",
+        "licence": "20180413M202504090238",
+        "club": "个人",
+        "birthday": "2018-04-13",
+        "medal": "银",
+        "status": "N",
+        "sourcePosition": "2",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 3,
+        "displayRank": "3",
+        "name": "陈凌钰坤",
+        "licence": "20180329M202505310356",
+        "club": "南京艾鲁特",
+        "birthday": "2018-03-29",
+        "medal": "铜",
+        "status": "N",
+        "sourcePosition": "3",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 3,
+        "displayRank": "3",
+        "name": "王璟然",
+        "licence": "20190324M202410121007",
+        "club": "个人",
+        "birthday": "2019-03-24",
+        "medal": "铜",
+        "status": "N",
+        "sourcePosition": "4",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 5,
+        "displayRank": "5",
+        "name": "薄祥迅",
+        "licence": "20180920M202510241211",
+        "club": "个人",
+        "birthday": "2018-09-20",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "5",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 6,
+        "displayRank": "6",
+        "name": "陈涵宇",
+        "licence": "20180130M202605141004",
+        "club": "成都高新万国",
+        "birthday": "2018-01-30",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "6",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 7,
+        "displayRank": "7",
+        "name": "张知墨",
+        "licence": "20180617M202409060449",
+        "club": "西安倚天",
+        "birthday": "2018-06-17",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "7",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 8,
+        "displayRank": "8",
+        "name": "郭隽恒",
+        "licence": "20181016M202410230222",
+        "club": "四川乐予",
+        "birthday": "2018-10-16",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "8",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 9,
+        "displayRank": "9",
+        "name": "王思源",
+        "licence": "20180301M202510280908",
+        "club": "南京艾鲁特",
+        "birthday": "2018-03-01",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "9",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 10,
+        "displayRank": "10",
+        "name": "王沐川",
+        "licence": "20181009M202608100136",
+        "club": "个人",
+        "birthday": "2018-10-09",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "10",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 11,
+        "displayRank": "11",
+        "name": "宋泽锐",
+        "licence": "20190508M202607030658",
+        "club": "个人",
+        "birthday": "2019-05-08",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "11",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 12,
+        "displayRank": "12",
+        "name": "张嘉齐",
+        "licence": "20181228M202607211147",
+        "club": "四川乐予",
+        "birthday": "2018-12-28",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "12",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 13,
+        "displayRank": "13",
+        "name": "黄景宸",
+        "licence": "20190821M202605230832",
+        "club": "重庆江津深蓝",
+        "birthday": "2019-08-21",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "13",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 14,
+        "displayRank": "14",
+        "name": "伍思齐",
+        "licence": "20180627M202603270903",
+        "club": "个人",
+        "birthday": "2018-06-27",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "14",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 15,
+        "displayRank": "15",
+        "name": "洪苑锦",
+        "licence": "20190319M202607311035",
+        "club": "个人",
+        "birthday": "2019-03-19",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "15",
+        "qualifyStatusId": "0"
+      },
+      {
+        "rank": 16,
+        "displayRank": "16",
+        "name": "张泽屹",
+        "licence": "20190520M202605070229",
+        "club": "重庆渝北万国",
+        "birthday": "2019-05-20",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "16",
+        "qualifyStatusId": "0"
+      },
+      {
+        "rank": 17,
+        "displayRank": "17",
+        "name": "张亿乐",
+        "licence": "20181029M202608170512",
+        "club": "重庆江津深蓝",
+        "birthday": "2018-10-29",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "17",
+        "qualifyStatusId": "0"
+      },
+      {
+        "rank": 17,
+        "displayRank": "17",
+        "name": "尹洪亦",
+        "licence": "20200124M202604140650",
+        "club": "成都高新万国",
+        "birthday": "2020-01-24",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "18",
+        "qualifyStatusId": "0"
+      }
+    ],
+    "poolStandings": [],
+    "poolResults": [],
+    "poolBouts": [],
+    "eliminationMatches": []
+  },
+  "completeness": [
+    {
+      "section": "General",
+      "rows": 1,
+      "fields": [
+        {
+          "key": "SportName",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "2026年“新奥杯”四川乐山击剑公开赛暨老山击剑公开赛"
+          ]
+        },
+        {
+          "key": "EventName",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "U8男子重剑个人"
+          ]
+        },
+        {
+          "key": "OpenDate",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "2026-08-22 08:00:00"
+          ]
+        },
+        {
+          "key": "Venue",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "乐山市"
+          ]
+        },
+        {
+          "key": "CompetitionNo",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            18
+          ]
+        },
+        {
+          "key": "ExemptionNo",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "PoolFencerNo",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "PoolQualifyNo",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "PDEstartPhase",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "DEstartPhase",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "Scode",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "RZSSSC1020260822"
+          ]
+        },
+        {
+          "key": "Ecode",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "RZSSSC1020260822MEIU8"
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Classment",
+      "rows": 18,
+      "fields": [
+        {
+          "key": "EventRank",
+          "nonEmpty": 18,
+          "fillRate": 1,
+          "sampleValues": [
+            "1",
+            "2",
+            "3",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9"
+          ]
+        },
+        {
+          "key": "EventShowRank",
+          "nonEmpty": 18,
+          "fillRate": 1,
+          "sampleValues": [
+            "1",
+            "2",
+            "3",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9"
+          ]
+        },
+        {
+          "key": "Fencer",
+          "nonEmpty": 18,
+          "fillRate": 1,
+          "sampleValues": [
+            "范加乐",
+            "杨明轩",
+            "陈凌钰坤",
+            "王璟然",
+            "薄祥迅",
+            "陈涵宇",
+            "张知墨",
+            "郭隽恒"
+          ]
+        },
+        {
+          "key": "Licence",
+          "nonEmpty": 18,
+          "fillRate": 1,
+          "sampleValues": [
+            "20180427M202504130228",
+            "20180413M202504090238",
+            "20180329M202505310356",
+            "20190324M202410121007",
+            "20180920M202510241211",
+            "20180130M202605141004",
+            "20180617M202409060449",
+            "20181016M202410230222"
+          ]
+        },
+        {
+          "key": "NOCCode",
+          "nonEmpty": 18,
+          "fillRate": 1,
+          "sampleValues": [
+            "成都高新万国",
+            "个人",
+            "南京艾鲁特",
+            "西安倚天",
+            "四川乐予",
+            "重庆江津深蓝",
+            "重庆渝北万国"
+          ]
+        },
+        {
+          "key": "Birthday",
+          "nonEmpty": 18,
+          "fillRate": 1,
+          "sampleValues": [
+            "2018-04-27",
+            "2018-04-13",
+            "2018-03-29",
+            "2019-03-24",
+            "2018-09-20",
+            "2018-01-30",
+            "2018-06-17",
+            "2018-10-16"
+          ]
+        },
+        {
+          "key": "Medal",
+          "nonEmpty": 4,
+          "fillRate": 0.2222,
+          "sampleValues": [
+            "金",
+            "银",
+            "铜"
+          ]
+        },
+        {
+          "key": "Statut",
+          "nonEmpty": 18,
+          "fillRate": 1,
+          "sampleValues": [
+            "N"
+          ]
+        },
+        {
+          "key": "F_EventDisPos",
+          "nonEmpty": 18,
+          "fillRate": 1,
+          "sampleValues": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8"
+          ]
+        },
+        {
+          "key": "QualifyStatusId",
+          "nonEmpty": 18,
+          "fillRate": 1,
+          "sampleValues": [
+            "1",
+            "0"
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Pools",
+      "rows": 0,
+      "fields": []
+    },
+    {
+      "section": "PoolStanding",
+      "rows": 0,
+      "fields": []
+    },
+    {
+      "section": "PoolResults",
+      "rows": 0,
+      "fields": []
+    },
+    {
+      "section": "PRDetails",
+      "rows": 0,
+      "fields": []
+    },
+    {
+      "section": "Tableaus",
+      "rows": 0,
+      "fields": []
+    },
+    {
+      "section": "Matchs",
+      "rows": 0,
+      "fields": []
+    },
+    {
+      "section": "IniStarts",
+      "rows": 0,
+      "fields": []
+    }
+  ],
+  "analysisCapabilities": [
+    "项目概要",
+    "最终排名",
+    "初始排位",
+    "小组赛排名",
+    "小组赛每场比分",
+    "小组赛晋级人数",
+    "淘汰赛阶段结构",
+    "淘汰赛每场比分",
+    "选手完整比赛路径",
+    "对手交手记录",
+    "胜负和净胜剑统计"
+  ],
+  "privacyRecommendation": {
+    "publicFields": [
+      "rank",
+      "name",
+      "club",
+      "scores",
+      "winner",
+      "medal"
+    ],
+    "privateFields": [
+      "Licence",
+      "Birthday"
+    ],
+    "note": "Licence 和 Birthday 只用于内部消歧，不建议公开展示。"
+  }
+}

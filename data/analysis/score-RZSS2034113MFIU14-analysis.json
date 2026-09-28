@@ -1,0 +1,738 @@
+{
+  "ok": true,
+  "source": {
+    "sourceUrl": "https://fencing-proxy.aixindiandian.workers.dev/fencingapi/matchresult/classmentrank/RZSS2034113MFIU14",
+    "sourceType": "classmentrank",
+    "fallbackFrom": "https://fencing-proxy.aixindiandian.workers.dev/Resource/score/RZSS2034113MFIU14.js",
+    "fallbackMessage": "Command failed: curl --location --fail --silent --show-error --retry 2 --retry-delay 1 --retry-max-time 40 --max-time 20 https://fencing-proxy.aixindiandian.workers.dev/Resource/score/RZSS2034113MFIU14.js\ncurl: (28) Operation timed out after 20000 milliseconds with 0 bytes received\r\ncurl: (28) Operation timed out after 20002 milliseconds with 0 bytes received\r\n",
+    "importedAt": "2026-09-28T11:33:37.606Z"
+  },
+  "general": {
+    "sportName": "2026年“锋芒杯”京津冀青少年击剑邀请赛",
+    "eventName": "U14男子花剑个人",
+    "openDate": "2026-09-12 08:00:00",
+    "venue": "天津市",
+    "competitionNo": 32,
+    "exemptionNo": null,
+    "poolFencerNo": null,
+    "poolQualifyNo": null,
+    "preDeStartPhase": null,
+    "deStartPhase": null,
+    "sportCode": "RZSS2034113",
+    "eventCode": "RZSS2034113MFIU14"
+  },
+  "summary": {
+    "classmentCount": 32,
+    "initialSeedCount": 0,
+    "poolCount": 0,
+    "poolStandingCount": 0,
+    "poolResultCount": 0,
+    "poolBoutCount": 0,
+    "tableauCount": 0,
+    "eliminationMatchCount": 0,
+    "playedEliminationMatchCount": 0,
+    "byeMatchCount": 0,
+    "athleteCountByLicence": 32
+  },
+  "distributions": {
+    "poolStatus": {},
+    "poolRemark": {},
+    "tableau": {},
+    "eliminationByPhase": {},
+    "eliminationResult": {},
+    "medal": {
+      "金": 1,
+      "银": 1,
+      "铜": 2,
+      "(无奖牌)": 28
+    }
+  },
+  "normalized": {
+    "classment": [
+      {
+        "rank": 1,
+        "displayRank": "1",
+        "name": "陈莫非",
+        "licence": "20130812M202106110908",
+        "club": "北京艾鲁特",
+        "birthday": "2013-08-12",
+        "medal": "金",
+        "status": "N",
+        "sourcePosition": "1",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 2,
+        "displayRank": "2",
+        "name": "李善恩",
+        "licence": "20120125M202107090227",
+        "club": "天津傲越",
+        "birthday": "2012-01-25",
+        "medal": "银",
+        "status": "N",
+        "sourcePosition": "2",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 3,
+        "displayRank": "3",
+        "name": "程明栋",
+        "licence": "20130810M202106270507",
+        "club": "天津派绅",
+        "birthday": "2013-08-10",
+        "medal": "铜",
+        "status": "N",
+        "sourcePosition": "3",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 3,
+        "displayRank": "4",
+        "name": "李家润",
+        "licence": "20130704M202012200937",
+        "club": "天津派绅",
+        "birthday": "2013-07-04",
+        "medal": "铜",
+        "status": "N",
+        "sourcePosition": "4",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 5,
+        "displayRank": "5",
+        "name": "李益多",
+        "licence": "20130821M202103220157",
+        "club": "天津智桥",
+        "birthday": "2013-08-21",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "5",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 6,
+        "displayRank": "6",
+        "name": "尹振东",
+        "licence": "20120111M201902171452",
+        "club": "天津坤鼎国际",
+        "birthday": "2012-01-11",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "6",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 7,
+        "displayRank": "7",
+        "name": "王湛",
+        "licence": "20140719M202105080422",
+        "club": "北京金汉",
+        "birthday": "2014-07-19",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "7",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 8,
+        "displayRank": "8",
+        "name": "祁禹泽",
+        "licence": "20131206M202304111039",
+        "club": "北京龙潭",
+        "birthday": "2013-12-06",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "8",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 9,
+        "displayRank": "9",
+        "name": "李禹贤",
+        "licence": "20140124M202502210230",
+        "club": "义乌卓锋",
+        "birthday": "2014-01-24",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "9",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 10,
+        "displayRank": "10",
+        "name": "李阳卓儒",
+        "licence": "20120308M202103260337",
+        "club": "天津派绅",
+        "birthday": "2012-03-08",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "10",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 11,
+        "displayRank": "11",
+        "name": "王景逸",
+        "licence": "20140323M202406210128",
+        "club": "北京迅格",
+        "birthday": "2014-03-23",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "11",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 12,
+        "displayRank": "12",
+        "name": "田沐林",
+        "licence": "20130909M202112020134",
+        "club": "北京张家瑰",
+        "birthday": "2013-09-09",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "12",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 13,
+        "displayRank": "13",
+        "name": "高梓贺",
+        "licence": "20140331M202207280114",
+        "club": "北京金石",
+        "birthday": "2014-03-31",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "13",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 14,
+        "displayRank": "14",
+        "name": "毕际凯",
+        "licence": "20130926M201905251242",
+        "club": "北京张家瑰",
+        "birthday": "2013-09-26",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "14",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 15,
+        "displayRank": "15",
+        "name": "许淳景",
+        "licence": "20120916M201911231605",
+        "club": "天津派绅",
+        "birthday": "2012-09-16",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "15",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 16,
+        "displayRank": "16",
+        "name": "王政博",
+        "licence": "20140630M202107010950",
+        "club": "天津闽小",
+        "birthday": "2014-06-30",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "16",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 17,
+        "displayRank": "17",
+        "name": "王杰睿",
+        "licence": "20130528M202103210319",
+        "club": "天津优赛",
+        "birthday": "2013-05-28",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "17",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 18,
+        "displayRank": "18",
+        "name": "相沫",
+        "licence": "20130701M202104280436",
+        "club": "天津优赛",
+        "birthday": "2013-07-01",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "18",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 19,
+        "displayRank": "19",
+        "name": "冀潇然",
+        "licence": "20121116M202112130700",
+        "club": "天津派绅",
+        "birthday": "2012-11-16",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "19",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 20,
+        "displayRank": "20",
+        "name": "杨皓屹",
+        "licence": "20140127M202104230331",
+        "club": "天津坤鼎国际",
+        "birthday": "2014-01-27",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "20",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 21,
+        "displayRank": "21",
+        "name": "张洧赫",
+        "licence": "20140609M202308230242",
+        "club": "个人",
+        "birthday": "2014-06-09",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "21",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 22,
+        "displayRank": "22",
+        "name": "王七一",
+        "licence": "20140426M202107031215",
+        "club": "天津闽小",
+        "birthday": "2014-04-26",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "22",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 23,
+        "displayRank": "23",
+        "name": "李国昊",
+        "licence": "20130119M202106060313",
+        "club": "烟台剑匠搏雅",
+        "birthday": "2013-01-19",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "23",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 24,
+        "displayRank": "24",
+        "name": "李佳恒",
+        "licence": "20140418M202105090401",
+        "club": "天津金牌",
+        "birthday": "2014-04-18",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "24",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 25,
+        "displayRank": "25",
+        "name": "孙浩诚",
+        "licence": "20150216M202303040328",
+        "club": "天津优赛",
+        "birthday": "2015-02-16",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "25",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 26,
+        "displayRank": "26",
+        "name": "张梓翔",
+        "licence": "20140819M202408200424",
+        "club": "天津派绅",
+        "birthday": "2014-08-19",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "26",
+        "qualifyStatusId": "0"
+      },
+      {
+        "rank": 27,
+        "displayRank": "27",
+        "name": "郭泽龙",
+        "licence": "20120618M202502070357",
+        "club": "天津坤鼎国际",
+        "birthday": "2012-06-18",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "27",
+        "qualifyStatusId": "0"
+      },
+      {
+        "rank": 28,
+        "displayRank": "28",
+        "name": "贾昆朋",
+        "licence": "20140908M202202220503",
+        "club": "天津金牌",
+        "birthday": "2014-09-08",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "28",
+        "qualifyStatusId": "0"
+      },
+      {
+        "rank": 29,
+        "displayRank": "29",
+        "name": "尹梓睿",
+        "licence": "20131214M202110141058",
+        "club": "天津金牌",
+        "birthday": "2013-12-14",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "29",
+        "qualifyStatusId": "0"
+      },
+      {
+        "rank": 30,
+        "displayRank": "30",
+        "name": "杨浩桐",
+        "licence": "20140311M202207021129",
+        "club": "天津傲越",
+        "birthday": "2014-03-11",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "30",
+        "qualifyStatusId": "0"
+      },
+      {
+        "rank": 31,
+        "displayRank": "31",
+        "name": "赵紫熙",
+        "licence": "20141108M202404170619",
+        "club": "北京艾鲁特",
+        "birthday": "2014-11-08",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "31",
+        "qualifyStatusId": "0"
+      },
+      {
+        "rank": 32,
+        "displayRank": "DNS",
+        "name": "彭昱程",
+        "licence": "20150126M202211220349",
+        "club": "临沂泰盛",
+        "birthday": "2015-01-26",
+        "medal": null,
+        "status": "E",
+        "sourcePosition": "32",
+        "qualifyStatusId": "0"
+      }
+    ],
+    "poolStandings": [],
+    "poolResults": [],
+    "poolBouts": [],
+    "eliminationMatches": []
+  },
+  "completeness": [
+    {
+      "section": "General",
+      "rows": 1,
+      "fields": [
+        {
+          "key": "SportName",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "2026年“锋芒杯”京津冀青少年击剑邀请赛"
+          ]
+        },
+        {
+          "key": "EventName",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "U14男子花剑个人"
+          ]
+        },
+        {
+          "key": "OpenDate",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "2026-09-12 08:00:00"
+          ]
+        },
+        {
+          "key": "Venue",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "天津市"
+          ]
+        },
+        {
+          "key": "CompetitionNo",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            32
+          ]
+        },
+        {
+          "key": "ExemptionNo",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "PoolFencerNo",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "PoolQualifyNo",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "PDEstartPhase",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "DEstartPhase",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "Scode",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "RZSS2034113"
+          ]
+        },
+        {
+          "key": "Ecode",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "RZSS2034113MFIU14"
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Classment",
+      "rows": 32,
+      "fields": [
+        {
+          "key": "EventRank",
+          "nonEmpty": 32,
+          "fillRate": 1,
+          "sampleValues": [
+            "1",
+            "2",
+            "3",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9"
+          ]
+        },
+        {
+          "key": "EventShowRank",
+          "nonEmpty": 32,
+          "fillRate": 1,
+          "sampleValues": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8"
+          ]
+        },
+        {
+          "key": "Fencer",
+          "nonEmpty": 32,
+          "fillRate": 1,
+          "sampleValues": [
+            "陈莫非",
+            "李善恩",
+            "程明栋",
+            "李家润",
+            "李益多",
+            "尹振东",
+            "王湛",
+            "祁禹泽"
+          ]
+        },
+        {
+          "key": "Licence",
+          "nonEmpty": 32,
+          "fillRate": 1,
+          "sampleValues": [
+            "20130812M202106110908",
+            "20120125M202107090227",
+            "20130810M202106270507",
+            "20130704M202012200937",
+            "20130821M202103220157",
+            "20120111M201902171452",
+            "20140719M202105080422",
+            "20131206M202304111039"
+          ]
+        },
+        {
+          "key": "NOCCode",
+          "nonEmpty": 32,
+          "fillRate": 1,
+          "sampleValues": [
+            "北京艾鲁特",
+            "天津傲越",
+            "天津派绅",
+            "天津智桥",
+            "天津坤鼎国际",
+            "北京金汉",
+            "北京龙潭",
+            "义乌卓锋"
+          ]
+        },
+        {
+          "key": "Birthday",
+          "nonEmpty": 32,
+          "fillRate": 1,
+          "sampleValues": [
+            "2013-08-12",
+            "2012-01-25",
+            "2013-08-10",
+            "2013-07-04",
+            "2013-08-21",
+            "2012-01-11",
+            "2014-07-19",
+            "2013-12-06"
+          ]
+        },
+        {
+          "key": "Medal",
+          "nonEmpty": 4,
+          "fillRate": 0.125,
+          "sampleValues": [
+            "金",
+            "银",
+            "铜"
+          ]
+        },
+        {
+          "key": "Statut",
+          "nonEmpty": 32,
+          "fillRate": 1,
+          "sampleValues": [
+            "N",
+            "E"
+          ]
+        },
+        {
+          "key": "F_EventDisPos",
+          "nonEmpty": 32,
+          "fillRate": 1,
+          "sampleValues": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8"
+          ]
+        },
+        {
+          "key": "QualifyStatusId",
+          "nonEmpty": 32,
+          "fillRate": 1,
+          "sampleValues": [
+            "1",
+            "0"
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Pools",
+      "rows": 0,
+      "fields": []
+    },
+    {
+      "section": "PoolStanding",
+      "rows": 0,
+      "fields": []
+    },
+    {
+      "section": "PoolResults",
+      "rows": 0,
+      "fields": []
+    },
+    {
+      "section": "PRDetails",
+      "rows": 0,
+      "fields": []
+    },
+    {
+      "section": "Tableaus",
+      "rows": 0,
+      "fields": []
+    },
+    {
+      "section": "Matchs",
+      "rows": 0,
+      "fields": []
+    },
+    {
+      "section": "IniStarts",
+      "rows": 0,
+      "fields": []
+    }
+  ],
+  "analysisCapabilities": [
+    "项目概要",
+    "最终排名",
+    "初始排位",
+    "小组赛排名",
+    "小组赛每场比分",
+    "小组赛晋级人数",
+    "淘汰赛阶段结构",
+    "淘汰赛每场比分",
+    "选手完整比赛路径",
+    "对手交手记录",
+    "胜负和净胜剑统计"
+  ],
+  "privacyRecommendation": {
+    "publicFields": [
+      "rank",
+      "name",
+      "club",
+      "scores",
+      "winner",
+      "medal"
+    ],
+    "privateFields": [
+      "Licence",
+      "Birthday"
+    ],
+    "note": "Licence 和 Birthday 只用于内部消歧，不建议公开展示。"
+  }
+}

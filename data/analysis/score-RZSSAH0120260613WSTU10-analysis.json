@@ -1,0 +1,1401 @@
+{
+  "ok": true,
+  "source": {
+    "sourceUrl": "https://fencing-proxy.aixindiandian.workers.dev/Resource/score/RZSSAH0120260613WSTU10.js",
+    "sourceType": "score-resource",
+    "importedAt": "2026-09-28T11:54:09.656Z"
+  },
+  "general": {
+    "sportName": "2026年广州剑协“奥粤杯”击剑公开赛(第二站)",
+    "eventName": "U10女子佩剑团体",
+    "openDate": null,
+    "venue": "广东·广州",
+    "competitionNo": 6,
+    "exemptionNo": null,
+    "poolFencerNo": null,
+    "poolQualifyNo": null,
+    "preDeStartPhase": "none",
+    "deStartPhase": "from Tableaus8",
+    "sportCode": "RZSSAH0120260613",
+    "eventCode": "RZSSAH0120260613WSTU10"
+  },
+  "summary": {
+    "classmentCount": 6,
+    "initialSeedCount": 6,
+    "poolCount": 0,
+    "poolStandingCount": 0,
+    "poolResultCount": 0,
+    "poolBoutCount": 0,
+    "tableauCount": 3,
+    "eliminationMatchCount": 8,
+    "playedEliminationMatchCount": 6,
+    "byeMatchCount": 2,
+    "athleteCountByLicence": 6
+  },
+  "distributions": {
+    "poolStatus": {},
+    "poolRemark": {},
+    "tableau": {
+      "8表": 1,
+      "半决赛": 1,
+      "决赛": 1
+    },
+    "eliminationByPhase": {
+      "8表": 4,
+      "半决赛": 2,
+      "决赛": 2
+    },
+    "eliminationResult": {
+      "W/L": 6,
+      "L/W": 2
+    },
+    "medal": {
+      "金": 1,
+      "银": 1,
+      "铜": 1,
+      "(无奖牌)": 3
+    }
+  },
+  "normalized": {
+    "classment": [
+      {
+        "rank": 1,
+        "displayRank": "1",
+        "name": "万万没想到Plus",
+        "licence": "RZSSAH0120260613WSTU10_122_HLDBT",
+        "club": "深圳罗湖万国",
+        "birthday": null,
+        "medal": "金",
+        "status": "N",
+        "sourcePosition": 1
+      },
+      {
+        "rank": 2,
+        "displayRank": "2",
+        "name": "少羽",
+        "licence": "RZSSAH0120260613WSTU10_417_NFOYW",
+        "club": "深圳领绅",
+        "birthday": null,
+        "medal": "银",
+        "status": "N",
+        "sourcePosition": 2
+      },
+      {
+        "rank": 3,
+        "displayRank": "3",
+        "name": "我说你对就队",
+        "licence": "RZSSAH0120260613WSTU10_513_BDWJI",
+        "club": "深圳宇翔",
+        "birthday": null,
+        "medal": "铜",
+        "status": "N",
+        "sourcePosition": 3
+      },
+      {
+        "rank": 4,
+        "displayRank": "4",
+        "name": "对对队",
+        "licence": "RZSSAH0120260613WSTU10_513_RJJEG",
+        "club": "深圳宇翔",
+        "birthday": null,
+        "medal": null,
+        "status": "N",
+        "sourcePosition": 4
+      },
+      {
+        "rank": 5,
+        "displayRank": "5",
+        "name": "美少女队",
+        "licence": "RZSSAH0120260613WSTU10_11494_PNRBE",
+        "club": "广州霄鹰",
+        "birthday": null,
+        "medal": null,
+        "status": "N",
+        "sourcePosition": 5
+      },
+      {
+        "rank": 6,
+        "displayRank": "6",
+        "name": "哈哈队",
+        "licence": "RZSSAH0120260613WSTU10_12270_UWSJH",
+        "club": "广州佰森",
+        "birthday": null,
+        "medal": null,
+        "status": "N",
+        "sourcePosition": 6
+      }
+    ],
+    "poolStandings": [],
+    "poolResults": [],
+    "poolBouts": [],
+    "eliminationMatches": [
+      {
+        "matchId": 544746,
+        "matchCode": "Pre001",
+        "phaseId": 182724,
+        "phase": {
+          "shortName": "T8",
+          "longName": "8表",
+          "order": 1,
+          "code": "3",
+          "group": "1_0"
+        },
+        "groupCode": "3_0",
+        "innerOrder": 1,
+        "home": {
+          "position": 1,
+          "name": "万万没想到Plus",
+          "licence": "RZSSAH0120260613WSTU10_122_HLDBT",
+          "club": "深圳罗湖万国",
+          "points": null,
+          "result": "W"
+        },
+        "away": {
+          "position": 8,
+          "name": "Bye",
+          "licence": null,
+          "club": null,
+          "points": null,
+          "result": "L"
+        },
+        "winner": {
+          "name": "万万没想到Plus",
+          "club": "深圳罗湖万国"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": true
+      },
+      {
+        "matchId": 544747,
+        "matchCode": "Pre002",
+        "phaseId": 182724,
+        "phase": {
+          "shortName": "T8",
+          "longName": "8表",
+          "order": 1,
+          "code": "3",
+          "group": "1_0"
+        },
+        "groupCode": "3_0",
+        "innerOrder": 2,
+        "home": {
+          "position": 5,
+          "name": "我说你对就队",
+          "licence": "RZSSAH0120260613WSTU10_513_BDWJI",
+          "club": "深圳宇翔",
+          "points": 45,
+          "result": "W"
+        },
+        "away": {
+          "position": 4,
+          "name": "美少女队",
+          "licence": "RZSSAH0120260613WSTU10_11494_PNRBE",
+          "club": "广州霄鹰",
+          "points": 42,
+          "result": "L"
+        },
+        "winner": {
+          "name": "我说你对就队",
+          "club": "深圳宇翔"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 544748,
+        "matchCode": "Pre003",
+        "phaseId": 182724,
+        "phase": {
+          "shortName": "T8",
+          "longName": "8表",
+          "order": 1,
+          "code": "3",
+          "group": "1_0"
+        },
+        "groupCode": "3_1",
+        "innerOrder": 1,
+        "home": {
+          "position": 3,
+          "name": "对对队",
+          "licence": "RZSSAH0120260613WSTU10_513_RJJEG",
+          "club": "深圳宇翔",
+          "points": 45,
+          "result": "W"
+        },
+        "away": {
+          "position": 6,
+          "name": "哈哈队",
+          "licence": "RZSSAH0120260613WSTU10_12270_UWSJH",
+          "club": "广州佰森",
+          "points": 43,
+          "result": "L"
+        },
+        "winner": {
+          "name": "对对队",
+          "club": "深圳宇翔"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 544749,
+        "matchCode": "Pre004",
+        "phaseId": 182724,
+        "phase": {
+          "shortName": "T8",
+          "longName": "8表",
+          "order": 1,
+          "code": "3",
+          "group": "1_0"
+        },
+        "groupCode": "3_1",
+        "innerOrder": 2,
+        "home": {
+          "position": 7,
+          "name": "Bye",
+          "licence": null,
+          "club": null,
+          "points": null,
+          "result": "L"
+        },
+        "away": {
+          "position": 2,
+          "name": "少羽",
+          "licence": "RZSSAH0120260613WSTU10_417_NFOYW",
+          "club": "深圳领绅",
+          "points": null,
+          "result": "W"
+        },
+        "winner": {
+          "name": null,
+          "club": "深圳领绅"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": true
+      },
+      {
+        "matchId": 544750,
+        "matchCode": "Pre001",
+        "phaseId": 182725,
+        "phase": {
+          "shortName": "T4",
+          "longName": "半决赛",
+          "order": 2,
+          "code": "2",
+          "group": "2_0"
+        },
+        "groupCode": "2_0",
+        "innerOrder": 1,
+        "home": {
+          "position": 1,
+          "name": "万万没想到Plus",
+          "licence": "RZSSAH0120260613WSTU10_122_HLDBT",
+          "club": "深圳罗湖万国",
+          "points": 45,
+          "result": "W"
+        },
+        "away": {
+          "position": 4,
+          "name": "我说你对就队",
+          "licence": "RZSSAH0120260613WSTU10_513_BDWJI",
+          "club": "深圳宇翔",
+          "points": 40,
+          "result": "L"
+        },
+        "winner": {
+          "name": "万万没想到Plus",
+          "club": "深圳罗湖万国"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 544751,
+        "matchCode": "Pre002",
+        "phaseId": 182725,
+        "phase": {
+          "shortName": "T4",
+          "longName": "半决赛",
+          "order": 2,
+          "code": "2",
+          "group": "2_0"
+        },
+        "groupCode": "2_0",
+        "innerOrder": 2,
+        "home": {
+          "position": 3,
+          "name": "对对队",
+          "licence": "RZSSAH0120260613WSTU10_513_RJJEG",
+          "club": "深圳宇翔",
+          "points": 41,
+          "result": "L"
+        },
+        "away": {
+          "position": 2,
+          "name": "少羽",
+          "licence": "RZSSAH0120260613WSTU10_417_NFOYW",
+          "club": "深圳领绅",
+          "points": 45,
+          "result": "W"
+        },
+        "winner": {
+          "name": "对对队",
+          "club": "深圳领绅"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 544752,
+        "matchCode": "Pre001",
+        "phaseId": 182726,
+        "phase": {
+          "shortName": "T2",
+          "longName": "决赛",
+          "order": 3,
+          "code": "1",
+          "group": "3_0"
+        },
+        "groupCode": "1_0",
+        "innerOrder": 1,
+        "home": {
+          "position": 1,
+          "name": "万万没想到Plus",
+          "licence": "RZSSAH0120260613WSTU10_122_HLDBT",
+          "club": "深圳罗湖万国",
+          "points": 45,
+          "result": "W"
+        },
+        "away": {
+          "position": 2,
+          "name": "少羽",
+          "licence": "RZSSAH0120260613WSTU10_417_NFOYW",
+          "club": "深圳领绅",
+          "points": 28,
+          "result": "L"
+        },
+        "winner": {
+          "name": "万万没想到Plus",
+          "club": "深圳罗湖万国"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 544753,
+        "matchCode": "Pre002",
+        "phaseId": 182726,
+        "phase": {
+          "shortName": "T2",
+          "longName": "决赛",
+          "order": 3,
+          "code": "1",
+          "group": "3_0"
+        },
+        "groupCode": "1_0",
+        "innerOrder": 2,
+        "home": {
+          "position": 1,
+          "name": "我说你对就队",
+          "licence": "RZSSAH0120260613WSTU10_513_BDWJI",
+          "club": "深圳宇翔",
+          "points": 45,
+          "result": "W"
+        },
+        "away": {
+          "position": 2,
+          "name": "对对队",
+          "licence": "RZSSAH0120260613WSTU10_513_RJJEG",
+          "club": "深圳宇翔",
+          "points": 30,
+          "result": "L"
+        },
+        "winner": {
+          "name": "我说你对就队",
+          "club": "深圳宇翔"
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": false
+      }
+    ]
+  },
+  "completeness": [
+    {
+      "section": "General",
+      "rows": 1,
+      "fields": [
+        {
+          "key": "SportName",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "2026年广州剑协“奥粤杯”击剑公开赛(第二站)"
+          ]
+        },
+        {
+          "key": "EventName",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "U10女子佩剑团体"
+          ]
+        },
+        {
+          "key": "OpenDate",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "Venue",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "广东·广州"
+          ]
+        },
+        {
+          "key": "CompetitionNo",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            6
+          ]
+        },
+        {
+          "key": "ExemptionNo",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "PoolFencerNo",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "PoolQualifyNo",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "PDEstartPhase",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "none"
+          ]
+        },
+        {
+          "key": "DEstartPhase",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "from Tableaus8"
+          ]
+        },
+        {
+          "key": "Scode",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "RZSSAH0120260613"
+          ]
+        },
+        {
+          "key": "Ecode",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "RZSSAH0120260613WSTU10"
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Classment",
+      "rows": 6,
+      "fields": [
+        {
+          "key": "EventShowRank",
+          "nonEmpty": 6,
+          "fillRate": 1,
+          "sampleValues": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6"
+          ]
+        },
+        {
+          "key": "EventRank",
+          "nonEmpty": 6,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ]
+        },
+        {
+          "key": "Fencer",
+          "nonEmpty": 6,
+          "fillRate": 1,
+          "sampleValues": [
+            "万万没想到Plus",
+            "少羽",
+            "我说你对就队",
+            "对对队",
+            "美少女队",
+            "哈哈队"
+          ]
+        },
+        {
+          "key": "Licence",
+          "nonEmpty": 6,
+          "fillRate": 1,
+          "sampleValues": [
+            "RZSSAH0120260613WSTU10_122_HLDBT",
+            "RZSSAH0120260613WSTU10_417_NFOYW",
+            "RZSSAH0120260613WSTU10_513_BDWJI",
+            "RZSSAH0120260613WSTU10_513_RJJEG",
+            "RZSSAH0120260613WSTU10_11494_PNRBE",
+            "RZSSAH0120260613WSTU10_12270_UWSJH"
+          ]
+        },
+        {
+          "key": "NOCCode",
+          "nonEmpty": 6,
+          "fillRate": 1,
+          "sampleValues": [
+            "深圳罗湖万国",
+            "深圳领绅",
+            "深圳宇翔",
+            "广州霄鹰",
+            "广州佰森"
+          ]
+        },
+        {
+          "key": "Birthday",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "Medal",
+          "nonEmpty": 3,
+          "fillRate": 0.5,
+          "sampleValues": [
+            "金",
+            "银",
+            "铜"
+          ]
+        },
+        {
+          "key": "Statut",
+          "nonEmpty": 6,
+          "fillRate": 1,
+          "sampleValues": [
+            "N"
+          ]
+        },
+        {
+          "key": "F_EventDisPos",
+          "nonEmpty": 6,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ]
+        },
+        {
+          "key": "RID",
+          "nonEmpty": 6,
+          "fillRate": 1,
+          "sampleValues": [
+            52,
+            51,
+            54,
+            55,
+            53,
+            50
+          ]
+        }
+      ]
+    },
+    {
+      "section": "ClassmentMember",
+      "rows": 21,
+      "fields": [
+        {
+          "key": "Fencer",
+          "nonEmpty": 21,
+          "fillRate": 1,
+          "sampleValues": [
+            "靳梓含",
+            "刘佳言",
+            "蔡昕辰",
+            "李佩芸",
+            "黄乐童",
+            "张梓菡",
+            "梁雨迪",
+            "陈奕彤"
+          ]
+        },
+        {
+          "key": "Licence",
+          "nonEmpty": 21,
+          "fillRate": 1,
+          "sampleValues": [
+            "20170711F202411041052",
+            "20170421F202407030937",
+            "20170201F202503161121",
+            "20161123F202308220937",
+            "20160128F202510251056",
+            "20160116F202308150351",
+            "20160725F202501121031",
+            "20160618M202404240106"
+          ]
+        },
+        {
+          "key": "NOCCode",
+          "nonEmpty": 21,
+          "fillRate": 1,
+          "sampleValues": [
+            "深圳宇翔",
+            "广州霄鹰",
+            "深圳罗湖万国",
+            "深圳领绅",
+            "广州佰森"
+          ]
+        },
+        {
+          "key": "Birthday",
+          "nonEmpty": 21,
+          "fillRate": 1,
+          "sampleValues": [
+            "2017-07-11",
+            "2017-04-21",
+            "2017-02-01",
+            "2016-11-23",
+            "2016-01-28",
+            "2016-01-16",
+            "2016-07-25",
+            "2016-06-18"
+          ]
+        },
+        {
+          "key": "RID",
+          "nonEmpty": 21,
+          "fillRate": 1,
+          "sampleValues": [
+            55,
+            54,
+            53,
+            52,
+            51,
+            50
+          ]
+        }
+      ]
+    },
+    {
+      "section": "IniStarts",
+      "rows": 6,
+      "fields": [
+        {
+          "key": "IRank",
+          "nonEmpty": 6,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ]
+        },
+        {
+          "key": "IPoints",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "Fencer",
+          "nonEmpty": 6,
+          "fillRate": 1,
+          "sampleValues": [
+            "万万没想到Plus",
+            "少羽",
+            "对对队",
+            "美少女队",
+            "我说你对就队",
+            "哈哈队"
+          ]
+        },
+        {
+          "key": "NOCCode",
+          "nonEmpty": 6,
+          "fillRate": 1,
+          "sampleValues": [
+            "深圳罗湖万国",
+            "深圳领绅",
+            "深圳宇翔",
+            "广州霄鹰",
+            "广州佰森"
+          ]
+        },
+        {
+          "key": "Licence",
+          "nonEmpty": 6,
+          "fillRate": 1,
+          "sampleValues": [
+            "RZSSAH0120260613WSTU10_122_HLDBT",
+            "RZSSAH0120260613WSTU10_417_NFOYW",
+            "RZSSAH0120260613WSTU10_513_RJJEG",
+            "RZSSAH0120260613WSTU10_11494_PNRBE",
+            "RZSSAH0120260613WSTU10_513_BDWJI",
+            "RZSSAH0120260613WSTU10_12270_UWSJH"
+          ]
+        },
+        {
+          "key": "DisPos",
+          "nonEmpty": 6,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ]
+        },
+        {
+          "key": "RID",
+          "nonEmpty": 6,
+          "fillRate": 1,
+          "sampleValues": [
+            52,
+            51,
+            55,
+            53,
+            54,
+            50
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Phases",
+      "rows": 1,
+      "fields": [
+        {
+          "key": "PhasePID",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            182723
+          ]
+        },
+        {
+          "key": "PhaseName",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "直接淘汰赛"
+          ]
+        },
+        {
+          "key": "Porder",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            3
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Tableaus",
+      "rows": 3,
+      "fields": [
+        {
+          "key": "PshortDes",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            "T8",
+            "T4",
+            "T2"
+          ]
+        },
+        {
+          "key": "PLongDes",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            "8表",
+            "半决赛",
+            "决赛"
+          ]
+        },
+        {
+          "key": "Porder",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3
+          ]
+        },
+        {
+          "key": "PhaseID",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            182724,
+            182725,
+            182726
+          ]
+        },
+        {
+          "key": "PhasePID",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            182723
+          ]
+        },
+        {
+          "key": "PhaseGroup",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            "1_0",
+            "2_0",
+            "3_0"
+          ]
+        },
+        {
+          "key": "PhaseCode",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            "3",
+            "2",
+            "1"
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Matchs",
+      "rows": 8,
+      "fields": [
+        {
+          "key": "MatchCode",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            "Pre001",
+            "Pre002",
+            "Pre003",
+            "Pre004"
+          ]
+        },
+        {
+          "key": "HomePosition",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            5,
+            3,
+            7
+          ]
+        },
+        {
+          "key": "HomeFencer",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            "万万没想到Plus",
+            "我说你对就队",
+            "对对队",
+            "Bye"
+          ]
+        },
+        {
+          "key": "HomeLicence",
+          "nonEmpty": 7,
+          "fillRate": 0.875,
+          "sampleValues": [
+            "RZSSAH0120260613WSTU10_122_HLDBT",
+            "RZSSAH0120260613WSTU10_513_BDWJI",
+            "RZSSAH0120260613WSTU10_513_RJJEG"
+          ]
+        },
+        {
+          "key": "HomeNOC",
+          "nonEmpty": 7,
+          "fillRate": 0.875,
+          "sampleValues": [
+            "深圳罗湖万国",
+            "深圳宇翔"
+          ]
+        },
+        {
+          "key": "HomePoints",
+          "nonEmpty": 6,
+          "fillRate": 0.75,
+          "sampleValues": [
+            45,
+            41
+          ]
+        },
+        {
+          "key": "HomeWLT",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            "W",
+            "L"
+          ]
+        },
+        {
+          "key": "AwayPosition",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            8,
+            4,
+            6,
+            2
+          ]
+        },
+        {
+          "key": "AwayFencer",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            "Bye",
+            "美少女队",
+            "哈哈队",
+            "少羽",
+            "我说你对就队",
+            "对对队"
+          ]
+        },
+        {
+          "key": "AwayLicence",
+          "nonEmpty": 7,
+          "fillRate": 0.875,
+          "sampleValues": [
+            "RZSSAH0120260613WSTU10_11494_PNRBE",
+            "RZSSAH0120260613WSTU10_12270_UWSJH",
+            "RZSSAH0120260613WSTU10_417_NFOYW",
+            "RZSSAH0120260613WSTU10_513_BDWJI",
+            "RZSSAH0120260613WSTU10_513_RJJEG"
+          ]
+        },
+        {
+          "key": "AwayNOC",
+          "nonEmpty": 7,
+          "fillRate": 0.875,
+          "sampleValues": [
+            "广州霄鹰",
+            "广州佰森",
+            "深圳领绅",
+            "深圳宇翔"
+          ]
+        },
+        {
+          "key": "AwayPoints",
+          "nonEmpty": 6,
+          "fillRate": 0.75,
+          "sampleValues": [
+            42,
+            43,
+            40,
+            45,
+            28,
+            30
+          ]
+        },
+        {
+          "key": "AwayWLT",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            "L",
+            "W"
+          ]
+        },
+        {
+          "key": "Piste",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "StartTime",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "Winner",
+          "nonEmpty": 7,
+          "fillRate": 0.875,
+          "sampleValues": [
+            "万万没想到Plus",
+            "我说你对就队",
+            "对对队"
+          ]
+        },
+        {
+          "key": "WinnerNOC",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            "深圳罗湖万国",
+            "深圳宇翔",
+            "深圳领绅"
+          ]
+        },
+        {
+          "key": "MatchID",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            544746,
+            544747,
+            544748,
+            544749,
+            544750,
+            544751,
+            544752,
+            544753
+          ]
+        },
+        {
+          "key": "PhaseID",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            182724,
+            182725,
+            182726
+          ]
+        },
+        {
+          "key": "GroupCode",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            "3_0",
+            "3_1",
+            "2_0",
+            "1_0"
+          ]
+        },
+        {
+          "key": "F_InnerOrder",
+          "nonEmpty": 8,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2
+          ]
+        }
+      ]
+    },
+    {
+      "section": "TeamAnalyse",
+      "rows": 21,
+      "fields": [
+        {
+          "key": "F_RegisterID",
+          "nonEmpty": 21,
+          "fillRate": 1,
+          "sampleValues": [
+            551038,
+            551037,
+            551036,
+            551039,
+            551035,
+            551034,
+            551033,
+            551046
+          ]
+        },
+        {
+          "key": "F_FencerLicence",
+          "nonEmpty": 21,
+          "fillRate": 1,
+          "sampleValues": [
+            "20161225F202405010253",
+            "20160729F202406280819",
+            "20160520F202305170539",
+            "20170809F202502191041",
+            "20170918M202501080946",
+            "20170906F202510251220",
+            "20161115F202308180159",
+            "20161123F202308220937"
+          ]
+        },
+        {
+          "key": "F_TeamID",
+          "nonEmpty": 21,
+          "fillRate": 1,
+          "sampleValues": [
+            52,
+            51,
+            54,
+            55,
+            53,
+            50
+          ]
+        },
+        {
+          "key": "F_TeamLicence",
+          "nonEmpty": 21,
+          "fillRate": 1,
+          "sampleValues": [
+            "RZSSAH0120260613WSTU10_122_HLDBT",
+            "RZSSAH0120260613WSTU10_417_NFOYW",
+            "RZSSAH0120260613WSTU10_513_BDWJI",
+            "RZSSAH0120260613WSTU10_513_RJJEG",
+            "RZSSAH0120260613WSTU10_11494_PNRBE",
+            "RZSSAH0120260613WSTU10_12270_UWSJH"
+          ]
+        },
+        {
+          "key": "F_Rank",
+          "nonEmpty": 21,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ]
+        },
+        {
+          "key": "F_DisPos",
+          "nonEmpty": 21,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ]
+        },
+        {
+          "key": "F_ShowRank",
+          "nonEmpty": 21,
+          "fillRate": 1,
+          "sampleValues": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6"
+          ]
+        },
+        {
+          "key": "Fencer",
+          "nonEmpty": 21,
+          "fillRate": 1,
+          "sampleValues": [
+            "黄幸铭",
+            "欧芷愉",
+            "杨熠宁",
+            "温梓彤",
+            "周芊妍",
+            "钟亦菲",
+            "张芯睿",
+            "李佩芸"
+          ]
+        },
+        {
+          "key": "F_NOC",
+          "nonEmpty": 21,
+          "fillRate": 1,
+          "sampleValues": [
+            "深圳罗湖万国",
+            "深圳领绅",
+            "深圳宇翔",
+            "广州霄鹰",
+            "广州佰森"
+          ]
+        },
+        {
+          "key": "F_NOCs",
+          "nonEmpty": 21,
+          "fillRate": 1,
+          "sampleValues": [
+            "深圳罗湖万国",
+            "深圳领绅",
+            "深圳宇翔",
+            "广州霄鹰",
+            "广州佰森"
+          ]
+        },
+        {
+          "key": "F_IRM",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "AppearCount",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "MatchCount",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "F_Index",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "F_IndexLabel",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "F_TouchGive",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "F_TouchReceived",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "F_HSdivA",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "F_HSdivALabel",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "F_Diff",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "F_DiffLabel",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "F_NameLabel",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "TouchGive",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "TouchReceived",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "HSdivA",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "Diff",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        }
+      ]
+    }
+  ],
+  "analysisCapabilities": [
+    "项目概要",
+    "最终排名",
+    "初始排位",
+    "小组赛排名",
+    "小组赛每场比分",
+    "小组赛晋级人数",
+    "淘汰赛阶段结构",
+    "淘汰赛每场比分",
+    "选手完整比赛路径",
+    "对手交手记录",
+    "胜负和净胜剑统计"
+  ],
+  "privacyRecommendation": {
+    "publicFields": [
+      "rank",
+      "name",
+      "club",
+      "scores",
+      "winner",
+      "medal"
+    ],
+    "privateFields": [
+      "Licence",
+      "Birthday"
+    ],
+    "note": "Licence 和 Birthday 只用于内部消歧，不建议公开展示。"
+  }
+}

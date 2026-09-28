@@ -1,0 +1,1310 @@
+{
+  "ok": true,
+  "source": {
+    "sourceUrl": "https://fencing-proxy.aixindiandian.workers.dev/Resource/score/RZSS2034113WETU8.js",
+    "sourceType": "score-resource",
+    "importedAt": "2026-09-28T11:43:50.712Z"
+  },
+  "general": {
+    "sportName": "2026年“锋芒杯”京津冀青少年击剑邀请赛",
+    "eventName": "U8女子重剑团体",
+    "openDate": "2026-08-29",
+    "venue": "国家会展中心S6馆",
+    "competitionNo": 3,
+    "exemptionNo": 0,
+    "poolFencerNo": 3,
+    "poolQualifyNo": "",
+    "preDeStartPhase": "无",
+    "deStartPhase": "半决赛",
+    "sportCode": "RZSS2034113",
+    "eventCode": "RZSS2034113WETU8"
+  },
+  "summary": {
+    "classmentCount": 3,
+    "initialSeedCount": 3,
+    "poolCount": 0,
+    "poolStandingCount": 0,
+    "poolResultCount": 0,
+    "poolBoutCount": 0,
+    "tableauCount": 2,
+    "eliminationMatchCount": 3,
+    "playedEliminationMatchCount": 2,
+    "byeMatchCount": 1,
+    "athleteCountByLicence": 3
+  },
+  "distributions": {
+    "poolStatus": {},
+    "poolRemark": {},
+    "tableau": {
+      "半决赛": 1,
+      "决赛": 1
+    },
+    "eliminationByPhase": {
+      "半决赛": 2,
+      "决赛": 1
+    },
+    "eliminationResult": {
+      "/": 1,
+      "L/W": 1,
+      "W/L": 1
+    },
+    "medal": {
+      "金": 1,
+      "银": 1,
+      "铜": 1
+    }
+  },
+  "normalized": {
+    "classment": [
+      {
+        "rank": 1,
+        "displayRank": "1",
+        "name": "飞鹰美少女",
+        "licence": "a5de0f574aac43b58385f2fbd496bdfa",
+        "club": "北京飞鹰",
+        "birthday": null,
+        "medal": "金",
+        "sourcePosition": 1
+      },
+      {
+        "rank": 2,
+        "displayRank": "2",
+        "name": "联合团体(1)队",
+        "licence": "FENWTEAMEPEEU8UNION0001",
+        "club": "联合团体",
+        "birthday": null,
+        "medal": "银",
+        "sourcePosition": 2
+      },
+      {
+        "rank": 3,
+        "displayRank": "3",
+        "name": "好心欣",
+        "licence": "RZSS2034113WETU8_496_IZDYT",
+        "club": "天津红桥",
+        "birthday": null,
+        "medal": "铜",
+        "sourcePosition": 3
+      }
+    ],
+    "poolStandings": [],
+    "poolResults": [],
+    "poolBouts": [],
+    "eliminationMatches": [
+      {
+        "matchId": 119473,
+        "matchCode": "Match1",
+        "phaseId": 6565,
+        "phase": {
+          "shortName": "T4",
+          "longName": "半决赛",
+          "order": 1,
+          "code": "2"
+        },
+        "groupCode": "2_0",
+        "innerOrder": 1,
+        "home": {
+          "position": 1,
+          "name": "飞鹰美少女",
+          "licence": "a5de0f574aac43b58385f2fbd496bdfa",
+          "club": "北京飞鹰",
+          "points": "",
+          "result": ""
+        },
+        "away": {
+          "position": 4,
+          "name": "Bye",
+          "licence": null,
+          "club": null,
+          "points": "",
+          "result": ""
+        },
+        "winner": {
+          "name": "",
+          "club": ""
+        },
+        "piste": "",
+        "startTime": "",
+        "isBye": true
+      },
+      {
+        "matchId": 119474,
+        "matchCode": "Match2",
+        "phaseId": 6565,
+        "phase": {
+          "shortName": "T4",
+          "longName": "半决赛",
+          "order": 1,
+          "code": "2"
+        },
+        "groupCode": "2_1",
+        "innerOrder": 2,
+        "home": {
+          "position": 3,
+          "name": "好心欣",
+          "licence": "RZSS2034113WETU8_496_IZDYT",
+          "club": "天津红桥",
+          "points": 33,
+          "result": "L"
+        },
+        "away": {
+          "position": 2,
+          "name": "联合团体(1)队",
+          "licence": "FENWTEAMEPEEU8UNION0001",
+          "club": "联合团体",
+          "points": 45,
+          "result": "W"
+        },
+        "winner": {
+          "name": "联合团体(1)队",
+          "club": "联合团体"
+        },
+        "piste": "B18",
+        "startTime": "",
+        "isBye": false
+      },
+      {
+        "matchId": 119475,
+        "matchCode": "Match1",
+        "phaseId": 6566,
+        "phase": {
+          "shortName": "T2",
+          "longName": "决赛",
+          "order": 2,
+          "code": "1"
+        },
+        "groupCode": "1_0",
+        "innerOrder": 1,
+        "home": {
+          "position": 1,
+          "name": "飞鹰美少女",
+          "licence": "a5de0f574aac43b58385f2fbd496bdfa",
+          "club": "北京飞鹰",
+          "points": 45,
+          "result": "W"
+        },
+        "away": {
+          "position": 2,
+          "name": "联合团体(1)队",
+          "licence": "FENWTEAMEPEEU8UNION0001",
+          "club": "联合团体",
+          "points": 43,
+          "result": "L"
+        },
+        "winner": {
+          "name": "飞鹰美少女",
+          "club": "北京飞鹰"
+        },
+        "piste": "B16",
+        "startTime": "",
+        "isBye": false
+      }
+    ]
+  },
+  "completeness": [
+    {
+      "section": "General",
+      "rows": 1,
+      "fields": [
+        {
+          "key": "SportName",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "2026年“锋芒杯”京津冀青少年击剑邀请赛"
+          ]
+        },
+        {
+          "key": "EventName",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "U8女子重剑团体"
+          ]
+        },
+        {
+          "key": "OpenDate",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "2026-08-29"
+          ]
+        },
+        {
+          "key": "Venue",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "国家会展中心S6馆"
+          ]
+        },
+        {
+          "key": "CompetitionNo",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            3
+          ]
+        },
+        {
+          "key": "ExemptionNo",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            0
+          ]
+        },
+        {
+          "key": "PoolFencerNo",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            3
+          ]
+        },
+        {
+          "key": "PoolQualifyNo",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "PDEstartPhase",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "无"
+          ]
+        },
+        {
+          "key": "DEstartPhase",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "半决赛"
+          ]
+        },
+        {
+          "key": "Scode",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "RZSS2034113"
+          ]
+        },
+        {
+          "key": "Ecode",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "RZSS2034113WETU8"
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Classment",
+      "rows": 3,
+      "fields": [
+        {
+          "key": "EventShowRank",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            "1",
+            "2",
+            "3"
+          ]
+        },
+        {
+          "key": "EventRank",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3
+          ]
+        },
+        {
+          "key": "Fencer",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            "飞鹰美少女",
+            "联合团体(1)队",
+            "好心欣"
+          ]
+        },
+        {
+          "key": "Licence",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            "a5de0f574aac43b58385f2fbd496bdfa",
+            "FENWTEAMEPEEU8UNION0001",
+            "RZSS2034113WETU8_496_IZDYT"
+          ]
+        },
+        {
+          "key": "NOCCode",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            "北京飞鹰",
+            "联合团体",
+            "天津红桥"
+          ]
+        },
+        {
+          "key": "Birthday",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "Medal",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            "金",
+            "银",
+            "铜"
+          ]
+        },
+        {
+          "key": "Status",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            "N"
+          ]
+        },
+        {
+          "key": "F_EventDisPos",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3
+          ]
+        },
+        {
+          "key": "RID",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            23064,
+            23193,
+            23065
+          ]
+        }
+      ]
+    },
+    {
+      "section": "ClassmentMember",
+      "rows": 9,
+      "fields": [
+        {
+          "key": "Fencer",
+          "nonEmpty": 9,
+          "fillRate": 1,
+          "sampleValues": [
+            "刘沐榕",
+            "刘歆妍",
+            "李芮钰",
+            "张馨爱",
+            "姜苏洛",
+            "刘一然",
+            "夏子欣",
+            "郑好"
+          ]
+        },
+        {
+          "key": "Licence",
+          "nonEmpty": 9,
+          "fillRate": 1,
+          "sampleValues": [
+            "20180130F202503150741",
+            "20180226F202603161032",
+            "20180420F202510110551",
+            "20180613F202502200828",
+            "20180523F202509250451",
+            "20200309F202502180915",
+            "20180316F202502160514",
+            "20190307M202603121119"
+          ]
+        },
+        {
+          "key": "NOCCode",
+          "nonEmpty": 9,
+          "fillRate": 1,
+          "sampleValues": [
+            "北京飞鹰",
+            "陕西锐",
+            "个人",
+            "天津红桥"
+          ]
+        },
+        {
+          "key": "Birthday",
+          "nonEmpty": 9,
+          "fillRate": 1,
+          "sampleValues": [
+            "2018-01-30",
+            "2018-02-26",
+            "2018-04-20",
+            "2018-06-13",
+            "2018-05-23",
+            "2020-03-09",
+            "2018-03-16",
+            "2019-03-07"
+          ]
+        },
+        {
+          "key": "RID",
+          "nonEmpty": 9,
+          "fillRate": 1,
+          "sampleValues": [
+            23064,
+            23193,
+            23065
+          ]
+        }
+      ]
+    },
+    {
+      "section": "IniStarts",
+      "rows": 3,
+      "fields": [
+        {
+          "key": "IRank",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            15,
+            37,
+            25
+          ]
+        },
+        {
+          "key": "IPoints",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "Fencer",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            "飞鹰美少女",
+            "好心欣",
+            "联合团体(1)队"
+          ]
+        },
+        {
+          "key": "NOCCode",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            "北京飞鹰",
+            "天津红桥",
+            "联合团体"
+          ]
+        },
+        {
+          "key": "Birthday",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "Licence",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "DisPos",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            3,
+            2
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Referees",
+      "rows": 2,
+      "fields": [
+        {
+          "key": "Name",
+          "nonEmpty": 2,
+          "fillRate": 1,
+          "sampleValues": [
+            "韩琳",
+            "陶振楠"
+          ]
+        },
+        {
+          "key": "Licence",
+          "nonEmpty": 2,
+          "fillRate": 1,
+          "sampleValues": [
+            "19940805F202505161238",
+            "20041105F202411290747"
+          ]
+        },
+        {
+          "key": "NOC",
+          "nonEmpty": 2,
+          "fillRate": 1,
+          "sampleValues": [
+            "天津"
+          ]
+        },
+        {
+          "key": "Gender",
+          "nonEmpty": 2,
+          "fillRate": 1,
+          "sampleValues": [
+            "女"
+          ]
+        },
+        {
+          "key": "Birthday",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "PoolNumber",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "MatchNumber",
+          "nonEmpty": 2,
+          "fillRate": 1,
+          "sampleValues": [
+            1
+          ]
+        },
+        {
+          "key": "MatchVideoNumber",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "FinalNumber",
+          "nonEmpty": 1,
+          "fillRate": 0.5,
+          "sampleValues": [
+            1
+          ]
+        },
+        {
+          "key": "FinalVideoNumber",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        }
+      ]
+    },
+    {
+      "section": "Tableaus",
+      "rows": 2,
+      "fields": [
+        {
+          "key": "PshortDes",
+          "nonEmpty": 2,
+          "fillRate": 1,
+          "sampleValues": [
+            "T4",
+            "T2"
+          ]
+        },
+        {
+          "key": "PLongDes",
+          "nonEmpty": 2,
+          "fillRate": 1,
+          "sampleValues": [
+            "半决赛",
+            "决赛"
+          ]
+        },
+        {
+          "key": "Porder",
+          "nonEmpty": 2,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2
+          ]
+        },
+        {
+          "key": "PhaseID",
+          "nonEmpty": 2,
+          "fillRate": 1,
+          "sampleValues": [
+            6565,
+            6566
+          ]
+        },
+        {
+          "key": "PhaseCode",
+          "nonEmpty": 2,
+          "fillRate": 1,
+          "sampleValues": [
+            "2",
+            "1"
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Groups",
+      "rows": 2,
+      "fields": [
+        {
+          "key": "F_Group",
+          "nonEmpty": 2,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            0
+          ]
+        },
+        {
+          "key": "PhaseID",
+          "nonEmpty": 2,
+          "fillRate": 1,
+          "sampleValues": [
+            6565,
+            6566
+          ]
+        },
+        {
+          "key": "GroupCode",
+          "nonEmpty": 2,
+          "fillRate": 1,
+          "sampleValues": [
+            "2_1",
+            "1_0"
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Matchs",
+      "rows": 3,
+      "fields": [
+        {
+          "key": "MatchCode",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            "Match1",
+            "Match2"
+          ]
+        },
+        {
+          "key": "HomePosition",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            3
+          ]
+        },
+        {
+          "key": "HomeFencer",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            "飞鹰美少女",
+            "好心欣"
+          ]
+        },
+        {
+          "key": "HomeLicence",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            "a5de0f574aac43b58385f2fbd496bdfa",
+            "RZSS2034113WETU8_496_IZDYT"
+          ]
+        },
+        {
+          "key": "HomeNOC",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            "北京飞鹰",
+            "天津红桥"
+          ]
+        },
+        {
+          "key": "HomePoints",
+          "nonEmpty": 2,
+          "fillRate": 0.6667,
+          "sampleValues": [
+            33,
+            45
+          ]
+        },
+        {
+          "key": "HomeWLT",
+          "nonEmpty": 2,
+          "fillRate": 0.6667,
+          "sampleValues": [
+            "L",
+            "W"
+          ]
+        },
+        {
+          "key": "AwayPosition",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            4,
+            2
+          ]
+        },
+        {
+          "key": "AwayFencer",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            "Bye",
+            "联合团体(1)队"
+          ]
+        },
+        {
+          "key": "AwayLicence",
+          "nonEmpty": 2,
+          "fillRate": 0.6667,
+          "sampleValues": [
+            "FENWTEAMEPEEU8UNION0001"
+          ]
+        },
+        {
+          "key": "AwayNOC",
+          "nonEmpty": 2,
+          "fillRate": 0.6667,
+          "sampleValues": [
+            "联合团体"
+          ]
+        },
+        {
+          "key": "AwayPoints",
+          "nonEmpty": 2,
+          "fillRate": 0.6667,
+          "sampleValues": [
+            45,
+            43
+          ]
+        },
+        {
+          "key": "AwayWLT",
+          "nonEmpty": 2,
+          "fillRate": 0.6667,
+          "sampleValues": [
+            "W",
+            "L"
+          ]
+        },
+        {
+          "key": "Piste",
+          "nonEmpty": 2,
+          "fillRate": 0.6667,
+          "sampleValues": [
+            "B18",
+            "B16"
+          ]
+        },
+        {
+          "key": "Winner",
+          "nonEmpty": 2,
+          "fillRate": 0.6667,
+          "sampleValues": [
+            "联合团体(1)队",
+            "飞鹰美少女"
+          ]
+        },
+        {
+          "key": "WinnerNOC",
+          "nonEmpty": 2,
+          "fillRate": 0.6667,
+          "sampleValues": [
+            "联合团体",
+            "北京飞鹰"
+          ]
+        },
+        {
+          "key": "MatchID",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            119473,
+            119474,
+            119475
+          ]
+        },
+        {
+          "key": "PhaseID",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            6565,
+            6566
+          ]
+        },
+        {
+          "key": "StartTime",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "GroupCode",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            "2_0",
+            "2_1",
+            "1_0"
+          ]
+        },
+        {
+          "key": "F_InnerOrder",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2
+          ]
+        }
+      ]
+    },
+    {
+      "section": "ProgressMatchs",
+      "rows": 3,
+      "fields": [
+        {
+          "key": "HomePosition",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            3
+          ]
+        },
+        {
+          "key": "HomeFencer",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            "飞鹰美少女",
+            "好心欣"
+          ]
+        },
+        {
+          "key": "HomeLicence",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            "a5de0f574aac43b58385f2fbd496bdfa",
+            "RZSS2034113WETU8_496_IZDYT"
+          ]
+        },
+        {
+          "key": "HomeNOC",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            "北京飞鹰",
+            "天津红桥"
+          ]
+        },
+        {
+          "key": "HomePoints",
+          "nonEmpty": 2,
+          "fillRate": 0.6667,
+          "sampleValues": [
+            33,
+            45
+          ]
+        },
+        {
+          "key": "HomeWLT",
+          "nonEmpty": 2,
+          "fillRate": 0.6667,
+          "sampleValues": [
+            "L",
+            "W"
+          ]
+        },
+        {
+          "key": "AwayPosition",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            4,
+            2
+          ]
+        },
+        {
+          "key": "AwayFencer",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            "Bye",
+            "联合团体(1)队"
+          ]
+        },
+        {
+          "key": "AwayLicence",
+          "nonEmpty": 2,
+          "fillRate": 0.6667,
+          "sampleValues": [
+            "FENWTEAMEPEEU8UNION0001"
+          ]
+        },
+        {
+          "key": "AwayNOC",
+          "nonEmpty": 2,
+          "fillRate": 0.6667,
+          "sampleValues": [
+            "联合团体"
+          ]
+        },
+        {
+          "key": "AwayPoints",
+          "nonEmpty": 2,
+          "fillRate": 0.6667,
+          "sampleValues": [
+            45,
+            43
+          ]
+        },
+        {
+          "key": "AwayWLT",
+          "nonEmpty": 2,
+          "fillRate": 0.6667,
+          "sampleValues": [
+            "W",
+            "L"
+          ]
+        },
+        {
+          "key": "Piste",
+          "nonEmpty": 2,
+          "fillRate": 0.6667,
+          "sampleValues": [
+            "B18",
+            "B16"
+          ]
+        },
+        {
+          "key": "StartTime",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "Winner",
+          "nonEmpty": 2,
+          "fillRate": 0.6667,
+          "sampleValues": [
+            "联合团体(1)队",
+            "飞鹰美少女"
+          ]
+        },
+        {
+          "key": "WinnerNOC",
+          "nonEmpty": 2,
+          "fillRate": 0.6667,
+          "sampleValues": [
+            "联合团体",
+            "北京飞鹰"
+          ]
+        },
+        {
+          "key": "MatchID",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            119473,
+            119474,
+            119475
+          ]
+        },
+        {
+          "key": "PhaseID",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            6565,
+            6566
+          ]
+        },
+        {
+          "key": "GroupCode",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            "2_0",
+            "2_1",
+            "1_0"
+          ]
+        }
+      ]
+    },
+    {
+      "section": "MatchSplit",
+      "rows": 0,
+      "fields": []
+    },
+    {
+      "section": "TeamAnalyse",
+      "rows": 9,
+      "fields": [
+        {
+          "key": "F_RegisterID",
+          "nonEmpty": 9,
+          "fillRate": 1,
+          "sampleValues": [
+            9406,
+            9390,
+            9787,
+            9414,
+            9392,
+            9786,
+            9802,
+            9790
+          ]
+        },
+        {
+          "key": "F_FencerLicence",
+          "nonEmpty": 9,
+          "fillRate": 1,
+          "sampleValues": [
+            "20180130F202503150741",
+            "20180226F202603161032",
+            "20180420F202510110551",
+            "20180613F202502200828",
+            "20180523F202509250451",
+            "20200309F202502180915",
+            "20180316F202502160514",
+            "20190307M202603121119"
+          ]
+        },
+        {
+          "key": "F_TeamID",
+          "nonEmpty": 9,
+          "fillRate": 1,
+          "sampleValues": [
+            23064,
+            23193,
+            23065
+          ]
+        },
+        {
+          "key": "F_TeamLicence",
+          "nonEmpty": 9,
+          "fillRate": 1,
+          "sampleValues": [
+            "a5de0f574aac43b58385f2fbd496bdfa",
+            "FENWTEAMEPEEU8UNION0001",
+            "RZSS2034113WETU8_496_IZDYT"
+          ]
+        },
+        {
+          "key": "F_Rank",
+          "nonEmpty": 9,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3
+          ]
+        },
+        {
+          "key": "F_DisPos",
+          "nonEmpty": 9,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2,
+            3
+          ]
+        },
+        {
+          "key": "F_ShowRank",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "Fencer",
+          "nonEmpty": 9,
+          "fillRate": 1,
+          "sampleValues": [
+            "刘沐榕",
+            "刘歆妍",
+            "李芮钰",
+            "张馨爱",
+            "姜苏洛",
+            "刘一然",
+            "夏子欣",
+            "郑好"
+          ]
+        },
+        {
+          "key": "F_NOC",
+          "nonEmpty": 9,
+          "fillRate": 1,
+          "sampleValues": [
+            "北京飞鹰",
+            "陕西锐",
+            "个人",
+            "天津红桥"
+          ]
+        },
+        {
+          "key": "F_NOCs",
+          "nonEmpty": 9,
+          "fillRate": 1,
+          "sampleValues": [
+            "飞鹰美少女",
+            "联合团体(1)队",
+            "好心欣"
+          ]
+        },
+        {
+          "key": "F_IRM",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "AppearCount",
+          "nonEmpty": 9,
+          "fillRate": 1,
+          "sampleValues": [
+            0
+          ]
+        },
+        {
+          "key": "MatchCount",
+          "nonEmpty": 9,
+          "fillRate": 1,
+          "sampleValues": [
+            1,
+            2
+          ]
+        },
+        {
+          "key": "F_Index",
+          "nonEmpty": 9,
+          "fillRate": 1,
+          "sampleValues": [
+            0
+          ]
+        },
+        {
+          "key": "F_IndexLabel",
+          "nonEmpty": 9,
+          "fillRate": 1,
+          "sampleValues": [
+            1
+          ]
+        },
+        {
+          "key": "F_TouchGive",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "F_TouchReceived",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "F_HSdivA",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "F_HSdivALabel",
+          "nonEmpty": 9,
+          "fillRate": 1,
+          "sampleValues": [
+            1
+          ]
+        },
+        {
+          "key": "F_Diff",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "F_DiffLabel",
+          "nonEmpty": 9,
+          "fillRate": 1,
+          "sampleValues": [
+            1
+          ]
+        },
+        {
+          "key": "F_NameLabel",
+          "nonEmpty": 9,
+          "fillRate": 1,
+          "sampleValues": [
+            1
+          ]
+        }
+      ]
+    }
+  ],
+  "analysisCapabilities": [
+    "项目概要",
+    "最终排名",
+    "初始排位",
+    "小组赛排名",
+    "小组赛每场比分",
+    "小组赛晋级人数",
+    "淘汰赛阶段结构",
+    "淘汰赛每场比分",
+    "选手完整比赛路径",
+    "对手交手记录",
+    "胜负和净胜剑统计"
+  ],
+  "privacyRecommendation": {
+    "publicFields": [
+      "rank",
+      "name",
+      "club",
+      "scores",
+      "winner",
+      "medal"
+    ],
+    "privateFields": [
+      "Licence",
+      "Birthday"
+    ],
+    "note": "Licence 和 Birthday 只用于内部消歧，不建议公开展示。"
+  }
+}
