@@ -128,7 +128,8 @@ function stripListOnlyFields(value) {
   if (value && typeof value === 'object') {
     return Object.fromEntries(
       Object.entries(value)
-        .filter(([key]) => key !== 'roster' && key !== 'athleteNames')
+        .filter(([key]) => key !== 'roster' && key !== 'athleteNames'
+          && !(key === 'shortEventName' && value.shortEventName === value.eventName))
         .map(([key, item]) => [key, stripListOnlyFields(item)]),
     );
   }
