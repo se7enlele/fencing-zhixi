@@ -40,7 +40,7 @@ const workerScript = await readFile(new URL('../cloudflare/worker.mjs', import.m
 assert.match(workerScript, /import \{ sanitizePublicData \} from '\.\.\/tools\/public-sanitize\.mjs';/, 'worker must import the public sanitizer');
 assert.match(workerScript, /url\.pathname === '\/api\/events'[\s\S]*?sanitizePublicData\(/, 'worker event index endpoint must sanitize output');
 assert.match(workerScript, /url\.pathname === '\/api\/search'[\s\S]*?sanitizePublicData\(/, 'worker search endpoint must sanitize output');
-assert.match(workerScript, /event = sanitizePublicData\(event\);/, 'worker event detail endpoint must sanitize static and dynamic details');
+assert.match(workerScript, /event = sanitizePublicData\(hydrateEventDetail\(event\)\);/, 'worker event detail endpoint must hydrate and sanitize static and dynamic details');
 assert.match(workerScript, /const athlete = sanitizePublicData\(/, 'worker athlete detail endpoint must sanitize output');
 assert.match(workerScript, /club = sanitizePublicData\(club\);/, 'worker club detail endpoint must sanitize output');
 

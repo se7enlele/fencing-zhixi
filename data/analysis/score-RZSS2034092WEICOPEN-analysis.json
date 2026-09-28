@@ -1,0 +1,569 @@
+{
+  "ok": true,
+  "source": {
+    "sourceUrl": "https://fencing-proxy.aixindiandian.workers.dev/fencingapi/matchresult/classmentrank/RZSS2034092WEICOPEN",
+    "sourceType": "classmentrank",
+    "fallbackFrom": "https://fencing-proxy.aixindiandian.workers.dev/Resource/score/RZSS2034092WEICOPEN.js",
+    "fallbackMessage": "Command failed: curl --location --fail --silent --show-error --retry 2 --retry-delay 1 --retry-max-time 40 --max-time 20 https://fencing-proxy.aixindiandian.workers.dev/Resource/score/RZSS2034092WEICOPEN.js\ncurl: (28) Operation timed out after 20006 milliseconds with 0 bytes received\r\ncurl: (28) Operation timed out after 20003 milliseconds with 0 bytes received\r\n",
+    "importedAt": "2026-09-28T12:29:37.277Z"
+  },
+  "general": {
+    "sportName": "2026年龙城击剑公开赛",
+    "eventName": "年龄开放组女子重剑个人",
+    "openDate": "2026-08-14 10:00:00",
+    "venue": "太原市",
+    "competitionNo": 18,
+    "exemptionNo": null,
+    "poolFencerNo": null,
+    "poolQualifyNo": null,
+    "preDeStartPhase": null,
+    "deStartPhase": null,
+    "sportCode": "RZSS2034092",
+    "eventCode": "RZSS2034092WEICOPEN"
+  },
+  "summary": {
+    "classmentCount": 18,
+    "initialSeedCount": 0,
+    "poolCount": 0,
+    "poolStandingCount": 0,
+    "poolResultCount": 0,
+    "poolBoutCount": 0,
+    "tableauCount": 0,
+    "eliminationMatchCount": 0,
+    "playedEliminationMatchCount": 0,
+    "byeMatchCount": 0,
+    "athleteCountByLicence": 18
+  },
+  "distributions": {
+    "poolStatus": {},
+    "poolRemark": {},
+    "tableau": {},
+    "eliminationByPhase": {},
+    "eliminationResult": {},
+    "medal": {
+      "金": 1,
+      "银": 1,
+      "铜": 2,
+      "(无奖牌)": 14
+    }
+  },
+  "normalized": {
+    "classment": [
+      {
+        "rank": 1,
+        "displayRank": "1",
+        "name": "任星云",
+        "licence": "20050919F201503201811",
+        "club": "天津河东",
+        "birthday": "2005-09-19",
+        "medal": "金",
+        "status": "N",
+        "sourcePosition": "1",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 2,
+        "displayRank": "2",
+        "name": "庄咏晞",
+        "licence": "20100617F202409270252",
+        "club": "香港剑乐会",
+        "birthday": "2010-06-17",
+        "medal": "银",
+        "status": "N",
+        "sourcePosition": "2",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 3,
+        "displayRank": "3",
+        "name": "于英楠",
+        "licence": "20070413F201609151040",
+        "club": "辽宁",
+        "birthday": "2007-04-13",
+        "medal": "铜",
+        "status": "N",
+        "sourcePosition": "3",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 3,
+        "displayRank": "3",
+        "name": "高芮芝",
+        "licence": "20110409F201903061856",
+        "club": "北京飞鹰",
+        "birthday": "2011-04-09",
+        "medal": "铜",
+        "status": "N",
+        "sourcePosition": "4",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 5,
+        "displayRank": "5",
+        "name": "沈高西",
+        "licence": "20120523F202205060846",
+        "club": "北京飞鸿",
+        "birthday": "2012-05-23",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "5",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 6,
+        "displayRank": "6",
+        "name": "李一诺",
+        "licence": "20080707F201809082159",
+        "club": "上海",
+        "birthday": "2008-07-07",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "6",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 7,
+        "displayRank": "7",
+        "name": "姬皎茜",
+        "licence": "20080717F202303210227",
+        "club": "太原市三体校",
+        "birthday": "2008-07-17",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "7",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 7,
+        "displayRank": "7",
+        "name": "关欣玥",
+        "licence": "20050817F201504161113",
+        "club": "个人",
+        "birthday": "2005-08-17",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "8",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 9,
+        "displayRank": "9",
+        "name": "杨辰沣",
+        "licence": "20090127F202303200511",
+        "club": "太原市三体校",
+        "birthday": "2009-01-27",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "9",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 10,
+        "displayRank": "10",
+        "name": "孙梓馨",
+        "licence": "20111119F202107050922",
+        "club": "北京飞鸿",
+        "birthday": "2011-11-19",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "10",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 11,
+        "displayRank": "11",
+        "name": "李雯佳",
+        "licence": "20101128F202202280829",
+        "club": "福建",
+        "birthday": "2010-11-28",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "11",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 12,
+        "displayRank": "12",
+        "name": "吴晓卿",
+        "licence": "19860823F202403131243",
+        "club": "武汉武昌万国",
+        "birthday": "1986-08-23",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "12",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 13,
+        "displayRank": "13",
+        "name": "叶子暄",
+        "licence": "20110805F202112251000",
+        "club": "北京乾锋解永俊",
+        "birthday": "2011-08-05",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "13",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 14,
+        "displayRank": "14",
+        "name": "刘羽倩",
+        "licence": "20081221F20220309113814",
+        "club": "山西",
+        "birthday": "2008-12-21",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "14",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 15,
+        "displayRank": "15",
+        "name": "姜庆玲",
+        "licence": "20061128M202307110955",
+        "club": "重庆晓育",
+        "birthday": "2006-11-28",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "15",
+        "qualifyStatusId": "0"
+      },
+      {
+        "rank": 16,
+        "displayRank": "16",
+        "name": "吴沛霖",
+        "licence": "20100726F201904211540",
+        "club": "湖南",
+        "birthday": "2010-07-26",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "16",
+        "qualifyStatusId": "0"
+      },
+      {
+        "rank": 17,
+        "displayRank": "17",
+        "name": "潘新睿",
+        "licence": "20090318F202503050943",
+        "club": "重庆晓育",
+        "birthday": "2009-03-18",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "17",
+        "qualifyStatusId": "0"
+      },
+      {
+        "rank": 18,
+        "displayRank": "18",
+        "name": "赵雪纯",
+        "licence": "20091130F202012031828",
+        "club": "个人",
+        "birthday": "2009-11-30",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "18",
+        "qualifyStatusId": "0"
+      }
+    ],
+    "poolStandings": [],
+    "poolResults": [],
+    "poolBouts": [],
+    "eliminationMatches": []
+  },
+  "completeness": [
+    {
+      "section": "General",
+      "rows": 1,
+      "fields": [
+        {
+          "key": "SportName",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "2026年龙城击剑公开赛"
+          ]
+        },
+        {
+          "key": "EventName",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "年龄开放组女子重剑个人"
+          ]
+        },
+        {
+          "key": "OpenDate",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "2026-08-14 10:00:00"
+          ]
+        },
+        {
+          "key": "Venue",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "太原市"
+          ]
+        },
+        {
+          "key": "CompetitionNo",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            18
+          ]
+        },
+        {
+          "key": "ExemptionNo",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "PoolFencerNo",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "PoolQualifyNo",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "PDEstartPhase",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "DEstartPhase",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "Scode",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "RZSS2034092"
+          ]
+        },
+        {
+          "key": "Ecode",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "RZSS2034092WEICOPEN"
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Classment",
+      "rows": 18,
+      "fields": [
+        {
+          "key": "EventRank",
+          "nonEmpty": 18,
+          "fillRate": 1,
+          "sampleValues": [
+            "1",
+            "2",
+            "3",
+            "5",
+            "6",
+            "7",
+            "9",
+            "10"
+          ]
+        },
+        {
+          "key": "EventShowRank",
+          "nonEmpty": 18,
+          "fillRate": 1,
+          "sampleValues": [
+            "1",
+            "2",
+            "3",
+            "5",
+            "6",
+            "7",
+            "9",
+            "10"
+          ]
+        },
+        {
+          "key": "Fencer",
+          "nonEmpty": 18,
+          "fillRate": 1,
+          "sampleValues": [
+            "任星云",
+            "庄咏晞",
+            "于英楠",
+            "高芮芝",
+            "沈高西",
+            "李一诺",
+            "姬皎茜",
+            "关欣玥"
+          ]
+        },
+        {
+          "key": "Licence",
+          "nonEmpty": 18,
+          "fillRate": 1,
+          "sampleValues": [
+            "20050919F201503201811",
+            "20100617F202409270252",
+            "20070413F201609151040",
+            "20110409F201903061856",
+            "20120523F202205060846",
+            "20080707F201809082159",
+            "20080717F202303210227",
+            "20050817F201504161113"
+          ]
+        },
+        {
+          "key": "NOCCode",
+          "nonEmpty": 18,
+          "fillRate": 1,
+          "sampleValues": [
+            "天津河东",
+            "香港剑乐会",
+            "辽宁",
+            "北京飞鹰",
+            "北京飞鸿",
+            "上海",
+            "太原市三体校",
+            "个人"
+          ]
+        },
+        {
+          "key": "Birthday",
+          "nonEmpty": 18,
+          "fillRate": 1,
+          "sampleValues": [
+            "2005-09-19",
+            "2010-06-17",
+            "2007-04-13",
+            "2011-04-09",
+            "2012-05-23",
+            "2008-07-07",
+            "2008-07-17",
+            "2005-08-17"
+          ]
+        },
+        {
+          "key": "Medal",
+          "nonEmpty": 4,
+          "fillRate": 0.2222,
+          "sampleValues": [
+            "金",
+            "银",
+            "铜"
+          ]
+        },
+        {
+          "key": "Statut",
+          "nonEmpty": 18,
+          "fillRate": 1,
+          "sampleValues": [
+            "N"
+          ]
+        },
+        {
+          "key": "F_EventDisPos",
+          "nonEmpty": 18,
+          "fillRate": 1,
+          "sampleValues": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8"
+          ]
+        },
+        {
+          "key": "QualifyStatusId",
+          "nonEmpty": 18,
+          "fillRate": 1,
+          "sampleValues": [
+            "1",
+            "0"
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Pools",
+      "rows": 0,
+      "fields": []
+    },
+    {
+      "section": "PoolStanding",
+      "rows": 0,
+      "fields": []
+    },
+    {
+      "section": "PoolResults",
+      "rows": 0,
+      "fields": []
+    },
+    {
+      "section": "PRDetails",
+      "rows": 0,
+      "fields": []
+    },
+    {
+      "section": "Tableaus",
+      "rows": 0,
+      "fields": []
+    },
+    {
+      "section": "Matchs",
+      "rows": 0,
+      "fields": []
+    },
+    {
+      "section": "IniStarts",
+      "rows": 0,
+      "fields": []
+    }
+  ],
+  "analysisCapabilities": [
+    "项目概要",
+    "最终排名",
+    "初始排位",
+    "小组赛排名",
+    "小组赛每场比分",
+    "小组赛晋级人数",
+    "淘汰赛阶段结构",
+    "淘汰赛每场比分",
+    "选手完整比赛路径",
+    "对手交手记录",
+    "胜负和净胜剑统计"
+  ],
+  "privacyRecommendation": {
+    "publicFields": [
+      "rank",
+      "name",
+      "club",
+      "scores",
+      "winner",
+      "medal"
+    ],
+    "privateFields": [
+      "Licence",
+      "Birthday"
+    ],
+    "note": "Licence 和 Birthday 只用于内部消歧，不建议公开展示。"
+  }
+}

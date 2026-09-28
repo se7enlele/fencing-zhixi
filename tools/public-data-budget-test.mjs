@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
+import { compactEventDetail, hydrateEventDetail } from '../cloudflare/event-detail-hydration.mjs';
 
 const DATA_DIR = path.join(process.cwd(), "web", "data");
 const INDEX_FILE = path.join(DATA_DIR, "public-data-index.json");
@@ -99,6 +100,14 @@ for (const assetPath of chunkPaths) {
     `${path.basename(localPath)} is ${(bytes / ONE_MIB).toFixed(2)} MiB, budget is ${BUDGETS.chunkBytes / ONE_MIB} MiB`,
   );
 }
+
+const matches = [{ matchId: 1 }, { matchId: 3 }, { matchId: 2 }];
+const detail = {
+  eliminationPhaseGroups: [{ matches }],
+  latestMatches: [matches[1], matches[2], matches[0]],
+};
+assert.deepEqual(hydrateEventDetail(compactEventDetail(detail)), detail);
+assert.deepEqual(compactEventDetail({ ...detail, latestMatches: [matches[0]] }).latestMatches, [matches[0]]);
 
 console.log(
   `public-data-budget ok: ${publicDataFiles.length} files, ${(totalBytes / ONE_MIB).toFixed(2)} MiB total, ${chunkPaths.size} chunks`,

@@ -1,0 +1,344 @@
+{
+  "ok": true,
+  "source": {
+    "sourceUrl": "https://fencing-proxy.aixindiandian.workers.dev/fencingapi/matchresult/classmentrank/RZSS2035111WSTU8",
+    "sourceType": "classmentrank",
+    "fallbackFrom": "https://fencing-proxy.aixindiandian.workers.dev/Resource/score/RZSS2035111WSTU8.js",
+    "fallbackMessage": "Command failed: curl --location --fail --silent --show-error --retry 2 --retry-delay 1 --retry-max-time 40 --max-time 20 https://fencing-proxy.aixindiandian.workers.dev/Resource/score/RZSS2035111WSTU8.js\ncurl: (28) Operation timed out after 20008 milliseconds with 0 bytes received\r\ncurl: (28) Operation timed out after 20009 milliseconds with 0 bytes received\r\n",
+    "importedAt": "2026-09-28T12:24:55.439Z"
+  },
+  "general": {
+    "sportName": "2026年鄞州区“海定杯”击剑公开赛",
+    "eventName": "U8女子佩剑团体",
+    "openDate": "2026-08-22 07:00:00",
+    "venue": "宁波市",
+    "competitionNo": 3,
+    "exemptionNo": null,
+    "poolFencerNo": null,
+    "poolQualifyNo": null,
+    "preDeStartPhase": null,
+    "deStartPhase": null,
+    "sportCode": "RZSS2035111",
+    "eventCode": "RZSS2035111WSTU8"
+  },
+  "summary": {
+    "classmentCount": 3,
+    "initialSeedCount": 0,
+    "poolCount": 0,
+    "poolStandingCount": 0,
+    "poolResultCount": 0,
+    "poolBoutCount": 0,
+    "tableauCount": 0,
+    "eliminationMatchCount": 0,
+    "playedEliminationMatchCount": 0,
+    "byeMatchCount": 0,
+    "athleteCountByLicence": 3
+  },
+  "distributions": {
+    "poolStatus": {},
+    "poolRemark": {},
+    "tableau": {},
+    "eliminationByPhase": {},
+    "eliminationResult": {},
+    "medal": {
+      "金": 1,
+      "银": 1,
+      "铜": 1
+    }
+  },
+  "normalized": {
+    "classment": [
+      {
+        "rank": 1,
+        "displayRank": "1",
+        "name": "苏州张莹梦之队",
+        "licence": "6161ce11e31c4699a32902bc1c1f8937",
+        "club": "苏州张莹",
+        "birthday": null,
+        "medal": "金",
+        "status": "N",
+        "sourcePosition": "1",
+        "qualifyStatusId": null
+      },
+      {
+        "rank": 2,
+        "displayRank": "2",
+        "name": "苏州张莹超越队",
+        "licence": "ce74c3b24d014b8d9c698f88c40c20c9",
+        "club": "苏州张莹",
+        "birthday": null,
+        "medal": "银",
+        "status": "N",
+        "sourcePosition": "2",
+        "qualifyStatusId": null
+      },
+      {
+        "rank": 3,
+        "displayRank": "3",
+        "name": "联合团体1队",
+        "licence": "UNITE1",
+        "club": null,
+        "birthday": null,
+        "medal": "铜",
+        "status": "N",
+        "sourcePosition": "3",
+        "qualifyStatusId": null
+      }
+    ],
+    "poolStandings": [],
+    "poolResults": [],
+    "poolBouts": [],
+    "eliminationMatches": []
+  },
+  "completeness": [
+    {
+      "section": "General",
+      "rows": 1,
+      "fields": [
+        {
+          "key": "SportName",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "2026年鄞州区“海定杯”击剑公开赛"
+          ]
+        },
+        {
+          "key": "EventName",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "U8女子佩剑团体"
+          ]
+        },
+        {
+          "key": "OpenDate",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "2026-08-22 07:00:00"
+          ]
+        },
+        {
+          "key": "Venue",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "宁波市"
+          ]
+        },
+        {
+          "key": "CompetitionNo",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            3
+          ]
+        },
+        {
+          "key": "ExemptionNo",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "PoolFencerNo",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "PoolQualifyNo",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "PDEstartPhase",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "DEstartPhase",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "Scode",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "RZSS2035111"
+          ]
+        },
+        {
+          "key": "Ecode",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "RZSS2035111WSTU8"
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Classment",
+      "rows": 3,
+      "fields": [
+        {
+          "key": "EventRank",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            "1",
+            "2",
+            "3"
+          ]
+        },
+        {
+          "key": "EventShowRank",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            "1",
+            "2",
+            "3"
+          ]
+        },
+        {
+          "key": "Fencer",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            "苏州张莹梦之队",
+            "苏州张莹超越队",
+            "联合团体1队"
+          ]
+        },
+        {
+          "key": "Licence",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            "6161ce11e31c4699a32902bc1c1f8937",
+            "ce74c3b24d014b8d9c698f88c40c20c9",
+            "UNITE1"
+          ]
+        },
+        {
+          "key": "NOCCode",
+          "nonEmpty": 2,
+          "fillRate": 0.6667,
+          "sampleValues": [
+            "苏州张莹"
+          ]
+        },
+        {
+          "key": "Birthday",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "Medal",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            "金",
+            "银",
+            "铜"
+          ]
+        },
+        {
+          "key": "Statut",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            "N"
+          ]
+        },
+        {
+          "key": "F_EventDisPos",
+          "nonEmpty": 3,
+          "fillRate": 1,
+          "sampleValues": [
+            "1",
+            "2",
+            "3"
+          ]
+        },
+        {
+          "key": "QualifyStatusId",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        }
+      ]
+    },
+    {
+      "section": "Pools",
+      "rows": 0,
+      "fields": []
+    },
+    {
+      "section": "PoolStanding",
+      "rows": 0,
+      "fields": []
+    },
+    {
+      "section": "PoolResults",
+      "rows": 0,
+      "fields": []
+    },
+    {
+      "section": "PRDetails",
+      "rows": 0,
+      "fields": []
+    },
+    {
+      "section": "Tableaus",
+      "rows": 0,
+      "fields": []
+    },
+    {
+      "section": "Matchs",
+      "rows": 0,
+      "fields": []
+    },
+    {
+      "section": "IniStarts",
+      "rows": 0,
+      "fields": []
+    }
+  ],
+  "analysisCapabilities": [
+    "项目概要",
+    "最终排名",
+    "初始排位",
+    "小组赛排名",
+    "小组赛每场比分",
+    "小组赛晋级人数",
+    "淘汰赛阶段结构",
+    "淘汰赛每场比分",
+    "选手完整比赛路径",
+    "对手交手记录",
+    "胜负和净胜剑统计"
+  ],
+  "privacyRecommendation": {
+    "publicFields": [
+      "rank",
+      "name",
+      "club",
+      "scores",
+      "winner",
+      "medal"
+    ],
+    "privateFields": [
+      "Licence",
+      "Birthday"
+    ],
+    "note": "Licence 和 Birthday 只用于内部消歧，不建议公开展示。"
+  }
+}

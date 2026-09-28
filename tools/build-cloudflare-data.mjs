@@ -10,6 +10,7 @@ import {
 } from '../server.mjs';
 import { sanitizePublicData } from './public-sanitize.mjs';
 import { buildSearchIndexes } from './search-index.mjs';
+import { compactEventDetail } from '../cloudflare/event-detail-hydration.mjs';
 
 const outputRoot = path.resolve(process.env.CF_BUILD_OUTPUT_ROOT || '.');
 const assetOutDir = path.join(outputRoot, 'web', 'data');
@@ -181,7 +182,7 @@ const payload = {
   version: publicEvents.version,
   publicEvents: sanitizePublicData(stripListOnlyFields(workerPublicEvents)),
   eventsByCode: sanitizePublicData({
-    ...Object.fromEntries(eventEntries.filter(([, detail]) => detail)),
+    ...Object.fromEntries(eventEntries.filter(([, detail]) => detail).map(([code, detail]) => [code, compactEventDetail(detail)])),
     ...buildPreEventDetailsFromCompetitions(workerPublicEvents.competitions),
   }),
   athletesById: sanitizePublicData(Object.fromEntries(athletes.map((athlete) => [athlete.id, athlete]))),

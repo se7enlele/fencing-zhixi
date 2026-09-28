@@ -5,6 +5,7 @@ import { buildPreEventCompetitions } from '../tools/pre-event-data.mjs';
 import { sanitizePublicData } from '../tools/public-sanitize.mjs';
 import { searchIndexes } from '../tools/search-index.mjs';
 import { compactCompetitionIndex } from '../tools/competition-index.mjs';
+import { hydrateEventDetail } from './event-detail-hydration.mjs';
 import { normalizeCompetitionState } from '../tools/competition-index.mjs';
 import { buildEventDateFallbacks, enrichScoreReportDates } from '../tools/event-date.mjs';
 import {
@@ -1333,7 +1334,7 @@ async function routeApi(request, env, url) {
       const { competitions } = await getCompetitionIndex(env);
       event = findProjectOnlyEvent({ competitions }, eventCode);
     }
-    event = sanitizePublicData(event);
+    event = sanitizePublicData(hydrateEventDetail(event));
     return event ? json({ ok: true, version: index.version, event }, 200, PUBLIC_DETAIL_CACHE) : json({ ok: false, message: '项目不存在。' }, 404);
   }
 
