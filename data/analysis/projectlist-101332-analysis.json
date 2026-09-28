@@ -1,0 +1,1284 @@
+{
+  "ok": true,
+  "source": {
+    "sourceUrl": "https://fencing-proxy.aixindiandian.workers.dev/fencingapi/competition/projectlist?sportId=101332",
+    "sportId": 101332,
+    "sportCode": "RZSSGX1420260822",
+    "importedAt": "2026-09-28T09:55:54.993Z"
+  },
+  "summary": {
+    "itemCount": 27,
+    "sportIds": [
+      101332
+    ],
+    "sportCodes": [
+      "RZSSGX1420260822"
+    ],
+    "eventCodeCount": 27,
+    "totalParticipants": 576,
+    "participantStats": {
+      "min": 18,
+      "max": 36,
+      "total": 576,
+      "average": 21.33
+    },
+    "ageMinStats": {
+      "min": 5,
+      "max": 13,
+      "total": 239,
+      "average": 8.85
+    },
+    "ageMaxStats": {
+      "min": 8,
+      "max": 70,
+      "total": 536,
+      "average": 19.85
+    }
+  },
+  "distributions": {
+    "weapon": {
+      "花剑": 10,
+      "重剑": 10,
+      "佩剑": 7
+    },
+    "gender": {
+      "男": 14,
+      "女": 13
+    },
+    "ageGroup": {
+      "U8": 5,
+      "U10": 6,
+      "U12": 6,
+      "U14": 6,
+      "公开组": 4
+    },
+    "itemType": {
+      "个人": 27
+    },
+    "dateRange": {
+      "2026-08-22 08:00:00": 27
+    }
+  },
+  "completeness": [
+    {
+      "key": "eventId",
+      "label": "项目内部 ID",
+      "target": "event_items.source_event_id",
+      "nonEmpty": 27,
+      "total": 27,
+      "fillRate": 1,
+      "sampleValues": [
+        108253,
+        108254,
+        108255,
+        108256,
+        108257,
+        108258,
+        108259,
+        108260
+      ],
+      "note": "官方项目记录主键，适合作为源系统唯一键。"
+    },
+    {
+      "key": "eventCode",
+      "label": "项目编码",
+      "target": "event_items.source_event_code",
+      "nonEmpty": 27,
+      "total": 27,
+      "fillRate": 1,
+      "sampleValues": [
+        "RZSSGX1420260822MFIU8",
+        "RZSSGX1420260822MFIU10",
+        "RZSSGX1420260822MFIU12",
+        "RZSSGX1420260822MFIU14",
+        "RZSSGX1420260822MFICOPEN",
+        "RZSSGX1420260822MEIU8",
+        "RZSSGX1420260822MEIU10",
+        "RZSSGX1420260822MEIU12"
+      ],
+      "note": "结果页 eventCode，后续请求成绩和对阵时会用到。"
+    },
+    {
+      "key": "sportId",
+      "label": "赛事 ID",
+      "target": "events.source_event_id",
+      "nonEmpty": 27,
+      "total": 27,
+      "fillRate": 1,
+      "sampleValues": [
+        101332
+      ],
+      "note": "官方赛事 ID，同一赛事下所有项目相同。"
+    },
+    {
+      "key": "sportCode",
+      "label": "赛事编码",
+      "target": "events.source_sport_code",
+      "nonEmpty": 27,
+      "total": 27,
+      "fillRate": 1,
+      "sampleValues": [
+        "RZSSGX1420260822"
+      ],
+      "note": "官方赛事编码，可辅助去重。"
+    },
+    {
+      "key": "eventName",
+      "label": "项目名称",
+      "target": "event_items.item_name",
+      "nonEmpty": 27,
+      "total": 27,
+      "fillRate": 1,
+      "sampleValues": [
+        "U8男子花剑个人",
+        "U10男子花剑个人",
+        "U12男子花剑个人",
+        "U14男子花剑个人",
+        "公开组男子花剑个人",
+        "U8男子重剑个人",
+        "U10男子重剑个人",
+        "U12男子重剑个人"
+      ],
+      "note": "例如 U10男子花剑个人。"
+    },
+    {
+      "key": "weaponCode",
+      "label": "剑种编码",
+      "target": "event_items.weapon_code",
+      "nonEmpty": 27,
+      "total": 27,
+      "fillRate": 1,
+      "sampleValues": [
+        "F",
+        "E",
+        "S"
+      ],
+      "note": "F=花剑，E=重剑，S=佩剑。"
+    },
+    {
+      "key": "weaponDesc",
+      "label": "剑种",
+      "target": "event_items.weapon",
+      "nonEmpty": 27,
+      "total": 27,
+      "fillRate": 1,
+      "sampleValues": [
+        "花剑",
+        "重剑",
+        "佩剑"
+      ],
+      "note": "中文剑种名称。"
+    },
+    {
+      "key": "gender",
+      "label": "性别编码",
+      "target": "event_items.gender_code",
+      "nonEmpty": 27,
+      "total": 27,
+      "fillRate": 1,
+      "sampleValues": [
+        "M",
+        "F"
+      ],
+      "note": "M=男，F=女。"
+    },
+    {
+      "key": "genderDesc",
+      "label": "性别",
+      "target": "event_items.gender",
+      "nonEmpty": 27,
+      "total": 27,
+      "fillRate": 1,
+      "sampleValues": [
+        "男",
+        "女"
+      ],
+      "note": "中文性别。"
+    },
+    {
+      "key": "groupCode",
+      "label": "年龄组编码",
+      "target": "event_items.age_group_code",
+      "nonEmpty": 27,
+      "total": 27,
+      "fillRate": 1,
+      "sampleValues": [
+        "U8",
+        "U10",
+        "U12",
+        "U14",
+        "COPEN"
+      ],
+      "note": "例如 U10、U12、17+。"
+    },
+    {
+      "key": "groupName",
+      "label": "年龄组",
+      "target": "event_items.age_group",
+      "nonEmpty": 27,
+      "total": 27,
+      "fillRate": 1,
+      "sampleValues": [
+        "U8",
+        "U10",
+        "U12",
+        "U14",
+        "公开组"
+      ],
+      "note": "展示用年龄组。"
+    },
+    {
+      "key": "itemType",
+      "label": "项目类型编码",
+      "target": "event_items.item_type_code",
+      "nonEmpty": 27,
+      "total": 27,
+      "fillRate": 1,
+      "sampleValues": [
+        "I"
+      ],
+      "note": "I=个人，T 通常表示团体。"
+    },
+    {
+      "key": "itemTypeDesc",
+      "label": "项目类型",
+      "target": "event_items.item_type",
+      "nonEmpty": 27,
+      "total": 27,
+      "fillRate": 1,
+      "sampleValues": [
+        "个人"
+      ],
+      "note": "个人或团体。"
+    },
+    {
+      "key": "regType",
+      "label": "报名类型",
+      "target": "event_items.registration_type",
+      "nonEmpty": 0,
+      "total": 27,
+      "fillRate": 0,
+      "sampleValues": [],
+      "note": "当前样本为空，先保留。"
+    },
+    {
+      "key": "openDate",
+      "label": "项目开始日期",
+      "target": "event_items.start_date",
+      "nonEmpty": 27,
+      "total": 27,
+      "fillRate": 1,
+      "sampleValues": [
+        "2026-08-22 08:00:00"
+      ],
+      "note": "项目比赛或开放日期，需和赛事详情中的比赛时间交叉确认。"
+    },
+    {
+      "key": "closeDate",
+      "label": "项目结束日期",
+      "target": "event_items.end_date",
+      "nonEmpty": 27,
+      "total": 27,
+      "fillRate": 1,
+      "sampleValues": [
+        "2026-08-23 18:00:00"
+      ],
+      "note": "项目结束日期。"
+    },
+    {
+      "key": "ageMin",
+      "label": "最小年龄",
+      "target": "event_items.age_min",
+      "nonEmpty": 27,
+      "total": 27,
+      "fillRate": 1,
+      "sampleValues": [
+        5,
+        8,
+        11,
+        13
+      ],
+      "note": "年龄范围下限。"
+    },
+    {
+      "key": "ageMax",
+      "label": "最大年龄",
+      "target": "event_items.age_max",
+      "nonEmpty": 27,
+      "total": 27,
+      "fillRate": 1,
+      "sampleValues": [
+        8,
+        10,
+        12,
+        14,
+        70
+      ],
+      "note": "年龄范围上限。"
+    },
+    {
+      "key": "proAgeMax",
+      "label": "专业组最大年龄",
+      "target": "event_items.pro_age_max",
+      "nonEmpty": 0,
+      "total": 27,
+      "fillRate": 0,
+      "sampleValues": [],
+      "note": "当前样本为空，先保留。"
+    },
+    {
+      "key": "proAgeMin",
+      "label": "专业组最小年龄",
+      "target": "event_items.pro_age_min",
+      "nonEmpty": 0,
+      "total": 27,
+      "fillRate": 0,
+      "sampleValues": [],
+      "note": "当前样本为空，先保留。"
+    },
+    {
+      "key": "amtAgeMax",
+      "label": "业余组最大年龄",
+      "target": "event_items.amateur_age_max",
+      "nonEmpty": 0,
+      "total": 27,
+      "fillRate": 0,
+      "sampleValues": [],
+      "note": "当前样本为空，先保留。"
+    },
+    {
+      "key": "amtAgeMin",
+      "label": "业余组最小年龄",
+      "target": "event_items.amateur_age_min",
+      "nonEmpty": 0,
+      "total": 27,
+      "fillRate": 0,
+      "sampleValues": [],
+      "note": "当前样本为空，先保留。"
+    },
+    {
+      "key": "totalRegNumber",
+      "label": "报名人数",
+      "target": "event_items.participant_count",
+      "nonEmpty": 27,
+      "total": 27,
+      "fillRate": 1,
+      "sampleValues": [
+        18,
+        36
+      ],
+      "note": "项目人数，是后续热度和项目规模分析的重要字段。"
+    },
+    {
+      "key": "seedsNumber",
+      "label": "种子人数",
+      "target": "event_items.seed_count",
+      "nonEmpty": 0,
+      "total": 27,
+      "fillRate": 0,
+      "sampleValues": [],
+      "note": "当前样本为空，先保留。"
+    },
+    {
+      "key": "poolRegNumber",
+      "label": "小组赛人数",
+      "target": "event_items.pool_participant_count",
+      "nonEmpty": 0,
+      "total": 27,
+      "fillRate": 0,
+      "sampleValues": [],
+      "note": "当前样本为空，先保留。"
+    },
+    {
+      "key": "poolQualify",
+      "label": "小组赛晋级人数",
+      "target": "event_items.pool_qualify_count",
+      "nonEmpty": 0,
+      "total": 27,
+      "fillRate": 0,
+      "sampleValues": [],
+      "note": "当前样本为空，先保留。"
+    },
+    {
+      "key": "perdeStartPhaseDes",
+      "label": "预淘汰开始阶段",
+      "target": "event_items.pre_de_start_phase",
+      "nonEmpty": 0,
+      "total": 27,
+      "fillRate": 0,
+      "sampleValues": [],
+      "note": "当前样本为空，先保留。"
+    },
+    {
+      "key": "deStartPhaseDes",
+      "label": "淘汰赛开始阶段",
+      "target": "event_items.de_start_phase",
+      "nonEmpty": 0,
+      "total": 27,
+      "fillRate": 0,
+      "sampleValues": [],
+      "note": "当前样本为空，先保留。"
+    },
+    {
+      "key": "ruleId",
+      "label": "规则 ID",
+      "target": "event_items.rule_id",
+      "nonEmpty": 0,
+      "total": 27,
+      "fillRate": 0,
+      "sampleValues": [],
+      "note": "当前样本为空，先保留。"
+    }
+  ],
+  "fieldMap": {
+    "eventId": {
+      "target": "event_items.source_event_id",
+      "label": "项目内部 ID",
+      "note": "官方项目记录主键，适合作为源系统唯一键。"
+    },
+    "eventCode": {
+      "target": "event_items.source_event_code",
+      "label": "项目编码",
+      "note": "结果页 eventCode，后续请求成绩和对阵时会用到。"
+    },
+    "sportId": {
+      "target": "events.source_event_id",
+      "label": "赛事 ID",
+      "note": "官方赛事 ID，同一赛事下所有项目相同。"
+    },
+    "sportCode": {
+      "target": "events.source_sport_code",
+      "label": "赛事编码",
+      "note": "官方赛事编码，可辅助去重。"
+    },
+    "eventName": {
+      "target": "event_items.item_name",
+      "label": "项目名称",
+      "note": "例如 U10男子花剑个人。"
+    },
+    "weaponCode": {
+      "target": "event_items.weapon_code",
+      "label": "剑种编码",
+      "note": "F=花剑，E=重剑，S=佩剑。"
+    },
+    "weaponDesc": {
+      "target": "event_items.weapon",
+      "label": "剑种",
+      "note": "中文剑种名称。"
+    },
+    "gender": {
+      "target": "event_items.gender_code",
+      "label": "性别编码",
+      "note": "M=男，F=女。"
+    },
+    "genderDesc": {
+      "target": "event_items.gender",
+      "label": "性别",
+      "note": "中文性别。"
+    },
+    "groupCode": {
+      "target": "event_items.age_group_code",
+      "label": "年龄组编码",
+      "note": "例如 U10、U12、17+。"
+    },
+    "groupName": {
+      "target": "event_items.age_group",
+      "label": "年龄组",
+      "note": "展示用年龄组。"
+    },
+    "itemType": {
+      "target": "event_items.item_type_code",
+      "label": "项目类型编码",
+      "note": "I=个人，T 通常表示团体。"
+    },
+    "itemTypeDesc": {
+      "target": "event_items.item_type",
+      "label": "项目类型",
+      "note": "个人或团体。"
+    },
+    "regType": {
+      "target": "event_items.registration_type",
+      "label": "报名类型",
+      "note": "当前样本为空，先保留。"
+    },
+    "openDate": {
+      "target": "event_items.start_date",
+      "label": "项目开始日期",
+      "note": "项目比赛或开放日期，需和赛事详情中的比赛时间交叉确认。"
+    },
+    "closeDate": {
+      "target": "event_items.end_date",
+      "label": "项目结束日期",
+      "note": "项目结束日期。"
+    },
+    "ageMin": {
+      "target": "event_items.age_min",
+      "label": "最小年龄",
+      "note": "年龄范围下限。"
+    },
+    "ageMax": {
+      "target": "event_items.age_max",
+      "label": "最大年龄",
+      "note": "年龄范围上限。"
+    },
+    "proAgeMax": {
+      "target": "event_items.pro_age_max",
+      "label": "专业组最大年龄",
+      "note": "当前样本为空，先保留。"
+    },
+    "proAgeMin": {
+      "target": "event_items.pro_age_min",
+      "label": "专业组最小年龄",
+      "note": "当前样本为空，先保留。"
+    },
+    "amtAgeMax": {
+      "target": "event_items.amateur_age_max",
+      "label": "业余组最大年龄",
+      "note": "当前样本为空，先保留。"
+    },
+    "amtAgeMin": {
+      "target": "event_items.amateur_age_min",
+      "label": "业余组最小年龄",
+      "note": "当前样本为空，先保留。"
+    },
+    "totalRegNumber": {
+      "target": "event_items.participant_count",
+      "label": "报名人数",
+      "note": "项目人数，是后续热度和项目规模分析的重要字段。"
+    },
+    "seedsNumber": {
+      "target": "event_items.seed_count",
+      "label": "种子人数",
+      "note": "当前样本为空，先保留。"
+    },
+    "poolRegNumber": {
+      "target": "event_items.pool_participant_count",
+      "label": "小组赛人数",
+      "note": "当前样本为空，先保留。"
+    },
+    "poolQualify": {
+      "target": "event_items.pool_qualify_count",
+      "label": "小组赛晋级人数",
+      "note": "当前样本为空，先保留。"
+    },
+    "perdeStartPhaseDes": {
+      "target": "event_items.pre_de_start_phase",
+      "label": "预淘汰开始阶段",
+      "note": "当前样本为空，先保留。"
+    },
+    "deStartPhaseDes": {
+      "target": "event_items.de_start_phase",
+      "label": "淘汰赛开始阶段",
+      "note": "当前样本为空，先保留。"
+    },
+    "ruleId": {
+      "target": "event_items.rule_id",
+      "label": "规则 ID",
+      "note": "当前样本为空，先保留。"
+    }
+  },
+  "normalizedItems": [
+    {
+      "sourceEventId": 108253,
+      "sourceEventCode": "RZSSGX1420260822MFIU8",
+      "sourceSportId": 101332,
+      "sourceSportCode": "RZSSGX1420260822",
+      "itemName": "U8男子花剑个人",
+      "weaponCode": "F",
+      "weapon": "花剑",
+      "genderCode": "M",
+      "gender": "男",
+      "ageGroupCode": "U8",
+      "ageGroup": "U8",
+      "itemTypeCode": "I",
+      "itemType": "个人",
+      "startDate": "2026-08-22 08:00:00",
+      "endDate": "2026-08-23 18:00:00",
+      "ageMin": 5,
+      "ageMax": 8,
+      "participantCount": 18,
+      "resultLookup": {
+        "sportId": 101332,
+        "eventCode": "RZSSGX1420260822MFIU8",
+        "expectedResultPath": "/fencingapi/matchresult/101332/RZSSGX1420260822MFIU8",
+        "expectedScoreResource": "/Resource/score/RZSSGX1420260822MFIU8.js"
+      }
+    },
+    {
+      "sourceEventId": 108254,
+      "sourceEventCode": "RZSSGX1420260822MFIU10",
+      "sourceSportId": 101332,
+      "sourceSportCode": "RZSSGX1420260822",
+      "itemName": "U10男子花剑个人",
+      "weaponCode": "F",
+      "weapon": "花剑",
+      "genderCode": "M",
+      "gender": "男",
+      "ageGroupCode": "U10",
+      "ageGroup": "U10",
+      "itemTypeCode": "I",
+      "itemType": "个人",
+      "startDate": "2026-08-22 08:00:00",
+      "endDate": "2026-08-23 18:00:00",
+      "ageMin": 8,
+      "ageMax": 10,
+      "participantCount": 36,
+      "resultLookup": {
+        "sportId": 101332,
+        "eventCode": "RZSSGX1420260822MFIU10",
+        "expectedResultPath": "/fencingapi/matchresult/101332/RZSSGX1420260822MFIU10",
+        "expectedScoreResource": "/Resource/score/RZSSGX1420260822MFIU10.js"
+      }
+    },
+    {
+      "sourceEventId": 108255,
+      "sourceEventCode": "RZSSGX1420260822MFIU12",
+      "sourceSportId": 101332,
+      "sourceSportCode": "RZSSGX1420260822",
+      "itemName": "U12男子花剑个人",
+      "weaponCode": "F",
+      "weapon": "花剑",
+      "genderCode": "M",
+      "gender": "男",
+      "ageGroupCode": "U12",
+      "ageGroup": "U12",
+      "itemTypeCode": "I",
+      "itemType": "个人",
+      "startDate": "2026-08-22 08:00:00",
+      "endDate": "2026-08-23 18:00:00",
+      "ageMin": 8,
+      "ageMax": 12,
+      "participantCount": 36,
+      "resultLookup": {
+        "sportId": 101332,
+        "eventCode": "RZSSGX1420260822MFIU12",
+        "expectedResultPath": "/fencingapi/matchresult/101332/RZSSGX1420260822MFIU12",
+        "expectedScoreResource": "/Resource/score/RZSSGX1420260822MFIU12.js"
+      }
+    },
+    {
+      "sourceEventId": 108256,
+      "sourceEventCode": "RZSSGX1420260822MFIU14",
+      "sourceSportId": 101332,
+      "sourceSportCode": "RZSSGX1420260822",
+      "itemName": "U14男子花剑个人",
+      "weaponCode": "F",
+      "weapon": "花剑",
+      "genderCode": "M",
+      "gender": "男",
+      "ageGroupCode": "U14",
+      "ageGroup": "U14",
+      "itemTypeCode": "I",
+      "itemType": "个人",
+      "startDate": "2026-08-22 08:00:00",
+      "endDate": "2026-08-23 18:00:00",
+      "ageMin": 11,
+      "ageMax": 14,
+      "participantCount": 18,
+      "resultLookup": {
+        "sportId": 101332,
+        "eventCode": "RZSSGX1420260822MFIU14",
+        "expectedResultPath": "/fencingapi/matchresult/101332/RZSSGX1420260822MFIU14",
+        "expectedScoreResource": "/Resource/score/RZSSGX1420260822MFIU14.js"
+      }
+    },
+    {
+      "sourceEventId": 108257,
+      "sourceEventCode": "RZSSGX1420260822MFICOPEN",
+      "sourceSportId": 101332,
+      "sourceSportCode": "RZSSGX1420260822",
+      "itemName": "公开组男子花剑个人",
+      "weaponCode": "F",
+      "weapon": "花剑",
+      "genderCode": "M",
+      "gender": "男",
+      "ageGroupCode": "COPEN",
+      "ageGroup": "公开组",
+      "itemTypeCode": "I",
+      "itemType": "个人",
+      "startDate": "2026-08-22 08:00:00",
+      "endDate": "2026-08-23 18:00:00",
+      "ageMin": 13,
+      "ageMax": 70,
+      "participantCount": 18,
+      "resultLookup": {
+        "sportId": 101332,
+        "eventCode": "RZSSGX1420260822MFICOPEN",
+        "expectedResultPath": "/fencingapi/matchresult/101332/RZSSGX1420260822MFICOPEN",
+        "expectedScoreResource": "/Resource/score/RZSSGX1420260822MFICOPEN.js"
+      }
+    },
+    {
+      "sourceEventId": 108258,
+      "sourceEventCode": "RZSSGX1420260822MEIU8",
+      "sourceSportId": 101332,
+      "sourceSportCode": "RZSSGX1420260822",
+      "itemName": "U8男子重剑个人",
+      "weaponCode": "E",
+      "weapon": "重剑",
+      "genderCode": "M",
+      "gender": "男",
+      "ageGroupCode": "U8",
+      "ageGroup": "U8",
+      "itemTypeCode": "I",
+      "itemType": "个人",
+      "startDate": "2026-08-22 08:00:00",
+      "endDate": "2026-08-23 18:00:00",
+      "ageMin": 5,
+      "ageMax": 8,
+      "participantCount": 18,
+      "resultLookup": {
+        "sportId": 101332,
+        "eventCode": "RZSSGX1420260822MEIU8",
+        "expectedResultPath": "/fencingapi/matchresult/101332/RZSSGX1420260822MEIU8",
+        "expectedScoreResource": "/Resource/score/RZSSGX1420260822MEIU8.js"
+      }
+    },
+    {
+      "sourceEventId": 108259,
+      "sourceEventCode": "RZSSGX1420260822MEIU10",
+      "sourceSportId": 101332,
+      "sourceSportCode": "RZSSGX1420260822",
+      "itemName": "U10男子重剑个人",
+      "weaponCode": "E",
+      "weapon": "重剑",
+      "genderCode": "M",
+      "gender": "男",
+      "ageGroupCode": "U10",
+      "ageGroup": "U10",
+      "itemTypeCode": "I",
+      "itemType": "个人",
+      "startDate": "2026-08-22 08:00:00",
+      "endDate": "2026-08-23 18:00:00",
+      "ageMin": 8,
+      "ageMax": 10,
+      "participantCount": 36,
+      "resultLookup": {
+        "sportId": 101332,
+        "eventCode": "RZSSGX1420260822MEIU10",
+        "expectedResultPath": "/fencingapi/matchresult/101332/RZSSGX1420260822MEIU10",
+        "expectedScoreResource": "/Resource/score/RZSSGX1420260822MEIU10.js"
+      }
+    },
+    {
+      "sourceEventId": 108260,
+      "sourceEventCode": "RZSSGX1420260822MEIU12",
+      "sourceSportId": 101332,
+      "sourceSportCode": "RZSSGX1420260822",
+      "itemName": "U12男子重剑个人",
+      "weaponCode": "E",
+      "weapon": "重剑",
+      "genderCode": "M",
+      "gender": "男",
+      "ageGroupCode": "U12",
+      "ageGroup": "U12",
+      "itemTypeCode": "I",
+      "itemType": "个人",
+      "startDate": "2026-08-22 08:00:00",
+      "endDate": "2026-08-23 18:00:00",
+      "ageMin": 8,
+      "ageMax": 12,
+      "participantCount": 36,
+      "resultLookup": {
+        "sportId": 101332,
+        "eventCode": "RZSSGX1420260822MEIU12",
+        "expectedResultPath": "/fencingapi/matchresult/101332/RZSSGX1420260822MEIU12",
+        "expectedScoreResource": "/Resource/score/RZSSGX1420260822MEIU12.js"
+      }
+    },
+    {
+      "sourceEventId": 108261,
+      "sourceEventCode": "RZSSGX1420260822MEIU14",
+      "sourceSportId": 101332,
+      "sourceSportCode": "RZSSGX1420260822",
+      "itemName": "U14男子重剑个人",
+      "weaponCode": "E",
+      "weapon": "重剑",
+      "genderCode": "M",
+      "gender": "男",
+      "ageGroupCode": "U14",
+      "ageGroup": "U14",
+      "itemTypeCode": "I",
+      "itemType": "个人",
+      "startDate": "2026-08-22 08:00:00",
+      "endDate": "2026-08-23 18:00:00",
+      "ageMin": 11,
+      "ageMax": 14,
+      "participantCount": 36,
+      "resultLookup": {
+        "sportId": 101332,
+        "eventCode": "RZSSGX1420260822MEIU14",
+        "expectedResultPath": "/fencingapi/matchresult/101332/RZSSGX1420260822MEIU14",
+        "expectedScoreResource": "/Resource/score/RZSSGX1420260822MEIU14.js"
+      }
+    },
+    {
+      "sourceEventId": 108262,
+      "sourceEventCode": "RZSSGX1420260822MEICOPEN",
+      "sourceSportId": 101332,
+      "sourceSportCode": "RZSSGX1420260822",
+      "itemName": "公开组男子重剑个人",
+      "weaponCode": "E",
+      "weapon": "重剑",
+      "genderCode": "M",
+      "gender": "男",
+      "ageGroupCode": "COPEN",
+      "ageGroup": "公开组",
+      "itemTypeCode": "I",
+      "itemType": "个人",
+      "startDate": "2026-08-22 08:00:00",
+      "endDate": "2026-08-23 18:00:00",
+      "ageMin": 13,
+      "ageMax": 70,
+      "participantCount": 18,
+      "resultLookup": {
+        "sportId": 101332,
+        "eventCode": "RZSSGX1420260822MEICOPEN",
+        "expectedResultPath": "/fencingapi/matchresult/101332/RZSSGX1420260822MEICOPEN",
+        "expectedScoreResource": "/Resource/score/RZSSGX1420260822MEICOPEN.js"
+      }
+    },
+    {
+      "sourceEventId": 108263,
+      "sourceEventCode": "RZSSGX1420260822MSIU8",
+      "sourceSportId": 101332,
+      "sourceSportCode": "RZSSGX1420260822",
+      "itemName": "U8男子佩剑个人",
+      "weaponCode": "S",
+      "weapon": "佩剑",
+      "genderCode": "M",
+      "gender": "男",
+      "ageGroupCode": "U8",
+      "ageGroup": "U8",
+      "itemTypeCode": "I",
+      "itemType": "个人",
+      "startDate": "2026-08-22 08:00:00",
+      "endDate": "2026-08-23 18:00:00",
+      "ageMin": 5,
+      "ageMax": 8,
+      "participantCount": 18,
+      "resultLookup": {
+        "sportId": 101332,
+        "eventCode": "RZSSGX1420260822MSIU8",
+        "expectedResultPath": "/fencingapi/matchresult/101332/RZSSGX1420260822MSIU8",
+        "expectedScoreResource": "/Resource/score/RZSSGX1420260822MSIU8.js"
+      }
+    },
+    {
+      "sourceEventId": 108264,
+      "sourceEventCode": "RZSSGX1420260822MSIU10",
+      "sourceSportId": 101332,
+      "sourceSportCode": "RZSSGX1420260822",
+      "itemName": "U10男子佩剑个人",
+      "weaponCode": "S",
+      "weapon": "佩剑",
+      "genderCode": "M",
+      "gender": "男",
+      "ageGroupCode": "U10",
+      "ageGroup": "U10",
+      "itemTypeCode": "I",
+      "itemType": "个人",
+      "startDate": "2026-08-22 08:00:00",
+      "endDate": "2026-08-23 18:00:00",
+      "ageMin": 8,
+      "ageMax": 10,
+      "participantCount": 18,
+      "resultLookup": {
+        "sportId": 101332,
+        "eventCode": "RZSSGX1420260822MSIU10",
+        "expectedResultPath": "/fencingapi/matchresult/101332/RZSSGX1420260822MSIU10",
+        "expectedScoreResource": "/Resource/score/RZSSGX1420260822MSIU10.js"
+      }
+    },
+    {
+      "sourceEventId": 108265,
+      "sourceEventCode": "RZSSGX1420260822MSIU12",
+      "sourceSportId": 101332,
+      "sourceSportCode": "RZSSGX1420260822",
+      "itemName": "U12男子佩剑个人",
+      "weaponCode": "S",
+      "weapon": "佩剑",
+      "genderCode": "M",
+      "gender": "男",
+      "ageGroupCode": "U12",
+      "ageGroup": "U12",
+      "itemTypeCode": "I",
+      "itemType": "个人",
+      "startDate": "2026-08-22 08:00:00",
+      "endDate": "2026-08-23 18:00:00",
+      "ageMin": 8,
+      "ageMax": 12,
+      "participantCount": 18,
+      "resultLookup": {
+        "sportId": 101332,
+        "eventCode": "RZSSGX1420260822MSIU12",
+        "expectedResultPath": "/fencingapi/matchresult/101332/RZSSGX1420260822MSIU12",
+        "expectedScoreResource": "/Resource/score/RZSSGX1420260822MSIU12.js"
+      }
+    },
+    {
+      "sourceEventId": 108266,
+      "sourceEventCode": "RZSSGX1420260822MSIU14",
+      "sourceSportId": 101332,
+      "sourceSportCode": "RZSSGX1420260822",
+      "itemName": "U14男子佩剑个人",
+      "weaponCode": "S",
+      "weapon": "佩剑",
+      "genderCode": "M",
+      "gender": "男",
+      "ageGroupCode": "U14",
+      "ageGroup": "U14",
+      "itemTypeCode": "I",
+      "itemType": "个人",
+      "startDate": "2026-08-22 08:00:00",
+      "endDate": "2026-08-23 18:00:00",
+      "ageMin": 11,
+      "ageMax": 14,
+      "participantCount": 18,
+      "resultLookup": {
+        "sportId": 101332,
+        "eventCode": "RZSSGX1420260822MSIU14",
+        "expectedResultPath": "/fencingapi/matchresult/101332/RZSSGX1420260822MSIU14",
+        "expectedScoreResource": "/Resource/score/RZSSGX1420260822MSIU14.js"
+      }
+    },
+    {
+      "sourceEventId": 108268,
+      "sourceEventCode": "RZSSGX1420260822WFIU8",
+      "sourceSportId": 101332,
+      "sourceSportCode": "RZSSGX1420260822",
+      "itemName": "U8女子花剑个人",
+      "weaponCode": "F",
+      "weapon": "花剑",
+      "genderCode": "F",
+      "gender": "女",
+      "ageGroupCode": "U8",
+      "ageGroup": "U8",
+      "itemTypeCode": "I",
+      "itemType": "个人",
+      "startDate": "2026-08-22 08:00:00",
+      "endDate": "2026-08-23 18:00:00",
+      "ageMin": 5,
+      "ageMax": 8,
+      "participantCount": 18,
+      "resultLookup": {
+        "sportId": 101332,
+        "eventCode": "RZSSGX1420260822WFIU8",
+        "expectedResultPath": "/fencingapi/matchresult/101332/RZSSGX1420260822WFIU8",
+        "expectedScoreResource": "/Resource/score/RZSSGX1420260822WFIU8.js"
+      }
+    },
+    {
+      "sourceEventId": 108269,
+      "sourceEventCode": "RZSSGX1420260822WFIU10",
+      "sourceSportId": 101332,
+      "sourceSportCode": "RZSSGX1420260822",
+      "itemName": "U10女子花剑个人",
+      "weaponCode": "F",
+      "weapon": "花剑",
+      "genderCode": "F",
+      "gender": "女",
+      "ageGroupCode": "U10",
+      "ageGroup": "U10",
+      "itemTypeCode": "I",
+      "itemType": "个人",
+      "startDate": "2026-08-22 08:00:00",
+      "endDate": "2026-08-23 18:00:00",
+      "ageMin": 8,
+      "ageMax": 10,
+      "participantCount": 18,
+      "resultLookup": {
+        "sportId": 101332,
+        "eventCode": "RZSSGX1420260822WFIU10",
+        "expectedResultPath": "/fencingapi/matchresult/101332/RZSSGX1420260822WFIU10",
+        "expectedScoreResource": "/Resource/score/RZSSGX1420260822WFIU10.js"
+      }
+    },
+    {
+      "sourceEventId": 108270,
+      "sourceEventCode": "RZSSGX1420260822WFIU12",
+      "sourceSportId": 101332,
+      "sourceSportCode": "RZSSGX1420260822",
+      "itemName": "U12女子花剑个人",
+      "weaponCode": "F",
+      "weapon": "花剑",
+      "genderCode": "F",
+      "gender": "女",
+      "ageGroupCode": "U12",
+      "ageGroup": "U12",
+      "itemTypeCode": "I",
+      "itemType": "个人",
+      "startDate": "2026-08-22 08:00:00",
+      "endDate": "2026-08-23 18:00:00",
+      "ageMin": 8,
+      "ageMax": 12,
+      "participantCount": 18,
+      "resultLookup": {
+        "sportId": 101332,
+        "eventCode": "RZSSGX1420260822WFIU12",
+        "expectedResultPath": "/fencingapi/matchresult/101332/RZSSGX1420260822WFIU12",
+        "expectedScoreResource": "/Resource/score/RZSSGX1420260822WFIU12.js"
+      }
+    },
+    {
+      "sourceEventId": 108271,
+      "sourceEventCode": "RZSSGX1420260822WFIU14",
+      "sourceSportId": 101332,
+      "sourceSportCode": "RZSSGX1420260822",
+      "itemName": "U14女子花剑个人",
+      "weaponCode": "F",
+      "weapon": "花剑",
+      "genderCode": "F",
+      "gender": "女",
+      "ageGroupCode": "U14",
+      "ageGroup": "U14",
+      "itemTypeCode": "I",
+      "itemType": "个人",
+      "startDate": "2026-08-22 08:00:00",
+      "endDate": "2026-08-23 18:00:00",
+      "ageMin": 11,
+      "ageMax": 14,
+      "participantCount": 18,
+      "resultLookup": {
+        "sportId": 101332,
+        "eventCode": "RZSSGX1420260822WFIU14",
+        "expectedResultPath": "/fencingapi/matchresult/101332/RZSSGX1420260822WFIU14",
+        "expectedScoreResource": "/Resource/score/RZSSGX1420260822WFIU14.js"
+      }
+    },
+    {
+      "sourceEventId": 108272,
+      "sourceEventCode": "RZSSGX1420260822WFICOPEN",
+      "sourceSportId": 101332,
+      "sourceSportCode": "RZSSGX1420260822",
+      "itemName": "公开组女子花剑个人",
+      "weaponCode": "F",
+      "weapon": "花剑",
+      "genderCode": "F",
+      "gender": "女",
+      "ageGroupCode": "COPEN",
+      "ageGroup": "公开组",
+      "itemTypeCode": "I",
+      "itemType": "个人",
+      "startDate": "2026-08-22 08:00:00",
+      "endDate": "2026-08-23 18:00:00",
+      "ageMin": 13,
+      "ageMax": 70,
+      "participantCount": 18,
+      "resultLookup": {
+        "sportId": 101332,
+        "eventCode": "RZSSGX1420260822WFICOPEN",
+        "expectedResultPath": "/fencingapi/matchresult/101332/RZSSGX1420260822WFICOPEN",
+        "expectedScoreResource": "/Resource/score/RZSSGX1420260822WFICOPEN.js"
+      }
+    },
+    {
+      "sourceEventId": 108273,
+      "sourceEventCode": "RZSSGX1420260822WEIU8",
+      "sourceSportId": 101332,
+      "sourceSportCode": "RZSSGX1420260822",
+      "itemName": "U8女子重剑个人",
+      "weaponCode": "E",
+      "weapon": "重剑",
+      "genderCode": "F",
+      "gender": "女",
+      "ageGroupCode": "U8",
+      "ageGroup": "U8",
+      "itemTypeCode": "I",
+      "itemType": "个人",
+      "startDate": "2026-08-22 08:00:00",
+      "endDate": "2026-08-23 18:00:00",
+      "ageMin": 5,
+      "ageMax": 8,
+      "participantCount": 18,
+      "resultLookup": {
+        "sportId": 101332,
+        "eventCode": "RZSSGX1420260822WEIU8",
+        "expectedResultPath": "/fencingapi/matchresult/101332/RZSSGX1420260822WEIU8",
+        "expectedScoreResource": "/Resource/score/RZSSGX1420260822WEIU8.js"
+      }
+    },
+    {
+      "sourceEventId": 108274,
+      "sourceEventCode": "RZSSGX1420260822WEIU10",
+      "sourceSportId": 101332,
+      "sourceSportCode": "RZSSGX1420260822",
+      "itemName": "U10女子重剑个人",
+      "weaponCode": "E",
+      "weapon": "重剑",
+      "genderCode": "F",
+      "gender": "女",
+      "ageGroupCode": "U10",
+      "ageGroup": "U10",
+      "itemTypeCode": "I",
+      "itemType": "个人",
+      "startDate": "2026-08-22 08:00:00",
+      "endDate": "2026-08-23 18:00:00",
+      "ageMin": 8,
+      "ageMax": 10,
+      "participantCount": 18,
+      "resultLookup": {
+        "sportId": 101332,
+        "eventCode": "RZSSGX1420260822WEIU10",
+        "expectedResultPath": "/fencingapi/matchresult/101332/RZSSGX1420260822WEIU10",
+        "expectedScoreResource": "/Resource/score/RZSSGX1420260822WEIU10.js"
+      }
+    },
+    {
+      "sourceEventId": 108275,
+      "sourceEventCode": "RZSSGX1420260822WEIU12",
+      "sourceSportId": 101332,
+      "sourceSportCode": "RZSSGX1420260822",
+      "itemName": "U12女子重剑个人",
+      "weaponCode": "E",
+      "weapon": "重剑",
+      "genderCode": "F",
+      "gender": "女",
+      "ageGroupCode": "U12",
+      "ageGroup": "U12",
+      "itemTypeCode": "I",
+      "itemType": "个人",
+      "startDate": "2026-08-22 08:00:00",
+      "endDate": "2026-08-23 18:00:00",
+      "ageMin": 8,
+      "ageMax": 12,
+      "participantCount": 18,
+      "resultLookup": {
+        "sportId": 101332,
+        "eventCode": "RZSSGX1420260822WEIU12",
+        "expectedResultPath": "/fencingapi/matchresult/101332/RZSSGX1420260822WEIU12",
+        "expectedScoreResource": "/Resource/score/RZSSGX1420260822WEIU12.js"
+      }
+    },
+    {
+      "sourceEventId": 108276,
+      "sourceEventCode": "RZSSGX1420260822WEIU14",
+      "sourceSportId": 101332,
+      "sourceSportCode": "RZSSGX1420260822",
+      "itemName": "U14女子重剑个人",
+      "weaponCode": "E",
+      "weapon": "重剑",
+      "genderCode": "F",
+      "gender": "女",
+      "ageGroupCode": "U14",
+      "ageGroup": "U14",
+      "itemTypeCode": "I",
+      "itemType": "个人",
+      "startDate": "2026-08-22 08:00:00",
+      "endDate": "2026-08-23 18:00:00",
+      "ageMin": 11,
+      "ageMax": 14,
+      "participantCount": 18,
+      "resultLookup": {
+        "sportId": 101332,
+        "eventCode": "RZSSGX1420260822WEIU14",
+        "expectedResultPath": "/fencingapi/matchresult/101332/RZSSGX1420260822WEIU14",
+        "expectedScoreResource": "/Resource/score/RZSSGX1420260822WEIU14.js"
+      }
+    },
+    {
+      "sourceEventId": 108277,
+      "sourceEventCode": "RZSSGX1420260822WEICOPEN",
+      "sourceSportId": 101332,
+      "sourceSportCode": "RZSSGX1420260822",
+      "itemName": "公开组女子重剑个人",
+      "weaponCode": "E",
+      "weapon": "重剑",
+      "genderCode": "F",
+      "gender": "女",
+      "ageGroupCode": "COPEN",
+      "ageGroup": "公开组",
+      "itemTypeCode": "I",
+      "itemType": "个人",
+      "startDate": "2026-08-22 08:00:00",
+      "endDate": "2026-08-23 18:00:00",
+      "ageMin": 13,
+      "ageMax": 70,
+      "participantCount": 18,
+      "resultLookup": {
+        "sportId": 101332,
+        "eventCode": "RZSSGX1420260822WEICOPEN",
+        "expectedResultPath": "/fencingapi/matchresult/101332/RZSSGX1420260822WEICOPEN",
+        "expectedScoreResource": "/Resource/score/RZSSGX1420260822WEICOPEN.js"
+      }
+    },
+    {
+      "sourceEventId": 108279,
+      "sourceEventCode": "RZSSGX1420260822WSIU10",
+      "sourceSportId": 101332,
+      "sourceSportCode": "RZSSGX1420260822",
+      "itemName": "U10女子佩剑个人",
+      "weaponCode": "S",
+      "weapon": "佩剑",
+      "genderCode": "F",
+      "gender": "女",
+      "ageGroupCode": "U10",
+      "ageGroup": "U10",
+      "itemTypeCode": "I",
+      "itemType": "个人",
+      "startDate": "2026-08-22 08:00:00",
+      "endDate": "2026-08-23 18:00:00",
+      "ageMin": 8,
+      "ageMax": 10,
+      "participantCount": 18,
+      "resultLookup": {
+        "sportId": 101332,
+        "eventCode": "RZSSGX1420260822WSIU10",
+        "expectedResultPath": "/fencingapi/matchresult/101332/RZSSGX1420260822WSIU10",
+        "expectedScoreResource": "/Resource/score/RZSSGX1420260822WSIU10.js"
+      }
+    },
+    {
+      "sourceEventId": 108280,
+      "sourceEventCode": "RZSSGX1420260822WSIU12",
+      "sourceSportId": 101332,
+      "sourceSportCode": "RZSSGX1420260822",
+      "itemName": "U12女子佩剑个人",
+      "weaponCode": "S",
+      "weapon": "佩剑",
+      "genderCode": "F",
+      "gender": "女",
+      "ageGroupCode": "U12",
+      "ageGroup": "U12",
+      "itemTypeCode": "I",
+      "itemType": "个人",
+      "startDate": "2026-08-22 08:00:00",
+      "endDate": "2026-08-23 18:00:00",
+      "ageMin": 8,
+      "ageMax": 12,
+      "participantCount": 18,
+      "resultLookup": {
+        "sportId": 101332,
+        "eventCode": "RZSSGX1420260822WSIU12",
+        "expectedResultPath": "/fencingapi/matchresult/101332/RZSSGX1420260822WSIU12",
+        "expectedScoreResource": "/Resource/score/RZSSGX1420260822WSIU12.js"
+      }
+    },
+    {
+      "sourceEventId": 108281,
+      "sourceEventCode": "RZSSGX1420260822WSIU14",
+      "sourceSportId": 101332,
+      "sourceSportCode": "RZSSGX1420260822",
+      "itemName": "U14女子佩剑个人",
+      "weaponCode": "S",
+      "weapon": "佩剑",
+      "genderCode": "F",
+      "gender": "女",
+      "ageGroupCode": "U14",
+      "ageGroup": "U14",
+      "itemTypeCode": "I",
+      "itemType": "个人",
+      "startDate": "2026-08-22 08:00:00",
+      "endDate": "2026-08-23 18:00:00",
+      "ageMin": 11,
+      "ageMax": 14,
+      "participantCount": 18,
+      "resultLookup": {
+        "sportId": 101332,
+        "eventCode": "RZSSGX1420260822WSIU14",
+        "expectedResultPath": "/fencingapi/matchresult/101332/RZSSGX1420260822WSIU14",
+        "expectedScoreResource": "/Resource/score/RZSSGX1420260822WSIU14.js"
+      }
+    }
+  ]
+}

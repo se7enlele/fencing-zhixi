@@ -1,0 +1,1865 @@
+{
+  "ok": true,
+  "source": {
+    "sourceUrl": "https://fencing-proxy.aixindiandian.workers.dev/fencingapi/matchresult/classmentrank/D02ETSSD0220260822MSIU12",
+    "sourceType": "classmentrank",
+    "fallbackFrom": "https://fencing-proxy.aixindiandian.workers.dev/Resource/score/D02ETSSD0220260822MSIU12.js",
+    "fallbackMessage": "Command failed: curl --location --fail --silent --show-error --retry 2 --retry-delay 1 --retry-max-time 50 --max-time 25 https://fencing-proxy.aixindiandian.workers.dev/Resource/score/D02ETSSD0220260822MSIU12.js\ncurl: (22) The requested URL returned error: 522\r\n",
+    "importedAt": "2026-09-28T10:08:55.472Z"
+  },
+  "general": {
+    "sportName": "2026年全国少年、儿童击剑锦标赛",
+    "eventName": "U12男子佩剑个人",
+    "openDate": "2026-08-22 00:00:00",
+    "venue": "青岛市",
+    "competitionNo": 126,
+    "exemptionNo": null,
+    "poolFencerNo": null,
+    "poolQualifyNo": null,
+    "preDeStartPhase": null,
+    "deStartPhase": null,
+    "sportCode": "D02ETSSD0220260822",
+    "eventCode": "D02ETSSD0220260822MSIU12"
+  },
+  "summary": {
+    "classmentCount": 126,
+    "initialSeedCount": 0,
+    "poolCount": 0,
+    "poolStandingCount": 0,
+    "poolResultCount": 0,
+    "poolBoutCount": 0,
+    "tableauCount": 0,
+    "eliminationMatchCount": 0,
+    "playedEliminationMatchCount": 0,
+    "byeMatchCount": 0,
+    "athleteCountByLicence": 126
+  },
+  "distributions": {
+    "poolStatus": {},
+    "poolRemark": {},
+    "tableau": {},
+    "eliminationByPhase": {},
+    "eliminationResult": {},
+    "medal": {
+      "金": 1,
+      "银": 1,
+      "铜": 2,
+      "(无奖牌)": 122
+    }
+  },
+  "normalized": {
+    "classment": [
+      {
+        "rank": 1,
+        "displayRank": "1",
+        "name": "倪世泽",
+        "licence": "20140210M202402150209",
+        "club": "天津",
+        "birthday": "2014.02.10",
+        "medal": "金",
+        "status": "N",
+        "sourcePosition": "1",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 2,
+        "displayRank": "2",
+        "name": "万梓宸",
+        "licence": "20140529M202107051121",
+        "club": "广东",
+        "birthday": "2014.05.29",
+        "medal": "银",
+        "status": "N",
+        "sourcePosition": "2",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 3,
+        "displayRank": "3",
+        "name": "廉秉豪",
+        "licence": "20140317M202106260100",
+        "club": "北京仲满",
+        "birthday": "2014.03.17",
+        "medal": "铜",
+        "status": "N",
+        "sourcePosition": "3",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 3,
+        "displayRank": "3",
+        "name": "杨秉錕",
+        "licence": "20140217M202302070220",
+        "club": "武汉岚上",
+        "birthday": "2014.02.17",
+        "medal": "铜",
+        "status": "N",
+        "sourcePosition": "4",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 5,
+        "displayRank": "5",
+        "name": "王俊熙",
+        "licence": "20140610M202110241047",
+        "club": "深圳宇翔",
+        "birthday": "2014.06.10",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "5",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 6,
+        "displayRank": "6",
+        "name": "王炜期",
+        "licence": "20140414M202202210839",
+        "club": "江苏",
+        "birthday": "2014.04.14",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "6",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 7,
+        "displayRank": "7",
+        "name": "彭泓霖",
+        "licence": "20140228M202110170234",
+        "club": "无锡亿冠",
+        "birthday": "2014.02.28",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "7",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 8,
+        "displayRank": "8",
+        "name": "冷杉",
+        "licence": "20141226M202112140424",
+        "club": "北京万国",
+        "birthday": "2014.12.26",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "8",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 9,
+        "displayRank": "9",
+        "name": "刘畅",
+        "licence": "20140529M202311140259",
+        "club": "福建",
+        "birthday": "2014.05.29",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "9",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 10,
+        "displayRank": "10",
+        "name": "朱家彧",
+        "licence": "20140316M202303270520",
+        "club": "江苏",
+        "birthday": "2014.03.16",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "10",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 11,
+        "displayRank": "11",
+        "name": "凌小涛",
+        "licence": "20140130M202111130840",
+        "club": "广东",
+        "birthday": "2014.01.30",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "11",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 12,
+        "displayRank": "12",
+        "name": "刘皓天",
+        "licence": "20140624M202110150651",
+        "club": "广东",
+        "birthday": "2014.06.24",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "12",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 13,
+        "displayRank": "13",
+        "name": "韩昊廷",
+        "licence": "20140107M202105130812",
+        "club": "武汉武昌万国",
+        "birthday": "2014.01.07",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "13",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 13,
+        "displayRank": "13",
+        "name": "赵梓童",
+        "licence": "20150322M202202231146",
+        "club": "天津",
+        "birthday": "2015.03.22",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "14",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 15,
+        "displayRank": "15",
+        "name": "甘钊源",
+        "licence": "20140610M202105240636",
+        "club": "深圳宇翔",
+        "birthday": "2014.06.10",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "15",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 16,
+        "displayRank": "16",
+        "name": "林奕凡",
+        "licence": "20140515M202304180512",
+        "club": "个人",
+        "birthday": "2014.05.15",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "16",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 17,
+        "displayRank": "17",
+        "name": "陈君安",
+        "licence": "20140714M202107110247",
+        "club": "北京和信",
+        "birthday": "2014.07.14",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "17",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 18,
+        "displayRank": "18",
+        "name": "于镐铭",
+        "licence": "20140505M202106251050",
+        "club": "天津河东",
+        "birthday": "2014.05.05",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "18",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 19,
+        "displayRank": "19",
+        "name": "夏泽轩",
+        "licence": "20140515M202107100655",
+        "club": "上海盈搏",
+        "birthday": "2014.05.15",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "19",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 20,
+        "displayRank": "20",
+        "name": "杨博瀚",
+        "licence": "20140403M202205091046",
+        "club": "云南致运",
+        "birthday": "2014.04.03",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "20",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 21,
+        "displayRank": "21",
+        "name": "柯云谦",
+        "licence": "20140806M202107110433",
+        "club": "武汉岚上",
+        "birthday": "2014.08.06",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "21",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 22,
+        "displayRank": "22",
+        "name": "俞景湛",
+        "licence": "20150617M202302050858",
+        "club": "上海",
+        "birthday": "2015.06.17",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "22",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 23,
+        "displayRank": "23",
+        "name": "包昊轩",
+        "licence": "20140108M202201251018",
+        "club": "上海",
+        "birthday": "2014.01.08",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "23",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 24,
+        "displayRank": "24",
+        "name": "朱锐轩",
+        "licence": "20151015M202305210539",
+        "club": "天津",
+        "birthday": "2015.10.15",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "24",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 25,
+        "displayRank": "25",
+        "name": "张瀚什",
+        "licence": "20140411M202107040342",
+        "club": "天津嘉奥",
+        "birthday": "2014.04.11",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "25",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 26,
+        "displayRank": "26",
+        "name": "郭壹壹",
+        "licence": "20140215M202302210214",
+        "club": "北京仲满",
+        "birthday": "2014.02.15",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "26",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 27,
+        "displayRank": "27",
+        "name": "李梓沐",
+        "licence": "20140224M202409270910",
+        "club": "上海乐佩",
+        "birthday": "2014.02.24",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "27",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 28,
+        "displayRank": "28",
+        "name": "肖信",
+        "licence": "20140116M202201010505",
+        "club": "广东",
+        "birthday": "2014.01.16",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "28",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 28,
+        "displayRank": "28",
+        "name": "張印辰",
+        "licence": "20140219M202308011051",
+        "club": "广州霄鹰",
+        "birthday": "2014.02.19",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "29",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 30,
+        "displayRank": "30",
+        "name": "张奕扬",
+        "licence": "20141229M202203050234",
+        "club": "无锡亿冠",
+        "birthday": "2014.12.29",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "30",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 31,
+        "displayRank": "31",
+        "name": "张佳权",
+        "licence": "20140422M202104241041",
+        "club": "北京和信",
+        "birthday": "2014.04.22",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "31",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 32,
+        "displayRank": "32",
+        "name": "陈启荣",
+        "licence": "20140219M202203070334",
+        "club": "吉林茁亦",
+        "birthday": "2014.02.19",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "32",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 33,
+        "displayRank": "33",
+        "name": "陈豫航",
+        "licence": "20150410M202302020855",
+        "club": "江苏",
+        "birthday": "2015.04.10",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "33",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 34,
+        "displayRank": "34",
+        "name": "罗铖杨",
+        "licence": "20140708M202302110302",
+        "club": "武汉岚上",
+        "birthday": "2014.07.08",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "34",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 35,
+        "displayRank": "35",
+        "name": "黄裔玄",
+        "licence": "20140406M202104121215",
+        "club": "北京和信",
+        "birthday": "2014.04.06",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "35",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 36,
+        "displayRank": "36",
+        "name": "徐子衡",
+        "licence": "20140312M202206170513",
+        "club": "淮安纵衡",
+        "birthday": "2014.03.12",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "36",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 37,
+        "displayRank": "37",
+        "name": "周子轩",
+        "licence": "20150122M202305101053",
+        "club": "江苏",
+        "birthday": "2015.01.22",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "37",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 38,
+        "displayRank": "38",
+        "name": "马明熠",
+        "licence": "20141015M202303090455",
+        "club": "江苏",
+        "birthday": "2014.10.15",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "38",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 39,
+        "displayRank": "39",
+        "name": "花郅淼",
+        "licence": "20140416M202303241250",
+        "club": "山东",
+        "birthday": "2014.04.16",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "39",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 40,
+        "displayRank": "40",
+        "name": "郑斯夫",
+        "licence": "20140521M202107040145",
+        "club": "北京仲满",
+        "birthday": "2014.05.21",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "40",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 41,
+        "displayRank": "41",
+        "name": "赵梓宸",
+        "licence": "20141216M202104150702",
+        "club": "大连击剑中心",
+        "birthday": "2014.12.16",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "41",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 42,
+        "displayRank": "42",
+        "name": "才钦龙主",
+        "licence": "20141021M202201040658",
+        "club": "广州霄鹰",
+        "birthday": "2014.10.21",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "42",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 43,
+        "displayRank": "43",
+        "name": "段嗣禹",
+        "licence": "20140201M202503311049",
+        "club": "山东",
+        "birthday": "2014.02.01",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "43",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 44,
+        "displayRank": "44",
+        "name": "张煦",
+        "licence": "20141105M202104120311",
+        "club": "江苏",
+        "birthday": "2014.11.05",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "44",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 45,
+        "displayRank": "45",
+        "name": "白梓辰",
+        "licence": "20140724M202104191010",
+        "club": "北京政冠",
+        "birthday": "2014.07.24",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "45",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 46,
+        "displayRank": "46",
+        "name": "吴承喆",
+        "licence": "20140306M202209250834",
+        "club": "江苏",
+        "birthday": "2014.03.06",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "46",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 47,
+        "displayRank": "47",
+        "name": "杨博涵",
+        "licence": "20140603M202203310254",
+        "club": "北京仲满",
+        "birthday": "2014.06.03",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "47",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 48,
+        "displayRank": "48",
+        "name": "傅泓毅",
+        "licence": "20150524M202207041121",
+        "club": "武汉岚上",
+        "birthday": "2015.05.24",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "48",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 49,
+        "displayRank": "49",
+        "name": "吴子麟",
+        "licence": "20140518M202302280900",
+        "club": "江苏",
+        "birthday": "2014.05.18",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "49",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 50,
+        "displayRank": "50",
+        "name": "陈伟涛",
+        "licence": "20140207M202405290350",
+        "club": "福建",
+        "birthday": "2014.02.07",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "50",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 51,
+        "displayRank": "51",
+        "name": "荣诗杰",
+        "licence": "20140401M202206280247",
+        "club": "江苏",
+        "birthday": "2014.04.01",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "51",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 52,
+        "displayRank": "52",
+        "name": "戚亦煊",
+        "licence": "20150121M202310100831",
+        "club": "江苏",
+        "birthday": "2015.01.21",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "52",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 53,
+        "displayRank": "53",
+        "name": "庞贺予 ",
+        "licence": "20140514M202305170838",
+        "club": "山东",
+        "birthday": "2014.05.14",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "53",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 54,
+        "displayRank": "54",
+        "name": "龚煜昊",
+        "licence": "20150108M202409190239",
+        "club": "江苏",
+        "birthday": "2015.01.08",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "54",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 55,
+        "displayRank": "55",
+        "name": "温泽涵",
+        "licence": "20150526M202303040319",
+        "club": "天津优赛",
+        "birthday": "2015.05.26",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "55",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 56,
+        "displayRank": "56",
+        "name": "毛晔申",
+        "licence": "20150226M202202170323",
+        "club": "上海",
+        "birthday": "2015.02.26",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "56",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 57,
+        "displayRank": "57",
+        "name": "竭宸逸",
+        "licence": "20160606M202307050323",
+        "club": "江苏",
+        "birthday": "2016.06.06",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "57",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 58,
+        "displayRank": "58",
+        "name": "卢锦贤",
+        "licence": "20140313M202112150846",
+        "club": "广东",
+        "birthday": "2014.03.13",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "58",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 59,
+        "displayRank": "59",
+        "name": "朱泓羽",
+        "licence": "20140326M202206290106",
+        "club": "上海",
+        "birthday": "2014.03.26",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "59",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 60,
+        "displayRank": "60",
+        "name": "梁屹天",
+        "licence": "20140808M202312051039",
+        "club": "北京仲满",
+        "birthday": "2014.08.08",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "60",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 61,
+        "displayRank": "61",
+        "name": "宋奕辰",
+        "licence": "20160401M202404230540",
+        "club": "江苏",
+        "birthday": "2016.04.01",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "61",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 62,
+        "displayRank": "62",
+        "name": "陈靖修",
+        "licence": "20150301M202303011032",
+        "club": "江苏",
+        "birthday": "2015.03.01",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "62",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 63,
+        "displayRank": "63",
+        "name": "钱蓦逸",
+        "licence": "20140530M202502030416",
+        "club": "江苏",
+        "birthday": "2014.05.30",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "63",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 64,
+        "displayRank": "64",
+        "name": "陆宸睿",
+        "licence": "20150210M202401201012",
+        "club": "江苏",
+        "birthday": "2015.02.10",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "64",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 65,
+        "displayRank": "65",
+        "name": "郭芃其",
+        "licence": "20140211M202306080945",
+        "club": "江苏",
+        "birthday": "2014.02.11",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "65",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 66,
+        "displayRank": "66",
+        "name": "黄楚伦",
+        "licence": "20141031M202105041237",
+        "club": "吉林茁亦",
+        "birthday": "2014.10.31",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "66",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 67,
+        "displayRank": "67",
+        "name": "曹菡佑",
+        "licence": "20150317M202302240436",
+        "club": "江苏",
+        "birthday": "2015.03.17",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "67",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 68,
+        "displayRank": "68",
+        "name": "孙宇晨",
+        "licence": "20150612M202303190409",
+        "club": "上海宝山",
+        "birthday": "2015.06.12",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "68",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 69,
+        "displayRank": "69",
+        "name": "吴哲恩",
+        "licence": "20140724M202407300707",
+        "club": "福建",
+        "birthday": "2014.07.24",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "69",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 70,
+        "displayRank": "70",
+        "name": "陈亮宇",
+        "licence": "20140630M202204090355",
+        "club": "深圳宇翔",
+        "birthday": "2014.06.30",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "70",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 71,
+        "displayRank": "71",
+        "name": "林潮雄",
+        "licence": "20141110M20240312101759",
+        "club": "福建",
+        "birthday": "2014.11.10",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "71",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 72,
+        "displayRank": "72",
+        "name": "刘浩然",
+        "licence": "20140319M202110160351",
+        "club": "广州霄鹰",
+        "birthday": "2014.03.19",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "72",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 73,
+        "displayRank": "73",
+        "name": "丁雨杨",
+        "licence": "20150121M202406260542",
+        "club": "江苏",
+        "birthday": "2015.01.21",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "73",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 74,
+        "displayRank": "74",
+        "name": "周凡琛",
+        "licence": "20140326M202305170523",
+        "club": "山东",
+        "birthday": "2014.03.26",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "74",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 75,
+        "displayRank": "75",
+        "name": "黄程俊",
+        "licence": "20140906M202311140429",
+        "club": "福建",
+        "birthday": "2014.09.06",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "75",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 76,
+        "displayRank": "76",
+        "name": "朱泽宇",
+        "licence": "20160507M202105200716",
+        "club": "江苏",
+        "birthday": "2016.05.07",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "76",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 77,
+        "displayRank": "77",
+        "name": "王思诚",
+        "licence": "20150407M202303060915",
+        "club": "江苏",
+        "birthday": "2015.04.07",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "77",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 78,
+        "displayRank": "78",
+        "name": "徐梓源",
+        "licence": "20160906M202302090323",
+        "club": "江苏",
+        "birthday": "2016.09.06",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "78",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 79,
+        "displayRank": "79",
+        "name": "朱霁青",
+        "licence": "20140706M202110130339",
+        "club": "山东",
+        "birthday": "2014.07.06",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "79",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 80,
+        "displayRank": "80",
+        "name": "王佑辰",
+        "licence": "20140302M202302060744",
+        "club": "安徽",
+        "birthday": "2014.03.02",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "80",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 81,
+        "displayRank": "81",
+        "name": "司先瑞",
+        "licence": "20140613M202303150924",
+        "club": "安徽",
+        "birthday": "2014.06.13",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "81",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 82,
+        "displayRank": "82",
+        "name": "张浩辰",
+        "licence": "20140916M202506290936",
+        "club": "福建",
+        "birthday": "2014.09.16",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "82",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 83,
+        "displayRank": "83",
+        "name": "Mael Weber",
+        "licence": "20150114M202304060208",
+        "club": "上海乐佩",
+        "birthday": "2015.01.14",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "83",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 83,
+        "displayRank": "83",
+        "name": "赵浩成",
+        "licence": "20140512M202105130354",
+        "club": "山东",
+        "birthday": "2014.05.12",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "84",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 85,
+        "displayRank": "85",
+        "name": "张奕辰",
+        "licence": "20141027M202304060853",
+        "club": "无锡亿冠",
+        "birthday": "2014.10.27",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "85",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 86,
+        "displayRank": "86",
+        "name": "廖世豪",
+        "licence": "20140404M202405290404",
+        "club": "福建",
+        "birthday": "2014.04.04",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "86",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 87,
+        "displayRank": "87",
+        "name": "魏来",
+        "licence": "20140703M202104191014",
+        "club": "北京政冠",
+        "birthday": "2014.07.03",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "87",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 88,
+        "displayRank": "88",
+        "name": "遇健",
+        "licence": "20140419M202502161031",
+        "club": "山东",
+        "birthday": "2014.04.19",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "88",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 89,
+        "displayRank": "89",
+        "name": "魏嘉成",
+        "licence": "20160115M202305060426",
+        "club": "江苏",
+        "birthday": "2016.01.15",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "89",
+        "qualifyStatusId": "1"
+      },
+      {
+        "rank": 90,
+        "displayRank": "90",
+        "name": "鲍昱炎",
+        "licence": "20151206M202406251155",
+        "club": "江苏",
+        "birthday": "2015.12.06",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "90",
+        "qualifyStatusId": "0"
+      },
+      {
+        "rank": 91,
+        "displayRank": "91",
+        "name": "蔡宝霆",
+        "licence": "20150303M202304191007",
+        "club": "武汉岚上",
+        "birthday": "2015.03.03",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "91",
+        "qualifyStatusId": "0"
+      },
+      {
+        "rank": 92,
+        "displayRank": "92",
+        "name": "陈懋一",
+        "licence": "20150323M202409181134",
+        "club": "广东",
+        "birthday": "2015.03.23",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "92",
+        "qualifyStatusId": "0"
+      },
+      {
+        "rank": 93,
+        "displayRank": "93",
+        "name": "胡曦元",
+        "licence": "20140610M202305170640",
+        "club": "山东",
+        "birthday": "2014.06.10",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "93",
+        "qualifyStatusId": "0"
+      },
+      {
+        "rank": 94,
+        "displayRank": "94",
+        "name": "王德睿",
+        "licence": "20140925M202305040753",
+        "club": "江苏",
+        "birthday": "2014.09.25",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "94",
+        "qualifyStatusId": "0"
+      },
+      {
+        "rank": 95,
+        "displayRank": "95",
+        "name": "陈炳洋",
+        "licence": "20150420M202402220242",
+        "club": "江苏",
+        "birthday": "2015.04.20",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "95",
+        "qualifyStatusId": "0"
+      },
+      {
+        "rank": 96,
+        "displayRank": "96",
+        "name": "李柏彦",
+        "licence": "20160219M202208070311",
+        "club": "江苏",
+        "birthday": "2016.02.19",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "96",
+        "qualifyStatusId": "0"
+      },
+      {
+        "rank": 97,
+        "displayRank": "97",
+        "name": "田镇豪",
+        "licence": "20140527M202305140505",
+        "club": "山东",
+        "birthday": "2014.05.27",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "97",
+        "qualifyStatusId": "0"
+      },
+      {
+        "rank": 98,
+        "displayRank": "98",
+        "name": "马耶西",
+        "licence": "20140814M20260115073700",
+        "club": "江苏",
+        "birthday": "2014.08.14",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "98",
+        "qualifyStatusId": "0"
+      },
+      {
+        "rank": 99,
+        "displayRank": "99",
+        "name": "宗柏佑",
+        "licence": "20151015M202405101209",
+        "club": "江苏",
+        "birthday": "2015.10.15",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "99",
+        "qualifyStatusId": "0"
+      },
+      {
+        "rank": 100,
+        "displayRank": "100",
+        "name": "赵知闲",
+        "licence": "20140628M202303200838",
+        "club": "江苏",
+        "birthday": "2014.06.28",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "100",
+        "qualifyStatusId": "0"
+      },
+      {
+        "rank": 101,
+        "displayRank": "101",
+        "name": "于凯",
+        "licence": "20160912M202409240553",
+        "club": "江苏",
+        "birthday": "2016.09.12",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "101",
+        "qualifyStatusId": "0"
+      },
+      {
+        "rank": 102,
+        "displayRank": "102",
+        "name": "左子穆",
+        "licence": "20160808M202403020353",
+        "club": "江苏",
+        "birthday": "2016.08.08",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "102",
+        "qualifyStatusId": "0"
+      },
+      {
+        "rank": 103,
+        "displayRank": "103",
+        "name": "吴鸿正",
+        "licence": "20150307M202310090827",
+        "club": "江苏",
+        "birthday": "2015.03.07",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "103",
+        "qualifyStatusId": "0"
+      },
+      {
+        "rank": 103,
+        "displayRank": "103",
+        "name": "张润泽",
+        "licence": "20151103M202406160341",
+        "club": "江苏",
+        "birthday": "2015.11.03",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "104",
+        "qualifyStatusId": "0"
+      },
+      {
+        "rank": 105,
+        "displayRank": "105",
+        "name": "戴冠铭",
+        "licence": "20150828M202303030723",
+        "club": "江苏",
+        "birthday": "2015.08.28",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "105",
+        "qualifyStatusId": "0"
+      },
+      {
+        "rank": 105,
+        "displayRank": "105",
+        "name": "余翊诚",
+        "licence": "20150706M202406160146",
+        "club": "江苏",
+        "birthday": "2015.07.06",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "106",
+        "qualifyStatusId": "0"
+      },
+      {
+        "rank": 107,
+        "displayRank": "107",
+        "name": "秦熙昱",
+        "licence": "20150116M202105200716",
+        "club": "江苏",
+        "birthday": "2015.01.16",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "107",
+        "qualifyStatusId": "0"
+      },
+      {
+        "rank": 107,
+        "displayRank": "107",
+        "name": "郑乘锟",
+        "licence": "20150208M202405310343",
+        "club": "福建",
+        "birthday": "2015.02.08",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "108",
+        "qualifyStatusId": "0"
+      },
+      {
+        "rank": 109,
+        "displayRank": "109",
+        "name": "龚凡奚",
+        "licence": "20160916M202309080931",
+        "club": "江苏",
+        "birthday": "2016.09.16",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "109",
+        "qualifyStatusId": "0"
+      },
+      {
+        "rank": 110,
+        "displayRank": "110",
+        "name": "李近泽",
+        "licence": "20160119M202208040247",
+        "club": "江苏",
+        "birthday": "2016.01.19",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "110",
+        "qualifyStatusId": "0"
+      },
+      {
+        "rank": 111,
+        "displayRank": "111",
+        "name": "林宸智",
+        "licence": "20140725M202501241240",
+        "club": "福建",
+        "birthday": "2014.07.25",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "111",
+        "qualifyStatusId": "0"
+      },
+      {
+        "rank": 111,
+        "displayRank": "111",
+        "name": "时铭沙",
+        "licence": "20150302M202410040958",
+        "club": "江苏",
+        "birthday": "2015.03.02",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "112",
+        "qualifyStatusId": "0"
+      },
+      {
+        "rank": 113,
+        "displayRank": "113",
+        "name": "徐嘉辰",
+        "licence": "20150730M202208080929",
+        "club": "江苏",
+        "birthday": "2015.07.30",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "113",
+        "qualifyStatusId": "0"
+      },
+      {
+        "rank": 114,
+        "displayRank": "114",
+        "name": "华逸星",
+        "licence": "20141123M202506301118",
+        "club": "福建",
+        "birthday": "2014.11.23",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "114",
+        "qualifyStatusId": "0"
+      },
+      {
+        "rank": 115,
+        "displayRank": "115",
+        "name": "李高奕",
+        "licence": "20160511M202410170743",
+        "club": "江苏",
+        "birthday": "2016.05.11",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "115",
+        "qualifyStatusId": "0"
+      },
+      {
+        "rank": 116,
+        "displayRank": "116",
+        "name": "沈栩锐",
+        "licence": "20140630M202502120132",
+        "club": "江苏",
+        "birthday": "2014.06.30",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "116",
+        "qualifyStatusId": "0"
+      },
+      {
+        "rank": 117,
+        "displayRank": "117",
+        "name": "白济维",
+        "licence": "20141205M202503210558",
+        "club": "辽宁",
+        "birthday": "2014.12.05",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "117",
+        "qualifyStatusId": "0"
+      },
+      {
+        "rank": 117,
+        "displayRank": "117",
+        "name": "沈梓涛",
+        "licence": "20160317M202405301150",
+        "club": "福建",
+        "birthday": "2016.03.17",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "118",
+        "qualifyStatusId": "0"
+      },
+      {
+        "rank": 119,
+        "displayRank": "119",
+        "name": "张海睿",
+        "licence": "20150410M202503190133",
+        "club": "山东",
+        "birthday": "2015.04.10",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "119",
+        "qualifyStatusId": "0"
+      },
+      {
+        "rank": 120,
+        "displayRank": "120",
+        "name": "陈泓伊",
+        "licence": "20140124M202503210629",
+        "club": "辽宁",
+        "birthday": "2014.01.24",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "120",
+        "qualifyStatusId": "0"
+      },
+      {
+        "rank": 121,
+        "displayRank": "121",
+        "name": "唐英豪",
+        "licence": "20160103M202208040259",
+        "club": "江苏",
+        "birthday": "2016.01.03",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "121",
+        "qualifyStatusId": "0"
+      },
+      {
+        "rank": 121,
+        "displayRank": "121",
+        "name": "吴镒涛",
+        "licence": "20151029M202405290420",
+        "club": "福建",
+        "birthday": "2015.10.29",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "122",
+        "qualifyStatusId": "0"
+      },
+      {
+        "rank": 121,
+        "displayRank": "121",
+        "name": "吴允乐",
+        "licence": "20160219M202208030801",
+        "club": "江苏",
+        "birthday": "2016.02.19",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "123",
+        "qualifyStatusId": "0"
+      },
+      {
+        "rank": 124,
+        "displayRank": "124",
+        "name": "韩熙傲",
+        "licence": "20150404M202503220121",
+        "club": "辽宁",
+        "birthday": "2015.04.04",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "124",
+        "qualifyStatusId": "0"
+      },
+      {
+        "rank": 124,
+        "displayRank": "124",
+        "name": "郑佳霖",
+        "licence": "20160913M202506300950",
+        "club": "福建",
+        "birthday": "2016.09.13",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "125",
+        "qualifyStatusId": "0"
+      },
+      {
+        "rank": 126,
+        "displayRank": "126",
+        "name": "赵晋霆",
+        "licence": "20140311M20250126084421",
+        "club": "吉林",
+        "birthday": "2014.03.11",
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "126",
+        "qualifyStatusId": "0"
+      }
+    ],
+    "poolStandings": [],
+    "poolResults": [],
+    "poolBouts": [],
+    "eliminationMatches": []
+  },
+  "completeness": [
+    {
+      "section": "General",
+      "rows": 1,
+      "fields": [
+        {
+          "key": "SportName",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "2026年全国少年、儿童击剑锦标赛"
+          ]
+        },
+        {
+          "key": "EventName",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "U12男子佩剑个人"
+          ]
+        },
+        {
+          "key": "OpenDate",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "2026-08-22 00:00:00"
+          ]
+        },
+        {
+          "key": "Venue",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "青岛市"
+          ]
+        },
+        {
+          "key": "CompetitionNo",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            126
+          ]
+        },
+        {
+          "key": "ExemptionNo",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "PoolFencerNo",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "PoolQualifyNo",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "PDEstartPhase",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "DEstartPhase",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "Scode",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "D02ETSSD0220260822"
+          ]
+        },
+        {
+          "key": "Ecode",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "D02ETSSD0220260822MSIU12"
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Classment",
+      "rows": 126,
+      "fields": [
+        {
+          "key": "EventRank",
+          "nonEmpty": 126,
+          "fillRate": 1,
+          "sampleValues": [
+            "1",
+            "2",
+            "3",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9"
+          ]
+        },
+        {
+          "key": "EventShowRank",
+          "nonEmpty": 126,
+          "fillRate": 1,
+          "sampleValues": [
+            "1",
+            "2",
+            "3",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9"
+          ]
+        },
+        {
+          "key": "Fencer",
+          "nonEmpty": 126,
+          "fillRate": 1,
+          "sampleValues": [
+            "倪世泽",
+            "万梓宸",
+            "廉秉豪",
+            "杨秉錕",
+            "王俊熙",
+            "王炜期",
+            "彭泓霖",
+            "冷杉"
+          ]
+        },
+        {
+          "key": "Licence",
+          "nonEmpty": 126,
+          "fillRate": 1,
+          "sampleValues": [
+            "20140210M202402150209",
+            "20140529M202107051121",
+            "20140317M202106260100",
+            "20140217M202302070220",
+            "20140610M202110241047",
+            "20140414M202202210839",
+            "20140228M202110170234",
+            "20141226M202112140424"
+          ]
+        },
+        {
+          "key": "NOCCode",
+          "nonEmpty": 126,
+          "fillRate": 1,
+          "sampleValues": [
+            "天津",
+            "广东",
+            "北京仲满",
+            "武汉岚上",
+            "深圳宇翔",
+            "江苏",
+            "无锡亿冠",
+            "北京万国"
+          ]
+        },
+        {
+          "key": "Birthday",
+          "nonEmpty": 126,
+          "fillRate": 1,
+          "sampleValues": [
+            "2014.02.10",
+            "2014.05.29",
+            "2014.03.17",
+            "2014.02.17",
+            "2014.06.10",
+            "2014.04.14",
+            "2014.02.28",
+            "2014.12.26"
+          ]
+        },
+        {
+          "key": "Medal",
+          "nonEmpty": 4,
+          "fillRate": 0.0317,
+          "sampleValues": [
+            "金",
+            "银",
+            "铜"
+          ]
+        },
+        {
+          "key": "Statut",
+          "nonEmpty": 126,
+          "fillRate": 1,
+          "sampleValues": [
+            "N"
+          ]
+        },
+        {
+          "key": "F_EventDisPos",
+          "nonEmpty": 126,
+          "fillRate": 1,
+          "sampleValues": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8"
+          ]
+        },
+        {
+          "key": "QualifyStatusId",
+          "nonEmpty": 126,
+          "fillRate": 1,
+          "sampleValues": [
+            "1",
+            "0"
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Pools",
+      "rows": 0,
+      "fields": []
+    },
+    {
+      "section": "PoolStanding",
+      "rows": 0,
+      "fields": []
+    },
+    {
+      "section": "PoolResults",
+      "rows": 0,
+      "fields": []
+    },
+    {
+      "section": "PRDetails",
+      "rows": 0,
+      "fields": []
+    },
+    {
+      "section": "Tableaus",
+      "rows": 0,
+      "fields": []
+    },
+    {
+      "section": "Matchs",
+      "rows": 0,
+      "fields": []
+    },
+    {
+      "section": "IniStarts",
+      "rows": 0,
+      "fields": []
+    }
+  ],
+  "analysisCapabilities": [
+    "项目概要",
+    "最终排名",
+    "初始排位",
+    "小组赛排名",
+    "小组赛每场比分",
+    "小组赛晋级人数",
+    "淘汰赛阶段结构",
+    "淘汰赛每场比分",
+    "选手完整比赛路径",
+    "对手交手记录",
+    "胜负和净胜剑统计"
+  ],
+  "privacyRecommendation": {
+    "publicFields": [
+      "rank",
+      "name",
+      "club",
+      "scores",
+      "winner",
+      "medal"
+    ],
+    "privateFields": [
+      "Licence",
+      "Birthday"
+    ],
+    "note": "Licence 和 Birthday 只用于内部消歧，不建议公开展示。"
+  }
+}

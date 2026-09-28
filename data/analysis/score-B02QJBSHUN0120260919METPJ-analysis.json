@@ -1,0 +1,533 @@
+{
+  "ok": true,
+  "source": {
+    "sourceUrl": "https://fencing-proxy.aixindiandian.workers.dev/fencingapi/matchresult/classmentrank/B02QJBSHUN0120260919METPJ",
+    "sourceType": "classmentrank",
+    "fallbackFrom": "https://fencing-proxy.aixindiandian.workers.dev/Resource/score/B02QJBSHUN0120260919METPJ.js",
+    "fallbackMessage": "Command failed: curl --location --fail --silent --show-error --retry 2 --retry-delay 1 --retry-max-time 50 --max-time 25 https://fencing-proxy.aixindiandian.workers.dev/Resource/score/B02QJBSHUN0120260919METPJ.js\ncurl: (28) Operation timed out after 25004 milliseconds with 0 bytes received\r\ncurl: (28) Operation timed out after 25014 milliseconds with 0 bytes received\r\n",
+    "importedAt": "2026-09-28T09:58:38.447Z"
+  },
+  "general": {
+    "sportName": "2026年全国青年击剑锦标赛",
+    "eventName": "青年组男子重剑团体",
+    "openDate": "2026-09-19 00:00:00",
+    "venue": "长沙市",
+    "competitionNo": 16,
+    "exemptionNo": null,
+    "poolFencerNo": null,
+    "poolQualifyNo": null,
+    "preDeStartPhase": null,
+    "deStartPhase": null,
+    "sportCode": "B02QJBSHUN0120260919",
+    "eventCode": "B02QJBSHUN0120260919METPJ"
+  },
+  "summary": {
+    "classmentCount": 16,
+    "initialSeedCount": 0,
+    "poolCount": 0,
+    "poolStandingCount": 0,
+    "poolResultCount": 0,
+    "poolBoutCount": 0,
+    "tableauCount": 0,
+    "eliminationMatchCount": 0,
+    "playedEliminationMatchCount": 0,
+    "byeMatchCount": 0,
+    "athleteCountByLicence": 16
+  },
+  "distributions": {
+    "poolStatus": {},
+    "poolRemark": {},
+    "tableau": {},
+    "eliminationByPhase": {},
+    "eliminationResult": {},
+    "medal": {
+      "金": 1,
+      "银": 1,
+      "铜": 1,
+      "(无奖牌)": 13
+    }
+  },
+  "normalized": {
+    "classment": [
+      {
+        "rank": 1,
+        "displayRank": "1",
+        "name": "北京队",
+        "licence": "B02QJBSHUN0120260919METPJ_58_0001",
+        "club": "北京",
+        "birthday": null,
+        "medal": "金",
+        "status": "N",
+        "sourcePosition": "1",
+        "qualifyStatusId": null
+      },
+      {
+        "rank": 2,
+        "displayRank": "2",
+        "name": "浙江队",
+        "licence": "B02QJBSHUN0120260919METPJ_95_0001",
+        "club": "浙江",
+        "birthday": null,
+        "medal": "银",
+        "status": "N",
+        "sourcePosition": "2",
+        "qualifyStatusId": null
+      },
+      {
+        "rank": 3,
+        "displayRank": "3",
+        "name": "福建队",
+        "licence": "B02QJBSHUN0120260919METPJ_59_0001",
+        "club": "福建",
+        "birthday": null,
+        "medal": "铜",
+        "status": "N",
+        "sourcePosition": "3",
+        "qualifyStatusId": null
+      },
+      {
+        "rank": 4,
+        "displayRank": "4",
+        "name": "联合团体一队",
+        "licence": "B02QJBSHUN0120260919METPJ_9999_QODRXU",
+        "club": "个人",
+        "birthday": null,
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "4",
+        "qualifyStatusId": null
+      },
+      {
+        "rank": 5,
+        "displayRank": "5",
+        "name": "江苏健和队",
+        "licence": "B02QJBSHUN0120260919METPJ_11630_0001",
+        "club": "江苏健和",
+        "birthday": null,
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "5",
+        "qualifyStatusId": null
+      },
+      {
+        "rank": 6,
+        "displayRank": "6",
+        "name": "上海队",
+        "licence": "B02QJBSHUN0120260919METPJ_71_0001",
+        "club": "上海",
+        "birthday": null,
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "6",
+        "qualifyStatusId": null
+      },
+      {
+        "rank": 7,
+        "displayRank": "7",
+        "name": "山东队",
+        "licence": "B02QJBSHUN0120260919METPJ_69_0001",
+        "club": "山东",
+        "birthday": null,
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "7",
+        "qualifyStatusId": null
+      },
+      {
+        "rank": 8,
+        "displayRank": "8",
+        "name": "广东队",
+        "licence": "B02QJBSHUN0120260919METPJ_60_0001",
+        "club": "广东",
+        "birthday": null,
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "8",
+        "qualifyStatusId": null
+      },
+      {
+        "rank": 9,
+        "displayRank": "9",
+        "name": "江苏队",
+        "licence": "B02QJBSHUN0120260919METPJ_65_0001",
+        "club": "江苏",
+        "birthday": null,
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "9",
+        "qualifyStatusId": null
+      },
+      {
+        "rank": 10,
+        "displayRank": "10",
+        "name": "辽宁队",
+        "licence": "B02QJBSHUN0120260919METPJ_67_0001",
+        "club": "辽宁",
+        "birthday": null,
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "10",
+        "qualifyStatusId": null
+      },
+      {
+        "rank": 11,
+        "displayRank": "11",
+        "name": "联合团体二队",
+        "licence": "B02QJBSHUN0120260919METPJ_9999_BFKOGY",
+        "club": "个人",
+        "birthday": null,
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "11",
+        "qualifyStatusId": null
+      },
+      {
+        "rank": 12,
+        "displayRank": "12",
+        "name": "天津队",
+        "licence": "B02QJBSHUN0120260919METPJ_73_0001",
+        "club": "天津",
+        "birthday": null,
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "12",
+        "qualifyStatusId": null
+      },
+      {
+        "rank": 13,
+        "displayRank": "13",
+        "name": "安徽队",
+        "licence": "B02QJBSHUN0120260919METPJ_57_0001",
+        "club": "安徽",
+        "birthday": null,
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "13",
+        "qualifyStatusId": null
+      },
+      {
+        "rank": 14,
+        "displayRank": "14",
+        "name": "云南队",
+        "licence": "B02QJBSHUN0120260919METPJ_75_0001",
+        "club": "云南",
+        "birthday": null,
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "14",
+        "qualifyStatusId": null
+      },
+      {
+        "rank": 15,
+        "displayRank": "15",
+        "name": "山西队",
+        "licence": "B02QJBSHUN0120260919METPJ_70_0001",
+        "club": "山西",
+        "birthday": null,
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "15",
+        "qualifyStatusId": null
+      },
+      {
+        "rank": 16,
+        "displayRank": "16",
+        "name": "上海体大队",
+        "licence": "B02QJBSHUN0120260919METPJ_123_0001",
+        "club": "上海体大",
+        "birthday": null,
+        "medal": null,
+        "status": "N",
+        "sourcePosition": "16",
+        "qualifyStatusId": null
+      }
+    ],
+    "poolStandings": [],
+    "poolResults": [],
+    "poolBouts": [],
+    "eliminationMatches": []
+  },
+  "completeness": [
+    {
+      "section": "General",
+      "rows": 1,
+      "fields": [
+        {
+          "key": "SportName",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "2026年全国青年击剑锦标赛"
+          ]
+        },
+        {
+          "key": "EventName",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "青年组男子重剑团体"
+          ]
+        },
+        {
+          "key": "OpenDate",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "2026-09-19 00:00:00"
+          ]
+        },
+        {
+          "key": "Venue",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "长沙市"
+          ]
+        },
+        {
+          "key": "CompetitionNo",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            16
+          ]
+        },
+        {
+          "key": "ExemptionNo",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "PoolFencerNo",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "PoolQualifyNo",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "PDEstartPhase",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "DEstartPhase",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "Scode",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "B02QJBSHUN0120260919"
+          ]
+        },
+        {
+          "key": "Ecode",
+          "nonEmpty": 1,
+          "fillRate": 1,
+          "sampleValues": [
+            "B02QJBSHUN0120260919METPJ"
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Classment",
+      "rows": 16,
+      "fields": [
+        {
+          "key": "EventRank",
+          "nonEmpty": 16,
+          "fillRate": 1,
+          "sampleValues": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8"
+          ]
+        },
+        {
+          "key": "EventShowRank",
+          "nonEmpty": 16,
+          "fillRate": 1,
+          "sampleValues": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8"
+          ]
+        },
+        {
+          "key": "Fencer",
+          "nonEmpty": 16,
+          "fillRate": 1,
+          "sampleValues": [
+            "北京队",
+            "浙江队",
+            "福建队",
+            "联合团体一队",
+            "江苏健和队",
+            "上海队",
+            "山东队",
+            "广东队"
+          ]
+        },
+        {
+          "key": "Licence",
+          "nonEmpty": 16,
+          "fillRate": 1,
+          "sampleValues": [
+            "B02QJBSHUN0120260919METPJ_58_0001",
+            "B02QJBSHUN0120260919METPJ_95_0001",
+            "B02QJBSHUN0120260919METPJ_59_0001",
+            "B02QJBSHUN0120260919METPJ_9999_QODRXU",
+            "B02QJBSHUN0120260919METPJ_11630_0001",
+            "B02QJBSHUN0120260919METPJ_71_0001",
+            "B02QJBSHUN0120260919METPJ_69_0001",
+            "B02QJBSHUN0120260919METPJ_60_0001"
+          ]
+        },
+        {
+          "key": "NOCCode",
+          "nonEmpty": 16,
+          "fillRate": 1,
+          "sampleValues": [
+            "北京",
+            "浙江",
+            "福建",
+            "个人",
+            "江苏健和",
+            "上海",
+            "山东",
+            "广东"
+          ]
+        },
+        {
+          "key": "Birthday",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        },
+        {
+          "key": "Medal",
+          "nonEmpty": 3,
+          "fillRate": 0.1875,
+          "sampleValues": [
+            "金",
+            "银",
+            "铜"
+          ]
+        },
+        {
+          "key": "Statut",
+          "nonEmpty": 16,
+          "fillRate": 1,
+          "sampleValues": [
+            "N"
+          ]
+        },
+        {
+          "key": "F_EventDisPos",
+          "nonEmpty": 16,
+          "fillRate": 1,
+          "sampleValues": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8"
+          ]
+        },
+        {
+          "key": "QualifyStatusId",
+          "nonEmpty": 0,
+          "fillRate": 0,
+          "sampleValues": []
+        }
+      ]
+    },
+    {
+      "section": "Pools",
+      "rows": 0,
+      "fields": []
+    },
+    {
+      "section": "PoolStanding",
+      "rows": 0,
+      "fields": []
+    },
+    {
+      "section": "PoolResults",
+      "rows": 0,
+      "fields": []
+    },
+    {
+      "section": "PRDetails",
+      "rows": 0,
+      "fields": []
+    },
+    {
+      "section": "Tableaus",
+      "rows": 0,
+      "fields": []
+    },
+    {
+      "section": "Matchs",
+      "rows": 0,
+      "fields": []
+    },
+    {
+      "section": "IniStarts",
+      "rows": 0,
+      "fields": []
+    }
+  ],
+  "analysisCapabilities": [
+    "项目概要",
+    "最终排名",
+    "初始排位",
+    "小组赛排名",
+    "小组赛每场比分",
+    "小组赛晋级人数",
+    "淘汰赛阶段结构",
+    "淘汰赛每场比分",
+    "选手完整比赛路径",
+    "对手交手记录",
+    "胜负和净胜剑统计"
+  ],
+  "privacyRecommendation": {
+    "publicFields": [
+      "rank",
+      "name",
+      "club",
+      "scores",
+      "winner",
+      "medal"
+    ],
+    "privateFields": [
+      "Licence",
+      "Birthday"
+    ],
+    "note": "Licence 和 Birthday 只用于内部消歧，不建议公开展示。"
+  }
+}
