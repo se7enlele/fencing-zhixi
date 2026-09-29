@@ -6,7 +6,7 @@ const port = 5188;
 const baseUrl = `http://127.0.0.1:${port}`;
 const adminPassword = randomBytes(24).toString('hex');
 const adminSalt = randomBytes(16);
-const adminPasswordRecord = `pbkdf2-sha256-v1:150000:${adminSalt.toString('hex')}:${pbkdf2Sync(adminPassword, adminSalt, 150000, 32, 'sha256').toString('hex')}`;
+const adminPasswordRecord = `pbkdf2-sha256-v1:100000:${adminSalt.toString('hex')}:${pbkdf2Sync(adminPassword, adminSalt, 100000, 32, 'sha256').toString('hex')}`;
 const adminHeaders = { Authorization: `Basic ${Buffer.from(`admin:${adminPassword}`).toString('base64')}` };
 
 const server = spawn(process.execPath, ['server.mjs'], {

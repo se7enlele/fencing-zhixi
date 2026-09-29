@@ -20,7 +20,7 @@ export async function verifyAdminBasicAuth(header, passwordRecord) {
   const iterations = Number(iterationText);
   const salt = hexBytes(saltHex || '');
   const expected = hexBytes(expectedHex || '');
-  if (version !== 'pbkdf2-sha256-v1' || iterations < 100000 || iterations > 500000 || !salt || salt.length < 16 || !expected || expected.length !== 32) return false;
+  if (version !== 'pbkdf2-sha256-v1' || iterations !== 100000 || !salt || salt.length < 16 || !expected || expected.length !== 32) return false;
   let credentials;
   try { credentials = atob(header.slice(6)); }
   catch { return false; }
@@ -28,9 +28,13 @@ export async function verifyAdminBasicAuth(header, passwordRecord) {
   if (separator < 0 || credentials.slice(0, separator) !== ADMIN_USER) return false;
   const password = credentials.slice(separator + 1);
   if (!password || password.length > 256) return false;
-  const key = await crypto.subtle.importKey('raw', encoder.encode(password), 'PBKDF2', false, ['deriveBits']);
-  const derived = new Uint8Array(await crypto.subtle.deriveBits({ name: 'PBKDF2', hash: 'SHA-256', salt, iterations }, key, 256));
-  return constantEqual(derived, expected);
+  try {
+    const key = await crypto.subtle.importKey('raw', encoder.encode(password), 'PBKDF2', false, ['deriveBits']);
+    const derived = new Uint8Array(await crypto.subtle.deriveBits({ name: 'PBKDF2', hash: 'SHA-256', salt, iterations }, key, 256));
+    return constantEqual(derived, expected);
+  } catch {
+    return false;
+  }
 }
 
 export function adminChallenge(isPage = false) {
