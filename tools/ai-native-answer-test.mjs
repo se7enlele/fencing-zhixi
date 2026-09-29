@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
+import vm from 'node:vm';
 
 const js = await readFile(new URL('../web/viewer.js', import.meta.url), 'utf8');
 const css = await readFile(new URL('../web/viewer.css', import.meta.url), 'utf8');
@@ -43,7 +44,7 @@ assert.match(js, /AI_REPORT_SNAPSHOT_KEY = 'fencingai\.aiReportSnapshots\.v1'/, 
 assert.match(js, /function compactAiReportSnapshot\(query, report = \{\}\)/, 'AI answers must be compacted before being saved for review');
 assert.match(js, /function trackAiReportSnapshot\(query, report\)/, 'AI answers must persist a reusable report snapshot');
 assert.match(js, /function openAiReportSnapshot\(keyOrQuery = ''\)/, 'recent AI analysis rows must reopen saved answers before rerunning questions');
-assert.match(js, /state\.aiActiveReport = \{ \.\.\.snapshot, query: snapshot\.query \};/, 'opening a saved AI analysis must restore the rendered report');
+assert.match(js, /state\.aiActiveReport = \{ \.\.\.snapshot, query: snapshot\.query, cards: normalizeAiCards\(snapshot\.cards\) \};/, 'opening a saved AI analysis must restore both new and legacy metric cards');
 assert.match(js, /trackAiAnalysisHistory\(enhancedReport\.query \|\| report\.query \|\| '', enhancedReport\)/, 'enhanced AI answers must update the saved snapshot');
 assert.match(js, /report\.type === 'empty' \|\| report\.type === 'fallback'/, 'AI history must not store empty or fallback answers');
 assert.match(js, /function renderAiLoadingState\(query = ''\)/, 'AI home prompt must render an immediate loading state while matching data');
@@ -67,7 +68,7 @@ assert.match(js, /aiActiveQuery: ''/, 'AI home prompt must persist the active qu
 assert.match(js, /aiActiveReport: null/, 'AI home prompt must persist the active answer across home rerenders');
 assert.match(js, /isAiAnswerLoading: false/, 'AI home prompt must persist loading state across home rerenders');
 assert.match(js, /const answerHtml = state\.isAiAnswerLoading[\s\S]*renderAiAnswer\(state\.aiActiveReport\)/, 'AI workspace must restore loading or answer content after home rerenders');
-assert.match(js, /<div class="ai-answer" id="aiAnswer" aria-busy="\$\{state\.isAiAnswerLoading \? 'true' : 'false'\}">/, 'AI answer container must preserve loading semantics across home rerenders');
+assert.match(js, /<div class="ai-answer \$\{state\.isAiAnswerLoading \|\| state\.aiActiveReport \? 'has-answer' : ''\}" id="aiAnswer" aria-busy="\$\{state\.isAiAnswerLoading \? 'true' : 'false'\}">/, 'AI answer container must expose restored answers and loading state');
 assert.match(js, /state\.aiActiveReport = report;[\s\S]*state\.isAiAnswerLoading = false/, 'AI runner must save the generated report before rendering it');
 assert.match(js, /const currentAnswer = document\.querySelector\('#aiAnswer'\) \|\| answer;[\s\S]*currentAnswer\.innerHTML = renderAiAnswer\(report\)/, 'AI runner must write completed answers into the current DOM after home rerenders');
 assert.match(js, /<button type="button" data-ai-submit="true">/, 'AI submit button must not submit the form before JavaScript handlers are bound');
@@ -450,5 +451,9 @@ assert.match(css, /\.tab-panel,[\s\S]*#matchList[\s\S]*min-width: 0;/, 'Competit
 assert.match(css, /\.pool-matrix-wrap[\s\S]*box-sizing: border-box;/, 'Pool matrix scrolling must stay inside the card');
 assert.match(css, /@media \(max-width: 430px\)[\s\S]*\.pool-matrix[\s\S]*76px[\s\S]*28px/, 'Pool matrix must use compact columns on phone screens');
 assert.match(css, /@media \(max-width: 430px\)[\s\S]*\.pool-results-table[\s\S]*min-width: 300px/, 'Pool result tables must fit mobile first and scroll inside their card when needed');
+
+const normalizeCardsSource = js.slice(js.indexOf('function normalizeAiCards('), js.indexOf('function compactAiSection('));
+const restoredCards = vm.runInNewContext(`${normalizeCardsSource}\nnormalizeAiCards([['最好名次', '第8名'], {'0': '小组胜率', '1': '35%'}])`);
+assert.deepEqual(JSON.parse(JSON.stringify(restoredCards)), [['最好名次', '第8名'], ['小组胜率', '35%']], 'saved AI reports must preserve new cards and recover old array-like cards');
 
 console.log('AI native answers are covered');

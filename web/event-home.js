@@ -80,7 +80,7 @@ function renderCalendarHomeContent() {
     </section>
     <section class="home-agenda" aria-label="所选日期赛事"><div class="agenda-heading"><h2>${selectedLabel}</h2><span>${selectedRecords.length} 场</span></div><div class="agenda-list" aria-live="polite">${selectedRecords.length ? selectedRecords.map(renderCalendarEventCard).join('') : `<div class="agenda-empty"><strong>这${model.mode === 'month' ? '个月' : '一天'}暂无收录赛事</strong><p>可切换日期${model.mode === 'day' ? '，或查看整月安排' : '查看其他月份'}。暂无收录不代表没有比赛。</p>${model.mode === 'day' ? '<button type="button" data-calendar-mode="month">查看本月赛事</button>' : '<button type="button" data-home-compact-nav="competitions">浏览全部赛事</button>'}</div>`}</div></section>
     <section class="home-following"><div class="agenda-heading"><h2>我关注的赛事</h2><button type="button" data-home-compact-nav="my">管理关注 ›</button></div>${follows.length ? follows.slice(0, 3).map(renderCalendarEventCard).join('') : '<div class="agenda-empty compact"><strong>把关心的比赛放在一起</strong><p>点赛事卡片上的“关注”，下次查找更方便。</p></div>'}</section>
-    <details class="home-analysis" id="homeAnalysis" ${state.aiActiveQuery || state.aiActiveReport ? 'open' : ''}><summary><span>✦ AI 赛事分析</span><span>展开 / 收起</span></summary>${renderHomeRoleBar()}${renderAiWorkspace('home')}${renderHomePriorityPanel()}</details>
+    ${renderHomePriorityPanel()}
     <p class="home-data-note">日历按已收录赛事日期展示，具体安排请以主办方公布的信息为准。</p>
   </div>`;
 }
@@ -112,10 +112,7 @@ function bindCalendarHome(container) {
     openHomeSearch(input.value);
   });
   container.querySelector('[data-home-ai]')?.addEventListener('click', () => {
-    const panel = container.querySelector('#homeAnalysis');
-    panel.open = true;
-    panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    panel.querySelector('textarea')?.focus({ preventScroll: true });
+    navigateTo('aiAnalysis');
   });
   const rerender = (focusSelector) => { renderHomePage(); if (focusSelector) homePage.querySelector(focusSelector)?.focus({ preventScroll: true }); };
   container.querySelectorAll('[data-calendar-day]').forEach((button) => button.addEventListener('click', () => {

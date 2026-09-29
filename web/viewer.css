@@ -1835,6 +1835,42 @@ select:focus {
   gap: 10px;
 }
 
+.ai-analysis-intro {
+  display: grid;
+  gap: 5px;
+}
+
+.ai-analysis-intro h2 {
+  color: var(--text);
+}
+
+.ai-analysis-intro p {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.ai-analysis-page {
+  display: grid;
+  gap: 12px;
+}
+
+.ai-analysis-intro {
+  padding: 16px;
+}
+
+.ai-analysis-intro span {
+  color: var(--primary);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.ai-analysis-intro h2 {
+  font-size: 19px;
+  margin: 0;
+}
+
 .ai-workspace {
   display: grid;
   gap: 12px;

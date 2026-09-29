@@ -17,6 +17,7 @@ const searchShell = document.querySelector('.search-shell');
 const roleWorkspace = document.querySelector('#roleWorkspace');
 const parentDashboard = document.querySelector('#parentDashboard');
 const homePage = document.querySelector('#homePage');
+const aiAnalysisPage = document.querySelector('#aiAnalysisPage');
 const focusPage = document.querySelector('#focusPage');
 const myPage = document.querySelector('#myPage');
 const accountLoginPage = document.querySelector('#accountLoginPage');
@@ -102,6 +103,7 @@ const views = {
   competition: document.querySelector('#view-competition-detail'),
   event: document.querySelector('#view-event-detail'),
   athlete: document.querySelector('#view-athlete-detail'),
+  aiAnalysis: document.querySelector('#view-ai-analysis'),
   club: document.querySelector('#view-club-detail'),
   prematchReport: document.querySelector('#view-prematch-report'),
   parentGrowthReport: document.querySelector('#view-parent-growth-report'),
@@ -121,6 +123,10 @@ const state = {
   currentCompetition: null,
   currentEvent: null,
   currentClub: null,
+  currentAthleteId: '',
+  currentGrowthAthleteId: '',
+  currentPrematchCode: '',
+  currentCoachClubId: '',
   dataCoverage: null,
   athletesById: {},
   athleteSearchIndex: [],
@@ -820,10 +826,20 @@ function aiReportHistoryKey(query = '') {
   return compactText(query).slice(0, 80);
 }
 
+function normalizeAiCards(cards = []) {
+  return (Array.isArray(cards) ? cards : []).map((row) => (
+    Array.isArray(row)
+      ? row.slice(0, 2)
+      : [row?.[0] ?? row?.label ?? '', row?.[1] ?? row?.value ?? '']
+  )).filter(([label, value]) => label !== '' && value !== '');
+}
+
 function compactAiSection(section = {}) {
   return {
     title: section.title || '',
-    rows: (section.rows || []).slice(0, 6).map((row) => ({ ...row })),
+    rows: (section.rows || []).slice(0, 6).map((row) => (
+      Array.isArray(row) ? [...row] : row && typeof row === 'object' ? { ...row } : row
+    )),
   };
 }
 
@@ -836,7 +852,7 @@ function compactAiReportSnapshot(query, report = {}) {
     type: report.type || '',
     title: report.title || text,
     summary: report.summary || '',
-    cards: (report.cards || []).slice(0, 6).map((row) => ({ ...row })),
+    cards: normalizeAiCards(report.cards).slice(0, 6),
     sections: (report.sections || []).filter(isUserFacingAiSection).slice(0, 4).map(compactAiSection),
     evidence: (report.evidence || []).slice(0, 6).map((row) => ({ ...row })),
     actions: (report.actions || []).slice(0, 6).map((row) => ({ ...row })),
@@ -870,9 +886,9 @@ function openAiReportSnapshot(keyOrQuery = '') {
     return;
   }
   state.aiActiveQuery = snapshot.query;
-  state.aiActiveReport = { ...snapshot, query: snapshot.query };
+  state.aiActiveReport = { ...snapshot, query: snapshot.query, cards: normalizeAiCards(snapshot.cards) };
   state.isAiAnswerLoading = false;
-  navigateMain('home');
+  navigateTo('aiAnalysis');
   requestAnimationFrame(() => {
     const answer = document.querySelector('#aiAnswer');
     if (answer) scrollToResultPanel(answer);
@@ -1791,6 +1807,26 @@ function scrollToResultPanel(element, behavior = 'smooth') {
   });
 }
 
+function syncViewUrl(name) {
+  const url = new URL(window.location.href);
+  for (const key of ['tab', 'competition', 'event', 'athlete', 'club', 'prematch', 'growth', 'coach', 'analysis']) {
+    url.searchParams.delete(key);
+  }
+  const entry = {
+    competition: ['competition', state.currentCompetition?.sportCode],
+    event: ['event', state.currentEvent?.eventCode],
+    athlete: ['athlete', state.currentAthleteId],
+    club: ['club', state.currentClub?.id],
+    prematchReport: ['prematch', state.currentPrematchCode],
+    parentGrowthReport: ['growth', state.currentGrowthAthleteId],
+    coachSegmentationReport: ['coach', state.currentCoachClubId],
+    aiAnalysis: ['analysis', '1'],
+  }[name];
+  if (entry?.[1]) url.searchParams.set(entry[0], entry[1]);
+  else if (MAIN_TABS.includes(name) && name !== 'home') url.searchParams.set('tab', name);
+  window.history.replaceState(window.history.state, '', `${url.pathname}${url.search}${url.hash}`);
+}
+
 function navigateTo(name) {
   const current = state.viewStack[state.viewStack.length - 1];
   if (current !== name) state.viewStack.push(name);
@@ -1800,7 +1836,9 @@ function navigateTo(name) {
   if (name === 'follow') renderFocusPage();
   if (name === 'my') renderPersonalPages();
   if (name === 'accountLogin') renderAccountLoginPage();
+  if (name === 'aiAnalysis') renderAiAnalysisPage();
   showView(name);
+  syncViewUrl(name);
   scrollToPageTop();
 }
 
@@ -1812,6 +1850,7 @@ function navigateMain(name) {
   if (targetView === 'my') renderPersonalPages();
   state.viewStack = [targetView];
   showView(targetView);
+  syncViewUrl(targetView);
   scrollToPageTop();
 }
 
@@ -1821,6 +1860,7 @@ function goBack() {
     state.viewStack = ['home'];
     renderHomePage();
     showView('home');
+    syncViewUrl('home');
     scrollToPageTop();
     return;
   }
@@ -1828,6 +1868,7 @@ function goBack() {
   const target = state.viewStack[state.viewStack.length - 1];
   if (MAIN_TABS.includes(target)) state.activeMainTab = target;
   showView(target);
+  syncViewUrl(target);
   scrollToPageTop();
 }
 
@@ -3411,7 +3452,7 @@ function parentGrowthShareUrl(athlete) {
   const url = new URL(window.location.href);
   url.search = '';
   url.hash = '';
-  url.searchParams.set('athlete', athlete.id || '');
+  url.searchParams.set('growth', athlete.id || '');
   return url.toString();
 }
 
@@ -3701,6 +3742,7 @@ function openParentGrowthReport(athleteId = '') {
   trackAnalyticsAction('open_report', 'parent-growth');
   renderParentGrowthReport(athleteId);
   const athlete = athleteId ? findAthleteByReference({ id: athleteId }) : getSelectedChild(childCandidates());
+  state.currentGrowthAthleteId = athlete?.id || athleteId;
   if (athlete?.id) {
     trackReportHistory({
       type: 'parent-growth',
@@ -5460,7 +5502,6 @@ function renderFocusedHomePage() {
     navigateTo('roleHome');
   });
   bindCalendarHome(homePage);
-  bindAiWorkspace(homePage);
   return true;
 }
 
@@ -5578,11 +5619,24 @@ function renderAiWorkspace() {
           ${presets.map((preset) => `<button type="button" data-ai-preset="${escapeHtml(preset)}">${escapeHtml(preset)}</button>`).join('')}
         </div>
       </section>
-      <div class="ai-answer" id="aiAnswer" aria-busy="${state.isAiAnswerLoading ? 'true' : 'false'}">
+      <div class="ai-answer ${state.isAiAnswerLoading || state.aiActiveReport ? 'has-answer' : ''}" id="aiAnswer" aria-busy="${state.isAiAnswerLoading ? 'true' : 'false'}">
         ${answerHtml}
       </div>
     </div>
   `;
+}
+
+function renderAiAnalysisPage() {
+  if (!aiAnalysisPage) return;
+  aiAnalysisPage.innerHTML = `
+    <section class="panel ai-analysis-intro">
+      <span>专项分析</span>
+      <h2>用比赛记录回答具体问题</h2>
+      <p>结果会列出可核对的赛事和数据范围。查看孩子的完整成长轨迹，请从选手画像进入成长报告。</p>
+    </section>
+    ${renderAiWorkspace()}
+  `;
+  bindAiWorkspace(aiAnalysisPage);
 }
 
 function renderAiLoadingState(query = '') {
@@ -5775,13 +5829,11 @@ function bindAiWorkspace(container) {
 function submitAiQuery(query) {
   const text = String(query || '').trim();
   if (!text) return;
-  navigateMain('home');
-  const input = homePage?.querySelector('#aiQueryInput');
-  const form = homePage?.querySelector('#aiQueryForm');
+  navigateTo('aiAnalysis');
+  const input = aiAnalysisPage?.querySelector('#aiQueryInput');
+  const form = aiAnalysisPage?.querySelector('#aiQueryForm');
   if (!input || !form) return;
   input.value = text;
-  const analysisPanel = homePage.querySelector('#homeAnalysis');
-  if (analysisPanel) analysisPanel.open = true;
   if (typeof form.__runAiQuery === 'function') {
     form.__runAiQuery(text);
     return;
@@ -5905,12 +5957,14 @@ async function enhanceAiAnswer(report, answer, bindAnswer) {
 }
 
 function aiAnalyzeActionRow(actions = []) {
-  const rows = actions.filter((action) => action?.query && action?.label);
+  const rows = actions.filter((action) => action?.label && (action.query || action.parentGrowthAthleteId));
   if (!rows.length) return '';
   return `
     <div class="detail-ai-actions" aria-label="相关分析">
       ${rows.map((action) => `
-        <button type="button" data-ai-analyze-query="${escapeHtml(action.query)}">
+        <button type="button" ${action.parentGrowthAthleteId
+          ? `data-parent-growth-athlete-id="${escapeHtml(action.parentGrowthAthleteId)}"`
+          : `data-ai-analyze-query="${escapeHtml(action.query)}"`}>
           ${escapeHtml(action.label)}
         </button>
       `).join('')}
@@ -5919,6 +5973,9 @@ function aiAnalyzeActionRow(actions = []) {
 }
 
 function bindAiAnalyzeActions(container) {
+  container?.querySelectorAll('[data-parent-growth-athlete-id]').forEach((button) => {
+    button.addEventListener('click', () => openParentGrowthReport(button.dataset.parentGrowthAthleteId || ''));
+  });
   container?.querySelectorAll('[data-ai-analyze-query]').forEach((button) => {
     button.addEventListener('click', () => submitAiQuery(button.dataset.aiAnalyzeQuery || ''));
   });
@@ -12386,6 +12443,7 @@ function renderAthleteDataRequestPanel(athlete) {
 function renderAthleteDetail(athlete) {
   const followed = isFollowedAthlete(athlete.id);
   const profileMeta = [athleteBirthCohort(athlete), athleteGenderLabel(athlete)].filter(Boolean).join(' · ');
+  const primaryOpponent = (athlete.opponents || []).find((opponent) => opponent?.name && opponent.name !== athlete.name);
   athleteHero.innerHTML = `
     <div class="athlete-hero-head">
       <div>
@@ -12404,8 +12462,8 @@ function renderAthleteDetail(athlete) {
     </div>
     <p class="data-scope-note">已收录 ${escapeHtml(athlete.events?.length || 0)} 次个人项目记录 · 最新比赛 ${escapeHtml(athlete.latestDate || '日期待确认')}。未收录比赛不代表没有参赛。</p>
     ${aiAnalyzeActionRow([
-      { label: '查看成长分析', query: `分析${athlete.name}最近几场有没有进步` },
-      { label: '对手对比', query: `分析${athlete.name}的主要对手和胜负情况` },
+      { label: '查看成长分析', parentGrowthAthleteId: athlete.id },
+      primaryOpponent ? { label: `与${primaryOpponent.name}对比`, query: `分析${athlete.name}和${primaryOpponent.name}的对战情况` } : null,
     ])}
   `;
 
@@ -13525,6 +13583,7 @@ function openCoachSegmentationReport(clubId = '') {
   trackAnalyticsAction('open_report', 'coach-segmentation');
   renderCoachSegmentationReport(clubId);
   const club = findClubById(clubId) || state.clubSearchIndex?.[0] || null;
+  state.currentCoachClubId = club?.id || clubId || 'coach-segmentation';
   if (club?.id) {
     trackReportHistory({
       type: 'coach-segmentation',
@@ -14937,6 +14996,7 @@ function renderClubDetail(club) {
 }
 
 async function openAthlete(athleteId) {
+  if (athleteId && athleteId !== 'undefined' && athleteId !== 'null') state.currentAthleteId = athleteId;
   const localAthlete = findAthleteByReference({ id: athleteId });
   let renderedAthlete = null;
   try {
@@ -14954,6 +15014,7 @@ async function openAthlete(athleteId) {
       `/api/athletes/${encodeURIComponent(athleteId)}`,
       (result) => result.athlete,
     );
+    mergeAiAthleteResult(renderedAthlete);
     renderAthleteDetail(renderedAthlete);
   } catch (error) {
     if (localAthlete?.events?.length) {
@@ -14967,6 +15028,7 @@ async function openAthlete(athleteId) {
     }
   }
   if (renderedAthlete?.id) {
+    state.currentAthleteId = renderedAthlete.id;
     trackRecentItem({
       type: 'athlete',
       id: renderedAthlete.id,
@@ -15654,6 +15716,7 @@ function renderPrematchReport(kind = 'prematch-pack', sportCode = '') {
 function openPrematchReport(kind = 'prematch-pack', sportCode = '') {
   trackAnalyticsAction('open_report', sportCode ? 'prematch-single' : 'prematch-pack');
   renderPrematchReport(kind, sportCode);
+  state.currentPrematchCode = sportCode || kind;
   const competition = sportCode ? findCompetitionBySportCode(sportCode) : null;
   trackReportHistory({
     type: 'prematch',
@@ -15919,9 +15982,40 @@ async function init() {
     return;
   }
   const initialAthleteId = initialParams.get('athlete');
+  const initialGrowthId = initialParams.get('growth');
+  if (initialGrowthId) {
+    state.sharedEntry = { kind: 'parent-growth', id: initialGrowthId, openedAt: Date.now() };
+    await openAthlete(initialGrowthId);
+    openParentGrowthReport(initialGrowthId);
+    return;
+  }
   if (initialAthleteId) {
     state.sharedEntry = { kind: 'parent-growth', id: initialAthleteId, openedAt: Date.now() };
     await openAthlete(initialAthleteId);
+    return;
+  }
+  const initialCompetitionCode = initialParams.get('competition');
+  if (initialCompetitionCode) {
+    await openCompetition(initialCompetitionCode);
+    return;
+  }
+  const initialEventCode = initialParams.get('event');
+  if (initialEventCode) {
+    await openEvent(initialEventCode);
+    return;
+  }
+  const initialClubId = initialParams.get('club');
+  if (initialClubId) {
+    await openClub(initialClubId);
+    return;
+  }
+  if (initialParams.get('analysis') === '1') {
+    navigateTo('aiAnalysis');
+    return;
+  }
+  const initialTab = initialParams.get('tab');
+  if (MAIN_TABS.includes(initialTab)) {
+    navigateMain(initialTab);
     return;
   }
   state.activeMainTab = 'home';
