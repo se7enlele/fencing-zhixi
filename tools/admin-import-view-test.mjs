@@ -14,10 +14,10 @@ assert.match(js, /请继续按页导入/, 'roster preview must guide page-by-pag
 assert.match(js, /报名名单分页已入库：\$\{rosterProgressText/, 'commit status must reuse page progress summary');
 assert.match(js, /function renderFeedback\(rows = \[\]\)/, 'admin import must render user feedback requests');
 assert.match(js, /function loadFeedback\(\)/, 'admin import must load feedback from the admin API');
-assert.match(js, /\/api\/admin\/feedback\?token=/, 'admin import feedback must use the admin feedback API');
+assert.match(js, /\/api\/admin\/feedback'/, 'admin import feedback must use the admin feedback API');
 assert.match(js, /function renderAnalytics\(result\)/, 'admin import must render traffic analytics');
 assert.match(js, /function loadAnalytics\(\)/, 'admin import must load analytics from the admin API');
-assert.match(js, /\/api\/admin\/analytics\?token=/, 'admin import analytics must use the admin analytics API');
+assert.match(js, /\/api\/admin\/analytics\?days=14/, 'admin import analytics must use the admin analytics API');
 assert.match(js, /function dataHealthCounts\(competitions = \[\]\)/, 'admin import must summarize data health');
 assert.match(js, /function renderDataHealth\(result = \{\}\)/, 'admin import must render data health');
 assert.match(js, /function loadDataHealth\(\)/, 'admin import must load data health from public events');
@@ -165,7 +165,8 @@ assert.match(js, /filter === 'athlete-data'[\s\S]*isAthleteDataRequest\(row\)/, 
 assert.match(js, /const athleteDataSummaryHtml = renderAthleteDataRequestSummary\(rows\);/, 'feedback list must compute athlete data governance summary');
 assert.match(js, /feedbackList\.innerHTML = `\$\{athleteDataSummaryHtml\}\$\{aiQualityHtml\}\$\{feedbackRowsHtml\}`;/, 'feedback list must render athlete data summary before feedback rows');
 assert.match(js, /data-copy-athlete-data-requests/, 'athlete data summary must expose a copy action');
-assert.match(js, /\/api\/admin\/feedback\/status\?token=/, 'admin import feedback actions must use the admin status API');
+assert.match(js, /\/api\/admin\/feedback\/status'/, 'admin import feedback actions must use the admin status API');
+assert.doesNotMatch(js, /\?token=|缺少 token/, 'admin import must not place credentials in URLs');
 assert.match(js, /data-feedback-status/, 'admin import feedback cards must expose workflow action buttons');
 assert.match(js, /const aiDetail = isAiFeedback\(row\) \? aiFeedbackDetail\(row\) : null;/, 'admin import must derive AI feedback metadata per row');
 assert.match(js, /class="lead-segment">\$\{escapeHtml\(commercialLeadReportLabel\(row\)\)\}<\/span>/, 'admin commercial lead cards must show report type segment');

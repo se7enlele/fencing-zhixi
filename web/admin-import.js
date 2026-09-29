@@ -17,7 +17,6 @@ const feedbackList = document.querySelector('#feedbackList');
 const pilotLeadSummary = document.querySelector('#pilotLeadSummary');
 const feedbackFilterBar = document.querySelector('#feedbackFilterBar');
 
-const token = new URLSearchParams(window.location.search).get('token') || '';
 let lastPayload = null;
 let feedbackRows = [];
 let activeFeedbackFilter = 'all';
@@ -325,14 +324,9 @@ function renderAnalytics(result) {
 
 async function loadAnalytics() {
   if (!analyticsStatus || !analyticsSummary) return;
-  if (!token) {
-    analyticsStatus.textContent = '缺少 token';
-    renderAnalytics({ days: [], totals: {} });
-    return;
-  }
   try {
     analyticsStatus.textContent = '加载中';
-    const response = await fetch(`/api/admin/analytics?token=${encodeURIComponent(token)}&days=14`);
+    const response = await fetch('/api/admin/analytics?days=14');
     const result = await response.json();
     if (!response.ok || !result.ok) throw new Error(result.message || `请求失败：${response.status}`);
     renderAnalytics(result);
@@ -1147,14 +1141,9 @@ function renderFeedback(rows = []) {
 
 async function loadFeedback() {
   if (!feedbackList || !feedbackStatus) return;
-  if (!token) {
-    feedbackStatus.textContent = '缺少 token';
-    renderFeedback([]);
-    return;
-  }
   try {
     feedbackStatus.textContent = '加载中';
-    const response = await fetch(`/api/admin/feedback?token=${encodeURIComponent(token)}`);
+    const response = await fetch('/api/admin/feedback');
     const result = await response.json();
     if (!response.ok || !result.ok) throw new Error(result.message || `请求失败：${response.status}`);
     renderFeedback(result.feedback || []);
@@ -1173,7 +1162,7 @@ async function updateFeedbackStatus(id, status) {
       button.disabled = true;
       button.textContent = '保存中';
     }
-    const response = await fetch(`/api/admin/feedback/status?token=${encodeURIComponent(token)}`, {
+    const response = await fetch('/api/admin/feedback/status', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ id, status }),
@@ -1200,9 +1189,8 @@ async function readSelectedFile() {
 
 async function postJson(path) {
   const content = contentInput.value.trim();
-  if (!token) throw new Error('缺少 token，请使用 /admin/import?token=...');
   if (!content) throw new Error('请先上传或粘贴数据。');
-  const response = await fetch(`${path}?token=${encodeURIComponent(token)}`, {
+  const response = await fetch(path, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({

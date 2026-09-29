@@ -1,4 +1,5 @@
 import adminImportHtml from '../web/admin-import.html';
+import { adminChallenge, verifyAdminBasicAuth } from '../tools/admin-basic-auth.mjs';
 import viewerHtml from '../web/viewer.html';
 import { getPointsMetadata, getPointsPage } from '../tools/points-data.mjs';
 import { buildPreEventCompetitions } from '../tools/pre-event-data.mjs';
@@ -18,7 +19,6 @@ import {
 } from './edge-data.mjs';
 
 const APP_VERSION = 'fencingai-cloudflare';
-const ADMIN_TOKEN = 'fencingai-admin-2026';
 const SCORE_INDEX_KEY = 'score:index';
 const PROJECTLIST_INDEX_KEY = 'projectlist:index';
 const ROSTER_INDEX_KEY = 'registration-roster:index';
@@ -832,7 +832,6 @@ async function handleAnalytics(request, env) {
 }
 
 async function handleAdminAnalytics(env, url) {
-  if (!requireAdmin(url)) return json({ ok: false, message: 'Forbidden' }, 403);
   if (!env.FOLLOWS) return json({ ok: false, message: 'Analytics unavailable' }, 503);
   const limit = Math.min(Math.max(Number(url.searchParams.get('days')) || 14, 1), MAX_ANALYTICS_DAYS);
   const index = await readJsonKv(env.FOLLOWS, ANALYTICS_INDEX_KEY, { days: [] });
@@ -904,7 +903,6 @@ async function handleFeedback(request, env) {
 }
 
 async function handleAdminFeedback(env, url) {
-  if (!requireAdmin(url)) return json({ ok: false, message: 'Forbidden' }, 403);
   const index = await readJsonKv(env.FOLLOWS, FEEDBACK_INDEX_KEY, { ids: [] });
   const ids = Array.isArray(index?.ids) ? index.ids.slice(0, 50) : [];
   const feedback = (await Promise.all(ids.map((id) => readJsonKv(env.FOLLOWS, `feedback:${id}`, null))))
@@ -913,7 +911,6 @@ async function handleAdminFeedback(env, url) {
 }
 
 async function handleAdminFeedbackStatus(request, env, url) {
-  if (!requireAdmin(url)) return json({ ok: false, message: 'Forbidden' }, 403);
   if (!env.FOLLOWS) return json({ ok: false, message: 'Feedback unavailable' }, 503);
   const body = await request.json();
   const id = String(body.id || '').trim();
@@ -1142,10 +1139,6 @@ async function getMergedData(env) {
   };
 }
 
-function requireAdmin(url) {
-  return url.searchParams.get('token') === ADMIN_TOKEN;
-}
-
 async function summarizeRosterImport(env, preview) {
   if (preview.importType !== 'registration-roster') return null;
   const incoming = preview.report.normalized?.records || [];
@@ -1200,7 +1193,6 @@ async function previewResponse(env, preview, exists) {
 }
 
 async function handleAdminImport(request, env, url) {
-  if (!requireAdmin(url)) return json({ ok: false, message: 'Forbidden' }, 403);
   try {
     const body = await readImportBody(request);
     const payload = parseUploadedJsonText(body.content);
@@ -1259,6 +1251,9 @@ async function handleAdminImport(request, env, url) {
 }
 
 async function routeApi(request, env, url) {
+  if (url.pathname.startsWith('/api/admin/') && !await verifyAdminBasicAuth(request.headers.get('Authorization'), env.FENCINGAI_ADMIN_PASSWORD_HASH)) {
+    return adminChallenge();
+  }
   if (request.method === 'GET' && ['/api/points', '/api/points/meta'].includes(url.pathname)) {
     try {
       const options = { kv: env.FOLLOWS };
@@ -1464,7 +1459,8 @@ export default {
     if (url.pathname === '/' || url.pathname === '/viewer') {
       return html(viewerHtml);
     }
-    if (url.pathname === '/admin/import') {
+    if (url.pathname === '/admin/import' || url.pathname === '/admin-import.html') {
+      if (!await verifyAdminBasicAuth(request.headers.get('Authorization'), env.FENCINGAI_ADMIN_PASSWORD_HASH)) return adminChallenge(true);
       return html(adminImportHtml);
     }
     if (url.pathname.startsWith('/api/')) {

@@ -1,8 +1,13 @@
 import { spawn } from 'node:child_process';
+import { pbkdf2Sync, randomBytes } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 
 const port = 5188;
 const baseUrl = `http://127.0.0.1:${port}`;
+const adminPassword = randomBytes(24).toString('hex');
+const adminSalt = randomBytes(16);
+const adminPasswordRecord = `pbkdf2-sha256-v1:150000:${adminSalt.toString('hex')}:${pbkdf2Sync(adminPassword, adminSalt, 150000, 32, 'sha256').toString('hex')}`;
+const adminHeaders = { Authorization: `Basic ${Buffer.from(`admin:${adminPassword}`).toString('base64')}` };
 
 const server = spawn(process.execPath, ['server.mjs'], {
   stdio: ['ignore', 'pipe', 'pipe'],
@@ -11,6 +16,7 @@ const server = spawn(process.execPath, ['server.mjs'], {
     PORT: String(port),
     USER_FOLLOWS_PATH: ':memory:',
     ANALYSIS_OUTPUT_DIR: ':memory:',
+    FENCINGAI_ADMIN_PASSWORD_HASH: adminPasswordRecord,
   },
 });
 
@@ -37,7 +43,17 @@ try {
   const viewer = await fetch(`${baseUrl}/viewer`);
   if (!viewer.ok) throw new Error(`viewer status ${viewer.status}`);
 
-  const adminPage = await fetch(`${baseUrl}/admin/import?token=fencingai-admin-2026`);
+  const adminPageDenied = await fetch(`${baseUrl}/admin/import?token=fencingai-admin-2026`);
+  if (adminPageDenied.status !== 401 || !adminPageDenied.headers.get('www-authenticate')?.startsWith('Basic ')) {
+    throw new Error(`admin page must challenge unauthenticated access, got ${adminPageDenied.status}`);
+  }
+  const adminHtmlDenied = await fetch(`${baseUrl}/admin-import.html`);
+  if (adminHtmlDenied.status !== 401) throw new Error(`admin HTML alias must require login, got ${adminHtmlDenied.status}`);
+  const adminWrongPassword = await fetch(`${baseUrl}/admin/import`, {
+    headers: { Authorization: `Basic ${Buffer.from('admin:wrong-password').toString('base64')}` },
+  });
+  if (adminWrongPassword.status !== 401) throw new Error(`wrong admin password must be denied, got ${adminWrongPassword.status}`);
+  const adminPage = await fetch(`${baseUrl}/admin/import`, { headers: adminHeaders });
   if (!adminPage.ok) throw new Error(`admin import status ${adminPage.status}`);
 
   const events = await fetch(`${baseUrl}/api/competitions`);
@@ -231,7 +247,7 @@ try {
     throw new Error(feedbackSaveResult.message || `feedback save status ${feedbackSave.status}`);
   }
 
-  const adminFeedback = await fetch(`${baseUrl}/api/admin/feedback?token=fencingai-admin-2026`);
+  const adminFeedback = await fetch(`${baseUrl}/api/admin/feedback`, { headers: adminHeaders });
   const adminFeedbackResult = await adminFeedback.json();
   if (!adminFeedback.ok || !adminFeedbackResult.ok) {
     throw new Error(adminFeedbackResult.message || `admin feedback status ${adminFeedback.status}`);
@@ -240,9 +256,9 @@ try {
     throw new Error('submitted feedback missing from admin feedback list');
   }
 
-  const feedbackStatusSave = await fetch(`${baseUrl}/api/admin/feedback/status?token=fencingai-admin-2026`, {
+  const feedbackStatusSave = await fetch(`${baseUrl}/api/admin/feedback/status`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: { ...adminHeaders, 'Content-Type': 'application/json' },
     body: JSON.stringify({ id: feedbackSaveResult.id, status: 'resolved' }),
   });
   const feedbackStatusSaveResult = await feedbackStatusSave.json();
@@ -276,7 +292,7 @@ try {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ content: '{}' }),
   });
-  if (deniedPreview.status !== 403) throw new Error(`admin preview should be forbidden, got ${deniedPreview.status}`);
+  if (deniedPreview.status !== 401) throw new Error(`admin preview should require login, got ${deniedPreview.status}`);
 
   const existingScore = JSON.parse(await readFile('data/analysis/score-RZSS2036022MFIU6-analysis.json', 'utf8'));
   const syntheticScorePayload = {
@@ -310,9 +326,9 @@ try {
     Matchs: [],
     IniStarts: [],
   };
-  const preview = await fetch(`${baseUrl}/api/admin/import/preview?token=fencingai-admin-2026`, {
+  const preview = await fetch(`${baseUrl}/api/admin/import/preview`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: { ...adminHeaders, 'Content-Type': 'application/json' },
     body: JSON.stringify({
       fileName: 'synthetic-score.json',
       sourceUrl: 'smoke-test',
@@ -323,9 +339,9 @@ try {
   if (!preview.ok || !previewResult.ok) throw new Error(previewResult.message || `admin preview status ${preview.status}`);
   const adminPreviewCode = previewResult.preview.eventCode;
 
-  const rosterPreview = await fetch(`${baseUrl}/api/admin/import/preview?token=fencingai-admin-2026`, {
+  const rosterPreview = await fetch(`${baseUrl}/api/admin/import/preview`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: { ...adminHeaders, 'Content-Type': 'application/json' },
     body: JSON.stringify({
       fileName: 'member-page-1.json',
       sourceUrl: 'manual roster smoke',

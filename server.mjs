@@ -14,6 +14,7 @@ import { buildPreEventCompetitions } from './tools/pre-event-data.mjs';
 import { sanitizePublicData } from './tools/public-sanitize.mjs';
 import { buildSearchIndexes, searchIndexes } from './tools/search-index.mjs';
 import { compactCompetitionIndex } from './tools/competition-index.mjs';
+import { adminChallenge, verifyAdminBasicAuth } from './tools/admin-basic-auth.mjs';
 import { normalizeCompetitionState } from './tools/competition-index.mjs';
 import { isTeamEvent } from './tools/entity-kind.mjs';
 import { buildEventDateFallbacks, enrichScoreReportDates } from './tools/event-date.mjs';
@@ -29,7 +30,6 @@ const LOGIN_RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000;
 const LOGIN_RATE_LIMIT_MAX = 12;
 const AUTH_SESSION_TTL_MS = 90 * 24 * 60 * 60 * 1000;
 const APP_VERSION = 'fencingai-product-20260528-1';
-const ADMIN_TOKEN = process.env.FENCINGAI_ADMIN_TOKEN || 'fencingai-admin-2026';
 let memoryFollowStore = { devices: {}, feedback: [], users: {}, identityIndex: {}, sessions: {}, authAttempts: {} };
 
 const MIME_TYPES = {
@@ -113,10 +113,6 @@ function safeAiEnhancementPayload(value) {
     caveats: Array.isArray(value.caveats) ? value.caveats.slice(0, 3).map((row) => trimText(row, 220)).filter(Boolean) : [],
     followups: Array.isArray(value.followups) ? value.followups.slice(0, 3).map((row) => trimText(row, 160)).filter(Boolean) : [],
   };
-}
-
-function hasAdminAccess(url) {
-  return url.searchParams.get('token') === ADMIN_TOKEN;
 }
 
 function safePublicPath(urlPath) {
@@ -999,10 +995,6 @@ async function handleFeedback(request, response) {
 }
 
 async function handleAdminFeedback(response, url) {
-  if (!hasAdminAccess(url)) {
-    sendJson(response, 403, { ok: false, message: 'Forbidden' });
-    return;
-  }
   const store = await readFollowStore();
   sendJson(response, 200, {
     ok: true,
@@ -1012,10 +1004,6 @@ async function handleAdminFeedback(response, url) {
 }
 
 async function handleAdminFeedbackStatus(request, response, url) {
-  if (!hasAdminAccess(url)) {
-    sendJson(response, 403, { ok: false, message: 'Forbidden' });
-    return;
-  }
   try {
     const body = JSON.parse(await readRequestBody(request));
     const id = String(body.id || '').trim();
@@ -1252,10 +1240,6 @@ function previewImportPayload(payload, meta = {}) {
 }
 
 async function handleAdminPreview(request, response, url) {
-  if (!hasAdminAccess(url)) {
-    sendJson(response, 403, { ok: false, message: '访问密钥无效。' });
-    return;
-  }
 
   try {
     const body = JSON.parse(await readRequestBody(request));
@@ -1290,10 +1274,6 @@ async function handleAdminPreview(request, response, url) {
 }
 
 async function handleAdminCommit(request, response, url) {
-  if (!hasAdminAccess(url)) {
-    sendJson(response, 403, { ok: false, message: '访问密钥无效。' });
-    return;
-  }
 
   try {
     const body = JSON.parse(await readRequestBody(request));
@@ -2351,6 +2331,14 @@ async function handleAiEnhance(request, response) {
 
 const server = createServer(async (request, response) => {
   const url = new URL(request.url, `http://${request.headers.host}`);
+
+  if ((url.pathname === '/admin/import' || url.pathname === '/admin-import.html' || url.pathname.startsWith('/api/admin/'))
+    && !await verifyAdminBasicAuth(request.headers.authorization, process.env.FENCINGAI_ADMIN_PASSWORD_HASH)) {
+    const challenge = adminChallenge(url.pathname === '/admin/import' || url.pathname === '/admin-import.html');
+    response.writeHead(challenge.status, Object.fromEntries(challenge.headers));
+    response.end(request.method === 'HEAD' ? '' : await challenge.text());
+    return;
+  }
 
   if (request.method === 'HEAD') {
     const filePath = safePublicPath((url.pathname === '/' || url.pathname === '/viewer') ? '/viewer.html' : url.pathname === '/admin/import' ? '/admin-import.html' : url.pathname);
