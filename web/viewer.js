@@ -11208,7 +11208,7 @@ function renderEventHero(event) {
     <div class="hero-title">${escapeHtml(displayEventName(event))}</div>
     <div class="hero-sub">${escapeHtml(event.sportName)}</div>
     <div class="hero-sub">${escapeHtml(event.venue || '地点待确认')} · ${escapeHtml(event.openDate || '日期待确认')}</div>
-    <p class="detail-source">已收录的赛事成绩${state.dataGeneratedAt ? ` · 数据版本 ${escapeHtml(formatDataGeneratedAt(state.dataGeneratedAt))}` : ''}。现场进度及正式赛果以赛事官方发布为准。</p>
+    <p class="detail-source">${event.isPreEvent ? `已收录报名记录 ${escapeHtml(event.registrationCount || event.participants?.length || 0)} 条` : '已收录的赛事成绩'}${state.dataGeneratedAt ? ` · 数据版本 ${escapeHtml(formatDataGeneratedAt(state.dataGeneratedAt))}` : ''}。${event.isPreEvent ? '报名状态以官方更新为准，最终参赛以现场检录为准。' : '现场进度及正式赛果以赛事官方发布为准。'}</p>
     ${/团体|team/i.test(event.eventName || '') ? '<p class="data-scope-note">团体成绩按本场队伍展示，不计入个人成长档案。</p>' : ''}
     ${tracked.length ? `
       <div class="event-focus-strip">

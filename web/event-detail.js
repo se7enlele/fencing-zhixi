@@ -20,6 +20,7 @@ const EventDetail = {
     const result = [];
     const byId = new Map();
     const add = (row, poolIndex = null) => {
+      if (!row?.name && row?.athleteName) row = { ...row, name: row.athleteName, club: row.club || row.organShortName || row.organName || '' };
       if (!row?.name) return;
       const id = row.id == null ? '' : String(row.id);
       let found = id ? byId.get(id) : result.find((entry) => entry.row === row);
@@ -100,5 +101,5 @@ function renderEventFinder(event) {
 
 function renderEventRoster(event) {
   const entries = EventDetail.athletes(event);
-  document.querySelector('#eventRoster').innerHTML = entries.length ? entries.map(({ row, id }) => `<div class="detail-person" data-roster-id="${escapeHtml(id)}"><strong>${escapeHtml(row.name)}</strong><span>${escapeHtml(row.club || '单位未提供')}</span></div>`).join('') : '<div class="empty">暂无参赛名单。名单公布后可在这里查询。</div>';
+  document.querySelector('#eventRoster').innerHTML = entries.length ? entries.map(({ row, id }) => `<div class="detail-person" data-roster-id="${escapeHtml(id)}"><div><strong>${escapeHtml(row.name)}</strong><small>${escapeHtml(row.club || '单位未提供')}</small></div>${row.approveStatus ? `<span>${escapeHtml(row.approveStatus)}</span>` : ''}</div>`).join('') : '<div class="empty">暂无参赛名单。名单公布后可在这里查询。</div>';
 }

@@ -1,9 +1,26 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import vm from 'node:vm';
+import { hydrateEventDetail } from '../cloudflare/event-detail-hydration.mjs';
 const ctx = vm.createContext({ fallbackPhaseGroups: () => [] });
 vm.runInContext(fs.readFileSync('web/event-detail.js', 'utf8') + '\nglobalThis.detail = EventDetail;', ctx);
 const d = ctx.detail;
+const signupLookup = JSON.parse(fs.readFileSync('web/data/public-data-lookup.json', 'utf8'));
+const signupChunk = JSON.parse(fs.readFileSync('web/' + signupLookup.chunkLookup.eventsByCode.RZSS2036013MFIU8, 'utf8'));
+const signupEvent = hydrateEventDetail(signupChunk.RZSS2036013MFIU8);
+const signupEntries = d.athletes(signupEvent);
+assert.equal(signupEntries.length, 53, 'all registration-schema rows must render');
+assert.ok(signupEntries.every(entry => entry.row.name && entry.row.club));
+assert.equal(signupEntries.filter(entry => entry.row.name === '刘翰泽').length, 2, 'same-name different clubs must stay separate');
+ctx.escapeHtml = value => String(value);
+const rosterHost = { innerHTML: '' };
+ctx.document = { querySelector: () => rosterHost };
+ctx.renderEventRoster(signupEvent);
+assert.equal((rosterHost.innerHTML.match(/class="detail-person"/g) || []).length, 53);
+assert.match(rosterHost.innerHTML, /孟泓睿/);
+assert.match(rosterHost.innerHTML, /北京金石/);
+assert.match(rosterHost.innerHTML, /待缴费/);
+assert.doesNotMatch(rosterHost.innerHTML, /暂无参赛名单/);
 const items = [
   { eventName: 'U10男子花剑个人', openDate: '2026-09-27 08:30:00' },
   { eventName: 'U10女子花剑团体', openDate: '2026-09-28' },
