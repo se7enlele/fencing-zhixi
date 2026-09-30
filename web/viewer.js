@@ -12115,7 +12115,7 @@ function renderMatches(event, activeIndex = 0) {
           <div class="bracket-match tableau-match ${match.isBye ? 'tableau-bye' : ''} ${homeFocus || awayFocus ? 'has-focus-athlete' : ''}">
             <div class="tableau-match-header">
               <span class="tableau-match-code">${escapeHtml(match.matchCode || group.phase)}</span>
-              <span class="tableau-match-state">${match.isBye ? '轮空晋级' : winner !== '-' ? `${escapeHtml(winner)} 晋级` : '待确认'}</span>
+              <span class="tableau-match-state">${match.isBye ? '轮空晋级' : winner !== '-' ? `${escapeHtml(winner)} ${/^(决赛|final)$/i.test(String(group.phase).trim()) ? '冠军' : '晋级'}` : '待确认'}</span>
             </div>
             ${['home', 'away'].filter(side => !match.isBye || (match[side]?.name && !/^bye$/i.test(match[side].name))).map(side => {
               const athlete = match[side] || {};

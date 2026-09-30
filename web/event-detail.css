@@ -26,5 +26,19 @@
 #view-event-detail .pool-quick-summary { display: none; }
 #view-event-detail .pool-matrix th:first-child { z-index: 2; background: #fff; }
 #view-event-detail .pool-matrix th button { min-height: 44px; }
+#view-event-detail .pool-matrix { width: calc(128px + (var(--pool-size, 7) * 36px)); min-width: calc(128px + (var(--pool-size, 7) * 36px)); }
+#view-event-detail .pool-matrix th:first-child, #view-event-detail .pool-matrix td:first-child { width: 128px; min-width: 128px; max-width: 128px; padding: 6px 8px; }
+#view-event-detail .pool-matrix th:not(:first-child), #view-event-detail .pool-matrix td:not(:first-child) { width: 36px; min-width: 36px; max-width: 36px; }
+#view-event-detail .pool-matrix th button { min-height: 36px; padding: 0; white-space: normal; overflow: visible; text-overflow: clip; overflow-wrap: anywhere; font-size: 12px; font-weight: 600; line-height: 1.4; }
+#view-event-detail .pool-matrix thead th { height: 34px; padding: 4px; background: #f7f8fa; color: #667085; font-size: 12px; font-weight: 500; }
+#view-event-detail .pool-matrix td { height: 48px; padding: 4px 0; font-size: 13px; font-variant-numeric: tabular-nums; }
+#view-event-detail .pool-matrix td.self { background: #f2f4f7; color: transparent; }
+#view-event-detail .pool-matrix td.pool-win { background: #eef7f3; color: #087760; }
+#view-event-detail .pool-matrix td.pool-loss { background: #fbf4f2; color: #8a5b50; }
+#view-event-detail .pool-matrix-wrap { touch-action: pan-x pan-y; }
+#view-event-detail .process-scroll-hint { background: transparent; padding: 0; margin: 8px 0 12px; font-size: 11px; color: #667085; }
+#view-event-detail .pool-process-card { padding: 12px; border-color: #e7e9ed; border-radius: 12px; box-shadow: none; }
+#view-event-detail .pool-results-table { min-width: 380px; }
+#view-event-detail .pool-results-table th:first-child, #view-event-detail .pool-results-table td:first-child { width: 112px; white-space: normal; overflow-wrap: anywhere; }
 .detail-filters :focus-visible, .detail-finder :focus-visible { outline: 3px solid #de7b41; outline-offset: 2px; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
