@@ -9611,8 +9611,7 @@ th {
   font-weight: 800;
 }
 
-.pool-quick-summary,
-.tableau-winner-strip {
+.pool-quick-summary {
   display: grid;
   grid-auto-flow: column;
   grid-auto-columns: minmax(132px, 1fr);
@@ -9622,13 +9621,11 @@ th {
   padding-bottom: 2px;
 }
 
-.pool-quick-summary::-webkit-scrollbar,
-.tableau-winner-strip::-webkit-scrollbar {
+.pool-quick-summary::-webkit-scrollbar {
   display: none;
 }
 
-.pool-quick-summary div,
-.tableau-winner-strip div {
+.pool-quick-summary div {
   min-width: 0;
   border: 1px solid rgba(13, 125, 103, 0.12);
   border-radius: 9px;
@@ -9638,10 +9635,7 @@ th {
 
 .pool-quick-summary em,
 .pool-quick-summary strong,
-.pool-quick-summary span,
-.tableau-winner-strip span,
-.tableau-winner-strip strong,
-.tableau-winner-strip em {
+.pool-quick-summary span {
   display: block;
   min-width: 0;
   overflow: hidden;
@@ -9649,24 +9643,21 @@ th {
   white-space: nowrap;
 }
 
-.pool-quick-summary em,
-.tableau-winner-strip span {
+.pool-quick-summary em {
   color: var(--muted);
   font-size: 11px;
   font-style: normal;
   font-weight: 800;
 }
 
-.pool-quick-summary strong,
-.tableau-winner-strip strong {
+.pool-quick-summary strong {
   margin-top: 3px;
   color: var(--text);
   font-size: 13px;
   font-weight: 900;
 }
 
-.pool-quick-summary span,
-.tableau-winner-strip em {
+.pool-quick-summary span {
   margin-top: 3px;
   color: var(--primary);
   font-size: 12px;
@@ -9783,10 +9774,7 @@ th {
   align-items: flex-start;
   justify-content: space-between;
   gap: 10px;
-  border: 1px solid rgba(21, 95, 194, 0.1);
-  border-radius: 10px;
-  background: rgba(21, 95, 194, 0.045);
-  padding: 10px 11px;
+  padding: 0 1px 10px;
 }
 
 .tableau-phase-summary strong,
@@ -9844,9 +9832,32 @@ th {
 
 .tableau-match {
   display: grid;
-  gap: 8px;
+  gap: 0;
   overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 0 14px;
+  box-shadow: none;
 }
+
+.tableau-match.has-focus-athlete { border-color: rgba(8, 119, 96, 0.25); box-shadow: none; }
+.tableau-round-control { display: grid; grid-template-columns: 40px minmax(90px, 140px) 40px 1fr; align-items: center; gap: 8px; padding-bottom: 10px; }
+.tableau-round-control button { width: 40px; min-height: 42px; border: 1px solid var(--border); border-radius: 9px; background: #fff; color: var(--text); font-size: 24px; padding: 0; }
+.tableau-round-control button:disabled { opacity: 0.35; cursor: default; }
+.tableau-round-select { width: 100%; min-height: 42px; border: 1px solid var(--border); border-radius: 9px; background: #fff; color: var(--text); font-size: 15px; font-weight: 600; padding: 0 12px; }
+.tableau-round-position { justify-self: end; color: var(--muted); font-size: 12px; font-variant-numeric: tabular-nums; }
+.tableau-round-control button:focus-visible, .tableau-round-select:focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; }
+.tableau-match-header { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 0 8px; }
+.tableau-match-state { color: var(--teal); font-size: 11px; font-weight: 500; text-align: right; overflow-wrap: anywhere; }
+.tableau-athlete-row { display: grid; grid-template-columns: 24px minmax(0, 1fr) auto; gap: 9px; align-items: center; padding: 11px 0; }
+.tableau-athlete-row + .tableau-athlete-row { border-top: 1px solid var(--hairline); }
+.tableau-seed { color: var(--muted); font-size: 12px; font-variant-numeric: tabular-nums; }
+.tableau-athlete-info { min-width: 0; }
+.tableau-athlete-info strong { display: block; color: var(--text); font-size: 15px; font-weight: 600; line-height: 1.4; overflow-wrap: anywhere; }
+.tableau-athlete-info small { display: block; color: var(--muted); font-size: 11px; line-height: 1.5; margin-top: 2px; overflow-wrap: anywhere; }
+.tableau-athlete-score { min-width: 26px; text-align: right; color: var(--text); font-size: 22px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.tableau-athlete-row.winner .tableau-athlete-score { color: var(--teal); }
+.tableau-bye .tableau-athlete-row { padding-top: 5px; }
 
 .tableau-match::after {
   display: none;

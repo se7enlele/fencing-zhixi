@@ -12080,18 +12080,6 @@ function tableauPhaseStats(matches) {
   };
 }
 
-function tableauWinnerRows(matches, limit = 4) {
-  return (matches || [])
-    .filter((match) => !match.isBye)
-    .map((match) => ({
-      winner: matchWinnerName(match),
-      score: matchScoreText(match),
-      code: match.matchCode || '',
-    }))
-    .filter((row) => row.winner && row.winner !== '-')
-    .slice(0, limit);
-}
-
 function renderMatches(event, activeIndex = 0) {
   const groups = event.eliminationPhaseGroups?.length
     ? event.eliminationPhaseGroups
@@ -12104,61 +12092,40 @@ function renderMatches(event, activeIndex = 0) {
   const group = groups[index];
   const matches = sortedTableauMatches(group.matches || []);
   const stats = tableauPhaseStats(matches);
-  const winnerRows = tableauWinnerRows(matches);
   matchList.innerHTML = `
-    <div class="process-switch phase-switch" aria-label="选择轮次">
-      <button type="button" data-phase-index="${index - 1}" ${index === 0 ? 'disabled' : ''} aria-label="上一轮">‹ 上一轮</button>
-      ${groups.map((item, itemIndex) => `
-        <button type="button" class="${itemIndex === index ? 'active' : ''}" data-phase-index="${itemIndex}">
-          ${escapeHtml(item.phase)}
-        </button>
-      `).join('')}
-      <button type="button" data-phase-index="${index + 1}" ${index === groups.length - 1 ? 'disabled' : ''} aria-label="下一轮">下一轮 ›</button>
+    <div class="tableau-round-control" aria-label="选择轮次">
+      <button type="button" data-phase-index="${index - 1}" ${index === 0 ? 'disabled' : ''} aria-label="上一轮">‹</button>
+      <select class="tableau-round-select" aria-label="比赛轮次">
+        ${groups.map((item, itemIndex) => `<option value="${itemIndex}" ${itemIndex === index ? 'selected' : ''}>${escapeHtml(item.phase)}</option>`).join('')}
+      </select>
+      <button type="button" data-phase-index="${index + 1}" ${index === groups.length - 1 ? 'disabled' : ''} aria-label="下一轮">›</button>
+      <span class="tableau-round-position">${escapeHtml(index + 1)} / ${escapeHtml(groups.length)}</span>
     </div>
     <section class="tableau-phase-summary">
       <div>
-        <strong>${escapeHtml(group.phase)}</strong>
-        <span>${escapeHtml(stats.contested)} 场实际对阵 · ${escapeHtml(stats.played)} 场已完成 · ${escapeHtml(stats.bye)} 人轮空晋级</span>
+        <span>${escapeHtml(stats.contested)} 场实际对阵 · ${escapeHtml(stats.played)} 场已完成${stats.bye ? ` · ${escapeHtml(stats.bye)} 人轮空晋级` : ''}</span>
       </div>
-      <em>${escapeHtml(index + 1)} / ${escapeHtml(groups.length)}</em>
     </section>
-    ${winnerRows.length ? `
-      <section class="tableau-winner-strip" aria-label="本轮晋级摘要">
-        ${winnerRows.map((row) => `
-          <div>
-            <span>${escapeHtml(row.code ? `对阵 ${row.code}` : group.phase)}</span>
-            <strong>${escapeHtml(row.winner)}</strong>
-            <em>${escapeHtml(row.score)}</em>
-          </div>
-        `).join('')}
-      </section>
-    ` : ''}
     <section class="bracket-board tableau-board">
       ${matches.map((match) => {
-        const homeWon = match.home?.result === 'W';
-        const awayWon = match.away?.result === 'W';
         const homeFocus = focusClassForAthlete(match.home);
         const awayFocus = focusClassForAthlete(match.away);
+        const winner = matchWinnerName(match);
         return `
-          <div class="bracket-match tableau-match ${homeFocus || awayFocus ? 'has-focus-athlete' : ''}">
-            <div class="tableau-match-code">${escapeHtml(match.matchCode ? `对阵 ${match.matchCode}` : group.phase)}</div>
-            <div class="tableau-match-body">
-              <div class="tableau-player-stack">
-                <div class="bracket-row ${homeWon ? 'winner' : ''} ${homeFocus}">
-                  <span>${escapeHtml(match.isBye && /^bye$/i.test(match.home?.name || '') ? '轮空' : `${phaseSeed(match, 'home')} ${match.home?.name || '空'}`.trim())}</span>
-                  <small>${escapeHtml(match.home?.club || '')}</small>
-                </div>
-                <div class="bracket-row ${awayWon ? 'winner' : ''} ${awayFocus}">
-                  <span>${escapeHtml(match.isBye && /^bye$/i.test(match.away?.name || '') ? '轮空' : `${phaseSeed(match, 'away')} ${match.away?.name || '空'}`.trim())}</span>
-                  <small>${escapeHtml(match.away?.club || '')}</small>
-                </div>
-              </div>
-              <div class="tableau-score-pill">${escapeHtml(matchScoreText(match))}</div>
+          <div class="bracket-match tableau-match ${match.isBye ? 'tableau-bye' : ''} ${homeFocus || awayFocus ? 'has-focus-athlete' : ''}">
+            <div class="tableau-match-header">
+              <span class="tableau-match-code">${escapeHtml(match.matchCode || group.phase)}</span>
+              <span class="tableau-match-state">${match.isBye ? '轮空晋级' : winner !== '-' ? `${escapeHtml(winner)} 晋级` : '待确认'}</span>
             </div>
-            <div class="tableau-advance-row">
-              <span>${match.isBye ? '轮空晋级' : '晋级'}</span>
-              <strong>${escapeHtml(matchWinnerName(match))}</strong>
-            </div>
+            ${['home', 'away'].filter(side => !match.isBye || (match[side]?.name && !/^bye$/i.test(match[side].name))).map(side => {
+              const athlete = match[side] || {};
+              const won = athlete.result === 'W';
+              return `<div class="tableau-athlete-row ${won ? 'winner' : ''} ${side === 'home' ? homeFocus : awayFocus}">
+                <span class="tableau-seed">${escapeHtml(athlete.position ?? '—')}</span>
+                <div class="tableau-athlete-info"><strong>${escapeHtml(athlete.name || '待确认')}</strong><small>${escapeHtml(athlete.club || '')}</small></div>
+                ${match.isBye ? '' : `<strong class="tableau-athlete-score" aria-label="${escapeHtml(athlete.name || '选手')} 得分">${escapeHtml(athlete.points ?? '—')}</strong>`}
+              </div>`;
+            }).join('')}
           </div>
         `;
       }).join('')}
@@ -12168,6 +12135,7 @@ function renderMatches(event, activeIndex = 0) {
   matchList.querySelectorAll('[data-phase-index]').forEach((button) => {
     button.addEventListener('click', () => renderMatches(event, Number(button.dataset.phaseIndex)));
   });
+  matchList.querySelector('.tableau-round-select')?.addEventListener('change', (changeEvent) => renderMatches(event, Number(changeEvent.target.value)));
 }
 
 function fallbackPhaseGroups(matches) {
