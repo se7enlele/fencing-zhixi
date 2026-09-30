@@ -43,6 +43,12 @@ Before selecting tasks, the script refreshes:
 This keeps newly published competitions visible to the sync planner. Use `--skip-event-list-refresh` only for local debugging.
 All scheduled platform requests use `https://fencing-proxy.aixindiandian.workers.dev` by default, including project lists, score resources, and registration rosters. This avoids direct official-site requests from GitHub Actions.
 
+Certified individual rosters (`RZSS` projects) now use `/matchregister/v3/signup/conditionQuery` through the same proxy, routed to the certified-event backend. The proxy identifies these requests as `FencingAI-DataSync/1.0`. Requests carry sport ID, weapon, gender and age-group codes from the project list. `--roster-api legacy` is available for verified legacy integrations; team rosters retain the existing paginated interface. Empty responses require verification and do not replace existing rosters. HTTP access rejections are not retried as transient failures.
+
+Each scheduled task writes to an isolated staging directory. Only successful tasks are merged into `data/analysis`; failed tasks retain the previous data and their diagnostics. The workflow builds, tests and publishes accepted updates, then reports incomplete sync as a failure so it remains visible. A failed event-directory refresh still stops the run before publication. Ranking-only fallbacks never overwrite previously collected pool or elimination details.
+
+When a project date contradicts the event directory, the contradictory project time is retained as source evidence but is not presented as the current schedule. Registration-scale cards use collected roster records; configured project totals are not presented as confirmed registrations.
+
 Pre-event tasks:
 
 - Status: `registration`, `live`, or `upcoming`.
@@ -123,7 +129,7 @@ Until that storage migration is done, GitHub Actions is the correct automation l
 - Each scheduled child has a 600-second budget (`--task-timeout-sec`). A failed import returns a nonzero exit status, including failures caught inside the import loop.
 - The catalogue refresh rejects empty or malformed rows and atomically replaces the old file only after validation. Refresh failure preserves the old catalogue and writes a failed sync status.
 - The scheduler saves an atomic checkpoint after each task. `phase=running` is not a successful update; an interrupted run retains that state. Successful task execution and the count of imported files are separate fields.
-- GitHub Actions uploads diagnostics even on failure; a failed sync still blocks deployment. Diagnostics are not a substitute for a successful production refresh.
+- GitHub Actions uploads diagnostics even on failure. Catalogue refresh failure blocks deployment; failed isolated child tasks preserve their prior data while validated successful tasks may publish. The final workflow status still reports incomplete synchronization as failed.
 - `scheduled-sync-status.json` is excluded from source-data freshness calculations, so a failed check cannot make source data appear newly fetched.
 
 Run `npm run test:data-trust` for catalogue preservation, failed child exits, stalled bodies, task timeouts, expiry boundaries, coverage tiers and individual/team separation. Use `CF_BUILD_OUTPUT_ROOT=output/review-20260923` with `npm run cf:build-data` to inspect a build without replacing the existing generated files. After an explicitly authorized deployment, verify production `generatedAt`, expected records and the last sync report through the public APIs.
@@ -134,6 +140,6 @@ Run `npm run test:data-trust` for catalogue preservation, failed child exits, st
 - Public forwarding requests and machines with proxy environment variables use curl, which honors the configured network proxy. Local test requests remain direct. GET transport retries transient failures twice within a bounded budget; POST body reads have the same timeout protection as GET.
 - A missing score resource (HTTP 404) plus a successful, empty official ranking list is recorded as `unavailableCount`, separately from failed requests and imported files. Timeouts and nonzero source API codes remain failures. A completed sync never proves every project's results have been published.
 - Publish the same revision to the default branch used by scheduled workflows and to the Worker; otherwise a later automatic run can restore an older application version.
-- Roster imports use two concurrent requests. Scheduled retries reuse successful roster pages fetched within the previous 60 minutes, including verified empty responses, and retry missing pages. The normal six-hour cadence still refreshes them. A skipped empty first page does not trigger fictitious later pages.
+- Roster imports use two concurrent requests. Scheduled retries reuse positive roster snapshots fetched within the previous 60 minutes and retry missing pages. Legacy empty responses require verification and are not cached as successful imports. The normal six-hour cadence still refreshes snapshots. Certified full-list responses are fetched once rather than paginated.
 - Team results first check the official ranking endpoint. An explicitly successful empty list is recorded as unavailable without repeatedly requesting an unpublished score file. Ranking request failures remain failures.
 - Release-day cloud verification still encountered intermittent upstream HTTP timeouts. An HTTPS fallback was tested, returned an origin certificate error (526), and was reverted. Do not interpret the successful local sync or main-site deployment as proof that recurring cloud sync is stable; see `docs/release-20260924.md` for run links and boundaries.

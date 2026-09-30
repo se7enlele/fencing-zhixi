@@ -118,8 +118,12 @@ try {
   });
   await writeFile(path.join(fixtureDir, `projectlist-${sportId}-analysis.json`), JSON.stringify({ normalizedItems: [{ sourceEventCode: 'TESTMFIU6', sourceSportCode: 'TEST', itemTypeCode: 'I' }] }));
   await writeFile(path.join(fixtureDir, 'registration-roster-TEST-TESTMFIU6-1.json'), JSON.stringify({ ok: true, source: { importedAt: new Date().toISOString() }, page: { total: 0 }, summary: { recordCount: 0 } }));
-  const resumed = await run(process.execPath, ['tools/sync-platform-data.mjs', '--input', input, '--output-dir', fixtureDir, '--sport-id', String(sportId), '--roster-base', base, '--no-projectlist', '--no-score', '--roster', '--force-roster', '--roster-max-age-minutes', '60'], { timeout: 15000 });
-  assert.equal(JSON.parse(resumed.stdout).summary.skippedCount, 1, 'a fresh verified empty roster must be reusable during an upstream outage');
+  const oldEmpty = await readFile(path.join(fixtureDir, 'registration-roster-TEST-TESTMFIU6-1.json'), 'utf8');
+  await assert.rejects(run(process.execPath, ['tools/sync-platform-data.mjs', '--input', input, '--output-dir', fixtureDir, '--sport-id', String(sportId), '--roster-base', base, '--no-projectlist', '--no-score', '--roster', '--force-roster', '--roster-max-age-minutes', '60'], { timeout: 15000 }), error => {
+    const report = JSON.parse(error.stdout);
+    return error.code === 1 && report.summary.failedCount > 0 && report.summary.skippedCount === 0;
+  }, 'an old empty legacy roster cannot disguise an upstream outage as successful synchronization');
+  assert.equal(await readFile(path.join(fixtureDir, 'registration-roster-TEST-TESTMFIU6-1.json'), 'utf8'), oldEmpty, 'failed refresh preserves the prior source file');
 } finally {
   origin.closeAllConnections();
   await new Promise((resolve) => origin.close(resolve));

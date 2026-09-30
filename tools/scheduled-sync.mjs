@@ -1,5 +1,6 @@
 import { execFile } from 'node:child_process';
-import { mkdir, readdir, readFile, writeFile, rename } from 'node:fs/promises';
+import { mkdir, readdir, readFile, writeFile, rename, copyFile } from 'node:fs/promises';
+import { randomUUID } from 'node:crypto';
 import path from 'node:path';
 import process from 'node:process';
 import { promisify } from 'node:util';
@@ -444,6 +445,39 @@ async function runTask(task, timeoutSec = 600) {
   }
 }
 
+export async function runIsolatedTask(task, args, execute = runTask) {
+  const stagingDir = path.resolve(args.reportDir, 'tasks', `${task.type}-${task.sportId}-${randomUUID()}`);
+  await mkdir(stagingDir, { recursive: true });
+  const names = await readdir(args.outputDir);
+  const relevant = name => name === `projectlist-${task.sportId}-analysis.json`
+    || name.startsWith(`score-${task.sportCode}`)
+    || name.startsWith(`registration-roster-${task.sportCode}-`);
+  for (const name of names.filter(relevant)) await copyFile(path.join(args.outputDir, name), path.join(stagingDir, name));
+  const scriptArgs = [...task.scriptArgs];
+  scriptArgs[scriptArgs.indexOf('--output-dir') + 1] = stagingDir;
+  const result = await execute({ ...task, scriptArgs }, args.taskTimeoutSec);
+  const committedFiles = [];
+  if (result.ok) {
+    const staged = [];
+    for (const name of (await readdir(stagingDir)).filter(relevant)) {
+      const source = path.join(stagingDir, name);
+      const text = await readFile(source, 'utf8');
+      const report = JSON.parse(stripBom(text));
+      if (report.ok === false) throw new Error(`Invalid staged report: ${name}`);
+      staged.push({ name, source, text });
+    }
+    for (const { name, source, text } of staged) {
+      const dest = path.join(args.outputDir, name);
+      if (await readFile(dest, 'utf8').catch(() => null) === text) continue;
+      const temp = `${dest}.tmp-${randomUUID()}`;
+      await copyFile(source, temp);
+      await rename(temp, dest);
+      committedFiles.push(name);
+    }
+  }
+  return { ...result, scriptArgs: task.scriptArgs, stagingDir, committedFiles, retainedPreviousData: !result.ok };
+}
+
 async function writeRunReport(reportDir, report) {
   await mkdir(reportDir, { recursive: true });
   const stamp = new Date().toISOString().replace(/[:.]/g, '-');
@@ -588,6 +622,7 @@ async function main() {
   const completedResults = [];
   let checkpoint = Promise.resolve();
   const results = await runScheduledTasks(plan.tasks, {
+    execute: (task) => runIsolatedTask(task, args),
     concurrency: args.taskConcurrency,
     taskTimeoutSec: args.taskTimeoutSec,
     onProgress: async ({ phase, task, result }) => {

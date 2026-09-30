@@ -108,6 +108,14 @@ const detail = {
 };
 assert.deepEqual(hydrateEventDetail(compactEventDetail(detail)), detail);
 assert.deepEqual(compactEventDetail({ ...detail, latestMatches: [matches[0]] }).latestMatches, [matches[0]]);
+const firstBout = { homeScore: 'V', awayScore: 0, order: 1 };
+const unfinishedBout = { homeScore: null, awayScore: null, order: 2 };
+const pools = { poolGroups: [{ bouts: [firstBout, unfinishedBout] }], poolBouts: [unfinishedBout, firstBout] };
+assert.deepEqual(hydrateEventDetail(compactEventDetail(pools)), pools, 'pool bout references preserve exact order, scores and unfinished values');
+assert.deepEqual(compactEventDetail({ ...pools, poolBouts: [{ order: 3 }] }).poolBouts, [{ order: 3 }], 'unmatched bouts stay intact');
+assert.throws(() => hydrateEventDetail({ poolGroups: [], _poolBoutIndexes: [0] }), /Invalid compact/);
+const preEvent = { isPreEvent: true, participants: [{ athleteName: 'test' }], athleteProfiles: [], clubProfiles: [], poolGroups: [], poolBouts: [], poolStandings: [], eliminationMatches: [] };
+assert.deepEqual(hydrateEventDetail(compactEventDetail(preEvent)), preEvent, 'empty pre-event process lists are restored without losing roster entries');
 
 console.log(
   `public-data-budget ok: ${publicDataFiles.length} files, ${(totalBytes / ONE_MIB).toFixed(2)} MiB total, ${chunkPaths.size} chunks`,

@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import './roster-source-test.mjs';
 import { readFile } from 'node:fs/promises';
 import {
   buildHistoricalBackfillTasks,
@@ -233,7 +234,8 @@ assert.equal(refreshDiff.added[0].sportId, 105);
 assert.equal(refreshDiff.added[0].sportName, 'New Event');
 
 const workflow = await readFile(new URL('../.github/workflows/scheduled-sync.yml', import.meta.url), 'utf8');
-assert.match(workflow, /--fail-on-task-error/, 'scheduled workflow must stop before deploy when sync tasks fail');
+assert.doesNotMatch(workflow, /--fail-on-task-error/, 'isolated successful tasks can reach build and deployment');
+assert.ok(workflow.indexOf('Report incomplete sync after publishing successful tasks') > workflow.indexOf('Deploy to Cloudflare'), 'failed tasks remain visible after successful data is published');
 assert.match(workflow, /timeout-minutes:\s*90/, 'scheduled workflow must allow the bounded sync batch to finish');
 assert.match(workflow, /--task-concurrency\s+"2"/, 'scheduled workflow must use bounded event concurrency');
 assert.match(workflow, /git add data\/analysis web\/data cloudflare\/data/, 'scheduled workflow must commit sync status with generated data');

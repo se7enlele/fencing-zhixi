@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-09-28T10:43:03.879Z",
-  "ok": true,
+  "generatedAt": "2026-09-30T12:52:12.936Z",
+  "ok": false,
   "phase": "finished",
   "summary": {
     "taskCount": 0,
     "successCount": 0,
-    "failedCount": 0,
+    "failedCount": 1,
     "activeCount": 0,
     "completedCount": 0,
     "backfillCount": 0,
@@ -14,9 +14,8 @@
     "unavailableCount": 0
   },
   "eventListRefresh": {
-    "ok": true,
-    "eventCount": 752,
-    "outputPath": "data/analysis/frontsporteventlist-analysis.json"
+    "ok": false,
+    "message": "赛事目录获取失败，保留原有数据。"
   },
   "failures": []
 }

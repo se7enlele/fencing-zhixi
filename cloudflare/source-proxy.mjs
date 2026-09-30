@@ -23,12 +23,16 @@ export default {
       });
     }
 
-    const targetURL = TARGET_BASE + url.pathname + url.search;
+    const certifiedRoster = url.pathname === '/matchregister/v3/signup/conditionQuery';
+    const targetURL = (certifiedRoster ? 'https://fencingcert.yy-sport.com.cn' : TARGET_BASE) + url.pathname + url.search;
 
     const response = await fetch(targetURL, {
       method: request.method,
       headers: {
-        ...BROWSER_HEADERS,
+        ...(certifiedRoster ? {
+          Accept: 'application/json',
+          'User-Agent': 'FencingAI-DataSync/1.0',
+        } : BROWSER_HEADERS),
         ...(request.headers.get("Content-Type")
           ? { "Content-Type": request.headers.get("Content-Type") }
           : {}),

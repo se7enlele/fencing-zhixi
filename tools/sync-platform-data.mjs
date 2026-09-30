@@ -9,10 +9,11 @@ import { buildProjectListReport } from './parse-projectlist.mjs';
 import { buildRegistrationRosterReport } from './parse-registration-roster.mjs';
 import { buildScoreReport } from './parse-score.mjs';
 import { isTeamEvent } from './entity-kind.mjs';
+import { rosterRequest, assertRosterRefresh } from './roster-source.mjs';
 
 const execFileAsync = promisify(execFile);
 const DEFAULT_PROXY_BASE = 'https://fencing-proxy.aixindiandian.workers.dev';
-const DEFAULT_ROSTER_BASE = 'https://fencing.yy-sport.com.cn';
+const DEFAULT_ROSTER_BASE = DEFAULT_PROXY_BASE;
 const DEFAULT_HEADERS = {
   Accept: 'application/json',
   Referer: 'https://fencing.yy-sport.com.cn/',
@@ -32,6 +33,7 @@ function parseArgs(argv) {
     outputDir: 'data/analysis',
     proxyBase: DEFAULT_PROXY_BASE,
     rosterBase: DEFAULT_ROSTER_BASE,
+    rosterApi: 'auto',
     status: 'completed',
     limit: 5,
     delayMs: 400,
@@ -47,6 +49,7 @@ function parseArgs(argv) {
     rosterAgeGroups: [],
     rosterWeapons: [],
     rosterItemTypes: [],
+    rosterEventCodes: [],
     sportId: null,
     startAfterSportId: null,
     progress: true,
@@ -65,6 +68,7 @@ function parseArgs(argv) {
     if (arg === '--output-dir' || arg === '-o') args.outputDir = argv[++i];
     if (arg === '--proxy-base') args.proxyBase = argv[++i].replace(/\/$/, '');
     if (arg === '--roster-base') args.rosterBase = argv[++i].replace(/\/$/, '');
+    if (arg === '--roster-api') args.rosterApi = argv[++i];
     if (arg === '--status') args.status = argv[++i];
     if (arg === '--limit') args.limit = Number(argv[++i]);
     if (arg === '--delay-ms') args.delayMs = Number(argv[++i]);
@@ -80,6 +84,7 @@ function parseArgs(argv) {
     if (arg === '--roster-age-groups') args.rosterAgeGroups = argv[++i].split(',').map((value) => value.trim()).filter(Boolean);
     if (arg === '--roster-weapons') args.rosterWeapons = argv[++i].split(',').map((value) => value.trim()).filter(Boolean);
     if (arg === '--roster-item-types') args.rosterItemTypes = argv[++i].split(',').map((value) => value.trim()).filter(Boolean);
+    if (arg === '--roster-event-codes') args.rosterEventCodes = argv[++i].split(',').map((value) => value.trim()).filter(Boolean);
     if (arg === '--sport-id') args.sportId = Number(argv[++i]);
     if (arg === '--start-after-sport-id') args.startAfterSportId = Number(argv[++i]);
     if (arg === '--quiet') args.progress = false;
@@ -91,6 +96,8 @@ function parseArgs(argv) {
     if (arg === '--force-score') args.forceScore = true;
     if (arg === '--dry-run') args.dryRun = true;
   }
+
+  if (!['auto', 'legacy', 'condition-query'].includes(args.rosterApi)) throw new Error('Invalid --roster-api; use auto, legacy or condition-query.');
 
   return args;
 }
@@ -437,6 +444,7 @@ async function fetchJsonTextWithRetry(url, args, context = {}) {
       return parseJsonOrJsObject(await fetchText(url, args.timeoutSec));
     } catch (error) {
       lastError = error;
+      if (/HTTP (401|403)|returned error: (401|403)|Forbidden|WAF/i.test(error.message)) break;
       if (attempt < attempts) {
         progress(args, 'fetch retry', { ...context, attempt, message: error.message });
         await sleep(Math.max(args.delayMs, 500) * attempt);
@@ -590,6 +598,14 @@ async function syncScoreItem(item, event, args, files, log) {
     if (!hasScoreRankingRows(report)) {
       throw new Error(`score payload has no ranking rows from ${fetched.sourceType}`);
     }
+    if (files.has(fileName) && fetched.sourceType === 'classmentrank') {
+      const previous = JSON.parse(stripBom(await readFile(path.join(args.outputDir, fileName), 'utf8')));
+      if (hasDetailedScore(previous)) {
+        log.scores.skipped += 1;
+        progress(args, 'ranking-only fallback retained existing detailed score', { eventCode });
+        return;
+      }
+    }
     await writeReport(args.outputDir, fileName, report);
     files.add(fileName);
     log.scores.imported += 1;
@@ -600,12 +616,17 @@ async function syncScoreItem(item, event, args, files, log) {
   }
 }
 
+export function hasDetailedScore(report) {
+  return Boolean(report?.normalized?.poolBouts?.length || report?.normalized?.eliminationMatches?.length || report?.normalized?.poolGroups?.length);
+}
+
 function rosterUserType(item) {
   return item.itemTypeCode === 'T' || item.itemType === '团体' ? 'team' : 'athlete';
 }
 
 function filterRosterItems(items, args) {
   return (items || []).filter((item) => {
+    if (args.rosterEventCodes?.length && !args.rosterEventCodes.includes(item.sourceEventCode || item.eventCode)) return false;
     if (args.rosterAgeGroups.length && !args.rosterAgeGroups.includes(item.ageGroup)) return false;
     if (args.rosterWeapons.length && !args.rosterWeapons.includes(item.weapon)) return false;
     if (args.rosterItemTypes.length && !args.rosterItemTypes.includes(item.itemType)) return false;
@@ -627,6 +648,7 @@ async function fetchRosterReport(url, body, source, args) {
       if (payload?.code !== undefined && Number(payload.code) !== 0) {
         throw new Error(payload.msg || `roster API code ${payload.code}`);
       }
+      if (source.sourceType === 'condition-query' && !Array.isArray(payload?.data)) throw new Error('conditionQuery did not return its expected data array.');
       return buildRegistrationRosterReport(payload, source);
     } catch (error) {
       lastError = error;
@@ -639,59 +661,67 @@ async function fetchRosterReport(url, body, source, args) {
   throw lastError;
 }
 
-async function syncRosterItem(item, args, files, log) {
+async function syncRosterItem(item, event, args, files, log) {
   const eventCode = item.sourceEventCode || item.eventCode;
   const sportCode = item.sourceSportCode || item.sportCode;
   if (!eventCode) return;
 
   const pageSize = Number.isFinite(args.rosterPageSize) && args.rosterPageSize > 0 ? args.rosterPageSize : 100;
   const maxPages = Number.isFinite(args.rosterMaxPages) && args.rosterMaxPages > 0 ? args.rosterMaxPages : 1;
-  const body = {
-    eventCode,
-    searchName: '',
-    userType: rosterUserType(item),
-  };
-
   for (let page = 1; page <= maxPages; page += 1) {
     const fileName = rosterFileName(sportCode, eventCode, page);
+    const request = rosterRequest(item, event, args, page);
     const existingReport = files.has(fileName)
       ? JSON.parse(stripBom(await readFile(path.join(args.outputDir, fileName), 'utf8'))) : null;
     const importedAt = Date.parse(existingReport?.source?.importedAt || '');
     const age = Date.now() - importedAt;
-    const recent = existingReport?.ok === true && age >= 0 && age < args.rosterMaxAgeMinutes * 60000;
-    if (existingReport && (!args.forceRoster || recent)) {
+    const recent = existingReport?.ok === true && existingReport.summary?.recordCount > 0 && age >= 0 && age < args.rosterMaxAgeMinutes * 60000;
+    const sameApi = existingReport?.source?.sourceType === request.sourceType
+      || (request.sourceType === 'legacy-roster' && !existingReport?.source?.sourceType);
+    if (existingReport && sameApi && existingReport.summary?.recordCount > 0 && (!args.forceRoster || recent)) {
       log.rosters.skipped += 1;
       progress(args, 'roster skipped', { eventCode, page });
       const expectedPages = expectedRosterPages(existingReport, pageSize);
-      if (existingReport.summary.recordCount === 0 || (expectedPages && page >= expectedPages)) break;
+      if (request.wholeList || (expectedPages && page >= expectedPages)) break;
       continue;
     }
 
-    const url = `${args.rosterBase}/fencingapi/sigup/memberlistbytype?current=${encodeURIComponent(page)}&size=${encodeURIComponent(pageSize)}`;
+    const { url } = request;
     if (args.dryRun) {
-      log.rosters.dryRun.push({ eventCode, page, url, body });
+      log.rosters.dryRun.push({ eventCode, page, ...request });
+      if (request.wholeList) break;
       continue;
     }
 
     try {
-      progress(args, 'roster fetch', { eventCode, page, userType: body.userType });
-      const report = await fetchRosterReport(url, body, {
+      progress(args, 'roster fetch', { eventCode, page, sourceType: request.sourceType });
+      const report = await fetchRosterReport(url, request.body, {
         sourceUrl: url,
+        sourceType: request.sourceType,
+        requestBody: request.body,
         eventCode,
         sportCode,
+        sportName: event.sportName,
+        eventName: item.itemName || item.eventName,
         page,
         pageSize,
         importedAt: new Date().toISOString(),
       }, args);
+      assertRosterRefresh(report, existingReport);
       await writeReport(args.outputDir, fileName, report);
       files.add(fileName);
       log.rosters.imported += 1;
       progress(args, 'roster imported', { eventCode, page, records: report.summary.recordCount, total: report.page.total });
 
+      if (request.wholeList) break;
       const expectedPages = expectedRosterPages(report, pageSize) || page;
       if (report.summary.recordCount === 0 || page >= expectedPages) break;
       await sleep(args.delayMs);
     } catch (error) {
+      if (request.sourceType === 'legacy-roster' && /Empty roster response needs source verification/.test(error.message)) {
+        log.rosters.unavailable.push({ eventCode, page, reason: error.message });
+        break;
+      }
       log.rosters.failed.push({ eventCode, page, message: error.message });
       progress(args, 'roster failed', { eventCode, page, message: error.message });
       break;
@@ -720,6 +750,7 @@ async function main() {
     outputDir: args.outputDir,
     proxyBase: args.proxyBase,
     rosterBase: args.rosterBase,
+    rosterApi: args.rosterApi,
     status: args.status,
     limit: args.limit,
     timeoutSec: args.timeoutSec,
@@ -758,6 +789,7 @@ async function main() {
       imported: 0,
       skipped: 0,
       failed: [],
+      unavailable: [],
       dryRun: [],
     },
   };
@@ -789,7 +821,7 @@ async function main() {
           ? filteredRosterItems.slice(0, args.rosterLimit)
           : filteredRosterItems;
         await runConcurrent(rosterItems, args.rosterConcurrency, async (item) => {
-          await syncRosterItem(item, args, files, log);
+          await syncRosterItem(item, event, args, files, log);
           await sleep(args.delayMs);
         });
       }

@@ -130,6 +130,8 @@ function stripListOnlyFields(value) {
     return Object.fromEntries(
       Object.entries(value)
         .filter(([key]) => key !== 'roster' && key !== 'athleteNames'
+          && key !== 'sourceSchedule' && key !== 'configuredParticipantCount'
+          && !(key === 'scheduleNeedsVerification' && value[key] === false)
           && !(key === 'shortEventName' && value.shortEventName === value.eventName))
         .map(([key, item]) => [key, stripListOnlyFields(item)]),
     );
@@ -142,7 +144,7 @@ function buildPreEventDetailsFromCompetitions(competitions = []) {
   for (const competition of competitions) {
     for (const item of competition.items || []) {
       if (!item?.eventCode || !item.isPreEvent) continue;
-      entries[item.eventCode] = {
+      entries[item.eventCode] = compactEventDetail({
         ...item,
         sportCode: competition.sportCode,
         sportName: competition.sportName,
@@ -155,8 +157,8 @@ function buildPreEventDetailsFromCompetitions(competitions = []) {
         poolStandings: [],
         eliminationMatches: [],
         status: item.status,
-        rosterStatus: competition.rosterStatus,
-      };
+        rosterStatus: item.rosterStatus || competition.rosterStatus,
+      });
     }
   }
   return entries;

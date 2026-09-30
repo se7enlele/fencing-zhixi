@@ -51,7 +51,7 @@ jobs:
           COMPLETED_LIMIT: ${{ github.event.inputs.completed_limit || '4' }}
           ROSTER_MAX_PAGES: ${{ github.event.inputs.roster_max_pages || '12' }}
           BACKFILL_LIMIT: ${{ github.event.inputs.backfill_limit || '2' }}
-        run: npm run sync:scheduled -- --active-limit "$ACTIVE_LIMIT" --completed-limit "$COMPLETED_LIMIT" --roster-page-size 50 --roster-max-pages "$ROSTER_MAX_PAGES" --score-limit 12 --score-concurrency 2 --task-concurrency "2" --task-timeout-sec 600 --backfill-limit "$BACKFILL_LIMIT" --fail-on-task-error
+        run: npm run sync:scheduled -- --active-limit "$ACTIVE_LIMIT" --completed-limit "$COMPLETED_LIMIT" --roster-page-size 50 --roster-max-pages "$ROSTER_MAX_PAGES" --score-limit 12 --score-concurrency 2 --task-concurrency "2" --task-timeout-sec 600 --backfill-limit "$BACKFILL_LIMIT"
 
       - name: Preserve sync diagnostics
         if: always()
@@ -99,3 +99,6 @@ jobs:
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
         run: npx wrangler deploy
+
+      - name: Report incomplete sync after publishing successful tasks
+        run: node -e "const s=require('./data/analysis/scheduled-sync-status.json');if(!s.ok){console.error('Some sync tasks failed. Previous data was retained for those tasks; inspect scheduled-sync-diagnostics.');process.exit(1)}"

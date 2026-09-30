@@ -100,6 +100,8 @@ function buildPlatformEventCompetition(event) {
     itemCount: 0,
     groupLabels,
     platformMeta: {
+      startDate: event.startDate || null,
+      endDate: event.endDate || null,
       season: event.season || null,
       gameDesc: event.gameDesc || null,
       gameLevel: event.gameLevel || null,
@@ -145,7 +147,19 @@ export function buildPreEventCompetitions({
   const rosterByEvent = new Map();
   const rosterRows = [];
 
+  const wholeListSnapshots = new Map();
   for (const batch of rosterBatches) {
+    if (batch.report.source?.sourceType !== 'condition-query') continue;
+    const key = batch.report.source.eventCode;
+    const stamp = Date.parse(batch.report.source.importedAt || '') || 0;
+    if (!wholeListSnapshots.has(key) || wholeListSnapshots.get(key).stamp <= stamp) wholeListSnapshots.set(key, { batch, stamp });
+  }
+  for (const batch of rosterBatches) {
+    const keys = batch.report.summary?.eventCodes || [batch.report.source?.eventCode];
+    if (keys.some(key => {
+      const snapshot = wholeListSnapshots.get(key);
+      return snapshot && snapshot.batch !== batch && snapshot.stamp >= (Date.parse(batch.report.source?.importedAt || '') || 0);
+    })) continue;
     for (const row of batch.report.normalized?.records || []) {
       if (!row.eventCode) continue;
       rosterRows.push(row);
@@ -183,6 +197,13 @@ export function buildPreEventCompetitions({
 
       const roster = [...(rosterByEvent.get(item.eventCode)?.values() || [])];
       const competition = competitions.get(item.sportCode);
+      const platformStart = parseDate(competition.platformMeta?.startDate);
+      const platformEnd = parseDate(competition.platformMeta?.endDate);
+      const projectStart = parseDate(item.openDate);
+      const projectEnd = parseDate(item.closeDate);
+      const scheduleConflict = platformStart !== null && platformEnd !== null
+        && ((projectStart !== null && (projectStart < platformStart - 86400000 || projectStart > platformEnd + 86400000))
+          || (projectEnd !== null && (projectEnd < platformStart - 86400000 || projectEnd > platformEnd + 86400000)));
       if (competition.platformMeta) {
         competition.platformMeta = {
           ...competition.platformMeta,
@@ -193,13 +214,17 @@ export function buildPreEventCompetitions({
         eventCode: item.eventCode,
         eventName: item.eventName,
         shortEventName: item.eventName,
-        openDate: item.openDate,
-        closeDate: item.closeDate,
-        competitionNo: item.participantCount || roster.length,
+        openDate: scheduleConflict ? null : item.openDate,
+        closeDate: scheduleConflict ? null : item.closeDate,
+        scheduleNeedsVerification: scheduleConflict,
+        sourceSchedule: scheduleConflict ? { openDate: item.openDate, closeDate: item.closeDate } : undefined,
+        competitionNo: roster.length,
         registrationCount: roster.length,
-        expectedRegistrationCount: item.participantCount,
+        rosterStatus: wholeListSnapshots.has(item.eventCode) ? 'complete' : (roster.length ? 'partial' : 'none'),
+        expectedRegistrationCount: 0,
+        configuredParticipantCount: item.participantCount,
         roster,
-        status: inferStatusFromDates([item]),
+        status: scheduleConflict ? competition.status : inferStatusFromDates([item]),
         isPreEvent: true,
       };
 
@@ -223,7 +248,8 @@ export function buildPreEventCompetitions({
     const rosterCount = competition.items.reduce((sum, item) => sum + item.registrationCount, 0);
     const expectedRegistrationCount = competition.items.reduce((sum, item) => sum + item.expectedRegistrationCount, 0);
     const isComplete = completeRosters.has(competition.sportCode);
-    const dateLabel = normalizeDateLabel(competition.items.map((item) => item.openDate).filter(Boolean).sort().join(' / '))
+    const dateLabel = (competition.items.some(item => item.scheduleNeedsVerification) ? normalizeDateLabel(competition.dateLabel) : '')
+      || normalizeDateLabel(competition.items.map((item) => item.openDate).filter(Boolean).sort().join(' / '))
       || normalizeDateLabel(competition.dateLabel)
       || '日期待确认';
 
@@ -236,8 +262,8 @@ export function buildPreEventCompetitions({
         },
         {
           title: '报名规模',
-          value: expectedRegistrationCount || rosterCount || '-',
-          detail: rosterCount ? `报名名单 ${rosterCount}` : '名单待确认',
+          value: rosterCount || '-',
+          detail: rosterCount ? '已收录报名记录' : '名单待确认',
         },
       ],
       bullets: [

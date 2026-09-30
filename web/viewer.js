@@ -10654,7 +10654,7 @@ function competitionPreEventCards(competition) {
     {
       title: '报名规模',
       value: numbers.registered || '-',
-      detail: numbers.registered && numbers.expected ? `${numbers.registered}/${numbers.expected}` : '报名动态持续更新',
+      detail: numbers.registered ? '已收录报名记录，最终以检录为准' : '报名名单待确认',
     },
   ];
 }
