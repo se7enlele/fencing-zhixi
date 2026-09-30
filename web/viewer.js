@@ -12074,6 +12074,7 @@ function tableauPhaseStats(matches) {
   const played = rows.filter((match) => !match.isBye && (match.home?.result || match.away?.result)).length;
   return {
     total: rows.length,
+    contested: rows.length - bye,
     played,
     bye,
   };
@@ -12081,6 +12082,7 @@ function tableauPhaseStats(matches) {
 
 function tableauWinnerRows(matches, limit = 4) {
   return (matches || [])
+    .filter((match) => !match.isBye)
     .map((match) => ({
       winner: matchWinnerName(match),
       score: matchScoreText(match),
@@ -12116,7 +12118,7 @@ function renderMatches(event, activeIndex = 0) {
     <section class="tableau-phase-summary">
       <div>
         <strong>${escapeHtml(group.phase)}</strong>
-        <span>${escapeHtml(stats.total)} 场对阵 · ${escapeHtml(stats.played)} 场已完成 · ${escapeHtml(stats.bye)} 场轮空</span>
+        <span>${escapeHtml(stats.contested)} 场实际对阵 · ${escapeHtml(stats.played)} 场已完成 · ${escapeHtml(stats.bye)} 人轮空晋级</span>
       </div>
       <em>${escapeHtml(index + 1)} / ${escapeHtml(groups.length)}</em>
     </section>
@@ -12143,18 +12145,18 @@ function renderMatches(event, activeIndex = 0) {
             <div class="tableau-match-body">
               <div class="tableau-player-stack">
                 <div class="bracket-row ${homeWon ? 'winner' : ''} ${homeFocus}">
-                  <span>${escapeHtml(`${phaseSeed(match, 'home')} ${match.home?.name || '空'}`.trim())}</span>
+                  <span>${escapeHtml(match.isBye && /^bye$/i.test(match.home?.name || '') ? '轮空' : `${phaseSeed(match, 'home')} ${match.home?.name || '空'}`.trim())}</span>
                   <small>${escapeHtml(match.home?.club || '')}</small>
                 </div>
                 <div class="bracket-row ${awayWon ? 'winner' : ''} ${awayFocus}">
-                  <span>${escapeHtml(`${phaseSeed(match, 'away')} ${match.away?.name || '空'}`.trim())}</span>
+                  <span>${escapeHtml(match.isBye && /^bye$/i.test(match.away?.name || '') ? '轮空' : `${phaseSeed(match, 'away')} ${match.away?.name || '空'}`.trim())}</span>
                   <small>${escapeHtml(match.away?.club || '')}</small>
                 </div>
               </div>
               <div class="tableau-score-pill">${escapeHtml(matchScoreText(match))}</div>
             </div>
             <div class="tableau-advance-row">
-              <span>晋级</span>
+              <span>${match.isBye ? '轮空晋级' : '晋级'}</span>
               <strong>${escapeHtml(matchWinnerName(match))}</strong>
             </div>
           </div>

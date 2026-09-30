@@ -1340,7 +1340,7 @@ function buildEventDetail(report, fileName) {
   const playedElimination = eliminationMatches.filter((match) => !match.isBye);
   const latestMatches = playedElimination.slice(-12).reverse();
   const eliminationPhaseGroups = Object.values(
-    playedElimination.reduce((groups, match) => {
+    eliminationMatches.reduce((groups, match) => {
       const key = match.phase?.longName || "淘汰赛";
       if (!groups[key]) {
         groups[key] = {
@@ -1960,6 +1960,7 @@ export function buildAthleteDirectory(reports) {
       const bucket = athletes.get(id);
       const athleteKey = opponentKey(athlete.name, athlete.licence, athlete.club);
       for (const match of event.eliminationPhaseGroups?.flatMap((group) => group.matches) || []) {
+        if (match.isBye) continue;
         const homeKey = opponentKey(match.home.name, match.home.licence, match.home.club);
         const awayKey = opponentKey(match.away.name, match.away.licence, match.away.club);
         if (athleteKey === homeKey) {

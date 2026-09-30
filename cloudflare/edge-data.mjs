@@ -418,7 +418,7 @@ export function buildEventDetail(report, fileName) {
     return athleteStats.get(key);
   }
 
-  const eliminationPhaseGroups = Object.values(playedElimination.reduce((groups, match) => {
+  const eliminationPhaseGroups = Object.values(eliminationMatches.reduce((groups, match) => {
     const key = match.phase?.longName || '淘汰赛';
     if (!groups[key]) groups[key] = { phase: key, order: match.phase?.order ?? 999, matches: [] };
     groups[key].matches.push(match);
