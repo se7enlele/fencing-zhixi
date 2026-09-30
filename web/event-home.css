@@ -85,6 +85,9 @@ button:focus-visible, input:focus-visible, summary:focus-visible { outline: 2px 
 .directory-disclosure > summary span { color: #8a929d; margin-left: 8px; font-size: 11px; }
 #view-competitions .filter-actions { display: flex; flex-wrap: wrap; gap: 7px; }
 #view-competitions .filter-trigger { border-radius: 9px; background: #f6f7f9; min-height: 36px; border: 1px solid #edf0f3; }
+#view-competitions .filter-trigger.active { background: #e8f4ef; border-color: #b7d9ca; color: #08634e; box-shadow: none; }
+#view-competitions .filter-trigger.active::after { color: #08634e; }
+#view-competitions .filter-trigger:focus-visible { outline: 2px solid #087760; outline-offset: 2px; }
 #view-competitions .competition-card { padding: 20px; border-radius: 18px; border: 1px solid #ebedf1; background: white; box-shadow: var(--shadow); }
 #view-competitions .competition-card-title { font-size: 17px; line-height: 1.6; }
 #view-competitions .competition-card-meta { font-size: 12px; line-height: 1.7; }
