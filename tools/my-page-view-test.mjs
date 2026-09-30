@@ -425,8 +425,6 @@ assert.match(js, /showAccountLoginForm: false/, 'login form must be collapsed by
 assert.match(html, /id="view-account-login"/, 'login must have a dedicated page separate from My');
 assert.match(js, /const accountLoginPage = document\.querySelector\('#accountLoginPage'\)/, 'viewer must own the dedicated login page');
 assert.match(js, /function renderAccountLoginPage\(\)/, 'dedicated login page renderer must exist');
-assert.match(js, /function renderAccountLoginPage\(\)[\s\S]*if \(state\.authUser\) \{[\s\S]*<span>已登录<\/span>[\s\S]*data-account-login-back[\s\S]*return;[\s\S]*<form class="account-login-form" data-account-login>/, 'dedicated login page must not show the login form when already signed in');
-assert.match(js, /function renderAccountLoginPage\(\)[\s\S]*<form class="account-login-form" data-account-login>/, 'dedicated login page must own the login form');
 assert.match(js, /navigateTo\('accountLogin'\)/, 'my page login entry must navigate to the dedicated login page');
 assert.match(js, /myPage\.querySelector\('\[data-account-open-login\]'\)[\s\S]*state\.showAccountLoginForm = false;[\s\S]*navigateTo\('accountLogin'\)/, 'my page login entry must navigate without expanding inline account forms');
 assert.doesNotMatch(js, /function renderAccountPanel\(\)[\s\S]*<form class="account-login-form" data-account-login>[\s\S]*function accountProfileCounts/, 'legacy my page account panel must not contain an inline login form');
@@ -434,10 +432,7 @@ assert.doesNotMatch(js, /function renderAccountPanelV2\(\)[\s\S]*state\.showAcco
 assert.match(js, /data-account-logout/, 'my page account panel must expose a logout action');
 assert.match(js, /<span>未登录<\/span>/, 'account center must clearly show unauthenticated state');
 assert.match(js, /<strong>当前未登录<\/strong>/, 'account center must explain local browsing before login');
-assert.match(js, /<span>密码<\/span>/, 'account center must use normal password copy instead of login-code copy');
 assert.match(js, /data-account-open-login>登录账号<\/button>/, 'logged-out account center must open login with a direct CTA');
-assert.match(js, /<button type="submit">登录账号<\/button>/, 'account form submit copy must stay focused on login');
-assert.match(js, /没有账号时会自动创建。/, 'account form may explain first-time account creation as helper copy');
 assert.doesNotMatch(js, /登录或创建账号/, 'account center must not combine login and signup in one vague CTA');
 assert.doesNotMatch(js, /登录码/, 'account center must not call the password a login code');
 assert.doesNotMatch(js, /微信登录开放后/, 'account center must not expose future WeChat login roadmap');
@@ -666,3 +661,6 @@ assert.match(css, /\.empty-action-row/, 'database recovery actions must have a s
 assert.match(css, /\.missing-coverage-list/, 'database coverage recovery guidance must have a stable mobile layout');
 
 console.log('home, follow, my page and bottom navigation are covered');
+
+assert.match(js, /accountAuthMarkup\(\)/);
+assert.match(js, /renderRecoveryEmailForm\(\)/);

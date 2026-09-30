@@ -1,0 +1,82 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import vm from 'node:vm';
+import { accountAction, consumeAccountCode, issueAccountCode, passwordMatches, digest } from './account-security.mjs';
+const data = new Map();
+const store = { get: async key => structuredClone(data.get(key)), put: async (key, value) => data.set(key, structuredClone(value)) };
+const env = { RESEND_API_KEY: 'test-only', AUTH_EMAIL_FROM: 'test@example.com' };
+let code;
+const send = async (to, secret) => { code = secret; };
+const identifier = 'parent@example.com', identity = `email:${identifier}`;
+await assert.rejects(accountAction(store, 'send-code', { identifier, purpose: 'register' }, {}), /暂未开放/);
+await accountAction(store, 'send-code', { identifier, purpose: 'register' }, env, send);
+assert.ok(!JSON.stringify([...data.values()]).includes(code), 'verification code is not stored plaintext');
+await assert.rejects(accountAction(store, 'send-code', { identifier, purpose: 'register' }, env, send), /60 秒/);
+await assert.rejects(consumeAccountCode(store, identity, 'reset', code), /无效/);
+await assert.rejects(accountAction(store, 'register', { identifier, password: 'long-password', confirmPassword: 'different', verificationCode: code }, env), /不一致/);
+await accountAction(store, 'register', { identifier, password: 'long-password', confirmPassword: 'long-password', verificationCode: code }, env);
+const id = await store.get(`identity:${identity}`);
+let user = await store.get(`user:${id}`);
+assert.equal(await passwordMatches(user, identity, 'long-password'), true);
+assert.equal(await passwordMatches(user, identity, 'wrong-password'), false);
+assert.equal(user.passwordAlgorithm, 'pbkdf2-sha256-v1');
+await assert.rejects(consumeAccountCode(store, identity, 'register', code), /无效/);
+const version = user.authVersion;
+user.profile = { follows: [{ id: 'keep' }] }; await store.put(`user:${id}`, user);
+await accountAction(store, 'send-code', { identifier, purpose: 'reset' }, env, send);
+await accountAction(store, 'reset-password', { identifier, password: 'new-password', confirmPassword: 'new-password', verificationCode: code }, env);
+user = await store.get(`user:${id}`);
+assert.notEqual(user.authVersion, version);
+assert.deepEqual(user.profile.follows, [{ id: 'keep' }]);
+assert.equal(await passwordMatches(user, identity, 'long-password'), false);
+assert.equal(await passwordMatches(user, identity, 'new-password'), true);
+await assert.rejects(accountAction(store, 'reset-password', { identifier, password: 'another-password', confirmPassword: 'another-password', verificationCode: code }, env), /无效/);
+const legacy = { id: 'legacy', identityKey: 'phone:13800000000', codeSalt: 'salt', codeHash: await digest('phone:13800000000:salt:123456') };
+assert.equal(await passwordMatches(legacy, legacy.identityKey, '123456'), true);
+await accountAction(store, 'send-code', { identifier: 'recovery@example.com', purpose: 'bind' }, env, send);
+await assert.rejects(accountAction(store, 'bind-email', { identifier: 'recovery@example.com', password: '123456', verificationCode: code }, env), /先登录/);
+await accountAction(store, 'bind-email', { identifier: 'recovery@example.com', password: '123456', verificationCode: code }, env, undefined, legacy);
+assert.equal(await store.get('identity:email:recovery@example.com'), 'legacy');
+await issueAccountCode(store, 'email:expiry@example.com', 'reset', send, 100);
+await assert.rejects(consumeAccountCode(store, 'email:expiry@example.com', 'reset', code, 600101), /过期/);
+await issueAccountCode(store, 'email:attempts@example.com', 'reset', send);
+const saved = code;
+for(let i=0;i<5;i++) await assert.rejects(consumeAccountCode(store, 'email:attempts@example.com', 'reset', 'bad'), /不正确/);
+await assert.rejects(consumeAccountCode(store, 'email:attempts@example.com', 'reset', saved), /无效/);
+const context = vm.createContext({ escapeHtml: value => String(value).replaceAll('<','&lt;').replaceAll('"','&quot;') });
+vm.runInContext(fs.readFileSync('web/account-auth.js','utf8'), context);
+for(const mode of ['login','register','reset']) {
+  vm.runInContext(`accountAuthMode = '${mode}'`, context);
+  const markup = vm.runInContext('accountAuthMarkup()', context);
+  assert.match(markup, /aria-live="polite"/);
+  assert.match(markup, /data-auth-reveal/);
+  assert.equal(markup.includes('name="confirmPassword"'), mode !== 'login');
+  assert.equal(markup.includes('name="verificationCode"'), mode !== 'login');
+}
+for(const file of ['server.mjs','cloudflare/worker.mjs']) {
+  const source=fs.readFileSync(file,'utf8');
+  assert.match(source, /session.authVersion.*user.authVersion/);
+  assert.match(source, /const isNew = false/);
+  assert.match(source, /passwordMatches\(user, user.identityKey, code\)/);
+}
+console.log('account auth: registration, legacy password, verified recovery, preserved profiles, session versions, OTP scope/expiry/reuse/attempts and accessible forms passed');
+
+vm.runInContext(fs.readFileSync('web/my-account.js','utf8'), context);
+const guest = vm.runInContext('myIdentityMarkup(false, null, 0, 0)', context);
+assert.match(guest, /未登录/); assert.doesNotMatch(guest, /my-identity-counts/);
+const signed = vm.runInContext('myIdentityMarkup(true, {displayName:"家长"}, 2, 3)', context);
+assert.match(signed, /家长/); assert.match(signed, />2<\/strong>/); assert.match(signed, />3<\/strong>/);
+const { AccountVerification } = await import('../cloudflare/account-verification.mjs');
+const savedFetch = globalThis.fetch;
+const records = new Map();
+const storage = { get: async key => structuredClone(records.get(key)), put: async (key, value) => records.set(key, structuredClone(value)), setAlarm: async () => {}, deleteAll: async () => records.clear() };
+let emailedCode;
+globalThis.fetch = async (_url, options) => { emailedCode = JSON.parse(options.body).text.match(/\d{8}/)[0]; return Response.json({ id: 'test-receipt' }); };
+try {
+  const object = new AccountVerification({ storage }, env);
+  const request = operation => new Request('https://test.internal', { method: 'POST', body: JSON.stringify({ operation, identity: 'email:parallel@example.com', purpose: 'reset', code: emailedCode }) });
+  assert.equal((await object.fetch(request('issue'))).status, 200);
+  const attempts = await Promise.all([object.fetch(request('consume')), object.fetch(request('consume'))]);
+  assert.deepEqual(attempts.map(r=>r.status).sort(), [200,400]);
+} finally { globalThis.fetch = savedFetch; }
+console.log('my page states and concurrent verification-code single-use checks passed');

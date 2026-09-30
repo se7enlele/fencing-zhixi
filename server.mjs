@@ -1,3 +1,4 @@
+import { accountAction, emailConfigured, passwordMatches } from './tools/account-security.mjs';
 import { createServer } from 'node:http';
 import { getPointsMetadata, getPointsPage } from './tools/points-data.mjs';
 import { pointsSourceJson } from './tools/points-source-node.mjs';
@@ -532,8 +533,8 @@ function publicAuthIdentifier(identityKey) {
 }
 
 function normalizeLoginCode(value) {
-  const code = String(value || '').trim();
-  if (code.length < 6 || code.length > 64) throw new Error('登录码至少 6 位。');
+  const code = String(value || '');
+  if (code.length < 6 || code.length > 64) throw new Error('密码需为 6–64 位。');
   return code;
 }
 
@@ -714,8 +715,32 @@ async function readAuthUserFromRequest(request) {
     return null;
   }
   const user = store.users[session.userId];
-  if (!user) return null;
+  if (!user || (session.authVersion || '') !== (user.authVersion || '')) return null;
   return { store, token, session, user };
+}
+
+let accountActionQueue = Promise.resolve();
+async function handleAccountAction(request, response, action) {
+  if (action === 'config') return sendJson(response, 200, { ok: true, emailVerification: emailConfigured(process.env) });
+  const task = async () => {
+    try {
+      const raw = await readRequestBody(request);
+      if (raw.length > 4096) return sendJson(response, 413, { ok: false, message: '请求内容过长。' });
+      const body = JSON.parse(raw);
+      const data = await readFollowStore();
+      const gate = assertLoginAllowed(data, request, 'account-global');
+      await writeFollowStore(data);
+      if (!gate.ok) return sendJson(response, gate.statusCode, { ok: false, message: gate.message });
+      data.authCodes ||= {};
+      const bucket = key => key.startsWith('identity:') ? data.identityIndex : key.startsWith('user:') ? data.users : data.authCodes;
+      const field = key => key.startsWith('identity:') || key.startsWith('user:') ? key.slice(key.indexOf(':')+1) : key;
+      const adapter = { get: async key => bucket(key)[field(key)] || null, put: async (key, value) => { bucket(key)[field(key)] = value; await writeFollowStore(data); } };
+      const auth = action === 'bind-email' ? await readAuthUserFromRequest(request) : null;
+      sendJson(response, 200, await accountAction(adapter, action, body, process.env, undefined, auth?.user));
+    } catch(error) { sendJson(response, error.statusCode || 400, { ok: false, message: error.message }); }
+  };
+  accountActionQueue = accountActionQueue.then(task, task);
+  await accountActionQueue;
 }
 
 async function handleAuthLogin(request, response) {
@@ -732,31 +757,15 @@ async function handleAuthLogin(request, response) {
       return;
     }
     let userId = store.identityIndex[identityKey];
-    let isNew = false;
-    if (!userId) {
-      userId = authUserId(identityKey);
-      isNew = true;
-      const salt = randomBytes(16).toString('hex');
-      store.identityIndex[identityKey] = userId;
-      store.users[userId] = {
-        id: userId,
-        identityKey,
-        provider: 'passwordless',
-        displayName: publicAuthIdentifier(identityKey),
-        codeSalt: salt,
-        codeHash: hashLoginCode(identityKey, code, salt),
-        profile: {},
-        createdAt: now,
-        lastLoginAt: now,
-      };
-    }
+    const isNew = false;
+  if (!userId) throw new Error('账号或密码不正确，请检查或先注册。');
     const user = store.users[userId];
-    if (!isNew && user.codeHash !== hashLoginCode(identityKey, code, user.codeSalt)) {
-      throw new Error('登录码不正确。');
+    if (!user || !await passwordMatches(user, user.identityKey, code)) {
+      throw new Error('账号或密码不正确，请检查或找回密码。');
     }
     user.lastLoginAt = now;
     const token = authToken();
-    store.sessions[token] = { userId, createdAt: now, lastSeenAt: now, expiresAt: new Date(Date.now() + AUTH_SESSION_TTL_MS).toISOString() };
+    store.sessions[token] = { userId, authVersion: user.authVersion || '', createdAt: now, lastSeenAt: now, expiresAt: new Date(Date.now() + AUTH_SESSION_TTL_MS).toISOString() };
     await writeFollowStore(store);
     sendJson(response, 200, {
       ok: true,
@@ -2370,6 +2379,11 @@ const server = createServer(async (request, response) => {
     return;
   }
 
+  if (/^\/api\/auth\/(config|send-code|register|reset-password|bind-email)$/.test(url.pathname) && request.method === (url.pathname.endsWith('/config') ? 'GET' : 'POST')) {
+    await handleAccountAction(request, response, url.pathname.split('/').pop());
+    return;
+  }
+
   if (request.method === 'POST' && url.pathname === '/api/auth/login') {
     await handleAuthLogin(request, response);
     return;
@@ -2377,6 +2391,13 @@ const server = createServer(async (request, response) => {
 
   if (request.method === 'GET' && url.pathname === '/api/auth/me') {
     await handleAuthMe(request, response);
+    return;
+  }
+
+  if (request.method === 'POST' && url.pathname === '/api/auth/logout') {
+    const auth = await readAuthUserFromRequest(request);
+    if (auth) { delete auth.store.sessions[auth.token]; await writeFollowStore(auth.store); }
+    sendJson(response, 200, { ok: true });
     return;
   }
 

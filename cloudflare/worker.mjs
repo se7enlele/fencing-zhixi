@@ -1,3 +1,5 @@
+import { accountAction, emailConfigured, passwordMatches } from '../tools/account-security.mjs';
+export { AccountVerification } from './account-verification.mjs';
 import adminImportHtml from '../web/admin-import.html';
 import { adminChallenge, verifyAdminBasicAuth } from '../tools/admin-basic-auth.mjs';
 import viewerHtml from '../web/viewer.html';
@@ -116,8 +118,8 @@ function publicAuthIdentifier(identityKey) {
 }
 
 function normalizeLoginCode(value) {
-  const code = String(value || '').trim();
-  if (code.length < 6 || code.length > 64) throw new Error('登录码至少 6 位。');
+  const code = String(value || '');
+  if (code.length < 6 || code.length > 64) throw new Error('密码需为 6–64 位。');
   return code;
 }
 
@@ -519,8 +521,32 @@ async function readAuthUserFromRequest(request, env) {
   const session = await readJsonKv(env.FOLLOWS, `session:${token}`, null);
   if (!session?.userId) return null;
   const user = await readJsonKv(env.FOLLOWS, `user:${session.userId}`, null);
-  if (!user) return null;
+  if (!user || (session.authVersion || '') !== (user.authVersion || '')) return null;
   return { token, session, user };
+}
+
+async function handleAccountAction(request, env, action) {
+  if (!env.FOLLOWS) return json({ ok: false, message: '账号服务暂不可用。' }, 503);
+  if (action === 'config') return json({ ok: true, emailVerification: emailConfigured(env) });
+  const raw = await request.text();
+  if (raw.length > 4096) return json({ ok: false, message: '请求内容过长。' }, 413);
+  const body = JSON.parse(raw);
+  await assertLoginAllowed(env, request, 'account-global');
+  await assertLoginAllowed(env, request, String(body.identifier || '').trim().toLowerCase());
+  const store = { get: key => readJsonKv(env.FOLLOWS, key, null), put: (key, value) => env.FOLLOWS.put(key, JSON.stringify(value), key.startsWith('auth-code:') ? { expirationTtl: 660 } : {}) };
+  // Identity mappings remain plain strings for existing login readers.
+  store.get = key => key.startsWith('identity:') ? env.FOLLOWS.get(key) : readJsonKv(env.FOLLOWS, key, null);
+  store.put = (key, value) => env.FOLLOWS.put(key, key.startsWith('identity:') ? value : JSON.stringify(value), key.startsWith('auth-code:') ? { expirationTtl: 660 } : {});
+  const auth = action === 'bind-email' ? await readAuthUserFromRequest(request, env) : null;
+  const challenge = async (operation, identity, purpose, code) => {
+    if (!env.ACCOUNT_VERIFICATION) throw Object.assign(new Error('邮箱验证暂不可用。'), { statusCode: 503 });
+    const stub = env.ACCOUNT_VERIFICATION.get(env.ACCOUNT_VERIFICATION.idFromName(await sha256Hex(identity)));
+    const response = await stub.fetch('https://verification.internal', { method: 'POST', body: JSON.stringify({ operation, identity, purpose, code }) });
+    const result = await response.json();
+    if (!response.ok) throw Object.assign(new Error(result.message), { statusCode: response.status });
+    return result;
+  };
+  return json(await accountAction(store, action, body, env, undefined, auth?.user, { issue: (id, purpose) => challenge('issue', id, purpose), consume: (id, purpose, code) => challenge('consume', id, purpose, code) }));
 }
 
 async function handleAuthLogin(request, env) {
@@ -531,33 +557,17 @@ async function handleAuthLogin(request, env) {
   const now = new Date().toISOString();
   await assertLoginAllowed(env, request, identityKey);
   let userId = await env.FOLLOWS.get(`identity:${identityKey}`);
-  let isNew = false;
-  if (!userId) {
-    userId = await authUserId(identityKey);
-    isNew = true;
-    const salt = randomHex(16);
-    await env.FOLLOWS.put(`identity:${identityKey}`, userId);
-    await env.FOLLOWS.put(`user:${userId}`, JSON.stringify({
-      id: userId,
-      identityKey,
-      provider: 'passwordless',
-      displayName: publicAuthIdentifier(identityKey),
-      codeSalt: salt,
-      codeHash: await hashLoginCode(identityKey, code, salt),
-      profile: {},
-      createdAt: now,
-      lastLoginAt: now,
-    }));
-  }
+  const isNew = false;
+  if (!userId) return json({ ok: false, message: '账号或密码不正确，请检查或先注册。' }, 400);
   const user = await readJsonKv(env.FOLLOWS, `user:${userId}`, null);
   if (!user) return json({ ok: false, message: 'User unavailable' }, 500);
-  if (!isNew && user.codeHash !== await hashLoginCode(identityKey, code, user.codeSalt)) {
-    return json({ ok: false, message: '登录码不正确。' }, 400);
+  if (!user || !await passwordMatches(user, user.identityKey, code)) {
+    return json({ ok: false, message: '账号或密码不正确，请检查或找回密码。' }, 400);
   }
   user.lastLoginAt = now;
   const token = authToken();
   await env.FOLLOWS.put(`user:${userId}`, JSON.stringify(user));
-  await env.FOLLOWS.put(`session:${token}`, JSON.stringify({ userId, createdAt: now, lastSeenAt: now }), { expirationTtl: AUTH_SESSION_TTL_SECONDS });
+  await env.FOLLOWS.put(`session:${token}`, JSON.stringify({ userId, authVersion: user.authVersion || '', createdAt: now, lastSeenAt: now }), { expirationTtl: AUTH_SESSION_TTL_SECONDS });
   const profile = profileFromUser(user);
   return json({
     ok: true,
@@ -1361,6 +1371,11 @@ async function routeApi(request, env, url) {
     }
   }
 
+  if (/^\/api\/auth\/(config|send-code|register|reset-password|bind-email)$/.test(url.pathname) && request.method === (url.pathname.endsWith('/config') ? 'GET' : 'POST')) {
+    try { return await handleAccountAction(request, env, url.pathname.split('/').pop()); }
+    catch (error) { return json({ ok: false, message: error.message }, error.statusCode || 400); }
+  }
+
   if (url.pathname === '/api/auth/login' && request.method === 'POST') {
     try {
       return await handleAuthLogin(request, env);
@@ -1375,6 +1390,12 @@ async function routeApi(request, env, url) {
     } catch (error) {
       return json({ ok: false, message: error.message }, 400);
     }
+  }
+
+  if (url.pathname === '/api/auth/logout' && request.method === 'POST') {
+    const token = getBearerToken(request);
+    if (token && env.FOLLOWS) await env.FOLLOWS.delete(`session:${token}`);
+    return json({ ok: true });
   }
 
   if (url.pathname === '/api/auth/wechat/status' && request.method === 'GET') {

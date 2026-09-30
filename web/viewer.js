@@ -340,6 +340,7 @@ async function submitAccountLogin(form) {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ identifier, code }),
+      signal: AbortSignal.timeout(20000),
     });
     const result = await response.json();
     if (!response.ok || !result.ok) throw new Error(result.message || '登录失败');
@@ -356,18 +357,16 @@ async function submitAccountLogin(form) {
     renderHomePage();
     if (status) status.textContent = result.isNew ? '账号已创建，关注和报告已保存。' : '已登录，关注和报告已保存。';
     if (views.accountLogin?.classList.contains('active')) {
-      state.viewStack = ['my'];
-      state.activeMainTab = 'my';
-      showView('my');
-      scrollToPageTop();
+      navigateMain('my');
     }
     trackAnalyticsAction('auth_login', result.isNew ? 'new' : 'returning');
   } catch (error) {
-    if (status) status.textContent = error.message || '登录失败';
+    if (status) { status.dataset.error = 'true'; status.textContent = error.name === 'TimeoutError' ? '登录超时，请稍后重试。' : error.message || '登录失败'; }
   }
 }
 
-function logoutAccount() {
+async function logoutAccount() {
+  try { await fetch('/api/auth/logout', { method: 'POST', headers: authHeaders(), signal: AbortSignal.timeout(10000) }); } catch { /* Always allow this device to sign out. */ }
   state.authToken = '';
   state.authUser = null;
   state.authCapabilities = null;
@@ -440,6 +439,7 @@ function renderAccountPanelV2() {
           <span>关注、赛事提醒和报告会保存在当前账号；公开赛事数据无需登录也可以浏览。</span>
         </div>
         <div class="account-action-row">
+          <button type="button" data-account-open-login>设置找回邮箱</button>
           <button type="button" data-account-export>导出资料</button>
           <button type="button" data-account-clear>清空资料</button>
         </div>
@@ -469,55 +469,11 @@ function renderAccountPanelV2() {
 function renderAccountLoginPage() {
   if (!accountLoginPage) return;
   if (state.authUser) {
-    accountLoginPage.innerHTML = `
-      <section class="panel account-login-page">
-        <div class="section-title">
-          <h2>账号中心</h2>
-          <span>已登录</span>
-        </div>
-        <div class="account-state-note signed">
-          <strong>${escapeHtml(state.authUser.displayName || state.authUser.identifier || '已登录用户')}</strong>
-          <span>关注、赛事提醒、历史分析和报告会保存到当前账号。</span>
-        </div>
-        <div class="account-action-row">
-          <button type="button" data-account-login-back>返回我的</button>
-          <button type="button" data-account-logout>退出</button>
-        </div>
-        ${state.accountStatus ? `<p class="account-status-line">${escapeHtml(state.accountStatus)}</p>` : ''}
-      </section>
-    `;
-    accountLoginPage.querySelector('[data-account-login-back]')?.addEventListener('click', () => navigateMain('my'));
-    accountLoginPage.querySelector('[data-account-logout]')?.addEventListener('click', () => logoutAccount());
+    renderRecoveryEmailForm();
     return;
   }
-  accountLoginPage.innerHTML = `
-    <section class="panel account-login-page">
-      <div class="section-title">
-        <h2>登录账号</h2>
-        <span>保存你的关注和报告</span>
-      </div>
-      <div class="account-state-note">
-        <strong>手机号或邮箱登录</strong>
-        <span>登录后，关注选手、赛事提醒、历史分析和报告会保存到账号。</span>
-      </div>
-      <form class="account-login-form" data-account-login>
-        <label>
-          <span>手机号或邮箱</span>
-          <input name="identifier" type="text" autocomplete="username" placeholder="用于找回关注、报告和历史">
-        </label>
-        <label>
-          <span>密码</span>
-          <input name="code" type="password" autocomplete="current-password" placeholder="至少 6 位，首次输入即创建账号">
-        </label>
-        <button type="submit">登录账号</button>
-        <em data-account-status>${escapeHtml(state.accountStatus || '没有账号时会自动创建。')}</em>
-      </form>
-    </section>
-  `;
-  accountLoginPage.querySelector('[data-account-login]')?.addEventListener('submit', (event) => {
-    event.preventDefault();
-    submitAccountLogin(event.currentTarget);
-  });
+  accountLoginPage.innerHTML = accountAuthMarkup();
+  bindAccountAuthPage();
 }
 
 function downloadJsonFile(fileName, data) {
@@ -1807,9 +1763,80 @@ function scrollToResultPanel(element, behavior = 'smooth') {
   });
 }
 
-function syncViewUrl(name) {
+let navigationReady = false;
+let navigationRestoring = false;
+let navigationDepth = typeof window === 'undefined' ? 0 : Number(window.history?.state?.fencingNavigation?.depth) || 0;
+let navigationRestoreQueue = Promise.resolve();
+const navigationReports = new Map();
+
+function navigationRoute(name) {
+  const ids = {
+    competition: state.currentCompetition?.sportCode,
+    event: state.currentEvent?.eventCode,
+    athlete: state.currentAthleteId,
+    club: state.currentClub?.id,
+    prematchReport: state.currentPrematchCode,
+    parentGrowthReport: state.currentGrowthAthleteId,
+    coachSegmentationReport: state.currentCoachClubId,
+  };
+  return {
+    view: name,
+    id: ids[name] || '',
+    authMode: name === 'accountLogin' ? accountAuthMode : '',
+    query: name === 'aiAnalysis' ? state.aiActiveQuery : '',
+  };
+}
+
+async function restoreNavigationRoute(route) {
+  if (!route || !views[route.view]) return navigateMain('home');
+  if (route.view === 'competition') return openCompetition(route.id);
+  if (route.view === 'event') return openEvent(route.id);
+  if (route.view === 'athlete') return openAthlete(route.id);
+  if (route.view === 'club') return openClub(route.id);
+  if (route.view === 'parentGrowthReport') {
+    await openAthlete(route.id);
+    return openParentGrowthReport(route.id);
+  }
+  if (route.view === 'prematchReport') return openPrematchReport('prematch-pack', route.id === 'prematch-pack' ? '' : route.id);
+  if (route.view === 'coachSegmentationReport') return openCoachSegmentationReport(route.id === 'coach-segmentation' ? '' : route.id);
+  if (route.view === 'accountLogin') accountAuthMode = ['login', 'register', 'reset'].includes(route.authMode) ? route.authMode : 'login';
+  if (route.view === 'aiAnalysis') {
+    state.aiActiveQuery = route.query || '';
+    const saved = navigationReports.get(route.query) || findAiReportSnapshot(route.query);
+    state.aiActiveReport = saved ? { ...saved, cards: normalizeAiCards(saved.cards) } : null;
+    state.isAiAnswerLoading = false;
+  }
+  navigateTo(route.view);
+}
+
+if (typeof window !== 'undefined') window.addEventListener('popstate', (event) => {
+  const entry = event.state?.fencingNavigation;
+  if (!entry) return;
+  navigationRestoreQueue = navigationRestoreQueue.then(async () => {
+    navigationRestoring = true;
+    navigationDepth = entry.depth;
+    try {
+      await restoreNavigationRoute(entry.route);
+      state.viewStack = [...entry.stack];
+      state.activeMainTab = entry.mainTab;
+      showView(entry.route.view);
+      scrollToPageTop();
+    } catch {
+      state.viewStack = ['home'];
+      state.activeMainTab = 'home';
+      renderHomePage();
+      showView('home');
+    } finally {
+      navigationRestoring = false;
+      syncViewUrl(state.viewStack.at(-1), true);
+    }
+  });
+});
+
+function syncViewUrl(name, replace = false) {
+  if (navigationRestoring) return;
   const url = new URL(window.location.href);
-  for (const key of ['tab', 'competition', 'event', 'athlete', 'club', 'prematch', 'growth', 'coach', 'analysis']) {
+  for (const key of ['tab', 'competition', 'event', 'athlete', 'club', 'prematch', 'growth', 'coach', 'analysis', 'auth']) {
     url.searchParams.delete(key);
   }
   const entry = {
@@ -1821,10 +1848,22 @@ function syncViewUrl(name) {
     parentGrowthReport: ['growth', state.currentGrowthAthleteId],
     coachSegmentationReport: ['coach', state.currentCoachClubId],
     aiAnalysis: ['analysis', '1'],
+    accountLogin: ['auth', state.authUser ? 'bind' : accountAuthMode],
+    roleHome: ['tab', 'roleHome'],
   }[name];
   if (entry?.[1]) url.searchParams.set(entry[0], entry[1]);
   else if (MAIN_TABS.includes(name) && name !== 'home') url.searchParams.set('tab', name);
-  window.history.replaceState(window.history.state, '', `${url.pathname}${url.search}${url.hash}`);
+  const route = navigationRoute(name);
+  const previous = window.history.state?.fencingNavigation;
+  const changed = JSON.stringify(previous?.route) !== JSON.stringify(route);
+  const push = navigationReady && !replace && changed;
+  if (push) navigationDepth++;
+  if (name === 'aiAnalysis' && state.aiActiveReport) navigationReports.set(route.query, state.aiActiveReport);
+  const entryState = {
+    ...window.history.state,
+    fencingNavigation: { route, depth: navigationDepth, stack: [...state.viewStack], mainTab: state.activeMainTab },
+  };
+  window.history[push ? 'pushState' : 'replaceState'](entryState, '', `${url.pathname}${url.search}${url.hash}`);
 }
 
 function navigateTo(name) {
@@ -1855,6 +1894,10 @@ function navigateMain(name) {
 }
 
 function goBack() {
+  if (navigationReady && navigationDepth > 0) {
+    window.history.back();
+    return;
+  }
   if (state.viewStack.length <= 1) {
     state.activeMainTab = 'home';
     state.viewStack = ['home'];
@@ -3837,6 +3880,7 @@ function renderParentDashboard() {
       state.activeMainTab = '';
       renderRoleWorkspacePremium();
       showView('roleHome');
+    syncViewUrl('roleHome');
       scrollToPageTop();
     });
   });
@@ -5802,6 +5846,7 @@ function bindAiWorkspace(container) {
         submitButton.textContent = '开始分析';
         submitButton.removeAttribute('aria-disabled');
       }
+      if (views.aiAnalysis.classList.contains('active')) syncViewUrl('aiAnalysis', true);
     }
   };
 
@@ -9699,6 +9744,7 @@ function renderMyPage() {
     </section>
   `;
 
+  organizeMyAccountPage(isSignedIn);
   myPage.querySelector('[data-role-switch]')?.addEventListener('click', () => {
     state.userRole = '';
     state.selectedChildId = '';
@@ -9708,6 +9754,7 @@ function renderMyPage() {
     state.activeMainTab = '';
     renderRoleWorkspacePremium();
     showView('roleHome');
+    syncViewUrl('roleHome');
     scrollToPageTop();
   });
   myPage.querySelector('[data-account-open-login]')?.addEventListener('click', () => {
@@ -15900,6 +15947,7 @@ document.querySelectorAll('[data-nav-role-home]').forEach((button) => {
     state.activeMainTab = '';
     renderRoleWorkspacePremium();
     showView('roleHome');
+    syncViewUrl('roleHome');
     scrollToPageTop();
   });
 });
@@ -15968,7 +16016,21 @@ async function init() {
   renderRegionSelect();
   renderItemSelect();
   applyCompetitionFilter();
+  const storedNavigation = window.history.state?.fencingNavigation;
+  if (storedNavigation?.route) {
+    await restoreNavigationRoute(storedNavigation.route);
+    state.viewStack = [...storedNavigation.stack];
+    state.activeMainTab = storedNavigation.mainTab;
+    showView(storedNavigation.route.view);
+    return;
+  }
   const initialParams = new URLSearchParams(window.location.search);
+  const initialAuthMode = initialParams.get('auth');
+  if (initialAuthMode) {
+    accountAuthMode = ['login', 'register', 'reset'].includes(initialAuthMode) ? initialAuthMode : 'login';
+    navigateTo('accountLogin');
+    return;
+  }
   const initialPrematchCode = initialParams.get('prematch');
   if (initialPrematchCode) {
     state.sharedEntry = { kind: 'prematch', id: initialPrematchCode, openedAt: Date.now() };
@@ -16014,6 +16076,10 @@ async function init() {
     return;
   }
   const initialTab = initialParams.get('tab');
+  if (initialTab === 'roleHome') {
+    navigateTo('roleHome');
+    return;
+  }
   if (MAIN_TABS.includes(initialTab)) {
     navigateMain(initialTab);
     return;
@@ -16033,7 +16099,10 @@ renderFeedPanel();
 renderCompetitionList();
 renderPersonalPages();
 
-init().catch((error) => {
+init().then(() => {
+  navigationReady = true;
+  syncViewUrl(state.viewStack.at(-1), true);
+}).catch((error) => {
   state.isDataLoading = false;
   state.dataLoadError = error.message;
   document.body.dataset.fencingaiReady = 'error';

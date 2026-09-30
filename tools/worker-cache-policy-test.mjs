@@ -103,7 +103,7 @@ assert.match(
 );
 assert.match(
   source,
-  /codeHash: await hashLoginCode\(identityKey, code, salt\)/,
+  /passwordMatches\(user, user.identityKey, code\)/,
   'Worker should store login-code hashes instead of plaintext codes',
 );
 

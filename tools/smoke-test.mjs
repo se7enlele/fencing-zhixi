@@ -1,6 +1,12 @@
 import { spawn } from 'node:child_process';
 import { pbkdf2Sync, randomBytes } from 'node:crypto';
-import { readFile } from 'node:fs/promises';
+import { readFile, mkdtemp, writeFile } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
+import path from 'node:path';
+import { digest } from './account-security.mjs';
+const fixtureDir = await mkdtemp(path.join(tmpdir(), 'fencing-smoke-'));
+const fixtureStore = path.join(fixtureDir, 'users.json');
+await writeFile(fixtureStore, JSON.stringify({ identityIndex: { 'email:parent@example.com': 'smoke-parent' }, users: { 'smoke-parent': { id: 'smoke-parent', identityKey: 'email:parent@example.com', codeSalt: 'test', codeHash: await digest('email:parent@example.com:test:123456'), profile: {} } } }));
 
 const port = 5188;
 const baseUrl = `http://127.0.0.1:${port}`;
@@ -14,7 +20,7 @@ const server = spawn(process.execPath, ['server.mjs'], {
   env: {
     ...process.env,
     PORT: String(port),
-    USER_FOLLOWS_PATH: ':memory:',
+    USER_FOLLOWS_PATH: fixtureStore,
     ANALYSIS_OUTPUT_DIR: ':memory:',
     FENCINGAI_ADMIN_PASSWORD_HASH: adminPasswordRecord,
   },

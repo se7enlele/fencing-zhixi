@@ -1,0 +1,61 @@
+#view-account-login { padding: 24px 16px 40px; }
+#accountLoginPage { width: 100%; max-width: 440px; margin: 0 auto; }
+#accountLoginPage .auth-card { padding: 28px 24px; border: 1px solid #ece7e2; border-radius: 24px; box-shadow: 0 12px 40px #48372708; }
+.auth-brand { display: flex; align-items: center; gap: 8px; font-size: 12px; color: #69717c; margin-bottom: 26px; }
+#accountLoginPage .auth-card h2 { font-size: 28px; line-height: 1.25; margin: 0 0 10px; letter-spacing: -.5px; }
+.auth-subtitle { margin: 0 0 24px; font-size: 14px; line-height: 1.7; color: #657080; }
+.auth-mode { display: grid; grid-template-columns: 1fr 1fr; padding: 4px; gap: 4px; border-radius: 12px; background: #f5f3f0; margin-bottom: 24px; }
+.auth-mode button { min-height: 44px; border: 0; border-radius: 9px; background: transparent; color: #69717c; font-size: 15px; cursor: pointer; }
+.auth-mode button[aria-pressed="true"] { background: #fff; color: #a54c27; font-weight: 650; box-shadow: 0 2px 6px #4837270d; }
+#accountLoginPage .account-login-form { gap: 18px; }
+#accountLoginPage .account-login-form label { gap: 8px; }
+#accountLoginPage .account-login-form label > span { font-size: 14px; font-weight: 550; color: #353c47; }
+#accountLoginPage .account-login-form input { min-height: 50px; width: 100%; box-sizing: border-box; font-size: 16px; border: 1px solid #dedfdf; border-radius: 11px; background: #fff; color: #1c2734; padding: 12px; }
+.auth-password-row { display: flex; position: relative; }
+#accountLoginPage .auth-password-row input { padding-right: 64px; }
+#accountLoginPage .auth-password-row button { position: absolute; right: 4px; top: 4px; bottom: 4px; background: transparent; color: #69717c; border: 0; width: 54px; border-radius: 8px; font-size: 13px; padding: 0; }
+.auth-code-row { display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 8px; }
+#accountLoginPage .auth-code-row button { border: 1px solid #e9cfc0; border-radius: 10px; background: #fff8f2; color: #a54c27; padding: 8px 10px; font-size: 13px; min-width: 94px; }
+#accountLoginPage .auth-submit { border: none; min-height: 50px; border-radius: 12px; background: #bc6035; color: white; font-weight: 650; font-size: 16px; }
+#accountLoginPage .auth-forgot { justify-self: end; background: transparent; color: #a54c27; padding: 0 0 0 12px; min-height: 32px; margin-top: -8px; border: 0; border-radius: 0; font-size: 14px; }
+#accountLoginPage [data-account-status] { margin: 0; font-size: 13px; line-height: 1.6; color: #36705c; }
+#accountLoginPage [data-account-status]:empty { display: none; }
+#accountLoginPage [data-account-status][data-error="true"] { color: #ac3529; background: #fff3f0; padding: 10px 12px; border-radius: 8px; }
+.auth-guest, .auth-back { width: 100%; min-height: 44px; background: transparent; border: none; color: #626c78; margin-top: 16px; font-size: 14px; cursor: pointer; }
+.auth-footnote, .auth-help { color: #737d88; font-size: 12px; line-height: 1.7; margin: 14px 0 0; }
+.auth-footnote { text-align: center; }
+#accountLoginPage button { cursor: pointer; }
+#accountLoginPage button:disabled { opacity: .5; cursor: wait; }
+#accountLoginPage :focus-visible { outline: 3px solid #dbab8c; outline-offset: 2px; }
+@media (max-width: 380px) { #view-account-login { padding: 16px 12px 28px; } #accountLoginPage .auth-card { padding: 24px 18px; } }
+@media (min-width: 700px) { #view-account-login { padding-top: 56px; } }
+.my-identity-card { padding: 24px 20px; background: #fff; border-radius: 22px; }
+.my-identity-head { display: flex; align-items: center; gap: 16px; min-width: 0; }
+.my-identity-head > div { min-width: 0; }
+.my-identity-head h2 { font-size: 22px; line-height: 1.35; margin: 0 0 5px; overflow-wrap: anywhere; }
+.my-identity-head p { margin: 0; color: #858b97; line-height: 1.6; font-size: 13px; }
+.my-identity-avatar { display: grid; place-items: center; width: 68px; height: 68px; flex: 0 0 68px; border-radius: 50%; background: #f1f2f6; color: #929aaa; }
+.my-identity-avatar.signed { background: #fff1e7; color: #c5734e; }
+.my-identity-avatar svg { width: 28px; height: 28px; fill: currentColor; }
+.my-identity-counts { display: grid; grid-template-columns: 1fr 1fr; margin-top: 22px; padding-top: 20px; border-top: 1px solid #f3f3f5; }
+.my-identity-counts button { border: 0; background: none; display: grid; justify-content: center; text-align: left; gap: 3px; cursor: pointer; }
+.my-identity-counts button + button { border-left: 1px solid #ececf1; }
+.my-identity-counts strong { font-size: 24px; color: #c5734e; }
+.my-identity-counts span { color: #9398a5; font-size: 13px; }
+.my-account-menu { padding: 8px 18px; border-radius: 22px; background: #fff; }
+.my-account-menu > h2 { font-size: 14px; font-weight: 550; color: #8b91a0; margin: 15px 0 6px; }
+.my-menu-detail { border-bottom: 1px solid #f1f2f5; }
+.my-menu-detail:last-child { border-bottom: none; }
+.my-menu-detail > summary { display: flex; align-items: center; gap: 12px; padding: 17px 0; cursor: pointer; list-style: none; }
+.my-menu-detail > summary::-webkit-details-marker { display: none; }
+.my-menu-detail summary strong { display: block; font-size: 16px; line-height: 1.5; font-weight: 600; color: #282e38; }
+.my-menu-detail summary small { display: block; color: #9097a4; font-size: 12px; margin-top: 3px; line-height: 1.5; }
+.my-menu-detail summary i { margin-left: auto; color: #b6bbc5; font-size: 24px; font-style: normal; }
+.my-menu-detail[open] > summary i { transform: rotate(90deg); }
+.my-menu-symbol { flex: 0 0 38px; width: 38px; height: 42px; display: grid; place-items: center; background: #fff5ed; color: #ce815a; border-radius: 12px; font-size: 20px; }
+.my-menu-detail > .panel { border: 0; box-shadow: none; padding: 12px 0 18px; margin: 0; }
+.my-menu-detail > .panel > .section-title { display: none; }
+.my-help-copy { font-size: 14px; line-height: 1.8; color: #687180; padding: 0 0 20px 50px; }
+.my-signin-primary { width: 100%; min-height: 50px; background: #ca7955; color: white; border: 0; border-radius: 14px; margin-top: 16px; font-size: 16px; font-weight: 600; cursor: pointer; }
+.my-guest-note { color: #9299a5; font-size: 12px; text-align: center; margin: 12px 0 15px; }
+.my-role-entry { color: #8b919e; border: 0; background: none; padding: 12px; min-height: 44px; font-size: 12px; cursor: pointer; }
