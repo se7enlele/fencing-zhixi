@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-10-02T10:54:52.896Z",
+  "generatedAt": "2026-10-02T21:24:51.517Z",
   "ok": false,
   "phase": "finished",
   "summary": {
     "taskCount": 14,
-    "successCount": 6,
-    "failedCount": 8,
+    "successCount": 3,
+    "failedCount": 11,
     "activeCount": 8,
     "completedCount": 4,
     "backfillCount": 2,
@@ -14,8 +14,8 @@
       "completed-score": 4,
       "historical-score-backfill": 2
     },
-    "importedCount": 365,
-    "unavailableCount": 288
+    "importedCount": 30,
+    "unavailableCount": 241
   },
   "eventListRefresh": {
     "ok": true,
@@ -25,38 +25,38 @@
   "failures": [
     {
       "type": "pre-event-roster",
+      "sportId": 101227,
+      "sportCode": "RZSS2036061",
+      "sportName": "2026年诸暨市“西施杯”击剑公开赛",
+      "message": "Command failed: /opt/hostedtoolcache/node/20.20.2/x64/bin/node tools/sync-platform-data.mjs --input data/analysis/frontsporteventlist-analysis.json --output-dir /home/runner/work/fencing-zhixi/fencing-zhixi/analysis-output/scheduled-sync/tasks/pre-event-roster-101227-1d74558c-b741-47fa-a1aa-78ac069e02b0 --sport-id 101227 --proxy-base https://fencing-proxy.aixindiandian.workers.dev --delay-ms 400 -"
+    },
+    {
+      "type": "pre-event-roster",
+      "sportId": 101286,
+      "sportCode": "RZSSAH0320260509",
+      "sportName": "2026年扬州江都“龙川杯”青少年击剑公开赛",
+      "message": "Command failed: /opt/hostedtoolcache/node/20.20.2/x64/bin/node tools/sync-platform-data.mjs --input data/analysis/frontsporteventlist-analysis.json --output-dir /home/runner/work/fencing-zhixi/fencing-zhixi/analysis-output/scheduled-sync/tasks/pre-event-roster-101286-28eee35b-60ed-442f-a920-faafed208633 --sport-id 101286 --proxy-base https://fencing-proxy.aixindiandian.workers.dev --delay-ms 400 -"
+    },
+    {
+      "type": "pre-event-roster",
       "sportId": 101063,
       "sportCode": "RZSS2033122",
       "sportName": "2026年中国城市青少年击剑公开赛暨2026年“奋竞天府”天府农博杯击剑公开赛",
-      "message": "Command failed: /opt/hostedtoolcache/node/20.20.2/x64/bin/node tools/sync-platform-data.mjs --input data/analysis/frontsporteventlist-analysis.json --output-dir /home/runner/work/fencing-zhixi/fencing-zhixi/analysis-output/scheduled-sync/tasks/pre-event-roster-101063-4fd5c85a-0e14-426a-ad41-5be87558ae6c --sport-id 101063 --proxy-base https://fencing-proxy.aixindiandian.workers.dev --delay-ms 400 -"
+      "message": "Command failed: /opt/hostedtoolcache/node/20.20.2/x64/bin/node tools/sync-platform-data.mjs --input data/analysis/frontsporteventlist-analysis.json --output-dir /home/runner/work/fencing-zhixi/fencing-zhixi/analysis-output/scheduled-sync/tasks/pre-event-roster-101063-c07e53c5-0fcb-4baf-aa6a-41d782002530 --sport-id 101063 --proxy-base https://fencing-proxy.aixindiandian.workers.dev --delay-ms 400 -"
+    },
+    {
+      "type": "pre-event-roster",
+      "sportId": 101124,
+      "sportCode": "RZSS2034120",
+      "sportName": "2026年“滨城杯”击剑公开赛",
+      "message": "Command failed: /opt/hostedtoolcache/node/20.20.2/x64/bin/node tools/sync-platform-data.mjs --input data/analysis/frontsporteventlist-analysis.json --output-dir /home/runner/work/fencing-zhixi/fencing-zhixi/analysis-output/scheduled-sync/tasks/pre-event-roster-101124-8e8792d5-6f3e-467a-ba81-da7256280b56 --sport-id 101124 --proxy-base https://fencing-proxy.aixindiandian.workers.dev --delay-ms 400 -"
     },
     {
       "type": "pre-event-roster",
       "sportId": 101057,
       "sportCode": "RZSS2033111",
       "sportName": "2026“剑指长空 港通未来”郑州击剑公开赛(航空港站)",
-      "message": "Command failed: /opt/hostedtoolcache/node/20.20.2/x64/bin/node tools/sync-platform-data.mjs --input data/analysis/frontsporteventlist-analysis.json --output-dir /home/runner/work/fencing-zhixi/fencing-zhixi/analysis-output/scheduled-sync/tasks/pre-event-roster-101057-7537d026-357d-4650-943c-863816769800 --sport-id 101057 --proxy-base https://fencing-proxy.aixindiandian.workers.dev --delay-ms 400 -"
-    },
-    {
-      "type": "pre-event-roster",
-      "sportId": 101099,
-      "sportCode": "RZSS2034071",
-      "sportName": "2026年青少年击剑勇士挑战赛",
-      "message": "Command failed: /opt/hostedtoolcache/node/20.20.2/x64/bin/node tools/sync-platform-data.mjs --input data/analysis/frontsporteventlist-analysis.json --output-dir /home/runner/work/fencing-zhixi/fencing-zhixi/analysis-output/scheduled-sync/tasks/pre-event-roster-101099-283310ab-678c-44b1-a0a5-0e4aa8017cb1 --sport-id 101099 --proxy-base https://fencing-proxy.aixindiandian.workers.dev --delay-ms 400 -"
-    },
-    {
-      "type": "pre-event-roster",
-      "sportId": 101209,
-      "sportCode": "RZSS2036013",
-      "sportName": "“御剑紫金杯”2026年北京击剑公开赛",
-      "message": "Command failed: /opt/hostedtoolcache/node/20.20.2/x64/bin/node tools/sync-platform-data.mjs --input data/analysis/frontsporteventlist-analysis.json --output-dir /home/runner/work/fencing-zhixi/fencing-zhixi/analysis-output/scheduled-sync/tasks/pre-event-roster-101209-8b84cafb-df59-466c-be41-11dba0625f2f --sport-id 101209 --proxy-base https://fencing-proxy.aixindiandian.workers.dev --delay-ms 400 -"
-    },
-    {
-      "type": "pre-event-roster",
-      "sportId": 101179,
-      "sportCode": "RZSS2035072",
-      "sportName": "2026年上海市青少年击剑精英赛",
-      "message": "Command failed: /opt/hostedtoolcache/node/20.20.2/x64/bin/node tools/sync-platform-data.mjs --input data/analysis/frontsporteventlist-analysis.json --output-dir /home/runner/work/fencing-zhixi/fencing-zhixi/analysis-output/scheduled-sync/tasks/pre-event-roster-101179-b68ced9d-004b-4c5f-ac65-323e8bf0334e --sport-id 101179 --proxy-base https://fencing-proxy.aixindiandian.workers.dev --delay-ms 400 -"
+      "message": "Command failed: /opt/hostedtoolcache/node/20.20.2/x64/bin/node tools/sync-platform-data.mjs --input data/analysis/frontsporteventlist-analysis.json --output-dir /home/runner/work/fencing-zhixi/fencing-zhixi/analysis-output/scheduled-sync/tasks/pre-event-roster-101057-815e5059-a922-43f1-982b-622cab40591b --sport-id 101057 --proxy-base https://fencing-proxy.aixindiandian.workers.dev --delay-ms 400 -"
     }
   ]
 }
