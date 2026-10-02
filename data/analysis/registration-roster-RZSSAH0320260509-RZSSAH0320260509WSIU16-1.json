@@ -1,0 +1,69 @@
+{
+  "ok": true,
+  "importType": "registration-roster",
+  "source": {
+    "sourceUrl": "https://fencing-proxy.aixindiandian.workers.dev/matchregister/v3/signup/conditionQuery",
+    "sourceType": "condition-query",
+    "requestBody": {
+      "sportId": "101286",
+      "registerType": "athlete",
+      "gender": "F",
+      "weapon": "S",
+      "ecode": "U16"
+    },
+    "eventCode": "RZSSAH0320260509WSIU16",
+    "sportCode": "RZSSAH0320260509",
+    "sportName": "2026年扬州江都“龙川杯”青少年击剑公开赛",
+    "eventName": "U16女子佩剑个人",
+    "page": 1,
+    "pageSize": 50,
+    "importedAt": "2026-10-02T01:45:31.270Z"
+  },
+  "page": {
+    "current": 1,
+    "size": 1,
+    "total": 1
+  },
+  "summary": {
+    "recordCount": 1,
+    "sportCodes": [
+      "RZSSAH0320260509"
+    ],
+    "eventCodes": [
+      "RZSSAH0320260509WSIU16"
+    ],
+    "athleteCount": 1,
+    "clubCount": 1
+  },
+  "normalized": {
+    "records": [
+      {
+        "sigupId": null,
+        "registerType": "athlete",
+        "registerId": null,
+        "registerCode": null,
+        "athleteName": "张念慈",
+        "birthday": null,
+        "sex": null,
+        "sexDes": "女",
+        "weapon": null,
+        "weaponDes": null,
+        "hand": null,
+        "sportCode": "RZSSAH0320260509",
+        "sportName": "2026年扬州江都“龙川杯”青少年击剑公开赛",
+        "eventCode": "RZSSAH0320260509WSIU16",
+        "eventName": "U16女子佩剑个人",
+        "organCode": null,
+        "organShortName": "江苏",
+        "organName": null,
+        "approveStatus": "审核通过",
+        "sigupTime": null,
+        "sigupPoints": null,
+        "sigupRank": null,
+        "regType": null,
+        "regTypeDes": null,
+        "dedupeKey": "fallback:RZSSAH0320260509:RZSSAH0320260509WSIU16:张念慈::江苏"
+      }
+    ]
+  }
+}
