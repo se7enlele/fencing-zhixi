@@ -14,6 +14,16 @@ export function compactEventDetail(event) {
     for (const key of processLists) delete compact[key];
     compact._emptyProcessLists = true;
   }
+  for (const key of ['participants', 'athleteProfiles']) {
+    const rows = compact[key];
+    if (!Array.isArray(rows) || rows.length < 2 || rows.some(row => !row || typeof row !== 'object' || Array.isArray(row))) continue;
+    const fields = Object.keys(rows[0]);
+    if (!fields.length || fields.some(field => ['__proto__', 'constructor', 'prototype'].includes(field))) continue;
+    if (!rows.every(row => JSON.stringify(Object.keys(row)) === JSON.stringify(fields) && fields.every(field => row[field] !== undefined))) continue;
+    compact._personTables ||= {};
+    compact._personTables[key] = { fields, rows: rows.map(row => fields.map(field => row[field])) };
+    delete compact[key];
+  }
   if (event.latestMatches?.length && JSON.stringify(derivedLatestMatches(event)) === JSON.stringify(event.latestMatches)) delete compact.latestMatches;
   if (event.eliminationPhaseGroups?.length) {
     compact.eliminationPhaseGroups = event.eliminationPhaseGroups.map(group => {
@@ -41,6 +51,14 @@ export function compactEventDetail(event) {
 export function hydrateEventDetail(event) {
   if (!event) return event;
   const hydrated = { ...event };
+  if (event._personTables) {
+    for (const [key, table] of Object.entries(event._personTables)) {
+      const { fields, rows } = table || {};
+      if (!['participants', 'athleteProfiles'].includes(key) || !Array.isArray(fields) || !fields.length || fields.some(field => typeof field !== 'string' || ['__proto__', 'constructor', 'prototype'].includes(field)) || new Set(fields).size !== fields.length || !Array.isArray(rows) || rows.some(row => !Array.isArray(row) || row.length !== fields.length)) throw new Error('Invalid compact person table');
+      hydrated[key] = rows.map(row => Object.fromEntries(fields.map((field, index) => [field, row[index]])));
+    }
+    delete hydrated._personTables;
+  }
   if (event.eliminationPhaseGroups?.length) {
     hydrated.eliminationPhaseGroups = event.eliminationPhaseGroups.map(group => {
       if (!Array.isArray(group._matchFields) || !Array.isArray(group._matchRows)) return group;

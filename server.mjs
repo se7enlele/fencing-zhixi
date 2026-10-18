@@ -18,7 +18,7 @@ import { compactCompetitionIndex } from './tools/competition-index.mjs';
 import { adminChallenge, verifyAdminBasicAuth } from './tools/admin-basic-auth.mjs';
 import { normalizeCompetitionState } from './tools/competition-index.mjs';
 import { isTeamEvent } from './tools/entity-kind.mjs';
-import { buildEventDateFallbacks, enrichScoreReportDates } from './tools/event-date.mjs';
+import { buildEventDateFallbacks, enrichScoreReportDates, compareEventDates } from './tools/event-date.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PORT = Number(process.env.PORT ?? 5177);
@@ -1932,7 +1932,7 @@ export function buildAthleteDirectory(reports) {
         }
         bucket.eliminationWins += athlete.eliminationWins || 0;
         bucket.eliminationLosses += athlete.eliminationLosses || 0;
-        if (!bucket.latestDate || String(event.openDate || '').localeCompare(String(bucket.latestDate || ''), 'zh-CN') > 0) {
+        if (compareEventDates(event.openDate, bucket.latestDate) > 0) {
           if (athlete.club?.trim()) bucket.club = athlete.club;
           bucket.latestRank = athlete.finalRank ?? bucket.latestRank;
           bucket.latestEventName = event.shortEventName;
@@ -1987,7 +1987,7 @@ export function buildAthleteDirectory(reports) {
       return {
         ...rest,
         opponents,
-        events: athlete.events.sort((a, b) => String(b.openDate || '').localeCompare(String(a.openDate || ''), 'zh-CN')),
+        events: athlete.events.sort((a, b) => compareEventDates(b.openDate, a.openDate)),
       };
     })
     .sort((a, b) => (a.bestRank ?? 999) - (b.bestRank ?? 999) || b.medals - a.medals || b.appearances - a.appearances);

@@ -1,4 +1,5 @@
 import { extractRosterRows, looksLikeRegistrationRoster, rosterDedupeKey, normalizeRosterRecord, buildRegistrationRosterReport } from '../tools/parse-registration-roster.mjs';
+import { compareEventDates } from '../tools/event-date.mjs';
 export { extractRosterRows, looksLikeRegistrationRoster, rosterDedupeKey, normalizeRosterRecord, buildRegistrationRosterReport };
 
 const UNKNOWN = '未知';
@@ -658,7 +659,7 @@ export function buildAthleteDirectoryFromEvents(eventsByCode) {
       row.eliminationLosses += Number(athlete.eliminationLosses) || 0;
       if (athlete.medal) row.medals += 1;
       if (athlete.finalRank && (!row.bestRank || athlete.finalRank < row.bestRank)) row.bestRank = athlete.finalRank;
-      if (!row.latestDate || String(event.openDate || '').localeCompare(String(row.latestDate || ''), 'zh-CN') > 0) {
+      if (compareEventDates(event.openDate, row.latestDate) > 0) {
         if (athlete.club?.trim()) row.club = athlete.club;
         row.latestRank = athlete.finalRank ?? row.latestRank;
         row.latestEventName = event.shortEventName;
@@ -684,6 +685,7 @@ export function buildAthleteDirectoryFromEvents(eventsByCode) {
       });
     }
   }
+  for (const athlete of athletes.values()) athlete.events.sort((a, b) => compareEventDates(b.openDate, a.openDate));
   return [...athletes.values()].sort((a, b) => (a.bestRank ?? 999) - (b.bestRank ?? 999) || b.appearances - a.appearances);
 }
 

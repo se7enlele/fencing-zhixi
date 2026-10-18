@@ -116,6 +116,11 @@ assert.deepEqual(compactEventDetail({ ...pools, poolBouts: [{ order: 3 }] }).poo
 assert.throws(() => hydrateEventDetail({ poolGroups: [], _poolBoutIndexes: [0] }), /Invalid compact/);
 const preEvent = { isPreEvent: true, participants: [{ athleteName: 'test' }], athleteProfiles: [], clubProfiles: [], poolGroups: [], poolBouts: [], poolStandings: [], eliminationMatches: [] };
 assert.deepEqual(hydrateEventDetail(compactEventDetail(preEvent)), preEvent, 'empty pre-event process lists are restored without losing roster entries');
+const people = { participants: [{ name: '同名', club: '甲', score: 0, rank: null }, { name: '同名', club: '乙', score: 'V', rank: 2 }], athleteProfiles: [{ name: '甲', wins: 0 }, { name: '乙', wins: 1 }] };
+const compactPeople = compactEventDetail(people);
+assert.ok(compactPeople._personTables, 'repeated person field names should be stored once');
+assert.deepEqual(hydrateEventDetail(JSON.parse(JSON.stringify(compactPeople))), people, 'person tables must preserve names, clubs, nulls, zero, V scores and ordering');
+assert.throws(() => hydrateEventDetail({ _personTables: { participants: { fields: ['name'], rows: [[]] } } }), /Invalid compact person/);
 
 console.log(
   `public-data-budget ok: ${publicDataFiles.length} files, ${(totalBytes / ONE_MIB).toFixed(2)} MiB total, ${chunkPaths.size} chunks`,

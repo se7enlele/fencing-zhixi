@@ -6,6 +6,23 @@ function dateText(value) {
   return String(value || '').trim();
 }
 
+// Compare the source calendar date without changing its display or provenance.
+export function eventDateTime(value) {
+  const match = dateText(value).match(/^(\d{4})[.\/-](\d{1,2})[.\/-](\d{1,2})(?:[ T](\d{1,2}):(\d{2})(?::(\d{2}))?)?/);
+  if (!match) return null;
+  const [year, month, day, hour, minute, second] = match.slice(1).map(part => Number(part || 0));
+  const time = Date.UTC(year, month - 1, day, hour, minute, second);
+  const date = new Date(time);
+  if (date.getUTCFullYear() !== year || date.getUTCMonth() !== month - 1 || date.getUTCDate() !== day || hour > 23 || minute > 59 || second > 59) return null;
+  return time;
+}
+
+export function compareEventDates(left, right) {
+  const a = eventDateTime(left), b = eventDateTime(right);
+  if (a === null) return b === null ? 0 : -1;
+  return b === null ? 1 : a - b;
+}
+
 function dateCandidate(row, source) {
   const openDate = dateText(row?.startDate || row?.openDate);
   if (!openDate) return null;
