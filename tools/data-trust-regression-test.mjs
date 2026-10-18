@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import './athlete-affiliation-test.mjs';
 import { readFile, mkdir, writeFile } from 'node:fs/promises';
 import vm from 'node:vm';
 import { competitionCoverageLevel, normalizeCompetitionState } from './competition-index.mjs';

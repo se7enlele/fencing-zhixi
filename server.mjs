@@ -1933,6 +1933,7 @@ export function buildAthleteDirectory(reports) {
         bucket.eliminationWins += athlete.eliminationWins || 0;
         bucket.eliminationLosses += athlete.eliminationLosses || 0;
         if (!bucket.latestDate || String(event.openDate || '').localeCompare(String(bucket.latestDate || ''), 'zh-CN') > 0) {
+          if (athlete.club?.trim()) bucket.club = athlete.club;
           bucket.latestRank = athlete.finalRank ?? bucket.latestRank;
           bucket.latestEventName = event.shortEventName;
           bucket.latestDate = event.openDate;

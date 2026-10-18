@@ -659,6 +659,7 @@ export function buildAthleteDirectoryFromEvents(eventsByCode) {
       if (athlete.medal) row.medals += 1;
       if (athlete.finalRank && (!row.bestRank || athlete.finalRank < row.bestRank)) row.bestRank = athlete.finalRank;
       if (!row.latestDate || String(event.openDate || '').localeCompare(String(row.latestDate || ''), 'zh-CN') > 0) {
+        if (athlete.club?.trim()) row.club = athlete.club;
         row.latestRank = athlete.finalRank ?? row.latestRank;
         row.latestEventName = event.shortEventName;
         row.latestDate = event.openDate;
