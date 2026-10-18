@@ -1,6 +1,12 @@
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { hasPublicSensitiveKey, sanitizePublicData } from './public-sanitize.mjs';
+import { compactEventDetail, hydrateEventDetail } from '../cloudflare/event-detail-hydration.mjs';
+const privatePeople = { participants: [{ name: '甲', licence: 'private-a', score: 0 }, { name: '乙', licence: 'private-b', score: null }] };
+assert.equal(hasPublicSensitiveKey(compactEventDetail(privatePeople)), true, 'encoded sensitive columns must be detected');
+const publicPeople = compactEventDetail(sanitizePublicData(privatePeople));
+assert.equal(hasPublicSensitiveKey(publicPeople), false);
+assert.deepEqual(hydrateEventDetail(publicPeople), sanitizePublicData(privatePeople), 'public fields must be selected before compaction');
 
 const fixture = {
   athlete: {

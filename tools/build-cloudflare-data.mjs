@@ -144,7 +144,7 @@ function buildPreEventDetailsFromCompetitions(competitions = []) {
   for (const competition of competitions) {
     for (const item of competition.items || []) {
       if (!item?.eventCode || !item.isPreEvent) continue;
-      entries[item.eventCode] = compactEventDetail({
+      entries[item.eventCode] = compactEventDetail(sanitizePublicData({
         ...item,
         sportCode: competition.sportCode,
         sportName: competition.sportName,
@@ -158,7 +158,7 @@ function buildPreEventDetailsFromCompetitions(competitions = []) {
         eliminationMatches: [],
         status: item.status,
         rosterStatus: item.rosterStatus || competition.rosterStatus,
-      });
+      }));
     }
   }
   return entries;
@@ -184,7 +184,7 @@ const payload = {
   version: publicEvents.version,
   publicEvents: sanitizePublicData(stripListOnlyFields(workerPublicEvents)),
   eventsByCode: sanitizePublicData({
-    ...Object.fromEntries(eventEntries.filter(([, detail]) => detail).map(([code, detail]) => [code, compactEventDetail(detail)])),
+    ...Object.fromEntries(eventEntries.filter(([, detail]) => detail).map(([code, detail]) => [code, compactEventDetail(sanitizePublicData(detail))])),
     ...buildPreEventDetailsFromCompetitions(workerPublicEvents.competitions),
   }),
   athletesById: sanitizePublicData(Object.fromEntries(athletes.map((athlete) => [athlete.id, athlete]))),

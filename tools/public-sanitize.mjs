@@ -31,7 +31,9 @@ export function hasPublicSensitiveKey(value) {
   if (!value || typeof value !== 'object') return false;
 
   return Object.entries(value).some(([key, item]) => (
-    PUBLIC_SENSITIVE_KEYS.has(key) || hasPublicSensitiveKey(item)
+    PUBLIC_SENSITIVE_KEYS.has(key)
+    || (key === '_personTables' && item && typeof item === 'object' && Object.values(item).some(table => Array.isArray(table?.fields) && table.fields.some(field => PUBLIC_SENSITIVE_KEYS.has(field))))
+    || hasPublicSensitiveKey(item)
   ));
 }
 
