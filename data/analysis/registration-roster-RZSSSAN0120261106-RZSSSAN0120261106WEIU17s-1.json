@@ -1,0 +1,69 @@
+{
+  "ok": true,
+  "importType": "registration-roster",
+  "source": {
+    "sourceUrl": "https://fencing-proxy.aixindiandian.workers.dev/matchregister/v3/signup/conditionQuery",
+    "sourceType": "condition-query",
+    "requestBody": {
+      "sportId": "101328",
+      "registerType": "athlete",
+      "gender": "F",
+      "weapon": "E",
+      "ecode": "U17s"
+    },
+    "eventCode": "RZSSSAN0120261106WEIU17s",
+    "sportCode": "RZSSSAN0120261106",
+    "sportName": "2026年“西咸杯”西安击剑公开赛",
+    "eventName": "17+女子重剑个人",
+    "page": 1,
+    "pageSize": 50,
+    "importedAt": "2026-10-20T09:44:13.951Z"
+  },
+  "page": {
+    "current": 1,
+    "size": 1,
+    "total": 1
+  },
+  "summary": {
+    "recordCount": 1,
+    "sportCodes": [
+      "RZSSSAN0120261106"
+    ],
+    "eventCodes": [
+      "RZSSSAN0120261106WEIU17s"
+    ],
+    "athleteCount": 1,
+    "clubCount": 1
+  },
+  "normalized": {
+    "records": [
+      {
+        "sigupId": null,
+        "registerType": "athlete",
+        "registerId": null,
+        "registerCode": null,
+        "athleteName": "关瑞敏",
+        "birthday": null,
+        "sex": null,
+        "sexDes": "女",
+        "weapon": null,
+        "weaponDes": null,
+        "hand": null,
+        "sportCode": "RZSSSAN0120261106",
+        "sportName": "2026年“西咸杯”西安击剑公开赛",
+        "eventCode": "RZSSSAN0120261106WEIU17s",
+        "eventName": "17+女子重剑个人",
+        "organCode": null,
+        "organShortName": "北京一钧",
+        "organName": null,
+        "approveStatus": "审核通过",
+        "sigupTime": null,
+        "sigupPoints": null,
+        "sigupRank": null,
+        "regType": null,
+        "regTypeDes": null,
+        "dedupeKey": "fallback:RZSSSAN0120261106:RZSSSAN0120261106WEIU17s:关瑞敏::北京一钧"
+      }
+    ]
+  }
+}

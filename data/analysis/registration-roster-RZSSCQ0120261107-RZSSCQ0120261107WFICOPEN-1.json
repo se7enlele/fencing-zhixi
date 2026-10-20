@@ -1,0 +1,69 @@
+{
+  "ok": true,
+  "importType": "registration-roster",
+  "source": {
+    "sourceUrl": "https://fencing-proxy.aixindiandian.workers.dev/matchregister/v3/signup/conditionQuery",
+    "sourceType": "condition-query",
+    "requestBody": {
+      "sportId": "101335",
+      "registerType": "athlete",
+      "gender": "F",
+      "weapon": "F",
+      "ecode": "COPEN"
+    },
+    "eventCode": "RZSSCQ0120261107WFICOPEN",
+    "sportCode": "RZSSCQ0120261107",
+    "sportName": "“剑聚两江”2026年重庆国博击剑公开赛",
+    "eventName": "公开组女子花剑个人",
+    "page": 1,
+    "pageSize": 50,
+    "importedAt": "2026-10-20T09:44:54.963Z"
+  },
+  "page": {
+    "current": 1,
+    "size": 1,
+    "total": 1
+  },
+  "summary": {
+    "recordCount": 1,
+    "sportCodes": [
+      "RZSSCQ0120261107"
+    ],
+    "eventCodes": [
+      "RZSSCQ0120261107WFICOPEN"
+    ],
+    "athleteCount": 1,
+    "clubCount": 1
+  },
+  "normalized": {
+    "records": [
+      {
+        "sigupId": null,
+        "registerType": "athlete",
+        "registerId": null,
+        "registerCode": null,
+        "athleteName": "蒋迪舒",
+        "birthday": null,
+        "sex": null,
+        "sexDes": "女",
+        "weapon": null,
+        "weaponDes": null,
+        "hand": null,
+        "sportCode": "RZSSCQ0120261107",
+        "sportName": "“剑聚两江”2026年重庆国博击剑公开赛",
+        "eventCode": "RZSSCQ0120261107WFICOPEN",
+        "eventName": "公开组女子花剑个人",
+        "organCode": null,
+        "organShortName": "浙江",
+        "organName": null,
+        "approveStatus": "待缴费",
+        "sigupTime": null,
+        "sigupPoints": null,
+        "sigupRank": null,
+        "regType": null,
+        "regTypeDes": null,
+        "dedupeKey": "fallback:RZSSCQ0120261107:RZSSCQ0120261107WFICOPEN:蒋迪舒::浙江"
+      }
+    ]
+  }
+}
