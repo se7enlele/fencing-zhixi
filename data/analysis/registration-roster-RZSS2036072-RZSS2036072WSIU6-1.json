@@ -1,0 +1,69 @@
+{
+  "ok": true,
+  "importType": "registration-roster",
+  "source": {
+    "sourceUrl": "https://fencing-proxy.aixindiandian.workers.dev/matchregister/v3/signup/conditionQuery",
+    "sourceType": "condition-query",
+    "requestBody": {
+      "sportId": "101233",
+      "registerType": "athlete",
+      "gender": "F",
+      "weapon": "S",
+      "ecode": "U6"
+    },
+    "eventCode": "RZSS2036072WSIU6",
+    "sportCode": "RZSS2036072",
+    "sportName": "2026年台州“山海剑韵”击剑公开赛",
+    "eventName": "U6女子佩剑个人",
+    "page": 1,
+    "pageSize": 50,
+    "importedAt": "2026-10-21T09:27:40.363Z"
+  },
+  "page": {
+    "current": 1,
+    "size": 1,
+    "total": 1
+  },
+  "summary": {
+    "recordCount": 1,
+    "sportCodes": [
+      "RZSS2036072"
+    ],
+    "eventCodes": [
+      "RZSS2036072WSIU6"
+    ],
+    "athleteCount": 1,
+    "clubCount": 1
+  },
+  "normalized": {
+    "records": [
+      {
+        "sigupId": null,
+        "registerType": "athlete",
+        "registerId": null,
+        "registerCode": null,
+        "athleteName": "邵瑞妡",
+        "birthday": null,
+        "sex": null,
+        "sexDes": "女",
+        "weapon": null,
+        "weaponDes": null,
+        "hand": null,
+        "sportCode": "RZSS2036072",
+        "sportName": "2026年台州“山海剑韵”击剑公开赛",
+        "eventCode": "RZSS2036072WSIU6",
+        "eventName": "U6女子佩剑个人",
+        "organCode": null,
+        "organShortName": "马鞍山万马",
+        "organName": null,
+        "approveStatus": "待缴费",
+        "sigupTime": null,
+        "sigupPoints": null,
+        "sigupRank": null,
+        "regType": null,
+        "regTypeDes": null,
+        "dedupeKey": "fallback:RZSS2036072:RZSS2036072WSIU6:邵瑞妡::马鞍山万马"
+      }
+    ]
+  }
+}

@@ -2,25 +2,68 @@
   "ok": true,
   "importType": "registration-roster",
   "source": {
-    "sourceUrl": "https://fencing.yy-sport.com.cn/fencingapi/sigup/memberlistbytype?current=1&size=20",
+    "sourceUrl": "https://fencing-proxy.aixindiandian.workers.dev/matchregister/v3/signup/conditionQuery",
+    "sourceType": "condition-query",
+    "requestBody": {
+      "sportId": "101189",
+      "registerType": "athlete",
+      "gender": "M",
+      "weapon": "F",
+      "ecode": "U16"
+    },
     "eventCode": "RZSS2035092MFIU16",
     "sportCode": "RZSS2035092",
+    "sportName": "2026年“两河明珠”击剑公开赛",
+    "eventName": "U16男子花剑个人",
     "page": 1,
-    "importedAt": "2026-06-09T01:02:23.050Z"
+    "pageSize": 50,
+    "importedAt": "2026-10-21T09:26:16.794Z"
   },
   "page": {
     "current": 1,
-    "size": 20,
-    "total": 0
+    "size": 1,
+    "total": 1
   },
   "summary": {
-    "recordCount": 0,
-    "sportCodes": [],
-    "eventCodes": [],
-    "athleteCount": 0,
-    "clubCount": 0
+    "recordCount": 1,
+    "sportCodes": [
+      "RZSS2035092"
+    ],
+    "eventCodes": [
+      "RZSS2035092MFIU16"
+    ],
+    "athleteCount": 1,
+    "clubCount": 1
   },
   "normalized": {
-    "records": []
+    "records": [
+      {
+        "sigupId": null,
+        "registerType": "athlete",
+        "registerId": null,
+        "registerCode": null,
+        "athleteName": "杨硕",
+        "birthday": null,
+        "sex": null,
+        "sexDes": "男",
+        "weapon": null,
+        "weaponDes": null,
+        "hand": null,
+        "sportCode": "RZSS2035092",
+        "sportName": "2026年“两河明珠”击剑公开赛",
+        "eventCode": "RZSS2035092MFIU16",
+        "eventName": "U16男子花剑个人",
+        "organCode": null,
+        "organShortName": "山东",
+        "organName": null,
+        "approveStatus": "待缴费",
+        "sigupTime": null,
+        "sigupPoints": null,
+        "sigupRank": null,
+        "regType": null,
+        "regTypeDes": null,
+        "dedupeKey": "fallback:RZSS2035092:RZSS2035092MFIU16:杨硕::山东"
+      }
+    ]
   }
 }

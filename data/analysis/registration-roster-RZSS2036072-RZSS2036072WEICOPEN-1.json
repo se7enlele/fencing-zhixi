@@ -1,0 +1,37 @@
+{
+  "ok": true,
+  "importType": "registration-roster",
+  "source": {
+    "sourceUrl": "https://fencing-proxy.aixindiandian.workers.dev/matchregister/v3/signup/conditionQuery",
+    "sourceType": "condition-query",
+    "requestBody": {
+      "sportId": "101233",
+      "registerType": "athlete",
+      "gender": "F",
+      "weapon": "E",
+      "ecode": "COPEN"
+    },
+    "eventCode": "RZSS2036072WEICOPEN",
+    "sportCode": "RZSS2036072",
+    "sportName": "2026年台州“山海剑韵”击剑公开赛",
+    "eventName": "公开组女子重剑个人",
+    "page": 1,
+    "pageSize": 50,
+    "importedAt": "2026-10-21T09:30:04.994Z"
+  },
+  "page": {
+    "current": 1,
+    "size": 0,
+    "total": 0
+  },
+  "summary": {
+    "recordCount": 0,
+    "sportCodes": [],
+    "eventCodes": [],
+    "athleteCount": 0,
+    "clubCount": 0
+  },
+  "normalized": {
+    "records": []
+  }
+}
