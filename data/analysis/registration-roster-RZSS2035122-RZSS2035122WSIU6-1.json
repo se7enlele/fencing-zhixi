@@ -1,0 +1,123 @@
+{
+  "ok": true,
+  "importType": "registration-roster",
+  "source": {
+    "sourceUrl": "https://fencing-proxy.aixindiandian.workers.dev/matchregister/v3/signup/conditionQuery",
+    "sourceType": "condition-query",
+    "requestBody": {
+      "sportId": "101204",
+      "registerType": "athlete",
+      "gender": "F",
+      "weapon": "S",
+      "ecode": "U6"
+    },
+    "eventCode": "RZSS2035122WSIU6",
+    "sportCode": "RZSS2035122",
+    "sportName": "2026年“俊健杯”击剑公开赛",
+    "eventName": "U6女子佩剑个人",
+    "page": 1,
+    "pageSize": 50,
+    "importedAt": "2026-10-22T20:27:55.660Z"
+  },
+  "page": {
+    "current": 1,
+    "size": 3,
+    "total": 3
+  },
+  "summary": {
+    "recordCount": 3,
+    "sportCodes": [
+      "RZSS2035122"
+    ],
+    "eventCodes": [
+      "RZSS2035122WSIU6"
+    ],
+    "athleteCount": 3,
+    "clubCount": 1
+  },
+  "normalized": {
+    "records": [
+      {
+        "sigupId": null,
+        "registerType": "athlete",
+        "registerId": null,
+        "registerCode": null,
+        "athleteName": "郭翊涵",
+        "birthday": null,
+        "sex": null,
+        "sexDes": "女",
+        "weapon": null,
+        "weaponDes": null,
+        "hand": null,
+        "sportCode": "RZSS2035122",
+        "sportName": "2026年“俊健杯”击剑公开赛",
+        "eventCode": "RZSS2035122WSIU6",
+        "eventName": "U6女子佩剑个人",
+        "organCode": null,
+        "organShortName": "北京尖锋时刻",
+        "organName": null,
+        "approveStatus": "待缴费",
+        "sigupTime": null,
+        "sigupPoints": null,
+        "sigupRank": null,
+        "regType": null,
+        "regTypeDes": null,
+        "dedupeKey": "fallback:RZSS2035122:RZSS2035122WSIU6:郭翊涵::北京尖锋时刻"
+      },
+      {
+        "sigupId": null,
+        "registerType": "athlete",
+        "registerId": null,
+        "registerCode": null,
+        "athleteName": "王妍曦",
+        "birthday": null,
+        "sex": null,
+        "sexDes": "女",
+        "weapon": null,
+        "weaponDes": null,
+        "hand": null,
+        "sportCode": "RZSS2035122",
+        "sportName": "2026年“俊健杯”击剑公开赛",
+        "eventCode": "RZSS2035122WSIU6",
+        "eventName": "U6女子佩剑个人",
+        "organCode": null,
+        "organShortName": "北京尖锋时刻",
+        "organName": null,
+        "approveStatus": "待缴费",
+        "sigupTime": null,
+        "sigupPoints": null,
+        "sigupRank": null,
+        "regType": null,
+        "regTypeDes": null,
+        "dedupeKey": "fallback:RZSS2035122:RZSS2035122WSIU6:王妍曦::北京尖锋时刻"
+      },
+      {
+        "sigupId": null,
+        "registerType": "athlete",
+        "registerId": null,
+        "registerCode": null,
+        "athleteName": "杨子欣",
+        "birthday": null,
+        "sex": null,
+        "sexDes": "女",
+        "weapon": null,
+        "weaponDes": null,
+        "hand": null,
+        "sportCode": "RZSS2035122",
+        "sportName": "2026年“俊健杯”击剑公开赛",
+        "eventCode": "RZSS2035122WSIU6",
+        "eventName": "U6女子佩剑个人",
+        "organCode": null,
+        "organShortName": "北京尖锋时刻",
+        "organName": null,
+        "approveStatus": "待缴费",
+        "sigupTime": null,
+        "sigupPoints": null,
+        "sigupRank": null,
+        "regType": null,
+        "regTypeDes": null,
+        "dedupeKey": "fallback:RZSS2035122:RZSS2035122WSIU6:杨子欣::北京尖锋时刻"
+      }
+    ]
+  }
+}

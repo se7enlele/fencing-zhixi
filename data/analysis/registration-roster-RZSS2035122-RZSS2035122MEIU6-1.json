@@ -1,0 +1,123 @@
+{
+  "ok": true,
+  "importType": "registration-roster",
+  "source": {
+    "sourceUrl": "https://fencing-proxy.aixindiandian.workers.dev/matchregister/v3/signup/conditionQuery",
+    "sourceType": "condition-query",
+    "requestBody": {
+      "sportId": "101204",
+      "registerType": "athlete",
+      "gender": "M",
+      "weapon": "E",
+      "ecode": "U6"
+    },
+    "eventCode": "RZSS2035122MEIU6",
+    "sportCode": "RZSS2035122",
+    "sportName": "2026年“俊健杯”击剑公开赛",
+    "eventName": "U6男子重剑个人",
+    "page": 1,
+    "pageSize": 50,
+    "importedAt": "2026-10-22T20:26:49.652Z"
+  },
+  "page": {
+    "current": 1,
+    "size": 3,
+    "total": 3
+  },
+  "summary": {
+    "recordCount": 3,
+    "sportCodes": [
+      "RZSS2035122"
+    ],
+    "eventCodes": [
+      "RZSS2035122MEIU6"
+    ],
+    "athleteCount": 3,
+    "clubCount": 3
+  },
+  "normalized": {
+    "records": [
+      {
+        "sigupId": null,
+        "registerType": "athlete",
+        "registerId": null,
+        "registerCode": null,
+        "athleteName": "童宸与",
+        "birthday": null,
+        "sex": null,
+        "sexDes": "男",
+        "weapon": null,
+        "weaponDes": null,
+        "hand": null,
+        "sportCode": "RZSS2035122",
+        "sportName": "2026年“俊健杯”击剑公开赛",
+        "eventCode": "RZSS2035122MEIU6",
+        "eventName": "U6男子重剑个人",
+        "organCode": null,
+        "organShortName": "北京圣剑",
+        "organName": null,
+        "approveStatus": "审核通过",
+        "sigupTime": null,
+        "sigupPoints": null,
+        "sigupRank": null,
+        "regType": null,
+        "regTypeDes": null,
+        "dedupeKey": "fallback:RZSS2035122:RZSS2035122MEIU6:童宸与::北京圣剑"
+      },
+      {
+        "sigupId": null,
+        "registerType": "athlete",
+        "registerId": null,
+        "registerCode": null,
+        "athleteName": "洪敬杉",
+        "birthday": null,
+        "sex": null,
+        "sexDes": "男",
+        "weapon": null,
+        "weaponDes": null,
+        "hand": null,
+        "sportCode": "RZSS2035122",
+        "sportName": "2026年“俊健杯”击剑公开赛",
+        "eventCode": "RZSS2035122MEIU6",
+        "eventName": "U6男子重剑个人",
+        "organCode": null,
+        "organShortName": "北京皇家国际",
+        "organName": null,
+        "approveStatus": "审核通过",
+        "sigupTime": null,
+        "sigupPoints": null,
+        "sigupRank": null,
+        "regType": null,
+        "regTypeDes": null,
+        "dedupeKey": "fallback:RZSS2035122:RZSS2035122MEIU6:洪敬杉::北京皇家国际"
+      },
+      {
+        "sigupId": null,
+        "registerType": "athlete",
+        "registerId": null,
+        "registerCode": null,
+        "athleteName": "梁近安",
+        "birthday": null,
+        "sex": null,
+        "sexDes": "男",
+        "weapon": null,
+        "weaponDes": null,
+        "hand": null,
+        "sportCode": "RZSS2035122",
+        "sportName": "2026年“俊健杯”击剑公开赛",
+        "eventCode": "RZSS2035122MEIU6",
+        "eventName": "U6男子重剑个人",
+        "organCode": null,
+        "organShortName": "河北梵星",
+        "organName": null,
+        "approveStatus": "待缴费",
+        "sigupTime": null,
+        "sigupPoints": null,
+        "sigupRank": null,
+        "regType": null,
+        "regTypeDes": null,
+        "dedupeKey": "fallback:RZSS2035122:RZSS2035122MEIU6:梁近安::河北梵星"
+      }
+    ]
+  }
+}
