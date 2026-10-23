@@ -129,7 +129,7 @@ function stripListOnlyFields(value) {
   if (value && typeof value === 'object') {
     return Object.fromEntries(
       Object.entries(value)
-        .filter(([key]) => key !== 'roster' && key !== 'athleteNames'
+        .filter(([key]) => key !== 'roster' && key !== 'athleteNames' && key !== 'poolGroups' && key !== 'poolDrawSource'
           && key !== 'sourceSchedule' && key !== 'configuredParticipantCount'
           && !(key === 'scheduleNeedsVerification' && value[key] === false)
           && !(key === 'shortEventName' && value.shortEventName === value.eventName))
@@ -152,7 +152,7 @@ function buildPreEventDetailsFromCompetitions(competitions = []) {
         participants: item.roster || [],
         athleteProfiles: [],
         clubProfiles: [],
-        poolGroups: [],
+        poolGroups: item.poolGroups || [],
         poolBouts: [],
         poolStandings: [],
         eliminationMatches: [],

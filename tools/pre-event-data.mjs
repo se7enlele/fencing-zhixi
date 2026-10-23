@@ -143,6 +143,7 @@ export function buildPreEventCompetitions({
   rosterBatches = [],
   completeRosters = new Set(),
   platformEventLists = [],
+  poolDraws = [],
 }) {
   const rosterByEvent = new Map();
   const rosterRows = [];
@@ -242,6 +243,41 @@ export function buildPreEventCompetitions({
         competition.items.push(nextItem);
       }
     }
+  }
+
+  for (const { report } of poolDraws) {
+    if (report.importType !== 'pool-draw') continue;
+    const competition = competitions.get(report.general?.sportCode);
+    const item = competition?.items.find(row => row.eventCode === report.general?.eventCode);
+    if (!item) continue;
+    const groups = report.normalized?.poolGroups || [];
+    const members = groups.flatMap(group => group.athletes || []);
+    const entryKey = row => JSON.stringify([item.eventCode, row.name || row.athleteName, row.club || row.organShortName || '']);
+    if (!groups.length || groups.length !== report.summary?.poolCount
+      || members.length !== report.summary?.participantCount
+      || new Set(members.map(entryKey)).size !== members.length
+      || members.some(row => !row.name || !row.club || !Number.isInteger(row.drawNo) || row.drawNo < 1)
+      || groups.some(group => !group.athletes?.length || new Set(group.athletes.map(row => row.drawNo)).size !== group.athletes.length)
+      || parseDate(report.general.openDate) === null) throw new Error('Invalid pool draw source');
+    const stamp = parseDate(report.general.openDate);
+    const start = parseDate(competition.platformMeta?.startDate);
+    const end = parseDate(competition.platformMeta?.endDate);
+    if ((start !== null && stamp < start) || (end !== null && stamp > end)) throw new Error('Pool draw date conflicts with competition dates');
+    item.roster = item.roster.map(row => ({ ...row, eventEntryKey: entryKey(row) }));
+    item.poolGroups = groups.map(group => ({
+      poolId: group.poolId, title: group.title, publicationStatus: 'draw',
+      startTime: group.startTime, piste: group.piste, bouts: [],
+      athletes: group.athletes.map(row => ({
+        name: row.name, club: row.club, drawNo: row.drawNo,
+        initialRank: row.initialRank, eventEntryKey: entryKey(row),
+      })),
+    }));
+    item.poolDrawCount = members.length;
+    item.poolDrawSource = { fileName: report.source.fileName, sha256: report.source.sha256, pages: report.source.pages, tableCreatedAt: report.source.tableCreatedAt };
+    item.openDate = report.general.openDate;
+    item.closeDate = null;
+    item.scheduleNeedsVerification = false;
+    item.status = stamp > Date.now() ? 'upcoming' : competition.status;
   }
 
   return [...competitions.values()].map((competition) => {

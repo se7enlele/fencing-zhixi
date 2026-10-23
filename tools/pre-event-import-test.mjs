@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { buildRegistrationRosterReport } from './parse-registration-roster.mjs';
 import { buildPreEventCompetitions } from './pre-event-data.mjs';
+import './pool-draw-test.mjs';
 
 const rosterPage = {
   code: 0,

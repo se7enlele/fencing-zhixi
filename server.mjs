@@ -276,13 +276,15 @@ async function getPreEventReports() {
     const projectLists = [];
     const rosterBatches = [];
     const platformEventLists = [];
+    const poolDraws = [];
     for (const fileName of files.filter((file) => file.endsWith('.json'))) {
       const isPlatformEventList = fileName === 'frontsporteventlist-analysis.json'
         || fileName.startsWith('manual-platform-events');
-      if (!fileName.startsWith('projectlist-') && !fileName.startsWith('registration-roster-') && !isPlatformEventList) continue;
+      if (!fileName.startsWith('projectlist-') && !fileName.startsWith('registration-roster-') && !fileName.startsWith('pool-draw-') && !isPlatformEventList) continue;
       try {
         const report = JSON.parse(await readFile(path.join(analysisDir, fileName), 'utf8'));
         if (fileName.startsWith('projectlist-')) projectLists.push({ fileName, report });
+        if (fileName.startsWith('pool-draw-') && report.importType === 'pool-draw') poolDraws.push({ fileName, report });
         if (fileName.startsWith('registration-roster-') && report.importType === 'registration-roster') {
           rosterBatches.push({ fileName, report });
         }
@@ -293,7 +295,7 @@ async function getPreEventReports() {
         // Ignore malformed pre-event reports.
       }
     }
-    preEventReportsCache = { projectLists, rosterBatches, platformEventLists };
+    preEventReportsCache = { projectLists, rosterBatches, platformEventLists, poolDraws };
   }
   return preEventReportsCache;
 }
@@ -2556,7 +2558,7 @@ const server = createServer(async (request, response) => {
               participants: preEventItem.roster || [],
               athleteProfiles: [],
               clubProfiles: [],
-              poolGroups: [],
+              poolGroups: preEventItem.poolGroups || [],
               eliminationMatches: [],
               status: preEventItem.status,
               rosterStatus: preEventCompetition.rosterStatus,

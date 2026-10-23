@@ -11209,6 +11209,7 @@ function renderEventHero(event) {
     <div class="hero-sub">${escapeHtml(event.sportName)}</div>
     <div class="hero-sub">${escapeHtml(event.venue || '地点待确认')} · ${escapeHtml(event.openDate || '日期待确认')}</div>
     <p class="detail-source">${event.isPreEvent ? `已收录报名记录 ${escapeHtml(event.registrationCount || event.participants?.length || 0)} 条` : '已收录的赛事成绩'}${state.dataGeneratedAt ? ` · 数据版本 ${escapeHtml(formatDataGeneratedAt(state.dataGeneratedAt))}` : ''}。${event.isPreEvent ? '报名状态以官方更新为准，最终参赛以现场检录为准。' : '现场进度及正式赛果以赛事官方发布为准。'}</p>
+    ${event.poolDrawCount ? `<p class="detail-source">分组已公布：${escapeHtml(event.poolDrawCount)} 人 · ${escapeHtml(event.poolGroups?.length || 0)} 个小组</p>` : ''}
     ${/团体|team/i.test(event.eventName || '') ? '<p class="data-scope-note">团体成绩按本场队伍展示，不计入个人成长档案。</p>' : ''}
     ${tracked.length ? `
       <div class="event-focus-strip">
@@ -11938,6 +11939,18 @@ function poolQuickSummaryRows(group, resultRows) {
   }));
 }
 
+function poolDrawGroupHtml(group) {
+  return `<section class="pool-process-card pool-draw-card">
+    <div class="pool-group-head"><strong>${escapeHtml(group.title)}</strong><span>${escapeHtml(group.athletes.length)} 人</span></div>
+    <p class="pool-draw-schedule">${escapeHtml(group.startTime)} 开赛 · 剑道 ${escapeHtml(group.piste)}</p>
+    <table class="process-table pool-draw-table">
+      <thead><tr><th>序号</th><th>姓名</th><th>单位</th></tr></thead>
+      <tbody>${group.athletes.map(row => `<tr data-event-entry-key="${escapeHtml(row.eventEntryKey)}"><td>${escapeHtml(row.drawNo)}</td><td>${escapeHtml(row.name)}</td><td>${escapeHtml(row.club)}</td></tr>`).join('')}</tbody>
+    </table>
+    <p class="pool-draw-note">分组安排已公布，暂无本组比分和排名。</p>
+  </section>`;
+}
+
 function renderPoolGroups(event, activeIndex = 0) {
   const groups = event.poolGroups || [];
   if (!groups.length) {
@@ -11947,6 +11960,16 @@ function renderPoolGroups(event, activeIndex = 0) {
   const index = Math.min(Math.max(Number(activeIndex) || 0, 0), groups.length - 1);
   const group = groups[index];
   const athletes = [...(group.athletes || [])].sort((a, b) => (Number(a.drawNo) || 0) - (Number(b.drawNo) || 0));
+  if (group.publicationStatus === 'draw') {
+    poolGroups.innerHTML = `<div class="process-switch" aria-label="选择小组"><span>小组</span>${groups.map((item, i) => `<button type="button" class="${i === index ? 'active' : ''}" data-pool-index="${i}">${i + 1}</button>`).join('')}</div>${poolDrawGroupHtml(group)}`;
+    const selector = poolGroups.querySelector('.process-switch');
+    const selected = selector.querySelector('.active');
+    selector.scrollLeft = selected.getBoundingClientRect().left - selector.getBoundingClientRect().left - (selector.clientWidth - selected.clientWidth) / 2;
+    poolGroups.querySelectorAll('[data-pool-index]').forEach(button => {
+      button.addEventListener('click', () => renderPoolGroups(event, Number(button.dataset.poolIndex)));
+    });
+    return;
+  }
   const resultRows = poolResultRows(group);
   const summaryRows = poolQuickSummaryRows(group, resultRows);
 

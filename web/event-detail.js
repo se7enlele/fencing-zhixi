@@ -23,7 +23,8 @@ const EventDetail = {
       if (!row?.name && row?.athleteName) row = { ...row, name: row.athleteName, club: row.club || row.organShortName || row.organName || '' };
       if (!row?.name) return;
       const id = row.id == null ? '' : String(row.id);
-      let found = id ? byId.get(id) : result.find((entry) => entry.row === row);
+      let found = id ? byId.get(id) : result.find((entry) => entry.row === row
+        || (row.eventEntryKey && entry.row.eventEntryKey === row.eventEntryKey));
       if (!found) {
         found = { row, id, poolIndex };
         result.push(found);
@@ -89,8 +90,9 @@ function renderEventFinder(event) {
     if (tab === 'tableau') renderMatches(event, Number(button.dataset.phase));
     const panel = document.querySelector(`#tab-${tab}`);
     let target;
-    panel.querySelectorAll('[data-athlete-id], [data-roster-id]').forEach((element) => {
-      if (entry.id && (element.dataset.athleteId || element.dataset.rosterId) === entry.id) {
+    panel.querySelectorAll('[data-athlete-id], [data-roster-id], [data-event-entry-key]').forEach((element) => {
+      if ((entry.id && (element.dataset.athleteId || element.dataset.rosterId) === entry.id)
+        || (entry.row.eventEntryKey && element.dataset.eventEntryKey === entry.row.eventEntryKey)) {
         element.classList.add('detail-located');
         target ||= element;
       }

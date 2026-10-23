@@ -42,3 +42,11 @@
 #view-event-detail .pool-results-table th:first-child, #view-event-detail .pool-results-table td:first-child { width: 112px; white-space: normal; overflow-wrap: anywhere; }
 .detail-filters :focus-visible, .detail-finder :focus-visible { outline: 3px solid #de7b41; outline-offset: 2px; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+/* Published draws contain schedule and entrants, without provisional scores. */
+.pool-draw-schedule { color: #167568; margin: 10px 0 18px; font-size: 14px; }
+.pool-draw-table { width: 100%; min-width: 0; table-layout: fixed; }
+.pool-draw-table th, .pool-draw-table td { padding: 12px 8px; white-space: normal; overflow-wrap: anywhere; text-align: left; }
+.pool-draw-table th:first-child, .pool-draw-table td:first-child { width: 40px; color: #7b8490; }
+.pool-draw-table td:nth-child(2) { font-weight: 600; color: #202832; }
+.pool-draw-table td:last-child { color: #6c7683; }
+.pool-draw-note { color: #7b8490; margin: 16px 0 0; font-size: 13px; line-height: 1.6; }

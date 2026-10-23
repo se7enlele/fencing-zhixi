@@ -11,6 +11,9 @@ const signupEvent = hydrateEventDetail(signupChunk.RZSS2036013MFIU8);
 const signupEntries = d.athletes(signupEvent);
 assert.ok(signupEvent.participants.length > 0, 'registration fixture must contain source rows');
 assert.equal(signupEntries.length, signupEvent.participants.length, 'all registration-schema rows must render');
+if (signupEvent.poolDrawCount) {
+  assert.equal(signupEntries.filter(entry => entry.poolIndex !== null).length, signupEvent.poolDrawCount, 'pool assignments must locate existing roster rows without duplicating entrants');
+}
 assert.ok(signupEntries.every(entry => entry.row.name && entry.row.club));
 assert.equal(signupEntries.filter(entry => entry.row.name === '刘翰泽').length, 2, 'same-name different clubs must stay separate');
 ctx.escapeHtml = value => String(value);

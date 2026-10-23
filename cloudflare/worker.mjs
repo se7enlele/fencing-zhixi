@@ -1055,7 +1055,7 @@ function buildPreEventDetails(competitions) {
         participants: item.roster || [],
         athleteProfiles: [],
         clubProfiles: [],
-        poolGroups: [],
+        poolGroups: item.poolGroups || [],
         eliminationMatches: [],
         status: item.status,
         rosterStatus: competition.rosterStatus,
