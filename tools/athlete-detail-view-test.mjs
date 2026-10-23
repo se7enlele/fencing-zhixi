@@ -57,7 +57,7 @@ const athlete = {
   ],
 };
 
-assert.deepEqual(context.buildAthleteTimelineRows(athlete).map((row) => ({
+assert.deepEqual(Array.from(context.buildAthleteTimelineRows(athlete), (row) => ({
   title: row.title,
   date: row.date,
   rank: row.rank,
@@ -81,6 +81,22 @@ assert.deepEqual(context.buildAthleteTimelineRows(athlete).map((row) => ({
 ]);
 
 assert.equal(context.athleteBirthCohort(athlete), '2018 上半年');
+const unorderedEvents = [
+  { eventCode: 'unknown', openDate: null },
+  { eventCode: 'april', openDate: '2026-04-19' },
+  { eventCode: 'may-u8', openDate: '2026.05.23' },
+  { eventCode: 'previous-year', openDate: '2025/12/06' },
+  { eventCode: 'may-u10', openDate: '2026-05-23' },
+  { eventCode: 'invalid', openDate: '2026-02-31' },
+  { eventCode: 'june', openDate: '2026-6-2 08:30:00' },
+];
+const originalOrder = unorderedEvents.map((event) => event.eventCode);
+Object.freeze(unorderedEvents);
+assert.deepEqual(Array.from(context.buildAthleteTimelineRows({ events: unorderedEvents }), (row) => row.eventCode),
+  ['june', 'may-u8', 'may-u10', 'april', 'previous-year', 'unknown', 'invalid'],
+  'timeline must sort newest first across date formats, keep same-day projects and put unknown dates last');
+assert.deepEqual(unorderedEvents.map((event) => event.eventCode), originalOrder, 'timeline must not mutate source events');
+assert.equal(context.buildAthleteTimelineRows({}).length, 0);
 assert.deepEqual(JSON.parse(JSON.stringify(context.athleteAgeGroupSummaryRows(athlete.events).map((row) => ({
   age: row.age,
   appearances: row.appearances,

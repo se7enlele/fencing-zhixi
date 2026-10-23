@@ -12236,8 +12236,22 @@ function poolPerformanceLabel(percent) {
   return '重点复盘';
 }
 
+function athleteTimelineDateValue(value) {
+  const match = String(value || '').trim().match(/^(\d{4})[.\/年-](\d{1,2})[.\/月-](\d{1,2})/);
+  if (!match) return -Infinity;
+  const [, year, month, day] = match.map(Number);
+  const time = Date.UTC(year, month - 1, day);
+  const date = new Date(time);
+  return date.getUTCFullYear() === year && date.getUTCMonth() === month - 1 && date.getUTCDate() === day ? time : -Infinity;
+}
+
 function buildAthleteTimelineRows(athlete) {
-  return (athlete.events || []).map((event) => ({
+  return [...(athlete.events || [])]
+    .sort((a, b) => {
+      const left = athleteTimelineDateValue(a.openDate);
+      const right = athleteTimelineDateValue(b.openDate);
+      return left === right ? 0 : left > right ? -1 : 1;
+    }).map((event) => ({
     eventCode: event.eventCode,
     title: displayEventName(event),
     competition: event.sportName || '比赛名称待确认',
