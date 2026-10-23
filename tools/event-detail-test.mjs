@@ -9,17 +9,19 @@ const signupLookup = JSON.parse(fs.readFileSync('web/data/public-data-lookup.jso
 const signupChunk = JSON.parse(fs.readFileSync('web/' + signupLookup.chunkLookup.eventsByCode.RZSS2036013MFIU8, 'utf8'));
 const signupEvent = hydrateEventDetail(signupChunk.RZSS2036013MFIU8);
 const signupEntries = d.athletes(signupEvent);
-assert.equal(signupEntries.length, 53, 'all registration-schema rows must render');
+assert.ok(signupEvent.participants.length > 0, 'registration fixture must contain source rows');
+assert.equal(signupEntries.length, signupEvent.participants.length, 'all registration-schema rows must render');
 assert.ok(signupEntries.every(entry => entry.row.name && entry.row.club));
 assert.equal(signupEntries.filter(entry => entry.row.name === '刘翰泽').length, 2, 'same-name different clubs must stay separate');
 ctx.escapeHtml = value => String(value);
 const rosterHost = { innerHTML: '' };
 ctx.document = { querySelector: () => rosterHost };
 ctx.renderEventRoster(signupEvent);
-assert.equal((rosterHost.innerHTML.match(/class="detail-person"/g) || []).length, 53);
+assert.equal((rosterHost.innerHTML.match(/class="detail-person"/g) || []).length, signupEvent.participants.length);
 assert.match(rosterHost.innerHTML, /孟泓睿/);
 assert.match(rosterHost.innerHTML, /北京金石/);
-assert.match(rosterHost.innerHTML, /待缴费/);
+assert.match(rosterHost.innerHTML, /审核通过/);
+assert.match(rosterHost.innerHTML, /退赛/, 'withdrawn entries must retain their official status');
 assert.doesNotMatch(rosterHost.innerHTML, /暂无参赛名单/);
 const items = [
   { eventName: 'U10男子花剑个人', openDate: '2026-09-27 08:30:00' },
