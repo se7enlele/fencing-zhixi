@@ -157,3 +157,32 @@ button:focus-visible, input:focus-visible, summary:focus-visible { outline: 2px 
 }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; animation: none !important; } }
 @media print { .bottom-nav { display: none !important; } }
+/* Competition discovery: one search, direct choices, secondary controls folded. */
+#view-competitions .database-overview[hidden],
+#view-competitions .directory-disclosure[hidden],
+#view-competitions .filter-trigger[hidden],
+#view-competitions .discovery-reset[hidden] { display: none !important; }
+#view-competitions .search-shell { padding: 16px; border-radius: 18px; }
+#view-competitions .discovery-search-field { display: flex; align-items: center; gap: 8px; background: #f1f5f7; border: 1px solid transparent; border-radius: 24px; padding: 0 12px; }
+#view-competitions .discovery-search-field:focus-within { border-color: #6fa69d; box-shadow: 0 0 0 3px #e8f3f0; }
+#view-competitions .discovery-search-field svg { flex: 0 0 20px; color: #6b7c88; }
+#view-competitions .discovery-search-field input { border: 0; background: transparent; box-shadow: none; padding: 12px 0; min-width: 0; min-height: 44px; font-size: 15px; }
+#view-competitions .discovery-search-field input:focus { outline: 0; box-shadow: none; }
+.discovery-filter-caption { font-size: 11px; color: #89939c; margin: 14px 0 8px; }
+.discovery-quick-filters { display: grid; gap: 11px; margin-top: 0; }
+.discovery-filter-row { display: grid; grid-template-columns: 32px minmax(0, 1fr); align-items: start; gap: 9px; }
+.discovery-filter-label { color: #6b7681; font-size: 13px; font-weight: 600; line-height: 34px; }
+.discovery-filter-options { display: flex; flex-wrap: wrap; gap: 7px; }
+#view-competitions .discovery-chip { min-height: 34px; padding: 6px 13px; border: 1px solid #e5ebef; border-radius: 20px; color: #415361; background: #f3f6f8; font: inherit; font-size: 13px; cursor: pointer; line-height: 20px; }
+#view-competitions .discovery-chip[aria-pressed="true"] { color: #fff; background: #08786a; border-color: #08786a; font-weight: 600; }
+#view-competitions .discovery-chip:hover { border-color: #76a59d; }
+#view-competitions .discovery-chip:focus-visible { outline: 3px solid #8abbb1; outline-offset: 2px; }
+#view-competitions .discovery-more { border-style: dashed; color: #637584; background: #fff; }
+.discovery-advanced { border-top: 1px solid #eef1f3; margin-top: 16px; }
+.discovery-advanced > summary { cursor: pointer; padding: 13px 0 2px; color: #526471; font-size: 13px; min-height: 40px; }
+.discovery-advanced > summary span { font-size: 11px; color: #85909a; margin-left: 8px; }
+.discovery-advanced .filter-actions { padding: 12px 0 4px; }
+#view-competitions .discovery-reset { border: 0; background: transparent; color: #9d523b; padding: 9px 0 0; font-size: 12px; cursor: pointer; min-height: 36px; }
+.competition-follow-fold { border-bottom: 1px solid #e8edef; }
+.competition-follow-fold > .panel { margin-top: 6px; }
+@media (min-width: 700px) { .discovery-filter-row { grid-template-columns: 44px minmax(0, 1fr); } }

@@ -1949,6 +1949,26 @@ function buildCompetitionsFromEvents(events) {
   return [...grouped.values()];
 }
 
+function competitionListDateValue(competition) {
+  const candidates = [competition.dateLabel, competition.startDate, competition.openDate, competition.platformMeta?.startDate];
+  for (const value of candidates) {
+    const times = [...String(value || '').matchAll(/(\d{4})[.\/年-](\d{1,2})[.\/月-](\d{1,2})/g)].map(match => {
+      const [, year, month, day] = match.map(Number);
+      const time = Date.UTC(year, month - 1, day);
+      const date = new Date(time);
+      return date.getUTCFullYear() === year && date.getUTCMonth() === month - 1 && date.getUTCDate() === day ? time : -Infinity;
+    }).filter(time => Number.isFinite(time));
+    if (times.length) return Math.max(...times);
+  }
+  return -Infinity;
+}
+
+function compareCompetitionsNewestFirst(left, right) {
+  const a = competitionListDateValue(left);
+  const b = competitionListDateValue(right);
+  return a === b ? 0 : a > b ? -1 : 1;
+}
+
 function inferRegion(venue) {
   if (!venue) return '待确认';
   return String(venue).replace(/[·\s]/g, '').split(/[市区县]/)[0] || '待确认';
@@ -2067,9 +2087,8 @@ function setFilterValue(type, value) {
     state.followFilter = value || '全部赛事';
     state.onlyFollowedData = state.followFilter !== '全部赛事';
   }
-  state.selectedAiMonth = '';
-  state.selectedAiYears = [];
-  state.selectedAiRegion = '';
+  if (type === 'year') state.selectedAiYears = [];
+  if (type === 'region') state.selectedAiRegion = '';
   state.aiCompetitionFilterSummary = '';
   state.aiCompetitionFilterQuestion = '';
   renderFilters();
@@ -2165,7 +2184,29 @@ function clearAiCompetitionFilter() {
   applyCompetitionFilter();
 }
 
+function discoveryFilterRows() {
+  return [['gender', '性别'], ['weapon', '剑种'], ['age', '组别']].map(([type, label]) => {
+    const options = filterOptions(type);
+    const active = activeFilterValue(type);
+    const commonAges = new Set(['全部年龄组', 'U6', 'U8', 'U10', 'U12', 'U14', 'U16', '17+', '公开组', active]);
+    const visible = type === 'age' ? options.filter(value => commonAges.has(value)) : options;
+    return `<div class="discovery-filter-row"><span class="discovery-filter-label">${label}</span><div class="discovery-filter-options" role="group" aria-label="${label}">${visible.map(value => `<button type="button" class="discovery-chip" data-discovery-type="${type}" data-discovery-value="${escapeHtml(value)}" aria-pressed="${value === active}">${escapeHtml(value.startsWith('全部') ? '全部' : value === '男子' ? '男' : value === '女子' ? '女' : value)}</button>`).join('')}${visible.length < options.length ? '<button type="button" class="discovery-chip discovery-more" data-discovery-more="age">更多组别</button>' : ''}</div></div>`;
+  }).join('');
+}
+
 function renderFilters() {
+  const quickFilters = document.querySelector('#competitionQuickFilters');
+  if (quickFilters) quickFilters.innerHTML = discoveryFilterRows();
+  const advancedSummary = document.querySelector('#discoveryAdvancedSummary');
+  if (advancedSummary) advancedSummary.textContent = [
+    state.selectedYear !== '全部年份' ? `${state.selectedYear}年` : '',
+    state.selectedAiMonth ? `${state.selectedAiMonth}月` : '',
+    state.selectedRegion !== '全部地区' ? state.selectedRegion : '',
+    state.selectedStatus !== '全部状态' ? state.selectedStatus : '',
+    activeFilterValue('follow') !== '全部赛事' ? activeFilterValue('follow') : '',
+  ].filter(Boolean).join(' · ') || '年份 · 月份 · 地区';
+  const reset = document.querySelector('#resetDiscoveryFilters');
+  if (reset) reset.hidden = !isFilteringActive() && !state.selectedAiMonth;
   const monthSelect = document.querySelector('#eventMonthFilter');
   if (monthSelect) monthSelect.value = state.selectedAiMonth || '';
   const configs = [
@@ -2334,7 +2375,7 @@ function applyCompetitionFilter() {
     const haystack = cachedCompetitionSearchHaystack(competition);
     const matchKeyword = !keyword || tokens.every((token) => haystack.includes(token)) || haystack.includes(compactKeyword);
     return matchRegion && matchYear && matchMonth && matchItem && matchDimensions && matchStatus && matchKeyword && competitionMatchesFollowedData(competition);
-  });
+  }).sort(compareCompetitionsNewestFirst);
   if (!keyword) {
     state.athleteSearchResults = [];
     state.clubSearchResults = [];
@@ -15906,9 +15947,36 @@ tabs.addEventListener('click', (event) => {
 });
 
 searchInput.addEventListener('input', handleSearchInput);
+document.querySelector('#competitionQuickFilters')?.addEventListener('click', (event) => {
+  const button = event.target.closest('[data-discovery-type]');
+  if (button) {
+    const { discoveryType, discoveryValue } = button.dataset;
+    const wasFocused = document.activeElement === button;
+    setFilterValue(discoveryType, discoveryValue);
+    if (wasFocused) document.querySelectorAll('[data-discovery-type]').forEach(option => {
+      if (option.dataset.discoveryType === discoveryType && option.dataset.discoveryValue === discoveryValue) option.focus({ preventScroll: true });
+    });
+  }
+  if (event.target.closest('[data-discovery-more]')) openFilterSheet('age');
+});
+document.querySelector('#resetDiscoveryFilters')?.addEventListener('click', () => {
+  state.selectedYear = '全部年份';
+  state.selectedRegion = '全部地区';
+  state.selectedItem = '全部项目';
+  state.selectedAge = '全部年龄组';
+  state.selectedWeapon = '全部剑种';
+  state.selectedGender = '全部性别';
+  state.selectedStatus = '全部状态';
+  state.followFilter = '全部赛事';
+  state.onlyFollowedData = false;
+  searchInput.value = '';
+  handleSearchInput();
+  renderFilters();
+});
 searchInput.addEventListener('input', () => {
   const monthSelect = document.querySelector('#eventMonthFilter');
   if (monthSelect) monthSelect.value = state.selectedAiMonth || '';
+  renderFilters();
 });
 yearFilterButton.addEventListener('click', () => openFilterSheet('year'));
 regionFilterButton.addEventListener('click', () => openFilterSheet('region'));
@@ -15966,6 +16034,7 @@ document.querySelector('#eventMonthFilter')?.addEventListener('change', (event) 
   state.selectedAiMonth = event.target.value;
   state.aiCompetitionFilterSummary = '';
   state.aiCompetitionFilterQuestion = '';
+  renderFilters();
   applyCompetitionFilter();
 });
 

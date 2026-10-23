@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import vm from 'node:vm';
+import './discovery-view-test.mjs';
 
 const source = await readFile(new URL('../web/viewer.js', import.meta.url), 'utf8');
 const html = await readFile(new URL('../web/viewer.html', import.meta.url), 'utf8');

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>FencingAI</title>
     <link rel="stylesheet" href="/viewer.css?v=fencingai-navigation-20260929-1">
-    <link rel="stylesheet" href="/event-home.css?v=20260930-filter-contrast-1">
+    <link rel="stylesheet" href="/event-home.css?v=20261023-discovery">
     <link rel="stylesheet" href="/event-detail.css?v=20261023-pool-draw">
     <link rel="stylesheet" href="/account-auth.css?v=20260928-auth-1">
   </head>
@@ -59,28 +59,38 @@
 
       <section class="view" id="view-competitions">
         <section class="discover-panel panel search-shell">
-          <div class="field">
-            <label for="searchInput">搜索</label>
-            <input id="searchInput" type="text" placeholder="搜索比赛、地区、选手、俱乐部、U8 男花">
+          <div class="field discovery-search-field">
+            <label class="sr-only" for="searchInput">搜索赛事、地区、选手或俱乐部</label>
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"></circle><path d="m16 16 4.5 4.5"></path></svg>
+            <input id="searchInput" type="search" placeholder="搜索赛事、选手或俱乐部" autocomplete="off">
           </div>
+          <p class="discovery-filter-caption">筛选赛事</p>
+          <div id="competitionQuickFilters" class="discovery-quick-filters" aria-label="常用赛事筛选"></div>
+          <details class="discovery-advanced" id="competitionAdvancedFilters">
+          <summary>更多筛选 <span id="discoveryAdvancedSummary">年份 · 月份 · 地区</span></summary>
           <div class="filter-actions">
             <button id="yearFilterButton" class="filter-trigger" type="button"></button>
             <label class="event-month-label"><span class="sr-only">筛选赛事月份</span><select id="eventMonthFilter"><option value="">全部月份</option><option value="1">1月</option><option value="2">2月</option><option value="3">3月</option><option value="4">4月</option><option value="5">5月</option><option value="6">6月</option><option value="7">7月</option><option value="8">8月</option><option value="9">9月</option><option value="10">10月</option><option value="11">11月</option><option value="12">12月</option></select></label>
             <button id="regionFilterButton" class="filter-trigger" type="button"></button>
             <button id="ageFilterButton" class="filter-trigger" type="button"></button>
-            <button id="weaponFilterButton" class="filter-trigger" type="button"></button>
-            <button id="genderFilterButton" class="filter-trigger" type="button"></button>
+            <button id="weaponFilterButton" class="filter-trigger" type="button" hidden></button>
+            <button id="genderFilterButton" class="filter-trigger" type="button" hidden></button>
             <button id="statusFilterButton" class="filter-trigger" type="button"></button>
             <button id="myFollowFilterButton" class="filter-trigger follow-filter-trigger" type="button" aria-haspopup="listbox" aria-expanded="false" aria-controls="myFollowFilterMenu">
               <span>全部赛事</span>
             </button>
             <div id="myFollowFilterMenu" class="follow-filter-menu" role="listbox" aria-label="选择关注范围" hidden></div>
           </div>
+          </details>
+          <button class="discovery-reset" id="resetDiscoveryFilters" type="button" hidden>重置搜索与筛选</button>
         </section>
         <section class="panel search-athletes-panel" id="searchAthletesPanel" hidden></section>
-        <details class="directory-disclosure"><summary>更多查询与数据范围 <span>选手 · 俱乐部 · 教练 · 裁判</span></summary><section class="panel database-directory-panel" id="databaseDirectory"></section></details>
-        <details class="directory-disclosure"><summary>关注动态</summary><section class="panel feed-panel" id="feedPanel"></section></details>
+        <details class="directory-disclosure" hidden><summary>更多查询与数据范围 <span>选手 · 俱乐部 · 教练 · 裁判</span></summary><section class="panel database-directory-panel" id="databaseDirectory"></section></details>
+        <details class="directory-disclosure competition-follow-fold" id="competitionFollowFold">
+        <summary>我的关注 <span>选手与赛事动态</span></summary>
         <section class="panel follow-panel" id="followPanel" hidden></section>
+        <section class="panel feed-panel" id="feedPanel"></section>
+        </details>
         <section class="panel member-panel" id="memberPanel" hidden>
           <div>
             <strong>家长会员</strong>
@@ -88,7 +98,7 @@
           </div>
           <button type="button" id="memberCta">了解</button>
         </section>
-        <section class="product-overview database-overview">
+        <section class="product-overview database-overview" hidden>
           <details class="database-overview-fold" id="databaseOverviewFold">
             <summary>
               <div>
@@ -103,7 +113,7 @@
         </section>
         <div class="section-title list-title">
           <h2>赛事列表</h2>
-          <span>赛事 / 选手 / 俱乐部</span>
+          <span>按日期从新到旧</span>
         </div>
         <div id="competitionList" class="stack"></div>
       </section>
@@ -340,6 +350,6 @@
     <script src="/event-detail.js?v=20261023-pool-draw"></script>
     <script src="/my-account.js?v=20260928-auth-1"></script>
     <script src="/account-auth.js?v=20260928-auth-1"></script>
-    <script src="/viewer.js?v=20261023-pool-draw"></script>
+    <script src="/viewer.js?v=20261023-discovery"></script>
   </body>
 </html>
